@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>RISHI — Smart AI Tutor</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Nunito:wght@400;600;700;800;900&family=Share+Tech+Mono&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --bg:      #faf8f4;
+  --bg2:     #f3efe8;
+  --panel:   rgba(255,255,255,0.96);
+  --text:    #1c1208;
+  --muted:   rgba(28,18,8,0.65);
+  --faint:   rgba(28,18,8,0.32);
+  --gold:    #c98a00;
+  --goldL:   #f0a800;
+  --goldBg:  rgba(201,138,0,0.1);
+  --amber:   #e06b10;
+  --amberBg: rgba(224,107,16,0.1);
+  --sage:    #4a7c59;
+  --sageBg:  rgba(74,124,89,0.1);
+  --red:     #c0392b;
+  --cream:   #fff8ee;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);}
+
+/* FONTS */
+.fd{font-family:'Orbitron',monospace;}
+.fb{font-family:'Nunito',sans-serif;}
+.fm{font-family:'Share Tech Mono',monospace;}
+
+/* ANIMATIONS */
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+@keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+@keyframes rotateSlow{to{transform:rotate(360deg)}}
+@keyframes soundWave{0%,100%{transform:scaleY(0.2)}50%{transform:scaleY(1)}}
+@keyframes glowPulse{0%,100%{opacity:0.3}50%{opacity:0.9}}
+@keyframes punchIn{from{opacity:0;transform:translateX(24px)}to{opacity:1;transform:translateX(0)}}
+@keyframes nb{0%,100%{opacity:1}50%{opacity:0.5}}
+@keyframes scanH{0%{left:-100%}100%{left:100%}}
+@keyframes doorOpen{to{transform:scaleX(0)}}
+@keyframes shimmer{0%{background-position:200% center}100%{background-position:-200% center}}
+@keyframes orbFloat{0%,100%{transform:translateY(0) rotate(0deg) scale(1)}50%{transform:translateY(-30px) rotate(8deg) scale(1.05)}}
+@keyframes orbFloat2{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-20px) rotate(-5deg)}}
+@keyframes crackleGlow{0%,100%{filter:drop-shadow(0 0 8px var(--goldL))}50%{filter:drop-shadow(0 0 30px var(--goldL)) drop-shadow(0 0 60px var(--amber))}}
+.fu{animation:fadeUp 0.7s both;}
+.d1{animation-delay:.12s}.d2{animation-delay:.26s}.d3{animation-delay:.44s}.d4{animation-delay:.64s}
+
+/* ── DRAMATIC BACKGROUND ── */
+#bg{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none;}
+
+/* Warm gradient base */
+#bg-base{
+  position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 60% 50% at 90% 10%, rgba(240,168,0,0.12) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 40% at 10% 80%, rgba(74,124,89,0.08) 0%, transparent 55%),
+    radial-gradient(ellipse 40% 60% at 50% 50%, rgba(255,248,238,0.5) 0%, transparent 70%),
+    linear-gradient(160deg, #faf8f4 0%, #f5f0e8 40%, #faf6ee 100%);
+}
+
+/* Geometric pattern - warm gold lines */
+#bg-geo{
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(201,138,0,0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(201,138,0,0.06) 1px, transparent 1px);
+  background-size:80px 80px;
+}
+
+/* Large decorative RISHI text */
+#bg-word{
+  position:absolute;
+  bottom:-8%;right:-4%;
+  font-family:'Orbitron',monospace;
+  font-weight:900;
+  font-size:clamp(8rem,28vw,22rem);
+  line-height:0.8;
+  color:rgba(201,138,0,0.055);
+  user-select:none;
+  letter-spacing:0.05em;
+  animation:orbFloat2 10s ease-in-out infinite;
+}
+
+/* ── FLOATING 3D OBJECTS ── */
+/* Vibranium energy sphere - breaks out of frame */
+#orb-main{
+  position:absolute;
+  top:-8%;
+  right:-6%;
+  width:clamp(200px,35vw,420px);
+  height:clamp(200px,35vw,420px);
+  border-radius:50%;
+  background:
+    radial-gradient(circle at 35% 35%,
+      rgba(255,220,120,0.95) 0%,
+      rgba(240,168,0,0.85) 25%,
+      rgba(224,107,16,0.75) 55%,
+      rgba(180,60,0,0.5) 80%,
+      transparent 100%);
+  box-shadow:
+    inset -20px -20px 60px rgba(180,60,0,0.4),
+    inset 20px 20px 40px rgba(255,240,160,0.5),
+    0 0 80px rgba(240,168,0,0.35),
+    0 0 160px rgba(224,107,16,0.15);
+  animation:orbFloat 7s ease-in-out infinite;
+  z-index:1;
+}
+/* Ring around orb */
+#orb-ring{
+  position:absolute;
+  top:calc(-8% - 12px);
+  right:calc(-6% - 12px);
+  width:calc(clamp(200px,35vw,420px) + 24px);
+  height:calc(clamp(200px,35vw,420px) + 24px);
+  border-radius:50%;
+  border:3px solid rgba(240,168,0,0.4);
+  box-shadow:0 0 30px rgba(240,168,0,0.2);
+  animation:orbFloat 7s ease-in-out infinite, rotateSlow 12s linear infinite;
+  z-index:1;
+}
+#orb-ring2{
+  position:absolute;
+  top:calc(-8% - 30px);
+  right:calc(-6% - 30px);
+  width:calc(clamp(200px,35vw,420px) + 60px);
+  height:calc(clamp(200px,35vw,420px) + 60px);
+  border-radius:50%;
+  border:1px dashed rgba(224,107,16,0.2);
+  animation:orbFloat 7s ease-in-out infinite, rotateSlow 18s linear infinite reverse;
+  z-index:1;
+}
+
+/* Energy sparks on the orb */
+#orb-glow{
+  position:absolute;
+  top:-8%;right:-6%;
+  width:clamp(200px,35vw,420px);
+  height:clamp(200px,35vw,420px);
+  border-radius:50%;
+  background:radial-gradient(circle at 30% 30%, rgba(255,255,200,0.6) 0%, transparent 40%);
+  animation:orbFloat 7s ease-in-out infinite, crackleGlow 2s ease-in-out infinite;
+  z-index:2;
+  pointer-events:none;
+}
+
+/* Secondary smaller orb bottom left */
+#orb-small{
+  position:absolute;
+  bottom:-5%;left:-4%;
+  width:clamp(100px,18vw,200px);
+  height:clamp(100px,18vw,200px);
+  border-radius:50%;
+  background:
+    radial-gradient(circle at 40% 35%,
+      rgba(200,240,210,0.9) 0%,
+      rgba(74,124,89,0.7) 40%,
+      rgba(30,80,50,0.4) 80%,
+      transparent 100%);
+  box-shadow:0 0 40px rgba(74,124,89,0.25), inset 10px 10px 25px rgba(200,240,210,0.4);
+  animation:orbFloat2 9s ease-in-out infinite;
+  z-index:1;
+}
+
+/* Scan line */
+#scan{
+  position:absolute;top:40%;left:0;right:0;height:1px;z-index:3;
+  background:linear-gradient(90deg,transparent,rgba(201,138,0,0.6),rgba(224,107,16,0.4),transparent);
+  animation:scanH 6s linear infinite;opacity:0.5;
+}
+
+/* Floating particles */
+.spark{position:absolute;border-radius:50%;animation:floatY linear infinite;}
+
+/* DOOR */
+#door{position:fixed;inset:0;z-index:80;display:flex;pointer-events:none;}
+.dhalf{
+  flex:1;
+  background:linear-gradient(160deg,#f5f0e8,#faf8f4);
+  transition:transform 0.82s cubic-bezier(0.77,0,0.18,1);
+}
+#dL{transform-origin:left center;border-right:2px solid rgba(201,138,0,0.3);}
+#dR{transform-origin:right center;border-left:2px solid rgba(201,138,0,0.3);}
+
+/* TOP BAR */
+#topbar{
+  position:fixed;top:0;left:0;right:0;z-index:40;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0.85rem 1.8rem;
+  background:rgba(250,248,244,0.95);
+  backdrop-filter:blur(20px);
+  border-bottom:2px solid rgba(201,138,0,0.15);
+  box-shadow:0 2px 20px rgba(201,138,0,0.08);
+}
+.logo-name{
+  font-family:'Orbitron',monospace;font-weight:900;
+  font-size:1.6rem;letter-spacing:0.22em;
+  background:linear-gradient(135deg,var(--gold),var(--amber),var(--gold));
+  background-size:200% auto;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  animation:shimmer 3s linear infinite;
+}
+.logo-tag{font-family:'Share Tech Mono',monospace;font-size:0.44rem;letter-spacing:0.32em;color:var(--faint);margin-top:-2px;}
+#counter{font-family:'Share Tech Mono',monospace;font-size:0.58rem;color:var(--faint);letter-spacing:0.2em;}
+#dots{display:flex;gap:6px;margin-left:10px;}
+.dot{width:8px;height:8px;border-radius:50%;background:rgba(201,138,0,0.2);transition:all 0.4s;}
+.dot.on{background:var(--gold);box-shadow:0 0 8px var(--goldL);}
+
+/* CONTENT */
+#content{
+  position:fixed;top:4.2rem;left:0;right:0;z-index:20;
+  display:flex;align-items:center;justify-content:center;
+  padding:1rem 2rem;overflow-y:auto;
+}
+
+/* BOTTOM BAR */
+#bot{
+  position:fixed;bottom:0;left:0;right:0;z-index:40;
+  background:rgba(250,248,244,0.97);
+  backdrop-filter:blur(20px);
+  border-top:2px solid rgba(201,138,0,0.12);
+}
+#prog{height:3px;background:rgba(201,138,0,0.1);}
+#progF{height:100%;width:0%;background:linear-gradient(90deg,var(--gold),var(--amber));transition:width 0.85s ease;box-shadow:0 0 8px rgba(201,138,0,0.5);}
+#abts{display:none;flex-wrap:nowrap;gap:0.5rem;padding:0.5rem 1.2rem 0.28rem;justify-content:center;}
+.abt{
+  flex:1;max-width:145px;
+  font-family:'Nunito',sans-serif;font-weight:800;font-size:0.7rem;
+  letter-spacing:0.05em;padding:0.6rem 0.4rem;
+  line-height:1.35;text-align:center;cursor:pointer;
+  transition:all 0.25s;border:2px solid;border-radius:4px;
+}
+.abt-gold{background:var(--goldBg);border-color:var(--gold);color:var(--gold);}
+.abt-green{background:rgba(34,197,94,0.08);border-color:rgba(34,197,94,0.5);color:#16a34a;text-decoration:none;display:flex;align-items:center;justify-content:center;}
+.abt-red{background:rgba(192,57,43,0.08);border-color:rgba(192,57,43,0.6);color:var(--red);animation:nb 2.5s ease-in-out infinite;}
+.abt:hover{filter:brightness(1.15);transform:translateY(-1px);}
+#cw{padding:0.28rem 1.2rem 0.65rem;display:flex;justify-content:center;}
+#cb{
+  width:100%;max-width:440px;
+  font-family:'Orbitron',monospace;font-weight:700;font-size:0.8rem;
+  letter-spacing:0.2em;padding:0.75rem 1rem;
+  background:transparent;
+  border:2px solid rgba(201,138,0,0.4);
+  color:var(--gold);cursor:pointer;text-transform:uppercase;transition:all 0.3s;
+  border-radius:4px;
+}
+#cb:hover{background:var(--goldBg);box-shadow:0 0 20px rgba(201,138,0,0.25);}
+#hint{padding:0.28rem 1.2rem 0.65rem;text-align:center;font-size:0.75rem;font-weight:600;color:var(--faint);}
+
+/* CARD */
+.card{
+  background:var(--panel);
+  border:2px solid rgba(201,138,0,0.2);
+  padding:2rem 2.4rem;position:relative;border-radius:8px;
+  box-shadow:0 4px 40px rgba(201,138,0,0.1),0 1px 0 rgba(255,255,255,0.8) inset;
+}
+.card::before,.card::after,.card .cr-tr,.card .cr-bl{
+  content:'';position:absolute;width:16px;height:16px;
+}
+.card::before{top:-2px;left:-2px;border-top:3px solid var(--gold);border-left:3px solid var(--gold);border-radius:2px 0 0 0;}
+.card::after{bottom:-2px;right:-2px;border-bottom:3px solid var(--gold);border-right:3px solid var(--gold);border-radius:0 0 2px 0;}
+.card .cr-tr{top:-2px;right:-2px;border-top:3px solid var(--gold);border-right:3px solid var(--gold);border-radius:0 2px 0 0;}
+.card .cr-bl{bottom:-2px;left:-2px;border-bottom:3px solid var(--gold);border-left:3px solid var(--gold);border-radius:0 0 0 2px;}
+.card-lbl{
+  position:absolute;top:0;left:1.8rem;transform:translateY(-50%);
+  font-family:'Share Tech Mono',monospace;font-weight:700;font-size:0.58rem;
+  letter-spacing:0.24em;color:var(--gold);
+  background:var(--panel);padding:0 0.7rem;
+  border:1px solid rgba(201,138,0,0.25);border-radius:2px;
+}
+
+/* PHOTO FRAME */
+.photo-wrap{
+  flex-shrink:0;width:140px;
+  border-radius:10px;overflow:hidden;
+  border:3px solid rgba(201,138,0,0.35);
+  box-shadow:0 8px 32px rgba(0,0,0,0.18),0 0 0 1px rgba(255,255,255,0.6);
+  position:relative;
+}
+.photo-img{
+  width:100%;display:block;
+  /* Using a warm illustrated portrait style */
+  aspect-ratio:0.65;
+  background:linear-gradient(160deg,#f5e8d5 0%,#e8d0b0 25%,#d4b890 50%,#c0a070 75%,#a88050 100%);
+  position:relative;overflow:hidden;
+}
+/* Realistic illustrated father and son */
+.photo-scene{position:absolute;inset:0;}
+
+/* Room */
+.r-bg{position:absolute;inset:0;background:linear-gradient(180deg,#f2dfc0 0%,#e8cfa0 45%,#c8a870 100%);}
+.r-wall{position:absolute;top:0;left:0;right:0;height:52%;background:linear-gradient(180deg,#f5e5c8,#ecd8b0);}
+/* Window light */
+.r-window{
+  position:absolute;top:4%;left:10%;width:30%;height:22%;
+  background:linear-gradient(180deg,rgba(255,240,200,0.9),rgba(255,220,150,0.6));
+  border:2px solid rgba(180,150,100,0.4);border-radius:2px;
+  box-shadow:0 0 20px rgba(255,220,100,0.5);
+}
+.r-floor{position:absolute;bottom:0;left:0;right:0;height:48%;background:linear-gradient(180deg,#c8a870,#a87840);}
+/* Floor shine */
+.r-shine{position:absolute;bottom:0;left:0;right:0;height:48%;background:linear-gradient(180deg,rgba(255,200,100,0.15),transparent 50%);}
+
+/* Sofa */
+.r-sofa{
+  position:absolute;bottom:26%;left:-5%;right:-5%;height:28%;
+  background:linear-gradient(160deg,#8a6855,#6a4838);
+  border-radius:25px 25px 0 0;
+}
+.r-sofa::before{content:'';position:absolute;top:-7px;left:4%;right:4%;height:18px;background:linear-gradient(180deg,#a07865,#8a6855);border-radius:18px 18px 0 0;}
+/* Cushions */
+.r-cushion{position:absolute;bottom:52%;left:8%;width:35%;height:22%;background:linear-gradient(160deg,rgba(255,200,150,0.5),rgba(200,150,100,0.3));border-radius:6px;}
+
+/* Table in front */
+.r-table{position:absolute;bottom:20%;left:10%;right:10%;height:8%;background:linear-gradient(180deg,#c09060,#9a7040);border-radius:4px 4px 0 0;box-shadow:0 4px 8px rgba(0,0,0,0.2);}
+
+/* FATHER - detailed realistic */
+.fig-dad{position:absolute;bottom:22%;left:2%;width:46%;}
+.fig-son{position:absolute;bottom:22%;right:0%;width:40%;}
+
+.photo-vignette{position:absolute;inset:0;background:radial-gradient(ellipse at center,transparent 35%,rgba(80,40,10,0.3) 100%);pointer-events:none;}
+.photo-warm{position:absolute;inset:0;background:rgba(255,160,60,0.07);pointer-events:none;}
+.photo-caption{
+  background:linear-gradient(transparent,rgba(50,25,5,0.7));
+  padding:1.2rem 0.5rem 0.5rem;text-align:center;
+  font-family:'Share Tech Mono',monospace;font-size:0.44rem;
+  letter-spacing:0.2em;color:rgba(255,220,160,0.9);
+}
+
+/* TYPEWRITER */
+#tw{font-family:'Nunito',sans-serif;font-size:1.08rem;line-height:2.05;color:var(--text);font-weight:500;min-height:140px;}
+.cur{display:inline-block;width:2px;height:1em;background:var(--gold);margin-left:3px;vertical-align:middle;animation:blink 0.7s infinite;}
+
+/* FEAT LAYOUT — full width 3 columns */
+#feat-wrap{
+  width:100%;max-width:900px;
+  display:grid;
+  grid-template-columns:160px 1fr 160px;
+  gap:1rem;
+  align-items:stretch;
+  min-height:calc(100vh - 9rem);
+}
+
+.fl{
+  background:rgba(255,255,255,0.7);
+  border:1px solid rgba(201,138,0,0.15);
+  border-radius:8px;padding:0.8rem 0.6rem;
+  display:flex;flex-direction:column;gap:0.25rem;
+}
+.fl-title{
+  font-family:'Orbitron',monospace;font-weight:700;font-size:0.62rem;
+  color:var(--gold);letter-spacing:0.15em;text-align:center;
+  margin-bottom:0.4rem;border-bottom:1px solid rgba(201,138,0,0.15);
+  padding-bottom:0.32rem;
+}
+.fi{
+  font-family:'Nunito',sans-serif;font-size:0.72rem;
+  padding:0.25rem 0.55rem;transition:all 0.3s;
+  border-left:3px solid transparent;border-radius:0 4px 4px 0;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.fi.on{font-weight:800;color:var(--gold);background:var(--goldBg);border-left-color:var(--gold);}
+.fi.dn{font-weight:600;color:var(--amber);border-left-color:rgba(224,107,16,0.4);}
+.fi.pd{font-weight:500;color:var(--faint);}
+
+.fc{display:flex;align-items:center;justify-content:center;}
+
+/* Feature card */
+.feat-card{transition:all 0.6s cubic-bezier(0.34,1.4,0.64,1);}
+.feat-card.hide{opacity:0;transform:translateX(-180px) scale(0.85);}
+.feat-card.show{opacity:1;transform:translateX(0) scale(1);}
+.feat-card.out{opacity:0;transform:translateX(180px) scale(0.85);transition:all 0.5s ease-in;}
+
+.fn{font-family:'Share Tech Mono',monospace;font-size:0.6rem;letter-spacing:0.3em;margin-bottom:0.5rem;}
+.fi-icon{font-size:3.5rem;margin-bottom:0.7rem;animation:floatY 3s ease-in-out infinite;}
+.ft{font-family:'Orbitron',monospace;font-weight:900;font-size:clamp(1.3rem,3.5vw,2rem);color:var(--text);line-height:1.25;margin-bottom:0.5rem;}
+.fp{font-family:'Orbitron',monospace;font-weight:700;font-size:clamp(0.85rem,2vw,1.1rem);margin-bottom:0.8rem;}
+.fb2{font-size:0.95rem;line-height:1.9;color:var(--muted);font-weight:500;text-align:center;}
+.fnxt{
+  margin-top:1rem;font-family:'Orbitron',monospace;font-weight:700;font-size:0.78rem;
+  letter-spacing:0.13em;padding:0.72rem 2rem;
+  border:2px solid;cursor:pointer;transition:all 0.25s;border-radius:4px;
+}
+.fnxt:hover{transform:translateY(-2px);}
+
+/* Punch lines */
+.fr{
+  background:rgba(255,255,255,0.7);
+  border:1px solid rgba(201,138,0,0.15);
+  border-radius:8px;padding:0.8rem 0.6rem;
+  display:flex;flex-direction:column;gap:0.28rem;
+  overflow-y:auto;
+}
+.fr-title{
+  font-family:'Orbitron',monospace;font-weight:700;font-size:0.62rem;
+  color:var(--amber);letter-spacing:0.15em;text-align:center;
+  margin-bottom:0.4rem;border-bottom:1px solid rgba(224,107,16,0.15);
+  padding-bottom:0.32rem;
+}
+.pl{
+  font-family:'Nunito',sans-serif;font-weight:800;font-size:0.7rem;
+  line-height:1.4;padding:0.3rem 0.55rem;border-radius:0 4px 4px 0;
+  animation:punchIn 0.4s ease both;border-left:3px solid;
+}
+.pl0{color:var(--gold);border-color:var(--gold);background:var(--goldBg);text-shadow:0 0 8px rgba(201,138,0,0.3);}
+.pl1{color:var(--amber);border-color:var(--amber);background:var(--amberBg);text-shadow:0 0 8px rgba(224,107,16,0.3);}
+.pl2{color:var(--sage);border-color:var(--sage);background:var(--sageBg);text-shadow:0 0 8px rgba(74,124,89,0.3);}
+
+/* COST */
+.ci{background:rgba(255,255,255,0.6);border:1.5px solid rgba(201,138,0,0.15);padding:0.9rem 0.8rem;text-align:center;border-radius:6px;}
+.ci.hi{background:var(--goldBg);border-color:var(--gold);box-shadow:0 0 20px rgba(201,138,0,0.2);transform:scale(1.08);}
+.ci-e{font-size:1.4rem;margin-bottom:0.25rem;}
+.ci-l{font-family:'Share Tech Mono',monospace;font-size:0.52rem;letter-spacing:0.1em;color:var(--faint);margin-bottom:0.12rem;}
+.ci.hi .ci-l{color:var(--gold);}
+.ci-p{font-family:'Orbitron',monospace;font-weight:700;font-size:0.82rem;color:var(--muted);}
+.ci.hi .ci-p{color:var(--gold);}
+
+/* REGISTER */
+.reg-btn{
+  font-family:'Orbitron',monospace;font-weight:900;font-size:0.88rem;
+  letter-spacing:0.17em;padding:1.15rem 3rem;width:100%;max-width:400px;
+  background:linear-gradient(135deg,var(--gold),var(--amber));
+  color:white;border:none;cursor:pointer;text-transform:uppercase;
+  transition:all 0.3s;box-shadow:0 6px 28px rgba(201,138,0,0.35);
+  border-radius:6px;margin-bottom:0.9rem;
+}
+.reg-btn:hover{transform:translateY(-3px);box-shadow:0 10px 40px rgba(201,138,0,0.5);}
+.wa-btn{
+  font-family:'Nunito',sans-serif;font-weight:700;font-size:0.82rem;
+  letter-spacing:0.1em;padding:0.92rem 1.8rem;width:100%;max-width:400px;
+  background:rgba(34,197,94,0.08);border:2px solid rgba(34,197,94,0.5);
+  color:#16a34a;cursor:pointer;text-decoration:none;
+  display:flex;align-items:center;justify-content:center;gap:0.5rem;
+  transition:all 0.3s;margin-bottom:0.9rem;border-radius:6px;
+}
+.wa-btn:hover{background:rgba(34,197,94,0.18);}
+
+/* HOLO */
+.holo-av{
+  width:115px;height:148px;cursor:pointer;margin:0 auto;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  background:var(--goldBg);border:2px solid rgba(201,138,0,0.35);
+  transition:all 0.4s;border-radius:8px;
+}
+.holo-av:hover{background:rgba(201,138,0,0.18);transform:translateY(-6px);box-shadow:0 12px 40px rgba(201,138,0,0.3);}
+
+/* RINGS */
+.ring-c{position:relative;width:140px;height:140px;margin:1.8rem auto 0;display:flex;align-items:center;justify-content:center;}
+.ring{position:absolute;border-radius:50%;border-style:solid;}
+</style>
+</head>
+<body>
+
+<!-- BACKGROUND -->
+<div id="bg">
+  <div id="bg-base"></div>
+  <div id="bg-geo"></div>
+  <div id="bg-word">RISHI</div>
+  <div id="orb-ring2"></div>
+  <div id="orb-ring"></div>
+  <div id="orb-main"></div>
+  <div id="orb-glow"></div>
+  <div id="orb-small"></div>
+  <div id="scan"></div>
+</div>
+
+<!-- DOOR -->
+<div id="door">
+  <div class="dhalf" id="dL"></div>
+  <div class="dhalf" id="dR"></div>
+</div>
+
+<!-- TOP BAR -->
+<div id="topbar">
+  <div>
+    <div class="logo-name">RISHI</div>
+    <div class="logo-tag" style="font-size:0.58rem;letter-spacing:0.22em;color:var(--amber);font-weight:700;margin-top:1px;">RIDDHI · SIDDHI · ALWAYS BY YOUR SIDE</div>
+  </div>
+  <div style="display:flex;align-items:center;gap:0.7rem;">
+    <div id="counter" class="fm" style="font-size:0.78rem;color:var(--text);font-weight:700;letter-spacing:0.2em;">01 / 06</div>
+    <div id="dots">
+      <div class="dot on"></div><div class="dot"></div><div class="dot"></div>
+      <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+    </div>
+  </div>
+</div>
+
+<!-- CONTENT -->
+<div id="content"></div>
+
+<!-- BOTTOM BAR -->
+<div id="bot">
+  <div id="prog"><div id="progF"></div></div>
+  <div id="abts">
+    <button class="abt abt-gold" onclick="go(5)">⚡ Skip to Register</button>
+    <a class="abt abt-green" href="https://wa.me/919836107236?text=Hi%2C%20I%20want%20to%20know%20more%20about%20RISHI" target="_blank">💬 WhatsApp</a>
+    <button class="abt abt-red" onclick="doExit()">✕ Not Interested</button>
+  </div>
+  <div id="cw"><button id="cb" onclick="goNext()">▶ Begin the Journey</button></div>
+  <div id="hint" style="display:none;">↑ tap above to begin</div>
+</div>
+
+<!-- AUDIO -->
+<audio id="snd" preload="auto">
+  <source src="https://www.soundjay.com/misc/sounds/bell-ringing-05.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+// ── DATA ──────────────────────────────────────────────────
+const FEATS=[
+  {i:"🎮",t:"Play to Learn",p:"Maths meets gaming.",b:"Earn points solving questions. Spend them on integrated games that sharpen focus and brain activity. Two earned breaks per session — your child will do Maths to get there."},
+  {i:"👩‍💼",t:"Meet Rishika",p:"Always beside your child.",b:"A real-looking, elegant AI companion — like the elder sister who always has time. She explains with warmth, celebrates every step, finds a completely new way until it truly clicks."},
+  {i:"🎙️",t:"Talk, Don't Type",p:"Voice beats keyboard.",b:"Maths symbols cannot be typed. Your child speaks steps naturally — every word appears live on screen. Audio and visual memory together are the strongest form of learning. 3D explanations included."},
+  {i:"🧠",t:"Your Questions Only",p:"Powered by AI Analysis.",b:"RISHI analyses every session — hesitations, speed, errors. It picks the perfect next question. Not too easy, not too hard. Step by step toward planned mastery."},
+  {i:"🗓️",t:"Study Calendar",p:"Exam Focussed.",b:"Enter last exam scores. Rishika generates a personal study calendar — chapter by chapter, day by day — making your child stronger before the next exam."},
+  {i:"📊",t:"Parent Dashboard",p:"Parent Cloud Dashboard.",b:"From your office, open your phone. Questions attempted, one-shot answers, breaks taken, session time — all live. You are always in the picture even when not home."},
+  {i:"📝",t:"Earn Your Exam",p:"Only when truly ready.",b:"Mock exams unlock only when AI confirms genuine readiness from real practice data. Time-bound, confidence-building. The exam becomes proof of preparation — not a source of fear."},
+  {i:"🏅",t:"Leaderboard",p:"Friendly fire of competition.",b:"Every RISHI student is on a live leaderboard. Riyon will want to climb it. And to climb it, he has to study. Healthy competition drives real effort every single day."},
+  {i:"📚",t:"Trusted Libraries",p:"Questions from the best sources.",b:"Official question libraries from CBSE, ICSE, WBBSE and international sources. Every question is curriculum-accurate, board-aligned and pedagogically sound."},
+  {i:"🌍",t:"Language Surprises",p:"Learning sneaks in through joy.",b:"Rishika celebrates in French, Japanese, Spanish and more — explaining what each phrase means. Curiosity sparked every day, completely naturally."},
+  {i:"💬",t:"Chat with Rishika",p:"Any question. Any time.",b:"Rishika chats about anything — general knowledge, curiosity, life. Like a wise elder sister who is always free. Your child stays inside the app, not wandering to YouTube."},
+  {i:"🔬",t:"Science-Backed",p:"Every decision has proof.",b:"Medical science shapes break timing. Cognitive science shapes explanations. Behavioural psychology powers the earn-your-break model. Eye-safe colours and fonts throughout."},
+  {i:"🎯",t:"Made for You",p:"Built for the average student.",b:"RISHI is built specifically for students who are average or weak in Maths — Classes 6 to 10. The child who understands when someone sits beside them, but gets lost when alone. This app was made for them."},
+  {i:"🔄",t:"Always Affordable",p:"₹299/month. Cancel anytime.",b:"Monthly recharge. Stop anytime, come back anytime — progress stays. Full refund if not satisfied after first month. No questions. No forms. No waiting."},
+];
+
+const FL=[
+  "My name is Arindam.",
+  "My wife Priyanka and I — we both work.",
+  "We leave early. We come home late.",
+  "Riyon, our son, comes home to a maid.",
+  "During exam holidays, weekly offs, school breaks —",
+  "he is alone. With a maid who cannot help with Maths.",
+  "Maths was his horror.",
+  "Not because he is not smart —",
+  "because nobody was sitting beside him.",
+  "We tried tutors. We tried extra classes.",
+  "But Maths needs someone every single day.",
+  "Patient. Warm. Someone who never gives up.",
+  "I couldn't always be that person.",
+  "So I built one.",
+  "Her name is Rishika.",
+  
+  "Built by a father. For every child sitting alone tonight.",
+];
+
+const ACC0=["var(--gold)","var(--amber)","var(--sage)"];
+const ACCBG=["var(--goldBg)","var(--amberBg)","var(--sageBg)"];
+const PLC=["pl0","pl1","pl2"];
+
+let cur=0,busy=false,fi=0,fp="idle",dp=[],ttimer=null,ftimer=null;
+
+function go(t){
+  if(busy)return;
+  busy=true;
+  stopFatherVoice();
+  const dL=document.getElementById('dL');
+  const dR=document.getElementById('dR');
+  dL.style.transform='scaleX(1)';
+  dR.style.transform='scaleX(1)';
+  setTimeout(()=>{
+    cur=t;
+    if(t===3){fi=0;fp="idle";dp=[];}
+    render();
+    setTimeout(()=>{dL.style.transform='scaleX(0)';dR.style.transform='scaleX(0)';setTimeout(()=>{busy=false;},800);},50);
+  },820);
+}
+function goNext(){if(cur<5)go(cur+1);}
+function doExit(){try{window.close();}catch(e){}window.location.href="about:blank";}
+
+document.addEventListener('keydown',e=>{if(["Enter","ArrowRight"].includes(e.key)&&cur!==0)goNext();});
+
+function updateNav(){
+  document.getElementById('counter').textContent=String(cur+1).padStart(2,'0')+' / 06';document.getElementById('counter').style.cssText='font-size:0.78rem;color:var(--text);font-weight:700;letter-spacing:0.2em;font-family:Share Tech Mono,monospace;';
+  document.getElementById('progF').style.width=(cur/5*100)+'%';
+  document.querySelectorAll('.dot').forEach((d,i)=>d.classList.toggle('on',i<=cur));
+  const showAct=cur>=3&&cur<5;
+  document.getElementById('abts').style.display=showAct?'flex':'none';
+  const cw=document.getElementById('cw');
+  const hint=document.getElementById('hint');
+  const cb=document.getElementById('cb');
+  if(cur===5){cw.style.display='none';hint.style.display='none';}
+  else if(cur===3){cw.style.display='none';hint.style.display='none';}
+  else if(cur===0){cw.style.display='none';hint.style.display='block';}
+  else{cw.style.display='flex';hint.style.display='none';cb.textContent='Continue →';}
+  const bb=document.getElementById('bot');
+  document.getElementById('content').style.bottom=(bb.offsetHeight)+'px';
+}
+
+function render(){
+  updateNav();
+  const c=document.getElementById('content');
+  if(cur===0)c.innerHTML=r0();
+  else if(cur===1){c.innerHTML=r1();startType();}
+  else if(cur===2)c.innerHTML=r2();
+  else if(cur===3){c.innerHTML=r3();startFeat();}
+  else if(cur===4)c.innerHTML=r4();
+  else c.innerHTML=r5();
+}
+
+// ── ROOMS ─────────────────────────────────────────────────
+function r0(){
+  const w=[...Array(16)].map((_,i)=>`<div style="width:5px;border-radius:3px;background:linear-gradient(to top,var(--gold),var(--amber));height:${20+Math.sin(i*0.7)*16}px;animation:soundWave ${0.55+i*0.1}s ${i*0.07}s ease-in-out infinite alternate;opacity:0.8;"></div>`).join('');
+  return `<div style="text-align:center;max-width:680px;width:100%;display:flex;flex-direction:column;align-items:center;">
+    <div class="fm fu" style="font-size:0.68rem;letter-spacing:0.36em;color:var(--faint);margin-bottom:0.8rem;">// BEFORE WE BEGIN //</div>
+    <h2 class="fd fu d1" style="font-size:clamp(1.6rem,4.5vw,2.5rem);color:var(--text);line-height:1.3;margin-bottom:0.5rem;">
+      <span style="color:var(--gold)">Put on your headphones.</span><br/>
+      This experience needs sound.
+    </h2>
+    <p class="fb fu d2" style="font-size:1rem;color:var(--amber);font-weight:700;margin-bottom:0.4rem;">No headphones? Audio plays on your speaker automatically.</p>
+    <div style="position:relative;width:160px;height:160px;margin:1.2rem auto;display:flex;align-items:center;justify-content:center;">
+      ${[0,1,2].map(i=>`<div style="position:absolute;inset:-${i*18}px;border-radius:50%;border:2px solid rgba(201,138,0,${0.35-i*0.1});animation:glowPulse ${1.5+i*0.6}s ${i*0.3}s ease-in-out infinite;"></div>`).join('')}
+      <div style="font-size:5.5rem;animation:floatY 3s ease-in-out infinite;filter:drop-shadow(0 4px 20px rgba(201,138,0,0.5))">🎧</div>
+    </div>
+    <div style="display:flex;align-items:flex-end;gap:4px;margin:0.8rem auto 1.8rem;height:50px;justify-content:center;">${w}</div>
+    <div style="display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;">
+      <button onclick="startAudio();go(1)" style="font-family:'Orbitron',monospace;font-weight:900;font-size:0.85rem;letter-spacing:0.14em;padding:1.1rem 2.5rem;background:linear-gradient(135deg,var(--gold),var(--amber));color:white;border:none;cursor:pointer;text-transform:uppercase;transition:all 0.3s;box-shadow:0 6px 28px rgba(201,138,0,0.35);border-radius:6px;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform='none'">🎧 HEADPHONES ON — BEGIN</button>
+      <button onclick="startAudio();go(1)" style="font-family:'Nunito',sans-serif;font-weight:700;font-size:0.82rem;letter-spacing:0.08em;padding:1.1rem 2rem;background:transparent;border:2px solid rgba(201,138,0,0.3);color:var(--amber);cursor:pointer;transition:all 0.3s;border-radius:6px;" onmouseover="this.style.borderColor='var(--gold)';this.style.color='var(--gold)'" onmouseout="this.style.borderColor='rgba(201,138,0,0.3)';this.style.color='var(--amber)'">Continue without headphones →</button>
+    </div>
+  </div>`;
+}
+
+function startAudio(){
+  // Play welcome chime
+  try{
+    const ctx=new (window.AudioContext||window.webkitAudioContext)();
+    [[528,0,0.8],[660,0.3,0.6],[792,0.6,0.8]].forEach(([freq,delay,vol])=>{
+      const osc=ctx.createOscillator();
+      const g=ctx.createGain();
+      osc.connect(g);g.connect(ctx.destination);
+      osc.type='sine';osc.frequency.value=freq;
+      g.gain.setValueAtTime(0,ctx.currentTime+delay);
+      g.gain.linearRampToValueAtTime(vol*0.15,ctx.currentTime+delay+0.05);
+      g.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+delay+2);
+      osc.start(ctx.currentTime+delay);osc.stop(ctx.currentTime+delay+2);
+    });
+  }catch(e){}
+}
+
+// Father's voice - plays on room 1
+let fatherAudio=null;
+function playFatherVoice(){
+  try{
+    if(fatherAudio){fatherAudio.pause();fatherAudio.currentTime=0;}
+    fatherAudio=new Audio('/arindam.mp3');
+    fatherAudio.volume=1.0;
+    fatherAudio.play().catch(e=>console.log('Audio play blocked:',e));
+  }catch(e){console.log('Audio error:',e);}
+}
+function stopFatherVoice(){
+  if(fatherAudio){fatherAudio.pause();fatherAudio.currentTime=0;}
+}
+
+function r1(){
+  return `<div style="max-width:780px;width:100%;">
+    <div style="display:flex;gap:1.4rem;align-items:flex-start;flex-wrap:wrap;">
+      <div class="photo-wrap">
+        <div class="photo-img">
+          <div class="photo-scene">
+            <div class="r-bg"></div>
+            <div class="r-wall"></div>
+            <div class="r-window"></div>
+            <div class="r-floor"></div>
+            <div class="r-shine"></div>
+            <div class="r-sofa"></div>
+            <div class="r-cushion"></div>
+            <div class="r-table"></div>
+            <div class="fig-dad">${svgDad()}</div>
+            <div class="fig-son">${svgSon()}</div>
+            <div class="photo-vignette"></div>
+            <div class="photo-warm"></div>
+          </div>
+        </div>
+        <div class="photo-caption">ARINDAM &amp; RIYON</div>
+      </div>
+      <div class="card" style="flex:1;min-width:220px;">
+        <div class="cr-tr"></div><div class="cr-bl"></div>
+        <div class="card-lbl">▶ ARINDAM SPEAKS</div>
+        <div id="tw"></div>
+      </div>
+    </div>
+  </div>`;
+}
+
+function svgDad(){
+  return `<svg viewBox="0 0 58 148" xmlns="http://www.w3.org/2000/svg" style="width:100%">
+    <defs>
+      <radialGradient id="sd" cx="50%" cy="30%" r="65%"><stop offset="0%" stop-color="#f0c090"/><stop offset="60%" stop-color="#d4956a"/><stop offset="100%" stop-color="#b8784e"/></radialGradient>
+      <linearGradient id="shd" x1="0%" y1="0%" x2="15%" y2="100%"><stop offset="0%" stop-color="#4a6090"/><stop offset="100%" stop-color="#2a3860"/></linearGradient>
+    </defs>
+    <path d="M11,76 C6,74 3,84 2,110 L7,110 L7,128 L34,128 L34,110 L39,110 C38,84 32,74 24,76 Z" fill="url(#shd)"/>
+    <rect x="16" y="65" width="11" height="14" rx="4.5" fill="url(#sd)"/>
+    <ellipse cx="21" cy="52" rx="14" ry="17" fill="url(#sd)"/>
+    <path d="M7,60 C7,72 13,80 21,81 C29,80 35,72 35,60" fill="url(#sd)"/>
+    <path d="M7,48 C8,29 35,29 36,48 C32,35 10,35 7,48 Z" fill="#1a0e08"/>
+    <ellipse cx="6" cy="55" rx="3" ry="5" fill="#c8855f"/>
+    <ellipse cx="36" cy="55" rx="3" ry="5" fill="#c8855f"/>
+    <ellipse cx="14" cy="51" rx="5" ry="3.8" fill="white"/>
+    <ellipse cx="28" cy="51" rx="5" ry="3.8" fill="white"/>
+    <ellipse cx="14.8" cy="51.5" rx="2.8" ry="2.8" fill="#3a2008"/>
+    <ellipse cx="28.8" cy="51.5" rx="2.8" ry="2.8" fill="#3a2008"/>
+    <ellipse cx="14.8" cy="51.5" rx="1.5" ry="1.5" fill="#090503"/>
+    <ellipse cx="28.8" cy="51.5" rx="1.5" ry="1.5" fill="#090503"/>
+    <ellipse cx="15.6" cy="50.2" rx="0.8" ry="0.8" fill="white" opacity="0.9"/>
+    <ellipse cx="29.6" cy="50.2" rx="0.8" ry="0.8" fill="white" opacity="0.9"/>
+    <path d="M9,46 C12,43 17,43 20,46" fill="none" stroke="#1a0e08" stroke-width="1.8" stroke-linecap="round"/>
+    <path d="M22,46 C25,43 30,43 33,46" fill="none" stroke="#1a0e08" stroke-width="1.8" stroke-linecap="round"/>
+    <path d="M16,22" fill="none"/>
+    <path d="M13,64 Q21,74 29,64" fill="none" stroke="#9a6040" stroke-width="2" stroke-linecap="round"/>
+    <path d="M15,66 Q21,72 27,66" fill="rgba(255,255,255,0.6)" stroke="none"/>
+    <path d="M32,82 C44,86 54,92 56,104 L52,107 C51,96 44,92 30,88 Z" fill="url(#sd)"/>
+    <ellipse cx="53" cy="107" rx="5.5" ry="3.8" fill="#c8855f" transform="rotate(-15,53,107)"/>
+    <path d="M11,82 C5,92 2,110 4,118 L10,116 C8,107 11,92 15,84 Z" fill="url(#sd)"/>
+    <rect x="7" y="126" width="10" height="20" rx="4" fill="#2d3748"/>
+    <rect x="22" y="126" width="10" height="20" rx="4" fill="#2d3748"/>
+    <ellipse cx="12" cy="147" rx="8" ry="4" fill="#1a1410" transform="rotate(-3,12,147)"/>
+    <ellipse cx="27" cy="147" rx="8" ry="4" fill="#1a1410" transform="rotate(3,27,147)"/>
+  </svg>`;
+}
+
+function svgSon(){
+  return `<svg viewBox="0 0 50 130" xmlns="http://www.w3.org/2000/svg" style="width:100%">
+    <defs>
+      <radialGradient id="ss" cx="50%" cy="30%" r="65%"><stop offset="0%" stop-color="#f5c898"/><stop offset="60%" stop-color="#dfa070"/><stop offset="100%" stop-color="#c48855"/></radialGradient>
+      <linearGradient id="shs" x1="0%" y1="0%" x2="15%" y2="100%"><stop offset="0%" stop-color="#6090d0"/><stop offset="100%" stop-color="#4070b0"/></linearGradient>
+    </defs>
+    <path d="M8,86 C4,84 2,92 1,110 L5,110 L5,124 L28,124 L28,110 L32,110 C31,92 28,84 21,86 Z" fill="url(#shs)"/>
+    <rect x="12" y="76" width="9" height="12" rx="4" fill="url(#ss)"/>
+    <ellipse cx="17" cy="63" rx="13" ry="15" fill="url(#ss)" transform="rotate(-6,17,63)"/>
+    <path d="M4,70 C4,80 10,88 17,89 C24,88 30,80 30,70" fill="url(#ss)" transform="rotate(-6,17,79)"/>
+    <path d="M4,59 C5,40 30,40 31,59 C27,45 7,45 4,59 Z" fill="#1a0e08" transform="rotate(-4,17,49)"/>
+    <ellipse cx="4" cy="64" rx="2.5" ry="4" fill="#cca070" transform="rotate(-6,4,64)"/>
+    <ellipse cx="30" cy="63" rx="2.5" ry="4" fill="#cca070" transform="rotate(-6,30,63)"/>
+    <ellipse cx="10" cy="61" rx="4.5" ry="3.5" fill="white" transform="rotate(-6,10,61)"/>
+    <ellipse cx="23" cy="60" rx="4.5" ry="3.5" fill="white" transform="rotate(-6,23,60)"/>
+    <ellipse cx="10.8" cy="61.5" rx="2.5" ry="2.5" fill="#3a2008"/>
+    <ellipse cx="23.8" cy="60.5" rx="2.5" ry="2.5" fill="#3a2008"/>
+    <ellipse cx="10.8" cy="61.5" rx="1.3" ry="1.3" fill="#090503"/>
+    <ellipse cx="23.8" cy="60.5" rx="1.3" ry="1.3" fill="#090503"/>
+    <ellipse cx="11.6" cy="60.2" rx="0.7" ry="0.7" fill="white" opacity="0.9"/>
+    <ellipse cx="24.6" cy="59.2" rx="0.7" ry="0.7" fill="white" opacity="0.9"/>
+    <path d="M6,55 C9,52 14,52 17,55" fill="none" stroke="#1a0e08" stroke-width="1.6" stroke-linecap="round" transform="rotate(-6,11,53)"/>
+    <path d="M18,54 C21,51 26,51 29,54" fill="none" stroke="#1a0e08" stroke-width="1.6" stroke-linecap="round" transform="rotate(-6,23,52)"/>
+    <path d="M8,72 Q17,82 26,72" fill="none" stroke="#9a6040" stroke-width="1.8" stroke-linecap="round" transform="rotate(-6,17,77)"/>
+    <path d="M10,74 Q17,80 24,74" fill="rgba(255,255,255,0.55)" stroke="none" transform="rotate(-6,17,77)"/>
+    <ellipse cx="7" cy="70" rx="5" ry="3" fill="#ff9090" opacity="0.22" transform="rotate(-6,7,70)"/>
+    <ellipse cx="27" cy="69" rx="5" ry="3" fill="#ff9090" opacity="0.22" transform="rotate(-6,27,69)"/>
+    <path d="M8,90 C3,99 1,112 3,119 L8,117 C7,110 9,99 12,92 Z" fill="url(#ss)"/>
+    <path d="M24,90 C29,99 31,112 29,119 L24,117 C25,110 23,99 20,92 Z" fill="url(#ss)"/>
+    <rect x="5" y="122" width="9" height="7" rx="3" fill="#2d4a8a"/>
+    <rect x="18" y="122" width="9" height="7" rx="3" fill="#2d4a8a"/>
+  </svg>`;
+}
+
+function r2(){
+  return `<div style="text-align:center;max-width:760px;width:100%;display:flex;flex-direction:column;align-items:center;">
+    <div class="fm fu" style="font-size:0.68rem;letter-spacing:0.44em;color:var(--faint);margin-bottom:0.8rem;">// INTRODUCING //</div>
+    <div class="fd fu d1" style="font-size:clamp(4rem,14vw,9rem);line-height:0.88;letter-spacing:0.1em;font-weight:900;background:linear-gradient(135deg,var(--gold),var(--amber),var(--gold));background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:shimmer 3s linear infinite;filter:drop-shadow(0 6px 20px rgba(201,138,0,0.25));">RISHI</div>
+    <div class="fm fu d2" style="font-size:clamp(0.6rem,1.8vw,0.82rem);letter-spacing:0.38em;color:var(--gold);margin-top:0.75rem;">CLASS 6–10 &nbsp;·&nbsp; CBSE &nbsp;·&nbsp; ICSE &nbsp;·&nbsp; WBBSE</div>
+    <div style="display:flex;gap:1.5rem;margin-top:1.8rem;flex-wrap:wrap;justify-content:center;" class="fu d3">
+      <div style="flex:1;min-width:180px;max-width:220px;background:var(--goldBg);border:1.5px solid rgba(201,138,0,0.25);border-radius:10px;padding:1.2rem 1.4rem;text-align:center;">
+        <div style="font-size:2.2rem;margin-bottom:0.5rem;">🌸</div>
+        <div class="fd" style="font-weight:900;font-size:1rem;color:var(--gold);margin-bottom:0.4rem;">RIDDHI</div>
+        <div class="fb" style="font-size:0.88rem;line-height:1.75;color:var(--muted);font-weight:500;">Intelligence &amp; Prosperity.<br/>Lord Ganesha's consort of wisdom — the journey of learning begins here.</div>
+      </div>
+      <div style="flex:0;display:flex;align-items:center;justify-content:center;">
+        <div style="font-size:2.5rem;animation:floatY 2.5s ease-in-out infinite;filter:drop-shadow(0 4px 12px rgba(201,138,0,0.4));">🐘</div>
+      </div>
+      <div style="flex:1;min-width:180px;max-width:220px;background:var(--amberBg);border:1.5px solid rgba(224,107,16,0.25);border-radius:10px;padding:1.2rem 1.4rem;text-align:center;">
+        <div style="font-size:2.2rem;margin-bottom:0.5rem;">✨</div>
+        <div class="fd" style="font-weight:900;font-size:1rem;color:var(--amber);margin-bottom:0.4rem;">SIDDHI</div>
+        <div class="fb" style="font-size:0.88rem;line-height:1.75;color:var(--muted);font-weight:500;">Achievement &amp; Mastery.<br/>Lord Ganesha's consort of success — the destination every student deserves.</div>
+      </div>
+    </div>
+    <div class="fb fu d4" style="font-size:1rem;color:var(--muted);font-weight:500;margin-top:1.2rem;font-style:italic;">"From wisdom to mastery — RISHI walks that path with your child, every single day."</div>
+  </div>`;
+}
+
+function r3(){
+  const feat=FEATS[fi];
+  const ac=ACC0[fi%3];
+  const acb=ACCBG[fi%3];
+  const listH=FEATS.map((f,i)=>{
+    const cls=i===fi?'on':dp.length>i?'dn':'pd';
+    const pre=i===fi?'▶ ':dp.length>i?'✓ ':'  ';
+    return `<div class="fi ${cls}">${pre}F${String(i+1).padStart(2,'0')}&nbsp;&nbsp;${i===fi?f.t.split(' ')[0]:''}</div>`;
+  }).join('');
+  const punchH=dp.length===0
+    ?`<div class="fb" style="font-size:0.7rem;color:var(--faint);text-align:center;line-height:2.2;padding:1rem 0;">Punch lines<br/>appear here<br/>✦</div>`
+    :dp.map((p,i)=>`<div class="pl ${PLC[i%3]}">${p}</div>`).join('');
+  return `<div id="feat-wrap">
+    <div class="fl">
+      <div class="fl-title">FEATURES</div>
+      ${listH}
+    </div>
+    <div class="fc" id="fc">
+      <div class="card feat-card show" id="fcard" style="width:100%;text-align:center;border-color:${ac}44;">
+        <div class="cr-tr" style="border-color:${ac}"></div>
+        <div class="cr-bl" style="border-color:${ac}"></div>
+        <div class="card-lbl" style="color:${ac};">FEATURE ${String(fi+1).padStart(2,'0')} / 14</div>
+        <div class="fi-icon" style="filter:drop-shadow(0 4px 14px ${ac}80);">${feat.i}</div>
+        <div class="ft">${feat.t}</div>
+        <div class="fp" style="color:${ac};text-shadow:0 0 10px ${ac}60;">"${feat.p}"</div>
+        <div class="fb2">${feat.b}</div>
+        <button class="fnxt" onclick="advance()" style="background:${acb};border-color:${ac};color:${ac};">${fi<13?'Next Feature →':'Finish ✓'}</button>
+      </div>
+    </div>
+    <div class="fr">
+      <div class="fr-title">DONE ✦</div>
+      <div id="pl">${punchH}</div>
+    </div>
+  </div>`;
+}
+
+function r4(){
+  const items=[
+    {e:"🍕",l:"One Pizza",p:"₹400"},
+    {e:"🎬",l:"OTT Monthly",p:"₹499"},
+    {e:"🎮",l:"Game Top-up",p:"₹800"},
+    {e:"👨‍🏫",l:"Home Tutor",p:"₹1,500"},
+    {e:"✨",l:"RISHI/month",p:"₹299",hi:true},
+  ];
+  const iH=items.map(it=>`<div class="ci ${it.hi?'hi':''}"><div class="ci-e">${it.e}</div><div class="ci-l">${it.l}</div><div class="ci-p">${it.p}</div></div>`).join('');
+  return `<div style="text-align:center;max-width:700px;width:100%;display:flex;flex-direction:column;align-items:center;">
+    <div class="fm" style="font-size:0.68rem;letter-spacing:0.36em;color:var(--faint);margin-bottom:0.8rem;">// AFFORDABILITY //</div>
+    <h2 class="fd" style="font-size:clamp(1.5rem,4vw,2.2rem);color:var(--text);margin-bottom:0.5rem;">We spend more on things<br/><span style="color:var(--gold)">that matter far less.</span></h2>
+    <div class="fd" style="font-weight:900;font-size:clamp(2.5rem,8vw,4rem);color:var(--gold);filter:drop-shadow(0 4px 16px rgba(201,138,0,0.3));margin:0.3rem 0;">₹ 299 <span style="font-size:1rem;color:var(--faint)">/ month</span></div>
+    <div style="display:flex;gap:0.6rem;justify-content:center;flex-wrap:wrap;margin:1rem 0 1.3rem;">${iH}</div>
+    <div class="card" style="width:100%;max-width:520px;text-align:left;">
+      <div class="cr-tr"></div><div class="cr-bl"></div>
+      ${[{e:"🔄",t:"Monthly. Your Way.",c:"var(--text)",b:"Stop anytime. Come back anytime — progress stays exactly where you left it. No re-registration. No extra charges."},{e:"💰",t:"Not Happy? Full Refund. Instantly.",c:"var(--gold)",b:"Every rupee back if not satisfied after first month. Instantly. No questions. No forms. No waiting. We believe in what we built."}].map((it,i)=>`${i>0?'<div style="height:1px;background:rgba(201,138,0,0.1);margin:0.85rem 0;"></div>':''}<div style="display:flex;gap:0.75rem;align-items:flex-start;"><span style="font-size:1.3rem;">${it.e}</span><div><div class="fd" style="font-weight:700;font-size:0.8rem;color:${it.c};margin-bottom:0.2rem;">${it.t}</div><div class="fb" style="font-size:0.88rem;color:var(--muted);line-height:1.8;font-weight:500;">${it.b}</div></div></div>`).join('')}
+    </div>
+  </div>`;
+}
+
+function r5(){
+  return `<div style="text-align:center;max-width:620px;width:100%;display:flex;flex-direction:column;align-items:center;">
+    <div class="fm" style="font-size:0.68rem;letter-spacing:0.36em;color:var(--faint);margin-bottom:0.8rem;">// THE FINAL DOOR //</div>
+    <h2 class="fd" style="font-size:clamp(1.4rem,4vw,2.2rem);color:var(--text);margin-bottom:0.9rem;">One decision.<br/><span style="color:var(--gold)">A different future for your child.</span></h2>
+    <p class="fb" style="font-size:1rem;line-height:1.9;color:var(--muted);font-weight:500;max-width:460px;margin:0 auto 2rem;">Try it free. No risk. Full refund if not satisfied in first month — no questions asked. The same choice Arindam made for Riyon.</p>
+    <div class="holo-av" onclick="alert('Registration — coming next!')">
+      <div style="font-size:3rem;margin-bottom:0.4rem;filter:drop-shadow(0 4px 12px rgba(201,138,0,0.5));animation:floatY 3s ease-in-out infinite;">👩‍💼</div>
+      <div class="fm" style="font-size:0.55rem;letter-spacing:0.2em;color:var(--faint);text-align:center;line-height:1.7;">TOUCH<br/>RISHI</div>
+      <div style="width:9px;height:9px;border-radius:50%;background:var(--gold);margin-top:0.5rem;box-shadow:0 0 10px var(--goldL);"></div>
+    </div>
+    <div style="height:1.8rem;"></div>
+    <button class="reg-btn" onclick="alert('Registration — coming next!')">✦ Begin Your Child's Journey</button>
+    <a class="wa-btn" href="https://wa.me/919836107236?text=Hi%2C%20I%20want%20to%20know%20more%20about%20RISHI" target="_blank">💬 Chat with us on WhatsApp</a>
+    <div class="fb" style="font-size:0.62rem;font-weight:600;color:var(--faint);letter-spacing:0.12em;text-align:center;line-height:2.1;">
+      FREE DEMO · MONTHLY · CANCEL ANYTIME<br/>
+      <span style="color:var(--gold);font-weight:700;">FULL REFUND IF NOT SATISFIED · NO QUESTIONS ASKED</span>
+    </div>
+  </div>`;
+}
+
+// ── TYPEWRITER ────────────────────────────────────────────
+function startType(){
+  clearTimeout(ttimer);
+  playFatherVoice();
+  let li=0,ci=0;
+  function tick(){
+    const el=document.getElementById('tw');
+    if(!el)return;
+    if(li>=FL.length){el.innerHTML=FL.join('<br/>');return;}
+    const done=FL.slice(0,li).join('<br/>');
+    el.innerHTML=(done?done+'<br/>':'')+FL[li].slice(0,ci)+'<span class="cur"></span>';
+    ci++;
+    if(ci>FL[li].length){li++;ci=0;ttimer=setTimeout(tick,450);}
+    else ttimer=setTimeout(tick,36);
+  }
+  ttimer=setTimeout(tick,600);
+}
+
+// ── FEATURE ───────────────────────────────────────────────
+function startFeat(){
+  clearTimeout(ftimer);
+  const card=document.getElementById('fcard');
+  if(card){
+    card.className='card feat-card hide';
+    ftimer=setTimeout(()=>{
+      if(document.getElementById('fcard')){
+        document.getElementById('fcard').className='card feat-card show';
+        playWhoosh();
+      }
+    },80);
+  }
+}
+
+function playWhoosh(){
+  try{
+    const ctx=new (window.AudioContext||window.webkitAudioContext)();
+    // Whoosh + impact sound
+    const buf=ctx.createBuffer(1,ctx.sampleRate*0.4,ctx.sampleRate);
+    const data=buf.getChannelData(0);
+    for(let i=0;i<data.length;i++){
+      data[i]=(Math.random()*2-1)*Math.pow(1-i/data.length,2)*0.6;
+    }
+    const src=ctx.createBufferSource();
+    const g=ctx.createGain();
+    const filter=ctx.createBiquadFilter();
+    filter.type='bandpass';
+    filter.frequency.setValueAtTime(800,ctx.currentTime);
+    filter.frequency.exponentialRampToValueAtTime(200,ctx.currentTime+0.3);
+    filter.Q.value=0.8;
+    src.buffer=buf;
+    src.connect(filter);filter.connect(g);g.connect(ctx.destination);
+    g.gain.setValueAtTime(0.5,ctx.currentTime);
+    g.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+0.4);
+    src.start();src.stop(ctx.currentTime+0.4);
+
+    // Impact tone
+    const osc=ctx.createOscillator();
+    const og=ctx.createGain();
+    osc.connect(og);og.connect(ctx.destination);
+    osc.type='sine';
+    osc.frequency.setValueAtTime(320,ctx.currentTime+0.05);
+    osc.frequency.exponentialRampToValueAtTime(180,ctx.currentTime+0.25);
+    og.gain.setValueAtTime(0,ctx.currentTime+0.05);
+    og.gain.linearRampToValueAtTime(0.18,ctx.currentTime+0.08);
+    og.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+0.35);
+    osc.start(ctx.currentTime+0.05);
+    osc.stop(ctx.currentTime+0.35);
+  }catch(e){}
+}
+
+function advance(){
+  const card=document.getElementById('fcard');
+  if(!card)return;
+  card.className='card feat-card out';
+  dp.push(FEATS[fi].p);
+  ftimer=setTimeout(()=>{
+    if(fi<FEATS.length-1){
+      fi++;
+      document.getElementById('content').innerHTML=r3();
+      startFeat();
+    } else {
+      const fc=document.getElementById('fc');
+      if(fc)fc.innerHTML=`<div class="card" style="width:100%;text-align:center;">
+        <div class="cr-tr"></div><div class="cr-bl"></div>
+        <div style="font-size:3rem;margin-bottom:0.8rem;animation:floatY 3s ease-in-out infinite;">⚡</div>
+        <div class="fd" style="font-weight:900;font-size:1.5rem;color:var(--gold);margin-bottom:0.6rem;filter:drop-shadow(0 0 10px rgba(201,138,0,0.4));">All 14 Features. One Companion.</div>
+        <div class="fb" style="font-size:0.98rem;line-height:1.9;color:var(--muted);text-align:center;max-width:400px;margin:0 auto 1rem;">This is Rishika. Blessed by Riddhi. Crowned by Siddhi. Always by your child's side.</div>
+        <button onclick="goNext()" class="reg-btn" style="max-width:280px;font-size:0.8rem;padding:0.9rem 2rem;">See the Investment →</button>
+      </div>`;
+    }
+  },520);
+}
+
+// ── INIT ─────────────────────────────────────────────────
+render();
+// Open doors
+setTimeout(()=>{
+  document.getElementById('dL').style.transform='scaleX(0)';
+  document.getElementById('dR').style.transform='scaleX(0)';
+},100);
+
+// Spawn sparks
+for(let i=0;i<18;i++){
+  const s=document.createElement('div');
+  s.className='spark';
+  const size=i%4===0?4:2;
+  s.style.cssText=`width:${size}px;height:${size}px;left:${4+i*5.2}%;bottom:${8+Math.sin(i)*20}%;background:rgba(201,138,0,${0.25+i%3*0.15});animation-duration:${2.5+i*0.4}s;animation-delay:${i*0.25}s;`;
+  document.getElementById('bg').appendChild(s);
+}
+</script>
+</body>
+</html>
