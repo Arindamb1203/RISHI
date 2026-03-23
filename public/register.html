@@ -1,0 +1,1277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RISHI — Register</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Nunito:wght@400;600;700;800;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #fdf6ec;
+    --warm-white: #fffdf8;
+    --gold: #c8922a;
+    --gold-light: #e8b84b;
+    --gold-pale: #f5e6c8;
+    --amber: #d4870a;
+    --sage: #7a8c6e;
+    --sage-light: #a8b89a;
+    --rust: #b85c2a;
+    --charcoal: #2a2218;
+    --mid: #5a4a30;
+    --soft: #8a7a5a;
+    --error: #c0392b;
+    --success: #5a8a5a;
+    --inactive: #c8b89a;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--cream);
+    font-family: 'Nunito', sans-serif;
+    min-height: 100vh;
+    color: var(--charcoal);
+    overflow-x: hidden;
+  }
+
+  /* Background pattern */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(var(--gold-pale) 1px, transparent 1px),
+      linear-gradient(90deg, var(--gold-pale) 1px, transparent 1px);
+    background-size: 40px 40px;
+    opacity: 0.35;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  /* Ghost RISHI text */
+  body::after {
+    content: 'RISHI';
+    position: fixed;
+    bottom: -40px;
+    right: -30px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 220px;
+    font-weight: 900;
+    color: var(--gold-pale);
+    opacity: 0.18;
+    z-index: 0;
+    pointer-events: none;
+    letter-spacing: 10px;
+  }
+
+  /* Floating orb */
+  .orb {
+    position: fixed;
+    top: -80px;
+    right: -80px;
+    width: 320px;
+    height: 320px;
+    background: radial-gradient(circle at 40% 40%, var(--gold-light), var(--amber), #8a4a10);
+    border-radius: 50%;
+    opacity: 0.22;
+    z-index: 0;
+    animation: pulse 4s ease-in-out infinite;
+    pointer-events: none;
+  }
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 0.22; }
+    50% { transform: scale(1.06); opacity: 0.28; }
+  }
+
+  /* HEADER */
+  header {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    padding: 36px 20px 20px;
+  }
+  .logo {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 42px;
+    font-weight: 900;
+    letter-spacing: 8px;
+    background: linear-gradient(135deg, var(--amber), var(--gold-light), var(--rust));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: none;
+  }
+  .tagline {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 13px;
+    color: var(--sage);
+    letter-spacing: 3px;
+    margin-top: 6px;
+    text-transform: uppercase;
+  }
+  .divider {
+    width: 80px;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    margin: 14px auto 0;
+    border-radius: 2px;
+  }
+
+  /* MAIN CONTAINER */
+  .container {
+    position: relative;
+    z-index: 10;
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 0 20px 60px;
+  }
+
+  /* SECTION CARD */
+  .card {
+    background: rgba(255, 253, 248, 0.92);
+    border: 1.5px solid var(--gold-pale);
+    border-radius: 20px;
+    padding: 36px 40px;
+    margin-bottom: 24px;
+    box-shadow: 0 8px 40px rgba(200, 146, 42, 0.10);
+    backdrop-filter: blur(4px);
+  }
+
+  .section-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 13px;
+    letter-spacing: 4px;
+    color: var(--amber);
+    text-transform: uppercase;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-title::after {
+    content: '';
+    flex: 1;
+    height: 1.5px;
+    background: linear-gradient(90deg, var(--gold-pale), transparent);
+  }
+
+  /* FORM FIELDS */
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  .form-grid.single { grid-template-columns: 1fr; }
+  .form-grid.triple { grid-template-columns: 1fr 1fr 1fr; }
+
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+  }
+  .field.span2 { grid-column: span 2; }
+
+  label {
+    font-size: 13px;
+    font-weight: 800;
+    color: var(--mid);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+
+  input, select {
+    font-family: 'Nunito', sans-serif;
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--charcoal);
+    background: var(--warm-white);
+    border: 2px solid var(--gold-pale);
+    border-radius: 10px;
+    padding: 13px 16px;
+    outline: none;
+    transition: border 0.2s, box-shadow 0.2s;
+    width: 100%;
+    appearance: none;
+    -webkit-appearance: none;
+  }
+  input:focus, select:focus {
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(200, 146, 42, 0.12);
+  }
+  input.filled, select.filled {
+    border-color: var(--sage);
+    background: #f5fbf2;
+  }
+  input.error, select.error {
+    border-color: var(--error);
+  }
+
+  select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23c8922a' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    padding-right: 40px;
+    cursor: pointer;
+  }
+
+  .field-note {
+    font-size: 11px;
+    color: var(--soft);
+    font-weight: 600;
+    font-style: italic;
+  }
+  .field-note.inactive-tag {
+    color: var(--rust);
+    font-weight: 700;
+  }
+
+  /* OTP ROW */
+  .otp-row {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+  .otp-row input { flex: 1; }
+  .otp-btn {
+    font-family: 'Nunito', sans-serif;
+    font-size: 13px;
+    font-weight: 800;
+    padding: 13px 18px;
+    border-radius: 10px;
+    border: 2px solid var(--inactive);
+    background: var(--gold-pale);
+    color: var(--inactive);
+    cursor: not-allowed;
+    white-space: nowrap;
+    letter-spacing: 0.5px;
+    opacity: 0.6;
+  }
+
+  /* SCORE ROW */
+  .score-label {
+    font-size: 15px;
+    font-weight: 800;
+    color: var(--mid);
+    align-self: center;
+    padding-top: 28px;
+  }
+
+  /* PROGRESS BAR */
+  .progress-wrap {
+    margin-bottom: 28px;
+  }
+  .progress-label {
+    font-size: 13px;
+    font-weight: 800;
+    color: var(--mid);
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+  }
+  .progress-bar {
+    height: 8px;
+    background: var(--gold-pale);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--sage), var(--gold));
+    border-radius: 4px;
+    transition: width 0.4s ease;
+    width: 0%;
+  }
+
+  /* PAYMENT SECTION */
+  .pay-section {
+    transition: opacity 0.4s;
+  }
+  .pay-section.locked {
+    opacity: 0.45;
+    pointer-events: none;
+  }
+
+  .pay-options {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin-bottom: 20px;
+  }
+  .pay-option {
+    border: 2px solid var(--gold-pale);
+    border-radius: 12px;
+    padding: 16px 12px;
+    text-align: center;
+    cursor: not-allowed;
+    transition: all 0.2s;
+    background: var(--warm-white);
+  }
+  .pay-section:not(.locked) .pay-option {
+    cursor: pointer;
+  }
+  .pay-section:not(.locked) .pay-option:hover {
+    border-color: var(--gold);
+    box-shadow: 0 4px 16px rgba(200,146,42,0.12);
+    transform: translateY(-2px);
+  }
+  .pay-option.selected {
+    border-color: var(--gold);
+    background: var(--gold-pale);
+  }
+  .pay-option-icon { font-size: 28px; margin-bottom: 6px; }
+  .pay-option-label {
+    font-size: 13px;
+    font-weight: 800;
+    color: var(--mid);
+  }
+
+  .amount-display {
+    background: linear-gradient(135deg, var(--gold-pale), #fff9ee);
+    border: 2px solid var(--gold-light);
+    border-radius: 14px;
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  .amount-label { font-size: 14px; font-weight: 800; color: var(--mid); }
+  .amount-value {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 32px;
+    font-weight: 900;
+    color: var(--amber);
+  }
+  .amount-note { font-size: 12px; color: var(--sage); font-weight: 700; margin-top: 2px; }
+
+  .lock-message {
+    text-align: center;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--soft);
+    padding: 10px;
+    font-style: italic;
+  }
+
+  /* BUTTONS */
+  .btn-row {
+    display: flex;
+    gap: 16px;
+    margin-top: 10px;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    font-family: 'Nunito', sans-serif;
+    font-size: 17px;
+    font-weight: 900;
+    border-radius: 12px;
+    padding: 16px 28px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+    letter-spacing: 0.5px;
+    flex: 1;
+    min-width: 200px;
+  }
+
+  .btn-try {
+    background: linear-gradient(135deg, var(--sage), var(--sage-light));
+    color: #fff;
+    box-shadow: 0 4px 20px rgba(122, 140, 110, 0.35);
+  }
+  .btn-try:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 28px rgba(122, 140, 110, 0.45);
+  }
+
+  .btn-pay {
+    background: linear-gradient(135deg, var(--amber), var(--gold-light));
+    color: #fff;
+    box-shadow: 0 4px 20px rgba(212, 135, 10, 0.35);
+  }
+  .btn-pay:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 28px rgba(212, 135, 10, 0.45);
+  }
+  .btn-pay:disabled, .btn-pay.inactive {
+    background: var(--gold-pale);
+    color: var(--inactive);
+    box-shadow: none;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  /* SUCCESS MODAL */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(42, 34, 24, 0.7);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(4px);
+  }
+  .modal-overlay.show { display: flex; }
+
+  .modal {
+    background: var(--warm-white);
+    border: 2px solid var(--gold);
+    border-radius: 24px;
+    padding: 44px 48px;
+    max-width: 520px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 20px 80px rgba(200, 146, 42, 0.25);
+    animation: modalIn 0.3s ease;
+  }
+  @keyframes modalIn {
+    from { transform: scale(0.9); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+  }
+
+  .modal-icon { font-size: 56px; margin-bottom: 16px; }
+  .modal-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 22px;
+    font-weight: 900;
+    color: var(--amber);
+    margin-bottom: 10px;
+  }
+  .modal-sub {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--mid);
+    margin-bottom: 28px;
+    line-height: 1.6;
+  }
+
+  .cred-box {
+    background: var(--gold-pale);
+    border: 1.5px solid var(--gold-light);
+    border-radius: 14px;
+    padding: 20px 24px;
+    margin-bottom: 20px;
+    text-align: left;
+  }
+  .cred-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(200,146,42,0.2);
+  }
+  .cred-row:last-child { border-bottom: none; }
+  .cred-key {
+    font-size: 13px;
+    font-weight: 800;
+    color: var(--mid);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .cred-val {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--charcoal);
+  }
+
+  .link-box {
+    background: #f0f5ee;
+    border: 1.5px solid var(--sage-light);
+    border-radius: 12px;
+    padding: 14px 18px;
+    margin-bottom: 12px;
+    text-align: left;
+  }
+  .link-label {
+    font-size: 12px;
+    font-weight: 800;
+    color: var(--sage);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+  }
+  .link-url {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 13px;
+    color: var(--amber);
+    word-break: break-all;
+    font-weight: 700;
+  }
+  .link-instruction {
+    font-size: 12px;
+    color: var(--soft);
+    font-weight: 700;
+    margin-top: 4px;
+  }
+
+  .btn-modal {
+    font-family: 'Nunito', sans-serif;
+    font-size: 16px;
+    font-weight: 900;
+    background: linear-gradient(135deg, var(--amber), var(--gold-light));
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    padding: 14px 32px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 10px;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 20px rgba(212,135,10,0.3);
+  }
+  .btn-modal:hover { opacity: 0.92; }
+
+  /* REFUND BADGE */
+  .refund-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #f0f5ee;
+    border: 1.5px solid var(--sage-light);
+    border-radius: 30px;
+    padding: 8px 18px;
+    font-size: 13px;
+    font-weight: 800;
+    color: var(--sage);
+    margin-bottom: 20px;
+  }
+
+  /* INACTIVE LIST */
+  .inactive-list {
+    background: #fff8f5;
+    border: 1.5px solid #e8c4b0;
+    border-radius: 14px;
+    padding: 20px 24px;
+    margin-top: 10px;
+  }
+  .inactive-list-title {
+    font-size: 13px;
+    font-weight: 900;
+    color: var(--rust);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .inactive-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 8px 0;
+    border-bottom: 1px solid #f0ddd0;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--mid);
+    line-height: 1.5;
+  }
+  .inactive-item:last-child { border-bottom: none; }
+  .inactive-item::before {
+    content: '🔒';
+    font-size: 14px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  /* VALIDATION MESSAGE */
+  .val-msg {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--error);
+    margin-top: 2px;
+    display: none;
+  }
+  .val-msg.show { display: block; }
+
+  @media (max-width: 600px) {
+    .form-grid { grid-template-columns: 1fr; }
+    .form-grid.triple { grid-template-columns: 1fr 1fr; }
+    .field.span2 { grid-column: span 1; }
+    .card { padding: 24px 20px; }
+    .pay-options { grid-template-columns: 1fr; }
+    .btn-row { flex-direction: column; }
+    .modal { padding: 30px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="orb"></div>
+
+<header>
+  <div class="logo">RISHI</div>
+  <div class="tagline">Riddhi &amp; Siddhi — Always By Your Side</div>
+  <div class="divider"></div>
+</header>
+
+<div class="container">
+
+  <!-- PROGRESS -->
+  <div class="progress-wrap">
+    <div class="progress-label">
+      <span>Registration Progress</span>
+      <span id="progressPercent">0% complete</span>
+    </div>
+    <div class="progress-bar">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
+  </div>
+
+  <!-- STUDENT DETAILS -->
+  <div class="card">
+    <div class="section-title">👦 Student Details</div>
+    <div class="form-grid">
+      <div class="field span2">
+        <label>Student Full Name *</label>
+        <input type="text" id="studentName" placeholder="Enter student's full name" oninput="checkField(this); updateProgress()">
+        <div class="val-msg" id="err-studentName">Please enter student name</div>
+      </div>
+      <div class="field">
+        <label>Board *</label>
+        <select id="board" onchange="checkField(this); updateProgress()">
+          <option value="">— Select Board —</option>
+          <option value="CBSE">CBSE</option>
+          <option value="ICSE">ICSE</option>
+          <option value="WBBSE">WBBSE</option>
+        </select>
+        <div class="val-msg" id="err-board">Please select board</div>
+      </div>
+      <div class="field">
+        <label>Class *</label>
+        <select id="class" onchange="checkField(this); updateProgress()">
+          <option value="">— Select Class —</option>
+          <option value="6">Class VI</option>
+          <option value="7">Class VII</option>
+          <option value="8">Class VIII</option>
+          <option value="9">Class IX</option>
+          <option value="10">Class X</option>
+        </select>
+        <div class="val-msg" id="err-class">Please select class</div>
+      </div>
+      <div class="field" style="position:relative;">
+        <label>School Name *</label>
+        <input type="text" id="schoolName" placeholder="Start typing school name..." 
+          oninput="schoolAutocomplete(this); checkField(this); updateProgress()"
+          onblur="hideSchoolList()" autocomplete="off">
+        <div class="val-msg" id="err-schoolName">Please enter school name</div>
+        <div id="schoolDropdown" style="
+          display:none; position:absolute; top:100%; left:0; right:0; z-index:999;
+          background:#fffdf8; border:2px solid var(--gold); border-top:none;
+          border-radius:0 0 12px 12px; max-height:220px; overflow-y:auto;
+          box-shadow:0 8px 24px rgba(200,146,42,0.18);
+        "></div>
+      </div>
+      <div class="field">
+        <label>Last Exam *</label>
+        <select id="lastExam" onchange="checkField(this); updateProgress()">
+          <option value="">— Select Exam —</option>
+          <option value="Unit">Unit Test</option>
+          <option value="Half Yearly">Half Yearly</option>
+          <option value="Annual">Annual</option>
+        </select>
+        <div class="val-msg" id="err-lastExam">Please select last exam</div>
+      </div>
+    </div>
+    <div class="form-grid triple" style="margin-top:20px; align-items:end;">
+      <div class="field">
+        <label>Scored (Maths) *</label>
+        <input type="number" id="scored" placeholder="e.g. 42" min="0" oninput="checkField(this); updateProgress()">
+        <div class="val-msg" id="err-scored">Enter marks scored</div>
+      </div>
+      <div class="score-label" style="text-align:center; padding-bottom:14px;">out of</div>
+      <div class="field">
+        <label>Out of (Total Marks) *</label>
+        <input type="number" id="outOf" placeholder="e.g. 100" min="1" oninput="checkField(this); updateProgress()">
+        <div class="val-msg" id="err-outOf">Enter total marks</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PARENT DETAILS -->
+  <div class="card">
+    <div class="section-title">👨‍👩‍👦 Parent Details</div>
+    <div class="form-grid">
+      <div class="field">
+        <label>Parent Name *</label>
+        <input type="text" id="parentName" placeholder="Father or Mother's name" oninput="checkField(this); updateProgress()">
+        <div class="val-msg" id="err-parentName">Please enter parent name</div>
+      </div>
+      <div class="field">
+        <label>Primary Mobile *</label>
+        <div class="otp-row">
+          <input type="tel" id="primaryMobile" placeholder="10-digit mobile" maxlength="10"
+            oninput="this.value=this.value.replace(/\D/g,''); checkField(this); updateProgress()">
+          <!-- 🔒 INACTIVE: OTP verification button -->
+          <button class="otp-btn" disabled title="OTP verification — coming soon">Send OTP</button>
+        </div>
+        <div class="field-note inactive-tag">🔒 OTP verification inactive — to be activated later</div>
+        <div class="val-msg" id="err-primaryMobile">Enter valid 10-digit mobile</div>
+      </div>
+      <div class="field">
+        <label>Alternate Mobile</label>
+        <div class="otp-row">
+          <!-- 🔒 INACTIVE: Alternate mobile OTP -->
+          <input type="tel" id="altMobile" placeholder="10-digit mobile (optional)" maxlength="10"
+            oninput="this.value=this.value.replace(/\D/g,'')">
+          <button class="otp-btn" disabled title="OTP verification — coming soon">Send OTP</button>
+        </div>
+        <div class="field-note inactive-tag">🔒 OTP verification inactive — to be activated later</div>
+      </div>
+      <div class="field">
+        <label>Parent Email (optional)</label>
+        <input type="email" id="parentEmail" placeholder="For login link delivery" oninput="updateProgress()">
+      </div>
+    </div>
+  </div>
+
+  <!-- PAYMENT SECTION -->
+  <div class="card pay-section locked" id="paySection">
+    <div class="section-title">💳 Subscription &amp; Payment</div>
+
+    <div class="lock-message" id="lockMsg">⬆ Please complete all student &amp; parent details above to unlock payment</div>
+
+    <div class="refund-badge">✅ 100% refund if not satisfied after 1st month — no questions asked</div>
+
+    <div class="amount-display">
+      <div>
+        <div class="amount-label">Monthly Subscription</div>
+        <div class="amount-note">Cancel anytime · Progress always saved</div>
+      </div>
+      <div style="text-align:right">
+        <div class="amount-value">₹299</div>
+        <div class="amount-note">vs Home Tutor ₹1,500/month</div>
+      </div>
+    </div>
+
+    <div style="font-size:14px; font-weight:800; color:var(--mid); margin-bottom:12px;">Select Payment Method</div>
+    <div class="pay-options">
+      <!-- 🔒 INACTIVE: All 3 payment options — coded, ready, bracketed -->
+      <div class="pay-option" onclick="selectPay(this, 'UPI')">
+        <div class="pay-option-icon">📱</div>
+        <div class="pay-option-label">UPI</div>
+      </div>
+      <div class="pay-option" onclick="selectPay(this, 'Card')">
+        <div class="pay-option-icon">💳</div>
+        <div class="pay-option-label">Credit / Debit Card</div>
+      </div>
+      <div class="pay-option" onclick="selectPay(this, 'Bank')">
+        <div class="pay-option-icon">🏦</div>
+        <div class="pay-option-label">Bank Transfer</div>
+      </div>
+    </div>
+
+    <div class="btn-row">
+      <!-- 🔒 INACTIVE: Pay Now button — coded, ready, bracketed -->
+      <button class="btn btn-pay inactive" id="payBtn" disabled onclick="handlePayment()">
+        Pay ₹299 &amp; Begin
+      </button>
+    </div>
+  </div>
+
+  <!-- TRY FOR 1 DAY -->
+  <div class="card" style="text-align:center; padding:28px 40px;">
+    <div style="font-size:15px; font-weight:800; color:var(--mid); margin-bottom:6px;">Want to explore first?</div>
+    <div style="font-size:13px; font-weight:700; color:var(--soft); margin-bottom:20px;">Try the full app free for 1 day — no payment needed</div>
+    <button class="btn btn-try" id="tryBtn" onclick="handleTry()" style="max-width:320px; margin:0 auto; display:block;">
+      ✨ Try for 1 Day — Free
+    </button>
+    <div style="font-size:12px; color:var(--soft); margin-top:10px; font-weight:700;">
+      All registration details above must be filled to try
+    </div>
+  </div>
+
+
+
+</div>
+
+<!-- SUCCESS MODAL -->
+<div class="modal-overlay" id="successModal">
+  <div class="modal">
+    <div class="modal-icon">🎉</div>
+    <div class="modal-title">Welcome to RISHI!</div>
+    <div class="modal-sub" id="modalSub">Your journey with Rishika begins now.</div>
+
+    <div class="cred-box">
+      <div class="cred-row">
+        <span class="cred-key">Username</span>
+        <span class="cred-val" id="modalUser">—</span>
+      </div>
+      <div class="cred-row">
+        <span class="cred-key">Password</span>
+        <span class="cred-val" id="modalPass">—</span>
+      </div>
+    </div>
+
+    <div style="font-size:13px; font-weight:800; color:var(--rust); margin-bottom:14px; text-align:left;">
+      📌 Please save these credentials. Then open both links below and bookmark them.
+    </div>
+
+    <div class="link-box">
+      <div class="link-label">🎓 Student Link</div>
+      <div class="link-url" id="studentLink">—</div>
+      <div class="link-instruction">Open this in browser → Bookmark it in Bookmark Bar → Student will start here</div>
+    </div>
+
+    <div class="link-box">
+      <div class="link-label">👨‍👩‍👦 Parent Dashboard Link</div>
+      <div class="link-url" id="parentLink">—</div>
+      <div class="link-instruction">Open this in browser → Bookmark it → Monitor your child's activity from here</div>
+    </div>
+
+    <button class="btn-modal" onclick="closeModal()">Got it! Let's Begin ✨</button>
+  </div>
+</div>
+
+<script>
+// ============================================================
+// REQUIRED FIELDS FOR VALIDATION
+// ============================================================
+const requiredFields = [
+  'studentName','board','class','schoolName','lastExam',
+  'scored','outOf','parentName','primaryMobile'
+];
+
+// ============================================================
+// TEST ACCOUNTS — 3 BOARDS
+// ============================================================
+const testAccounts = {
+  CBSE:  { username: 'RISHI-CBSE-001',  password: 'Password' },
+  ICSE:  { username: 'RISHI-ICSE-001',  password: 'Password' },
+  WBBSE: { username: 'RISHI-WBBSE-001', password: 'Password' }
+};
+
+// ============================================================
+// PROGRESS TRACKER
+// ============================================================
+function updateProgress() {
+  let filled = 0;
+  requiredFields.forEach(id => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const val = el.value.trim();
+    if (val !== '' && val !== '0') {
+      if (id === 'primaryMobile' && val.length < 10) return;
+      filled++;
+    }
+  });
+  const pct = Math.round((filled / requiredFields.length) * 100);
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressPercent').textContent = pct + '% complete';
+
+  const allDone = (filled === requiredFields.length);
+  const paySection = document.getElementById('paySection');
+  const lockMsg = document.getElementById('lockMsg');
+
+  if (allDone) {
+    paySection.classList.remove('locked');
+    lockMsg.style.display = 'none';
+    // 🔒 INACTIVE: Pay button stays disabled (payment gateway not active)
+    // To activate: remove 'disabled' attribute and 'inactive' class from payBtn
+    // document.getElementById('payBtn').disabled = false;
+    // document.getElementById('payBtn').classList.remove('inactive');
+  } else {
+    paySection.classList.add('locked');
+    lockMsg.style.display = 'block';
+  }
+}
+
+// ============================================================
+// FIELD VISUAL FEEDBACK
+// ============================================================
+function checkField(el) {
+  const val = el.value.trim();
+  if (val !== '' && val !== '0') {
+    if (el.id === 'primaryMobile' && val.length < 10) {
+      el.classList.remove('filled');
+      el.classList.add('error');
+      return;
+    }
+    el.classList.add('filled');
+    el.classList.remove('error');
+  } else {
+    el.classList.remove('filled');
+  }
+}
+
+// ============================================================
+// PAYMENT METHOD SELECTION
+// ============================================================
+function selectPay(el, method) {
+  document.querySelectorAll('.pay-option').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+  // 🔒 INACTIVE: Payment processing logic below
+  // When gateway is active — trigger respective payment flow here
+  // if (method === 'UPI') { initiateUPIPayment(); }
+  // if (method === 'Card') { initiateCardPayment(); }
+  // if (method === 'Bank') { initiateBankTransfer(); }
+}
+
+// ============================================================
+// 🔒 INACTIVE: REAL PAYMENT HANDLER
+// ============================================================
+function handlePayment() {
+  // 🔒 INACTIVE — payment gateway not connected yet
+  // Steps when activated:
+  // 1. Validate all fields
+  // 2. Send to payment gateway (Razorpay / PhonePe / etc.)
+  // 3. On success → call generateAndShow(true)
+  // 4. Save data to Google Sheet + localStorage
+  alert('Payment gateway coming soon! Please use Try for 1 Day to explore.');
+}
+
+// ============================================================
+// TRY FOR 1 DAY — ACTIVE
+// ============================================================
+function handleTry() {
+  if (!validateAll()) return;
+  saveToLocalStorage('trial');
+  generateAndShow(false);
+}
+
+// ============================================================
+// VALIDATE ALL REQUIRED FIELDS
+// ============================================================
+function validateAll() {
+  let valid = true;
+  requiredFields.forEach(id => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const val = el.value.trim();
+    const errEl = document.getElementById('err-' + id);
+    let fieldOk = val !== '' && val !== '0';
+    if (id === 'primaryMobile' && val.length < 10) fieldOk = false;
+    if (!fieldOk) {
+      el.classList.add('error');
+      if (errEl) errEl.classList.add('show');
+      valid = false;
+    } else {
+      el.classList.remove('error');
+      if (errEl) errEl.classList.remove('show');
+    }
+  });
+  if (!valid) {
+    document.querySelector('.card').scrollIntoView({ behavior: 'smooth' });
+  }
+  return valid;
+}
+
+// ============================================================
+// SAVE TO LOCALSTORAGE
+// ============================================================
+function saveToLocalStorage(type) {
+  const data = {
+    studentName: document.getElementById('studentName').value.trim(),
+    board: document.getElementById('board').value,
+    class: document.getElementById('class').value,
+    schoolName: document.getElementById('schoolName').value.trim(),
+    lastExam: document.getElementById('lastExam').value,
+    scored: document.getElementById('scored').value,
+    outOf: document.getElementById('outOf').value,
+    parentName: document.getElementById('parentName').value.trim(),
+    primaryMobile: document.getElementById('primaryMobile').value,
+    altMobile: document.getElementById('altMobile').value,
+    parentEmail: document.getElementById('parentEmail').value.trim(),
+    registrationType: type,  // 'trial' or 'paid'
+    registeredAt: new Date().toISOString()
+  };
+  const existing = JSON.parse(localStorage.getItem('rishi_registrations') || '[]');
+  existing.push(data);
+  localStorage.setItem('rishi_registrations', JSON.stringify(existing));
+  localStorage.setItem('rishi_current_student', JSON.stringify(data));
+
+  // 🔒 INACTIVE: Google Sheet / backend save
+  // When activated, call: sendToGoogleSheet(data);
+}
+
+// ============================================================
+// 🔒 INACTIVE: GOOGLE SHEET FUNCTION (READY TO WIRE)
+// ============================================================
+// async function sendToGoogleSheet(data) {
+//   const SHEET_URL = 'YOUR_SHEETDB_OR_SHEETBEST_URL_HERE';
+//   await fetch(SHEET_URL, {
+//     method: 'POST',
+//     headers: { 'Content-Type': 'application/json' },
+//     body: JSON.stringify({ data })
+//   });
+// }
+
+// ============================================================
+// GENERATE USERNAME & SHOW MODAL
+// ============================================================
+function generateAndShow(isPaid) {
+  const board = document.getElementById('board').value;
+  const studentName = document.getElementById('studentName').value.trim();
+  const cls = document.getElementById('class').value;
+
+  const account = testAccounts[board] || testAccounts['CBSE'];
+
+  // Student link → goes to Class 8 syllabus (placeholder)
+  const studentUrl = window.location.origin + '/syllabus.html?user=' + account.username + '&class=' + cls + '&board=' + board;
+  // Parent link → goes to parent dashboard (placeholder)
+  const parentUrl = window.location.origin + '/parent-dashboard.html?user=' + account.username + '&board=' + board;
+
+  document.getElementById('modalSub').textContent =
+    'Hello ' + studentName.split(' ')[0] + '! Rishika is ready to sit beside you. 🌟';
+  document.getElementById('modalUser').textContent = account.username;
+  document.getElementById('modalPass').textContent = account.password;
+  document.getElementById('studentLink').textContent = studentUrl;
+  document.getElementById('parentLink').textContent = parentUrl;
+
+  document.getElementById('successModal').classList.add('show');
+}
+
+function closeModal() {
+  document.getElementById('successModal').classList.remove('show');
+  const board = document.getElementById('board').value;
+  const cls = document.getElementById('class').value;
+  const account = testAccounts[board] || testAccounts['CBSE'];
+  window.location.href = '/syllabus.html?user=' + account.username + '&class=' + cls + '&board=' + board;
+}
+
+// ============================================================
+// KOLKATA SCHOOLS — 150+ SCHOOLS (CBSE, ICSE, WBBSE)
+// ============================================================
+const kolkataSchools = [
+  // CBSE
+  "South Point High School",
+  "South Point School",
+  "DPS Ruby Park",
+  "DPS Newtown",
+  "DPS Megacity",
+  "Delhi Public School (DPS) Howrah",
+  "The Newtown School",
+  "The BSS School",
+  "Birla High School",
+  "Birla High School for Girls",
+  "The Heritage School",
+  "Heritage School Kolkata",
+  "Ryan International School Kolkata",
+  "Calcutta International School",
+  "The Future Foundation School",
+  "Indus Valley World School",
+  "Techno India Group Public School",
+  "Techno India Group Public School Salt Lake",
+  "Techno India Group Public School Hooghly",
+  "Greenwood High School Kolkata",
+  "The Aryans School",
+  "Lakshmipat Singhania Academy",
+  "Julien Day School",
+  "Julien Day School Barrackpore",
+  "Modern High School for Girls",
+  "Modern Academy",
+  "G.D. Birla Centre for Education",
+  "Vidya Mandir",
+  "Vidya Mandir Sarat Bose Road",
+  "Vivekananda Mission School",
+  "Calcutta Airport English School",
+  "Assembly of God Church School",
+  "Auxilium Convent School",
+  "Auxilium Convent School Bandel",
+  "Mahadevi Birla World Academy",
+  "Pratt Memorial School",
+  "Ashok Hall Girls' Higher Secondary School",
+  "Ashok Hall School",
+  "Nopany School",
+  "Springdale High School",
+  "The Millennium School Kolkata",
+  "National High School",
+  "Carmel High School",
+  "Carmel School Howrah",
+  "St. Xavier's High School Durgapur",
+  "Bal Bharati Public School Kolkata",
+  "Army Public School Barrackpore",
+  "Kendriya Vidyalaya Salt Lake",
+  "Kendriya Vidyalaya Ballygunge",
+  "Kendriya Vidyalaya Fort William",
+  "Kendriya Vidyalaya Alipore",
+  "Kendriya Vidyalaya Jadavpur",
+  "Kendriya Vidyalaya Barrackpore",
+  "Kendriya Vidyalaya Behala",
+  "Kendriya Vidyalaya Garden Reach",
+  "Kendriya Vidyalaya No. 1 Kolkata",
+  "Kendriya Vidyalaya No. 2 Kolkata",
+  "Navodaya Vidyalaya Kolkata",
+  "Sushila Birla Girls' School",
+  "Sudhir Memorial Institute",
+  "Sudhir Memorial Institute Liluah",
+  "Apeejay School Park Street",
+  "Apeejay School Salt Lake",
+  "Rosary High School",
+  "Lok Siksha Niketan",
+  "Bankura Christian Collegiate School",
+  "The Orchid School Kolkata",
+  "Hiland Park Public School",
+  "The Tapan Sinha Academy",
+  "NPS International School Kolkata",
+  "Calcutta Boys' School",
+  "Patha Bhavana",
+  "Ramakrishna Mission Narendrapur",
+  "Ramakrishna Mission Vidyamandira",
+  // ICSE
+  "St. Xavier's Collegiate School",
+  "St. Xavier's High School Kolkata",
+  "St. James' School",
+  "La Martiniere for Boys",
+  "La Martiniere for Girls",
+  "Loreto House",
+  "Loreto Day School Bowbazar",
+  "Loreto Day School Dharmatala",
+  "Loreto Convent Entally",
+  "St. Paul's Cathedral Mission College School",
+  "St. Thomas' Boys' School",
+  "St. Thomas' Girls' School",
+  "Don Bosco School Park Circus",
+  "Don Bosco School Liluah",
+  "Don Bosco School Bandel",
+  "Carmel High School Kolkata",
+  "Holy House of Loreto",
+  "Sacred Heart School",
+  "Bethany High School",
+  "Christ Church School",
+  "South Point School (ICSE Section)",
+  "Mahadevi Birla World Academy",
+  "Frank Anthony Public School",
+  "Sri Aurobindo Institute of Education",
+  "The Asutosh Centenary School",
+  "Gokhale Memorial Girls' School",
+  "Pratt Memorial School",
+  "Sri Sri Academy",
+  "Lakshmipat Singhania Academy",
+  "The Punjab School",
+  "Welhams Girls' School Kolkata",
+  "Calcutta International School",
+  "Springdale School",
+  "Assembly of God Church School",
+  "Victoria Boys' School",
+  "Victoria Girls' School",
+  "St. John's Diocesan Girls' Higher Secondary School",
+  "Kenilworth Girls' High School",
+  "Scottish Church Collegiate School",
+  "St. Augustine's Day School",
+  "Sushila Birla Girls' School",
+  "La Salle Day School",
+  "Loyola High School Jamshedpur",
+  "St. Michael's School Kolkata",
+  "Carmel Convent School",
+  "Indrani Bala Girls' Academy",
+  "The Oxford School Kolkata",
+  "Dum Dum Motijheel Rabindra Vidyapith",
+  // WBBSE
+  "Mitra Institution",
+  "Mitra Institution (Main)",
+  "Taki House Boys' School",
+  "Taki House Girls' School",
+  "Hindu School",
+  "Hare School",
+  "Presidency Collegiate School",
+  "Arambagh High School",
+  "Baranagar Ramkrishna Mission Ashrama High School",
+  "Beleghata High School",
+  "Barisha High School",
+  "Behala High School",
+  "Patha Bhavana",
+  "Vivekananda Vidyamandir",
+  "Bagbazar Multi-Purpose Girls' School",
+  "Bangabasi Morning College School",
+  "Baghajatin R.K. Institution",
+  "Shibpur Dinobundhoo Institution",
+  "Nabapalli High School",
+  "Kamala Girls' High School",
+  "Jodhpur Park Boys' School",
+  "Jodhpur Park Girls' School",
+  "Jadavpur Vidyapith",
+  "Jadavpur Shibmandir High School",
+  "Lake School for Girls",
+  "Bosepukur Shitalatala High School",
+  "Shyambazar A V School",
+  "Mahadevi Birla Girls' High School",
+  "South Suburban School",
+  "Baruipur High School",
+  "Mathabhanga High School",
+  "Tollygunge Govt. Sponsored Siksha Niketan",
+  "Uttarpara Govt. High School",
+  "Serampore Girls' High School",
+  "Serampore Union Institution",
+  "Bally Institution",
+  "Kanchangaria High School",
+  "Asansol Girls' High School",
+  "Asansol High School",
+  "Contai High School",
+  "Midnapore Collegiate School",
+  "Durgapur Steel Township School",
+  "Khalsa High School",
+  "Rajpur Sonarpur High School",
+  "Naktala High School",
+  "Sonarpur Siksha Sadan",
+  "Champahati High School",
+  "Garia High School",
+  "Baghajatin High School",
+  "Dum Dum Motijheel College",
+  "Dum Dum Motijheel Girls' High School",
+  "North Point School Darjeeling",
+  "St. Joseph's Convent Darjeeling",
+  "Dow Hill School Kurseong"
+];
+
+// Sort alphabetically
+kolkataSchools.sort((a, b) => a.localeCompare(b));
+
+// ============================================================
+// AUTOCOMPLETE LOGIC
+// ============================================================
+function schoolAutocomplete(input) {
+  const val = input.value.trim().toLowerCase();
+  const dropdown = document.getElementById('schoolDropdown');
+
+  if (val.length < 2) {
+    dropdown.style.display = 'none';
+    return;
+  }
+
+  const matches = kolkataSchools.filter(s => s.toLowerCase().includes(val));
+
+  if (matches.length === 0) {
+    dropdown.style.display = 'none';
+    return;
+  }
+
+  dropdown.innerHTML = matches.slice(0, 10).map(s => {
+    const highlighted = s.replace(new RegExp('(' + val.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'gi'),
+      '<strong style="color:var(--amber);">$1</strong>');
+    return `<div onmousedown="pickSchool('${s.replace(/'/g, "\\'")}')" style="
+      padding: 11px 16px;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--charcoal);
+      cursor: pointer;
+      border-bottom: 1px solid var(--gold-pale);
+      transition: background 0.15s;
+    " onmouseover="this.style.background='var(--gold-pale)'"
+       onmouseout="this.style.background=''">${highlighted}</div>`;
+  }).join('');
+
+  dropdown.style.display = 'block';
+}
+
+function pickSchool(name) {
+  const input = document.getElementById('schoolName');
+  input.value = name;
+  input.classList.add('filled');
+  input.classList.remove('error');
+  document.getElementById('schoolDropdown').style.display = 'none';
+  updateProgress();
+}
+
+function hideSchoolList() {
+  setTimeout(() => {
+    document.getElementById('schoolDropdown').style.display = 'none';
+  }, 150);
+}
+</script>
+
+</body>
+</html>
