@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RISHI — Syllabus</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Nunito:wght@400;600;700;800;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #fdf6ec;
+    --warm-white: #fffdf8;
+    --gold: #c8922a;
+    --gold-light: #e8b84b;
+    --gold-pale: #f5e6c8;
+    --amber: #d4870a;
+    --sage: #7a8c6e;
+    --sage-light: #a8b89a;
+    --rust: #b85c2a;
+    --charcoal: #2a2218;
+    --mid: #5a4a30;
+    --soft: #8a7a5a;
+    --inactive: #c8b89a;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--cream);
+    font-family: 'Nunito', sans-serif;
+    min-height: 100vh;
+    color: var(--charcoal);
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(var(--gold-pale) 1px, transparent 1px),
+      linear-gradient(90deg, var(--gold-pale) 1px, transparent 1px);
+    background-size: 40px 40px;
+    opacity: 0.3;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  /* ── TOP BAR ── */
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(253,246,236,0.96);
+    border-bottom: 1.5px solid var(--gold-pale);
+    backdrop-filter: blur(8px);
+    padding: 14px 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .topbar-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .logo-small {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 22px;
+    font-weight: 900;
+    letter-spacing: 4px;
+    background: linear-gradient(135deg, var(--amber), var(--gold-light));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .student-chip {
+    background: var(--gold-pale);
+    border: 1.5px solid var(--gold-light);
+    border-radius: 20px;
+    padding: 6px 14px;
+    font-size: 13px;
+    font-weight: 800;
+    color: var(--mid);
+  }
+
+  .board-chip {
+    background: #eef2eb;
+    border: 1.5px solid var(--sage-light);
+    border-radius: 20px;
+    padding: 6px 14px;
+    font-size: 13px;
+    font-weight: 800;
+    color: var(--sage);
+  }
+
+  /* ── EXAM FILTER ── */
+  .filter-bar {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 20px 28px 0;
+    flex-wrap: wrap;
+  }
+
+  .filter-label {
+    font-size: 12px;
+    font-weight: 900;
+    color: var(--soft);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-right: 4px;
+  }
+
+  .filter-btn {
+    font-family: 'Nunito', sans-serif;
+    font-size: 14px;
+    font-weight: 800;
+    padding: 9px 20px;
+    border-radius: 20px;
+    border: 2px solid var(--gold-pale);
+    background: var(--warm-white);
+    color: var(--soft);
+    cursor: pointer;
+    transition: all 0.2s;
+    letter-spacing: 0.3px;
+  }
+  .filter-btn:hover {
+    border-color: var(--gold);
+    color: var(--amber);
+  }
+  .filter-btn.active {
+    background: linear-gradient(135deg, var(--amber), var(--gold-light));
+    border-color: var(--amber);
+    color: #fff;
+    box-shadow: 0 4px 16px rgba(212,135,10,0.25);
+  }
+
+  /* ── AI PLAN BANNER ── */
+  .plan-banner {
+    position: relative;
+    z-index: 10;
+    margin: 18px 28px 0;
+    background: linear-gradient(135deg, #eef2eb, #f5fbf2);
+    border: 1.5px solid var(--sage-light);
+    border-radius: 14px;
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--sage);
+    display: none;
+  }
+  .plan-banner.show { display: flex; }
+  .plan-banner strong { color: var(--mid); }
+
+  /* ── MAIN CONTENT ── */
+  .main {
+    position: relative;
+    z-index: 10;
+    max-width: 860px;
+    margin: 24px auto 60px;
+    padding: 0 20px;
+  }
+
+  .page-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 15px;
+    letter-spacing: 4px;
+    color: var(--amber);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .page-sub {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--soft);
+    margin-bottom: 24px;
+  }
+  .page-sub span { color: var(--mid); font-weight: 900; }
+
+  /* ── TOPIC CARD ── */
+  .topic-card {
+    background: rgba(255,253,248,0.94);
+    border: 1.5px solid var(--gold-pale);
+    border-radius: 18px;
+    margin-bottom: 16px;
+    box-shadow: 0 4px 20px rgba(200,146,42,0.07);
+    overflow: hidden;
+    transition: box-shadow 0.2s;
+  }
+  .topic-card:hover { box-shadow: 0 6px 28px rgba(200,146,42,0.13); }
+  .topic-card.highlighted { border-color: var(--sage-light); }
+
+  .topic-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 24px;
+    cursor: pointer;
+    user-select: none;
+    gap: 12px;
+  }
+
+  .topic-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .topic-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+  }
+
+  .topic-name {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--charcoal);
+    letter-spacing: 1px;
+  }
+  .topic-meta {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--soft);
+    margin-top: 3px;
+  }
+
+  .topic-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .chapter-count {
+    font-size: 12px;
+    font-weight: 800;
+    color: var(--soft);
+    background: var(--gold-pale);
+    border-radius: 10px;
+    padding: 4px 12px;
+  }
+
+  .exam-tag {
+    font-size: 11px;
+    font-weight: 800;
+    padding: 4px 12px;
+    border-radius: 10px;
+    background: #eef2eb;
+    color: var(--sage);
+    display: none;
+  }
+  .exam-tag.show { display: block; }
+
+  .chevron {
+    font-size: 18px;
+    color: var(--gold);
+    transition: transform 0.3s;
+    flex-shrink: 0;
+  }
+  .topic-card.open .chevron { transform: rotate(180deg); }
+
+  /* ── CHAPTERS ── */
+  .chapters-wrap {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+  }
+  .topic-card.open .chapters-wrap {
+    max-height: 2000px;
+  }
+
+  .chapters-inner {
+    border-top: 1.5px solid var(--gold-pale);
+    padding: 6px 0 12px;
+  }
+
+  .chapter-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 13px 24px;
+    gap: 12px;
+    border-bottom: 1px solid rgba(245,230,200,0.5);
+    transition: background 0.15s;
+    flex-wrap: wrap;
+  }
+  .chapter-row:last-child { border-bottom: none; }
+  .chapter-row:hover { background: rgba(245,230,200,0.25); }
+
+  .ch-num {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 12px;
+    color: var(--inactive);
+    font-weight: 700;
+    flex-shrink: 0;
+    width: 28px;
+  }
+
+  .ch-name {
+    font-size: 15px;
+    font-weight: 800;
+    color: var(--charcoal);
+    flex: 1;
+    min-width: 140px;
+  }
+
+  .ch-btns {
+    display: flex;
+    gap: 8px;
+    flex-shrink: 0;
+  }
+
+  .ch-btn {
+    font-family: 'Nunito', sans-serif;
+    font-size: 12px;
+    font-weight: 900;
+    padding: 7px 14px;
+    border-radius: 8px;
+    border: 1.5px solid var(--gold-pale);
+    background: var(--warm-white);
+    color: var(--inactive);
+    cursor: not-allowed;
+    letter-spacing: 0.3px;
+    transition: all 0.2s;
+    opacity: 0.7;
+  }
+  /* When unlocked (future) */
+  .ch-btn.unlocked {
+    color: var(--mid);
+    border-color: var(--gold);
+    cursor: pointer;
+    opacity: 1;
+  }
+  .ch-btn.unlocked:hover {
+    background: var(--gold-pale);
+    transform: translateY(-1px);
+  }
+  .ch-btn.btn-explain.unlocked { border-color: var(--sage-light); color: var(--sage); }
+  .ch-btn.btn-practice.unlocked { border-color: var(--gold); color: var(--amber); }
+  .ch-btn.btn-exam.unlocked { border-color: var(--rust); color: var(--rust); }
+
+  /* ── PROGRESS DOTS ── */
+  .ch-progress {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+    flex-shrink: 0;
+  }
+  .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--gold-pale);
+    border: 1.5px solid var(--inactive);
+  }
+  .dot.done { background: var(--sage); border-color: var(--sage); }
+
+  /* ── BOTTOM NOTE ── */
+  .bottom-note {
+    text-align: center;
+    padding: 20px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--soft);
+    font-style: italic;
+  }
+
+  @media (max-width: 600px) {
+    .topbar { padding: 12px 16px; }
+    .filter-bar { padding: 16px 16px 0; }
+    .plan-banner { margin: 14px 16px 0; }
+    .main { padding: 0 12px; }
+    .topic-header { padding: 16px; }
+    .chapter-row { padding: 12px 16px; }
+    .ch-btns { gap: 5px; }
+    .ch-btn { padding: 6px 10px; font-size: 11px; }
+    .topic-name { font-size: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="topbar-left">
+    <div class="logo-small">RISHI</div>
+    <div class="student-chip" id="studentChip">👦 Student</div>
+    <div class="board-chip" id="boardChip">CBSE · Class 8</div>
+  </div>
+  <div style="font-size:12px; font-weight:800; color:var(--soft); cursor:pointer;" onclick="window.location.href='/login.html'">← Logout</div>
+</div>
+
+<!-- EXAM FILTER -->
+<div class="filter-bar">
+  <span class="filter-label">Show for:</span>
+  <button class="filter-btn active" onclick="setFilter('all', this)">📚 All Syllabus</button>
+  <button class="filter-btn" onclick="setFilter('unit', this)">📝 Unit Test</button>
+  <button class="filter-btn" onclick="setFilter('half', this)">📋 Half Yearly</button>
+  <button class="filter-btn" onclick="setFilter('annual', this)">🎯 Annual</button>
+</div>
+
+<!-- AI PLAN BANNER -->
+<div class="plan-banner" id="planBanner">
+  <span style="font-size:20px;">🧠</span>
+  <div><strong>Rishika's Study Plan:</strong> <span id="planText">Based on your exam selection, focus chapters are highlighted below.</span></div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+  <div class="page-title">Class 8 · CBSE · Mathematics</div>
+  <div class="page-sub" id="pageSubText">Showing <span>full syllabus</span> — click any topic to expand chapters</div>
+
+  <!-- TOPICS -->
+  <div id="topicsContainer"></div>
+
+  <div class="bottom-note">
+    🔒 Explain · Practice · Exam — will unlock as content is added chapter by chapter
+  </div>
+</div>
+
+<script>
+// ============================================================
+// CLASS 8 CBSE MATHS — FULL SYLLABUS
+// ============================================================
+const syllabus = [
+  {
+    id: 'arithmetic',
+    name: 'Arithmetic',
+    icon: '🔢',
+    color: '#fff3e0',
+    iconBg: '#fff3e0',
+    examMap: { unit: true, half: true, annual: true },
+    chapters: [
+      { name: 'Rational Numbers' },
+      { name: 'Powers and Exponents' },
+      { name: 'Direct and Inverse Proportions' },
+      { name: 'Comparing Quantities' },
+      { name: 'Playing with Numbers' },
+    ]
+  },
+  {
+    id: 'algebra',
+    name: 'Algebra',
+    icon: '🔣',
+    color: '#fce4ec',
+    iconBg: '#fce4ec',
+    examMap: { unit: true, half: true, annual: true },
+    chapters: [
+      { name: 'Algebraic Expressions and Identities' },
+      { name: 'Factorisation' },
+      { name: 'Linear Equations in One Variable' },
+      { name: 'Introduction to Graphs' },
+    ]
+  },
+  {
+    id: 'geometry',
+    name: 'Geometry',
+    icon: '📐',
+    color: '#e8f5e9',
+    iconBg: '#e8f5e9',
+    examMap: { unit: false, half: true, annual: true },
+    chapters: [
+      { name: 'Understanding Quadrilaterals' },
+      { name: 'Practical Geometry' },
+      { name: 'Visualising Solid Shapes' },
+    ]
+  },
+  {
+    id: 'mensuration',
+    name: 'Mensuration',
+    icon: '📏',
+    color: '#e3f2fd',
+    iconBg: '#e3f2fd',
+    examMap: { unit: false, half: true, annual: true },
+    chapters: [
+      { name: 'Mensuration — Area of Plane Figures' },
+      { name: 'Surface Area and Volume of Solids' },
+    ]
+  },
+  {
+    id: 'data',
+    name: 'Data Handling',
+    icon: '📊',
+    color: '#f3e5f5',
+    iconBg: '#f3e5f5',
+    examMap: { unit: false, half: false, annual: true },
+    chapters: [
+      { name: 'Data Handling — Frequency Distribution' },
+      { name: 'Chance and Probability' },
+    ]
+  }
+];
+
+let currentFilter = 'all';
+
+// ============================================================
+// LOAD STUDENT INFO
+// ============================================================
+window.onload = function() {
+  const params = new URLSearchParams(window.location.search);
+  const student = JSON.parse(localStorage.getItem('rishi_current_student') || '{}');
+  const name = student.studentName || 'Student';
+  const board = params.get('board') || student.board || 'CBSE';
+  const cls = params.get('class') || student.class || '8';
+
+  document.getElementById('studentChip').textContent = '👦 ' + name.split(' ')[0];
+  document.getElementById('boardChip').textContent = board + ' · Class ' + cls;
+
+  renderTopics();
+};
+
+// ============================================================
+// FILTER
+// ============================================================
+function setFilter(filter, btn) {
+  currentFilter = filter;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+
+  const banner = document.getElementById('planBanner');
+  const subText = document.getElementById('pageSubText');
+
+  if (filter === 'all') {
+    banner.classList.remove('show');
+    subText.innerHTML = 'Showing <span>full syllabus</span> — click any topic to expand chapters';
+  } else {
+    banner.classList.add('show');
+    const labels = { unit: 'Unit Test', half: 'Half Yearly', annual: 'Annual Exam' };
+    const plans = {
+      unit:   'Arithmetic & Algebra are your focus for Unit Test. Practise these first.',
+      half:   'Arithmetic, Algebra, Geometry & Mensuration — all covered in Half Yearly.',
+      annual: 'Full syllabus — all 5 topics included in Annual Exam.'
+    };
+    document.getElementById('planText').textContent = plans[filter];
+    subText.innerHTML = 'Showing chapters for <span>' + labels[filter] + '</span>';
+  }
+
+  renderTopics();
+}
+
+// ============================================================
+// RENDER TOPICS
+// ============================================================
+function renderTopics() {
+  const container = document.getElementById('topicsContainer');
+  container.innerHTML = '';
+
+  syllabus.forEach((topic, ti) => {
+    const inScope = currentFilter === 'all' || topic.examMap[currentFilter];
+
+    const card = document.createElement('div');
+    card.className = 'topic-card' + (inScope ? ' highlighted' : '');
+    card.style.opacity = inScope ? '1' : '0.45';
+
+    const examTagHTML = currentFilter !== 'all'
+      ? `<span class="exam-tag ${inScope ? 'show' : ''}">${inScope ? '✅ In Exam' : '⬜ Not in this exam'}</span>`
+      : '';
+
+    card.innerHTML = `
+      <div class="topic-header" onclick="toggleTopic(this)">
+        <div class="topic-left">
+          <div class="topic-icon" style="background:${topic.iconBg}">${topic.icon}</div>
+          <div>
+            <div class="topic-name">${topic.name}</div>
+            <div class="topic-meta">${topic.chapters.length} chapters</div>
+          </div>
+        </div>
+        <div class="topic-right">
+          ${examTagHTML}
+          <span class="chapter-count">${topic.chapters.length} ch</span>
+          <span class="chevron">▾</span>
+        </div>
+      </div>
+      <div class="chapters-wrap">
+        <div class="chapters-inner">
+          ${topic.chapters.map((ch, ci) => `
+            <div class="chapter-row">
+              <span class="ch-num">${String(ci + 1).padStart(2, '0')}</span>
+              <span class="ch-name">${ch.name}</span>
+              <div class="ch-progress">
+                <div class="dot" title="Explain"></div>
+                <div class="dot" title="Practice"></div>
+                <div class="dot" title="Exam"></div>
+              </div>
+              <div class="ch-btns">
+                <button class="ch-btn btn-explain" disabled title="Coming soon">📖 Explain</button>
+                <button class="ch-btn btn-practice" disabled title="Coming soon">✏️ Practice</button>
+                <button class="ch-btn btn-exam" disabled title="Coming soon">📝 Exam</button>
+              </div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    `;
+
+    container.appendChild(card);
+  });
+}
+
+// ============================================================
+// TOGGLE TOPIC OPEN/CLOSE
+// ============================================================
+function toggleTopic(header) {
+  const card = header.closest('.topic-card');
+  card.classList.toggle('open');
+}
+</script>
+</body>
+</html>

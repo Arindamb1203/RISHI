@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RISHI — Login</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Nunito:wght@400;600;700;800;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #fdf6ec;
+    --warm-white: #fffdf8;
+    --gold: #c8922a;
+    --gold-light: #e8b84b;
+    --gold-pale: #f5e6c8;
+    --amber: #d4870a;
+    --sage: #7a8c6e;
+    --sage-light: #a8b89a;
+    --rust: #b85c2a;
+    --charcoal: #2a2218;
+    --mid: #5a4a30;
+    --soft: #8a7a5a;
+    --inactive: #c8b89a;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--cream);
+    font-family: 'Nunito', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: var(--charcoal);
+    overflow: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(var(--gold-pale) 1px, transparent 1px),
+      linear-gradient(90deg, var(--gold-pale) 1px, transparent 1px);
+    background-size: 40px 40px;
+    opacity: 0.35;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  body::after {
+    content: 'RISHI';
+    position: fixed;
+    bottom: -40px;
+    right: -30px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 220px;
+    font-weight: 900;
+    color: var(--gold-pale);
+    opacity: 0.18;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .orb {
+    position: fixed;
+    top: -80px;
+    right: -80px;
+    width: 320px;
+    height: 320px;
+    background: radial-gradient(circle at 40% 40%, var(--gold-light), var(--amber), #8a4a10);
+    border-radius: 50%;
+    opacity: 0.22;
+    z-index: 0;
+    animation: pulse 4s ease-in-out infinite;
+    pointer-events: none;
+  }
+  @keyframes pulse {
+    0%,100% { transform: scale(1); opacity: 0.22; }
+    50% { transform: scale(1.06); opacity: 0.28; }
+  }
+
+  .card {
+    position: relative;
+    z-index: 10;
+    background: rgba(255,253,248,0.95);
+    border: 1.5px solid var(--gold-pale);
+    border-radius: 24px;
+    padding: 48px 52px;
+    width: 100%;
+    max-width: 460px;
+    box-shadow: 0 12px 60px rgba(200,146,42,0.13);
+    animation: fadeUp 0.5s ease;
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .logo {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 38px;
+    font-weight: 900;
+    letter-spacing: 8px;
+    background: linear-gradient(135deg, var(--amber), var(--gold-light), var(--rust));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-align: center;
+    margin-bottom: 6px;
+  }
+  .tagline {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 11px;
+    color: var(--sage);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 36px;
+  }
+  .divider {
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    margin: 0 auto 36px;
+    border-radius: 2px;
+  }
+
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    margin-bottom: 18px;
+    position: relative;
+  }
+
+  label {
+    font-size: 12px;
+    font-weight: 900;
+    color: var(--mid);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .inactive-field-wrap {
+    position: relative;
+  }
+  .inactive-field-wrap input {
+    width: 100%;
+    font-family: 'Nunito', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--inactive);
+    background: #faf6f0;
+    border: 2px dashed var(--gold-pale);
+    border-radius: 10px;
+    padding: 13px 16px;
+    outline: none;
+    cursor: not-allowed;
+  }
+  .lock-badge {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 16px;
+    opacity: 0.5;
+  }
+  .inactive-note {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--rust);
+    font-style: italic;
+  }
+
+  .or-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin: 28px 0 24px;
+  }
+  .or-line { flex: 1; height: 1.5px; background: var(--gold-pale); }
+  .or-text {
+    font-size: 12px;
+    font-weight: 800;
+    color: var(--soft);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  .btn-tryin {
+    width: 100%;
+    font-family: 'Nunito', sans-serif;
+    font-size: 19px;
+    font-weight: 900;
+    background: linear-gradient(135deg, var(--amber), var(--gold-light));
+    color: #fff;
+    border: none;
+    border-radius: 14px;
+    padding: 18px;
+    cursor: pointer;
+    letter-spacing: 1px;
+    box-shadow: 0 6px 28px rgba(212,135,10,0.35);
+    transition: all 0.2s;
+    margin-bottom: 14px;
+  }
+  .btn-tryin:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 36px rgba(212,135,10,0.45);
+  }
+
+  .try-note {
+    text-align: center;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--soft);
+    line-height: 1.7;
+  }
+  .try-note span {
+    color: var(--sage);
+    font-weight: 800;
+  }
+
+  .back-link {
+    display: block;
+    text-align: center;
+    margin-top: 28px;
+    font-size: 13px;
+    font-weight: 800;
+    color: var(--soft);
+    cursor: pointer;
+    text-decoration: none;
+    letter-spacing: 0.5px;
+  }
+  .back-link:hover { color: var(--amber); }
+
+  @media (max-width: 500px) {
+    .card { padding: 36px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="orb"></div>
+
+<div class="card">
+  <div class="logo">RISHI</div>
+  <div class="tagline">Riddhi · Siddhi · Always By Your Side</div>
+  <div class="divider"></div>
+
+  <!-- 🔒 INACTIVE: Username field -->
+  <div class="field">
+    <label>Username</label>
+    <div class="inactive-field-wrap">
+      <input type="text" placeholder="Your username" disabled>
+      <span class="lock-badge">🔒</span>
+    </div>
+    <div class="inactive-note">🔒 Login coming soon — use Try In below</div>
+  </div>
+
+  <!-- 🔒 INACTIVE: Password field -->
+  <div class="field">
+    <label>Password</label>
+    <div class="inactive-field-wrap">
+      <input type="password" placeholder="Your password" disabled>
+      <span class="lock-badge">🔒</span>
+    </div>
+  </div>
+
+  <div class="or-row">
+    <div class="or-line"></div>
+    <div class="or-text">or</div>
+    <div class="or-line"></div>
+  </div>
+
+  <button class="btn-tryin" onclick="tryIn()">✦ Try In — Explore Free</button>
+
+  <div class="try-note">
+    No login needed right now.<br>
+    <span>Full app · Class 8 CBSE · No payment</span>
+  </div>
+
+  <a class="back-link" href="/landing.html">← Back to Home</a>
+</div>
+
+<script>
+function tryIn() {
+  // Load student data if registered, else go as guest
+  const student = JSON.parse(localStorage.getItem('rishi_current_student') || '{}');
+  const board = student.board || 'CBSE';
+  const cls = student.class || '8';
+  window.location.href = '/syllabus.html?board=' + board + '&class=' + cls;
+}
+</script>
+</body>
+</html>
