@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RISHI — Coming Soon</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Nunito:wght@400;600;700;800;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #fdf6ec; --warm-white: #fffdf8; --gold: #c8922a;
+    --gold-light: #e8b84b; --gold-pale: #f5e6c8; --amber: #d4870a;
+    --sage: #7a8c6e; --sage-light: #a8b89a; --rust: #b85c2a;
+    --charcoal: #2a2218; --mid: #5a4a30; --soft: #8a7a5a;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--cream); font-family: 'Nunito', sans-serif;
+    min-height: 100vh; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; color: var(--charcoal);
+    overflow: hidden;
+  }
+  body::before {
+    content: ''; position: fixed; inset: 0;
+    background-image: linear-gradient(var(--gold-pale) 1px, transparent 1px), linear-gradient(90deg, var(--gold-pale) 1px, transparent 1px);
+    background-size: 40px 40px; opacity: 0.35; z-index: 0; pointer-events: none;
+  }
+  body::after {
+    content: 'RISHI'; position: fixed; bottom: -40px; right: -30px;
+    font-family: 'Orbitron', sans-serif; font-size: 220px; font-weight: 900;
+    color: var(--gold-pale); opacity: 0.18; z-index: 0; pointer-events: none;
+  }
+  .orb {
+    position: fixed; top: -80px; right: -80px; width: 320px; height: 320px;
+    background: radial-gradient(circle at 40% 40%, var(--gold-light), var(--amber), #8a4a10);
+    border-radius: 50%; opacity: 0.22; z-index: 0;
+    animation: pulse 4s ease-in-out infinite; pointer-events: none;
+  }
+  @keyframes pulse { 0%,100%{transform:scale(1);opacity:.22} 50%{transform:scale(1.06);opacity:.28} }
+
+  .card {
+    position: relative; z-index: 10;
+    background: rgba(255,253,248,0.95); border: 1.5px solid var(--gold-pale);
+    border-radius: 24px; padding: 52px 56px; width: 100%; max-width: 520px;
+    text-align: center; box-shadow: 0 12px 60px rgba(200,146,42,0.13);
+    animation: fadeUp 0.5s ease;
+  }
+  @keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
+
+  .logo {
+    font-family: 'Orbitron', sans-serif; font-size: 32px; font-weight: 900;
+    letter-spacing: 8px;
+    background: linear-gradient(135deg, var(--amber), var(--gold-light), var(--rust));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    margin-bottom: 6px;
+  }
+  .tagline {
+    font-family: 'Share Tech Mono', monospace; font-size: 11px; color: var(--sage);
+    letter-spacing: 3px; text-transform: uppercase; margin-bottom: 36px;
+  }
+  .divider {
+    width: 60px; height: 3px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    margin: 0 auto 36px; border-radius: 2px;
+  }
+
+  .emoji { font-size: 64px; margin-bottom: 20px; animation: float 3s ease-in-out infinite; }
+  @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+
+  .class-badge {
+    display: inline-block; background: var(--gold-pale); border: 2px solid var(--gold-light);
+    border-radius: 30px; padding: 8px 24px; font-size: 18px; font-weight: 900;
+    color: var(--amber); margin-bottom: 20px; font-family: 'Orbitron', sans-serif;
+    letter-spacing: 2px;
+  }
+
+  .title {
+    font-family: 'Orbitron', sans-serif; font-size: 20px; font-weight: 900;
+    color: var(--charcoal); letter-spacing: 2px; margin-bottom: 14px;
+  }
+
+  .msg {
+    font-size: 16px; font-weight: 700; color: var(--mid);
+    line-height: 1.7; margin-bottom: 30px;
+  }
+
+  .progress-wrap { margin-bottom: 30px; }
+  .progress-label {
+    display: flex; justify-content: space-between;
+    font-size: 12px; font-weight: 800; color: var(--soft);
+    text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px;
+  }
+  .progress-bar { height: 10px; background: var(--gold-pale); border-radius: 5px; overflow: hidden; }
+  .progress-fill {
+    height: 100%; border-radius: 5px;
+    background: linear-gradient(90deg, var(--sage), var(--gold-light));
+    animation: fillBar 1.5s ease forwards;
+  }
+  @keyframes fillBar { from{width:0} }
+
+  .status-row {
+    display: flex; flex-direction: column; gap: 10px; margin-bottom: 30px; text-align: left;
+  }
+  .status-item {
+    display: flex; align-items: center; gap: 12px;
+    background: var(--warm-white); border: 1.5px solid var(--gold-pale);
+    border-radius: 10px; padding: 11px 16px;
+    font-size: 14px; font-weight: 700; color: var(--mid);
+  }
+  .status-dot {
+    width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0;
+  }
+  .dot-done { background: var(--sage); }
+  .dot-active { background: var(--amber); animation: blink 1.2s ease-in-out infinite; }
+  .dot-pending { background: var(--gold-pale); border: 2px solid var(--inactive); }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+  .btn-back {
+    font-family: 'Nunito', sans-serif; font-size: 16px; font-weight: 900;
+    background: linear-gradient(135deg, var(--amber), var(--gold-light));
+    color: #fff; border: none; border-radius: 12px; padding: 14px 32px;
+    cursor: pointer; width: 100%; margin-bottom: 14px;
+    box-shadow: 0 4px 20px rgba(212,135,10,0.3); transition: all 0.2s;
+  }
+  .btn-back:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(212,135,10,0.4); }
+
+  .notify-row {
+    font-size: 13px; font-weight: 700; color: var(--soft);
+  }
+</style>
+</head>
+<body>
+<div class="orb"></div>
+<div class="card">
+  <div class="logo">RISHI</div>
+  <div class="tagline">Riddhi · Siddhi · Always By Your Side</div>
+  <div class="divider"></div>
+
+  <div class="emoji">🚧</div>
+  <div class="class-badge" id="classBadge">Class —</div>
+  <div class="title">Under Development</div>
+  <div class="msg">
+    Rishika is preparing your complete <strong id="classLabel">Class</strong> CBSE Maths experience.<br>
+    It will be ready very soon!
+  </div>
+
+  <div class="progress-wrap">
+    <div class="progress-label">
+      <span>Class 8 CBSE</span>
+      <span>Live Now ✅</span>
+    </div>
+    <div class="progress-bar">
+      <div class="progress-fill" style="width:20%"></div>
+    </div>
+    <div style="font-size:11px;font-weight:700;color:var(--soft);margin-top:6px;text-align:right;">
+      1 of 5 classes ready · CBSE complete first, then ICSE
+    </div>
+  </div>
+
+  <div class="status-row">
+    <div class="status-item"><div class="status-dot dot-done"></div> Class 8 CBSE — Live ✅</div>
+    <div class="status-item"><div class="status-dot dot-active"></div> Class 7 CBSE — In Development</div>
+    <div class="status-item"><div class="status-dot dot-pending"></div> Class 6 CBSE — Pending</div>
+    <div class="status-item"><div class="status-dot dot-pending"></div> Class 9 CBSE — Pending</div>
+    <div class="status-item"><div class="status-dot dot-pending"></div> Class 10 CBSE — Pending</div>
+  </div>
+
+  <button class="btn-back" onclick="goBack()">← Go to Class 8 · Try Now</button>
+  <div class="notify-row">Meanwhile, explore Class 8 CBSE — fully ready for you 👆</div>
+</div>
+
+<script>
+window.onload = function() {
+  const params = new URLSearchParams(window.location.search);
+  const cls = params.get('class') || '?';
+  const board = params.get('board') || 'CBSE';
+  document.getElementById('classBadge').textContent = 'Class ' + cls + ' · ' + board;
+  document.getElementById('classLabel').textContent = 'Class ' + cls;
+};
+
+function goBack() {
+  const student = JSON.parse(localStorage.getItem('rishi_current_student') || '{}');
+  window.location.href = '/syllabus.html?board=CBSE&class=8';
+}
+</script>
+</body>
+</html>
