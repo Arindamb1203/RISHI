@@ -48,6 +48,9 @@
   .btn-sp:hover{transform:translateY(-2px);}
 
   .plan-banner{position:relative;z-index:10;margin:14px 22px 0;background:linear-gradient(135deg,#eef2eb,#f5fbf2);border:2px solid var(--border-dark);border-radius:14px;padding:12px 16px;display:flex;align-items:center;gap:10px;font-size:14px;font-weight:700;color:var(--sage);}
+  #planText{font-weight:900;color:var(--charcoal);}
+  .cursor{display:inline-block;width:2px;height:1em;background:var(--amber);margin-left:2px;vertical-align:middle;animation:blink-cur .7s step-end infinite;}
+  @keyframes blink-cur{0%,100%{opacity:1}50%{opacity:0}}
 
   .main{position:relative;z-index:10;max-width:880px;margin:18px auto 80px;padding:0 18px;}
   .page-title{font-family:'Orbitron',sans-serif;font-size:13px;letter-spacing:4px;color:var(--amber);text-transform:uppercase;margin-bottom:4px;}
@@ -436,6 +439,22 @@ function render(){
 }
 
 function toggleTopic(hdr){ hdr.closest('.topic-card').classList.toggle('open'); }
+
+let _twTimer = null;
+function typeText(text){
+  const el = document.getElementById('planText');
+  if(!el) return;
+  el.innerHTML = '';
+  let i = 0;
+  clearInterval(_twTimer);
+  _twTimer = setInterval(()=>{
+    el.innerHTML = text.slice(0,++i) + '<span class="cursor"></span>';
+    if(i >= text.length) clearInterval(_twTimer);
+  }, 28);
+}
+window.addEventListener('load', ()=>{
+  const el = document.getElementById('planText');
+  if(el) typeText(el.textContent.trim());
+});
 </script>
-</body>
-</html>
+
