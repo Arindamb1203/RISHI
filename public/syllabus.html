@@ -350,9 +350,7 @@ function render(){
 
     const card=document.createElement('div');
     card.className='topic-card'+(topicShadowed?' shadowed':'');
-    if(!inScope&&!locked) card.style.opacity='.4';
-
-    const examTag=filter!=='all'?`<span class="exam-tag ${inScope?'show':''}">${inScope?'✅ In Exam':'⬜ Not in exam'}</span>`:'';
+    if(!inScope&&!locked) card.style.opacity='.3';
 
     card.dataset.topicId=topic.id;
     card.innerHTML=`
@@ -361,7 +359,7 @@ function render(){
           <div class="t-icon" style="background:${topic.bg}">${topic.icon}</div>
           <div><div class="t-name">${topic.name}</div><div class="t-meta">${topic.chapters.length} chapters</div></div>
         </div>
-        <div class="topic-right">${examTag}<span class="sel-badge" style="font-size:11px;font-weight:800;padding:3px 9px;border-radius:10px;background:#eef2eb;color:var(--sage);display:${selInTopic>0?'inline-block':'none'}">${selInTopic>0?selInTopic+' selected':''}</span><span class="t-count">${topic.chapters.length} ch</span><span class="chevron">▾</span></div>
+        <div class="topic-right"><span class="sel-badge" style="font-size:11px;font-weight:800;padding:3px 9px;border-radius:10px;background:#eef2eb;color:var(--sage);display:${selInTopic>0?'inline-block':'none'}">${selInTopic>0?selInTopic+' selected':''}</span><span class="t-count">${topic.chapters.length} ch</span><span class="chevron">▾</span></div>
       </div>
       <div class="chaps-wrap"><div class="chaps-inner">
         ${topic.chapters.map((ch,ci)=>{
