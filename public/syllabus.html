@@ -7,20 +7,21 @@
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Nunito:wght@400;600;700;800;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
 <style>
   :root {
-    --cream:#fdf6ec;--warm-white:#fffdf8;--gold:#c8922a;--gold-light:#e8b84b;
-    --gold-pale:#f5e6c8;--amber:#d4870a;--sage:#7a8c6e;--sage-light:#a8b89a;
-    --rust:#b85c2a;--charcoal:#2a2218;--mid:#5a4a30;--soft:#8a7a5a;--inactive:#c8b89a;
+    --cream:#fdf6ec; --warm-white:#fffdf8; --gold:#c8922a; --gold-light:#e8b84b;
+    --gold-pale:#f5e6c8; --amber:#d4870a; --sage:#7a8c6e; --sage-light:#a8b89a;
+    --rust:#b85c2a; --charcoal:#2a2218; --mid:#5a4a30; --soft:#8a7a5a; --inactive:#c8b89a;
+    --border-dark:#6b4c2a;
   }
   *{box-sizing:border-box;margin:0;padding:0;}
   body{background:var(--cream);font-family:'Nunito',sans-serif;min-height:100vh;color:var(--charcoal);}
   body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(var(--gold-pale) 1px,transparent 1px),linear-gradient(90deg,var(--gold-pale) 1px,transparent 1px);background-size:40px 40px;opacity:.3;z-index:0;pointer-events:none;}
 
-  .topbar{position:sticky;top:0;z-index:100;background:rgba(253,246,236,.97);border-bottom:1.5px solid var(--gold-pale);backdrop-filter:blur(8px);padding:12px 22px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;}
+  .topbar{position:sticky;top:0;z-index:100;background:rgba(253,246,236,.97);border-bottom:2px solid var(--border-dark);backdrop-filter:blur(8px);padding:12px 22px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;}
   .topbar-left{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
   .logo-sm{font-family:'Orbitron',sans-serif;font-size:20px;font-weight:900;letter-spacing:4px;background:linear-gradient(135deg,var(--amber),var(--gold-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
   .chip{border-radius:20px;padding:5px 12px;font-size:13px;font-weight:800;}
-  .chip-g{background:var(--gold-pale);border:1.5px solid var(--gold-light);color:var(--mid);}
-  .chip-s{background:#eef2eb;border:1.5px solid var(--sage-light);color:var(--sage);}
+  .chip-g{background:var(--gold-pale);border:2px solid var(--border-dark);color:var(--mid);}
+  .chip-s{background:#eef2eb;border:2px solid var(--border-dark);color:var(--sage);}
   .topbar-right{display:flex;align-items:center;gap:10px;}
   .btn-resume{font-family:'Nunito',sans-serif;font-size:13px;font-weight:900;background:linear-gradient(135deg,var(--sage),var(--sage-light));color:#fff;border:none;border-radius:20px;padding:7px 16px;cursor:pointer;display:none;transition:all .2s;}
   .btn-resume.show{display:block;}
@@ -29,58 +30,55 @@
 
   .filter-bar{position:relative;z-index:10;display:flex;align-items:center;gap:9px;padding:16px 22px 0;flex-wrap:wrap;}
   .filter-label{font-size:12px;font-weight:900;color:var(--soft);text-transform:uppercase;letter-spacing:1px;}
-  .filter-btn{font-family:'Nunito',sans-serif;font-size:14px;font-weight:800;padding:8px 17px;border-radius:20px;border:2px solid var(--gold-pale);background:var(--warm-white);color:var(--soft);cursor:pointer;transition:all .2s;}
+  .filter-btn{font-family:'Nunito',sans-serif;font-size:14px;font-weight:800;padding:8px 17px;border-radius:20px;border:2px solid var(--border-dark);background:var(--warm-white);color:var(--soft);cursor:pointer;transition:all .2s;}
   .filter-btn:hover{border-color:var(--gold);color:var(--amber);}
   .filter-btn.active{background:linear-gradient(135deg,var(--amber),var(--gold-light));border-color:var(--amber);color:#fff;box-shadow:0 4px 16px rgba(212,135,10,.25);}
+  .filter-btn.assigned{border-color:var(--sage);background:#eef2eb;color:var(--sage);}
 
-  .action-bar{position:relative;z-index:10;display:none;align-items:center;gap:11px;padding:13px 22px;background:rgba(255,253,248,.96);border-bottom:1.5px solid var(--gold-pale);flex-wrap:wrap;}
+  .action-bar{position:relative;z-index:10;display:none;align-items:center;gap:11px;padding:13px 22px;background:rgba(255,253,248,.96);border-bottom:2px solid var(--border-dark);flex-wrap:wrap;}
   .action-bar.show{display:flex;}
   .sel-count{font-size:14px;font-weight:800;color:var(--mid);flex:1;}
   .sel-count span{color:var(--amber);font-family:'Orbitron',sans-serif;font-size:16px;}
   .btn-lock{font-family:'Nunito',sans-serif;font-size:15px;font-weight:900;padding:10px 22px;border-radius:12px;border:none;cursor:pointer;transition:all .2s;}
-  .btn-lock.ulocked{background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;box-shadow:0 4px 16px rgba(212,135,10,.3);}
-  .btn-lock.ulocked:hover{transform:translateY(-2px);}
+  .btn-lock.unlocked{background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;box-shadow:0 4px 16px rgba(212,135,10,.3);}
+  .btn-lock.unlocked:hover{transform:translateY(-2px);}
   .btn-lock.lkd{background:var(--gold-pale);color:var(--rust);border:2px solid var(--rust);}
   .btn-sp{font-family:'Nunito',sans-serif;font-size:15px;font-weight:900;padding:10px 22px;border-radius:12px;border:none;cursor:pointer;background:linear-gradient(135deg,var(--sage),var(--sage-light));color:#fff;box-shadow:0 4px 16px rgba(122,140,110,.3);display:none;transition:all .2s;}
   .btn-sp.show{display:block;}
   .btn-sp:hover{transform:translateY(-2px);}
 
-  .plan-banner{position:relative;z-index:10;margin:14px 22px 0;background:linear-gradient(135deg,#eef2eb,#f5fbf2);border:1.5px solid var(--sage-light);border-radius:14px;padding:12px 16px;display:none;align-items:center;gap:10px;font-size:14px;font-weight:700;color:var(--sage);}
-  .plan-banner.show{display:flex;}
+  .plan-banner{position:relative;z-index:10;margin:14px 22px 0;background:linear-gradient(135deg,#eef2eb,#f5fbf2);border:2px solid var(--border-dark);border-radius:14px;padding:12px 16px;display:flex;align-items:center;gap:10px;font-size:14px;font-weight:700;color:var(--sage);}
 
   .main{position:relative;z-index:10;max-width:880px;margin:18px auto 80px;padding:0 18px;}
   .page-title{font-family:'Orbitron',sans-serif;font-size:13px;letter-spacing:4px;color:var(--amber);text-transform:uppercase;margin-bottom:4px;}
   .page-sub{font-size:14px;font-weight:700;color:var(--soft);margin-bottom:18px;}
   .page-sub span{color:var(--mid);font-weight:900;}
 
-  .topic-card{background:rgba(255,253,248,.94);border:1.5px solid var(--gold-pale);border-radius:18px;margin-bottom:13px;box-shadow:0 4px 20px rgba(200,146,42,.07);overflow:hidden;transition:all .2s;}
-  .topic-card:hover{box-shadow:0 6px 28px rgba(200,146,42,.13);}
-  .topic-card.shadowed{opacity:.3;pointer-events:none;}
+  .topic-card{background:rgba(255,253,248,.94);border:2px solid var(--border-dark);border-radius:18px;margin-bottom:13px;box-shadow:0 4px 20px rgba(107,76,42,.12);overflow:hidden;transition:opacity .3s;}
+  .topic-card.faded{opacity:.3;pointer-events:none;}
 
   .topic-hdr{display:flex;align-items:center;justify-content:space-between;padding:17px 20px;cursor:pointer;user-select:none;gap:10px;}
   .topic-left{display:flex;align-items:center;gap:13px;}
-  .t-icon{width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
+  .t-icon{width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;border:2px solid var(--border-dark);}
   .t-name{font-family:'Orbitron',sans-serif;font-size:13px;font-weight:700;color:var(--charcoal);letter-spacing:1px;}
   .t-meta{font-size:12px;font-weight:700;color:var(--soft);margin-top:3px;}
-  .topic-right{display:flex;align-items:center;gap:9px;flex-wrap:wrap;justify-content:flex-end;}
-  .t-count{font-size:12px;font-weight:800;color:var(--soft);background:var(--gold-pale);border-radius:10px;padding:3px 10px;}
-  .exam-tag{font-size:11px;font-weight:800;padding:3px 10px;border-radius:10px;background:#eef2eb;color:var(--sage);display:none;}
-  .exam-tag.show{display:block;}
+  .topic-right{display:flex;align-items:center;gap:9px;}
+  .t-count{font-size:12px;font-weight:800;color:var(--soft);background:var(--gold-pale);border-radius:10px;padding:3px 10px;border:1px solid var(--border-dark);}
   .chevron{font-size:16px;color:var(--gold);transition:transform .3s;flex-shrink:0;}
   .topic-card.open .chevron{transform:rotate(180deg);}
 
   .chaps-wrap{max-height:0;overflow:hidden;transition:max-height .4s ease;}
   .topic-card.open .chaps-wrap{max-height:3000px;}
-  .chaps-inner{border-top:1.5px solid var(--gold-pale);padding:4px 0 10px;}
+  .chaps-inner{border-top:2px solid var(--border-dark);padding:4px 0 10px;}
 
-  .ch-row{display:flex;align-items:center;gap:9px;padding:12px 20px;border-bottom:1px solid rgba(245,230,200,.5);transition:background .15s;flex-wrap:wrap;position:relative;}
+  .ch-row{display:flex;align-items:center;gap:9px;padding:12px 20px;border-bottom:1px solid rgba(107,76,42,.18);transition:background .15s;flex-wrap:wrap;position:relative;}
   .ch-row:last-child{border-bottom:none;}
   .ch-row:hover{background:rgba(245,230,200,.2);}
   .ch-row.sel{background:rgba(122,140,110,.08);border-left:3px solid var(--sage);}
-  .ch-row.shadowed{opacity:.28;pointer-events:none;}
-  .ch-row.shadowed::after{content:'🔒';position:absolute;right:14px;top:50%;transform:translateY(-50%);font-size:15px;}
+  .ch-row.faded{opacity:.28;pointer-events:none;}
+  .ch-row.faded::after{content:'🔒';position:absolute;right:14px;top:50%;transform:translateY(-50%);font-size:15px;}
 
-  .ch-chk{width:20px;height:20px;border-radius:6px;border:2px solid var(--gold-pale);background:var(--warm-white);flex-shrink:0;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:12px;transition:all .15s;font-weight:900;}
+  .ch-chk{width:20px;height:20px;border-radius:6px;border:2px solid var(--border-dark);background:var(--warm-white);flex-shrink:0;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:12px;transition:all .15s;font-weight:900;}
   .ch-chk.on{background:var(--sage);border-color:var(--sage);color:#fff;}
   .ch-chk:hover{border-color:var(--sage);}
   .ch-num{font-family:'Share Tech Mono',monospace;font-size:12px;color:var(--inactive);font-weight:700;flex-shrink:0;width:24px;}
@@ -99,17 +97,16 @@
 
   .bottom-note{text-align:center;padding:18px;font-size:13px;font-weight:700;color:var(--soft);font-style:italic;}
 
-  /* MODAL */
   .overlay{display:none;position:fixed;inset:0;background:rgba(42,34,24,.65);z-index:1000;align-items:flex-start;justify-content:center;backdrop-filter:blur(4px);overflow-y:auto;padding:28px 14px;}
   .overlay.show{display:flex;}
-  .modal{background:var(--warm-white);border:2px solid var(--gold);border-radius:24px;padding:34px 38px;max-width:640px;width:100%;box-shadow:0 20px 80px rgba(200,146,42,.2);animation:mIn .3s ease;margin:auto;}
+  .modal{background:var(--warm-white);border:2px solid var(--border-dark);border-radius:24px;padding:34px 38px;max-width:640px;width:100%;box-shadow:0 20px 80px rgba(107,76,42,.25);animation:mIn .3s ease;margin:auto;}
   @keyframes mIn{from{transform:scale(.92);opacity:0}to{transform:scale(1);opacity:1}}
   .modal-title{font-family:'Orbitron',sans-serif;font-size:18px;font-weight:900;color:var(--amber);margin-bottom:5px;letter-spacing:2px;}
   .modal-sub{font-size:14px;font-weight:700;color:var(--soft);margin-bottom:22px;}
-  .modal-note{background:var(--gold-pale);border-radius:12px;padding:12px 15px;font-size:13px;font-weight:700;color:var(--mid);margin-bottom:20px;line-height:1.6;}
+  .modal-note{background:var(--gold-pale);border:2px solid var(--border-dark);border-radius:12px;padding:12px 15px;font-size:13px;font-weight:700;color:var(--mid);margin-bottom:20px;line-height:1.6;}
 
   .day-list{display:flex;flex-direction:column;gap:11px;margin-bottom:22px;}
-  .day-card{border:1.5px solid var(--gold-pale);border-radius:14px;padding:15px 18px;background:var(--cream);display:flex;align-items:flex-start;gap:14px;}
+  .day-card{border:2px solid var(--border-dark);border-radius:14px;padding:15px 18px;background:var(--cream);display:flex;align-items:flex-start;gap:14px;}
   .day-card.s-done{border-color:var(--sage-light);background:#f0f5ee;}
   .day-card.s-ongoing{border-color:var(--gold);background:#fffaee;}
   .day-card.s-redoing{border-color:var(--rust);background:#fff5f0;}
@@ -134,7 +131,6 @@
     .main{padding:0 10px;}
     .topic-hdr,.ch-row{padding-left:13px;padding-right:13px;}
     .modal{padding:22px 18px;}
-    .ch-btn{padding:5px 8px;font-size:11px;}
   }
 </style>
 </head>
@@ -153,32 +149,31 @@
 </div>
 
 <div class="filter-bar">
-  <span class="filter-label">Show for:</span>
-  <button class="filter-btn active" onclick="setFilter('all',this)">📚 All Syllabus</button>
-  <button class="filter-btn" onclick="setFilter('unit',this)">📝 Unit Test</button>
-  <button class="filter-btn" onclick="setFilter('half',this)">📋 Half Yearly</button>
-  <button class="filter-btn" onclick="setFilter('annual',this)">🎯 Annual</button>
+  <span class="filter-label">Preparing for:</span>
+  <button class="filter-btn active" id="fb-all"    onclick="setFilter('all',this)">📚 All Syllabus</button>
+  <button class="filter-btn"        id="fb-unit"   onclick="setFilter('unit',this)">📝 Unit Test</button>
+  <button class="filter-btn"        id="fb-half"   onclick="setFilter('half',this)">📋 Half Yearly</button>
+  <button class="filter-btn"        id="fb-annual" onclick="setFilter('annual',this)">🎯 Annual</button>
 </div>
 
 <div class="action-bar" id="actionBar">
   <div class="sel-count"><span id="selCount">0</span> chapters selected</div>
-  <button class="btn-lock ulocked" id="lockBtn" onclick="toggleLock()">🔓 Lock My Selection</button>
+  <button class="btn-lock unlocked" id="lockBtn" onclick="toggleLock()">🔓 Lock My Selection</button>
   <button class="btn-sp" id="spBtn" onclick="openPlan()">📅 My Study Plan</button>
 </div>
 
-<div class="plan-banner show" id="planBanner">
+<div class="plan-banner">
   <span style="font-size:20px;">🧠</span>
   <div><strong style="color:var(--mid);">Rishika says:</strong> <span id="planText">Select the chapters you want to study, then lock your selection to get your personal study plan.</span></div>
 </div>
 
 <div class="main">
   <div class="page-title">Class 8 · CBSE · Mathematics</div>
-  <div class="page-sub" id="pageSub">Select chapters → Lock → Get your personal study plan</div>
+  <div class="page-sub">Select chapters → Lock → Get your personal study plan</div>
   <div id="topicsContainer"></div>
   <div class="bottom-note" id="bottomNote">☝ Tick chapters above · Lock · Get day-wise study plan from Rishika</div>
 </div>
 
-<!-- STUDY PLAN MODAL -->
 <div class="overlay" id="spModal">
   <div class="modal">
     <div class="modal-title">📅 Your Study Plan</div>
@@ -190,193 +185,242 @@
 </div>
 
 <script>
-const syllabus=[
-  {id:'arith',name:'Arithmetic',icon:'🔢',bg:'#fff3e0',exam:{unit:true,half:true,annual:true},
-   chapters:[{id:'a1',name:'Rational Numbers'},{id:'a2',name:'Powers and Exponents'},{id:'a3',name:'Direct and Inverse Proportions'},{id:'a4',name:'Comparing Quantities'},{id:'a5',name:'Playing with Numbers'}]},
-  {id:'alg',name:'Algebra',icon:'🔣',bg:'#fce4ec',exam:{unit:true,half:true,annual:true},
-   chapters:[{id:'al1',name:'Algebraic Expressions and Identities'},{id:'al2',name:'Factorisation'},{id:'al3',name:'Linear Equations in One Variable'},{id:'al4',name:'Introduction to Graphs'}]},
-  {id:'geo',name:'Geometry',icon:'📐',bg:'#e8f5e9',exam:{unit:false,half:true,annual:true},
-   chapters:[{id:'g1',name:'Understanding Quadrilaterals'},{id:'g2',name:'Practical Geometry'},{id:'g3',name:'Visualising Solid Shapes'}]},
-  {id:'mens',name:'Mensuration',icon:'📏',bg:'#e3f2fd',exam:{unit:false,half:true,annual:true},
-   chapters:[{id:'m1',name:'Mensuration — Area of Plane Figures'},{id:'m2',name:'Surface Area and Volume of Solids'}]},
-  {id:'data',name:'Data Handling',icon:'📊',bg:'#f3e5f5',exam:{unit:false,half:false,annual:true},
-   chapters:[{id:'d1',name:'Data Handling — Frequency Distribution'},{id:'d2',name:'Chance and Probability'}]}
+const syllabus = [
+  { id:'arith', name:'Arithmetic',    icon:'🔢', bg:'#fff3e0',
+    chapters:[{id:'a1',name:'Rational Numbers'},{id:'a2',name:'Powers and Exponents'},{id:'a3',name:'Direct and Inverse Proportions'},{id:'a4',name:'Comparing Quantities'},{id:'a5',name:'Playing with Numbers'}] },
+  { id:'alg',   name:'Algebra',       icon:'🔣', bg:'#fce4ec',
+    chapters:[{id:'al1',name:'Algebraic Expressions and Identities'},{id:'al2',name:'Factorisation'},{id:'al3',name:'Linear Equations in One Variable'},{id:'al4',name:'Introduction to Graphs'}] },
+  { id:'geo',   name:'Geometry',      icon:'📐', bg:'#e8f5e9',
+    chapters:[{id:'g1',name:'Understanding Quadrilaterals'},{id:'g2',name:'Practical Geometry'},{id:'g3',name:'Visualising Solid Shapes'}] },
+  { id:'mens',  name:'Mensuration',   icon:'📏', bg:'#e3f2fd',
+    chapters:[{id:'m1',name:'Mensuration — Area of Plane Figures'},{id:'m2',name:'Surface Area and Volume of Solids'}] },
+  { id:'data',  name:'Data Handling', icon:'📊', bg:'#f3e5f5',
+    chapters:[{id:'d1',name:'Data Handling — Frequency Distribution'},{id:'d2',name:'Chance and Probability'}] }
 ];
 
-let filter='all', selected=new Set(), locked=false, planDays=[];
+let filter       = 'all';
+let selected     = new Set();   // only what student manually ticks
+let locked       = false;
+let lockedFilter = null;        // filter active at time of lock
+let planDays     = [];
 
-window.onload=function(){
-  const p=new URLSearchParams(window.location.search);
-  const st=JSON.parse(localStorage.getItem('rishi_current_student')||'{}');
-  const name=st.studentName||'Student';
-  const board=p.get('board')||st.board||'CBSE';
-  const cls=p.get('class')||st.class||'8';
+// ── INIT ──────────────────────────────────────────────────────
+window.onload = function(){
+  const st    = JSON.parse(localStorage.getItem('rishi_current_student') || '{}');
+  const name  = st.studentName || 'Student';
+  const board = st.board || 'CBSE';
+  const cls   = st.class || '8';
 
-  if(cls!=='8'||board!=='CBSE'){
-    window.location.href='/coming-soon.html?class='+cls+'&board='+board; return;
+  if(cls !== '8' || board !== 'CBSE'){
+    window.location.href = '/coming-soon.html?class='+cls+'&board='+board;
+    return;
   }
 
-  document.getElementById('studentChip').textContent='👦 '+name.split(' ')[0];
-  document.getElementById('boardChip').textContent=board+' · Class '+cls;
+  document.getElementById('studentChip').textContent = '👦 ' + name.split(' ')[0];
+  document.getElementById('boardChip').textContent   = board + ' · Class ' + cls;
 
-  const saved=JSON.parse(localStorage.getItem('rishi_syl_state')||'{}');
-  if(saved.selected) selected=new Set(saved.selected);
-  if(saved.locked) locked=saved.locked;
-  if(saved.planDays) planDays=saved.planDays;
+  const saved = JSON.parse(localStorage.getItem('rishi_syl_state') || '{}');
+  if(saved.selected)     selected     = new Set(saved.selected);
+  if(saved.locked)       locked       = saved.locked;
+  if(saved.lockedFilter) lockedFilter = saved.lockedFilter;
+  if(saved.planDays)     planDays     = saved.planDays;
+  if(saved.filter)       filter       = saved.filter;
 
-  const prog=JSON.parse(localStorage.getItem('rishi_progress')||'{}');
-  if(Object.keys(prog).length>0) document.getElementById('resumeBtn').classList.add('show');
+  // Restore active filter button highlight
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  const fb = document.getElementById('fb-' + filter);
+  if(fb) fb.classList.add('active');
 
-  render(); updateBar();
+  const prog = JSON.parse(localStorage.getItem('rishi_progress') || '{}');
+  if(Object.keys(prog).length > 0) document.getElementById('resumeBtn').classList.add('show');
+
+  render();
+  updateBar();
 };
 
+// ── SAVE ──────────────────────────────────────────────────────
 function save(){
-  localStorage.setItem('rishi_syl_state',JSON.stringify({selected:Array.from(selected),locked,planDays}));
+  localStorage.setItem('rishi_syl_state', JSON.stringify({
+    selected: Array.from(selected), locked, lockedFilter, planDays, filter
+  }));
 }
 
-function setFilter(f,btn){
-  filter=f;
-  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+// ── FILTER — only changes the active button highlight, nothing else ───────────
+function setFilter(f, btn){
+  filter = f;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
-  const msgs={all:'Select the chapters you want to study, then lock to get your personal study plan.',unit:'Unit Test covers Arithmetic & Algebra. Select and lock chapters.',half:'Half Yearly covers Arithmetic, Algebra, Geometry & Mensuration.',annual:'Annual Exam covers all 5 topics. Select your focus chapters.'};
-  document.getElementById('planText').textContent=msgs[f];
-  const labels={all:'full syllabus',unit:'Unit Test',half:'Half Yearly',annual:'Annual Exam'};
-  document.getElementById('pageSub').innerHTML='Showing <span>'+labels[f]+'</span> — select chapters & lock for study plan';
-  render();
+  save();
+  // NO render call — filter does zero to topic cards
 }
 
+// ── TICK CHAPTER (no re-render, preserves open/close) ────────────────────────
 function toggleCh(id){
   if(locked) return;
-  selected.has(id)?selected.delete(id):selected.add(id);
+  selected.has(id) ? selected.delete(id) : selected.add(id);
   save();
-  // Update ONLY the checkbox row in-place — do NOT re-render (preserves open/close state)
-  const row=document.getElementById('chrow-'+id);
+
+  const row = document.getElementById('chrow-' + id);
   if(row){
-    const isSel=selected.has(id);
-    const chk=row.querySelector('.ch-chk');
-    if(isSel){row.classList.add('sel');chk.classList.add('on');chk.textContent='✓';}
-    else{row.classList.remove('sel');chk.classList.remove('on');chk.textContent='';}
-    // Update selected badge on parent topic card
-    const card=row.closest('.topic-card');
-    const topicId=card.dataset.topicId;
-    const topic=syllabus.find(t=>t.id===topicId);
-    const cnt=topic.chapters.filter(c=>selected.has(c.id)).length;
-    const badge=card.querySelector('.sel-badge');
-    if(badge){badge.textContent=cnt>0?cnt+' selected':'';badge.style.display=cnt>0?'inline-block':'none';}
+    const isSel = selected.has(id);
+    const chk   = row.querySelector('.ch-chk');
+    if(isSel){ row.classList.add('sel');    chk.classList.add('on');    chk.textContent = '✓'; }
+    else      { row.classList.remove('sel');chk.classList.remove('on'); chk.textContent = '';  }
   }
   updateBar();
 }
 
+// ── ACTION BAR ────────────────────────────────────────────────
 function updateBar(){
-  const bar=document.getElementById('actionBar');
-  const lb=document.getElementById('lockBtn');
-  const sp=document.getElementById('spBtn');
-  document.getElementById('selCount').textContent=selected.size;
-  if(selected.size>0||locked) bar.classList.add('show'); else bar.classList.remove('show');
+  const bar = document.getElementById('actionBar');
+  const lb  = document.getElementById('lockBtn');
+  const sp  = document.getElementById('spBtn');
+  document.getElementById('selCount').textContent = selected.size;
+
+  if(selected.size > 0 || locked) bar.classList.add('show');
+  else bar.classList.remove('show');
+
   if(locked){
-    lb.textContent='🔒 Locked — Tap to Unlock'; lb.className='btn-lock lkd';
+    lb.textContent = '🔒 Locked — Tap to Unlock';
+    lb.className   = 'btn-lock lkd';
     sp.classList.add('show');
-    document.getElementById('bottomNote').textContent='🔒 Selection locked · Tap 📅 Study Plan to see your day-wise plan';
+    document.getElementById('bottomNote').textContent = '🔒 Selection locked · Tap 📅 Study Plan to see your day-wise plan';
+    // Assign green style to the filter button that was active at lock time
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('assigned'));
+    const ab = document.getElementById('fb-' + lockedFilter);
+    if(ab) ab.classList.add('assigned');
   } else {
-    lb.textContent='🔓 Lock My Selection'; lb.className='btn-lock ulocked';
+    lb.textContent = '🔓 Lock My Selection';
+    lb.className   = 'btn-lock unlocked';
     sp.classList.remove('show');
-    document.getElementById('bottomNote').textContent='☝ Tick chapters above · Lock · Get day-wise study plan from Rishika';
+    document.getElementById('bottomNote').textContent = '☝ Tick chapters above · Lock · Get day-wise study plan from Rishika';
+    // Clear assignment from all filter buttons on unlock
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('assigned'));
   }
 }
 
+// ── LOCK / UNLOCK ─────────────────────────────────────────────
 function toggleLock(){
-  if(selected.size===0) return;
-  locked=!locked;
-  if(locked) buildPlan();
-  save(); render(); updateBar();
+  if(!locked && selected.size === 0) return;
+  locked = !locked;
+  if(locked){
+    lockedFilter = filter;
+    buildPlan();
+  } else {
+    lockedFilter = null;
+  }
+  save();
+  render();
+  updateBar();
 }
 
+// ── BUILD PLAN ────────────────────────────────────────────────
 function buildPlan(){
-  planDays=[];
-  const list=[];
-  syllabus.forEach(t=>t.chapters.forEach(c=>{if(selected.has(c.id)) list.push({id:c.id,name:c.name,topic:t.name});}));
-  const today=new Date();
-  const prog=JSON.parse(localStorage.getItem('rishi_progress')||'{}');
-  let day=1;
-  for(let i=0;i<list.length;i+=2){
-    const batch=list.slice(i,i+2);
-    const d=new Date(today); d.setDate(today.getDate()+(day-1));
-    const allDone=batch.every(c=>prog[c.id]==='done');
-    const anyRedo=batch.some(c=>prog[c.id]==='redo');
-    let status='pending';
-    if(day===1&&!allDone) status='ongoing';
-    if(allDone) status='done';
-    if(anyRedo) status='redoing';
-    planDays.push({day,chapters:batch,date:d,status,target:'Explain + 10 Practice questions per chapter'});
+  planDays = [];
+  const list = [];
+  syllabus.forEach(t => t.chapters.forEach(c => {
+    if(selected.has(c.id)) list.push({id:c.id, name:c.name, topic:t.name});
+  }));
+  const today = new Date();
+  const prog  = JSON.parse(localStorage.getItem('rishi_progress') || '{}');
+  let day = 1;
+  for(let i = 0; i < list.length; i += 2){
+    const batch   = list.slice(i, i+2);
+    const d       = new Date(today); d.setDate(today.getDate() + (day-1));
+    const allDone = batch.every(c => prog[c.id] === 'done');
+    const anyRedo = batch.some(c  => prog[c.id] === 'redo');
+    let status = 'pending';
+    if(day === 1 && !allDone) status = 'ongoing';
+    if(allDone) status = 'done';
+    if(anyRedo) status = 'redoing';
+    planDays.push({day, chapters:batch, date:d, status, target:'Explain + 10 Practice questions per chapter'});
     day++;
   }
-  if(list.length>0){
-    const ed=new Date(today); ed.setDate(today.getDate()+day);
-    planDays.push({day,chapters:[{name:'Revision + Mock Exam',topic:'All'}],date:ed,status:'pending',target:'Revise all selected chapters · Attempt Cluster Exam'});
+  if(list.length > 0){
+    const ed = new Date(today); ed.setDate(today.getDate() + day);
+    planDays.push({day, chapters:[{name:'Revision + Mock Exam', topic:'All'}], date:ed, status:'pending', target:'Revise all selected chapters · Attempt Cluster Exam'});
   }
 }
 
+// ── OPEN PLAN MODAL ───────────────────────────────────────────
 function openPlan(){
-  if(planDays.length===0) buildPlan();
-  document.getElementById('spSub').textContent=selected.size+' chapters selected · '+planDays.length+' day plan';
-  document.getElementById('spNote').innerHTML='🧠 <strong>Rishika\'s Plan:</strong> Built on your selected chapters. Updates automatically as you complete each day. Dates and status change in real time.';
-  const dl=document.getElementById('dayList'); dl.innerHTML='';
-  const sl={done:'✅ Done',ongoing:'⚡ Ongoing',redoing:'🔄 Redoing',pending:'⏳ Pending'};
-  const mo=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-  planDays.forEach(d=>{
-    const ds=d.date.getDate()+' '+mo[d.date.getMonth()];
-    const cn=d.chapters.map(c=>c.name).join(' · ');
-    const card=document.createElement('div');
-    card.className='day-card s-'+d.status;
-    card.innerHTML=`<div class="day-num">Day ${d.day}</div><div class="day-body"><div class="day-chaps">${cn}</div><div class="day-target">🎯 ${d.target}</div><div class="day-date">📅 ${ds}</div></div><div class="day-status">${sl[d.status]}</div>`;
+  if(planDays.length === 0) buildPlan();
+  document.getElementById('spSub').textContent    = selected.size + ' chapters · ' + planDays.length + ' day plan';
+  document.getElementById('spNote').innerHTML     = '🧠 <strong>Rishika\'s Plan:</strong> Built on your selected chapters. Dates and status update as you progress.';
+  const dl = document.getElementById('dayList'); dl.innerHTML = '';
+  const sl = {done:'✅ Done', ongoing:'⚡ Ongoing', redoing:'🔄 Redoing', pending:'⏳ Pending'};
+  const mo = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  planDays.forEach(d => {
+    const ds   = d.date.getDate() + ' ' + mo[d.date.getMonth()];
+    const cn   = d.chapters.map(c => c.name).join(' · ');
+    const card = document.createElement('div');
+    card.className = 'day-card s-' + d.status;
+    card.innerHTML = `<div class="day-num">Day ${d.day}</div><div class="day-body"><div class="day-chaps">${cn}</div><div class="day-target">🎯 ${d.target}</div><div class="day-date">📅 ${ds}</div></div><div class="day-status">${sl[d.status]}</div>`;
     dl.appendChild(card);
   });
   document.getElementById('spModal').classList.add('show');
 }
 
-function closePlan(){document.getElementById('spModal').classList.remove('show');}
+function closePlan(){ document.getElementById('spModal').classList.remove('show'); }
+function resumeStudy(){ alert('Resume feature coming soon as chapter pages are built!'); }
 
-function resumeStudy(){alert('Resume feature will take you to your last chapter. Coming soon as chapter pages are built!');}
+// ── RENDER ────────────────────────────────────────────────────
+// RULES (do not change):
+//   • Filter buttons = visual label only. ZERO effect on topic cards.
+//   • Topic card fades ONLY when: locked AND student selected 0 chapters in it.
+//   • Chapter row fades ONLY when: locked AND that chapter was not ticked by student.
+//   • No auto-selection. No badges from filter. Ever.
 
 function render(){
-  const container=document.getElementById('topicsContainer');
-  container.innerHTML='';
-  const prog=JSON.parse(localStorage.getItem('rishi_progress')||'{}');
+  const container = document.getElementById('topicsContainer');
+  // Remember which topics were open
+  const openIds = new Set();
+  container.querySelectorAll('.topic-card.open').forEach(c => openIds.add(c.dataset.topicId));
+  container.innerHTML = '';
 
-  syllabus.forEach(topic=>{
-    const inScope=filter==='all'||topic.exam[filter];
-    const selInTopic=topic.chapters.filter(c=>selected.has(c.id)).length;
-    const topicShadowed=locked&&selInTopic===0;
+  const prog = JSON.parse(localStorage.getItem('rishi_progress') || '{}');
 
-    const card=document.createElement('div');
-    card.className='topic-card'+(topicShadowed?' shadowed':'');
-    if(!inScope&&!locked) card.style.opacity='.3';
+  syllabus.forEach(topic => {
+    const selInTopic = topic.chapters.filter(c => selected.has(c.id)).length;
+    const topicFaded = locked && selInTopic === 0;
 
-    card.dataset.topicId=topic.id;
-    card.innerHTML=`
+    const card = document.createElement('div');
+    card.className      = 'topic-card' + (topicFaded ? ' faded' : '') + (openIds.has(topic.id) ? ' open' : '');
+    card.dataset.topicId = topic.id;
+
+    card.innerHTML = `
       <div class="topic-hdr" onclick="toggleTopic(this)">
         <div class="topic-left">
           <div class="t-icon" style="background:${topic.bg}">${topic.icon}</div>
-          <div><div class="t-name">${topic.name}</div><div class="t-meta">${topic.chapters.length} chapters</div></div>
+          <div>
+            <div class="t-name">${topic.name}</div>
+            <div class="t-meta">${topic.chapters.length} chapters</div>
+          </div>
         </div>
-        <div class="topic-right"><span class="sel-badge" style="font-size:11px;font-weight:800;padding:3px 9px;border-radius:10px;background:#eef2eb;color:var(--sage);display:${selInTopic>0?'inline-block':'none'}">${selInTopic>0?selInTopic+' selected':''}</span><span class="t-count">${topic.chapters.length} ch</span><span class="chevron">▾</span></div>
+        <div class="topic-right">
+          <span class="t-count">${topic.chapters.length} ch</span>
+          <span class="chevron">▾</span>
+        </div>
       </div>
       <div class="chaps-wrap"><div class="chaps-inner">
-        ${topic.chapters.map((ch,ci)=>{
-          const isSel=selected.has(ch.id);
-          const isShadowed=locked&&!isSel;
-          const cp=prog[ch.id]||{};
-          const att=cp.attempted||0; const cor=cp.correct||0;
-          const stats=att>0?`<div class="ch-stats"><span class="stat-p">${att} attempted</span><span class="stat-p g">${cor} correct</span></div>`:'';
-          return `<div class="ch-row${isSel?' sel':''}${isShadowed?' shadowed':''}" id="chrow-${ch.id}">
+        ${topic.chapters.map((ch, ci) => {
+          const isSel   = selected.has(ch.id);
+          const chFaded = locked && !isSel;
+          const cp      = prog[ch.id] || {};
+          const att     = cp.attempted || 0;
+          const cor     = cp.correct   || 0;
+          const stats   = att > 0
+            ? `<div class="ch-stats"><span class="stat-p">${att} attempted</span><span class="stat-p g">${cor} correct</span></div>`
+            : '';
+          return `<div class="ch-row${isSel?' sel':''}${chFaded?' faded':''}" id="chrow-${ch.id}">
             <div class="ch-chk${isSel?' on':''}" onclick="toggleCh('${ch.id}')">${isSel?'✓':''}</div>
             <span class="ch-num">${String(ci+1).padStart(2,'0')}</span>
             <span class="ch-name">${ch.name}</span>
             ${stats}
             <div class="dots">
-              <div class="dot${cp.explain?' done':''}" title="Explain"></div>
+              <div class="dot${cp.explain?  ' done':''}" title="Explain"></div>
               <div class="dot${cp.practice?' done':''}" title="Practice"></div>
-              <div class="dot${cp.exam?' done':''}" title="Exam"></div>
+              <div class="dot${cp.exam?    ' done':''}" title="Exam"></div>
             </div>
             <div class="ch-btns">
               <button class="ch-btn" disabled>📖 Explain</button>
@@ -391,7 +435,7 @@ function render(){
   });
 }
 
-function toggleTopic(hdr){hdr.closest('.topic-card').classList.toggle('open');}
+function toggleTopic(hdr){ hdr.closest('.topic-card').classList.toggle('open'); }
 </script>
 </body>
 </html>
