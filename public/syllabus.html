@@ -248,7 +248,23 @@ function setFilter(f,btn){
 function toggleCh(id){
   if(locked) return;
   selected.has(id)?selected.delete(id):selected.add(id);
-  save(); render(); updateBar();
+  save();
+  // Update ONLY the checkbox row in-place — do NOT re-render (preserves open/close state)
+  const row=document.getElementById('chrow-'+id);
+  if(row){
+    const isSel=selected.has(id);
+    const chk=row.querySelector('.ch-chk');
+    if(isSel){row.classList.add('sel');chk.classList.add('on');chk.textContent='✓';}
+    else{row.classList.remove('sel');chk.classList.remove('on');chk.textContent='';}
+    // Update selected badge on parent topic card
+    const card=row.closest('.topic-card');
+    const topicId=card.dataset.topicId;
+    const topic=syllabus.find(t=>t.id===topicId);
+    const cnt=topic.chapters.filter(c=>selected.has(c.id)).length;
+    const badge=card.querySelector('.sel-badge');
+    if(badge){badge.textContent=cnt>0?cnt+' selected':'';badge.style.display=cnt>0?'inline-block':'none';}
+  }
+  updateBar();
 }
 
 function updateBar(){
@@ -337,15 +353,15 @@ function render(){
     if(!inScope&&!locked) card.style.opacity='.4';
 
     const examTag=filter!=='all'?`<span class="exam-tag ${inScope?'show':''}">${inScope?'✅ In Exam':'⬜ Not in exam'}</span>`:'';
-    const selBadge=selInTopic>0?`<span style="font-size:11px;font-weight:800;padding:3px 9px;border-radius:10px;background:#eef2eb;color:var(--sage);">${selInTopic} selected</span>`:'';
 
+    card.dataset.topicId=topic.id;
     card.innerHTML=`
       <div class="topic-hdr" onclick="toggleTopic(this)">
         <div class="topic-left">
           <div class="t-icon" style="background:${topic.bg}">${topic.icon}</div>
           <div><div class="t-name">${topic.name}</div><div class="t-meta">${topic.chapters.length} chapters</div></div>
         </div>
-        <div class="topic-right">${examTag}${selBadge}<span class="t-count">${topic.chapters.length} ch</span><span class="chevron">▾</span></div>
+        <div class="topic-right">${examTag}<span class="sel-badge" style="font-size:11px;font-weight:800;padding:3px 9px;border-radius:10px;background:#eef2eb;color:var(--sage);display:${selInTopic>0?'inline-block':'none'}">${selInTopic>0?selInTopic+' selected':''}</span><span class="t-count">${topic.chapters.length} ch</span><span class="chevron">▾</span></div>
       </div>
       <div class="chaps-wrap"><div class="chaps-inner">
         ${topic.chapters.map((ch,ci)=>{
@@ -354,7 +370,7 @@ function render(){
           const cp=prog[ch.id]||{};
           const att=cp.attempted||0; const cor=cp.correct||0;
           const stats=att>0?`<div class="ch-stats"><span class="stat-p">${att} attempted</span><span class="stat-p g">${cor} correct</span></div>`:'';
-          return `<div class="ch-row${isSel?' sel':''}${isShadowed?' shadowed':''}">
+          return `<div class="ch-row${isSel?' sel':''}${isShadowed?' shadowed':''}" id="chrow-${ch.id}">
             <div class="ch-chk${isSel?' on':''}" onclick="toggleCh('${ch.id}')">${isSel?'✓':''}</div>
             <span class="ch-num">${String(ci+1).padStart(2,'0')}</span>
             <span class="ch-name">${ch.name}</span>
