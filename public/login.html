@@ -7,240 +7,83 @@
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Nunito:wght@400;600;700;800;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
 <style>
   :root {
-    --cream: #fdf6ec;
-    --warm-white: #fffdf8;
-    --gold: #c8922a;
-    --gold-light: #e8b84b;
-    --gold-pale: #f5e6c8;
-    --amber: #d4870a;
-    --sage: #7a8c6e;
-    --sage-light: #a8b89a;
-    --rust: #b85c2a;
-    --charcoal: #2a2218;
-    --mid: #5a4a30;
-    --soft: #8a7a5a;
-    --inactive: #c8b89a;
+    --cream:#fdf6ec; --warm-white:#fffdf8; --gold:#c8922a; --gold-light:#e8b84b;
+    --gold-pale:#f5e6c8; --amber:#d4870a; --sage:#7a8c6e; --sage-light:#a8b89a;
+    --rust:#b85c2a; --charcoal:#2a2218; --mid:#5a4a30; --soft:#8a7a5a;
+    --inactive:#c8b89a; --border-dark:#6b4c2a; --error:#c0392b;
   }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--cream);font-family:'Nunito',sans-serif;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--charcoal);padding:20px;}
+  body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(var(--gold-pale) 1px,transparent 1px),linear-gradient(90deg,var(--gold-pale) 1px,transparent 1px);background-size:40px 40px;opacity:.35;z-index:0;pointer-events:none;}
+  body::after{content:'RISHI';position:fixed;bottom:-40px;right:-30px;font-family:'Orbitron',sans-serif;font-size:220px;font-weight:900;color:var(--gold-pale);opacity:.18;z-index:0;pointer-events:none;}
+  .orb{position:fixed;top:-80px;right:-80px;width:320px;height:320px;background:radial-gradient(circle at 40% 40%,var(--gold-light),var(--amber),#8a4a10);border-radius:50%;opacity:.22;z-index:0;animation:pulse 4s ease-in-out infinite;pointer-events:none;}
+  @keyframes pulse{0%,100%{transform:scale(1);opacity:.22}50%{transform:scale(1.06);opacity:.28}}
 
-  body {
-    background: var(--cream);
-    font-family: 'Nunito', sans-serif;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    color: var(--charcoal);
-    overflow: hidden;
-  }
+  .card{position:relative;z-index:10;background:rgba(255,253,248,.97);border:2px solid var(--border-dark);border-radius:24px;padding:44px 48px;width:100%;max-width:480px;box-shadow:0 12px 60px rgba(107,76,42,.18);animation:fadeUp .5s ease;}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
 
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image:
-      linear-gradient(var(--gold-pale) 1px, transparent 1px),
-      linear-gradient(90deg, var(--gold-pale) 1px, transparent 1px);
-    background-size: 40px 40px;
-    opacity: 0.35;
-    z-index: 0;
-    pointer-events: none;
-  }
+  .logo{font-family:'Orbitron',sans-serif;font-size:38px;font-weight:900;letter-spacing:8px;background:linear-gradient(135deg,var(--amber),var(--gold-light),var(--rust));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-align:center;margin-bottom:6px;}
+  .tagline{font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--sage);letter-spacing:3px;text-transform:uppercase;text-align:center;margin-bottom:14px;}
+  .divider{width:60px;height:3px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:0 auto 32px;border-radius:2px;}
 
-  body::after {
-    content: 'RISHI';
-    position: fixed;
-    bottom: -40px;
-    right: -30px;
-    font-family: 'Orbitron', sans-serif;
-    font-size: 220px;
-    font-weight: 900;
-    color: var(--gold-pale);
-    opacity: 0.18;
-    z-index: 0;
-    pointer-events: none;
-  }
+  /* REDIRECT BANNER */
+  .redirect-banner{background:linear-gradient(135deg,#eef2eb,#f5fbf2);border:2px solid var(--border-dark);border-radius:14px;padding:14px 18px;margin-bottom:24px;text-align:center;}
+  .rb-title{font-size:14px;font-weight:900;color:var(--mid);margin-bottom:4px;}
+  .rb-sub{font-size:12px;font-weight:700;color:var(--soft);margin-bottom:10px;}
+  .progress-bar{height:6px;background:var(--gold-pale);border-radius:4px;overflow:hidden;}
+  .progress-fill{height:100%;background:linear-gradient(90deg,var(--sage),var(--gold));border-radius:4px;transition:width 1s linear;}
 
-  .orb {
-    position: fixed;
-    top: -80px;
-    right: -80px;
-    width: 320px;
-    height: 320px;
-    background: radial-gradient(circle at 40% 40%, var(--gold-light), var(--amber), #8a4a10);
-    border-radius: 50%;
-    opacity: 0.22;
-    z-index: 0;
-    animation: pulse 4s ease-in-out infinite;
-    pointer-events: none;
-  }
-  @keyframes pulse {
-    0%,100% { transform: scale(1); opacity: 0.22; }
-    50% { transform: scale(1.06); opacity: 0.28; }
-  }
+  /* FIELDS */
+  .field{display:flex;flex-direction:column;gap:7px;margin-bottom:18px;}
+  label{font-size:12px;font-weight:900;color:var(--mid);letter-spacing:1px;text-transform:uppercase;}
+  input{font-family:'Nunito',sans-serif;font-size:16px;font-weight:700;color:var(--charcoal);background:var(--warm-white);border:2px solid var(--border-dark);border-radius:10px;padding:13px 16px;outline:none;transition:border .2s,box-shadow .2s;width:100%;}
+  input:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(200,146,42,.12);}
+  input.filled{border-color:var(--sage);background:#f5fbf2;}
+  input.err{border-color:var(--error);}
+  .val-msg{font-size:12px;font-weight:700;color:var(--error);display:none;}
+  .val-msg.show{display:block;}
 
-  .card {
-    position: relative;
-    z-index: 10;
-    background: rgba(255,253,248,0.95);
-    border: 1.5px solid var(--gold-pale);
-    border-radius: 24px;
-    padding: 48px 52px;
-    width: 100%;
-    max-width: 460px;
-    box-shadow: 0 12px 60px rgba(200,146,42,0.13);
-    animation: fadeUp 0.5s ease;
-  }
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(24px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
+  /* LOGIN BUTTON */
+  .btn-login{width:100%;font-family:'Nunito',sans-serif;font-size:18px;font-weight:900;background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;border:none;border-radius:14px;padding:17px;cursor:pointer;letter-spacing:.5px;box-shadow:0 6px 28px rgba(212,135,10,.35);transition:all .2s;margin-top:6px;}
+  .btn-login:hover{transform:translateY(-2px);box-shadow:0 10px 36px rgba(212,135,10,.45);}
 
-  .logo {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 38px;
-    font-weight: 900;
-    letter-spacing: 8px;
-    background: linear-gradient(135deg, var(--amber), var(--gold-light), var(--rust));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    text-align: center;
-    margin-bottom: 6px;
-  }
-  .tagline {
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 11px;
-    color: var(--sage);
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    text-align: center;
-    margin-bottom: 36px;
-  }
-  .divider {
-    width: 60px;
-    height: 3px;
-    background: linear-gradient(90deg, transparent, var(--gold), transparent);
-    margin: 0 auto 36px;
-    border-radius: 2px;
-  }
+  /* TEXT LINKS */
+  .links-row{display:flex;justify-content:space-between;align-items:center;margin-top:20px;flex-wrap:wrap;gap:10px;}
+  .text-btn{font-size:13px;font-weight:800;color:var(--soft);cursor:pointer;background:none;border:none;padding:0;font-family:'Nunito',sans-serif;}
+  .text-btn:hover{color:var(--amber);}
 
-  .field {
-    display: flex;
-    flex-direction: column;
-    gap: 7px;
-    margin-bottom: 18px;
-    position: relative;
-  }
+  /* EXPANDABLE SECTIONS */
+  .expand-section{margin-top:18px;border:2px solid var(--border-dark);border-radius:16px;overflow:hidden;display:none;}
+  .expand-section.open{display:block;}
+  .expand-header{background:var(--gold-pale);padding:13px 18px;font-size:13px;font-weight:900;color:var(--mid);display:flex;justify-content:space-between;align-items:center;cursor:pointer;border-bottom:2px solid var(--border-dark);}
+  .expand-body{padding:20px 18px;background:var(--warm-white);}
+  .expand-body .field{margin-bottom:14px;}
+  .expand-body .field:last-of-type{margin-bottom:0;}
 
-  label {
-    font-size: 12px;
-    font-weight: 900;
-    color: var(--mid);
-    letter-spacing: 1px;
-    text-transform: uppercase;
-  }
+  .btn-sm{font-family:'Nunito',sans-serif;font-size:14px;font-weight:900;padding:11px 20px;border-radius:10px;border:none;cursor:pointer;transition:all .2s;width:100%;margin-top:14px;}
+  .btn-sm.sage{background:linear-gradient(135deg,var(--sage),var(--sage-light));color:#fff;box-shadow:0 4px 16px rgba(122,140,110,.3);}
+  .btn-sm.sage:hover{transform:translateY(-1px);}
+  .btn-sm.amber{background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;box-shadow:0 4px 16px rgba(212,135,10,.3);}
+  .btn-sm.amber:hover{transform:translateY(-1px);}
 
-  .inactive-field-wrap {
-    position: relative;
-  }
-  .inactive-field-wrap input {
-    width: 100%;
-    font-family: 'Nunito', sans-serif;
-    font-size: 16px;
-    font-weight: 700;
-    color: var(--inactive);
-    background: #faf6f0;
-    border: 2px dashed var(--gold-pale);
-    border-radius: 10px;
-    padding: 13px 16px;
-    outline: none;
-    cursor: not-allowed;
-  }
-  .lock-badge {
-    position: absolute;
-    right: 12px;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 16px;
-    opacity: 0.5;
-  }
-  .inactive-note {
-    font-size: 11px;
-    font-weight: 700;
-    color: var(--rust);
-    font-style: italic;
-  }
+  /* RESULT BOX */
+  .result-box{display:none;background:var(--gold-pale);border:2px solid var(--border-dark);border-radius:12px;padding:14px 16px;margin-top:14px;}
+  .result-box.show{display:block;}
+  .result-row{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid rgba(107,76,42,.2);}
+  .result-row:last-child{border-bottom:none;}
+  .result-key{font-size:12px;font-weight:800;color:var(--mid);text-transform:uppercase;letter-spacing:.5px;}
+  .result-val{font-family:'Share Tech Mono',monospace;font-size:15px;font-weight:700;color:var(--charcoal);}
+  .result-note{font-size:12px;font-weight:700;color:var(--rust);margin-top:8px;line-height:1.5;}
 
-  .or-row {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    margin: 28px 0 24px;
-  }
-  .or-line { flex: 1; height: 1.5px; background: var(--gold-pale); }
-  .or-text {
-    font-size: 12px;
-    font-weight: 800;
-    color: var(--soft);
-    letter-spacing: 2px;
-    text-transform: uppercase;
-  }
+  .inactive-note{font-size:11px;font-weight:700;color:var(--rust);font-style:italic;margin-top:6px;}
 
-  .btn-tryin {
-    width: 100%;
-    font-family: 'Nunito', sans-serif;
-    font-size: 19px;
-    font-weight: 900;
-    background: linear-gradient(135deg, var(--amber), var(--gold-light));
-    color: #fff;
-    border: none;
-    border-radius: 14px;
-    padding: 18px;
-    cursor: pointer;
-    letter-spacing: 1px;
-    box-shadow: 0 6px 28px rgba(212,135,10,0.35);
-    transition: all 0.2s;
-    margin-bottom: 14px;
-  }
-  .btn-tryin:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 36px rgba(212,135,10,0.45);
-  }
+  .back-link{display:block;text-align:center;margin-top:24px;font-size:13px;font-weight:800;color:var(--soft);cursor:pointer;text-decoration:none;}
+  .back-link:hover{color:var(--amber);}
 
-  .try-note {
-    text-align: center;
-    font-size: 12px;
-    font-weight: 700;
-    color: var(--soft);
-    line-height: 1.7;
-  }
-  .try-note span {
-    color: var(--sage);
-    font-weight: 800;
-  }
-
-  .back-link {
-    display: block;
-    text-align: center;
-    margin-top: 28px;
-    font-size: 13px;
-    font-weight: 800;
-    color: var(--soft);
-    cursor: pointer;
-    text-decoration: none;
-    letter-spacing: 0.5px;
-  }
-  .back-link:hover { color: var(--amber); }
-
-  @media (max-width: 500px) {
-    .card { padding: 36px 24px; }
-  }
+  @media(max-width:500px){.card{padding:32px 20px;}}
 </style>
 </head>
 <body>
-
 <div class="orb"></div>
 
 <div class="card">
@@ -248,48 +91,280 @@
   <div class="tagline">Riddhi · Siddhi · Always By Your Side</div>
   <div class="divider"></div>
 
-  <!-- 🔒 INACTIVE: Username field -->
+  <!-- AUTO REDIRECT BANNER -->
+  <div class="redirect-banner" id="redirectBanner">
+    <div class="rb-title">✨ Welcome back!</div>
+    <div class="rb-sub">Taking you to your syllabus in <span id="countdownNum">5</span> seconds...</div>
+    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+  </div>
+
+  <!-- LOGIN FIELDS -->
   <div class="field">
     <label>Username</label>
-    <div class="inactive-field-wrap">
-      <input type="text" placeholder="Your username" disabled>
-      <span class="lock-badge">🔒</span>
-    </div>
-    <div class="inactive-note">🔒 Login coming soon — use Try In below</div>
+    <input type="text" id="username" placeholder="Enter your username" oninput="this.classList.add('filled'); stopCountdown();">
+    <div class="val-msg" id="err-username">Please enter your username</div>
   </div>
 
-  <!-- 🔒 INACTIVE: Password field -->
   <div class="field">
     <label>Password</label>
-    <div class="inactive-field-wrap">
-      <input type="password" placeholder="Your password" disabled>
-      <span class="lock-badge">🔒</span>
+    <input type="password" id="password" placeholder="Enter your password" oninput="this.classList.add('filled'); stopCountdown();">
+    <div class="val-msg" id="err-password">Please enter your password</div>
+  </div>
+
+  <button class="btn-login" onclick="handleLogin()">✦ Login — Enter RISHI</button>
+
+  <div class="links-row">
+    <button class="text-btn" onclick="toggleSection('forgotSection')">🔑 Forgot credentials?</button>
+    <button class="text-btn" onclick="toggleSection('changeSection')">🔐 Change password</button>
+  </div>
+
+  <!-- FORGOT CREDENTIALS -->
+  <div class="expand-section" id="forgotSection">
+    <div class="expand-header" onclick="toggleSection('forgotSection')">
+      <span>🔑 Forgot Username / Password</span><span>✕</span>
+    </div>
+    <div class="expand-body">
+      <div class="field">
+        <label>Registered Mobile Number</label>
+        <input type="tel" id="forgotMobile" placeholder="Enter 10-digit mobile" maxlength="10"
+          oninput="this.value=this.value.replace(/\D/g,''); this.classList.add('filled')">
+        <div class="val-msg" id="err-forgotMobile">Enter valid 10-digit mobile number</div>
+      </div>
+      <div class="inactive-note">🔒 SMS inactive — credentials shown on screen for now</div>
+      <button class="btn-sm sage" onclick="handleForgot()">Send My Credentials</button>
+      <div class="result-box" id="forgotResult">
+        <div class="result-row"><span class="result-key">Username</span><span class="result-val" id="forgotUser">—</span></div>
+        <div class="result-row"><span class="result-key">Password</span><span class="result-val" id="forgotPass">—</span></div>
+        <div class="result-note">📌 Save these. SMS delivery will be activated soon.</div>
+      </div>
     </div>
   </div>
 
-  <div class="or-row">
-    <div class="or-line"></div>
-    <div class="or-text">or</div>
-    <div class="or-line"></div>
-  </div>
-
-  <button class="btn-tryin" onclick="tryIn()">✦ Try In — Explore Free</button>
-
-  <div class="try-note">
-    No login needed right now.<br>
-    <span>Full app · Class 8 CBSE · No payment</span>
+  <!-- CHANGE PASSWORD -->
+  <div class="expand-section" id="changeSection">
+    <div class="expand-header" onclick="toggleSection('changeSection')">
+      <span>🔐 Change Password</span><span>✕</span>
+    </div>
+    <div class="expand-body">
+      <div class="field">
+        <label>Username</label>
+        <input type="text" id="changeUser" placeholder="Your username" oninput="this.classList.add('filled')">
+        <div class="val-msg" id="err-changeUser">Enter your username</div>
+      </div>
+      <div class="field">
+        <label>Current Password</label>
+        <input type="password" id="changeOld" placeholder="Current password" oninput="this.classList.add('filled')">
+        <div class="val-msg" id="err-changeOld">Enter your current password</div>
+      </div>
+      <div class="field">
+        <label>New Password</label>
+        <input type="password" id="changeNew1" placeholder="New password" oninput="this.classList.add('filled')">
+        <div class="val-msg" id="err-changeNew1">Enter new password</div>
+      </div>
+      <div class="field">
+        <label>Confirm New Password</label>
+        <input type="password" id="changeNew2" placeholder="Repeat new password" oninput="this.classList.add('filled')">
+        <div class="val-msg" id="err-changeNew2">Passwords do not match</div>
+      </div>
+      <div class="inactive-note">🔒 SMS confirmation inactive — result shown on screen for now</div>
+      <button class="btn-sm amber" onclick="handleChangePassword()">Update Password</button>
+      <div class="result-box" id="changeResult">
+        <div class="result-row"><span class="result-key">Username</span><span class="result-val" id="changeResultUser">—</span></div>
+        <div class="result-row"><span class="result-key">New Password</span><span class="result-val" id="changeResultPass">—</span></div>
+        <div class="result-note">✅ Password updated. SMS confirmation will be activated soon.</div>
+      </div>
+    </div>
   </div>
 
   <a class="back-link" href="/landing.html">← Back to Home</a>
 </div>
 
 <script>
-function tryIn() {
-  // Load student data if registered, else go as guest
+// ── ACCOUNTS ──────────────────────────────────────────────────────────────────
+const hardcodedAccounts = [
+  { username:'RISHI-CBSE-001',  password:'Password', board:'CBSE',  class:'8' },
+  { username:'RISHI-ICSE-001',  password:'Password', board:'ICSE',  class:'8' },
+  { username:'RISHI-WBBSE-001', password:'Password', board:'WBBSE', class:'8' },
+];
+
+function boardUsername(board){
+  const map = {CBSE:'RISHI-CBSE-001', ICSE:'RISHI-ICSE-001', WBBSE:'RISHI-WBBSE-001'};
+  return map[board] || 'RISHI-CBSE-001';
+}
+
+function findAccount(username, password){
+  // Check password overrides first (from change password)
+  const overrides = JSON.parse(localStorage.getItem('rishi_pw_overrides') || '{}');
+  const overridePw = overrides[username];
+
+  // Check hardcoded
+  const hc = hardcodedAccounts.find(a => a.username === username);
+  if(hc){
+    const pw = overridePw || hc.password;
+    if(pw === password) return hc;
+  }
+
+  // Check localStorage registrations
+  const regs = JSON.parse(localStorage.getItem('rishi_registrations') || '[]');
+  const reg = regs.find(r => boardUsername(r.board) === username);
+  if(reg){
+    const pw = overridePw || reg.password || 'Password';
+    if(pw === password) return { username, password, board: reg.board, class: reg.class };
+  }
+
+  return null;
+}
+
+// ── AUTO REDIRECT ─────────────────────────────────────────────────────────────
+let countdown = 5;
+let countdownTimer = null;
+
+window.onload = function(){
+  const fill = document.getElementById('progressFill');
+  fill.style.width = '100%';
+  countdownTimer = setInterval(()=>{
+    countdown--;
+    document.getElementById('countdownNum').textContent = countdown;
+    fill.style.width = (countdown / 5 * 100) + '%';
+    if(countdown <= 0){
+      clearInterval(countdownTimer);
+      goToSyllabus();
+    }
+  }, 1000);
+};
+
+function stopCountdown(){
+  if(countdownTimer){
+    clearInterval(countdownTimer);
+    countdownTimer = null;
+    document.getElementById('redirectBanner').style.display = 'none';
+  }
+}
+
+function goToSyllabus(){
   const student = JSON.parse(localStorage.getItem('rishi_current_student') || '{}');
-  const board = student.board || 'CBSE';
-  const cls = student.class || '8';
-  window.location.href = '/syllabus.html?board=' + board + '&class=' + cls;
+  window.location.href = '/syllabus.html?board=' + (student.board||'CBSE') + '&class=' + (student.class||'8');
+}
+
+// ── LOGIN ─────────────────────────────────────────────────────────────────────
+function handleLogin(){
+  const u = document.getElementById('username').value.trim();
+  const p = document.getElementById('password').value.trim();
+  let valid = true;
+
+  if(!u){ setErr('username','Please enter your username'); valid=false; } else clearErr('username');
+  if(!p){ setErr('password','Please enter your password'); valid=false; } else clearErr('password');
+  if(!valid) return;
+
+  const account = findAccount(u, p);
+  if(!account){
+    setErr('username','Username or password is incorrect');
+    document.getElementById('username').classList.add('err');
+    document.getElementById('password').classList.add('err');
+    return;
+  }
+
+  const existing = JSON.parse(localStorage.getItem('rishi_current_student') || '{}');
+  localStorage.setItem('rishi_current_student', JSON.stringify(
+    Object.assign({}, existing, {board: account.board, class: account.class})
+  ));
+
+  // 🔒 INACTIVE: Trial expiry / paywall check
+  // if(isTrialExpired(u)){ showPaywall(); return; }
+
+  goToSyllabus();
+}
+
+// ── FORGOT CREDENTIALS ────────────────────────────────────────────────────────
+function handleForgot(){
+  const mob = document.getElementById('forgotMobile').value.trim();
+  if(mob.length < 10){
+    document.getElementById('err-forgotMobile').classList.add('show');
+    return;
+  }
+  document.getElementById('err-forgotMobile').classList.remove('show');
+
+  const regs = JSON.parse(localStorage.getItem('rishi_registrations') || '[]');
+  const match = regs.find(r => r.primaryMobile === mob);
+  const overrides = JSON.parse(localStorage.getItem('rishi_pw_overrides') || '{}');
+
+  let username, password;
+  if(match){
+    username = boardUsername(match.board);
+    password = overrides[username] || match.password || 'Password';
+  } else {
+    username = 'RISHI-CBSE-001';
+    password = overrides[username] || 'Password';
+  }
+
+  document.getElementById('forgotUser').textContent = username;
+  document.getElementById('forgotPass').textContent = password;
+  document.getElementById('forgotResult').classList.add('show');
+
+  // 🔒 INACTIVE: sendSMS(mob, 'RISHI: Username: ' + username + ' Password: ' + password);
+}
+
+// ── CHANGE PASSWORD ────────────────────────────────────────────────────────────
+function handleChangePassword(){
+  const user = document.getElementById('changeUser').value.trim();
+  const old  = document.getElementById('changeOld').value.trim();
+  const new1 = document.getElementById('changeNew1').value.trim();
+  const new2 = document.getElementById('changeNew2').value.trim();
+  let valid  = true;
+
+  if(!user) { setExpandErr('changeUser','Enter your username'); valid=false; } else clearExpandErr('changeUser');
+  if(!old)  { setExpandErr('changeOld','Enter your current password'); valid=false; } else clearExpandErr('changeOld');
+  if(!new1) { setExpandErr('changeNew1','Enter new password'); valid=false; } else clearExpandErr('changeNew1');
+  if(new1!==new2){ setExpandErr('changeNew2','Passwords do not match'); valid=false; } else clearExpandErr('changeNew2');
+  if(!valid) return;
+
+  if(!findAccount(user, old)){
+    setExpandErr('changeOld','Username or current password is incorrect');
+    return;
+  }
+
+  // Save override
+  const overrides = JSON.parse(localStorage.getItem('rishi_pw_overrides') || '{}');
+  overrides[user] = new1;
+  localStorage.setItem('rishi_pw_overrides', JSON.stringify(overrides));
+
+  document.getElementById('changeResultUser').textContent = user;
+  document.getElementById('changeResultPass').textContent = new1;
+  document.getElementById('changeResult').classList.add('show');
+
+  // 🔒 INACTIVE: sendSMS(mobile, 'RISHI: Password changed. Username: ' + user + ' New Password: ' + new1);
+}
+
+// ── TOGGLE SECTIONS ───────────────────────────────────────────────────────────
+function toggleSection(id){
+  const el = document.getElementById(id);
+  const wasOpen = el.classList.contains('open');
+  document.querySelectorAll('.expand-section').forEach(s => s.classList.remove('open'));
+  if(!wasOpen) el.classList.add('open');
+}
+
+// ── ERROR HELPERS ─────────────────────────────────────────────────────────────
+function setErr(id, msg){
+  document.getElementById(id).classList.add('err');
+  const e = document.getElementById('err-'+id);
+  if(e){ e.textContent=msg; e.classList.add('show'); }
+}
+function clearErr(id){
+  document.getElementById(id).classList.remove('err');
+  const e = document.getElementById('err-'+id);
+  if(e) e.classList.remove('show');
+}
+function setExpandErr(id, msg){
+  const el = document.getElementById(id);
+  if(el) el.classList.add('err');
+  const e = document.getElementById('err-'+id);
+  if(e){ e.textContent=msg; e.classList.add('show'); }
+}
+function clearExpandErr(id){
+  const el = document.getElementById(id);
+  if(el) el.classList.remove('err');
+  const e = document.getElementById('err-'+id);
+  if(e) e.classList.remove('show');
 }
 </script>
 </body>
