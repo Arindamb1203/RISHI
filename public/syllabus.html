@@ -97,6 +97,8 @@
 
   .ch-btns{display:flex;gap:6px;flex-shrink:0;}
   .ch-btn{font-family:'Nunito',sans-serif;font-size:12px;font-weight:900;padding:6px 11px;border-radius:8px;border:1.5px solid var(--gold-pale);background:var(--warm-white);color:var(--inactive);cursor:not-allowed;opacity:.65;}
+  .ch-btn.active-btn{border-color:var(--border-dark);color:var(--mid);cursor:pointer;opacity:1;}
+  .ch-btn.active-btn:hover{background:var(--gold-pale);color:var(--amber);border-color:var(--amber);}
 
   .bottom-note{text-align:center;padding:18px;font-size:13px;font-weight:700;color:var(--soft);font-style:italic;}
 
@@ -426,9 +428,9 @@ function render(){
               <div class="dot${cp.exam?    ' done':''}" title="Exam"></div>
             </div>
             <div class="ch-btns">
-              <button class="ch-btn" disabled>📖 Explain</button>
-              <button class="ch-btn" disabled>✏️ Practice</button>
-              <button class="ch-btn" disabled>📝 Exam</button>
+              ${chBtn('explain',ch.id)}
+              ${chBtn('practice',ch.id)}
+              ${chBtn('exam',ch.id)}
             </div>
           </div>`;
         }).join('')}
@@ -439,6 +441,47 @@ function render(){
 }
 
 function toggleTopic(hdr){ hdr.closest('.topic-card').classList.toggle('open'); }
+
+// ── CHAPTER PAGE URL MAP ──────────────────────────────────────
+// Add URL here as each page is built. Leave blank = locked.
+const chapterUrls = {
+  explain: {
+    a1:  '/explain/arithmetic/rational-numbers.html',
+    a2:  '', // Powers and Exponents — coming soon
+    a3:  '', // Direct and Inverse Proportions — coming soon
+    a4:  '', // Comparing Quantities — coming soon
+    a5:  '', // Playing with Numbers — coming soon
+    al1: '', al2: '', al3: '', al4: '',
+    g1:  '', g2:  '', g3:  '',
+    m1:  '', m2:  '',
+    d1:  '', d2:  ''
+  },
+  practice: {
+    a1:'', a2:'', a3:'', a4:'', a5:'',
+    al1:'', al2:'', al3:'', al4:'',
+    g1:'', g2:'', g3:'',
+    m1:'', m2:'',
+    d1:'', d2:''
+  },
+  exam: {
+    a1:'', a2:'', a3:'', a4:'', a5:'',
+    al1:'', al2:'', al3:'', al4:'',
+    g1:'', g2:'', g3:'',
+    m1:'', m2:'',
+    d1:'', d2:''
+  }
+};
+
+const btnLabels = { explain:'📖 Explain', practice:'✏️ Practice', exam:'📝 Exam' };
+
+function chBtn(type, chId){
+  const url = chapterUrls[type] && chapterUrls[type][chId];
+  if(url){
+    return `<button class="ch-btn active-btn" onclick="window.location.href='${url}'">${btnLabels[type]}</button>`;
+  }
+  return `<button class="ch-btn" disabled title="Coming soon">${btnLabels[type]} 🔒</button>`;
+}
+
 
 let _twTimer = null;
 function typeText(text){
