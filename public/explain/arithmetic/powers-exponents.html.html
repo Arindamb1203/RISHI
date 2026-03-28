@@ -554,36 +554,25 @@ function handleAnswer(text){
 
 function showNudge(msg){const n=document.getElementById('nudgeBox');if(n){n.textContent=msg;n.classList.add('show');}}
 
-// ── ELEVENLABS VOICE — Priyanka (Calm, Indian Female) ─────────
-const EL_KEY = "sk_d497280eb8986d7aaa7cfac5cb9b8f3df27f1e59f5d291f7";
-const EL_VID = "BpjGufoPiobT79j2vtj4";
-let elAudio = null;
-
 function speakEl(id){
   const el = document.getElementById(id);
   if(!el) return;
   speakRaw(el.innerText || el.textContent);
 }
 
-async function speakRaw(text){
-  if(elAudio){ elAudio.pause(); elAudio = null; }
-  try{
-    const res = await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${EL_VID}/stream`, {
-      method:'POST',
-      headers:{ 'xi-api-key': EL_KEY, 'Content-Type':'application/json' },
-      body: JSON.stringify({
-        text: text,
-        model_id: 'eleven_multilingual_v2',
-        voice_settings:{ stability:0.55, similarity_boost:0.80, style:0.20, use_speaker_boost:true }
-      })
-    });
-    if(!res.ok){ console.error('ElevenLabs error', res.status); return; }
-    const blob = await res.blob();
-    const url = URL.createObjectURL(blob);
-    elAudio = new Audio(url);
-    elAudio.play();
-  } catch(e){ console.error('Voice error:', e); }
+function speakRaw(text){
+  if(!window.speechSynthesis) return;
+  window.speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = 'en-IN'; u.rate = 0.88; u.pitch = 1.1;
+  const vs = window.speechSynthesis.getVoices();
+  const v = vs.find(v => v.lang.startsWith('en-IN'))
+    || vs.find(v => v.lang.startsWith('en') && v.name.toLowerCase().includes('female'))
+    || vs.find(v => v.lang.startsWith('en'));
+  if(v) u.voice = v;
+  window.speechSynthesis.speak(u);
 }
+window.speechSynthesis && window.speechSynthesis.addEventListener('voiceschanged', ()=>{});
 function updateProg(){
   const pct=Math.round((idx/PER_SESSION)*100);
   document.getElementById('progFill').style.width=pct+'%';
