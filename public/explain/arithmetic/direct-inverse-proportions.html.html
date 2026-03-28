@@ -532,14 +532,29 @@ function speakRaw(text){
   if(!window.speechSynthesis) return;
   window.speechSynthesis.cancel();
   const u = new SpeechSynthesisUtterance(text);
-  u.lang = 'en-IN'; u.rate = 0.88; u.pitch = 1.1;
+  u.lang = 'en-IN'; u.rate = 0.85; u.pitch = 1.2;
   const vs = window.speechSynthesis.getVoices();
-  const v = vs.find(v => v.lang.startsWith('en-IN'))
-    || vs.find(v => v.lang.startsWith('en') && v.name.toLowerCase().includes('female'))
-    || vs.find(v => v.lang.startsWith('en'));
+  // Priority: Indian female > any female > Indian > English
+  const v = vs.find(v => v.lang.startsWith('en-IN') && v.name.toLowerCase().includes('female'))
+    || vs.find(v => (v.lang.startsWith('en-IN') || v.lang.startsWith('en-GB')) && v.name.toLowerCase().includes('female'))
+    || vs.find(v => v.name.toLowerCase().includes('zira'))
+    || vs.find(v => v.name.toLowerCase().includes('hazel'))
+    || vs.find(v => v.name.toLowerCase().includes('susan'))
+    || vs.find(v => v.name.toLowerCase().includes('female'))
+    || vs.find(v => v.name.toLowerCase().includes('samantha'))
+    || vs.find(v => v.lang.startsWith('en-IN'))
+    || vs.find(v => v.lang.startsWith('en-GB'));
   if(v) u.voice = v;
   window.speechSynthesis.speak(u);
 }
+
+// Stop voice when leaving page
+window.addEventListener('beforeunload', () => {
+  window.speechSynthesis && window.speechSynthesis.cancel();
+});
+window.addEventListener('pagehide', () => {
+  window.speechSynthesis && window.speechSynthesis.cancel();
+});
 window.speechSynthesis && window.speechSynthesis.addEventListener('voiceschanged', ()=>{});function updateProg(){
   const pct=Math.round((idx/PER_SESSION)*100);
   document.getElementById('progFill').style.width=pct+'%';
