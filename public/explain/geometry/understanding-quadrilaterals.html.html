@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RISHI — Explain: Understanding Quadrilaterals</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Nunito:wght@400;600;700;800;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+:root{--cream:#fdf6ec;--warm-white:#fffdf8;--gold:#c8922a;--gold-light:#e8b84b;
+--gold-pale:#f5e6c8;--amber:#d4870a;--sage:#7a8c6e;--sage-light:#a8b89a;
+--rust:#b85c2a;--charcoal:#2a2218;--mid:#5a4a30;--soft:#8a7a5a;
+--inactive:#c8b89a;--border-dark:#6b4c2a;--error:#c0392b;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--cream);font-family:'Nunito',sans-serif;min-height:100vh;color:var(--charcoal);}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(var(--gold-pale) 1px,transparent 1px),linear-gradient(90deg,var(--gold-pale) 1px,transparent 1px);background-size:40px 40px;opacity:.3;z-index:0;pointer-events:none;}
+.topbar{position:sticky;top:0;z-index:100;background:rgba(253,246,236,.97);border-bottom:2px solid var(--border-dark);backdrop-filter:blur(8px);padding:11px 22px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;}
+.logo-sm{font-family:'Orbitron',sans-serif;font-size:18px;font-weight:900;letter-spacing:4px;background:linear-gradient(135deg,var(--amber),var(--gold-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.topbar-center{font-family:'Orbitron',sans-serif;font-size:11px;letter-spacing:2px;color:var(--amber);text-transform:uppercase;}
+.topbar-right{display:flex;gap:10px;align-items:center;}
+.btn-topbar{font-family:'Nunito',sans-serif;font-size:13px;font-weight:900;padding:7px 16px;border-radius:20px;border:2px solid var(--border-dark);background:var(--warm-white);color:var(--mid);cursor:pointer;transition:all .2s;}
+.btn-topbar:hover{background:var(--gold-pale);}
+.btn-topbar.back{background:var(--gold-pale);}
+.btn-topbar.back:hover{background:var(--amber);color:#fff;}
+.prog-wrap{position:relative;z-index:10;padding:10px 22px;background:rgba(255,253,248,.9);border-bottom:1.5px solid var(--gold-pale);}
+.prog-info{display:flex;justify-content:space-between;font-size:12px;font-weight:800;color:var(--mid);margin-bottom:6px;}
+.prog-bar{height:7px;background:var(--gold-pale);border-radius:4px;overflow:hidden;}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--sage),var(--gold));border-radius:4px;transition:width .5s ease;}
+.main{position:relative;z-index:10;max-width:820px;margin:0 auto;padding:20px 18px 130px;}
+.rishika-wrap{display:flex;align-items:flex-start;gap:14px;margin-bottom:22px;}
+.rishika-avatar{width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,var(--sage),var(--sage-light));border:2px solid var(--border-dark);display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0;box-shadow:0 4px 16px rgba(122,140,110,.3);}
+.rishika-bubble{background:rgba(255,253,248,.97);border:2px solid var(--border-dark);border-radius:0 18px 18px 18px;padding:16px 20px;flex:1;box-shadow:0 4px 20px rgba(107,76,42,.1);}
+.rishika-name{font-size:11px;font-weight:900;color:var(--sage);letter-spacing:2px;text-transform:uppercase;margin-bottom:6px;}
+.rishika-text{font-size:15px;font-weight:700;color:var(--charcoal);line-height:1.7;}
+.hl{color:var(--amber);font-weight:900;}
+.fm{font-family:'Share Tech Mono',monospace;background:var(--gold-pale);border:1.5px solid var(--border-dark);border-radius:6px;padding:2px 8px;font-size:14px;color:var(--mid);}
+.frac{display:inline-flex;flex-direction:column;align-items:center;font-size:14px;font-weight:900;vertical-align:middle;margin:0 3px;line-height:1.2;}
+.frac .num{border-bottom:2px solid currentColor;padding:0 3px;}
+.frac .den{padding:0 3px;}
+.btn-speak{display:inline-flex;align-items:center;gap:7px;font-family:'Nunito',sans-serif;font-size:12px;font-weight:900;padding:6px 13px;border-radius:20px;border:2px solid var(--sage);background:#eef2eb;color:var(--sage);cursor:pointer;margin-top:10px;transition:all .2s;}
+.btn-speak:hover,.btn-speak.on{background:var(--sage);color:#fff;}
+.q-card{background:rgba(255,253,248,.97);border:2px solid var(--border-dark);border-radius:18px;padding:20px 22px;margin-bottom:16px;box-shadow:0 4px 20px rgba(107,76,42,.1);}
+.q-label{font-family:'Orbitron',sans-serif;font-size:11px;letter-spacing:3px;color:var(--amber);text-transform:uppercase;margin-bottom:10px;}
+.q-text{font-size:16px;font-weight:800;color:var(--charcoal);line-height:1.7;margin-bottom:12px;}
+.step{display:flex;gap:12px;margin-bottom:14px;opacity:0;transform:translateY(8px);transition:all .4s ease;}
+.step.vis{opacity:1;transform:translateY(0);}
+.step-num{width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;font-size:11px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:2px solid var(--border-dark);}
+.step-body{flex:1;font-size:14px;font-weight:700;color:var(--mid);line-height:1.7;padding-top:2px;}
+.ans-tag{font-family:'Share Tech Mono',monospace;background:linear-gradient(135deg,#eef2eb,#f5fbf2);border:2px solid var(--border-dark);border-radius:8px;padding:3px 10px;color:var(--sage);font-size:14px;}
+.drawing-wrap{background:var(--warm-white);border:2px solid var(--border-dark);border-radius:14px;padding:14px 16px;margin:14px 0;overflow:hidden;}
+.drawing-lbl{font-size:11px;font-weight:900;color:var(--soft);letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;text-align:center;}
+.confirm-wrap{margin-top:16px;background:linear-gradient(135deg,#eef2eb,#f5fbf2);border:2px solid var(--border-dark);border-radius:14px;padding:18px 20px;}
+.confirm-title{font-size:12px;font-weight:900;color:var(--sage);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;}
+.confirm-q{font-size:15px;font-weight:800;color:var(--charcoal);margin-bottom:14px;line-height:1.6;}
+.mic-btn{display:flex;align-items:center;gap:10px;width:100%;font-family:'Nunito',sans-serif;font-size:15px;font-weight:900;padding:12px 18px;border-radius:12px;border:2px solid var(--border-dark);background:var(--warm-white);color:var(--mid);cursor:pointer;transition:all .2s;margin-bottom:10px;}
+.mic-btn:hover{border-color:var(--sage);color:var(--sage);}
+.mic-btn.on{background:var(--sage);color:#fff;border-color:var(--sage);animation:blnk .8s ease-in-out infinite;}
+@keyframes blnk{0%,100%{opacity:1}50%{opacity:.5}}
+.transcript{font-family:'Share Tech Mono',monospace;font-size:13px;color:var(--charcoal);background:var(--warm-white);border:2px solid var(--border-dark);border-radius:10px;padding:9px 13px;min-height:38px;margin-bottom:10px;display:none;}
+.transcript.show{display:block;}
+.result-box{font-size:13px;font-weight:800;padding:10px 14px;border-radius:10px;display:none;line-height:1.5;}
+.result-box.ok{background:#eef2eb;border:2px solid var(--sage);color:var(--sage);display:block;}
+.result-box.no{background:#fff5f0;border:2px solid var(--rust);color:var(--rust);display:block;}
+.nudge{font-size:13px;font-weight:700;color:var(--mid);margin-top:8px;font-style:italic;display:none;}
+.nudge.show{display:block;}
+.btn-next{font-family:'Nunito',sans-serif;font-size:15px;font-weight:900;padding:12px 24px;border-radius:12px;border:none;background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;cursor:pointer;box-shadow:0 4px 16px rgba(212,135,10,.3);transition:all .2s;display:none;margin-top:12px;width:100%;}
+.btn-next.show{display:block;}
+.btn-next:hover{transform:translateY(-1px);}
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;z-index:100;background:rgba(253,246,236,.97);border-top:2px solid var(--border-dark);padding:12px 22px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap;align-items:center;}
+.btn-nav{font-family:'Nunito',sans-serif;font-size:14px;font-weight:900;padding:11px 24px;border-radius:12px;border:2px solid var(--border-dark);cursor:pointer;transition:all .2s;}
+.btn-nav.practice{background:linear-gradient(135deg,var(--sage),var(--sage-light));color:#fff;border-color:var(--sage);}
+.btn-nav.exam{background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;border-color:var(--amber);}
+.btn-nav.locked{background:var(--gold-pale);color:var(--inactive);cursor:not-allowed;border-color:var(--inactive);}
+.btn-nav:not(.locked):hover{transform:translateY(-2px);}
+.lock-tip{font-size:11px;font-weight:700;color:var(--rust);width:100%;text-align:center;}
+.overlay{display:none;position:fixed;inset:0;background:rgba(42,34,24,.92);z-index:1000;flex-direction:column;align-items:center;justify-content:center;backdrop-filter:blur(6px);}
+.overlay.show{display:flex;}
+.break-box{background:var(--warm-white);border:2px solid var(--border-dark);border-radius:24px;padding:32px 36px;max-width:400px;width:90%;text-align:center;}
+.break-title{font-family:'Orbitron',sans-serif;font-size:15px;font-weight:900;color:var(--amber);letter-spacing:3px;margin-bottom:5px;}
+.break-sub{font-size:13px;font-weight:700;color:var(--soft);margin-bottom:20px;}
+.break-opts{display:flex;flex-direction:column;gap:9px;margin-bottom:16px;}
+.break-opt{font-family:'Nunito',sans-serif;font-size:15px;font-weight:800;padding:12px;border-radius:12px;border:2px solid var(--border-dark);background:var(--warm-white);color:var(--mid);cursor:pointer;transition:all .2s;}
+.break-opt:hover{background:var(--gold-pale);border-color:var(--amber);}
+.timer-screen{display:none;position:fixed;inset:0;background:#1a1208;z-index:1001;flex-direction:column;align-items:center;justify-content:center;}
+.timer-screen.show{display:flex;}
+.timer-reason{font-family:'Orbitron',sans-serif;font-size:13px;letter-spacing:4px;color:var(--gold-light);margin-bottom:18px;text-transform:uppercase;}
+.timer-num{font-family:'Orbitron',sans-serif;font-size:76px;font-weight:900;color:var(--gold-light);letter-spacing:8px;margin-bottom:36px;text-shadow:0 0 40px rgba(232,184,75,.4);}
+.btn-end{font-family:'Nunito',sans-serif;font-size:17px;font-weight:900;padding:15px 36px;border-radius:14px;border:2px solid var(--gold-light);background:transparent;color:var(--gold-light);cursor:pointer;transition:all .2s;}
+.btn-end:hover{background:var(--gold-light);color:var(--charcoal);}
+.done-banner{background:linear-gradient(135deg,#eef2eb,#f5fbf2);border:2px solid var(--border-dark);border-radius:16px;padding:18px 22px;text-align:center;margin-bottom:18px;display:none;}
+.done-banner.show{display:block;}
+.done-banner .dt{font-family:'Orbitron',sans-serif;font-size:13px;letter-spacing:2px;color:var(--sage);margin-bottom:5px;}
+.done-banner .ds{font-size:14px;font-weight:700;color:var(--mid);}
+@media(max-width:600px){.main{padding:14px 10px 130px;}.topbar,.prog-wrap{padding-left:12px;padding-right:12px;}.timer-num{font-size:52px;}}
+</style>
+</head>
+<body>
+<div class="topbar"><div class="logo-sm">RISHI</div><div class="topbar-center">🔷 Understanding Quadrilaterals — Explain</div><div class="topbar-right"><button class="btn-topbar" onclick="openBreak()">☕ Break</button><button class="btn-topbar back" onclick="window.location.href='/syllabus.html'">← Syllabus</button></div></div>
+<div class="prog-wrap"><div class="prog-info"><span id="progLabel">Question 1 of 10</span><span id="progPct">0% complete</span></div><div class="prog-bar"><div class="prog-fill" id="progFill" style="width:0%"></div></div></div>
+<div class="main">
+<div class="done-banner" id="doneBanner"><div class="dt">✅ Explanation Completed!</div><div class="ds">Practice and Exam are now unlocked. You can revisit anytime.</div></div>
+<div class="rishika-wrap"><div class="rishika-avatar">👩‍🏫</div><div class="rishika-bubble"><div class="rishika-name">Rishika</div><div class="rishika-text" id="introText">Hi <span class="hl" id="sName">there</span>! 😊 I'm Rishika — today we'll explore <span class="hl">Understanding Quadrilaterals</span> step by step. Let's go! 🚀</div><button class="btn-speak" onclick="speakEl('introText')">🔊 Hear Rishika</button></div></div>
+<div id="qArea"></div>
+</div>
+<div class="bottom-nav"><div class="lock-tip" id="lockTip">☝ Complete all explanations to unlock Practice and Exam</div><button class="btn-nav practice locked" id="btnPractice" onclick="goPractice()">✏️ Go to Practice</button><button class="btn-nav exam locked" id="btnExam" onclick="goExam()">📝 Go to Exam</button></div>
+<div class="overlay" id="breakOverlay"><div class="break-box"><div class="break-title">Take a Break</div><div class="break-sub">Choose — timer starts</div><div class="break-opts"><button class="break-opt" onclick="startBreak('💧 Water')">💧 Water</button><button class="break-opt" onclick="startBreak('🚽 Washroom')">🚽 Washroom</button><button class="break-opt" onclick="startBreak('🏃 Physical')">🏃 Physical</button><button class="break-opt" onclick="openGames()">🎮 Games</button></div><button class="break-opt" style="color:var(--soft);" onclick="closeBreak()">Cancel</button></div></div>
+<div class="timer-screen" id="timerScreen"><div class="timer-reason" id="timerLabel">Break</div><div class="timer-num" id="timerNum">00:00</div><button class="btn-end" onclick="endBreak()">✅ End Break — Back to Study</button></div>
+<div class="overlay" id="gamesOverlay"><div class="break-box"><div style="font-size:44px;margin-bottom:10px;">🎮</div><div class="break-title">Games</div><div class="break-sub" style="margin-bottom:20px;">Coming soon! 🚀</div><button class="break-opt" style="background:var(--amber);color:#fff;border-color:var(--amber);" onclick="closeGames()">Back to Study</button></div></div>
+<script>
+var QB=[
+{id:'qd0',q:'Angle sum of a quadrilateral? Three angles: 90°, 85°, 95°. Find fourth.',
+ qs:'Angle sum of quadrilateral? Three angles 90, 85, 95. Find fourth.',
+ draw:null,
+ steps:[
+  {t:'A quadrilateral = 2 triangles. Sum = 2×180 = <span class="fm">360°</span>.',s:'Sum of angles in any quadrilateral is 360 degrees.'},
+  {t:'90+85+95 = 270°.',s:'90 plus 85 plus 95 equals 270.'},
+  {t:'Fourth = 360−270 = <span class="ans-tag">90°</span>',s:'Fourth angle is 90 degrees.'}
+ ],
+ cq:'Sum of angles in any quadrilateral?',cqs:'Angle sum?',
+ ans:['360','360 degrees','three sixty'],
+ nudges:['2 triangles → 2×180=?','360!','Say 360!']},
+{id:'qd1',q:'State 4 properties of a <span class="hl">parallelogram</span>.',
+ qs:'4 properties of a parallelogram.',
+ draw:'pgram',
+ steps:[
+  {t:'1. Opposite sides are <b>equal and parallel</b>.',s:'Opposite sides are equal and parallel.'},
+  {t:'2. Opposite angles are <b>equal</b>.',s:'Opposite angles are equal.'},
+  {t:'3. Consecutive angles are <b>supplementary</b> (sum 180°).',s:'Consecutive angles add up to 180 degrees.'},
+  {t:'4. Diagonals <b>bisect each other</b>.',s:'Diagonals bisect each other.'}
+ ],
+ cq:'Do opposite angles of a parallelogram add to 180°?',cqs:'Do opposite angles add to 180?',
+ ans:['no','not 180','they are equal','equal'],
+ nudges:['Opposite angles are EQUAL, not supplementary!','Same value, not adding to 180!','No! Say No!']},
+{id:'qd2',q:'Rhombus with diagonals 8 cm and 6 cm. Find area. What angle do diagonals make?',
+ qs:'Rhombus diagonals 8 and 6 cm. Area? Angle between diagonals?',
+ draw:'rhom',
+ steps:[
+  {t:'In a rhombus, diagonals bisect each other at <b>right angles (90°)</b>.',s:'Rhombus diagonals cross at 90 degrees.'},
+  {t:'Area = ½ × d₁ × d₂ = ½ × 8 × 6 = <span class="ans-tag">24 cm²</span>',s:'Area equals 24 square centimetres.'}
+ ],
+ cq:'Area formula for a rhombus?',cqs:'Area formula?',
+ ans:['half d1 d2','half times d1 times d2','d1 d2 by 2','half product diagonals'],
+ nudges:['½ × d₁ × d₂!','Half the product of diagonals!','Say half d1 times d2!']},
+{id:'qd3',q:'What extra properties does a <span class="hl">rectangle</span> have over a parallelogram?',
+ qs:'Extra properties of rectangle over parallelogram?',
+ draw:null,
+ steps:[
+  {t:'Rectangle has all parallelogram properties PLUS:',s:'Rectangle has all parallelogram properties.'},
+  {t:'All angles = 90°.',s:'All angles are 90 degrees.'},
+  {t:'Diagonals are <b>equal</b> in length. <span class="ans-tag">Equal diagonals + 90° angles</span>',s:'Diagonals are equal.'}
+ ],
+ cq:'Are the diagonals of a rectangle equal?',cqs:'Rectangle diagonals equal?',
+ ans:['yes','equal','yes they are'],
+ nudges:['Parallelogram diagonals are unequal. Rectangle is special!','Yes, equal diagonals!','Say Yes!']},
+{id:'qd4',q:'Square with side 7 cm. Perimeter and area?',
+ qs:'Square side 7 cm. Perimeter and area?',
+ draw:null,
+ steps:[
+  {t:'Perimeter = 4×7 = 28 cm.',s:'Perimeter is 28 centimetres.'},
+  {t:'Area = 7² = <span class="ans-tag">49 cm²</span>.',s:'Area is 49 square centimetres.'}
+ ],
+ cq:'Area of the square?',cqs:'Area?',
+ ans:['49','49 cm squared','forty nine'],
+ nudges:['Area = side² = 7² = ?','49!','49 cm²! Say 49!']},
+{id:'qd5',q:'Sum of exterior angles of any polygon?',
+ qs:'Sum of exterior angles of any polygon?',
+ draw:null,
+ steps:[
+  {t:'One full trip around any polygon = one full rotation.',s:'Going around any polygon is one full rotation.'},
+  {t:'<span class="ans-tag">Always 360°</span> — regardless of number of sides.',s:'Always 360 degrees.'}
+ ],
+ cq:'Sum of exterior angles of a pentagon?',cqs:'Exterior angles sum of pentagon?',
+ ans:['360','360 degrees','three sixty'],
+ nudges:['Same for ALL polygons!','Always 360!','Say 360!']},
+{id:'qd6',q:'Each interior angle of a regular hexagon?',
+ qs:'Each interior angle of regular hexagon?',
+ draw:null,
+ steps:[
+  {t:'Sum = (n−2)×180 = 4×180 = 720°.',s:'Sum is 720 degrees.'},
+  {t:'Each = 720÷6 = <span class="ans-tag">120°</span>.',s:'Each angle is 120 degrees.'}
+ ],
+ cq:'Each interior angle?',cqs:'Interior angle?',
+ ans:['120','120 degrees','one twenty'],
+ nudges:['720÷6 = ?','120!','120°! Say 120!']},
+{id:'qd7',q:'Properties of a <span class="hl">kite</span>?',
+ qs:'Properties of a kite?',
+ draw:null,
+ steps:[
+  {t:'Two pairs of consecutive equal sides.',s:'Two pairs of consecutive equal sides.'},
+  {t:'Diagonals are perpendicular.',s:'Diagonals are perpendicular.'},
+  {t:'One diagonal bisects the other. <span class="ans-tag">Perpendicular diagonals</span>',s:'Diagonals are perpendicular.'}
+ ],
+ cq:'Are kite diagonals perpendicular?',cqs:'Kite diagonals perpendicular?',
+ ans:['yes','perpendicular','yes perpendicular'],
+ nudges:['Kite diagonals cross at 90°!','Yes!','Say Yes!']},
+{id:'qd8',q:'Trapezium: parallel sides 8 cm and 5 cm, height 4 cm. Find area.',
+ qs:'Trapezium parallel sides 8 and 5 cm height 4. Area?',
+ draw:'trap',
+ steps:[
+  {t:'Area = ½ × (a+b) × h',s:'Area equals half times a plus b times h.'},
+  {t:'= ½ × 13 × 4 = <span class="ans-tag">26 cm²</span>',s:'26 square centimetres.'}
+ ],
+ cq:'Area of this trapezium?',cqs:'Area?',
+ ans:['26','26 cm squared','twenty six'],
+ nudges:['½×(8+5)×4=½×52=26.','26!','Say 26!']},
+{id:'qd9',q:'Regular polygon with each exterior angle 45°. How many sides?',
+ qs:'Each exterior angle 45 degrees. How many sides?',
+ draw:null,
+ steps:[
+  {t:'Sides = 360 ÷ exterior angle.',s:'Number of sides equals 360 divided by each exterior angle.'},
+  {t:'= 360 ÷ 45 = <span class="ans-tag">8 sides</span> (Octagon).',s:'8 sides. Octagon.'}
+ ],
+ cq:'How many sides?',cqs:'How many sides?',
+ ans:['8','eight','8 sides','octagon'],
+ nudges:['360÷45=?','8!','8 sides! Say 8!']}
+];
+
+function getSVG(type){
+  var defs='<defs><marker id="ah" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3z" fill="#6b4c2a"/></marker></defs>';
+  if(type==='pgram'){
+    var s='<svg id="svgD" viewBox="0 0 460 200" width="100%" xmlns="http://www.w3.org/2000/svg" style="opacity:0">';
+    s+='<polygon points="70,170 320,170 370,50 120,50" fill="#f5e6c8" stroke="#6b4c2a" stroke-width="2.5"/>';
+    // parallel arrows top & bottom
+    s+='<text x="195" y="168" font-size="16" fill="#d4870a" text-anchor="middle">→</text>';
+    s+='<text x="245" y="46" font-size="16" fill="#d4870a" text-anchor="middle">→</text>';
+    // parallel arrows left & right
+    s+='<text x="62" y="115" font-size="16" fill="#7a8c6e" text-anchor="middle">↑</text>';
+    s+='<text x="376" y="115" font-size="16" fill="#7a8c6e">↑</text>';
+    // vertex labels
+    s+='<text x="55" y="178" font-family="Share Tech Mono" font-size="14" fill="#6b4c2a" text-anchor="end">A</text>';
+    s+='<text x="326" y="183" font-family="Share Tech Mono" font-size="14" fill="#6b4c2a">B</text>';
+    s+='<text x="376" y="46" font-family="Share Tech Mono" font-size="14" fill="#6b4c2a">C</text>';
+    s+='<text x="108" y="42" font-family="Share Tech Mono" font-size="14" fill="#6b4c2a" text-anchor="end">D</text>';
+    // diagonals (dashed)
+    s+='<line x1="70" y1="170" x2="370" y2="50" stroke="#b85c2a" stroke-width="1.5" stroke-dasharray="5,3"/>';
+    s+='<line x1="320" y1="170" x2="120" y2="50" stroke="#b85c2a" stroke-width="1.5" stroke-dasharray="5,3"/>';
+    s+='<circle cx="220" cy="110" r="5" fill="#c8922a" stroke="#6b4c2a" stroke-width="2"/>';
+    s+='<text x="230" y="106" font-family="Nunito" font-size="11" fill="#c8922a">diagonals bisect</text>';
+    // height indicator
+    s+='<line x1="120" y1="50" x2="120" y2="170" stroke="#7a8c6e" stroke-width="1.5" stroke-dasharray="4,3"/>';
+    s+='<rect x="120" y="160" width="10" height="10" fill="none" stroke="#7a8c6e" stroke-width="1.5"/>';
+    s+='</svg>';
+    return s;
+  }
+  if(type==='rhom'){
+    var s='<svg id="svgD" viewBox="0 0 420 290" width="100%" xmlns="http://www.w3.org/2000/svg" style="opacity:0">';
+    s+='<polygon points="210,15 385,145 210,275 35,145" fill="#f5e6c8" stroke="#6b4c2a" stroke-width="2.5"/>';
+    s+='<line x1="35" y1="145" x2="385" y2="145" stroke="#d4870a" stroke-width="2" stroke-dasharray="6,3"/>';
+    s+='<line x1="210" y1="15" x2="210" y2="275" stroke="#7a8c6e" stroke-width="2" stroke-dasharray="6,3"/>';
+    s+='<rect x="204" y="139" width="12" height="12" fill="none" stroke="#6b4c2a" stroke-width="2"/>';
+    s+='<text x="210" y="165" font-family="Share Tech Mono" font-size="12" fill="#d4870a" text-anchor="middle">d₁ = 8 cm</text>';
+    s+='<text x="228" y="92" font-family="Share Tech Mono" font-size="12" fill="#7a8c6e">d₂=6 cm</text>';
+    s+='<text x="210" y="290" font-family="Nunito" font-size="12" fill="#8a7a5a" text-anchor="middle">Area = ½×d₁×d₂ = ½×8×6 = 24 cm²</text>';
+    s+='</svg>';
+    return s;
+  }
+  if(type==='trap'){
+    var s='<svg id="svgD" viewBox="0 0 460 195" width="100%" xmlns="http://www.w3.org/2000/svg" style="opacity:0">';
+    s+='<polygon points="120,160 340,160 305,50 155,50" fill="#f5e6c8" stroke="#6b4c2a" stroke-width="2.5"/>';
+    s+='<line x1="155" y1="50" x2="155" y2="160" stroke="#7a8c6e" stroke-width="1.5" stroke-dasharray="4,3"/>';
+    s+='<rect x="155" y="150" width="10" height="10" fill="none" stroke="#7a8c6e" stroke-width="1.5"/>';
+    // height bracket
+    s+='<line x1="68" y1="50" x2="68" y2="160" stroke="#7a8c6e" stroke-width="2"/>';
+    s+='<line x1="63" y1="50" x2="73" y2="50" stroke="#7a8c6e" stroke-width="2"/>';
+    s+='<line x1="63" y1="160" x2="73" y2="160" stroke="#7a8c6e" stroke-width="2"/>';
+    s+='<text x="56" y="110" font-family="Share Tech Mono" font-size="13" fill="#7a8c6e" text-anchor="end">h=4</text>';
+    s+='<text x="230" y="39" font-family="Share Tech Mono" font-size="13" fill="#b85c2a" text-anchor="middle">a=5 cm</text>';
+    s+='<text x="230" y="180" font-family="Share Tech Mono" font-size="13" fill="#b85c2a" text-anchor="middle">b=8 cm</text>';
+    s+='<text x="230" y="194" font-family="Nunito" font-size="12" fill="#8a7a5a" text-anchor="middle">A = ½(5+8)×4 = 26 cm²</text>';
+    s+='</svg>';
+    return s;
+  }
+  return '<svg id="svgD" viewBox="0 0 10 10" width="100%"></svg>';
+}
+function animateSVG(type){
+  var el=document.getElementById('svgD');if(!el)return;
+  var s=0,t2=16;
+  var tm=setInterval(function(){s++;el.style.opacity=String(s/t2);if(s>=t2)clearInterval(tm);},30);
+}
+
+var session=[],idx=0,stepIdx=0,nudgeCount=0,completed=false,recog=null,listening=false,breakSecs=0,breakTmr=null;
+var PER_SESSION=10;
+window.onload=function(){
+  var st=JSON.parse(localStorage.getItem('rishi_current_student')||'{}')
+  document.getElementById('sName').textContent=st.studentName?st.studentName.split(' ')[0]:'there';
+  var prog=JSON.parse(localStorage.getItem('rishi_progress')||'{}')
+  if(prog['explain_quadrilaterals_done']){completed=true;document.getElementById('doneBanner').classList.add('show');unlockNav();}
+  buildSession();setupRecog();
+  setTimeout(function(){speakEl('introText');},700);
+  setTimeout(showQ,2400);
+};
+function onComplete(){
+  var prog=JSON.parse(localStorage.getItem('rishi_progress')||'{}')
+  prog['explain_quadrilaterals_done']=true;
+  localStorage.setItem('rishi_progress',JSON.stringify(prog));
+  completed=true;
+  document.getElementById('doneBanner').classList.add('show');
+  unlockNav();
+  document.getElementById('lockTip').style.display='none';
+  var st=JSON.parse(localStorage.getItem('rishi_current_student')||'{}')
+  var nm=st.studentName?st.studentName.split(' ')[0]:'champion';
+  var area=document.getElementById('qArea');
+  var cel=document.createElement('div');cel.className='rishika-wrap';
+  cel.innerHTML='<div class="rishika-avatar">👩‍🏫</div>'
+    +'<div class="rishika-bubble"><div class="rishika-name">Rishika</div>'
+    +'<div class="rishika-text" id="celText">🎉 <span class="hl">'+nm+'</span>, you did it! '
+    +'You completed <span class="hl">Understanding Quadrilaterals</span>! 🌟 Practice and Exam unlocked! 💪</div>'
+    +'<button class="btn-speak" onclick="speakEl(\'celText\')">\uD83D\uDD0A Hear Rishika</button></div>';
+  area.appendChild(cel);
+  setTimeout(function(){speakEl('celText');},400);
+}
+function goPractice(){if(!completed){alert('Complete all explanations first!');return;}window.location.href='/practice.html?chapter=understanding_quadrilaterals';}
+function goExam(){if(!completed){alert('Complete explanations and practice first!');return;}window.location.href='/exam.html?chapter=understanding_quadrilaterals';}
+
+function speakRaw(text){
+  if(!window.speechSynthesis)return;
+  window.speechSynthesis.cancel();
+  var u=new SpeechSynthesisUtterance(text);
+  u.lang='en-IN';u.rate=0.85;u.pitch=1.2;
+  var vs=window.speechSynthesis.getVoices();
+  var v=vs.find(function(x){return x.lang.startsWith('en-IN')&&x.name.toLowerCase().includes('female');})||
+    vs.find(function(x){return x.lang.startsWith('en-GB')&&x.name.toLowerCase().includes('female');})||
+    vs.find(function(x){return x.name.toLowerCase().includes('zira');})||
+    vs.find(function(x){return x.name.toLowerCase().includes('samantha');})||
+    vs.find(function(x){return x.lang.startsWith('en-IN');})||
+    vs.find(function(x){return x.lang.startsWith('en-GB');});
+  if(v)u.voice=v;
+  window.speechSynthesis.speak(u);
+}
+function speakEl(id){var el=document.getElementById(id);if(el)speakRaw(el.innerText||el.textContent);}
+window.addEventListener('beforeunload',function(){window.speechSynthesis&&window.speechSynthesis.cancel();});
+window.addEventListener('pagehide',function(){window.speechSynthesis&&window.speechSynthesis.cancel();});
+
+function updateProg(){
+  var pct=Math.round((idx/PER_SESSION)*100);
+  document.getElementById('progFill').style.width=pct+'%';
+  document.getElementById('progLabel').textContent='Question '+(idx+1)+' of '+PER_SESSION;
+  document.getElementById('progPct').textContent=pct+'% complete';
+}
+function openBreak(){document.getElementById('breakOverlay').classList.add('show');}
+function closeBreak(){document.getElementById('breakOverlay').classList.remove('show');}
+function startBreak(reason){
+  closeBreak();breakSecs=0;
+  document.getElementById('timerLabel').textContent=reason;
+  document.getElementById('timerNum').textContent='00:00';
+  document.getElementById('timerScreen').classList.add('show');
+  breakTmr=setInterval(function(){
+    breakSecs++;
+    var m=String(Math.floor(breakSecs/60)).padStart(2,'0');
+    var s=String(breakSecs%60).padStart(2,'0');
+    document.getElementById('timerNum').textContent=m+':'+s;
+  },1000);
+}
+function endBreak(){clearInterval(breakTmr);document.getElementById('timerScreen').classList.remove('show');}
+function openGames(){closeBreak();document.getElementById('gamesOverlay').classList.add('show');}
+function closeGames(){document.getElementById('gamesOverlay').classList.remove('show');}
+function buildSession(){
+  var first=QB[0];
+  var rest=QB.slice(1).sort(function(){return Math.random()-.5;});
+  session=[first].concat(rest.slice(0,PER_SESSION-1));
+}
+function showQ(){
+  if(idx>=session.length){onComplete();return;}
+  var q=session[idx];
+  stepIdx=0;nudgeCount=0;
+  updateProg();
+  var area=document.getElementById('qArea');
+  area.innerHTML='';
+  var qcard=document.createElement('div');
+  qcard.className='q-card';
+  qcard.innerHTML='<div class="q-label">Question '+(idx+1)+' of '+PER_SESSION+'</div>'
+    +'<div class="q-text">'+q.q+'</div>'
+    +'<button class="btn-speak" onclick="speakRaw(session[idx].qs)">🔊 Hear the question</button>';
+  area.appendChild(qcard);
+  if(q.draw){
+    var dw=document.createElement('div');
+    dw.className='drawing-wrap';
+    dw.innerHTML='<div class="drawing-lbl">📐 Diagram</div>'+getSVG(q.draw);
+    area.appendChild(dw);
+    setTimeout(function(){animateSVG(q.draw);},400);
+  }
+  var sc=document.createElement('div');
+  sc.className='q-card';
+  sc.innerHTML='<div class="q-label">📖 Explanation — Step by Step</div>'
+    +'<div id="stepsWrap"></div>'
+    +'<button class="btn-speak" id="nxtStepBtn" onclick="nextStep()" style="margin-top:12px;">▶ Next Step</button>';
+  area.appendChild(sc);
+  setTimeout(nextStep,600);
+}
+function nextStep(){
+  var q=session[idx];
+  if(stepIdx>=q.steps.length){
+    document.getElementById('nxtStepBtn').style.display='none';
+    showConfirm();return;
+  }
+  var s=q.steps[stepIdx];
+  var wrap=document.getElementById('stepsWrap');
+  var d=document.createElement('div');
+  d.className='step';
+  d.innerHTML='<div class="step-num">'+(stepIdx+1)+'</div><div class="step-body">'+s.t+'</div>';
+  wrap.appendChild(d);
+  setTimeout(function(){d.classList.add('vis');},50);
+  setTimeout(function(){speakRaw(s.s);},300);
+  stepIdx++;
+}
+function showConfirm(){
+  var q=session[idx];
+  var area=document.getElementById('qArea');
+  var c=document.createElement('div');
+  c.className='confirm-wrap';c.id='cWrap';
+  c.innerHTML='<div class="confirm-title">🎞️ Rishika asks — answer to move on!</div>'
+    +'<div class="confirm-q">'+q.cq+'</div>'
+    +'<button class="mic-btn" id="micBtn" onclick="startListen()">🎤 Tap and Speak Your Answer</button>'
+    +'<div class="transcript" id="tbox"></div>'
+    +'<div class="result-box" id="rbox"></div>'
+    +'<div class="nudge" id="nudgeBox"></div>'
+    +'<button class="btn-next" id="btnNext" onclick="goNext()">Next Question ▶</button>';
+  area.appendChild(c);
+  c.scrollIntoView({behavior:'smooth',block:'center'});
+  setTimeout(function(){speakRaw(q.cqs);},600);
+}
+function goNext(){idx++;document.getElementById('qArea').innerHTML='';showQ();window.scrollTo({top:0,behavior:'smooth'});}
+function unlockNav(){
+  document.getElementById('btnPractice').classList.remove('locked');
+  document.getElementById('btnExam').classList.remove('locked');
+}
+function setupRecog(){
+  var SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  if(!SR)return;
+  recog=new SR();
+  recog.lang='en-IN';recog.continuous=false;recog.interimResults=false;
+  recog.onresult=function(e){handleAnswer(e.results[0][0].transcript.toLowerCase().trim());};
+  recog.onerror=function(){setListen(false);showNudge("I couldn't hear that — try again!");};
+  recog.onend=function(){setListen(false);};
+}
+function startListen(){
+  if(!recog){showNudge('Voice not supported — try Chrome!');return;}
+  if(listening){recog.stop();return;}
+  setListen(true);
+  var tb=document.getElementById('tbox');
+  if(tb){tb.classList.add('show');tb.textContent='🎤 Listening...';}
+  recog.start();
+}
+function setListen(on){
+  listening=on;
+  var btn=document.getElementById('micBtn');
+  if(btn){btn.className='mic-btn'+(on?' on':'');btn.textContent=on?'🎤 Listening...':'🎤 Tap and Speak Your Answer';}
+}
+function handleAnswer(text){
+  var tb=document.getElementById('tbox');
+  if(tb)tb.textContent='"'+text+'"';
+  var q=session[idx];
+  var ok=q.ans.some(function(a){return text.includes(a.toLowerCase())||a.toLowerCase().includes(text);});
+  var rb=document.getElementById('rbox');
+  if(ok){
+    rb.className='result-box ok';rb.textContent='✅ Correct! Excellent!';
+    document.getElementById('nudgeBox').classList.remove('show');
+    var nb=document.getElementById('btnNext');if(nb)nb.classList.add('show');
+    speakRaw('Correct! Excellent! Tap next question to continue.');
+  } else {
+    nudgeCount++;
+    rb.className='result-box no';rb.textContent='❌ Not quite — listen to my hint!';
+    var nudge=q.nudges[Math.min(nudgeCount-1,q.nudges.length-1)];
+    showNudge(nudge);
+    speakRaw(nudge.replace(/[\uD83E-\uDFFF]/g,''));
+    if(nudgeCount>=3){var nb2=document.getElementById('btnNext');if(nb2){nb2.classList.add('show');nb2.textContent='I Understand — Next ▶';}}
+  }
+}
+function showNudge(msg){var n=document.getElementById('nudgeBox');if(n){n.textContent=msg;n.classList.add('show');}}
+
+</script>
+</body>
+</html>

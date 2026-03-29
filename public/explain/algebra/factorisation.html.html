@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RISHI — Explain: Factorisation</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Nunito:wght@400;600;700;800;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream:#fdf6ec; --warm-white:#fffdf8; --gold:#c8922a; --gold-light:#e8b84b;
+    --gold-pale:#f5e6c8; --amber:#d4870a; --sage:#7a8c6e; --sage-light:#a8b89a;
+    --rust:#b85c2a; --charcoal:#2a2218; --mid:#5a4a30; --soft:#8a7a5a;
+    --inactive:#c8b89a; --border-dark:#6b4c2a; --error:#c0392b;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--cream);font-family:'Nunito',sans-serif;min-height:100vh;color:var(--charcoal);}
+  body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(var(--gold-pale) 1px,transparent 1px),linear-gradient(90deg,var(--gold-pale) 1px,transparent 1px);background-size:40px 40px;opacity:.3;z-index:0;pointer-events:none;}
+  .topbar{position:sticky;top:0;z-index:100;background:rgba(253,246,236,.97);border-bottom:2px solid var(--border-dark);backdrop-filter:blur(8px);padding:11px 22px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;}
+  .logo-sm{font-family:'Orbitron',sans-serif;font-size:18px;font-weight:900;letter-spacing:4px;background:linear-gradient(135deg,var(--amber),var(--gold-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+  .topbar-center{font-family:'Orbitron',sans-serif;font-size:11px;letter-spacing:2px;color:var(--amber);text-transform:uppercase;}
+  .topbar-right{display:flex;gap:10px;align-items:center;}
+  .btn-topbar{font-family:'Nunito',sans-serif;font-size:13px;font-weight:900;padding:7px 16px;border-radius:20px;border:2px solid var(--border-dark);background:var(--warm-white);color:var(--mid);cursor:pointer;transition:all .2s;}
+  .btn-topbar:hover{background:var(--gold-pale);}
+  .btn-topbar.back{background:var(--gold-pale);}
+  .btn-topbar.back:hover{background:var(--amber);color:#fff;}
+  .prog-wrap{position:relative;z-index:10;padding:10px 22px;background:rgba(255,253,248,.9);border-bottom:1.5px solid var(--gold-pale);}
+  .prog-info{display:flex;justify-content:space-between;font-size:12px;font-weight:800;color:var(--mid);margin-bottom:6px;}
+  .prog-bar{height:7px;background:var(--gold-pale);border-radius:4px;overflow:hidden;}
+  .prog-fill{height:100%;background:linear-gradient(90deg,var(--sage),var(--gold));border-radius:4px;transition:width .5s ease;}
+  .main{position:relative;z-index:10;max-width:820px;margin:0 auto;padding:20px 18px 130px;}
+  .rishika-wrap{display:flex;align-items:flex-start;gap:14px;margin-bottom:22px;}
+  .rishika-avatar{width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,var(--sage),var(--sage-light));border:2px solid var(--border-dark);display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0;box-shadow:0 4px 16px rgba(122,140,110,.3);}
+  .rishika-bubble{background:rgba(255,253,248,.97);border:2px solid var(--border-dark);border-radius:0 18px 18px 18px;padding:16px 20px;flex:1;box-shadow:0 4px 20px rgba(107,76,42,.1);}
+  .rishika-name{font-size:11px;font-weight:900;color:var(--sage);letter-spacing:2px;text-transform:uppercase;margin-bottom:6px;}
+  .rishika-text{font-size:15px;font-weight:700;color:var(--charcoal);line-height:1.7;}
+  .hl{color:var(--amber);font-weight:900;}
+  .fm{font-family:'Share Tech Mono',monospace;background:var(--gold-pale);border:1.5px solid var(--border-dark);border-radius:6px;padding:2px 8px;font-size:14px;color:var(--mid);}
+  .frac{display:inline-flex;flex-direction:column;align-items:center;font-size:14px;font-weight:900;vertical-align:middle;margin:0 3px;line-height:1.2;}
+  .frac .num{border-bottom:2px solid currentColor;padding:0 3px;}
+  .frac .den{padding:0 3px;}
+  .btn-speak{display:inline-flex;align-items:center;gap:7px;font-family:'Nunito',sans-serif;font-size:12px;font-weight:900;padding:6px 13px;border-radius:20px;border:2px solid var(--sage);background:#eef2eb;color:var(--sage);cursor:pointer;margin-top:10px;transition:all .2s;}
+  .btn-speak:hover,.btn-speak.on{background:var(--sage);color:#fff;}
+  .q-card{background:rgba(255,253,248,.97);border:2px solid var(--border-dark);border-radius:18px;padding:20px 22px;margin-bottom:16px;box-shadow:0 4px 20px rgba(107,76,42,.1);}
+  .q-label{font-family:'Orbitron',sans-serif;font-size:11px;letter-spacing:3px;color:var(--amber);text-transform:uppercase;margin-bottom:10px;}
+  .q-text{font-size:16px;font-weight:800;color:var(--charcoal);line-height:1.7;margin-bottom:12px;}
+  .step{display:flex;gap:12px;margin-bottom:14px;opacity:0;transform:translateY(8px);transition:all .4s ease;}
+  .step.vis{opacity:1;transform:translateY(0);}
+  .step-num{width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;font-size:11px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:2px solid var(--border-dark);}
+  .step-body{flex:1;font-size:14px;font-weight:700;color:var(--mid);line-height:1.7;padding-top:2px;}
+  .ans-tag{font-family:'Share Tech Mono',monospace;background:linear-gradient(135deg,#eef2eb,#f5fbf2);border:2px solid var(--border-dark);border-radius:8px;padding:3px 10px;color:var(--sage);font-size:14px;}
+  .confirm-wrap{margin-top:16px;background:linear-gradient(135deg,#eef2eb,#f5fbf2);border:2px solid var(--border-dark);border-radius:14px;padding:18px 20px;}
+  .confirm-title{font-size:12px;font-weight:900;color:var(--sage);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;}
+  .confirm-q{font-size:15px;font-weight:800;color:var(--charcoal);margin-bottom:14px;line-height:1.6;}
+  .mic-btn{display:flex;align-items:center;gap:10px;width:100%;font-family:'Nunito',sans-serif;font-size:15px;font-weight:900;padding:12px 18px;border-radius:12px;border:2px solid var(--border-dark);background:var(--warm-white);color:var(--mid);cursor:pointer;transition:all .2s;margin-bottom:10px;}
+  .mic-btn:hover{border-color:var(--sage);color:var(--sage);}
+  .mic-btn.on{background:var(--sage);color:#fff;border-color:var(--sage);animation:blnk .8s ease-in-out infinite;}
+  @keyframes blnk{0%,100%{opacity:1}50%{opacity:.5}}
+  .transcript{font-family:'Share Tech Mono',monospace;font-size:13px;color:var(--charcoal);background:var(--warm-white);border:2px solid var(--border-dark);border-radius:10px;padding:9px 13px;min-height:38px;margin-bottom:10px;display:none;}
+  .transcript.show{display:block;}
+  .result-box{font-size:13px;font-weight:800;padding:10px 14px;border-radius:10px;display:none;line-height:1.5;}
+  .result-box.ok{background:#eef2eb;border:2px solid var(--sage);color:var(--sage);display:block;}
+  .result-box.no{background:#fff5f0;border:2px solid var(--rust);color:var(--rust);display:block;}
+  .nudge{font-size:13px;font-weight:700;color:var(--mid);margin-top:8px;font-style:italic;display:none;}
+  .nudge.show{display:block;}
+  .btn-next{font-family:'Nunito',sans-serif;font-size:15px;font-weight:900;padding:12px 24px;border-radius:12px;border:none;background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;cursor:pointer;box-shadow:0 4px 16px rgba(212,135,10,.3);transition:all .2s;display:none;margin-top:12px;width:100%;}
+  .btn-next.show{display:block;}
+  .btn-next:hover{transform:translateY(-1px);}
+  .bottom-nav{position:fixed;bottom:0;left:0;right:0;z-index:100;background:rgba(253,246,236,.97);border-top:2px solid var(--border-dark);padding:12px 22px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap;align-items:center;}
+  .btn-nav{font-family:'Nunito',sans-serif;font-size:14px;font-weight:900;padding:11px 24px;border-radius:12px;border:2px solid var(--border-dark);cursor:pointer;transition:all .2s;}
+  .btn-nav.practice{background:linear-gradient(135deg,var(--sage),var(--sage-light));color:#fff;border-color:var(--sage);}
+  .btn-nav.exam{background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;border-color:var(--amber);}
+  .btn-nav.locked{background:var(--gold-pale);color:var(--inactive);cursor:not-allowed;border-color:var(--inactive);}
+  .btn-nav:not(.locked):hover{transform:translateY(-2px);}
+  .lock-tip{font-size:11px;font-weight:700;color:var(--rust);width:100%;text-align:center;}
+  .overlay{display:none;position:fixed;inset:0;background:rgba(42,34,24,.92);z-index:1000;flex-direction:column;align-items:center;justify-content:center;backdrop-filter:blur(6px);}
+  .overlay.show{display:flex;}
+  .break-box{background:var(--warm-white);border:2px solid var(--border-dark);border-radius:24px;padding:32px 36px;max-width:400px;width:90%;text-align:center;}
+  .break-title{font-family:'Orbitron',sans-serif;font-size:15px;font-weight:900;color:var(--amber);letter-spacing:3px;margin-bottom:5px;}
+  .break-sub{font-size:13px;font-weight:700;color:var(--soft);margin-bottom:20px;}
+  .break-opts{display:flex;flex-direction:column;gap:9px;margin-bottom:16px;}
+  .break-opt{font-family:'Nunito',sans-serif;font-size:15px;font-weight:800;padding:12px;border-radius:12px;border:2px solid var(--border-dark);background:var(--warm-white);color:var(--mid);cursor:pointer;transition:all .2s;}
+  .break-opt:hover{background:var(--gold-pale);border-color:var(--amber);}
+  .timer-screen{display:none;position:fixed;inset:0;background:#1a1208;z-index:1001;flex-direction:column;align-items:center;justify-content:center;}
+  .timer-screen.show{display:flex;}
+  .timer-reason{font-family:'Orbitron',sans-serif;font-size:13px;letter-spacing:4px;color:var(--gold-light);margin-bottom:18px;text-transform:uppercase;}
+  .timer-num{font-family:'Orbitron',sans-serif;font-size:76px;font-weight:900;color:var(--gold-light);letter-spacing:8px;margin-bottom:36px;text-shadow:0 0 40px rgba(232,184,75,.4);}
+  .btn-end{font-family:'Nunito',sans-serif;font-size:17px;font-weight:900;padding:15px 36px;border-radius:14px;border:2px solid var(--gold-light);background:transparent;color:var(--gold-light);cursor:pointer;transition:all .2s;}
+  .btn-end:hover{background:var(--gold-light);color:var(--charcoal);}
+  .done-banner{background:linear-gradient(135deg,#eef2eb,#f5fbf2);border:2px solid var(--border-dark);border-radius:16px;padding:18px 22px;text-align:center;margin-bottom:18px;display:none;}
+  .done-banner.show{display:block;}
+  .done-banner .dt{font-family:'Orbitron',sans-serif;font-size:13px;letter-spacing:2px;color:var(--sage);margin-bottom:5px;}
+  .done-banner .ds{font-size:14px;font-weight:700;color:var(--mid);}
+  @media(max-width:600px){
+    .main{padding:14px 10px 130px;}
+    .topbar,.prog-wrap{padding-left:12px;padding-right:12px;}
+    .timer-num{font-size:52px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="logo-sm">RISHI</div>
+  <div class="topbar-center">✂️ Factorisation — Explain</div>
+  <div class="topbar-right">
+    <button class="btn-topbar" onclick="openBreak()">☕ Break</button>
+    <button class="btn-topbar back" onclick="window.location.href='/syllabus.html'">← Syllabus</button>
+  </div>
+</div>
+
+<div class="prog-wrap">
+  <div class="prog-info">
+    <span id="progLabel">Question 1 of 10</span>
+    <span id="progPct">0% complete</span>
+  </div>
+  <div class="prog-bar"><div class="prog-fill" id="progFill" style="width:0%"></div></div>
+</div>
+
+<div class="main">
+  <div class="done-banner" id="doneBanner">
+    <div class="dt">✅ Explanation Completed!</div>
+    <div class="ds">You've completed this section once. Practice and Exam are now unlocked. You can revisit anytime.</div>
+  </div>
+  <div class="rishika-wrap" id="introWrap">
+    <div class="rishika-avatar">👩‍🏫</div>
+    <div class="rishika-bubble">
+      <div class="rishika-name">Rishika</div>
+      <div class="rishika-text" id="introText">Hi <span class="hl" id="sName">there</span>! 😊 I'm Rishika — think of me as your elder sister, sitting right beside you. Today we're going to understand <span class="hl">Factorisation</span> together, step by step. No rush, no pressure. Ready? Let's go! 🚀</div>
+      <button class="btn-speak" onclick="speakEl('introText')">🔊 Hear Rishika</button>
+    </div>
+  </div>
+  <div id="qArea"></div>
+</div>
+
+<div class="bottom-nav">
+  <div class="lock-tip" id="lockTip">☝ Complete all explanations to unlock Practice and Exam</div>
+  <button class="btn-nav practice locked" id="btnPractice" onclick="goPractice()">✏️ Go to Practice</button>
+  <button class="btn-nav exam locked" id="btnExam" onclick="goExam()">📝 Go to Exam</button>
+</div>
+
+<div class="overlay" id="breakOverlay">
+  <div class="break-box">
+    <div class="break-title">Take a Break</div>
+    <div class="break-sub">Choose your reason — timer starts</div>
+    <div class="break-opts">
+      <button class="break-opt" onclick="startBreak('💧 Water Break')">💧 Water</button>
+      <button class="break-opt" onclick="startBreak('🚽 Washroom Break')">🚽 Washroom</button>
+      <button class="break-opt" onclick="startBreak('🏃 Physical Game')">🏃 Physical Game</button>
+      <button class="break-opt" onclick="openGames()">🎮 Play with Me</button>
+    </div>
+    <button class="break-opt" style="color:var(--soft);" onclick="closeBreak()">Cancel — Back to Study</button>
+  </div>
+</div>
+
+<div class="timer-screen" id="timerScreen">
+  <div class="timer-reason" id="timerLabel">Break</div>
+  <div class="timer-num" id="timerNum">00:00</div>
+  <button class="btn-end" onclick="endBreak()">✅ End Break — Back to Study</button>
+</div>
+
+<div class="overlay" id="gamesOverlay">
+  <div class="break-box">
+    <div style="font-size:44px;margin-bottom:10px;">🎮</div>
+    <div class="break-title">Games</div>
+    <div class="break-sub" style="margin-bottom:20px;">Focus games, brain twisters and more are being built for you. Coming very soon! 🚀</div>
+    <button class="break-opt" style="background:var(--amber);color:#fff;border-color:var(--amber);" onclick="closeGames()">OK — Back to Study</button>
+  </div>
+</div>
+
+<script>
+const QB = [
+  {id:'fa0',q:'Factorise: <span class="fm">12x²y + 18xy²</span>',qs:'Factorise 12x squared y plus 18xy squared.',
+   steps:[
+    {t:'HCF(12,18)=6. Common variables: x and y. HCF = <span class="fm">6xy</span>.',s:'HCF of 12 and 18 is 6. Common variables x and y. So HCF is 6xy.'},
+    {t:'12x²y / 6xy = 2x. 18xy² / 6xy = 3y.',s:'12x squared y divided by 6xy is 2x. 18xy squared divided by 6xy is 3y.'},
+    {t:'<span class="ans-tag">6xy(2x + 3y)</span>',s:'Factorised: 6xy times 2x plus 3y.'}
+   ],
+   cq:'What is the common factor?',cqs:'What is the common factor?',
+   ans:['6xy','6 x y'],
+   nudges:['HCF of 12 and 18, then common x and y. 🤔','HCF=6, both have x and y. 😄','6xy! Say 6xy! 🚀']},
+  {id:'fa1',q:'Factorise by grouping: <span class="fm">ax + ay + bx + by</span>',qs:'Factorise ax plus ay plus bx plus by by grouping.',
+   steps:[
+    {t:'Group: <span class="fm">(ax+ay)+(bx+by)</span>',s:'Group the first two and last two.'},
+    {t:'= <span class="fm">a(x+y)+b(x+y)</span>',s:'Factor: a times x plus y plus b times x plus y.'},
+    {t:'<span class="ans-tag">(x+y)(a+b)</span>',s:'x plus y times a plus b.'}
+   ],
+   cq:'What is the common binomial factor?',cqs:'What is the common binomial factor?',
+   ans:['x+y','(x+y)','x plus y'],
+   nudges:['After grouping, what binomial appears twice? 🤔','a(x+y) and b(x+y) - common is (x+y)! 😄','x+y! Say x plus y! 🚀']},
+  {id:'fa2',q:'Factorise: <span class="fm">9x² - 16</span> using a²-b²=(a+b)(a-b)',qs:'Factorise 9x squared minus 16.',
+   steps:[
+    {t:'9x²=(3x)², 16=4².',s:'9x squared is 3x whole squared. 16 is 4 squared.'},
+    {t:'a=3x, b=4.',s:'a equals 3x and b equals 4.'},
+    {t:'<span class="ans-tag">(3x+4)(3x-4)</span>',s:'3x plus 4 times 3x minus 4.'}
+   ],
+   cq:'What is the factored form of 9x²-16?',cqs:'Factored form of 9x squared minus 16?',
+   ans:['(3x+4)(3x-4)','3x+4 times 3x-4'],
+   nudges:['a²-b²=(a+b)(a-b). Here a=3x, b=4. 🤔','(3x+4)(3x-4). 😄','Say 3x plus 4 times 3x minus 4! 🚀']},
+  {id:'fa3',q:'Factorise as perfect square: <span class="fm">x² + 6x + 9</span>',qs:'Factorise x squared plus 6x plus 9 as perfect square.',
+   steps:[
+    {t:'Check (a+b)²: a=x, b=3. 2ab=6x. ✅',s:'Check: a equals x, b equals 3. 2ab equals 6x. It matches!'},
+    {t:'<span class="ans-tag">(x+3)²</span>',s:'x plus 3 whole squared.'}
+   ],
+   cq:'What is the factorised form?',cqs:'What is the factorised form of x squared plus 6x plus 9?',
+   ans:['(x+3)^2','(x+3)²','x+3 squared','x plus 3 squared'],
+   nudges:['(a+b)² with a=x, b=3. 🤔','(x+3)². 😄','x plus 3 squared! Say it! 🚀']},
+  {id:'fa4',q:'Factorise by splitting middle term: <span class="fm">x² + 7x + 12</span>',qs:'Factorise x squared plus 7x plus 12.',
+   steps:[
+    {t:'Need two numbers: product=12, sum=7.',s:'Find two numbers with product 12 and sum 7.'},
+    {t:'3 and 4: 3×4=12, 3+4=7. ✅',s:'3 and 4 work.'},
+    {t:'x²+3x+4x+12 = x(x+3)+4(x+3) = <span class="ans-tag">(x+3)(x+4)</span>',s:'x plus 3 times x plus 4.'}
+   ],
+   cq:'What are the two factors?',cqs:'What are the two factors of x squared plus 7x plus 12?',
+   ans:['(x+3)(x+4)','x+3 and x+4'],
+   nudges:['Product 12, sum 7. Numbers are 3 and 4! 🤔','(x+3)(x+4). 😄','Say x plus 3 times x plus 4! 🚀']},
+  {id:'fa5',q:'Divide: <span class="fm">(x²+5x+6) ÷ (x+2)</span>',qs:'Divide x squared plus 5x plus 6 by x plus 2.',
+   steps:[
+    {t:'Factorise: x²+5x+6 = (x+2)(x+3).',s:'Factorise numerator: x plus 2 times x plus 3.'},
+    {t:'Cancel (x+2).',s:'Cancel x plus 2.'},
+    {t:'<span class="ans-tag">x + 3</span>',s:'Result is x plus 3.'}
+   ],
+   cq:'What is (x²+5x+6) ÷ (x+2)?',cqs:'What is the quotient?',
+   ans:['x+3','x plus 3'],
+   nudges:['Factorise top first. x²+5x+6=(x+2)(x+3). 🤔','Cancel (x+2). 😄','x+3! Say x plus 3! 🚀']},
+  {id:'fa6',q:'Factorise: <span class="fm">4x² - 25</span>',qs:'Factorise 4x squared minus 25.',
+   steps:[
+    {t:'4x²=(2x)², 25=5².',s:'4x squared is 2x squared. 25 is 5 squared.'},
+    {t:'a²-b² form. a=2x, b=5.',s:'This is a squared minus b squared form.'},
+    {t:'<span class="ans-tag">(2x+5)(2x-5)</span>',s:'2x plus 5 times 2x minus 5.'}
+   ],
+   cq:'What is the factored form of 4x²-25?',cqs:'Factored form?',
+   ans:['(2x+5)(2x-5)','2x+5 times 2x-5'],
+   nudges:['(2x)²-5²=(2x+5)(2x-5). 🤔','(2x+5)(2x-5)! 😄','Say 2x plus 5 times 2x minus 5! 🚀']},
+  {id:'fa7',q:'Factorise: <span class="fm">2x² + x - 6</span>',qs:'Factorise 2x squared plus x minus 6.',
+   steps:[
+    {t:'Product=2×(-6)=-12, sum=1. Numbers: 4 and -3.',s:'Product is minus 12, sum is 1. Numbers are 4 and minus 3.'},
+    {t:'2x²+4x-3x-6 = 2x(x+2)-3(x+2)',s:'Split and group.'},
+    {t:'<span class="ans-tag">(x+2)(2x-3)</span>',s:'x plus 2 times 2x minus 3.'}
+   ],
+   cq:'What are the factors of 2x²+x-6?',cqs:'Factors of 2x squared plus x minus 6?',
+   ans:['(x+2)(2x-3)','x+2 and 2x-3'],
+   nudges:['Numbers with product -12, sum 1: 4 and -3. 🤔','(x+2)(2x-3). 😄','Say x plus 2 times 2x minus 3! 🚀']},
+  {id:'fa8',q:'Factorise: <span class="fm">x² - 10x + 25</span>',qs:'Factorise x squared minus 10x plus 25.',
+   steps:[
+    {t:'Check (a-b)²: a=x, b=5. 2ab=10x. ✅',s:'Check a minus b squared. a equals x, b equals 5. 2ab is 10x. Matches!'},
+    {t:'<span class="ans-tag">(x-5)²</span>',s:'x minus 5 whole squared.'}
+   ],
+   cq:'Factorised form of x²-10x+25?',cqs:'Factorised form?',
+   ans:['(x-5)^2','(x-5)²','x minus 5 squared'],
+   nudges:['(a-b)² with a=x, b=5. 🤔','(x-5)². 😄','x minus 5 squared! 🚀']},
+  {id:'fa9',q:'Divide: <span class="fm">20(y+4)(y+3)(y-3) ÷ 5(y+3)</span>',qs:'Divide the expression.',
+   steps:[
+    {t:'Cancel (y+3).',s:'Cancel the common factor y plus 3.'},
+    {t:'= 20(y+4)(y-3) ÷ 5',s:'Gives 20 times y plus 4 times y minus 3 divided by 5.'},
+    {t:'20/5=4. <span class="ans-tag">4(y+4)(y-3)</span>',s:'20 divided by 5 is 4. Result: 4 times y plus 4 times y minus 3.'}
+   ],
+   cq:'What is the numerical coefficient after dividing?',cqs:'What is the coefficient?',
+   ans:['4','four'],
+   nudges:['20 ÷ 5 = ? 🤔','4! 😄','4! Say 4! 🚀']}
+];
+let session=[], idx=0, stepIdx=0, nudgeCount=0, completed=false, recog=null, listening=false, breakSecs=0, breakTmr=null;
+const PER_SESSION=10;
+
+window.onload=function(){
+  const st=JSON.parse(localStorage.getItem('rishi_current_student')||'{}');
+  document.getElementById('sName').textContent=st.studentName?st.studentName.split(' ')[0]:'there';
+  const prog=JSON.parse(localStorage.getItem('rishi_progress')||'{}');
+  if(prog['explain_factorisation_done']){completed=true;document.getElementById('doneBanner').classList.add('show');unlockNav();}
+  buildSession(); setupRecog();
+  setTimeout(()=>{speakEl('introText');},700);
+  setTimeout(showQ,2400);
+};
+
+function onComplete(){
+  const prog=JSON.parse(localStorage.getItem('rishi_progress')||'{}');
+  prog['explain_factorisation_done']=true;
+  localStorage.setItem('rishi_progress',JSON.stringify(prog));
+  completed=true;
+  document.getElementById('doneBanner').classList.add('show');
+  unlockNav();
+  document.getElementById('lockTip').style.display='none';
+  const st=JSON.parse(localStorage.getItem('rishi_current_student')||'{}');
+  const nm=st.studentName?st.studentName.split(' ')[0]:'champion';
+  const area=document.getElementById('qArea');
+  const cel=document.createElement('div');
+  cel.className='rishika-wrap';
+  cel.innerHTML='<div class="rishika-avatar">👩‍🏫</div><div class="rishika-bubble"><div class="rishika-name">Rishika</div><div class="rishika-text" id="celText">🎉 <span class="hl">'+nm+'</span>, you did it! You have completed the full explanation of <span class="hl">Factorisation</span>! Every concept, every step — you got through it all. I am so proud of you! 🌟 Practice and Exam are now unlocked. Go show what you know! 💪</div><button class="btn-speak" onclick="speakEl('celText')">🔊 Hear Rishika</button></div>';
+  area.appendChild(cel);
+  setTimeout(()=>speakEl('celText'),400);
+}
+
+function goPractice(){if(!completed){alert('Complete all explanations first!');return;}window.location.href='/practice.html?chapter=factorisation';}
+function goExam(){if(!completed){alert('Complete explanations and practice first!');return;}window.location.href='/exam.html?chapter=factorisation';}
+
+
+function speakRaw(text){
+  if(!window.speechSynthesis) return;
+  window.speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = 'en-IN'; u.rate = 0.85; u.pitch = 1.2;
+  const vs = window.speechSynthesis.getVoices();
+  const v = vs.find(v => v.lang.startsWith('en-IN') && v.name.toLowerCase().includes('female'))
+    || vs.find(v => (v.lang.startsWith('en-IN') || v.lang.startsWith('en-GB')) && v.name.toLowerCase().includes('female'))
+    || vs.find(v => v.name.toLowerCase().includes('zira'))
+    || vs.find(v => v.name.toLowerCase().includes('hazel'))
+    || vs.find(v => v.name.toLowerCase().includes('susan'))
+    || vs.find(v => v.name.toLowerCase().includes('female'))
+    || vs.find(v => v.name.toLowerCase().includes('samantha'))
+    || vs.find(v => v.lang.startsWith('en-IN'))
+    || vs.find(v => v.lang.startsWith('en-GB'));
+  if(v) u.voice = v;
+  window.speechSynthesis.speak(u);
+}
+function speakEl(id){
+  const el = document.getElementById(id);
+  if(!el) return;
+  speakRaw(el.innerText || el.textContent);
+}
+window.addEventListener('beforeunload', () => { window.speechSynthesis && window.speechSynthesis.cancel(); });
+window.addEventListener('pagehide', () => { window.speechSynthesis && window.speechSynthesis.cancel(); });
+window.speechSynthesis && window.speechSynthesis.addEventListener('voiceschanged', ()=>{});
+
+function updateProg(){
+  const pct=Math.round((idx/PER_SESSION)*100);
+  document.getElementById('progFill').style.width=pct+'%';
+  document.getElementById('progLabel').textContent='Question '+(idx+1)+' of '+PER_SESSION;
+  document.getElementById('progPct').textContent=pct+'% complete';
+}
+function openBreak(){document.getElementById('breakOverlay').classList.add('show');}
+function closeBreak(){document.getElementById('breakOverlay').classList.remove('show');}
+function startBreak(reason){
+  closeBreak(); breakSecs=0;
+  document.getElementById('timerLabel').textContent=reason;
+  document.getElementById('timerNum').textContent='00:00';
+  document.getElementById('timerScreen').classList.add('show');
+  breakTmr=setInterval(()=>{
+    breakSecs++;
+    const m=String(Math.floor(breakSecs/60)).padStart(2,'0');
+    const s=String(breakSecs%60).padStart(2,'0');
+    document.getElementById('timerNum').textContent=m+':'+s;
+  },1000);
+}
+function endBreak(){ clearInterval(breakTmr); document.getElementById('timerScreen').classList.remove('show'); }
+function openGames(){closeBreak();document.getElementById('gamesOverlay').classList.add('show');}
+function closeGames(){document.getElementById('gamesOverlay').classList.remove('show');}
+function buildSession(){
+  const first = QB[0];
+  const rest = QB.slice(1).sort(()=>Math.random()-.5);
+  session = [first, ...rest.slice(0, PER_SESSION-1)];
+}
+function showQ(){
+  if(idx >= session.length){ onComplete(); return; }
+  const q = session[idx];
+  stepIdx = 0; nudgeCount = 0;
+  updateProg();
+  const area = document.getElementById('qArea');
+  area.innerHTML = '';
+  const qcard = document.createElement('div');
+  qcard.className = 'q-card';
+  qcard.innerHTML = '<div class="q-label">Question '+(idx+1)+' of '+PER_SESSION+'</div><div class="q-text">'+q.q+'</div><button class="btn-speak" onclick="speakRaw(q.qs)">&#128266; Hear the question</button>';
+  area.appendChild(qcard);
+  const sc = document.createElement('div');
+  sc.className = 'q-card';
+  sc.innerHTML = '<div class="q-label">&#128216; Explanation &#8212; Step by Step</div><div id="stepsWrap"></div><button class="btn-speak" id="nxtStepBtn" onclick="nextStep()" style="margin-top:12px;">&#9654; Next Step</button>';
+  area.appendChild(sc);
+  setTimeout(nextStep, 600);
+}
+function nextStep(){
+  const q = session[idx];
+  if(stepIdx >= q.steps.length){
+    document.getElementById('nxtStepBtn').style.display='none';
+    showConfirm();
+    return;
+  }
+  const s = q.steps[stepIdx];
+  const wrap = document.getElementById('stepsWrap');
+  const d = document.createElement('div');
+  d.className = 'step';
+  d.innerHTML = '<div class="step-num">'+(stepIdx+1)+'</div><div class="step-body">'+s.t+'</div>';
+  wrap.appendChild(d);
+  setTimeout(()=>d.classList.add('vis'),50);
+  setTimeout(()=>speakRaw(s.s),300);
+  stepIdx++;
+}
+function showConfirm(){
+  const q = session[idx];
+  const area = document.getElementById('qArea');
+  const c = document.createElement('div');
+  c.className = 'confirm-wrap';
+  c.id = 'cWrap';
+  c.innerHTML = '<div class="confirm-title">&#127908; Rishika asks &#8212; answer to move on!</div><div class="confirm-q">'+q.cq+'</div><button class="mic-btn" id="micBtn" onclick="startListen()">&#127908; Tap and Speak Your Answer</button><div class="transcript" id="tbox"></div><div class="result-box" id="rbox"></div><div class="nudge" id="nudgeBox"></div><button class="btn-next" id="btnNext" onclick="goNext()">Next Question &#9654;</button>';
+  area.appendChild(c);
+  c.scrollIntoView({behavior:'smooth',block:'center'});
+  setTimeout(()=>speakRaw(q.cqs),600);
+}
+function goNext(){
+  idx++;
+  document.getElementById('qArea').innerHTML='';
+  showQ();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function unlockNav(){
+  document.getElementById('btnPractice').classList.remove('locked');
+  document.getElementById('btnExam').classList.remove('locked');
+}
+function setupRecog(){
+  const SR = window.SpeechRecognition||window.webkitSpeechRecognition;
+  if(!SR) return;
+  recog = new SR();
+  recog.lang='en-IN'; recog.continuous=false; recog.interimResults=false;
+  recog.onresult=e=>handleAnswer(e.results[0][0].transcript.toLowerCase().trim());
+  recog.onerror=()=>{setListen(false);showNudge("I couldn't hear that \u2014 tap the mic and try again! \ud83d\ude0a");};
+  recog.onend=()=>setListen(false);
+}
+function startListen(){
+  if(!recog){showNudge("Voice not supported. Try Chrome on desktop! \ud83c\udfa4");return;}
+  if(listening){recog.stop();return;}
+  setListen(true);
+  const tb=document.getElementById('tbox');
+  if(tb){tb.classList.add('show');tb.textContent='\ud83c\udfa4 Listening...';}
+  recog.start();
+}
+function setListen(on){
+  listening=on;
+  const btn=document.getElementById('micBtn');
+  if(btn){btn.className='mic-btn'+(on?' on':'');btn.textContent=on?'\ud83c\udfa4 Listening...':'\ud83c\udfa4 Tap and Speak Your Answer';}
+}
+function handleAnswer(text){
+  const tb=document.getElementById('tbox');
+  if(tb) tb.textContent='"'+text+'"';
+  const q=session[idx];
+  const ok=q.ans.some(a=>text.includes(a.toLowerCase())||a.toLowerCase().includes(text));
+  const rb=document.getElementById('rbox');
+  if(ok){
+    rb.className='result-box ok'; rb.textContent='\u2705 Correct! Excellent!';
+    document.getElementById('nudgeBox').classList.remove('show');
+    const nb=document.getElementById('btnNext');
+    if(nb) nb.classList.add('show');
+    speakRaw("Correct! Excellent! Tap next question to continue.");
+  } else {
+    nudgeCount++;
+    rb.className='result-box no'; rb.textContent='\u274c Not quite \u2014 listen to my hint!';
+    const nudge=q.nudges[Math.min(nudgeCount-1,q.nudges.length-1)];
+    showNudge(nudge);
+    speakRaw(nudge.replace(/[\ud83e\udd14\ud83d\ude04\ud83d\ude80]/g,''));
+    if(nudgeCount>=3){
+      const nb=document.getElementById('btnNext');
+      if(nb){nb.classList.add('show');nb.textContent="I Understand \u2014 Next Question \u25b6";}
+    }
+  }
+}
+function showNudge(msg){
+  const n=document.getElementById('nudgeBox');
+  if(n){n.textContent=msg;n.classList.add('show');}
+}
+
+</script>
+</body>
+</html>

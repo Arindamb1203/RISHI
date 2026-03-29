@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RISHI — Explain: Playing with Numbers</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Nunito:wght@400;600;700;800;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream:#fdf6ec; --warm-white:#fffdf8; --gold:#c8922a; --gold-light:#e8b84b;
+    --gold-pale:#f5e6c8; --amber:#d4870a; --sage:#7a8c6e; --sage-light:#a8b89a;
+    --rust:#b85c2a; --charcoal:#2a2218; --mid:#5a4a30; --soft:#8a7a5a;
+    --inactive:#c8b89a; --border-dark:#6b4c2a; --error:#c0392b;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--cream);font-family:'Nunito',sans-serif;min-height:100vh;color:var(--charcoal);}
+  body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(var(--gold-pale) 1px,transparent 1px),linear-gradient(90deg,var(--gold-pale) 1px,transparent 1px);background-size:40px 40px;opacity:.3;z-index:0;pointer-events:none;}
+  .topbar{position:sticky;top:0;z-index:100;background:rgba(253,246,236,.97);border-bottom:2px solid var(--border-dark);backdrop-filter:blur(8px);padding:11px 22px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;}
+  .logo-sm{font-family:'Orbitron',sans-serif;font-size:18px;font-weight:900;letter-spacing:4px;background:linear-gradient(135deg,var(--amber),var(--gold-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+  .topbar-center{font-family:'Orbitron',sans-serif;font-size:11px;letter-spacing:2px;color:var(--amber);text-transform:uppercase;}
+  .topbar-right{display:flex;gap:10px;align-items:center;}
+  .btn-topbar{font-family:'Nunito',sans-serif;font-size:13px;font-weight:900;padding:7px 16px;border-radius:20px;border:2px solid var(--border-dark);background:var(--warm-white);color:var(--mid);cursor:pointer;transition:all .2s;}
+  .btn-topbar:hover{background:var(--gold-pale);}
+  .btn-topbar.back{background:var(--gold-pale);}
+  .btn-topbar.back:hover{background:var(--amber);color:#fff;}
+  .prog-wrap{position:relative;z-index:10;padding:10px 22px;background:rgba(255,253,248,.9);border-bottom:1.5px solid var(--gold-pale);}
+  .prog-info{display:flex;justify-content:space-between;font-size:12px;font-weight:800;color:var(--mid);margin-bottom:6px;}
+  .prog-bar{height:7px;background:var(--gold-pale);border-radius:4px;overflow:hidden;}
+  .prog-fill{height:100%;background:linear-gradient(90deg,var(--sage),var(--gold));border-radius:4px;transition:width .5s ease;}
+  .main{position:relative;z-index:10;max-width:820px;margin:0 auto;padding:20px 18px 130px;}
+  .rishika-wrap{display:flex;align-items:flex-start;gap:14px;margin-bottom:22px;}
+  .rishika-avatar{width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,var(--sage),var(--sage-light));border:2px solid var(--border-dark);display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0;box-shadow:0 4px 16px rgba(122,140,110,.3);}
+  .rishika-bubble{background:rgba(255,253,248,.97);border:2px solid var(--border-dark);border-radius:0 18px 18px 18px;padding:16px 20px;flex:1;box-shadow:0 4px 20px rgba(107,76,42,.1);}
+  .rishika-name{font-size:11px;font-weight:900;color:var(--sage);letter-spacing:2px;text-transform:uppercase;margin-bottom:6px;}
+  .rishika-text{font-size:15px;font-weight:700;color:var(--charcoal);line-height:1.7;}
+  .hl{color:var(--amber);font-weight:900;}
+  .fm{font-family:'Share Tech Mono',monospace;background:var(--gold-pale);border:1.5px solid var(--border-dark);border-radius:6px;padding:2px 8px;font-size:14px;color:var(--mid);}
+  .frac{display:inline-flex;flex-direction:column;align-items:center;font-size:14px;font-weight:900;vertical-align:middle;margin:0 3px;line-height:1.2;}
+  .frac .num{border-bottom:2px solid currentColor;padding:0 3px;}
+  .frac .den{padding:0 3px;}
+  .btn-speak{display:inline-flex;align-items:center;gap:7px;font-family:'Nunito',sans-serif;font-size:12px;font-weight:900;padding:6px 13px;border-radius:20px;border:2px solid var(--sage);background:#eef2eb;color:var(--sage);cursor:pointer;margin-top:10px;transition:all .2s;}
+  .btn-speak:hover,.btn-speak.on{background:var(--sage);color:#fff;}
+  .q-card{background:rgba(255,253,248,.97);border:2px solid var(--border-dark);border-radius:18px;padding:20px 22px;margin-bottom:16px;box-shadow:0 4px 20px rgba(107,76,42,.1);}
+  .q-label{font-family:'Orbitron',sans-serif;font-size:11px;letter-spacing:3px;color:var(--amber);text-transform:uppercase;margin-bottom:10px;}
+  .q-text{font-size:16px;font-weight:800;color:var(--charcoal);line-height:1.7;margin-bottom:12px;}
+  .step{display:flex;gap:12px;margin-bottom:14px;opacity:0;transform:translateY(8px);transition:all .4s ease;}
+  .step.vis{opacity:1;transform:translateY(0);}
+  .step-num{width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;font-size:11px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:2px solid var(--border-dark);}
+  .step-body{flex:1;font-size:14px;font-weight:700;color:var(--mid);line-height:1.7;padding-top:2px;}
+  .ans-tag{font-family:'Share Tech Mono',monospace;background:linear-gradient(135deg,#eef2eb,#f5fbf2);border:2px solid var(--border-dark);border-radius:8px;padding:3px 10px;color:var(--sage);font-size:14px;}
+  .confirm-wrap{margin-top:16px;background:linear-gradient(135deg,#eef2eb,#f5fbf2);border:2px solid var(--border-dark);border-radius:14px;padding:18px 20px;}
+  .confirm-title{font-size:12px;font-weight:900;color:var(--sage);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;}
+  .confirm-q{font-size:15px;font-weight:800;color:var(--charcoal);margin-bottom:14px;line-height:1.6;}
+  .mic-btn{display:flex;align-items:center;gap:10px;width:100%;font-family:'Nunito',sans-serif;font-size:15px;font-weight:900;padding:12px 18px;border-radius:12px;border:2px solid var(--border-dark);background:var(--warm-white);color:var(--mid);cursor:pointer;transition:all .2s;margin-bottom:10px;}
+  .mic-btn:hover{border-color:var(--sage);color:var(--sage);}
+  .mic-btn.on{background:var(--sage);color:#fff;border-color:var(--sage);animation:blnk .8s ease-in-out infinite;}
+  @keyframes blnk{0%,100%{opacity:1}50%{opacity:.5}}
+  .transcript{font-family:'Share Tech Mono',monospace;font-size:13px;color:var(--charcoal);background:var(--warm-white);border:2px solid var(--border-dark);border-radius:10px;padding:9px 13px;min-height:38px;margin-bottom:10px;display:none;}
+  .transcript.show{display:block;}
+  .result-box{font-size:13px;font-weight:800;padding:10px 14px;border-radius:10px;display:none;line-height:1.5;}
+  .result-box.ok{background:#eef2eb;border:2px solid var(--sage);color:var(--sage);display:block;}
+  .result-box.no{background:#fff5f0;border:2px solid var(--rust);color:var(--rust);display:block;}
+  .nudge{font-size:13px;font-weight:700;color:var(--mid);margin-top:8px;font-style:italic;display:none;}
+  .nudge.show{display:block;}
+  .btn-next{font-family:'Nunito',sans-serif;font-size:15px;font-weight:900;padding:12px 24px;border-radius:12px;border:none;background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;cursor:pointer;box-shadow:0 4px 16px rgba(212,135,10,.3);transition:all .2s;display:none;margin-top:12px;width:100%;}
+  .btn-next.show{display:block;}
+  .btn-next:hover{transform:translateY(-1px);}
+  .bottom-nav{position:fixed;bottom:0;left:0;right:0;z-index:100;background:rgba(253,246,236,.97);border-top:2px solid var(--border-dark);padding:12px 22px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap;align-items:center;}
+  .btn-nav{font-family:'Nunito',sans-serif;font-size:14px;font-weight:900;padding:11px 24px;border-radius:12px;border:2px solid var(--border-dark);cursor:pointer;transition:all .2s;}
+  .btn-nav.practice{background:linear-gradient(135deg,var(--sage),var(--sage-light));color:#fff;border-color:var(--sage);}
+  .btn-nav.exam{background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;border-color:var(--amber);}
+  .btn-nav.locked{background:var(--gold-pale);color:var(--inactive);cursor:not-allowed;border-color:var(--inactive);}
+  .btn-nav:not(.locked):hover{transform:translateY(-2px);}
+  .lock-tip{font-size:11px;font-weight:700;color:var(--rust);width:100%;text-align:center;}
+  .overlay{display:none;position:fixed;inset:0;background:rgba(42,34,24,.92);z-index:1000;flex-direction:column;align-items:center;justify-content:center;backdrop-filter:blur(6px);}
+  .overlay.show{display:flex;}
+  .break-box{background:var(--warm-white);border:2px solid var(--border-dark);border-radius:24px;padding:32px 36px;max-width:400px;width:90%;text-align:center;}
+  .break-title{font-family:'Orbitron',sans-serif;font-size:15px;font-weight:900;color:var(--amber);letter-spacing:3px;margin-bottom:5px;}
+  .break-sub{font-size:13px;font-weight:700;color:var(--soft);margin-bottom:20px;}
+  .break-opts{display:flex;flex-direction:column;gap:9px;margin-bottom:16px;}
+  .break-opt{font-family:'Nunito',sans-serif;font-size:15px;font-weight:800;padding:12px;border-radius:12px;border:2px solid var(--border-dark);background:var(--warm-white);color:var(--mid);cursor:pointer;transition:all .2s;}
+  .break-opt:hover{background:var(--gold-pale);border-color:var(--amber);}
+  .timer-screen{display:none;position:fixed;inset:0;background:#1a1208;z-index:1001;flex-direction:column;align-items:center;justify-content:center;}
+  .timer-screen.show{display:flex;}
+  .timer-reason{font-family:'Orbitron',sans-serif;font-size:13px;letter-spacing:4px;color:var(--gold-light);margin-bottom:18px;text-transform:uppercase;}
+  .timer-num{font-family:'Orbitron',sans-serif;font-size:76px;font-weight:900;color:var(--gold-light);letter-spacing:8px;margin-bottom:36px;text-shadow:0 0 40px rgba(232,184,75,.4);}
+  .btn-end{font-family:'Nunito',sans-serif;font-size:17px;font-weight:900;padding:15px 36px;border-radius:14px;border:2px solid var(--gold-light);background:transparent;color:var(--gold-light);cursor:pointer;transition:all .2s;}
+  .btn-end:hover{background:var(--gold-light);color:var(--charcoal);}
+  .done-banner{background:linear-gradient(135deg,#eef2eb,#f5fbf2);border:2px solid var(--border-dark);border-radius:16px;padding:18px 22px;text-align:center;margin-bottom:18px;display:none;}
+  .done-banner.show{display:block;}
+  .done-banner .dt{font-family:'Orbitron',sans-serif;font-size:13px;letter-spacing:2px;color:var(--sage);margin-bottom:5px;}
+  .done-banner .ds{font-size:14px;font-weight:700;color:var(--mid);}
+  @media(max-width:600px){
+    .main{padding:14px 10px 130px;}
+    .topbar,.prog-wrap{padding-left:12px;padding-right:12px;}
+    .timer-num{font-size:52px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="logo-sm">RISHI</div>
+  <div class="topbar-center">🔢 Playing with Numbers — Explain</div>
+  <div class="topbar-right">
+    <button class="btn-topbar" onclick="openBreak()">☕ Break</button>
+    <button class="btn-topbar back" onclick="window.location.href='/syllabus.html'">← Syllabus</button>
+  </div>
+</div>
+
+<div class="prog-wrap">
+  <div class="prog-info">
+    <span id="progLabel">Question 1 of 10</span>
+    <span id="progPct">0% complete</span>
+  </div>
+  <div class="prog-bar"><div class="prog-fill" id="progFill" style="width:0%"></div></div>
+</div>
+
+<div class="main">
+  <div class="done-banner" id="doneBanner">
+    <div class="dt">✅ Explanation Completed!</div>
+    <div class="ds">You've completed this section once. Practice and Exam are now unlocked. You can revisit anytime.</div>
+  </div>
+  <div class="rishika-wrap" id="introWrap">
+    <div class="rishika-avatar">👩‍🏫</div>
+    <div class="rishika-bubble">
+      <div class="rishika-name">Rishika</div>
+      <div class="rishika-text" id="introText">Hi <span class="hl" id="sName">there</span>! 😊 I'm Rishika — think of me as your elder sister, sitting right beside you. Today we're going to understand <span class="hl">Playing with Numbers</span> together, step by step. No rush, no pressure. Ready? Let's go! 🚀</div>
+      <button class="btn-speak" onclick="speakEl('introText')">🔊 Hear Rishika</button>
+    </div>
+  </div>
+  <div id="qArea"></div>
+</div>
+
+<div class="bottom-nav">
+  <div class="lock-tip" id="lockTip">☝ Complete all explanations to unlock Practice and Exam</div>
+  <button class="btn-nav practice locked" id="btnPractice" onclick="goPractice()">✏️ Go to Practice</button>
+  <button class="btn-nav exam locked" id="btnExam" onclick="goExam()">📝 Go to Exam</button>
+</div>
+
+<div class="overlay" id="breakOverlay">
+  <div class="break-box">
+    <div class="break-title">Take a Break</div>
+    <div class="break-sub">Choose your reason — timer starts</div>
+    <div class="break-opts">
+      <button class="break-opt" onclick="startBreak('💧 Water Break')">💧 Water</button>
+      <button class="break-opt" onclick="startBreak('🚽 Washroom Break')">🚽 Washroom</button>
+      <button class="break-opt" onclick="startBreak('🏃 Physical Game')">🏃 Physical Game</button>
+      <button class="break-opt" onclick="openGames()">🎮 Play with Me</button>
+    </div>
+    <button class="break-opt" style="color:var(--soft);" onclick="closeBreak()">Cancel — Back to Study</button>
+  </div>
+</div>
+
+<div class="timer-screen" id="timerScreen">
+  <div class="timer-reason" id="timerLabel">Break</div>
+  <div class="timer-num" id="timerNum">00:00</div>
+  <button class="btn-end" onclick="endBreak()">✅ End Break — Back to Study</button>
+</div>
+
+<div class="overlay" id="gamesOverlay">
+  <div class="break-box">
+    <div style="font-size:44px;margin-bottom:10px;">🎮</div>
+    <div class="break-title">Games</div>
+    <div class="break-sub" style="margin-bottom:20px;">Focus games, brain twisters and more are being built for you. Coming very soon! 🚀</div>
+    <button class="break-opt" style="background:var(--amber);color:#fff;border-color:var(--amber);" onclick="closeGames()">OK — Back to Study</button>
+  </div>
+</div>
+
+<script>
+const QB = [
+  {id:'pw0',q:'What is the <span class="hl">general form</span> of a 2-digit number? Write 73 in general form.',qs:'What is the general form of a 2-digit number? Write 73 in general form.',
+   steps:[
+    {t:'Any 2-digit number with tens digit <b>a</b> and units digit <b>b</b> can be written as <span class="fm">10a + b</span>.',s:'Any 2-digit number with tens digit a and units digit b equals 10a plus b.'},
+    {t:'For 73: a = 7, b = 3. So <span class="fm">73 = 10x7 + 3 = 70 + 3</span>.',s:'For 73: a equals 7 and b equals 3. So 73 equals 10 times 7 plus 3, which is 70 plus 3.'},
+    {t:'Similarly a 3-digit number <b>abc</b> = <span class="fm">100a + 10b + c</span>.',s:'Similarly, a 3-digit number abc equals 100a plus 10b plus c.'},
+    {t:'General form helps us explore divisibility and digit tricks! <span class="ans-tag">73 = 10x7 + 3</span>',s:'General form helps explore divisibility and digit tricks.'}
+   ],
+   cq:'Write 95 in general form.',cqs:'Write 95 in general form.',
+   ans:['10 times 9 plus 5','90 plus 5','90+5','95 equals 90','ninety plus five'],
+   nudges:['Tens digit is 9, units digit is 5. Use 10a + b! 🤔','10x9 = 90. Then add 5. So 90 + ...? 😄','10x9 + 5 = 95. Say 10 times 9 plus 5! 🚀']},
+  {id:'pw1',q:'A 2-digit number has digits <span class="hl">a</span> and <span class="hl">b</span>. Show the sum of the number and its reverse is divisible by 11.',qs:'Show the sum of a 2-digit number and its reverse is divisible by 11.',
+   steps:[
+    {t:'Number = <span class="fm">10a + b</span>. Reversed = <span class="fm">10b + a</span>.',s:'Number equals 10a plus b. Reversed number equals 10b plus a.'},
+    {t:'Sum = <span class="fm">(10a+b)+(10b+a) = 11a+11b = 11(a+b)</span>.',s:'Sum equals 11a plus 11b equals 11 times a plus b.'},
+    {t:'Divisible by <span class="ans-tag">11</span> always.',s:'It is always divisible by 11.'}
+   ],
+   cq:'What is the sum of 36 and its reverse 63?',cqs:'What is the sum of 36 and its reverse 63?',
+   ans:['99','ninety nine'],
+   nudges:['Add 36 and 63 directly! 🤔','36 + 63 = ? 😄','36 + 63 = 99. Say 99! 🚀']},
+  {id:'pw2',q:'Show the <span class="hl">difference</span> of a 2-digit number and its reverse is divisible by 9.',qs:'Show the difference of a 2-digit number and its reverse is divisible by 9.',
+   steps:[
+    {t:'Number = <span class="fm">10a+b</span>. Reverse = <span class="fm">10b+a</span>.',s:'Number equals 10a plus b. Reverse equals 10b plus a.'},
+    {t:'Difference = <span class="fm">(10a+b)-(10b+a) = 9a-9b = 9(a-b)</span>.',s:'Difference equals 9a minus 9b equals 9 times a minus b.'},
+    {t:'Always divisible by <span class="ans-tag">9</span>.',s:'Always divisible by 9.'}
+   ],
+   cq:'What is 73 minus 37?',cqs:'What is 73 minus 37?',
+   ans:['36','thirty six'],
+   nudges:['Subtract 37 from 73. 🤔','73 minus 37 = ? 😄','73 - 37 = 36. Say 36! 🚀']},
+  {id:'pw3',q:'Show abc + bca + cab is divisible by 3 and 37.',qs:'Show abc plus bca plus cab is divisible by 3 and 37.',
+   steps:[
+    {t:'abc = <span class="fm">100a+10b+c</span>, bca = <span class="fm">100b+10c+a</span>, cab = <span class="fm">100c+10a+b</span>',s:'abc equals 100a plus 10b plus c. bca equals 100b plus 10c plus a. cab equals 100c plus 10a plus b.'},
+    {t:'Sum = <span class="fm">111a+111b+111c = 111(a+b+c) = 3x37x(a+b+c)</span>',s:'Sum equals 111 times a plus b plus c, which is 3 times 37 times a plus b plus c.'},
+    {t:'Divisible by both <span class="ans-tag">3 and 37</span>.',s:'Divisible by both 3 and 37.'}
+   ],
+   cq:'What is 111 equal to as a product?',cqs:'What is 111 equal to as a product?',
+   ans:['3 times 37','3 x 37','37 times 3','111 equals 3 times 37'],
+   nudges:['111 = 3 x 37. What are its factors? 🤔','3 and 37 are both factors of 111. 😄','Say 3 times 37! 🚀']},
+  {id:'pw4',q:'State the <span class="hl">divisibility rule for 2</span>. Is 4758 divisible by 2?',qs:'State the divisibility rule for 2. Is 4758 divisible by 2?',
+   steps:[
+    {t:'Divisible by 2 if units digit is 0, 2, 4, 6, or 8.',s:'A number is divisible by 2 if its units digit is 0, 2, 4, 6, or 8.'},
+    {t:'4758: units digit = 8, which is even.',s:'4758 has units digit 8, which is even.'},
+    {t:'<span class="ans-tag">Yes, 4758 is divisible by 2.</span>',s:'Yes, 4758 is divisible by 2.'}
+   ],
+   cq:'Is 4673 divisible by 2?',cqs:'Is 4673 divisible by 2?',
+   ans:['no','not divisible','odd'],
+   nudges:['Units digit of 4673 is 3. Is 3 even or odd? 🤔','3 is odd so not divisible by 2. 😄','No, not divisible by 2! Say No! 🚀']},
+  {id:'pw5',q:'State the <span class="hl">divisibility rule for 3</span>. Is 5247 divisible by 3?',qs:'Is 5247 divisible by 3?',
+   steps:[
+    {t:'Divisible by 3 if sum of digits is divisible by 3.',s:'A number is divisible by 3 if the sum of all its digits is divisible by 3.'},
+    {t:'5+2+4+7 = 18.',s:'5 plus 2 plus 4 plus 7 equals 18.'},
+    {t:'18/3 = 6. <span class="ans-tag">Yes, 5247 is divisible by 3.</span>',s:'18 divided by 3 is 6. So yes, 5247 is divisible by 3.'}
+   ],
+   cq:'What is the digit sum of 5247?',cqs:'What is the digit sum of 5247?',
+   ans:['18','eighteen'],
+   nudges:['Add all digits: 5+2+4+7 = ? 🤔','5+2=7, +4=11, +7=18. 😄','18! Say 18! 🚀']},
+  {id:'pw6',q:'State divisibility rules for <span class="hl">5 and 10</span>. Test 4350.',qs:'Test 4350 for divisibility by 5 and 10.',
+   steps:[
+    {t:'Divisible by 5: units digit is 0 or 5.',s:'Divisible by 5: units digit must be 0 or 5.'},
+    {t:'Divisible by 10: units digit is 0.',s:'Divisible by 10: units digit must be 0.'},
+    {t:'4350 ends in 0. <span class="ans-tag">Divisible by both 5 and 10.</span>',s:'4350 ends in 0. So it is divisible by both 5 and 10.'}
+   ],
+   cq:'Is 4350 divisible by 10?',cqs:'Is 4350 divisible by 10?',
+   ans:['yes','divisible'],
+   nudges:['Units digit of 4350 is 0. 🤔','0 means divisible by 10. 😄','Yes! Say Yes! 🚀']},
+  {id:'pw7',q:'State divisibility rule for <span class="hl">9</span>. Is 9108 divisible by 9?',qs:'Is 9108 divisible by 9?',
+   steps:[
+    {t:'Divisible by 9 if sum of digits is divisible by 9.',s:'A number is divisible by 9 if the sum of its digits is divisible by 9.'},
+    {t:'9+1+0+8 = 18.',s:'9 plus 1 plus 0 plus 8 equals 18.'},
+    {t:'18/9 = 2. <span class="ans-tag">Yes, divisible by 9.</span>',s:'18 divided by 9 is 2. Yes, 9108 is divisible by 9.'}
+   ],
+   cq:'What is the digit sum of 9108?',cqs:'What is the digit sum of 9108?',
+   ans:['18','eighteen'],
+   nudges:['Add 9+1+0+8 = ? 🤔','= 18. 😄','18! Say 18! 🚀']},
+  {id:'pw8',q:'Solve: <span class="hl">AB + BA = 121</span>. Find A and B.',qs:'AB plus BA equals 121. Find A and B.',
+   steps:[
+    {t:'AB = 10A+B, BA = 10B+A. Sum = 11(A+B) = 121.',s:'AB equals 10A plus B. BA equals 10B plus A. Sum equals 11 times A plus B equals 121.'},
+    {t:'A+B = 11. Try A=6, B=5: 65+56=121.',s:'A plus B equals 11. One solution: A=6 and B=5. Check: 65 plus 56 equals 121.'},
+    {t:'<span class="ans-tag">A+B = 11</span> (e.g. A=6, B=5)',s:'A plus B equals 11.'}
+   ],
+   cq:'What is A+B in this puzzle?',cqs:'What is A plus B?',
+   ans:['11','eleven'],
+   nudges:['11(A+B)=121. Divide by 11. 🤔','121/11=11. 😄','A+B=11. Say 11! 🚀']},
+  {id:'pw9',q:'Test 2133 for divisibility by <span class="hl">3 and 9</span>.',qs:'Test 2133 for divisibility by 3 and 9.',
+   steps:[
+    {t:'Digit sum = 2+1+3+3 = 9.',s:'Digit sum of 2133: 2 plus 1 plus 3 plus 3 equals 9.'},
+    {t:'9 is divisible by 3 and by 9.',s:'9 is divisible by 3 and also by 9.'},
+    {t:'<span class="ans-tag">2133 divisible by both 3 and 9.</span>',s:'So 2133 is divisible by both 3 and 9.'}
+   ],
+   cq:'Is 2133 divisible by 9?',cqs:'Is 2133 divisible by 9?',
+   ans:['yes','yes it is','divisible'],
+   nudges:['Digit sum = 9. Is 9 divisible by 9? 🤔','Yes, 9/9=1! 😄','Yes! Say Yes! 🚀']},
+  {id:'pw10',q:'Find value of <span class="hl">A</span> if 1A4 is divisible by 4.',qs:'Find A if 1A4 is divisible by 4.',
+   steps:[
+    {t:'Divisible by 4: last 2 digits must be divisible by 4.',s:'For divisibility by 4, the last 2 digits must be divisible by 4.'},
+    {t:'Last 2 digits = A4. Try: 04, 24, 44, 64, 84 — all divisible by 4.',s:'Last 2 digits are A4. 04, 24, 44, 64, 84 are all divisible by 4.'},
+    {t:'A can be <span class="ans-tag">0, 2, 4, 6, or 8</span>.',s:'So A can be 0, 2, 4, 6, or 8.'}
+   ],
+   cq:'If A=2, what is the number 1A4?',cqs:'If A equals 2, what is 1A4?',
+   ans:['124','one hundred twenty four'],
+   nudges:['Replace A with 2 in 1A4. 🤔','1_4 with A=2 is 124. 😄','124! Say 124! 🚀']}
+];
+let session=[], idx=0, stepIdx=0, nudgeCount=0, completed=false, recog=null, listening=false, breakSecs=0, breakTmr=null;
+const PER_SESSION=10;
+
+window.onload=function(){
+  const st=JSON.parse(localStorage.getItem('rishi_current_student')||'{}');
+  document.getElementById('sName').textContent=st.studentName?st.studentName.split(' ')[0]:'there';
+  const prog=JSON.parse(localStorage.getItem('rishi_progress')||'{}');
+  if(prog['explain_playing_done']){completed=true;document.getElementById('doneBanner').classList.add('show');unlockNav();}
+  buildSession(); setupRecog();
+  setTimeout(()=>{speakEl('introText');},700);
+  setTimeout(showQ,2400);
+};
+
+function onComplete(){
+  const prog=JSON.parse(localStorage.getItem('rishi_progress')||'{}');
+  prog['explain_playing_done']=true;
+  localStorage.setItem('rishi_progress',JSON.stringify(prog));
+  completed=true;
+  document.getElementById('doneBanner').classList.add('show');
+  unlockNav();
+  document.getElementById('lockTip').style.display='none';
+  const st=JSON.parse(localStorage.getItem('rishi_current_student')||'{}');
+  const nm=st.studentName?st.studentName.split(' ')[0]:'champion';
+  const area=document.getElementById('qArea');
+  const cel=document.createElement('div');
+  cel.className='rishika-wrap';
+  cel.innerHTML='<div class="rishika-avatar">👩‍🏫</div><div class="rishika-bubble"><div class="rishika-name">Rishika</div><div class="rishika-text" id="celText">🎉 <span class="hl">'+nm+'</span>, you did it! You have completed the full explanation of <span class="hl">Playing with Numbers</span>! Every concept, every step — you got through it all. I am so proud of you! 🌟 Practice and Exam are now unlocked. Go show what you know! 💪</div><button class="btn-speak" onclick="speakEl('celText')">🔊 Hear Rishika</button></div>';
+  area.appendChild(cel);
+  setTimeout(()=>speakEl('celText'),400);
+}
+
+function goPractice(){if(!completed){alert('Complete all explanations first!');return;}window.location.href='/practice.html?chapter=playing_with_numbers';}
+function goExam(){if(!completed){alert('Complete explanations and practice first!');return;}window.location.href='/exam.html?chapter=playing_with_numbers';}
+
+
+function speakRaw(text){
+  if(!window.speechSynthesis) return;
+  window.speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = 'en-IN'; u.rate = 0.85; u.pitch = 1.2;
+  const vs = window.speechSynthesis.getVoices();
+  const v = vs.find(v => v.lang.startsWith('en-IN') && v.name.toLowerCase().includes('female'))
+    || vs.find(v => (v.lang.startsWith('en-IN') || v.lang.startsWith('en-GB')) && v.name.toLowerCase().includes('female'))
+    || vs.find(v => v.name.toLowerCase().includes('zira'))
+    || vs.find(v => v.name.toLowerCase().includes('hazel'))
+    || vs.find(v => v.name.toLowerCase().includes('susan'))
+    || vs.find(v => v.name.toLowerCase().includes('female'))
+    || vs.find(v => v.name.toLowerCase().includes('samantha'))
+    || vs.find(v => v.lang.startsWith('en-IN'))
+    || vs.find(v => v.lang.startsWith('en-GB'));
+  if(v) u.voice = v;
+  window.speechSynthesis.speak(u);
+}
+function speakEl(id){
+  const el = document.getElementById(id);
+  if(!el) return;
+  speakRaw(el.innerText || el.textContent);
+}
+window.addEventListener('beforeunload', () => { window.speechSynthesis && window.speechSynthesis.cancel(); });
+window.addEventListener('pagehide', () => { window.speechSynthesis && window.speechSynthesis.cancel(); });
+window.speechSynthesis && window.speechSynthesis.addEventListener('voiceschanged', ()=>{});
+
+function updateProg(){
+  const pct=Math.round((idx/PER_SESSION)*100);
+  document.getElementById('progFill').style.width=pct+'%';
+  document.getElementById('progLabel').textContent='Question '+(idx+1)+' of '+PER_SESSION;
+  document.getElementById('progPct').textContent=pct+'% complete';
+}
+function openBreak(){document.getElementById('breakOverlay').classList.add('show');}
+function closeBreak(){document.getElementById('breakOverlay').classList.remove('show');}
+function startBreak(reason){
+  closeBreak(); breakSecs=0;
+  document.getElementById('timerLabel').textContent=reason;
+  document.getElementById('timerNum').textContent='00:00';
+  document.getElementById('timerScreen').classList.add('show');
+  breakTmr=setInterval(()=>{
+    breakSecs++;
+    const m=String(Math.floor(breakSecs/60)).padStart(2,'0');
+    const s=String(breakSecs%60).padStart(2,'0');
+    document.getElementById('timerNum').textContent=m+':'+s;
+  },1000);
+}
+function endBreak(){ clearInterval(breakTmr); document.getElementById('timerScreen').classList.remove('show'); }
+function openGames(){closeBreak();document.getElementById('gamesOverlay').classList.add('show');}
+function closeGames(){document.getElementById('gamesOverlay').classList.remove('show');}
+function buildSession(){
+  const first = QB[0];
+  const rest = QB.slice(1).sort(()=>Math.random()-.5);
+  session = [first, ...rest.slice(0, PER_SESSION-1)];
+}
+function showQ(){
+  if(idx >= session.length){ onComplete(); return; }
+  const q = session[idx];
+  stepIdx = 0; nudgeCount = 0;
+  updateProg();
+  const area = document.getElementById('qArea');
+  area.innerHTML = '';
+  const qcard = document.createElement('div');
+  qcard.className = 'q-card';
+  qcard.innerHTML = '<div class="q-label">Question '+(idx+1)+' of '+PER_SESSION+'</div><div class="q-text">'+q.q+'</div><button class="btn-speak" onclick="speakRaw(q.qs)">&#128266; Hear the question</button>';
+  area.appendChild(qcard);
+  const sc = document.createElement('div');
+  sc.className = 'q-card';
+  sc.innerHTML = '<div class="q-label">&#128216; Explanation &#8212; Step by Step</div><div id="stepsWrap"></div><button class="btn-speak" id="nxtStepBtn" onclick="nextStep()" style="margin-top:12px;">&#9654; Next Step</button>';
+  area.appendChild(sc);
+  setTimeout(nextStep, 600);
+}
+function nextStep(){
+  const q = session[idx];
+  if(stepIdx >= q.steps.length){
+    document.getElementById('nxtStepBtn').style.display='none';
+    showConfirm();
+    return;
+  }
+  const s = q.steps[stepIdx];
+  const wrap = document.getElementById('stepsWrap');
+  const d = document.createElement('div');
+  d.className = 'step';
+  d.innerHTML = '<div class="step-num">'+(stepIdx+1)+'</div><div class="step-body">'+s.t+'</div>';
+  wrap.appendChild(d);
+  setTimeout(()=>d.classList.add('vis'),50);
+  setTimeout(()=>speakRaw(s.s),300);
+  stepIdx++;
+}
+function showConfirm(){
+  const q = session[idx];
+  const area = document.getElementById('qArea');
+  const c = document.createElement('div');
+  c.className = 'confirm-wrap';
+  c.id = 'cWrap';
+  c.innerHTML = '<div class="confirm-title">&#127908; Rishika asks &#8212; answer to move on!</div><div class="confirm-q">'+q.cq+'</div><button class="mic-btn" id="micBtn" onclick="startListen()">&#127908; Tap and Speak Your Answer</button><div class="transcript" id="tbox"></div><div class="result-box" id="rbox"></div><div class="nudge" id="nudgeBox"></div><button class="btn-next" id="btnNext" onclick="goNext()">Next Question &#9654;</button>';
+  area.appendChild(c);
+  c.scrollIntoView({behavior:'smooth',block:'center'});
+  setTimeout(()=>speakRaw(q.cqs),600);
+}
+function goNext(){
+  idx++;
+  document.getElementById('qArea').innerHTML='';
+  showQ();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function unlockNav(){
+  document.getElementById('btnPractice').classList.remove('locked');
+  document.getElementById('btnExam').classList.remove('locked');
+}
+function setupRecog(){
+  const SR = window.SpeechRecognition||window.webkitSpeechRecognition;
+  if(!SR) return;
+  recog = new SR();
+  recog.lang='en-IN'; recog.continuous=false; recog.interimResults=false;
+  recog.onresult=e=>handleAnswer(e.results[0][0].transcript.toLowerCase().trim());
+  recog.onerror=()=>{setListen(false);showNudge("I couldn't hear that \u2014 tap the mic and try again! \ud83d\ude0a");};
+  recog.onend=()=>setListen(false);
+}
+function startListen(){
+  if(!recog){showNudge("Voice not supported. Try Chrome on desktop! \ud83c\udfa4");return;}
+  if(listening){recog.stop();return;}
+  setListen(true);
+  const tb=document.getElementById('tbox');
+  if(tb){tb.classList.add('show');tb.textContent='\ud83c\udfa4 Listening...';}
+  recog.start();
+}
+function setListen(on){
+  listening=on;
+  const btn=document.getElementById('micBtn');
+  if(btn){btn.className='mic-btn'+(on?' on':'');btn.textContent=on?'\ud83c\udfa4 Listening...':'\ud83c\udfa4 Tap and Speak Your Answer';}
+}
+function handleAnswer(text){
+  const tb=document.getElementById('tbox');
+  if(tb) tb.textContent='"'+text+'"';
+  const q=session[idx];
+  const ok=q.ans.some(a=>text.includes(a.toLowerCase())||a.toLowerCase().includes(text));
+  const rb=document.getElementById('rbox');
+  if(ok){
+    rb.className='result-box ok'; rb.textContent='\u2705 Correct! Excellent!';
+    document.getElementById('nudgeBox').classList.remove('show');
+    const nb=document.getElementById('btnNext');
+    if(nb) nb.classList.add('show');
+    speakRaw("Correct! Excellent! Tap next question to continue.");
+  } else {
+    nudgeCount++;
+    rb.className='result-box no'; rb.textContent='\u274c Not quite \u2014 listen to my hint!';
+    const nudge=q.nudges[Math.min(nudgeCount-1,q.nudges.length-1)];
+    showNudge(nudge);
+    speakRaw(nudge.replace(/[\ud83e\udd14\ud83d\ude04\ud83d\ude80]/g,''));
+    if(nudgeCount>=3){
+      const nb=document.getElementById('btnNext');
+      if(nb){nb.classList.add('show');nb.textContent="I Understand \u2014 Next Question \u25b6";}
+    }
+  }
+}
+function showNudge(msg){
+  const n=document.getElementById('nudgeBox');
+  if(n){n.textContent=msg;n.classList.add('show');}
+}
+
+</script>
+</body>
+</html>

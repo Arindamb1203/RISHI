@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RISHI — Explain: Area of Plane Figures</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Nunito:wght@400;600;700;800;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+:root{--cream:#fdf6ec;--warm-white:#fffdf8;--gold:#c8922a;--gold-light:#e8b84b;
+--gold-pale:#f5e6c8;--amber:#d4870a;--sage:#7a8c6e;--sage-light:#a8b89a;
+--rust:#b85c2a;--charcoal:#2a2218;--mid:#5a4a30;--soft:#8a7a5a;
+--inactive:#c8b89a;--border-dark:#6b4c2a;--error:#c0392b;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--cream);font-family:'Nunito',sans-serif;min-height:100vh;color:var(--charcoal);}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(var(--gold-pale) 1px,transparent 1px),linear-gradient(90deg,var(--gold-pale) 1px,transparent 1px);background-size:40px 40px;opacity:.3;z-index:0;pointer-events:none;}
+.topbar{position:sticky;top:0;z-index:100;background:rgba(253,246,236,.97);border-bottom:2px solid var(--border-dark);backdrop-filter:blur(8px);padding:11px 22px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;}
+.logo-sm{font-family:'Orbitron',sans-serif;font-size:18px;font-weight:900;letter-spacing:4px;background:linear-gradient(135deg,var(--amber),var(--gold-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.topbar-center{font-family:'Orbitron',sans-serif;font-size:11px;letter-spacing:2px;color:var(--amber);text-transform:uppercase;}
+.topbar-right{display:flex;gap:10px;align-items:center;}
+.btn-topbar{font-family:'Nunito',sans-serif;font-size:13px;font-weight:900;padding:7px 16px;border-radius:20px;border:2px solid var(--border-dark);background:var(--warm-white);color:var(--mid);cursor:pointer;transition:all .2s;}
+.btn-topbar:hover{background:var(--gold-pale);}
+.btn-topbar.back{background:var(--gold-pale);}
+.btn-topbar.back:hover{background:var(--amber);color:#fff;}
+.prog-wrap{position:relative;z-index:10;padding:10px 22px;background:rgba(255,253,248,.9);border-bottom:1.5px solid var(--gold-pale);}
+.prog-info{display:flex;justify-content:space-between;font-size:12px;font-weight:800;color:var(--mid);margin-bottom:6px;}
+.prog-bar{height:7px;background:var(--gold-pale);border-radius:4px;overflow:hidden;}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--sage),var(--gold));border-radius:4px;transition:width .5s ease;}
+.main{position:relative;z-index:10;max-width:820px;margin:0 auto;padding:20px 18px 130px;}
+.rishika-wrap{display:flex;align-items:flex-start;gap:14px;margin-bottom:22px;}
+.rishika-avatar{width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,var(--sage),var(--sage-light));border:2px solid var(--border-dark);display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0;box-shadow:0 4px 16px rgba(122,140,110,.3);}
+.rishika-bubble{background:rgba(255,253,248,.97);border:2px solid var(--border-dark);border-radius:0 18px 18px 18px;padding:16px 20px;flex:1;box-shadow:0 4px 20px rgba(107,76,42,.1);}
+.rishika-name{font-size:11px;font-weight:900;color:var(--sage);letter-spacing:2px;text-transform:uppercase;margin-bottom:6px;}
+.rishika-text{font-size:15px;font-weight:700;color:var(--charcoal);line-height:1.7;}
+.hl{color:var(--amber);font-weight:900;}
+.fm{font-family:'Share Tech Mono',monospace;background:var(--gold-pale);border:1.5px solid var(--border-dark);border-radius:6px;padding:2px 8px;font-size:14px;color:var(--mid);}
+.frac{display:inline-flex;flex-direction:column;align-items:center;font-size:14px;font-weight:900;vertical-align:middle;margin:0 3px;line-height:1.2;}
+.frac .num{border-bottom:2px solid currentColor;padding:0 3px;}
+.frac .den{padding:0 3px;}
+.btn-speak{display:inline-flex;align-items:center;gap:7px;font-family:'Nunito',sans-serif;font-size:12px;font-weight:900;padding:6px 13px;border-radius:20px;border:2px solid var(--sage);background:#eef2eb;color:var(--sage);cursor:pointer;margin-top:10px;transition:all .2s;}
+.btn-speak:hover,.btn-speak.on{background:var(--sage);color:#fff;}
+.q-card{background:rgba(255,253,248,.97);border:2px solid var(--border-dark);border-radius:18px;padding:20px 22px;margin-bottom:16px;box-shadow:0 4px 20px rgba(107,76,42,.1);}
+.q-label{font-family:'Orbitron',sans-serif;font-size:11px;letter-spacing:3px;color:var(--amber);text-transform:uppercase;margin-bottom:10px;}
+.q-text{font-size:16px;font-weight:800;color:var(--charcoal);line-height:1.7;margin-bottom:12px;}
+.step{display:flex;gap:12px;margin-bottom:14px;opacity:0;transform:translateY(8px);transition:all .4s ease;}
+.step.vis{opacity:1;transform:translateY(0);}
+.step-num{width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;font-size:11px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:2px solid var(--border-dark);}
+.step-body{flex:1;font-size:14px;font-weight:700;color:var(--mid);line-height:1.7;padding-top:2px;}
+.ans-tag{font-family:'Share Tech Mono',monospace;background:linear-gradient(135deg,#eef2eb,#f5fbf2);border:2px solid var(--border-dark);border-radius:8px;padding:3px 10px;color:var(--sage);font-size:14px;}
+.drawing-wrap{background:var(--warm-white);border:2px solid var(--border-dark);border-radius:14px;padding:14px 16px;margin:14px 0;overflow:hidden;}
+.drawing-lbl{font-size:11px;font-weight:900;color:var(--soft);letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;text-align:center;}
+.confirm-wrap{margin-top:16px;background:linear-gradient(135deg,#eef2eb,#f5fbf2);border:2px solid var(--border-dark);border-radius:14px;padding:18px 20px;}
+.confirm-title{font-size:12px;font-weight:900;color:var(--sage);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;}
+.confirm-q{font-size:15px;font-weight:800;color:var(--charcoal);margin-bottom:14px;line-height:1.6;}
+.mic-btn{display:flex;align-items:center;gap:10px;width:100%;font-family:'Nunito',sans-serif;font-size:15px;font-weight:900;padding:12px 18px;border-radius:12px;border:2px solid var(--border-dark);background:var(--warm-white);color:var(--mid);cursor:pointer;transition:all .2s;margin-bottom:10px;}
+.mic-btn:hover{border-color:var(--sage);color:var(--sage);}
+.mic-btn.on{background:var(--sage);color:#fff;border-color:var(--sage);animation:blnk .8s ease-in-out infinite;}
+@keyframes blnk{0%,100%{opacity:1}50%{opacity:.5}}
+.transcript{font-family:'Share Tech Mono',monospace;font-size:13px;color:var(--charcoal);background:var(--warm-white);border:2px solid var(--border-dark);border-radius:10px;padding:9px 13px;min-height:38px;margin-bottom:10px;display:none;}
+.transcript.show{display:block;}
+.result-box{font-size:13px;font-weight:800;padding:10px 14px;border-radius:10px;display:none;line-height:1.5;}
+.result-box.ok{background:#eef2eb;border:2px solid var(--sage);color:var(--sage);display:block;}
+.result-box.no{background:#fff5f0;border:2px solid var(--rust);color:var(--rust);display:block;}
+.nudge{font-size:13px;font-weight:700;color:var(--mid);margin-top:8px;font-style:italic;display:none;}
+.nudge.show{display:block;}
+.btn-next{font-family:'Nunito',sans-serif;font-size:15px;font-weight:900;padding:12px 24px;border-radius:12px;border:none;background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;cursor:pointer;box-shadow:0 4px 16px rgba(212,135,10,.3);transition:all .2s;display:none;margin-top:12px;width:100%;}
+.btn-next.show{display:block;}
+.btn-next:hover{transform:translateY(-1px);}
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;z-index:100;background:rgba(253,246,236,.97);border-top:2px solid var(--border-dark);padding:12px 22px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap;align-items:center;}
+.btn-nav{font-family:'Nunito',sans-serif;font-size:14px;font-weight:900;padding:11px 24px;border-radius:12px;border:2px solid var(--border-dark);cursor:pointer;transition:all .2s;}
+.btn-nav.practice{background:linear-gradient(135deg,var(--sage),var(--sage-light));color:#fff;border-color:var(--sage);}
+.btn-nav.exam{background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;border-color:var(--amber);}
+.btn-nav.locked{background:var(--gold-pale);color:var(--inactive);cursor:not-allowed;border-color:var(--inactive);}
+.btn-nav:not(.locked):hover{transform:translateY(-2px);}
+.lock-tip{font-size:11px;font-weight:700;color:var(--rust);width:100%;text-align:center;}
+.overlay{display:none;position:fixed;inset:0;background:rgba(42,34,24,.92);z-index:1000;flex-direction:column;align-items:center;justify-content:center;backdrop-filter:blur(6px);}
+.overlay.show{display:flex;}
+.break-box{background:var(--warm-white);border:2px solid var(--border-dark);border-radius:24px;padding:32px 36px;max-width:400px;width:90%;text-align:center;}
+.break-title{font-family:'Orbitron',sans-serif;font-size:15px;font-weight:900;color:var(--amber);letter-spacing:3px;margin-bottom:5px;}
+.break-sub{font-size:13px;font-weight:700;color:var(--soft);margin-bottom:20px;}
+.break-opts{display:flex;flex-direction:column;gap:9px;margin-bottom:16px;}
+.break-opt{font-family:'Nunito',sans-serif;font-size:15px;font-weight:800;padding:12px;border-radius:12px;border:2px solid var(--border-dark);background:var(--warm-white);color:var(--mid);cursor:pointer;transition:all .2s;}
+.break-opt:hover{background:var(--gold-pale);border-color:var(--amber);}
+.timer-screen{display:none;position:fixed;inset:0;background:#1a1208;z-index:1001;flex-direction:column;align-items:center;justify-content:center;}
+.timer-screen.show{display:flex;}
+.timer-reason{font-family:'Orbitron',sans-serif;font-size:13px;letter-spacing:4px;color:var(--gold-light);margin-bottom:18px;text-transform:uppercase;}
+.timer-num{font-family:'Orbitron',sans-serif;font-size:76px;font-weight:900;color:var(--gold-light);letter-spacing:8px;margin-bottom:36px;text-shadow:0 0 40px rgba(232,184,75,.4);}
+.btn-end{font-family:'Nunito',sans-serif;font-size:17px;font-weight:900;padding:15px 36px;border-radius:14px;border:2px solid var(--gold-light);background:transparent;color:var(--gold-light);cursor:pointer;transition:all .2s;}
+.btn-end:hover{background:var(--gold-light);color:var(--charcoal);}
+.done-banner{background:linear-gradient(135deg,#eef2eb,#f5fbf2);border:2px solid var(--border-dark);border-radius:16px;padding:18px 22px;text-align:center;margin-bottom:18px;display:none;}
+.done-banner.show{display:block;}
+.done-banner .dt{font-family:'Orbitron',sans-serif;font-size:13px;letter-spacing:2px;color:var(--sage);margin-bottom:5px;}
+.done-banner .ds{font-size:14px;font-weight:700;color:var(--mid);}
+@media(max-width:600px){.main{padding:14px 10px 130px;}.topbar,.prog-wrap{padding-left:12px;padding-right:12px;}.timer-num{font-size:52px;}}
+</style>
+</head>
+<body>
+<div class="topbar"><div class="logo-sm">RISHI</div><div class="topbar-center">📏 Area of Plane Figures — Explain</div><div class="topbar-right"><button class="btn-topbar" onclick="openBreak()">☕ Break</button><button class="btn-topbar back" onclick="window.location.href='/syllabus.html'">← Syllabus</button></div></div>
+<div class="prog-wrap"><div class="prog-info"><span id="progLabel">Question 1 of 10</span><span id="progPct">0% complete</span></div><div class="prog-bar"><div class="prog-fill" id="progFill" style="width:0%"></div></div></div>
+<div class="main">
+<div class="done-banner" id="doneBanner"><div class="dt">✅ Explanation Completed!</div><div class="ds">Practice and Exam are now unlocked. You can revisit anytime.</div></div>
+<div class="rishika-wrap"><div class="rishika-avatar">👩‍🏫</div><div class="rishika-bubble"><div class="rishika-name">Rishika</div><div class="rishika-text" id="introText">Hi <span class="hl" id="sName">there</span>! 😊 I'm Rishika — today we'll explore <span class="hl">Area of Plane Figures</span> step by step. Let's go! 🚀</div><button class="btn-speak" onclick="speakEl('introText')">🔊 Hear Rishika</button></div></div>
+<div id="qArea"></div>
+</div>
+<div class="bottom-nav"><div class="lock-tip" id="lockTip">☝ Complete all explanations to unlock Practice and Exam</div><button class="btn-nav practice locked" id="btnPractice" onclick="goPractice()">✏️ Go to Practice</button><button class="btn-nav exam locked" id="btnExam" onclick="goExam()">📝 Go to Exam</button></div>
+<div class="overlay" id="breakOverlay"><div class="break-box"><div class="break-title">Take a Break</div><div class="break-sub">Choose — timer starts</div><div class="break-opts"><button class="break-opt" onclick="startBreak('💧 Water')">💧 Water</button><button class="break-opt" onclick="startBreak('🚽 Washroom')">🚽 Washroom</button><button class="break-opt" onclick="startBreak('🏃 Physical')">🏃 Physical</button><button class="break-opt" onclick="openGames()">🎮 Games</button></div><button class="break-opt" style="color:var(--soft);" onclick="closeBreak()">Cancel</button></div></div>
+<div class="timer-screen" id="timerScreen"><div class="timer-reason" id="timerLabel">Break</div><div class="timer-num" id="timerNum">00:00</div><button class="btn-end" onclick="endBreak()">✅ End Break — Back to Study</button></div>
+<div class="overlay" id="gamesOverlay"><div class="break-box"><div style="font-size:44px;margin-bottom:10px;">🎮</div><div class="break-title">Games</div><div class="break-sub" style="margin-bottom:20px;">Coming soon! 🚀</div><button class="break-opt" style="background:var(--amber);color:#fff;border-color:var(--amber);" onclick="closeGames()">Back to Study</button></div></div>
+<script>
+var QB=[
+{id:'ar0',q:'Trapezium: parallel sides 12 cm and 8 cm, height 5 cm. Find area.',
+ qs:'Trapezium parallel sides 12 and 8 cm, height 5 cm. Area?',
+ draw:'trap_lbl',
+ steps:[
+  {t:'Area = ½(a+b)h',s:'Area equals half times a plus b times h.'},
+  {t:'= ½(12+8)×5 = ½×20×5 = <span class="ans-tag">50 cm²</span>',s:'50 square centimetres.'}
+ ],
+ cq:'Area of this trapezium?',cqs:'Area?',
+ ans:['50','50 cm squared','fifty'],
+ nudges:['½×20×5=50.','50!','50 cm²! Say 50!']},
+{id:'ar1',q:'Rhombus with diagonals 10 cm and 6 cm. Find area.',
+ qs:'Rhombus diagonals 10 and 6 cm. Area?',
+ draw:'rhom_lbl',
+ steps:[
+  {t:'Area = ½×d₁×d₂',s:'Half times d1 times d2.'},
+  {t:'= ½×10×6 = <span class="ans-tag">30 cm²</span>',s:'30 square centimetres.'}
+ ],
+ cq:'Area?',cqs:'Area?',
+ ans:['30','30 cm squared','thirty'],
+ nudges:['½×10×6=30.','30!','Say 30!']},
+{id:'ar2',q:'Quadrilateral ABCD: diagonal AC=10 cm, perpendiculars from B and D are 5 cm and 3 cm. Area?',
+ qs:'Quadrilateral diagonal 10, perpendiculars 5 and 3. Area?',
+ draw:'quad_diag',
+ steps:[
+  {t:'Area = ½×d×(h₁+h₂)',s:'Half times diagonal times h1 plus h2.'},
+  {t:'= ½×10×(5+3) = ½×80 = <span class="ans-tag">40 cm²</span>',s:'40 square centimetres.'}
+ ],
+ cq:'Area?',cqs:'Area?',
+ ans:['40','40 cm squared','forty'],
+ nudges:['½×10×8=40.','40!','Say 40!']},
+{id:'ar3',q:'Rectangular park 60m×40m. 2m wide path inside. Area of path?',
+ qs:'Park 60 by 40 metres. 2 m path inside. Path area?',
+ draw:null,
+ steps:[
+  {t:'Outer = 60×40 = 2400 m².',s:'Outer is 2400.'},
+  {t:'Inner = 56×36 = 2016 m².',s:'Inner is 2016.'},
+  {t:'Path = 2400−2016 = <span class="ans-tag">384 m²</span>.',s:'384 square metres.'}
+ ],
+ cq:'Path area?',cqs:'Path area?',
+ ans:['384','384 m squared','three hundred eighty four'],
+ nudges:['Outer−Inner=2400−2016=?','384!','Say 384!']},
+{id:'ar4',q:'Polygon with triangles (15 cm², 20 cm²) and rectangle 8×5 cm. Total area?',
+ qs:'Two triangles and rectangle. Total area?',
+ draw:null,
+ steps:[
+  {t:'Rectangle = 8×5 = 40 cm².',s:'Rectangle is 40.'},
+  {t:'Total = 15+20+40 = <span class="ans-tag">75 cm²</span>.',s:'75 square centimetres.'}
+ ],
+ cq:'Total area?',cqs:'Total?',
+ ans:['75','75 cm squared','seventy five'],
+ nudges:['15+20+40=?','75!','Say 75!']},
+{id:'ar5',q:'Circle: radius 7 cm. Area? (π=22/7)',
+ qs:'Circle radius 7 cm. Area?',
+ draw:'circle_r',
+ steps:[
+  {t:'Area = πr²',s:'Pi r squared.'},
+  {t:'= (22/7)×49 = 22×7 = <span class="ans-tag">154 cm²</span>',s:'154 square centimetres.'}
+ ],
+ cq:'Area?',cqs:'Area?',
+ ans:['154','154 cm squared'],
+ nudges:['πr²=(22/7)×49=154.','154!','Say 154!']},
+{id:'ar6',q:'Triangle: base 10 cm, height 6 cm. Area?',
+ qs:'Triangle base 10 height 6. Area?',
+ draw:'tri_lbl',
+ steps:[
+  {t:'Area = ½×base×height',s:'Half base times height.'},
+  {t:'= ½×10×6 = <span class="ans-tag">30 cm²</span>',s:'30 square centimetres.'}
+ ],
+ cq:'Area?',cqs:'Area?',
+ ans:['30','30 cm squared','thirty'],
+ nudges:['½×10×6=30.','30!','Say 30!']},
+{id:'ar7',q:'Rhombus: area=120 cm², one diagonal=20 cm. Find other diagonal.',
+ qs:'Rhombus area 120, diagonal 20. Other diagonal?',
+ draw:null,
+ steps:[
+  {t:'120 = ½×20×d₂ = 10×d₂.',s:'120 equals 10 times d2.'},
+  {t:'d₂ = 12 cm. <span class="ans-tag">12 cm</span>',s:'12 centimetres.'}
+ ],
+ cq:'Other diagonal?',cqs:'Other diagonal?',
+ ans:['12','12 cm','twelve'],
+ nudges:['10×d₂=120. d₂=?','12!','Say 12!']},
+{id:'ar8',q:'Parallelogram: base 9 cm, height 5 cm. Area?',
+ qs:'Parallelogram base 9 height 5. Area?',
+ draw:null,
+ steps:[
+  {t:'Area = base×height = 9×5 = <span class="ans-tag">45 cm²</span>.',s:'45 square centimetres.'}
+ ],
+ cq:'Area?',cqs:'Area?',
+ ans:['45','45 cm squared','forty five'],
+ nudges:['9×5=45.','45!','Say 45!']},
+{id:'ar9',q:'Trapezium: area=105 cm², parallel sides 10 and 11 cm. Find height.',
+ qs:'Trapezium area 105, sides 10 and 11. Height?',
+ draw:null,
+ steps:[
+  {t:'105 = ½×21×h = 10.5h.',s:'10.5 times h equals 105.'},
+  {t:'h = 105÷10.5 = <span class="ans-tag">10 cm</span>.',s:'Height is 10 centimetres.'}
+ ],
+ cq:'Height?',cqs:'Height?',
+ ans:['10','10 cm','ten'],
+ nudges:['10.5h=105. h=?','10!','Say 10!']}
+];
+
+function getSVG(type){
+  if(type==='trap_lbl'){
+    var s='<svg id="svgD" viewBox="0 0 440 195" width="100%" xmlns="http://www.w3.org/2000/svg" style="opacity:0">';
+    s+='<polygon points="120,155 320,155 296,52 144,52" fill="#f5e6c8" stroke="#6b4c2a" stroke-width="2.5"/>';
+    // height dashed line
+    s+='<line x1="144" y1="52" x2="144" y2="155" stroke="#7a8c6e" stroke-width="1.5" stroke-dasharray="4,3"/>';
+    s+='<rect x="144" y="145" width="10" height="10" fill="none" stroke="#7a8c6e" stroke-width="1.5"/>';
+    // height bracket left
+    s+='<line x1="66" y1="52" x2="66" y2="155" stroke="#7a8c6e" stroke-width="2"/>';
+    s+='<line x1="61" y1="52" x2="71" y2="52" stroke="#7a8c6e" stroke-width="2"/>';
+    s+='<line x1="61" y1="155" x2="71" y2="155" stroke="#7a8c6e" stroke-width="2"/>';
+    s+='<text x="54" y="108" font-family="Share Tech Mono" font-size="14" fill="#7a8c6e" text-anchor="end">h=5</text>';
+    s+='<text x="220" y="40" font-family="Share Tech Mono" font-size="14" fill="#b85c2a" text-anchor="middle">a=12 cm</text>';
+    s+='<text x="220" y="178" font-family="Share Tech Mono" font-size="14" fill="#b85c2a" text-anchor="middle">b=8 cm</text>';
+    s+='<text x="220" y="194" font-family="Nunito" font-size="12" fill="#7a8c6e" text-anchor="middle">Area = ½(12+8)×5 = 50 cm²</text>';
+    s+='</svg>';
+    return s;
+  }
+  if(type==='rhom_lbl'){
+    var s='<svg id="svgD" viewBox="0 0 400 280" width="100%" xmlns="http://www.w3.org/2000/svg" style="opacity:0">';
+    s+='<polygon points="200,15 365,140 200,265 35,140" fill="#f5e6c8" stroke="#6b4c2a" stroke-width="2.5"/>';
+    s+='<line x1="35" y1="140" x2="365" y2="140" stroke="#d4870a" stroke-width="2.5" stroke-dasharray="7,3"/>';
+    s+='<line x1="200" y1="15" x2="200" y2="265" stroke="#7a8c6e" stroke-width="2.5" stroke-dasharray="7,3"/>';
+    s+='<rect x="194" y="134" width="12" height="12" fill="none" stroke="#6b4c2a" stroke-width="2"/>';
+    s+='<text x="200" y="160" font-family="Share Tech Mono" font-size="13" fill="#d4870a" text-anchor="middle">d₁ = 10 cm ↔</text>';
+    s+='<text x="222" y="90" font-family="Share Tech Mono" font-size="13" fill="#7a8c6e">d₂=6 ↕</text>';
+    s+='<text x="200" y="278" font-family="Nunito" font-size="12" fill="#7a8c6e" text-anchor="middle">Area = ½×10×6 = 30 cm²</text>';
+    s+='</svg>';
+    return s;
+  }
+  if(type==='quad_diag'){
+    var s='<svg id="svgD" viewBox="0 0 380 240" width="100%" xmlns="http://www.w3.org/2000/svg" style="opacity:0">';
+    s+='<polygon points="190,20 340,120 190,220 40,120" fill="#f5e6c8" stroke="#6b4c2a" stroke-width="2.5"/>';
+    s+='<line x1="40" y1="120" x2="340" y2="120" stroke="#d4870a" stroke-width="2.5" stroke-dasharray="7,3"/>';
+    // perpendiculars from top (B) and bottom (D)
+    s+='<line x1="190" y1="20" x2="190" y2="120" stroke="#7a8c6e" stroke-width="2" stroke-dasharray="4,3"/>';
+    s+='<line x1="190" y1="120" x2="190" y2="220" stroke="#7a8c6e" stroke-width="2" stroke-dasharray="4,3"/>';
+    s+='<rect x="190" y="112" width="8" height="8" fill="none" stroke="#7a8c6e" stroke-width="1.5"/>';
+    s+='<rect x="190" y="120" width="8" height="8" fill="none" stroke="#7a8c6e" stroke-width="1.5"/>';
+    s+='<text x="195" y="72" font-family="Share Tech Mono" font-size="12" fill="#7a8c6e">h₁=5</text>';
+    s+='<text x="195" y="175" font-family="Share Tech Mono" font-size="12" fill="#7a8c6e">h₂=3</text>';
+    s+='<text x="190" y="116" font-family="Share Tech Mono" font-size="11" fill="#d4870a" text-anchor="middle">d=10 cm</text>';
+    s+='<text x="190" y="235" font-family="Nunito" font-size="11" fill="#7a8c6e" text-anchor="middle">Area = ½×10×(5+3) = 40 cm²</text>';
+    s+='</svg>';
+    return s;
+  }
+  if(type==='circle_r'){
+    var s='<svg id="svgD" viewBox="0 0 360 230" width="100%" xmlns="http://www.w3.org/2000/svg" style="opacity:0">';
+    s+='<circle cx="180" cy="105" r="92" fill="#f5e6c8" stroke="#6b4c2a" stroke-width="2.5"/>';
+    s+='<circle cx="180" cy="105" r="4" fill="#6b4c2a"/>';
+    s+='<line x1="180" y1="105" x2="272" y2="105" stroke="#b85c2a" stroke-width="2.5"/>';
+    s+='<text x="226" y="96" font-family="Share Tech Mono" font-size="15" fill="#b85c2a" text-anchor="middle">r = 7 cm</text>';
+    s+='<text x="180" y="222" font-family="Nunito" font-size="13" fill="#7a8c6e" text-anchor="middle">A = πr² = (22/7)×49 = 154 cm²</text>';
+    s+='</svg>';
+    return s;
+  }
+  if(type==='tri_lbl'){
+    var s='<svg id="svgD" viewBox="0 0 400 210" width="100%" xmlns="http://www.w3.org/2000/svg" style="opacity:0">';
+    s+='<polygon points="60,175 340,175 200,48" fill="#f5e6c8" stroke="#6b4c2a" stroke-width="2.5"/>';
+    s+='<line x1="200" y1="48" x2="200" y2="175" stroke="#7a8c6e" stroke-width="2" stroke-dasharray="5,3"/>';
+    s+='<rect x="200" y="165" width="10" height="10" fill="none" stroke="#7a8c6e" stroke-width="1.5"/>';
+    // height bracket
+    s+='<line x1="155" y1="48" x2="155" y2="175" stroke="#7a8c6e" stroke-width="1.5"/>';
+    s+='<line x1="150" y1="48" x2="160" y2="48" stroke="#7a8c6e" stroke-width="1.5"/>';
+    s+='<line x1="150" y1="175" x2="160" y2="175" stroke="#7a8c6e" stroke-width="1.5"/>';
+    s+='<text x="142" y="116" font-family="Share Tech Mono" font-size="13" fill="#7a8c6e" text-anchor="end">h=6</text>';
+    s+='<text x="200" y="195" font-family="Share Tech Mono" font-size="13" fill="#b85c2a" text-anchor="middle">b = 10 cm</text>';
+    s+='<text x="200" y="210" font-family="Nunito" font-size="12" fill="#7a8c6e" text-anchor="middle">Area = ½×10×6 = 30 cm²</text>';
+    s+='</svg>';
+    return s;
+  }
+  return '<svg id="svgD" viewBox="0 0 10 10" width="100%"></svg>';
+}
+function animateSVG(type){
+  var el=document.getElementById('svgD');if(!el)return;
+  var s=0,t2=16;
+  var tm=setInterval(function(){s++;el.style.opacity=String(s/t2);if(s>=t2)clearInterval(tm);},30);
+}
+
+var session=[],idx=0,stepIdx=0,nudgeCount=0,completed=false,recog=null,listening=false,breakSecs=0,breakTmr=null;
+var PER_SESSION=10;
+window.onload=function(){
+  var st=JSON.parse(localStorage.getItem('rishi_current_student')||'{}')
+  document.getElementById('sName').textContent=st.studentName?st.studentName.split(' ')[0]:'there';
+  var prog=JSON.parse(localStorage.getItem('rishi_progress')||'{}')
+  if(prog['explain_area_done']){completed=true;document.getElementById('doneBanner').classList.add('show');unlockNav();}
+  buildSession();setupRecog();
+  setTimeout(function(){speakEl('introText');},700);
+  setTimeout(showQ,2400);
+};
+function onComplete(){
+  var prog=JSON.parse(localStorage.getItem('rishi_progress')||'{}')
+  prog['explain_area_done']=true;
+  localStorage.setItem('rishi_progress',JSON.stringify(prog));
+  completed=true;
+  document.getElementById('doneBanner').classList.add('show');
+  unlockNav();
+  document.getElementById('lockTip').style.display='none';
+  var st=JSON.parse(localStorage.getItem('rishi_current_student')||'{}')
+  var nm=st.studentName?st.studentName.split(' ')[0]:'champion';
+  var area=document.getElementById('qArea');
+  var cel=document.createElement('div');cel.className='rishika-wrap';
+  cel.innerHTML='<div class="rishika-avatar">👩‍🏫</div>'
+    +'<div class="rishika-bubble"><div class="rishika-name">Rishika</div>'
+    +'<div class="rishika-text" id="celText">🎉 <span class="hl">'+nm+'</span>, you did it! '
+    +'You completed <span class="hl">Area of Plane Figures</span>! 🌟 Practice and Exam unlocked! 💪</div>'
+    +'<button class="btn-speak" onclick="speakEl(\'celText\')">\uD83D\uDD0A Hear Rishika</button></div>';
+  area.appendChild(cel);
+  setTimeout(function(){speakEl('celText');},400);
+}
+function goPractice(){if(!completed){alert('Complete all explanations first!');return;}window.location.href='/practice.html?chapter=area_plane_figures';}
+function goExam(){if(!completed){alert('Complete explanations and practice first!');return;}window.location.href='/exam.html?chapter=area_plane_figures';}
+
+function speakRaw(text){
+  if(!window.speechSynthesis)return;
+  window.speechSynthesis.cancel();
+  var u=new SpeechSynthesisUtterance(text);
+  u.lang='en-IN';u.rate=0.85;u.pitch=1.2;
+  var vs=window.speechSynthesis.getVoices();
+  var v=vs.find(function(x){return x.lang.startsWith('en-IN')&&x.name.toLowerCase().includes('female');})||
+    vs.find(function(x){return x.lang.startsWith('en-GB')&&x.name.toLowerCase().includes('female');})||
+    vs.find(function(x){return x.name.toLowerCase().includes('zira');})||
+    vs.find(function(x){return x.name.toLowerCase().includes('samantha');})||
+    vs.find(function(x){return x.lang.startsWith('en-IN');})||
+    vs.find(function(x){return x.lang.startsWith('en-GB');});
+  if(v)u.voice=v;
+  window.speechSynthesis.speak(u);
+}
+function speakEl(id){var el=document.getElementById(id);if(el)speakRaw(el.innerText||el.textContent);}
+window.addEventListener('beforeunload',function(){window.speechSynthesis&&window.speechSynthesis.cancel();});
+window.addEventListener('pagehide',function(){window.speechSynthesis&&window.speechSynthesis.cancel();});
+
+function updateProg(){
+  var pct=Math.round((idx/PER_SESSION)*100);
+  document.getElementById('progFill').style.width=pct+'%';
+  document.getElementById('progLabel').textContent='Question '+(idx+1)+' of '+PER_SESSION;
+  document.getElementById('progPct').textContent=pct+'% complete';
+}
+function openBreak(){document.getElementById('breakOverlay').classList.add('show');}
+function closeBreak(){document.getElementById('breakOverlay').classList.remove('show');}
+function startBreak(reason){
+  closeBreak();breakSecs=0;
+  document.getElementById('timerLabel').textContent=reason;
+  document.getElementById('timerNum').textContent='00:00';
+  document.getElementById('timerScreen').classList.add('show');
+  breakTmr=setInterval(function(){
+    breakSecs++;
+    var m=String(Math.floor(breakSecs/60)).padStart(2,'0');
+    var s=String(breakSecs%60).padStart(2,'0');
+    document.getElementById('timerNum').textContent=m+':'+s;
+  },1000);
+}
+function endBreak(){clearInterval(breakTmr);document.getElementById('timerScreen').classList.remove('show');}
+function openGames(){closeBreak();document.getElementById('gamesOverlay').classList.add('show');}
+function closeGames(){document.getElementById('gamesOverlay').classList.remove('show');}
+function buildSession(){
+  var first=QB[0];
+  var rest=QB.slice(1).sort(function(){return Math.random()-.5;});
+  session=[first].concat(rest.slice(0,PER_SESSION-1));
+}
+function showQ(){
+  if(idx>=session.length){onComplete();return;}
+  var q=session[idx];
+  stepIdx=0;nudgeCount=0;
+  updateProg();
+  var area=document.getElementById('qArea');
+  area.innerHTML='';
+  var qcard=document.createElement('div');
+  qcard.className='q-card';
+  qcard.innerHTML='<div class="q-label">Question '+(idx+1)+' of '+PER_SESSION+'</div>'
+    +'<div class="q-text">'+q.q+'</div>'
+    +'<button class="btn-speak" onclick="speakRaw(session[idx].qs)">🔊 Hear the question</button>';
+  area.appendChild(qcard);
+  if(q.draw){
+    var dw=document.createElement('div');
+    dw.className='drawing-wrap';
+    dw.innerHTML='<div class="drawing-lbl">📐 Diagram</div>'+getSVG(q.draw);
+    area.appendChild(dw);
+    setTimeout(function(){animateSVG(q.draw);},400);
+  }
+  var sc=document.createElement('div');
+  sc.className='q-card';
+  sc.innerHTML='<div class="q-label">📖 Explanation — Step by Step</div>'
+    +'<div id="stepsWrap"></div>'
+    +'<button class="btn-speak" id="nxtStepBtn" onclick="nextStep()" style="margin-top:12px;">▶ Next Step</button>';
+  area.appendChild(sc);
+  setTimeout(nextStep,600);
+}
+function nextStep(){
+  var q=session[idx];
+  if(stepIdx>=q.steps.length){
+    document.getElementById('nxtStepBtn').style.display='none';
+    showConfirm();return;
+  }
+  var s=q.steps[stepIdx];
+  var wrap=document.getElementById('stepsWrap');
+  var d=document.createElement('div');
+  d.className='step';
+  d.innerHTML='<div class="step-num">'+(stepIdx+1)+'</div><div class="step-body">'+s.t+'</div>';
+  wrap.appendChild(d);
+  setTimeout(function(){d.classList.add('vis');},50);
+  setTimeout(function(){speakRaw(s.s);},300);
+  stepIdx++;
+}
+function showConfirm(){
+  var q=session[idx];
+  var area=document.getElementById('qArea');
+  var c=document.createElement('div');
+  c.className='confirm-wrap';c.id='cWrap';
+  c.innerHTML='<div class="confirm-title">🎞️ Rishika asks — answer to move on!</div>'
+    +'<div class="confirm-q">'+q.cq+'</div>'
+    +'<button class="mic-btn" id="micBtn" onclick="startListen()">🎤 Tap and Speak Your Answer</button>'
+    +'<div class="transcript" id="tbox"></div>'
+    +'<div class="result-box" id="rbox"></div>'
+    +'<div class="nudge" id="nudgeBox"></div>'
+    +'<button class="btn-next" id="btnNext" onclick="goNext()">Next Question ▶</button>';
+  area.appendChild(c);
+  c.scrollIntoView({behavior:'smooth',block:'center'});
+  setTimeout(function(){speakRaw(q.cqs);},600);
+}
+function goNext(){idx++;document.getElementById('qArea').innerHTML='';showQ();window.scrollTo({top:0,behavior:'smooth'});}
+function unlockNav(){
+  document.getElementById('btnPractice').classList.remove('locked');
+  document.getElementById('btnExam').classList.remove('locked');
+}
+function setupRecog(){
+  var SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  if(!SR)return;
+  recog=new SR();
+  recog.lang='en-IN';recog.continuous=false;recog.interimResults=false;
+  recog.onresult=function(e){handleAnswer(e.results[0][0].transcript.toLowerCase().trim());};
+  recog.onerror=function(){setListen(false);showNudge("I couldn't hear that — try again!");};
+  recog.onend=function(){setListen(false);};
+}
+function startListen(){
+  if(!recog){showNudge('Voice not supported — try Chrome!');return;}
+  if(listening){recog.stop();return;}
+  setListen(true);
+  var tb=document.getElementById('tbox');
+  if(tb){tb.classList.add('show');tb.textContent='🎤 Listening...';}
+  recog.start();
+}
+function setListen(on){
+  listening=on;
+  var btn=document.getElementById('micBtn');
+  if(btn){btn.className='mic-btn'+(on?' on':'');btn.textContent=on?'🎤 Listening...':'🎤 Tap and Speak Your Answer';}
+}
+function handleAnswer(text){
+  var tb=document.getElementById('tbox');
+  if(tb)tb.textContent='"'+text+'"';
+  var q=session[idx];
+  var ok=q.ans.some(function(a){return text.includes(a.toLowerCase())||a.toLowerCase().includes(text);});
+  var rb=document.getElementById('rbox');
+  if(ok){
+    rb.className='result-box ok';rb.textContent='✅ Correct! Excellent!';
+    document.getElementById('nudgeBox').classList.remove('show');
+    var nb=document.getElementById('btnNext');if(nb)nb.classList.add('show');
+    speakRaw('Correct! Excellent! Tap next question to continue.');
+  } else {
+    nudgeCount++;
+    rb.className='result-box no';rb.textContent='❌ Not quite — listen to my hint!';
+    var nudge=q.nudges[Math.min(nudgeCount-1,q.nudges.length-1)];
+    showNudge(nudge);
+    speakRaw(nudge.replace(/[\uD83E-\uDFFF]/g,''));
+    if(nudgeCount>=3){var nb2=document.getElementById('btnNext');if(nb2){nb2.classList.add('show');nb2.textContent='I Understand — Next ▶';}}
+  }
+}
+function showNudge(msg){var n=document.getElementById('nudgeBox');if(n){n.textContent=msg;n.classList.add('show');}}
+
+</script>
+</body>
+</html>
