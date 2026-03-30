@@ -88,15 +88,17 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 .done-banner.show{display:block;}
 .done-banner .dt{font-family:'Orbitron',sans-serif;font-size:13px;letter-spacing:2px;color:var(--sage);margin-bottom:5px;}
 .done-banner .ds{font-size:14px;font-weight:700;color:var(--mid);}
-.anim-panel{background:#fffdf8;border:2px solid var(--border-dark);border-radius:18px;margin-bottom:16px;overflow:hidden;box-shadow:0 4px 20px rgba(107,76,42,.12);}
-.anim-header{background:linear-gradient(135deg,var(--charcoal),#3d2e1a);padding:10px 16px;display:flex;align-items:center;justify-content:space-between;}
-.anim-header-lbl{font-family:'Orbitron',sans-serif;font-size:10px;letter-spacing:3px;color:var(--gold-light);text-transform:uppercase;}
+.anim-panel{background:#fffdf8;border:2px solid var(--border-dark);border-radius:14px;margin-bottom:12px;overflow:hidden;box-shadow:0 4px 20px rgba(107,76,42,.12);}
+.anim-header{background:linear-gradient(135deg,var(--charcoal),#3d2e1a);padding:7px 14px;display:flex;align-items:center;justify-content:space-between;}
+.anim-header-lbl{font-family:'Orbitron',sans-serif;font-size:9px;letter-spacing:2px;color:var(--gold-light);text-transform:uppercase;}
 .anim-replay{font-size:11px;font-weight:900;color:var(--gold-pale);background:none;border:1px solid var(--gold-pale);border-radius:20px;padding:3px 10px;cursor:pointer;display:none;}
-.anim-status{padding:10px 16px;font-family:'Nunito',sans-serif;font-size:13px;font-weight:800;color:var(--mid);text-align:center;min-height:38px;line-height:1.5;border-top:1px solid var(--gold-pale);}
-.anim-play-btn{width:100%;padding:14px;font-family:'Nunito',sans-serif;font-size:16px;font-weight:900;background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;border:none;cursor:pointer;transition:all .2s;letter-spacing:1px;}
+.anim-canvas-wrap{max-height:200px;overflow:hidden;display:flex;align-items:center;justify-content:center;background:#fffdf8;}
+.anim-canvas-wrap svg{max-height:200px;width:100%;}
+.anim-status{padding:6px 14px;font-family:'Nunito',sans-serif;font-size:12px;font-weight:800;color:var(--mid);text-align:center;min-height:28px;line-height:1.4;border-top:1px solid var(--gold-pale);}
+.anim-play-btn{width:100%;padding:10px;font-family:'Nunito',sans-serif;font-size:14px;font-weight:900;background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;border:none;cursor:pointer;transition:all .2s;}
 .anim-play-btn:hover{background:linear-gradient(135deg,var(--gold-light),var(--amber));}
 .anim-play-btn:disabled{background:var(--gold-pale);color:var(--inactive);cursor:not-allowed;}
-.steps-btn{width:100%;padding:13px;font-family:'Nunito',sans-serif;font-size:15px;font-weight:900;background:linear-gradient(135deg,var(--sage),var(--sage-light));color:#fff;border:none;cursor:pointer;display:none;border-top:1px solid var(--gold-pale);}
+.steps-btn{width:100%;padding:10px;font-family:'Nunito',sans-serif;font-size:14px;font-weight:900;background:linear-gradient(135deg,var(--sage),var(--sage-light));color:#fff;border:none;cursor:pointer;display:none;border-top:1px solid var(--gold-pale);}
 @media(max-width:600px){.main{padding:14px 10px 130px;}.topbar,.prog-wrap{padding-left:12px;padding-right:12px;}.timer-num{font-size:52px;}}
 </style>
 </head>
@@ -783,7 +785,7 @@ function showQ(){
    +'<span class="anim-header-lbl">🎥 Rishika\u2019s Visual Explanation</span>'
    +'<button class="anim-replay" id="animReplayBtn" onclick="replayAnim()">↻ Replay</button>'
    +'</div>'
-   +'<div id="animCanvas">'+getAnimSVG(q.anim)+'</div>'
+   +'<div class="anim-canvas-wrap"><div id="animCanvas">'+getAnimSVG(q.anim)+'</div></div>'
    +'<div class="anim-status" id="animStatus">Tap Play to watch Rishika explain this visually with narration!</div>'
    +'<button class="anim-play-btn" id="animPlayBtn" onclick="startAnim()">▶ Play Animation</button>'
    +'<button class="steps-btn" id="stepsBtn" onclick="beginSteps()">📖 See Step-by-Step Solution</button>';
@@ -918,14 +920,37 @@ function speakRaw(text){
  if(!window.speechSynthesis)return;
  window.speechSynthesis.cancel();
  var u=new SpeechSynthesisUtterance(text);
- u.lang="en-IN";u.rate=0.88;u.pitch=1.1;
+ u.lang="en-IN";u.rate=0.88;u.pitch=1.15;
  var vs=window.speechSynthesis.getVoices();
- var v=vs.find(function(x){return x.lang.startsWith("en-IN")&&x.name.toLowerCase().includes("female");})
-   ||vs.find(function(x){return x.lang.startsWith("en-GB")&&x.name.toLowerCase().includes("female");})
-   ||vs.find(function(x){return x.name.toLowerCase().includes("zira");})
-   ||vs.find(function(x){return x.name.toLowerCase().includes("samantha");})
-   ||vs.find(function(x){return x.lang.startsWith("en-IN");})
-   ||vs.find(function(x){return x.lang.startsWith("en-GB");});
+ var femaleNames=["heera","veena","priya","raveena","female","woman","girl","zira","samantha","victoria","karen","moira","tessa","fiona"];
+ var v=null;
+ /* Priority 1: Indian English female */
+ for(var i=0;i<vs.length;i++){
+  var n=vs[i].name.toLowerCase();
+  var l=vs[i].lang;
+  if(l.startsWith("en-IN")){
+   for(var j=0;j<femaleNames.length;j++){
+    if(n.indexOf(femaleNames[j])>=0){v=vs[i];break;}
+   }
+  }
+  if(v)break;
+ }
+ /* Priority 2: Any English female */
+ if(!v){
+  for(var i=0;i<vs.length;i++){
+   var n=vs[i].name.toLowerCase();
+   if(vs[i].lang.startsWith("en")){
+    for(var j=0;j<femaleNames.length;j++){
+     if(n.indexOf(femaleNames[j])>=0){v=vs[i];break;}
+    }
+   }
+   if(v)break;
+  }
+ }
+ /* Priority 3: Any Indian English */
+ if(!v) v=vs.find(function(x){return x.lang.startsWith("en-IN");});
+ /* Priority 4: UK English */
+ if(!v) v=vs.find(function(x){return x.lang.startsWith("en-GB");});
  if(v)u.voice=v;
  window.speechSynthesis.speak(u);
 }
