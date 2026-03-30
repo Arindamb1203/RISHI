@@ -755,8 +755,26 @@ window.onload=function(){
  var prog=JSON.parse(localStorage.getItem("rishi_progress")||"{}");
  if(prog["explain_linear_done"]){completed=true;eid("doneBanner").classList.add("show");unlockNav();}
  buildSession();setupRecog();
- setTimeout(function(){speakEl("introText");},700);
- setTimeout(showQ,2400);
+ /* Wait for voices to load before first speak */
+ function startSpeaking(){
+  setTimeout(function(){speakEl("introText");},400);
+  setTimeout(showQ,2100);
+ }
+ if(window.speechSynthesis){
+  var vs=window.speechSynthesis.getVoices();
+  if(vs && vs.length>0){
+   startSpeaking();
+  } else {
+   window.speechSynthesis.onvoiceschanged=function(){
+    window.speechSynthesis.onvoiceschanged=null;
+    startSpeaking();
+   };
+   /* Fallback if onvoiceschanged never fires */
+   setTimeout(startSpeaking, 1200);
+  }
+ } else {
+  startSpeaking();
+ }
 };
 
 function buildSession(){
