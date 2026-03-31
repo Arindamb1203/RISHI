@@ -3,356 +3,868 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RISHI — Explain: Understanding Quadrilaterals</title>
+<title>RISHI — Understanding Quadrilaterals</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Nunito:wght@400;600;700;800;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
 <style>
-:root{--cream:#fdf6ec;--warm-white:#fffdf8;--gold:#c8922a;--gold-light:#e8b84b;
---gold-pale:#f5e6c8;--amber:#d4870a;--sage:#7a8c6e;--sage-light:#a8b89a;
---rust:#b85c2a;--charcoal:#2a2218;--mid:#5a4a30;--soft:#8a7a5a;
---inactive:#c8b89a;--border-dark:#6b4c2a;--error:#c0392b;}
+:root{--cream:#fdf6ec;--warm-white:#fffdf8;--gold:#c8922a;--gold-light:#e8b84b;--gold-pale:#f5e6c8;--amber:#d4870a;--sage:#7a8c6e;--sage-light:#a8b89a;--rust:#b85c2a;--charcoal:#2a2218;--mid:#5a4a30;--soft:#8a7a5a;--inactive:#c8b89a;--border-dark:#6b4c2a;}
 *{box-sizing:border-box;margin:0;padding:0;}
 body{background:var(--cream);font-family:'Nunito',sans-serif;min-height:100vh;color:var(--charcoal);}
 body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(var(--gold-pale) 1px,transparent 1px),linear-gradient(90deg,var(--gold-pale) 1px,transparent 1px);background-size:40px 40px;opacity:.3;z-index:0;pointer-events:none;}
-.topbar{position:sticky;top:0;z-index:100;background:rgba(253,246,236,.97);border-bottom:2px solid var(--border-dark);backdrop-filter:blur(8px);padding:11px 22px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;}
-.logo-sm{font-family:'Orbitron',sans-serif;font-size:18px;font-weight:900;letter-spacing:4px;background:linear-gradient(135deg,var(--amber),var(--gold-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-.topbar-center{font-family:'Orbitron',sans-serif;font-size:11px;letter-spacing:2px;color:var(--amber);text-transform:uppercase;}
-.topbar-right{display:flex;gap:10px;align-items:center;}
-.btn-topbar{font-family:'Nunito',sans-serif;font-size:13px;font-weight:900;padding:7px 16px;border-radius:20px;border:2px solid var(--border-dark);background:var(--warm-white);color:var(--mid);cursor:pointer;transition:all .2s;}
-.btn-topbar:hover{background:var(--gold-pale);}
+.topbar{position:sticky;top:0;z-index:100;background:rgba(253,246,236,.97);border-bottom:2px solid var(--border-dark);backdrop-filter:blur(8px);padding:10px 18px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;}
+.logo-sm{font-family:'Orbitron',sans-serif;font-size:17px;font-weight:900;letter-spacing:4px;background:linear-gradient(135deg,var(--amber),var(--gold-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.topbar-center{font-family:'Orbitron',sans-serif;font-size:10px;letter-spacing:2px;color:var(--amber);text-transform:uppercase;}
+.topbar-right{display:flex;gap:8px;}
+.btn-topbar{font-family:'Nunito',sans-serif;font-size:12px;font-weight:900;padding:6px 14px;border-radius:20px;border:2px solid var(--border-dark);background:var(--warm-white);color:var(--mid);cursor:pointer;}
 .btn-topbar.back{background:var(--gold-pale);}
-.btn-topbar.back:hover{background:var(--amber);color:#fff;}
-.prog-wrap{position:relative;z-index:10;padding:10px 22px;background:rgba(255,253,248,.9);border-bottom:1.5px solid var(--gold-pale);}
-.prog-info{display:flex;justify-content:space-between;font-size:12px;font-weight:800;color:var(--mid);margin-bottom:6px;}
-.prog-bar{height:7px;background:var(--gold-pale);border-radius:4px;overflow:hidden;}
+.prog-wrap{position:relative;z-index:10;padding:8px 18px;background:rgba(255,253,248,.9);border-bottom:1.5px solid var(--gold-pale);}
+.prog-info{display:flex;justify-content:space-between;font-size:11px;font-weight:800;color:var(--mid);margin-bottom:5px;}
+.prog-bar{height:6px;background:var(--gold-pale);border-radius:4px;overflow:hidden;}
 .prog-fill{height:100%;background:linear-gradient(90deg,var(--sage),var(--gold));border-radius:4px;transition:width .5s ease;}
-.main{position:relative;z-index:10;max-width:820px;margin:0 auto;padding:20px 18px 130px;}
-.rishika-wrap{display:flex;align-items:flex-start;gap:14px;margin-bottom:22px;}
-.rishika-avatar{width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,var(--sage),var(--sage-light));border:2px solid var(--border-dark);display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0;box-shadow:0 4px 16px rgba(122,140,110,.3);}
-.rishika-bubble{background:rgba(255,253,248,.97);border:2px solid var(--border-dark);border-radius:0 18px 18px 18px;padding:16px 20px;flex:1;box-shadow:0 4px 20px rgba(107,76,42,.1);}
-.rishika-name{font-size:11px;font-weight:900;color:var(--sage);letter-spacing:2px;text-transform:uppercase;margin-bottom:6px;}
-.rishika-text{font-size:15px;font-weight:700;color:var(--charcoal);line-height:1.7;}
+.main{position:relative;z-index:10;max-width:820px;margin:0 auto;padding:14px 14px 120px;}
+.rishika-wrap{display:flex;align-items:flex-start;gap:12px;margin-bottom:14px;}
+.rishika-avatar{width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,var(--sage),var(--sage-light));border:2px solid var(--border-dark);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;}
+.rishika-bubble{background:rgba(255,253,248,.97);border:2px solid var(--border-dark);border-radius:0 16px 16px 16px;padding:12px 16px;flex:1;box-shadow:0 4px 20px rgba(107,76,42,.1);}
+.rishika-name{font-size:10px;font-weight:900;color:var(--sage);letter-spacing:2px;text-transform:uppercase;margin-bottom:5px;}
+.rishika-text{font-size:14px;font-weight:700;color:var(--charcoal);line-height:1.6;}
 .hl{color:var(--amber);font-weight:900;}
-.fm{font-family:'Share Tech Mono',monospace;background:var(--gold-pale);border:1.5px solid var(--border-dark);border-radius:6px;padding:2px 8px;font-size:14px;color:var(--mid);}
-.frac{display:inline-flex;flex-direction:column;align-items:center;font-size:14px;font-weight:900;vertical-align:middle;margin:0 3px;line-height:1.2;}
-.frac .num{border-bottom:2px solid currentColor;padding:0 3px;}
-.frac .den{padding:0 3px;}
-.btn-speak{display:inline-flex;align-items:center;gap:7px;font-family:'Nunito',sans-serif;font-size:12px;font-weight:900;padding:6px 13px;border-radius:20px;border:2px solid var(--sage);background:#eef2eb;color:var(--sage);cursor:pointer;margin-top:10px;transition:all .2s;}
-.btn-speak:hover,.btn-speak.on{background:var(--sage);color:#fff;}
-.q-card{background:rgba(255,253,248,.97);border:2px solid var(--border-dark);border-radius:18px;padding:20px 22px;margin-bottom:16px;box-shadow:0 4px 20px rgba(107,76,42,.1);}
-.q-label{font-family:'Orbitron',sans-serif;font-size:11px;letter-spacing:3px;color:var(--amber);text-transform:uppercase;margin-bottom:10px;}
-.q-text{font-size:16px;font-weight:800;color:var(--charcoal);line-height:1.7;margin-bottom:12px;}
-.step{display:flex;gap:12px;margin-bottom:14px;opacity:0;transform:translateY(8px);transition:all .4s ease;}
+.fm{font-family:'Share Tech Mono',monospace;background:var(--gold-pale);border:1.5px solid var(--border-dark);border-radius:5px;padding:1px 7px;font-size:13px;color:var(--mid);}
+.btn-speak{display:inline-flex;align-items:center;gap:6px;font-family:'Nunito',sans-serif;font-size:11px;font-weight:900;padding:5px 11px;border-radius:20px;border:2px solid var(--sage);background:#eef2eb;color:var(--sage);cursor:pointer;margin-top:8px;}
+.q-card{background:rgba(255,253,248,.97);border:2px solid var(--border-dark);border-radius:16px;padding:16px 18px;margin-bottom:12px;box-shadow:0 4px 20px rgba(107,76,42,.1);}
+.q-label{font-family:'Orbitron',sans-serif;font-size:10px;letter-spacing:3px;color:var(--amber);text-transform:uppercase;margin-bottom:8px;}
+.q-text{font-size:15px;font-weight:800;color:var(--charcoal);line-height:1.6;margin-bottom:10px;}
+.step{display:flex;gap:10px;margin-bottom:12px;opacity:0;transform:translateY(6px);transition:all .4s ease;}
 .step.vis{opacity:1;transform:translateY(0);}
-.step-num{width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;font-size:11px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:2px solid var(--border-dark);}
-.step-body{flex:1;font-size:14px;font-weight:700;color:var(--mid);line-height:1.7;padding-top:2px;}
-.ans-tag{font-family:'Share Tech Mono',monospace;background:linear-gradient(135deg,#eef2eb,#f5fbf2);border:2px solid var(--border-dark);border-radius:8px;padding:3px 10px;color:var(--sage);font-size:14px;}
-.drawing-wrap{background:var(--warm-white);border:2px solid var(--border-dark);border-radius:14px;padding:14px 16px;margin:14px 0;overflow:hidden;}
-.drawing-lbl{font-size:11px;font-weight:900;color:var(--soft);letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;text-align:center;}
-.confirm-wrap{margin-top:16px;background:linear-gradient(135deg,#eef2eb,#f5fbf2);border:2px solid var(--border-dark);border-radius:14px;padding:18px 20px;}
-.confirm-title{font-size:12px;font-weight:900;color:var(--sage);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;}
-.confirm-q{font-size:15px;font-weight:800;color:var(--charcoal);margin-bottom:14px;line-height:1.6;}
-.mic-btn{display:flex;align-items:center;gap:10px;width:100%;font-family:'Nunito',sans-serif;font-size:15px;font-weight:900;padding:12px 18px;border-radius:12px;border:2px solid var(--border-dark);background:var(--warm-white);color:var(--mid);cursor:pointer;transition:all .2s;margin-bottom:10px;}
-.mic-btn:hover{border-color:var(--sage);color:var(--sage);}
+.step-num{width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;font-size:11px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:2px solid var(--border-dark);}
+.step-body{flex:1;font-size:13px;font-weight:700;color:var(--mid);line-height:1.6;padding-top:2px;}
+.ans-tag{font-family:'Share Tech Mono',monospace;background:linear-gradient(135deg,#eef2eb,#f5fbf2);border:2px solid var(--border-dark);border-radius:7px;padding:2px 9px;color:var(--sage);font-size:13px;}
+.anim-panel{background:#fffdf8;border:2px solid var(--border-dark);border-radius:14px;margin-bottom:12px;overflow:hidden;box-shadow:0 4px 16px rgba(107,76,42,.1);}
+.anim-header{background:linear-gradient(135deg,var(--charcoal),#3d2e1a);padding:7px 14px;display:flex;align-items:center;justify-content:space-between;}
+.anim-header-lbl{font-family:'Orbitron',sans-serif;font-size:9px;letter-spacing:2px;color:var(--gold-light);text-transform:uppercase;}
+.anim-replay{font-size:10px;font-weight:900;color:var(--gold-pale);background:none;border:1px solid var(--gold-pale);border-radius:20px;padding:2px 9px;cursor:pointer;display:none;}
+.anim-canvas{width:100%;max-height:195px;overflow:hidden;display:flex;align-items:center;justify-content:center;background:#fffdf8;}
+.anim-canvas svg{width:100%;max-height:195px;}
+.anim-status{padding:6px 14px;font-family:'Nunito',sans-serif;font-size:12px;font-weight:800;color:var(--mid);text-align:center;min-height:26px;line-height:1.4;border-top:1px solid var(--gold-pale);}
+.anim-play-btn{width:100%;padding:10px;font-family:'Nunito',sans-serif;font-size:14px;font-weight:900;background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;border:none;cursor:pointer;}
+.anim-play-btn:disabled{background:var(--gold-pale);color:var(--inactive);cursor:not-allowed;}
+.steps-btn{width:100%;padding:10px;font-family:'Nunito',sans-serif;font-size:14px;font-weight:900;background:linear-gradient(135deg,var(--sage),var(--sage-light));color:#fff;border:none;cursor:pointer;display:none;border-top:1px solid var(--gold-pale);}
+.confirm-wrap{margin-top:12px;background:linear-gradient(135deg,#eef2eb,#f5fbf2);border:2px solid var(--border-dark);border-radius:14px;padding:16px 18px;}
+.confirm-title{font-size:11px;font-weight:900;color:var(--sage);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;}
+.confirm-q{font-size:14px;font-weight:800;color:var(--charcoal);margin-bottom:12px;line-height:1.5;}
+.mic-btn{display:flex;align-items:center;gap:10px;width:100%;font-family:'Nunito',sans-serif;font-size:14px;font-weight:900;padding:11px 16px;border-radius:12px;border:2px solid var(--border-dark);background:var(--warm-white);color:var(--mid);cursor:pointer;margin-bottom:8px;}
 .mic-btn.on{background:var(--sage);color:#fff;border-color:var(--sage);animation:blnk .8s ease-in-out infinite;}
 @keyframes blnk{0%,100%{opacity:1}50%{opacity:.5}}
-.transcript{font-family:'Share Tech Mono',monospace;font-size:13px;color:var(--charcoal);background:var(--warm-white);border:2px solid var(--border-dark);border-radius:10px;padding:9px 13px;min-height:38px;margin-bottom:10px;display:none;}
+.transcript{font-family:'Share Tech Mono',monospace;font-size:12px;color:var(--charcoal);background:var(--warm-white);border:2px solid var(--border-dark);border-radius:9px;padding:8px 12px;min-height:34px;margin-bottom:8px;display:none;}
 .transcript.show{display:block;}
-.result-box{font-size:13px;font-weight:800;padding:10px 14px;border-radius:10px;display:none;line-height:1.5;}
+.result-box{font-size:12px;font-weight:800;padding:9px 13px;border-radius:9px;display:none;line-height:1.4;}
 .result-box.ok{background:#eef2eb;border:2px solid var(--sage);color:var(--sage);display:block;}
 .result-box.no{background:#fff5f0;border:2px solid var(--rust);color:var(--rust);display:block;}
-.nudge{font-size:13px;font-weight:700;color:var(--mid);margin-top:8px;font-style:italic;display:none;}
+.nudge{font-size:12px;font-weight:700;color:var(--mid);margin-top:7px;font-style:italic;display:none;}
 .nudge.show{display:block;}
-.btn-next{font-family:'Nunito',sans-serif;font-size:15px;font-weight:900;padding:12px 24px;border-radius:12px;border:none;background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;cursor:pointer;box-shadow:0 4px 16px rgba(212,135,10,.3);transition:all .2s;display:none;margin-top:12px;width:100%;}
+.btn-next{font-family:'Nunito',sans-serif;font-size:14px;font-weight:900;padding:11px 22px;border-radius:12px;border:none;background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;cursor:pointer;display:none;margin-top:10px;width:100%;}
 .btn-next.show{display:block;}
-.btn-next:hover{transform:translateY(-1px);}
-.bottom-nav{position:fixed;bottom:0;left:0;right:0;z-index:100;background:rgba(253,246,236,.97);border-top:2px solid var(--border-dark);padding:12px 22px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap;align-items:center;}
-.btn-nav{font-family:'Nunito',sans-serif;font-size:14px;font-weight:900;padding:11px 24px;border-radius:12px;border:2px solid var(--border-dark);cursor:pointer;transition:all .2s;}
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;z-index:100;background:rgba(253,246,236,.97);border-top:2px solid var(--border-dark);padding:10px 18px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap;align-items:center;}
+.btn-nav{font-family:'Nunito',sans-serif;font-size:13px;font-weight:900;padding:10px 20px;border-radius:12px;border:2px solid var(--border-dark);cursor:pointer;}
 .btn-nav.practice{background:linear-gradient(135deg,var(--sage),var(--sage-light));color:#fff;border-color:var(--sage);}
 .btn-nav.exam{background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;border-color:var(--amber);}
 .btn-nav.locked{background:var(--gold-pale);color:var(--inactive);cursor:not-allowed;border-color:var(--inactive);}
-.btn-nav:not(.locked):hover{transform:translateY(-2px);}
-.lock-tip{font-size:11px;font-weight:700;color:var(--rust);width:100%;text-align:center;}
+.lock-tip{font-size:10px;font-weight:700;color:var(--rust);width:100%;text-align:center;}
 .overlay{display:none;position:fixed;inset:0;background:rgba(42,34,24,.92);z-index:1000;flex-direction:column;align-items:center;justify-content:center;backdrop-filter:blur(6px);}
 .overlay.show{display:flex;}
-.break-box{background:var(--warm-white);border:2px solid var(--border-dark);border-radius:24px;padding:32px 36px;max-width:400px;width:90%;text-align:center;}
-.break-title{font-family:'Orbitron',sans-serif;font-size:15px;font-weight:900;color:var(--amber);letter-spacing:3px;margin-bottom:5px;}
-.break-sub{font-size:13px;font-weight:700;color:var(--soft);margin-bottom:20px;}
-.break-opts{display:flex;flex-direction:column;gap:9px;margin-bottom:16px;}
-.break-opt{font-family:'Nunito',sans-serif;font-size:15px;font-weight:800;padding:12px;border-radius:12px;border:2px solid var(--border-dark);background:var(--warm-white);color:var(--mid);cursor:pointer;transition:all .2s;}
-.break-opt:hover{background:var(--gold-pale);border-color:var(--amber);}
+.break-box{background:var(--warm-white);border:2px solid var(--border-dark);border-radius:22px;padding:28px 32px;max-width:380px;width:90%;text-align:center;}
+.break-title{font-family:'Orbitron',sans-serif;font-size:14px;font-weight:900;color:var(--amber);letter-spacing:3px;margin-bottom:5px;}
+.break-sub{font-size:12px;font-weight:700;color:var(--soft);margin-bottom:16px;}
+.break-opts{display:flex;flex-direction:column;gap:8px;margin-bottom:12px;}
+.break-opt{font-family:'Nunito',sans-serif;font-size:14px;font-weight:800;padding:11px;border-radius:11px;border:2px solid var(--border-dark);background:var(--warm-white);color:var(--mid);cursor:pointer;}
 .timer-screen{display:none;position:fixed;inset:0;background:#1a1208;z-index:1001;flex-direction:column;align-items:center;justify-content:center;}
 .timer-screen.show{display:flex;}
-.timer-reason{font-family:'Orbitron',sans-serif;font-size:13px;letter-spacing:4px;color:var(--gold-light);margin-bottom:18px;text-transform:uppercase;}
-.timer-num{font-family:'Orbitron',sans-serif;font-size:76px;font-weight:900;color:var(--gold-light);letter-spacing:8px;margin-bottom:36px;text-shadow:0 0 40px rgba(232,184,75,.4);}
-.btn-end{font-family:'Nunito',sans-serif;font-size:17px;font-weight:900;padding:15px 36px;border-radius:14px;border:2px solid var(--gold-light);background:transparent;color:var(--gold-light);cursor:pointer;transition:all .2s;}
-.btn-end:hover{background:var(--gold-light);color:var(--charcoal);}
-.done-banner{background:linear-gradient(135deg,#eef2eb,#f5fbf2);border:2px solid var(--border-dark);border-radius:16px;padding:18px 22px;text-align:center;margin-bottom:18px;display:none;}
+.timer-reason{font-family:'Orbitron',sans-serif;font-size:12px;letter-spacing:4px;color:var(--gold-light);margin-bottom:16px;text-transform:uppercase;}
+.timer-num{font-family:'Orbitron',sans-serif;font-size:68px;font-weight:900;color:var(--gold-light);letter-spacing:6px;margin-bottom:30px;}
+.btn-end{font-family:'Nunito',sans-serif;font-size:16px;font-weight:900;padding:13px 32px;border-radius:13px;border:2px solid var(--gold-light);background:transparent;color:var(--gold-light);cursor:pointer;}
+.done-banner{background:linear-gradient(135deg,#eef2eb,#f5fbf2);border:2px solid var(--border-dark);border-radius:14px;padding:14px 18px;text-align:center;margin-bottom:14px;display:none;}
 .done-banner.show{display:block;}
-.done-banner .dt{font-family:'Orbitron',sans-serif;font-size:13px;letter-spacing:2px;color:var(--sage);margin-bottom:5px;}
-.done-banner .ds{font-size:14px;font-weight:700;color:var(--mid);}
-@media(max-width:600px){.main{padding:14px 10px 130px;}.topbar,.prog-wrap{padding-left:12px;padding-right:12px;}.timer-num{font-size:52px;}}
+.done-banner .dt{font-family:'Orbitron',sans-serif;font-size:12px;letter-spacing:2px;color:var(--sage);margin-bottom:4px;}
+.done-banner .ds{font-size:13px;font-weight:700;color:var(--mid);}
+#rWrap{position:fixed;bottom:68px;left:10px;z-index:200;width:82px;pointer-events:none;}
+#rChar{width:82px;filter:drop-shadow(0 4px 10px rgba(107,76,42,.3));}
+@keyframes rIn{from{transform:translateY(50px);opacity:0}to{transform:translateY(0);opacity:1}}
+@keyframes rBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+@media(max-width:600px){.main{padding:10px 10px 120px;}.topbar,.prog-wrap{padding-left:10px;padding-right:10px;}.timer-num{font-size:48px;}}
 </style>
 </head>
 <body>
-<div class="topbar"><div class="logo-sm">RISHI</div><div class="topbar-center">🔷 Understanding Quadrilaterals — Explain</div><div class="topbar-right"><button class="btn-topbar" onclick="openBreak()">☕ Break</button><button class="btn-topbar back" onclick="window.location.href='/syllabus.html'">← Syllabus</button></div></div>
-<div class="prog-wrap"><div class="prog-info"><span id="progLabel">Question 1 of 10</span><span id="progPct">0% complete</span></div><div class="prog-bar"><div class="prog-fill" id="progFill" style="width:0%"></div></div></div>
-<div class="main">
-<div class="done-banner" id="doneBanner"><div class="dt">✅ Explanation Completed!</div><div class="ds">Practice and Exam are now unlocked. You can revisit anytime.</div></div>
-<div class="rishika-wrap"><div class="rishika-avatar">👩‍🏫</div><div class="rishika-bubble"><div class="rishika-name">Rishika</div><div class="rishika-text" id="introText">Hi <span class="hl" id="sName">there</span>! 😊 I'm Rishika — today we'll explore <span class="hl">Understanding Quadrilaterals</span> step by step. Let's go! 🚀</div><button class="btn-speak" onclick="speakEl('introText')">🔊 Hear Rishika</button></div></div>
-<div id="qArea"></div>
+<div class="topbar">
+  <div class="logo-sm">RISHI</div>
+  <div class="topbar-center">&#128537; Understanding Quadrilaterals</div>
+  <div class="topbar-right">
+    <button class="btn-topbar" onclick="openBreak()">&#9749; Break</button>
+    <button class="btn-topbar back" onclick="location.href='/syllabus.html'">&#8592; Syllabus</button>
+  </div>
 </div>
-<div class="bottom-nav"><div class="lock-tip" id="lockTip">☝ Complete all explanations to unlock Practice and Exam</div><button class="btn-nav practice locked" id="btnPractice" onclick="goPractice()">✏️ Go to Practice</button><button class="btn-nav exam locked" id="btnExam" onclick="goExam()">📝 Go to Exam</button></div>
-<div class="overlay" id="breakOverlay"><div class="break-box"><div class="break-title">Take a Break</div><div class="break-sub">Choose — timer starts</div><div class="break-opts"><button class="break-opt" onclick="startBreak('💧 Water')">💧 Water</button><button class="break-opt" onclick="startBreak('🚽 Washroom')">🚽 Washroom</button><button class="break-opt" onclick="startBreak('🏃 Physical')">🏃 Physical</button><button class="break-opt" onclick="openGames()">🎮 Games</button></div><button class="break-opt" style="color:var(--soft);" onclick="closeBreak()">Cancel</button></div></div>
-<div class="timer-screen" id="timerScreen"><div class="timer-reason" id="timerLabel">Break</div><div class="timer-num" id="timerNum">00:00</div><button class="btn-end" onclick="endBreak()">✅ End Break — Back to Study</button></div>
-<div class="overlay" id="gamesOverlay"><div class="break-box"><div style="font-size:44px;margin-bottom:10px;">🎮</div><div class="break-title">Games</div><div class="break-sub" style="margin-bottom:20px;">Coming soon! 🚀</div><button class="break-opt" style="background:var(--amber);color:#fff;border-color:var(--amber);" onclick="closeGames()">Back to Study</button></div></div>
+<div class="prog-wrap">
+  <div class="prog-info"><span id="progLabel">Question 1 of 10</span><span id="progPct">0%</span></div>
+  <div class="prog-bar"><div class="prog-fill" id="progFill" style="width:0%"></div></div>
+</div>
+<div class="main">
+  <div class="done-banner" id="doneBanner">
+    <div class="dt">&#10003; Explanation Completed!</div>
+    <div class="ds">Practice and Exam now unlocked.</div>
+  </div>
+  <div class="rishika-wrap">
+    <div class="rishika-avatar">&#128105;&#8205;&#127979;</div>
+    <div class="rishika-bubble">
+      <div class="rishika-name">Kona</div>
+      <div class="rishika-text" id="introText">
+        Hi <span class="hl" id="sName">there</span>! &#128522; I am Kona the Fox!
+        Today we explore <span class="hl">Understanding Quadrilaterals</span>!
+        I will show you how shapes are built corner by corner,
+        how angles work, and what makes each quadrilateral special. &#128537;
+      </div>
+      <button class="btn-speak" onclick="say(G('introText').innerText)">&#128266; Hear Kona</button>
+    </div>
+  </div>
+  <div id="qArea"></div>
+</div>
+<div class="bottom-nav">
+  <div class="lock-tip" id="lockTip">&#9757; Complete explanations to unlock Practice and Exam</div>
+  <button class="btn-nav practice locked" id="btnPractice" onclick="goPractice()">&#9999;&#65039; Practice</button>
+  <button class="btn-nav exam locked" id="btnExam" onclick="goExam()">&#128221; Exam</button>
+</div>
+<div class="overlay" id="breakOv">
+  <div class="break-box">
+    <div class="break-title">Break</div>
+    <div class="break-sub">Choose &mdash; timer starts</div>
+    <div class="break-opts">
+      <button class="break-opt" onclick="startBreak('Water')">&#128167; Water</button>
+      <button class="break-opt" onclick="startBreak('Washroom')">&#128701; Washroom</button>
+      <button class="break-opt" onclick="startBreak('Physical')">&#127939; Physical</button>
+    </div>
+    <button class="break-opt" style="color:var(--soft)" onclick="closeBreak()">Cancel</button>
+  </div>
+</div>
+<div class="timer-screen" id="timerScreen">
+  <div class="timer-reason" id="timerLbl">Break</div>
+  <div class="timer-num" id="timerNum">00:00</div>
+  <button class="btn-end" onclick="endBreak()">&#10003; End Break</button>
+</div>
+<!-- KONA THE FOX CHARACTER -->
+<div id="rWrap">
+<svg id="rChar" viewBox="0 0 100 130" xmlns="http://www.w3.org/2000/svg">
+  <!-- Body -->
+  <ellipse cx="50" cy="100" rx="26" ry="22" fill="#d4870a"/>
+  <rect x="28" y="88" width="44" height="24" fill="#d4870a" rx="8"/>
+  <!-- Tail -->
+  <ellipse cx="80" cy="108" rx="18" ry="10" fill="#d4870a" transform="rotate(-20,80,108)"/>
+  <ellipse cx="86" cy="104" rx="8" ry="5" fill="#f5e6c8" transform="rotate(-20,86,104)"/>
+  <!-- Front paws -->
+  <ellipse cx="32" cy="116" rx="8" ry="5" fill="#c8922a" transform="rotate(15,32,116)"/>
+  <ellipse cx="68" cy="116" rx="8" ry="5" fill="#c8922a" transform="rotate(-15,68,116)"/>
+  <!-- Neck -->
+  <rect x="43" y="76" width="14" height="14" fill="#d4870a" rx="4"/>
+  <!-- Head -->
+  <ellipse cx="50" cy="58" rx="28" ry="26" fill="#d4870a"/>
+  <!-- Ears (pointy fox ears) -->
+  <polygon points="28,44 18,14 40,36" fill="#d4870a"/>
+  <polygon points="72,44 82,14 60,36" fill="#d4870a"/>
+  <polygon points="30,42 22,20 38,36" fill="#b85c2a"/>
+  <polygon points="70,42 78,20 62,36" fill="#b85c2a"/>
+  <!-- Face white patch -->
+  <ellipse cx="50" cy="62" rx="18" ry="14" fill="#f5e6c8"/>
+  <!-- Eyes -->
+  <ellipse cx="41" cy="54" rx="6" ry="6.5" fill="white"/>
+  <ellipse cx="59" cy="54" rx="6" ry="6.5" fill="white"/>
+  <ellipse cx="41" cy="55" rx="4" ry="4.5" fill="#2a1208"/>
+  <ellipse cx="59" cy="55" rx="4" ry="4.5" fill="#2a1208"/>
+  <circle cx="42" cy="53" r="1.5" fill="white"/>
+  <circle cx="60" cy="53" r="1.5" fill="white"/>
+  <!-- Blink lids -->
+  <ellipse id="rLid1" cx="41" cy="54" rx="6" ry="1" fill="#d4870a" opacity="0"/>
+  <ellipse id="rLid2" cx="59" cy="54" rx="6" ry="1" fill="#d4870a" opacity="0"/>
+  <!-- Nose -->
+  <ellipse cx="50" cy="65" rx="4" ry="3" fill="#2a1208"/>
+  <!-- Mouth -->
+  <path id="rMouth" d="M44,69 Q50,75 56,69" fill="none" stroke="#2a1208" stroke-width="2" stroke-linecap="round"/>
+  <!-- Whiskers -->
+  <line x1="28" y1="64" x2="44" y2="66" stroke="#6b4c2a" stroke-width="1" opacity="0.6"/>
+  <line x1="28" y1="69" x2="44" y2="68" stroke="#6b4c2a" stroke-width="1" opacity="0.6"/>
+  <line x1="72" y1="64" x2="56" y2="66" stroke="#6b4c2a" stroke-width="1" opacity="0.6"/>
+  <line x1="72" y1="69" x2="56" y2="68" stroke="#6b4c2a" stroke-width="1" opacity="0.6"/>
+  <!-- Blush -->
+  <ellipse id="rBlush1" cx="32" cy="62" rx="8" ry="5" fill="#ff9999" opacity="0"/>
+  <ellipse id="rBlush2" cx="68" cy="62" rx="8" ry="5" fill="#ff9999" opacity="0"/>
+  <!-- Name tag -->
+  <rect x="24" y="120" width="52" height="12" fill="#b85c2a" rx="4"/>
+  <text x="50" y="130" text-anchor="middle" font-family="Nunito" font-size="7" font-weight="900" fill="white">KONA</text>
+</svg>
+</div>
 <script>
-var QB=[
-{id:'qd0',q:'Angle sum of a quadrilateral? Three angles: 90°, 85°, 95°. Find fourth.',
- qs:'Angle sum of quadrilateral? Three angles 90, 85, 95. Find fourth.',
- draw:null,
- steps:[
-  {t:'A quadrilateral = 2 triangles. Sum = 2×180 = <span class="fm">360°</span>.',s:'Sum of angles in any quadrilateral is 360 degrees.'},
-  {t:'90+85+95 = 270°.',s:'90 plus 85 plus 95 equals 270.'},
-  {t:'Fourth = 360−270 = <span class="ans-tag">90°</span>',s:'Fourth angle is 90 degrees.'}
- ],
- cq:'Sum of angles in any quadrilateral?',cqs:'Angle sum?',
- ans:['360','360 degrees','three sixty'],
- nudges:['2 triangles → 2×180=?','360!','Say 360!']},
-{id:'qd1',q:'State 4 properties of a <span class="hl">parallelogram</span>.',
- qs:'4 properties of a parallelogram.',
- draw:'pgram',
- steps:[
-  {t:'1. Opposite sides are <b>equal and parallel</b>.',s:'Opposite sides are equal and parallel.'},
-  {t:'2. Opposite angles are <b>equal</b>.',s:'Opposite angles are equal.'},
-  {t:'3. Consecutive angles are <b>supplementary</b> (sum 180°).',s:'Consecutive angles add up to 180 degrees.'},
-  {t:'4. Diagonals <b>bisect each other</b>.',s:'Diagonals bisect each other.'}
- ],
- cq:'Do opposite angles of a parallelogram add to 180°?',cqs:'Do opposite angles add to 180?',
- ans:['no','not 180','they are equal','equal'],
- nudges:['Opposite angles are EQUAL, not supplementary!','Same value, not adding to 180!','No! Say No!']},
-{id:'qd2',q:'Rhombus with diagonals 8 cm and 6 cm. Find area. What angle do diagonals make?',
- qs:'Rhombus diagonals 8 and 6 cm. Area? Angle between diagonals?',
- draw:'rhom',
- steps:[
-  {t:'In a rhombus, diagonals bisect each other at <b>right angles (90°)</b>.',s:'Rhombus diagonals cross at 90 degrees.'},
-  {t:'Area = ½ × d₁ × d₂ = ½ × 8 × 6 = <span class="ans-tag">24 cm²</span>',s:'Area equals 24 square centimetres.'}
- ],
- cq:'Area formula for a rhombus?',cqs:'Area formula?',
- ans:['half d1 d2','half times d1 times d2','d1 d2 by 2','half product diagonals'],
- nudges:['½ × d₁ × d₂!','Half the product of diagonals!','Say half d1 times d2!']},
-{id:'qd3',q:'What extra properties does a <span class="hl">rectangle</span> have over a parallelogram?',
- qs:'Extra properties of rectangle over parallelogram?',
- draw:null,
- steps:[
-  {t:'Rectangle has all parallelogram properties PLUS:',s:'Rectangle has all parallelogram properties.'},
-  {t:'All angles = 90°.',s:'All angles are 90 degrees.'},
-  {t:'Diagonals are <b>equal</b> in length. <span class="ans-tag">Equal diagonals + 90° angles</span>',s:'Diagonals are equal.'}
- ],
- cq:'Are the diagonals of a rectangle equal?',cqs:'Rectangle diagonals equal?',
- ans:['yes','equal','yes they are'],
- nudges:['Parallelogram diagonals are unequal. Rectangle is special!','Yes, equal diagonals!','Say Yes!']},
-{id:'qd4',q:'Square with side 7 cm. Perimeter and area?',
- qs:'Square side 7 cm. Perimeter and area?',
- draw:null,
- steps:[
-  {t:'Perimeter = 4×7 = 28 cm.',s:'Perimeter is 28 centimetres.'},
-  {t:'Area = 7² = <span class="ans-tag">49 cm²</span>.',s:'Area is 49 square centimetres.'}
- ],
- cq:'Area of the square?',cqs:'Area?',
- ans:['49','49 cm squared','forty nine'],
- nudges:['Area = side² = 7² = ?','49!','49 cm²! Say 49!']},
-{id:'qd5',q:'Sum of exterior angles of any polygon?',
- qs:'Sum of exterior angles of any polygon?',
- draw:null,
- steps:[
-  {t:'One full trip around any polygon = one full rotation.',s:'Going around any polygon is one full rotation.'},
-  {t:'<span class="ans-tag">Always 360°</span> — regardless of number of sides.',s:'Always 360 degrees.'}
- ],
- cq:'Sum of exterior angles of a pentagon?',cqs:'Exterior angles sum of pentagon?',
- ans:['360','360 degrees','three sixty'],
- nudges:['Same for ALL polygons!','Always 360!','Say 360!']},
-{id:'qd6',q:'Each interior angle of a regular hexagon?',
- qs:'Each interior angle of regular hexagon?',
- draw:null,
- steps:[
-  {t:'Sum = (n−2)×180 = 4×180 = 720°.',s:'Sum is 720 degrees.'},
-  {t:'Each = 720÷6 = <span class="ans-tag">120°</span>.',s:'Each angle is 120 degrees.'}
- ],
- cq:'Each interior angle?',cqs:'Interior angle?',
- ans:['120','120 degrees','one twenty'],
- nudges:['720÷6 = ?','120!','120°! Say 120!']},
-{id:'qd7',q:'Properties of a <span class="hl">kite</span>?',
- qs:'Properties of a kite?',
- draw:null,
- steps:[
-  {t:'Two pairs of consecutive equal sides.',s:'Two pairs of consecutive equal sides.'},
-  {t:'Diagonals are perpendicular.',s:'Diagonals are perpendicular.'},
-  {t:'One diagonal bisects the other. <span class="ans-tag">Perpendicular diagonals</span>',s:'Diagonals are perpendicular.'}
- ],
- cq:'Are kite diagonals perpendicular?',cqs:'Kite diagonals perpendicular?',
- ans:['yes','perpendicular','yes perpendicular'],
- nudges:['Kite diagonals cross at 90°!','Yes!','Say Yes!']},
-{id:'qd8',q:'Trapezium: parallel sides 8 cm and 5 cm, height 4 cm. Find area.',
- qs:'Trapezium parallel sides 8 and 5 cm height 4. Area?',
- draw:'trap',
- steps:[
-  {t:'Area = ½ × (a+b) × h',s:'Area equals half times a plus b times h.'},
-  {t:'= ½ × 13 × 4 = <span class="ans-tag">26 cm²</span>',s:'26 square centimetres.'}
- ],
- cq:'Area of this trapezium?',cqs:'Area?',
- ans:['26','26 cm squared','twenty six'],
- nudges:['½×(8+5)×4=½×52=26.','26!','Say 26!']},
-{id:'qd9',q:'Regular polygon with each exterior angle 45°. How many sides?',
- qs:'Each exterior angle 45 degrees. How many sides?',
- draw:null,
- steps:[
-  {t:'Sides = 360 ÷ exterior angle.',s:'Number of sides equals 360 divided by each exterior angle.'},
-  {t:'= 360 ÷ 45 = <span class="ans-tag">8 sides</span> (Octagon).',s:'8 sides. Octagon.'}
- ],
- cq:'How many sides?',cqs:'How many sides?',
- ans:['8','eight','8 sides','octagon'],
- nudges:['360÷45=?','8!','8 sides! Say 8!']}
-];
-
-function getSVG(type){
-  var defs='<defs><marker id="ah" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3z" fill="#6b4c2a"/></marker></defs>';
-  if(type==='pgram'){
-    var s='<svg id="svgD" viewBox="0 0 460 200" width="100%" xmlns="http://www.w3.org/2000/svg" style="opacity:0">';
-    s+='<polygon points="70,170 320,170 370,50 120,50" fill="#f5e6c8" stroke="#6b4c2a" stroke-width="2.5"/>';
-    // parallel arrows top & bottom
-    s+='<text x="195" y="168" font-size="16" fill="#d4870a" text-anchor="middle">→</text>';
-    s+='<text x="245" y="46" font-size="16" fill="#d4870a" text-anchor="middle">→</text>';
-    // parallel arrows left & right
-    s+='<text x="62" y="115" font-size="16" fill="#7a8c6e" text-anchor="middle">↑</text>';
-    s+='<text x="376" y="115" font-size="16" fill="#7a8c6e">↑</text>';
-    // vertex labels
-    s+='<text x="55" y="178" font-family="Share Tech Mono" font-size="14" fill="#6b4c2a" text-anchor="end">A</text>';
-    s+='<text x="326" y="183" font-family="Share Tech Mono" font-size="14" fill="#6b4c2a">B</text>';
-    s+='<text x="376" y="46" font-family="Share Tech Mono" font-size="14" fill="#6b4c2a">C</text>';
-    s+='<text x="108" y="42" font-family="Share Tech Mono" font-size="14" fill="#6b4c2a" text-anchor="end">D</text>';
-    // diagonals (dashed)
-    s+='<line x1="70" y1="170" x2="370" y2="50" stroke="#b85c2a" stroke-width="1.5" stroke-dasharray="5,3"/>';
-    s+='<line x1="320" y1="170" x2="120" y2="50" stroke="#b85c2a" stroke-width="1.5" stroke-dasharray="5,3"/>';
-    s+='<circle cx="220" cy="110" r="5" fill="#c8922a" stroke="#6b4c2a" stroke-width="2"/>';
-    s+='<text x="230" y="106" font-family="Nunito" font-size="11" fill="#c8922a">diagonals bisect</text>';
-    // height indicator
-    s+='<line x1="120" y1="50" x2="120" y2="170" stroke="#7a8c6e" stroke-width="1.5" stroke-dasharray="4,3"/>';
-    s+='<rect x="120" y="160" width="10" height="10" fill="none" stroke="#7a8c6e" stroke-width="1.5"/>';
-    s+='</svg>';
-    return s;
+/* ═══════════════════════════════
+   VOICE SYSTEM
+   ═══════════════════════════════ */
+var voicesReady=false,selectedVoice=null;
+function pickVoice(){
+  var vs=window.speechSynthesis.getVoices();
+  if(!vs||vs.length===0)return false;
+  var fk=["heera","veena","priya","raveena","female","woman","zira","samantha","victoria","karen","moira","tessa","fiona"];
+  for(var i=0;i<vs.length;i++){
+    if(vs[i].lang.toLowerCase().indexOf("en-in")===0){
+      var n=vs[i].name.toLowerCase();
+      for(var k=0;k<fk.length;k++){if(n.indexOf(fk[k])>=0){selectedVoice=vs[i];return true;}}
+    }
   }
-  if(type==='rhom'){
-    var s='<svg id="svgD" viewBox="0 0 420 290" width="100%" xmlns="http://www.w3.org/2000/svg" style="opacity:0">';
-    s+='<polygon points="210,15 385,145 210,275 35,145" fill="#f5e6c8" stroke="#6b4c2a" stroke-width="2.5"/>';
-    s+='<line x1="35" y1="145" x2="385" y2="145" stroke="#d4870a" stroke-width="2" stroke-dasharray="6,3"/>';
-    s+='<line x1="210" y1="15" x2="210" y2="275" stroke="#7a8c6e" stroke-width="2" stroke-dasharray="6,3"/>';
-    s+='<rect x="204" y="139" width="12" height="12" fill="none" stroke="#6b4c2a" stroke-width="2"/>';
-    s+='<text x="210" y="165" font-family="Share Tech Mono" font-size="12" fill="#d4870a" text-anchor="middle">d₁ = 8 cm</text>';
-    s+='<text x="228" y="92" font-family="Share Tech Mono" font-size="12" fill="#7a8c6e">d₂=6 cm</text>';
-    s+='<text x="210" y="290" font-family="Nunito" font-size="12" fill="#8a7a5a" text-anchor="middle">Area = ½×d₁×d₂ = ½×8×6 = 24 cm²</text>';
-    s+='</svg>';
-    return s;
+  for(var i=0;i<vs.length;i++){
+    if(vs[i].lang.toLowerCase().indexOf("en")===0){
+      var n=vs[i].name.toLowerCase();
+      for(var k=0;k<fk.length;k++){if(n.indexOf(fk[k])>=0){selectedVoice=vs[i];return true;}}
+    }
   }
-  if(type==='trap'){
-    var s='<svg id="svgD" viewBox="0 0 460 195" width="100%" xmlns="http://www.w3.org/2000/svg" style="opacity:0">';
-    s+='<polygon points="120,160 340,160 305,50 155,50" fill="#f5e6c8" stroke="#6b4c2a" stroke-width="2.5"/>';
-    s+='<line x1="155" y1="50" x2="155" y2="160" stroke="#7a8c6e" stroke-width="1.5" stroke-dasharray="4,3"/>';
-    s+='<rect x="155" y="150" width="10" height="10" fill="none" stroke="#7a8c6e" stroke-width="1.5"/>';
-    // height bracket
-    s+='<line x1="68" y1="50" x2="68" y2="160" stroke="#7a8c6e" stroke-width="2"/>';
-    s+='<line x1="63" y1="50" x2="73" y2="50" stroke="#7a8c6e" stroke-width="2"/>';
-    s+='<line x1="63" y1="160" x2="73" y2="160" stroke="#7a8c6e" stroke-width="2"/>';
-    s+='<text x="56" y="110" font-family="Share Tech Mono" font-size="13" fill="#7a8c6e" text-anchor="end">h=4</text>';
-    s+='<text x="230" y="39" font-family="Share Tech Mono" font-size="13" fill="#b85c2a" text-anchor="middle">a=5 cm</text>';
-    s+='<text x="230" y="180" font-family="Share Tech Mono" font-size="13" fill="#b85c2a" text-anchor="middle">b=8 cm</text>';
-    s+='<text x="230" y="194" font-family="Nunito" font-size="12" fill="#8a7a5a" text-anchor="middle">A = ½(5+8)×4 = 26 cm²</text>';
-    s+='</svg>';
-    return s;
-  }
-  return '<svg id="svgD" viewBox="0 0 10 10" width="100%"></svg>';
+  for(var i=0;i<vs.length;i++){if(vs[i].lang.toLowerCase().indexOf("en-in")===0){selectedVoice=vs[i];return true;}}
+  for(var i=0;i<vs.length;i++){if(vs[i].lang.toLowerCase().indexOf("en-gb")===0){selectedVoice=vs[i];return true;}}
+  return false;
 }
-function animateSVG(type){
-  var el=document.getElementById('svgD');if(!el)return;
-  var s=0,t2=16;
-  var tm=setInterval(function(){s++;el.style.opacity=String(s/t2);if(s>=t2)clearInterval(tm);},30);
+function initVoices(cb){
+  if(pickVoice()){voicesReady=true;cb();return;}
+  window.speechSynthesis.onvoiceschanged=function(){
+    window.speechSynthesis.onvoiceschanged=null;pickVoice();voicesReady=true;cb();
+  };
+  setTimeout(function(){if(!voicesReady){pickVoice();voicesReady=true;cb();}},2000);
 }
-
-var session=[],idx=0,stepIdx=0,nudgeCount=0,completed=false,recog=null,listening=false,breakSecs=0,breakTmr=null;
-var PER_SESSION=10;
-window.onload=function(){
-  var st=JSON.parse(localStorage.getItem('rishi_current_student')||'{}')
-  document.getElementById('sName').textContent=st.studentName?st.studentName.split(' ')[0]:'there';
-  var prog=JSON.parse(localStorage.getItem('rishi_progress')||'{}')
-  if(prog['explain_quadrilaterals_done']){completed=true;document.getElementById('doneBanner').classList.add('show');unlockNav();}
-  buildSession();setupRecog();
-  setTimeout(function(){speakEl('introText');},700);
-  setTimeout(showQ,2400);
-};
-function onComplete(){
-  var prog=JSON.parse(localStorage.getItem('rishi_progress')||'{}')
-  prog['explain_quadrilaterals_done']=true;
-  localStorage.setItem('rishi_progress',JSON.stringify(prog));
-  completed=true;
-  document.getElementById('doneBanner').classList.add('show');
-  unlockNav();
-  document.getElementById('lockTip').style.display='none';
-  var st=JSON.parse(localStorage.getItem('rishi_current_student')||'{}')
-  var nm=st.studentName?st.studentName.split(' ')[0]:'champion';
-  var area=document.getElementById('qArea');
-  var cel=document.createElement('div');cel.className='rishika-wrap';
-  cel.innerHTML='<div class="rishika-avatar">👩‍🏫</div>'
-    +'<div class="rishika-bubble"><div class="rishika-name">Rishika</div>'
-    +'<div class="rishika-text" id="celText">🎉 <span class="hl">'+nm+'</span>, you did it! '
-    +'You completed <span class="hl">Understanding Quadrilaterals</span>! 🌟 Practice and Exam unlocked! 💪</div>'
-    +'<button class="btn-speak" onclick="speakEl(\'celText\')">\uD83D\uDD0A Hear Rishika</button></div>';
-  area.appendChild(cel);
-  setTimeout(function(){speakEl('celText');},400);
-}
-function goPractice(){if(!completed){alert('Complete all explanations first!');return;}window.location.href='/practice.html?chapter=understanding_quadrilaterals';}
-function goExam(){if(!completed){alert('Complete explanations and practice first!');return;}window.location.href='/exam.html?chapter=understanding_quadrilaterals';}
-
-function speakRaw(text){
+function say(text){
   if(!window.speechSynthesis)return;
   window.speechSynthesis.cancel();
   var u=new SpeechSynthesisUtterance(text);
-  u.lang='en-IN';u.rate=0.85;u.pitch=1.2;
-  var vs=window.speechSynthesis.getVoices();
-  var v=vs.find(function(x){return x.lang.startsWith('en-IN')&&x.name.toLowerCase().includes('female');})||
-    vs.find(function(x){return x.lang.startsWith('en-GB')&&x.name.toLowerCase().includes('female');})||
-    vs.find(function(x){return x.name.toLowerCase().includes('zira');})||
-    vs.find(function(x){return x.name.toLowerCase().includes('samantha');})||
-    vs.find(function(x){return x.lang.startsWith('en-IN');})||
-    vs.find(function(x){return x.lang.startsWith('en-GB');});
-  if(v)u.voice=v;
+  u.lang="en-IN";u.rate=0.88;u.pitch=1.15;
+  if(selectedVoice)u.voice=selectedVoice;
+  rStartTalk(text.length);
   window.speechSynthesis.speak(u);
 }
-function speakEl(id){var el=document.getElementById(id);if(el)speakRaw(el.innerText||el.textContent);}
-window.addEventListener('beforeunload',function(){window.speechSynthesis&&window.speechSynthesis.cancel();});
-window.addEventListener('pagehide',function(){window.speechSynthesis&&window.speechSynthesis.cancel();});
+function sayEl(id){var e=G(id);if(e)say(e.innerText||e.textContent);}
+window.addEventListener("beforeunload",function(){window.speechSynthesis&&window.speechSynthesis.cancel();});
+window.addEventListener("pagehide",function(){window.speechSynthesis&&window.speechSynthesis.cancel();});
 
-function updateProg(){
-  var pct=Math.round((idx/PER_SESSION)*100);
-  document.getElementById('progFill').style.width=pct+'%';
-  document.getElementById('progLabel').textContent='Question '+(idx+1)+' of '+PER_SESSION;
-  document.getElementById('progPct').textContent=pct+'% complete';
+/* ═══════════════════════════════
+   KONA FOX CHARACTER
+   ═══════════════════════════════ */
+var mouthTmr=null,blinkTmr=null,mOpen=false;
+function rInit(){
+  var c=G("rChar");if(c)c.style.animation="rIn .6s cubic-bezier(.34,1.56,.64,1) forwards";
+  scheduleBlink();
 }
-function openBreak(){document.getElementById('breakOverlay').classList.add('show');}
-function closeBreak(){document.getElementById('breakOverlay').classList.remove('show');}
-function startBreak(reason){
-  closeBreak();breakSecs=0;
-  document.getElementById('timerLabel').textContent=reason;
-  document.getElementById('timerNum').textContent='00:00';
-  document.getElementById('timerScreen').classList.add('show');
-  breakTmr=setInterval(function(){
-    breakSecs++;
-    var m=String(Math.floor(breakSecs/60)).padStart(2,'0');
-    var s=String(breakSecs%60).padStart(2,'0');
-    document.getElementById('timerNum').textContent=m+':'+s;
-  },1000);
+function scheduleBlink(){blinkTmr=setTimeout(function(){rBlink();scheduleBlink();},2200+Math.random()*3000);}
+function rBlink(){
+  var l=G("rLid1"),r=G("rLid2");if(!l||!r)return;
+  l.setAttribute("ry","6.5");r.setAttribute("ry","6.5");
+  setTimeout(function(){l.setAttribute("ry","1");r.setAttribute("ry","1");},120);
 }
-function endBreak(){clearInterval(breakTmr);document.getElementById('timerScreen').classList.remove('show');}
-function openGames(){closeBreak();document.getElementById('gamesOverlay').classList.add('show');}
-function closeGames(){document.getElementById('gamesOverlay').classList.remove('show');}
+function rStartTalk(len){
+  rStopTalk();
+  G("rBlush1").style.opacity="0.7";G("rBlush2").style.opacity="0.7";
+  mOpen=false;
+  mouthTmr=setInterval(function(){
+    mOpen=!mOpen;var m=G("rMouth");if(!m)return;
+    if(mOpen){m.setAttribute("d","M42,69 Q50,79 58,69");m.setAttribute("fill","#2a1208");}
+    else{m.setAttribute("d","M44,69 Q50,75 56,69");m.setAttribute("fill","none");}
+  },160);
+  setTimeout(rStopTalk,Math.max(1800,len*58));
+}
+function rStopTalk(){
+  clearInterval(mouthTmr);mOpen=false;
+  var m=G("rMouth");
+  if(m){m.setAttribute("d","M44,69 Q50,75 56,69");m.setAttribute("fill","none");}
+  G("rBlush1").style.opacity="0";G("rBlush2").style.opacity="0";
+}
+function rHappy(){
+  var c=G("rChar");if(c)c.style.animation="rBounce .35s ease-in-out 5";
+  G("rBlush1").style.opacity="1";G("rBlush2").style.opacity="1";
+  setTimeout(function(){rStopTalk();var c=G("rChar");if(c)c.style.animation="none";},2500);
+}
+function rThink(){setTimeout(rStopTalk,1800);}
+
+/* ═══════════════════════════════
+   QUESTION BANK
+   ═══════════════════════════════ */
+var QB=[
+{id:"qd0",
+ q:"What is the sum of all interior angles of a <span class='hl'>quadrilateral</span>? Find the missing angle if three angles are 90&#176;, 85&#176;, 95&#176;.",
+ qs:"Sum of interior angles of a quadrilateral? Three angles 90, 85, 95. Find the fourth.",
+ anim:"angle_sum",
+ steps:[
+  {t:"A quadrilateral = 2 triangles. Sum = 2 &#215; 180&#176; = <span class='ans-tag'>360&#176;</span>",s:"A quadrilateral can be split into 2 triangles. So sum equals 2 times 180 equals 360 degrees."},
+  {t:"90 + 85 + 95 = 270&#176;",s:"90 plus 85 plus 95 equals 270 degrees."},
+  {t:"Missing angle = 360 &#8722; 270 = <span class='ans-tag'>90&#176;</span>",s:"Missing angle equals 360 minus 270 equals 90 degrees."}
+ ],
+ cq:"Sum of all angles in any quadrilateral?",cqs:"Angle sum of quadrilateral?",
+ ans:["360","360 degrees","three sixty"],
+ nudges:["Split it into 2 triangles. Each has 180 degrees!","2 times 180 equals?","360 degrees! Say 360!"]},
+
+{id:"qd1",
+ q:"State 4 properties of a <span class='hl'>parallelogram</span>.",
+ qs:"State 4 properties of a parallelogram.",
+ anim:"parallelogram",
+ steps:[
+  {t:"1. Opposite sides are <b>equal and parallel</b>.",s:"Property 1: Opposite sides are equal and parallel."},
+  {t:"2. Opposite angles are <b>equal</b>.",s:"Property 2: Opposite angles are equal."},
+  {t:"3. Consecutive angles are <b>supplementary</b> (sum = 180&#176;).",s:"Property 3: Consecutive angles add up to 180 degrees."},
+  {t:"4. Diagonals <b>bisect each other</b>.",s:"Property 4: Diagonals bisect each other at the midpoint."}
+ ],
+ cq:"Do diagonals of a parallelogram bisect each other?",cqs:"Diagonals bisect each other?",
+ ans:["yes","yes they do","they bisect"],
+ nudges:["The diagonals cross at the midpoint of each other!","Yes, they bisect each other!","Say Yes!"]},
+
+{id:"qd2",
+ q:"Rhombus diagonals are 10 cm and 6 cm. Find the <span class='hl'>area</span>. What angle do diagonals make with each other?",
+ qs:"Rhombus diagonals 10 and 6 cm. Area? Angle between diagonals?",
+ anim:"rhombus_area",
+ steps:[
+  {t:"Diagonals of a rhombus bisect each other at <b>90&#176;</b>.",s:"Diagonals of a rhombus are perpendicular, meeting at 90 degrees."},
+  {t:"Area = &#189; &#215; d&#8321; &#215; d&#8322; = &#189; &#215; 10 &#215; 6 = <span class='ans-tag'>30 cm&#178;</span>",s:"Area equals half times 10 times 6 equals 30 square centimetres."}
+ ],
+ cq:"Area of rhombus with diagonals 10 and 6?",cqs:"Area?",
+ ans:["30","30 cm squared","thirty"],
+ nudges:["Half times d1 times d2!","Half times 10 times 6 equals?","30 square cm! Say 30!"]},
+
+{id:"qd3",
+ q:"What extra properties does a <span class='hl'>rectangle</span> have over a parallelogram?",
+ qs:"Extra properties of rectangle over parallelogram?",
+ anim:"rectangle_props",
+ steps:[
+  {t:"Rectangle has all parallelogram properties PLUS:",s:"Rectangle has all parallelogram properties plus two more."},
+  {t:"All angles = <b>90&#176;</b>",s:"All four angles are 90 degrees."},
+  {t:"Diagonals are <b>equal in length</b>. <span class='ans-tag'>Equal diagonals + 90&#176; angles</span>",s:"And the diagonals are equal in length. These are the two extra properties."}
+ ],
+ cq:"Are the diagonals of a rectangle equal?",cqs:"Rectangle diagonals equal?",
+ ans:["yes","equal","yes equal","yes they are equal"],
+ nudges:["Unlike a parallelogram, rectangle diagonals are the same length!","Yes, they are equal!","Say Yes!"]},
+
+{id:"qd4",
+ q:"Square with side 7 cm. Find <span class='hl'>perimeter</span> and <span class='hl'>area</span>.",
+ qs:"Square side 7 cm. Perimeter and area?",
+ anim:"square_props",
+ steps:[
+  {t:"Perimeter = 4 &#215; side = 4 &#215; 7 = <span class='ans-tag'>28 cm</span>",s:"Perimeter equals 4 times 7 equals 28 centimetres."},
+  {t:"Area = side&#178; = 7&#178; = <span class='ans-tag'>49 cm&#178;</span>",s:"Area equals 7 squared equals 49 square centimetres."}
+ ],
+ cq:"Area of this square?",cqs:"Area?",
+ ans:["49","49 cm squared","forty nine"],
+ nudges:["Area = side squared = 7 times 7!","7 squared equals?","49! Say 49!"]},
+
+{id:"qd5",
+ q:"Sum of <span class='hl'>exterior angles</span> of any polygon?",
+ qs:"Sum of exterior angles of any polygon?",
+ anim:"exterior_angles",
+ steps:[
+  {t:"Walking around a polygon, you make one complete turn.",s:"Walking around any polygon, you make exactly one full turn."},
+  {t:"One full turn = <span class='ans-tag'>360&#176;</span>",s:"One full turn is 360 degrees."},
+  {t:"This is true for ALL polygons regardless of number of sides.",s:"This is true for all polygons, whether triangle, square, or any other shape."}
+ ],
+ cq:"Sum of exterior angles of any polygon?",cqs:"Exterior angle sum?",
+ ans:["360","360 degrees","three sixty"],
+ nudges:["One complete trip around any shape is one full turn!","Always 360 degrees!","Say 360!"]},
+
+{id:"qd6",
+ q:"Each interior angle of a <span class='hl'>regular hexagon</span>?",
+ qs:"Each interior angle of a regular hexagon?",
+ anim:"hexagon_angles",
+ steps:[
+  {t:"Sum of interior angles = (n&#8722;2) &#215; 180&#176; = 4 &#215; 180&#176; = 720&#176;",s:"Sum equals n minus 2 times 180. For hexagon n equals 6. So 4 times 180 equals 720 degrees."},
+  {t:"Each angle = 720&#176; &#247; 6 = <span class='ans-tag'>120&#176;</span>",s:"Each angle equals 720 divided by 6 equals 120 degrees."}
+ ],
+ cq:"Each interior angle of regular hexagon?",cqs:"Each angle?",
+ ans:["120","120 degrees","one twenty"],
+ nudges:["720 degrees total divided by 6 sides!","720 divided by 6 equals?","120 degrees! Say 120!"]},
+
+{id:"qd7",
+ q:"Trapezium with parallel sides 8 cm and 5 cm, height 4 cm. Find <span class='hl'>area</span>.",
+ qs:"Trapezium parallel sides 8 and 5 cm, height 4 cm. Area?",
+ anim:"trapezium_area",
+ steps:[
+  {t:"Area = &#189;(a + b) &#215; h",s:"Area of trapezium equals half times a plus b times h."},
+  {t:"= &#189; &#215; (8 + 5) &#215; 4 = &#189; &#215; 52 = <span class='ans-tag'>26 cm&#178;</span>",s:"Half times 13 times 4 equals 26 square centimetres."}
+ ],
+ cq:"Area of this trapezium?",cqs:"Area?",
+ ans:["26","26 cm squared","twenty six"],
+ nudges:["Half times sum of parallel sides times height!","Half times 13 times 4 equals?","26! Say 26!"]},
+
+{id:"qd8",
+ q:"Properties of a <span class='hl'>kite</span>?",
+ qs:"Properties of a kite?",
+ anim:"kite_props",
+ steps:[
+  {t:"1. Two pairs of consecutive equal sides.",s:"Property 1: Two pairs of consecutive sides are equal."},
+  {t:"2. Diagonals are <b>perpendicular</b> to each other.",s:"Property 2: The diagonals cross at right angles."},
+  {t:"3. One diagonal <b>bisects</b> the other.",s:"Property 3: One diagonal is bisected by the other."},
+  {t:"4. One pair of opposite angles are <b>equal</b>.",s:"Property 4: One pair of opposite angles are equal."}
+ ],
+ cq:"Are kite diagonals perpendicular?",cqs:"Kite diagonals perpendicular?",
+ ans:["yes","perpendicular","yes perpendicular","yes they are"],
+ nudges:["Kite diagonals cross at 90 degrees!","Yes, they are perpendicular!","Say Yes!"]},
+
+{id:"qd9",
+ q:"Regular polygon with each exterior angle = 45&#176;. How many sides?",
+ qs:"Each exterior angle 45 degrees. How many sides?",
+ anim:"sides_from_angle",
+ steps:[
+  {t:"Number of sides = 360&#176; &#247; each exterior angle",s:"Number of sides equals 360 divided by each exterior angle."},
+  {t:"= 360 &#247; 45 = <span class='ans-tag'>8 sides</span> (Octagon)",s:"360 divided by 45 equals 8 sides. It is an octagon."}
+ ],
+ cq:"How many sides?",cqs:"Number of sides?",
+ ans:["8","eight","8 sides","octagon"],
+ nudges:["360 divided by the exterior angle gives the number of sides!","360 divided by 45 equals?","8 sides! Say 8!"]}
+];
+
+/* ═══════════════════════════════
+   ANIMATION HELPERS
+   ═══════════════════════════════ */
+var atTimers=[];
+function clearAt(){for(var i=0;i<atTimers.length;i++)clearTimeout(atTimers[i]);atTimers=[];}
+function at(ms,fn){atTimers.push(setTimeout(fn,ms));}
+function G(id){return document.getElementById(id);}
+function fade(id,v){var e=G(id);if(e){e.style.transition="opacity .5s";e.style.opacity=v;}}
+function setStatus(t){var e=G("animStatus");if(e)e.textContent=t;}
+function animLine(id,x1,y1,x2,y2,steps,interval,cb){
+  var s=0,tmr=setInterval(function(){
+    s++;var p=s/steps,e=G(id);
+    if(e){e.setAttribute("x2",String(x1+(x2-x1)*p));e.setAttribute("y2",String(y1+(y2-y1)*p));}
+    if(s>=steps){clearInterval(tmr);if(cb)cb();}
+  },interval);
+  atTimers.push(tmr);
+}
+
+/* ANGLE SUM */
+function svgAngleSum(){
+  return '<svg viewBox="0 0 420 180" width="100%" xmlns="http://www.w3.org/2000/svg" style="background:#fffdf8">'
+  +'<polygon id="qpoly" points="80,160 300,160 340,50 120,50" fill="#f5e6c8" stroke="#6b4c2a" stroke-width="2.5" opacity="0" style="transition:opacity .6s"/>'
+  +'<line id="qdiag" x1="80" y1="160" x2="80" y2="160" stroke="#7a8c6e" stroke-width="2" stroke-dasharray="6,3"/>'
+  +'<g id="qtri1" opacity="0" style="transition:opacity .5s">'
+  +'<polygon points="80,160 300,160 340,50" fill="#d4870a" fill-opacity="0.15" stroke="#d4870a" stroke-width="1.5" stroke-dasharray="5,3"/>'
+  +'<text x="240" y="120" text-anchor="middle" font-family="Nunito" font-size="12" font-weight="800" fill="#d4870a">180&#176;</text>'
+  +'</g>'
+  +'<g id="qtri2" opacity="0" style="transition:opacity .5s">'
+  +'<polygon points="80,160 340,50 120,50" fill="#7a8c6e" fill-opacity="0.15" stroke="#7a8c6e" stroke-width="1.5" stroke-dasharray="5,3"/>'
+  +'<text x="160" y="90" text-anchor="middle" font-family="Nunito" font-size="12" font-weight="800" fill="#7a8c6e">180&#176;</text>'
+  +'</g>'
+  +'<g id="qsum" opacity="0" style="transition:opacity .6s">'
+  +'<rect x="90" y="165" width="240" height="14" fill="#6b4c2a" rx="7"/>'
+  +'<text x="210" y="176" text-anchor="middle" font-family="Share Tech Mono" font-size="11" font-weight="bold" fill="#e8b84b">180 + 180 = 360 degrees total</text>'
+  +'</g>'
+  +'<g id="qangles" opacity="0" style="transition:opacity .5s">'
+  +'<text x="68" y="155" font-family="Share Tech Mono" font-size="10" fill="#b85c2a" text-anchor="end">90&#176;</text>'
+  +'<text x="308" y="155" font-family="Share Tech Mono" font-size="10" fill="#b85c2a">85&#176;</text>'
+  +'<text x="348" y="50" font-family="Share Tech Mono" font-size="10" fill="#b85c2a">95&#176;</text>'
+  +'<text x="108" y="44" font-family="Share Tech Mono" font-size="10" fill="#c8922a" text-anchor="end">?&#176;</text>'
+  +'</g>'
+  +'</svg>';
+}
+function playAngleSum(done){
+  setStatus("Building the quadrilateral...");
+  say("A quadrilateral has 4 sides and 4 angles. Watch! I draw a diagonal inside it to split it into 2 triangles.");
+  at(800,function(){fade("qpoly",1);fade("qangles",1);});
+  at(2500,function(){
+    animLine("qdiag",80,160,340,50,20,40,null);
+    setStatus("Diagonal splits into 2 triangles...");
+    say("The diagonal divides the quadrilateral into 2 triangles. Each triangle has angle sum 180 degrees.");
+  });
+  at(5000,function(){fade("qtri1",1);});
+  at(6500,function(){
+    fade("qtri2",1);
+    setStatus("Triangle 1 = 180 degrees. Triangle 2 = 180 degrees.");
+    say("Triangle 1 gives 180 degrees. Triangle 2 gives another 180 degrees. Total equals 360 degrees!");
+  });
+  at(9500,function(){fade("qsum",1);setStatus("Total = 360 degrees always!");say("So the angle sum of any quadrilateral is always 360 degrees!");at(1500,done);});
+}
+
+/* PARALLELOGRAM */
+function svgParallelogram(){
+  return '<svg viewBox="0 0 420 185" width="100%" xmlns="http://www.w3.org/2000/svg" style="background:#fffdf8">'
+  +'<polygon points="80,165 300,165 360,50 140,50" fill="#f5e6c8" stroke="#6b4c2a" stroke-width="2.5"/>'
+  +'<text x="64" y="172" font-family="Share Tech Mono" font-size="13" fill="#6b4c2a" text-anchor="end">A</text>'
+  +'<text x="308" y="172" font-family="Share Tech Mono" font-size="13" fill="#6b4c2a">B</text>'
+  +'<text x="368" y="46" font-family="Share Tech Mono" font-size="13" fill="#6b4c2a">C</text>'
+  +'<text x="128" y="42" font-family="Share Tech Mono" font-size="13" fill="#6b4c2a" text-anchor="end">D</text>'
+  /* Parallel arrows */
+  +'<g id="parArrows" opacity="0" style="transition:opacity .5s">'
+  +'<text x="190" y="162" text-anchor="middle" font-family="Arial" font-size="16" fill="#d4870a">&#8594;</text>'
+  +'<text x="250" y="46" text-anchor="middle" font-family="Arial" font-size="16" fill="#d4870a">&#8594;</text>'
+  +'<text x="82" y="112" text-anchor="middle" font-family="Arial" font-size="14" fill="#7a8c6e">&#8593;</text>'
+  +'<text x="374" y="112" text-anchor="middle" font-family="Arial" font-size="14" fill="#7a8c6e">&#8593;</text>'
+  +'</g>'
+  /* Diagonals */
+  +'<line id="pd1" x1="80" y1="165" x2="80" y2="165" stroke="#b85c2a" stroke-width="2" stroke-dasharray="6,3"/>'
+  +'<line id="pd2" x1="300" y1="165" x2="300" y2="165" stroke="#b85c2a" stroke-width="2" stroke-dasharray="6,3"/>'
+  +'<circle id="pmid" cx="220" cy="107" r="7" fill="#c8922a" stroke="#6b4c2a" stroke-width="2" opacity="0"/>'
+  +'<text id="pmidLbl" x="232" y="104" font-family="Nunito" font-size="11" font-weight="800" fill="#c8922a" opacity="0">Midpoint</text>'
+  /* Angle labels */
+  +'<g id="pangles" opacity="0" style="transition:opacity .5s">'
+  +'<text x="100" y="158" font-family="Share Tech Mono" font-size="10" fill="#5a4a30">&#945;</text>'
+  +'<text x="285" y="158" font-family="Share Tech Mono" font-size="10" fill="#5a4a30">&#945;</text>'
+  +'<text x="148" y="62" font-family="Share Tech Mono" font-size="10" fill="#5a4a30">&#945;</text>'
+  +'<text x="344" y="62" font-family="Share Tech Mono" font-size="10" fill="#5a4a30">&#945;</text>'
+  +'</g>'
+  +'<text id="pDone" x="210" y="182" text-anchor="middle" font-family="Nunito" font-size="12" font-weight="900" fill="#6b4c2a" opacity="0">Diagonals bisect each other &#10003;</text>'
+  +'</svg>';
+}
+function playParallelogram(done){
+  setStatus("Parallelogram: opposite sides parallel and equal...");
+  say("A parallelogram has two pairs of opposite sides that are parallel and equal. Watch the arrows showing the parallel sides!");
+  at(2500,function(){fade("parArrows",1);setStatus("Arrows show parallel sides.");say("The arrows show which sides are parallel. Opposite angles are also equal, marked with the same symbol.");});
+  at(5500,function(){fade("pangles",1);setStatus("Opposite angles are equal.");});
+  at(7500,function(){
+    animLine("pd1",80,165,360,50,18,40,null);
+    animLine("pd2",300,165,140,50,18,40,null);
+    setStatus("Drawing diagonals...");
+    say("Now I draw the diagonals. They cross each other at the midpoint! This is what bisect means.");
+  });
+  at(10500,function(){
+    fade("pmid",1);fade("pmidLbl",1);
+    fade("pDone",1);
+    setStatus("Diagonals bisect each other at midpoint!");
+    say("The midpoint is where they cross. Each diagonal is cut into two equal halves. That is bisection!");
+    at(1500,done);
+  });
+}
+
+/* RHOMBUS AREA */
+function svgRhombusArea(){
+  return '<svg viewBox="0 0 420 180" width="100%" xmlns="http://www.w3.org/2000/svg" style="background:#fffdf8">'
+  +'<polygon points="210,15 370,90 210,165 50,90" fill="#f5e6c8" stroke="#6b4c2a" stroke-width="2.5"/>'
+  +'<line id="rd1" x1="50" y1="90" x2="50" y2="90" stroke="#d4870a" stroke-width="2.5" stroke-dasharray="6,3"/>'
+  +'<line id="rd2" x1="210" y1="15" x2="210" y2="15" stroke="#7a8c6e" stroke-width="2.5" stroke-dasharray="6,3"/>'
+  +'<rect id="rRA" x="204" y="84" width="12" height="12" fill="none" stroke="#6b4c2a" stroke-width="2" opacity="0"/>'
+  +'<g id="rdLabels" opacity="0" style="transition:opacity .5s">'
+  +'<text x="210" y="108" text-anchor="middle" font-family="Share Tech Mono" font-size="12" fill="#d4870a">d&#8321; = 10 cm</text>'
+  +'<text x="234" y="55" font-family="Share Tech Mono" font-size="12" fill="#7a8c6e">d&#8322;=6</text>'
+  +'</g>'
+  +'<g id="rdFormula" opacity="0" style="transition:opacity .6s">'
+  +'<rect x="88" y="152" width="244" height="24" fill="#6b4c2a" rx="8"/>'
+  +'<text x="210" y="169" text-anchor="middle" font-family="Share Tech Mono" font-size="13" font-weight="bold" fill="#e8b84b">Area = &#189;&#215;10&#215;6 = 30 cm&#178;</text>'
+  +'</g>'
+  +'</svg>';
+}
+function playRhombusArea(done){
+  setStatus("Rhombus diagonals are perpendicular...");
+  say("In a rhombus, the diagonals always cross each other at 90 degrees. This is a key property! And it helps us find the area easily.");
+  at(2500,function(){
+    animLine("rd1",50,90,370,90,20,40,null);
+    setStatus("Drawing diagonal d1 = 10 cm...");
+  });
+  at(4000,function(){
+    animLine("rd2",210,15,210,165,16,40,function(){fade("rRA",1);});
+    setStatus("Drawing diagonal d2 = 6 cm... They meet at 90 degrees!");
+    say("Diagonal 1 is 10 centimetres. Diagonal 2 is 6 centimetres. They cross at exactly 90 degrees!");
+  });
+  at(7500,function(){
+    fade("rdLabels",1);
+    setStatus("Area = half times d1 times d2...");
+    say("Area of rhombus equals half times d1 times d2. That is half times 10 times 6 equals 30 square centimetres!");
+  });
+  at(10500,function(){fade("rdFormula",1);setStatus("Area = 30 square centimetres!");at(1500,done);});
+}
+
+/* RECTANGLE PROPS */
+function svgRectangleProps(){
+  return '<svg viewBox="0 0 420 175" width="100%" xmlns="http://www.w3.org/2000/svg" style="background:#fffdf8">'
+  +'<rect x="70" y="40" width="280" height="120" fill="#f5e6c8" stroke="#6b4c2a" stroke-width="2.5"/>'
+  +'<rect x="70" y="150" width="12" height="12" fill="none" stroke="#7a8c6e" stroke-width="2"/>'
+  +'<rect x="338" y="150" width="12" height="12" fill="none" stroke="#7a8c6e" stroke-width="2"/>'
+  +'<rect x="70" y="40" width="12" height="12" fill="none" stroke="#7a8c6e" stroke-width="2"/>'
+  +'<rect x="338" y="40" width="12" height="12" fill="none" stroke="#7a8c6e" stroke-width="2"/>'
+  +'<text x="56" y="173" font-family="Share Tech Mono" font-size="12" fill="#6b4c2a" text-anchor="end">P</text>'
+  +'<text x="362" y="173" font-family="Share Tech Mono" font-size="12" fill="#6b4c2a">Q</text>'
+  +'<text x="362" y="38" font-family="Share Tech Mono" font-size="12" fill="#6b4c2a">R</text>'
+  +'<text x="56" y="38" font-family="Share Tech Mono" font-size="12" fill="#6b4c2a" text-anchor="end">S</text>'
+  +'<line id="rec_d1" x1="70" y1="162" x2="70" y2="162" stroke="#b85c2a" stroke-width="2.5" stroke-dasharray="6,3"/>'
+  +'<line id="rec_d2" x1="350" y1="162" x2="350" y2="162" stroke="#d4870a" stroke-width="2.5" stroke-dasharray="6,3"/>'
+  +'<circle id="recMid" cx="210" cy="100" r="6" fill="#c8922a" stroke="#6b4c2a" stroke-width="2" opacity="0"/>'
+  +'<g id="recEqLbl" opacity="0" style="transition:opacity .5s">'
+  +'<text x="135" y="152" text-anchor="middle" font-family="Share Tech Mono" font-size="11" fill="#b85c2a">PR</text>'
+  +'<text x="285" y="152" text-anchor="middle" font-family="Share Tech Mono" font-size="11" fill="#d4870a">SQ</text>'
+  +'<text x="210" y="145" text-anchor="middle" font-family="Nunito" font-size="13" font-weight="900" fill="#6b4c2a">PR = SQ &#10003;</text>'
+  +'</g>'
+  +'<g id="recAngles" opacity="0" style="transition:opacity .5s">'
+  +'<text x="210" y="175" text-anchor="middle" font-family="Nunito" font-size="12" font-weight="800" fill="#7a8c6e">All angles = 90&#176; + Equal diagonals!</text>'
+  +'</g>'
+  +'</svg>';
+}
+function playRectangleProps(done){
+  setStatus("Rectangle has all parallelogram properties plus two extras...");
+  say("A rectangle has all parallelogram properties. But it has two extra special properties. First: all four angles are exactly 90 degrees!");
+  at(2500,function(){fade("recAngles",1);setStatus("All angles = 90 degrees.");});
+  at(4500,function(){
+    animLine("rec_d1",70,162,350,40,18,40,null);
+    animLine("rec_d2",350,162,70,40,18,40,null);
+    setStatus("Drawing diagonals PR and SQ...");
+    say("Second extra property: the diagonals of a rectangle are equal in length! Watch both diagonals. They are the same size!");
+  });
+  at(7500,function(){
+    fade("recMid",1);fade("recEqLbl",1);
+    setStatus("PR = SQ. Diagonals are equal!");
+    say("Diagonal PR equals diagonal SQ. This is what makes a rectangle special compared to a plain parallelogram!");
+    at(1500,done);
+  });
+}
+
+/* SQUARE PROPS */
+function svgSquareProps(){
+  return '<svg viewBox="0 0 420 180" width="100%" xmlns="http://www.w3.org/2000/svg" style="background:#fffdf8">'
+  +'<rect x="110" y="30" width="140" height="140" fill="#f5e6c8" stroke="#6b4c2a" stroke-width="2.5"/>'
+  +'<rect x="110" y="158" width="12" height="12" fill="none" stroke="#7a8c6e" stroke-width="2"/>'
+  +'<rect x="238" y="158" width="12" height="12" fill="none" stroke="#7a8c6e" stroke-width="2"/>'
+  +'<rect x="110" y="30" width="12" height="12" fill="none" stroke="#7a8c6e" stroke-width="2"/>'
+  +'<rect x="238" y="30" width="12" height="12" fill="none" stroke="#7a8c6e" stroke-width="2"/>'
+  /* side labels */
+  +'<text x="180" y="177" text-anchor="middle" font-family="Share Tech Mono" font-size="12" fill="#b85c2a">7 cm</text>'
+  +'<text x="98" y="103" text-anchor="end" font-family="Share Tech Mono" font-size="12" fill="#b85c2a">7 cm</text>'
+  /* Diagonals */
+  +'<line id="sq_d1" x1="110" y1="170" x2="110" y2="170" stroke="#d4870a" stroke-width="2" stroke-dasharray="5,3"/>'
+  +'<line id="sq_d2" x1="250" y1="170" x2="250" y2="170" stroke="#7a8c6e" stroke-width="2" stroke-dasharray="5,3"/>'
+  +'<rect id="sqDiagRA" x="174" y="94" width="12" height="12" fill="none" stroke="#6b4c2a" stroke-width="2" opacity="0"/>'
+  +'<g id="sqInfo" opacity="0" style="transition:opacity .5s">'
+  +'<text x="300" y="70" font-family="Nunito" font-size="12" font-weight="800" fill="#5a4a30">P = 4&#215;7 = 28</text>'
+  +'<text x="300" y="90" font-family="Nunito" font-size="12" font-weight="800" fill="#b85c2a">A = 7&#178; = 49</text>'
+  +'<text x="300" y="114" font-family="Nunito" font-size="11" font-weight="700" fill="#7a8c6e">Diagonals:</text>'
+  +'<text x="300" y="130" font-family="Nunito" font-size="11" font-weight="700" fill="#7a8c6e">Equal &#10003;</text>'
+  +'<text x="300" y="146" font-family="Nunito" font-size="11" font-weight="700" fill="#7a8c6e">Perpendicular &#10003;</text>'
+  +'</g>'
+  +'</svg>';
+}
+function playSquareProps(done){
+  setStatus("Square: all sides equal, all angles 90 degrees!");
+  say("A square is the most special parallelogram! All 4 sides are equal at 7 centimetres. All 4 angles are 90 degrees.");
+  at(2500,function(){
+    animLine("sq_d1",110,170,250,30,16,40,null);
+    animLine("sq_d2",250,170,110,30,16,40,null);
+    setStatus("Square diagonals: equal AND perpendicular!");
+    say("The square has two extra diagonal properties: they are equal in length AND they cross at 90 degrees. Perimeter equals 28 centimetres. Area equals 49 square centimetres!");
+  });
+  at(6000,function(){fade("sqDiagRA",1);fade("sqInfo",1);setStatus("P=28 cm, Area=49 cm squared!");at(1500,done);});
+}
+
+/* EXTERIOR ANGLES */
+function svgExteriorAngles(){
+  return '<svg viewBox="0 0 420 180" width="100%" xmlns="http://www.w3.org/2000/svg" style="background:#fffdf8">'
+  /* Pentagon with exterior angles */
+  +'<polygon points="210,20 350,110 300,175 120,175 70,110" fill="#f5e6c8" stroke="#6b4c2a" stroke-width="2.5"/>'
+  /* Exterior angle arcs */
+  +'<g id="extArcs" opacity="0" style="transition:opacity .6s">'
+  +'<path d="M210,20 m30,8 a30,30 0 0,1 -12,28" fill="#d4870a" fill-opacity="0.3" stroke="#d4870a" stroke-width="1.5"/>'
+  +'<path d="M350,110 m-8,22 a30,30 0 0,1 -28,-4" fill="#d4870a" fill-opacity="0.3" stroke="#d4870a" stroke-width="1.5"/>'
+  +'<path d="M300,175 m-24,-4 a30,30 0 0,1 -14,-24" fill="#d4870a" fill-opacity="0.3" stroke="#d4870a" stroke-width="1.5"/>'
+  +'<path d="M120,175 m14,-24 a30,30 0 0,1 -14,4" fill="#d4870a" fill-opacity="0.3" stroke="#d4870a" stroke-width="1.5"/>'
+  +'<path d="M70,110 m28,-4 a30,30 0 0,1 8,22" fill="#d4870a" fill-opacity="0.3" stroke="#d4870a" stroke-width="1.5"/>'
+  +'<text x="248" y="22" font-family="Share Tech Mono" font-size="10" fill="#d4870a">e&#8321;</text>'
+  +'<text x="354" y="136" font-family="Share Tech Mono" font-size="10" fill="#d4870a">e&#8322;</text>'
+  +'<text x="296" y="178" font-family="Share Tech Mono" font-size="10" fill="#d4870a">e&#8323;</text>'
+  +'<text x="80" y="178" font-family="Share Tech Mono" font-size="10" fill="#d4870a">e&#8324;</text>'
+  +'<text x="36" y="118" font-family="Share Tech Mono" font-size="10" fill="#d4870a">e&#8325;</text>'
+  +'</g>'
+  /* Arrow going around */
+  +'<g id="extArrow" opacity="0" style="transition:opacity .5s">'
+  +'<path d="M210,5 Q380,60 360,165 Q280,200 120,195 Q30,160 40,90 Q60,30 200,5" fill="none" stroke="#b85c2a" stroke-width="2.5" stroke-dasharray="8,4" marker-end="url(#arh)"/>'
+  +'<defs><marker id="arh" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3z" fill="#b85c2a"/></marker></defs>'
+  +'</g>'
+  +'<g id="extTotal" opacity="0" style="transition:opacity .6s">'
+  +'<rect x="100" y="156" width="220" height="20" fill="#6b4c2a" rx="8"/>'
+  +'<text x="210" y="170" text-anchor="middle" font-family="Share Tech Mono" font-size="12" font-weight="bold" fill="#e8b84b">e&#8321;+e&#8322;+e&#8323;+e&#8324;+e&#8325; = 360&#176;</text>'
+  +'</g>'
+  +'</svg>';
+}
+function playExteriorAngles(done){
+  setStatus("One full trip around any polygon...");
+  say("Imagine walking around this pentagon. Every time you turn at a corner, you turn by the exterior angle. By the time you get back to where you started, you have turned exactly once all the way around!");
+  at(3000,function(){fade("extArcs",1);setStatus("Exterior angles at each corner...");say("Each corner has an exterior angle. There are 5 of them for the pentagon.");});
+  at(6000,function(){fade("extArrow",1);setStatus("One complete trip = one full turn.");say("Walking all the way around = one full turn = 360 degrees. This is true for ANY polygon!");});
+  at(9500,function(){fade("extTotal",1);setStatus("Sum of exterior angles = 360 degrees ALWAYS!");say("So the sum of exterior angles equals 360 degrees for every polygon. Always!");at(1500,done);});
+}
+
+/* HEXAGON ANGLES */
+function svgHexagonAngles(){
+  var pts=[];
+  for(var i=0;i<6;i++){
+    var a=i*60-90;
+    pts.push((210+120*Math.cos(a*Math.PI/180)).toFixed(1)+","+(95+120*Math.sin(a*Math.PI/180)).toFixed(1));
+  }
+  var polyPts=pts.join(" ");
+  return '<svg viewBox="0 0 420 195" width="100%" xmlns="http://www.w3.org/2000/svg" style="background:#fffdf8">'
+  +'<polygon points="'+polyPts+'" fill="#f5e6c8" stroke="#6b4c2a" stroke-width="2.5"/>'
+  +'<g id="hexAngles" opacity="0" style="transition:opacity .6s">'
+  +'<text x="210" y="20" text-anchor="middle" font-family="Share Tech Mono" font-size="11" fill="#d4870a">120&#176;</text>'
+  +'<text x="314" y="58" font-family="Share Tech Mono" font-size="11" fill="#d4870a">120&#176;</text>'
+  +'<text x="310" y="142" font-family="Share Tech Mono" font-size="11" fill="#d4870a">120&#176;</text>'
+  +'<text x="210" y="174" text-anchor="middle" font-family="Share Tech Mono" font-size="11" fill="#d4870a">120&#176;</text>'
+  +'<text x="90" y="142" font-family="Share Tech Mono" font-size="11" fill="#d4870a" text-anchor="end">120&#176;</text>'
+  +'<text x="96" y="58" font-family="Share Tech Mono" font-size="11" fill="#d4870a" text-anchor="end">120&#176;</text>'
+  +'</g>'
+  +'<g id="hexFormula" opacity="0" style="transition:opacity .6s">'
+  +'<text x="210" y="88" text-anchor="middle" font-family="Nunito" font-size="12" font-weight="800" fill="#5a4a30">(6-2)&#215;180 = 720&#176;</text>'
+  +'<text x="210" y="108" text-anchor="middle" font-family="Nunito" font-size="13" font-weight="900" fill="#b85c2a">720 &#247; 6 = 120&#176; each</text>'
+  +'</g>'
+  +'</svg>';
+}
+function playHexagonAngles(done){
+  setStatus("Regular hexagon: 6 equal sides and 6 equal angles...");
+  say("A regular hexagon has 6 equal sides and 6 equal angles. To find each angle, I use the formula: n minus 2 times 180 degrees.");
+  at(3000,function(){fade("hexFormula",1);setStatus("Sum = (6-2) x 180 = 720 degrees.");say("n equals 6. So 6 minus 2 equals 4. Times 180 equals 720 degrees total. Divide by 6 angles. Each angle is 120 degrees!");});
+  at(7000,function(){fade("hexAngles",1);setStatus("Each angle = 120 degrees!");say("Every single angle in the hexagon is 120 degrees. Beautiful symmetry!");at(1500,done);});
+}
+
+/* TRAPEZIUM AREA */
+function svgTrapeziumArea(){
+  return '<svg viewBox="0 0 420 175" width="100%" xmlns="http://www.w3.org/2000/svg" style="background:#fffdf8">'
+  +'<polygon points="100,155 320,155 295,55 125,55" fill="#f5e6c8" stroke="#6b4c2a" stroke-width="2.5"/>'
+  /* height line */
+  +'<line id="trapH" x1="125" y1="55" x2="125" y2="55" stroke="#7a8c6e" stroke-width="2" stroke-dasharray="5,3"/>'
+  +'<rect id="trapRA" x="125" y="143" width="12" height="12" fill="none" stroke="#7a8c6e" stroke-width="2" opacity="0"/>'
+  /* bracket */
+  +'<line x1="55" y1="55" x2="55" y2="155" stroke="#7a8c6e" stroke-width="2"/>'
+  +'<line x1="50" y1="55" x2="60" y2="55" stroke="#7a8c6e" stroke-width="2"/>'
+  +'<line x1="50" y1="155" x2="60" y2="155" stroke="#7a8c6e" stroke-width="2"/>'
+  +'<text x="46" y="108" text-anchor="end" font-family="Share Tech Mono" font-size="13" fill="#7a8c6e">h=4</text>'
+  +'<text x="210" y="42" text-anchor="middle" font-family="Share Tech Mono" font-size="13" fill="#b85c2a">a = 8 cm</text>'
+  +'<text x="210" y="172" text-anchor="middle" font-family="Share Tech Mono" font-size="13" fill="#b85c2a">b = 5 cm</text>'
+  +'<g id="trapFormula" opacity="0" style="transition:opacity .6s">'
+  +'<rect x="290" y="80" width="120" height="55" fill="#f5e6c8" rx="8" stroke="#6b4c2a" stroke-width="1.5"/>'
+  +'<text x="350" y="100" text-anchor="middle" font-family="Share Tech Mono" font-size="11" fill="#5a4a30">&#189;(a+b)h</text>'
+  +'<text x="350" y="118" text-anchor="middle" font-family="Share Tech Mono" font-size="11" fill="#5a4a30">=&#189;&#215;13&#215;4</text>'
+  +'<text x="350" y="132" text-anchor="middle" font-family="Nunito" font-size="13" font-weight="900" fill="#b85c2a">= 26 cm&#178;</text>'
+  +'</g>'
+  +'</svg>';
+}
+function playTrapeziumArea(done){
+  setStatus("Trapezium: one pair of parallel sides...");
+  say("A trapezium has one pair of parallel sides called a and b. The perpendicular distance between them is the height h. Area equals half times a plus b times h.");
+  at(2500,function(){
+    animLine("trapH",125,55,125,155,14,35,function(){fade("trapRA",1);});
+    setStatus("Height drops perpendicular to base...");
+    say("The height h equals 4 centimetres. Parallel sides a equals 8 and b equals 5. Half times 13 times 4 equals 26 square centimetres!");
+  });
+  at(6000,function(){fade("trapFormula",1);setStatus("Area = 26 square centimetres!");at(1500,done);});
+}
+
+/* KITE PROPS */
+function svgKiteProps(){
+  return '<svg viewBox="0 0 420 185" width="100%" xmlns="http://www.w3.org/2000/svg" style="background:#fffdf8">'
+  +'<polygon points="210,15 330,100 210,175 90,100" fill="#f5e6c8" stroke="#6b4c2a" stroke-width="2.5"/>'
+  /* Equal side markers */
+  +'<g id="kiteMarkers" opacity="0" style="transition:opacity .5s">'
+  +'<line x1="162" y1="55" x2="168" y2="61" stroke="#d4870a" stroke-width="2.5"/>'
+  +'<line x1="258" y1="55" x2="252" y2="61" stroke="#d4870a" stroke-width="2.5"/>'
+  +'<line x1="148" y1="140" x2="154" y2="134" stroke="#7a8c6e" stroke-width="2.5"/>'
+  +'<line x1="272" y1="140" x2="266" y2="134" stroke="#7a8c6e" stroke-width="2.5"/>'
+  +'<text x="165" y="42" font-family="Share Tech Mono" font-size="10" fill="#d4870a">AB=AD</text>'
+  +'<text x="230" y="42" font-family="Share Tech Mono" font-size="10" fill="#d4870a"> </text>'
+  +'<text x="144" y="155" font-family="Share Tech Mono" font-size="10" fill="#7a8c6e" text-anchor="end">BC=DC</text>'
+  +'</g>'
+  /* Diagonals */
+  +'<line id="kd1" x1="210" y1="15" x2="210" y2="15" stroke="#b85c2a" stroke-width="2.5" stroke-dasharray="6,3"/>'
+  +'<line id="kd2" x1="90" y1="100" x2="90" y2="100" stroke="#d4870a" stroke-width="2.5" stroke-dasharray="6,3"/>'
+  +'<rect id="kRA" x="204" y="94" width="12" height="12" fill="none" stroke="#6b4c2a" stroke-width="2" opacity="0"/>'
+  +'<g id="kiteDone" opacity="0" style="transition:opacity .5s">'
+  +'<text x="210" y="182" text-anchor="middle" font-family="Nunito" font-size="12" font-weight="900" fill="#6b4c2a">Perpendicular diagonals &#10003;</text>'
+  +'</g>'
+  +'</svg>';
+}
+function playKiteProps(done){
+  setStatus("Kite: two pairs of consecutive equal sides...");
+  say("A kite looks like a flying kite! It has two pairs of consecutive equal sides. The top two sides AB and AD are equal, and the bottom two sides BC and DC are equal.");
+  at(2500,function(){fade("kiteMarkers",1);setStatus("AB = AD (top pair). BC = DC (bottom pair).");say("See the tick marks showing equal sides. Now watch the diagonals!");});
+  at(5500,function(){
+    animLine("kd1",210,15,210,175,16,40,null);
+    animLine("kd2",90,100,330,100,16,40,null);
+    setStatus("Kite diagonals...");
+    say("The diagonals of a kite are perpendicular! They cross at 90 degrees. Also one diagonal bisects the other.");
+  });
+  at(9000,function(){fade("kRA",1);fade("kiteDone",1);setStatus("Diagonals meet at 90 degrees!");at(1500,done);});
+}
+
+/* SIDES FROM EXTERIOR ANGLE */
+function svgSidesFromAngle(){
+  return '<svg viewBox="0 0 420 180" width="100%" xmlns="http://www.w3.org/2000/svg" style="background:#fffdf8">'
+  /* Octagon */
+  +'<g id="octagon" opacity="0" style="transition:opacity .8s">'
+  +(function(){
+    var s="",pts=[];
+    for(var i=0;i<8;i++){
+      var a=i*45-90;
+      pts.push((210+85*Math.cos(a*Math.PI/180)).toFixed(1)+","+(95+85*Math.sin(a*Math.PI/180)).toFixed(1));
+    }
+    s+='<polygon points="'+pts.join(" ")+'" fill="#f5e6c8" stroke="#6b4c2a" stroke-width="2.5"/>';
+    for(var i=0;i<8;i++){
+      var a=i*45-90;
+      var px=(210+85*Math.cos(a*Math.PI/180)).toFixed(1);
+      var py=(95+85*Math.sin(a*Math.PI/180)).toFixed(1);
+      var lx=(210+105*Math.cos(a*Math.PI/180)).toFixed(1);
+      var ly=(95+105*Math.sin(a*Math.PI/180)).toFixed(1);
+      s+='<text x="'+lx+'" y="'+ly+'" text-anchor="middle" font-family="Share Tech Mono" font-size="9" fill="#d4870a">45&#176;</text>';
+    }
+    return s;
+  })()
+  +'</g>'
+  +'<g id="octFormula" opacity="0" style="transition:opacity .6s">'
+  +'<rect x="80" y="156" width="260" height="20" fill="#6b4c2a" rx="8"/>'
+  +'<text x="210" y="170" text-anchor="middle" font-family="Share Tech Mono" font-size="12" font-weight="bold" fill="#e8b84b">360 &#247; 45 = 8 sides (Octagon)</text>'
+  +'</g>'
+  +'<text id="sfa1" x="210" y="95" text-anchor="middle" font-family="Nunito" font-size="14" font-weight="800" fill="#5a4a30" opacity="0">Each exterior angle = 45&#176;</text>'
+  +'<text id="sfa2" x="210" y="115" text-anchor="middle" font-family="Nunito" font-size="13" font-weight="800" fill="#b85c2a" opacity="0">360 &#247; 45 = 8</text>'
+  +'</svg>';
+}
+function playSidesFromAngle(done){
+  setStatus("Each exterior angle = 45 degrees. How many sides?");
+  say("We know the sum of all exterior angles is always 360 degrees. If each exterior angle is 45 degrees, I divide to find the number of sides.");
+  at(2500,function(){
+    var e=G("sfa1");if(e){e.style.transition="opacity .5s";e.style.opacity="1";}
+    setStatus("360 divided by 45 equals 8 sides!");
+    say("360 divided by 45 equals 8. So there are 8 sides! A polygon with 8 sides is called an octagon.");
+  });
+  at(5500,function(){
+    var e=G("sfa2");if(e){e.style.transition="opacity .5s";e.style.opacity="1";}
+    fade("octagon",1);
+    setStatus("Drawing the octagon...");
+  });
+  at(8000,function(){fade("octFormula",1);setStatus("8-sided octagon with 45 degree exterior angles!");say("There it is! An octagon with 8 equal exterior angles of 45 degrees each!");at(1500,done);});
+}
+
+/* SVG and play routers */
+function getAnimSVG(type){
+  if(type==="angle_sum") return svgAngleSum();
+  if(type==="parallelogram") return svgParallelogram();
+  if(type==="rhombus_area") return svgRhombusArea();
+  if(type==="rectangle_props") return svgRectangleProps();
+  if(type==="square_props") return svgSquareProps();
+  if(type==="exterior_angles") return svgExteriorAngles();
+  if(type==="hexagon_angles") return svgHexagonAngles();
+  if(type==="trapezium_area") return svgTrapeziumArea();
+  if(type==="kite_props") return svgKiteProps();
+  if(type==="sides_from_angle") return svgSidesFromAngle();
+  return "";
+}
+function getAnimPlay(type){
+  if(type==="angle_sum") return playAngleSum;
+  if(type==="parallelogram") return playParallelogram;
+  if(type==="rhombus_area") return playRhombusArea;
+  if(type==="rectangle_props") return playRectangleProps;
+  if(type==="square_props") return playSquareProps;
+  if(type==="exterior_angles") return playExteriorAngles;
+  if(type==="hexagon_angles") return playHexagonAngles;
+  if(type==="trapezium_area") return playTrapeziumArea;
+  if(type==="kite_props") return playKiteProps;
+  if(type==="sides_from_angle") return playSidesFromAngle;
+  return function(done){done();};
+}
+
+/* ═══════════════════════════════
+   CORE ENGINE
+   ═══════════════════════════════ */
+var session=[],idx=0,stepIdx=0,nudgeCount=0,completed=false;
+var recog=null,listening=false,breakSecs=0,breakTmr=null;
+var PER_SESSION=10;
+
+function init(){
+  var st=JSON.parse(localStorage.getItem("rishi_current_student")||"{}");
+  G("sName").textContent=st.studentName?st.studentName.split(" ")[0]:"there";
+  var prog=JSON.parse(localStorage.getItem("rishi_progress")||"{}");
+  if(prog["explain_quadrilaterals_done"]){completed=true;G("doneBanner").classList.add("show");unlockNav();}
+  buildSession();setupRecog();rInit();
+  initVoices(function(){say(G("introText").innerText);setTimeout(showQ,2200);});
+}
 function buildSession(){
   var first=QB[0];
   var rest=QB.slice(1).sort(function(){return Math.random()-.5;});
@@ -362,111 +874,162 @@ function showQ(){
   if(idx>=session.length){onComplete();return;}
   var q=session[idx];
   stepIdx=0;nudgeCount=0;
-  updateProg();
-  var area=document.getElementById('qArea');
-  area.innerHTML='';
-  var qcard=document.createElement('div');
-  qcard.className='q-card';
-  qcard.innerHTML='<div class="q-label">Question '+(idx+1)+' of '+PER_SESSION+'</div>'
+  updateProg();G("qArea").innerHTML="";clearAt();
+  var qc=document.createElement("div");
+  qc.className="q-card";
+  qc.innerHTML='<div class="q-label">Question '+(idx+1)+' of '+PER_SESSION+'</div>'
     +'<div class="q-text">'+q.q+'</div>'
-    +'<button class="btn-speak" onclick="speakRaw(session[idx].qs)">🔊 Hear the question</button>';
-  area.appendChild(qcard);
-  if(q.draw){
-    var dw=document.createElement('div');
-    dw.className='drawing-wrap';
-    dw.innerHTML='<div class="drawing-lbl">📐 Diagram</div>'+getSVG(q.draw);
-    area.appendChild(dw);
-    setTimeout(function(){animateSVG(q.draw);},400);
-  }
-  var sc=document.createElement('div');
-  sc.className='q-card';
-  sc.innerHTML='<div class="q-label">📖 Explanation — Step by Step</div>'
+    +'<button class="btn-speak" onclick="say(session[idx].qs)">&#128266; Hear</button>';
+  G("qArea").appendChild(qc);
+  var ap=document.createElement("div");
+  ap.className="anim-panel";
+  ap.innerHTML='<div class="anim-header">'
+    +'<span class="anim-header-lbl">&#127909; Live Animation</span>'
+    +'<button class="anim-replay" id="animReplay" onclick="replayAnim()">&#8635; Replay</button>'
+    +'</div>'
+    +'<div class="anim-canvas" id="animCanvas">'+getAnimSVG(q.anim)+'</div>'
+    +'<div class="anim-status" id="animStatus">Tap Play to watch with narration!</div>'
+    +'<button class="anim-play-btn" id="animPlayBtn" onclick="startAnim()">&#9654; Play Animation</button>'
+    +'<button class="steps-btn" id="stepsBtn" onclick="beginSteps()">&#128214; See Step-by-Step</button>';
+  G("qArea").appendChild(ap);
+}
+function startAnim(){
+  var q=session[idx];
+  var pb=G("animPlayBtn");
+  if(pb){pb.disabled=true;pb.textContent="&#9654; Playing...";}
+  getAnimPlay(q.anim)(function(){
+    var sb=G("stepsBtn");if(sb)sb.style.display="block";
+    var rb=G("animReplay");if(rb)rb.style.display="block";
+    if(pb)pb.style.display="none";
+  });
+}
+function replayAnim(){
+  clearAt();window.speechSynthesis&&window.speechSynthesis.cancel();rStopTalk();
+  var q=session[idx];
+  var canvas=G("animCanvas");if(canvas)canvas.innerHTML=getAnimSVG(q.anim);
+  G("animReplay").style.display="none";G("stepsBtn").style.display="none";
+  var pb=G("animPlayBtn");
+  if(pb){pb.style.display="block";pb.disabled=false;pb.textContent="&#9654; Play Animation";}
+  setStatus("Tap Play to watch with narration!");
+}
+function beginSteps(){
+  var q=session[idx];
+  var sc=document.createElement("div");
+  sc.className="q-card";
+  sc.innerHTML='<div class="q-label">&#128214; Step-by-Step</div>'
     +'<div id="stepsWrap"></div>'
-    +'<button class="btn-speak" id="nxtStepBtn" onclick="nextStep()" style="margin-top:12px;">▶ Next Step</button>';
-  area.appendChild(sc);
-  setTimeout(nextStep,600);
+    +'<button class="btn-speak" id="nxtStepBtn" onclick="nextStep()" style="margin-top:10px;">&#9654; Next Step</button>';
+  G("qArea").appendChild(sc);
+  sc.scrollIntoView({behavior:"smooth",block:"start"});
+  G("stepsBtn").style.display="none";
+  setTimeout(nextStep,350);
 }
 function nextStep(){
   var q=session[idx];
-  if(stepIdx>=q.steps.length){
-    document.getElementById('nxtStepBtn').style.display='none';
-    showConfirm();return;
-  }
+  if(stepIdx>=q.steps.length){G("nxtStepBtn").style.display="none";showConfirm();return;}
   var s=q.steps[stepIdx];
-  var wrap=document.getElementById('stepsWrap');
-  var d=document.createElement('div');
-  d.className='step';
+  var wrap=G("stepsWrap");
+  var d=document.createElement("div");
+  d.className="step";
   d.innerHTML='<div class="step-num">'+(stepIdx+1)+'</div><div class="step-body">'+s.t+'</div>';
   wrap.appendChild(d);
-  setTimeout(function(){d.classList.add('vis');},50);
-  setTimeout(function(){speakRaw(s.s);},300);
+  setTimeout(function(){d.classList.add("vis");},40);
+  setTimeout(function(){say(s.s);},280);
   stepIdx++;
 }
 function showConfirm(){
   var q=session[idx];
-  var area=document.getElementById('qArea');
-  var c=document.createElement('div');
-  c.className='confirm-wrap';c.id='cWrap';
-  c.innerHTML='<div class="confirm-title">🎞️ Rishika asks — answer to move on!</div>'
+  var c=document.createElement("div");
+  c.className="confirm-wrap";
+  c.innerHTML='<div class="confirm-title">&#127908; Kona asks!</div>'
     +'<div class="confirm-q">'+q.cq+'</div>'
-    +'<button class="mic-btn" id="micBtn" onclick="startListen()">🎤 Tap and Speak Your Answer</button>'
+    +'<button class="mic-btn" id="micBtn" onclick="startListen()">&#127908; Tap and Speak</button>'
     +'<div class="transcript" id="tbox"></div>'
     +'<div class="result-box" id="rbox"></div>'
     +'<div class="nudge" id="nudgeBox"></div>'
-    +'<button class="btn-next" id="btnNext" onclick="goNext()">Next Question ▶</button>';
-  area.appendChild(c);
-  c.scrollIntoView({behavior:'smooth',block:'center'});
-  setTimeout(function(){speakRaw(q.cqs);},600);
+    +'<button class="btn-next" id="btnNext" onclick="goNext()">Next Question &#9654;</button>';
+  G("qArea").appendChild(c);
+  c.scrollIntoView({behavior:"smooth",block:"center"});
+  setTimeout(function(){say(q.cqs);},500);
 }
-function goNext(){idx++;document.getElementById('qArea').innerHTML='';showQ();window.scrollTo({top:0,behavior:'smooth'});}
-function unlockNav(){
-  document.getElementById('btnPractice').classList.remove('locked');
-  document.getElementById('btnExam').classList.remove('locked');
+function goNext(){idx++;G("qArea").innerHTML="";showQ();window.scrollTo({top:0,behavior:"smooth"});}
+function updateProg(){
+  var pct=Math.round((idx/PER_SESSION)*100);
+  G("progFill").style.width=pct+"%";
+  G("progLabel").textContent="Question "+(idx+1)+" of "+PER_SESSION;
+  G("progPct").textContent=pct+"%";
 }
+function unlockNav(){G("btnPractice").classList.remove("locked");G("btnExam").classList.remove("locked");}
+function onComplete(){
+  var prog=JSON.parse(localStorage.getItem("rishi_progress")||"{}");
+  prog["explain_quadrilaterals_done"]=true;
+  localStorage.setItem("rishi_progress",JSON.stringify(prog));
+  completed=true;G("doneBanner").classList.add("show");unlockNav();
+  var st=JSON.parse(localStorage.getItem("rishi_current_student")||"{}");
+  var nm=st.studentName?st.studentName.split(" ")[0]:"champion";
+  var cel=document.createElement("div");
+  cel.className="rishika-wrap";
+  cel.innerHTML='<div class="rishika-avatar">&#128105;&#8205;&#127979;</div>'
+    +'<div class="rishika-bubble"><div class="rishika-name">Kona</div>'
+    +'<div class="rishika-text" id="celText">&#127881; <span class="hl">'+nm+'</span>, excellent work! You have mastered <span class="hl">Understanding Quadrilaterals</span>! &#128537;</div>'
+    +'<button class="btn-speak" onclick="sayEl(\'celText\')">&#128266; Hear</button></div>';
+  G("qArea").appendChild(cel);
+  setTimeout(function(){sayEl("celText");rHappy();},400);
+}
+function goPractice(){if(!completed){alert("Complete explanations first!");return;}location.href="/practice.html?chapter=understanding_quadrilaterals";}
+function goExam(){if(!completed){alert("Complete explanations first!");return;}location.href="/exam.html?chapter=understanding_quadrilaterals";}
 function setupRecog(){
-  var SR=window.SpeechRecognition||window.webkitSpeechRecognition;
-  if(!SR)return;
-  recog=new SR();
-  recog.lang='en-IN';recog.continuous=false;recog.interimResults=false;
+  var SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR)return;
+  recog=new SR();recog.lang="en-IN";recog.continuous=false;recog.interimResults=false;
   recog.onresult=function(e){handleAnswer(e.results[0][0].transcript.toLowerCase().trim());};
-  recog.onerror=function(){setListen(false);showNudge("I couldn't hear that — try again!");};
+  recog.onerror=function(){setListen(false);showNudge("Could not hear. Try again!");};
   recog.onend=function(){setListen(false);};
 }
 function startListen(){
-  if(!recog){showNudge('Voice not supported — try Chrome!');return;}
+  if(!recog){showNudge("Voice needs Chrome!");return;}
   if(listening){recog.stop();return;}
   setListen(true);
-  var tb=document.getElementById('tbox');
-  if(tb){tb.classList.add('show');tb.textContent='🎤 Listening...';}
+  var tb=G("tbox");if(tb){tb.classList.add("show");tb.textContent="Listening...";}
   recog.start();
 }
 function setListen(on){
-  listening=on;
-  var btn=document.getElementById('micBtn');
-  if(btn){btn.className='mic-btn'+(on?' on':'');btn.textContent=on?'🎤 Listening...':'🎤 Tap and Speak Your Answer';}
+  listening=on;var btn=G("micBtn");
+  if(btn){btn.className="mic-btn"+(on?" on":"");btn.textContent=on?"&#127908; Listening...":"&#127908; Tap and Speak";}
 }
 function handleAnswer(text){
-  var tb=document.getElementById('tbox');
-  if(tb)tb.textContent='"'+text+'"';
+  var tb=G("tbox");if(tb)tb.textContent='"'+text+'"';
   var q=session[idx];
   var ok=q.ans.some(function(a){return text.includes(a.toLowerCase())||a.toLowerCase().includes(text);});
-  var rb=document.getElementById('rbox');
+  var rb=G("rbox");
   if(ok){
-    rb.className='result-box ok';rb.textContent='✅ Correct! Excellent!';
-    document.getElementById('nudgeBox').classList.remove('show');
-    var nb=document.getElementById('btnNext');if(nb)nb.classList.add('show');
-    speakRaw('Correct! Excellent! Tap next question to continue.');
+    rb.className="result-box ok";rb.textContent="&#10003; Correct! Excellent!";
+    G("nudgeBox").classList.remove("show");
+    var nb=G("btnNext");if(nb)nb.classList.add("show");
+    say("Correct! Excellent!");rHappy();
   } else {
     nudgeCount++;
-    rb.className='result-box no';rb.textContent='❌ Not quite — listen to my hint!';
+    rb.className="result-box no";rb.textContent="&#10006; Not quite. Listen to my hint!";
     var nudge=q.nudges[Math.min(nudgeCount-1,q.nudges.length-1)];
-    showNudge(nudge);
-    speakRaw(nudge.replace(/[\uD83E-\uDFFF]/g,''));
-    if(nudgeCount>=3){var nb2=document.getElementById('btnNext');if(nb2){nb2.classList.add('show');nb2.textContent='I Understand — Next ▶';}}
+    showNudge(nudge);say(nudge);rThink();
+    if(nudgeCount>=3){var nb2=G("btnNext");if(nb2){nb2.classList.add("show");nb2.textContent="I Understand &#9654;";}}
   }
 }
-function showNudge(msg){var n=document.getElementById('nudgeBox');if(n){n.textContent=msg;n.classList.add('show');}}
-
+function showNudge(msg){var n=G("nudgeBox");if(n){n.textContent=msg;n.classList.add("show");}}
+function openBreak(){G("breakOv").classList.add("show");}
+function closeBreak(){G("breakOv").classList.remove("show");}
+function startBreak(r){
+  closeBreak();breakSecs=0;
+  G("timerLbl").textContent=r;G("timerNum").textContent="00:00";
+  G("timerScreen").classList.add("show");
+  breakTmr=setInterval(function(){
+    breakSecs++;
+    var m=String(Math.floor(breakSecs/60)).padStart(2,"0");
+    var s=String(breakSecs%60).padStart(2,"0");
+    G("timerNum").textContent=m+":"+s;
+  },1000);
+}
+function endBreak(){clearInterval(breakTmr);G("timerScreen").classList.remove("show");}
+window.onload=init;
 </script>
 </body>
 </html>
