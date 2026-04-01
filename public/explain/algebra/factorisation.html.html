@@ -22,9 +22,9 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 .prog-fill{height:100%;background:linear-gradient(90deg,var(--sage),var(--gold));border-radius:4px;transition:width .5s ease;}
 .main{position:relative;z-index:10;max-width:820px;margin:0 auto;padding:14px 14px 120px;}
 .rishika-wrap{display:flex;align-items:flex-start;gap:12px;margin-bottom:14px;}
-.rishika-avatar{width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,#7c3aed,#a78bfa);border:2px solid var(--border-dark);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;}
+.rishika-avatar{width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,var(--sage),var(--sage-light));border:2px solid var(--border-dark);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;}
 .rishika-bubble{background:rgba(255,253,248,.97);border:2px solid var(--border-dark);border-radius:0 16px 16px 16px;padding:12px 16px;flex:1;box-shadow:0 4px 20px rgba(107,76,42,.1);}
-.rishika-name{font-size:10px;font-weight:900;color:#7c3aed;letter-spacing:2px;text-transform:uppercase;margin-bottom:5px;}
+.rishika-name{font-size:10px;font-weight:900;color:var(--sage);letter-spacing:2px;text-transform:uppercase;margin-bottom:5px;}
 .rishika-text{font-size:14px;font-weight:700;color:var(--charcoal);line-height:1.6;}
 .hl{color:var(--amber);font-weight:900;}
 .fm{font-family:'Share Tech Mono',monospace;background:var(--gold-pale);border:1.5px solid var(--border-dark);border-radius:5px;padding:1px 7px;font-size:13px;color:var(--mid);}
@@ -85,7 +85,7 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 .done-banner .dt{font-family:'Orbitron',sans-serif;font-size:12px;letter-spacing:2px;color:var(--sage);margin-bottom:4px;}
 .done-banner .ds{font-size:13px;font-weight:700;color:var(--mid);}
 #rWrap{position:fixed;bottom:68px;left:10px;z-index:200;width:82px;pointer-events:none;}
-#rChar{width:82px;filter:drop-shadow(0 4px 10px rgba(107,76,42,.3));}
+#rCharImg{width:82px;height:82px;border-radius:50%;object-fit:cover;border:3px solid var(--border-dark);box-shadow:0 4px 10px rgba(107,76,42,.3);}
 @keyframes rIn{from{transform:translateY(50px);opacity:0}to{transform:translateY(0);opacity:1}}
 @keyframes rBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
 @media(max-width:600px){.main{padding:10px 10px 120px;}.topbar,.prog-wrap{padding-left:10px;padding-right:10px;}.timer-num{font-size:48px;}}
@@ -94,14 +94,14 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 <body>
 <div class="topbar">
   <div class="logo-sm">RISHI</div>
-  <div class="topbar-center">&#9670; Factorisation</div>
+  <div class="topbar-center">&#128290; Factorisation</div>
   <div class="topbar-right">
     <button class="btn-topbar" onclick="openBreak()">&#9749; Break</button>
     <button class="btn-topbar back" onclick="location.href='/syllabus.html'">&#8592; Syllabus</button>
   </div>
 </div>
 <div class="prog-wrap">
-  <div class="prog-info"><span id="progLabel">Question 1 of 10</span><span id="progPct">0%</span></div>
+  <div class="prog-info"><span id="progLabel">Question 1 of 6</span><span id="progPct">0%</span></div>
   <div class="prog-bar"><div class="prog-fill" id="progFill" style="width:0%"></div></div>
 </div>
 <div class="main">
@@ -114,10 +114,9 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
     <div class="rishika-bubble">
       <div class="rishika-name">Rishika</div>
       <div class="rishika-text" id="introText">
-        Hi <span class="hl" id="sName">there</span>! &#128522; I am Rishika!
-        Today we crack <span class="hl">Factorisation</span> together!
-        We will master the HCF method, splitting the middle term,
-        difference of squares, and grouping. Let us begin! &#127775;
+        Hi <span class="hl" id="sName">there</span>! &#128522;
+        Today we master <span class="hl">Factorisation</span>!
+        I'll show you how to break down expressions into simpler factors using common factors, identities, and grouping. &#128290;
       </div>
       <button class="btn-speak" onclick="say(G('introText').innerText)">&#128266; Hear Rishika</button>
     </div>
@@ -146,36 +145,12 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
   <div class="timer-num" id="timerNum">00:00</div>
   <button class="btn-end" onclick="endBreak()">&#10003; End Break</button>
 </div>
+<!-- RISHIKA CHARACTER -->
 <div id="rWrap">
-<svg id="rChar" viewBox="0 0 100 130" xmlns="http://www.w3.org/2000/svg">
-  <ellipse cx="50" cy="108" rx="30" ry="18" fill="#7c3aed"/>
-  <ellipse cx="50" cy="94" rx="20" ry="16" fill="#8b5cf6"/>
-  <rect x="43" y="80" width="14" height="14" rx="4" fill="#f5c5a3"/>
-  <ellipse cx="50" cy="62" rx="27" ry="28" fill="#f5c5a3"/>
-  <ellipse cx="50" cy="38" rx="27" ry="14" fill="#2d1b69"/>
-  <ellipse cx="26" cy="58" rx="6" ry="14" fill="#2d1b69"/>
-  <ellipse cx="74" cy="58" rx="6" ry="14" fill="#2d1b69"/>
-  <circle cx="50" cy="30" r="8" fill="#2d1b69"/>
-  <ellipse cx="38" cy="61" rx="6.5" ry="7" fill="white"/>
-  <ellipse cx="38" cy="62" rx="4" ry="4.5" fill="#5b21b6"/>
-  <ellipse cx="38" cy="62" rx="2.5" ry="3" fill="#1e0a4d"/>
-  <circle cx="39.5" cy="60" r="1.2" fill="white"/>
-  <ellipse id="rLid1" cx="38" cy="61" rx="6.5" ry="1" fill="#f5c5a3" opacity="0"/>
-  <ellipse cx="62" cy="61" rx="6.5" ry="7" fill="white"/>
-  <ellipse cx="62" cy="62" rx="4" ry="4.5" fill="#5b21b6"/>
-  <ellipse cx="62" cy="62" rx="2.5" ry="3" fill="#1e0a4d"/>
-  <circle cx="63.5" cy="60" r="1.2" fill="white"/>
-  <ellipse id="rLid2" cx="62" cy="61" rx="6.5" ry="1" fill="#f5c5a3" opacity="0"/>
-  <ellipse cx="50" cy="70" rx="3" ry="2" fill="#e8a87c"/>
-  <path id="rMouth" d="M44,76 Q50,80 56,76" fill="none" stroke="#2a1208" stroke-width="2" stroke-linecap="round"/>
-  <ellipse id="rBlush1" cx="28" cy="70" rx="7" ry="4" fill="#ff9999" opacity="0"/>
-  <ellipse id="rBlush2" cx="72" cy="70" rx="7" ry="4" fill="#ff9999" opacity="0"/>
-  <path d="M38 94 L50 102 L62 94" stroke="#6d28d9" stroke-width="2" fill="none"/>
-  <rect x="28" y="116" width="44" height="10" fill="#5b21b6" rx="4"/>
-  <text x="50" y="124" text-anchor="middle" font-family="Nunito" font-size="7" font-weight="900" fill="white">RISHIKA</text>
-</svg>
+<img id="rCharImg" src="../rishika-normal.png" alt="Rishika">
 </div>
 <script>
+/* ═══════ VOICE ═══════ */
 var voicesReady=false,selectedVoice=null;
 function pickVoice(){
   var vs=window.speechSynthesis.getVoices();if(!vs||vs.length===0)return false;
@@ -197,110 +172,33 @@ function say(text){
   var u=new SpeechSynthesisUtterance(text);
   u.lang="en-IN";u.rate=0.88;u.pitch=1.15;
   if(selectedVoice)u.voice=selectedVoice;
-  rStartTalk(text.length);
   window.speechSynthesis.speak(u);
 }
 function sayEl(id){var e=G(id);if(e)say(e.innerText||e.textContent);}
 window.addEventListener("beforeunload",function(){window.speechSynthesis&&window.speechSynthesis.cancel();});
 window.addEventListener("pagehide",function(){window.speechSynthesis&&window.speechSynthesis.cancel();});
 
-var mouthTmr=null,mOpen=false;
-function rInit(){var c=G("rChar");if(c)c.style.animation="rIn .6s cubic-bezier(.34,1.56,.64,1) forwards";scheduleBlink();}
-function scheduleBlink(){setTimeout(function(){rBlink();scheduleBlink();},2200+Math.random()*3000);}
-function rBlink(){var l=G("rLid1"),r=G("rLid2");if(!l||!r)return;l.setAttribute("ry","7");r.setAttribute("ry","7");setTimeout(function(){l.setAttribute("ry","1");r.setAttribute("ry","1");},120);}
-function rStartTalk(len){
-  rStopTalk();
-  G("rBlush1").style.opacity="0.7";G("rBlush2").style.opacity="0.7";
-  mOpen=false;
-  mouthTmr=setInterval(function(){mOpen=!mOpen;var m=G("rMouth");if(!m)return;if(mOpen){m.setAttribute("d","M42,74 Q50,83 58,74");m.setAttribute("fill","#2a1208");}else{m.setAttribute("d","M44,76 Q50,80 56,76");m.setAttribute("fill","none");}},160);
-  setTimeout(rStopTalk,Math.max(1800,len*58));
+/* ═══════ RISHIKA CHARACTER (PNG VERSION) ═══════ */
+var rishikaImages={
+  normal:'../rishika-normal.png',
+  excited:'../rishika-excited.png',
+  soft:'../rishika-soft.png',
+  impressed:'../rishika-impressed.png',
+  surprised:'../rishika-surprised.png',
+  angry:'../rishika-angry.png'
+};
+function rInit(){var c=G("rCharImg");if(c)c.style.animation="rIn .6s cubic-bezier(.34,1.56,.64,1) forwards";}
+function rSetEmotion(emo){
+  var img=G("rCharImg");
+  if(!img)return;
+  var map={'happy':'excited','excited':'excited','thinking':'soft','soft':'soft','impressed':'impressed','surprised':'surprised','confused':'surprised','sad':'soft','angry':'angry'};
+  var imgName=map[emo]||'normal';
+  img.src=rishikaImages[imgName];
 }
-function rStopTalk(){clearInterval(mouthTmr);mOpen=false;var m=G("rMouth");if(m){m.setAttribute("d","M44,76 Q50,80 56,76");m.setAttribute("fill","none");}G("rBlush1").style.opacity="0";G("rBlush2").style.opacity="0";}
-function rHappy(){var c=G("rChar");if(c)c.style.animation="rBounce .35s ease-in-out 5";G("rBlush1").style.opacity="1";G("rBlush2").style.opacity="1";setTimeout(function(){rStopTalk();var c=G("rChar");if(c)c.style.animation="none";},2500);}
-function rThink(){setTimeout(rStopTalk,1800);}
+function rHappy(){rSetEmotion('excited');var c=G("rCharImg");if(c)c.style.animation="rBounce .35s ease-in-out 5";setTimeout(function(){c.style.animation="none";rSetEmotion('normal');},2500);}
+function rThink(){rSetEmotion('soft');setTimeout(function(){rSetEmotion('normal');},2000);}
 
-var QB=[
-{id:"f0",q:"Factorise: <span class='hl'>4x + 8</span>",qs:"Factorise 4x plus 8.",anim:"hcf1",
- steps:[{t:"Find HCF of 4 and 8. HCF = <span class='ans-tag'>4</span>",s:"Find the HCF of 4 and 8. The HCF is 4."},
-        {t:"Divide each term: 4x &divide; 4 = x, &nbsp; 8 &divide; 4 = 2",s:"Divide each term by 4. 4x over 4 is x. 8 over 4 is 2."},
-        {t:"Answer: <span class='ans-tag'>4(x + 2)</span>",s:"So the factorised form is 4 times x plus 2."}],
- cq:"What is 4x + 8 factorised?",cqs:"Factorise 4x plus 8?",
- ans:["4(x+2)","4 x plus 2","four x plus 2"],
- nudges:["HCF of 4 and 8 is 4! Take it outside the bracket.","4 times what gives 4x? And 4 times what gives 8?","Say 4 bracket x plus 2!"]},
-
-{id:"f1",q:"Factorise: <span class='hl'>6a&sup2; + 3a</span>",qs:"Factorise 6a squared plus 3a.",anim:"hcf2",
- steps:[{t:"HCF of 6 and 3 = 3. Variables: a&sup2; and a &rarr; lowest power = a",s:"HCF of 6 and 3 is 3. For variables, lowest power of a in both terms is a to the 1."},
-        {t:"So HCF = <span class='ans-tag'>3a</span>",s:"So the HCF is 3a."},
-        {t:"Answer: <span class='ans-tag'>3a(2a + 1)</span>",s:"The factorised form is 3a times 2a plus 1."}],
- cq:"HCF of 6a squared and 3a?",cqs:"What is the HCF?",
- ans:["3a","three a"],
- nudges:["HCF of coefficients 6 and 3 is 3. Lowest power of a is a!","HCF is 3 times a!","Say 3a!"]},
-
-{id:"f2",q:"Factorise: <span class='hl'>x&sup2; &minus; 9</span>",qs:"Factorise x squared minus 9.",anim:"diffsq1",
- steps:[{t:"Identity: a&sup2; &minus; b&sup2; = (a + b)(a &minus; b)",s:"Use the difference of squares identity. a squared minus b squared equals a plus b times a minus b."},
-        {t:"Here a = x, b = 3 (since 3&sup2; = 9).",s:"Here a equals x and b equals 3 because 3 squared is 9."},
-        {t:"Answer: <span class='ans-tag'>(x + 3)(x &minus; 3)</span>",s:"So the answer is x plus 3 times x minus 3."}],
- cq:"Factorise x squared minus 9?",cqs:"Factorise x squared minus 9.",
- ans:["(x+3)(x-3)","x plus 3 x minus 3"],
- nudges:["This is difference of squares! a squared minus b squared!","a is x, b is 3. Apply the identity!","x plus 3 times x minus 3!"]},
-
-{id:"f3",q:"Factorise: <span class='hl'>x&sup2; + 6x + 9</span>",qs:"Factorise x squared plus 6x plus 9.",anim:"persq1",
- steps:[{t:"Check: a&sup2; + 2ab + b&sup2; = (a+b)&sup2;",s:"Check the perfect square identity. a squared plus 2ab plus b squared equals a plus b whole squared."},
-        {t:"a = x, b = 3. Check: 2&times;x&times;3 = 6x &#10003;",s:"a is x, b is 3. Check middle term: 2 times x times 3 equals 6x. It matches!"},
-        {t:"Answer: <span class='ans-tag'>(x + 3)&sup2;</span>",s:"It is a perfect square. Answer is x plus 3 whole squared."}],
- cq:"Is x squared + 6x + 9 a perfect square?",cqs:"Factorise x squared plus 6x plus 9.",
- ans:["yes","(x+3)^2","x plus 3 squared","perfect square"],
- nudges:["Last term is 3 squared = 9. Middle term is 2 times x times 3 = 6x. All checks pass!","Yes it is a perfect square!","x plus 3 whole squared!"]},
-
-{id:"f4",q:"Factorise by splitting middle term: <span class='hl'>x&sup2; + 5x + 6</span>",qs:"Factorise x squared plus 5x plus 6.",anim:"split1",
- steps:[{t:"Find m, n: m &times; n = 6, m + n = 5 &rarr; <span class='ans-tag'>m=2, n=3</span>",s:"Find two numbers whose product is 6 and sum is 5. Those are 2 and 3."},
-        {t:"x&sup2; + 2x + 3x + 6 = x(x+2) + 3(x+2)",s:"Split 5x into 2x plus 3x. Group and factorise."},
-        {t:"Answer: <span class='ans-tag'>(x + 2)(x + 3)</span>",s:"Both groups share x plus 2. Answer is x plus 2 times x plus 3."}],
- cq:"Factorise x squared + 5x + 6?",cqs:"Factorised form of x squared plus 5x plus 6?",
- ans:["(x+2)(x+3)","x plus 2 x plus 3"],
- nudges:["Two numbers: product 6, sum 5. That's 2 and 3!","Split 5x into 2x and 3x, then group!","x plus 2 times x plus 3!"]},
-
-{id:"f5",q:"Factorise: <span class='hl'>x&sup2; &minus; 7x + 12</span>",qs:"Factorise x squared minus 7x plus 12.",anim:"split2",
- steps:[{t:"m &times; n = 12, m + n = &minus;7 &rarr; <span class='ans-tag'>m=&minus;3, n=&minus;4</span>",s:"Product is 12 and sum is minus 7. Both numbers negative: minus 3 and minus 4."},
-        {t:"x&sup2; &minus;3x &minus;4x + 12 = x(x&minus;3) &minus;4(x&minus;3)",s:"Split and group."},
-        {t:"Answer: <span class='ans-tag'>(x &minus; 3)(x &minus; 4)</span>",s:"Answer is x minus 3 times x minus 4."}],
- cq:"Factorise x squared minus 7x plus 12?",cqs:"Factorise x squared minus 7x plus 12.",
- ans:["(x-3)(x-4)","x minus 3 x minus 4"],
- nudges:["Both numbers are negative since product is positive but sum is negative!","Minus 3 and minus 4. Split, group, factorise!","x minus 3 times x minus 4!"]},
-
-{id:"f6",q:"Factorise by grouping: <span class='hl'>ax + ay + bx + by</span>",qs:"Factorise ax plus ay plus bx plus by.",anim:"group1",
- steps:[{t:"Group: (ax + ay) + (bx + by)",s:"Group the first two and last two terms."},
-        {t:"Take common: a(x+y) + b(x+y)",s:"Take a common from the first group, b from the second."},
-        {t:"Answer: <span class='ans-tag'>(x + y)(a + b)</span>",s:"Both share x plus y. Answer is x plus y times a plus b."}],
- cq:"Factorise ax + ay + bx + by?",cqs:"Factorise ax plus ay plus bx plus by.",
- ans:["(x+y)(a+b)","x plus y a plus b"],
- nudges:["Group first two and last two terms, then take common from each!","Both groups share the factor x plus y!","x plus y times a plus b!"]},
-
-{id:"f7",q:"Factorise: <span class='hl'>4x&sup2; &minus; 25</span>",qs:"Factorise 4x squared minus 25.",anim:"diffsq2",
- steps:[{t:"4x&sup2; = (2x)&sup2;, &nbsp; 25 = 5&sup2; &rarr; difference of squares form",s:"4x squared equals 2x whole squared. 25 equals 5 squared. This is difference of squares."},
-        {t:"a = 2x, b = 5",s:"So a is 2x and b is 5."},
-        {t:"Answer: <span class='ans-tag'>(2x + 5)(2x &minus; 5)</span>",s:"Answer is 2x plus 5 times 2x minus 5."}],
- cq:"Factorise 4x squared minus 25?",cqs:"Factorise 4x squared minus 25.",
- ans:["(2x+5)(2x-5)","2x plus 5 2x minus 5"],
- nudges:["Both are perfect squares! 4x squared is 2x squared, and 25 is 5 squared!","Apply difference of squares with a equals 2x and b equals 5!","2x plus 5 times 2x minus 5!"]},
-
-{id:"f8",q:"Factorise completely: <span class='hl'>x&sup3; &minus; x</span>",qs:"Factorise completely x cubed minus x.",anim:"cubic1",
- steps:[{t:"Step 1: Take x common &rarr; x(x&sup2; &minus; 1)",s:"Take x common. We get x times x squared minus 1."},
-        {t:"Step 2: x&sup2; &minus; 1 is difference of squares",s:"x squared minus 1 is difference of squares with a equals x and b equals 1."},
-        {t:"Answer: <span class='ans-tag'>x(x + 1)(x &minus; 1)</span>",s:"Complete factorisation: x times x plus 1 times x minus 1."}],
- cq:"Completely factorise x cubed minus x?",cqs:"Completely factorise x cubed minus x.",
- ans:["x(x+1)(x-1)","x x plus 1 x minus 1"],
- nudges:["First take x common to get x times x squared minus 1!","Then x squared minus 1 is difference of squares!","x times x plus 1 times x minus 1!"]},
-
-{id:"f9",q:"Factorise: <span class='hl'>2x&sup2; + 7x + 3</span>",qs:"Factorise 2x squared plus 7x plus 3.",anim:"split3",
- steps:[{t:"a&times;c = 2&times;3 = 6. Factors of 6 adding to 7: <span class='ans-tag'>1 and 6</span>",s:"Multiply a times c: 2 times 3 equals 6. Factors of 6 that add to 7 are 1 and 6."},
-        {t:"2x&sup2; + x + 6x + 3 = x(2x+1) + 3(2x+1)",s:"Split and group."},
-        {t:"Answer: <span class='ans-tag'>(2x + 1)(x + 3)</span>",s:"Answer is 2x plus 1 times x plus 3."}],
- cq:"Factorise 2x squared + 7x + 3?",cqs:"Factorise 2x squared plus 7x plus 3.",
- ans:["(2x+1)(x+3)","2x plus 1 x plus 3"],
- nudges:["Multiply a and c: 2 times 3 equals 6. Find factors of 6 adding to 7!","1 and 6. Split 7x into x plus 6x, then group!","2x plus 1 times x plus 3!"]}
-];
-
+/* ═══════ HELPERS ═══════ */
 var atTimers=[];
 function clearAt(){for(var i=0;i<atTimers.length;i++)clearTimeout(atTimers[i]);atTimers=[];}
 function at(ms,fn){atTimers.push(setTimeout(fn,ms));}
@@ -308,114 +206,263 @@ function G(id){return document.getElementById(id);}
 function fade(id,v){var e=G(id);if(e){e.style.transition="opacity .5s";e.style.opacity=v;}}
 function setStatus(t){var e=G("animStatus");if(e)e.textContent=t;}
 
-function svgHcf1(){return '<svg viewBox="0 0 420 178" width="100%" xmlns="http://www.w3.org/2000/svg" style="background:#fffdf8;font-family:Nunito,sans-serif"><text x="210" y="20" text-anchor="middle" font-family="Orbitron" font-size="11" fill="#d4870a" font-weight="900">HCF METHOD</text><g id="h1expr" opacity="0" style="transition:opacity .5s"><text x="80" y="72" font-size="30" font-weight="900" fill="#2a2218">4x</text><text x="132" y="72" font-size="26" fill="#5a4a30">+</text><text x="158" y="72" font-size="30" font-weight="900" fill="#2a2218">8</text></g><g id="h1hcf" opacity="0" style="transition:opacity .5s"><text x="80" y="102" font-size="13" font-weight="800" fill="#d4870a">HCF(4, 8) = 4</text></g><g id="h1ans" opacity="0" style="transition:opacity .5s"><rect x="75" y="120" width="200" height="38" rx="8" fill="#eef2eb" stroke="#6b4c2a" stroke-width="1.5"/><text x="175" y="144" text-anchor="middle" font-family="Share Tech Mono" font-size="20" font-weight="bold" fill="#7a8c6e">4(x + 2)</text></g><g id="h1check" opacity="0" style="transition:opacity .5s"><text x="310" y="90" font-size="12" font-weight="800" fill="#5a4a30">Check:</text><text x="310" y="108" font-size="12" font-weight="800" fill="#7a8c6e">4 &times; x = 4x &#10003;</text><text x="310" y="126" font-size="12" font-weight="800" fill="#7a8c6e">4 &times; 2 = 8 &#10003;</text></g></svg>';}
+/* ═══════ QB ═══════ */
+var QB=[
+{id:"f1",
+ q:"Factorise: <span class='fm'>6x + 9</span>",
+ qs:"Factorise 6x plus 9.",
+ anim:"common_factor",
+ steps:[
+  {t:"Find HCF of 6 and 9. <br>6 = 3 × 2, 9 = 3 × 3",s:"First find the highest common factor of 6 and 9. Both have 3 in common!"},
+  {t:"Common factor is <span class='ans-tag'>3</span>. Take it outside.",s:"3 is the common factor. We take it outside the bracket."},
+  {t:"6x ÷ 3 = 2x, and 9 ÷ 3 = 3",s:"6x divided by 3 equals 2x. 9 divided by 3 equals 3."},
+  {t:"Answer: <span class='ans-tag'>3(2x + 3)</span>",s:"So the answer is 3 times bracket 2x plus 3."}
+ ],
+ cq:"What is the common factor of 6x and 9?",cqs:"What is the common factor?",
+ ans:["3","three"],
+ nudges:["What number divides both 6 and 9?","The highest common factor is 3!","Say 3!"]},
 
-function playHcf1(done){
-  setStatus("Finding the HCF...");say("Let us factorise 4x plus 8 using the HCF method.");
-  at(600,function(){fade("h1expr",1);});
-  at(2200,function(){fade("h1hcf",1);setStatus("HCF of 4 and 8 is 4.");say("The HCF of 4 and 8 is 4. We take 4 out as a common factor.");});
-  at(5000,function(){fade("h1ans",1);setStatus("4(x + 2) is the answer!");say("So 4x plus 8 equals 4 times x plus 2.");});
-  at(8000,function(){fade("h1check",1);setStatus("Verify by expanding!");say("Verify: 4 times x is 4x, 4 times 2 is 8. Correct!");at(2000,done);});
+{id:"f2",
+ q:"Factorise by grouping: <span class='fm'>ax + ay + bx + by</span>",
+ qs:"Factorise ax plus ay plus bx plus by by grouping.",
+ anim:"grouping",
+ steps:[
+  {t:"Group terms: <span class='fm'>(ax + ay) + (bx + by)</span>",s:"Group the first two terms and the last two terms together."},
+  {t:"Factor each group: <span class='fm'>a(x + y) + b(x + y)</span>",s:"From first group take out a. From second group take out b. Both have x plus y inside!"},
+  {t:"Common factor is (x + y): <span class='ans-tag'>(a + b)(x + y)</span>",s:"Now x plus y is common to both parts. Take it out and we get a plus b times x plus y!"}
+ ],
+ cq:"What is the factorised form?",cqs:"What is the answer?",
+ ans:["a plus b times x plus y","(a+b)(x+y)","(x+y)(a+b)"],
+ nudges:["Look for common bracket after grouping!","Both groups have x plus y!","The answer is a plus b times x plus y!"]},
+
+{id:"f3",
+ q:"Factorise using identity: <span class='fm'>x² - 25</span>",
+ qs:"Factorise x squared minus 25 using identity.",
+ anim:"diff_squares",
+ steps:[
+  {t:"Identity: a² - b² = (a + b)(a - b)",s:"Use the difference of squares identity."},
+  {t:"x² - 25 = x² - 5²<br>So a = x, b = 5",s:"25 is 5 squared. So a is x and b is 5."},
+  {t:"= <span class='ans-tag'>(x + 5)(x - 5)</span>",s:"Therefore x squared minus 25 equals x plus 5 times x minus 5."}
+ ],
+ cq:"Factorised form of x squared minus 25?",cqs:"The answer is?",
+ ans:["x plus 5 times x minus 5","(x+5)(x-5)","(x-5)(x+5)"],
+ nudges:["Use a squared minus b squared formula!","x plus 5 times x minus 5!","Say x plus 5 times x minus 5!"]},
+
+{id:"f4",
+ q:"Factorise: <span class='fm'>x² + 6x + 9</span>",
+ qs:"Factorise x squared plus 6x plus 9.",
+ anim:"perfect_square",
+ steps:[
+  {t:"Check: Is it a perfect square?<br>x² = (x)², 9 = (3)²",s:"Check if first and last terms are perfect squares. Yes! x squared and 3 squared."},
+  {t:"Middle term should be 2×x×3 = 6x ✓",s:"Middle term should be 2 times x times 3 which is 6x. It matches!"},
+  {t:"Using a² + 2ab + b² = (a+b)²",s:"Using the identity a squared plus 2ab plus b squared equals a plus b whole squared."},
+  {t:"= <span class='ans-tag'>(x + 3)²</span>",s:"So the answer is x plus 3 whole squared!"}
+ ],
+ cq:"What is x squared plus 6x plus 9?",cqs:"The factorised form?",
+ ans:["x plus 3 whole squared","(x+3) squared","(x+3)2","(x+3)(x+3)"],
+ nudges:["It's a perfect square trinomial!","x plus 3 times x plus 3!","Say x plus 3 whole squared!"]},
+
+{id:"f5",
+ q:"Factorise by splitting middle term: <span class='fm'>x² + 5x + 6</span>",
+ qs:"Factorise x squared plus 5x plus 6 by splitting the middle term.",
+ anim:"split_term",
+ steps:[
+  {t:"Find two numbers that multiply to 6 and add to 5",s:"We need two numbers that multiply to give 6 and add to give 5."},
+  {t:"Numbers are <span class='ans-tag'>2 and 3</span><br>2×3=6, 2+3=5",s:"2 and 3! 2 times 3 is 6 and 2 plus 3 is 5."},
+  {t:"Split: x² + 2x + 3x + 6",s:"Split 5x into 2x plus 3x."},
+  {t:"Group: x(x+2) + 3(x+2) = <span class='ans-tag'>(x+2)(x+3)</span>",s:"Group and factor to get x plus 2 times x plus 3!"}
+ ],
+ cq:"What two numbers multiply to 6 and add to 5?",cqs:"Which two numbers?",
+ ans:["2 and 3","2,3","two and three","3 and 2"],
+ nudges:["Think of factors of 6...","2 times 3 is 6, 2 plus 3 is 5!","Say 2 and 3!"]},
+
+{id:"f6",
+ q:"Factorise completely: <span class='fm'>2x² - 8</span>",
+ qs:"Factorise 2x squared minus 8 completely.",
+ anim:"common_and_diff",
+ steps:[
+  {t:"First take out common factor: <span class='fm'>2(x² - 4)</span>",s:"First take out the common factor 2."},
+  {t:"Now x² - 4 is difference of squares!",s:"Inside the bracket, x squared minus 4 is a difference of squares."},
+  {t:"x² - 4 = (x+2)(x-2)",s:"x squared minus 4 equals x plus 2 times x minus 2."},
+  {t:"Final: <span class='ans-tag'>2(x+2)(x-2)</span>",s:"So the complete factorisation is 2 times x plus 2 times x minus 2."}
+ ],
+ cq:"Final factorised form of 2x squared minus 8?",cqs:"Final answer?",
+ ans:["2 times x plus 2 times x minus 2","2(x+2)(x-2)","2(x-2)(x+2)"],
+ nudges:["Take out 2 first, then difference of squares!","2 times x plus 2 times x minus 2!","Say 2 times bracket x plus 2 bracket times bracket x minus 2 bracket!"]}
+];
+
+/* ═══════ ANIMATIONS ═══════ */
+
+function svgCommonFactor(){
+  return '<svg viewBox="0 0 420 175" width="100%" xmlns="http://www.w3.org/2000/svg" style="background:#fffdf8">'
+  +'<text x="210" y="24" text-anchor="middle" font-family="Nunito" font-size="16" font-weight="800" fill="#5a4a30">6x + 9</text>'
+  +'<g id="cf1" opacity="0" style="transition:opacity .5s">'
+  +'<rect x="40" y="40" width="100" height="50" fill="#d4870a" rx="10"/><text x="90" y="72" text-anchor="middle" font-family="Share Tech Mono" font-size="18" font-weight="bold" fill="#fff">6x</text>'
+  +'<text x="150" y="72" font-family="Share Tech Mono" font-size="20" fill="#6b4c2a">+</text>'
+  +'<rect x="170" y="40" width="100" height="50" fill="#b85c2a" rx="10"/><text x="220" y="72" text-anchor="middle" font-family="Share Tech Mono" font-size="18" font-weight="bold" fill="#fff">9</text>'
+  +'</g>'
+  +'<g id="cf2" opacity="0" style="transition:opacity .5s">'
+  +'<text x="210" y="115" text-anchor="middle" font-family="Nunito" font-size="14" fill="#5a4a30">HCF of 6 and 9 is <tspan font-weight="900" fill="#d4870a">3</tspan></text>'
+  +'</g>'
+  +'<g id="cf3" opacity="0" style="transition:opacity .6s">'
+  +'<rect x="100" y="130" width="220" height="36" fill="#6b4c2a" rx="10"/>'
+  +'<text x="210" y="154" text-anchor="middle" font-family="Share Tech Mono" font-size="16" font-weight="bold" fill="#e8b84b">3(2x + 3)</text>'
+  +'</g>'
+  +'</svg>';
+}
+function playCommonFactor(done){
+  setStatus("Finding common factor...");
+  say("To factorise 6x plus 9, we look for the highest common factor of 6 and 9.");
+  at(2000,function(){fade("cf1",1);setStatus("6x and 9...");});
+  at(4000,function(){fade("cf2",1);setStatus("HCF is 3!");say("The highest common factor is 3!");});
+  at(6500,function(){fade("cf3",1);setStatus("3 times bracket 2x plus 3!");say("So we take 3 outside. 6x divided by 3 is 2x. 9 divided by 3 is 3. Answer: 3 times bracket 2x plus 3!");at(1500,done);});
 }
 
-function svgHcf2(){return '<svg viewBox="0 0 420 178" width="100%" xmlns="http://www.w3.org/2000/svg" style="background:#fffdf8;font-family:Nunito,sans-serif"><text x="210" y="20" text-anchor="middle" font-family="Orbitron" font-size="11" fill="#d4870a" font-weight="900">HCF WITH VARIABLES</text><g id="h2expr" opacity="0" style="transition:opacity .5s"><text x="60" y="68" font-size="26" font-weight="900" fill="#2a2218">6a&sup2; + 3a</text></g><g id="h2step" opacity="0" style="transition:opacity .5s"><text x="55" y="98" font-size="13" font-weight="800" fill="#d4870a">HCF of 6 and 3 = 3</text><text x="55" y="118" font-size="13" font-weight="800" fill="#d4870a">Lowest power of a in a&sup2; and a = a</text><text x="55" y="140" font-size="15" font-weight="900" fill="#7a8c6e">&#8756; HCF = 3a</text></g><g id="h2ans" opacity="0" style="transition:opacity .5s"><rect x="50" y="152" width="200" height="22" rx="6" fill="#eef2eb" stroke="#6b4c2a" stroke-width="1.5"/><text x="150" y="167" text-anchor="middle" font-family="Share Tech Mono" font-size="15" font-weight="bold" fill="#7a8c6e">3a(2a + 1)</text></g></svg>';}
-
-function playHcf2(done){
-  setStatus("Finding HCF with variable terms...");say("Factorise 6a squared plus 3a.");
-  at(600,function(){fade("h2expr",1);});
-  at(2200,function(){fade("h2step",1);setStatus("HCF of coefficients, then variables.");say("HCF of 6 and 3 is 3. For variables, lowest power of a in a squared and a is just a. So HCF is 3a.");});
-  at(6500,function(){fade("h2ans",1);setStatus("3a(2a + 1)");say("Divide each term by 3a. 6a squared over 3a is 2a. 3a over 3a is 1. Answer is 3a times 2a plus 1.");at(2000,done);});
+function svgGrouping(){
+  return '<svg viewBox="0 0 420 178" width="100%" xmlns="http://www.w3.org/2000/svg" style="background:#fffdf8">'
+  +'<text x="210" y="22" text-anchor="middle" font-family="Nunito" font-size="14" font-weight="800" fill="#5a4a30">ax + ay + bx + by</text>'
+  +'<g id="grp1" opacity="0" style="transition:opacity .5s">'
+  +'<rect x="20" y="40" width="110" height="40" fill="#d4870a" rx="8"/><text x="75" y="66" text-anchor="middle" font-family="Share Tech Mono" font-size="14" font-weight="bold" fill="#fff">ax+ay</text>'
+  +'<rect x="140" y="40" width="110" height="40" fill="#b85c2a" rx="8"/><text x="195" y="66" text-anchor="middle" font-family="Share Tech Mono" font-size="14" font-weight="bold" fill="#fff">bx+by</text>'
+  +'</g>'
+  +'<g id="grp2" opacity="0" style="transition:opacity .5s">'
+  +'<text x="210" y="105" text-anchor="middle" font-family="Share Tech Mono" font-size="13" fill="#5a4a30">a(x+y) + b(x+y)</text>'
+  +'</g>'
+  +'<g id="grp3" opacity="0" style="transition:opacity .6s">'
+  +'<rect x="110" y="125" width="200" height="38" fill="#6b4c2a" rx="8"/>'
+  +'<text x="210" y="150" text-anchor="middle" font-family="Share Tech Mono" font-size="16" font-weight="bold" fill="#e8b84b">(a+b)(x+y)</text>'
+  +'</g>'
+  +'</svg>';
+}
+function playGrouping(done){
+  setStatus("Grouping terms in pairs...");
+  say("For four terms, we group them in pairs. First group ax plus ay, second group bx plus by.");
+  at(2000,function(){fade("grp1",1);setStatus("Group in pairs...");});
+  at(4500,function(){fade("grp2",1);setStatus("Factor each group...");say("From first group take out a. From second take out b. Both have x plus y!");});
+  at(7500,function(){fade("grp3",1);setStatus("Common factor x plus y!");say("Now x plus y is common. Take it out and we get a plus b times x plus y!");at(1500,done);});
 }
 
-function svgDiffSq1(){return '<svg viewBox="0 0 420 178" width="100%" xmlns="http://www.w3.org/2000/svg" style="background:#fffdf8;font-family:Nunito,sans-serif"><text x="210" y="20" text-anchor="middle" font-family="Orbitron" font-size="11" fill="#d4870a" font-weight="900">DIFFERENCE OF SQUARES</text><g id="d1id" opacity="0" style="transition:opacity .5s"><rect x="18" y="28" width="384" height="26" rx="7" fill="#f5e6c8" stroke="#6b4c2a" stroke-width="1.5"/><text x="210" y="45" text-anchor="middle" font-size="14" font-weight="900" fill="#d4870a">a&sup2; &minus; b&sup2; = (a + b)(a &minus; b)</text></g><g id="d1expr" opacity="0" style="transition:opacity .5s"><text x="80" y="98" font-size="28" font-weight="900" fill="#2a2218">x&sup2; &minus; 9</text></g><g id="d1map" opacity="0" style="transition:opacity .5s"><text x="60" y="128" font-size="13" font-weight="800" fill="#b85c2a">a = x &nbsp;&nbsp; b = 3 &nbsp;&nbsp; (since &#8730;9 = 3)</text></g><g id="d1ans" opacity="0" style="transition:opacity .5s"><rect x="55" y="146" width="240" height="28" rx="8" fill="#eef2eb" stroke="#6b4c2a" stroke-width="1.5"/><text x="175" y="165" text-anchor="middle" font-family="Share Tech Mono" font-size="16" font-weight="bold" fill="#7a8c6e">(x + 3)(x &minus; 3)</text></g></svg>';}
-
-function playDiffSq1(done){
-  setStatus("Recognising difference of squares...");say("Factorise x squared minus 9. Watch how to use the identity!");
-  at(600,function(){fade("d1id",1);});
-  at(2500,function(){fade("d1expr",1);setStatus("Identify a and b.");say("x squared minus 9. Both terms are perfect squares!");});
-  at(5000,function(){fade("d1map",1);say("a is x because x squared. b is 3 because 3 squared is 9.");});
-  at(7500,function(){fade("d1ans",1);setStatus("(x+3)(x-3) — done!");say("Apply the identity. Answer is x plus 3 times x minus 3.");at(2000,done);});
+function svgDiffSquares(){
+  return '<svg viewBox="0 0 420 175" width="100%" xmlns="http://www.w3.org/2000/svg" style="background:#fffdf8">'
+  +'<text x="210" y="24" text-anchor="middle" font-family="Nunito" font-size="16" font-weight="800" fill="#5a4a30">x² - 25</text>'
+  +'<g id="ds1" opacity="0" style="transition:opacity .5s">'
+  +'<rect x="60" y="40" width="80" height="50" fill="#d4870a" rx="10"/><text x="100" y="72" text-anchor="middle" font-family="Share Tech Mono" font-size="16" font-weight="bold" fill="#fff">x²</text>'
+  +'<text x="160" y="72" font-family="Share Tech Mono" font-size="20" fill="#6b4c2a">-</text>'
+  +'<rect x="180" y="40" width="80" height="50" fill="#b85c2a" rx="10"/><text x="220" y="72" text-anchor="middle" font-family="Share Tech Mono" font-size="16" font-weight="bold" fill="#fff">5²</text>'
+  +'</g>'
+  +'<g id="ds2" opacity="0" style="transition:opacity .5s">'
+  +'<text x="210" y="110" text-anchor="middle" font-family="Nunito" font-size="13" fill="#5a4a30">a² - b² = (a+b)(a-b)</text>'
+  +'</g>'
+  +'<g id="ds3" opacity="0" style="transition:opacity .6s">'
+  +'<rect x="110" y="130" width="200" height="36" fill="#6b4c2a" rx="10"/>'
+  +'<text x="210" y="154" text-anchor="middle" font-family="Share Tech Mono" font-size="16" font-weight="bold" fill="#e8b84b">(x+5)(x-5)</text>'
+  +'</g>'
+  +'</svg>';
+}
+function playDiffSquares(done){
+  setStatus("Difference of squares...");
+  say("x squared minus 25. This is x squared minus 5 squared. Difference of squares!");
+  at(2000,function(){fade("ds1",1);setStatus("x squared minus 5 squared...");});
+  at(4500,function(){fade("ds2",1);setStatus("Apply identity...");say("Using a squared minus b squared equals a plus b times a minus b.");});
+  at(7500,function(){fade("ds3",1);setStatus("x plus 5 times x minus 5!");say("Therefore x plus 5 times x minus 5!");at(1500,done);});
 }
 
-function svgPersq1(){return '<svg viewBox="0 0 420 178" width="100%" xmlns="http://www.w3.org/2000/svg" style="background:#fffdf8;font-family:Nunito,sans-serif"><text x="210" y="20" text-anchor="middle" font-family="Orbitron" font-size="11" fill="#d4870a" font-weight="900">PERFECT SQUARE IDENTITY</text><g id="p1id" opacity="0" style="transition:opacity .5s"><rect x="18" y="28" width="384" height="24" rx="6" fill="#f5e6c8" stroke="#6b4c2a" stroke-width="1.5"/><text x="210" y="44" text-anchor="middle" font-size="12" font-weight="900" fill="#d4870a">a&sup2; + 2ab + b&sup2; = (a + b)&sup2;</text></g><g id="p1expr" opacity="0" style="transition:opacity .5s"><text x="60" y="88" font-size="22" font-weight="900" fill="#2a2218">x&sup2; + 6x + 9</text></g><g id="p1check" opacity="0" style="transition:opacity .5s"><text x="60" y="116" font-size="12" font-weight="800" fill="#d4870a">&#10003; First: x&sup2; &rarr; a = x</text><text x="60" y="133" font-size="12" font-weight="800" fill="#d4870a">&#10003; Last: &#8730;9 = 3 &rarr; b = 3</text><text x="60" y="150" font-size="12" font-weight="800" fill="#d4870a">&#10003; Middle: 2&times;x&times;3 = 6x &#10003;</text></g><g id="p1ans" opacity="0" style="transition:opacity .5s"><rect x="55" y="158" width="170" height="18" rx="5" fill="#eef2eb" stroke="#6b4c2a" stroke-width="1.5"/><text x="140" y="171" text-anchor="middle" font-family="Share Tech Mono" font-size="14" font-weight="bold" fill="#7a8c6e">(x + 3)&sup2;</text></g></svg>';}
-
-function playPersq1(done){
-  setStatus("Checking for perfect square...");say("Factorise x squared plus 6x plus 9. Let us check if this is a perfect square.");
-  at(600,function(){fade("p1id",1);});
-  at(2500,function(){fade("p1expr",1);});
-  at(4000,function(){fade("p1check",1);setStatus("Three checks: first, last, middle.");say("Check 1: first term x squared means a is x. Check 2: last term 9 equals 3 squared, so b is 3. Check 3: middle term is 2 times x times 3 equals 6x. All match!");});
-  at(9000,function(){fade("p1ans",1);setStatus("Perfect square! (x+3) squared");say("It is a perfect square. Answer is x plus 3 whole squared.");at(2000,done);});
+function svgPerfectSquare(){
+  return '<svg viewBox="0 0 420 175" width="100%" xmlns="http://www.w3.org/2000/svg" style="background:#fffdf8">'
+  +'<text x="210" y="24" text-anchor="middle" font-family="Nunito" font-size="16" font-weight="800" fill="#5a4a30">x² + 6x + 9</text>'
+  +'<g id="ps1" opacity="0" style="transition:opacity .5s">'
+  +'<rect x="40" y="40" width="60" height="40" fill="#d4870a" rx="8"/><text x="70" y="66" text-anchor="middle" font-family="Share Tech Mono" font-size="14" fill="#fff">x²</text>'
+  +'<rect x="110" y="40" width="60" height="40" fill="#7a8c6e" rx="8"/><text x="140" y="66" text-anchor="middle" font-family="Share Tech Mono" font-size="14" fill="#fff">6x</text>'
+  +'<rect x="180" y="40" width="60" height="40" fill="#b85c2a" rx="8"/><text x="210" y="66" text-anchor="middle" font-family="Share Tech Mono" font-size="14" fill="#fff">9</text>'
+  +'</g>'
+  +'<g id="ps2" opacity="0" style="transition:opacity .5s">'
+  +'<text x="210" y="105" text-anchor="middle" font-family="Nunito" font-size="13" fill="#5a4a30">Check: (x)² + 2(x)(3) + (3)² ✓</text>'
+  +'</g>'
+  +'<g id="ps3" opacity="0" style="transition:opacity .6s">'
+  +'<rect x="130" y="125" width="160" height="40" fill="#6b4c2a" rx="10"/>'
+  +'<text x="210" y="152" text-anchor="middle" font-family="Share Tech Mono" font-size="18" font-weight="bold" fill="#e8b84b">(x+3)²</text>'
+  +'</g>'
+  +'</svg>';
+}
+function playPerfectSquare(done){
+  setStatus("Checking for perfect square...");
+  say("x squared plus 6x plus 9. First term is x squared, last term is 3 squared. Middle term is 2 times x times 3 which is 6x. It fits!");
+  at(2000,function(){fade("ps1",1);setStatus("x squared, 6x, 9...");});
+  at(4500,function(){fade("ps2",1);setStatus("2 times x times 3 equals 6x!");say("2 times x times 3 equals 6x. Perfect match!");});
+  at(7500,function(){fade("ps3",1);setStatus("x plus 3 whole squared!");say("So it equals x plus 3 whole squared!");at(1500,done);});
 }
 
-function svgSplit1(){return '<svg viewBox="0 0 420 178" width="100%" xmlns="http://www.w3.org/2000/svg" style="background:#fffdf8;font-family:Nunito,sans-serif"><text x="210" y="20" text-anchor="middle" font-family="Orbitron" font-size="11" fill="#d4870a" font-weight="900">SPLITTING THE MIDDLE TERM</text><g id="s1expr" opacity="0" style="transition:opacity .5s"><text x="50" y="58" font-size="22" font-weight="900" fill="#2a2218">x&sup2; + 5x + 6</text></g><g id="s1find" opacity="0" style="transition:opacity .5s"><text x="50" y="85" font-size="12" font-weight="800" fill="#d4870a">m&times;n = 6, m+n = 5 &rarr; m=2, n=3</text></g><g id="s1split" opacity="0" style="transition:opacity .5s"><text x="50" y="110" font-size="15" font-weight="800" fill="#2a2218">x&sup2; + <tspan fill="#b85c2a">2x</tspan> + <tspan fill="#7a8c6e">3x</tspan> + 6</text></g><g id="s1group" opacity="0" style="transition:opacity .5s"><text x="50" y="135" font-size="15" font-weight="800" fill="#2a2218">x(x+2) + 3(x+2)</text></g><g id="s1ans" opacity="0" style="transition:opacity .5s"><rect x="45" y="150" width="210" height="24" rx="7" fill="#eef2eb" stroke="#6b4c2a" stroke-width="1.5"/><text x="150" y="166" text-anchor="middle" font-family="Share Tech Mono" font-size="15" font-weight="bold" fill="#7a8c6e">(x + 2)(x + 3)</text></g></svg>';}
-
-function playSplit1(done){
-  setStatus("Finding two numbers to split...");say("Factorise x squared plus 5x plus 6 by splitting the middle term.");
-  at(600,function(){fade("s1expr",1);});
-  at(2200,function(){fade("s1find",1);setStatus("Product 6, sum 5 → 2 and 3.");say("We need two numbers whose product is 6 and sum is 5. Those are 2 and 3.");});
-  at(5000,function(){fade("s1split",1);setStatus("Split 5x into 2x and 3x.");say("Split 5x into 2x plus 3x.");});
-  at(7000,function(){fade("s1group",1);say("Group: x times x plus 2, plus 3 times x plus 2.");});
-  at(9500,function(){fade("s1ans",1);setStatus("(x+2)(x+3)");say("Both groups share x plus 2. Answer: x plus 2 times x plus 3.");at(2000,done);});
+function svgSplitTerm(){
+  return '<svg viewBox="0 0 420 178" width="100%" xmlns="http://www.w3.org/2000/svg" style="background:#fffdf8">'
+  +'<text x="210" y="22" text-anchor="middle" font-family="Nunito" font-size="16" font-weight="800" fill="#5a4a30">x² + 5x + 6</text>'
+  +'<g id="st1" opacity="0" style="transition:opacity .5s">'
+  +'<text x="210" y="55" text-anchor="middle" font-family="Nunito" font-size="13" fill="#5a4a30">Find: multiply to 6, add to 5</text>'
+  +'<rect x="170" y="68" width="60" height="32" fill="#d4870a" rx="8"/><text x="200" y="88" text-anchor="middle" font-family="Share Tech Mono" font-size="14" font-weight="bold" fill="#fff">2,3</text>'
+  +'</g>'
+  +'<g id="st2" opacity="0" style="transition:opacity .5s">'
+  +'<text x="210" y="115" text-anchor="middle" font-family="Share Tech Mono" font-size="13" fill="#5a4a30">x² + 2x + 3x + 6</text>'
+  +'</g>'
+  +'<g id="st3" opacity="0" style="transition:opacity .6s">'
+  +'<rect x="120" y="140" width="180" height="32" fill="#6b4c2a" rx="8"/>'
+  +'<text x="210" y="161" text-anchor="middle" font-family="Share Tech Mono" font-size="16" font-weight="bold" fill="#e8b84b">(x+2)(x+3)</text>'
+  +'</g>'
+  +'</svg>';
+}
+function playSplitTerm(done){
+  setStatus("Splitting the middle term...");
+  say("For x squared plus 5x plus 6, we need two numbers that multiply to 6 and add to 5.");
+  at(2000,function(){fade("st1",1);setStatus("2 and 3!");say("2 and 3! 2 times 3 is 6, 2 plus 3 is 5!");});
+  at(5000,function(){fade("st2",1);setStatus("x squared plus 2x plus 3x plus 6...");say("Split 5x into 2x plus 3x.");});
+  at(8000,function(){fade("st3",1);setStatus("x plus 2 times x plus 3!");say("Group and factor to get x plus 2 times x plus 3!");at(1500,done);});
 }
 
-function svgSplit2(){return '<svg viewBox="0 0 420 178" width="100%" xmlns="http://www.w3.org/2000/svg" style="background:#fffdf8;font-family:Nunito,sans-serif"><text x="210" y="20" text-anchor="middle" font-family="Orbitron" font-size="11" fill="#d4870a" font-weight="900">NEGATIVE MIDDLE TERM</text><g id="s2expr" opacity="0" style="transition:opacity .5s"><text x="50" y="58" font-size="22" font-weight="900" fill="#2a2218">x&sup2; &minus; 7x + 12</text></g><g id="s2find" opacity="0" style="transition:opacity .5s"><text x="50" y="85" font-size="12" font-weight="800" fill="#d4870a">m&times;n = 12, m+n = &minus;7 &rarr; &minus;3 and &minus;4</text></g><g id="s2split" opacity="0" style="transition:opacity .5s"><text x="50" y="110" font-size="15" font-weight="800" fill="#2a2218">x&sup2; <tspan fill="#b85c2a">&minus;3x</tspan> <tspan fill="#7a8c6e">&minus;4x</tspan> + 12</text></g><g id="s2group" opacity="0" style="transition:opacity .5s"><text x="50" y="135" font-size="15" font-weight="800" fill="#2a2218">x(x&minus;3) &minus; 4(x&minus;3)</text></g><g id="s2ans" opacity="0" style="transition:opacity .5s"><rect x="45" y="150" width="240" height="24" rx="7" fill="#eef2eb" stroke="#6b4c2a" stroke-width="1.5"/><text x="165" y="166" text-anchor="middle" font-family="Share Tech Mono" font-size="15" font-weight="bold" fill="#7a8c6e">(x &minus; 3)(x &minus; 4)</text></g></svg>';}
-
-function playSplit2(done){
-  setStatus("Both split numbers are negative...");say("Factorise x squared minus 7x plus 12.");
-  at(600,function(){fade("s2expr",1);});
-  at(2200,function(){fade("s2find",1);setStatus("Product 12, sum minus 7.");say("We need product 12 and sum minus 7. Both numbers must be negative: minus 3 and minus 4.");});
-  at(5500,function(){fade("s2split",1);say("Split minus 7x into minus 3x and minus 4x.");});
-  at(7500,function(){fade("s2group",1);});
-  at(9500,function(){fade("s2ans",1);setStatus("(x-3)(x-4)");say("Group and factorise. Answer is x minus 3 times x minus 4.");at(2000,done);});
+function svgCommonAndDiff(){
+  return '<svg viewBox="0 0 420 178" width="100%" xmlns="http://www.w3.org/2000/svg" style="background:#fffdf8">'
+  +'<text x="210" y="22" text-anchor="middle" font-family="Nunito" font-size="16" font-weight="800" fill="#5a4a30">2x² - 8</text>'
+  +'<g id="cad1" opacity="0" style="transition:opacity .5s">'
+  +'<rect x="150" y="40" width="120" height="40" fill="#d4870a" rx="8"/><text x="210" y="66" text-anchor="middle" font-family="Share Tech Mono" font-size="14" font-weight="bold" fill="#fff">2(x²-4)</text>'
+  +'</g>'
+  +'<g id="cad2" opacity="0" style="transition:opacity .5s">'
+  +'<text x="210" y="105" text-anchor="middle" font-family="Nunito" font-size="13" fill="#5a4a30">x²-4 = (x+2)(x-2)</text>'
+  +'</g>'
+  +'<g id="cad3" opacity="0" style="transition:opacity .6s">'
+  +'<rect x="110" y="130" width="200" height="40" fill="#6b4c2a" rx="8"/>'
+  +'<text x="210" y="156" text-anchor="middle" font-family="Share Tech Mono" font-size="16" font-weight="bold" fill="#e8b84b">2(x+2)(x-2)</text>'
+  +'</g>'
+  +'</svg>';
+}
+function playCommonAndDiff(done){
+  setStatus("First common factor, then identity...");
+  say("2x squared minus 8. First take out common factor 2.");
+  at(2000,function(){fade("cad1",1);setStatus("2 times bracket x squared minus 4...");});
+  at(4500,function(){fade("cad2",1);setStatus("x squared minus 4 is difference of squares...");say("Inside, x squared minus 4 is difference of squares!");});
+  at(7500,function(){fade("cad3",1);setStatus("2 times x plus 2 times x minus 2!");say("Final answer: 2 times x plus 2 times x minus 2!");at(1500,done);});
 }
 
-function svgGroup1(){return '<svg viewBox="0 0 420 178" width="100%" xmlns="http://www.w3.org/2000/svg" style="background:#fffdf8;font-family:Nunito,sans-serif"><text x="210" y="20" text-anchor="middle" font-family="Orbitron" font-size="11" fill="#d4870a" font-weight="900">FACTORISATION BY GROUPING</text><g id="g1expr" opacity="0" style="transition:opacity .5s"><text x="35" y="60" font-size="19" font-weight="900" fill="#2a2218">ax + ay + bx + by</text></g><g id="g1grp" opacity="0" style="transition:opacity .5s"><rect x="32" y="40" width="112" height="28" rx="6" fill="none" stroke="#b85c2a" stroke-width="2" stroke-dasharray="4,2"/><rect x="192" y="40" width="112" height="28" rx="6" fill="none" stroke="#7a8c6e" stroke-width="2" stroke-dasharray="4,2"/></g><g id="g1step" opacity="0" style="transition:opacity .5s"><text x="35" y="102" font-size="16" font-weight="800" fill="#2a2218">a(x + y) + b(x + y)</text></g><g id="g1common" opacity="0" style="transition:opacity .5s"><text x="35" y="128" font-size="13" font-weight="800" fill="#d4870a">Common factor: (x + y)</text></g><g id="g1ans" opacity="0" style="transition:opacity .5s"><rect x="30" y="146" width="210" height="28" rx="8" fill="#eef2eb" stroke="#6b4c2a" stroke-width="1.5"/><text x="135" y="164" text-anchor="middle" font-family="Share Tech Mono" font-size="17" font-weight="bold" fill="#7a8c6e">(x + y)(a + b)</text></g></svg>';}
-
-function playGroup1(done){
-  setStatus("Grouping method...");say("Factorise ax plus ay plus bx plus by using grouping.");
-  at(600,function(){fade("g1expr",1);});
-  at(2200,function(){fade("g1grp",1);setStatus("Group first two and last two.");say("Group the first two terms and the last two terms.");});
-  at(4500,function(){fade("g1step",1);say("Take a common from the first group: a times x plus y. Take b from the second: b times x plus y.");});
-  at(7500,function(){fade("g1common",1);say("Both groups share the factor x plus y. Take it out!");});
-  at(9500,function(){fade("g1ans",1);setStatus("(x+y)(a+b)");say("Answer is x plus y times a plus b.");at(2000,done);});
+/* Routers */
+function getAnimSVG(type){
+  if(type==="common_factor") return svgCommonFactor();
+  if(type==="grouping") return svgGrouping();
+  if(type==="diff_squares") return svgDiffSquares();
+  if(type==="perfect_square") return svgPerfectSquare();
+  if(type==="split_term") return svgSplitTerm();
+  if(type==="common_and_diff") return svgCommonAndDiff();
+  return "";
+}
+function getAnimPlay(type){
+  if(type==="common_factor") return playCommonFactor;
+  if(type==="grouping") return playGrouping;
+  if(type==="diff_squares") return playDiffSquares;
+  if(type==="perfect_square") return playPerfectSquare;
+  if(type==="split_term") return playSplitTerm;
+  if(type==="common_and_diff") return playCommonAndDiff;
+  return function(d){d();};
 }
 
-function svgDiffSq2(){return '<svg viewBox="0 0 420 178" width="100%" xmlns="http://www.w3.org/2000/svg" style="background:#fffdf8;font-family:Nunito,sans-serif"><text x="210" y="20" text-anchor="middle" font-family="Orbitron" font-size="11" fill="#d4870a" font-weight="900">DIFFERENCE OF SQUARES — LEVEL 2</text><g id="d2expr" opacity="0" style="transition:opacity .5s"><text x="60" y="70" font-size="28" font-weight="900" fill="#2a2218">4x&sup2; &minus; 25</text></g><g id="d2identify" opacity="0" style="transition:opacity .5s"><text x="50" y="102" font-size="14" font-weight="800" fill="#b85c2a">4x&sup2; = (2x)&sup2; &nbsp;&rarr;&nbsp; a = 2x</text><text x="50" y="122" font-size="14" font-weight="800" fill="#7a8c6e">25 = 5&sup2; &nbsp;&rarr;&nbsp; b = 5</text></g><g id="d2ans" opacity="0" style="transition:opacity .5s"><rect x="45" y="140" width="270" height="30" rx="8" fill="#eef2eb" stroke="#6b4c2a" stroke-width="1.5"/><text x="180" y="159" text-anchor="middle" font-family="Share Tech Mono" font-size="18" font-weight="bold" fill="#7a8c6e">(2x + 5)(2x &minus; 5)</text></g></svg>';}
-
-function playDiffSq2(done){
-  setStatus("Both terms are perfect squares!");say("Factorise 4x squared minus 25. Both terms are perfect squares.");
-  at(600,function(){fade("d2expr",1);});
-  at(2500,function(){fade("d2identify",1);setStatus("a = 2x, b = 5.");say("4x squared equals 2x whole squared, so a is 2x. 25 equals 5 squared, so b is 5.");});
-  at(6500,function(){fade("d2ans",1);setStatus("(2x+5)(2x-5)");say("Answer is 2x plus 5 times 2x minus 5.");at(2000,done);});
-}
-
-function svgCubic1(){return '<svg viewBox="0 0 420 178" width="100%" xmlns="http://www.w3.org/2000/svg" style="background:#fffdf8;font-family:Nunito,sans-serif"><text x="210" y="20" text-anchor="middle" font-family="Orbitron" font-size="11" fill="#d4870a" font-weight="900">COMPLETE FACTORISATION — TWO STEPS</text><g id="c1expr" opacity="0" style="transition:opacity .5s"><text x="60" y="64" font-size="28" font-weight="900" fill="#2a2218">x&sup3; &minus; x</text></g><g id="c1s1" opacity="0" style="transition:opacity .5s"><text x="50" y="96" font-size="13" font-weight="800" fill="#d4870a">Step 1: Take x common</text><text x="50" y="116" font-size="18" font-weight="800" fill="#2a2218">&rarr; x(x&sup2; &minus; 1)</text></g><g id="c1s2" opacity="0" style="transition:opacity .5s"><text x="50" y="142" font-size="13" font-weight="800" fill="#d4870a">Step 2: x&sup2; &minus; 1 is difference of squares</text><text x="50" y="162" font-size="18" font-weight="800" fill="#7a8c6e">&rarr; x(x+1)(x&minus;1)</text></g></svg>';}
-
-function playCubic1(done){
-  setStatus("Two-step complete factorisation...");say("Factorise completely x cubed minus x. We need two steps.");
-  at(600,function(){fade("c1expr",1);});
-  at(2200,function(){fade("c1s1",1);setStatus("Step 1: Take x common.");say("Step 1: Take x common from both terms. We get x times x squared minus 1.");});
-  at(5500,function(){fade("c1s2",1);setStatus("Step 2: Difference of squares on (x squared minus 1).");say("Step 2: x squared minus 1 is difference of squares. Final answer: x times x plus 1 times x minus 1.");at(3000,done);});
-}
-
-function svgSplit3(){return '<svg viewBox="0 0 420 178" width="100%" xmlns="http://www.w3.org/2000/svg" style="background:#fffdf8;font-family:Nunito,sans-serif"><text x="210" y="20" text-anchor="middle" font-family="Orbitron" font-size="11" fill="#d4870a" font-weight="900">LEADING COEFFICIENT NOT 1</text><g id="s3expr" opacity="0" style="transition:opacity .5s"><text x="50" y="58" font-size="22" font-weight="900" fill="#2a2218">2x&sup2; + 7x + 3</text></g><g id="s3ac" opacity="0" style="transition:opacity .5s"><text x="50" y="85" font-size="12" font-weight="800" fill="#d4870a">a&times;c = 2&times;3 = 6 &nbsp; Factors of 6 adding to 7: 1,6</text></g><g id="s3split" opacity="0" style="transition:opacity .5s"><text x="50" y="110" font-size="15" font-weight="800" fill="#2a2218">2x&sup2; + <tspan fill="#b85c2a">x</tspan> + <tspan fill="#7a8c6e">6x</tspan> + 3</text></g><g id="s3group" opacity="0" style="transition:opacity .5s"><text x="50" y="135" font-size="15" font-weight="800" fill="#2a2218">x(2x+1) + 3(2x+1)</text></g><g id="s3ans" opacity="0" style="transition:opacity .5s"><rect x="45" y="150" width="230" height="24" rx="7" fill="#eef2eb" stroke="#6b4c2a" stroke-width="1.5"/><text x="160" y="166" text-anchor="middle" font-family="Share Tech Mono" font-size="15" font-weight="bold" fill="#7a8c6e">(2x + 1)(x + 3)</text></g></svg>';}
-
-function playSplit3(done){
-  setStatus("When leading coefficient is not 1...");say("Factorise 2x squared plus 7x plus 3.");
-  at(600,function(){fade("s3expr",1);});
-  at(2200,function(){fade("s3ac",1);setStatus("Multiply a and c: 2 times 3 = 6.");say("Multiply a times c: 2 times 3 equals 6. Factors of 6 that add to 7 are 1 and 6.");});
-  at(5500,function(){fade("s3split",1);say("Split 7x into x plus 6x.");});
-  at(7500,function(){fade("s3group",1);say("Group: x times 2x plus 1, plus 3 times 2x plus 1.");});
-  at(9500,function(){fade("s3ans",1);setStatus("(2x+1)(x+3)");say("Answer is 2x plus 1 times x plus 3.");at(2000,done);});
-}
-
-function getAnimSVG(t){var m={hcf1:svgHcf1,hcf2:svgHcf2,diffsq1:svgDiffSq1,persq1:svgPersq1,split1:svgSplit1,split2:svgSplit2,group1:svgGroup1,diffsq2:svgDiffSq2,cubic1:svgCubic1,split3:svgSplit3};return m[t]?m[t]():'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="background:#fffdf8"><text x="210" y="89" text-anchor="middle" font-family="Nunito" font-size="14" fill="#5a4a30">Loading...</text></svg>';}
-function getAnimPlay(t){var m={hcf1:playHcf1,hcf2:playHcf2,diffsq1:playDiffSq1,persq1:playPersq1,split1:playSplit1,split2:playSplit2,group1:playGroup1,diffsq2:playDiffSq2,cubic1:playCubic1,split3:playSplit3};return m[t]||function(done){done();};}
-
+/* ═══════ ENGINE ═══════ */
 var session=[],idx=0,stepIdx=0,nudgeCount=0,completed=false;
 var recog=null,listening=false,breakSecs=0,breakTmr=null;
-var PER_SESSION=10;
-
+var PER_SESSION=6;
 function init(){
   var st=JSON.parse(localStorage.getItem("rishi_current_student")||"{}");
   G("sName").textContent=st.studentName?st.studentName.split(" ")[0]:"there";
@@ -424,15 +471,21 @@ function init(){
   buildSession();setupRecog();rInit();
   initVoices(function(){say(G("introText").innerText);setTimeout(showQ,2200);});
 }
-function buildSession(){var first=QB[0];var rest=QB.slice(1).sort(function(){return Math.random()-.5;});session=[first].concat(rest.slice(0,PER_SESSION-1));}
+function buildSession(){session=QB;}
 function showQ(){
   if(idx>=session.length){onComplete();return;}
-  var q=session[idx];stepIdx=0;nudgeCount=0;updateProg();G("qArea").innerHTML="";clearAt();
+  var q=session[idx];stepIdx=0;nudgeCount=0;
+  updateProg();G("qArea").innerHTML="";clearAt();
   var qc=document.createElement("div");qc.className="q-card";
-  qc.innerHTML='<div class="q-label">Question '+(idx+1)+' of '+PER_SESSION+'</div><div class="q-text">'+q.q+'</div><button class="btn-speak" onclick="say(session[idx].qs)">&#128266; Hear</button>';
+  qc.innerHTML='<div class="q-label">Question '+(idx+1)+' of '+PER_SESSION+'</div>'
+    +'<div class="q-text">'+q.q+'</div>'
+    +'<button class="btn-speak" onclick="say(session[idx].qs)">&#128266; Hear</button>';
   G("qArea").appendChild(qc);
   var ap=document.createElement("div");ap.className="anim-panel";
-  ap.innerHTML='<div class="anim-header"><span class="anim-header-lbl">&#127909; Live Animation</span><button class="anim-replay" id="animReplay" onclick="replayAnim()">&#8635; Replay</button></div>'
+  ap.innerHTML='<div class="anim-header">'
+    +'<span class="anim-header-lbl">&#127909; Live Animation</span>'
+    +'<button class="anim-replay" id="animReplay" onclick="replayAnim()">&#8635; Replay</button>'
+    +'</div>'
     +'<div class="anim-canvas" id="animCanvas">'+getAnimSVG(q.anim)+'</div>'
     +'<div class="anim-status" id="animStatus">Tap Play to watch with narration!</div>'
     +'<button class="anim-play-btn" id="animPlayBtn" onclick="startAnim()">&#9654; Play Animation</button>'
@@ -440,11 +493,16 @@ function showQ(){
   G("qArea").appendChild(ap);
 }
 function startAnim(){
-  var q=session[idx];var pb=G("animPlayBtn");if(pb){pb.disabled=true;pb.textContent="&#9654; Playing...";}
-  getAnimPlay(q.anim)(function(){var sb=G("stepsBtn");if(sb)sb.style.display="block";var rb=G("animReplay");if(rb)rb.style.display="block";if(pb)pb.style.display="none";});
+  var q=session[idx];var pb=G("animPlayBtn");
+  if(pb){pb.disabled=true;pb.textContent="&#9654; Playing...";}
+  getAnimPlay(q.anim)(function(){
+    var sb=G("stepsBtn");if(sb)sb.style.display="block";
+    var rb=G("animReplay");if(rb)rb.style.display="block";
+    if(pb)pb.style.display="none";
+  });
 }
 function replayAnim(){
-  clearAt();window.speechSynthesis&&window.speechSynthesis.cancel();rStopTalk();
+  clearAt();window.speechSynthesis&&window.speechSynthesis.cancel();
   var q=session[idx];var canvas=G("animCanvas");if(canvas)canvas.innerHTML=getAnimSVG(q.anim);
   G("animReplay").style.display="none";G("stepsBtn").style.display="none";
   var pb=G("animPlayBtn");if(pb){pb.style.display="block";pb.disabled=false;pb.textContent="&#9654; Play Animation";}
@@ -452,12 +510,15 @@ function replayAnim(){
 }
 function beginSteps(){
   var q=session[idx];var sc=document.createElement("div");sc.className="q-card";
-  sc.innerHTML='<div class="q-label">&#128214; Step-by-Step</div><div id="stepsWrap"></div><button class="btn-speak" id="nxtStepBtn" onclick="nextStep()" style="margin-top:10px;">&#9654; Next Step</button>';
+  sc.innerHTML='<div class="q-label">&#128214; Step-by-Step</div>'
+    +'<div id="stepsWrap"></div>'
+    +'<button class="btn-speak" id="nxtStepBtn" onclick="nextStep()" style="margin-top:10px;">&#9654; Next Step</button>';
   G("qArea").appendChild(sc);sc.scrollIntoView({behavior:"smooth",block:"start"});
   G("stepsBtn").style.display="none";setTimeout(nextStep,350);
 }
 function nextStep(){
-  var q=session[idx];if(stepIdx>=q.steps.length){G("nxtStepBtn").style.display="none";showConfirm();return;}
+  var q=session[idx];
+  if(stepIdx>=q.steps.length){G("nxtStepBtn").style.display="none";showConfirm();return;}
   var s=q.steps[stepIdx];var wrap=G("stepsWrap");
   var d=document.createElement("div");d.className="step";
   d.innerHTML='<div class="step-num">'+(stepIdx+1)+'</div><div class="step-body">'+s.t+'</div>';
@@ -466,46 +527,80 @@ function nextStep(){
 }
 function showConfirm(){
   var q=session[idx];var c=document.createElement("div");c.className="confirm-wrap";
-  c.innerHTML='<div class="confirm-title">&#127908; Rishika asks!</div><div class="confirm-q">'+q.cq+'</div>'
+  c.innerHTML='<div class="confirm-title">&#127908; Rishika asks!</div>'
+    +'<div class="confirm-q">'+q.cq+'</div>'
     +'<button class="mic-btn" id="micBtn" onclick="startListen()">&#127908; Tap and Speak</button>'
-    +'<div class="transcript" id="tbox"></div><div class="result-box" id="rbox"></div>'
-    +'<div class="nudge" id="nudgeBox"></div><button class="btn-next" id="btnNext" onclick="goNext()">Next Question &#9654;</button>';
+    +'<div class="transcript" id="tbox"></div>'
+    +'<div class="result-box" id="rbox"></div>'
+    +'<div class="nudge" id="nudgeBox"></div>'
+    +'<button class="btn-next" id="btnNext" onclick="goNext()">Next Question &#9654;</button>';
   G("qArea").appendChild(c);c.scrollIntoView({behavior:"smooth",block:"center"});
   setTimeout(function(){say(q.cqs);},500);
 }
 function goNext(){idx++;G("qArea").innerHTML="";showQ();window.scrollTo({top:0,behavior:"smooth"});}
-function updateProg(){var pct=Math.round((idx/PER_SESSION)*100);G("progFill").style.width=pct+"%";G("progLabel").textContent="Question "+(idx+1)+" of "+PER_SESSION;G("progPct").textContent=pct+"%";}
-function unlockNav(){G("btnPractice").classList.remove("locked");G("btnExam").classList.remove("locked");G("lockTip").style.display="none";}
+function updateProg(){
+  var pct=Math.round((idx/PER_SESSION)*100);
+  G("progFill").style.width=pct+"%";
+  G("progLabel").textContent="Question "+(idx+1)+" of "+PER_SESSION;
+  G("progPct").textContent=pct+"%";
+}
+function unlockNav(){G("btnPractice").classList.remove("locked");G("btnExam").classList.remove("locked");}
 function onComplete(){
   var prog=JSON.parse(localStorage.getItem("rishi_progress")||"{}");
-  prog["explain_factorisation_done"]=true;
-  localStorage.setItem("rishi_progress",JSON.stringify(prog));
+  prog["explain_factorisation_done"]=true;localStorage.setItem("rishi_progress",JSON.stringify(prog));
   completed=true;G("doneBanner").classList.add("show");unlockNav();
   var st=JSON.parse(localStorage.getItem("rishi_current_student")||"{}");
   var nm=st.studentName?st.studentName.split(" ")[0]:"champion";
   var cel=document.createElement("div");cel.className="rishika-wrap";
   cel.innerHTML='<div class="rishika-avatar">&#128105;&#8205;&#127979;</div>'
     +'<div class="rishika-bubble"><div class="rishika-name">Rishika</div>'
-    +'<div class="rishika-text" id="celText">&#127881; <span class="hl">'+nm+'</span>, excellent work! You have mastered <span class="hl">Factorisation</span>! &#128537;</div>'
+    +'<div class="rishika-text" id="celText">&#127881; <span class="hl">'+nm+'</span>, excellent! You mastered <span class="hl">Factorisation</span>! &#128290;</div>'
     +'<button class="btn-speak" onclick="sayEl(\'celText\')">&#128266; Hear</button></div>';
   G("qArea").appendChild(cel);setTimeout(function(){sayEl("celText");rHappy();},400);
 }
 function goPractice(){if(!completed){alert("Complete explanations first!");return;}location.href="/practice.html?chapter=factorisation";}
 function goExam(){if(!completed){alert("Complete explanations first!");return;}location.href="/exam.html?chapter=factorisation";}
-function setupRecog(){var SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR)return;recog=new SR();recog.lang="en-IN";recog.continuous=false;recog.interimResults=false;recog.onresult=function(e){handleAnswer(e.results[0][0].transcript.toLowerCase().trim());};recog.onerror=function(){setListen(false);showNudge("Could not hear. Try again!");};recog.onend=function(){setListen(false);};}
-function startListen(){if(!recog){showNudge("Voice needs Chrome!");return;}if(listening){recog.stop();return;}setListen(true);var tb=G("tbox");if(tb){tb.classList.add("show");tb.textContent="Listening...";}recog.start();}
-function setListen(on){listening=on;var btn=G("micBtn");if(btn){btn.className="mic-btn"+(on?" on":"");btn.textContent=on?"&#127908; Listening...":"&#127908; Tap and Speak";}}
+function setupRecog(){
+  var SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR)return;
+  recog=new SR();recog.lang="en-IN";recog.continuous=false;recog.interimResults=false;
+  recog.onresult=function(e){handleAnswer(e.results[0][0].transcript.toLowerCase().trim());};
+  recog.onerror=function(){setListen(false);showNudge("Could not hear. Try again!");};
+  recog.onend=function(){setListen(false);};
+}
+function startListen(){
+  if(!recog){showNudge("Voice needs Chrome!");return;}
+  if(listening){recog.stop();return;}setListen(true);
+  var tb=G("tbox");if(tb){tb.classList.add("show");tb.textContent="Listening...";}recog.start();
+}
+function setListen(on){
+  listening=on;var btn=G("micBtn");
+  if(btn){btn.className="mic-btn"+(on?" on":"");btn.textContent=on?"&#127908; Listening...":"&#127908; Tap and Speak";}
+}
 function handleAnswer(text){
   var tb=G("tbox");if(tb)tb.textContent='"'+text+'"';
-  var q=session[idx];var ok=q.ans.some(function(a){return text.includes(a.toLowerCase())||a.toLowerCase().includes(text);});
+  var q=session[idx];
+  var ok=q.ans.some(function(a){return text.includes(a.toLowerCase())||a.toLowerCase().includes(text);});
   var rb=G("rbox");
-  if(ok){rb.className="result-box ok";rb.textContent="&#10003; Correct! Excellent!";G("nudgeBox").classList.remove("show");var nb=G("btnNext");if(nb)nb.classList.add("show");say("Correct! Excellent!");rHappy();}
-  else{nudgeCount++;rb.className="result-box no";rb.textContent="&#10006; Not quite. Listen to my hint!";var nudge=q.nudges[Math.min(nudgeCount-1,q.nudges.length-1)];showNudge(nudge);say(nudge);rThink();if(nudgeCount>=3){var nb2=G("btnNext");if(nb2){nb2.classList.add("show");nb2.textContent="I Understand &#9654;";}}}
+  if(ok){
+    rb.className="result-box ok";rb.textContent="&#10003; Correct! Excellent!";
+    G("nudgeBox").classList.remove("show");
+    var nb=G("btnNext");if(nb)nb.classList.add("show");
+    say("Correct! Excellent!");rHappy();
+  } else {
+    nudgeCount++;rb.className="result-box no";rb.textContent="&#10006; Not quite. Listen to my hint!";
+    var nudge=q.nudges[Math.min(nudgeCount-1,q.nudges.length-1)];
+    showNudge(nudge);say(nudge);rThink();
+    if(nudgeCount>=3){var nb2=G("btnNext");if(nb2){nb2.classList.add("show");nb2.textContent="I Understand &#9654;";}}
+  }
 }
 function showNudge(msg){var n=G("nudgeBox");if(n){n.textContent=msg;n.classList.add("show");}}
 function openBreak(){G("breakOv").classList.add("show");}
 function closeBreak(){G("breakOv").classList.remove("show");}
-function startBreak(r){closeBreak();breakSecs=0;G("timerLbl").textContent=r;G("timerNum").textContent="00:00";G("timerScreen").classList.add("show");breakTmr=setInterval(function(){breakSecs++;var m=String(Math.floor(breakSecs/60)).padStart(2,"0");var s=String(breakSecs%60).padStart(2,"0");G("timerNum").textContent=m+":"+s;},1000);}
+function startBreak(r){
+  closeBreak();breakSecs=0;G("timerLbl").textContent=r;G("timerNum").textContent="00:00";
+  G("timerScreen").classList.add("show");
+  breakTmr=setInterval(function(){breakSecs++;var m=String(Math.floor(breakSecs/60)).padStart(2,"0"),s=String(breakSecs%60).padStart(2,"0");G("timerNum").textContent=m+":"+s;},1000);
+}
 function endBreak(){clearInterval(breakTmr);G("timerScreen").classList.remove("show");}
 window.onload=init;
 </script>
