@@ -3,615 +3,302 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RISHI — Explain: Powers and Exponents</title>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Nunito:wght@400;600;700;800;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<title>Powers and Exponents – Class 8 | RISHI</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --cream:#fdf6ec; --warm-white:#fffdf8; --gold:#c8922a; --gold-light:#e8b84b;
-    --gold-pale:#f5e6c8; --amber:#d4870a; --sage:#7a8c6e; --sage-light:#a8b89a;
-    --rust:#b85c2a; --charcoal:#2a2218; --mid:#5a4a30; --soft:#8a7a5a;
-    --inactive:#c8b89a; --border-dark:#6b4c2a; --error:#c0392b;
-  }
-  *{box-sizing:border-box;margin:0;padding:0;}
-  body{background:var(--cream);font-family:'Nunito',sans-serif;min-height:100vh;color:var(--charcoal);}
-  body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(var(--gold-pale) 1px,transparent 1px),linear-gradient(90deg,var(--gold-pale) 1px,transparent 1px);background-size:40px 40px;opacity:.3;z-index:0;pointer-events:none;}
-
-  .topbar{position:sticky;top:0;z-index:100;background:rgba(253,246,236,.97);border-bottom:2px solid var(--border-dark);backdrop-filter:blur(8px);padding:11px 22px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;}
-  .logo-sm{font-family:'Orbitron',sans-serif;font-size:18px;font-weight:900;letter-spacing:4px;background:linear-gradient(135deg,var(--amber),var(--gold-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-  .topbar-center{font-family:'Orbitron',sans-serif;font-size:11px;letter-spacing:2px;color:var(--amber);text-transform:uppercase;}
-  .topbar-right{display:flex;gap:10px;align-items:center;}
-  .btn-topbar{font-family:'Nunito',sans-serif;font-size:13px;font-weight:900;padding:7px 16px;border-radius:20px;border:2px solid var(--border-dark);background:var(--warm-white);color:var(--mid);cursor:pointer;transition:all .2s;}
-  .btn-topbar:hover{background:var(--gold-pale);}
-  .btn-topbar.back{background:var(--gold-pale);}
-  .btn-topbar.back:hover{background:var(--amber);color:#fff;}
-
-  .prog-wrap{position:relative;z-index:10;padding:10px 22px;background:rgba(255,253,248,.9);border-bottom:1.5px solid var(--gold-pale);}
-  .prog-info{display:flex;justify-content:space-between;font-size:12px;font-weight:800;color:var(--mid);margin-bottom:6px;}
-  .prog-bar{height:7px;background:var(--gold-pale);border-radius:4px;overflow:hidden;}
-  .prog-fill{height:100%;background:linear-gradient(90deg,var(--sage),var(--gold));border-radius:4px;transition:width .5s ease;}
-
-  .main{position:relative;z-index:10;max-width:820px;margin:0 auto;padding:20px 18px 130px;}
-
-  .rishika-wrap{display:flex;align-items:flex-start;gap:14px;margin-bottom:22px;}
-  .rishika-avatar{width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,var(--sage),var(--sage-light));border:2px solid var(--border-dark);display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0;box-shadow:0 4px 16px rgba(122,140,110,.3);}
-  .rishika-bubble{background:rgba(255,253,248,.97);border:2px solid var(--border-dark);border-radius:0 18px 18px 18px;padding:16px 20px;flex:1;box-shadow:0 4px 20px rgba(107,76,42,.1);}
-  .rishika-name{font-size:11px;font-weight:900;color:var(--sage);letter-spacing:2px;text-transform:uppercase;margin-bottom:6px;}
-  .rishika-text{font-size:15px;font-weight:700;color:var(--charcoal);line-height:1.7;}
-  .hl{color:var(--amber);font-weight:900;}
-  .fm{font-family:'Share Tech Mono',monospace;background:var(--gold-pale);border:1.5px solid var(--border-dark);border-radius:6px;padding:2px 8px;font-size:14px;color:var(--mid);}
-
-  .btn-speak{display:inline-flex;align-items:center;gap:7px;font-family:'Nunito',sans-serif;font-size:12px;font-weight:900;padding:6px 13px;border-radius:20px;border:2px solid var(--sage);background:#eef2eb;color:var(--sage);cursor:pointer;margin-top:10px;transition:all .2s;}
-  .btn-speak:hover,.btn-speak.on{background:var(--sage);color:#fff;}
-
-  .q-card{background:rgba(255,253,248,.97);border:2px solid var(--border-dark);border-radius:18px;padding:20px 22px;margin-bottom:16px;box-shadow:0 4px 20px rgba(107,76,42,.1);}
-  .q-label{font-family:'Orbitron',sans-serif;font-size:11px;letter-spacing:3px;color:var(--amber);text-transform:uppercase;margin-bottom:10px;}
-  .q-text{font-size:16px;font-weight:800;color:var(--charcoal);line-height:1.7;margin-bottom:12px;}
-
-  .step{display:flex;gap:12px;margin-bottom:14px;opacity:0;transform:translateY(8px);transition:all .4s ease;}
-  .step.vis{opacity:1;transform:translateY(0);}
-  .step-num{width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;font-size:11px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:2px solid var(--border-dark);}
-  .step-body{flex:1;font-size:14px;font-weight:700;color:var(--mid);line-height:1.7;padding-top:2px;}
-  .ans-tag{font-family:'Share Tech Mono',monospace;background:linear-gradient(135deg,#eef2eb,#f5fbf2);border:2px solid var(--border-dark);border-radius:8px;padding:3px 10px;color:var(--sage);font-size:14px;}
-
-  .drawing-wrap{background:var(--warm-white);border:2px solid var(--border-dark);border-radius:14px;padding:14px 16px;margin:14px 0;text-align:center;}
-  .drawing-lbl{font-size:11px;font-weight:900;color:var(--soft);letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;}
-
-  .confirm-wrap{margin-top:16px;background:linear-gradient(135deg,#eef2eb,#f5fbf2);border:2px solid var(--border-dark);border-radius:14px;padding:18px 20px;}
-  .confirm-title{font-size:12px;font-weight:900;color:var(--sage);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;}
-  .confirm-q{font-size:15px;font-weight:800;color:var(--charcoal);margin-bottom:14px;line-height:1.6;}
-  .mic-btn{display:flex;align-items:center;gap:10px;width:100%;font-family:'Nunito',sans-serif;font-size:15px;font-weight:900;padding:12px 18px;border-radius:12px;border:2px solid var(--border-dark);background:var(--warm-white);color:var(--mid);cursor:pointer;transition:all .2s;margin-bottom:10px;}
-  .mic-btn:hover{border-color:var(--sage);color:var(--sage);}
-  .mic-btn.on{background:var(--sage);color:#fff;border-color:var(--sage);animation:blnk .8s ease-in-out infinite;}
-  @keyframes blnk{0%,100%{opacity:1}50%{opacity:.5}}
-  .transcript{font-family:'Share Tech Mono',monospace;font-size:13px;color:var(--charcoal);background:var(--warm-white);border:2px solid var(--border-dark);border-radius:10px;padding:9px 13px;min-height:38px;margin-bottom:10px;display:none;}
-  .transcript.show{display:block;}
-  .result-box{font-size:13px;font-weight:800;padding:10px 14px;border-radius:10px;display:none;line-height:1.5;}
-  .result-box.ok{background:#eef2eb;border:2px solid var(--sage);color:var(--sage);display:block;}
-  .result-box.no{background:#fff5f0;border:2px solid var(--rust);color:var(--rust);display:block;}
-  .nudge{font-size:13px;font-weight:700;color:var(--mid);margin-top:8px;font-style:italic;display:none;}
-  .nudge.show{display:block;}
-  .btn-next{font-family:'Nunito',sans-serif;font-size:15px;font-weight:900;padding:12px 24px;border-radius:12px;border:none;background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;cursor:pointer;box-shadow:0 4px 16px rgba(212,135,10,.3);transition:all .2s;display:none;margin-top:12px;width:100%;}
-  .btn-next.show{display:block;}
-  .btn-next:hover{transform:translateY(-1px);}
-
-  .bottom-nav{position:fixed;bottom:0;left:0;right:0;z-index:100;background:rgba(253,246,236,.97);border-top:2px solid var(--border-dark);padding:12px 22px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap;align-items:center;}
-  .btn-nav{font-family:'Nunito',sans-serif;font-size:14px;font-weight:900;padding:11px 24px;border-radius:12px;border:2px solid var(--border-dark);cursor:pointer;transition:all .2s;}
-  .btn-nav.practice{background:linear-gradient(135deg,var(--sage),var(--sage-light));color:#fff;border-color:var(--sage);}
-  .btn-nav.exam{background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;border-color:var(--amber);}
-  .btn-nav.locked{background:var(--gold-pale);color:var(--inactive);cursor:not-allowed;border-color:var(--inactive);}
-  .btn-nav:not(.locked):hover{transform:translateY(-2px);}
-  .lock-tip{font-size:11px;font-weight:700;color:var(--rust);width:100%;text-align:center;}
-
-  .overlay{display:none;position:fixed;inset:0;background:rgba(42,34,24,.92);z-index:1000;flex-direction:column;align-items:center;justify-content:center;backdrop-filter:blur(6px);}
-  .overlay.show{display:flex;}
-  .break-box{background:var(--warm-white);border:2px solid var(--border-dark);border-radius:24px;padding:32px 36px;max-width:400px;width:90%;text-align:center;}
-  .break-title{font-family:'Orbitron',sans-serif;font-size:15px;font-weight:900;color:var(--amber);letter-spacing:3px;margin-bottom:5px;}
-  .break-sub{font-size:13px;font-weight:700;color:var(--soft);margin-bottom:20px;}
-  .break-opts{display:flex;flex-direction:column;gap:9px;margin-bottom:16px;}
-  .break-opt{font-family:'Nunito',sans-serif;font-size:15px;font-weight:800;padding:12px;border-radius:12px;border:2px solid var(--border-dark);background:var(--warm-white);color:var(--mid);cursor:pointer;transition:all .2s;}
-  .break-opt:hover{background:var(--gold-pale);border-color:var(--amber);}
-
-  .timer-screen{display:none;position:fixed;inset:0;background:#1a1208;z-index:1001;flex-direction:column;align-items:center;justify-content:center;}
-  .timer-screen.show{display:flex;}
-  .timer-reason{font-family:'Orbitron',sans-serif;font-size:13px;letter-spacing:4px;color:var(--gold-light);margin-bottom:18px;text-transform:uppercase;}
-  .timer-num{font-family:'Orbitron',sans-serif;font-size:76px;font-weight:900;color:var(--gold-light);letter-spacing:8px;margin-bottom:36px;text-shadow:0 0 40px rgba(232,184,75,.4);}
-  .btn-end{font-family:'Nunito',sans-serif;font-size:17px;font-weight:900;padding:15px 36px;border-radius:14px;border:2px solid var(--gold-light);background:transparent;color:var(--gold-light);cursor:pointer;transition:all .2s;}
-  .btn-end:hover{background:var(--gold-light);color:var(--charcoal);}
-
-  .done-banner{background:linear-gradient(135deg,#eef2eb,#f5fbf2);border:2px solid var(--border-dark);border-radius:16px;padding:18px 22px;text-align:center;margin-bottom:18px;display:none;}
-  .done-banner.show{display:block;}
-  .done-banner .dt{font-family:'Orbitron',sans-serif;font-size:13px;letter-spacing:2px;color:var(--sage);margin-bottom:5px;}
-  .done-banner .ds{font-size:14px;font-weight:700;color:var(--mid);}
-
-  @media(max-width:600px){
-    .main{padding:14px 10px 130px;}
-    .topbar,.prog-wrap{padding-left:12px;padding-right:12px;}
-    .timer-num{font-size:52px;}
-  }
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Poppins',sans-serif;background:linear-gradient(135deg,#0d1f12,#1a3a22,#0a2a18);min-height:100vh;color:#fff;display:flex;flex-direction:column}
+.top-bar{display:flex;align-items:center;justify-content:space-between;padding:12px 20px;background:rgba(255,255,255,0.05);border-bottom:1px solid rgba(255,255,255,0.1)}
+.top-bar .logo{font-size:1.4rem;font-weight:700;color:#4ade80;letter-spacing:2px}
+.top-bar .chapter{font-size:0.82rem;color:#aaa}
+.score-pill{background:rgba(74,222,128,0.15);border:1px solid #4ade80;border-radius:20px;padding:4px 14px;font-size:0.78rem;color:#4ade80}
+.progress-wrap{height:4px;background:rgba(255,255,255,0.1)}
+.progress-bar{height:4px;background:linear-gradient(90deg,#4ade80,#16a34a);transition:width 0.5s ease}
+.main{display:flex;flex:1}
+.rishika-panel{width:158px;min-width:158px;display:flex;flex-direction:column;align-items:center;padding:18px 10px;background:rgba(255,255,255,0.03);border-right:1px solid rgba(255,255,255,0.08)}
+.rishika-svg-wrap{width:118px;height:138px}
+.speech-bubble{background:rgba(255,255,255,0.95);color:#333;border-radius:12px;padding:9px 11px;font-size:0.68rem;line-height:1.5;margin-top:10px;position:relative;max-width:138px;min-height:38px}
+.speech-bubble::before{content:'';position:absolute;top:-8px;left:18px;border-left:8px solid transparent;border-right:8px solid transparent;border-bottom:8px solid rgba(255,255,255,0.95)}
+.replay-btn{margin-top:11px;background:none;border:1px solid rgba(255,255,255,0.3);color:#fff;border-radius:20px;padding:4px 12px;font-size:0.68rem;cursor:pointer;font-family:'Poppins',sans-serif}
+.replay-btn:hover{background:rgba(255,255,255,0.1)}
+.content{flex:1;padding:18px;display:flex;flex-direction:column;gap:13px;overflow-y:auto}
+.q-number{font-size:0.72rem;color:#4ade80;margin-bottom:2px}
+.q-text{font-size:0.98rem;font-weight:600;color:#fff;line-height:1.6}
+.anim-canvas{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:6px;max-height:195px;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.anim-canvas svg{max-height:195px;width:100%}
+.options-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.opt{background:rgba(255,255,255,0.07);border:1.5px solid rgba(255,255,255,0.15);border-radius:10px;padding:11px 14px;font-size:0.84rem;cursor:pointer;transition:all 0.2s;font-family:'Poppins',sans-serif;color:#fff;text-align:left}
+.opt:hover:not(:disabled){background:rgba(255,255,255,0.13);border-color:#4ade80}
+.opt.correct{background:rgba(39,174,96,0.25);border-color:#27ae60}
+.opt.wrong{background:rgba(231,76,60,0.25);border-color:#e74c3c}
+.feedback{font-size:0.83rem;padding:9px 13px;border-radius:8px;min-height:34px}
+.feedback.correct{background:rgba(39,174,96,0.2);color:#2ecc71}
+.feedback.wrong{background:rgba(231,76,60,0.2);color:#e74c3c}
+.next-btn{align-self:flex-end;background:linear-gradient(135deg,#4ade80,#16a34a);color:#000;border:none;border-radius:24px;padding:10px 28px;font-weight:700;font-size:0.88rem;cursor:pointer;font-family:'Poppins',sans-serif;display:none}
+.next-btn:hover{transform:scale(1.03)}
+.done-screen{display:none;flex-direction:column;align-items:center;justify-content:center;flex:1;gap:18px;text-align:center;padding:40px}
+.done-screen h2{font-size:1.9rem;color:#4ade80}
+.done-screen p{color:#ccc;font-size:0.96rem}
+.done-btn{background:linear-gradient(135deg,#4ade80,#16a34a);color:#000;border:none;border-radius:24px;padding:11px 30px;font-weight:700;font-size:0.96rem;cursor:pointer;font-family:'Poppins',sans-serif}
 </style>
 </head>
 <body>
-
-<div class="topbar">
-  <div class="logo-sm">RISHI</div>
-  <div class="topbar-center">📖 Powers & Exponents — Explain</div>
-  <div class="topbar-right">
-    <button class="btn-topbar" onclick="openBreak()">☕ Break</button>
-    <button class="btn-topbar back" onclick="window.location.href='/syllabus.html'">← Syllabus</button>
-  </div>
+<div class="top-bar">
+  <span class="logo">RISHI</span>
+  <span class="chapter">Powers and Exponents — Class 8 Arithmetic</span>
+  <span class="score-pill" id="scorePill">Score: 0 / 15</span>
 </div>
-
-<div class="prog-wrap">
-  <div class="prog-info">
-    <span id="progLabel">Question 1 of 10</span>
-    <span id="progPct">0% complete</span>
-  </div>
-  <div class="prog-bar"><div class="prog-fill" id="progFill" style="width:0%"></div></div>
-</div>
-
-<div class="main">
-  <div class="done-banner" id="doneBanner">
-    <div class="dt">✅ Explanation Completed!</div>
-    <div class="ds">You've completed this section once. Practice and Exam are now unlocked. You can revisit anytime.</div>
-  </div>
-
-  <div class="rishika-wrap">
-    <div class="rishika-avatar">👩‍🏫</div>
-    <div class="rishika-bubble">
-      <div class="rishika-name">Rishika</div>
-      <div class="rishika-text" id="introText">Hi <span class="hl" id="sName">there</span>! 😊 Today we explore <span class="hl">Powers and Exponents</span> — one of the most powerful shortcuts in all of mathematics. Once you understand this, huge numbers will feel tiny! Let's go! 🚀</div>
-      <button class="btn-speak" onclick="speakEl('introText')">🔊 Hear Rishika</button>
+<div class="progress-wrap"><div class="progress-bar" id="progressBar" style="width:0%"></div></div>
+<div class="main" id="mainArea">
+  <div class="rishika-panel">
+    <div class="rishika-svg-wrap">
+      <svg viewBox="0 0 120 140" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="60" cy="126" rx="34" ry="20" fill="#15803d"/>
+        <ellipse cx="60" cy="109" rx="21" ry="17" fill="#16a34a"/>
+        <rect x="53" y="93" width="14" height="14" rx="4" fill="#f5c5a3"/>
+        <ellipse cx="60" cy="73" rx="30" ry="31" fill="#f5c5a3"/>
+        <ellipse cx="60" cy="46" rx="30" ry="15" fill="#14532d"/>
+        <ellipse cx="32" cy="69" rx="7" ry="17" fill="#14532d"/>
+        <ellipse cx="88" cy="69" rx="7" ry="17" fill="#14532d"/>
+        <circle cx="60" cy="37" r="9" fill="#14532d"/>
+        <circle cx="31" cy="77" r="3" fill="#4ade80"/>
+        <circle cx="89" cy="77" r="3" fill="#4ade80"/>
+        <ellipse cx="46" cy="72" rx="7" ry="7.5" fill="white"/>
+        <circle cx="47" cy="73" r="4.5" fill="#15803d"/>
+        <circle cx="47" cy="73" r="2.5" fill="#052e16"/>
+        <circle cx="49" cy="71" r="1.2" fill="white"/>
+        <ellipse id="lidL" cx="46" cy="72" rx="7" ry="7.5" fill="#f5c5a3" opacity="0"/>
+        <ellipse cx="74" cy="72" rx="7" ry="7.5" fill="white"/>
+        <circle cx="75" cy="73" r="4.5" fill="#15803d"/>
+        <circle cx="75" cy="73" r="2.5" fill="#052e16"/>
+        <circle cx="77" cy="71" r="1.2" fill="white"/>
+        <ellipse id="lidR" cx="74" cy="72" rx="7" ry="7.5" fill="#f5c5a3" opacity="0"/>
+        <path d="M40 63 Q46 60 52 63" stroke="#14532d" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <path d="M68 63 Q74 60 80 63" stroke="#14532d" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <ellipse cx="60" cy="81" rx="3" ry="2" fill="#e8a87c"/>
+        <ellipse id="blushL" cx="40" cy="83" rx="8" ry="5" fill="#ff9999" opacity="0"/>
+        <ellipse id="blushR" cx="80" cy="83" rx="8" ry="5" fill="#ff9999" opacity="0"/>
+        <path id="mouth" d="M53 89 Q60 93 67 89" stroke="#c0392b" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <path d="M48 109 L60 117 L72 109" stroke="#15803d" stroke-width="2" fill="none"/>
+        <path d="M25 121 Q60 136 95 121" stroke="#86efac" stroke-width="3" fill="none" opacity="0.6"/>
+      </svg>
     </div>
+    <div class="speech-bubble" id="bubble">Hi! I am Rishika. Let us master Powers and Exponents!</div>
+    <button class="replay-btn" onclick="replayAnim()">&#8635; Replay</button>
   </div>
-
-  <div id="qArea"></div>
-</div>
-
-<div class="bottom-nav">
-  <div class="lock-tip" id="lockTip">☝ Complete all explanations to unlock Practice and Exam</div>
-  <button class="btn-nav practice locked" id="btnPractice" onclick="goPractice()">✏️ Go to Practice</button>
-  <button class="btn-nav exam locked" id="btnExam" onclick="goExam()">📝 Go to Exam</button>
-</div>
-
-<div class="overlay" id="breakOverlay">
-  <div class="break-box">
-    <div class="break-title">Take a Break</div>
-    <div class="break-sub">Choose your reason — timer starts</div>
-    <div class="break-opts">
-      <button class="break-opt" onclick="startBreak('💧 Water Break')">💧 Water</button>
-      <button class="break-opt" onclick="startBreak('🚽 Washroom Break')">🚽 Washroom</button>
-      <button class="break-opt" onclick="startBreak('🏃 Physical Game')">🏃 Physical Game</button>
-      <button class="break-opt" onclick="openGames()">🎮 Play with Me</button>
+  <div class="content" id="contentArea">
+    <div>
+      <div class="q-number" id="qNumber">Question 1 of 15</div>
+      <div class="q-text" id="qText"></div>
     </div>
-    <button class="break-opt" style="color:var(--soft);" onclick="closeBreak()">Cancel — Back to Study</button>
+    <div class="anim-canvas" id="animCanvas"></div>
+    <div class="options-grid" id="optionsGrid"></div>
+    <div class="feedback" id="feedback"></div>
+    <button class="next-btn" id="nextBtn" onclick="nextQ()">Next &#8594;</button>
   </div>
 </div>
-
-<div class="timer-screen" id="timerScreen">
-  <div class="timer-reason" id="timerLabel">Break</div>
-  <div class="timer-num" id="timerNum">00:00</div>
-  <button class="btn-end" onclick="endBreak()">✅ End Break — Back to Study</button>
+<div class="done-screen" id="doneScreen">
+  <div style="font-size:3rem">&#127881;</div>
+  <h2>Chapter Complete!</h2>
+  <p id="doneScore"></p>
+  <p style="color:#aaa;font-size:0.82rem">Powers and Exponents — Class 8 Arithmetic</p>
+  <button class="done-btn" onclick="location.href='/syllabus.html'">Back to Syllabus</button>
 </div>
-
-<div class="overlay" id="gamesOverlay">
-  <div class="break-box">
-    <div style="font-size:44px;margin-bottom:10px;">🎮</div>
-    <div class="break-title">Games</div>
-    <div class="break-sub" style="margin-bottom:20px;">Focus games and brain twisters coming very soon! 🚀</div>
-    <button class="break-opt" style="background:var(--amber);color:#fff;border-color:var(--amber);" onclick="closeGames()">OK — Back to Study</button>
-  </div>
-</div>
-
 <script>
-// ═══════════════════════════════════════════════
-// QUESTION BANK — Powers and Exponents, Class 8
-// Source: NCERT Ch.12, RD Sharma Ch.2
-// All answers exact. Q[0] always first.
-// ═══════════════════════════════════════════════
-const QB = [
-  {
-    id:'pe0',
-    q:'What is a <span class="hl">Power</span>? What does <span class="hl">2<sup>5</sup></span> mean? Find its value.',
-    qs:'What is a Power? What does 2 to the power 5 mean? Find its value.',
-    steps:[
-      {t:'A <b>power</b> is a shorthand for repeated multiplication. In <span class="fm">aⁿ</span>, <b>a</b> is the <b>base</b> and <b>n</b> is the <b>exponent</b>.',s:'A power is a shorthand for repeated multiplication. In a to the power n, a is the base and n is the exponent.'},
-      {t:'<span class="fm">2⁵</span> means 2 multiplied by itself 5 times: <span class="fm">2×2×2×2×2</span>',s:'2 to the power 5 means 2 multiplied by itself 5 times: 2 times 2 times 2 times 2 times 2.'},
-      {t:'<span class="fm">2×2 = 4</span> → <span class="fm">4×2 = 8</span> → <span class="fm">8×2 = 16</span> → <span class="fm">16×2 = 32</span>',s:'2 times 2 is 4. 4 times 2 is 8. 8 times 2 is 16. 16 times 2 is 32.'},
-      {t:'<span class="ans-tag">2⁵ = 32</span> ✅',s:'So 2 to the power 5 equals 32.'}
-    ],
-    draw:null,
-    cq:'What is 3 to the power 4?',
-    cqs:'What is 3 to the power 4?',
-    ans:['81','eighty one'],
-    nudges:['3 to the power 4 means 3×3×3×3. Start multiplying! 🤔','3×3=9, then 9×3=27, then 27×3=? 😄','27×3=81. The answer is 81! Say eighty one! 🚀']
-  },
-  {
-    id:'pe1',
-    q:'Express <span class="hl">−125</span> as a power of <span class="hl">−5</span>.',
-    qs:'Express minus 125 as a power of minus 5.',
-    steps:[
-      {t:'We need to find n such that <span class="fm">(−5)ⁿ = −125</span>.',s:'We need to find n such that minus 5 to the power n equals minus 125.'},
-      {t:'<span class="fm">(−5)¹ = −5</span> &nbsp; <span class="fm">(−5)² = 25</span> &nbsp; <span class="fm">(−5)³ = −125</span>',s:'Minus 5 to the power 1 is minus 5. Minus 5 to the power 2 is 25. Minus 5 to the power 3 is minus 125.'},
-      {t:'Key rule: <b>Odd power of negative = negative</b>. <b>Even power of negative = positive</b>.',s:'Key rule: odd power of a negative number is negative. Even power of a negative number is positive.'},
-      {t:'<span class="ans-tag">−125 = (−5)³</span> ✅',s:'So minus 125 equals minus 5 to the power 3.'}
-    ],
-    draw:null,
-    cq:'Is the result of minus 4 to the power 4 positive or negative?',
-    cqs:'Is the result of minus 4 to the power 4 positive or negative?',
-    ans:['positive','pos','it is positive'],
-    nudges:['Power 4 is even. What does even power of a negative give? 🤔','Even power of any negative number is always positive! 😄','So minus 4 to the power 4 is positive. Say positive! 🚀']
-  },
-  {
-    id:'pe2',
-    q:'Simplify using <span class="hl">Laws of Exponents</span>: <span class="fm">aᵐ × aⁿ = ?</span> Find <span class="fm">3⁴ × 3²</span>',
-    qs:'Simplify using Laws of Exponents: a to the power m times a to the power n. Find 3 to the power 4 times 3 to the power 2.',
-    steps:[
-      {t:'<b>Law 1:</b> <span class="fm">aᵐ × aⁿ = aᵐ⁺ⁿ</span> — same base, ADD the exponents.',s:'Law 1: a to the power m times a to the power n equals a to the power m plus n. Same base, add the exponents.'},
-      {t:'<span class="fm">3⁴ × 3² = 3⁴⁺² = 3⁶</span>',s:'3 to the power 4 times 3 to the power 2 equals 3 to the power 4 plus 2 which is 3 to the power 6.'},
-      {t:'<span class="fm">3⁶ = 3×3×3×3×3×3 = 729</span>',s:'3 to the power 6 equals 729.'},
-      {t:'<span class="ans-tag">3⁴ × 3² = 3⁶ = 729</span> ✅',s:'So 3 to the power 4 times 3 to the power 2 equals 729.'}
-    ],
-    draw:null,
-    cq:'Simplify 2 to the power 3 times 2 to the power 5. What power of 2 do you get?',
-    cqs:'Simplify 2 to the power 3 times 2 to the power 5. What power of 2 do you get?',
-    ans:['2 to the power 8','2⁸','256','2 power 8','8'],
-    nudges:['Same base 2 — so add the exponents 3 and 5! 🤔','3+5=8. So the answer is 2 to the power 8. 😄','2 to the power 8! Say 2 to the power 8 or just say 8! 🚀']
-  },
-  {
-    id:'pe3',
-    q:'Simplify: <span class="fm">aᵐ ÷ aⁿ = ?</span> Find <span class="fm">5⁷ ÷ 5³</span>',
-    qs:'Simplify: a to the power m divided by a to the power n. Find 5 to the power 7 divided by 5 to the power 3.',
-    steps:[
-      {t:'<b>Law 2:</b> <span class="fm">aᵐ ÷ aⁿ = aᵐ⁻ⁿ</span> — same base, SUBTRACT the exponents.',s:'Law 2: a to the power m divided by a to the power n equals a to the power m minus n. Same base, subtract the exponents.'},
-      {t:'<span class="fm">5⁷ ÷ 5³ = 5⁷⁻³ = 5⁴</span>',s:'5 to the power 7 divided by 5 to the power 3 equals 5 to the power 7 minus 3 which is 5 to the power 4.'},
-      {t:'<span class="fm">5⁴ = 5×5×5×5 = 625</span>',s:'5 to the power 4 equals 625.'},
-      {t:'<span class="ans-tag">5⁷ ÷ 5³ = 5⁴ = 625</span> ✅',s:'So 5 to the power 7 divided by 5 to the power 3 equals 625.'}
-    ],
-    draw:null,
-    cq:'Simplify 7 to the power 6 divided by 7 to the power 2.',
-    cqs:'Simplify 7 to the power 6 divided by 7 to the power 2.',
-    ans:['7⁴','2401','7 to the power 4','7 power 4'],
-    nudges:['Same base 7 — subtract the exponents! 6 minus 2 = ? 🤔','6−2=4. So the answer is 7 to the power 4. 😄','7 to the power 4 equals 2401. Say 7 to the power 4! 🚀']
-  },
-  {
-    id:'pe4',
-    q:'Simplify: <span class="fm">(aᵐ)ⁿ = ?</span> Find <span class="fm">(2³)⁴</span>',
-    qs:'Simplify: a to the power m whole to the power n. Find 2 to the power 3, whole to the power 4.',
-    steps:[
-      {t:'<b>Law 3:</b> <span class="fm">(aᵐ)ⁿ = aᵐˣⁿ</span> — power of a power, MULTIPLY the exponents.',s:'Law 3: a to the power m whole to the power n equals a to the power m times n. Power of a power, multiply the exponents.'},
-      {t:'<span class="fm">(2³)⁴ = 2³ˣ⁴ = 2¹²</span>',s:'2 to the power 3, whole to the power 4 equals 2 to the power 3 times 4 which is 2 to the power 12.'},
-      {t:'<span class="fm">2¹² = 4096</span>',s:'2 to the power 12 equals 4096.'},
-      {t:'<span class="ans-tag">(2³)⁴ = 2¹² = 4096</span> ✅',s:'So 2 to the power 3 whole to the power 4 equals 4096.'}
-    ],
-    draw:null,
-    cq:'What is 3 to the power 2, whole to the power 3?',
-    cqs:'What is 3 to the power 2, whole to the power 3?',
-    ans:['3⁶','729','3 to the power 6','3 power 6'],
-    nudges:['Power of a power — multiply the exponents! 2×3=? 🤔','2×3=6. So the answer is 3 to the power 6. 😄','3 to the power 6 equals 729. Say 729 or 3 to the power 6! 🚀']
-  },
-  {
-    id:'pe5',
-    q:'What is <span class="hl">any number to the power zero</span>? Find <span class="fm">7⁰</span>, <span class="fm">(−3)⁰</span>, <span class="fm">100⁰</span>.',
-    qs:'What is any number to the power zero? Find 7 to the power 0, minus 3 to the power 0, and 100 to the power 0.',
-    steps:[
-      {t:'<b>Law:</b> <span class="fm">a⁰ = 1</span> for any non-zero a. Any number to the power zero is always 1.',s:'Law: a to the power 0 equals 1 for any non-zero a. Any number to the power zero is always 1.'},
-      {t:'Proof: <span class="fm">aⁿ ÷ aⁿ = aⁿ⁻ⁿ = a⁰</span>. But any number divided by itself = 1. So <span class="fm">a⁰ = 1</span>.',s:'Proof: a to the power n divided by a to the power n equals a to the power n minus n equals a to the power 0. But any number divided by itself is 1. So a to the power 0 is 1.'},
-      {t:'<span class="fm">7⁰ = 1</span> &nbsp; <span class="fm">(−3)⁰ = 1</span> &nbsp; <span class="fm">100⁰ = 1</span>',s:'7 to the power 0 is 1. Minus 3 to the power 0 is 1. 100 to the power 0 is 1.'},
-      {t:'<span class="ans-tag">All equal 1</span> ✅',s:'All three equal 1.'}
-    ],
-    draw:null,
-    cq:'What is 999 to the power zero?',
-    cqs:'What is 999 to the power zero?',
-    ans:['1','one','it is 1','answer is 1'],
-    nudges:['Any number to the power zero — what is the rule? 🤔','The rule says a to the power 0 is always 1, no matter what a is! 😄','999 to the power 0 is 1. Say 1! 🚀']
-  },
-  {
-    id:'pe6',
-    q:'Simplify: <span class="fm">(ab)ⁿ = ?</span> and <span class="fm">(a/b)ⁿ = ?</span> Use these to find <span class="fm">(2×3)⁴</span>.',
-    qs:'Simplify: a b whole to the power n and a over b whole to the power n. Use these to find 2 times 3 whole to the power 4.',
-    steps:[
-      {t:'<b>Law 4:</b> <span class="fm">(ab)ⁿ = aⁿ × bⁿ</span> — power distributes over multiplication.',s:'Law 4: a b whole to the power n equals a to the power n times b to the power n. Power distributes over multiplication.'},
-      {t:'<b>Law 5:</b> <span class="fm">(a/b)ⁿ = aⁿ/bⁿ</span> — power distributes over division too.',s:'Law 5: a over b whole to the power n equals a to the power n over b to the power n. Power distributes over division too.'},
-      {t:'<span class="fm">(2×3)⁴ = 2⁴ × 3⁴ = 16 × 81 = 1296</span>',s:'2 times 3 whole to the power 4 equals 2 to the power 4 times 3 to the power 4 which is 16 times 81 equals 1296.'},
-      {t:'Check: <span class="fm">(2×3)⁴ = 6⁴ = 1296</span> ✅ Same answer!',s:'Check: 2 times 3 is 6. 6 to the power 4 is also 1296. Same answer!'}
-    ],
-    draw:null,
-    cq:'Using the law, what is 2 over 3, whole to the power 3?',
-    cqs:'Using the law, what is 2 over 3, whole to the power 3?',
-    ans:['8/27','8 over 27','8 by 27'],
-    nudges:['Apply the law: 2 to the power 3 over 3 to the power 3. Calculate each! 🤔','2³=8 and 3³=27. So the answer is 8 over 27! 😄','8 over 27! Say 8 over 27! 🚀']
-  },
-  {
-    id:'pe7',
-    q:'What are <span class="hl">negative exponents</span>? What does <span class="fm">2⁻³</span> mean?',
-    qs:'What are negative exponents? What does 2 to the power minus 3 mean?',
-    steps:[
-      {t:'<b>Law:</b> <span class="fm">a⁻ⁿ = 1/aⁿ</span> — a negative exponent means take the reciprocal.',s:'Law: a to the power minus n equals 1 over a to the power n. A negative exponent means take the reciprocal.'},
-      {t:'<span class="fm">2⁻³ = 1/2³ = 1/8</span>',s:'2 to the power minus 3 equals 1 over 2 to the power 3 which is 1 over 8.'},
-      {t:'Think of it this way: <span class="fm">2³ = 8</span>, so <span class="fm">2⁻³</span> is just the flip of 8, which is <span class="fm">1/8</span>.',s:'Think of it this way: 2 to the power 3 is 8, so 2 to the power minus 3 is just the flip of 8, which is 1 over 8.'},
-      {t:'<span class="ans-tag">2⁻³ = 1/8</span> ✅',s:'So 2 to the power minus 3 equals 1 over 8.'}
-    ],
-    draw:null,
-    cq:'What is 5 to the power minus 2?',
-    cqs:'What is 5 to the power minus 2?',
-    ans:['1/25','1 over 25','one over 25'],
-    nudges:['Negative exponent means flip it! 5 to the power 2 is 25, so flip it! 🤔','5 to the power minus 2 = 1 over 5 squared = 1 over 25. 😄','1 over 25! Say 1 over 25! 🚀']
-  },
-  {
-    id:'pe8',
-    q:'Express <span class="hl">standard form</span> (scientific notation): write <span class="fm">5,00,00,000</span> in standard form.',
-    qs:'Express in standard form or scientific notation: write 5 crore, that is 5,00,00,000 in standard form.',
-    steps:[
-      {t:'Standard form: <span class="fm">a × 10ⁿ</span> where <span class="fm">1 ≤ a < 10</span> and n is an integer.',s:'Standard form is a times 10 to the power n, where a is at least 1 and less than 10, and n is an integer.'},
-      {t:'Count how many places the decimal moves: <span class="fm">5,00,00,000 = 5.0 × 10?</span>',s:'Count how many places the decimal moves. 5 crore is 5 point 0 times 10 to the power something.'},
-      {t:'5,00,00,000 → move decimal 7 places left to get 5.0<br>So n = <span class="fm">7</span>',s:'5 crore: move decimal 7 places left to get 5 point 0. So n equals 7.'},
-      {t:'<span class="ans-tag">5,00,00,000 = 5 × 10⁷</span> ✅',s:'So 5 crore equals 5 times 10 to the power 7.'}
-    ],
-    draw:null,
-    cq:'Write 3,84,000 in standard form.',
-    cqs:'Write 3 lakh 84 thousand in standard form.',
-    ans:['3.84 × 10⁵','3.84 x 10^5','3.84 times 10 to the power 5','3.84 × 10 power 5'],
-    nudges:['Move the decimal point to get a number between 1 and 10. How many places? 🤔','3,84,000 → 3.84000 — decimal moved 5 places left. So it is 3.84 × 10⁵! 😄','3.84 times 10 to the power 5! Say that! 🚀']
-  },
-  {
-    id:'pe9',
-    q:'Simplify: <span class="fm">2⁴ × 3² × 2⁻² × 3⁴</span>',
-    qs:'Simplify: 2 to the power 4 times 3 squared times 2 to the power minus 2 times 3 to the power 4.',
-    steps:[
-      {t:'Group same bases together: <span class="fm">(2⁴ × 2⁻²) × (3² × 3⁴)</span>',s:'Group same bases together: 2 to the power 4 times 2 to the power minus 2, all times 3 squared times 3 to the power 4.'},
-      {t:'Apply Law 1 — add exponents of same base:<br><span class="fm">2⁴⁺⁽⁻²⁾ = 2² = 4</span> &nbsp;&nbsp; <span class="fm">3²⁺⁴ = 3⁶ = 729</span>',s:'Add exponents of same base. 2 to the power 4 plus minus 2 equals 2 to the power 2 equals 4. 3 to the power 2 plus 4 equals 3 to the power 6 equals 729.'},
-      {t:'<span class="fm">4 × 729 = 2916</span>',s:'4 times 729 equals 2916.'},
-      {t:'<span class="ans-tag">2916</span> ✅',s:'The answer is 2916.'}
-    ],
-    draw:null,
-    cq:'What is the first step when simplifying expressions with multiple bases and exponents?',
-    cqs:'What is the first step when simplifying expressions with multiple bases and exponents?',
-    ans:['group','group same bases','collect same bases','group the bases'],
-    nudges:['Think about what we did first in the solution — what did we do with the 2s and 3s? 🤔','We put all the 2s together and all the 3s together. What is that called? 😄','We group same bases! Say group same bases! 🚀']
-  },
-  {
-    id:'pe10',
-    q:'Simplify and express with positive exponents: <span class="fm">(2⁻¹ × 3⁻¹) ÷ 6⁻¹</span>',
-    qs:'Simplify and express with positive exponents: 2 to the power minus 1 times 3 to the power minus 1, divided by 6 to the power minus 1.',
-    steps:[
-      {t:'<span class="fm">2⁻¹ = 1/2</span>, <span class="fm">3⁻¹ = 1/3</span>, <span class="fm">6⁻¹ = 1/6</span>',s:'2 to the power minus 1 is 1 over 2. 3 to the power minus 1 is 1 over 3. 6 to the power minus 1 is 1 over 6.'},
-      {t:'<span class="fm">(1/2 × 1/3) ÷ 1/6 = (1/6) ÷ (1/6)</span>',s:'1 over 2 times 1 over 3 is 1 over 6. So we have 1 over 6 divided by 1 over 6.'},
-      {t:'<span class="fm">1/6 ÷ 1/6 = 1/6 × 6/1 = 1</span>',s:'1 over 6 divided by 1 over 6 equals 1 over 6 times 6 over 1 equals 1.'},
-      {t:'<span class="ans-tag">1</span> ✅',s:'The answer is 1.'}
-    ],
-    draw:null,
-    cq:'What does a to the power minus 1 always equal?',
-    cqs:'What does a to the power minus 1 always equal?',
-    ans:['1/a','1 over a','reciprocal','one over a'],
-    nudges:['Negative exponent means flip it! a to the power minus 1 = 1 over what? 🤔','a to the power minus 1 equals 1 over a to the power 1 = 1 over a! 😄','It equals 1 over a — the reciprocal of a! Say 1 over a! 🚀']
-  },
-  {
-    id:'pe11',
-    q:'Express <span class="fm">0.000035</span> in standard form.',
-    qs:'Express 0.000035 in standard form.',
-    steps:[
-      {t:'Move decimal right until you get a number between 1 and 10.',s:'Move the decimal point to the right until you get a number between 1 and 10.'},
-      {t:'<span class="fm">0.000035 → 3.5</span> (moved 5 places right)',s:'0.000035 becomes 3.5 after moving the decimal 5 places to the right.'},
-      {t:'Moving right means negative power: <span class="fm">n = −5</span>',s:'Moving right means the power is negative. So n equals minus 5.'},
-      {t:'<span class="ans-tag">0.000035 = 3.5 × 10⁻⁵</span> ✅',s:'So 0.000035 equals 3.5 times 10 to the power minus 5.'}
-    ],
-    draw:null,
-    cq:'Is the exponent positive or negative when the original number is less than 1?',
-    cqs:'Is the exponent positive or negative when the original number is less than 1?',
-    ans:['negative','negative exponent','it is negative'],
-    nudges:['When the number is tiny like 0.000035 — do we move decimal left or right? 🤔','We move right — and moving right gives a negative power! 😄','Negative! Numbers less than 1 always give negative exponents in standard form! 🚀']
-  },
-  {
-    id:'pe12',
-    q:'Compare using powers: Which is greater — <span class="fm">2¹⁰</span> or <span class="fm">10²</span>?',
-    qs:'Compare using powers: Which is greater — 2 to the power 10 or 10 to the power 2?',
-    steps:[
-      {t:'Calculate <span class="fm">2¹⁰</span>: <span class="fm">2¹⁰ = 1024</span>',s:'Calculate 2 to the power 10. 2 to the power 10 equals 1024.'},
-      {t:'Calculate <span class="fm">10²</span>: <span class="fm">10² = 100</span>',s:'Calculate 10 to the power 2. 10 squared equals 100.'},
-      {t:'Compare: <span class="fm">1024 > 100</span>',s:'Compare: 1024 is greater than 100.'},
-      {t:'<span class="ans-tag">2¹⁰ > 10²</span> ✅ The base 2 repeated 10 times beats 10 squared!',s:'So 2 to the power 10 is greater than 10 to the power 2. The base 2 repeated 10 times beats 10 squared!'}
-    ],
-    draw:null,
-    cq:'What is 2 to the power 10?',
-    cqs:'What is 2 to the power 10?',
-    ans:['1024','one thousand and twenty four','one thousand twenty four'],
-    nudges:['Keep doubling from 2! 2,4,8,16,32,64... keep going 10 times! 🤔','2¹=2, 2²=4, 2³=8, 2⁴=16, 2⁵=32, 2⁶=64, 2⁷=128, 2⁸=256, 2⁹=512, 2¹⁰=? 😄','2¹⁰ = 1024! Say one thousand and twenty four! 🚀']
-  },
-  {
-    id:'pe13',
-    q:'NCERT: Find the value of <span class="fm">m</span> if <span class="fm">(-3)^(m+1) × (-3)^5 = (-3)^7</span>',
-    qs:'Find the value of m if minus 3 to the power m plus 1, times minus 3 to the power 5 equals minus 3 to the power 7.',
-    steps:[
-      {t:'Using Law 1: <span class="fm">aᵐ × aⁿ = aᵐ⁺ⁿ</span><br>LHS = <span class="fm">(−3)^(m+1+5) = (−3)^(m+6)</span>',s:'Using Law 1: LHS becomes minus 3 to the power m plus 1 plus 5, which is minus 3 to the power m plus 6.'},
-      {t:'RHS = <span class="fm">(−3)⁷</span><br>So: <span class="fm">(−3)^(m+6) = (−3)⁷</span>',s:'RHS is minus 3 to the power 7. So minus 3 to the power m plus 6 equals minus 3 to the power 7.'},
-      {t:'Since bases are equal, equate exponents:<br><span class="fm">m + 6 = 7</span>',s:'Since bases are equal, equate exponents. m plus 6 equals 7.'},
-      {t:'<span class="fm">m = 7 − 6 = 1</span> → <span class="ans-tag">m = 1</span> ✅',s:'m equals 7 minus 6 equals 1. So m is 1.'}
-    ],
-    draw:null,
-    cq:'What is the value of m?',
-    cqs:'What is the value of m?',
-    ans:['1','m is 1','m equals 1','one'],
-    nudges:['Add the exponents on the left side first, then compare with the right side! 🤔','Left side exponent is m+6. Right side is 7. So m+6=7, therefore m=? 😄','m = 7−6 = 1. Say m is 1! 🚀']
-  },
-  {
-    id:'pe14',
-    q:'Word problem: The diameter of the Sun is approximately <span class="hl">1,400,000 km</span>. Express this in standard form.',
-    qs:'The diameter of the Sun is approximately 1400000 km. Express this in standard form.',
-    steps:[
-      {t:'Write the number: <span class="fm">1,400,000</span>',s:'The number is 1 million 400 thousand.'},
-      {t:'Move decimal left to get a number between 1 and 10:<br><span class="fm">1,400,000 → 1.4</span> (moved 6 places left)',s:'Move decimal left to get a number between 1 and 10. 1400000 becomes 1.4 after moving 6 places left.'},
-      {t:'Moving left = positive power, n = <span class="fm">6</span>',s:'Moving left means positive power. n equals 6.'},
-      {t:'<span class="ans-tag">1,400,000 = 1.4 × 10⁶ km</span> ✅',s:'So the diameter of the Sun is 1.4 times 10 to the power 6 kilometres.'}
-    ],
-    draw:null,
-    cq:'In standard form, is the power of 10 positive or negative for large numbers like the Sun\'s diameter?',
-    cqs:'In standard form, is the power of 10 positive or negative for large numbers?',
-    ans:['positive','positive exponent','it is positive'],
-    nudges:['Think — for big numbers, do we move the decimal left or right? 🤔','We move left for big numbers — and that gives a positive power! 😄','Positive! Large numbers always give positive exponents. Say positive! 🚀']
+function G(id){return document.getElementById(id);}
+var atTimers=[];
+function clearAt(){atTimers.forEach(clearTimeout);atTimers=[];}
+function at(ms,fn){atTimers.push(setTimeout(fn,ms));}
+var chosenVoice=null,mouthTimer=null;
+function initVoices(cb){
+  var v=speechSynthesis.getVoices();
+  if(v.length){pickVoice(v);cb();return;}
+  speechSynthesis.onvoiceschanged=function(){pickVoice(speechSynthesis.getVoices());cb();};
+}
+function pickVoice(voices){
+  var pri=['heera','veena','priya','raveena','female','woman','zira','samantha','victoria','karen','moira','tessa','fiona'];
+  var enIN=voices.filter(function(v){return v.lang==='en-IN';});
+  for(var p=0;p<pri.length;p++){for(var i=0;i<enIN.length;i++){if(enIN[i].name.toLowerCase().indexOf(pri[p])>-1){chosenVoice=enIN[i];return;}}}
+  var enA=voices.filter(function(v){return v.lang.startsWith('en');});
+  for(var p=0;p<pri.length;p++){for(var i=0;i<enA.length;i++){if(enA[i].name.toLowerCase().indexOf(pri[p])>-1){chosenVoice=enA[i];return;}}}
+  if(enIN.length){chosenVoice=enIN[0];return;}
+  if(enA.length){chosenVoice=enA[0];}
+}
+function say(text){
+  speechSynthesis.cancel();rStopTalk();
+  var u=new SpeechSynthesisUtterance(text);
+  if(chosenVoice)u.voice=chosenVoice;
+  u.lang='en-IN';u.rate=0.88;u.pitch=1.15;
+  u.onstart=function(){rStartTalk();};
+  u.onend=function(){rStopTalk();};
+  speechSynthesis.speak(u);
+}
+function rStartTalk(){
+  G('blushL').style.opacity='0.7';G('blushR').style.opacity='0.7';
+  if(mouthTimer)clearInterval(mouthTimer);
+  var open=false;
+  mouthTimer=setInterval(function(){
+    open=!open;
+    G('mouth').setAttribute('d',open?'M53 87 Q60 96 67 87':'M53 89 Q60 93 67 89');
+  },160);
+}
+function rStopTalk(){
+  if(mouthTimer){clearInterval(mouthTimer);mouthTimer=null;}
+  G('mouth').setAttribute('d','M53 89 Q60 93 67 89');
+  G('blushL').style.opacity='0';G('blushR').style.opacity='0';
+}
+function startBlink(){
+  function doBlink(){
+    G('lidL').setAttribute('opacity','0.95');G('lidR').setAttribute('opacity','0.95');
+    setTimeout(function(){G('lidL').setAttribute('opacity','0');G('lidR').setAttribute('opacity','0');setTimeout(doBlink,2200+Math.random()*3000);},120);
   }
+  setTimeout(doBlink,2200+Math.random()*3000);
+}
+function fade(id,v){var e=G(id);if(!e)return;e.style.transition='opacity .5s';e.style.opacity=v;}
+
+var questions=[
+{q:'What does 2⁵ equal?',opts:['10','25','32','16'],ans:2,anim:'pe1',
+narr:'2 to the power 5 means 2 multiplied by itself 5 times. 2 times 2 is 4, times 2 is 8, times 2 is 16, times 2 is 32. So 2 to the power 5 equals 32.'},
+{q:'Simplify: a³ × a⁴',opts:['a⁷','a¹²','a¹','2a⁷'],ans:0,anim:'pe2',
+narr:'Law of exponents: when multiplying with the same base, add the powers. a cubed times a to the 4 equals a to the power 3 plus 4 which is a to the power 7.'},
+{q:'Simplify: (a⁴) ÷ (a²)',opts:['a²','a⁸','a⁶','a'],ans:0,anim:'pe3',
+narr:'When dividing with the same base, subtract the exponents. a to the 4 divided by a squared equals a to the power 4 minus 2 which is a squared.'},
+{q:'What is the value of 5⁰?',opts:['0','5','1','Undefined'],ans:2,anim:'pe4',
+narr:'Any number to the power zero equals 1. This is a fundamental law of exponents. So 5 to the power zero equals 1. Even 1000 to the power zero equals 1.'},
+{q:'Simplify: (2³)²',opts:['2⁵','2⁶','4³','2⁹'],ans:1,anim:'pe5',
+narr:'Power of a power law: multiply the exponents. 2 cubed, whole squared means 2 to the power 3 times 2, which is 2 to the power 6. That equals 64.'},
+{q:'What does 3⁻² equal?',opts:['–9','1/9','–1/9','9'],ans:1,anim:'pe6',
+narr:'A negative exponent means the reciprocal. a to the power minus n equals 1 over a to the n. So 3 to the power minus 2 equals 1 over 3 squared which is 1 over 9.'},
+{q:'Simplify: (ab)³',opts:['a³b','ab³','a³b³','3ab'],ans:2,anim:'pe7',
+narr:'Power of a product law: raise each factor to the power. a b, whole cubed equals a cubed times b cubed.'},
+{q:'Express 0.000001 in standard form.',opts:['10⁻⁵','10⁻⁶','10⁻⁴','6 × 10⁻⁶'],ans:1,anim:'pe8',
+narr:'Count the decimal places after the point before the 1. There are 6 places. So 0.000001 equals 10 to the power minus 6. This is standard scientific notation.'},
+{q:'Simplify: (a/b)³',opts:['a³/b','a/b³','a³/b³','3a/3b'],ans:2,anim:'pe9',
+narr:'Power of a quotient: raise numerator and denominator separately. a over b, whole cubed equals a cubed over b cubed.'},
+{q:'The value of (–2)⁴ is:',opts:['–16','16','–8','8'],ans:1,anim:'pe10',
+narr:'Negative 2 to the power 4 means minus 2 times minus 2 times minus 2 times minus 2. Negative times negative is positive. So we get positive 16.'},
+{q:'Express 4.5 × 10⁵ as a normal number.',opts:['45000','450000','4500000','0.000045'],ans:1,anim:'pe11',
+narr:'Multiply 4.5 by 10 to the power 5 means move the decimal point 5 places to the right. 4.5 becomes 450000. So the answer is 4 lakh 50 thousand.'},
+{q:'Simplify: 2³ × 3³',opts:['6³','6⁶','5³','6⁹'],ans:0,anim:'pe12',
+narr:'When both bases have the same exponent, we can combine them. 2 cubed times 3 cubed equals 2 times 3, whole cubed, which is 6 cubed, equals 216.'},
+{q:'Which is greater: 2¹⁰ or 10²?',opts:['2¹⁰','10²','They are equal','Cannot compare'],ans:0,anim:'pe13',
+narr:'2 to the power 10 equals 1024. 10 squared equals 100. So 2 to the power 10 equals 1024 which is much greater than 100. Powers grow very fast!'},
+{q:'If 2ˣ = 64, find x.',opts:['5','6','7','8'],ans:1,anim:'pe14',
+narr:'We need to express 64 as a power of 2. 2 to the 1 is 2, to the 2 is 4, to the 3 is 8, to the 4 is 16, to the 5 is 32, to the 6 is 64. So x equals 6.'},
+{q:"Mass of Earth ≈ 6 × 10²⁴ kg. Mass of Moon ≈ 7.4 × 10²² kg. Earth is how many times heavier?",opts:['About 8 times','About 81 times','About 810 times','About 8100 times'],ans:1,anim:'pe15',
+narr:'Divide Earth mass by Moon mass: 6 times 10 to the 24 divided by 7.4 times 10 to the 22. 10 to the 24 over 10 to the 22 is 10 squared which is 100. 6 over 7.4 is about 0.81. So 0.81 times 100 equals about 81 times heavier.'}
 ];
 
-// ══════════════════
-// STATE
-// ══════════════════
-let session=[], idx=0, stepIdx=0, nudgeCount=0, completed=false;
-let recog=null, listening=false, breakSecs=0, breakTmr=null;
-const PER_SESSION=10;
+function getAnimSVG(type){
+var s={
+'pe1':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#0d1f12"/><text x="210" y="18" text-anchor="middle" fill="#4ade80" font-size="13" font-weight="bold">Powers Mean Repeated Multiplication</text><g id="p1cubes" opacity="0"><rect x="28" y="110" width="28" height="28" fill="rgba(74,222,128,0.3)" stroke="#4ade80" stroke-width="2"/><text x="42" y="130" text-anchor="middle" fill="#4ade80" font-size="12" font-weight="bold">2</text><rect x="64" y="110" width="28" height="28" fill="rgba(74,222,128,0.3)" stroke="#4ade80" stroke-width="2"/><text x="78" y="130" text-anchor="middle" fill="#4ade80" font-size="12" font-weight="bold">2</text><rect x="100" y="110" width="28" height="28" fill="rgba(74,222,128,0.3)" stroke="#4ade80" stroke-width="2"/><text x="114" y="130" text-anchor="middle" fill="#4ade80" font-size="12" font-weight="bold">2</text><rect x="136" y="110" width="28" height="28" fill="rgba(74,222,128,0.3)" stroke="#4ade80" stroke-width="2"/><text x="150" y="130" text-anchor="middle" fill="#4ade80" font-size="12" font-weight="bold">2</text><rect x="172" y="110" width="28" height="28" fill="rgba(74,222,128,0.3)" stroke="#4ade80" stroke-width="2"/><text x="186" y="130" text-anchor="middle" fill="#4ade80" font-size="12" font-weight="bold">2</text><text x="215" y="128" fill="#aaa" font-size="18">= 32</text></g><g id="p1label" opacity="0"><text x="42" y="100" text-anchor="middle" fill="#aaa" font-size="10">x1</text><text x="78" y="100" text-anchor="middle" fill="#aaa" font-size="10">x2</text><text x="114" y="100" text-anchor="middle" fill="#aaa" font-size="10">x3</text><text x="150" y="100" text-anchor="middle" fill="#aaa" font-size="10">x4</text><text x="186" y="100" text-anchor="middle" fill="#aaa" font-size="10">x5</text></g><g id="p1ans" opacity="0"><text x="28" y="170" fill="#fff" font-size="15">2 x 2 x 2 x 2 x 2 = 32</text><rect x="280" y="152" width="120" height="22" rx="5" fill="rgba(74,222,128,0.15)" stroke="#4ade80" stroke-width="1"/><text x="340" y="167" text-anchor="middle" fill="#4ade80" font-size="13" font-weight="bold">2 to 5 = 32</text></g></svg>',
 
-window.onload=function(){
-  const st=JSON.parse(localStorage.getItem('rishi_current_student')||'{}');
-  document.getElementById('sName').textContent=st.studentName?st.studentName.split(' ')[0]:'there';
-  const prog=JSON.parse(localStorage.getItem('rishi_progress')||'{}');
-  if(prog.explain_powers_done){
-    completed=true;
-    document.getElementById('doneBanner').classList.add('show');
-    unlockNav();
-  }
-  buildSession(); setupRecog();
-  setTimeout(()=>speakEl('introText'),700);
-  setTimeout(showQ,2400);
+'pe2':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#0d1f12"/><text x="210" y="18" text-anchor="middle" fill="#4ade80" font-size="13" font-weight="bold">Multiplication Law of Exponents</text><g id="p2law" opacity="0"><rect x="18" y="26" width="384" height="24" rx="6" fill="rgba(74,222,128,0.1)" stroke="#4ade80" stroke-width="1"/><text x="210" y="42" text-anchor="middle" fill="#4ade80" font-size="12" font-weight="bold">a^m x a^n = a^(m+n)   Same base: ADD the powers</text></g><g id="p2expr" opacity="0"><text x="55" y="86" fill="#fff" font-size="22" font-weight="bold">a3 x a4</text></g><g id="p2calc" opacity="0"><text x="55" y="116" fill="#ffd700" font-size="15">Same base (a): add exponents</text><text x="55" y="140" fill="#fff" font-size="18">3 + 4 = 7</text></g><g id="p2ans" opacity="0"><rect x="50" y="152" width="110" height="22" rx="5" fill="rgba(74,222,128,0.15)" stroke="#4ade80" stroke-width="1"/><text x="105" y="167" text-anchor="middle" fill="#4ade80" font-size="14" font-weight="bold">= a to 7</text></g></svg>',
+
+'pe3':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#0d1f12"/><text x="210" y="18" text-anchor="middle" fill="#4ade80" font-size="13" font-weight="bold">Division Law of Exponents</text><g id="p3law" opacity="0"><rect x="18" y="26" width="384" height="24" rx="6" fill="rgba(74,222,128,0.1)" stroke="#4ade80" stroke-width="1"/><text x="210" y="42" text-anchor="middle" fill="#4ade80" font-size="12" font-weight="bold">a^m / a^n = a^(m-n)   Same base: SUBTRACT the powers</text></g><g id="p3expr" opacity="0"><text x="55" y="86" fill="#fff" font-size="22" font-weight="bold">a4 / a2</text></g><g id="p3calc" opacity="0"><text x="55" y="116" fill="#ffd700" font-size="15">Same base (a): subtract exponents</text><text x="55" y="140" fill="#fff" font-size="18">4 - 2 = 2</text></g><g id="p3ans" opacity="0"><rect x="50" y="152" width="110" height="22" rx="5" fill="rgba(74,222,128,0.15)" stroke="#4ade80" stroke-width="1"/><text x="105" y="167" text-anchor="middle" fill="#4ade80" font-size="14" font-weight="bold">= a squared</text></g></svg>',
+
+'pe4':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#0d1f12"/><text x="210" y="18" text-anchor="middle" fill="#4ade80" font-size="13" font-weight="bold">Zero Exponent Law</text><g id="p4law" opacity="0"><rect x="18" y="26" width="384" height="24" rx="6" fill="rgba(74,222,128,0.1)" stroke="#4ade80" stroke-width="1"/><text x="210" y="42" text-anchor="middle" fill="#4ade80" font-size="13" font-weight="bold">a to the power 0 = 1 (for any a not 0)</text></g><g id="p4proof" opacity="0"><text x="40" y="82" fill="#ffd700" font-size="12">Why? Using division law:</text><text x="40" y="102" fill="#fff" font-size="13">a3 / a3 = a^(3-3) = a to 0</text><text x="40" y="122" fill="#fff" font-size="13">But also: a3 / a3 = 1</text><text x="40" y="142" fill="#2ecc71" font-size="13">Therefore a to 0 = 1</text></g><g id="p4egs" opacity="0"><text x="40" y="166" fill="#aaa" font-size="12">5 to 0 = 1   100 to 0 = 1   999 to 0 = 1</text></g></svg>',
+
+'pe5':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#0d1f12"/><text x="210" y="18" text-anchor="middle" fill="#4ade80" font-size="13" font-weight="bold">Power of a Power Law</text><g id="p5law" opacity="0"><rect x="18" y="26" width="384" height="24" rx="6" fill="rgba(74,222,128,0.1)" stroke="#4ade80" stroke-width="1"/><text x="210" y="42" text-anchor="middle" fill="#4ade80" font-size="12" font-weight="bold">(a^m)^n = a^(m x n)   MULTIPLY the powers</text></g><g id="p5expr" opacity="0"><text x="55" y="86" fill="#fff" font-size="22" font-weight="bold">(2 cubed) squared</text></g><g id="p5calc" opacity="0"><text x="55" y="116" fill="#ffd700" font-size="15">Multiply exponents: 3 x 2 = 6</text><text x="55" y="140" fill="#fff" font-size="18">= 2 to 6 = 64</text></g><g id="p5verify" opacity="0"><text x="230" y="116" fill="#aaa" font-size="11">Check: 2^3 = 8</text><text x="230" y="134" fill="#aaa" font-size="11">8 squared = 64</text><rect x="225" y="144" width="90" height="18" rx="4" fill="rgba(74,222,128,0.1)" stroke="#4ade80" stroke-width="1"/><text x="270" y="157" text-anchor="middle" fill="#4ade80" font-size="11">Verified!</text></g></svg>',
+
+'pe6':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#0d1f12"/><text x="210" y="18" text-anchor="middle" fill="#4ade80" font-size="13" font-weight="bold">Negative Exponent Law</text><g id="p6law" opacity="0"><rect x="18" y="26" width="384" height="24" rx="6" fill="rgba(74,222,128,0.1)" stroke="#4ade80" stroke-width="1"/><text x="210" y="42" text-anchor="middle" fill="#4ade80" font-size="12" font-weight="bold">a^(-n) = 1 / (a^n)   Flip to denominator!</text></g><g id="p6expr" opacity="0"><text x="55" y="86" fill="#fff" font-size="22" font-weight="bold">3 to -2</text></g><g id="p6step" opacity="0"><text x="55" y="116" fill="#ffd700" font-size="14">Negative power = reciprocal</text><text x="55" y="140" fill="#fff" font-size="16">= 1 / (3 squared) = 1/9</text></g><g id="p6vis" opacity="0"><text x="280" y="86" fill="#aaa" font-size="11">Pattern:</text><text x="280" y="104" fill="#aaa" font-size="11">3^2 = 9</text><text x="280" y="122" fill="#aaa" font-size="11">3^1 = 3</text><text x="280" y="140" fill="#aaa" font-size="11">3^0 = 1</text><text x="280" y="158" fill="#4ade80" font-size="11">3^-1 = 1/3</text></g></svg>',
+
+'pe7':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#0d1f12"/><text x="210" y="18" text-anchor="middle" fill="#4ade80" font-size="13" font-weight="bold">Power of a Product Law</text><g id="p7law" opacity="0"><rect x="18" y="26" width="384" height="24" rx="6" fill="rgba(74,222,128,0.1)" stroke="#4ade80" stroke-width="1"/><text x="210" y="42" text-anchor="middle" fill="#4ade80" font-size="12" font-weight="bold">(ab)^n = a^n x b^n   Each factor gets the power</text></g><g id="p7expr" opacity="0"><text x="55" y="84" fill="#fff" font-size="22" font-weight="bold">(ab) cubed</text></g><g id="p7expand" opacity="0"><text x="55" y="114" fill="#ffd700" font-size="14">= (ab)(ab)(ab)</text><text x="55" y="138" fill="#ffd700" font-size="14">= a.a.a x b.b.b</text></g><g id="p7ans" opacity="0"><rect x="50" y="152" width="160" height="22" rx="5" fill="rgba(74,222,128,0.15)" stroke="#4ade80" stroke-width="1"/><text x="130" y="167" text-anchor="middle" fill="#4ade80" font-size="14" font-weight="bold">= a cubed x b cubed</text></g></svg>',
+
+'pe8':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#0d1f12"/><text x="210" y="18" text-anchor="middle" fill="#4ade80" font-size="13" font-weight="bold">Standard Form (Scientific Notation)</text><g id="p8expr" opacity="0"><text x="40" y="58" fill="#fff" font-size="18" font-weight="bold">0.000001</text></g><g id="p8count" opacity="0"><text x="40" y="86" fill="#ffd700" font-size="13">Count zeros after decimal before the 1:</text><text x="40" y="106" fill="#fff" font-size="14">0 . 0 0 0 0 0 1</text><text x="40" y="124" fill="#aaa" font-size="12">  1  2  3  4  5  6  places</text></g><g id="p8ans" opacity="0"><rect x="35" y="140" width="190" height="28" rx="6" fill="rgba(74,222,128,0.15)" stroke="#4ade80" stroke-width="1.5"/><text x="130" y="158" text-anchor="middle" fill="#4ade80" font-size="16" font-weight="bold">= 10 to -6</text></g></svg>',
+
+'pe9':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#0d1f12"/><text x="210" y="18" text-anchor="middle" fill="#4ade80" font-size="13" font-weight="bold">Power of a Quotient Law</text><g id="p9law" opacity="0"><rect x="18" y="26" width="384" height="24" rx="6" fill="rgba(74,222,128,0.1)" stroke="#4ade80" stroke-width="1"/><text x="210" y="42" text-anchor="middle" fill="#4ade80" font-size="12" font-weight="bold">(a/b)^n = a^n / b^n   Power applies to top and bottom</text></g><g id="p9expr" opacity="0"><text x="55" y="86" fill="#fff" font-size="22" font-weight="bold">(a/b) cubed</text></g><g id="p9expand" opacity="0"><text x="55" y="116" fill="#ffd700" font-size="14">= (a.a.a) / (b.b.b)</text></g><g id="p9ans" opacity="0"><rect x="50" y="134" width="200" height="28" rx="6" fill="rgba(74,222,128,0.15)" stroke="#4ade80" stroke-width="1"/><text x="150" y="152" text-anchor="middle" fill="#4ade80" font-size="16" font-weight="bold">= a cubed / b cubed</text></g></svg>',
+
+'pe10':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#0d1f12"/><text x="210" y="18" text-anchor="middle" fill="#4ade80" font-size="13" font-weight="bold">Negative Base with Even Power</text><g id="p10expr" opacity="0"><text x="55" y="68" fill="#fff" font-size="22" font-weight="bold">(-2) to 4</text></g><g id="p10expand" opacity="0"><text x="40" y="100" fill="#ffd700" font-size="13">= (-2) x (-2) x (-2) x (-2)</text></g><g id="p10pairs" opacity="0"><text x="40" y="126" fill="#aaa" font-size="12">(-2)x(-2) = +4  and  (-2)x(-2) = +4</text><text x="40" y="146" fill="#fff" font-size="14">= 4 x 4 = 16</text></g><g id="p10rule" opacity="0"><rect x="35" y="156" width="300" height="18" rx="5" fill="rgba(74,222,128,0.1)" stroke="#4ade80" stroke-width="1"/><text x="185" y="169" text-anchor="middle" fill="#4ade80" font-size="11">Even power = always positive result</text></g></svg>',
+
+'pe11':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#0d1f12"/><text x="210" y="18" text-anchor="middle" fill="#4ade80" font-size="13" font-weight="bold">Scientific Notation to Normal Number</text><g id="p11expr" opacity="0"><text x="40" y="60" fill="#fff" font-size="20" font-weight="bold">4.5 x 10 to 5</text></g><g id="p11step" opacity="0"><text x="40" y="90" fill="#ffd700" font-size="13">Positive power: move decimal RIGHT</text><text x="40" y="110" fill="#aaa" font-size="12">Move 5 places to the right:</text><text x="40" y="132" fill="#fff" font-size="16">4.50000 becomes 450000</text></g><g id="p11ans" opacity="0"><rect x="35" y="150" width="200" height="22" rx="5" fill="rgba(74,222,128,0.15)" stroke="#4ade80" stroke-width="1"/><text x="135" y="165" text-anchor="middle" fill="#4ade80" font-size="13" font-weight="bold">= 4,50,000</text></g></svg>',
+
+'pe12':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#0d1f12"/><text x="210" y="18" text-anchor="middle" fill="#4ade80" font-size="13" font-weight="bold">Same Power Different Bases</text><g id="p12law" opacity="0"><rect x="18" y="26" width="384" height="24" rx="6" fill="rgba(74,222,128,0.1)" stroke="#4ade80" stroke-width="1"/><text x="210" y="42" text-anchor="middle" fill="#4ade80" font-size="12" font-weight="bold">a^n x b^n = (ab)^n</text></g><g id="p12expr" opacity="0"><text x="55" y="86" fill="#fff" font-size="22" font-weight="bold">2 cubed x 3 cubed</text></g><g id="p12calc" opacity="0"><text x="55" y="116" fill="#ffd700" font-size="14">Same exponent: combine bases</text><text x="55" y="140" fill="#fff" font-size="16">= (2 x 3) cubed = 6 cubed = 216</text></g><g id="p12ans" opacity="0"><rect x="50" y="154" width="180" height="20" rx="5" fill="rgba(74,222,128,0.15)" stroke="#4ade80" stroke-width="1"/><text x="140" y="168" text-anchor="middle" fill="#4ade80" font-size="13" font-weight="bold">= 6 cubed = 216</text></g></svg>',
+
+'pe13':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#0d1f12"/><text x="210" y="18" text-anchor="middle" fill="#4ade80" font-size="13" font-weight="bold">Powers Grow Very Fast!</text><g id="p13calc" opacity="0"><text x="40" y="58" fill="#fff" font-size="15">2 to 10 = 1024</text><text x="40" y="80" fill="#fff" font-size="15">10 squared = 100</text></g><g id="p13bar1" opacity="0"><rect x="220" y="90" width="0" height="22" fill="#4ade80" id="bar1r"/><text x="215" y="106" text-anchor="end" fill="#aaa" font-size="11">2^10</text></g><g id="p13bar2" opacity="0"><rect x="220" y="120" width="0" height="22" fill="#e74c3c" id="bar2r"/><text x="215" y="136" text-anchor="end" fill="#aaa" font-size="11">10^2</text></g><g id="p13ans" opacity="0"><rect x="35" y="152" width="280" height="20" rx="5" fill="rgba(74,222,128,0.15)" stroke="#4ade80" stroke-width="1"/><text x="175" y="166" text-anchor="middle" fill="#4ade80" font-size="12" font-weight="bold">1024 is greater than 100   2^10 wins!</text></g></svg>',
+
+'pe14':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#0d1f12"/><text x="210" y="18" text-anchor="middle" fill="#4ade80" font-size="13" font-weight="bold">Finding the Exponent</text><g id="p14expr" opacity="0"><text x="55" y="62" fill="#fff" font-size="22" font-weight="bold">2^x = 64</text></g><g id="p14steps" opacity="0"><text x="40" y="92" fill="#ffd700" font-size="12">Keep multiplying 2 until we reach 64:</text><text x="40" y="112" fill="#aaa" font-size="12">2^1=2  2^2=4  2^3=8  2^4=16</text><text x="40" y="130" fill="#aaa" font-size="12">2^5=32  2^6=64</text></g><g id="p14ans" opacity="0"><rect x="35" y="148" width="140" height="24" rx="6" fill="rgba(74,222,128,0.2)" stroke="#4ade80" stroke-width="1.5"/><text x="105" y="164" text-anchor="middle" fill="#4ade80" font-size="16" font-weight="bold">x = 6</text></g></svg>',
+
+'pe15':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#0d1f12"/><text x="210" y="18" text-anchor="middle" fill="#4ade80" font-size="13" font-weight="bold">Real World: Comparing Masses</text><g id="p15data" opacity="0"><text x="25" y="52" fill="#fff" font-size="12">Earth: 6 x 10^24 kg</text><text x="25" y="70" fill="#fff" font-size="12">Moon: 7.4 x 10^22 kg</text></g><g id="p15calc" opacity="0"><text x="25" y="96" fill="#ffd700" font-size="12">Divide: (6 x 10^24) / (7.4 x 10^22)</text><text x="25" y="114" fill="#fff" font-size="12">= (6/7.4) x 10^(24-22)</text><text x="25" y="132" fill="#fff" font-size="12">= 0.81 x 10^2 = 0.81 x 100 = 81</text></g><g id="p15ans" opacity="0"><rect x="20" y="148" width="260" height="24" rx="6" fill="rgba(74,222,128,0.15)" stroke="#4ade80" stroke-width="1"/><text x="150" y="164" text-anchor="middle" fill="#4ade80" font-size="13" font-weight="bold">Earth is about 81 times heavier</text></g></svg>'
 };
-
-function buildSession(){
-  const first=QB[0];
-  const rest=QB.slice(1).sort(()=>Math.random()-.5);
-  session=[first,...rest.slice(0,PER_SESSION-1)];
+return s[type]||'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg"><rect width="420" height="178" fill="#0d1f12"/><text x="210" y="89" text-anchor="middle" fill="#555" font-size="14">Loading...</text></svg>';
 }
 
-function showQ(){
-  if(idx>=session.length){onComplete();return;}
-  const q=session[idx]; stepIdx=0; nudgeCount=0;
-  updateProg();
-  const area=document.getElementById('qArea'); area.innerHTML='';
-  const qcard=document.createElement('div'); qcard.className='q-card';
-  qcard.innerHTML=`<div class="q-label">Question ${idx+1} of ${PER_SESSION}</div><div class="q-text">${q.q}</div><button class="btn-speak" onclick="speakRaw(\`${q.qs.replace(/`/g,"'")}\`)">🔊 Hear the question</button>`;
-  area.appendChild(qcard);
-  const sc=document.createElement('div'); sc.className='q-card';
-  sc.innerHTML=`<div class="q-label">📖 Explanation — Step by Step</div><div id="stepsWrap"></div><button class="btn-speak" id="nxtStepBtn" onclick="nextStep()" style="margin-top:12px;">▶ Next Step</button>`;
-  area.appendChild(sc);
-  setTimeout(nextStep,600);
+function runAnim(type){
+var s={
+'pe1':function(){fade('p1cubes','1');at(900,function(){fade('p1label','1');});at(2000,function(){fade('p1ans','1');});},
+'pe2':function(){fade('p2law','1');at(700,function(){fade('p2expr','1');});at(1600,function(){fade('p2calc','1');});at(2800,function(){fade('p2ans','1');});},
+'pe3':function(){fade('p3law','1');at(700,function(){fade('p3expr','1');});at(1600,function(){fade('p3calc','1');});at(2800,function(){fade('p3ans','1');});},
+'pe4':function(){fade('p4law','1');at(800,function(){fade('p4proof','1');});at(2800,function(){fade('p4egs','1');});},
+'pe5':function(){fade('p5law','1');at(700,function(){fade('p5expr','1');});at(1600,function(){fade('p5calc','1');});at(2800,function(){fade('p5verify','1');});},
+'pe6':function(){fade('p6law','1');at(700,function(){fade('p6expr','1');});at(1600,function(){fade('p6step','1');});at(2800,function(){fade('p6vis','1');});},
+'pe7':function(){fade('p7law','1');at(700,function(){fade('p7expr','1');});at(1600,function(){fade('p7expand','1');});at(2800,function(){fade('p7ans','1');});},
+'pe8':function(){fade('p8expr','1');at(700,function(){fade('p8count','1');});at(2400,function(){fade('p8ans','1');});},
+'pe9':function(){fade('p9law','1');at(700,function(){fade('p9expr','1');});at(1600,function(){fade('p9expand','1');});at(2600,function(){fade('p9ans','1');});},
+'pe10':function(){fade('p10expr','1');at(700,function(){fade('p10expand','1');});at(1800,function(){fade('p10pairs','1');});at(3000,function(){fade('p10rule','1');});},
+'pe11':function(){fade('p11expr','1');at(700,function(){fade('p11step','1');});at(2400,function(){fade('p11ans','1');});},
+'pe12':function(){fade('p12law','1');at(700,function(){fade('p12expr','1');});at(1600,function(){fade('p12calc','1');});at(2800,function(){fade('p12ans','1');});},
+'pe13':function(){fade('p13calc','1');at(900,function(){fade('p13bar1','1');var el=document.getElementById('bar1r');if(el){var w=0;var t=setInterval(function(){w+=3;el.setAttribute('width',w+'');if(w>=155)clearInterval(t);},20);}});at(1800,function(){fade('p13bar2','1');var el=document.getElementById('bar2r');if(el){var w=0;var t=setInterval(function(){w+=1.5;el.setAttribute('width',w+'');if(w>=15)clearInterval(t);},20);}});at(3000,function(){fade('p13ans','1');});},
+'pe14':function(){fade('p14expr','1');at(700,function(){fade('p14steps','1');});at(2400,function(){fade('p14ans','1');});},
+'pe15':function(){fade('p15data','1');at(900,function(){fade('p15calc','1');});at(2800,function(){fade('p15ans','1');});}
+};
+if(s[type])s[type]();
 }
 
-function nextStep(){
-  const q=session[idx];
-  if(stepIdx>=q.steps.length){document.getElementById('nxtStepBtn').style.display='none';showConfirm();return;}
-  const s=q.steps[stepIdx];
-  const wrap=document.getElementById('stepsWrap');
-  const d=document.createElement('div'); d.className='step';
-  d.innerHTML=`<div class="step-num">${stepIdx+1}</div><div class="step-body">${s.t}</div>`;
-  wrap.appendChild(d); setTimeout(()=>d.classList.add('vis'),50);
-  setTimeout(()=>speakRaw(s.s),300); stepIdx++;
+var cur=0,score=0,answered=false;
+function loadQ(i){
+  answered=false;
+  var q=questions[i];
+  G('qNumber').textContent='Question '+(i+1)+' of 15';
+  G('qText').textContent=q.q;
+  G('feedback').textContent='';G('feedback').className='feedback';
+  G('nextBtn').style.display='none';
+  G('progressBar').style.width=(i/15*100)+'%';
+  G('scorePill').textContent='Score: '+score+' / 15';
+  var og=G('optionsGrid');og.innerHTML='';
+  q.opts.forEach(function(o,idx){
+    var b=document.createElement('button');b.className='opt';b.textContent=o;
+    b.onclick=function(){checkAns(idx);};og.appendChild(b);
+  });
+  clearAt();
+  G('animCanvas').innerHTML=getAnimSVG(q.anim);
+  at(400,function(){runAnim(q.anim);});
+  G('bubble').textContent=q.narr.substring(0,78)+'...';
+  at(300,function(){say(q.narr);});
 }
-
-function showConfirm(){
-  const q=session[idx]; const area=document.getElementById('qArea');
-  const c=document.createElement('div'); c.className='confirm-wrap'; c.id='cWrap';
-  c.innerHTML=`<div class="confirm-title">🎤 Rishika asks — answer to move on!</div><div class="confirm-q">${q.cq}</div><button class="mic-btn" id="micBtn" onclick="startListen()">🎤 Tap and Speak Your Answer</button><div class="transcript" id="tbox"></div><div class="result-box" id="rbox"></div><div class="nudge" id="nudgeBox"></div><button class="btn-next" id="btnNext" onclick="goNext()">Next Question ▶</button>`;
-  area.appendChild(c); c.scrollIntoView({behavior:'smooth',block:'center'});
-  setTimeout(()=>speakRaw(q.cqs),600);
-}
-
-function goNext(){idx++;document.getElementById('qArea').innerHTML='';showQ();window.scrollTo({top:0,behavior:'smooth'});}
-
-function onComplete(){
-  const prog=JSON.parse(localStorage.getItem('rishi_progress')||'{}');
-  prog.explain_powers_done=true; localStorage.setItem('rishi_progress',JSON.stringify(prog));
-  completed=true;
-  document.getElementById('doneBanner').classList.add('show'); unlockNav();
-  document.getElementById('lockTip').style.display='none';
-  const st=JSON.parse(localStorage.getItem('rishi_current_student')||'{}');
-  const nm=st.studentName?st.studentName.split(' ')[0]:'champion';
-  const area=document.getElementById('qArea');
-  const cel=document.createElement('div'); cel.className='rishika-wrap';
-  cel.innerHTML=`<div class="rishika-avatar">👩‍🏫</div><div class="rishika-bubble"><div class="rishika-name">Rishika</div><div class="rishika-text" id="celText">🎉 <span class="hl">${nm}</span>, you've mastered <span class="hl">Powers and Exponents</span>! You now understand the language of the universe — from tiny atoms to giant stars! 🌟 Practice is now unlocked. Go show what you know! 💪</div><button class="btn-speak" onclick="speakEl('celText')">🔊 Hear Rishika</button></div>`;
-  area.appendChild(cel); setTimeout(()=>speakEl('celText'),400);
-}
-
-function unlockNav(){document.getElementById('btnPractice').classList.remove('locked');document.getElementById('btnExam').classList.remove('locked');}
-function goPractice(){if(!completed){alert('Complete all explanations first!');return;}window.location.href='/practice/arithmetic/powers-exponents.html';}
-function goExam(){if(!completed){alert('Complete explanations and practice first!');return;}window.location.href='/exam/arithmetic/powers-exponents.html';}
-
-function setupRecog(){
-  const SR=window.SpeechRecognition||window.webkitSpeechRecognition; if(!SR)return;
-  recog=new SR(); recog.lang='en-IN'; recog.continuous=false; recog.interimResults=false;
-  recog.onresult=e=>handleAnswer(e.results[0][0].transcript.toLowerCase().trim());
-  recog.onerror=()=>{setListen(false);showNudge("I couldn't hear that — tap the mic and try again! 😊");};
-  recog.onend=()=>setListen(false);
-}
-
-function startListen(){
-  if(!recog){showNudge("Voice not supported. Try Chrome on desktop! 🎤");return;}
-  if(listening){recog.stop();return;}
-  setListen(true);
-  const tb=document.getElementById('tbox'); if(tb){tb.classList.add('show');tb.textContent='🎤 Listening...';}
-  recog.start();
-}
-
-function setListen(on){
-  listening=on;
-  const btn=document.getElementById('micBtn');
-  if(btn){btn.className='mic-btn'+(on?' on':'');btn.textContent=on?'🎤 Listening...':'🎤 Tap and Speak Your Answer';}
-}
-
-function handleAnswer(text){
-  const tb=document.getElementById('tbox'); if(tb)tb.textContent='"'+text+'"';
-  const q=session[idx];
-  const ok=q.ans.some(a=>text.includes(a.toLowerCase())||a.toLowerCase().includes(text));
-  const rb=document.getElementById('rbox');
-  if(ok){
-    rb.className='result-box ok'; rb.textContent='✅ Correct! Excellent!';
-    document.getElementById('nudgeBox').classList.remove('show');
-    const nb=document.getElementById('btnNext'); if(nb)nb.classList.add('show');
-    speakRaw("Correct! Excellent! Tap next question to continue.");
-  } else {
-    nudgeCount++;
-    rb.className='result-box no'; rb.textContent='❌ Not quite — listen to my hint!';
-    const nudge=q.nudges[Math.min(nudgeCount-1,q.nudges.length-1)];
-    showNudge(nudge); speakRaw(nudge.replace(/[🤔😄🚀]/g,''));
-    if(nudgeCount>=3){const nb=document.getElementById('btnNext');if(nb){nb.classList.add('show');nb.textContent="I Understand — Next Question ▶";}}
+function checkAns(idx){
+  if(answered)return;answered=true;
+  var q=questions[cur];
+  var opts=G('optionsGrid').querySelectorAll('.opt');
+  opts.forEach(function(b){b.disabled=true;});
+  if(idx===q.ans){
+    opts[idx].classList.add('correct');score++;
+    G('feedback').textContent='Correct! Well done!';G('feedback').className='feedback correct';
+    G('scorePill').textContent='Score: '+score+' / 15';
+    say('Excellent! That is correct!');
+  }else{
+    opts[idx].classList.add('wrong');opts[q.ans].classList.add('correct');
+    G('feedback').textContent='Incorrect. Right answer: '+q.opts[q.ans];G('feedback').className='feedback wrong';
+    say('Not quite. The correct answer is '+q.opts[q.ans]);
   }
+  G('nextBtn').style.display='block';
 }
-
-function showNudge(msg){const n=document.getElementById('nudgeBox');if(n){n.textContent=msg;n.classList.add('show');}}
-
-function speakEl(id){
-  const el = document.getElementById(id);
-  if(!el) return;
-  speakRaw(el.innerText || el.textContent);
+function nextQ(){cur++;if(cur>=questions.length){showDone();return;}loadQ(cur);}
+function replayAnim(){
+  var q=questions[cur];clearAt();speechSynthesis.cancel();rStopTalk();
+  G('animCanvas').innerHTML=getAnimSVG(q.anim);
+  at(200,function(){runAnim(q.anim);});at(400,function(){say(q.narr);});
 }
-
-function speakRaw(text){
-  if(!window.speechSynthesis) return;
-  window.speechSynthesis.cancel();
-  const u = new SpeechSynthesisUtterance(text);
-  u.lang = 'en-IN'; u.rate = 0.85; u.pitch = 1.2;
-  const vs = window.speechSynthesis.getVoices();
-  // Priority: Indian female > any female > Indian > English
-  const v = vs.find(v => v.lang.startsWith('en-IN') && v.name.toLowerCase().includes('female'))
-    || vs.find(v => (v.lang.startsWith('en-IN') || v.lang.startsWith('en-GB')) && v.name.toLowerCase().includes('female'))
-    || vs.find(v => v.name.toLowerCase().includes('zira'))
-    || vs.find(v => v.name.toLowerCase().includes('hazel'))
-    || vs.find(v => v.name.toLowerCase().includes('susan'))
-    || vs.find(v => v.name.toLowerCase().includes('female'))
-    || vs.find(v => v.name.toLowerCase().includes('samantha'))
-    || vs.find(v => v.lang.startsWith('en-IN'))
-    || vs.find(v => v.lang.startsWith('en-GB'));
-  if(v) u.voice = v;
-  window.speechSynthesis.speak(u);
+function showDone(){
+  G('mainArea').style.display='none';G('doneScreen').style.display='flex';
+  G('progressBar').style.width='100%';
+  G('doneScore').textContent='You scored '+score+' out of 15!';
+  localStorage.setItem('explain_powers_done','1');
+  say('Congratulations! You have completed Powers and Exponents! You scored '+score+' out of 15!');
 }
-
-// Stop voice when leaving page
-window.addEventListener('beforeunload', () => {
-  window.speechSynthesis && window.speechSynthesis.cancel();
-});
-window.addEventListener('pagehide', () => {
-  window.speechSynthesis && window.speechSynthesis.cancel();
-});
-window.speechSynthesis && window.speechSynthesis.addEventListener('voiceschanged', ()=>{});
-function updateProg(){
-  const pct=Math.round((idx/PER_SESSION)*100);
-  document.getElementById('progFill').style.width=pct+'%';
-  document.getElementById('progLabel').textContent=`Question ${idx+1} of ${PER_SESSION}`;
-  document.getElementById('progPct').textContent=pct+'% complete';
-}
-
-function openBreak(){document.getElementById('breakOverlay').classList.add('show');}
-function closeBreak(){document.getElementById('breakOverlay').classList.remove('show');}
-function startBreak(reason){
-  closeBreak(); breakSecs=0;
-  document.getElementById('timerLabel').textContent=reason;
-  document.getElementById('timerNum').textContent='00:00';
-  document.getElementById('timerScreen').classList.add('show');
-  breakTmr=setInterval(()=>{
-    breakSecs++;
-    const m=String(Math.floor(breakSecs/60)).padStart(2,'0');
-    const s=String(breakSecs%60).padStart(2,'0');
-    document.getElementById('timerNum').textContent=m+':'+s;
-  },1000);
-}
-function endBreak(){clearInterval(breakTmr);document.getElementById('timerScreen').classList.remove('show');}
-function openGames(){closeBreak();document.getElementById('gamesOverlay').classList.add('show');}
-function closeGames(){document.getElementById('gamesOverlay').classList.remove('show');}
+window.onload=function init(){initVoices(function(){startBlink();loadQ(0);});};
+window.addEventListener('beforeunload',function(){speechSynthesis.cancel();});
+window.addEventListener('pagehide',function(){speechSynthesis.cancel();});
 </script>
 </body>
 </html>

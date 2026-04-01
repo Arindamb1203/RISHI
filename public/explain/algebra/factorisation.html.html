@@ -3,457 +3,317 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RISHI — Explain: Factorisation</title>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Nunito:wght@400;600;700;800;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<title>Factorisation – Class 8 | RISHI</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --cream:#fdf6ec; --warm-white:#fffdf8; --gold:#c8922a; --gold-light:#e8b84b;
-    --gold-pale:#f5e6c8; --amber:#d4870a; --sage:#7a8c6e; --sage-light:#a8b89a;
-    --rust:#b85c2a; --charcoal:#2a2218; --mid:#5a4a30; --soft:#8a7a5a;
-    --inactive:#c8b89a; --border-dark:#6b4c2a; --error:#c0392b;
-  }
-  *{box-sizing:border-box;margin:0;padding:0;}
-  body{background:var(--cream);font-family:'Nunito',sans-serif;min-height:100vh;color:var(--charcoal);}
-  body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(var(--gold-pale) 1px,transparent 1px),linear-gradient(90deg,var(--gold-pale) 1px,transparent 1px);background-size:40px 40px;opacity:.3;z-index:0;pointer-events:none;}
-  .topbar{position:sticky;top:0;z-index:100;background:rgba(253,246,236,.97);border-bottom:2px solid var(--border-dark);backdrop-filter:blur(8px);padding:11px 22px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;}
-  .logo-sm{font-family:'Orbitron',sans-serif;font-size:18px;font-weight:900;letter-spacing:4px;background:linear-gradient(135deg,var(--amber),var(--gold-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-  .topbar-center{font-family:'Orbitron',sans-serif;font-size:11px;letter-spacing:2px;color:var(--amber);text-transform:uppercase;}
-  .topbar-right{display:flex;gap:10px;align-items:center;}
-  .btn-topbar{font-family:'Nunito',sans-serif;font-size:13px;font-weight:900;padding:7px 16px;border-radius:20px;border:2px solid var(--border-dark);background:var(--warm-white);color:var(--mid);cursor:pointer;transition:all .2s;}
-  .btn-topbar:hover{background:var(--gold-pale);}
-  .btn-topbar.back{background:var(--gold-pale);}
-  .btn-topbar.back:hover{background:var(--amber);color:#fff;}
-  .prog-wrap{position:relative;z-index:10;padding:10px 22px;background:rgba(255,253,248,.9);border-bottom:1.5px solid var(--gold-pale);}
-  .prog-info{display:flex;justify-content:space-between;font-size:12px;font-weight:800;color:var(--mid);margin-bottom:6px;}
-  .prog-bar{height:7px;background:var(--gold-pale);border-radius:4px;overflow:hidden;}
-  .prog-fill{height:100%;background:linear-gradient(90deg,var(--sage),var(--gold));border-radius:4px;transition:width .5s ease;}
-  .main{position:relative;z-index:10;max-width:820px;margin:0 auto;padding:20px 18px 130px;}
-  .rishika-wrap{display:flex;align-items:flex-start;gap:14px;margin-bottom:22px;}
-  .rishika-avatar{width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,var(--sage),var(--sage-light));border:2px solid var(--border-dark);display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0;box-shadow:0 4px 16px rgba(122,140,110,.3);}
-  .rishika-bubble{background:rgba(255,253,248,.97);border:2px solid var(--border-dark);border-radius:0 18px 18px 18px;padding:16px 20px;flex:1;box-shadow:0 4px 20px rgba(107,76,42,.1);}
-  .rishika-name{font-size:11px;font-weight:900;color:var(--sage);letter-spacing:2px;text-transform:uppercase;margin-bottom:6px;}
-  .rishika-text{font-size:15px;font-weight:700;color:var(--charcoal);line-height:1.7;}
-  .hl{color:var(--amber);font-weight:900;}
-  .fm{font-family:'Share Tech Mono',monospace;background:var(--gold-pale);border:1.5px solid var(--border-dark);border-radius:6px;padding:2px 8px;font-size:14px;color:var(--mid);}
-  .frac{display:inline-flex;flex-direction:column;align-items:center;font-size:14px;font-weight:900;vertical-align:middle;margin:0 3px;line-height:1.2;}
-  .frac .num{border-bottom:2px solid currentColor;padding:0 3px;}
-  .frac .den{padding:0 3px;}
-  .btn-speak{display:inline-flex;align-items:center;gap:7px;font-family:'Nunito',sans-serif;font-size:12px;font-weight:900;padding:6px 13px;border-radius:20px;border:2px solid var(--sage);background:#eef2eb;color:var(--sage);cursor:pointer;margin-top:10px;transition:all .2s;}
-  .btn-speak:hover,.btn-speak.on{background:var(--sage);color:#fff;}
-  .q-card{background:rgba(255,253,248,.97);border:2px solid var(--border-dark);border-radius:18px;padding:20px 22px;margin-bottom:16px;box-shadow:0 4px 20px rgba(107,76,42,.1);}
-  .q-label{font-family:'Orbitron',sans-serif;font-size:11px;letter-spacing:3px;color:var(--amber);text-transform:uppercase;margin-bottom:10px;}
-  .q-text{font-size:16px;font-weight:800;color:var(--charcoal);line-height:1.7;margin-bottom:12px;}
-  .step{display:flex;gap:12px;margin-bottom:14px;opacity:0;transform:translateY(8px);transition:all .4s ease;}
-  .step.vis{opacity:1;transform:translateY(0);}
-  .step-num{width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;font-size:11px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:2px solid var(--border-dark);}
-  .step-body{flex:1;font-size:14px;font-weight:700;color:var(--mid);line-height:1.7;padding-top:2px;}
-  .ans-tag{font-family:'Share Tech Mono',monospace;background:linear-gradient(135deg,#eef2eb,#f5fbf2);border:2px solid var(--border-dark);border-radius:8px;padding:3px 10px;color:var(--sage);font-size:14px;}
-  .confirm-wrap{margin-top:16px;background:linear-gradient(135deg,#eef2eb,#f5fbf2);border:2px solid var(--border-dark);border-radius:14px;padding:18px 20px;}
-  .confirm-title{font-size:12px;font-weight:900;color:var(--sage);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;}
-  .confirm-q{font-size:15px;font-weight:800;color:var(--charcoal);margin-bottom:14px;line-height:1.6;}
-  .mic-btn{display:flex;align-items:center;gap:10px;width:100%;font-family:'Nunito',sans-serif;font-size:15px;font-weight:900;padding:12px 18px;border-radius:12px;border:2px solid var(--border-dark);background:var(--warm-white);color:var(--mid);cursor:pointer;transition:all .2s;margin-bottom:10px;}
-  .mic-btn:hover{border-color:var(--sage);color:var(--sage);}
-  .mic-btn.on{background:var(--sage);color:#fff;border-color:var(--sage);animation:blnk .8s ease-in-out infinite;}
-  @keyframes blnk{0%,100%{opacity:1}50%{opacity:.5}}
-  .transcript{font-family:'Share Tech Mono',monospace;font-size:13px;color:var(--charcoal);background:var(--warm-white);border:2px solid var(--border-dark);border-radius:10px;padding:9px 13px;min-height:38px;margin-bottom:10px;display:none;}
-  .transcript.show{display:block;}
-  .result-box{font-size:13px;font-weight:800;padding:10px 14px;border-radius:10px;display:none;line-height:1.5;}
-  .result-box.ok{background:#eef2eb;border:2px solid var(--sage);color:var(--sage);display:block;}
-  .result-box.no{background:#fff5f0;border:2px solid var(--rust);color:var(--rust);display:block;}
-  .nudge{font-size:13px;font-weight:700;color:var(--mid);margin-top:8px;font-style:italic;display:none;}
-  .nudge.show{display:block;}
-  .btn-next{font-family:'Nunito',sans-serif;font-size:15px;font-weight:900;padding:12px 24px;border-radius:12px;border:none;background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;cursor:pointer;box-shadow:0 4px 16px rgba(212,135,10,.3);transition:all .2s;display:none;margin-top:12px;width:100%;}
-  .btn-next.show{display:block;}
-  .btn-next:hover{transform:translateY(-1px);}
-  .bottom-nav{position:fixed;bottom:0;left:0;right:0;z-index:100;background:rgba(253,246,236,.97);border-top:2px solid var(--border-dark);padding:12px 22px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap;align-items:center;}
-  .btn-nav{font-family:'Nunito',sans-serif;font-size:14px;font-weight:900;padding:11px 24px;border-radius:12px;border:2px solid var(--border-dark);cursor:pointer;transition:all .2s;}
-  .btn-nav.practice{background:linear-gradient(135deg,var(--sage),var(--sage-light));color:#fff;border-color:var(--sage);}
-  .btn-nav.exam{background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;border-color:var(--amber);}
-  .btn-nav.locked{background:var(--gold-pale);color:var(--inactive);cursor:not-allowed;border-color:var(--inactive);}
-  .btn-nav:not(.locked):hover{transform:translateY(-2px);}
-  .lock-tip{font-size:11px;font-weight:700;color:var(--rust);width:100%;text-align:center;}
-  .overlay{display:none;position:fixed;inset:0;background:rgba(42,34,24,.92);z-index:1000;flex-direction:column;align-items:center;justify-content:center;backdrop-filter:blur(6px);}
-  .overlay.show{display:flex;}
-  .break-box{background:var(--warm-white);border:2px solid var(--border-dark);border-radius:24px;padding:32px 36px;max-width:400px;width:90%;text-align:center;}
-  .break-title{font-family:'Orbitron',sans-serif;font-size:15px;font-weight:900;color:var(--amber);letter-spacing:3px;margin-bottom:5px;}
-  .break-sub{font-size:13px;font-weight:700;color:var(--soft);margin-bottom:20px;}
-  .break-opts{display:flex;flex-direction:column;gap:9px;margin-bottom:16px;}
-  .break-opt{font-family:'Nunito',sans-serif;font-size:15px;font-weight:800;padding:12px;border-radius:12px;border:2px solid var(--border-dark);background:var(--warm-white);color:var(--mid);cursor:pointer;transition:all .2s;}
-  .break-opt:hover{background:var(--gold-pale);border-color:var(--amber);}
-  .timer-screen{display:none;position:fixed;inset:0;background:#1a1208;z-index:1001;flex-direction:column;align-items:center;justify-content:center;}
-  .timer-screen.show{display:flex;}
-  .timer-reason{font-family:'Orbitron',sans-serif;font-size:13px;letter-spacing:4px;color:var(--gold-light);margin-bottom:18px;text-transform:uppercase;}
-  .timer-num{font-family:'Orbitron',sans-serif;font-size:76px;font-weight:900;color:var(--gold-light);letter-spacing:8px;margin-bottom:36px;text-shadow:0 0 40px rgba(232,184,75,.4);}
-  .btn-end{font-family:'Nunito',sans-serif;font-size:17px;font-weight:900;padding:15px 36px;border-radius:14px;border:2px solid var(--gold-light);background:transparent;color:var(--gold-light);cursor:pointer;transition:all .2s;}
-  .btn-end:hover{background:var(--gold-light);color:var(--charcoal);}
-  .done-banner{background:linear-gradient(135deg,#eef2eb,#f5fbf2);border:2px solid var(--border-dark);border-radius:16px;padding:18px 22px;text-align:center;margin-bottom:18px;display:none;}
-  .done-banner.show{display:block;}
-  .done-banner .dt{font-family:'Orbitron',sans-serif;font-size:13px;letter-spacing:2px;color:var(--sage);margin-bottom:5px;}
-  .done-banner .ds{font-size:14px;font-weight:700;color:var(--mid);}
-  @media(max-width:600px){
-    .main{padding:14px 10px 130px;}
-    .topbar,.prog-wrap{padding-left:12px;padding-right:12px;}
-    .timer-num{font-size:52px;}
-  }
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Poppins',sans-serif;background:linear-gradient(135deg,#0f0c29,#302b63,#24243e);min-height:100vh;color:#fff;display:flex;flex-direction:column}
+.top-bar{display:flex;align-items:center;justify-content:space-between;padding:12px 20px;background:rgba(255,255,255,0.05);border-bottom:1px solid rgba(255,255,255,0.1)}
+.top-bar .logo{font-size:1.4rem;font-weight:700;color:#ffd700;letter-spacing:2px}
+.top-bar .chapter{font-size:0.82rem;color:#aaa}
+.score-pill{background:rgba(255,215,0,0.15);border:1px solid #ffd700;border-radius:20px;padding:4px 14px;font-size:0.78rem;color:#ffd700}
+.progress-wrap{height:4px;background:rgba(255,255,255,0.1)}
+.progress-bar{height:4px;background:linear-gradient(90deg,#ffd700,#ff8c00);transition:width 0.5s ease}
+.main{display:flex;flex:1}
+.rishika-panel{width:158px;min-width:158px;display:flex;flex-direction:column;align-items:center;padding:18px 10px;background:rgba(255,255,255,0.03);border-right:1px solid rgba(255,255,255,0.08)}
+.rishika-svg-wrap{width:118px;height:138px}
+.speech-bubble{background:rgba(255,255,255,0.95);color:#333;border-radius:12px;padding:9px 11px;font-size:0.68rem;line-height:1.5;margin-top:10px;position:relative;max-width:138px;min-height:38px}
+.speech-bubble::before{content:'';position:absolute;top:-8px;left:18px;border-left:8px solid transparent;border-right:8px solid transparent;border-bottom:8px solid rgba(255,255,255,0.95)}
+.replay-btn{margin-top:11px;background:none;border:1px solid rgba(255,255,255,0.3);color:#fff;border-radius:20px;padding:4px 12px;font-size:0.68rem;cursor:pointer;font-family:'Poppins',sans-serif}
+.replay-btn:hover{background:rgba(255,255,255,0.1)}
+.content{flex:1;padding:18px;display:flex;flex-direction:column;gap:13px;overflow-y:auto}
+.q-number{font-size:0.72rem;color:#ffd700;margin-bottom:2px}
+.q-text{font-size:0.98rem;font-weight:600;color:#fff;line-height:1.6}
+.anim-canvas{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:6px;max-height:195px;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.anim-canvas svg{max-height:195px;width:100%}
+.options-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.opt{background:rgba(255,255,255,0.07);border:1.5px solid rgba(255,255,255,0.15);border-radius:10px;padding:11px 14px;font-size:0.84rem;cursor:pointer;transition:all 0.2s;font-family:'Poppins',sans-serif;color:#fff;text-align:left}
+.opt:hover:not(:disabled){background:rgba(255,255,255,0.13);border-color:#ffd700}
+.opt.correct{background:rgba(39,174,96,0.25);border-color:#27ae60}
+.opt.wrong{background:rgba(231,76,60,0.25);border-color:#e74c3c}
+.feedback{font-size:0.83rem;padding:9px 13px;border-radius:8px;min-height:34px}
+.feedback.correct{background:rgba(39,174,96,0.2);color:#2ecc71}
+.feedback.wrong{background:rgba(231,76,60,0.2);color:#e74c3c}
+.next-btn{align-self:flex-end;background:linear-gradient(135deg,#ffd700,#ff8c00);color:#000;border:none;border-radius:24px;padding:10px 28px;font-weight:700;font-size:0.88rem;cursor:pointer;font-family:'Poppins',sans-serif;display:none}
+.next-btn:hover{transform:scale(1.03)}
+.done-screen{display:none;flex-direction:column;align-items:center;justify-content:center;flex:1;gap:18px;text-align:center;padding:40px}
+.done-screen h2{font-size:1.9rem;color:#ffd700}
+.done-screen p{color:#ccc;font-size:0.96rem}
+.done-btn{background:linear-gradient(135deg,#ffd700,#ff8c00);color:#000;border:none;border-radius:24px;padding:11px 30px;font-weight:700;font-size:0.96rem;cursor:pointer;font-family:'Poppins',sans-serif}
 </style>
 </head>
 <body>
-
-<div class="topbar">
-  <div class="logo-sm">RISHI</div>
-  <div class="topbar-center">✂️ Factorisation — Explain</div>
-  <div class="topbar-right">
-    <button class="btn-topbar" onclick="openBreak()">☕ Break</button>
-    <button class="btn-topbar back" onclick="window.location.href='/syllabus.html'">← Syllabus</button>
-  </div>
+<div class="top-bar">
+  <span class="logo">RISHI</span>
+  <span class="chapter">Factorisation — Class 8 Algebra</span>
+  <span class="score-pill" id="scorePill">Score: 0 / 15</span>
 </div>
-
-<div class="prog-wrap">
-  <div class="prog-info">
-    <span id="progLabel">Question 1 of 10</span>
-    <span id="progPct">0% complete</span>
-  </div>
-  <div class="prog-bar"><div class="prog-fill" id="progFill" style="width:0%"></div></div>
-</div>
-
-<div class="main">
-  <div class="done-banner" id="doneBanner">
-    <div class="dt">✅ Explanation Completed!</div>
-    <div class="ds">You've completed this section once. Practice and Exam are now unlocked. You can revisit anytime.</div>
-  </div>
-  <div class="rishika-wrap" id="introWrap">
-    <div class="rishika-avatar">👩‍🏫</div>
-    <div class="rishika-bubble">
-      <div class="rishika-name">Rishika</div>
-      <div class="rishika-text" id="introText">Hi <span class="hl" id="sName">there</span>! 😊 I'm Rishika — think of me as your elder sister, sitting right beside you. Today we're going to understand <span class="hl">Factorisation</span> together, step by step. No rush, no pressure. Ready? Let's go! 🚀</div>
-      <button class="btn-speak" onclick="speakEl('introText')">🔊 Hear Rishika</button>
+<div class="progress-wrap"><div class="progress-bar" id="progressBar" style="width:0%"></div></div>
+<div class="main" id="mainArea">
+  <div class="rishika-panel">
+    <div class="rishika-svg-wrap">
+      <svg id="rishikaSvg" viewBox="0 0 120 140" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="60" cy="126" rx="34" ry="20" fill="#7c3aed"/>
+        <ellipse cx="60" cy="109" rx="21" ry="17" fill="#8b5cf6"/>
+        <rect x="53" y="93" width="14" height="14" rx="4" fill="#f5c5a3"/>
+        <ellipse cx="60" cy="73" rx="30" ry="31" fill="#f5c5a3"/>
+        <ellipse cx="60" cy="46" rx="30" ry="15" fill="#2d1b69"/>
+        <ellipse cx="32" cy="69" rx="7" ry="17" fill="#2d1b69"/>
+        <ellipse cx="88" cy="69" rx="7" ry="17" fill="#2d1b69"/>
+        <circle cx="60" cy="37" r="9" fill="#2d1b69"/>
+        <circle cx="31" cy="77" r="3" fill="#ffd700"/>
+        <circle cx="89" cy="77" r="3" fill="#ffd700"/>
+        <ellipse cx="46" cy="72" rx="7" ry="7.5" fill="white"/>
+        <circle cx="47" cy="73" r="4.5" fill="#5b21b6"/>
+        <circle cx="47" cy="73" r="2.5" fill="#1e0a4d"/>
+        <circle cx="49" cy="71" r="1.2" fill="white"/>
+        <ellipse id="lidL" cx="46" cy="72" rx="7" ry="7.5" fill="#f5c5a3" opacity="0"/>
+        <ellipse cx="74" cy="72" rx="7" ry="7.5" fill="white"/>
+        <circle cx="75" cy="73" r="4.5" fill="#5b21b6"/>
+        <circle cx="75" cy="73" r="2.5" fill="#1e0a4d"/>
+        <circle cx="77" cy="71" r="1.2" fill="white"/>
+        <ellipse id="lidR" cx="74" cy="72" rx="7" ry="7.5" fill="#f5c5a3" opacity="0"/>
+        <path d="M40 63 Q46 60 52 63" stroke="#4c1d95" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <path d="M68 63 Q74 60 80 63" stroke="#4c1d95" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <ellipse cx="60" cy="81" rx="3" ry="2" fill="#e8a87c"/>
+        <ellipse id="blushL" cx="40" cy="83" rx="8" ry="5" fill="#ff9999" opacity="0"/>
+        <ellipse id="blushR" cx="80" cy="83" rx="8" ry="5" fill="#ff9999" opacity="0"/>
+        <path id="mouth" d="M53 89 Q60 93 67 89" stroke="#c0392b" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <path d="M48 109 L60 117 L72 109" stroke="#6d28d9" stroke-width="2" fill="none"/>
+        <path d="M25 121 Q60 136 95 121" stroke="#a78bfa" stroke-width="3" fill="none" opacity="0.6"/>
+      </svg>
     </div>
+    <div class="speech-bubble" id="bubble">Hi! I'm Rishika. Let's master Factorisation! 🌟</div>
+    <button class="replay-btn" onclick="replayAnim()">↺ Replay</button>
   </div>
-  <div id="qArea"></div>
-</div>
-
-<div class="bottom-nav">
-  <div class="lock-tip" id="lockTip">☝ Complete all explanations to unlock Practice and Exam</div>
-  <button class="btn-nav practice locked" id="btnPractice" onclick="goPractice()">✏️ Go to Practice</button>
-  <button class="btn-nav exam locked" id="btnExam" onclick="goExam()">📝 Go to Exam</button>
-</div>
-
-<div class="overlay" id="breakOverlay">
-  <div class="break-box">
-    <div class="break-title">Take a Break</div>
-    <div class="break-sub">Choose your reason — timer starts</div>
-    <div class="break-opts">
-      <button class="break-opt" onclick="startBreak('💧 Water Break')">💧 Water</button>
-      <button class="break-opt" onclick="startBreak('🚽 Washroom Break')">🚽 Washroom</button>
-      <button class="break-opt" onclick="startBreak('🏃 Physical Game')">🏃 Physical Game</button>
-      <button class="break-opt" onclick="openGames()">🎮 Play with Me</button>
+  <div class="content" id="contentArea">
+    <div>
+      <div class="q-number" id="qNumber">Question 1 of 15</div>
+      <div class="q-text" id="qText"></div>
     </div>
-    <button class="break-opt" style="color:var(--soft);" onclick="closeBreak()">Cancel — Back to Study</button>
+    <div class="anim-canvas" id="animCanvas"></div>
+    <div class="options-grid" id="optionsGrid"></div>
+    <div class="feedback" id="feedback"></div>
+    <button class="next-btn" id="nextBtn" onclick="nextQ()">Next →</button>
   </div>
 </div>
-
-<div class="timer-screen" id="timerScreen">
-  <div class="timer-reason" id="timerLabel">Break</div>
-  <div class="timer-num" id="timerNum">00:00</div>
-  <button class="btn-end" onclick="endBreak()">✅ End Break — Back to Study</button>
+<div class="done-screen" id="doneScreen">
+  <div style="font-size:3rem">🎉</div>
+  <h2>Chapter Complete!</h2>
+  <p id="doneScore"></p>
+  <p style="color:#aaa;font-size:0.82rem">Factorisation — Class 8 Algebra</p>
+  <button class="done-btn" onclick="location.href='/syllabus.html'">Back to Syllabus</button>
 </div>
-
-<div class="overlay" id="gamesOverlay">
-  <div class="break-box">
-    <div style="font-size:44px;margin-bottom:10px;">🎮</div>
-    <div class="break-title">Games</div>
-    <div class="break-sub" style="margin-bottom:20px;">Focus games, brain twisters and more are being built for you. Coming very soon! 🚀</div>
-    <button class="break-opt" style="background:var(--amber);color:#fff;border-color:var(--amber);" onclick="closeGames()">OK — Back to Study</button>
-  </div>
-</div>
-
 <script>
-const QB = [
-  {id:'fa0',q:'Factorise: <span class="fm">12x²y + 18xy²</span>',qs:'Factorise 12x squared y plus 18xy squared.',
-   steps:[
-    {t:'HCF(12,18)=6. Common variables: x and y. HCF = <span class="fm">6xy</span>.',s:'HCF of 12 and 18 is 6. Common variables x and y. So HCF is 6xy.'},
-    {t:'12x²y / 6xy = 2x. 18xy² / 6xy = 3y.',s:'12x squared y divided by 6xy is 2x. 18xy squared divided by 6xy is 3y.'},
-    {t:'<span class="ans-tag">6xy(2x + 3y)</span>',s:'Factorised: 6xy times 2x plus 3y.'}
-   ],
-   cq:'What is the common factor?',cqs:'What is the common factor?',
-   ans:['6xy','6 x y'],
-   nudges:['HCF of 12 and 18, then common x and y. 🤔','HCF=6, both have x and y. 😄','6xy! Say 6xy! 🚀']},
-  {id:'fa1',q:'Factorise by grouping: <span class="fm">ax + ay + bx + by</span>',qs:'Factorise ax plus ay plus bx plus by by grouping.',
-   steps:[
-    {t:'Group: <span class="fm">(ax+ay)+(bx+by)</span>',s:'Group the first two and last two.'},
-    {t:'= <span class="fm">a(x+y)+b(x+y)</span>',s:'Factor: a times x plus y plus b times x plus y.'},
-    {t:'<span class="ans-tag">(x+y)(a+b)</span>',s:'x plus y times a plus b.'}
-   ],
-   cq:'What is the common binomial factor?',cqs:'What is the common binomial factor?',
-   ans:['x+y','(x+y)','x plus y'],
-   nudges:['After grouping, what binomial appears twice? 🤔','a(x+y) and b(x+y) - common is (x+y)! 😄','x+y! Say x plus y! 🚀']},
-  {id:'fa2',q:'Factorise: <span class="fm">9x² - 16</span> using a²-b²=(a+b)(a-b)',qs:'Factorise 9x squared minus 16.',
-   steps:[
-    {t:'9x²=(3x)², 16=4².',s:'9x squared is 3x whole squared. 16 is 4 squared.'},
-    {t:'a=3x, b=4.',s:'a equals 3x and b equals 4.'},
-    {t:'<span class="ans-tag">(3x+4)(3x-4)</span>',s:'3x plus 4 times 3x minus 4.'}
-   ],
-   cq:'What is the factored form of 9x²-16?',cqs:'Factored form of 9x squared minus 16?',
-   ans:['(3x+4)(3x-4)','3x+4 times 3x-4'],
-   nudges:['a²-b²=(a+b)(a-b). Here a=3x, b=4. 🤔','(3x+4)(3x-4). 😄','Say 3x plus 4 times 3x minus 4! 🚀']},
-  {id:'fa3',q:'Factorise as perfect square: <span class="fm">x² + 6x + 9</span>',qs:'Factorise x squared plus 6x plus 9 as perfect square.',
-   steps:[
-    {t:'Check (a+b)²: a=x, b=3. 2ab=6x. ✅',s:'Check: a equals x, b equals 3. 2ab equals 6x. It matches!'},
-    {t:'<span class="ans-tag">(x+3)²</span>',s:'x plus 3 whole squared.'}
-   ],
-   cq:'What is the factorised form?',cqs:'What is the factorised form of x squared plus 6x plus 9?',
-   ans:['(x+3)^2','(x+3)²','x+3 squared','x plus 3 squared'],
-   nudges:['(a+b)² with a=x, b=3. 🤔','(x+3)². 😄','x plus 3 squared! Say it! 🚀']},
-  {id:'fa4',q:'Factorise by splitting middle term: <span class="fm">x² + 7x + 12</span>',qs:'Factorise x squared plus 7x plus 12.',
-   steps:[
-    {t:'Need two numbers: product=12, sum=7.',s:'Find two numbers with product 12 and sum 7.'},
-    {t:'3 and 4: 3×4=12, 3+4=7. ✅',s:'3 and 4 work.'},
-    {t:'x²+3x+4x+12 = x(x+3)+4(x+3) = <span class="ans-tag">(x+3)(x+4)</span>',s:'x plus 3 times x plus 4.'}
-   ],
-   cq:'What are the two factors?',cqs:'What are the two factors of x squared plus 7x plus 12?',
-   ans:['(x+3)(x+4)','x+3 and x+4'],
-   nudges:['Product 12, sum 7. Numbers are 3 and 4! 🤔','(x+3)(x+4). 😄','Say x plus 3 times x plus 4! 🚀']},
-  {id:'fa5',q:'Divide: <span class="fm">(x²+5x+6) ÷ (x+2)</span>',qs:'Divide x squared plus 5x plus 6 by x plus 2.',
-   steps:[
-    {t:'Factorise: x²+5x+6 = (x+2)(x+3).',s:'Factorise numerator: x plus 2 times x plus 3.'},
-    {t:'Cancel (x+2).',s:'Cancel x plus 2.'},
-    {t:'<span class="ans-tag">x + 3</span>',s:'Result is x plus 3.'}
-   ],
-   cq:'What is (x²+5x+6) ÷ (x+2)?',cqs:'What is the quotient?',
-   ans:['x+3','x plus 3'],
-   nudges:['Factorise top first. x²+5x+6=(x+2)(x+3). 🤔','Cancel (x+2). 😄','x+3! Say x plus 3! 🚀']},
-  {id:'fa6',q:'Factorise: <span class="fm">4x² - 25</span>',qs:'Factorise 4x squared minus 25.',
-   steps:[
-    {t:'4x²=(2x)², 25=5².',s:'4x squared is 2x squared. 25 is 5 squared.'},
-    {t:'a²-b² form. a=2x, b=5.',s:'This is a squared minus b squared form.'},
-    {t:'<span class="ans-tag">(2x+5)(2x-5)</span>',s:'2x plus 5 times 2x minus 5.'}
-   ],
-   cq:'What is the factored form of 4x²-25?',cqs:'Factored form?',
-   ans:['(2x+5)(2x-5)','2x+5 times 2x-5'],
-   nudges:['(2x)²-5²=(2x+5)(2x-5). 🤔','(2x+5)(2x-5)! 😄','Say 2x plus 5 times 2x minus 5! 🚀']},
-  {id:'fa7',q:'Factorise: <span class="fm">2x² + x - 6</span>',qs:'Factorise 2x squared plus x minus 6.',
-   steps:[
-    {t:'Product=2×(-6)=-12, sum=1. Numbers: 4 and -3.',s:'Product is minus 12, sum is 1. Numbers are 4 and minus 3.'},
-    {t:'2x²+4x-3x-6 = 2x(x+2)-3(x+2)',s:'Split and group.'},
-    {t:'<span class="ans-tag">(x+2)(2x-3)</span>',s:'x plus 2 times 2x minus 3.'}
-   ],
-   cq:'What are the factors of 2x²+x-6?',cqs:'Factors of 2x squared plus x minus 6?',
-   ans:['(x+2)(2x-3)','x+2 and 2x-3'],
-   nudges:['Numbers with product -12, sum 1: 4 and -3. 🤔','(x+2)(2x-3). 😄','Say x plus 2 times 2x minus 3! 🚀']},
-  {id:'fa8',q:'Factorise: <span class="fm">x² - 10x + 25</span>',qs:'Factorise x squared minus 10x plus 25.',
-   steps:[
-    {t:'Check (a-b)²: a=x, b=5. 2ab=10x. ✅',s:'Check a minus b squared. a equals x, b equals 5. 2ab is 10x. Matches!'},
-    {t:'<span class="ans-tag">(x-5)²</span>',s:'x minus 5 whole squared.'}
-   ],
-   cq:'Factorised form of x²-10x+25?',cqs:'Factorised form?',
-   ans:['(x-5)^2','(x-5)²','x minus 5 squared'],
-   nudges:['(a-b)² with a=x, b=5. 🤔','(x-5)². 😄','x minus 5 squared! 🚀']},
-  {id:'fa9',q:'Divide: <span class="fm">20(y+4)(y+3)(y-3) ÷ 5(y+3)</span>',qs:'Divide the expression.',
-   steps:[
-    {t:'Cancel (y+3).',s:'Cancel the common factor y plus 3.'},
-    {t:'= 20(y+4)(y-3) ÷ 5',s:'Gives 20 times y plus 4 times y minus 3 divided by 5.'},
-    {t:'20/5=4. <span class="ans-tag">4(y+4)(y-3)</span>',s:'20 divided by 5 is 4. Result: 4 times y plus 4 times y minus 3.'}
-   ],
-   cq:'What is the numerical coefficient after dividing?',cqs:'What is the coefficient?',
-   ans:['4','four'],
-   nudges:['20 ÷ 5 = ? 🤔','4! 😄','4! Say 4! 🚀']}
+function G(id){return document.getElementById(id);}
+var atTimers=[];
+function clearAt(){atTimers.forEach(clearTimeout);atTimers=[];}
+function at(ms,fn){atTimers.push(setTimeout(fn,ms));}
+var chosenVoice=null,mouthTimer=null;
+function initVoices(cb){
+  var v=speechSynthesis.getVoices();
+  if(v.length){pickVoice(v);cb();return;}
+  speechSynthesis.onvoiceschanged=function(){pickVoice(speechSynthesis.getVoices());cb();};
+}
+function pickVoice(voices){
+  var pri=['heera','veena','priya','raveena','female','woman','zira','samantha','victoria','karen','moira','tessa','fiona'];
+  var enIN=voices.filter(function(v){return v.lang==='en-IN';});
+  for(var p=0;p<pri.length;p++){for(var i=0;i<enIN.length;i++){if(enIN[i].name.toLowerCase().indexOf(pri[p])>-1){chosenVoice=enIN[i];return;}}}
+  var enA=voices.filter(function(v){return v.lang.startsWith('en');});
+  for(var p=0;p<pri.length;p++){for(var i=0;i<enA.length;i++){if(enA[i].name.toLowerCase().indexOf(pri[p])>-1){chosenVoice=enA[i];return;}}}
+  if(enIN.length){chosenVoice=enIN[0];return;}
+  if(enA.length){chosenVoice=enA[0];}
+}
+function say(text){
+  speechSynthesis.cancel();rStopTalk();
+  var u=new SpeechSynthesisUtterance(text);
+  if(chosenVoice)u.voice=chosenVoice;
+  u.lang='en-IN';u.rate=0.88;u.pitch=1.15;
+  u.onstart=function(){rStartTalk();};
+  u.onend=function(){rStopTalk();};
+  speechSynthesis.speak(u);
+}
+function rStartTalk(){
+  G('blushL').style.opacity='0.7';G('blushR').style.opacity='0.7';
+  if(mouthTimer)clearInterval(mouthTimer);
+  var open=false;
+  mouthTimer=setInterval(function(){
+    open=!open;
+    G('mouth').setAttribute('d',open?'M53 87 Q60 96 67 87':'M53 89 Q60 93 67 89');
+  },160);
+}
+function rStopTalk(){
+  if(mouthTimer){clearInterval(mouthTimer);mouthTimer=null;}
+  G('mouth').setAttribute('d','M53 89 Q60 93 67 89');
+  G('blushL').style.opacity='0';G('blushR').style.opacity='0';
+}
+var blinkTimer=null;
+function startBlink(){
+  function doBlink(){
+    G('lidL').setAttribute('opacity','0.95');G('lidR').setAttribute('opacity','0.95');
+    setTimeout(function(){G('lidL').setAttribute('opacity','0');G('lidR').setAttribute('opacity','0');blinkTimer=setTimeout(doBlink,2200+Math.random()*3000);},120);
+  }
+  blinkTimer=setTimeout(doBlink,2200+Math.random()*3000);
+}
+function fade(id,v){var e=G(id);if(!e)return;e.style.transition='opacity .5s';e.style.opacity=v;}
+
+var questions=[
+{q:'Factorise: 4x + 8',opts:['4(x + 2)','2(x + 4)','4(x + 4)','2(2x + 4)'],ans:0,anim:'common1',
+narr:'Watch! The H C F of 4 and 8 is 4. We divide both terms by 4. So 4x plus 8 equals 4 times x plus 2.'},
+
+{q:'Factorise: 6a² + 3a',opts:['3a(2a + 1)','6a(a + 1)','3(2a² + a)','3a(2a + 3)'],ans:0,anim:'common2',
+narr:'The H C F of 6a squared and 3a is 3a. Dividing each term by 3a gives us 3a times 2a plus 1.'},
+
+{q:'Factorise: 12m²n + 8mn²',opts:['4mn(3m + 2n)','4m(3mn + 2n²)','2mn(6m + 4n)','4mn(3m + 4n)'],ans:0,anim:'common3',
+narr:'H C F of coefficients 12 and 8 is 4. Lowest powers: m to the 1 and n to the 1. So H C F is 4mn, giving 4mn times 3m plus 2n.'},
+
+{q:'Factorise: x² – 9',opts:['(x + 3)(x – 3)','(x – 9)(x + 1)','(x + 9)(x – 1)','(x – 3)²'],ans:0,anim:'diffsq1',
+narr:'This is difference of squares! a squared minus b squared equals a plus b times a minus b. Here a is x and b is 3. Answer: x plus 3 times x minus 3.'},
+
+{q:'Factorise: x² + 6x + 9',opts:['(x + 3)²','(x + 9)(x + 1)','(x + 3)(x + 3)','Both A and C'],ans:3,anim:'persq1',
+narr:'Check the perfect square identity. 3 squared is 9, and 2 times x times 3 is 6x. So this is x plus 3 whole squared. Options A and C are both correct.'},
+
+{q:'Factorise: x² + 5x + 6',opts:['(x + 2)(x + 3)','(x + 1)(x + 6)','(x + 6)(x – 1)','(x + 2)(x + 4)'],ans:0,anim:'split1',
+narr:'Splitting the middle term. Find two numbers that multiply to 6 and add to 5. Those are 2 and 3. So x squared plus 5x plus 6 equals x plus 2 times x plus 3.'},
+
+{q:'Factorise: x² – 7x + 12',opts:['(x – 3)(x – 4)','(x + 3)(x – 4)','(x – 6)(x – 2)','(x – 12)(x – 1)'],ans:0,anim:'split2',
+narr:'Find two numbers multiplying to 12 and adding to minus 7. Those are minus 3 and minus 4. Answer: x minus 3 times x minus 4.'},
+
+{q:'Factorise: ax + ay + bx + by',opts:['(a + b)(x + y)','(ax + b)(y + 1)','a(x+y) + b(x+y)','Both A and C'],ans:3,anim:'group1',
+narr:'Group the first two and last two terms. Take a common from first group and b from second. Both have x plus y as factor. Answer is a plus b times x plus y. Options A and C are both correct.'},
+
+{q:'Factorise: 4x² – 25',opts:['(2x + 5)(2x – 5)','(4x + 5)(x – 5)','(2x – 5)²','(4x – 25)(1)'],ans:0,anim:'diffsq2',
+narr:'4x squared equals 2x whole squared, and 25 equals 5 squared. Using difference of squares identity, the answer is 2x plus 5 times 2x minus 5.'},
+
+{q:'Factorise: x² – x – 12',opts:['(x – 4)(x + 3)','(x + 4)(x – 3)','(x – 6)(x + 2)','(x – 12)(x + 1)'],ans:0,anim:'split3',
+narr:'Find two numbers multiplying to minus 12 and adding to minus 1. Those are minus 4 and 3. So x squared minus x minus 12 equals x minus 4 times x plus 3.'},
+
+{q:'Factorise: 2x² + 7x + 3',opts:['(2x + 1)(x + 3)','(2x + 3)(x + 1)','(x + 7)(2x + 1)','Both A and C'],ans:3,anim:'split4',
+narr:'Multiply 2 by 3 to get 6. Factors of 6 adding to 7 are 1 and 6. Split: 2x squared plus x plus 6x plus 3. Factor: x times 2x plus 1, plus 3 times 2x plus 1. Answer: 2x plus 1 times x plus 3. Both A and C are correct.'},
+
+{q:'Factorise: 3x² – 10x + 8',opts:['(3x – 4)(x – 2)','(3x – 8)(x – 1)','(3x – 2)(x – 4)','(x – 4)(3x – 2)'],ans:0,anim:'split5',
+narr:'Multiply 3 by 8 to get 24. Factors of 24 adding to minus 10 are minus 6 and minus 4. Split, then factor: 3x times x minus 2, minus 4 times x minus 2. Answer: 3x minus 4 times x minus 2.'},
+
+{q:'Factorise completely: x³ – x',opts:['x(x + 1)(x – 1)','x(x² – 1)','x²(x – 1)','(x² + 1)(x – 1)'],ans:0,anim:'cubic1',
+narr:'First take x common to get x times x squared minus 1. Now x squared minus 1 is difference of squares. Final answer: x times x plus 1 times x minus 1.'},
+
+{q:'Factorise: 2a(x + y) – 3b(x + y)',opts:['(x + y)(2a – 3b)','(2a – 3b)(x – y)','2a(x+y) – 3b','Cannot be factorised'],ans:0,anim:'group2',
+narr:'x plus y is a common factor in both terms. Take it out. The answer is x plus y times 2a minus 3b.'},
+
+{q:'(x + 1) is a factor of 2x² + kx + 3. Find k.',opts:['k = 5','k = –5','k = 1','k = 3'],ans:0,anim:'hots1',
+narr:'By factor theorem, if x plus 1 is a factor, substituting x equals minus 1 gives zero. So 2 times 1 plus k times minus 1 plus 3 equals 0. That gives 5 minus k equals 0. Therefore k equals 5.'}
 ];
-let session=[], idx=0, stepIdx=0, nudgeCount=0, completed=false, recog=null, listening=false, breakSecs=0, breakTmr=null;
-const PER_SESSION=10;
 
-window.onload=function(){
-  const st=JSON.parse(localStorage.getItem('rishi_current_student')||'{}');
-  document.getElementById('sName').textContent=st.studentName?st.studentName.split(' ')[0]:'there';
-  const prog=JSON.parse(localStorage.getItem('rishi_progress')||'{}');
-  if(prog['explain_factorisation_done']){completed=true;document.getElementById('doneBanner').classList.add('show');unlockNav();}
-  buildSession(); setupRecog();
-  setTimeout(()=>{speakEl('introText');},700);
-  setTimeout(showQ,2400);
+function getAnimSVG(type){
+var svgs={
+'common1':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#0f0c29"/><text x="210" y="20" text-anchor="middle" fill="#ffd700" font-size="13" font-weight="bold">HCF Method — Common Factor</text><g id="c1expr" opacity="0"><text x="80" y="68" fill="#fff" font-size="24" font-weight="bold">4x</text><text x="118" y="68" fill="#aaa" font-size="24">+</text><text x="144" y="68" fill="#fff" font-size="24" font-weight="bold">8</text></g><g id="c1hcf" opacity="0"><text x="80" y="98" fill="#ffd700" font-size="12">HCF(4, 8) = 4</text><path d="M92 72 L92 88" stroke="#ffd700" stroke-width="1.5" marker-end="url(#arr)"/></g><g id="c1fact" opacity="0"><text x="60" y="138" fill="#2ecc71" font-size="22" font-weight="bold">4</text><text x="78" y="138" fill="#fff" font-size="22">(</text><text x="88" y="138" fill="#e74c3c" font-size="22" font-weight="bold">x</text><text x="104" y="138" fill="#aaa" font-size="22">+</text><text x="122" y="138" fill="#e74c3c" font-size="22" font-weight="bold">2</text><text x="138" y="138" fill="#fff" font-size="22">)</text></g><g id="c1verify" opacity="0"><text x="220" y="95" fill="#aaa" font-size="11">4 × x = 4x ✓</text><text x="220" y="112" fill="#aaa" font-size="11">4 × 2 = 8 ✓</text><rect x="215" y="82" width="140" height="40" rx="6" fill="none" stroke="#2ecc71" stroke-width="1" opacity="0.5"/></g></svg>',
+
+'common2':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#0f0c29"/><text x="210" y="20" text-anchor="middle" fill="#ffd700" font-size="13" font-weight="bold">HCF Method — Variable Terms</text><g id="c2expr" opacity="0"><text x="60" y="66" fill="#fff" font-size="22" font-weight="bold">6a²</text><text x="106" y="66" fill="#aaa" font-size="22">+</text><text x="126" y="66" fill="#fff" font-size="22" font-weight="bold">3a</text></g><g id="c2step" opacity="0"><text x="60" y="96" fill="#ffd700" font-size="12">HCF of coefficients: HCF(6, 3) = 3</text><text x="60" y="114" fill="#ffd700" font-size="12">HCF of variables: a² and a → lowest power = a</text><text x="60" y="132" fill="#2ecc71" font-size="13" font-weight="bold">∴ HCF = 3a</text></g><g id="c2fact" opacity="0"><text x="60" y="162" fill="#2ecc71" font-size="22" font-weight="bold">3a(2a + 1)</text></g></svg>',
+
+'common3':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#0f0c29"/><text x="210" y="20" text-anchor="middle" fill="#ffd700" font-size="13" font-weight="bold">HCF with Two Variables</text><g id="c3expr" opacity="0"><text x="30" y="60" fill="#fff" font-size="18" font-weight="bold">12m²n + 8mn²</text></g><g id="c3hcf" opacity="0"><text x="30" y="88" fill="#ffd700" font-size="12">HCF(12, 8) = 4</text><text x="30" y="106" fill="#ffd700" font-size="12">m: min power of m² and m¹ → m¹</text><text x="30" y="124" fill="#ffd700" font-size="12">n: min power of n¹ and n² → n¹</text><text x="30" y="142" fill="#2ecc71" font-size="13" font-weight="bold">∴ HCF = 4mn</text></g><g id="c3fact" opacity="0"><text x="30" y="168" fill="#2ecc71" font-size="20" font-weight="bold">4mn(3m + 2n)</text></g></svg>',
+
+'diffsq1':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#0f0c29"/><text x="210" y="20" text-anchor="middle" fill="#ffd700" font-size="13" font-weight="bold">Difference of Squares Identity</text><g id="ds1id" opacity="0"><rect x="20" y="28" width="380" height="28" rx="7" fill="rgba(255,215,0,0.1)" stroke="#ffd700" stroke-width="1"/><text x="210" y="47" text-anchor="middle" fill="#ffd700" font-size="13" font-weight="bold">a² – b² = (a + b)(a – b)</text></g><g id="ds1expr" opacity="0"><text x="80" y="90" fill="#fff" font-size="22" font-weight="bold">x² – 9</text></g><g id="ds1map" opacity="0"><text x="40" y="118" fill="#e74c3c" font-size="12">a = x  (since x² = x·x)</text><text x="40" y="136" fill="#3498db" font-size="12">b = 3  (since √9 = 3)</text></g><g id="ds1ans" opacity="0"><text x="40" y="164" fill="#2ecc71" font-size="20" font-weight="bold">(x + 3)(x – 3)</text><text x="210" y="164" fill="#aaa" font-size="13">✓ Answer</text></g></svg>',
+
+'persq1':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#0f0c29"/><text x="210" y="20" text-anchor="middle" fill="#ffd700" font-size="13" font-weight="bold">Perfect Square Identity</text><g id="ps1id" opacity="0"><rect x="15" y="28" width="390" height="24" rx="6" fill="rgba(255,215,0,0.1)" stroke="#ffd700" stroke-width="1"/><text x="210" y="44" text-anchor="middle" fill="#ffd700" font-size="11" font-weight="bold">a² + 2ab + b² = (a + b)²</text></g><g id="ps1expr" opacity="0"><text x="50" y="82" fill="#fff" font-size="20" font-weight="bold">x² + 6x + 9</text></g><g id="ps1check" opacity="0"><text x="50" y="108" fill="#ffd700" font-size="12">✓ First term: x² → a = x</text><text x="50" y="124" fill="#ffd700" font-size="12">✓ Last term: √9 = 3 → b = 3</text><text x="50" y="140" fill="#ffd700" font-size="12">✓ Middle: 2 × x × 3 = 6x ✓</text></g><g id="ps1ans" opacity="0"><text x="50" y="168" fill="#2ecc71" font-size="22" font-weight="bold">(x + 3)²</text><text x="160" y="168" fill="#aaa" font-size="13">← Perfect Square!</text></g></svg>',
+
+'split1':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#0f0c29"/><text x="210" y="20" text-anchor="middle" fill="#ffd700" font-size="13" font-weight="bold">Splitting the Middle Term</text><g id="sp1expr" opacity="0"><text x="40" y="52" fill="#fff" font-size="20" font-weight="bold">x² + 5x + 6</text></g><g id="sp1find" opacity="0"><text x="40" y="78" fill="#ffd700" font-size="12">Find m, n : m × n = 6  and  m + n = 5</text><text x="40" y="96" fill="#2ecc71" font-size="12" font-weight="bold">→ m = 2, n = 3  (2×3=6 ✓, 2+3=5 ✓)</text></g><g id="sp1split" opacity="0"><text x="40" y="118" fill="#fff" font-size="14">x² + <tspan fill="#e74c3c">2x</tspan> + <tspan fill="#3498db">3x</tspan> + 6</text></g><g id="sp1group" opacity="0"><text x="40" y="140" fill="#fff" font-size="14">x(x + 2) + 3(x + 2)</text></g><g id="sp1ans" opacity="0"><text x="40" y="166" fill="#2ecc71" font-size="19" font-weight="bold">(x + 2)(x + 3)</text></g></svg>',
+
+'split2':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#0f0c29"/><text x="210" y="20" text-anchor="middle" fill="#ffd700" font-size="13" font-weight="bold">Middle Term Split — Negative Sum</text><g id="sp2expr" opacity="0"><text x="40" y="52" fill="#fff" font-size="20" font-weight="bold">x² – 7x + 12</text></g><g id="sp2find" opacity="0"><text x="40" y="78" fill="#ffd700" font-size="12">Find m, n : m × n = 12  and  m + n = –7</text><text x="40" y="96" fill="#2ecc71" font-size="12" font-weight="bold">→ m = –3, n = –4  (–3×–4=12 ✓, –3+(–4)=–7 ✓)</text></g><g id="sp2split" opacity="0"><text x="40" y="118" fill="#fff" font-size="14">x² – <tspan fill="#e74c3c">3x</tspan> – <tspan fill="#3498db">4x</tspan> + 12</text></g><g id="sp2group" opacity="0"><text x="40" y="140" fill="#fff" font-size="14">x(x – 3) – 4(x – 3)</text></g><g id="sp2ans" opacity="0"><text x="40" y="166" fill="#2ecc71" font-size="19" font-weight="bold">(x – 3)(x – 4)</text></g></svg>',
+
+'group1':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#0f0c29"/><text x="210" y="20" text-anchor="middle" fill="#ffd700" font-size="13" font-weight="bold">Factorisation by Grouping</text><g id="g1expr" opacity="0"><text x="25" y="55" fill="#fff" font-size="17" font-weight="bold">ax + ay + bx + by</text></g><g id="g1grp1" opacity="0"><rect x="22" y="62" width="80" height="26" rx="5" fill="rgba(231,76,60,0.2)" stroke="#e74c3c" stroke-width="1.5"/><text x="62" y="79" text-anchor="middle" fill="#e74c3c" font-size="12">ax + ay</text></g><g id="g1grp2" opacity="0"><rect x="148" y="62" width="80" height="26" rx="5" fill="rgba(52,152,219,0.2)" stroke="#3498db" stroke-width="1.5"/><text x="188" y="79" text-anchor="middle" fill="#3498db" font-size="12">bx + by</text></g><g id="g1fact1" opacity="0"><text x="25" y="116" fill="#fff" font-size="15">a(x + y)  +  b(x + y)</text></g><g id="g1common" opacity="0"><text x="25" y="138" fill="#ffd700" font-size="12">Common binomial factor → (x + y)</text></g><g id="g1ans" opacity="0"><text x="25" y="166" fill="#2ecc71" font-size="19" font-weight="bold">(x + y)(a + b)</text></g></svg>',
+
+'diffsq2':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#0f0c29"/><text x="210" y="20" text-anchor="middle" fill="#ffd700" font-size="13" font-weight="bold">Difference of Squares — Level 2</text><g id="ds2expr" opacity="0"><text x="60" y="62" fill="#fff" font-size="22" font-weight="bold">4x² – 25</text></g><g id="ds2map" opacity="0"><text x="40" y="92" fill="#e74c3c" font-size="13">4x² = (2x)²  →  a = 2x</text><text x="40" y="112" fill="#3498db" font-size="13">25 = 5²       →  b = 5</text></g><g id="ds2id" opacity="0"><rect x="30" y="120" width="340" height="24" rx="6" fill="rgba(255,215,0,0.08)" stroke="#ffd700" stroke-width="1"/><text x="200" y="136" text-anchor="middle" fill="#ffd700" font-size="12">Apply: a² – b² = (a+b)(a–b)</text></g><g id="ds2ans" opacity="0"><text x="60" y="168" fill="#2ecc71" font-size="20" font-weight="bold">(2x + 5)(2x – 5)</text></g></svg>',
+
+'split3':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#0f0c29"/><text x="210" y="20" text-anchor="middle" fill="#ffd700" font-size="13" font-weight="bold">Middle Term Split — Negative Constant</text><g id="sp3expr" opacity="0"><text x="40" y="52" fill="#fff" font-size="20" font-weight="bold">x² – x – 12</text></g><g id="sp3find" opacity="0"><text x="40" y="78" fill="#ffd700" font-size="12">Find m, n : m × n = –12  and  m + n = –1</text><text x="40" y="96" fill="#2ecc71" font-size="12" font-weight="bold">→ m = –4, n = 3  (–4×3=–12 ✓, –4+3=–1 ✓)</text></g><g id="sp3split" opacity="0"><text x="40" y="118" fill="#fff" font-size="14">x² – <tspan fill="#e74c3c">4x</tspan> + <tspan fill="#3498db">3x</tspan> – 12</text></g><g id="sp3group" opacity="0"><text x="40" y="140" fill="#fff" font-size="14">x(x – 4) + 3(x – 4)</text></g><g id="sp3ans" opacity="0"><text x="40" y="166" fill="#2ecc71" font-size="19" font-weight="bold">(x – 4)(x + 3)</text></g></svg>',
+
+'split4':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#0f0c29"/><text x="210" y="20" text-anchor="middle" fill="#ffd700" font-size="13" font-weight="bold">Split Middle Term — Leading Coeff ≠ 1</text><g id="sp4expr" opacity="0"><text x="40" y="52" fill="#fff" font-size="19" font-weight="bold">2x² + 7x + 3</text></g><g id="sp4ac" opacity="0"><text x="40" y="78" fill="#ffd700" font-size="12">a × c = 2 × 3 = 6</text><text x="40" y="96" fill="#2ecc71" font-size="12" font-weight="bold">Factors of 6 adding to 7: 1 and 6</text></g><g id="sp4split" opacity="0"><text x="40" y="118" fill="#fff" font-size="14">2x² + <tspan fill="#e74c3c">x</tspan> + <tspan fill="#3498db">6x</tspan> + 3</text></g><g id="sp4group" opacity="0"><text x="40" y="140" fill="#fff" font-size="14">x(2x + 1) + 3(2x + 1)</text></g><g id="sp4ans" opacity="0"><text x="40" y="166" fill="#2ecc71" font-size="19" font-weight="bold">(2x + 1)(x + 3)</text></g></svg>',
+
+'split5':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#0f0c29"/><text x="210" y="20" text-anchor="middle" fill="#ffd700" font-size="13" font-weight="bold">Split Middle Term — Both Factors Negative</text><g id="sp5expr" opacity="0"><text x="40" y="52" fill="#fff" font-size="19" font-weight="bold">3x² – 10x + 8</text></g><g id="sp5ac" opacity="0"><text x="40" y="78" fill="#ffd700" font-size="12">a × c = 3 × 8 = 24</text><text x="40" y="96" fill="#2ecc71" font-size="12" font-weight="bold">Factors of 24 adding to –10: –6 and –4</text></g><g id="sp5split" opacity="0"><text x="40" y="118" fill="#fff" font-size="14">3x² – <tspan fill="#e74c3c">6x</tspan> – <tspan fill="#3498db">4x</tspan> + 8</text></g><g id="sp5group" opacity="0"><text x="40" y="140" fill="#fff" font-size="14">3x(x – 2) – 4(x – 2)</text></g><g id="sp5ans" opacity="0"><text x="40" y="166" fill="#2ecc71" font-size="19" font-weight="bold">(3x – 4)(x – 2)</text></g></svg>',
+
+'cubic1':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#0f0c29"/><text x="210" y="20" text-anchor="middle" fill="#ffd700" font-size="13" font-weight="bold">Complete Factorisation — Cubic</text><g id="cu1expr" opacity="0"><text x="50" y="56" fill="#fff" font-size="22" font-weight="bold">x³ – x</text></g><g id="cu1step1" opacity="0"><text x="50" y="86" fill="#ffd700" font-size="13">Step 1: Take x common</text><text x="50" y="108" fill="#fff" font-size="17">→  x(x² – 1)</text></g><g id="cu1step2" opacity="0"><text x="50" y="132" fill="#ffd700" font-size="13">Step 2: x² – 1 is difference of squares</text><text x="50" y="154" fill="#fff" font-size="17">→  x(x + 1)(x – 1)</text></g><g id="cu1done" opacity="0"><rect x="40" y="160" width="200" height="18" rx="5" fill="rgba(46,204,113,0.15)" stroke="#2ecc71" stroke-width="1"/><text x="140" y="173" text-anchor="middle" fill="#2ecc71" font-size="11" font-weight="bold">Completely factorised ✓</text></g></svg>',
+
+'group2':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#0f0c29"/><text x="210" y="20" text-anchor="middle" fill="#ffd700" font-size="13" font-weight="bold">Common Binomial Factor</text><g id="g2expr" opacity="0"><text x="25" y="58" fill="#fff" font-size="17" font-weight="bold">2a(x + y) – 3b(x + y)</text></g><g id="g2box" opacity="0"><rect x="52" y="42" width="64" height="22" rx="5" fill="none" stroke="#ffd700" stroke-width="2"/><rect x="192" y="42" width="64" height="22" rx="5" fill="none" stroke="#ffd700" stroke-width="2"/><text x="210" y="36" text-anchor="middle" fill="#ffd700" font-size="10">(x+y) appears in both terms</text></g><g id="g2step" opacity="0"><text x="25" y="102" fill="#ffd700" font-size="13">Take (x + y) as common factor:</text><text x="25" y="126" fill="#fff" font-size="17">(x + y)(2a – 3b)</text></g><g id="g2ans" opacity="0"><rect x="22" y="148" width="198" height="24" rx="6" fill="rgba(46,204,113,0.15)" stroke="#2ecc71" stroke-width="1.2"/><text x="120" y="164" text-anchor="middle" fill="#2ecc71" font-size="14" font-weight="bold">(x + y)(2a – 3b) ✓</text></g></svg>',
+
+'hots1':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#0f0c29"/><text x="210" y="20" text-anchor="middle" fill="#ffd700" font-size="13" font-weight="bold">Factor Theorem — Find the Unknown k</text><g id="h1thm" opacity="0"><rect x="15" y="28" width="390" height="24" rx="6" fill="rgba(255,215,0,0.08)" stroke="#ffd700" stroke-width="1"/><text x="210" y="44" text-anchor="middle" fill="#ffd700" font-size="11">(x + 1) is a factor  →  put x = –1  →  expression = 0</text></g><g id="h1sub" opacity="0"><text x="30" y="80" fill="#fff" font-size="15">2(–1)² + k(–1) + 3 = 0</text></g><g id="h1calc" opacity="0"><text x="30" y="106" fill="#fff" font-size="15">2(1) – k + 3 = 0</text><text x="30" y="128" fill="#fff" font-size="15">5 – k = 0</text></g><g id="h1ans" opacity="0"><rect x="26" y="142" width="116" height="30" rx="8" fill="rgba(46,204,113,0.2)" stroke="#2ecc71" stroke-width="1.5"/><text x="84" y="161" text-anchor="middle" fill="#2ecc71" font-size="19" font-weight="bold">k = 5</text></g></svg>'
 };
-
-function onComplete(){
-  const prog=JSON.parse(localStorage.getItem('rishi_progress')||'{}');
-  prog['explain_factorisation_done']=true;
-  localStorage.setItem('rishi_progress',JSON.stringify(prog));
-  completed=true;
-  document.getElementById('doneBanner').classList.add('show');
-  unlockNav();
-  document.getElementById('lockTip').style.display='none';
-  const st=JSON.parse(localStorage.getItem('rishi_current_student')||'{}');
-  const nm=st.studentName?st.studentName.split(' ')[0]:'champion';
-  const area=document.getElementById('qArea');
-  const cel=document.createElement('div');
-  cel.className='rishika-wrap';
-  cel.innerHTML='<div class="rishika-avatar">👩‍🏫</div><div class="rishika-bubble"><div class="rishika-name">Rishika</div><div class="rishika-text" id="celText">🎉 <span class="hl">'+nm+'</span>, you did it! You have completed the full explanation of <span class="hl">Factorisation</span>! Every concept, every step — you got through it all. I am so proud of you! 🌟 Practice and Exam are now unlocked. Go show what you know! 💪</div><button class="btn-speak" onclick="speakEl('celText')">🔊 Hear Rishika</button></div>';
-  area.appendChild(cel);
-  setTimeout(()=>speakEl('celText'),400);
+return svgs[type]||'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg"><rect width="420" height="178" fill="#0f0c29"/><text x="210" y="89" text-anchor="middle" fill="#555" font-size="14">Loading...</text></svg>';
 }
 
-function goPractice(){if(!completed){alert('Complete all explanations first!');return;}window.location.href='/practice.html?chapter=factorisation';}
-function goExam(){if(!completed){alert('Complete explanations and practice first!');return;}window.location.href='/exam.html?chapter=factorisation';}
+function runAnim(type){
+var s={
+'common1':function(){fade('c1expr','1');at(700,function(){fade('c1hcf','1');});at(1800,function(){fade('c1fact','1');});at(2800,function(){fade('c1verify','1');});},
+'common2':function(){fade('c2expr','1');at(800,function(){fade('c2step','1');});at(2600,function(){fade('c2fact','1');});},
+'common3':function(){fade('c3expr','1');at(800,function(){fade('c3hcf','1');});at(2800,function(){fade('c3fact','1');});},
+'diffsq1':function(){fade('ds1id','1');at(1200,function(){fade('ds1expr','1');});at(2000,function(){fade('ds1map','1');});at(3400,function(){fade('ds1ans','1');});},
+'persq1':function(){fade('ps1id','1');at(800,function(){fade('ps1expr','1');});at(1600,function(){fade('ps1check','1');});at(3200,function(){fade('ps1ans','1');});},
+'split1':function(){fade('sp1expr','1');at(700,function(){fade('sp1find','1');});at(2000,function(){fade('sp1split','1');});at(2900,function(){fade('sp1group','1');});at(3800,function(){fade('sp1ans','1');});},
+'split2':function(){fade('sp2expr','1');at(700,function(){fade('sp2find','1');});at(2000,function(){fade('sp2split','1');});at(2900,function(){fade('sp2group','1');});at(3800,function(){fade('sp2ans','1');});},
+'group1':function(){fade('g1expr','1');at(600,function(){fade('g1grp1','1');});at(1400,function(){fade('g1grp2','1');});at(2400,function(){fade('g1fact1','1');});at(3200,function(){fade('g1common','1');});at(4000,function(){fade('g1ans','1');});},
+'diffsq2':function(){fade('ds2expr','1');at(700,function(){fade('ds2map','1');});at(2200,function(){fade('ds2id','1');});at(3200,function(){fade('ds2ans','1');});},
+'split3':function(){fade('sp3expr','1');at(700,function(){fade('sp3find','1');});at(2000,function(){fade('sp3split','1');});at(2900,function(){fade('sp3group','1');});at(3800,function(){fade('sp3ans','1');});},
+'split4':function(){fade('sp4expr','1');at(700,function(){fade('sp4ac','1');});at(2000,function(){fade('sp4split','1');});at(2900,function(){fade('sp4group','1');});at(3800,function(){fade('sp4ans','1');});},
+'split5':function(){fade('sp5expr','1');at(700,function(){fade('sp5ac','1');});at(2000,function(){fade('sp5split','1');});at(2900,function(){fade('sp5group','1');});at(3800,function(){fade('sp5ans','1');});},
+'cubic1':function(){fade('cu1expr','1');at(800,function(){fade('cu1step1','1');});at(2400,function(){fade('cu1step2','1');});at(3800,function(){fade('cu1done','1');});},
+'group2':function(){fade('g2expr','1');at(700,function(){fade('g2box','1');});at(1800,function(){fade('g2step','1');});at(3000,function(){fade('g2ans','1');});},
+'hots1':function(){fade('h1thm','1');at(1000,function(){fade('h1sub','1');});at(2200,function(){fade('h1calc','1');});at(3400,function(){fade('h1ans','1');});}
+};
+if(s[type])s[type]();
+}
 
-
-function speakRaw(text){
-  if(!window.speechSynthesis) return;
-  window.speechSynthesis.cancel();
-  const u = new SpeechSynthesisUtterance(text);
-  u.lang = 'en-IN'; u.rate = 0.85; u.pitch = 1.2;
-  const vs = window.speechSynthesis.getVoices();
-  const v = vs.find(v => v.lang.startsWith('en-IN') && v.name.toLowerCase().includes('female'))
-    || vs.find(v => (v.lang.startsWith('en-IN') || v.lang.startsWith('en-GB')) && v.name.toLowerCase().includes('female'))
-    || vs.find(v => v.name.toLowerCase().includes('zira'))
-    || vs.find(v => v.name.toLowerCase().includes('hazel'))
-    || vs.find(v => v.name.toLowerCase().includes('susan'))
-    || vs.find(v => v.name.toLowerCase().includes('female'))
-    || vs.find(v => v.name.toLowerCase().includes('samantha'))
-    || vs.find(v => v.lang.startsWith('en-IN'))
-    || vs.find(v => v.lang.startsWith('en-GB'));
-  if(v) u.voice = v;
-  window.speechSynthesis.speak(u);
+var cur=0,score=0,answered=false;
+function loadQ(i){
+  answered=false;
+  var q=questions[i];
+  G('qNumber').textContent='Question '+(i+1)+' of 15';
+  G('qText').textContent=q.q;
+  G('feedback').textContent='';G('feedback').className='feedback';
+  G('nextBtn').style.display='none';
+  G('progressBar').style.width=(i/15*100)+'%';
+  G('scorePill').textContent='Score: '+score+' / 15';
+  var og=G('optionsGrid');og.innerHTML='';
+  q.opts.forEach(function(o,idx){
+    var b=document.createElement('button');b.className='opt';b.textContent=o;
+    b.onclick=function(){checkAns(idx);};og.appendChild(b);
+  });
+  clearAt();
+  G('animCanvas').innerHTML=getAnimSVG(q.anim);
+  at(400,function(){runAnim(q.anim);});
+  G('bubble').textContent=q.narr.substring(0,78)+'…';
+  at(300,function(){say(q.narr);});
 }
-function speakEl(id){
-  const el = document.getElementById(id);
-  if(!el) return;
-  speakRaw(el.innerText || el.textContent);
-}
-window.addEventListener('beforeunload', () => { window.speechSynthesis && window.speechSynthesis.cancel(); });
-window.addEventListener('pagehide', () => { window.speechSynthesis && window.speechSynthesis.cancel(); });
-window.speechSynthesis && window.speechSynthesis.addEventListener('voiceschanged', ()=>{});
-
-function updateProg(){
-  const pct=Math.round((idx/PER_SESSION)*100);
-  document.getElementById('progFill').style.width=pct+'%';
-  document.getElementById('progLabel').textContent='Question '+(idx+1)+' of '+PER_SESSION;
-  document.getElementById('progPct').textContent=pct+'% complete';
-}
-function openBreak(){document.getElementById('breakOverlay').classList.add('show');}
-function closeBreak(){document.getElementById('breakOverlay').classList.remove('show');}
-function startBreak(reason){
-  closeBreak(); breakSecs=0;
-  document.getElementById('timerLabel').textContent=reason;
-  document.getElementById('timerNum').textContent='00:00';
-  document.getElementById('timerScreen').classList.add('show');
-  breakTmr=setInterval(()=>{
-    breakSecs++;
-    const m=String(Math.floor(breakSecs/60)).padStart(2,'0');
-    const s=String(breakSecs%60).padStart(2,'0');
-    document.getElementById('timerNum').textContent=m+':'+s;
-  },1000);
-}
-function endBreak(){ clearInterval(breakTmr); document.getElementById('timerScreen').classList.remove('show'); }
-function openGames(){closeBreak();document.getElementById('gamesOverlay').classList.add('show');}
-function closeGames(){document.getElementById('gamesOverlay').classList.remove('show');}
-function buildSession(){
-  const first = QB[0];
-  const rest = QB.slice(1).sort(()=>Math.random()-.5);
-  session = [first, ...rest.slice(0, PER_SESSION-1)];
-}
-function showQ(){
-  if(idx >= session.length){ onComplete(); return; }
-  const q = session[idx];
-  stepIdx = 0; nudgeCount = 0;
-  updateProg();
-  const area = document.getElementById('qArea');
-  area.innerHTML = '';
-  const qcard = document.createElement('div');
-  qcard.className = 'q-card';
-  qcard.innerHTML = '<div class="q-label">Question '+(idx+1)+' of '+PER_SESSION+'</div><div class="q-text">'+q.q+'</div><button class="btn-speak" onclick="speakRaw(q.qs)">&#128266; Hear the question</button>';
-  area.appendChild(qcard);
-  const sc = document.createElement('div');
-  sc.className = 'q-card';
-  sc.innerHTML = '<div class="q-label">&#128216; Explanation &#8212; Step by Step</div><div id="stepsWrap"></div><button class="btn-speak" id="nxtStepBtn" onclick="nextStep()" style="margin-top:12px;">&#9654; Next Step</button>';
-  area.appendChild(sc);
-  setTimeout(nextStep, 600);
-}
-function nextStep(){
-  const q = session[idx];
-  if(stepIdx >= q.steps.length){
-    document.getElementById('nxtStepBtn').style.display='none';
-    showConfirm();
-    return;
+function checkAns(idx){
+  if(answered)return;answered=true;
+  var q=questions[cur];
+  var opts=G('optionsGrid').querySelectorAll('.opt');
+  opts.forEach(function(b){b.disabled=true;});
+  if(idx===q.ans){
+    opts[idx].classList.add('correct');score++;
+    G('feedback').textContent='✅ Correct! Well done!';G('feedback').className='feedback correct';
+    G('scorePill').textContent='Score: '+score+' / 15';
+    say('Excellent! That is correct!');
+  }else{
+    opts[idx].classList.add('wrong');opts[q.ans].classList.add('correct');
+    G('feedback').textContent='❌ Incorrect. Right answer: '+q.opts[q.ans];G('feedback').className='feedback wrong';
+    say('Not quite. The correct answer is '+q.opts[q.ans]);
   }
-  const s = q.steps[stepIdx];
-  const wrap = document.getElementById('stepsWrap');
-  const d = document.createElement('div');
-  d.className = 'step';
-  d.innerHTML = '<div class="step-num">'+(stepIdx+1)+'</div><div class="step-body">'+s.t+'</div>';
-  wrap.appendChild(d);
-  setTimeout(()=>d.classList.add('vis'),50);
-  setTimeout(()=>speakRaw(s.s),300);
-  stepIdx++;
+  G('nextBtn').style.display='block';
 }
-function showConfirm(){
-  const q = session[idx];
-  const area = document.getElementById('qArea');
-  const c = document.createElement('div');
-  c.className = 'confirm-wrap';
-  c.id = 'cWrap';
-  c.innerHTML = '<div class="confirm-title">&#127908; Rishika asks &#8212; answer to move on!</div><div class="confirm-q">'+q.cq+'</div><button class="mic-btn" id="micBtn" onclick="startListen()">&#127908; Tap and Speak Your Answer</button><div class="transcript" id="tbox"></div><div class="result-box" id="rbox"></div><div class="nudge" id="nudgeBox"></div><button class="btn-next" id="btnNext" onclick="goNext()">Next Question &#9654;</button>';
-  area.appendChild(c);
-  c.scrollIntoView({behavior:'smooth',block:'center'});
-  setTimeout(()=>speakRaw(q.cqs),600);
+function nextQ(){cur++;if(cur>=questions.length){showDone();return;}loadQ(cur);}
+function replayAnim(){
+  var q=questions[cur];clearAt();speechSynthesis.cancel();rStopTalk();
+  G('animCanvas').innerHTML=getAnimSVG(q.anim);
+  at(200,function(){runAnim(q.anim);});at(400,function(){say(q.narr);});
 }
-function goNext(){
-  idx++;
-  document.getElementById('qArea').innerHTML='';
-  showQ();
-  window.scrollTo({top:0,behavior:'smooth'});
+function showDone(){
+  G('mainArea').style.display='none';G('doneScreen').style.display='flex';
+  G('progressBar').style.width='100%';
+  G('doneScore').textContent='You scored '+score+' out of 15!';
+  localStorage.setItem('explain_factorisation_done','1');
+  say('Congratulations! You completed the Factorisation chapter! You scored '+score+' out of 15!');
 }
-function unlockNav(){
-  document.getElementById('btnPractice').classList.remove('locked');
-  document.getElementById('btnExam').classList.remove('locked');
-}
-function setupRecog(){
-  const SR = window.SpeechRecognition||window.webkitSpeechRecognition;
-  if(!SR) return;
-  recog = new SR();
-  recog.lang='en-IN'; recog.continuous=false; recog.interimResults=false;
-  recog.onresult=e=>handleAnswer(e.results[0][0].transcript.toLowerCase().trim());
-  recog.onerror=()=>{setListen(false);showNudge("I couldn't hear that \u2014 tap the mic and try again! \ud83d\ude0a");};
-  recog.onend=()=>setListen(false);
-}
-function startListen(){
-  if(!recog){showNudge("Voice not supported. Try Chrome on desktop! \ud83c\udfa4");return;}
-  if(listening){recog.stop();return;}
-  setListen(true);
-  const tb=document.getElementById('tbox');
-  if(tb){tb.classList.add('show');tb.textContent='\ud83c\udfa4 Listening...';}
-  recog.start();
-}
-function setListen(on){
-  listening=on;
-  const btn=document.getElementById('micBtn');
-  if(btn){btn.className='mic-btn'+(on?' on':'');btn.textContent=on?'\ud83c\udfa4 Listening...':'\ud83c\udfa4 Tap and Speak Your Answer';}
-}
-function handleAnswer(text){
-  const tb=document.getElementById('tbox');
-  if(tb) tb.textContent='"'+text+'"';
-  const q=session[idx];
-  const ok=q.ans.some(a=>text.includes(a.toLowerCase())||a.toLowerCase().includes(text));
-  const rb=document.getElementById('rbox');
-  if(ok){
-    rb.className='result-box ok'; rb.textContent='\u2705 Correct! Excellent!';
-    document.getElementById('nudgeBox').classList.remove('show');
-    const nb=document.getElementById('btnNext');
-    if(nb) nb.classList.add('show');
-    speakRaw("Correct! Excellent! Tap next question to continue.");
-  } else {
-    nudgeCount++;
-    rb.className='result-box no'; rb.textContent='\u274c Not quite \u2014 listen to my hint!';
-    const nudge=q.nudges[Math.min(nudgeCount-1,q.nudges.length-1)];
-    showNudge(nudge);
-    speakRaw(nudge.replace(/[\ud83e\udd14\ud83d\ude04\ud83d\ude80]/g,''));
-    if(nudgeCount>=3){
-      const nb=document.getElementById('btnNext');
-      if(nb){nb.classList.add('show');nb.textContent="I Understand \u2014 Next Question \u25b6";}
-    }
-  }
-}
-function showNudge(msg){
-  const n=document.getElementById('nudgeBox');
-  if(n){n.textContent=msg;n.classList.add('show');}
-}
-
+window.onload=function init(){initVoices(function(){startBlink();loadQ(0);});};
+window.addEventListener('beforeunload',function(){speechSynthesis.cancel();});
+window.addEventListener('pagehide',function(){speechSynthesis.cancel();});
 </script>
 </body>
 </html>

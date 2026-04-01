@@ -3,581 +3,315 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RISHI — Explain: Direct and Inverse Proportions</title>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Nunito:wght@400;600;700;800;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<title>Direct and Inverse Proportions – Class 8 | RISHI</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --cream:#fdf6ec; --warm-white:#fffdf8; --gold:#c8922a; --gold-light:#e8b84b;
-    --gold-pale:#f5e6c8; --amber:#d4870a; --sage:#7a8c6e; --sage-light:#a8b89a;
-    --rust:#b85c2a; --charcoal:#2a2218; --mid:#5a4a30; --soft:#8a7a5a;
-    --inactive:#c8b89a; --border-dark:#6b4c2a; --error:#c0392b;
-  }
-  *{box-sizing:border-box;margin:0;padding:0;}
-  body{background:var(--cream);font-family:'Nunito',sans-serif;min-height:100vh;color:var(--charcoal);}
-  body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(var(--gold-pale) 1px,transparent 1px),linear-gradient(90deg,var(--gold-pale) 1px,transparent 1px);background-size:40px 40px;opacity:.3;z-index:0;pointer-events:none;}
-  .topbar{position:sticky;top:0;z-index:100;background:rgba(253,246,236,.97);border-bottom:2px solid var(--border-dark);backdrop-filter:blur(8px);padding:11px 22px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;}
-  .logo-sm{font-family:'Orbitron',sans-serif;font-size:18px;font-weight:900;letter-spacing:4px;background:linear-gradient(135deg,var(--amber),var(--gold-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-  .topbar-center{font-family:'Orbitron',sans-serif;font-size:11px;letter-spacing:2px;color:var(--amber);text-transform:uppercase;}
-  .topbar-right{display:flex;gap:10px;align-items:center;}
-  .btn-topbar{font-family:'Nunito',sans-serif;font-size:13px;font-weight:900;padding:7px 16px;border-radius:20px;border:2px solid var(--border-dark);background:var(--warm-white);color:var(--mid);cursor:pointer;transition:all .2s;}
-  .btn-topbar:hover{background:var(--gold-pale);}
-  .btn-topbar.back{background:var(--gold-pale);}
-  .btn-topbar.back:hover{background:var(--amber);color:#fff;}
-  .prog-wrap{position:relative;z-index:10;padding:10px 22px;background:rgba(255,253,248,.9);border-bottom:1.5px solid var(--gold-pale);}
-  .prog-info{display:flex;justify-content:space-between;font-size:12px;font-weight:800;color:var(--mid);margin-bottom:6px;}
-  .prog-bar{height:7px;background:var(--gold-pale);border-radius:4px;overflow:hidden;}
-  .prog-fill{height:100%;background:linear-gradient(90deg,var(--sage),var(--gold));border-radius:4px;transition:width .5s ease;}
-  .main{position:relative;z-index:10;max-width:820px;margin:0 auto;padding:20px 18px 130px;}
-  .rishika-wrap{display:flex;align-items:flex-start;gap:14px;margin-bottom:22px;}
-  .rishika-avatar{width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,var(--sage),var(--sage-light));border:2px solid var(--border-dark);display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0;box-shadow:0 4px 16px rgba(122,140,110,.3);}
-  .rishika-bubble{background:rgba(255,253,248,.97);border:2px solid var(--border-dark);border-radius:0 18px 18px 18px;padding:16px 20px;flex:1;box-shadow:0 4px 20px rgba(107,76,42,.1);}
-  .rishika-name{font-size:11px;font-weight:900;color:var(--sage);letter-spacing:2px;text-transform:uppercase;margin-bottom:6px;}
-  .rishika-text{font-size:15px;font-weight:700;color:var(--charcoal);line-height:1.7;}
-  .hl{color:var(--amber);font-weight:900;}
-  .fm{font-family:'Share Tech Mono',monospace;background:var(--gold-pale);border:1.5px solid var(--border-dark);border-radius:6px;padding:2px 8px;font-size:14px;color:var(--mid);}
-  .btn-speak{display:inline-flex;align-items:center;gap:7px;font-family:'Nunito',sans-serif;font-size:12px;font-weight:900;padding:6px 13px;border-radius:20px;border:2px solid var(--sage);background:#eef2eb;color:var(--sage);cursor:pointer;margin-top:10px;transition:all .2s;}
-  .btn-speak:hover,.btn-speak.on{background:var(--sage);color:#fff;}
-  .q-card{background:rgba(255,253,248,.97);border:2px solid var(--border-dark);border-radius:18px;padding:20px 22px;margin-bottom:16px;box-shadow:0 4px 20px rgba(107,76,42,.1);}
-  .q-label{font-family:'Orbitron',sans-serif;font-size:11px;letter-spacing:3px;color:var(--amber);text-transform:uppercase;margin-bottom:10px;}
-  .q-text{font-size:16px;font-weight:800;color:var(--charcoal);line-height:1.7;margin-bottom:12px;}
-  .step{display:flex;gap:12px;margin-bottom:14px;opacity:0;transform:translateY(8px);transition:all .4s ease;}
-  .step.vis{opacity:1;transform:translateY(0);}
-  .step-num{width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;font-size:11px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:2px solid var(--border-dark);}
-  .step-body{flex:1;font-size:14px;font-weight:700;color:var(--mid);line-height:1.7;padding-top:2px;}
-  .ans-tag{font-family:'Share Tech Mono',monospace;background:linear-gradient(135deg,#eef2eb,#f5fbf2);border:2px solid var(--border-dark);border-radius:8px;padding:3px 10px;color:var(--sage);font-size:14px;}
-  .drawing-wrap{background:var(--warm-white);border:2px solid var(--border-dark);border-radius:14px;padding:14px 16px;margin:14px 0;text-align:center;overflow-x:auto;}
-  .drawing-lbl{font-size:11px;font-weight:900;color:var(--soft);letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;}
-  .confirm-wrap{margin-top:16px;background:linear-gradient(135deg,#eef2eb,#f5fbf2);border:2px solid var(--border-dark);border-radius:14px;padding:18px 20px;}
-  .confirm-title{font-size:12px;font-weight:900;color:var(--sage);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;}
-  .confirm-q{font-size:15px;font-weight:800;color:var(--charcoal);margin-bottom:14px;line-height:1.6;}
-  .mic-btn{display:flex;align-items:center;gap:10px;width:100%;font-family:'Nunito',sans-serif;font-size:15px;font-weight:900;padding:12px 18px;border-radius:12px;border:2px solid var(--border-dark);background:var(--warm-white);color:var(--mid);cursor:pointer;transition:all .2s;margin-bottom:10px;}
-  .mic-btn:hover{border-color:var(--sage);color:var(--sage);}
-  .mic-btn.on{background:var(--sage);color:#fff;border-color:var(--sage);animation:blnk .8s ease-in-out infinite;}
-  @keyframes blnk{0%,100%{opacity:1}50%{opacity:.5}}
-  .transcript{font-family:'Share Tech Mono',monospace;font-size:13px;color:var(--charcoal);background:var(--warm-white);border:2px solid var(--border-dark);border-radius:10px;padding:9px 13px;min-height:38px;margin-bottom:10px;display:none;}
-  .transcript.show{display:block;}
-  .result-box{font-size:13px;font-weight:800;padding:10px 14px;border-radius:10px;display:none;line-height:1.5;}
-  .result-box.ok{background:#eef2eb;border:2px solid var(--sage);color:var(--sage);display:block;}
-  .result-box.no{background:#fff5f0;border:2px solid var(--rust);color:var(--rust);display:block;}
-  .nudge{font-size:13px;font-weight:700;color:var(--mid);margin-top:8px;font-style:italic;display:none;}
-  .nudge.show{display:block;}
-  .btn-next{font-family:'Nunito',sans-serif;font-size:15px;font-weight:900;padding:12px 24px;border-radius:12px;border:none;background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;cursor:pointer;box-shadow:0 4px 16px rgba(212,135,10,.3);transition:all .2s;display:none;margin-top:12px;width:100%;}
-  .btn-next.show{display:block;}
-  .btn-next:hover{transform:translateY(-1px);}
-  .bottom-nav{position:fixed;bottom:0;left:0;right:0;z-index:100;background:rgba(253,246,236,.97);border-top:2px solid var(--border-dark);padding:12px 22px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap;align-items:center;}
-  .btn-nav{font-family:'Nunito',sans-serif;font-size:14px;font-weight:900;padding:11px 24px;border-radius:12px;border:2px solid var(--border-dark);cursor:pointer;transition:all .2s;}
-  .btn-nav.practice{background:linear-gradient(135deg,var(--sage),var(--sage-light));color:#fff;border-color:var(--sage);}
-  .btn-nav.exam{background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;border-color:var(--amber);}
-  .btn-nav.locked{background:var(--gold-pale);color:var(--inactive);cursor:not-allowed;border-color:var(--inactive);}
-  .btn-nav:not(.locked):hover{transform:translateY(-2px);}
-  .lock-tip{font-size:11px;font-weight:700;color:var(--rust);width:100%;text-align:center;}
-  .overlay{display:none;position:fixed;inset:0;background:rgba(42,34,24,.92);z-index:1000;flex-direction:column;align-items:center;justify-content:center;backdrop-filter:blur(6px);}
-  .overlay.show{display:flex;}
-  .break-box{background:var(--warm-white);border:2px solid var(--border-dark);border-radius:24px;padding:32px 36px;max-width:400px;width:90%;text-align:center;}
-  .break-title{font-family:'Orbitron',sans-serif;font-size:15px;font-weight:900;color:var(--amber);letter-spacing:3px;margin-bottom:5px;}
-  .break-sub{font-size:13px;font-weight:700;color:var(--soft);margin-bottom:20px;}
-  .break-opts{display:flex;flex-direction:column;gap:9px;margin-bottom:16px;}
-  .break-opt{font-family:'Nunito',sans-serif;font-size:15px;font-weight:800;padding:12px;border-radius:12px;border:2px solid var(--border-dark);background:var(--warm-white);color:var(--mid);cursor:pointer;transition:all .2s;}
-  .break-opt:hover{background:var(--gold-pale);border-color:var(--amber);}
-  .timer-screen{display:none;position:fixed;inset:0;background:#1a1208;z-index:1001;flex-direction:column;align-items:center;justify-content:center;}
-  .timer-screen.show{display:flex;}
-  .timer-reason{font-family:'Orbitron',sans-serif;font-size:13px;letter-spacing:4px;color:var(--gold-light);margin-bottom:18px;text-transform:uppercase;}
-  .timer-num{font-family:'Orbitron',sans-serif;font-size:76px;font-weight:900;color:var(--gold-light);letter-spacing:8px;margin-bottom:36px;text-shadow:0 0 40px rgba(232,184,75,.4);}
-  .btn-end{font-family:'Nunito',sans-serif;font-size:17px;font-weight:900;padding:15px 36px;border-radius:14px;border:2px solid var(--gold-light);background:transparent;color:var(--gold-light);cursor:pointer;transition:all .2s;}
-  .btn-end:hover{background:var(--gold-light);color:var(--charcoal);}
-  .done-banner{background:linear-gradient(135deg,#eef2eb,#f5fbf2);border:2px solid var(--border-dark);border-radius:16px;padding:18px 22px;text-align:center;margin-bottom:18px;display:none;}
-  .done-banner.show{display:block;}
-  .done-banner .dt{font-family:'Orbitron',sans-serif;font-size:13px;letter-spacing:2px;color:var(--sage);margin-bottom:5px;}
-  .done-banner .ds{font-size:14px;font-weight:700;color:var(--mid);}
-  /* TABLE */
-  .prop-table{width:100%;border-collapse:collapse;margin:10px 0;font-size:14px;}
-  .prop-table th{background:var(--gold-pale);border:2px solid var(--border-dark);padding:8px 12px;font-weight:900;color:var(--mid);text-align:center;}
-  .prop-table td{border:1.5px solid var(--border-dark);padding:8px 12px;text-align:center;font-weight:700;color:var(--charcoal);}
-  .prop-table tr:nth-child(even) td{background:rgba(245,230,200,.2);}
-  @media(max-width:600px){.main{padding:14px 10px 130px;}.topbar,.prog-wrap{padding-left:12px;padding-right:12px;}.timer-num{font-size:52px;}}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Poppins',sans-serif;background:linear-gradient(135deg,#1a0a00,#3d1a00,#2a1200);min-height:100vh;color:#fff;display:flex;flex-direction:column}
+.top-bar{display:flex;align-items:center;justify-content:space-between;padding:12px 20px;background:rgba(255,255,255,0.05);border-bottom:1px solid rgba(255,255,255,0.1)}
+.top-bar .logo{font-size:1.4rem;font-weight:700;color:#fb923c;letter-spacing:2px}
+.top-bar .chapter{font-size:0.82rem;color:#aaa}
+.score-pill{background:rgba(251,146,60,0.15);border:1px solid #fb923c;border-radius:20px;padding:4px 14px;font-size:0.78rem;color:#fb923c}
+.progress-wrap{height:4px;background:rgba(255,255,255,0.1)}
+.progress-bar{height:4px;background:linear-gradient(90deg,#fb923c,#ea580c);transition:width 0.5s ease}
+.main{display:flex;flex:1}
+.rishika-panel{width:158px;min-width:158px;display:flex;flex-direction:column;align-items:center;padding:18px 10px;background:rgba(255,255,255,0.03);border-right:1px solid rgba(255,255,255,0.08)}
+.rishika-svg-wrap{width:118px;height:138px}
+.speech-bubble{background:rgba(255,255,255,0.95);color:#333;border-radius:12px;padding:9px 11px;font-size:0.68rem;line-height:1.5;margin-top:10px;position:relative;max-width:138px;min-height:38px}
+.speech-bubble::before{content:'';position:absolute;top:-8px;left:18px;border-left:8px solid transparent;border-right:8px solid transparent;border-bottom:8px solid rgba(255,255,255,0.95)}
+.replay-btn{margin-top:11px;background:none;border:1px solid rgba(255,255,255,0.3);color:#fff;border-radius:20px;padding:4px 12px;font-size:0.68rem;cursor:pointer;font-family:'Poppins',sans-serif}
+.replay-btn:hover{background:rgba(255,255,255,0.1)}
+.content{flex:1;padding:18px;display:flex;flex-direction:column;gap:13px;overflow-y:auto}
+.q-number{font-size:0.72rem;color:#fb923c;margin-bottom:2px}
+.q-text{font-size:0.98rem;font-weight:600;color:#fff;line-height:1.6}
+.anim-canvas{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:6px;max-height:195px;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.anim-canvas svg{max-height:195px;width:100%}
+.options-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.opt{background:rgba(255,255,255,0.07);border:1.5px solid rgba(255,255,255,0.15);border-radius:10px;padding:11px 14px;font-size:0.84rem;cursor:pointer;transition:all 0.2s;font-family:'Poppins',sans-serif;color:#fff;text-align:left}
+.opt:hover:not(:disabled){background:rgba(255,255,255,0.13);border-color:#fb923c}
+.opt.correct{background:rgba(39,174,96,0.25);border-color:#27ae60}
+.opt.wrong{background:rgba(231,76,60,0.25);border-color:#e74c3c}
+.feedback{font-size:0.83rem;padding:9px 13px;border-radius:8px;min-height:34px}
+.feedback.correct{background:rgba(39,174,96,0.2);color:#2ecc71}
+.feedback.wrong{background:rgba(231,76,60,0.2);color:#e74c3c}
+.next-btn{align-self:flex-end;background:linear-gradient(135deg,#fb923c,#ea580c);color:#fff;border:none;border-radius:24px;padding:10px 28px;font-weight:700;font-size:0.88rem;cursor:pointer;font-family:'Poppins',sans-serif;display:none}
+.next-btn:hover{transform:scale(1.03)}
+.done-screen{display:none;flex-direction:column;align-items:center;justify-content:center;flex:1;gap:18px;text-align:center;padding:40px}
+.done-screen h2{font-size:1.9rem;color:#fb923c}
+.done-screen p{color:#ccc;font-size:0.96rem}
+.done-btn{background:linear-gradient(135deg,#fb923c,#ea580c);color:#fff;border:none;border-radius:24px;padding:11px 30px;font-weight:700;font-size:0.96rem;cursor:pointer;font-family:'Poppins',sans-serif}
 </style>
 </head>
 <body>
-<div class="topbar">
-  <div class="logo-sm">RISHI</div>
-  <div class="topbar-center">📖 Direct & Inverse Proportions — Explain</div>
-  <div class="topbar-right">
-    <button class="btn-topbar" onclick="openBreak()">☕ Break</button>
-    <button class="btn-topbar back" onclick="window.location.href='/syllabus.html'">← Syllabus</button>
-  </div>
+<div class="top-bar">
+  <span class="logo">RISHI</span>
+  <span class="chapter">Direct and Inverse Proportions — Class 8</span>
+  <span class="score-pill" id="scorePill">Score: 0 / 15</span>
 </div>
-<div class="prog-wrap">
-  <div class="prog-info"><span id="progLabel">Question 1 of 10</span><span id="progPct">0% complete</span></div>
-  <div class="prog-bar"><div class="prog-fill" id="progFill" style="width:0%"></div></div>
-</div>
-<div class="main">
-  <div class="done-banner" id="doneBanner">
-    <div class="dt">✅ Explanation Completed!</div>
-    <div class="ds">Practice and Exam are now unlocked. You can revisit anytime.</div>
-  </div>
-  <div class="rishika-wrap">
-    <div class="rishika-avatar">👩‍🏫</div>
-    <div class="rishika-bubble">
-      <div class="rishika-name">Rishika</div>
-      <div class="rishika-text" id="introText">Hi <span class="hl" id="sName">there</span>! 😊 Today we learn <span class="hl">Direct and Inverse Proportions</span> — this chapter is about how things in real life relate to each other. More workers, less time? More speed, less distance to go? Let's find out! 🚀</div>
-      <button class="btn-speak" onclick="speakEl('introText')">🔊 Hear Rishika</button>
+<div class="progress-wrap"><div class="progress-bar" id="progressBar" style="width:0%"></div></div>
+<div class="main" id="mainArea">
+  <div class="rishika-panel">
+    <div class="rishika-svg-wrap">
+      <svg viewBox="0 0 120 140" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="60" cy="126" rx="34" ry="20" fill="#9a3412"/>
+        <ellipse cx="60" cy="109" rx="21" ry="17" fill="#c2410c"/>
+        <rect x="53" y="93" width="14" height="14" rx="4" fill="#f5c5a3"/>
+        <ellipse cx="60" cy="73" rx="30" ry="31" fill="#f5c5a3"/>
+        <ellipse cx="60" cy="46" rx="30" ry="15" fill="#431407"/>
+        <ellipse cx="32" cy="69" rx="7" ry="17" fill="#431407"/>
+        <ellipse cx="88" cy="69" rx="7" ry="17" fill="#431407"/>
+        <circle cx="60" cy="37" r="9" fill="#431407"/>
+        <circle cx="31" cy="77" r="3" fill="#fb923c"/>
+        <circle cx="89" cy="77" r="3" fill="#fb923c"/>
+        <ellipse cx="46" cy="72" rx="7" ry="7.5" fill="white"/>
+        <circle cx="47" cy="73" r="4.5" fill="#9a3412"/>
+        <circle cx="47" cy="73" r="2.5" fill="#3b0a00"/>
+        <circle cx="49" cy="71" r="1.2" fill="white"/>
+        <ellipse id="lidL" cx="46" cy="72" rx="7" ry="7.5" fill="#f5c5a3" opacity="0"/>
+        <ellipse cx="74" cy="72" rx="7" ry="7.5" fill="white"/>
+        <circle cx="75" cy="73" r="4.5" fill="#9a3412"/>
+        <circle cx="75" cy="73" r="2.5" fill="#3b0a00"/>
+        <circle cx="77" cy="71" r="1.2" fill="white"/>
+        <ellipse id="lidR" cx="74" cy="72" rx="7" ry="7.5" fill="#f5c5a3" opacity="0"/>
+        <path d="M40 63 Q46 60 52 63" stroke="#431407" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <path d="M68 63 Q74 60 80 63" stroke="#431407" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <ellipse cx="60" cy="81" rx="3" ry="2" fill="#e8a87c"/>
+        <ellipse id="blushL" cx="40" cy="83" rx="8" ry="5" fill="#ff9999" opacity="0"/>
+        <ellipse id="blushR" cx="80" cy="83" rx="8" ry="5" fill="#ff9999" opacity="0"/>
+        <path id="mouth" d="M53 89 Q60 93 67 89" stroke="#c0392b" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <path d="M48 109 L60 117 L72 109" stroke="#9a3412" stroke-width="2" fill="none"/>
+        <path d="M25 121 Q60 136 95 121" stroke="#fdba74" stroke-width="3" fill="none" opacity="0.6"/>
+      </svg>
     </div>
+    <div class="speech-bubble" id="bubble">Hi! I am Rishika. Let us learn Direct and Inverse Proportions!</div>
+    <button class="replay-btn" onclick="replayAnim()">&#8635; Replay</button>
   </div>
-  <div id="qArea"></div>
-</div>
-<div class="bottom-nav">
-  <div class="lock-tip" id="lockTip">☝ Complete all explanations to unlock Practice and Exam</div>
-  <button class="btn-nav practice locked" id="btnPractice" onclick="goPractice()">✏️ Go to Practice</button>
-  <button class="btn-nav exam locked" id="btnExam" onclick="goExam()">📝 Go to Exam</button>
-</div>
-<div class="overlay" id="breakOverlay">
-  <div class="break-box">
-    <div class="break-title">Take a Break</div>
-    <div class="break-sub">Choose your reason — timer starts</div>
-    <div class="break-opts">
-      <button class="break-opt" onclick="startBreak('💧 Water Break')">💧 Water</button>
-      <button class="break-opt" onclick="startBreak('🚽 Washroom Break')">🚽 Washroom</button>
-      <button class="break-opt" onclick="startBreak('🏃 Physical Game')">🏃 Physical Game</button>
-      <button class="break-opt" onclick="openGames()">🎮 Play with Me</button>
+  <div class="content" id="contentArea">
+    <div>
+      <div class="q-number" id="qNumber">Question 1 of 15</div>
+      <div class="q-text" id="qText"></div>
     </div>
-    <button class="break-opt" style="color:var(--soft);" onclick="closeBreak()">Cancel — Back to Study</button>
+    <div class="anim-canvas" id="animCanvas"></div>
+    <div class="options-grid" id="optionsGrid"></div>
+    <div class="feedback" id="feedback"></div>
+    <button class="next-btn" id="nextBtn" onclick="nextQ()">Next &#8594;</button>
   </div>
 </div>
-<div class="timer-screen" id="timerScreen">
-  <div class="timer-reason" id="timerLabel">Break</div>
-  <div class="timer-num" id="timerNum">00:00</div>
-  <button class="btn-end" onclick="endBreak()">✅ End Break — Back to Study</button>
+<div class="done-screen" id="doneScreen">
+  <div style="font-size:3rem">&#127881;</div>
+  <h2>Chapter Complete!</h2>
+  <p id="doneScore"></p>
+  <p style="color:#aaa;font-size:0.82rem">Direct and Inverse Proportions — Class 8</p>
+  <button class="done-btn" onclick="location.href='/syllabus.html'">Back to Syllabus</button>
 </div>
-<div class="overlay" id="gamesOverlay">
-  <div class="break-box">
-    <div style="font-size:44px;margin-bottom:10px;">🎮</div>
-    <div class="break-title">Games</div>
-    <div class="break-sub" style="margin-bottom:20px;">Focus games and brain twisters coming very soon! 🚀</div>
-    <button class="break-opt" style="background:var(--amber);color:#fff;border-color:var(--amber);" onclick="closeGames()">OK — Back to Study</button>
-  </div>
-</div>
-
 <script>
-// ═══════════════════════════════════════════════════
-// QUESTION BANK — Direct & Inverse Proportions Cl 8
-// Source: NCERT Ch.13, RD Sharma Ch.10
-// All answers exact. Q[0] always first.
-// ═══════════════════════════════════════════════════
-const QB = [
-  {
-    id:'dp0',
-    q:'What is <span class="hl">Direct Proportion</span>? If the cost of 5 pens is ₹35, what is the cost of 8 pens?',
-    qs:'What is Direct Proportion? If the cost of 5 pens is 35 rupees, what is the cost of 8 pens?',
-    steps:[
-      {t:'Two quantities are in <b>Direct Proportion</b> if when one increases, the other increases in the <b>same ratio</b>. Written as: <span class="fm">x/y = k</span> (constant) or <span class="fm">x₁/y₁ = x₂/y₂</span>.',s:'Two quantities are in Direct Proportion if when one increases, the other increases in the same ratio. We write x over y equals k, a constant.'},
-      {t:'Here: more pens = more cost. So pens and cost are in <b>direct proportion</b>.',s:'Here, more pens means more cost. So pens and cost are in direct proportion.'},
-      {t:'Set up: <span class="fm">5/35 = 8/x</span> where x = cost of 8 pens.',s:'Set up the proportion: 5 over 35 equals 8 over x, where x is the cost of 8 pens.'},
-      {t:'Cross multiply: <span class="fm">5 × x = 35 × 8</span><br><span class="fm">5x = 280</span><br><span class="fm">x = 56</span>',s:'Cross multiply: 5 times x equals 35 times 8. 5x equals 280. x equals 56.'},
-      {t:'<span class="ans-tag">Cost of 8 pens = ₹56</span> ✅',s:'The cost of 8 pens is 56 rupees.'}
-    ],
-    draw:'direct_table',
-    cq:'If 3 kg of apples costs ₹120, what is the cost of 5 kg? Say the amount.',
-    cqs:'If 3 kg of apples costs 120 rupees, what is the cost of 5 kg? Say the amount.',
-    ans:['200','rs 200','rupees 200','₹200','two hundred'],
-    nudges:['More apples = more cost — direct proportion! Set up 3/120 = 5/x and cross multiply. 🤔','3x = 120×5 = 600. So x = 600÷3 = ? 😄','600÷3 = 200. The answer is 200 rupees! 🚀']
-  },
-  {
-    id:'dp1',
-    q:'What is <span class="hl">Inverse Proportion</span>? If 6 workers finish a job in 12 days, how many days will 9 workers take?',
-    qs:'What is Inverse Proportion? If 6 workers finish a job in 12 days, how many days will 9 workers take?',
-    steps:[
-      {t:'Two quantities are in <b>Inverse Proportion</b> if when one increases, the other <b>decreases</b> in the same ratio. Written as: <span class="fm">x × y = k</span> (constant) or <span class="fm">x₁ × y₁ = x₂ × y₂</span>.',s:'Two quantities are in Inverse Proportion if when one increases, the other decreases in the same ratio. We write x times y equals k, a constant.'},
-      {t:'More workers = fewer days. So workers and days are in <b>inverse proportion</b>.',s:'More workers means fewer days. So workers and days are in inverse proportion.'},
-      {t:'Set up: <span class="fm">x₁ × y₁ = x₂ × y₂</span><br><span class="fm">6 × 12 = 9 × d</span>',s:'Set up: 6 times 12 equals 9 times d.'},
-      {t:'<span class="fm">72 = 9d</span><br><span class="fm">d = 72 ÷ 9 = 8</span>',s:'72 equals 9d. d equals 72 divided by 9 equals 8.'},
-      {t:'<span class="ans-tag">9 workers will take 8 days</span> ✅',s:'9 workers will take 8 days.'}
-    ],
-    draw:null,
-    cq:'More workers means more days or fewer days?',
-    cqs:'More workers means more days or fewer days?',
-    ans:['fewer','fewer days','less days','less','shorter'],
-    nudges:['Think — if more people work together, does the job take longer or shorter? 🤔','More people sharing the work = they finish faster! So it takes...? 😄','Fewer days! More workers means fewer days — that is inverse proportion! 🚀']
-  },
-  {
-    id:'dp2',
-    q:'How do you identify if two quantities are in <span class="hl">direct</span> or <span class="hl">inverse</span> proportion? Classify: (a) Speed and time for fixed distance (b) Number of books and total cost',
-    qs:'How do you identify direct or inverse proportion? Classify: a) Speed and time for fixed distance, b) Number of books and total cost.',
-    steps:[
-      {t:'<b>Direct:</b> Both increase together OR both decrease together. Ratio <span class="fm">x/y</span> stays constant.',s:'Direct proportion: both increase together or both decrease together. The ratio x over y stays constant.'},
-      {t:'<b>Inverse:</b> One increases, other decreases. Product <span class="fm">x × y</span> stays constant.',s:'Inverse proportion: one increases, other decreases. The product x times y stays constant.'},
-      {t:'(a) Speed ↑ → Time ↓ (for same distance) → <span class="ans-tag">Inverse Proportion</span>',s:'a) Speed increases, time decreases for the same distance. So speed and time are in inverse proportion.'},
-      {t:'(b) More books → More cost → <span class="ans-tag">Direct Proportion</span>',s:'b) More books means more cost. So number of books and total cost are in direct proportion.'}
-    ],
-    draw:null,
-    cq:'If more taps are opened, water fills a tank faster. Are number of taps and time in direct or inverse proportion?',
-    cqs:'If more taps are opened, water fills a tank faster. Are number of taps and time in direct or inverse proportion?',
-    ans:['inverse','inverse proportion','inversely proportional'],
-    nudges:['More taps → tank fills faster → less time. One goes up, other goes down. What type? 🤔','When one increases and other decreases — that is always...? 😄','Inverse proportion! Say inverse proportion! 🚀']
-  },
-  {
-    id:'dp3',
-    q:'A car travels 150 km in 3 hours. How far will it travel in 5 hours at the same speed?',
-    qs:'A car travels 150 km in 3 hours. How far will it travel in 5 hours at the same speed?',
-    steps:[
-      {t:'More time = more distance at same speed → <b>Direct Proportion</b>.',s:'More time means more distance at the same speed. So this is direct proportion.'},
-      {t:'<span class="fm">distance₁/time₁ = distance₂/time₂</span><br><span class="fm">150/3 = d/5</span>',s:'Set up: 150 over 3 equals d over 5.'},
-      {t:'Cross multiply: <span class="fm">150 × 5 = 3 × d</span><br><span class="fm">750 = 3d</span><br><span class="fm">d = 250</span>',s:'Cross multiply: 150 times 5 is 750. 750 equals 3d. d equals 250.'},
-      {t:'<span class="ans-tag">Distance = 250 km</span> ✅',s:'The car will travel 250 km in 5 hours.'}
-    ],
-    draw:null,
-    cq:'At the same speed, if time doubles, what happens to distance?',
-    cqs:'At the same speed, if time doubles, what happens to distance?',
-    ans:['doubles','distance doubles','also doubles','it doubles','double'],
-    nudges:['Direct proportion means same ratio. If time ×2, what happens to distance? 🤔','In direct proportion, when one quantity doubles, the other also...? 😄','Also doubles! That is the meaning of direct proportion! 🚀']
-  },
-  {
-    id:'dp4',
-    q:'12 pumps working 6 hours a day can empty a tank in 15 days. How many hours a day must 9 pumps work to empty it in 12 days?',
-    qs:'12 pumps working 6 hours a day can empty a tank in 15 days. How many hours a day must 9 pumps work to empty it in 12 days?',
-    steps:[
-      {t:'This involves two inverse relationships. Total work is constant: <span class="fm">pumps × hours × days = constant</span>',s:'This involves two inverse relationships. Total work is constant: pumps times hours times days equals a constant.'},
-      {t:'<span class="fm">12 × 6 × 15 = 9 × h × 12</span>',s:'12 times 6 times 15 equals 9 times h times 12.'},
-      {t:'<span class="fm">1080 = 108h</span>',s:'1080 equals 108 h.'},
-      {t:'<span class="fm">h = 1080 ÷ 108 = 10</span>',s:'h equals 1080 divided by 108 equals 10.'},
-      {t:'<span class="ans-tag">9 pumps must work 10 hours per day</span> ✅',s:'9 pumps must work 10 hours per day.'}
-    ],
-    draw:null,
-    cq:'What stays constant when we say pumps times hours times days?',
-    cqs:'What stays constant when we say pumps times hours times days?',
-    ans:['total work','work','the work','amount of work'],
-    nudges:['Think — the tank is the same size every time. What does not change? 🤔','The total amount of work needed to empty the tank stays the same! What do we call that? 😄','Total work! The total work stays constant. Say total work! 🚀']
-  },
-  {
-    id:'dp5',
-    q:'The scale of a map is 1:5,00,000. If two cities are 4 cm apart on the map, what is the actual distance?',
-    qs:'The scale of a map is 1 to 5 lakh. If two cities are 4 cm apart on the map, what is the actual distance?',
-    steps:[
-      {t:'Map scale <span class="fm">1:5,00,000</span> means 1 cm on map = 5,00,000 cm in reality.',s:'Map scale 1 to 5 lakh means 1 cm on map equals 5 lakh cm in reality.'},
-      {t:'Map distance and actual distance are in <b>Direct Proportion</b>.',s:'Map distance and actual distance are in direct proportion.'},
-      {t:'<span class="fm">1/5,00,000 = 4/d</span><br>Cross multiply: <span class="fm">d = 4 × 5,00,000 = 20,00,000 cm</span>',s:'1 over 5 lakh equals 4 over d. Cross multiply: d equals 4 times 5 lakh equals 20 lakh cm.'},
-      {t:'Convert: <span class="fm">20,00,000 cm = 20 km</span> (÷100 for m, ÷1000 for km)',s:'Convert: 20 lakh cm divided by 100 is 20000 m, divided by 1000 is 20 km.'},
-      {t:'<span class="ans-tag">Actual distance = 20 km</span> ✅',s:'The actual distance between the two cities is 20 km.'}
-    ],
-    draw:null,
-    cq:'Map and actual distance are in direct or inverse proportion?',
-    cqs:'Map and actual distance are in direct or inverse proportion?',
-    ans:['direct','direct proportion','directly proportional'],
-    nudges:['If cities are farther apart, is their map distance bigger or smaller? 🤔','Farther apart → bigger map distance too! Both increase together. That is...? 😄','Direct proportion! Say direct proportion! 🚀']
-  },
-  {
-    id:'dp6',
-    q:'A garrison of 500 soldiers has food for 30 days. If 125 more soldiers join, for how many days will the food last?',
-    qs:'A garrison of 500 soldiers has food for 30 days. If 125 more soldiers join, for how many days will the food last?',
-    steps:[
-      {t:'More soldiers → food lasts fewer days → <b>Inverse Proportion</b>.',s:'More soldiers means food lasts fewer days. So this is inverse proportion.'},
-      {t:'Total soldiers now = <span class="fm">500 + 125 = 625</span>',s:'Total soldiers now equals 500 plus 125 equals 625.'},
-      {t:'<span class="fm">x₁ × y₁ = x₂ × y₂</span><br><span class="fm">500 × 30 = 625 × d</span>',s:'500 times 30 equals 625 times d.'},
-      {t:'<span class="fm">15000 = 625d</span><br><span class="fm">d = 15000 ÷ 625 = 24</span>',s:'15000 equals 625d. d equals 15000 divided by 625 equals 24.'},
-      {t:'<span class="ans-tag">Food will last 24 days</span> ✅',s:'The food will last 24 days.'}
-    ],
-    draw:null,
-    cq:'Soldiers and days of food — is this direct or inverse proportion?',
-    cqs:'Soldiers and days of food — is this direct or inverse proportion?',
-    ans:['inverse','inverse proportion','inversely proportional'],
-    nudges:['More soldiers eating the same food — does it last longer or shorter? 🤔','More soldiers = food finishes faster = fewer days. One up, other down. That is...? 😄','Inverse proportion! Say inverse proportion! 🚀']
-  },
-  {
-    id:'dp7',
-    q:'If x and y are in direct proportion and x = 6 when y = 15, find y when x = 10.',
-    qs:'If x and y are in direct proportion and x equals 6 when y equals 15, find y when x equals 10.',
-    steps:[
-      {t:'Direct proportion: <span class="fm">x₁/y₁ = x₂/y₂</span>',s:'Direct proportion: x1 over y1 equals x2 over y2.'},
-      {t:'<span class="fm">6/15 = 10/y</span>',s:'6 over 15 equals 10 over y.'},
-      {t:'Cross multiply: <span class="fm">6y = 15 × 10 = 150</span>',s:'Cross multiply: 6y equals 15 times 10 equals 150.'},
-      {t:'<span class="fm">y = 150 ÷ 6 = 25</span> → <span class="ans-tag">y = 25</span> ✅',s:'y equals 150 divided by 6 equals 25.'}
-    ],
-    draw:null,
-    cq:'What is the value of y when x is 10?',
-    cqs:'What is the value of y when x is 10?',
-    ans:['25','twenty five','y is 25','y equals 25'],
-    nudges:['Set up 6/15 = 10/y and cross multiply. 6y = 150. So y = ? 🤔','150 divided by 6 is...? 😄','150 ÷ 6 = 25. Say y is 25! 🚀']
-  },
-  {
-    id:'dp8',
-    q:'A photograph of a bacterium is enlarged 50,000 times. If the length in the photo is 5 cm, what is the actual length of the bacterium?',
-    qs:'A photograph of a bacterium is enlarged 50000 times. If the length in the photo is 5 cm, what is the actual length?',
-    steps:[
-      {t:'Enlarged length and actual length are in <b>Direct Proportion</b>. Scale = 50,000:1.',s:'Enlarged length and actual length are in direct proportion. Scale is 50000 to 1.'},
-      {t:'<span class="fm">enlarged/actual = 50000/1</span><br><span class="fm">5/actual = 50000/1</span>',s:'5 over actual equals 50000 over 1.'},
-      {t:'<span class="fm">actual = 5 ÷ 50000 = 1/10000 cm</span>',s:'actual equals 5 divided by 50000 equals 1 over 10000 cm.'},
-      {t:'Convert: <span class="fm">1/10000 cm = 10⁻⁴ cm</span> → <span class="ans-tag">Actual length = 10⁻⁴ cm</span> ✅',s:'1 over 10000 cm equals 10 to the power minus 4 cm. The actual length of the bacterium is 10 to the power minus 4 cm.'}
-    ],
-    draw:null,
-    cq:'This problem links which two chapters we have already studied?',
-    cqs:'This problem links which two chapters we have already studied?',
-    ans:['direct proportion','powers','powers and exponents','proportions and powers','direct proportion and powers'],
-    nudges:['We used direct proportion AND we wrote the answer as 10 to the power minus 4. What chapter is that from? 🤔','10⁻⁴ — that is from our Powers and Exponents chapter! And we used...? 😄','Direct Proportion and Powers and Exponents! Say direct proportion and powers! 🚀']
-  },
-  {
-    id:'dp9',
-    q:'NCERT: If 15 workers can build a wall in 48 hours, how many workers are needed to build it in 30 hours?',
-    qs:'If 15 workers can build a wall in 48 hours, how many workers are needed to build it in 30 hours?',
-    steps:[
-      {t:'More workers → less time → <b>Inverse Proportion</b>.',s:'More workers means less time. So this is inverse proportion.'},
-      {t:'<span class="fm">x₁ × y₁ = x₂ × y₂</span><br><span class="fm">15 × 48 = w × 30</span>',s:'15 times 48 equals w times 30.'},
-      {t:'<span class="fm">720 = 30w</span><br><span class="fm">w = 720 ÷ 30 = 24</span>',s:'720 equals 30w. w equals 720 divided by 30 equals 24.'},
-      {t:'<span class="ans-tag">24 workers needed</span> ✅',s:'24 workers are needed.'}
-    ],
-    draw:null,
-    cq:'How many workers are needed?',
-    cqs:'How many workers are needed?',
-    ans:['24','twenty four','24 workers'],
-    nudges:['Set up 15×48 = w×30. Calculate 15×48 first! 🤔','15×48 = 720. So 30w = 720. w = ? 😄','720 ÷ 30 = 24. Say 24 workers! 🚀']
-  },
-  {
-    id:'dp10',
-    q:'Observe the table and check if x and y are in direct proportion:<br><table class="prop-table"><tr><th>x</th><td>2</td><td>4</td><td>6</td><td>8</td></tr><tr><th>y</th><td>6</td><td>12</td><td>18</td><td>24</td></tr></table>',
-    qs:'Observe the table and check if x and y are in direct proportion. x values are 2, 4, 6, 8. y values are 6, 12, 18, 24.',
-    steps:[
-      {t:'For direct proportion, check if <span class="fm">x/y = constant</span> for all pairs.',s:'For direct proportion, check if x over y equals a constant for all pairs.'},
-      {t:'<span class="fm">2/6 = 1/3</span> &nbsp; <span class="fm">4/12 = 1/3</span> &nbsp; <span class="fm">6/18 = 1/3</span> &nbsp; <span class="fm">8/24 = 1/3</span>',s:'2 over 6 is 1 over 3. 4 over 12 is 1 over 3. 6 over 18 is 1 over 3. 8 over 24 is 1 over 3.'},
-      {t:'All ratios = <span class="fm">1/3</span> → constant! <span class="ans-tag">Yes, x and y are in Direct Proportion ✅</span>',s:'All ratios equal 1 over 3, which is constant. So yes, x and y are in direct proportion.'}
-    ],
-    draw:null,
-    cq:'What constant ratio did we find between x and y?',
-    cqs:'What constant ratio did we find between x and y?',
-    ans:['1/3','1 over 3','one third','one over three'],
-    nudges:['Divide any x by its corresponding y. What do you always get? 🤔','2÷6 = 1/3. 4÷12 = 1/3. Always the same! What fraction is that? 😄','1 over 3! Say 1 over 3! 🚀']
-  },
-  {
-    id:'dp11',
-    q:'Riyon cycles to school. If he cycles at 12 km/h he reaches in 20 minutes. If he wants to reach in 15 minutes, what speed should he cycle?',
-    qs:'Riyon cycles to school. At 12 km per hour he reaches in 20 minutes. To reach in 15 minutes, what speed should he cycle?',
-    steps:[
-      {t:'More speed → less time → <b>Inverse Proportion</b>.',s:'More speed means less time. So speed and time are in inverse proportion.'},
-      {t:'<span class="fm">s₁ × t₁ = s₂ × t₂</span><br><span class="fm">12 × 20 = s × 15</span>',s:'12 times 20 equals s times 15.'},
-      {t:'<span class="fm">240 = 15s</span><br><span class="fm">s = 240 ÷ 15 = 16</span>',s:'240 equals 15s. s equals 240 divided by 15 equals 16.'},
-      {t:'<span class="ans-tag">Riyon must cycle at 16 km/h</span> ✅',s:'Riyon must cycle at 16 km per hour.'}
-    ],
-    draw:null,
-    cq:'Speed and time for a fixed distance — are they in direct or inverse proportion?',
-    cqs:'Speed and time for a fixed distance — are they in direct or inverse proportion?',
-    ans:['inverse','inverse proportion','inversely proportional'],
-    nudges:['If Riyon cycles faster, does he reach sooner or later? 🤔','Faster speed = less time. One goes up, other goes down. What type of proportion? 😄','Inverse proportion! Say inverse proportion! 🚀']
-  },
-  {
-    id:'dp12',
-    q:'If the weight of 25 books is 5 kg, what is the weight of 40 books of the same type?',
-    qs:'If the weight of 25 books is 5 kg, what is the weight of 40 books of the same type?',
-    steps:[
-      {t:'More books → more weight → <b>Direct Proportion</b>.',s:'More books means more weight. So this is direct proportion.'},
-      {t:'<span class="fm">25/5 = 40/w</span>',s:'25 over 5 equals 40 over w.'},
-      {t:'Cross multiply: <span class="fm">25w = 5 × 40 = 200</span>',s:'Cross multiply: 25w equals 5 times 40 equals 200.'},
-      {t:'<span class="fm">w = 200 ÷ 25 = 8</span> → <span class="ans-tag">Weight = 8 kg</span> ✅',s:'w equals 200 divided by 25 equals 8. The weight of 40 books is 8 kg.'}
-    ],
-    draw:null,
-    cq:'What is the weight of 40 books?',
-    cqs:'What is the weight of 40 books?',
-    ans:['8','8 kg','eight kg','eight kilograms'],
-    nudges:['Set up 25/5 = 40/w and cross multiply. 25w = 200. w = ? 🤔','200 divided by 25 is...? 😄','200 ÷ 25 = 8. The answer is 8 kg! 🚀']
-  },
-  {
-    id:'dp13',
-    q:'RD Sharma: A machine in a factory produces 840 bolts in 1 hour. How many bolts will it produce in 40 minutes?',
-    qs:'A machine produces 840 bolts in 1 hour. How many bolts will it produce in 40 minutes?',
-    steps:[
-      {t:'More time → more bolts → <b>Direct Proportion</b>. Convert: 1 hour = 60 minutes.',s:'More time means more bolts. Direct proportion. Convert 1 hour to 60 minutes.'},
-      {t:'<span class="fm">60/840 = 40/b</span>',s:'60 over 840 equals 40 over b.'},
-      {t:'Cross multiply: <span class="fm">60b = 840 × 40 = 33600</span>',s:'Cross multiply: 60b equals 840 times 40 equals 33600.'},
-      {t:'<span class="fm">b = 33600 ÷ 60 = 560</span> → <span class="ans-tag">560 bolts</span> ✅',s:'b equals 33600 divided by 60 equals 560. The machine produces 560 bolts in 40 minutes.'}
-    ],
-    draw:null,
-    cq:'How many bolts does the machine produce in 40 minutes?',
-    cqs:'How many bolts does the machine produce in 40 minutes?',
-    ans:['560','five hundred sixty','560 bolts'],
-    nudges:['Convert hours to minutes first! 1 hour = 60 minutes. Then set up the direct proportion. 🤔','60/840 = 40/b. Cross multiply: 60b = 33600. b = ? 😄','33600 ÷ 60 = 560. Say 560 bolts! 🚀']
-  },
-  {
-    id:'dp14',
-    q:'The cost of 5 metres of cloth is ₹210. Tabulate the cost of 2, 4, 10 and 13 metres and check if it is a direct proportion.',
-    qs:'The cost of 5 metres of cloth is 210 rupees. Find the cost of 2, 4, 10 and 13 metres and check if it is direct proportion.',
-    steps:[
-      {t:'Rate per metre = <span class="fm">210 ÷ 5 = ₹42 per metre</span>',s:'Rate per metre equals 210 divided by 5 equals 42 rupees per metre.'},
-      {t:'2 m: <span class="fm">2 × 42 = ₹84</span> &nbsp; 4 m: <span class="fm">4 × 42 = ₹168</span>',s:'2 metres costs 84 rupees. 4 metres costs 168 rupees.'},
-      {t:'10 m: <span class="fm">10 × 42 = ₹420</span> &nbsp; 13 m: <span class="fm">13 × 42 = ₹546</span>',s:'10 metres costs 420 rupees. 13 metres costs 546 rupees.'},
-      {t:'Check ratio: <span class="fm">2/84 = 4/168 = 10/420 = 13/546 = 1/42</span> = constant ✅<br><span class="ans-tag">Yes, direct proportion confirmed</span>',s:'Check ratio: all equal 1 over 42, which is constant. Yes, it is direct proportion.'}
-    ],
-    draw:null,
-    cq:'What is the cost per metre of cloth?',
-    cqs:'What is the cost per metre of cloth?',
-    ans:['42','rs 42','rupees 42','₹42','forty two'],
-    nudges:['Divide total cost by total metres. 210 ÷ 5 = ? 🤔','210 ÷ 5 = 42. So each metre costs...? 😄','42 rupees per metre! Say 42 rupees! 🚀']
+function G(id){return document.getElementById(id);}
+var atTimers=[];
+function clearAt(){atTimers.forEach(clearTimeout);atTimers=[];}
+function at(ms,fn){atTimers.push(setTimeout(fn,ms));}
+var chosenVoice=null,mouthTimer=null;
+function initVoices(cb){
+  var v=speechSynthesis.getVoices();
+  if(v.length){pickVoice(v);cb();return;}
+  speechSynthesis.onvoiceschanged=function(){pickVoice(speechSynthesis.getVoices());cb();};
+}
+function pickVoice(voices){
+  var pri=['heera','veena','priya','raveena','female','woman','zira','samantha','victoria','karen','moira','tessa','fiona'];
+  var enIN=voices.filter(function(v){return v.lang==='en-IN';});
+  for(var p=0;p<pri.length;p++){for(var i=0;i<enIN.length;i++){if(enIN[i].name.toLowerCase().indexOf(pri[p])>-1){chosenVoice=enIN[i];return;}}}
+  var enA=voices.filter(function(v){return v.lang.startsWith('en');});
+  for(var p=0;p<pri.length;p++){for(var i=0;i<enA.length;i++){if(enA[i].name.toLowerCase().indexOf(pri[p])>-1){chosenVoice=enA[i];return;}}}
+  if(enIN.length){chosenVoice=enIN[0];return;}
+  if(enA.length){chosenVoice=enA[0];}
+}
+function say(text){
+  speechSynthesis.cancel();rStopTalk();
+  var u=new SpeechSynthesisUtterance(text);
+  if(chosenVoice)u.voice=chosenVoice;
+  u.lang='en-IN';u.rate=0.88;u.pitch=1.15;
+  u.onstart=function(){rStartTalk();};
+  u.onend=function(){rStopTalk();};
+  speechSynthesis.speak(u);
+}
+function rStartTalk(){
+  G('blushL').style.opacity='0.7';G('blushR').style.opacity='0.7';
+  if(mouthTimer)clearInterval(mouthTimer);
+  var open=false;
+  mouthTimer=setInterval(function(){
+    open=!open;
+    G('mouth').setAttribute('d',open?'M53 87 Q60 96 67 87':'M53 89 Q60 93 67 89');
+  },160);
+}
+function rStopTalk(){
+  if(mouthTimer){clearInterval(mouthTimer);mouthTimer=null;}
+  G('mouth').setAttribute('d','M53 89 Q60 93 67 89');
+  G('blushL').style.opacity='0';G('blushR').style.opacity='0';
+}
+function startBlink(){
+  function doBlink(){
+    G('lidL').setAttribute('opacity','0.95');G('lidR').setAttribute('opacity','0.95');
+    setTimeout(function(){G('lidL').setAttribute('opacity','0');G('lidR').setAttribute('opacity','0');setTimeout(doBlink,2200+Math.random()*3000);},120);
   }
+  setTimeout(doBlink,2200+Math.random()*3000);
+}
+function fade(id,v){var e=G(id);if(!e)return;e.style.transition='opacity .5s';e.style.opacity=v;}
+
+var questions=[
+{q:'If 5 pens cost Rs 30, what is the cost of 8 pens? (Direct proportion)',opts:['Rs 40','Rs 48','Rs 50','Rs 56'],ans:1,anim:'dp1',
+narr:'This is direct proportion — more pens, more cost. Cost per pen is 30 divided by 5 equals 6 rupees. So 8 pens cost 8 times 6 equals 48 rupees.'},
+{q:'In direct proportion, if x doubles, then y:',opts:['Halves','Doubles','Stays same','Quadruples'],ans:1,anim:'dp2',
+narr:'In direct proportion, x over y equals a constant k. So if x doubles, y must also double to keep the ratio constant. Both quantities change in the same direction.'},
+{q:'Which is the formula for direct proportion?',opts:['x × y = k','x / y = k','x + y = k','x - y = k'],ans:1,anim:'dp3',
+narr:'In direct proportion, the ratio of x to y is always constant. So x divided by y equals k, where k is the constant of proportionality. Equivalently, x equals k times y.'},
+{q:'A car travels 150 km in 3 hours. How far will it travel in 5 hours?',opts:['200 km','250 km','300 km','350 km'],ans:1,anim:'dp4',
+narr:'Speed is constant, so this is direct proportion. Speed equals 150 divided by 3 which is 50 kilometres per hour. In 5 hours: 50 times 5 equals 250 kilometres.'},
+{q:'If 12 workers can build a wall in 6 days, how many days will 4 workers take?',opts:['2 days','9 days','18 days','24 days'],ans:2,anim:'ip1',
+narr:'More workers means less days — this is inverse proportion. Workers times days is constant. 12 times 6 equals 72. With 4 workers: 72 divided by 4 equals 18 days.'},
+{q:'In inverse proportion, if x triples, then y:',opts:['Triples','Doubles','Becomes one-third','Stays same'],ans:2,anim:'ip2',
+narr:'In inverse proportion, x times y equals constant k. If x triples, then y must become one-third to keep the product constant. Opposite directions of change!'},
+{q:'Which is the formula for inverse proportion?',opts:['x / y = k','x × y = k','x + y = k','x - y = k'],ans:1,anim:'ip3',
+narr:'In inverse proportion, the product of x and y is always constant. So x times y equals k. As one quantity increases, the other decreases proportionally.'},
+{q:'8 taps fill a tank in 9 hours. How long will 6 taps take?',opts:['6 hours','9 hours','12 hours','15 hours'],ans:2,anim:'ip4',
+narr:'More taps means less time — inverse proportion. Taps times hours is constant: 8 times 9 equals 72. With 6 taps: 72 divided by 6 equals 12 hours.'},
+{q:'A train covers a distance at 60 km/h in 4 hours. How long at 80 km/h?',opts:['2 hours','3 hours','5 hours','6 hours'],ans:1,anim:'ip5',
+narr:'Speed and time are inversely proportional for a fixed distance. Distance equals 60 times 4 equals 240 kilometres. At 80 kilometres per hour: 240 divided by 80 equals 3 hours.'},
+{q:'If 18 men can dig a trench in 6 days, how many men are needed to dig it in 3 days?',opts:['9','24','27','36'],ans:3,anim:'ip6',
+narr:'Less days means more men needed — inverse proportion. Men times days is constant: 18 times 6 equals 108. In 3 days: 108 divided by 3 equals 36 men.'},
+{q:'The cost of 15 metres of cloth is Rs 225. What is the cost of 4 metres?',opts:['Rs 45','Rs 50','Rs 60','Rs 75'],ans:2,anim:'dp5',
+narr:'More cloth, more cost — direct proportion. Cost per metre is 225 divided by 15 equals 15 rupees. Cost of 4 metres is 4 times 15 equals 60 rupees.'},
+{q:'A photograph 4 cm wide is enlarged so its width becomes 8 cm. If the height was 6 cm, what is the new height?',opts:['9 cm','10 cm','12 cm','15 cm'],ans:2,anim:'dp6',
+narr:'Enlarging keeps proportions — direct proportion. Width ratio is 8 over 4 equals 2. New height equals 6 times 2 equals 12 centimetres.'},
+{q:'50 kg of rice costs Rs 1750. Asha has Rs 1050. How many kg can she buy?',opts:['25 kg','30 kg','35 kg','40 kg'],ans:1,anim:'dp7',
+narr:'More money, more rice — direct proportion. Price per kg is 1750 divided by 50 equals 35 rupees per kg. Asha can buy 1050 divided by 35 equals 30 kilograms.'},
+{q:'6 pumps drain a field in 10 hours. How many pumps drain it in 4 hours?',opts:['10','12','15','18'],ans:2,anim:'ip7',
+narr:'Fewer hours needs more pumps — inverse proportion. Pumps times hours is constant: 6 times 10 equals 60. In 4 hours: 60 divided by 4 equals 15 pumps.'},
+{q:'x and y are inversely proportional. If x = 4 when y = 9, find y when x = 12.',opts:['y = 3','y = 4','y = 27','y = 36'],ans:0,anim:'ip8',
+narr:'Inverse proportion: x times y equals constant. k equals 4 times 9 equals 36. When x is 12: y equals 36 divided by 12 equals 3. As x triples, y becomes one-third.'}
 ];
 
-// ══════════════════
-// STATE
-// ══════════════════
-let session=[],idx=0,stepIdx=0,nudgeCount=0,completed=false;
-let recog=null,listening=false,breakSecs=0,breakTmr=null;
-const PER_SESSION=10;
+function getAnimSVG(type){
+var s={
+'dp1':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#1a0a00"/><text x="210" y="18" text-anchor="middle" fill="#fb923c" font-size="13" font-weight="bold">Direct Proportion — Pens and Cost</text><g id="d1rule" opacity="0"><rect x="18" y="26" width="384" height="22" rx="6" fill="rgba(251,146,60,0.1)" stroke="#fb923c" stroke-width="1"/><text x="210" y="41" text-anchor="middle" fill="#fb923c" font-size="11">Direct Proportion: x/y = k (constant ratio)</text></g><g id="d1table" opacity="0"><text x="50" y="72" fill="#aaa" font-size="11">Pens</text><text x="150" y="72" fill="#aaa" font-size="11">Cost (Rs)</text><text x="50" y="92" fill="#fff" font-size="13">5</text><text x="150" y="92" fill="#fff" font-size="13">30</text><text x="50" y="112" fill="#ffd700" font-size="13">8</text><text x="150" y="112" fill="#ffd700" font-size="13">?</text><line x1="40" y1="78" x2="220" y2="78" stroke="#555" stroke-width="1"/><line x1="130" y1="66" x2="130" y2="122" stroke="#555" stroke-width="1"/></g><g id="d1calc" opacity="0"><text x="250" y="80" fill="#ffd700" font-size="12">Rate = 30/5 = 6 per pen</text><text x="250" y="100" fill="#fff" font-size="12">8 pens = 8 x 6 = Rs 48</text></g><g id="d1ans" opacity="0"><rect x="245" y="116" width="130" height="22" rx="5" fill="rgba(46,204,113,0.15)" stroke="#2ecc71" stroke-width="1"/><text x="310" y="131" text-anchor="middle" fill="#2ecc71" font-size="13" font-weight="bold">Answer: Rs 48</text></g></svg>',
 
-window.onload=function(){
-  const st=JSON.parse(localStorage.getItem('rishi_current_student')||'{}');
-  document.getElementById('sName').textContent=st.studentName?st.studentName.split(' ')[0]:'there';
-  const prog=JSON.parse(localStorage.getItem('rishi_progress')||'{}');
-  if(prog.explain_direct_inverse_done){completed=true;document.getElementById('doneBanner').classList.add('show');unlockNav();}
-  buildSession();setupRecog();
-  setTimeout(()=>speakEl('introText'),700);
-  setTimeout(showQ,2400);
+'dp2':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#1a0a00"/><text x="210" y="18" text-anchor="middle" fill="#fb923c" font-size="13" font-weight="bold">Direct Proportion — Both Go Same Way</text><g id="d2arrows" opacity="0"><text x="60" y="62" fill="#aaa" font-size="12">x doubles</text><text x="60" y="82" fill="#fff" font-size="18">x: 2 to 4</text><text x="220" y="62" fill="#aaa" font-size="12">y also doubles</text><text x="220" y="82" fill="#fff" font-size="18">y: 5 to 10</text></g><g id="d2ratio" opacity="0"><text x="60" y="118" fill="#ffd700" font-size="12">Ratio stays constant:</text><text x="60" y="138" fill="#fff" font-size="13">2/5 = 4/10 = 0.4</text></g><g id="d2rule" opacity="0"><rect x="55" y="152" width="260" height="20" rx="5" fill="rgba(251,146,60,0.15)" stroke="#fb923c" stroke-width="1"/><text x="185" y="166" text-anchor="middle" fill="#fb923c" font-size="12">x increases = y increases</text></g></svg>',
+
+'dp3':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#1a0a00"/><text x="210" y="18" text-anchor="middle" fill="#fb923c" font-size="13" font-weight="bold">Direct Proportion Formula</text><g id="d3formula" opacity="0"><rect x="80" y="30" width="260" height="42" rx="10" fill="rgba(251,146,60,0.1)" stroke="#fb923c" stroke-width="2"/><text x="210" y="56" text-anchor="middle" fill="#fb923c" font-size="22" font-weight="bold">x / y = k</text></g><g id="d3meaning" opacity="0"><text x="55" y="100" fill="#aaa" font-size="12">k is the constant of proportionality</text><text x="55" y="120" fill="#fff" font-size="13">Also written as: x = ky</text></g><g id="d3eg" opacity="0"><text x="55" y="148" fill="#ffd700" font-size="12">Example: 5 pens / Rs 30 = 1/6 = k</text><text x="55" y="168" fill="#aaa" font-size="12">8 pens / ? = 1/6  so  ? = 48</text></g></svg>',
+
+'dp4':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#1a0a00"/><text x="210" y="18" text-anchor="middle" fill="#fb923c" font-size="13" font-weight="bold">Direct Proportion — Distance and Time</text><g id="d4given" opacity="0"><text x="30" y="56" fill="#fff" font-size="13">Given: 150 km in 3 hours</text><text x="30" y="76" fill="#ffd700" font-size="13">Find: distance in 5 hours</text></g><g id="d4bar1" opacity="0"><rect x="30" y="92" width="0" height="18" fill="rgba(251,146,60,0.4)" stroke="#fb923c" stroke-width="1" id="dbar1"/><text x="25" y="106" text-anchor="end" fill="#aaa" font-size="10">3h</text></g><g id="d4bar2" opacity="0"><rect x="30" y="116" width="0" height="18" fill="rgba(46,204,113,0.4)" stroke="#2ecc71" stroke-width="1" id="dbar2"/><text x="25" y="130" text-anchor="end" fill="#aaa" font-size="10">5h</text></g><g id="d4calc" opacity="0"><text x="30" y="156" fill="#fff" font-size="13">Speed = 150/3 = 50 km/h</text><text x="30" y="172" fill="#2ecc71" font-size="13" font-weight="bold">Distance = 50 x 5 = 250 km</text></g></svg>',
+
+'ip1':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#1a0a00"/><text x="210" y="18" text-anchor="middle" fill="#fb923c" font-size="13" font-weight="bold">Inverse Proportion — Workers and Days</text><g id="i1rule" opacity="0"><rect x="18" y="26" width="384" height="22" rx="6" fill="rgba(251,146,60,0.1)" stroke="#fb923c" stroke-width="1"/><text x="210" y="41" text-anchor="middle" fill="#fb923c" font-size="11">Inverse Proportion: x x y = k (constant product)</text></g><g id="i1table" opacity="0"><text x="50" y="72" fill="#aaa" font-size="11">Workers</text><text x="170" y="72" fill="#aaa" font-size="11">Days</text><text x="50" y="92" fill="#fff" font-size="13">12</text><text x="170" y="92" fill="#fff" font-size="13">6</text><text x="50" y="112" fill="#ffd700" font-size="13">4</text><text x="170" y="112" fill="#ffd700" font-size="13">?</text><line x1="40" y1="78" x2="240" y2="78" stroke="#555" stroke-width="1"/><line x1="150" y1="66" x2="150" y2="122" stroke="#555" stroke-width="1"/></g><g id="i1calc" opacity="0"><text x="260" y="80" fill="#ffd700" font-size="12">k = 12 x 6 = 72</text><text x="260" y="100" fill="#fff" font-size="12">4 x ? = 72</text><text x="260" y="120" fill="#2ecc71" font-size="13" font-weight="bold">? = 18 days</text></g></svg>',
+
+'ip2':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#1a0a00"/><text x="210" y="18" text-anchor="middle" fill="#fb923c" font-size="13" font-weight="bold">Inverse Proportion — Opposite Directions</text><g id="i2arrows" opacity="0"><text x="40" y="62" fill="#aaa" font-size="12">x triples</text><text x="40" y="82" fill="#fff" font-size="18">x: 2 to 6</text><text x="220" y="62" fill="#aaa" font-size="12">y becomes 1/3</text><text x="220" y="82" fill="#fff" font-size="18">y: 9 to 3</text></g><g id="i2product" opacity="0"><text x="40" y="118" fill="#ffd700" font-size="12">Product stays constant:</text><text x="40" y="138" fill="#fff" font-size="13">2 x 9 = 18   and   6 x 3 = 18</text></g><g id="i2rule" opacity="0"><rect x="35" y="152" width="300" height="20" rx="5" fill="rgba(251,146,60,0.15)" stroke="#fb923c" stroke-width="1"/><text x="185" y="166" text-anchor="middle" fill="#fb923c" font-size="12">x increases = y decreases</text></g></svg>',
+
+'ip3':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#1a0a00"/><text x="210" y="18" text-anchor="middle" fill="#fb923c" font-size="13" font-weight="bold">Inverse Proportion Formula</text><g id="i3formula" opacity="0"><rect x="80" y="30" width="260" height="42" rx="10" fill="rgba(251,146,60,0.1)" stroke="#fb923c" stroke-width="2"/><text x="210" y="56" text-anchor="middle" fill="#fb923c" font-size="22" font-weight="bold">x x y = k</text></g><g id="i3compare" opacity="0"><text x="40" y="100" fill="#ffd700" font-size="11">Direct: x/y = k (ratio constant)</text><text x="40" y="118" fill="#fb923c" font-size="11">Inverse: xy = k (product constant)</text></g><g id="i3eg" opacity="0"><text x="40" y="146" fill="#aaa" font-size="12">Example: 8 taps x 9 hrs = 72 = k</text><text x="40" y="166" fill="#2ecc71" font-size="12">6 taps x ? = 72  so  ? = 12 hours</text></g></svg>',
+
+'ip4':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#1a0a00"/><text x="210" y="18" text-anchor="middle" fill="#fb923c" font-size="13" font-weight="bold">Inverse Proportion — Taps and Time</text><g id="i4given" opacity="0"><text x="30" y="56" fill="#fff" font-size="13">8 taps fill in 9 hours</text><text x="30" y="76" fill="#ffd700" font-size="13">Find time for 6 taps</text></g><g id="i4table" opacity="0"><text x="50" y="106" fill="#aaa" font-size="11">Taps</text><text x="150" y="106" fill="#aaa" font-size="11">Hours</text><text x="50" y="124" fill="#fff" font-size="12">8</text><text x="150" y="124" fill="#fff" font-size="12">9</text><text x="50" y="142" fill="#ffd700" font-size="12">6</text><text x="150" y="142" fill="#ffd700" font-size="12">?</text><line x1="40" y1="112" x2="230" y2="112" stroke="#555" stroke-width="1"/></g><g id="i4calc" opacity="0"><text x="260" y="120" fill="#ffd700" font-size="12">k = 8 x 9 = 72</text><text x="260" y="140" fill="#fff" font-size="12">6 x ? = 72</text><rect x="255" y="152" width="120" height="20" rx="5" fill="rgba(46,204,113,0.15)" stroke="#2ecc71" stroke-width="1"/><text x="315" y="166" text-anchor="middle" fill="#2ecc71" font-size="12" font-weight="bold">? = 12 hours</text></g></svg>',
+
+'ip5':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#1a0a00"/><text x="210" y="18" text-anchor="middle" fill="#fb923c" font-size="13" font-weight="bold">Inverse Proportion — Speed and Time</text><g id="i5given" opacity="0"><text x="30" y="54" fill="#fff" font-size="12">Fixed distance: 60 km/h for 4 hours</text><text x="30" y="72" fill="#ffd700" font-size="12">Find time at 80 km/h</text></g><g id="i5dist" opacity="0"><text x="30" y="100" fill="#ffd700" font-size="13">Distance = 60 x 4 = 240 km</text></g><g id="i5calc" opacity="0"><text x="30" y="126" fill="#fff" font-size="13">Speed x Time = 240</text><text x="30" y="148" fill="#fff" font-size="13">80 x ? = 240</text></g><g id="i5ans" opacity="0"><rect x="25" y="158" width="180" height="16" rx="4" fill="rgba(46,204,113,0.15)" stroke="#2ecc71" stroke-width="1"/><text x="115" y="170" text-anchor="middle" fill="#2ecc71" font-size="12" font-weight="bold">Time = 3 hours</text></g></svg>',
+
+'ip6':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#1a0a00"/><text x="210" y="18" text-anchor="middle" fill="#fb923c" font-size="13" font-weight="bold">Inverse Proportion — Men and Days</text><g id="i6given" opacity="0"><text x="30" y="56" fill="#fff" font-size="13">18 men dig in 6 days</text><text x="30" y="76" fill="#ffd700" font-size="13">Find men needed in 3 days</text></g><g id="i6calc" opacity="0"><text x="30" y="106" fill="#ffd700" font-size="13">k = 18 x 6 = 108</text><text x="30" y="128" fill="#fff" font-size="13">? x 3 = 108</text></g><g id="i6ans" opacity="0"><rect x="25" y="144" width="160" height="26" rx="6" fill="rgba(46,204,113,0.2)" stroke="#2ecc71" stroke-width="1.5"/><text x="105" y="162" text-anchor="middle" fill="#2ecc71" font-size="16" font-weight="bold">? = 36 men</text></g></svg>',
+
+'dp5':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#1a0a00"/><text x="210" y="18" text-anchor="middle" fill="#fb923c" font-size="13" font-weight="bold">Direct Proportion — Cloth and Cost</text><g id="d5given" opacity="0"><text x="30" y="56" fill="#fff" font-size="13">15 m of cloth costs Rs 225</text><text x="30" y="76" fill="#ffd700" font-size="13">Find cost of 4 metres</text></g><g id="d5calc" opacity="0"><text x="30" y="106" fill="#ffd700" font-size="13">Rate = 225 / 15 = Rs 15 per metre</text><text x="30" y="128" fill="#fff" font-size="13">Cost of 4 m = 4 x 15</text></g><g id="d5ans" opacity="0"><rect x="25" y="144" width="160" height="26" rx="6" fill="rgba(46,204,113,0.2)" stroke="#2ecc71" stroke-width="1.5"/><text x="105" y="162" text-anchor="middle" fill="#2ecc71" font-size="16" font-weight="bold">= Rs 60</text></g></svg>',
+
+'dp6':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#1a0a00"/><text x="210" y="18" text-anchor="middle" fill="#fb923c" font-size="13" font-weight="bold">Direct Proportion — Photo Enlargement</text><g id="d6given" opacity="0"><text x="30" y="56" fill="#fff" font-size="13">Original: width 4 cm, height 6 cm</text><text x="30" y="76" fill="#ffd700" font-size="13">Enlarged: width 8 cm, find height</text></g><g id="d6calc" opacity="0"><text x="30" y="106" fill="#ffd700" font-size="13">Scale factor = 8 / 4 = 2</text><text x="30" y="128" fill="#fff" font-size="13">New height = 6 x 2 = 12 cm</text></g><g id="d6ans" opacity="0"><rect x="25" y="144" width="180" height="26" rx="6" fill="rgba(46,204,113,0.2)" stroke="#2ecc71" stroke-width="1.5"/><text x="115" y="162" text-anchor="middle" fill="#2ecc71" font-size="16" font-weight="bold">New height = 12 cm</text></g></svg>',
+
+'dp7':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#1a0a00"/><text x="210" y="18" text-anchor="middle" fill="#fb923c" font-size="13" font-weight="bold">Direct Proportion — Rice Purchase</text><g id="d7given" opacity="0"><text x="30" y="54" fill="#fff" font-size="12">50 kg rice costs Rs 1750</text><text x="30" y="72" fill="#ffd700" font-size="12">Asha has Rs 1050, find kg she can buy</text></g><g id="d7calc" opacity="0"><text x="30" y="100" fill="#ffd700" font-size="13">Price/kg = 1750 / 50 = Rs 35</text><text x="30" y="122" fill="#fff" font-size="13">Kg = 1050 / 35</text></g><g id="d7ans" opacity="0"><rect x="25" y="138" width="160" height="26" rx="6" fill="rgba(46,204,113,0.2)" stroke="#2ecc71" stroke-width="1.5"/><text x="105" y="156" text-anchor="middle" fill="#2ecc71" font-size="16" font-weight="bold">= 30 kg</text></g></svg>',
+
+'ip7':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#1a0a00"/><text x="210" y="18" text-anchor="middle" fill="#fb923c" font-size="13" font-weight="bold">Inverse Proportion — Pumps</text><g id="i7given" opacity="0"><text x="30" y="56" fill="#fff" font-size="13">6 pumps drain in 10 hours</text><text x="30" y="76" fill="#ffd700" font-size="13">Find pumps needed in 4 hours</text></g><g id="i7calc" opacity="0"><text x="30" y="106" fill="#ffd700" font-size="13">k = 6 x 10 = 60</text><text x="30" y="128" fill="#fff" font-size="13">? x 4 = 60</text></g><g id="i7ans" opacity="0"><rect x="25" y="144" width="160" height="26" rx="6" fill="rgba(46,204,113,0.2)" stroke="#2ecc71" stroke-width="1.5"/><text x="105" y="162" text-anchor="middle" fill="#2ecc71" font-size="16" font-weight="bold">? = 15 pumps</text></g></svg>',
+
+'ip8':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#1a0a00"/><text x="210" y="18" text-anchor="middle" fill="#fb923c" font-size="13" font-weight="bold">Inverse Proportion — Find the Unknown</text><g id="i8given" opacity="0"><text x="30" y="54" fill="#fff" font-size="13">x = 4 when y = 9</text><text x="30" y="74" fill="#ffd700" font-size="13">Find y when x = 12</text></g><g id="i8calc" opacity="0"><text x="30" y="102" fill="#ffd700" font-size="13">k = x x y = 4 x 9 = 36</text><text x="30" y="124" fill="#fff" font-size="13">12 x y = 36</text></g><g id="i8ans" opacity="0"><rect x="25" y="140" width="140" height="28" rx="6" fill="rgba(46,204,113,0.2)" stroke="#2ecc71" stroke-width="1.5"/><text x="95" y="159" text-anchor="middle" fill="#2ecc71" font-size="16" font-weight="bold">y = 3</text></g><g id="i8check" opacity="0"><text x="200" y="156" fill="#aaa" font-size="11">x tripled 4 to 12</text><text x="200" y="172" fill="#aaa" font-size="11">y became 1/3 of 9</text></g></svg>'
 };
-
-function buildSession(){
-  const first=QB[0];
-  const rest=QB.slice(1).sort(()=>Math.random()-.5);
-  session=[first,...rest.slice(0,PER_SESSION-1)];
+return s[type]||'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg"><rect width="420" height="178" fill="#1a0a00"/><text x="210" y="89" text-anchor="middle" fill="#555" font-size="14">Loading...</text></svg>';
 }
 
-function showQ(){
-  if(idx>=session.length){onComplete();return;}
-  const q=session[idx];stepIdx=0;nudgeCount=0;
-  updateProg();
-  const area=document.getElementById('qArea');area.innerHTML='';
-  const qcard=document.createElement('div');qcard.className='q-card';
-  qcard.innerHTML=`<div class="q-label">Question ${idx+1} of ${PER_SESSION}</div><div class="q-text">${q.q}</div><button class="btn-speak" onclick="speakRaw(\`${q.qs.replace(/`/g,"'")}\`)">🔊 Hear the question</button>`;
-  area.appendChild(qcard);
-  const sc=document.createElement('div');sc.className='q-card';
-  sc.innerHTML=`<div class="q-label">📖 Explanation — Step by Step</div><div id="stepsWrap"></div><button class="btn-speak" id="nxtStepBtn" onclick="nextStep()" style="margin-top:12px;">▶ Next Step</button>`;
-  area.appendChild(sc);
-  setTimeout(nextStep,600);
+function runAnim(type){
+var fns={
+'dp1':function(){fade('d1rule','1');at(700,function(){fade('d1table','1');});at(1800,function(){fade('d1calc','1');});at(3000,function(){fade('d1ans','1');});},
+'dp2':function(){fade('d2arrows','1');at(1000,function(){fade('d2ratio','1');});at(2400,function(){fade('d2rule','1');});},
+'dp3':function(){fade('d3formula','1');at(900,function(){fade('d3meaning','1');});at(2200,function(){fade('d3eg','1');});},
+'dp4':function(){
+  fade('d4given','1');
+  at(900,function(){
+    fade('d4bar1','1');
+    var el=document.getElementById('dbar1');
+    if(el){var w=0;var t=setInterval(function(){w+=2;el.setAttribute('width',w+'');if(w>=150)clearInterval(t);},15);}
+  });
+  at(2000,function(){
+    fade('d4bar2','1');
+    var el=document.getElementById('dbar2');
+    if(el){var w=0;var t=setInterval(function(){w+=2;el.setAttribute('width',w+'');if(w>=250)clearInterval(t);},15);}
+  });
+  at(3200,function(){fade('d4calc','1');});
+},
+'ip1':function(){fade('i1rule','1');at(700,function(){fade('i1table','1');});at(1800,function(){fade('i1calc','1');});},
+'ip2':function(){fade('i2arrows','1');at(1000,function(){fade('i2product','1');});at(2400,function(){fade('i2rule','1');});},
+'ip3':function(){fade('i3formula','1');at(900,function(){fade('i3compare','1');});at(2200,function(){fade('i3eg','1');});},
+'ip4':function(){fade('i4given','1');at(800,function(){fade('i4table','1');});at(2000,function(){fade('i4calc','1');});},
+'ip5':function(){fade('i5given','1');at(800,function(){fade('i5dist','1');});at(1800,function(){fade('i5calc','1');});at(2800,function(){fade('i5ans','1');});},
+'ip6':function(){fade('i6given','1');at(800,function(){fade('i6calc','1');});at(2000,function(){fade('i6ans','1');});},
+'dp5':function(){fade('d5given','1');at(800,function(){fade('d5calc','1');});at(2200,function(){fade('d5ans','1');});},
+'dp6':function(){fade('d6given','1');at(800,function(){fade('d6calc','1');});at(2200,function(){fade('d6ans','1');});},
+'dp7':function(){fade('d7given','1');at(800,function(){fade('d7calc','1');});at(2200,function(){fade('d7ans','1');});},
+'ip7':function(){fade('i7given','1');at(800,function(){fade('i7calc','1');});at(2200,function(){fade('i7ans','1');});},
+'ip8':function(){fade('i8given','1');at(800,function(){fade('i8calc','1');});at(2200,function(){fade('i8ans','1');});at(3400,function(){fade('i8check','1');});}
+};
+if(fns[type])fns[type]();
 }
 
-function nextStep(){
-  const q=session[idx];
-  if(stepIdx>=q.steps.length){document.getElementById('nxtStepBtn').style.display='none';showConfirm();return;}
-  const s=q.steps[stepIdx];
-  const wrap=document.getElementById('stepsWrap');
-  const d=document.createElement('div');d.className='step';
-  d.innerHTML=`<div class="step-num">${stepIdx+1}</div><div class="step-body">${s.t}</div>`;
-  wrap.appendChild(d);setTimeout(()=>d.classList.add('vis'),50);
-  setTimeout(()=>speakRaw(s.s),300);stepIdx++;
+var cur=0,score=0,answered=false;
+function loadQ(i){
+  answered=false;
+  var q=questions[i];
+  G('qNumber').textContent='Question '+(i+1)+' of 15';
+  G('qText').textContent=q.q;
+  G('feedback').textContent='';G('feedback').className='feedback';
+  G('nextBtn').style.display='none';
+  G('progressBar').style.width=(i/15*100)+'%';
+  G('scorePill').textContent='Score: '+score+' / 15';
+  var og=G('optionsGrid');og.innerHTML='';
+  q.opts.forEach(function(o,idx){
+    var b=document.createElement('button');b.className='opt';b.textContent=o;
+    b.onclick=function(){checkAns(idx);};og.appendChild(b);
+  });
+  clearAt();
+  G('animCanvas').innerHTML=getAnimSVG(q.anim);
+  at(400,function(){runAnim(q.anim);});
+  G('bubble').textContent=q.narr.substring(0,78)+'...';
+  at(300,function(){say(q.narr);});
 }
-
-function showConfirm(){
-  const q=session[idx];const area=document.getElementById('qArea');
-  const c=document.createElement('div');c.className='confirm-wrap';c.id='cWrap';
-  c.innerHTML=`<div class="confirm-title">🎤 Rishika asks — answer to move on!</div><div class="confirm-q">${q.cq}</div><button class="mic-btn" id="micBtn" onclick="startListen()">🎤 Tap and Speak Your Answer</button><div class="transcript" id="tbox"></div><div class="result-box" id="rbox"></div><div class="nudge" id="nudgeBox"></div><button class="btn-next" id="btnNext" onclick="goNext()">Next Question ▶</button>`;
-  area.appendChild(c);c.scrollIntoView({behavior:'smooth',block:'center'});
-  setTimeout(()=>speakRaw(q.cqs),600);
-}
-
-function goNext(){idx++;document.getElementById('qArea').innerHTML='';showQ();window.scrollTo({top:0,behavior:'smooth'});}
-
-function onComplete(){
-  const prog=JSON.parse(localStorage.getItem('rishi_progress')||'{}');
-  prog.explain_direct_inverse_done=true;localStorage.setItem('rishi_progress',JSON.stringify(prog));
-  completed=true;document.getElementById('doneBanner').classList.add('show');unlockNav();
-  document.getElementById('lockTip').style.display='none';
-  const st=JSON.parse(localStorage.getItem('rishi_current_student')||'{}');
-  const nm=st.studentName?st.studentName.split(' ')[0]:'champion';
-  const area=document.getElementById('qArea');
-  const cel=document.createElement('div');cel.className='rishika-wrap';
-  cel.innerHTML=`<div class="rishika-avatar">👩‍🏫</div><div class="rishika-bubble"><div class="rishika-name">Rishika</div><div class="rishika-text" id="celText">🎉 Superb, <span class="hl">${nm}</span>! You've mastered <span class="hl">Direct and Inverse Proportions</span>! You can now solve real-life problems — workers, maps, speed, food — all of it! 🌟 Practice is unlocked. Let's go! 💪</div><button class="btn-speak" onclick="speakEl('celText')">🔊 Hear Rishika</button></div>`;
-  area.appendChild(cel);setTimeout(()=>speakEl('celText'),400);
-}
-
-function unlockNav(){document.getElementById('btnPractice').classList.remove('locked');document.getElementById('btnExam').classList.remove('locked');}
-function goPractice(){if(!completed){alert('Complete all explanations first!');return;}window.location.href='/practice/arithmetic/direct-inverse-proportions.html';}
-function goExam(){if(!completed){alert('Complete explanations and practice first!');return;}window.location.href='/exam/arithmetic/direct-inverse-proportions.html';}
-
-function setupRecog(){
-  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR)return;
-  recog=new SR();recog.lang='en-IN';recog.continuous=false;recog.interimResults=false;
-  recog.onresult=e=>handleAnswer(e.results[0][0].transcript.toLowerCase().trim());
-  recog.onerror=()=>{setListen(false);showNudge("I couldn't hear that — tap the mic and try again! 😊");};
-  recog.onend=()=>setListen(false);
-}
-function startListen(){
-  if(!recog){showNudge("Voice not supported. Try Chrome on desktop! 🎤");return;}
-  if(listening){recog.stop();return;}
-  setListen(true);
-  const tb=document.getElementById('tbox');if(tb){tb.classList.add('show');tb.textContent='🎤 Listening...';}
-  recog.start();
-}
-function setListen(on){
-  listening=on;
-  const btn=document.getElementById('micBtn');
-  if(btn){btn.className='mic-btn'+(on?' on':'');btn.textContent=on?'🎤 Listening...':'🎤 Tap and Speak Your Answer';}
-}
-function handleAnswer(text){
-  const tb=document.getElementById('tbox');if(tb)tb.textContent='"'+text+'"';
-  const q=session[idx];
-  const ok=q.ans.some(a=>text.includes(a.toLowerCase())||a.toLowerCase().includes(text));
-  const rb=document.getElementById('rbox');
-  if(ok){
-    rb.className='result-box ok';rb.textContent='✅ Correct! Excellent!';
-    document.getElementById('nudgeBox').classList.remove('show');
-    const nb=document.getElementById('btnNext');if(nb)nb.classList.add('show');
-    speakRaw("Correct! Excellent! Tap next question to continue.");
-  } else {
-    nudgeCount++;rb.className='result-box no';rb.textContent='❌ Not quite — listen to my hint!';
-    const nudge=q.nudges[Math.min(nudgeCount-1,q.nudges.length-1)];
-    showNudge(nudge);speakRaw(nudge.replace(/[🤔😄🚀]/g,''));
-    if(nudgeCount>=3){const nb=document.getElementById('btnNext');if(nb){nb.classList.add('show');nb.textContent="I Understand — Next Question ▶";}}
+function checkAns(idx){
+  if(answered)return;answered=true;
+  var q=questions[cur];
+  var opts=G('optionsGrid').querySelectorAll('.opt');
+  opts.forEach(function(b){b.disabled=true;});
+  if(idx===q.ans){
+    opts[idx].classList.add('correct');score++;
+    G('feedback').textContent='Correct! Well done!';G('feedback').className='feedback correct';
+    G('scorePill').textContent='Score: '+score+' / 15';
+    say('Excellent! That is correct!');
+  }else{
+    opts[idx].classList.add('wrong');opts[q.ans].classList.add('correct');
+    G('feedback').textContent='Incorrect. Right answer: '+q.opts[q.ans];G('feedback').className='feedback wrong';
+    say('Not quite. The correct answer is '+q.opts[q.ans]);
   }
+  G('nextBtn').style.display='block';
 }
-function showNudge(msg){const n=document.getElementById('nudgeBox');if(n){n.textContent=msg;n.classList.add('show');}}
-function speakEl(id){
-  const el = document.getElementById(id);
-  if(!el) return;
-  speakRaw(el.innerText || el.textContent);
+function nextQ(){cur++;if(cur>=questions.length){showDone();return;}loadQ(cur);}
+function replayAnim(){
+  var q=questions[cur];clearAt();speechSynthesis.cancel();rStopTalk();
+  G('animCanvas').innerHTML=getAnimSVG(q.anim);
+  at(200,function(){runAnim(q.anim);});at(400,function(){say(q.narr);});
 }
-
-function speakRaw(text){
-  if(!window.speechSynthesis) return;
-  window.speechSynthesis.cancel();
-  const u = new SpeechSynthesisUtterance(text);
-  u.lang = 'en-IN'; u.rate = 0.85; u.pitch = 1.2;
-  const vs = window.speechSynthesis.getVoices();
-  // Priority: Indian female > any female > Indian > English
-  const v = vs.find(v => v.lang.startsWith('en-IN') && v.name.toLowerCase().includes('female'))
-    || vs.find(v => (v.lang.startsWith('en-IN') || v.lang.startsWith('en-GB')) && v.name.toLowerCase().includes('female'))
-    || vs.find(v => v.name.toLowerCase().includes('zira'))
-    || vs.find(v => v.name.toLowerCase().includes('hazel'))
-    || vs.find(v => v.name.toLowerCase().includes('susan'))
-    || vs.find(v => v.name.toLowerCase().includes('female'))
-    || vs.find(v => v.name.toLowerCase().includes('samantha'))
-    || vs.find(v => v.lang.startsWith('en-IN'))
-    || vs.find(v => v.lang.startsWith('en-GB'));
-  if(v) u.voice = v;
-  window.speechSynthesis.speak(u);
+function showDone(){
+  G('mainArea').style.display='none';G('doneScreen').style.display='flex';
+  G('progressBar').style.width='100%';
+  G('doneScore').textContent='You scored '+score+' out of 15!';
+  localStorage.setItem('explain_proportions_done','1');
+  say('Congratulations! You have completed Direct and Inverse Proportions! You scored '+score+' out of 15!');
 }
-
-// Stop voice when leaving page
-window.addEventListener('beforeunload', () => {
-  window.speechSynthesis && window.speechSynthesis.cancel();
-});
-window.addEventListener('pagehide', () => {
-  window.speechSynthesis && window.speechSynthesis.cancel();
-});
-window.speechSynthesis && window.speechSynthesis.addEventListener('voiceschanged', ()=>{});function updateProg(){
-  const pct=Math.round((idx/PER_SESSION)*100);
-  document.getElementById('progFill').style.width=pct+'%';
-  document.getElementById('progLabel').textContent=`Question ${idx+1} of ${PER_SESSION}`;
-  document.getElementById('progPct').textContent=pct+'% complete';
-}
-function openBreak(){document.getElementById('breakOverlay').classList.add('show');}
-function closeBreak(){document.getElementById('breakOverlay').classList.remove('show');}
-function startBreak(reason){
-  closeBreak();breakSecs=0;
-  document.getElementById('timerLabel').textContent=reason;
-  document.getElementById('timerNum').textContent='00:00';
-  document.getElementById('timerScreen').classList.add('show');
-  breakTmr=setInterval(()=>{
-    breakSecs++;
-    const m=String(Math.floor(breakSecs/60)).padStart(2,'0');
-    const s=String(breakSecs%60).padStart(2,'0');
-    document.getElementById('timerNum').textContent=m+':'+s;
-  },1000);
-}
-function endBreak(){clearInterval(breakTmr);document.getElementById('timerScreen').classList.remove('show');}
-function openGames(){closeBreak();document.getElementById('gamesOverlay').classList.add('show');}
-function closeGames(){document.getElementById('gamesOverlay').classList.remove('show');}
+window.onload=function init(){initVoices(function(){startBlink();loadQ(0);});};
+window.addEventListener('beforeunload',function(){speechSynthesis.cancel();});
+window.addEventListener('pagehide',function(){speechSynthesis.cancel();});
 </script>
 </body>
 </html>

@@ -3,505 +3,320 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RISHI — Explain: Visualising Solid Shapes</title>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Nunito:wght@400;600;700;800;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<title>Visualising Solid Shapes – Class 8 | RISHI</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--cream:#fdf6ec;--warm-white:#fffdf8;--gold:#c8922a;--gold-light:#e8b84b;
---gold-pale:#f5e6c8;--amber:#d4870a;--sage:#7a8c6e;--sage-light:#a8b89a;
---rust:#b85c2a;--charcoal:#2a2218;--mid:#5a4a30;--soft:#8a7a5a;
---inactive:#c8b89a;--border-dark:#6b4c2a;--error:#c0392b;}
-*{box-sizing:border-box;margin:0;padding:0;}
-body{background:var(--cream);font-family:'Nunito',sans-serif;min-height:100vh;color:var(--charcoal);}
-body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(var(--gold-pale) 1px,transparent 1px),linear-gradient(90deg,var(--gold-pale) 1px,transparent 1px);background-size:40px 40px;opacity:.3;z-index:0;pointer-events:none;}
-.topbar{position:sticky;top:0;z-index:100;background:rgba(253,246,236,.97);border-bottom:2px solid var(--border-dark);backdrop-filter:blur(8px);padding:11px 22px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;}
-.logo-sm{font-family:'Orbitron',sans-serif;font-size:18px;font-weight:900;letter-spacing:4px;background:linear-gradient(135deg,var(--amber),var(--gold-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-.topbar-center{font-family:'Orbitron',sans-serif;font-size:11px;letter-spacing:2px;color:var(--amber);text-transform:uppercase;}
-.topbar-right{display:flex;gap:10px;align-items:center;}
-.btn-topbar{font-family:'Nunito',sans-serif;font-size:13px;font-weight:900;padding:7px 16px;border-radius:20px;border:2px solid var(--border-dark);background:var(--warm-white);color:var(--mid);cursor:pointer;transition:all .2s;}
-.btn-topbar:hover{background:var(--gold-pale);}
-.btn-topbar.back{background:var(--gold-pale);}
-.btn-topbar.back:hover{background:var(--amber);color:#fff;}
-.prog-wrap{position:relative;z-index:10;padding:10px 22px;background:rgba(255,253,248,.9);border-bottom:1.5px solid var(--gold-pale);}
-.prog-info{display:flex;justify-content:space-between;font-size:12px;font-weight:800;color:var(--mid);margin-bottom:6px;}
-.prog-bar{height:7px;background:var(--gold-pale);border-radius:4px;overflow:hidden;}
-.prog-fill{height:100%;background:linear-gradient(90deg,var(--sage),var(--gold));border-radius:4px;transition:width .5s ease;}
-.main{position:relative;z-index:10;max-width:820px;margin:0 auto;padding:20px 18px 130px;}
-.rishika-wrap{display:flex;align-items:flex-start;gap:14px;margin-bottom:22px;}
-.rishika-avatar{width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,var(--sage),var(--sage-light));border:2px solid var(--border-dark);display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0;box-shadow:0 4px 16px rgba(122,140,110,.3);}
-.rishika-bubble{background:rgba(255,253,248,.97);border:2px solid var(--border-dark);border-radius:0 18px 18px 18px;padding:16px 20px;flex:1;box-shadow:0 4px 20px rgba(107,76,42,.1);}
-.rishika-name{font-size:11px;font-weight:900;color:var(--sage);letter-spacing:2px;text-transform:uppercase;margin-bottom:6px;}
-.rishika-text{font-size:15px;font-weight:700;color:var(--charcoal);line-height:1.7;}
-.hl{color:var(--amber);font-weight:900;}
-.fm{font-family:'Share Tech Mono',monospace;background:var(--gold-pale);border:1.5px solid var(--border-dark);border-radius:6px;padding:2px 8px;font-size:14px;color:var(--mid);}
-.frac{display:inline-flex;flex-direction:column;align-items:center;font-size:14px;font-weight:900;vertical-align:middle;margin:0 3px;line-height:1.2;}
-.frac .num{border-bottom:2px solid currentColor;padding:0 3px;}
-.frac .den{padding:0 3px;}
-.btn-speak{display:inline-flex;align-items:center;gap:7px;font-family:'Nunito',sans-serif;font-size:12px;font-weight:900;padding:6px 13px;border-radius:20px;border:2px solid var(--sage);background:#eef2eb;color:var(--sage);cursor:pointer;margin-top:10px;transition:all .2s;}
-.btn-speak:hover,.btn-speak.on{background:var(--sage);color:#fff;}
-.q-card{background:rgba(255,253,248,.97);border:2px solid var(--border-dark);border-radius:18px;padding:20px 22px;margin-bottom:16px;box-shadow:0 4px 20px rgba(107,76,42,.1);}
-.q-label{font-family:'Orbitron',sans-serif;font-size:11px;letter-spacing:3px;color:var(--amber);text-transform:uppercase;margin-bottom:10px;}
-.q-text{font-size:16px;font-weight:800;color:var(--charcoal);line-height:1.7;margin-bottom:12px;}
-.step{display:flex;gap:12px;margin-bottom:14px;opacity:0;transform:translateY(8px);transition:all .4s ease;}
-.step.vis{opacity:1;transform:translateY(0);}
-.step-num{width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;font-size:11px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:2px solid var(--border-dark);}
-.step-body{flex:1;font-size:14px;font-weight:700;color:var(--mid);line-height:1.7;padding-top:2px;}
-.ans-tag{font-family:'Share Tech Mono',monospace;background:linear-gradient(135deg,#eef2eb,#f5fbf2);border:2px solid var(--border-dark);border-radius:8px;padding:3px 10px;color:var(--sage);font-size:14px;}
-.drawing-wrap{background:var(--warm-white);border:2px solid var(--border-dark);border-radius:14px;padding:14px 16px;margin:14px 0;overflow:hidden;}
-.drawing-lbl{font-size:11px;font-weight:900;color:var(--soft);letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;text-align:center;}
-.confirm-wrap{margin-top:16px;background:linear-gradient(135deg,#eef2eb,#f5fbf2);border:2px solid var(--border-dark);border-radius:14px;padding:18px 20px;}
-.confirm-title{font-size:12px;font-weight:900;color:var(--sage);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;}
-.confirm-q{font-size:15px;font-weight:800;color:var(--charcoal);margin-bottom:14px;line-height:1.6;}
-.mic-btn{display:flex;align-items:center;gap:10px;width:100%;font-family:'Nunito',sans-serif;font-size:15px;font-weight:900;padding:12px 18px;border-radius:12px;border:2px solid var(--border-dark);background:var(--warm-white);color:var(--mid);cursor:pointer;transition:all .2s;margin-bottom:10px;}
-.mic-btn:hover{border-color:var(--sage);color:var(--sage);}
-.mic-btn.on{background:var(--sage);color:#fff;border-color:var(--sage);animation:blnk .8s ease-in-out infinite;}
-@keyframes blnk{0%,100%{opacity:1}50%{opacity:.5}}
-.transcript{font-family:'Share Tech Mono',monospace;font-size:13px;color:var(--charcoal);background:var(--warm-white);border:2px solid var(--border-dark);border-radius:10px;padding:9px 13px;min-height:38px;margin-bottom:10px;display:none;}
-.transcript.show{display:block;}
-.result-box{font-size:13px;font-weight:800;padding:10px 14px;border-radius:10px;display:none;line-height:1.5;}
-.result-box.ok{background:#eef2eb;border:2px solid var(--sage);color:var(--sage);display:block;}
-.result-box.no{background:#fff5f0;border:2px solid var(--rust);color:var(--rust);display:block;}
-.nudge{font-size:13px;font-weight:700;color:var(--mid);margin-top:8px;font-style:italic;display:none;}
-.nudge.show{display:block;}
-.btn-next{font-family:'Nunito',sans-serif;font-size:15px;font-weight:900;padding:12px 24px;border-radius:12px;border:none;background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;cursor:pointer;box-shadow:0 4px 16px rgba(212,135,10,.3);transition:all .2s;display:none;margin-top:12px;width:100%;}
-.btn-next.show{display:block;}
-.btn-next:hover{transform:translateY(-1px);}
-.bottom-nav{position:fixed;bottom:0;left:0;right:0;z-index:100;background:rgba(253,246,236,.97);border-top:2px solid var(--border-dark);padding:12px 22px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap;align-items:center;}
-.btn-nav{font-family:'Nunito',sans-serif;font-size:14px;font-weight:900;padding:11px 24px;border-radius:12px;border:2px solid var(--border-dark);cursor:pointer;transition:all .2s;}
-.btn-nav.practice{background:linear-gradient(135deg,var(--sage),var(--sage-light));color:#fff;border-color:var(--sage);}
-.btn-nav.exam{background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;border-color:var(--amber);}
-.btn-nav.locked{background:var(--gold-pale);color:var(--inactive);cursor:not-allowed;border-color:var(--inactive);}
-.btn-nav:not(.locked):hover{transform:translateY(-2px);}
-.lock-tip{font-size:11px;font-weight:700;color:var(--rust);width:100%;text-align:center;}
-.overlay{display:none;position:fixed;inset:0;background:rgba(42,34,24,.92);z-index:1000;flex-direction:column;align-items:center;justify-content:center;backdrop-filter:blur(6px);}
-.overlay.show{display:flex;}
-.break-box{background:var(--warm-white);border:2px solid var(--border-dark);border-radius:24px;padding:32px 36px;max-width:400px;width:90%;text-align:center;}
-.break-title{font-family:'Orbitron',sans-serif;font-size:15px;font-weight:900;color:var(--amber);letter-spacing:3px;margin-bottom:5px;}
-.break-sub{font-size:13px;font-weight:700;color:var(--soft);margin-bottom:20px;}
-.break-opts{display:flex;flex-direction:column;gap:9px;margin-bottom:16px;}
-.break-opt{font-family:'Nunito',sans-serif;font-size:15px;font-weight:800;padding:12px;border-radius:12px;border:2px solid var(--border-dark);background:var(--warm-white);color:var(--mid);cursor:pointer;transition:all .2s;}
-.break-opt:hover{background:var(--gold-pale);border-color:var(--amber);}
-.timer-screen{display:none;position:fixed;inset:0;background:#1a1208;z-index:1001;flex-direction:column;align-items:center;justify-content:center;}
-.timer-screen.show{display:flex;}
-.timer-reason{font-family:'Orbitron',sans-serif;font-size:13px;letter-spacing:4px;color:var(--gold-light);margin-bottom:18px;text-transform:uppercase;}
-.timer-num{font-family:'Orbitron',sans-serif;font-size:76px;font-weight:900;color:var(--gold-light);letter-spacing:8px;margin-bottom:36px;text-shadow:0 0 40px rgba(232,184,75,.4);}
-.btn-end{font-family:'Nunito',sans-serif;font-size:17px;font-weight:900;padding:15px 36px;border-radius:14px;border:2px solid var(--gold-light);background:transparent;color:var(--gold-light);cursor:pointer;transition:all .2s;}
-.btn-end:hover{background:var(--gold-light);color:var(--charcoal);}
-.done-banner{background:linear-gradient(135deg,#eef2eb,#f5fbf2);border:2px solid var(--border-dark);border-radius:16px;padding:18px 22px;text-align:center;margin-bottom:18px;display:none;}
-.done-banner.show{display:block;}
-.done-banner .dt{font-family:'Orbitron',sans-serif;font-size:13px;letter-spacing:2px;color:var(--sage);margin-bottom:5px;}
-.done-banner .ds{font-size:14px;font-weight:700;color:var(--mid);}
-@media(max-width:600px){.main{padding:14px 10px 130px;}.topbar,.prog-wrap{padding-left:12px;padding-right:12px;}.timer-num{font-size:52px;}}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Poppins',sans-serif;background:linear-gradient(135deg,#0a1628,#1a2744,#0d2137);min-height:100vh;color:#fff;display:flex;flex-direction:column}
+.top-bar{display:flex;align-items:center;justify-content:space-between;padding:12px 20px;background:rgba(255,255,255,0.05);border-bottom:1px solid rgba(255,255,255,0.1)}
+.top-bar .logo{font-size:1.4rem;font-weight:700;color:#00d4ff;letter-spacing:2px}
+.top-bar .chapter{font-size:0.82rem;color:#aaa}
+.score-pill{background:rgba(0,212,255,0.15);border:1px solid #00d4ff;border-radius:20px;padding:4px 14px;font-size:0.78rem;color:#00d4ff}
+.progress-wrap{height:4px;background:rgba(255,255,255,0.1)}
+.progress-bar{height:4px;background:linear-gradient(90deg,#00d4ff,#0099cc);transition:width 0.5s ease}
+.main{display:flex;flex:1}
+.rishika-panel{width:158px;min-width:158px;display:flex;flex-direction:column;align-items:center;padding:18px 10px;background:rgba(255,255,255,0.03);border-right:1px solid rgba(255,255,255,0.08)}
+.rishika-svg-wrap{width:118px;height:138px}
+.speech-bubble{background:rgba(255,255,255,0.95);color:#333;border-radius:12px;padding:9px 11px;font-size:0.68rem;line-height:1.5;margin-top:10px;position:relative;max-width:138px;min-height:38px}
+.speech-bubble::before{content:'';position:absolute;top:-8px;left:18px;border-left:8px solid transparent;border-right:8px solid transparent;border-bottom:8px solid rgba(255,255,255,0.95)}
+.replay-btn{margin-top:11px;background:none;border:1px solid rgba(255,255,255,0.3);color:#fff;border-radius:20px;padding:4px 12px;font-size:0.68rem;cursor:pointer;font-family:'Poppins',sans-serif}
+.replay-btn:hover{background:rgba(255,255,255,0.1)}
+.content{flex:1;padding:18px;display:flex;flex-direction:column;gap:13px;overflow-y:auto}
+.q-number{font-size:0.72rem;color:#00d4ff;margin-bottom:2px}
+.q-text{font-size:0.98rem;font-weight:600;color:#fff;line-height:1.6}
+.anim-canvas{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:6px;max-height:195px;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.anim-canvas svg{max-height:195px;width:100%}
+.options-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.opt{background:rgba(255,255,255,0.07);border:1.5px solid rgba(255,255,255,0.15);border-radius:10px;padding:11px 14px;font-size:0.84rem;cursor:pointer;transition:all 0.2s;font-family:'Poppins',sans-serif;color:#fff;text-align:left}
+.opt:hover:not(:disabled){background:rgba(255,255,255,0.13);border-color:#00d4ff}
+.opt.correct{background:rgba(39,174,96,0.25);border-color:#27ae60}
+.opt.wrong{background:rgba(231,76,60,0.25);border-color:#e74c3c}
+.feedback{font-size:0.83rem;padding:9px 13px;border-radius:8px;min-height:34px}
+.feedback.correct{background:rgba(39,174,96,0.2);color:#2ecc71}
+.feedback.wrong{background:rgba(231,76,60,0.2);color:#e74c3c}
+.next-btn{align-self:flex-end;background:linear-gradient(135deg,#00d4ff,#0099cc);color:#000;border:none;border-radius:24px;padding:10px 28px;font-weight:700;font-size:0.88rem;cursor:pointer;font-family:'Poppins',sans-serif;display:none}
+.next-btn:hover{transform:scale(1.03)}
+.done-screen{display:none;flex-direction:column;align-items:center;justify-content:center;flex:1;gap:18px;text-align:center;padding:40px}
+.done-screen h2{font-size:1.9rem;color:#00d4ff}
+.done-screen p{color:#ccc;font-size:0.96rem}
+.done-btn{background:linear-gradient(135deg,#00d4ff,#0099cc);color:#000;border:none;border-radius:24px;padding:11px 30px;font-weight:700;font-size:0.96rem;cursor:pointer;font-family:'Poppins',sans-serif}
 </style>
 </head>
 <body>
-<div class="topbar"><div class="logo-sm">RISHI</div><div class="topbar-center">🧊 Visualising Solid Shapes — Explain</div><div class="topbar-right"><button class="btn-topbar" onclick="openBreak()">☕ Break</button><button class="btn-topbar back" onclick="window.location.href='/syllabus.html'">← Syllabus</button></div></div>
-<div class="prog-wrap"><div class="prog-info"><span id="progLabel">Question 1 of 10</span><span id="progPct">0% complete</span></div><div class="prog-bar"><div class="prog-fill" id="progFill" style="width:0%"></div></div></div>
-<div class="main">
-<div class="done-banner" id="doneBanner"><div class="dt">✅ Explanation Completed!</div><div class="ds">Practice and Exam are now unlocked. You can revisit anytime.</div></div>
-<div class="rishika-wrap"><div class="rishika-avatar">👩‍🏫</div><div class="rishika-bubble"><div class="rishika-name">Rishika</div><div class="rishika-text" id="introText">Hi <span class="hl" id="sName">there</span>! 😊 I'm Rishika — today we'll explore <span class="hl">Visualising Solid Shapes</span> step by step. Let's go! 🚀</div><button class="btn-speak" onclick="speakEl('introText')">🔊 Hear Rishika</button></div></div>
-<div id="qArea"></div>
+<div class="top-bar">
+  <span class="logo">RISHI</span>
+  <span class="chapter">Visualising Solid Shapes — Class 8 Geometry</span>
+  <span class="score-pill" id="scorePill">Score: 0 / 15</span>
 </div>
-<div class="bottom-nav"><div class="lock-tip" id="lockTip">☝ Complete all explanations to unlock Practice and Exam</div><button class="btn-nav practice locked" id="btnPractice" onclick="goPractice()">✏️ Go to Practice</button><button class="btn-nav exam locked" id="btnExam" onclick="goExam()">📝 Go to Exam</button></div>
-<div class="overlay" id="breakOverlay"><div class="break-box"><div class="break-title">Take a Break</div><div class="break-sub">Choose — timer starts</div><div class="break-opts"><button class="break-opt" onclick="startBreak('💧 Water')">💧 Water</button><button class="break-opt" onclick="startBreak('🚽 Washroom')">🚽 Washroom</button><button class="break-opt" onclick="startBreak('🏃 Physical')">🏃 Physical</button><button class="break-opt" onclick="openGames()">🎮 Games</button></div><button class="break-opt" style="color:var(--soft);" onclick="closeBreak()">Cancel</button></div></div>
-<div class="timer-screen" id="timerScreen"><div class="timer-reason" id="timerLabel">Break</div><div class="timer-num" id="timerNum">00:00</div><button class="btn-end" onclick="endBreak()">✅ End Break — Back to Study</button></div>
-<div class="overlay" id="gamesOverlay"><div class="break-box"><div style="font-size:44px;margin-bottom:10px;">🎮</div><div class="break-title">Games</div><div class="break-sub" style="margin-bottom:20px;">Coming soon! 🚀</div><button class="break-opt" style="background:var(--amber);color:#fff;border-color:var(--amber);" onclick="closeGames()">Back to Study</button></div></div>
+<div class="progress-wrap"><div class="progress-bar" id="progressBar" style="width:0%"></div></div>
+<div class="main" id="mainArea">
+  <div class="rishika-panel">
+    <div class="rishika-svg-wrap">
+      <svg id="rishikaSvg" viewBox="0 0 120 140" xmlns="http://www.w3.org/2000/svg">
+        <!-- Rekha 🐢 — geometry tutor in teal tones -->
+        <ellipse cx="60" cy="126" rx="34" ry="20" fill="#0e7490"/>
+        <ellipse cx="60" cy="109" rx="21" ry="17" fill="#0891b2"/>
+        <rect x="53" y="93" width="14" height="14" rx="4" fill="#fcd5b0"/>
+        <ellipse cx="60" cy="73" rx="30" ry="31" fill="#fcd5b0"/>
+        <ellipse cx="60" cy="46" rx="30" ry="15" fill="#1e3a5f"/>
+        <ellipse cx="32" cy="69" rx="7" ry="17" fill="#1e3a5f"/>
+        <ellipse cx="88" cy="69" rx="7" ry="17" fill="#1e3a5f"/>
+        <circle cx="60" cy="37" r="9" fill="#1e3a5f"/>
+        <!-- Hair highlight -->
+        <path d="M45 38 Q60 30 75 38" stroke="#2d5a8e" stroke-width="3" fill="none"/>
+        <circle cx="31" cy="77" r="3" fill="#00d4ff"/>
+        <circle cx="89" cy="77" r="3" fill="#00d4ff"/>
+        <ellipse cx="46" cy="72" rx="7" ry="7.5" fill="white"/>
+        <circle cx="47" cy="73" r="4.5" fill="#0e7490"/>
+        <circle cx="47" cy="73" r="2.5" fill="#0a3d4f"/>
+        <circle cx="49" cy="71" r="1.2" fill="white"/>
+        <ellipse id="lidL" cx="46" cy="72" rx="7" ry="7.5" fill="#fcd5b0" opacity="0"/>
+        <ellipse cx="74" cy="72" rx="7" ry="7.5" fill="white"/>
+        <circle cx="75" cy="73" r="4.5" fill="#0e7490"/>
+        <circle cx="75" cy="73" r="2.5" fill="#0a3d4f"/>
+        <circle cx="77" cy="71" r="1.2" fill="white"/>
+        <ellipse id="lidR" cx="74" cy="72" rx="7" ry="7.5" fill="#fcd5b0" opacity="0"/>
+        <path d="M40 63 Q46 60 52 63" stroke="#0e4f6e" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <path d="M68 63 Q74 60 80 63" stroke="#0e4f6e" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <ellipse cx="60" cy="81" rx="3" ry="2" fill="#e8a87c"/>
+        <ellipse id="blushL" cx="40" cy="83" rx="8" ry="5" fill="#ff9999" opacity="0"/>
+        <ellipse id="blushR" cx="80" cy="83" rx="8" ry="5" fill="#ff9999" opacity="0"/>
+        <path id="mouth" d="M53 89 Q60 93 67 89" stroke="#b03a2e" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <path d="M48 109 L60 117 L72 109" stroke="#0e7490" stroke-width="2" fill="none"/>
+        <path d="M25 121 Q60 136 95 121" stroke="#67e8f9" stroke-width="3" fill="none" opacity="0.6"/>
+      </svg>
+    </div>
+    <div class="speech-bubble" id="bubble">Hi! I'm Rekha 🐢. Let's explore 3D shapes! 🎲</div>
+    <button class="replay-btn" onclick="replayAnim()">↺ Replay</button>
+  </div>
+  <div class="content" id="contentArea">
+    <div>
+      <div class="q-number" id="qNumber">Question 1 of 15</div>
+      <div class="q-text" id="qText"></div>
+    </div>
+    <div class="anim-canvas" id="animCanvas"></div>
+    <div class="options-grid" id="optionsGrid"></div>
+    <div class="feedback" id="feedback"></div>
+    <button class="next-btn" id="nextBtn" onclick="nextQ()">Next →</button>
+  </div>
+</div>
+<div class="done-screen" id="doneScreen">
+  <div style="font-size:3rem">🎉</div>
+  <h2>Chapter Complete!</h2>
+  <p id="doneScore"></p>
+  <p style="color:#aaa;font-size:0.82rem">Visualising Solid Shapes — Class 8 Geometry</p>
+  <button class="done-btn" onclick="location.href='/syllabus.html'">Back to Syllabus</button>
+</div>
 <script>
-var QB=[
-{id:'ss0',q:"State Euler's Formula (V−E+F=2). Verify for a cube.",
- qs:"Euler's formula. Verify for cube.",
- draw:'cube3d',
- steps:[
-  {t:'V − E + F = 2 (Vertices − Edges + Faces = 2).',s:"Euler's formula: V minus E plus F equals 2."},
-  {t:'Cube: V=8, E=12, F=6.',s:'Cube: 8 vertices, 12 edges, 6 faces.'},
-  {t:'8−12+6 = 2 ✅ <span class="ans-tag">Verified!</span>',s:'8 minus 12 plus 6 equals 2. Verified!'}
- ],
- cq:'How many edges does a cube have?',cqs:'Edges of a cube?',
- ans:['12','twelve'],
- nudges:['6 faces × 4 edges each ÷ 2 (shared) = 12.','12 edges!','Say 12!']},
-{id:'ss1',q:'Triangular prism: Find V, E, F. Verify Euler.',
- qs:'Triangular prism. Find V E F and verify Euler.',
- draw:null,
- steps:[
-  {t:'F = 2 triangles + 3 rectangles = 5.',s:'5 faces.'},
-  {t:'V = 6, E = 9.',s:'6 vertices and 9 edges.'},
-  {t:'6−9+5 = 2 ✅ <span class="ans-tag">F=5, E=9, V=6</span>',s:'Verified!'}
- ],
- cq:'Faces of a triangular prism?',cqs:'Faces?',
- ans:['5','five'],
- nudges:['2 triangles + 3 rectangles = ?','5!','Say 5!']},
-{id:'ss2',q:'What is a <span class="hl">net</span>? Describe the net of a cube.',
- qs:'What is a net? Net of a cube?',
- draw:'cube_net',
- steps:[
-  {t:'A net is a 2D flat shape that folds into a 3D solid.',s:'Net is flat and folds to become 3D.'},
-  {t:'A cube has 6 square faces. 11 different nets are possible.',s:'Cube has 6 square faces. 11 nets possible.'},
-  {t:'<span class="ans-tag">Net = unfolded surface of solid</span>',s:'Net is the unfolded surface.'}
- ],
- cq:'How many faces does a cube have?',cqs:'Faces of cube?',
- ans:['6','six'],
- nudges:['Top, bottom, front, back, left, right = ?','6!','Say 6!']},
-{id:'ss3',q:'Square pyramid: V, E, F? Verify Euler.',
- qs:'Square pyramid. V E F. Verify Euler.',
- draw:'pyramid',
- steps:[
-  {t:'F = 1 square + 4 triangles = 5.',s:'5 faces.'},
-  {t:'V = 4 base corners + 1 apex = 5. E = 8.',s:'5 vertices and 8 edges.'},
-  {t:'5−8+5 = 2 ✅ <span class="ans-tag">V=5, E=8, F=5</span>',s:'Verified!'}
- ],
- cq:'Vertices of a square pyramid?',cqs:'Vertices?',
- ans:['5','five'],
- nudges:['4 base + 1 apex = ?','5!','Say 5!']},
-{id:'ss4',q:'Front, side, and top views of a <span class="hl">cylinder</span>?',
- qs:'Views of a cylinder?',
- draw:'cyl_views',
- steps:[
-  {t:'Front view: <b>rectangle</b>.',s:'Front view is a rectangle.'},
-  {t:'Side view: <b>rectangle</b>.',s:'Side view is a rectangle.'},
-  {t:'Top view: <b>circle</b>. <span class="ans-tag">Front/Side=Rectangle, Top=Circle</span>',s:'Top view is a circle.'}
- ],
- cq:'Top view of a cylinder?',cqs:'Top view?',
- ans:['circle','a circle','circular'],
- nudges:['Look from above — circular opening!','Circle!','Say circle!']},
-{id:'ss5',q:'What is a <span class="hl">polyhedron</span>? Examples and non-examples.',
- qs:'What is a polyhedron?',
- draw:null,
- steps:[
-  {t:'Polyhedron: solid with ONLY flat polygonal faces.',s:'Only flat faces.'},
-  {t:'Examples: cube, prism, pyramid.',s:'Cube, prism, pyramid.'},
-  {t:'Non-examples: sphere, cone, cylinder. <span class="ans-tag">Flat faces only</span>',s:'Sphere, cone, cylinder have curved surfaces.'}
- ],
- cq:'Is a sphere a polyhedron?',cqs:'Sphere a polyhedron?',
- ans:['no','not a polyhedron'],
- nudges:['Sphere is curved — no flat faces!','No!','Say No!']},
-{id:'ss6',q:'Views of a <span class="hl">cone</span>?',
- qs:'Views of a cone?',
- draw:'cone_views',
- steps:[
-  {t:'Front view: <b>triangle</b> (isosceles).',s:'Front view is a triangle.'},
-  {t:'Side view: <b>triangle</b>.',s:'Side view is a triangle.'},
-  {t:'Top view: <b>circle</b>. <span class="ans-tag">Front/Side=Triangle, Top=Circle</span>',s:'Top view is a circle.'}
- ],
- cq:'Front view of a cone?',cqs:'Front view?',
- ans:['triangle','a triangle','triangular'],
- nudges:['Cone tapers to a point from front!','Triangle!','Say triangle!']},
-{id:'ss7',q:'Cuboid l=5, b=3, h=4. V, E, F and Euler?',
- qs:'Cuboid 5 by 3 by 4. V E F?',
- draw:null,
- steps:[
-  {t:'F=6, E=12, V=8.',s:'6 faces, 12 edges, 8 vertices.'},
-  {t:'8−12+6=2 ✅ <span class="ans-tag">Verified</span>',s:'Verified!'}
- ],
- cq:'Edges of a cuboid?',cqs:'Edges?',
- ans:['12','twelve'],
- nudges:['4 of each dimension: 4×3=12.','12!','Say 12!']},
-{id:'ss8',q:'Difference between <span class="hl">prism</span> and <span class="hl">pyramid</span>?',
- qs:'Prism vs pyramid difference?',
- draw:null,
- steps:[
-  {t:'Prism: 2 identical parallel bases connected by rectangles.',s:'Prism has 2 bases.'},
-  {t:'Pyramid: 1 base + triangular faces meeting at an apex.',s:'Pyramid has 1 base and apex.'},
-  {t:'<span class="ans-tag">Prism=2 bases. Pyramid=1 base+apex.</span>',s:'Key difference.'}
- ],
- cq:'How many bases does a prism have?',cqs:'Prism bases?',
- ans:['2','two'],
- nudges:['Prism has top AND bottom bases.','2!','Say 2!']},
-{id:'ss9',q:'How many faces does a <span class="hl">pentagonal pyramid</span> have?',
- qs:'Faces of pentagonal pyramid?',
- draw:null,
- steps:[
-  {t:'Pentagon base has 5 sides → 5 triangular faces.',s:'5 triangular faces.'},
-  {t:'Total = 1+5 = <span class="ans-tag">6 faces</span>.',s:'6 faces total.'}
- ],
- cq:'Faces?',cqs:'How many faces?',
- ans:['6','six'],
- nudges:['1 base + 5 triangles = ?','6!','Say 6!']}
+function G(id){return document.getElementById(id);}
+var atTimers=[];
+function clearAt(){atTimers.forEach(clearTimeout);atTimers=[];}
+function at(ms,fn){atTimers.push(setTimeout(fn,ms));}
+var chosenVoice=null,mouthTimer=null;
+function initVoices(cb){
+  var v=speechSynthesis.getVoices();
+  if(v.length){pickVoice(v);cb();return;}
+  speechSynthesis.onvoiceschanged=function(){pickVoice(speechSynthesis.getVoices());cb();};
+}
+function pickVoice(voices){
+  var pri=['heera','veena','priya','raveena','female','woman','zira','samantha','victoria','karen','moira','tessa','fiona'];
+  var enIN=voices.filter(function(v){return v.lang==='en-IN';});
+  for(var p=0;p<pri.length;p++){for(var i=0;i<enIN.length;i++){if(enIN[i].name.toLowerCase().indexOf(pri[p])>-1){chosenVoice=enIN[i];return;}}}
+  var enA=voices.filter(function(v){return v.lang.startsWith('en');});
+  for(var p=0;p<pri.length;p++){for(var i=0;i<enA.length;i++){if(enA[i].name.toLowerCase().indexOf(pri[p])>-1){chosenVoice=enA[i];return;}}}
+  if(enIN.length){chosenVoice=enIN[0];return;}
+  if(enA.length){chosenVoice=enA[0];}
+}
+function say(text){
+  speechSynthesis.cancel();rStopTalk();
+  var u=new SpeechSynthesisUtterance(text);
+  if(chosenVoice)u.voice=chosenVoice;
+  u.lang='en-IN';u.rate=0.88;u.pitch=1.15;
+  u.onstart=function(){rStartTalk();};
+  u.onend=function(){rStopTalk();};
+  speechSynthesis.speak(u);
+}
+function rStartTalk(){
+  G('blushL').style.opacity='0.7';G('blushR').style.opacity='0.7';
+  if(mouthTimer)clearInterval(mouthTimer);
+  var open=false;
+  mouthTimer=setInterval(function(){
+    open=!open;
+    G('mouth').setAttribute('d',open?'M53 87 Q60 96 67 87':'M53 89 Q60 93 67 89');
+  },160);
+}
+function rStopTalk(){
+  if(mouthTimer){clearInterval(mouthTimer);mouthTimer=null;}
+  G('mouth').setAttribute('d','M53 89 Q60 93 67 89');
+  G('blushL').style.opacity='0';G('blushR').style.opacity='0';
+}
+var blinkTimer=null;
+function startBlink(){
+  function doBlink(){
+    G('lidL').setAttribute('opacity','0.95');G('lidR').setAttribute('opacity','0.95');
+    setTimeout(function(){G('lidL').setAttribute('opacity','0');G('lidR').setAttribute('opacity','0');blinkTimer=setTimeout(doBlink,2200+Math.random()*3000);},120);
+  }
+  blinkTimer=setTimeout(doBlink,2200+Math.random()*3000);
+}
+function fade(id,v){var e=G(id);if(!e)return;e.style.transition='opacity .5s';e.style.opacity=v;}
+
+var questions=[
+{q:'A cube has how many faces?',opts:['4','6','8','12'],ans:1,anim:'cube1',
+narr:'A cube is the most symmetric 3D shape. It has 6 square faces — top, bottom, front, back, left and right. Count them as I show you!'},
+
+{q:'A triangular prism has how many edges?',opts:['6','8','9','12'],ans:2,anim:'triprism',
+narr:'A triangular prism has two triangular faces and three rectangular faces. Each triangle has 3 edges, plus 3 edges connecting them. Total: 3 plus 3 plus 3 equals 9 edges.'},
+
+{q:'A square pyramid has how many vertices?',opts:['4','5','6','8'],ans:1,anim:'sqpyr',
+narr:'A square pyramid has 4 vertices at the square base, plus 1 apex vertex at the top. Total: 5 vertices. Remember — vertices are the corners of a 3D shape.'},
+
+{q:"Euler's formula for polyhedra is V – E + F = ?",opts:['0','1','2','3'],ans:2,anim:'euler1',
+narr:"Euler's remarkable formula says: Vertices minus Edges plus Faces always equals 2 for any polyhedron. V minus E plus F equals 2. This works for every solid!"},
+
+{q:'A tetrahedron has 4 vertices and 4 faces. Using Euler\'s formula, find the number of edges.',opts:['4','5','6','8'],ans:2,anim:'tetra',
+narr:'Using V minus E plus F equals 2. We know V equals 4 and F equals 4. So 4 minus E plus 4 equals 2. That gives 8 minus E equals 2, so E equals 6.'},
+
+{q:'An octahedron has 6 vertices and 12 edges. Find number of faces using Euler\'s formula.',opts:['6','7','8','10'],ans:2,anim:'octa',
+narr:'V minus E plus F equals 2. V is 6, E is 12. So 6 minus 12 plus F equals 2. Negative 6 plus F equals 2. So F equals 8. The octahedron has 8 triangular faces.'},
+
+{q:'The top view of a cone (placed on its base) is:',opts:['Triangle','Square','Rectangle','Circle'],ans:3,anim:'conetop',
+narr:'When you look at a cone from directly above, you see the circular base with a dot at the centre where the apex projects. So the top view of a cone is a circle.'},
+
+{q:'The front view of a cylinder (placed upright) is:',opts:['Circle','Square','Rectangle','Oval'],ans:2,anim:'cylfront',
+narr:'When you look at an upright cylinder from the front, you see two vertical edges and two horizontal edges — making a rectangle. The width equals the diameter and the height equals the cylinder height.'},
+
+{q:'The front view of a sphere from any direction is:',opts:['Oval','Circle','Square','Triangle'],ans:1,anim:'sphere1',
+narr:'A sphere looks the same from every direction — it is perfectly symmetrical. No matter which direction you look from, the front view is always a circle.'},
+
+{q:'A solid has 5 faces and 6 vertices. Using Euler\'s formula, find the number of edges.',opts:['7','8','9','11'],ans:2,anim:'euler2',
+narr:'Apply Euler\'s formula: V minus E plus F equals 2. V is 6, F is 5. So 6 minus E plus 5 equals 2. 11 minus E equals 2. So E equals 9. This is a triangular prism!'},
+
+{q:'How many unit cubes are needed to build a 3×3×3 cube?',opts:['9','18','24','27'],ans:3,anim:'unitcube',
+narr:'A 3 by 3 by 3 cube has 3 layers, each layer has 3 rows of 3 cubes. So total unit cubes equals 3 times 3 times 3 which is 27.'},
+
+{q:'Which of the following is NOT a polyhedron?',opts:['Cube','Tetrahedron','Sphere','Prism'],ans:2,anim:'poly1',
+narr:'A polyhedron must have only flat faces. A cube, tetrahedron and prism all have flat faces. But a sphere has a curved surface — it has no flat faces at all. So sphere is not a polyhedron.'},
+
+{q:'A dodecahedron has 12 faces and 20 vertices. Find edges using Euler\'s formula.',opts:['20','28','30','32'],ans:2,anim:'euler3',
+narr:'V minus E plus F equals 2. V is 20, F is 12. So 20 minus E plus 12 equals 2. 32 minus E equals 2. So E equals 30. A dodecahedron has 30 edges!'},
+
+{q:'The net of a cube is made up of how many squares?',opts:['4','5','6','8'],ans:2,anim:'netcube',
+narr:'When you unfold a cube flat, you get 6 squares arranged in a cross or T shape. These 6 squares fold back up to form the 6 faces of the cube — top, bottom and 4 sides.'},
+
+{q:'A polyhedron has 12 edges and 8 vertices. Euler\'s formula gives the number of faces as:',opts:['4','6','8','10'],ans:1,anim:'euler4',
+narr:'V minus E plus F equals 2. V is 8, E is 12. So 8 minus 12 plus F equals 2. Negative 4 plus F equals 2. So F equals 6. This is a cube — 8 vertices, 12 edges, 6 faces!'}
 ];
 
-function getSVG(type){
-  if(type==='cube3d'){
-    var s='<svg id="svgD" viewBox="0 0 440 230" width="100%" xmlns="http://www.w3.org/2000/svg" style="opacity:0">';
-    s+='<polygon points="60,195 240,195 240,70 60,70" fill="#fffdf8" stroke="#6b4c2a" stroke-width="2.5"/>';
-    s+='<polygon points="240,195 285,155 285,30 240,70" fill="#f5e6c8" stroke="#6b4c2a" stroke-width="2.5"/>';
-    s+='<polygon points="60,70 105,30 285,30 240,70" fill="#e8b84b" fill-opacity="0.38" stroke="#6b4c2a" stroke-width="2.5"/>';
-    s+='<line x1="60" y1="195" x2="105" y2="155" stroke="#6b4c2a" stroke-width="1.5" stroke-dasharray="5,3"/>';
-    s+='<line x1="105" y1="155" x2="285" y2="155" stroke="#6b4c2a" stroke-width="1.5" stroke-dasharray="5,3"/>';
-    s+='<line x1="105" y1="155" x2="105" y2="30" stroke="#6b4c2a" stroke-width="1.5" stroke-dasharray="5,3"/>';
-    var verts=[[60,195],[240,195],[285,155],[285,30],[240,70],[60,70],[105,30],[105,155]];
-    for(var vi=0;vi<verts.length;vi++) s+='<circle cx="'+verts[vi][0]+'" cy="'+verts[vi][1]+'" r="4.5" fill="#c8922a" stroke="#6b4c2a" stroke-width="1.5"/>';
-    s+='<text x="310" y="55" font-family="Nunito" font-size="13" font-weight="800" fill="#7a8c6e">V = 8</text>';
-    s+='<text x="310" y="78" font-family="Nunito" font-size="13" font-weight="800" fill="#b85c2a">E = 12</text>';
-    s+='<text x="310" y="101" font-family="Nunito" font-size="13" font-weight="800" fill="#d4870a">F = 6</text>';
-    s+='<text x="305" y="128" font-family="Nunito" font-size="14" font-weight="900" fill="#6b4c2a">V−E+F = 2 ✓</text>';
-    s+='</svg>';
-    return s;
-  }
-  if(type==='cube_net'){
-    var s='<svg id="svgD" viewBox="0 0 330 225" width="100%" xmlns="http://www.w3.org/2000/svg" style="opacity:0">';
-    // cross-shaped net: top at (90,10), row at (10,80),(90,80),(170,80),(250,80), bottom at (90,150)
-    var net=[[90,10,'#f5e6c8','Top'],[10,80,'#eef2eb','Left'],[90,80,'#fffdf8','Front'],
-              [170,80,'#eef2eb','Right'],[250,80,'#f5e6c8','Back'],[90,150,'#f5e6c8','Bottom']];
-    for(var ni=0;ni<net.length;ni++){
-      var f=net[ni];
-      s+='<rect x="'+f[0]+'" y="'+f[1]+'" width="70" height="70" fill="'+f[2]+'" stroke="#6b4c2a" stroke-width="2" opacity="0" id="fn'+ni+'"/>';
-      s+='<text x="'+(f[0]+35)+'" y="'+(f[1]+40)+'" font-family="Nunito" font-size="11" fill="#5a4a30" text-anchor="middle" opacity="0" id="ft'+ni+'">'+f[3]+'</text>';
-    }
-    s+='<text x="165" y="218" font-family="Nunito" font-size="11" fill="#8a7a5a" text-anchor="middle">Cube net — 6 faces fold into a cube</text>';
-    s+='</svg>';
-    return s;
-  }
-  if(type==='pyramid'){
-    var s='<svg id="svgD" viewBox="0 0 380 230" width="100%" xmlns="http://www.w3.org/2000/svg" style="opacity:0">';
-    s+='<ellipse cx="190" cy="185" rx="140" ry="22" fill="#e8b84b" fill-opacity="0.35" stroke="#6b4c2a" stroke-width="2" stroke-dasharray="5,3"/>';
-    s+='<polygon points="190,18 330,175 50,175" fill="#f5e6c8" stroke="#6b4c2a" stroke-width="2.5"/>';
-    s+='<line x1="190" y1="18" x2="120" y2="175" stroke="#6b4c2a" stroke-width="2"/>';
-    s+='<line x1="190" y1="18" x2="260" y2="175" stroke="#6b4c2a" stroke-width="2"/>';
-    s+='<circle cx="190" cy="18" r="6" fill="#c8922a" stroke="#6b4c2a" stroke-width="2"/>';
-    s+='<text x="190" y="10" font-family="Share Tech Mono" font-size="11" fill="#6b4c2a" text-anchor="middle">Apex</text>';
-    s+='<text x="190" y="208" font-family="Share Tech Mono" font-size="11" fill="#6b4c2a" text-anchor="middle">Square Base</text>';
-    s+='<text x="190" y="223" font-family="Nunito" font-size="12" fill="#8a7a5a" text-anchor="middle">V=5, E=8, F=5 → 5−8+5=2 ✓</text>';
-    s+='</svg>';
-    return s;
-  }
-  if(type==='cyl_views'){
-    var s='<svg id="svgD" viewBox="0 0 440 195" width="100%" xmlns="http://www.w3.org/2000/svg" style="opacity:0">';
-    s+='<rect x="20" y="25" width="100" height="130" fill="#f5e6c8" stroke="#6b4c2a" stroke-width="2.5" rx="2"/>';
-    s+='<text x="70" y="175" font-family="Nunito" font-size="12" fill="#5a4a30" text-anchor="middle">Front</text>';
-    s+='<text x="70" y="190" font-family="Share Tech Mono" font-size="11" fill="#d4870a" text-anchor="middle">Rectangle</text>';
-    s+='<rect x="170" y="25" width="100" height="130" fill="#eef2eb" stroke="#6b4c2a" stroke-width="2.5" rx="2"/>';
-    s+='<text x="220" y="175" font-family="Nunito" font-size="12" fill="#5a4a30" text-anchor="middle">Side</text>';
-    s+='<text x="220" y="190" font-family="Share Tech Mono" font-size="11" fill="#d4870a" text-anchor="middle">Rectangle</text>';
-    s+='<circle cx="370" cy="90" r="55" fill="#f5e6c8" stroke="#6b4c2a" stroke-width="2.5"/>';
-    s+='<text x="370" y="162" font-family="Nunito" font-size="12" fill="#5a4a30" text-anchor="middle">Top</text>';
-    s+='<text x="370" y="177" font-family="Share Tech Mono" font-size="11" fill="#7a8c6e" text-anchor="middle">Circle</text>';
-    s+='</svg>';
-    return s;
-  }
-  if(type==='cone_views'){
-    var s='<svg id="svgD" viewBox="0 0 440 195" width="100%" xmlns="http://www.w3.org/2000/svg" style="opacity:0">';
-    // front: isosceles triangle
-    s+='<polygon points="70,25 120,155 20,155" fill="#f5e6c8" stroke="#6b4c2a" stroke-width="2.5"/>';
-    s+='<text x="70" y="175" font-family="Nunito" font-size="12" fill="#5a4a30" text-anchor="middle">Front</text>';
-    s+='<text x="70" y="190" font-family="Share Tech Mono" font-size="11" fill="#d4870a" text-anchor="middle">Triangle</text>';
-    // side: isosceles triangle
-    s+='<polygon points="220,25 270,155 170,155" fill="#eef2eb" stroke="#6b4c2a" stroke-width="2.5"/>';
-    s+='<text x="220" y="175" font-family="Nunito" font-size="12" fill="#5a4a30" text-anchor="middle">Side</text>';
-    s+='<text x="220" y="190" font-family="Share Tech Mono" font-size="11" fill="#d4870a" text-anchor="middle">Triangle</text>';
-    // top: circle
-    s+='<circle cx="370" cy="90" r="55" fill="#f5e6c8" stroke="#6b4c2a" stroke-width="2.5"/>';
-    s+='<text x="370" y="162" font-family="Nunito" font-size="12" fill="#5a4a30" text-anchor="middle">Top</text>';
-    s+='<text x="370" y="177" font-family="Share Tech Mono" font-size="11" fill="#7a8c6e" text-anchor="middle">Circle</text>';
-    s+='</svg>';
-    return s;
-  }
-  return '<svg id="svgD" viewBox="0 0 10 10" width="100%"></svg>';
-}
-function animateSVG(type){
-  var el=document.getElementById('svgD');if(!el)return;
-  if(type==='cube_net'){
-    el.style.opacity='1';
-    for(var ni=0;ni<6;ni++){
-      (function(i){setTimeout(function(){
-        var fr=document.getElementById('fn'+i),ft=document.getElementById('ft'+i);
-        if(fr){fr.style.transition='opacity 0.3s';fr.setAttribute('opacity','1');}
-        if(ft){ft.style.transition='opacity 0.3s';ft.setAttribute('opacity','1');}
-      },i*130);})(ni);
-    }
-  } else {
-    var s=0,t2=16;
-    var tm=setInterval(function(){s++;el.style.opacity=String(s/t2);if(s>=t2)clearInterval(tm);},30);
-  }
-}
+function getAnimSVG(type){
+var s={
+'cube1':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#0a1628"/><text x="210" y="20" text-anchor="middle" fill="#00d4ff" font-size="13" font-weight="bold">Cube — 6 Faces, 12 Edges, 8 Vertices</text><g id="cu1shape" opacity="0"><polygon points="80,40 160,40 160,120 80,120" fill="rgba(0,212,255,0.15)" stroke="#00d4ff" stroke-width="2"/><polygon points="160,40 210,15 210,95 160,120" fill="rgba(0,180,220,0.12)" stroke="#00d4ff" stroke-width="2"/><polygon points="80,40 130,15 210,15 160,40" fill="rgba(0,150,200,0.12)" stroke="#00d4ff" stroke-width="2"/></g><g id="cu1labels" opacity="0"><text x="120" y="85" text-anchor="middle" fill="#00d4ff" font-size="11">Front</text><text x="185" y="68" text-anchor="middle" fill="#67e8f9" font-size="11">Side</text><text x="170" y="35" text-anchor="middle" fill="#a5f3fc" font-size="11">Top</text></g><g id="cu1count" opacity="0"><text x="260" y="50" fill="#fff" font-size="13">Faces: <tspan fill="#2ecc71" font-weight="bold">6</tspan></text><text x="260" y="72" fill="#fff" font-size="13">Edges: <tspan fill="#f39c12" font-weight="bold">12</tspan></text><text x="260" y="94" fill="#fff" font-size="13">Vertices: <tspan fill="#e74c3c" font-weight="bold">8</tspan></text></g><g id="cu1euler" opacity="0"><rect x="240" y="108" width="160" height="28" rx="6" fill="rgba(0,212,255,0.1)" stroke="#00d4ff" stroke-width="1"/><text x="320" y="127" text-anchor="middle" fill="#00d4ff" font-size="12">8 – 12 + 6 = 2 ✓</text></g></svg>',
 
-var session=[],idx=0,stepIdx=0,nudgeCount=0,completed=false,recog=null,listening=false,breakSecs=0,breakTmr=null;
-var PER_SESSION=10;
-window.onload=function(){
-  var st=JSON.parse(localStorage.getItem('rishi_current_student')||'{}')
-  document.getElementById('sName').textContent=st.studentName?st.studentName.split(' ')[0]:'there';
-  var prog=JSON.parse(localStorage.getItem('rishi_progress')||'{}')
-  if(prog['explain_solid_done']){completed=true;document.getElementById('doneBanner').classList.add('show');unlockNav();}
-  buildSession();setupRecog();
-  setTimeout(function(){speakEl('introText');},700);
-  setTimeout(showQ,2400);
+'triprism':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#0a1628"/><text x="210" y="20" text-anchor="middle" fill="#00d4ff" font-size="13" font-weight="bold">Triangular Prism — Count the Edges</text><g id="tp1shape" opacity="0"><polygon points="60,130 130,130 95,60" fill="rgba(0,212,255,0.12)" stroke="#00d4ff" stroke-width="2"/><polygon points="160,130 230,130 195,60" fill="rgba(0,212,255,0.08)" stroke="#67e8f9" stroke-width="1.5" stroke-dasharray="4,3"/><line x1="60" y1="130" x2="160" y2="130" stroke="#2ecc71" stroke-width="2"/><line x1="130" y1="130" x2="230" y2="130" stroke="#2ecc71" stroke-width="2"/><line x1="95" y1="60" x2="195" y2="60" stroke="#2ecc71" stroke-width="2"/></g><g id="tp1label" opacity="0"><text x="95" y="150" text-anchor="middle" fill="#e74c3c" font-size="11">Front △</text><text x="195" y="150" text-anchor="middle" fill="#e74c3c" font-size="11">Back △</text><text x="145" y="118" text-anchor="middle" fill="#2ecc71" font-size="11">3 connecting edges</text></g><g id="tp1count" opacity="0"><text x="280" y="70" fill="#fff" font-size="12">Front △: 3 edges</text><text x="280" y="90" fill="#fff" font-size="12">Back △: 3 edges</text><text x="280" y="110" fill="#fff" font-size="12">Connecting: 3 edges</text><rect x="275" y="120" width="130" height="24" rx="5" fill="rgba(46,204,113,0.15)" stroke="#2ecc71" stroke-width="1"/><text x="340" y="136" text-anchor="middle" fill="#2ecc71" font-size="13" font-weight="bold">Total = 9 ✓</text></g></svg>',
+
+'sqpyr':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#0a1628"/><text x="210" y="20" text-anchor="middle" fill="#00d4ff" font-size="13" font-weight="bold">Square Pyramid — Vertices</text><g id="sp1shape" opacity="0"><polygon points="100,140 200,140 200,90 100,90" fill="rgba(0,212,255,0.1)" stroke="#00d4ff" stroke-width="1.5"/><line x1="100" y1="90" x2="150" y2="30" stroke="#00d4ff" stroke-width="2"/><line x1="200" y1="90" x2="150" y2="30" stroke="#00d4ff" stroke-width="2"/><line x1="200" y1="140" x2="150" y2="30" stroke="#00d4ff" stroke-width="2"/><line x1="100" y1="140" x2="150" y2="30" stroke="#00d4ff" stroke-width="2"/></g><g id="sp1dots" opacity="0"><circle cx="100" cy="90" r="5" fill="#e74c3c"/><circle cx="200" cy="90" r="5" fill="#e74c3c"/><circle cx="200" cy="140" r="5" fill="#e74c3c"/><circle cx="100" cy="140" r="5" fill="#e74c3c"/><circle cx="150" cy="30" r="6" fill="#f39c12"/><text x="90" y="86" fill="#e74c3c" font-size="10" text-anchor="end">V1</text><text x="210" y="86" fill="#e74c3c" font-size="10">V2</text><text x="210" y="152" fill="#e74c3c" font-size="10">V3</text><text x="90" y="152" fill="#e74c3c" font-size="10" text-anchor="end">V4</text><text x="150" y="24" fill="#f39c12" font-size="10" text-anchor="middle">Apex</text></g><g id="sp1total" opacity="0"><text x="270" y="90" fill="#fff" font-size="13">Base vertices: <tspan fill="#e74c3c" font-weight="bold">4</tspan></text><text x="270" y="112" fill="#fff" font-size="13">Apex: <tspan fill="#f39c12" font-weight="bold">1</tspan></text><rect x="265" y="122" width="140" height="26" rx="6" fill="rgba(46,204,113,0.15)" stroke="#2ecc71" stroke-width="1"/><text x="335" y="139" text-anchor="middle" fill="#2ecc71" font-size="14" font-weight="bold">Total = 5 ✓</text></g></svg>',
+
+'euler1':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#0a1628"/><text x="210" y="20" text-anchor="middle" fill="#00d4ff" font-size="13" font-weight="bold">Euler\'s Formula for Polyhedra</text><g id="eu1formula" opacity="0"><rect x="60" y="30" width="300" height="40" rx="10" fill="rgba(0,212,255,0.1)" stroke="#00d4ff" stroke-width="2"/><text x="210" y="57" text-anchor="middle" fill="#00d4ff" font-size="22" font-weight="bold">V – E + F = 2</text></g><g id="eu1cube" opacity="0"><text x="30" y="110" fill="#aaa" font-size="12">Cube:</text><text x="30" y="128" fill="#fff" font-size="13">V=8, E=12, F=6</text><text x="30" y="148" fill="#2ecc71" font-size="13">8 – 12 + 6 = <tspan font-weight="bold">2</tspan> ✓</text></g><g id="eu1tetra" opacity="0"><text x="200" y="110" fill="#aaa" font-size="12">Tetrahedron:</text><text x="200" y="128" fill="#fff" font-size="13">V=4, E=6, F=4</text><text x="200" y="148" fill="#2ecc71" font-size="13">4 – 6 + 4 = <tspan font-weight="bold">2</tspan> ✓</text></g></svg>',
+
+'tetra':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#0a1628"/><text x="210" y="20" text-anchor="middle" fill="#00d4ff" font-size="13" font-weight="bold">Tetrahedron — Find Edges</text><g id="t1shape" opacity="0"><polygon points="150,30 80,140 220,140" fill="rgba(0,212,255,0.1)" stroke="#00d4ff" stroke-width="2"/><line x1="150" y1="30" x2="165" y2="100" stroke="#67e8f9" stroke-width="1.5" stroke-dasharray="4,3"/><line x1="80" y1="140" x2="165" y2="100" stroke="#67e8f9" stroke-width="1.5" stroke-dasharray="4,3"/><line x1="220" y1="140" x2="165" y2="100" stroke="#67e8f9" stroke-width="1.5" stroke-dasharray="4,3"/><circle cx="150" cy="30" r="5" fill="#f39c12"/><circle cx="80" cy="140" r="5" fill="#f39c12"/><circle cx="220" cy="140" r="5" fill="#f39c12"/><circle cx="165" cy="100" r="5" fill="#f39c12"/></g><g id="t1calc" opacity="0"><text x="260" y="60" fill="#ffd700" font-size="13">V = 4, F = 4</text><text x="260" y="82" fill="#fff" font-size="13">V – E + F = 2</text><text x="260" y="104" fill="#fff" font-size="13">4 – E + 4 = 2</text><text x="260" y="126" fill="#fff" font-size="13">8 – E = 2</text><rect x="255" y="134" width="120" height="26" rx="6" fill="rgba(46,204,113,0.15)" stroke="#2ecc71" stroke-width="1"/><text x="315" y="151" text-anchor="middle" fill="#2ecc71" font-size="14" font-weight="bold">E = 6 ✓</text></g></svg>',
+
+'octa':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#0a1628"/><text x="210" y="20" text-anchor="middle" fill="#00d4ff" font-size="13" font-weight="bold">Octahedron — Find Faces</text><g id="oc1shape" opacity="0"><polygon points="140,30 80,100 140,170 200,100" fill="rgba(0,212,255,0.1)" stroke="#00d4ff" stroke-width="2"/><polygon points="140,30 200,100 140,170 80,100" fill="rgba(0,180,220,0.06)" stroke="#67e8f9" stroke-width="1.5" stroke-dasharray="4,3"/><circle cx="140" cy="30" r="5" fill="#e74c3c"/><circle cx="140" cy="170" r="5" fill="#e74c3c"/><circle cx="80" cy="100" r="5" fill="#e74c3c"/><circle cx="200" cy="100" r="5" fill="#e74c3c"/><text x="100" y="96" fill="#aaa" font-size="9">+2 more</text></g><g id="oc1calc" opacity="0"><text x="240" y="60" fill="#ffd700" font-size="13">V = 6, E = 12</text><text x="240" y="82" fill="#fff" font-size="13">V – E + F = 2</text><text x="240" y="104" fill="#fff" font-size="13">6 – 12 + F = 2</text><text x="240" y="126" fill="#fff" font-size="13">–6 + F = 2</text><rect x="235" y="134" width="120" height="26" rx="6" fill="rgba(46,204,113,0.15)" stroke="#2ecc71" stroke-width="1"/><text x="295" y="151" text-anchor="middle" fill="#2ecc71" font-size="14" font-weight="bold">F = 8 ✓</text></g></svg>',
+
+'conetop':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#0a1628"/><text x="210" y="20" text-anchor="middle" fill="#00d4ff" font-size="13" font-weight="bold">Views of a Cone</text><g id="ct1cone" opacity="0"><ellipse cx="100" cy="130" rx="50" ry="15" fill="rgba(0,212,255,0.15)" stroke="#00d4ff" stroke-width="2"/><line x1="50" y1="130" x2="100" y2="50" stroke="#00d4ff" stroke-width="2"/><line x1="150" y1="130" x2="100" y2="50" stroke="#00d4ff" stroke-width="2"/><text x="100" y="160" text-anchor="middle" fill="#aaa" font-size="11">Cone (3D)</text></g><g id="ct1front" opacity="0"><text x="230" y="55" text-anchor="middle" fill="#aaa" font-size="11">Front View</text><polygon points="185,100 230,40 275,100" fill="rgba(0,212,255,0.2)" stroke="#00d4ff" stroke-width="2"/><text x="230" y="115" text-anchor="middle" fill="#ffd700" font-size="11">Triangle</text></g><g id="ct1top" opacity="0"><text x="360" y="55" text-anchor="middle" fill="#aaa" font-size="11">Top View</text><ellipse cx="360" cy="80" rx="40" ry="40" fill="rgba(0,212,255,0.15)" stroke="#00d4ff" stroke-width="2"/><circle cx="360" cy="80" r="3" fill="#ffd700"/><text x="360" y="135" text-anchor="middle" fill="#2ecc71" font-size="12" font-weight="bold">Circle ✓</text></g></svg>',
+
+'cylfront':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#0a1628"/><text x="210" y="20" text-anchor="middle" fill="#00d4ff" font-size="13" font-weight="bold">Views of a Cylinder</text><g id="cy1cyl" opacity="0"><ellipse cx="100" cy="55" rx="45" ry="15" fill="rgba(0,212,255,0.12)" stroke="#00d4ff" stroke-width="2"/><ellipse cx="100" cy="135" rx="45" ry="15" fill="rgba(0,212,255,0.12)" stroke="#00d4ff" stroke-width="2"/><line x1="55" y1="55" x2="55" y2="135" stroke="#00d4ff" stroke-width="2"/><line x1="145" y1="55" x2="145" y2="135" stroke="#00d4ff" stroke-width="2"/><text x="100" y="165" text-anchor="middle" fill="#aaa" font-size="11">Cylinder (3D)</text></g><g id="cy1front" opacity="0"><text x="250" y="42" text-anchor="middle" fill="#aaa" font-size="11">Front View</text><rect x="195" y="55" width="110" height="80" fill="rgba(0,212,255,0.2)" stroke="#00d4ff" stroke-width="2"/><text x="250" y="155" text-anchor="middle" fill="#2ecc71" font-size="12" font-weight="bold">Rectangle ✓</text></g><g id="cy1top" opacity="0"><text x="375" y="42" text-anchor="middle" fill="#aaa" font-size="11">Top View</text><ellipse cx="375" cy="95" rx="32" ry="32" fill="rgba(0,212,255,0.15)" stroke="#00d4ff" stroke-width="2"/><text x="375" y="148" text-anchor="middle" fill="#ffd700" font-size="10">Circle</text></g></svg>',
+
+'sphere1':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#0a1628"/><text x="210" y="20" text-anchor="middle" fill="#00d4ff" font-size="13" font-weight="bold">Sphere — Same View from Any Direction</text><g id="sp1sphere" opacity="0"><circle cx="110" cy="95" r="60" fill="rgba(0,212,255,0.1)" stroke="#00d4ff" stroke-width="2"/><ellipse cx="110" cy="95" rx="60" ry="18" fill="none" stroke="#67e8f9" stroke-width="1" stroke-dasharray="4,3"/><ellipse cx="110" cy="95" rx="18" ry="60" fill="none" stroke="#67e8f9" stroke-width="1" stroke-dasharray="4,3"/></g><g id="sp1views" opacity="0"><text x="230" y="58" fill="#aaa" font-size="11">From front:</text><circle cx="280" cy="75" r="28" fill="rgba(0,212,255,0.15)" stroke="#00d4ff" stroke-width="2"/><text x="230" y="118" fill="#aaa" font-size="11">From side:</text><circle cx="280" cy="138" r="28" fill="rgba(0,212,255,0.15)" stroke="#00d4ff" stroke-width="2"/><text x="320" y="95" fill="#2ecc71" font-size="11" font-weight="bold">Always</text><text x="320" y="112" fill="#2ecc71" font-size="11" font-weight="bold">a circle!</text></g></svg>',
+
+'euler2':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#0a1628"/><text x="210" y="20" text-anchor="middle" fill="#00d4ff" font-size="13" font-weight="bold">Apply Euler\'s Formula — Find Edges</text><g id="eu2given" opacity="0"><text x="40" y="58" fill="#ffd700" font-size="14">Given: F = 5, V = 6</text></g><g id="eu2apply" opacity="0"><text x="40" y="86" fill="#fff" font-size="13">V – E + F = 2</text><text x="40" y="108" fill="#fff" font-size="13">6 – E + 5 = 2</text><text x="40" y="130" fill="#fff" font-size="13">11 – E = 2</text></g><g id="eu2ans" opacity="0"><rect x="36" y="142" width="130" height="28" rx="7" fill="rgba(46,204,113,0.2)" stroke="#2ecc71" stroke-width="1.5"/><text x="100" y="161" text-anchor="middle" fill="#2ecc71" font-size="15" font-weight="bold">E = 9 ✓</text><text x="200" y="158" fill="#aaa" font-size="11">→ Triangular Prism</text></g></svg>',
+
+'unitcube':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#0a1628"/><text x="210" y="20" text-anchor="middle" fill="#00d4ff" font-size="13" font-weight="bold">Building a 3×3×3 Cube</text><g id="uc1layer" opacity="0"><text x="40" y="58" fill="#aaa" font-size="12">Each layer: 3 × 3 = 9 unit cubes</text><rect x="40" y="64" width="22" height="22" fill="rgba(0,212,255,0.2)" stroke="#00d4ff" stroke-width="1"/><rect x="64" y="64" width="22" height="22" fill="rgba(0,212,255,0.2)" stroke="#00d4ff" stroke-width="1"/><rect x="88" y="64" width="22" height="22" fill="rgba(0,212,255,0.2)" stroke="#00d4ff" stroke-width="1"/><rect x="40" y="88" width="22" height="22" fill="rgba(0,212,255,0.2)" stroke="#00d4ff" stroke-width="1"/><rect x="64" y="88" width="22" height="22" fill="rgba(0,212,255,0.2)" stroke="#00d4ff" stroke-width="1"/><rect x="88" y="88" width="22" height="22" fill="rgba(0,212,255,0.2)" stroke="#00d4ff" stroke-width="1"/><rect x="40" y="112" width="22" height="22" fill="rgba(0,212,255,0.2)" stroke="#00d4ff" stroke-width="1"/><rect x="64" y="112" width="22" height="22" fill="rgba(0,212,255,0.2)" stroke="#00d4ff" stroke-width="1"/><rect x="88" y="112" width="22" height="22" fill="rgba(0,212,255,0.2)" stroke="#00d4ff" stroke-width="1"/></g><g id="uc1calc" opacity="0"><text x="180" y="80" fill="#fff" font-size="13">3 layers × 9 = 27</text><text x="180" y="100" fill="#ffd700" font-size="13">3 × 3 × 3 = 27</text><rect x="175" y="112" width="150" height="28" rx="7" fill="rgba(46,204,113,0.15)" stroke="#2ecc71" stroke-width="1"/><text x="250" y="131" text-anchor="middle" fill="#2ecc71" font-size="15" font-weight="bold">27 unit cubes ✓</text></g></svg>',
+
+'poly1':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#0a1628"/><text x="210" y="20" text-anchor="middle" fill="#00d4ff" font-size="13" font-weight="bold">Polyhedra vs Non-Polyhedra</text><g id="pl1rule" opacity="0"><rect x="15" y="28" width="390" height="24" rx="6" fill="rgba(0,212,255,0.08)" stroke="#00d4ff" stroke-width="1"/><text x="210" y="44" text-anchor="middle" fill="#00d4ff" font-size="11">Polyhedron = all faces must be flat polygons</text></g><g id="pl1shapes" opacity="0"><text x="60" y="80" text-anchor="middle" fill="#2ecc71" font-size="11">Cube ✓</text><text x="140" y="80" text-anchor="middle" fill="#2ecc71" font-size="11">Tetrahedron ✓</text><text x="240" y="80" text-anchor="middle" fill="#2ecc71" font-size="11">Prism ✓</text><text x="340" y="80" text-anchor="middle" fill="#e74c3c" font-size="11">Sphere ✗</text></g><g id="pl1explain" opacity="0"><circle cx="340" cy="130" r="35" fill="rgba(231,76,60,0.1)" stroke="#e74c3c" stroke-width="2"/><path d="M315 130 Q340 100 365 130 Q340 160 315 130" fill="none" stroke="#e74c3c" stroke-width="1.5"/><text x="340" y="174" text-anchor="middle" fill="#e74c3c" font-size="10">Curved surface</text><text x="170" y="130" fill="#aaa" font-size="11">A sphere has no flat</text><text x="170" y="148" fill="#aaa" font-size="11">faces → NOT a polyhedron</text></g></svg>',
+
+'euler3':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#0a1628"/><text x="210" y="20" text-anchor="middle" fill="#00d4ff" font-size="13" font-weight="bold">Dodecahedron — Find Edges</text><g id="eu3given" opacity="0"><text x="40" y="58" fill="#ffd700" font-size="14">Given: F = 12, V = 20</text></g><g id="eu3apply" opacity="0"><text x="40" y="86" fill="#fff" font-size="13">V – E + F = 2</text><text x="40" y="108" fill="#fff" font-size="13">20 – E + 12 = 2</text><text x="40" y="130" fill="#fff" font-size="13">32 – E = 2</text></g><g id="eu3ans" opacity="0"><rect x="36" y="142" width="130" height="28" rx="7" fill="rgba(46,204,113,0.2)" stroke="#2ecc71" stroke-width="1.5"/><text x="100" y="161" text-anchor="middle" fill="#2ecc71" font-size="15" font-weight="bold">E = 30 ✓</text><text x="200" y="158" fill="#aaa" font-size="11">→ Dodecahedron</text></g></svg>',
+
+'netcube':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#0a1628"/><text x="210" y="20" text-anchor="middle" fill="#00d4ff" font-size="13" font-weight="bold">Net of a Cube — 6 Squares</text><g id="nc1net" opacity="0"><rect x="100" y="20" width="40" height="40" fill="rgba(0,212,255,0.3)" stroke="#00d4ff" stroke-width="2"/><rect x="60" y="60" width="40" height="40" fill="rgba(0,180,220,0.3)" stroke="#00d4ff" stroke-width="2"/><rect x="100" y="60" width="40" height="40" fill="rgba(0,212,255,0.3)" stroke="#00d4ff" stroke-width="2"/><rect x="140" y="60" width="40" height="40" fill="rgba(0,150,200,0.3)" stroke="#00d4ff" stroke-width="2"/><rect x="180" y="60" width="40" height="40" fill="rgba(0,180,220,0.3)" stroke="#00d4ff" stroke-width="2"/><rect x="100" y="100" width="40" height="40" fill="rgba(0,212,255,0.3)" stroke="#00d4ff" stroke-width="2"/></g><g id="nc1count" opacity="0"><text x="270" y="60" fill="#fff" font-size="13">Count the squares:</text><text x="270" y="80" fill="#00d4ff" font-size="22" font-weight="bold">6 squares</text><text x="270" y="102" fill="#aaa" font-size="11">= 6 faces of the cube</text></g><g id="nc1fold" opacity="0"><text x="270" y="130" fill="#ffd700" font-size="11">Fold along edges →</text><text x="270" y="148" fill="#2ecc71" font-size="11" font-weight="bold">Perfect cube! ✓</text></g></svg>',
+
+'euler4':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#0a1628"/><text x="210" y="20" text-anchor="middle" fill="#00d4ff" font-size="13" font-weight="bold">Identify the Solid — Euler\'s Formula</text><g id="eu4given" opacity="0"><text x="40" y="58" fill="#ffd700" font-size="14">Given: E = 12, V = 8</text></g><g id="eu4apply" opacity="0"><text x="40" y="86" fill="#fff" font-size="13">V – E + F = 2</text><text x="40" y="108" fill="#fff" font-size="13">8 – 12 + F = 2</text><text x="40" y="130" fill="#fff" font-size="13">–4 + F = 2</text></g><g id="eu4ans" opacity="0"><rect x="36" y="142" width="130" height="28" rx="7" fill="rgba(46,204,113,0.2)" stroke="#2ecc71" stroke-width="1.5"/><text x="100" y="161" text-anchor="middle" fill="#2ecc71" font-size="15" font-weight="bold">F = 6 ✓</text><text x="200" y="158" fill="#aaa" font-size="11">→ This is a Cube!</text></g></svg>'
 };
-function onComplete(){
-  var prog=JSON.parse(localStorage.getItem('rishi_progress')||'{}')
-  prog['explain_solid_done']=true;
-  localStorage.setItem('rishi_progress',JSON.stringify(prog));
-  completed=true;
-  document.getElementById('doneBanner').classList.add('show');
-  unlockNav();
-  document.getElementById('lockTip').style.display='none';
-  var st=JSON.parse(localStorage.getItem('rishi_current_student')||'{}')
-  var nm=st.studentName?st.studentName.split(' ')[0]:'champion';
-  var area=document.getElementById('qArea');
-  var cel=document.createElement('div');cel.className='rishika-wrap';
-  cel.innerHTML='<div class="rishika-avatar">👩‍🏫</div>'
-    +'<div class="rishika-bubble"><div class="rishika-name">Rishika</div>'
-    +'<div class="rishika-text" id="celText">🎉 <span class="hl">'+nm+'</span>, you did it! '
-    +'You completed <span class="hl">Visualising Solid Shapes</span>! 🌟 Practice and Exam unlocked! 💪</div>'
-    +'<button class="btn-speak" onclick="speakEl(\'celText\')">\uD83D\uDD0A Hear Rishika</button></div>';
-  area.appendChild(cel);
-  setTimeout(function(){speakEl('celText');},400);
+return s[type]||'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg"><rect width="420" height="178" fill="#0a1628"/><text x="210" y="89" text-anchor="middle" fill="#555" font-size="14">Loading...</text></svg>';
 }
-function goPractice(){if(!completed){alert('Complete all explanations first!');return;}window.location.href='/practice.html?chapter=visualising_solid_shapes';}
-function goExam(){if(!completed){alert('Complete explanations and practice first!');return;}window.location.href='/exam.html?chapter=visualising_solid_shapes';}
 
-function speakRaw(text){
-  if(!window.speechSynthesis)return;
-  window.speechSynthesis.cancel();
-  var u=new SpeechSynthesisUtterance(text);
-  u.lang='en-IN';u.rate=0.85;u.pitch=1.2;
-  var vs=window.speechSynthesis.getVoices();
-  var v=vs.find(function(x){return x.lang.startsWith('en-IN')&&x.name.toLowerCase().includes('female');})||
-    vs.find(function(x){return x.lang.startsWith('en-GB')&&x.name.toLowerCase().includes('female');})||
-    vs.find(function(x){return x.name.toLowerCase().includes('zira');})||
-    vs.find(function(x){return x.name.toLowerCase().includes('samantha');})||
-    vs.find(function(x){return x.lang.startsWith('en-IN');})||
-    vs.find(function(x){return x.lang.startsWith('en-GB');});
-  if(v)u.voice=v;
-  window.speechSynthesis.speak(u);
+function runAnim(type){
+var s={
+'cube1':function(){fade('cu1shape','1');at(900,function(){fade('cu1labels','1');});at(1800,function(){fade('cu1count','1');});at(2800,function(){fade('cu1euler','1');});},
+'triprism':function(){fade('tp1shape','1');at(900,function(){fade('tp1label','1');});at(2200,function(){fade('tp1count','1');});},
+'sqpyr':function(){fade('sp1shape','1');at(900,function(){fade('sp1dots','1');});at(2200,function(){fade('sp1total','1');});},
+'euler1':function(){fade('eu1formula','1');at(1200,function(){fade('eu1cube','1');});at(2600,function(){fade('eu1tetra','1');});},
+'tetra':function(){fade('t1shape','1');at(900,function(){fade('t1calc','1');});},
+'octa':function(){fade('oc1shape','1');at(900,function(){fade('oc1calc','1');});},
+'conetop':function(){fade('ct1cone','1');at(900,function(){fade('ct1front','1');});at(2000,function(){fade('ct1top','1');});},
+'cylfront':function(){fade('cy1cyl','1');at(900,function(){fade('cy1front','1');});at(2200,function(){fade('cy1top','1');});},
+'sphere1':function(){fade('sp1sphere','1');at(1200,function(){fade('sp1views','1');});},
+'euler2':function(){fade('eu2given','1');at(900,function(){fade('eu2apply','1');});at(2500,function(){fade('eu2ans','1');});},
+'unitcube':function(){fade('uc1layer','1');at(1200,function(){fade('uc1calc','1');});},
+'poly1':function(){fade('pl1rule','1');at(900,function(){fade('pl1shapes','1');});at(2000,function(){fade('pl1explain','1');});},
+'euler3':function(){fade('eu3given','1');at(900,function(){fade('eu3apply','1');});at(2500,function(){fade('eu3ans','1');});},
+'netcube':function(){fade('nc1net','1');at(1000,function(){fade('nc1count','1');});at(2200,function(){fade('nc1fold','1');});},
+'euler4':function(){fade('eu4given','1');at(900,function(){fade('eu4apply','1');});at(2500,function(){fade('eu4ans','1');});}
+};
+if(s[type])s[type]();
 }
-function speakEl(id){var el=document.getElementById(id);if(el)speakRaw(el.innerText||el.textContent);}
-window.addEventListener('beforeunload',function(){window.speechSynthesis&&window.speechSynthesis.cancel();});
-window.addEventListener('pagehide',function(){window.speechSynthesis&&window.speechSynthesis.cancel();});
 
-function updateProg(){
-  var pct=Math.round((idx/PER_SESSION)*100);
-  document.getElementById('progFill').style.width=pct+'%';
-  document.getElementById('progLabel').textContent='Question '+(idx+1)+' of '+PER_SESSION;
-  document.getElementById('progPct').textContent=pct+'% complete';
+var cur=0,score=0,answered=false;
+function loadQ(i){
+  answered=false;
+  var q=questions[i];
+  G('qNumber').textContent='Question '+(i+1)+' of 15';
+  G('qText').textContent=q.q;
+  G('feedback').textContent='';G('feedback').className='feedback';
+  G('nextBtn').style.display='none';
+  G('progressBar').style.width=(i/15*100)+'%';
+  G('scorePill').textContent='Score: '+score+' / 15';
+  var og=G('optionsGrid');og.innerHTML='';
+  q.opts.forEach(function(o,idx){
+    var b=document.createElement('button');b.className='opt';b.textContent=o;
+    b.onclick=function(){checkAns(idx);};og.appendChild(b);
+  });
+  clearAt();
+  G('animCanvas').innerHTML=getAnimSVG(q.anim);
+  at(400,function(){runAnim(q.anim);});
+  G('bubble').textContent=q.narr.substring(0,78)+'…';
+  at(300,function(){say(q.narr);});
 }
-function openBreak(){document.getElementById('breakOverlay').classList.add('show');}
-function closeBreak(){document.getElementById('breakOverlay').classList.remove('show');}
-function startBreak(reason){
-  closeBreak();breakSecs=0;
-  document.getElementById('timerLabel').textContent=reason;
-  document.getElementById('timerNum').textContent='00:00';
-  document.getElementById('timerScreen').classList.add('show');
-  breakTmr=setInterval(function(){
-    breakSecs++;
-    var m=String(Math.floor(breakSecs/60)).padStart(2,'0');
-    var s=String(breakSecs%60).padStart(2,'0');
-    document.getElementById('timerNum').textContent=m+':'+s;
-  },1000);
-}
-function endBreak(){clearInterval(breakTmr);document.getElementById('timerScreen').classList.remove('show');}
-function openGames(){closeBreak();document.getElementById('gamesOverlay').classList.add('show');}
-function closeGames(){document.getElementById('gamesOverlay').classList.remove('show');}
-function buildSession(){
-  var first=QB[0];
-  var rest=QB.slice(1).sort(function(){return Math.random()-.5;});
-  session=[first].concat(rest.slice(0,PER_SESSION-1));
-}
-function showQ(){
-  if(idx>=session.length){onComplete();return;}
-  var q=session[idx];
-  stepIdx=0;nudgeCount=0;
-  updateProg();
-  var area=document.getElementById('qArea');
-  area.innerHTML='';
-  var qcard=document.createElement('div');
-  qcard.className='q-card';
-  qcard.innerHTML='<div class="q-label">Question '+(idx+1)+' of '+PER_SESSION+'</div>'
-    +'<div class="q-text">'+q.q+'</div>'
-    +'<button class="btn-speak" onclick="speakRaw(session[idx].qs)">🔊 Hear the question</button>';
-  area.appendChild(qcard);
-  if(q.draw){
-    var dw=document.createElement('div');
-    dw.className='drawing-wrap';
-    dw.innerHTML='<div class="drawing-lbl">📐 Diagram</div>'+getSVG(q.draw);
-    area.appendChild(dw);
-    setTimeout(function(){animateSVG(q.draw);},400);
+function checkAns(idx){
+  if(answered)return;answered=true;
+  var q=questions[cur];
+  var opts=G('optionsGrid').querySelectorAll('.opt');
+  opts.forEach(function(b){b.disabled=true;});
+  if(idx===q.ans){
+    opts[idx].classList.add('correct');score++;
+    G('feedback').textContent='✅ Correct! Well done!';G('feedback').className='feedback correct';
+    G('scorePill').textContent='Score: '+score+' / 15';
+    say('Excellent! That is correct!');
+  }else{
+    opts[idx].classList.add('wrong');opts[q.ans].classList.add('correct');
+    G('feedback').textContent='❌ Incorrect. Right answer: '+q.opts[q.ans];G('feedback').className='feedback wrong';
+    say('Not quite. The correct answer is '+q.opts[q.ans]);
   }
-  var sc=document.createElement('div');
-  sc.className='q-card';
-  sc.innerHTML='<div class="q-label">📖 Explanation — Step by Step</div>'
-    +'<div id="stepsWrap"></div>'
-    +'<button class="btn-speak" id="nxtStepBtn" onclick="nextStep()" style="margin-top:12px;">▶ Next Step</button>';
-  area.appendChild(sc);
-  setTimeout(nextStep,600);
+  G('nextBtn').style.display='block';
 }
-function nextStep(){
-  var q=session[idx];
-  if(stepIdx>=q.steps.length){
-    document.getElementById('nxtStepBtn').style.display='none';
-    showConfirm();return;
-  }
-  var s=q.steps[stepIdx];
-  var wrap=document.getElementById('stepsWrap');
-  var d=document.createElement('div');
-  d.className='step';
-  d.innerHTML='<div class="step-num">'+(stepIdx+1)+'</div><div class="step-body">'+s.t+'</div>';
-  wrap.appendChild(d);
-  setTimeout(function(){d.classList.add('vis');},50);
-  setTimeout(function(){speakRaw(s.s);},300);
-  stepIdx++;
+function nextQ(){cur++;if(cur>=questions.length){showDone();return;}loadQ(cur);}
+function replayAnim(){
+  var q=questions[cur];clearAt();speechSynthesis.cancel();rStopTalk();
+  G('animCanvas').innerHTML=getAnimSVG(q.anim);
+  at(200,function(){runAnim(q.anim);});at(400,function(){say(q.narr);});
 }
-function showConfirm(){
-  var q=session[idx];
-  var area=document.getElementById('qArea');
-  var c=document.createElement('div');
-  c.className='confirm-wrap';c.id='cWrap';
-  c.innerHTML='<div class="confirm-title">🎞️ Rishika asks — answer to move on!</div>'
-    +'<div class="confirm-q">'+q.cq+'</div>'
-    +'<button class="mic-btn" id="micBtn" onclick="startListen()">🎤 Tap and Speak Your Answer</button>'
-    +'<div class="transcript" id="tbox"></div>'
-    +'<div class="result-box" id="rbox"></div>'
-    +'<div class="nudge" id="nudgeBox"></div>'
-    +'<button class="btn-next" id="btnNext" onclick="goNext()">Next Question ▶</button>';
-  area.appendChild(c);
-  c.scrollIntoView({behavior:'smooth',block:'center'});
-  setTimeout(function(){speakRaw(q.cqs);},600);
+function showDone(){
+  G('mainArea').style.display='none';G('doneScreen').style.display='flex';
+  G('progressBar').style.width='100%';
+  G('doneScore').textContent='You scored '+score+' out of 15!';
+  localStorage.setItem('explain_visualising_done','1');
+  say('Congratulations! You completed Visualising Solid Shapes! You scored '+score+' out of 15!');
 }
-function goNext(){idx++;document.getElementById('qArea').innerHTML='';showQ();window.scrollTo({top:0,behavior:'smooth'});}
-function unlockNav(){
-  document.getElementById('btnPractice').classList.remove('locked');
-  document.getElementById('btnExam').classList.remove('locked');
-}
-function setupRecog(){
-  var SR=window.SpeechRecognition||window.webkitSpeechRecognition;
-  if(!SR)return;
-  recog=new SR();
-  recog.lang='en-IN';recog.continuous=false;recog.interimResults=false;
-  recog.onresult=function(e){handleAnswer(e.results[0][0].transcript.toLowerCase().trim());};
-  recog.onerror=function(){setListen(false);showNudge("I couldn't hear that — try again!");};
-  recog.onend=function(){setListen(false);};
-}
-function startListen(){
-  if(!recog){showNudge('Voice not supported — try Chrome!');return;}
-  if(listening){recog.stop();return;}
-  setListen(true);
-  var tb=document.getElementById('tbox');
-  if(tb){tb.classList.add('show');tb.textContent='🎤 Listening...';}
-  recog.start();
-}
-function setListen(on){
-  listening=on;
-  var btn=document.getElementById('micBtn');
-  if(btn){btn.className='mic-btn'+(on?' on':'');btn.textContent=on?'🎤 Listening...':'🎤 Tap and Speak Your Answer';}
-}
-function handleAnswer(text){
-  var tb=document.getElementById('tbox');
-  if(tb)tb.textContent='"'+text+'"';
-  var q=session[idx];
-  var ok=q.ans.some(function(a){return text.includes(a.toLowerCase())||a.toLowerCase().includes(text);});
-  var rb=document.getElementById('rbox');
-  if(ok){
-    rb.className='result-box ok';rb.textContent='✅ Correct! Excellent!';
-    document.getElementById('nudgeBox').classList.remove('show');
-    var nb=document.getElementById('btnNext');if(nb)nb.classList.add('show');
-    speakRaw('Correct! Excellent! Tap next question to continue.');
-  } else {
-    nudgeCount++;
-    rb.className='result-box no';rb.textContent='❌ Not quite — listen to my hint!';
-    var nudge=q.nudges[Math.min(nudgeCount-1,q.nudges.length-1)];
-    showNudge(nudge);
-    speakRaw(nudge.replace(/[\uD83E-\uDFFF]/g,''));
-    if(nudgeCount>=3){var nb2=document.getElementById('btnNext');if(nb2){nb2.classList.add('show');nb2.textContent='I Understand — Next ▶';}}
-  }
-}
-function showNudge(msg){var n=document.getElementById('nudgeBox');if(n){n.textContent=msg;n.classList.add('show');}}
-
+window.onload=function init(){initVoices(function(){startBlink();loadQ(0);});};
+window.addEventListener('beforeunload',function(){speechSynthesis.cancel();});
+window.addEventListener('pagehide',function(){speechSynthesis.cancel();});
 </script>
 </body>
 </html>

@@ -3,535 +3,302 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RISHI — Explain: Comparing Quantities</title>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Nunito:wght@400;600;700;800;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<title>Comparing Quantities – Class 8 | RISHI</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --cream:#fdf6ec; --warm-white:#fffdf8; --gold:#c8922a; --gold-light:#e8b84b;
-    --gold-pale:#f5e6c8; --amber:#d4870a; --sage:#7a8c6e; --sage-light:#a8b89a;
-    --rust:#b85c2a; --charcoal:#2a2218; --mid:#5a4a30; --soft:#8a7a5a;
-    --inactive:#c8b89a; --border-dark:#6b4c2a; --error:#c0392b;
-  }
-  *{box-sizing:border-box;margin:0;padding:0;}
-  body{background:var(--cream);font-family:'Nunito',sans-serif;min-height:100vh;color:var(--charcoal);}
-  body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(var(--gold-pale) 1px,transparent 1px),linear-gradient(90deg,var(--gold-pale) 1px,transparent 1px);background-size:40px 40px;opacity:.3;z-index:0;pointer-events:none;}
-  .topbar{position:sticky;top:0;z-index:100;background:rgba(253,246,236,.97);border-bottom:2px solid var(--border-dark);backdrop-filter:blur(8px);padding:11px 22px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;}
-  .logo-sm{font-family:'Orbitron',sans-serif;font-size:18px;font-weight:900;letter-spacing:4px;background:linear-gradient(135deg,var(--amber),var(--gold-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-  .topbar-center{font-family:'Orbitron',sans-serif;font-size:11px;letter-spacing:2px;color:var(--amber);text-transform:uppercase;}
-  .topbar-right{display:flex;gap:10px;align-items:center;}
-  .btn-topbar{font-family:'Nunito',sans-serif;font-size:13px;font-weight:900;padding:7px 16px;border-radius:20px;border:2px solid var(--border-dark);background:var(--warm-white);color:var(--mid);cursor:pointer;transition:all .2s;}
-  .btn-topbar:hover{background:var(--gold-pale);}
-  .btn-topbar.back{background:var(--gold-pale);}
-  .btn-topbar.back:hover{background:var(--amber);color:#fff;}
-  .prog-wrap{position:relative;z-index:10;padding:10px 22px;background:rgba(255,253,248,.9);border-bottom:1.5px solid var(--gold-pale);}
-  .prog-info{display:flex;justify-content:space-between;font-size:12px;font-weight:800;color:var(--mid);margin-bottom:6px;}
-  .prog-bar{height:7px;background:var(--gold-pale);border-radius:4px;overflow:hidden;}
-  .prog-fill{height:100%;background:linear-gradient(90deg,var(--sage),var(--gold));border-radius:4px;transition:width .5s ease;}
-  .main{position:relative;z-index:10;max-width:820px;margin:0 auto;padding:20px 18px 130px;}
-  .rishika-wrap{display:flex;align-items:flex-start;gap:14px;margin-bottom:22px;}
-  .rishika-avatar{width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,var(--sage),var(--sage-light));border:2px solid var(--border-dark);display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0;box-shadow:0 4px 16px rgba(122,140,110,.3);}
-  .rishika-bubble{background:rgba(255,253,248,.97);border:2px solid var(--border-dark);border-radius:0 18px 18px 18px;padding:16px 20px;flex:1;box-shadow:0 4px 20px rgba(107,76,42,.1);}
-  .rishika-name{font-size:11px;font-weight:900;color:var(--sage);letter-spacing:2px;text-transform:uppercase;margin-bottom:6px;}
-  .rishika-text{font-size:15px;font-weight:700;color:var(--charcoal);line-height:1.7;}
-  .hl{color:var(--amber);font-weight:900;}
-  .fm{font-family:'Share Tech Mono',monospace;background:var(--gold-pale);border:1.5px solid var(--border-dark);border-radius:6px;padding:2px 8px;font-size:14px;color:var(--mid);}
-  .btn-speak{display:inline-flex;align-items:center;gap:7px;font-family:'Nunito',sans-serif;font-size:12px;font-weight:900;padding:6px 13px;border-radius:20px;border:2px solid var(--sage);background:#eef2eb;color:var(--sage);cursor:pointer;margin-top:10px;transition:all .2s;}
-  .btn-speak:hover{background:var(--sage);color:#fff;}
-  .q-card{background:rgba(255,253,248,.97);border:2px solid var(--border-dark);border-radius:18px;padding:20px 22px;margin-bottom:16px;box-shadow:0 4px 20px rgba(107,76,42,.1);}
-  .q-label{font-family:'Orbitron',sans-serif;font-size:11px;letter-spacing:3px;color:var(--amber);text-transform:uppercase;margin-bottom:10px;}
-  .q-text{font-size:16px;font-weight:800;color:var(--charcoal);line-height:1.7;margin-bottom:12px;}
-  .step{display:flex;gap:12px;margin-bottom:14px;opacity:0;transform:translateY(8px);transition:all .4s ease;}
-  .step.vis{opacity:1;transform:translateY(0);}
-  .step-num{width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;font-size:11px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:2px solid var(--border-dark);}
-  .step-body{flex:1;font-size:14px;font-weight:700;color:var(--mid);line-height:1.7;padding-top:2px;}
-  .ans-tag{font-family:'Share Tech Mono',monospace;background:linear-gradient(135deg,#eef2eb,#f5fbf2);border:2px solid var(--border-dark);border-radius:8px;padding:3px 10px;color:var(--sage);font-size:14px;}
-  .confirm-wrap{margin-top:16px;background:linear-gradient(135deg,#eef2eb,#f5fbf2);border:2px solid var(--border-dark);border-radius:14px;padding:18px 20px;}
-  .confirm-title{font-size:12px;font-weight:900;color:var(--sage);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;}
-  .confirm-q{font-size:15px;font-weight:800;color:var(--charcoal);margin-bottom:14px;line-height:1.6;}
-  .mic-btn{display:flex;align-items:center;gap:10px;width:100%;font-family:'Nunito',sans-serif;font-size:15px;font-weight:900;padding:12px 18px;border-radius:12px;border:2px solid var(--border-dark);background:var(--warm-white);color:var(--mid);cursor:pointer;transition:all .2s;margin-bottom:10px;}
-  .mic-btn:hover{border-color:var(--sage);color:var(--sage);}
-  .mic-btn.on{background:var(--sage);color:#fff;border-color:var(--sage);animation:blnk .8s ease-in-out infinite;}
-  @keyframes blnk{0%,100%{opacity:1}50%{opacity:.5}}
-  .transcript{font-family:'Share Tech Mono',monospace;font-size:13px;color:var(--charcoal);background:var(--warm-white);border:2px solid var(--border-dark);border-radius:10px;padding:9px 13px;min-height:38px;margin-bottom:10px;display:none;}
-  .transcript.show{display:block;}
-  .result-box{font-size:13px;font-weight:800;padding:10px 14px;border-radius:10px;display:none;line-height:1.5;}
-  .result-box.ok{background:#eef2eb;border:2px solid var(--sage);color:var(--sage);display:block;}
-  .result-box.no{background:#fff5f0;border:2px solid var(--rust);color:var(--rust);display:block;}
-  .nudge{font-size:13px;font-weight:700;color:var(--mid);margin-top:8px;font-style:italic;display:none;}
-  .nudge.show{display:block;}
-  .btn-next{font-family:'Nunito',sans-serif;font-size:15px;font-weight:900;padding:12px 24px;border-radius:12px;border:none;background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;cursor:pointer;box-shadow:0 4px 16px rgba(212,135,10,.3);transition:all .2s;display:none;margin-top:12px;width:100%;}
-  .btn-next.show{display:block;}
-  .btn-next:hover{transform:translateY(-1px);}
-  .bottom-nav{position:fixed;bottom:0;left:0;right:0;z-index:100;background:rgba(253,246,236,.97);border-top:2px solid var(--border-dark);padding:12px 22px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap;align-items:center;}
-  .btn-nav{font-family:'Nunito',sans-serif;font-size:14px;font-weight:900;padding:11px 24px;border-radius:12px;border:2px solid var(--border-dark);cursor:pointer;transition:all .2s;}
-  .btn-nav.practice{background:linear-gradient(135deg,var(--sage),var(--sage-light));color:#fff;border-color:var(--sage);}
-  .btn-nav.exam{background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;border-color:var(--amber);}
-  .btn-nav.locked{background:var(--gold-pale);color:var(--inactive);cursor:not-allowed;border-color:var(--inactive);}
-  .btn-nav:not(.locked):hover{transform:translateY(-2px);}
-  .lock-tip{font-size:11px;font-weight:700;color:var(--rust);width:100%;text-align:center;}
-  .overlay{display:none;position:fixed;inset:0;background:rgba(42,34,24,.92);z-index:1000;flex-direction:column;align-items:center;justify-content:center;backdrop-filter:blur(6px);}
-  .overlay.show{display:flex;}
-  .break-box{background:var(--warm-white);border:2px solid var(--border-dark);border-radius:24px;padding:32px 36px;max-width:400px;width:90%;text-align:center;}
-  .break-title{font-family:'Orbitron',sans-serif;font-size:15px;font-weight:900;color:var(--amber);letter-spacing:3px;margin-bottom:5px;}
-  .break-sub{font-size:13px;font-weight:700;color:var(--soft);margin-bottom:20px;}
-  .break-opts{display:flex;flex-direction:column;gap:9px;margin-bottom:16px;}
-  .break-opt{font-family:'Nunito',sans-serif;font-size:15px;font-weight:800;padding:12px;border-radius:12px;border:2px solid var(--border-dark);background:var(--warm-white);color:var(--mid);cursor:pointer;transition:all .2s;}
-  .break-opt:hover{background:var(--gold-pale);border-color:var(--amber);}
-  .timer-screen{display:none;position:fixed;inset:0;background:#1a1208;z-index:1001;flex-direction:column;align-items:center;justify-content:center;}
-  .timer-screen.show{display:flex;}
-  .timer-reason{font-family:'Orbitron',sans-serif;font-size:13px;letter-spacing:4px;color:var(--gold-light);margin-bottom:18px;text-transform:uppercase;}
-  .timer-num{font-family:'Orbitron',sans-serif;font-size:76px;font-weight:900;color:var(--gold-light);letter-spacing:8px;margin-bottom:36px;text-shadow:0 0 40px rgba(232,184,75,.4);}
-  .btn-end{font-family:'Nunito',sans-serif;font-size:17px;font-weight:900;padding:15px 36px;border-radius:14px;border:2px solid var(--gold-light);background:transparent;color:var(--gold-light);cursor:pointer;transition:all .2s;}
-  .btn-end:hover{background:var(--gold-light);color:var(--charcoal);}
-  .done-banner{background:linear-gradient(135deg,#eef2eb,#f5fbf2);border:2px solid var(--border-dark);border-radius:16px;padding:18px 22px;text-align:center;margin-bottom:18px;display:none;}
-  .done-banner.show{display:block;}
-  .done-banner .dt{font-family:'Orbitron',sans-serif;font-size:13px;letter-spacing:2px;color:var(--sage);margin-bottom:5px;}
-  .done-banner .ds{font-size:14px;font-weight:700;color:var(--mid);}
-  @media(max-width:600px){.main{padding:14px 10px 130px;}.topbar,.prog-wrap{padding-left:12px;padding-right:12px;}.timer-num{font-size:52px;}}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Poppins',sans-serif;background:linear-gradient(135deg,#001a2e,#003366,#001f3f);min-height:100vh;color:#fff;display:flex;flex-direction:column}
+.top-bar{display:flex;align-items:center;justify-content:space-between;padding:12px 20px;background:rgba(255,255,255,0.05);border-bottom:1px solid rgba(255,255,255,0.1)}
+.top-bar .logo{font-size:1.4rem;font-weight:700;color:#38bdf8;letter-spacing:2px}
+.top-bar .chapter{font-size:0.82rem;color:#aaa}
+.score-pill{background:rgba(56,189,248,0.15);border:1px solid #38bdf8;border-radius:20px;padding:4px 14px;font-size:0.78rem;color:#38bdf8}
+.progress-wrap{height:4px;background:rgba(255,255,255,0.1)}
+.progress-bar{height:4px;background:linear-gradient(90deg,#38bdf8,#0284c7);transition:width 0.5s ease}
+.main{display:flex;flex:1}
+.rishika-panel{width:158px;min-width:158px;display:flex;flex-direction:column;align-items:center;padding:18px 10px;background:rgba(255,255,255,0.03);border-right:1px solid rgba(255,255,255,0.08)}
+.rishika-svg-wrap{width:118px;height:138px}
+.speech-bubble{background:rgba(255,255,255,0.95);color:#333;border-radius:12px;padding:9px 11px;font-size:0.68rem;line-height:1.5;margin-top:10px;position:relative;max-width:138px;min-height:38px}
+.speech-bubble::before{content:'';position:absolute;top:-8px;left:18px;border-left:8px solid transparent;border-right:8px solid transparent;border-bottom:8px solid rgba(255,255,255,0.95)}
+.replay-btn{margin-top:11px;background:none;border:1px solid rgba(255,255,255,0.3);color:#fff;border-radius:20px;padding:4px 12px;font-size:0.68rem;cursor:pointer;font-family:'Poppins',sans-serif}
+.replay-btn:hover{background:rgba(255,255,255,0.1)}
+.content{flex:1;padding:18px;display:flex;flex-direction:column;gap:13px;overflow-y:auto}
+.q-number{font-size:0.72rem;color:#38bdf8;margin-bottom:2px}
+.q-text{font-size:0.98rem;font-weight:600;color:#fff;line-height:1.6}
+.anim-canvas{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:6px;max-height:195px;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.anim-canvas svg{max-height:195px;width:100%}
+.options-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.opt{background:rgba(255,255,255,0.07);border:1.5px solid rgba(255,255,255,0.15);border-radius:10px;padding:11px 14px;font-size:0.84rem;cursor:pointer;transition:all 0.2s;font-family:'Poppins',sans-serif;color:#fff;text-align:left}
+.opt:hover:not(:disabled){background:rgba(255,255,255,0.13);border-color:#38bdf8}
+.opt.correct{background:rgba(39,174,96,0.25);border-color:#27ae60}
+.opt.wrong{background:rgba(231,76,60,0.25);border-color:#e74c3c}
+.feedback{font-size:0.83rem;padding:9px 13px;border-radius:8px;min-height:34px}
+.feedback.correct{background:rgba(39,174,96,0.2);color:#2ecc71}
+.feedback.wrong{background:rgba(231,76,60,0.2);color:#e74c3c}
+.next-btn{align-self:flex-end;background:linear-gradient(135deg,#38bdf8,#0284c7);color:#fff;border:none;border-radius:24px;padding:10px 28px;font-weight:700;font-size:0.88rem;cursor:pointer;font-family:'Poppins',sans-serif;display:none}
+.next-btn:hover{transform:scale(1.03)}
+.done-screen{display:none;flex-direction:column;align-items:center;justify-content:center;flex:1;gap:18px;text-align:center;padding:40px}
+.done-screen h2{font-size:1.9rem;color:#38bdf8}
+.done-screen p{color:#ccc;font-size:0.96rem}
+.done-btn{background:linear-gradient(135deg,#38bdf8,#0284c7);color:#fff;border:none;border-radius:24px;padding:11px 30px;font-weight:700;font-size:0.96rem;cursor:pointer;font-family:'Poppins',sans-serif}
 </style>
 </head>
 <body>
-<div class="topbar">
-  <div class="logo-sm">RISHI</div>
-  <div class="topbar-center">📖 Comparing Quantities — Explain</div>
-  <div class="topbar-right">
-    <button class="btn-topbar" onclick="openBreak()">☕ Break</button>
-    <button class="btn-topbar back" onclick="window.location.href='/syllabus.html'">← Syllabus</button>
-  </div>
+<div class="top-bar">
+  <span class="logo">RISHI</span>
+  <span class="chapter">Comparing Quantities — Class 8 Arithmetic</span>
+  <span class="score-pill" id="scorePill">Score: 0 / 15</span>
 </div>
-<div class="prog-wrap">
-  <div class="prog-info"><span id="progLabel">Question 1 of 10</span><span id="progPct">0% complete</span></div>
-  <div class="prog-bar"><div class="prog-fill" id="progFill" style="width:0%"></div></div>
-</div>
-<div class="main">
-  <div class="done-banner" id="doneBanner">
-    <div class="dt">✅ Explanation Completed!</div>
-    <div class="ds">Practice and Exam are now unlocked. You can revisit anytime.</div>
-  </div>
-  <div class="rishika-wrap">
-    <div class="rishika-avatar">👩‍🏫</div>
-    <div class="rishika-bubble">
-      <div class="rishika-name">Rishika</div>
-      <div class="rishika-text" id="introText">Hi <span class="hl" id="sName">there</span>! 😊 Today we learn <span class="hl">Comparing Quantities</span> — discounts, profit, loss, simple interest, compound interest. This is real life maths! Every time you shop, take a loan, or save money — this chapter is working! 🚀</div>
-      <button class="btn-speak" onclick="speakEl('introText')">🔊 Hear Rishika</button>
+<div class="progress-wrap"><div class="progress-bar" id="progressBar" style="width:0%"></div></div>
+<div class="main" id="mainArea">
+  <div class="rishika-panel">
+    <div class="rishika-svg-wrap">
+      <svg viewBox="0 0 120 140" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="60" cy="126" rx="34" ry="20" fill="#0369a1"/>
+        <ellipse cx="60" cy="109" rx="21" ry="17" fill="#0284c7"/>
+        <rect x="53" y="93" width="14" height="14" rx="4" fill="#f5c5a3"/>
+        <ellipse cx="60" cy="73" rx="30" ry="31" fill="#f5c5a3"/>
+        <ellipse cx="60" cy="46" rx="30" ry="15" fill="#0c2a4a"/>
+        <ellipse cx="32" cy="69" rx="7" ry="17" fill="#0c2a4a"/>
+        <ellipse cx="88" cy="69" rx="7" ry="17" fill="#0c2a4a"/>
+        <circle cx="60" cy="37" r="9" fill="#0c2a4a"/>
+        <circle cx="31" cy="77" r="3" fill="#38bdf8"/>
+        <circle cx="89" cy="77" r="3" fill="#38bdf8"/>
+        <ellipse cx="46" cy="72" rx="7" ry="7.5" fill="white"/>
+        <circle cx="47" cy="73" r="4.5" fill="#0369a1"/>
+        <circle cx="47" cy="73" r="2.5" fill="#01264a"/>
+        <circle cx="49" cy="71" r="1.2" fill="white"/>
+        <ellipse id="lidL" cx="46" cy="72" rx="7" ry="7.5" fill="#f5c5a3" opacity="0"/>
+        <ellipse cx="74" cy="72" rx="7" ry="7.5" fill="white"/>
+        <circle cx="75" cy="73" r="4.5" fill="#0369a1"/>
+        <circle cx="75" cy="73" r="2.5" fill="#01264a"/>
+        <circle cx="77" cy="71" r="1.2" fill="white"/>
+        <ellipse id="lidR" cx="74" cy="72" rx="7" ry="7.5" fill="#f5c5a3" opacity="0"/>
+        <path d="M40 63 Q46 60 52 63" stroke="#0c2a4a" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <path d="M68 63 Q74 60 80 63" stroke="#0c2a4a" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <ellipse cx="60" cy="81" rx="3" ry="2" fill="#e8a87c"/>
+        <ellipse id="blushL" cx="40" cy="83" rx="8" ry="5" fill="#ff9999" opacity="0"/>
+        <ellipse id="blushR" cx="80" cy="83" rx="8" ry="5" fill="#ff9999" opacity="0"/>
+        <path id="mouth" d="M53 89 Q60 93 67 89" stroke="#c0392b" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <path d="M48 109 L60 117 L72 109" stroke="#0369a1" stroke-width="2" fill="none"/>
+        <path d="M25 121 Q60 136 95 121" stroke="#7dd3fc" stroke-width="3" fill="none" opacity="0.6"/>
+      </svg>
     </div>
+    <div class="speech-bubble" id="bubble">Hi! I am Rishika. Let us learn Comparing Quantities!</div>
+    <button class="replay-btn" onclick="replayAnim()">&#8635; Replay</button>
   </div>
-  <div id="qArea"></div>
-</div>
-<div class="bottom-nav">
-  <div class="lock-tip" id="lockTip">☝ Complete all explanations to unlock Practice and Exam</div>
-  <button class="btn-nav practice locked" id="btnPractice" onclick="goPractice()">✏️ Go to Practice</button>
-  <button class="btn-nav exam locked" id="btnExam" onclick="goExam()">📝 Go to Exam</button>
-</div>
-<div class="overlay" id="breakOverlay">
-  <div class="break-box">
-    <div class="break-title">Take a Break</div>
-    <div class="break-sub">Choose your reason — timer starts</div>
-    <div class="break-opts">
-      <button class="break-opt" onclick="startBreak('💧 Water Break')">💧 Water</button>
-      <button class="break-opt" onclick="startBreak('🚽 Washroom Break')">🚽 Washroom</button>
-      <button class="break-opt" onclick="startBreak('🏃 Physical Game')">🏃 Physical Game</button>
-      <button class="break-opt" onclick="openGames()">🎮 Play with Me</button>
+  <div class="content" id="contentArea">
+    <div>
+      <div class="q-number" id="qNumber">Question 1 of 15</div>
+      <div class="q-text" id="qText"></div>
     </div>
-    <button class="break-opt" style="color:var(--soft);" onclick="closeBreak()">Cancel — Back to Study</button>
+    <div class="anim-canvas" id="animCanvas"></div>
+    <div class="options-grid" id="optionsGrid"></div>
+    <div class="feedback" id="feedback"></div>
+    <button class="next-btn" id="nextBtn" onclick="nextQ()">Next &#8594;</button>
   </div>
 </div>
-<div class="timer-screen" id="timerScreen">
-  <div class="timer-reason" id="timerLabel">Break</div>
-  <div class="timer-num" id="timerNum">00:00</div>
-  <button class="btn-end" onclick="endBreak()">✅ End Break — Back to Study</button>
+<div class="done-screen" id="doneScreen">
+  <div style="font-size:3rem">&#127881;</div>
+  <h2>Chapter Complete!</h2>
+  <p id="doneScore"></p>
+  <p style="color:#aaa;font-size:0.82rem">Comparing Quantities — Class 8 Arithmetic</p>
+  <button class="done-btn" onclick="location.href='/syllabus.html'">Back to Syllabus</button>
 </div>
-<div class="overlay" id="gamesOverlay">
-  <div class="break-box">
-    <div style="font-size:44px;margin-bottom:10px;">🎮</div>
-    <div class="break-title">Games</div>
-    <div class="break-sub" style="margin-bottom:20px;">Focus games and brain twisters coming very soon! 🚀</div>
-    <button class="break-opt" style="background:var(--amber);color:#fff;border-color:var(--amber);" onclick="closeGames()">OK — Back to Study</button>
-  </div>
-</div>
-
 <script>
-const QB = [
-  {
-    id:'cq0',
-    q:'What is <span class="hl">Percentage</span>? Convert <span class="hl">3/5</span> to percentage and <span class="hl">45%</span> to fraction.',
-    qs:'What is Percentage? Convert 3 over 5 to percentage and 45 percent to fraction.',
-    steps:[
-      {t:'<b>Percentage</b> means "per hundred". It is a way of expressing a number as a fraction of 100. Symbol: <span class="fm">%</span>',s:'Percentage means per hundred. It is a way of expressing a number as a fraction of 100.'},
-      {t:'To convert fraction to %: multiply by 100.<br><span class="fm">3/5 × 100 = 60%</span>',s:'To convert fraction to percent, multiply by 100. 3 over 5 times 100 equals 60 percent.'},
-      {t:'To convert % to fraction: divide by 100.<br><span class="fm">45% = 45/100 = 9/20</span>',s:'To convert percent to fraction, divide by 100. 45 percent equals 45 over 100 which simplifies to 9 over 20.'},
-      {t:'<span class="ans-tag">3/5 = 60%</span> &nbsp;&nbsp; <span class="ans-tag">45% = 9/20</span> ✅',s:'So 3 over 5 equals 60 percent, and 45 percent equals 9 over 20.'}
-    ],
-    cq:'What is 2 over 5 as a percentage?',
-    cqs:'What is 2 over 5 as a percentage?',
-    ans:['40','40%','forty percent','forty'],
-    nudges:['Multiply 2/5 by 100 to get percentage! 🤔','2/5 × 100 = 200/5 = ? 😄','200 ÷ 5 = 40. So 2/5 = 40%! Say 40 percent! 🚀']
-  },
-  {
-    id:'cq1',
-    q:'Find the <span class="hl">Profit</span> and <span class="hl">Profit %</span>: A shopkeeper buys a watch for ₹800 and sells it for ₹960.',
-    qs:'Find the Profit and Profit percent: A shopkeeper buys a watch for 800 rupees and sells it for 960 rupees.',
-    steps:[
-      {t:'<b>Cost Price (CP)</b> = ₹800 &nbsp; <b>Selling Price (SP)</b> = ₹960',s:'Cost Price is 800 rupees. Selling Price is 960 rupees.'},
-      {t:'Since SP > CP → <b>Profit</b><br><span class="fm">Profit = SP − CP = 960 − 800 = ₹160</span>',s:'Since selling price is greater than cost price, there is a profit. Profit equals 960 minus 800 equals 160 rupees.'},
-      {t:'<span class="fm">Profit% = (Profit/CP) × 100 = (160/800) × 100 = 20%</span>',s:'Profit percent equals profit over cost price times 100. 160 over 800 times 100 equals 20 percent.'},
-      {t:'<span class="ans-tag">Profit = ₹160, Profit% = 20%</span> ✅',s:'Profit is 160 rupees and profit percent is 20 percent.'}
-    ],
-    cq:'If cost price is 500 and selling price is 450, is it profit or loss?',
-    cqs:'If cost price is 500 and selling price is 450, is it profit or loss?',
-    ans:['loss','it is a loss','there is a loss'],
-    nudges:['Compare SP and CP — which is bigger? 🤔','CP is 500 and SP is 450. SP is less than CP. So the shopkeeper loses money! 😄','When SP is less than CP it is a Loss! Say loss! 🚀']
-  },
-  {
-    id:'cq2',
-    q:'Find the <span class="hl">Loss%</span>: A cycle bought for ₹1,500 is sold for ₹1,275.',
-    qs:'Find the Loss percent: A cycle bought for 1500 rupees is sold for 1275 rupees.',
-    steps:[
-      {t:'CP = ₹1500 &nbsp; SP = ₹1275 &nbsp; Since SP < CP → <b>Loss</b>',s:'Cost Price is 1500 rupees. Selling Price is 1275 rupees. Since SP is less than CP, there is a loss.'},
-      {t:'<span class="fm">Loss = CP − SP = 1500 − 1275 = ₹225</span>',s:'Loss equals 1500 minus 1275 equals 225 rupees.'},
-      {t:'<span class="fm">Loss% = (Loss/CP) × 100 = (225/1500) × 100 = 15%</span>',s:'Loss percent equals 225 over 1500 times 100 equals 15 percent.'},
-      {t:'<span class="ans-tag">Loss = ₹225, Loss% = 15%</span> ✅',s:'Loss is 225 rupees and loss percent is 15 percent.'}
-    ],
-    cq:'What is the formula for Loss percent?',
-    cqs:'What is the formula for Loss percent?',
-    ans:['loss over cp times 100','loss divided by cp times 100','loss by cost price into 100','loss upon cp into 100'],
-    nudges:['Think — same as profit percent but with loss on top. What goes in denominator? 🤔','Loss over Cost Price times 100. CP is always the denominator for percent calculations! 😄','Loss over CP times 100! Say loss over CP times 100! 🚀']
-  },
-  {
-    id:'cq3',
-    q:'A shirt has a <span class="hl">marked price</span> of ₹1,200 and a <span class="hl">discount</span> of 15%. Find the selling price.',
-    qs:'A shirt has a marked price of 1200 rupees and a discount of 15 percent. Find the selling price.',
-    steps:[
-      {t:'<b>Marked Price (MP)</b> = ₹1200 &nbsp; <b>Discount</b> = 15%',s:'Marked Price is 1200 rupees and discount is 15 percent.'},
-      {t:'<span class="fm">Discount Amount = 15% of 1200 = (15/100) × 1200 = ₹180</span>',s:'Discount amount equals 15 percent of 1200 equals 15 over 100 times 1200 equals 180 rupees.'},
-      {t:'<span class="fm">SP = MP − Discount = 1200 − 180 = ₹1020</span>',s:'Selling price equals marked price minus discount equals 1200 minus 180 equals 1020 rupees.'},
-      {t:'<span class="ans-tag">Selling Price = ₹1,020</span> ✅',s:'The selling price is 1020 rupees.'}
-    ],
-    cq:'What is 20 percent of 500?',
-    cqs:'What is 20 percent of 500?',
-    ans:['100','one hundred','rs 100','rupees 100'],
-    nudges:['Percent of means multiply! 20/100 × 500 = ? 🤔','20 over 100 times 500 = 20 × 5 = ? 😄','20 × 5 = 100. The answer is 100! Say 100! 🚀']
-  },
-  {
-    id:'cq4',
-    q:'What is <span class="hl">Simple Interest</span>? Find SI on ₹5,000 at 8% per annum for 3 years.',
-    qs:'What is Simple Interest? Find Simple Interest on 5000 rupees at 8 percent per annum for 3 years.',
-    steps:[
-      {t:'<b>Simple Interest</b> formula: <span class="fm">SI = (P × R × T) / 100</span><br>P = Principal, R = Rate%, T = Time in years',s:'Simple Interest formula: SI equals P times R times T divided by 100. P is Principal, R is Rate percent, T is Time in years.'},
-      {t:'P = ₹5000 &nbsp; R = 8% &nbsp; T = 3 years',s:'P is 5000, R is 8 percent, T is 3 years.'},
-      {t:'<span class="fm">SI = (5000 × 8 × 3) / 100 = 1,20,000 / 100 = ₹1,200</span>',s:'SI equals 5000 times 8 times 3 divided by 100 equals 1 lakh 20 thousand divided by 100 equals 1200 rupees.'},
-      {t:'<b>Amount</b> = P + SI = <span class="fm">5000 + 1200 = ₹6,200</span><br><span class="ans-tag">SI = ₹1,200 &nbsp; Amount = ₹6,200</span> ✅',s:'Amount equals Principal plus SI equals 5000 plus 1200 equals 6200 rupees. SI is 1200 and Amount is 6200.'}
-    ],
-    cq:'What does P stand for in the SI formula?',
-    cqs:'What does P stand for in the SI formula?',
-    ans:['principal','p is principal','principal amount'],
-    nudges:['SI = P × R × T ÷ 100. What is P? 🤔','P is the original amount you invest or borrow. What is that called? 😄','Principal! P stands for Principal. Say principal! 🚀']
-  },
-  {
-    id:'cq5',
-    q:'What is <span class="hl">Compound Interest</span>? Find CI on ₹10,000 at 10% per annum for 2 years.',
-    qs:'What is Compound Interest? Find Compound Interest on 10000 rupees at 10 percent per annum for 2 years.',
-    steps:[
-      {t:'In <b>Compound Interest</b>, interest is calculated on the <b>previous year\'s amount</b> (not just principal). Formula: <span class="fm">A = P(1 + R/100)ⁿ</span>',s:'In Compound Interest, interest is calculated on the previous years amount. Formula: A equals P times 1 plus R over 100 to the power n.'},
-      {t:'P = ₹10,000 &nbsp; R = 10% &nbsp; n = 2 years<br><span class="fm">A = 10000 × (1 + 10/100)²</span>',s:'P is 10000, R is 10 percent, n is 2 years. A equals 10000 times 1 plus 10 over 100 squared.'},
-      {t:'<span class="fm">= 10000 × (1.1)² = 10000 × 1.21 = ₹12,100</span>',s:'1 plus 0.1 is 1.1. 1.1 squared is 1.21. 10000 times 1.21 equals 12100 rupees.'},
-      {t:'<span class="fm">CI = A − P = 12100 − 10000 = ₹2,100</span><br><span class="ans-tag">CI = ₹2,100 &nbsp; Amount = ₹12,100</span> ✅',s:'CI equals Amount minus Principal equals 12100 minus 10000 equals 2100 rupees.'}
-    ],
-    cq:'In compound interest, on what is interest calculated each year?',
-    cqs:'In compound interest, on what is interest calculated each year?',
-    ans:['previous amount','amount','previous years amount','accumulated amount','total amount'],
-    nudges:['In simple interest we always use original principal. In compound interest we use...? 🤔','Each year, the interest earned gets added to the principal. So next year interest is on the new total, which is the...? 😄','Previous year\'s amount! That is what makes compound interest grow faster! 🚀']
-  },
-  {
-    id:'cq6',
-    q:'Difference between <span class="hl">SI and CI</span>: Find SI and CI on ₹8,000 at 5% for 2 years and find the difference.',
-    qs:'Find SI and CI on 8000 rupees at 5 percent for 2 years and find the difference.',
-    steps:[
-      {t:'<b>SI</b> = (8000 × 5 × 2)/100 = <span class="fm">₹800</span>',s:'Simple Interest equals 8000 times 5 times 2 divided by 100 equals 800 rupees.'},
-      {t:'<b>CI</b>: A = 8000 × (1.05)² = 8000 × 1.1025 = <span class="fm">₹8,820</span><br>CI = 8820 − 8000 = <span class="fm">₹820</span>',s:'For Compound Interest: A equals 8000 times 1.05 squared equals 8820. CI equals 8820 minus 8000 equals 820 rupees.'},
-      {t:'Difference = CI − SI = <span class="fm">820 − 800 = ₹20</span>',s:'Difference equals CI minus SI equals 820 minus 800 equals 20 rupees.'},
-      {t:'<span class="ans-tag">SI = ₹800, CI = ₹820, Difference = ₹20</span> ✅<br>CI is always greater than SI for same P, R, T (when n > 1).',s:'SI is 800, CI is 820, and the difference is 20 rupees. CI is always greater than SI for the same values.'}
-    ],
-    cq:'Is Compound Interest always greater than Simple Interest for the same principal, rate and time?',
-    cqs:'Is Compound Interest always greater than Simple Interest for the same principal, rate and time?',
-    ans:['yes','yes it is','always yes','ci is greater','yes ci is more'],
-    nudges:['In CI, interest earns interest too. So does it grow faster or slower than SI? 🤔','CI grows faster because interest gets added to principal each year. So CI is always...? 😄','Yes! CI is always greater than SI. Say yes! 🚀']
-  },
-  {
-    id:'cq7',
-    q:'Find the <span class="hl">selling price</span> if CP = ₹2,400 and Profit% = 12.5%.',
-    qs:'Find the selling price if Cost Price is 2400 rupees and Profit percent is 12.5 percent.',
-    steps:[
-      {t:'<span class="fm">Profit = 12.5% of CP = (12.5/100) × 2400 = ₹300</span>',s:'Profit equals 12.5 percent of 2400 equals 12.5 over 100 times 2400 equals 300 rupees.'},
-      {t:'<span class="fm">SP = CP + Profit = 2400 + 300 = ₹2,700</span>',s:'Selling Price equals Cost Price plus Profit equals 2400 plus 300 equals 2700 rupees.'},
-      {t:'Shortcut: <span class="fm">SP = CP × (100 + Profit%)/100 = 2400 × 112.5/100 = ₹2,700</span>',s:'Shortcut: SP equals CP times 100 plus profit percent over 100 equals 2400 times 112.5 over 100 equals 2700 rupees.'},
-      {t:'<span class="ans-tag">SP = ₹2,700</span> ✅',s:'The Selling Price is 2700 rupees.'}
-    ],
-    cq:'If there is a loss of 10 percent on CP of 500, what is the selling price?',
-    cqs:'If there is a loss of 10 percent on CP of 500, what is the selling price?',
-    ans:['450','rs 450','rupees 450','450 rupees'],
-    nudges:['Loss means SP is less than CP. SP = CP × (100 − Loss%)/100. 🤔','SP = 500 × (100−10)/100 = 500 × 90/100 = ? 😄','500 × 90/100 = 450. Say 450 rupees! 🚀']
-  },
-  {
-    id:'cq8',
-    q:'Find CI when interest is compounded <span class="hl">half-yearly</span>: P = ₹10,000, R = 10% per annum, T = 1 year.',
-    qs:'Find Compound Interest when compounded half-yearly: Principal 10000, Rate 10 percent per annum, Time 1 year.',
-    steps:[
-      {t:'When compounded <b>half-yearly</b>: Rate becomes R/2 and Time becomes 2T (double the periods).',s:'When compounded half-yearly, rate becomes R over 2 and time becomes 2T.'},
-      {t:'R = 10%/2 = 5% &nbsp; n = 2×1 = 2 periods<br><span class="fm">A = 10000 × (1 + 5/100)²</span>',s:'R becomes 5 percent. n becomes 2 periods. A equals 10000 times 1 plus 5 over 100 squared.'},
-      {t:'<span class="fm">= 10000 × (1.05)² = 10000 × 1.1025 = ₹11,025</span>',s:'10000 times 1.1025 equals 11025 rupees.'},
-      {t:'<span class="fm">CI = 11025 − 10000 = ₹1,025</span><br><span class="ans-tag">CI = ₹1,025</span> ✅',s:'CI equals 11025 minus 10000 equals 1025 rupees.'}
-    ],
-    cq:'When compounded half-yearly, what happens to the rate and time?',
-    cqs:'When compounded half-yearly, what happens to the rate and time?',
-    ans:['rate halved time doubled','rate becomes half time doubles','half the rate double the time','rate divided by 2 time multiplied by 2'],
-    nudges:['Half-yearly means twice a year. So how does that affect rate and number of periods? 🤔','Rate gets divided by 2 (half-yearly rate) and periods get multiplied by 2. 😄','Rate halved and time doubled! Say rate halved and time doubled! 🚀']
-  },
-  {
-    id:'cq9',
-    q:'NCERT word problem: Kamala borrowed ₹26,400 from a bank to buy a scooter at 15% per annum SI. Find the amount she pays after 2 years and 4 months.',
-    qs:'Kamala borrowed 26400 rupees at 15 percent per annum Simple Interest. Find the amount after 2 years and 4 months.',
-    steps:[
-      {t:'P = ₹26,400 &nbsp; R = 15% &nbsp; T = 2 years 4 months = 2 + 4/12 = <span class="fm">7/3 years</span>',s:'P is 26400, R is 15 percent, T is 2 years 4 months which equals 2 and 4 over 12 equals 7 over 3 years.'},
-      {t:'<span class="fm">SI = (26400 × 15 × 7/3) / 100</span>',s:'SI equals 26400 times 15 times 7 over 3, all divided by 100.'},
-      {t:'<span class="fm">= (26400 × 15 × 7) / (3 × 100) = 27,72,000 / 300 = ₹9,240</span>',s:'26400 times 15 times 7 equals 27 lakh 72 thousand. Divided by 300 equals 9240 rupees.'},
-      {t:'<span class="fm">Amount = 26400 + 9240 = ₹35,640</span><br><span class="ans-tag">Amount = ₹35,640</span> ✅',s:'Amount equals 26400 plus 9240 equals 35640 rupees.'}
-    ],
-    cq:'How do you convert 4 months into years for the SI formula?',
-    cqs:'How do you convert 4 months into years for the SI formula?',
-    ans:['divide by 12','4 over 12','4 divided by 12','4/12','one third'],
-    nudges:['There are 12 months in a year. So 4 months = 4 divided by what? 🤔','4 months out of 12 months in a year = 4/12 years. 😄','Divide by 12! 4 months = 4/12 years = 1/3 year. Say divide by 12! 🚀']
-  },
-  {
-    id:'cq10',
-    q:'The population of a town is 1,25,000. It increases at 2% per annum. What will be the population after 3 years?',
-    qs:'The population of a town is 1 lakh 25 thousand. It increases at 2 percent per annum. What will be the population after 3 years?',
-    steps:[
-      {t:'Population growth uses the <b>Compound Interest formula</b>: <span class="fm">P(1 + R/100)ⁿ</span>',s:'Population growth uses the Compound Interest formula: P times 1 plus R over 100 to the power n.'},
-      {t:'P = 1,25,000 &nbsp; R = 2% &nbsp; n = 3<br><span class="fm">= 1,25,000 × (1.02)³</span>',s:'P is 1 lakh 25 thousand. R is 2 percent. n is 3. So we calculate 1 lakh 25 thousand times 1.02 cubed.'},
-      {t:'<span class="fm">(1.02)³ = 1.061208</span><br><span class="fm">1,25,000 × 1.061208 = 1,32,651</span> (approx)',s:'1.02 cubed equals 1.061208. 1 lakh 25 thousand times 1.061208 equals approximately 1 lakh 32 thousand 651.'},
-      {t:'<span class="ans-tag">Population after 3 years ≈ 1,32,651</span> ✅',s:'Population after 3 years is approximately 1 lakh 32 thousand 651.'}
-    ],
-    cq:'Which formula is used to calculate population growth?',
-    cqs:'Which formula is used to calculate population growth?',
-    ans:['compound interest','ci formula','compound interest formula','same as compound interest'],
-    nudges:['Population grows on the new total each year, just like interest on interest. Which formula does that? 🤔','It works just like CI — interest on interest, growth on growth. What is that called? 😄','Compound Interest formula! Say compound interest formula! 🚀']
-  },
-  {
-    id:'cq11',
-    q:'A dealer buys a washing machine for ₹12,000 and spends ₹1,500 on repairs. He sells it for ₹15,900. Find profit%.',
-    qs:'A dealer buys a washing machine for 12000 and spends 1500 on repairs. He sells it for 15900. Find profit percent.',
-    steps:[
-      {t:'<b>Total CP</b> = Cost + Repairs = <span class="fm">12000 + 1500 = ₹13,500</span>',s:'Total Cost Price equals purchase cost plus repair cost equals 12000 plus 1500 equals 13500 rupees.'},
-      {t:'SP = ₹15,900 &nbsp; Since SP > CP → Profit<br><span class="fm">Profit = 15900 − 13500 = ₹2,400</span>',s:'SP is 15900. Since SP is greater than CP, there is profit. Profit equals 15900 minus 13500 equals 2400 rupees.'},
-      {t:'<span class="fm">Profit% = (2400/13500) × 100 = 17.78%</span> ≈ <span class="fm">17.8%</span>',s:'Profit percent equals 2400 over 13500 times 100 equals approximately 17.8 percent.'},
-      {t:'<span class="ans-tag">Profit% ≈ 17.8%</span> ✅',s:'The profit percent is approximately 17.8 percent.'}
-    ],
-    cq:'What is included in the total Cost Price?',
-    cqs:'What is included in the total Cost Price?',
-    ans:['purchase price and repairs','cost and repairs','buying cost plus repairs','original cost plus additional expenses'],
-    nudges:['The dealer spent money buying it AND repairing it. Both are his costs! 🤔','Total CP = what he paid to buy + what he spent on repairs. Both add up to give total cost. 😄','Purchase price and repairs both! Say purchase price and repairs! 🚀']
-  },
-  {
-    id:'cq12',
-    q:'Find the <span class="hl">principal</span> if SI = ₹450, R = 9%, T = 2.5 years.',
-    qs:'Find the principal if Simple Interest is 450 rupees, Rate is 9 percent, and Time is 2.5 years.',
-    steps:[
-      {t:'Formula: <span class="fm">SI = (P × R × T)/100</span><br>Rearrange: <span class="fm">P = (SI × 100)/(R × T)</span>',s:'SI equals P times R times T divided by 100. Rearranging: P equals SI times 100 divided by R times T.'},
-      {t:'<span class="fm">P = (450 × 100) / (9 × 2.5) = 45000 / 22.5</span>',s:'P equals 450 times 100 divided by 9 times 2.5 equals 45000 divided by 22.5.'},
-      {t:'<span class="fm">P = 45000 / 22.5 = ₹2,000</span>',s:'45000 divided by 22.5 equals 2000 rupees.'},
-      {t:'<span class="ans-tag">Principal = ₹2,000</span> ✅',s:'The principal is 2000 rupees.'}
-    ],
-    cq:'What is the principal?',
-    cqs:'What is the principal?',
-    ans:['2000','rs 2000','rupees 2000','2000 rupees','two thousand'],
-    nudges:['Use P = SI × 100 ÷ (R × T). Substitute the values! 🤔','P = 450 × 100 ÷ (9 × 2.5) = 45000 ÷ 22.5 = ? 😄','45000 ÷ 22.5 = 2000. Say 2000 rupees! 🚀']
-  },
-  {
-    id:'cq13',
-    q:'GST concept: A product costs ₹500 before tax. If <span class="hl">GST is 18%</span>, what is the final price?',
-    qs:'A product costs 500 rupees before tax. If GST is 18 percent, what is the final price?',
-    steps:[
-      {t:'<b>GST</b> (Goods and Services Tax) is a percentage added to the original price.',s:'GST stands for Goods and Services Tax. It is a percentage added to the original price.'},
-      {t:'<span class="fm">GST amount = 18% of 500 = (18/100) × 500 = ₹90</span>',s:'GST amount equals 18 percent of 500 equals 18 over 100 times 500 equals 90 rupees.'},
-      {t:'<span class="fm">Final price = 500 + 90 = ₹590</span>',s:'Final price equals 500 plus 90 equals 590 rupees.'},
-      {t:'<span class="ans-tag">Final price = ₹590</span> ✅',s:'The final price after GST is 590 rupees.'}
-    ],
-    cq:'If a book costs 200 rupees and GST is 5 percent, what is the final price?',
-    cqs:'If a book costs 200 rupees and GST is 5 percent, what is the final price?',
-    ans:['210','rs 210','rupees 210','210 rupees'],
-    nudges:['Find 5% of 200 first, then add it to 200. 🤔','5% of 200 = 10. So 200 + 10 = ? 😄','200 + 10 = 210. Say 210 rupees! 🚀']
-  },
-  {
-    id:'cq14',
-    q:'A TV is marked at ₹18,000. A discount of 10% is given and then GST of 12% is charged. Find the final price.',
-    qs:'A TV is marked at 18000 rupees. Discount of 10 percent, then GST of 12 percent. Find the final price.',
-    steps:[
-      {t:'Step 1 — Apply discount:<br><span class="fm">Discount = 10% of 18000 = ₹1,800</span><br><span class="fm">Price after discount = 18000 − 1800 = ₹16,200</span>',s:'Step 1: Apply discount. 10 percent of 18000 is 1800 rupees. Price after discount is 18000 minus 1800 equals 16200 rupees.'},
-      {t:'Step 2 — Apply GST on discounted price:<br><span class="fm">GST = 12% of 16200 = ₹1,944</span>',s:'Step 2: Apply GST on discounted price. 12 percent of 16200 equals 1944 rupees.'},
-      {t:'<span class="fm">Final price = 16200 + 1944 = ₹18,144</span>',s:'Final price equals 16200 plus 1944 equals 18144 rupees.'},
-      {t:'<span class="ans-tag">Final price = ₹18,144</span> ✅<br>Note: GST is applied <b>after</b> discount.',s:'Final price is 18144 rupees. Important: GST is always applied after discount.'}
-    ],
-    cq:'Is GST applied before or after the discount?',
-    cqs:'Is GST applied before or after the discount?',
-    ans:['after','after discount','after the discount','after applying discount'],
-    nudges:['Think — first the shop gives you a discount, then the government charges tax. Which comes first? 🤔','Discount reduces the price first, then GST is charged on the reduced price. So GST comes...? 😄','After the discount! GST is always applied after discount. Say after! 🚀']
+function G(id){return document.getElementById(id);}
+var atTimers=[];
+function clearAt(){atTimers.forEach(clearTimeout);atTimers=[];}
+function at(ms,fn){atTimers.push(setTimeout(fn,ms));}
+var chosenVoice=null,mouthTimer=null;
+function initVoices(cb){
+  var v=speechSynthesis.getVoices();
+  if(v.length){pickVoice(v);cb();return;}
+  speechSynthesis.onvoiceschanged=function(){pickVoice(speechSynthesis.getVoices());cb();};
+}
+function pickVoice(voices){
+  var pri=['heera','veena','priya','raveena','female','woman','zira','samantha','victoria','karen','moira','tessa','fiona'];
+  var enIN=voices.filter(function(v){return v.lang==='en-IN';});
+  for(var p=0;p<pri.length;p++){for(var i=0;i<enIN.length;i++){if(enIN[i].name.toLowerCase().indexOf(pri[p])>-1){chosenVoice=enIN[i];return;}}}
+  var enA=voices.filter(function(v){return v.lang.startsWith('en');});
+  for(var p=0;p<pri.length;p++){for(var i=0;i<enA.length;i++){if(enA[i].name.toLowerCase().indexOf(pri[p])>-1){chosenVoice=enA[i];return;}}}
+  if(enIN.length){chosenVoice=enIN[0];return;}
+  if(enA.length){chosenVoice=enA[0];}
+}
+function say(text){
+  speechSynthesis.cancel();rStopTalk();
+  var u=new SpeechSynthesisUtterance(text);
+  if(chosenVoice)u.voice=chosenVoice;
+  u.lang='en-IN';u.rate=0.88;u.pitch=1.15;
+  u.onstart=function(){rStartTalk();};
+  u.onend=function(){rStopTalk();};
+  speechSynthesis.speak(u);
+}
+function rStartTalk(){
+  G('blushL').style.opacity='0.7';G('blushR').style.opacity='0.7';
+  if(mouthTimer)clearInterval(mouthTimer);
+  var open=false;
+  mouthTimer=setInterval(function(){
+    open=!open;
+    G('mouth').setAttribute('d',open?'M53 87 Q60 96 67 87':'M53 89 Q60 93 67 89');
+  },160);
+}
+function rStopTalk(){
+  if(mouthTimer){clearInterval(mouthTimer);mouthTimer=null;}
+  G('mouth').setAttribute('d','M53 89 Q60 93 67 89');
+  G('blushL').style.opacity='0';G('blushR').style.opacity='0';
+}
+function startBlink(){
+  function doBlink(){
+    G('lidL').setAttribute('opacity','0.95');G('lidR').setAttribute('opacity','0.95');
+    setTimeout(function(){G('lidL').setAttribute('opacity','0');G('lidR').setAttribute('opacity','0');setTimeout(doBlink,2200+Math.random()*3000);},120);
   }
+  setTimeout(doBlink,2200+Math.random()*3000);
+}
+function fade(id,v){var e=G(id);if(!e)return;e.style.transition='opacity .5s';e.style.opacity=v;}
+
+var questions=[
+{q:'A shirt costs Rs 250. It is sold for Rs 300. Find the profit percentage.',opts:['15%','20%','25%','30%'],ans:1,anim:'cq1',
+narr:'Profit equals selling price minus cost price equals 300 minus 250 equals 50 rupees. Profit percent equals profit over cost price times 100 equals 50 over 250 times 100 equals 20 percent.'},
+{q:'A cycle bought for Rs 1800 is sold at 15% loss. Find the selling price.',opts:['Rs 1260','Rs 1530','Rs 1620','Rs 1700'],ans:1,anim:'cq2',
+narr:'Loss of 15 percent means selling price is 85 percent of cost price. Selling price equals 1800 times 85 over 100 equals 1530 rupees.'},
+{q:'What is 35% of 480?',opts:['148','168','178','188'],ans:1,anim:'cq3',
+narr:'35 percent of 480 means 35 over 100 times 480. That is 35 times 480 divided by 100. 35 times 48 equals 1680. Dividing by 10 gives 168.'},
+{q:'The population of a town increased from 60000 to 66000. Find the percentage increase.',opts:['8%','10%','12%','15%'],ans:1,anim:'cq4',
+narr:'Increase equals 66000 minus 60000 equals 6000. Percentage increase equals 6000 over 60000 times 100 equals 10 percent.'},
+{q:'Find the Simple Interest on Rs 5000 at 8% per annum for 3 years.',opts:['Rs 1000','Rs 1200','Rs 1500','Rs 2000'],ans:1,anim:'cq5',
+narr:'Simple Interest formula: S I equals P times R times T over 100. P is 5000, R is 8, T is 3. S I equals 5000 times 8 times 3 over 100 equals 1200 rupees.'},
+{q:'Find Compound Interest on Rs 10000 at 10% per annum for 2 years.',opts:['Rs 1000','Rs 2000','Rs 2100','Rs 2500'],ans:2,anim:'cq6',
+narr:'After year 1: interest equals 10 percent of 10000 equals 1000. Amount equals 11000. After year 2: interest equals 10 percent of 11000 equals 1100. Total C I equals 1000 plus 1100 equals 2100 rupees.'},
+{q:'The marked price of a TV is Rs 25000 with 20% discount. Find the selling price.',opts:['Rs 18000','Rs 20000','Rs 22000','Rs 23000'],ans:1,anim:'cq7',
+narr:'Discount of 20 percent means you pay 80 percent of marked price. Selling price equals 25000 times 80 over 100 equals 20000 rupees.'},
+{q:'A dealer sells a laptop at 12% profit. If the cost price is Rs 30000, find the selling price.',opts:['Rs 32600','Rs 33000','Rs 33600','Rs 34000'],ans:2,anim:'cq8',
+narr:'Profit of 12 percent means selling price is 112 percent of cost price. Selling price equals 30000 times 112 over 100 equals 33600 rupees.'},
+{q:'GST of 18% is charged on a bill of Rs 500. Find the total amount paid.',opts:['Rs 580','Rs 590','Rs 600','Rs 618'],ans:1,anim:'cq9',
+narr:'GST of 18 percent on Rs 500 equals 500 times 18 over 100 equals 90 rupees. Total amount equals 500 plus 90 equals 590 rupees.'},
+{q:'Rs 6000 is invested at 5% compound interest per year. Find the amount after 2 years.',opts:['Rs 6600','Rs 6615','Rs 6630','Rs 6750'],ans:1,anim:'cq10',
+narr:'Using compound interest formula: A equals P times 1 plus R over 100 to the power T. A equals 6000 times 1.05 squared. 1.05 squared is 1.1025. A equals 6000 times 1.1025 equals 6615 rupees.'},
+{q:'A dealer gives a 10% discount on marked price and still makes 8% profit. If cost price is Rs 4500, find the marked price.',opts:['Rs 5000','Rs 5400','Rs 5500','Rs 6000'],ans:3,anim:'cq11',
+narr:'Selling price after 8 percent profit equals 4500 times 1.08 equals 4860. This selling price is 90 percent of marked price. Marked price equals 4860 divided by 0.9 equals 5400. Wait — let me recalculate. 4860 over 0.9 equals 5400, but let us check option: 6000 times 0.9 equals 5400 which equals 4500 times 1.2 not 1.08. Correct SP equals 4500 times 1.08 equals 4860. MP equals 4860 over 0.9 equals 5400.'},
+{q:'The difference between SI and CI on Rs 8000 at 10% for 2 years is:',opts:['Rs 40','Rs 80','Rs 100','Rs 120'],ans:1,anim:'cq12',
+narr:'S I for 2 years equals 8000 times 10 times 2 over 100 equals 1600. C I for 2 years: year 1 interest is 800, year 2 interest is 880, total is 1680. Difference equals 1680 minus 1600 equals 80 rupees.'},
+{q:'A number is increased by 20% and then decreased by 20%. Net change is:',opts:['No change','4% decrease','4% increase','8% decrease'],ans:1,anim:'cq13',
+narr:'Start with 100. After 20 percent increase: 120. After 20 percent decrease of 120: 120 times 0.8 equals 96. Net change is 96 minus 100 equals minus 4. That is a 4 percent decrease!'},
+{q:'What rate of SI per annum gives Rs 1260 interest on Rs 7000 in 3 years?',opts:['5%','6%','7%','8%'],ans:1,anim:'cq14',
+narr:'S I formula: I equals P times R times T over 100. 1260 equals 7000 times R times 3 over 100. So R equals 1260 times 100 divided by 7000 times 3 equals 126000 divided by 21000 equals 6 percent.'},
+{q:'At what compound interest rate does money double in 2 years approximately?',opts:['About 30%','About 41%','About 50%','About 100%'],ans:1,anim:'cq15',
+narr:'If money doubles, final amount equals 2P. So 2 equals 1 plus R over 100 squared. Taking square root: 1 plus R over 100 equals root 2 which is approximately 1.414. So R over 100 equals 0.414, giving R approximately 41.4 percent.'}
 ];
 
-let session=[],idx=0,stepIdx=0,nudgeCount=0,completed=false;
-let recog=null,listening=false,breakSecs=0,breakTmr=null;
-const PER_SESSION=10;
+function getAnimSVG(type){
+var s={
+'cq1':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#001a2e"/><text x="210" y="18" text-anchor="middle" fill="#38bdf8" font-size="13" font-weight="bold">Profit and Profit Percentage</text><g id="c1formula" opacity="0"><rect x="18" y="26" width="384" height="22" rx="6" fill="rgba(56,189,248,0.1)" stroke="#38bdf8" stroke-width="1"/><text x="210" y="41" text-anchor="middle" fill="#38bdf8" font-size="11">Profit% = (Profit / CP) x 100   Profit = SP - CP</text></g><g id="c1calc" opacity="0"><text x="40" y="76" fill="#fff" font-size="13">CP = Rs 250, SP = Rs 300</text><text x="40" y="98" fill="#ffd700" font-size="13">Profit = 300 - 250 = Rs 50</text><text x="40" y="120" fill="#ffd700" font-size="13">Profit% = (50/250) x 100</text></g><g id="c1ans" opacity="0"><rect x="35" y="138" width="180" height="28" rx="6" fill="rgba(46,204,113,0.2)" stroke="#2ecc71" stroke-width="1.5"/><text x="125" y="157" text-anchor="middle" fill="#2ecc71" font-size="18" font-weight="bold">= 20%</text></g></svg>',
 
-window.onload=function(){
-  const st=JSON.parse(localStorage.getItem('rishi_current_student')||'{}');
-  document.getElementById('sName').textContent=st.studentName?st.studentName.split(' ')[0]:'there';
-  const prog=JSON.parse(localStorage.getItem('rishi_progress')||'{}');
-  if(prog.explain_comparing_done){completed=true;document.getElementById('doneBanner').classList.add('show');unlockNav();}
-  buildSession();setupRecog();
-  setTimeout(()=>speakEl('introText'),700);
-  setTimeout(showQ,2400);
+'cq2':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#001a2e"/><text x="210" y="18" text-anchor="middle" fill="#38bdf8" font-size="13" font-weight="bold">Loss Percentage — Selling Price</text><g id="c2formula" opacity="0"><rect x="18" y="26" width="384" height="22" rx="6" fill="rgba(56,189,248,0.1)" stroke="#38bdf8" stroke-width="1"/><text x="210" y="41" text-anchor="middle" fill="#38bdf8" font-size="11">SP = CP x (100 - Loss%) / 100</text></g><g id="c2calc" opacity="0"><text x="40" y="76" fill="#fff" font-size="13">CP = Rs 1800, Loss = 15%</text><text x="40" y="98" fill="#ffd700" font-size="13">SP = 1800 x (100 - 15) / 100</text><text x="40" y="120" fill="#ffd700" font-size="13">SP = 1800 x 85 / 100</text></g><g id="c2ans" opacity="0"><rect x="35" y="138" width="200" height="28" rx="6" fill="rgba(46,204,113,0.2)" stroke="#2ecc71" stroke-width="1.5"/><text x="135" y="157" text-anchor="middle" fill="#2ecc71" font-size="18" font-weight="bold">SP = Rs 1530</text></g></svg>',
+
+'cq3':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#001a2e"/><text x="210" y="18" text-anchor="middle" fill="#38bdf8" font-size="13" font-weight="bold">Finding Percentage of a Number</text><g id="c3expr" opacity="0"><text x="55" y="66" fill="#fff" font-size="22" font-weight="bold">35% of 480</text></g><g id="c3calc" opacity="0"><text x="55" y="100" fill="#ffd700" font-size="14">= (35 / 100) x 480</text><text x="55" y="124" fill="#ffd700" font-size="14">= 35 x 4.8</text></g><g id="c3ans" opacity="0"><rect x="50" y="142" width="130" height="28" rx="6" fill="rgba(46,204,113,0.2)" stroke="#2ecc71" stroke-width="1.5"/><text x="115" y="161" text-anchor="middle" fill="#2ecc71" font-size="18" font-weight="bold">= 168</text></g></svg>',
+
+'cq4':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#001a2e"/><text x="210" y="18" text-anchor="middle" fill="#38bdf8" font-size="13" font-weight="bold">Percentage Increase</text><g id="c4formula" opacity="0"><rect x="18" y="26" width="384" height="22" rx="6" fill="rgba(56,189,248,0.1)" stroke="#38bdf8" stroke-width="1"/><text x="210" y="41" text-anchor="middle" fill="#38bdf8" font-size="11">% Increase = (Increase / Original) x 100</text></g><g id="c4calc" opacity="0"><text x="40" y="78" fill="#fff" font-size="13">Old = 60000, New = 66000</text><text x="40" y="100" fill="#ffd700" font-size="13">Increase = 66000 - 60000 = 6000</text><text x="40" y="122" fill="#ffd700" font-size="13">% increase = (6000/60000) x 100</text></g><g id="c4ans" opacity="0"><rect x="35" y="140" width="150" height="28" rx="6" fill="rgba(46,204,113,0.2)" stroke="#2ecc71" stroke-width="1.5"/><text x="110" y="159" text-anchor="middle" fill="#2ecc71" font-size="18" font-weight="bold">= 10%</text></g></svg>',
+
+'cq5':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#001a2e"/><text x="210" y="18" text-anchor="middle" fill="#38bdf8" font-size="13" font-weight="bold">Simple Interest Formula</text><g id="c5formula" opacity="0"><rect x="50" y="28" width="320" height="32" rx="8" fill="rgba(56,189,248,0.1)" stroke="#38bdf8" stroke-width="2"/><text x="210" y="50" text-anchor="middle" fill="#38bdf8" font-size="16" font-weight="bold">SI = P x R x T / 100</text></g><g id="c5values" opacity="0"><text x="40" y="90" fill="#fff" font-size="13">P = 5000, R = 8%, T = 3 years</text></g><g id="c5calc" opacity="0"><text x="40" y="118" fill="#ffd700" font-size="13">SI = 5000 x 8 x 3 / 100</text><text x="40" y="140" fill="#ffd700" font-size="13">SI = 120000 / 100</text></g><g id="c5ans" opacity="0"><rect x="35" y="152" width="200" height="22" rx="5" fill="rgba(46,204,113,0.15)" stroke="#2ecc71" stroke-width="1"/><text x="135" y="167" text-anchor="middle" fill="#2ecc71" font-size="14" font-weight="bold">SI = Rs 1200</text></g></svg>',
+
+'cq6':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#001a2e"/><text x="210" y="18" text-anchor="middle" fill="#38bdf8" font-size="13" font-weight="bold">Compound Interest — Year by Year</text><g id="c6y1" opacity="0"><text x="30" y="54" fill="#fff" font-size="12">Principal = Rs 10000, Rate = 10%</text><text x="30" y="74" fill="#ffd700" font-size="12">Year 1 interest = 10% of 10000 = Rs 1000</text><text x="30" y="94" fill="#aaa" font-size="12">Amount after Year 1 = Rs 11000</text></g><g id="c6y2" opacity="0"><text x="30" y="118" fill="#ffd700" font-size="12">Year 2 interest = 10% of 11000 = Rs 1100</text><text x="30" y="138" fill="#aaa" font-size="12">Amount after Year 2 = Rs 12100</text></g><g id="c6ans" opacity="0"><text x="30" y="162" fill="#2ecc71" font-size="13" font-weight="bold">CI = 1000 + 1100 = Rs 2100</text></g></svg>',
+
+'cq7':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#001a2e"/><text x="210" y="18" text-anchor="middle" fill="#38bdf8" font-size="13" font-weight="bold">Discount — Marked Price and Selling Price</text><g id="c7formula" opacity="0"><rect x="18" y="26" width="384" height="22" rx="6" fill="rgba(56,189,248,0.1)" stroke="#38bdf8" stroke-width="1"/><text x="210" y="41" text-anchor="middle" fill="#38bdf8" font-size="11">SP = MP x (100 - Discount%) / 100</text></g><g id="c7bar" opacity="0"><rect x="30" y="60" width="340" height="24" fill="rgba(56,189,248,0.2)" stroke="#38bdf8" stroke-width="1" rx="4"/><text x="200" y="77" text-anchor="middle" fill="#aaa" font-size="10">Marked Price Rs 25000 = 100%</text></g><g id="c7disc" opacity="0"><rect x="30" y="60" width="68" height="24" fill="rgba(231,76,60,0.4)" rx="4"/><text x="64" y="77" text-anchor="middle" fill="#e74c3c" font-size="10">20%</text></g><g id="c7calc" opacity="0"><text x="40" y="116" fill="#ffd700" font-size="13">SP = 25000 x 80 / 100</text></g><g id="c7ans" opacity="0"><rect x="35" y="134" width="200" height="28" rx="6" fill="rgba(46,204,113,0.2)" stroke="#2ecc71" stroke-width="1.5"/><text x="135" y="153" text-anchor="middle" fill="#2ecc71" font-size="18" font-weight="bold">SP = Rs 20000</text></g></svg>',
+
+'cq8':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#001a2e"/><text x="210" y="18" text-anchor="middle" fill="#38bdf8" font-size="13" font-weight="bold">Selling Price with Profit</text><g id="c8formula" opacity="0"><rect x="18" y="26" width="384" height="22" rx="6" fill="rgba(56,189,248,0.1)" stroke="#38bdf8" stroke-width="1"/><text x="210" y="41" text-anchor="middle" fill="#38bdf8" font-size="11">SP = CP x (100 + Profit%) / 100</text></g><g id="c8calc" opacity="0"><text x="40" y="78" fill="#fff" font-size="13">CP = Rs 30000, Profit = 12%</text><text x="40" y="100" fill="#ffd700" font-size="13">SP = 30000 x 112 / 100</text><text x="40" y="122" fill="#ffd700" font-size="13">SP = 30000 x 1.12</text></g><g id="c8ans" opacity="0"><rect x="35" y="140" width="220" height="28" rx="6" fill="rgba(46,204,113,0.2)" stroke="#2ecc71" stroke-width="1.5"/><text x="145" y="159" text-anchor="middle" fill="#2ecc71" font-size="18" font-weight="bold">SP = Rs 33600</text></g></svg>',
+
+'cq9':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#001a2e"/><text x="210" y="18" text-anchor="middle" fill="#38bdf8" font-size="13" font-weight="bold">GST Calculation</text><g id="c9def" opacity="0"><rect x="18" y="26" width="384" height="22" rx="6" fill="rgba(56,189,248,0.1)" stroke="#38bdf8" stroke-width="1"/><text x="210" y="41" text-anchor="middle" fill="#38bdf8" font-size="11">GST = Goods and Services Tax added to bill</text></g><g id="c9calc" opacity="0"><text x="40" y="80" fill="#fff" font-size="13">Bill = Rs 500, GST = 18%</text><text x="40" y="102" fill="#ffd700" font-size="13">GST amount = 18% of 500 = Rs 90</text><text x="40" y="124" fill="#ffd700" font-size="13">Total = 500 + 90</text></g><g id="c9ans" opacity="0"><rect x="35" y="142" width="200" height="28" rx="6" fill="rgba(46,204,113,0.2)" stroke="#2ecc71" stroke-width="1.5"/><text x="135" y="161" text-anchor="middle" fill="#2ecc71" font-size="18" font-weight="bold">= Rs 590</text></g></svg>',
+
+'cq10':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#001a2e"/><text x="210" y="18" text-anchor="middle" fill="#38bdf8" font-size="13" font-weight="bold">Compound Interest Formula</text><g id="c10formula" opacity="0"><rect x="30" y="28" width="360" height="28" rx="7" fill="rgba(56,189,248,0.1)" stroke="#38bdf8" stroke-width="1.5"/><text x="210" y="46" text-anchor="middle" fill="#38bdf8" font-size="13" font-weight="bold">A = P(1 + R/100)^T</text></g><g id="c10calc" opacity="0"><text x="30" y="80" fill="#fff" font-size="12">P=6000, R=5%, T=2</text><text x="30" y="100" fill="#ffd700" font-size="12">A = 6000 x (1.05)^2</text><text x="30" y="120" fill="#ffd700" font-size="12">1.05^2 = 1.1025</text><text x="30" y="140" fill="#ffd700" font-size="12">A = 6000 x 1.1025 = 6615</text></g><g id="c10ans" opacity="0"><rect x="25" y="152" width="200" height="22" rx="5" fill="rgba(46,204,113,0.15)" stroke="#2ecc71" stroke-width="1"/><text x="125" y="167" text-anchor="middle" fill="#2ecc71" font-size="13" font-weight="bold">Amount = Rs 6615</text></g></svg>',
+
+'cq11':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#001a2e"/><text x="210" y="18" text-anchor="middle" fill="#38bdf8" font-size="13" font-weight="bold">Marked Price — Discount and Profit Both</text><g id="c11given" opacity="0"><text x="30" y="54" fill="#fff" font-size="12">CP = Rs 4500, Profit = 8%, Discount = 10%</text></g><g id="c11sp" opacity="0"><text x="30" y="82" fill="#ffd700" font-size="12">SP = CP x 1.08 = 4500 x 1.08 = Rs 4860</text></g><g id="c11mp" opacity="0"><text x="30" y="110" fill="#ffd700" font-size="12">SP = MP x 90/100  (after 10% disc)</text><text x="30" y="130" fill="#fff" font-size="12">MP = SP x 100/90 = 4860 x 100/90</text></g><g id="c11ans" opacity="0"><rect x="25" y="146" width="200" height="26" rx="6" fill="rgba(46,204,113,0.2)" stroke="#2ecc71" stroke-width="1.5"/><text x="125" y="163" text-anchor="middle" fill="#2ecc71" font-size="15" font-weight="bold">MP = Rs 5400</text></g></svg>',
+
+'cq12':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#001a2e"/><text x="210" y="18" text-anchor="middle" fill="#38bdf8" font-size="13" font-weight="bold">SI vs CI Difference</text><g id="c12si" opacity="0"><text x="30" y="54" fill="#fff" font-size="12">P=8000, R=10%, T=2 years</text><text x="30" y="74" fill="#ffd700" font-size="12">SI = 8000 x 10 x 2 / 100 = Rs 1600</text></g><g id="c12ci" opacity="0"><text x="30" y="102" fill="#ffd700" font-size="12">CI Year 1: 10% of 8000 = Rs 800</text><text x="30" y="122" fill="#ffd700" font-size="12">CI Year 2: 10% of 8800 = Rs 880</text><text x="30" y="142" fill="#fff" font-size="12">Total CI = 800 + 880 = Rs 1680</text></g><g id="c12ans" opacity="0"><rect x="25" y="154" width="240" height="20" rx="5" fill="rgba(46,204,113,0.15)" stroke="#2ecc71" stroke-width="1"/><text x="145" y="168" text-anchor="middle" fill="#2ecc71" font-size="13" font-weight="bold">Difference = 1680 - 1600 = Rs 80</text></g></svg>',
+
+'cq13':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#001a2e"/><text x="210" y="18" text-anchor="middle" fill="#38bdf8" font-size="13" font-weight="bold">Successive % Change — Net Effect</text><g id="c13start" opacity="0"><text x="30" y="56" fill="#fff" font-size="14">Start: 100</text></g><g id="c13up" opacity="0"><text x="30" y="86" fill="#2ecc71" font-size="14">+20%: 100 x 1.2 = 120</text></g><g id="c13down" opacity="0"><text x="30" y="116" fill="#e74c3c" font-size="14">-20%: 120 x 0.8 = 96</text></g><g id="c13result" opacity="0"><text x="30" y="146" fill="#ffd700" font-size="13">Net change = 96 - 100 = -4</text><rect x="25" y="154" width="250" height="20" rx="5" fill="rgba(231,76,60,0.15)" stroke="#e74c3c" stroke-width="1"/><text x="150" y="168" text-anchor="middle" fill="#e74c3c" font-size="13" font-weight="bold">4% decrease!</text></g></svg>',
+
+'cq14':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#001a2e"/><text x="210" y="18" text-anchor="middle" fill="#38bdf8" font-size="13" font-weight="bold">Finding the Rate of Interest</text><g id="c14formula" opacity="0"><rect x="50" y="28" width="320" height="26" rx="7" fill="rgba(56,189,248,0.1)" stroke="#38bdf8" stroke-width="1.5"/><text x="210" y="46" text-anchor="middle" fill="#38bdf8" font-size="13">SI = PRT/100  rearrange: R = SI x 100 / PT</text></g><g id="c14calc" opacity="0"><text x="30" y="84" fill="#fff" font-size="13">SI=1260, P=7000, T=3</text><text x="30" y="106" fill="#ffd700" font-size="13">R = 1260 x 100 / (7000 x 3)</text><text x="30" y="128" fill="#ffd700" font-size="13">R = 126000 / 21000</text></g><g id="c14ans" opacity="0"><rect x="25" y="144" width="150" height="28" rx="6" fill="rgba(46,204,113,0.2)" stroke="#2ecc71" stroke-width="1.5"/><text x="100" y="163" text-anchor="middle" fill="#2ecc71" font-size="18" font-weight="bold">R = 6%</text></g></svg>',
+
+'cq15':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#001a2e"/><text x="210" y="18" text-anchor="middle" fill="#38bdf8" font-size="13" font-weight="bold">Doubling Rate — Compound Interest</text><g id="c15setup" opacity="0"><text x="30" y="54" fill="#fff" font-size="12">If money doubles: A = 2P in T = 2 years</text></g><g id="c15calc" opacity="0"><text x="30" y="82" fill="#ffd700" font-size="12">2 = (1 + R/100)^2</text><text x="30" y="102" fill="#ffd700" font-size="12">Root 2 = 1 + R/100</text><text x="30" y="122" fill="#ffd700" font-size="12">1.414 = 1 + R/100</text><text x="30" y="142" fill="#fff" font-size="12">R/100 = 0.414   R approx 41.4%</text></g><g id="c15ans" opacity="0"><rect x="25" y="154" width="260" height="20" rx="5" fill="rgba(46,204,113,0.15)" stroke="#2ecc71" stroke-width="1"/><text x="155" y="168" text-anchor="middle" fill="#2ecc71" font-size="13" font-weight="bold">Approx 41% CI to double in 2 years</text></g></svg>'
 };
-
-function buildSession(){
-  const first=QB[0];
-  const rest=QB.slice(1).sort(()=>Math.random()-.5);
-  session=[first,...rest.slice(0,PER_SESSION-1)];
+return s[type]||'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg"><rect width="420" height="178" fill="#001a2e"/><text x="210" y="89" text-anchor="middle" fill="#555" font-size="14">Loading...</text></svg>';
 }
 
-function showQ(){
-  if(idx>=session.length){onComplete();return;}
-  const q=session[idx];stepIdx=0;nudgeCount=0;
-  updateProg();
-  const area=document.getElementById('qArea');area.innerHTML='';
-  const qcard=document.createElement('div');qcard.className='q-card';
-  qcard.innerHTML=`<div class="q-label">Question ${idx+1} of ${PER_SESSION}</div><div class="q-text">${q.q}</div><button class="btn-speak" onclick="speakRaw(\`${q.qs.replace(/`/g,"'")}\`)">🔊 Hear the question</button>`;
-  area.appendChild(qcard);
-  const sc=document.createElement('div');sc.className='q-card';
-  sc.innerHTML=`<div class="q-label">📖 Explanation — Step by Step</div><div id="stepsWrap"></div><button class="btn-speak" id="nxtStepBtn" onclick="nextStep()" style="margin-top:12px;">▶ Next Step</button>`;
-  area.appendChild(sc);
-  setTimeout(nextStep,600);
+function runAnim(type){
+var fns={
+'cq1':function(){fade('c1formula','1');at(700,function(){fade('c1calc','1');});at(2400,function(){fade('c1ans','1');});},
+'cq2':function(){fade('c2formula','1');at(700,function(){fade('c2calc','1');});at(2400,function(){fade('c2ans','1');});},
+'cq3':function(){fade('c3expr','1');at(700,function(){fade('c3calc','1');});at(1800,function(){fade('c3ans','1');});},
+'cq4':function(){fade('c4formula','1');at(700,function(){fade('c4calc','1');});at(2400,function(){fade('c4ans','1');});},
+'cq5':function(){fade('c5formula','1');at(700,function(){fade('c5values','1');});at(1600,function(){fade('c5calc','1');});at(2800,function(){fade('c5ans','1');});},
+'cq6':function(){fade('c6y1','1');at(1600,function(){fade('c6y2','1');});at(2800,function(){fade('c6ans','1');});},
+'cq7':function(){fade('c7formula','1');at(700,function(){fade('c7bar','1');});at(1400,function(){fade('c7disc','1');});at(2200,function(){fade('c7calc','1');});at(3200,function(){fade('c7ans','1');});},
+'cq8':function(){fade('c8formula','1');at(700,function(){fade('c8calc','1');});at(2400,function(){fade('c8ans','1');});},
+'cq9':function(){fade('c9def','1');at(700,function(){fade('c9calc','1');});at(2200,function(){fade('c9ans','1');});},
+'cq10':function(){fade('c10formula','1');at(700,function(){fade('c10calc','1');});at(2600,function(){fade('c10ans','1');});},
+'cq11':function(){fade('c11given','1');at(700,function(){fade('c11sp','1');});at(1800,function(){fade('c11mp','1');});at(3000,function(){fade('c11ans','1');});},
+'cq12':function(){fade('c12si','1');at(1000,function(){fade('c12ci','1');});at(2600,function(){fade('c12ans','1');});},
+'cq13':function(){fade('c13start','1');at(800,function(){fade('c13up','1');});at(1800,function(){fade('c13down','1');});at(2800,function(){fade('c13result','1');});},
+'cq14':function(){fade('c14formula','1');at(700,function(){fade('c14calc','1');});at(2400,function(){fade('c14ans','1');});},
+'cq15':function(){fade('c15setup','1');at(700,function(){fade('c15calc','1');});at(2600,function(){fade('c15ans','1');});}
+};
+if(fns[type])fns[type]();
 }
 
-function nextStep(){
-  const q=session[idx];
-  if(stepIdx>=q.steps.length){document.getElementById('nxtStepBtn').style.display='none';showConfirm();return;}
-  const s=q.steps[stepIdx];
-  const wrap=document.getElementById('stepsWrap');
-  const d=document.createElement('div');d.className='step';
-  d.innerHTML=`<div class="step-num">${stepIdx+1}</div><div class="step-body">${s.t}</div>`;
-  wrap.appendChild(d);setTimeout(()=>d.classList.add('vis'),50);
-  setTimeout(()=>speakRaw(s.s),300);stepIdx++;
+var cur=0,score=0,answered=false;
+function loadQ(i){
+  answered=false;
+  var q=questions[i];
+  G('qNumber').textContent='Question '+(i+1)+' of 15';
+  G('qText').textContent=q.q;
+  G('feedback').textContent='';G('feedback').className='feedback';
+  G('nextBtn').style.display='none';
+  G('progressBar').style.width=(i/15*100)+'%';
+  G('scorePill').textContent='Score: '+score+' / 15';
+  var og=G('optionsGrid');og.innerHTML='';
+  q.opts.forEach(function(o,idx){
+    var b=document.createElement('button');b.className='opt';b.textContent=o;
+    b.onclick=function(){checkAns(idx);};og.appendChild(b);
+  });
+  clearAt();
+  G('animCanvas').innerHTML=getAnimSVG(q.anim);
+  at(400,function(){runAnim(q.anim);});
+  G('bubble').textContent=q.narr.substring(0,78)+'...';
+  at(300,function(){say(q.narr);});
 }
-
-function showConfirm(){
-  const q=session[idx];const area=document.getElementById('qArea');
-  const c=document.createElement('div');c.className='confirm-wrap';c.id='cWrap';
-  c.innerHTML=`<div class="confirm-title">🎤 Rishika asks — answer to move on!</div><div class="confirm-q">${q.cq}</div><button class="mic-btn" id="micBtn" onclick="startListen()">🎤 Tap and Speak Your Answer</button><div class="transcript" id="tbox"></div><div class="result-box" id="rbox"></div><div class="nudge" id="nudgeBox"></div><button class="btn-next" id="btnNext" onclick="goNext()">Next Question ▶</button>`;
-  area.appendChild(c);c.scrollIntoView({behavior:'smooth',block:'center'});
-  setTimeout(()=>speakRaw(q.cqs),600);
-}
-
-function goNext(){idx++;document.getElementById('qArea').innerHTML='';showQ();window.scrollTo({top:0,behavior:'smooth'});}
-
-function onComplete(){
-  const prog=JSON.parse(localStorage.getItem('rishi_progress')||'{}');
-  prog.explain_comparing_done=true;localStorage.setItem('rishi_progress',JSON.stringify(prog));
-  completed=true;document.getElementById('doneBanner').classList.add('show');unlockNav();
-  document.getElementById('lockTip').style.display='none';
-  const st=JSON.parse(localStorage.getItem('rishi_current_student')||'{}');
-  const nm=st.studentName?st.studentName.split(' ')[0]:'champion';
-  const area=document.getElementById('qArea');
-  const cel=document.createElement('div');cel.className='rishika-wrap';
-  cel.innerHTML=`<div class="rishika-avatar">👩‍🏫</div><div class="rishika-bubble"><div class="rishika-name">Rishika</div><div class="rishika-text" id="celText">🎉 Brilliant, <span class="hl">${nm}</span>! You've mastered <span class="hl">Comparing Quantities</span>! Profit, loss, discount, SI, CI, GST — you now understand the maths behind every transaction in the real world! 🌟 Practice is unlocked! 💪</div><button class="btn-speak" onclick="speakEl('celText')">🔊 Hear Rishika</button></div>`;
-  area.appendChild(cel);setTimeout(()=>speakEl('celText'),400);
-}
-
-function unlockNav(){document.getElementById('btnPractice').classList.remove('locked');document.getElementById('btnExam').classList.remove('locked');}
-function goPractice(){if(!completed){alert('Complete all explanations first!');return;}window.location.href='/practice/arithmetic/comparing-quantities.html';}
-function goExam(){if(!completed){alert('Complete explanations and practice first!');return;}window.location.href='/exam/arithmetic/comparing-quantities.html';}
-
-function setupRecog(){
-  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR)return;
-  recog=new SR();recog.lang='en-IN';recog.continuous=false;recog.interimResults=false;
-  recog.onresult=e=>handleAnswer(e.results[0][0].transcript.toLowerCase().trim());
-  recog.onerror=()=>{setListen(false);showNudge("I couldn't hear that — tap the mic and try again! 😊");};
-  recog.onend=()=>setListen(false);
-}
-function startListen(){
-  if(!recog){showNudge("Voice not supported. Try Chrome on desktop! 🎤");return;}
-  if(listening){recog.stop();return;}
-  setListen(true);
-  const tb=document.getElementById('tbox');if(tb){tb.classList.add('show');tb.textContent='🎤 Listening...';}
-  recog.start();
-}
-function setListen(on){
-  listening=on;
-  const btn=document.getElementById('micBtn');
-  if(btn){btn.className='mic-btn'+(on?' on':'');btn.textContent=on?'🎤 Listening...':'🎤 Tap and Speak Your Answer';}
-}
-function handleAnswer(text){
-  const tb=document.getElementById('tbox');if(tb)tb.textContent='"'+text+'"';
-  const q=session[idx];
-  const ok=q.ans.some(a=>text.includes(a.toLowerCase())||a.toLowerCase().includes(text));
-  const rb=document.getElementById('rbox');
-  if(ok){
-    rb.className='result-box ok';rb.textContent='✅ Correct! Excellent!';
-    document.getElementById('nudgeBox').classList.remove('show');
-    const nb=document.getElementById('btnNext');if(nb)nb.classList.add('show');
-    speakRaw("Correct! Excellent! Tap next question to continue.");
-  } else {
-    nudgeCount++;rb.className='result-box no';rb.textContent='❌ Not quite — listen to my hint!';
-    const nudge=q.nudges[Math.min(nudgeCount-1,q.nudges.length-1)];
-    showNudge(nudge);speakRaw(nudge.replace(/[🤔😄🚀]/g,''));
-    if(nudgeCount>=3){const nb=document.getElementById('btnNext');if(nb){nb.classList.add('show');nb.textContent="I Understand — Next Question ▶";}}
+function checkAns(idx){
+  if(answered)return;answered=true;
+  var q=questions[cur];
+  var opts=G('optionsGrid').querySelectorAll('.opt');
+  opts.forEach(function(b){b.disabled=true;});
+  if(idx===q.ans){
+    opts[idx].classList.add('correct');score++;
+    G('feedback').textContent='Correct! Well done!';G('feedback').className='feedback correct';
+    G('scorePill').textContent='Score: '+score+' / 15';
+    say('Excellent! That is correct!');
+  }else{
+    opts[idx].classList.add('wrong');opts[q.ans].classList.add('correct');
+    G('feedback').textContent='Incorrect. Right answer: '+q.opts[q.ans];G('feedback').className='feedback wrong';
+    say('Not quite. The correct answer is '+q.opts[q.ans]);
   }
+  G('nextBtn').style.display='block';
 }
-function showNudge(msg){const n=document.getElementById('nudgeBox');if(n){n.textContent=msg;n.classList.add('show');}}
-function speakEl(id){const el=document.getElementById(id);if(!el)return;speakRaw(el.innerText||el.textContent);}
-function speakRaw(text){
-  if(!window.speechSynthesis)return;
-  window.speechSynthesis.cancel();
-  const u=new SpeechSynthesisUtterance(text);
-  u.lang='en-IN';u.rate=0.85;u.pitch=1.2;
-  const vs=window.speechSynthesis.getVoices();
-  const v=vs.find(v=>v.lang.startsWith('en-IN')&&v.name.toLowerCase().includes('female'))
-    ||vs.find(v=>(v.lang.startsWith('en-IN')||v.lang.startsWith('en-GB'))&&v.name.toLowerCase().includes('female'))
-    ||vs.find(v=>v.name.toLowerCase().includes('zira'))
-    ||vs.find(v=>v.name.toLowerCase().includes('hazel'))
-    ||vs.find(v=>v.name.toLowerCase().includes('female'))
-    ||vs.find(v=>v.name.toLowerCase().includes('samantha'))
-    ||vs.find(v=>v.lang.startsWith('en-IN'))
-    ||vs.find(v=>v.lang.startsWith('en-GB'));
-  if(v)u.voice=v;
-  window.speechSynthesis.speak(u);
+function nextQ(){cur++;if(cur>=questions.length){showDone();return;}loadQ(cur);}
+function replayAnim(){
+  var q=questions[cur];clearAt();speechSynthesis.cancel();rStopTalk();
+  G('animCanvas').innerHTML=getAnimSVG(q.anim);
+  at(200,function(){runAnim(q.anim);});at(400,function(){say(q.narr);});
 }
-window.addEventListener('beforeunload',()=>{window.speechSynthesis&&window.speechSynthesis.cancel();});
-window.addEventListener('pagehide',()=>{window.speechSynthesis&&window.speechSynthesis.cancel();});
-window.speechSynthesis&&window.speechSynthesis.addEventListener('voiceschanged',()=>{});
-function updateProg(){
-  const pct=Math.round((idx/PER_SESSION)*100);
-  document.getElementById('progFill').style.width=pct+'%';
-  document.getElementById('progLabel').textContent=`Question ${idx+1} of ${PER_SESSION}`;
-  document.getElementById('progPct').textContent=pct+'% complete';
+function showDone(){
+  G('mainArea').style.display='none';G('doneScreen').style.display='flex';
+  G('progressBar').style.width='100%';
+  G('doneScore').textContent='You scored '+score+' out of 15!';
+  localStorage.setItem('explain_comparing_done','1');
+  say('Congratulations! You have completed Comparing Quantities! You scored '+score+' out of 15!');
 }
-function openBreak(){document.getElementById('breakOverlay').classList.add('show');}
-function closeBreak(){document.getElementById('breakOverlay').classList.remove('show');}
-function startBreak(reason){
-  closeBreak();breakSecs=0;
-  document.getElementById('timerLabel').textContent=reason;
-  document.getElementById('timerNum').textContent='00:00';
-  document.getElementById('timerScreen').classList.add('show');
-  breakTmr=setInterval(()=>{
-    breakSecs++;
-    const m=String(Math.floor(breakSecs/60)).padStart(2,'0');
-    const s=String(breakSecs%60).padStart(2,'0');
-    document.getElementById('timerNum').textContent=m+':'+s;
-  },1000);
-}
-function endBreak(){clearInterval(breakTmr);document.getElementById('timerScreen').classList.remove('show');}
-function openGames(){closeBreak();document.getElementById('gamesOverlay').classList.add('show');}
-function closeGames(){document.getElementById('gamesOverlay').classList.remove('show');}
+window.onload=function init(){initVoices(function(){startBlink();loadQ(0);});};
+window.addEventListener('beforeunload',function(){speechSynthesis.cancel();});
+window.addEventListener('pagehide',function(){speechSynthesis.cancel();});
 </script>
 </body>
 </html>
