@@ -1,0 +1,1930 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RISHI – Parent Portal</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy:#0F2240; --navy2:#1A3560; --gold:#F59E0B; --gold2:#FDE68A;
+  --green:#059669; --red:#DC2626; --amber:#D97706;
+  --bg:#EEF2F7; --card:#FFFFFF; --border:#E2E8F0;
+  --text:#1E293B; --muted:#64748B; --light:#F8FAFC;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+button{font-family:'Outfit',sans-serif;}
+
+/* ====== LOGIN ====== */
+#login-screen{
+  min-height:100vh;display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(140deg,#0A1628 0%,#0F2240 45%,#1A3560 100%);
+  padding:20px;position:relative;overflow:hidden;
+}
+#login-screen::before{
+  content:'';position:absolute;width:500px;height:500px;
+  background:radial-gradient(circle,rgba(245,158,11,.12) 0%,transparent 70%);
+  top:-150px;right:-150px;
+}
+#login-screen::after{
+  content:'';position:absolute;width:400px;height:400px;
+  background:radial-gradient(circle,rgba(26,53,96,.6) 0%,transparent 70%);
+  bottom:-100px;left:-100px;
+}
+.login-box{
+  background:white;border-radius:24px;padding:40px 36px;
+  max-width:420px;width:100%;
+  box-shadow:0 30px 80px rgba(0,0,0,.35);position:relative;z-index:1;
+}
+.login-rishi{font-size:30px;font-weight:900;letter-spacing:4px;color:var(--navy);}
+.login-rishi span{color:var(--gold);}
+.login-tag{font-size:12px;color:var(--muted);margin-bottom:28px;font-weight:600;letter-spacing:.5px;}
+.login-lbl{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:var(--muted);display:block;margin-bottom:6px;}
+.login-field{margin-bottom:14px;}
+.login-inp{
+  width:100%;padding:13px 14px;border:2px solid var(--border);
+  border-radius:12px;font-size:14px;font-family:'Outfit',sans-serif;
+  outline:none;transition:border .2s;color:var(--text);background:var(--light);
+}
+.login-inp:focus{border-color:var(--navy);background:white;}
+.login-err{font-size:12px;color:var(--red);margin-top:8px;font-weight:600;display:none;}
+.login-err.show{display:block;}
+.btn-login{
+  width:100%;padding:14px;background:var(--navy);color:white;
+  border:none;border-radius:12px;font-size:14px;font-weight:800;
+  cursor:pointer;margin-top:6px;transition:all .2s;letter-spacing:.5px;
+}
+.btn-login:hover{background:var(--navy2);transform:translateY(-1px);box-shadow:0 8px 24px rgba(15,34,64,.3);}
+.login-note{font-size:10px;color:#CBD5E1;text-align:center;margin-top:14px;line-height:1.6;}
+
+/* ====== HEADER ====== */
+.hdr{
+  background:var(--navy);color:white;padding:0 24px;
+  display:flex;align-items:center;gap:16px;height:58px;
+  box-shadow:0 2px 12px rgba(0,0,0,.2);
+}
+.hdr-logo{font-size:20px;font-weight:900;letter-spacing:3px;}
+.hdr-logo span{color:var(--gold);}
+.hdr-sep{width:1px;height:26px;background:rgba(255,255,255,.2);}
+.hdr-title{font-size:13px;font-weight:600;color:rgba(255,255,255,.8);}
+.hdr-r{margin-left:auto;display:flex;align-items:center;gap:10px;}
+.hdr-badge{
+  font-size:10px;font-weight:700;padding:4px 11px;border-radius:20px;
+  background:rgba(245,158,11,.15);color:var(--gold2);
+  border:1px solid rgba(245,158,11,.3);
+}
+.btn-out-hdr{
+  font-size:11px;font-weight:600;padding:5px 12px;border-radius:8px;
+  background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);
+  color:rgba(255,255,255,.65);cursor:pointer;transition:all .2s;
+}
+.btn-out-hdr:hover{background:rgba(255,255,255,.15);color:white;}
+
+/* ====== TABS ====== */
+.tab-bar{
+  background:var(--navy2);display:flex;padding:0 24px;
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+.tab-btn{
+  padding:13px 18px;font-size:12px;font-weight:700;
+  color:rgba(255,255,255,.45);cursor:pointer;border:none;
+  background:none;border-bottom:3px solid transparent;
+  margin-bottom:-1px;transition:all .2s;letter-spacing:.3px;
+}
+.tab-btn.on{color:var(--gold);border-bottom-color:var(--gold);}
+.tab-btn:hover:not(.on){color:rgba(255,255,255,.75);}
+
+/* ====== MAIN WRAP ====== */
+.wrap{max-width:1080px;margin:0 auto;padding:22px 16px 48px;}
+
+/* ====== CARDS ====== */
+.card{
+  background:var(--card);border-radius:16px;padding:22px;
+  margin-bottom:14px;border:1px solid var(--border);
+  box-shadow:0 1px 4px rgba(0,0,0,.05),0 4px 14px rgba(0,0,0,.04);
+}
+.card-title{
+  font-size:11px;font-weight:800;text-transform:uppercase;
+  letter-spacing:1.2px;color:var(--navy);margin-bottom:16px;
+  display:flex;align-items:center;gap:10px;
+}
+.step-badge{
+  width:24px;height:24px;border-radius:50%;
+  background:var(--navy);color:white;
+  display:flex;align-items:center;justify-content:center;
+  font-size:11px;font-weight:900;flex-shrink:0;
+}
+.step-badge.done{background:var(--green);}
+
+/* ====== EXAM GRID ====== */
+.exam-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
+@media(max-width:580px){.exam-grid{grid-template-columns:repeat(2,1fr);}}
+.exam-tile{
+  border:2px solid var(--border);border-radius:14px;
+  padding:16px 10px;text-align:center;cursor:pointer;
+  transition:all .2s;background:var(--light);
+}
+.exam-tile:hover{border-color:var(--navy);background:white;transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.08);}
+.exam-tile.sel{border-color:var(--ec);background:var(--eb);box-shadow:0 4px 16px rgba(0,0,0,.1);}
+.exam-icon{font-size:22px;margin-bottom:6px;}
+.exam-name{font-size:12px;font-weight:800;color:var(--text);}
+.exam-sub{font-size:10px;color:var(--muted);margin-top:2px;font-weight:500;}
+
+/* ====== CHAPTER LIST ====== */
+.ch-top{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap;}
+.topic-grp{margin-bottom:14px;}
+.topic-lbl{
+  font-size:9px;font-weight:800;text-transform:uppercase;
+  letter-spacing:1.5px;color:var(--muted);margin-bottom:6px;
+}
+.ch-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:5px;}
+@media(max-width:480px){.ch-grid{grid-template-columns:1fr;}}
+.ch-tile{
+  display:flex;align-items:center;gap:7px;
+  padding:8px 10px;border:1.5px solid var(--border);
+  border-radius:9px;cursor:pointer;
+  transition:all .15s;background:var(--light);user-select:none;
+}
+.ch-tile:hover{border-color:#94A3B8;background:white;}
+.ch-tile.sel{border-color:var(--chc);background:var(--chb);}
+.ch-tile input[type=checkbox]{accent-color:var(--navy);width:14px;height:14px;cursor:pointer;flex-shrink:0;}
+.ch-nbadge{
+  font-size:9px;font-weight:800;color:white;
+  width:20px;height:20px;border-radius:5px;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.ch-lbl{font-size:11px;font-weight:600;color:var(--text);line-height:1.25;}
+
+/* ====== DATE TABLE ====== */
+.quick-bar{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px;}
+.qd-btn{
+  font-size:10px;font-weight:700;padding:5px 11px;
+  border-radius:7px;cursor:pointer;border:1.5px solid var(--border);
+  background:var(--light);color:var(--muted);transition:all .15s;
+}
+.qd-btn:hover{border-color:var(--navy);color:var(--navy);background:white;}
+.dt-wrap{overflow-x:auto;}
+.dt-tbl{width:100%;border-collapse:separate;border-spacing:0 4px;min-width:520px;}
+.dt-tbl th{
+  font-size:9px;font-weight:800;text-transform:uppercase;
+  letter-spacing:1px;color:var(--muted);padding:0 8px 4px;text-align:left;
+}
+.dt-row td{
+  padding:8px;background:var(--light);
+  border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+}
+.dt-row td:first-child{border-left:1px solid var(--border);border-radius:10px 0 0 10px;padding-left:12px;}
+.dt-row td:last-child{border-right:1px solid var(--border);border-radius:0 10px 10px 0;padding-right:12px;}
+.dt-ch{font-size:12px;font-weight:600;display:flex;align-items:center;gap:7px;}
+.dt-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.dt-inp{
+  width:100%;padding:7px 8px;border:1.5px solid var(--border);
+  border-radius:8px;font-size:12px;font-family:'Outfit',sans-serif;
+  outline:none;background:white;cursor:pointer;color:var(--text);transition:border .2s;
+}
+.dt-inp:focus{border-color:var(--navy);}
+.dt-days{font-size:11px;font-weight:700;text-align:center;white-space:nowrap;}
+.dt-days.ok{color:var(--green);}
+.dt-days.warn{color:var(--amber);}
+.dt-days.err{color:var(--red);}
+.dt-days.na{color:#CBD5E1;}
+
+/* ====== CALENDAR ====== */
+.cal-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
+.cal-nav{
+  background:var(--light);border:1px solid var(--border);
+  border-radius:8px;padding:6px 13px;cursor:pointer;
+  font-size:12px;font-weight:700;color:var(--text);transition:background .15s;
+}
+.cal-nav:hover{background:var(--border);}
+.cal-nav-lbl{font-size:13px;font-weight:800;color:var(--navy);}
+.cal-months{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+@media(max-width:600px){.cal-months{grid-template-columns:1fr;}}
+.cal-mtitle{font-size:12px;font-weight:700;text-align:center;color:var(--text);margin-bottom:8px;}
+.cal-wkhdr{display:grid;grid-template-columns:repeat(7,1fr);margin-bottom:3px;}
+.cal-wkhdr span{font-size:9px;font-weight:700;text-align:center;color:#CBD5E1;padding:2px 0;}
+.cal-cells{display:grid;grid-template-columns:repeat(7,1fr);gap:1px;}
+.cal-cell{min-height:38px;border-radius:5px;padding:2px 1px;}
+.cal-cell.today{background:rgba(15,34,64,.06);}
+.cal-cell.today .day-n{color:var(--navy);font-weight:800;}
+.cal-cell.othermon .day-n{color:#E2E8F0;}
+.day-n{font-size:9px;text-align:center;color:#94A3B8;font-weight:600;line-height:1.9;}
+.day-bars{display:flex;flex-direction:column;gap:1px;padding:0 1px;}
+.day-bar{height:3px;border-radius:2px;}
+.day-sd{width:5px;height:5px;border-radius:50%;background:#22C55E;margin:1px auto 0;}
+.day-td{width:6px;height:6px;border-radius:50%;background:var(--red);margin:1px auto 0;border:1px solid white;}
+.legend{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;padding-top:12px;border-top:1px solid var(--border);}
+.leg-item{display:flex;align-items:center;gap:5px;font-size:10px;color:var(--muted);font-weight:500;}
+.leg-bar{width:13px;height:3px;border-radius:2px;}
+.leg-dot{width:6px;height:6px;border-radius:50%;}
+
+/* ====== ALERTS ====== */
+.alert{display:flex;gap:9px;padding:11px 13px;border-radius:10px;margin-bottom:7px;font-size:12px;line-height:1.5;font-weight:500;}
+.a-ico{font-size:14px;flex-shrink:0;margin-top:1px;}
+.a-err{background:#FEF2F2;border:1px solid #FCA5A5;color:#991B1B;}
+.a-warn{background:#FFFBEB;border:1px solid #FCD34D;color:#92400E;}
+.a-ok{background:#ECFDF5;border:1px solid #6EE7B7;color:#065F46;}
+
+/* ====== BUTTONS ====== */
+.btn{
+  padding:11px 20px;border-radius:10px;font-size:13px;
+  font-weight:700;cursor:pointer;border:none;
+  transition:all .2s;display:inline-flex;align-items:center;gap:6px;
+}
+.btn-pri{background:var(--navy);color:white;box-shadow:0 3px 10px rgba(15,34,64,.2);}
+.btn-pri:hover{background:var(--navy2);transform:translateY(-1px);box-shadow:0 6px 18px rgba(15,34,64,.3);}
+.btn-pri:disabled{opacity:.35;cursor:not-allowed;transform:none;box-shadow:none;}
+.btn-ghost{background:var(--light);border:1.5px solid var(--border);color:var(--muted);}
+.btn-ghost:hover{border-color:var(--navy);color:var(--navy);background:white;}
+.btn-sm{padding:5px 11px;font-size:10px;border-radius:7px;}
+.btn-del{background:white;border:1.5px solid #FCA5A5;color:var(--red);}
+.btn-del:hover{background:#FEF2F2;}
+
+/* ====== SECTION HEADER ====== */
+.sec-hdr{
+  font-size:13px;font-weight:800;color:var(--navy);
+  margin:22px 0 11px;display:flex;align-items:center;gap:10px;
+  text-transform:uppercase;letter-spacing:.8px;
+}
+.sec-hdr::after{content:'';flex:1;height:1px;background:var(--border);}
+
+/* ====== ACTIVE PLANS ====== */
+.plan-card{
+  background:white;border-radius:14px;padding:15px 17px;
+  margin-bottom:10px;border:1px solid var(--border);
+  border-left:4px solid var(--pc);
+  box-shadow:0 1px 4px rgba(0,0,0,.04);
+}
+.plan-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;}
+.plan-name{font-size:14px;font-weight:800;color:var(--navy);}
+.plan-actions{display:flex;align-items:center;gap:7px;}
+.plan-meta{font-size:11px;color:var(--muted);margin-bottom:8px;font-weight:500;}
+.p-badge{font-size:10px;font-weight:700;padding:3px 9px;border-radius:20px;}
+.p-active{background:#ECFDF5;color:#065F46;}
+.p-upcoming{background:#EFF6FF;color:#1D4ED8;}
+.p-done{background:var(--light);color:#94A3B8;}
+.plan-chs{display:flex;flex-direction:column;gap:4px;}
+.plan-ch-row{display:flex;align-items:center;gap:6px;}
+.ch-chip{font-size:10px;font-weight:700;padding:2px 7px;border-radius:5px;color:white;flex-shrink:0;}
+.ch-chip-name{font-size:11px;color:var(--muted);flex:1;}
+.dl-badge{font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;}
+.dl-good{background:#ECFDF5;color:#065F46;}
+.dl-warn{background:#FFFBEB;color:#92400E;}
+.dl-hot{background:#FEF2F2;color:#991B1B;}
+.dl-done{background:var(--light);color:#94A3B8;}
+
+/* ====== PROGRESS ====== */
+.prog-row{margin-bottom:13px;}
+.prog-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:5px;}
+.prog-name{font-size:12px;font-weight:600;display:flex;align-items:center;gap:6px;}
+.prog-right{display:flex;align-items:center;gap:7px;}
+.prog-pct{font-size:11px;font-weight:700;color:var(--muted);}
+.prog-bg{height:6px;background:var(--border);border-radius:3px;overflow:hidden;}
+.prog-fill{height:100%;border-radius:3px;transition:width .6s ease;}
+
+/* ====== MODAL ====== */
+.modal-bg{
+  display:none;position:fixed;inset:0;
+  background:rgba(15,34,64,.55);z-index:500;
+  align-items:center;justify-content:center;
+  padding:20px;backdrop-filter:blur(3px);
+}
+.modal-bg.show{display:flex;}
+.modal-box{
+  background:white;border-radius:20px;padding:28px;
+  max-width:450px;width:100%;
+  box-shadow:0 25px 60px rgba(0,0,0,.25);
+}
+.modal-ttl{font-size:17px;font-weight:800;color:var(--navy);margin-bottom:10px;}
+.modal-body{font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:22px;max-height:50vh;overflow-y:auto;}
+.modal-btns{display:flex;gap:10px;justify-content:flex-end;}
+
+/* ====== ANALYTICS ====== */
+.dash-hero{
+  background:linear-gradient(130deg,#0A1628 0%,#0F2240 55%,#162F55 100%);
+  border-radius:20px;padding:28px 26px;display:flex;gap:28px;align-items:center;
+  margin-bottom:18px;position:relative;overflow:hidden;
+  box-shadow:0 8px 32px rgba(10,22,40,.35);
+}
+.dash-hero::after{
+  content:'';position:absolute;right:-60px;top:-60px;
+  width:260px;height:260px;border-radius:50%;
+  background:radial-gradient(circle,rgba(245,158,11,.1) 0%,transparent 70%);
+  pointer-events:none;
+}
+.hero-left{flex-shrink:0;}
+.hero-ring-wrap{position:relative;width:120px;height:120px;}
+.hero-ring{width:120px;height:120px;}
+.hero-ring-inner{
+  position:absolute;inset:0;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+}
+.hero-pct{font-size:26px;font-weight:900;color:white;line-height:1;}
+.hero-pct-lbl{font-size:9px;font-weight:700;color:rgba(255,255,255,.45);text-transform:uppercase;letter-spacing:.8px;margin-top:2px;}
+.hero-right{flex:1;min-width:0;}
+.hero-title{font-size:18px;font-weight:800;color:white;margin-bottom:5px;}
+.hero-sub{font-size:11px;color:rgba(255,255,255,.45);line-height:1.6;margin-bottom:18px;max-width:400px;}
+.hero-kpis{display:flex;gap:14px;flex-wrap:wrap;}
+.hero-kpi{text-align:center;}
+.hkpi-n{font-size:22px;font-weight:900;color:var(--gold);}
+.hkpi-l{font-size:9px;color:rgba(255,255,255,.4);font-weight:600;text-transform:uppercase;letter-spacing:.6px;margin-top:1px;}
+.hkpi-sep{width:1px;background:rgba(255,255,255,.1);align-self:stretch;}
+@media(max-width:560px){.dash-hero{flex-direction:column;}.hero-kpis{justify-content:center;}}
+
+.dash-sec-hdr{
+  font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:1px;
+  color:var(--navy);margin:0 0 14px;display:flex;align-items:center;
+  justify-content:space-between;flex-wrap:wrap;gap:8px;
+}
+.dash-sec-hdr::before{content:none;}
+
+.ch-filter-row{display:flex;gap:5px;flex-wrap:wrap;}
+.filter-btn{
+  font-size:10px;font-weight:700;padding:4px 11px;border-radius:20px;
+  cursor:pointer;border:1.5px solid var(--border);background:var(--light);
+  color:var(--muted);transition:all .15s;
+}
+.filter-btn.on{background:var(--navy);color:white;border-color:var(--navy);}
+
+.ch-intel-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(290px,1fr));
+  gap:10px;margin-bottom:18px;
+}
+.ch-card{
+  background:white;border-radius:14px;padding:14px 16px;
+  border:1px solid var(--border);position:relative;overflow:hidden;
+  transition:transform .15s,box-shadow .15s;
+  border-left:4px solid var(--ccc);
+  box-shadow:0 1px 4px rgba(0,0,0,.04);
+}
+.ch-card:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.09);}
+.ch-card.hidden-card{display:none;}
+.ch-card-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:10px;}
+.ch-card-info{flex:1;min-width:0;}
+.ch-num{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:2px;}
+.ch-card-name{font-size:13px;font-weight:700;color:var(--text);line-height:1.3;}
+.ch-topic-tag{
+  font-size:9px;font-weight:700;padding:2px 7px;border-radius:4px;
+  background:var(--ccb);color:var(--ccc);margin-top:4px;display:inline-block;
+}
+.ch-ring-wrap{position:relative;width:52px;height:52px;flex-shrink:0;margin-left:10px;}
+.ch-ring{width:52px;height:52px;}
+.ch-ring-inner{
+  position:absolute;inset:0;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+}
+.ch-ring-pct{font-size:11px;font-weight:900;color:var(--text);}
+.ch-ring-lbl2{font-size:7px;color:var(--muted);font-weight:600;text-transform:uppercase;}
+
+.ch-stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:10px;}
+.ch-stat{background:var(--light);border-radius:8px;padding:7px 6px;text-align:center;}
+.ch-stat-n{font-size:14px;font-weight:800;color:var(--text);}
+.ch-stat-l{font-size:8px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-top:1px;}
+
+.ch-bar-row{margin-bottom:7px;}
+.ch-bar-lbl{display:flex;justify-content:space-between;margin-bottom:3px;}
+.ch-bar-name{font-size:10px;font-weight:600;color:var(--muted);}
+.ch-bar-val{font-size:10px;font-weight:700;color:var(--text);}
+.ch-bar-bg{height:5px;background:var(--border);border-radius:3px;overflow:hidden;}
+.ch-bar-fill{height:100%;border-radius:3px;}
+
+.ch-badges{display:flex;gap:5px;flex-wrap:wrap;margin-top:8px;}
+.ch-badge{font-size:9px;font-weight:700;padding:2px 7px;border-radius:5px;display:flex;align-items:center;gap:3px;}
+.b-explain-yes{background:#ECFDF5;color:#065F46;}
+.b-explain-no{background:#F1F5F9;color:#94A3B8;}
+.b-streak{background:#FEF3C7;color:#92400E;}
+.b-noact{background:#FEF2F2;color:#991B1B;}
+.b-scheduled{background:#EFF6FF;color:#1D4ED8;}
+
+.ch-pred-bar{
+  height:3px;border-radius:2px;position:absolute;bottom:0;left:0;right:0;
+  background:linear-gradient(90deg,var(--ccl),var(--ccc));
+}
+
+/* Prediction legend */
+.pred-legend{
+  background:white;border-radius:14px;padding:16px 18px;
+  border:1px solid var(--border);margin-bottom:6px;
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:10px;
+}
+.pred-factor{display:flex;align-items:flex-start;gap:9px;}
+.pred-ico{font-size:16px;flex-shrink:0;margin-top:1px;}
+.pred-txt-title{font-size:11px;font-weight:700;color:var(--text);margin-bottom:1px;}
+.pred-txt-sub{font-size:10px;color:var(--muted);line-height:1.5;}
+
+/* Exam dash */
+.exam-score-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;margin-bottom:18px;}
+.ex-score-card{
+  background:white;border-radius:14px;padding:18px;
+  border:1px solid var(--border);border-top:4px solid var(--exc);
+  box-shadow:0 1px 4px rgba(0,0,0,.04);
+}
+.ex-score-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
+.ex-score-name{font-size:13px;font-weight:800;color:var(--navy);}
+.ex-score-n{font-size:28px;font-weight:900;color:var(--text);line-height:1;}
+.ex-score-den{font-size:13px;font-weight:500;color:var(--muted);}
+.ex-score-pct{font-size:11px;font-weight:700;padding:3px 9px;border-radius:20px;margin-top:4px;display:inline-block;}
+.ex-mini-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:12px;}
+.ex-mini{background:var(--light);border-radius:7px;padding:7px;text-align:center;}
+.ex-mini-n{font-size:14px;font-weight:800;color:var(--text);}
+.ex-mini-l{font-size:8px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.4px;margin-top:1px;}
+.ex-hist-row{margin-top:12px;}
+.ex-hist-lbl{font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;margin-bottom:6px;}
+.ex-hist-bars{display:flex;gap:3px;align-items:flex-end;height:40px;}
+.ex-hist-bar-wrap{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;height:100%;}
+.ex-hist-bar{width:100%;border-radius:3px 3px 0 0;background:var(--exc);opacity:.6;transition:opacity .2s;min-height:2px;}
+.ex-hist-bar:last-child,.ex-hist-bar:hover{opacity:1;}
+.ex-hist-tick{font-size:7px;color:var(--muted);font-weight:600;}
+.no-exams{
+  text-align:center;padding:32px;background:white;border-radius:14px;
+  border:1px dashed var(--border);color:var(--muted);font-size:13px;font-weight:500;
+}
+
+.hidden{display:none!important;}
+.empty{text-align:center;padding:34px 20px;}
+.empty-ico{font-size:38px;margin-bottom:10px;}
+.empty-txt{font-size:13px;color:var(--muted);font-weight:500;}
+</style>
+</head>
+<body>
+
+<!-- ===== LOGIN SCREEN ===== -->
+<div id="login-screen">
+  <div class="login-box">
+    <div class="login-rishi">RISHI<span>.</span></div>
+    <div class="login-tag">Parent Portal &mdash; Class 8 CBSE Mathematics</div>
+    <div class="login-field">
+      <label class="login-lbl">Username</label>
+      <input class="login-inp" type="text" id="login-user" value="parent" autocomplete="username">
+    </div>
+    <div class="login-field">
+      <label class="login-lbl">Password</label>
+      <input class="login-inp" type="password" id="login-pass" value="rishi2024" autocomplete="current-password" onkeydown="if(event.key==='Enter')tryLogin()">
+    </div>
+    <div class="login-err" id="login-err">Incorrect password. Please try again.</div>
+    <button class="btn-login" onclick="tryLogin()">Access Parent Portal</button>
+    <div class="login-note">This portal is for parents only. Student progress is monitored here.<br>Default password: rishi2024 &mdash; change after first login.</div>
+  </div>
+</div>
+
+<!-- ===== MAIN PORTAL ===== -->
+<div id="main-portal" class="hidden">
+
+  <div class="hdr">
+    <div class="hdr-logo">RISHI<span>.</span></div>
+    <div class="hdr-sep"></div>
+    <div class="hdr-title">Parent Portal</div>
+    <div class="hdr-r">
+      <div class="hdr-badge">&#128274; Parent</div>
+      <button class="btn-out-hdr" onclick="logout()">Sign Out</button>
+    </div>
+  </div>
+
+  <div class="tab-bar">
+    <button class="tab-btn on" id="tab-plan" onclick="switchTab('plan')">&#128203; Study Plan</button>
+    <button class="tab-btn" id="tab-prog" onclick="switchTab('prog')">&#128200; Progress</button>
+    <button class="tab-btn" id="tab-dash" onclick="switchTab('dash')">&#9889; Analytics</button>
+  </div>
+
+  <div class="wrap">
+
+    <!-- ===== PLAN TAB ===== -->
+    <div id="view-plan">
+
+      <!-- Step 1: Exam Type -->
+      <div class="card">
+        <div class="card-title"><span class="step-badge" id="sb1">1</span>Select Exam Type</div>
+        <div class="exam-grid" id="exam-grid"></div>
+      </div>
+
+      <!-- Step 2: Chapters -->
+      <div class="card hidden" id="step-chs">
+        <div class="card-title"><span class="step-badge" id="sb2">2</span>Select Chapters <span style="font-weight:500;font-size:10px;color:var(--muted);text-transform:none;letter-spacing:0">&mdash; choose any chapters for this exam</span></div>
+        <div class="ch-top">
+          <button class="btn btn-ghost btn-sm" onclick="selectAll()">Select All</button>
+          <button class="btn btn-ghost btn-sm" onclick="clearAll()">Clear All</button>
+        </div>
+        <div id="chapter-list"></div>
+      </div>
+
+      <!-- Step 3: Dates -->
+      <div class="card hidden" id="step-dates">
+        <div class="card-title"><span class="step-badge" id="sb3">3</span>Assign Study Dates</div>
+        <div class="quick-bar">
+          <span style="font-size:10px;font-weight:700;color:var(--muted);align-self:center;">Quick set:</span>
+          <button class="qd-btn" onclick="quickSet(7)">7 days each</button>
+          <button class="qd-btn" onclick="quickSet(10)">10 days each</button>
+          <button class="qd-btn" onclick="quickSet(14)">14 days each</button>
+          <button class="qd-btn" onclick="quickSet(21)">21 days each</button>
+        </div>
+        <div class="dt-wrap">
+          <div id="dt-container">
+            <div class="empty"><div class="empty-ico">&#128197;</div><div class="empty-txt">Select chapters above to assign dates</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 4: Calendar -->
+      <div class="card hidden" id="step-cal">
+        <div class="card-title"><span class="step-badge" id="sb4">4</span>Calendar Preview</div>
+        <div id="cal-container"></div>
+        <div id="cal-legend"></div>
+      </div>
+
+      <!-- Alerts -->
+      <div id="alerts-box"></div>
+
+      <!-- Lock -->
+      <div class="hidden" id="lock-section" style="text-align:right;margin-bottom:24px;">
+        <button class="btn btn-pri" id="lock-btn" onclick="lockPlan()" disabled>&#128274; Lock Study Plan</button>
+      </div>
+
+      <!-- Active Plans -->
+      <div class="sec-hdr">Active Study Plans</div>
+      <div id="active-plans-con"></div>
+
+    </div><!-- /view-plan -->
+
+    <!-- ===== PROGRESS TAB ===== -->
+    <div id="view-prog" class="hidden">
+      <div class="card">
+        <div class="card-title">&#128202; Chapter Progress</div>
+        <div id="prog-container"></div>
+      </div>
+    </div>
+
+    <!-- ===== ANALYTICS TAB ===== -->
+    <div id="view-dash" class="hidden">
+      <!-- Hero Band -->
+      <div class="dash-hero">
+        <div class="hero-left">
+          <div class="hero-ring-wrap">
+            <svg class="hero-ring" viewBox="0 0 120 120">
+              <circle cx="60" cy="60" r="50" fill="none" stroke="rgba(255,255,255,.1)" stroke-width="10"/>
+              <circle id="hero-arc" cx="60" cy="60" r="50" fill="none" stroke="url(#heroGrad)" stroke-width="10"
+                stroke-linecap="round" stroke-dasharray="314" stroke-dashoffset="314"
+                transform="rotate(-90 60 60)" style="transition:stroke-dashoffset 1.4s cubic-bezier(.4,0,.2,1)"/>
+              <defs>
+                <linearGradient id="heroGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#F59E0B"/>
+                  <stop offset="100%" stop-color="#10B981"/>
+                </linearGradient>
+              </defs>
+            </svg>
+            <div class="hero-ring-inner">
+              <div class="hero-pct" id="hero-pct">—</div>
+              <div class="hero-pct-lbl">Success Rate</div>
+            </div>
+          </div>
+        </div>
+        <div class="hero-right">
+          <div class="hero-title">Predicted Exam Readiness</div>
+          <div class="hero-sub">Based on practice accuracy, explain sessions, completion rate &amp; time remaining</div>
+          <div class="hero-kpis" id="hero-kpis"></div>
+        </div>
+      </div>
+
+      <!-- Chapter Intelligence Grid -->
+      <div class="dash-sec-hdr"><span>&#128218; Chapter Intelligence</span><span class="dash-filter-row" id="ch-filter-row"></span></div>
+      <div class="ch-intel-grid" id="ch-intel-grid"></div>
+
+      <!-- Prediction Legend -->
+      <div class="pred-legend" id="pred-legend"></div>
+
+      <!-- Exam Scores Dashboard -->
+      <div class="dash-sec-hdr" style="margin-top:28px"><span>&#127941; Exam Scores Dashboard</span></div>
+      <div id="exam-dash-con"></div>
+
+    </div><!-- /view-dash -->
+
+  </div><!-- /wrap -->
+</div><!-- /main-portal -->
+
+<!-- Lock Modal -->
+<div class="modal-bg" id="lock-modal">
+  <div class="modal-box">
+    <div class="modal-ttl">&#128274; Lock Study Plan?</div>
+    <div class="modal-body" id="modal-body-txt"></div>
+    <div class="modal-btns">
+      <button class="btn btn-ghost" onclick="closeModal()">Cancel</button>
+      <button class="btn btn-pri" onclick="confirmLock()">&#10003; Confirm &amp; Lock</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ===========================
+// DATA
+// ===========================
+var CHAPTERS = [
+  {id:1,  name:"Rational Numbers",                      topic:"Algebra"},
+  {id:2,  name:"Linear Equations in One Variable",      topic:"Algebra"},
+  {id:3,  name:"Understanding Quadrilaterals",           topic:"Geometry"},
+  {id:4,  name:"Practical Geometry",                    topic:"Geometry"},
+  {id:5,  name:"Data Handling",                         topic:"Statistics"},
+  {id:6,  name:"Squares and Square Roots",              topic:"Number System"},
+  {id:7,  name:"Cubes and Cube Roots",                  topic:"Number System"},
+  {id:8,  name:"Comparing Quantities",                  topic:"Arithmetic"},
+  {id:9,  name:"Algebraic Expressions and Identities",  topic:"Algebra"},
+  {id:10, name:"Visualising Solid Shapes",              topic:"Geometry"},
+  {id:11, name:"Mensuration",                           topic:"Geometry"},
+  {id:12, name:"Exponents and Powers",                  topic:"Number System"},
+  {id:13, name:"Direct and Inverse Proportions",        topic:"Arithmetic"},
+  {id:14, name:"Factorisation",                         topic:"Algebra"},
+  {id:15, name:"Introduction to Graphs",                topic:"Statistics"},
+  {id:16, name:"Playing with Numbers",                  topic:"Number System"}
+];
+
+var EXAM_TYPES = [
+  {id:"ut1",    name:"Unit Test 1",    icon:"&#128221;", color:"#6C63FF", isAnnual:false},
+  {id:"ut2",    name:"Unit Test 2",    icon:"&#128221;", color:"#059669", isAnnual:false},
+  {id:"hy",     name:"Half Yearly",    icon:"&#128218;", color:"#D97706", isAnnual:false},
+  {id:"annual", name:"Annual Exam",    icon:"&#127891;", color:"#DC2626", isAnnual:true}
+];
+
+var CH_COLORS = [
+  "#6C63FF","#059669","#D97706","#2563EB","#DC2626",
+  "#7C3AED","#0891B2","#65A30D","#DB2777","#0D9488",
+  "#EA580C","#4338CA","#16A34A","#B45309","#0284C7","#7E22CE"
+];
+
+// ===========================
+// STATE
+// ===========================
+var isAuth = false;
+var selExamId = null;
+var selChIds = [];
+var chDates = {};
+var plans = [];
+var calYear = 0;
+var calMonth = 0;
+var calManual = false;
+
+// ===========================
+// AUTH
+// ===========================
+function tryLogin() {
+  var user = document.getElementById('login-user').value.trim();
+  var pass = document.getElementById('login-pass').value;
+  var stored = localStorage.getItem('rishi_parent_pass') || 'rishi2024';
+  if (user === 'parent' && pass === stored) {
+    sessionStorage.setItem('rishi_parent_auth', '1');
+    enterPortal();
+  } else {
+    var e = document.getElementById('login-err');
+    e.className = 'login-err show';
+    document.getElementById('login-pass').value = '';
+  }
+}
+
+function logout() {
+  sessionStorage.removeItem('rishi_parent_auth');
+  document.getElementById('main-portal').className = 'hidden';
+  document.getElementById('login-screen').style.display = 'flex';
+}
+
+function checkAuth() {
+  if (sessionStorage.getItem('rishi_parent_auth') === '1') {
+    enterPortal();
+  }
+  // check auto login param
+  if (window.location.search.indexOf('auto=1') > -1) {
+    sessionStorage.setItem('rishi_parent_auth', '1');
+    enterPortal();
+  }
+}
+
+function enterPortal() {
+  isAuth = true;
+  document.getElementById('login-screen').style.display = 'none';
+  document.getElementById('main-portal').className = '';
+  loadPlans();
+  seedDemoDataIfEmpty();
+  var now = new Date();
+  calYear = now.getFullYear();
+  calMonth = now.getMonth();
+  renderExamGrid();
+  renderActivePlans();
+  renderProgress();
+}
+
+function seedDemoDataIfEmpty() {
+  // Only seed if truly no student data exists
+  if (localStorage.getItem('rishi_seeded')) return;
+  var progress = {};
+  var explainSess = {};
+  var today = new Date();
+  var demoData = [
+    {id:1,  sessions:8,  completed:13, accuracy:82, explainX:3},
+    {id:2,  sessions:5,  completed:10, accuracy:70, explainX:2},
+    {id:3,  sessions:3,  completed:7,  accuracy:65, explainX:1},
+    {id:4,  sessions:2,  completed:5,  accuracy:58, explainX:1},
+    {id:8,  sessions:6,  completed:11, accuracy:76, explainX:2},
+    {id:12, sessions:4,  completed:9,  accuracy:73, explainX:1},
+    {id:13, sessions:7,  completed:12, accuracy:80, explainX:3},
+    {id:5,  sessions:1,  completed:3,  accuracy:40, explainX:0},
+    {id:6,  sessions:0,  completed:0,  accuracy:0,  explainX:0},
+  ];
+  for (var i = 0; i < demoData.length; i++) {
+    var d = demoData[i];
+    var lastD = new Date(today);
+    lastD.setDate(lastD.getDate() - Math.floor(Math.random() * 5));
+    progress[d.id] = {
+      completed: d.completed, total: 15,
+      accuracy: d.accuracy, sessions: d.sessions,
+      lastActive: d.sessions > 0 ? toDateStr(lastD) : null
+    };
+    if (d.explainX > 0) explainSess[d.id] = d.explainX;
+  }
+  localStorage.setItem('rishi_chapter_progress', JSON.stringify(progress));
+  localStorage.setItem('rishi_explain_sessions', JSON.stringify(explainSess));
+  localStorage.setItem('rishi_seeded', '1');
+}
+
+// ===========================
+// INIT
+// ===========================
+window.onload = function() {
+  checkAuth();
+};
+
+function loadPlans() {
+  try {
+    var raw = localStorage.getItem('rishi_plans');
+    plans = raw ? JSON.parse(raw) : [];
+  } catch(e) { plans = []; }
+}
+
+function savePlans() {
+  localStorage.setItem('rishi_plans', JSON.stringify(plans));
+}
+
+// ===========================
+// TABS
+// ===========================
+function switchTab(tab) {
+  document.getElementById('tab-plan').className = 'tab-btn' + (tab === 'plan' ? ' on' : '');
+  document.getElementById('tab-prog').className = 'tab-btn' + (tab === 'prog' ? ' on' : '');
+  document.getElementById('tab-dash').className = 'tab-btn' + (tab === 'dash' ? ' on' : '');
+  document.getElementById('view-plan').className = tab === 'plan' ? '' : 'hidden';
+  document.getElementById('view-prog').className = tab === 'prog' ? '' : 'hidden';
+  document.getElementById('view-dash').className = tab === 'dash' ? '' : 'hidden';
+  if (tab === 'prog') renderProgress();
+  if (tab === 'dash') renderAnalytics();
+}
+
+// ===========================
+// EXAM GRID
+// ===========================
+function renderExamGrid() {
+  var html = '';
+  for (var i = 0; i < EXAM_TYPES.length; i++) {
+    var ex = EXAM_TYPES[i];
+    var isSel = selExamId === ex.id;
+    var eb = ex.color + '18';
+    html += '<div class="exam-tile' + (isSel ? ' sel' : '') + '" ';
+    html += 'style="--ec:' + ex.color + ';--eb:' + eb + '" ';
+    html += 'onclick="selectExam(\'' + ex.id + '\')">';
+    html += '<div class="exam-icon">' + ex.icon + '</div>';
+    html += '<div class="exam-name">' + ex.name + '</div>';
+    html += '<div class="exam-sub">' + (ex.isAnnual ? 'Max 2 targets/day' : '1 target/day') + '</div>';
+    html += '</div>';
+  }
+  document.getElementById('exam-grid').innerHTML = html;
+  updateStepBadge('sb1', selExamId !== null);
+}
+
+function selectExam(examId) {
+  selExamId = examId;
+  // Reset chapters and dates when switching exam
+  selChIds = [];
+  chDates = {};
+  calManual = false;
+  renderExamGrid();
+  renderChapterList();
+  renderDateTable();
+  renderCalendar();
+  validateAndShow();
+  show('step-chs');
+  show('step-dates');
+  show('step-cal');
+  show('lock-section');
+}
+
+function getExam(id) {
+  for (var i = 0; i < EXAM_TYPES.length; i++) {
+    if (EXAM_TYPES[i].id === id) return EXAM_TYPES[i];
+  }
+  return null;
+}
+
+function getCh(id) {
+  for (var i = 0; i < CHAPTERS.length; i++) {
+    if (CHAPTERS[i].id === id) return CHAPTERS[i];
+  }
+  return null;
+}
+
+function getChColor(id) {
+  return CH_COLORS[(id - 1) % CH_COLORS.length];
+}
+
+// ===========================
+// CHAPTER LIST
+// ===========================
+function renderChapterList() {
+  // Group by topic
+  var topics = {};
+  var topicOrder = [];
+  for (var i = 0; i < CHAPTERS.length; i++) {
+    var ch = CHAPTERS[i];
+    if (!topics[ch.topic]) { topics[ch.topic] = []; topicOrder.push(ch.topic); }
+    topics[ch.topic].push(ch);
+  }
+
+  var html = '';
+  for (var t = 0; t < topicOrder.length; t++) {
+    var topic = topicOrder[t];
+    var chs = topics[topic];
+    html += '<div class="topic-grp">';
+    html += '<div class="topic-lbl">' + topic + '</div>';
+    html += '<div class="ch-grid">';
+    for (var j = 0; j < chs.length; j++) {
+      var ch2 = chs[j];
+      var isSel = selChIds.indexOf(ch2.id) > -1;
+      var color = getChColor(ch2.id);
+      var cb = color + '18';
+      html += '<div class="ch-tile' + (isSel ? ' sel' : '') + '" ';
+      html += 'style="--chc:' + color + ';--chb:' + cb + '" ';
+      html += 'onclick="toggleCh(' + ch2.id + ')">';
+      html += '<input type="checkbox" ' + (isSel ? 'checked' : '') + ' onclick="event.stopPropagation();toggleCh(' + ch2.id + ')">';
+      html += '<div class="ch-nbadge" style="background:' + color + '">' + ch2.id + '</div>';
+      html += '<div class="ch-lbl">' + ch2.name + '</div>';
+      html += '</div>';
+    }
+    html += '</div></div>';
+  }
+  document.getElementById('chapter-list').innerHTML = html;
+  updateStepBadge('sb2', selChIds.length > 0);
+}
+
+function toggleCh(chId) {
+  var idx = selChIds.indexOf(chId);
+  if (idx > -1) {
+    selChIds.splice(idx, 1);
+    delete chDates[chId];
+  } else {
+    selChIds.push(chId);
+    if (!chDates[chId]) chDates[chId] = {start:'', target:''};
+  }
+  calManual = false;
+  renderChapterList();
+  renderDateTable();
+  renderCalendar();
+  validateAndShow();
+}
+
+function selectAll() {
+  for (var i = 0; i < CHAPTERS.length; i++) {
+    var cid = CHAPTERS[i].id;
+    if (selChIds.indexOf(cid) === -1) {
+      selChIds.push(cid);
+      if (!chDates[cid]) chDates[cid] = {start:'', target:''};
+    }
+  }
+  calManual = false;
+  renderChapterList();
+  renderDateTable();
+  renderCalendar();
+  validateAndShow();
+}
+
+function clearAll() {
+  selChIds = [];
+  chDates = {};
+  calManual = false;
+  renderChapterList();
+  renderDateTable();
+  renderCalendar();
+  validateAndShow();
+}
+
+// ===========================
+// DATE TABLE
+// ===========================
+function renderDateTable() {
+  var con = document.getElementById('dt-container');
+  if (selChIds.length === 0) {
+    con.innerHTML = '<div class="empty"><div class="empty-ico">&#128197;</div><div class="empty-txt">Select chapters above to assign dates</div></div>';
+    return;
+  }
+
+  var sorted = selChIds.slice().sort(function(a,b){return a-b;});
+  var html = '<table class="dt-tbl"><thead><tr>';
+  html += '<th>Chapter</th><th>Start Date</th><th>Target Date</th><th style="text-align:center">Study Days</th>';
+  html += '</tr></thead><tbody>';
+
+  for (var i = 0; i < sorted.length; i++) {
+    var cid = sorted[i];
+    var ch = getCh(cid);
+    var color = getChColor(cid);
+    var d = chDates[cid] || {start:'', target:''};
+
+    var dHtml = '<span class="dt-days na">—</span>';
+    if (d.start && d.target) {
+      var days = daysBetween(d.start, d.target);
+      if (days < 0) {
+        dHtml = '<span class="dt-days err">Invalid &#9888;</span>';
+      } else if (days < 3) {
+        dHtml = '<span class="dt-days warn">' + days + 'd &#9888;</span>';
+      } else {
+        dHtml = '<span class="dt-days ok">' + days + 'd &#10003;</span>';
+      }
+    }
+
+    html += '<tr class="dt-row">';
+    html += '<td><div class="dt-ch"><span class="dt-dot" style="background:' + color + '"></span>Ch ' + cid + '. ' + ch.name + '</div></td>';
+    html += '<td><input class="dt-inp" type="date" value="' + (d.start || '') + '" data-cid="' + cid + '" data-type="start" onchange="onDateChange(this)"></td>';
+    html += '<td><input class="dt-inp" type="date" value="' + (d.target || '') + '" data-cid="' + cid + '" data-type="target" onchange="onDateChange(this)"></td>';
+    html += '<td>' + dHtml + '</td>';
+    html += '</tr>';
+  }
+  html += '</tbody></table>';
+  con.innerHTML = html;
+  updateStepBadge('sb3', allDatesSet());
+}
+
+function onDateChange(el) {
+  var cid = parseInt(el.getAttribute('data-cid'));
+  var type = el.getAttribute('data-type');
+  if (!chDates[cid]) chDates[cid] = {start:'', target:''};
+  if (type === 'start') chDates[cid].start = el.value;
+  else chDates[cid].target = el.value;
+  calManual = false;
+  renderDateTable();
+  renderCalendar();
+  validateAndShow();
+}
+
+function quickSet(days) {
+  if (selChIds.length === 0) return;
+  var sorted = selChIds.slice().sort(function(a,b){return a-b;});
+  var today = new Date();
+  today.setHours(0,0,0,0);
+  for (var i = 0; i < sorted.length; i++) {
+    var cid = sorted[i];
+    var start = new Date(today);
+    start.setDate(start.getDate() + i * (days + 1));
+    var target = new Date(start);
+    target.setDate(target.getDate() + days);
+    chDates[cid] = {start: toDateStr(start), target: toDateStr(target)};
+  }
+  calManual = false;
+  renderDateTable();
+  renderCalendar();
+  validateAndShow();
+}
+
+function allDatesSet() {
+  for (var i = 0; i < selChIds.length; i++) {
+    var d = chDates[selChIds[i]] || {};
+    if (!d.start || !d.target) return false;
+  }
+  return selChIds.length > 0;
+}
+
+// ===========================
+// CALENDAR
+// ===========================
+function renderCalendar() {
+  var con = document.getElementById('cal-container');
+  var leg = document.getElementById('cal-legend');
+
+  // Auto-navigate to earliest start date if not manually set
+  if (!calManual) {
+    var minDate = null;
+    for (var cid in chDates) {
+      var s = chDates[cid].start;
+      if (s && (!minDate || s < minDate)) minDate = s;
+    }
+    if (minDate) {
+      var parts = minDate.split('-');
+      calYear = parseInt(parts[0]);
+      calMonth = parseInt(parts[1]) - 1;
+    }
+  }
+
+  var MONTH_NAMES = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  var y2 = calMonth === 11 ? calYear + 1 : calYear;
+  var m2 = (calMonth + 1) % 12;
+
+  var navHtml = '<div class="cal-hdr">';
+  navHtml += '<button class="cal-nav" onclick="calPrev()">&#9664;</button>';
+  navHtml += '<div class="cal-nav-lbl">' + MONTH_NAMES[calMonth] + ' ' + calYear + ' &ndash; ' + MONTH_NAMES[m2] + ' ' + y2 + '</div>';
+  navHtml += '<button class="cal-nav" onclick="calNext()">&#9654;</button>';
+  navHtml += '</div>';
+
+  con.innerHTML = navHtml + '<div class="cal-months">' + buildMonth(calYear, calMonth) + buildMonth(y2, m2) + '</div>';
+
+  // Legend
+  if (selChIds.length > 0) {
+    var sorted = selChIds.slice().sort(function(a,b){return a-b;});
+    var lhtml = '';
+    for (var i = 0; i < sorted.length; i++) {
+      var cid2 = sorted[i];
+      var ch = getCh(cid2);
+      var color = getChColor(cid2);
+      lhtml += '<div class="leg-item"><div class="leg-bar" style="background:' + color + '"></div>Ch ' + cid2 + '. ' + ch.name + '</div>';
+    }
+    lhtml += '<div class="leg-item"><div class="leg-dot" style="background:#22C55E"></div>Start</div>';
+    lhtml += '<div class="leg-item"><div class="leg-dot" style="background:var(--red)"></div>Target</div>';
+    leg.innerHTML = '<div class="legend">' + lhtml + '</div>';
+  } else {
+    leg.innerHTML = '';
+  }
+
+  updateStepBadge('sb4', allDatesSet());
+}
+
+function buildMonth(year, month) {
+  var MONTH_NAMES = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  var DAY_ABBR = ['Su','Mo','Tu','We','Th','Fr','Sa'];
+  var todayStr = toDateStr(new Date());
+  var firstDay = new Date(year, month, 1);
+  var lastDay = new Date(year, month + 1, 0);
+  var startWk = firstDay.getDay();
+
+  var html = '<div>';
+  html += '<div class="cal-mtitle">' + MONTH_NAMES[month] + ' ' + year + '</div>';
+  html += '<div class="cal-wkhdr">';
+  for (var d = 0; d < 7; d++) html += '<span>' + DAY_ABBR[d] + '</span>';
+  html += '</div><div class="cal-cells">';
+
+  // Empty before first day
+  for (var e = 0; e < startWk; e++) {
+    html += '<div class="cal-cell othermon"></div>';
+  }
+
+  for (var day = 1; day <= lastDay.getDate(); day++) {
+    var dateStr = toDateStr(new Date(year, month, day));
+    var isToday = dateStr === todayStr;
+    html += '<div class="cal-cell' + (isToday ? ' today' : '') + '">';
+    html += '<div class="day-n">' + day + '</div>';
+
+    var bars = '';
+    var hasStart = false;
+    var hasTarget = false;
+
+    for (var i = 0; i < selChIds.length; i++) {
+      var cid = selChIds[i];
+      var d2 = chDates[cid];
+      if (!d2 || !d2.start || !d2.target) continue;
+      var color = getChColor(cid);
+      if (dateStr === d2.start) hasStart = true;
+      if (dateStr === d2.target) hasTarget = true;
+      if (dateStr >= d2.start && dateStr <= d2.target) {
+        bars += '<div class="day-bar" style="background:' + color + '"></div>';
+      }
+    }
+
+    if (bars) html += '<div class="day-bars">' + bars + '</div>';
+    if (hasStart) html += '<div class="day-sd"></div>';
+    if (hasTarget) html += '<div class="day-td"></div>';
+
+    html += '</div>';
+  }
+  html += '</div></div>';
+  return html;
+}
+
+function calPrev() {
+  calManual = true;
+  if (calMonth === 0) { calMonth = 11; calYear--; }
+  else calMonth--;
+  renderCalendar();
+}
+
+function calNext() {
+  calManual = true;
+  if (calMonth === 11) { calMonth = 0; calYear++; }
+  else calMonth++;
+  renderCalendar();
+}
+
+// ===========================
+// VALIDATION
+// ===========================
+function validate() {
+  var errors = [];
+  var warnings = [];
+
+  if (selChIds.length === 0) return {errors:errors, warnings:warnings};
+
+  var exam = getExam(selExamId);
+  var isAnnual = exam && exam.isAnnual;
+  var maxPerDay = isAnnual ? 2 : 1;
+
+  // Check all dates are set and valid
+  var missing = [];
+  for (var i = 0; i < selChIds.length; i++) {
+    var cid = selChIds[i];
+    var d = chDates[cid] || {};
+    if (!d.start || !d.target) {
+      missing.push('Ch ' + cid);
+    } else if (d.target < d.start) {
+      errors.push('Ch ' + cid + ' (' + getCh(cid).name + '): Target date must be after start date.');
+    }
+  }
+  if (missing.length > 0) {
+    errors.push('Dates missing for: ' + missing.join(', ') + '. All chapters need start and target dates.');
+  }
+
+  if (errors.length > 0) return {errors:errors, warnings:warnings};
+
+  // Chapter duration warnings
+  for (var i = 0; i < selChIds.length; i++) {
+    var cid = selChIds[i];
+    var d = chDates[cid];
+    var days = daysBetween(d.start, d.target);
+    if (days < 2) {
+      errors.push('Ch ' + cid + ' (' + getCh(cid).name + '): Only ' + days + ' day(s). Minimum 2 days needed.');
+    } else if (days < 5) {
+      warnings.push('Ch ' + cid + ' (' + getCh(cid).name + '): Only ' + days + ' days. Consider at least 5 days for solid preparation.');
+    }
+  }
+
+  // Target date collisions within new plan
+  var newTargetMap = {};
+  for (var i = 0; i < selChIds.length; i++) {
+    var cid = selChIds[i];
+    var d = chDates[cid];
+    if (!d.target) continue;
+    if (!newTargetMap[d.target]) newTargetMap[d.target] = [];
+    newTargetMap[d.target].push(getCh(cid).name);
+  }
+
+  for (var date in newTargetMap) {
+    if (newTargetMap[date].length > maxPerDay) {
+      if (isAnnual) {
+        errors.push(formatDate(date) + ': ' + newTargetMap[date].length + ' chapters set to this date. Annual allows max 2 per day. (' + newTargetMap[date].join(', ') + ')');
+      } else {
+        errors.push(formatDate(date) + ' is assigned to multiple chapters: ' + newTargetMap[date].join(' & ') + '. Select different dates (max 1 per day for this exam type).');
+      }
+    }
+  }
+
+  // Cross-plan collision check
+  for (var p = 0; p < plans.length; p++) {
+    var plan = plans[p];
+    for (var k = 0; k < plan.chapters.length; k++) {
+      var pch = plan.chapters[k];
+      var td = pch.targetDate;
+      if (!newTargetMap[td]) continue;
+      var existingCount = countTargetsOnDate(td);
+      var newCount = newTargetMap[td].length;
+      if (existingCount + newCount > maxPerDay) {
+        errors.push(formatDate(td) + ' already has a target in "' + plan.examName + '" plan. ' + (isAnnual ? 'Max 2 targets per day.' : 'Select a different date.'));
+        break;
+      }
+    }
+  }
+
+  // Overall load warning
+  var minStart = null;
+  var maxTarget = null;
+  for (var i = 0; i < selChIds.length; i++) {
+    var cid = selChIds[i];
+    var d = chDates[cid];
+    if (!d.start || !d.target) continue;
+    if (!minStart || d.start < minStart) minStart = d.start;
+    if (!maxTarget || d.target > maxTarget) maxTarget = d.target;
+  }
+
+  if (minStart && maxTarget && selChIds.length > 0) {
+    var totalSpan = daysBetween(minStart, maxTarget);
+    var avgDays = totalSpan / selChIds.length;
+    if (avgDays < 5 && selChIds.length > 2) {
+      warnings.push('Average of ' + Math.round(avgDays) + ' days per chapter across a ' + totalSpan + '-day period. This is quite intense — consider spreading dates further for better retention.');
+    }
+  }
+
+  return {errors:errors, warnings:warnings};
+}
+
+function validateAndShow() {
+  var result = validate();
+  var html = '';
+  for (var i = 0; i < result.errors.length; i++) {
+    html += '<div class="alert a-err"><span class="a-ico">&#10060;</span><span>' + result.errors[i] + '</span></div>';
+  }
+  for (var j = 0; j < result.warnings.length; j++) {
+    html += '<div class="alert a-warn"><span class="a-ico">&#9888;&#65039;</span><span>' + result.warnings[j] + '</span></div>';
+  }
+  document.getElementById('alerts-box').innerHTML = html;
+
+  var lockBtn = document.getElementById('lock-btn');
+  if (lockBtn) lockBtn.disabled = !canLock(result);
+}
+
+function canLock(result) {
+  if (!result) result = validate();
+  if (selChIds.length === 0) return false;
+  if (!allDatesSet()) return false;
+  if (result.errors.length > 0) return false;
+  return true;
+}
+
+function countTargetsOnDate(dateStr) {
+  var count = 0;
+  for (var p = 0; p < plans.length; p++) {
+    for (var k = 0; k < plans[p].chapters.length; k++) {
+      if (plans[p].chapters[k].targetDate === dateStr) count++;
+    }
+  }
+  return count;
+}
+
+// ===========================
+// LOCK PLAN
+// ===========================
+function lockPlan() {
+  var result = validate();
+  if (!canLock(result)) { validateAndShow(); return; }
+
+  var exam = getExam(selExamId);
+  var sorted = selChIds.slice().sort(function(a,b){return a-b;});
+
+  var body = '<strong>' + exam.name + '</strong><br><br>';
+  body += 'The following chapters will be activated for the student:<br><br>';
+  for (var i = 0; i < sorted.length; i++) {
+    var cid = sorted[i];
+    var ch = getCh(cid);
+    var d = chDates[cid];
+    body += '&bull; <strong>Ch ' + cid + '. ' + ch.name + '</strong><br>';
+    body += '&nbsp;&nbsp;&nbsp;Study period: ' + formatDate(d.start) + ' &rarr; ' + formatDate(d.target) + '<br><br>';
+  }
+  body += 'Once locked, the student will see which chapters are active and how many days are left for each target.';
+
+  document.getElementById('modal-body-txt').innerHTML = body;
+  document.getElementById('lock-modal').className = 'modal-bg show';
+}
+
+function closeModal() {
+  document.getElementById('lock-modal').className = 'modal-bg';
+}
+
+function confirmLock() {
+  var exam = getExam(selExamId);
+  var sorted = selChIds.slice().sort(function(a,b){return a-b;});
+
+  var planChs = [];
+  for (var i = 0; i < sorted.length; i++) {
+    var cid = sorted[i];
+    var ch = getCh(cid);
+    var d = chDates[cid];
+    planChs.push({
+      id: cid,
+      name: ch.name,
+      topic: ch.topic,
+      color: getChColor(cid),
+      startDate: d.start,
+      targetDate: d.target
+    });
+  }
+
+  var plan = {
+    id: 'plan_' + Date.now(),
+    examId: exam.id,
+    examName: exam.name,
+    examColor: exam.color,
+    isAnnual: exam.isAnnual,
+    chapters: planChs,
+    createdAt: Date.now()
+  };
+
+  plans.push(plan);
+  savePlans();
+  updateStudentActivation();
+
+  // Reset form
+  selExamId = null;
+  selChIds = [];
+  chDates = {};
+  calManual = false;
+
+  closeModal();
+  renderExamGrid();
+  renderChapterList();
+  renderDateTable();
+  renderCalendar();
+
+  hide('step-chs');
+  hide('step-dates');
+  hide('step-cal');
+  hide('lock-section');
+
+  renderActivePlans();
+
+  document.getElementById('alerts-box').innerHTML = '<div class="alert a-ok"><span class="a-ico">&#9989;</span><span>Study plan locked! Student will now see their active chapters and daily countdowns.</span></div>';
+  setTimeout(function() { document.getElementById('alerts-box').innerHTML = ''; }, 5000);
+}
+
+function updateStudentActivation() {
+  var active = {};
+  var today = toDateStr(new Date());
+  for (var p = 0; p < plans.length; p++) {
+    for (var k = 0; k < plans[p].chapters.length; k++) {
+      var pch = plans[p].chapters[k];
+      // Keep whichever plan has the soonest upcoming target
+      if (!active[pch.id] || pch.targetDate < active[pch.id].targetDate) {
+        active[pch.id] = {
+          startDate: pch.startDate,
+          targetDate: pch.targetDate,
+          examName: plans[p].examName,
+          color: pch.color,
+          planId: plans[p].id
+        };
+      }
+    }
+  }
+  localStorage.setItem('rishi_active_chapters', JSON.stringify(active));
+}
+
+function deletePlan(planId) {
+  if (!confirm('Delete this study plan? The student will lose access to these chapter goals.')) return;
+  plans = plans.filter(function(p) { return p.id !== planId; });
+  savePlans();
+  updateStudentActivation();
+  renderActivePlans();
+  renderProgress();
+}
+
+// ===========================
+// ACTIVE PLANS
+// ===========================
+function renderActivePlans() {
+  var con = document.getElementById('active-plans-con');
+  if (plans.length === 0) {
+    con.innerHTML = '<div class="empty"><div class="empty-ico">&#128203;</div><div class="empty-txt">No study plans yet. Create one above!</div></div>';
+    return;
+  }
+
+  var today = toDateStr(new Date());
+  var html = '';
+
+  for (var p = plans.length - 1; p >= 0; p--) {
+    var plan = plans[p];
+
+    var minStart = plan.chapters[0].startDate;
+    var maxTarget = plan.chapters[0].targetDate;
+    for (var k = 1; k < plan.chapters.length; k++) {
+      if (plan.chapters[k].startDate < minStart) minStart = plan.chapters[k].startDate;
+      if (plan.chapters[k].targetDate > maxTarget) maxTarget = plan.chapters[k].targetDate;
+    }
+
+    var status, badgeCls;
+    if (today > maxTarget) { status = 'Completed'; badgeCls = 'p-done'; }
+    else if (today >= minStart) { status = 'Active'; badgeCls = 'p-active'; }
+    else { status = 'Upcoming'; badgeCls = 'p-upcoming'; }
+
+    html += '<div class="plan-card" style="--pc:' + plan.examColor + '">';
+    html += '<div class="plan-top">';
+    html += '<div class="plan-name">' + plan.examName + '</div>';
+    html += '<div class="plan-actions">';
+    html += '<span class="p-badge ' + badgeCls + '">' + status + '</span>';
+    html += '<button class="btn btn-del btn-sm" onclick="deletePlan(\'' + plan.id + '\')">&#128465; Delete</button>';
+    html += '</div></div>';
+    html += '<div class="plan-meta">&#128197; ' + formatDate(minStart) + ' &rarr; ' + formatDate(maxTarget) + ' &nbsp;|&nbsp; ' + plan.chapters.length + ' chapter' + (plan.chapters.length > 1 ? 's' : '') + '</div>';
+
+    html += '<div class="plan-chs">';
+    for (var k = 0; k < plan.chapters.length; k++) {
+      var pch = plan.chapters[k];
+      var dLeft = daysBetween(today, pch.targetDate);
+      var dlText, dlCls;
+      if (dLeft < 0) { dlText = 'Past due'; dlCls = 'dl-done'; }
+      else if (dLeft === 0) { dlText = 'Due today!'; dlCls = 'dl-hot'; }
+      else if (dLeft <= 3) { dlText = dLeft + 'd left'; dlCls = 'dl-hot'; }
+      else if (dLeft <= 7) { dlText = dLeft + 'd left'; dlCls = 'dl-warn'; }
+      else { dlText = dLeft + 'd left'; dlCls = 'dl-good'; }
+
+      html += '<div class="plan-ch-row">';
+      html += '<span class="ch-chip" style="background:' + pch.color + '">Ch ' + pch.id + '</span>';
+      html += '<span class="ch-chip-name">' + pch.name + '</span>';
+      html += '<span class="dl-badge ' + dlCls + '">' + dlText + '</span>';
+      html += '</div>';
+    }
+    html += '</div></div>';
+  }
+  con.innerHTML = html;
+}
+
+// ===========================
+// PROGRESS
+// ===========================
+function renderProgress() {
+  var con = document.getElementById('prog-container');
+
+  var progress = {};
+  try {
+    var raw = localStorage.getItem('rishi_chapter_progress');
+    if (raw) progress = JSON.parse(raw);
+  } catch(e) {}
+
+  // Get unique scheduled chapters
+  var scheduled = {};
+  for (var p = 0; p < plans.length; p++) {
+    for (var k = 0; k < plans[p].chapters.length; k++) {
+      var pch = plans[p].chapters[k];
+      if (!scheduled[pch.id]) {
+        scheduled[pch.id] = {
+          name: pch.name,
+          color: pch.color,
+          startDate: pch.startDate,
+          targetDate: pch.targetDate,
+          examName: plans[p].examName
+        };
+      }
+    }
+  }
+
+  var ids = [];
+  for (var cid in scheduled) ids.push(parseInt(cid));
+  ids.sort(function(a,b){return a-b;});
+
+  if (ids.length === 0) {
+    con.innerHTML = '<div class="empty"><div class="empty-ico">&#128202;</div><div class="empty-txt">No study plans yet. Create a plan to track progress here.</div></div>';
+    return;
+  }
+
+  var today = toDateStr(new Date());
+  var html = '';
+
+  for (var i = 0; i < ids.length; i++) {
+    var cid2 = ids[i];
+    var info = scheduled[cid2];
+    var prog = progress[cid2] || {completed:0, total:15};
+    var pct = Math.min(100, Math.round((prog.completed / (prog.total || 15)) * 100));
+    var dLeft = daysBetween(today, info.targetDate);
+    var dlText, dlCls;
+    if (pct >= 100) { dlText = '&#10003; Done'; dlCls = 'dl-done'; }
+    else if (dLeft < 0) { dlText = 'Past due'; dlCls = 'dl-hot'; }
+    else if (dLeft === 0) { dlText = 'Due today!'; dlCls = 'dl-hot'; }
+    else if (dLeft <= 3) { dlText = dLeft + 'd left'; dlCls = 'dl-hot'; }
+    else if (dLeft <= 7) { dlText = dLeft + 'd left'; dlCls = 'dl-warn'; }
+    else { dlText = dLeft + 'd left'; dlCls = 'dl-good'; }
+
+    html += '<div class="prog-row">';
+    html += '<div class="prog-top">';
+    html += '<div class="prog-name"><span class="ch-chip" style="background:' + info.color + ';color:white">Ch ' + cid2 + '</span>' + info.name + '</div>';
+    html += '<div class="prog-right"><span class="prog-pct">' + pct + '%</span><span class="dl-badge ' + dlCls + '">' + dlText + '</span></div>';
+    html += '</div>';
+    html += '<div class="prog-bg"><div class="prog-fill" style="width:' + pct + '%;background:' + info.color + '"></div></div>';
+    html += '</div>';
+  }
+
+  html += '<div style="font-size:11px;color:var(--muted);margin-top:14px;font-weight:500;">Progress is recorded automatically when the student completes practice sessions.</div>';
+  con.innerHTML = html;
+}
+
+// ===========================
+// ANALYTICS
+// ===========================
+
+// Which chapters have built explain pages
+var EXPLAIN_BUILT = {1:1, 2:1, 3:1, 4:1, 8:1, 12:1, 13:1};
+
+var dashFilter = 'all';
+
+function getChapterData() {
+  var progress = {};
+  var explainSess = {};
+  var examScores = [];
+  try { progress = JSON.parse(localStorage.getItem('rishi_chapter_progress') || '{}'); } catch(e) {}
+  try { explainSess = JSON.parse(localStorage.getItem('rishi_explain_sessions') || '{}'); } catch(e) {}
+  try { examScores = JSON.parse(localStorage.getItem('rishi_exam_scores') || '[]'); } catch(e) {}
+
+  var active = {};
+  try { active = JSON.parse(localStorage.getItem('rishi_active_chapters') || '{}'); } catch(e) {}
+
+  return {progress: progress, explainSess: explainSess, examScores: examScores, active: active};
+}
+
+function predictSuccess(chId, data) {
+  var pr = data.progress[chId] || {};
+  var exSess = parseInt(data.explainSess[chId] || 0);
+  var active = data.active[chId];
+
+  var accuracy = parseFloat(pr.accuracy || 0);       // 0-100
+  var completed = parseInt(pr.completed || 0);        // questions done
+  var total = parseInt(pr.total || 15);
+  var sessions = parseInt(pr.sessions || 0);
+  var lastActive = pr.lastActive || null;
+
+  // Component scores (each out of defined max, then weighted)
+  // 1. Practice accuracy — 40 pts
+  var accScore = accuracy * 0.40;
+
+  // 2. Completion breadth — 25 pts
+  var compRatio = total > 0 ? (completed / total) : 0;
+  var compScore = compRatio * 25;
+
+  // 3. Explain engagement — 15 pts (0 if page not built yet)
+  var explainScore = 0;
+  if (EXPLAIN_BUILT[chId]) {
+    if (exSess >= 3) explainScore = 15;
+    else if (exSess >= 1) explainScore = 5 + (exSess * 3);
+  } else {
+    explainScore = 6; // neutral — page not available yet
+  }
+
+  // 4. Session consistency — 10 pts
+  var sessScore = Math.min(sessions * 2, 10);
+
+  // 5. Time pressure penalty — up to -20 pts
+  var timePenalty = 0;
+  if (active && active.targetDate) {
+    var today = toDateStr(new Date());
+    var dLeft = daysBetween(today, active.targetDate);
+    if (dLeft >= 0 && compRatio < 0.5 && dLeft < 7) {
+      timePenalty = Math.round((1 - compRatio) * (7 - dLeft) * 2);
+    }
+  }
+
+  // 6. Recency bonus — up to 5 pts
+  var recency = 0;
+  if (lastActive) {
+    var daysSince = daysBetween(lastActive, toDateStr(new Date()));
+    if (daysSince <= 2) recency = 5;
+    else if (daysSince <= 7) recency = 3;
+    else if (daysSince <= 14) recency = 1;
+    else recency = -3;
+  }
+
+  var raw = accScore + compScore + explainScore + sessScore + recency - timePenalty;
+  var score = Math.max(0, Math.min(100, Math.round(raw)));
+
+  // If completely untouched and not scheduled → show 0
+  if (sessions === 0 && completed === 0 && !active) score = 0;
+  // Untouched but scheduled → show baseline 5
+  if (sessions === 0 && completed === 0 && active) score = Math.max(score, 5);
+
+  return {
+    score: score,
+    accuracy: accuracy,
+    completed: completed,
+    total: total,
+    sessions: sessions,
+    explainSessions: exSess,
+    lastActive: lastActive,
+    timePenalty: timePenalty,
+    isScheduled: !!active,
+    targetDate: active ? active.targetDate : null
+  };
+}
+
+function getSuccessColor(pct) {
+  if (pct >= 75) return {c:'#059669', l:'#D1FAE5', text:'Strong'};
+  if (pct >= 55) return {c:'#16A34A', l:'#DCFCE7', text:'Good'};
+  if (pct >= 40) return {c:'#D97706', l:'#FEF3C7', text:'Fair'};
+  if (pct >= 20) return {c:'#EA580C', l:'#FEE2E2', text:'Weak'};
+  if (pct > 0)   return {c:'#DC2626', l:'#FEF2F2', text:'At Risk'};
+  return {c:'#94A3B8', l:'#F1F5F9', text:'Not Started'};
+}
+
+function renderAnalytics() {
+  var data = getChapterData();
+
+  // Compute per-chapter predictions
+  var chPreds = {};
+  var totalScore = 0;
+  var scheduledCount = 0;
+  var explainDone = 0;
+  var pracSessions = 0;
+  var totalAcc = 0;
+  var accCount = 0;
+
+  for (var i = 0; i < CHAPTERS.length; i++) {
+    var cid = CHAPTERS[i].id;
+    chPreds[cid] = predictSuccess(cid, data);
+    if (data.active[cid]) {
+      scheduledCount++;
+      totalScore += chPreds[cid].score;
+    }
+    if (chPreds[cid].explainSessions > 0) explainDone++;
+    pracSessions += chPreds[cid].sessions;
+    if (chPreds[cid].accuracy > 0) { totalAcc += chPreds[cid].accuracy; accCount++; }
+  }
+
+  var overallPct = scheduledCount > 0 ? Math.round(totalScore / scheduledCount) : 0;
+  var avgAcc = accCount > 0 ? Math.round(totalAcc / accCount) : 0;
+
+  renderHero(overallPct, scheduledCount, explainDone, pracSessions, avgAcc);
+  renderChFilter();
+  renderChGrid(chPreds, data);
+  renderPredLegend();
+  renderExamDash(data.examScores);
+}
+
+function renderHero(pct, scheduled, explainDone, pracSessions, avgAcc) {
+  // Animate ring
+  var arc = document.getElementById('hero-arc');
+  var circumference = 314;
+  setTimeout(function() {
+    arc.style.strokeDashoffset = circumference - (circumference * pct / 100);
+  }, 100);
+
+  var pctEl = document.getElementById('hero-pct');
+  // Count up animation
+  var current = 0;
+  var step = Math.ceil(pct / 40);
+  var timer = setInterval(function() {
+    current = Math.min(current + step, pct);
+    pctEl.textContent = current + '%';
+    if (current >= pct) clearInterval(timer);
+  }, 35);
+
+  var col = getSuccessColor(pct);
+
+  document.getElementById('hero-kpis').innerHTML = [
+    {n: scheduled || '—', l: 'Chapters Scheduled'},
+    {n: explainDone, l: 'Explain Sessions'},
+    {n: pracSessions, l: 'Practice Sessions'},
+    {n: avgAcc ? avgAcc + '%' : '—', l: 'Avg Accuracy'}
+  ].map(function(k, i) {
+    return (i > 0 ? '<div class="hkpi-sep"></div>' : '') +
+      '<div class="hero-kpi"><div class="hkpi-n">' + k.n + '</div><div class="hkpi-l">' + k.l + '</div></div>';
+  }).join('');
+}
+
+function renderChFilter() {
+  var html = [
+    {id:'all', label:'All 16'},
+    {id:'scheduled', label:'Scheduled'},
+    {id:'strong', label:'Strong ≥75%'},
+    {id:'atrisk', label:'At Risk <40%'},
+    {id:'notstarted', label:'Not Started'}
+  ].map(function(f) {
+    return '<button class="filter-btn' + (dashFilter === f.id ? ' on' : '') + '" onclick="setDashFilter(\'' + f.id + '\')">' + f.label + '</button>';
+  }).join('');
+  document.getElementById('ch-filter-row').innerHTML = html;
+}
+
+function setDashFilter(f) {
+  dashFilter = f;
+  renderChFilter();
+  var cards = document.querySelectorAll('.ch-card');
+  for (var i = 0; i < cards.length; i++) {
+    var card = cards[i];
+    var pct = parseInt(card.getAttribute('data-pct') || 0);
+    var isScheduled = card.getAttribute('data-scheduled') === '1';
+    var show2 = true;
+    if (f === 'scheduled') show2 = isScheduled;
+    else if (f === 'strong') show2 = pct >= 75;
+    else if (f === 'atrisk') show2 = pct < 40 && pct > 0;
+    else if (f === 'notstarted') show2 = pct === 0;
+    card.className = 'ch-card' + (show2 ? '' : ' hidden-card');
+    card.style.setProperty('--ccc', card.getAttribute('data-color'));
+    card.style.setProperty('--ccb', card.getAttribute('data-colb'));
+    card.style.setProperty('--ccl', card.getAttribute('data-coll'));
+  }
+}
+
+function renderChGrid(chPreds, data) {
+  var html = '';
+  for (var i = 0; i < CHAPTERS.length; i++) {
+    var ch = CHAPTERS[i];
+    var cid = ch.id;
+    var pred = chPreds[cid];
+    var col = getSuccessColor(pred.score);
+    var color = col.c;
+    var colb = col.l;
+    var coll = col.c + '40';
+    var isScheduled = data.active[cid] ? 1 : 0;
+    var hasExplain = EXPLAIN_BUILT[cid] ? true : false;
+
+    // Donut ring calc
+    var r = 20;
+    var circ = 2 * Math.PI * r;
+    var offset = circ - (circ * pred.score / 100);
+
+    // Badges
+    var badges = '';
+    if (hasExplain && pred.explainSessions > 0) {
+      badges += '<span class="ch-badge b-explain-yes">&#9989; Explain x' + pred.explainSessions + '</span>';
+    } else if (hasExplain) {
+      badges += '<span class="ch-badge b-explain-no">&#128218; Explain pending</span>';
+    } else {
+      badges += '<span class="ch-badge b-explain-no">&#128218; Explain coming</span>';
+    }
+    if (isScheduled) {
+      var dLeft = pred.targetDate ? daysBetween(toDateStr(new Date()), pred.targetDate) : null;
+      if (dLeft !== null && dLeft >= 0) {
+        badges += '<span class="ch-badge b-scheduled">&#128197; ' + dLeft + 'd left</span>';
+      }
+    }
+    if (pred.sessions > 5) badges += '<span class="ch-badge b-streak">&#128293; ' + pred.sessions + ' sessions</span>';
+    if (pred.sessions > 0) {
+      var daysSince = pred.lastActive ? daysBetween(pred.lastActive, toDateStr(new Date())) : 999;
+      if (daysSince > 7) badges += '<span class="ch-badge b-noact">&#128564; ' + daysSince + 'd inactive</span>';
+    }
+
+    html += '<div class="ch-card" data-pct="' + pred.score + '" data-scheduled="' + isScheduled + '"';
+    html += ' data-color="' + color + '" data-colb="' + colb + '" data-coll="' + coll + '"';
+    html += ' style="--ccc:' + color + ';--ccb:' + colb + ';--ccl:' + coll + '">';
+
+    // Top row
+    html += '<div class="ch-card-top">';
+    html += '<div class="ch-card-info">';
+    html += '<div class="ch-num">Chapter ' + cid + ' &middot; ' + ch.topic + '</div>';
+    html += '<div class="ch-card-name">' + ch.name + '</div>';
+    html += '<span class="ch-topic-tag">' + col.text + '</span>';
+    html += '</div>';
+
+    // Donut
+    html += '<div class="ch-ring-wrap">';
+    html += '<svg class="ch-ring" viewBox="0 0 52 52">';
+    html += '<circle cx="26" cy="26" r="' + r + '" fill="none" stroke="' + colb + '" stroke-width="6"/>';
+    if (pred.score > 0) {
+      html += '<circle cx="26" cy="26" r="' + r + '" fill="none" stroke="' + color + '" stroke-width="6"';
+      html += ' stroke-linecap="round" stroke-dasharray="' + circ.toFixed(1) + '" stroke-dashoffset="' + offset.toFixed(1) + '"';
+      html += ' transform="rotate(-90 26 26)"/>';
+    }
+    html += '</svg>';
+    html += '<div class="ch-ring-inner"><div class="ch-ring-pct">' + pred.score + '%</div>';
+    html += '<div class="ch-ring-lbl2">Ready</div></div>';
+    html += '</div>';
+    html += '</div>'; // end top row
+
+    // Stats row
+    var completionPct = pred.total > 0 ? Math.round(pred.completed / pred.total * 100) : 0;
+    html += '<div class="ch-stats-row">';
+    html += '<div class="ch-stat"><div class="ch-stat-n">' + pred.sessions + '</div><div class="ch-stat-l">Sessions</div></div>';
+    html += '<div class="ch-stat"><div class="ch-stat-n">' + pred.completed + '/' + pred.total + '</div><div class="ch-stat-l">Qs Done</div></div>';
+    html += '<div class="ch-stat"><div class="ch-stat-n">' + (pred.accuracy || 0) + '%</div><div class="ch-stat-l">Accuracy</div></div>';
+    html += '</div>';
+
+    // Progress bars
+    var accCol = pred.accuracy >= 75 ? '#059669' : pred.accuracy >= 50 ? '#D97706' : '#DC2626';
+    var compCol = completionPct >= 75 ? '#059669' : completionPct >= 50 ? '#D97706' : '#DC2626';
+    html += '<div class="ch-bar-row"><div class="ch-bar-lbl">';
+    html += '<span class="ch-bar-name">Practice Completion</span><span class="ch-bar-val">' + completionPct + '%</span></div>';
+    html += '<div class="ch-bar-bg"><div class="ch-bar-fill" style="width:' + completionPct + '%;background:' + compCol + '"></div></div></div>';
+
+    html += '<div class="ch-bar-row"><div class="ch-bar-lbl">';
+    html += '<span class="ch-bar-name">Accuracy</span><span class="ch-bar-val">' + pred.accuracy + '%</span></div>';
+    html += '<div class="ch-bar-bg"><div class="ch-bar-fill" style="width:' + pred.accuracy + '%;background:' + accCol + '"></div></div></div>';
+
+    html += '<div class="ch-badges">' + badges + '</div>';
+    html += '<div class="ch-pred-bar"></div>';
+    html += '</div>'; // end ch-card
+  }
+  document.getElementById('ch-intel-grid').innerHTML = html;
+}
+
+function renderPredLegend() {
+  var factors = [
+    {ico:'&#127919;','title':'Practice Accuracy (40 pts)','sub':'How correctly the student answers practice questions.'},
+    {ico:'&#9989;','title':'Completion Breadth (25 pts)','sub':'Percentage of the 15-question bank attempted.'},
+    {ico:'&#127908;','title':'Explain Engagement (15 pts)','sub':'Number of times the student watched/listened to explanations.'},
+    {ico:'&#128200;','title':'Session Consistency (10 pts)','sub':'Total practice sessions completed for this chapter.'},
+    {ico:'&#128336;','title':'Time Pressure Penalty','sub':'Deducted if target date is near but completion is low.'},
+    {ico:'&#128293;','title':'Recency Bonus (5 pts)','sub':'Added if the student studied this chapter in the last 2 days.'}
+  ];
+  var html = '<div style="grid-column:1/-1;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:2px;">How Predicted Success % is Calculated</div>';
+  for (var i = 0; i < factors.length; i++) {
+    var f = factors[i];
+    html += '<div class="pred-factor"><div class="pred-ico">' + f.ico + '</div>';
+    html += '<div><div class="pred-txt-title">' + f.title + '</div><div class="pred-txt-sub">' + f.sub + '</div></div></div>';
+  }
+  document.getElementById('pred-legend').innerHTML = html;
+}
+
+function renderExamDash(examScores) {
+  var con = document.getElementById('exam-dash-con');
+
+  // Group scores by exam type
+  var byType = {};
+  for (var i = 0; i < examScores.length; i++) {
+    var s = examScores[i];
+    if (!byType[s.examId]) byType[s.examId] = [];
+    byType[s.examId].push(s);
+  }
+
+  // Also add empty slots for planned exam types that have locked plans
+  for (var p = 0; p < plans.length; p++) {
+    var eid = plans[p].examId;
+    if (!byType[eid]) byType[eid] = [];
+  }
+
+  var hasAny = false;
+  for (var k in byType) { hasAny = true; break; }
+
+  if (!hasAny) {
+    con.innerHTML = '<div class="no-exams">&#127941;&nbsp; No exam scores recorded yet.<br><span style="font-size:11px">Scores will appear here after exams are completed.</span></div>';
+    return;
+  }
+
+  var html = '<div class="exam-score-grid">';
+  for (var eid2 in byType) {
+    var scores = byType[eid2];
+    var exam = getExam(eid2);
+    if (!exam) continue;
+    var color = exam.color;
+
+    if (scores.length === 0) {
+      html += '<div class="ex-score-card" style="--exc:' + color + '">';
+      html += '<div class="ex-score-top"><div class="ex-score-name">' + exam.name + '</div></div>';
+      html += '<div style="font-size:12px;color:var(--muted);padding:8px 0">No scores recorded yet for this exam.</div>';
+      html += '</div>';
+      continue;
+    }
+
+    var totalScore = 0;
+    var totalMax = 0;
+    var best = 0;
+    for (var j = 0; j < scores.length; j++) {
+      totalScore += scores[j].score;
+      totalMax += (scores[j].maxScore || 100);
+      var spct = Math.round(scores[j].score / (scores[j].maxScore || 100) * 100);
+      if (spct > best) best = spct;
+    }
+    var avg = Math.round(totalScore / scores.length);
+    var avgPct = Math.round(avg / ((totalMax / scores.length) || 100) * 100);
+    var latestScore = scores[scores.length - 1];
+    var latestPct = Math.round(latestScore.score / (latestScore.maxScore || 100) * 100);
+    var trend = scores.length > 1 ? (latestPct > Math.round(scores[scores.length - 2].score / (scores[scores.length - 2].maxScore || 100) * 100) ? '&#9650;' : '&#9660;') : '—';
+
+    var pctCol = latestPct >= 75 ? '#065F46' : latestPct >= 50 ? '#92400E' : '#991B1B';
+    var pctBg = latestPct >= 75 ? '#ECFDF5' : latestPct >= 50 ? '#FFFBEB' : '#FEF2F2';
+
+    html += '<div class="ex-score-card" style="--exc:' + color + '">';
+    html += '<div class="ex-score-top"><div class="ex-score-name">' + exam.name + '</div><div style="font-size:10px;color:var(--muted);">' + scores.length + ' attempt' + (scores.length > 1 ? 's' : '') + '</div></div>';
+    html += '<div><div class="ex-score-n">' + latestScore.score + '<span class="ex-score-den">/' + (latestScore.maxScore || 100) + '</span></div>';
+    html += '<span class="ex-score-pct" style="background:' + pctBg + ';color:' + pctCol + '">' + latestPct + '% &nbsp;' + trend + '</span></div>';
+
+    html += '<div class="ex-mini-grid">';
+    html += '<div class="ex-mini"><div class="ex-mini-n">' + best + '%</div><div class="ex-mini-l">Best</div></div>';
+    html += '<div class="ex-mini"><div class="ex-mini-n">' + avgPct + '%</div><div class="ex-mini-l">Average</div></div>';
+    html += '<div class="ex-mini"><div class="ex-mini-n">' + scores.length + '</div><div class="ex-mini-l">Attempts</div></div>';
+    html += '</div>';
+
+    if (scores.length > 1) {
+      var maxH = Math.max.apply(null, scores.map(function(s) { return s.score; }));
+      html += '<div class="ex-hist-row"><div class="ex-hist-lbl">Score History</div>';
+      html += '<div class="ex-hist-bars">';
+      for (var b = 0; b < scores.length; b++) {
+        var bpct = Math.round(scores[b].score / (scores[b].maxScore || 100) * 100);
+        var bh = Math.round(bpct * 36 / 100);
+        html += '<div class="ex-hist-bar-wrap">';
+        html += '<div class="ex-hist-bar" style="height:' + bh + 'px;margin-top:' + (36 - bh) + 'px"></div>';
+        html += '<div class="ex-hist-tick">' + bpct + '%</div>';
+        html += '</div>';
+      }
+      html += '</div></div>';
+    }
+    html += '</div>';
+  }
+  html += '</div>';
+  con.innerHTML = html;
+}
+
+function show(id) {
+  var el = document.getElementById(id);
+  if (el) el.className = el.className.replace('hidden', '').trim();
+}
+function hide(id) {
+  var el = document.getElementById(id);
+  if (el && el.className.indexOf('hidden') === -1) el.className += ' hidden';
+}
+
+function updateStepBadge(id, done) {
+  var el = document.getElementById(id);
+  if (!el) return;
+  el.className = 'step-badge' + (done ? ' done' : '');
+}
+
+function toDateStr(date) {
+  var y = date.getFullYear();
+  var m = ('0' + (date.getMonth() + 1)).slice(-2);
+  var d = ('0' + date.getDate()).slice(-2);
+  return y + '-' + m + '-' + d;
+}
+
+function formatDate(dateStr) {
+  if (!dateStr) return '—';
+  var MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  var parts = dateStr.split('-');
+  return parseInt(parts[2]) + ' ' + MONTHS[parseInt(parts[1]) - 1] + ' ' + parts[0];
+}
+
+function daysBetween(fromStr, toStr) {
+  if (!fromStr || !toStr) return 0;
+  var from = new Date(fromStr);
+  var to = new Date(toStr);
+  return Math.round((to - from) / 86400000);
+}
+</script>
+</body>
+</html>
