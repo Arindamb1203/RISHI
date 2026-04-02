@@ -797,29 +797,40 @@
 
     <div class="cred-box">
       <div class="cred-row">
-        <span class="cred-key">Username</span>
+        <span class="cred-key">🎓 Student Username</span>
         <span class="cred-val" id="modalUser">—</span>
       </div>
       <div class="cred-row">
-        <span class="cred-key">Password</span>
+        <span class="cred-key">Student Password</span>
         <span class="cred-val" id="modalPass">—</span>
       </div>
     </div>
 
-    <div style="font-size:13px; font-weight:800; color:var(--rust); margin-bottom:14px; text-align:left;">
-      📌 Please save these credentials. Then open both links below and bookmark them.
+    <div class="cred-box" style="margin-top:10px; background:#eef2eb; border-color:var(--sage-light);">
+      <div class="cred-row">
+        <span class="cred-key">👨‍👩‍👦 Parent Username</span>
+        <span class="cred-val" id="modalParentUser">—</span>
+      </div>
+      <div class="cred-row">
+        <span class="cred-key">Parent Password</span>
+        <span class="cred-val" id="modalParentPass">—</span>
+      </div>
+    </div>
+
+    <div style="font-size:13px; font-weight:800; color:var(--rust); margin-bottom:14px; text-align:left; margin-top:14px;">
+      📌 Please save these credentials. Click the links below to open and bookmark them.
     </div>
 
     <div class="link-box">
-      <div class="link-label">🎓 Student Link</div>
-      <div class="link-url" id="studentLink">—</div>
-      <div class="link-instruction">Open this in browser → Bookmark it in Bookmark Bar → Student will start here</div>
+      <div class="link-label">🎓 Student Link — click to open</div>
+      <a class="link-url" id="studentLink" href="#" target="_blank" style="display:block;text-decoration:none;cursor:pointer;">—</a>
+      <div class="link-instruction">Prefilled login → Bookmark it in Bookmark Bar → Student starts here</div>
     </div>
 
-    <div class="link-box">
-      <div class="link-label">👨‍👩‍👦 Parent Dashboard Link</div>
-      <div class="link-url" id="parentLink">—</div>
-      <div class="link-instruction">Open this in browser → Bookmark it → Monitor your child's activity from here</div>
+    <div class="link-box" style="background:#eef2eb; border-color:var(--sage-light);">
+      <div class="link-label" style="color:var(--sage);">👨‍👩‍👦 Parent Portal Link — click to open</div>
+      <a class="link-url" id="parentLink" href="#" target="_blank" style="display:block;text-decoration:none;cursor:pointer;">—</a>
+      <div class="link-instruction">Prefilled login → Lands on Parent Portal → Monitor your child here</div>
     </div>
 
     <button class="btn-modal" onclick="closeModal()">Got it! Let's Begin ✨</button>
@@ -1012,33 +1023,42 @@ function saveToLocalStorage(type) {
 // GENERATE USERNAME & SHOW MODAL
 // ============================================================
 function generateAndShow(isPaid) {
-  const board = document.getElementById('board').value;
-  const studentName = document.getElementById('studentName').value.trim();
-  const cls = document.getElementById('class').value;
+  var board = document.getElementById('board').value;
+  var studentName = document.getElementById('studentName').value.trim();
+  var cls = document.getElementById('class').value;
 
-  const account = testAccounts[board] || testAccounts['CBSE'];
+  var account = testAccounts[board] || testAccounts['CBSE'];
+  var parentUsername = account.username.replace('RISHI-', 'PARENT-');
+  var parentPassword = 'ParentPass';
 
-  // Student link → goes to Class 8 syllabus (placeholder)
-  const studentUrl = window.location.origin + '/syllabus.html?user=' + account.username + '&class=' + cls + '&board=' + board;
-  // Parent link → goes to parent dashboard (placeholder)
-  const parentUrl = window.location.origin + '/parent-dashboard.html?user=' + account.username + '&board=' + board;
+  var base = window.location.origin;
+  var studentUrl = base + '/login.html?user=' + encodeURIComponent(account.username) + '&pass=' + encodeURIComponent(account.password) + '&role=student';
+  var parentUrl  = base + '/login.html?user=' + encodeURIComponent(parentUsername) + '&pass=' + encodeURIComponent(parentPassword) + '&role=parent';
 
   document.getElementById('modalSub').textContent =
     'Hello ' + studentName.split(' ')[0] + '! Rishika is ready to sit beside you. 🌟';
   document.getElementById('modalUser').textContent = account.username;
   document.getElementById('modalPass').textContent = account.password;
-  document.getElementById('studentLink').textContent = studentUrl;
-  document.getElementById('parentLink').textContent = parentUrl;
+  document.getElementById('modalParentUser').textContent = parentUsername;
+  document.getElementById('modalParentPass').textContent = parentPassword;
+
+  var sLink = document.getElementById('studentLink');
+  sLink.textContent = studentUrl;
+  sLink.href = studentUrl;
+
+  var pLink = document.getElementById('parentLink');
+  pLink.textContent = parentUrl;
+  pLink.href = parentUrl;
 
   document.getElementById('successModal').classList.add('show');
 }
 
 function closeModal() {
   document.getElementById('successModal').classList.remove('show');
-  const board = document.getElementById('board').value;
-  const cls = document.getElementById('class').value;
-  const account = testAccounts[board] || testAccounts['CBSE'];
-  window.location.href = '/syllabus.html?user=' + account.username + '&class=' + cls + '&board=' + board;
+  var board = document.getElementById('board').value;
+  var cls = document.getElementById('class').value;
+  var account = testAccounts[board] || testAccounts['CBSE'];
+  window.location.href = '/login.html?user=' + encodeURIComponent(account.username) + '&pass=' + encodeURIComponent(account.password) + '&role=student';
 }
 
 // ============================================================

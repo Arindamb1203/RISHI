@@ -182,9 +182,12 @@
 <script>
 // ── ACCOUNTS ──────────────────────────────────────────────────────────────────
 const hardcodedAccounts = [
-  { username:'RISHI-CBSE-001',  password:'Password', board:'CBSE',  class:'8' },
-  { username:'RISHI-ICSE-001',  password:'Password', board:'ICSE',  class:'8' },
-  { username:'RISHI-WBBSE-001', password:'Password', board:'WBBSE', class:'8' },
+  { username:'RISHI-CBSE-001',   password:'Password',   board:'CBSE',  class:'8', role:'student' },
+  { username:'RISHI-ICSE-001',   password:'Password',   board:'ICSE',  class:'8', role:'student' },
+  { username:'RISHI-WBBSE-001',  password:'Password',   board:'WBBSE', class:'8', role:'student' },
+  { username:'PARENT-CBSE-001',  password:'ParentPass', board:'CBSE',  class:'8', role:'parent'  },
+  { username:'PARENT-ICSE-001',  password:'ParentPass', board:'ICSE',  class:'8', role:'parent'  },
+  { username:'PARENT-WBBSE-001', password:'ParentPass', board:'WBBSE', class:'8', role:'parent'  },
 ];
 
 function boardUsername(board){
@@ -220,9 +223,29 @@ let countdown = 5;
 let countdownTimer = null;
 
 window.onload = function(){
-  const fill = document.getElementById('progressFill');
+  // Read URL params → prefill
+  var params = new URLSearchParams(window.location.search);
+  var pUser = params.get('user');
+  var pPass = params.get('pass');
+  var pRole = params.get('role') || 'student';
+
+  if(pUser){
+    var uEl = document.getElementById('username');
+    var pEl = document.getElementById('password');
+    uEl.value = pUser;
+    uEl.classList.add('filled');
+    if(pPass){ pEl.value = pPass; pEl.classList.add('filled'); }
+    // Store role for redirect
+    window._loginRole = pRole;
+    // Don't auto-redirect — user should see prefilled form
+    document.getElementById('redirectBanner').style.display = 'none';
+    return;
+  }
+
+  // No params — normal auto-redirect flow
+  var fill = document.getElementById('progressFill');
   fill.style.width = '100%';
-  countdownTimer = setInterval(()=>{
+  countdownTimer = setInterval(function(){
     countdown--;
     document.getElementById('countdownNum').textContent = countdown;
     fill.style.width = (countdown / 5 * 100) + '%';
@@ -248,15 +271,15 @@ function goToSyllabus(){
 
 // ── LOGIN ─────────────────────────────────────────────────────────────────────
 function handleLogin(){
-  const u = document.getElementById('username').value.trim();
-  const p = document.getElementById('password').value.trim();
-  let valid = true;
+  var u = document.getElementById('username').value.trim();
+  var p = document.getElementById('password').value.trim();
+  var valid = true;
 
   if(!u){ setErr('username','Please enter your username'); valid=false; } else clearErr('username');
   if(!p){ setErr('password','Please enter your password'); valid=false; } else clearErr('password');
   if(!valid) return;
 
-  const account = findAccount(u, p);
+  var account = findAccount(u, p);
   if(!account){
     setErr('username','Username or password is incorrect');
     document.getElementById('username').classList.add('err');
@@ -264,13 +287,18 @@ function handleLogin(){
     return;
   }
 
-  const existing = JSON.parse(localStorage.getItem('rishi_current_student') || '{}');
+  var existing = JSON.parse(localStorage.getItem('rishi_current_student') || '{}');
   localStorage.setItem('rishi_current_student', JSON.stringify(
     Object.assign({}, existing, {board: account.board, class: account.class})
   ));
 
-  // 🔒 INACTIVE: Trial expiry / paywall check
-  // if(isTrialExpired(u)){ showPaywall(); return; }
+  // Detect parent account → redirect to parent portal
+  var role = window._loginRole || account.role || 'student';
+  var isParent = (u.indexOf('PARENT-') === 0) || role === 'parent';
+  if(isParent){
+    window.location.href = '/parent.html';
+    return;
+  }
 
   goToSyllabus();
 }
