@@ -115,8 +115,8 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
       <div class="rishika-text" id="introText">
         Hi <span class="hl" id="sName">there</span>! &#128522; I am Rishika!
         Today we discover the magic of <span class="hl">Playing with Numbers</span>!
-        General form of numbers, divisibility rules for 2, 3, 5, 9 and 11,
-        and number puzzles — all explained step by step! &#127775;
+        General form, divisibility rules, and number puzzles!
+        Let us begin! &#127775;
       </div>
       <button class="btn-speak" onclick="say(G('introText').innerText)">&#128266; Hear Rishika</button>
     </div>
@@ -192,75 +192,75 @@ function rHappy(){var c=G("rChar");if(c)c.style.animation="rBounce .35s ease-in-
 function rThink(){setTimeout(rStopTalk,1800);}
 
 var QB=[
-{id:"p0",q:"A 2-digit number has tens digit <span class='hl'>a</span> and units digit <span class='hl'>b</span>. Its general form is?",qs:"General form of a 2-digit number with tens digit a and units digit b?",anim:"genform",
- steps:[{t:"The tens digit a is in the tens place = 10 times a.",s:"The digit a in the tens place means a groups of ten, so it contributes 10a."},
-        {t:"The units digit b is just b ones.",s:"The digit b in the units place contributes b."},
-        {t:"General form = <span class='ans-tag'>10a + b</span>. Example: 53 = 10x5+3.",s:"So the general form is 10a plus b. For example 53 equals 10 times 5 plus 3."}],
- cq:"What is the general form of a 2-digit number with tens digit a and units digit b?",cqs:"General form?",
- ans:["10a+b","10a plus b","ten a plus b"],nudges:["Tens digit is multiplied by 10!","The tens place means 10 times the digit!","Say 10a plus b!"]},
+{id:"p0",q:"A 2-digit number has tens digit <span class='hl'>a</span> and units digit <span class='hl'>b</span>. Its general form is?",qs:"General form of a 2-digit number?",anim:"genform",
+ steps:[{t:"Tens digit a is in the tens place &rarr; contributes 10a.",s:"The digit a in the tens place contributes 10 times a."},
+        {t:"Units digit b is in the units place &rarr; contributes b.",s:"The digit b contributes just b."},
+        {t:"General form = <span class='ans-tag'>10a + b</span>. Example: 53 = 10&times;5+3.",s:"General form is 10a plus b. For example 53 equals 10 times 5 plus 3."}],
+ cq:"General form of 2-digit number with tens digit a and units digit b?",cqs:"General form?",
+ ans:["10a+b","10a plus b","ten a plus b"],nudges:["Tens digit is multiplied by 10!","a is in the tens place so it is 10a!","Say 10a plus b!"]},
 
-{id:"p1",q:"Divisibility rule for <span class='hl'>2</span>: a number is divisible by 2 if?",qs:"When is a number divisible by 2?",anim:"div2",
+{id:"p1",q:"Divisibility rule for <span class='hl'>2</span>: when is a number divisible by 2?",qs:"Divisibility rule for 2?",anim:"div2",
  steps:[{t:"Check only the UNITS DIGIT.",s:"For divisibility by 2, only the last digit matters."},
-        {t:"Units digit must be 0, 2, 4, 6 or 8 (even).",s:"If the units digit is 0, 2, 4, 6 or 8, the number is divisible by 2."},
-        {t:"346 ends in 6 (even) &rarr; <span class='ans-tag'>Divisible by 2</span>",s:"346 ends in 6 which is even, so 346 is divisible by 2."}],
+        {t:"Units digit must be 0, 2, 4, 6 or 8.",s:"If the units digit is 0, 2, 4, 6 or 8, the number is divisible by 2."},
+        {t:"346 ends in 6 (even) &rarr; <span class='ans-tag'>Divisible by 2 &#10003;</span>",s:"346 ends in 6 which is even, so 346 is divisible by 2."}],
  cq:"Is 346 divisible by 2?",cqs:"Is 346 divisible by 2?",
- ans:["yes","yes it is","divisible"],nudges:["Check only the last digit — is it 0,2,4,6 or 8?","346 ends in 6. Is 6 even?","Say Yes!"]},
+ ans:["yes","yes it is","divisible"],nudges:["Check only the last digit!","346 ends in 6. Is 6 even?","Say Yes!"]},
 
-{id:"p2",q:"Divisibility rule for <span class='hl'>3</span>: when is a number divisible by 3?",qs:"When is a number divisible by 3?",anim:"div3",
- steps:[{t:"Add ALL the digits of the number.",s:"Add all the digits of the number together."},
-        {t:"If digit sum is divisible by 3, so is the number.",s:"If that sum is divisible by 3, then the number is divisible by 3."},
-        {t:"348: 3+4+8=15. 15&divide;3=5. <span class='ans-tag'>Divisible by 3 &#10003;</span>",s:"For 348: 3 plus 4 plus 8 equals 15. 15 is divisible by 3. So 348 is divisible by 3."}],
+{id:"p2",q:"Divisibility rule for <span class='hl'>3</span>: when is a number divisible by 3?",qs:"Divisibility rule for 3?",anim:"div3",
+ steps:[{t:"Add ALL the digits of the number.",s:"Add all the digits together."},
+        {t:"If digit sum is divisible by 3, so is the number.",s:"If that sum is divisible by 3, the number is divisible by 3."},
+        {t:"348: 3+4+8=15. 15&divide;3=5. <span class='ans-tag'>Divisible by 3 &#10003;</span>",s:"3 plus 4 plus 8 equals 15. 15 divided by 3 is 5. So 348 is divisible by 3."}],
  cq:"Is 348 divisible by 3?",cqs:"Is 348 divisible by 3?",
- ans:["yes","yes 348","divisible"],nudges:["Add all digits: 3+4+8 = ?","3+4+8=15. Is 15 divisible by 3?","Say Yes!"]},
+ ans:["yes","yes 348","divisible"],nudges:["Add all digits: 3+4+8=?","3+4+8=15. Is 15 divisible by 3?","Say Yes!"]},
 
-{id:"p3",q:"Divisibility rule for <span class='hl'>9</span>: when is a number divisible by 9?",qs:"When is a number divisible by 9?",anim:"div9",
+{id:"p3",q:"Divisibility rule for <span class='hl'>9</span>: when is a number divisible by 9?",qs:"Divisibility rule for 9?",anim:"div9",
  steps:[{t:"Add ALL the digits of the number.",s:"Add all the digits together."},
         {t:"If digit sum is divisible by 9, so is the number.",s:"If the sum is divisible by 9, the number is divisible by 9."},
-        {t:"729: 7+2+9=18. 18&divide;9=2. <span class='ans-tag'>Divisible by 9 &#10003;</span>",s:"For 729: 7 plus 2 plus 9 equals 18. 18 is divisible by 9. So 729 is divisible by 9."}],
+        {t:"729: 7+2+9=18. 18&divide;9=2. <span class='ans-tag'>Divisible by 9 &#10003;</span>",s:"7 plus 2 plus 9 equals 18. 18 divided by 9 is 2. So 729 is divisible by 9."}],
  cq:"Is 729 divisible by 9?",cqs:"Is 729 divisible by 9?",
- ans:["yes","yes 729","divisible"],nudges:["Add digits: 7+2+9 = ?","7+2+9=18. Is 18 divisible by 9?","Say Yes!"]},
+ ans:["yes","yes 729","divisible"],nudges:["Add digits: 7+2+9=?","7+2+9=18. Is 18 divisible by 9?","Say Yes!"]},
 
-{id:"p4",q:"Divisibility rule for <span class='hl'>5</span>: when is a number divisible by 5?",qs:"When is a number divisible by 5?",anim:"div5",
- steps:[{t:"Check only the UNITS DIGIT.",s:"For divisibility by 5, only the last digit matters."},
+{id:"p4",q:"Divisibility rule for <span class='hl'>5</span>: when is a number divisible by 5?",qs:"Divisibility rule for 5?",anim:"div5",
+ steps:[{t:"Check only the UNITS DIGIT.",s:"Only the last digit matters for divisibility by 5."},
         {t:"Units digit must be 0 or 5.",s:"If the units digit is 0 or 5, the number is divisible by 5."},
         {t:"5765 ends in 5 &rarr; <span class='ans-tag'>Divisible by 5 &#10003;</span>",s:"5765 ends in 5, so it is divisible by 5."}],
  cq:"Is 5765 divisible by 5?",cqs:"Is 5765 divisible by 5?",
  ans:["yes","yes it is","divisible"],nudges:["Check only the last digit!","5765 ends in 5. Is that 0 or 5?","Say Yes!"]},
 
-{id:"p5",q:"Divisibility rule for <span class='hl'>11</span>: alternating digit sums.",qs:"When is a number divisible by 11?",anim:"div11",
- steps:[{t:"Find: (sum of odd-position digits) &minus; (sum of even-position digits).",s:"Subtract sum of even-position digits from sum of odd-position digits."},
-        {t:"If difference is 0 or divisible by 11 &rarr; divisible by 11.",s:"If that difference is 0 or a multiple of 11, the number is divisible by 11."},
-        {t:"1001: odd(1+0)=1, even(0+1)=1. Diff=0. <span class='ans-tag'>Divisible by 11 &#10003;</span>",s:"For 1001: odd positions give 1, even positions give 1. Difference is 0. So 1001 is divisible by 11."}],
+{id:"p5",q:"Divisibility rule for <span class='hl'>11</span>: alternating digit sums.",qs:"Divisibility rule for 11?",anim:"div11",
+ steps:[{t:"Sum of odd-position digits MINUS sum of even-position digits.",s:"Subtract sum of even-position digits from sum of odd-position digits."},
+        {t:"If difference = 0 or divisible by 11 &rarr; number is divisible by 11.",s:"If that difference is 0 or a multiple of 11, the number is divisible by 11."},
+        {t:"1001: odd(1+0)=1, even(0+1)=1. Diff=0. <span class='ans-tag'>Divisible by 11 &#10003;</span>",s:"For 1001: odd positions give 1, even positions give 1. Difference is 0. Divisible by 11."}],
  cq:"Is 1001 divisible by 11?",cqs:"Is 1001 divisible by 11?",
- ans:["yes","yes 1001","divisible"],nudges:["Alternating digit sum difference!","Odd sum 1+0=1. Even sum 0+1=1. Difference is 0!","Say Yes!"]},
+ ans:["yes","yes 1001","divisible"],nudges:["Alternating digit sum difference!","Odd sum is 1, even sum is 1, difference is 0!","Say Yes!"]},
 
-{id:"p6",q:"When ab + ba (number + its reverse) is computed, the sum is always divisible by?",qs:"The sum of a 2-digit number and its reverse is always divisible by?",anim:"reverse",
- steps:[{t:"ab = 10a+b &nbsp;&nbsp; ba = 10b+a",s:"Write both numbers in general form."},
-        {t:"Sum = (10a+b)+(10b+a) = 11a+11b",s:"Add them: you get 11a plus 11b."},
-        {t:"= 11(a+b) &rarr; always divisible by <span class='ans-tag'>11</span>",s:"This equals 11 times a plus b. Always divisible by 11."}],
- cq:"The sum of ab and its reverse ba is always divisible by?",cqs:"Sum of ab and ba always divisible by?",
+{id:"p6",q:"The sum of a 2-digit number <span class='hl'>ab</span> and its reverse <span class='hl'>ba</span> is always divisible by?",qs:"Sum of a 2-digit number and its reverse is always divisible by?",anim:"sum11",
+ steps:[{t:"ab = 10a+b &nbsp; ba = 10b+a",s:"Write both in general form."},
+        {t:"Sum = 11a + 11b = <span class='ans-tag'>11(a+b)</span>",s:"Adding them gives 11a plus 11b which equals 11 times a plus b."},
+        {t:"Always divisible by <span class='ans-tag'>11</span>. Check: 47+74=121=11&times;11 &#10003;",s:"Always divisible by 11. Check: 47 plus 74 equals 121 equals 11 times 11."}],
+ cq:"Sum of ab and ba is always divisible by?",cqs:"Sum of 2-digit number and its reverse?",
  ans:["11","eleven","divisible by 11"],nudges:["Write ab as 10a+b and ba as 10b+a, then add!","You get 11a+11b = 11(a+b)!","Say 11!"]},
 
-{id:"p7",q:"When ab &minus; ba (number minus its reverse) is computed, the difference is always divisible by?",qs:"Difference of a 2-digit number and its reverse always divisible by?",anim:"diff9",
- steps:[{t:"ab &minus; ba = (10a+b) &minus; (10b+a)",s:"Subtract: 10a plus b minus 10b plus a."},
-        {t:"= 9a &minus; 9b = 9(a&minus;b)",s:"This equals 9a minus 9b equals 9 times a minus b."},
-        {t:"Always divisible by <span class='ans-tag'>9</span>. Check: 73&minus;37=36=9&times;4",s:"Always divisible by 9. Check: 73 minus 37 equals 36 which is 9 times 4."}],
- cq:"The difference of ab and ba is always divisible by?",cqs:"Difference of ab and ba always divisible by?",
+{id:"p7",q:"The difference of a 2-digit number <span class='hl'>ab</span> and its reverse <span class='hl'>ba</span> is always divisible by?",qs:"Difference of a 2-digit number and its reverse always divisible by?",anim:"diff9",
+ steps:[{t:"ab &minus; ba = (10a+b) &minus; (10b+a)",s:"Subtract the reverse from the original."},
+        {t:"= 9a &minus; 9b = <span class='ans-tag'>9(a&minus;b)</span>",s:"This equals 9a minus 9b which equals 9 times a minus b."},
+        {t:"Always divisible by <span class='ans-tag'>9</span>. Check: 73&minus;37=36=9&times;4 &#10003;",s:"Always divisible by 9. Check: 73 minus 37 equals 36 equals 9 times 4."}],
+ cq:"Difference of ab and ba is always divisible by?",cqs:"Difference of 2-digit number and its reverse?",
  ans:["9","nine","divisible by 9"],nudges:["Subtract using general form!","You get 9a-9b = 9(a-b)!","Say 9!"]},
 
-{id:"p8",q:"Find <span class='hl'>A</span> if 5A7 is divisible by 9.",qs:"Find A if 5A7 is divisible by 9.",anim:"findA9",
- steps:[{t:"Rule: digit sum must be divisible by 9.",s:"For divisibility by 9, the digit sum must be divisible by 9."},
-        {t:"Digit sum = 5+A+7 = 12+A",s:"Digit sum is 5 plus A plus 7 equals 12 plus A."},
-        {t:"12+A=18 &rarr; <span class='ans-tag'>A=6</span>. Check: 567&divide;9=63 &#10003;",s:"For 12 plus A to be divisible by 9, we need 18. So A equals 6."}],
+{id:"p8",q:"Find <span class='hl'>A</span> if 5A7 is divisible by 9.",qs:"Find A if 5A7 is divisible by 9.",anim:"findA",
+ steps:[{t:"Digit sum must be divisible by 9.",s:"For divisibility by 9, digit sum must be divisible by 9."},
+        {t:"5 + A + 7 = 12 + A",s:"Digit sum is 5 plus A plus 7 equals 12 plus A."},
+        {t:"12 + A = 18 &rarr; <span class='ans-tag'>A = 6</span>. Check: 567&divide;9=63 &#10003;",s:"12 plus A must equal 18. So A equals 6. Check: 567 divided by 9 equals 63."}],
  cq:"What is A if 5A7 is divisible by 9?",cqs:"Value of A?",
- ans:["6","six","a equals 6","a is 6"],nudges:["Digit sum must be divisible by 9!","5+A+7 = 12+A. When is 12+A divisible by 9?","12+6=18, so A equals 6!"]},
+ ans:["6","six","a equals 6","a is 6"],nudges:["Digit sum must be divisible by 9!","5+A+7 = 12+A. When is 12+A divisible by 9?","12+6=18, so A=6!"]},
 
-{id:"p9",q:"A 3-digit number has hundreds digit <span class='hl'>a</span>, tens digit <span class='hl'>b</span>, units digit <span class='hl'>c</span>. General form is?",qs:"General form of a 3-digit number with digits a, b, c?",anim:"genform3",
- steps:[{t:"Hundreds digit a &rarr; contributes 100a.",s:"The hundreds digit a contributes 100a."},
-        {t:"Tens digit b &rarr; contributes 10b.",s:"The tens digit b contributes 10b."},
-        {t:"General form = <span class='ans-tag'>100a + 10b + c</span>. Example: 437=400+30+7.",s:"General form is 100a plus 10b plus c. Example: 437 equals 400 plus 30 plus 7."}],
- cq:"General form of 3-digit number with digits a, b, c?",cqs:"General form of 3-digit number?",
- ans:["100a+10b+c","100a plus 10b plus c","hundred a plus ten b plus c"],nudges:["Hundreds digit gets multiplied by 100, tens by 10!","a is in hundreds, b in tens, c in units!","Say 100a plus 10b plus c!"]},
+{id:"p9",q:"A 3-digit number has digits <span class='hl'>a</span> (hundreds), <span class='hl'>b</span> (tens), <span class='hl'>c</span> (units). General form?",qs:"General form of a 3-digit number with digits a, b, c?",anim:"genform3",
+ steps:[{t:"Hundreds digit a &rarr; 100a. Tens digit b &rarr; 10b.",s:"The hundreds digit a contributes 100a. The tens digit b contributes 10b."},
+        {t:"Units digit c &rarr; c.",s:"The units digit c contributes just c."},
+        {t:"General form = <span class='ans-tag'>100a + 10b + c</span>",s:"General form is 100a plus 10b plus c. Example: 437 equals 400 plus 30 plus 7."}],
+ cq:"General form of 3-digit number with digits a, b, c?",cqs:"General form?",
+ ans:["100a+10b+c","100a plus 10b plus c"],nudges:["Hundreds digit gets 100, tens digit gets 10!","100a plus 10b plus c!","Say 100a plus 10b plus c!"]},
 ];
 
 var atTimers=[];
@@ -273,174 +273,83 @@ var BG='style="background:#fffdf8;font-family:Nunito,sans-serif"';
 var HDR='font-family="Orbitron" font-size="11" fill="#d4870a" font-weight="900"';
 function makeSVG(title,inner){return '<svg viewBox="0 0 420 178" width="100%" xmlns="http://www.w3.org/2000/svg" '+BG+'><text x="210" y="20" text-anchor="middle" '+HDR+'>'+title+'</text>'+inner+'</svg>';}
 
-function svgGenform(){return makeSVG('GENERAL FORM OF A 2-DIGIT NUMBER',
+function svgGenform(){return makeSVG('GENERAL FORM &mdash; 2-DIGIT NUMBER',
   '<g id="gf1" opacity="0" style="transition:opacity .5s"><rect x="80" y="40" width="60" height="60" rx="8" fill="#f5e6c8" stroke="#6b4c2a" stroke-width="2"/><text x="110" y="80" text-anchor="middle" font-size="32" font-weight="900" fill="#d4870a">a</text><text x="110" y="108" text-anchor="middle" font-size="11" font-weight="800" fill="#5a4a30">tens</text><rect x="180" y="40" width="60" height="60" rx="8" fill="#eef2eb" stroke="#6b4c2a" stroke-width="2"/><text x="210" y="80" text-anchor="middle" font-size="32" font-weight="900" fill="#7a8c6e">b</text><text x="210" y="108" text-anchor="middle" font-size="11" font-weight="800" fill="#5a4a30">units</text></g>'
   +'<g id="gf2" opacity="0" style="transition:opacity .5s"><text x="290" y="74" font-size="22" font-weight="900" fill="#2a2218">= 10a + b</text></g>'
   +'<g id="gf3" opacity="0" style="transition:opacity .5s"><text x="60" y="148" font-size="13" font-weight="800" fill="#5a4a30">Example: 53 = 10&times;5 + 3 = 50 + 3</text></g>'
 );}
-function playGenform(done){setStatus("Building the general form...");say("Every 2-digit number can be written in general form as 10a plus b.");at(600,function(){fade("gf1",1);say("The tens digit a and units digit b.");});at(3500,function(){fade("gf2",1);say("General form: 10a plus b. Tens digit is multiplied by 10.");});at(6000,function(){fade("gf3",1);say("Example: 53 equals 10 times 5 plus 3 equals 53.");at(2000,done);});}
+function playGenform(done){setStatus("Building the general form...");say("Every 2-digit number can be written as 10a plus b.");at(600,function(){fade("gf1",1);say("The tens digit a and units digit b.");});at(3500,function(){fade("gf2",1);say("General form is 10a plus b. Tens digit is multiplied by 10.");});at(6000,function(){fade("gf3",1);say("Example: 53 equals 10 times 5 plus 3.");at(2000,done);});}
 
-function svgDiv2(){return makeSVG('DIVISIBILITY RULE FOR 2',
-  '<g id="d2r" opacity="0" style="transition:opacity .5s"><rect x="18" y="28" width="384" height="28" rx="8" fill="#f5e6c8" stroke="#6b4c2a" stroke-width="1.5"/><text x="210" y="47" text-anchor="middle" font-size="14" font-weight="900" fill="#d4870a">Units digit must be 0, 2, 4, 6 or 8</text></g>'
-  +'<g id="d2y" opacity="0" style="transition:opacity .5s"><text x="50" y="88" font-size="13" font-weight="800" fill="#7a8c6e">Divisible: 124, 346, 800 (even last digit)</text></g>'
-  +'<g id="d2n" opacity="0" style="transition:opacity .5s"><text x="50" y="112" font-size="13" font-weight="800" fill="#b85c2a">Not divisible: 135, 247, 901 (odd last digit)</text></g>'
-  +'<g id="d2a" opacity="0" style="transition:opacity .5s"><rect x="45" y="130" width="260" height="26" rx="7" fill="#eef2eb" stroke="#6b4c2a" stroke-width="1.5"/><text x="175" y="147" text-anchor="middle" font-family="Share Tech Mono" font-size="14" font-weight="bold" fill="#7a8c6e">346 ends in 6 = divisible by 2</text></g>'
+function makeRule(id,title,rule,eg1,eg2,ans){return makeSVG(title,
+  '<g id="'+id+'r" opacity="0" style="transition:opacity .5s"><rect x="18" y="28" width="384" height="28" rx="8" fill="#f5e6c8" stroke="#6b4c2a" stroke-width="1.5"/><text x="210" y="47" text-anchor="middle" font-size="14" font-weight="900" fill="#d4870a">'+rule+'</text></g>'
+  +'<g id="'+id+'y" opacity="0" style="transition:opacity .5s"><text x="50" y="94" font-size="13" font-weight="800" fill="#7a8c6e">'+eg1+'</text></g>'
+  +'<g id="'+id+'n" opacity="0" style="transition:opacity .5s"><text x="50" y="118" font-size="13" font-weight="800" fill="#b85c2a">'+eg2+'</text></g>'
+  +'<g id="'+id+'a" opacity="0" style="transition:opacity .5s"><rect x="45" y="136" width="300" height="26" rx="7" fill="#eef2eb" stroke="#6b4c2a" stroke-width="1.5"/><text x="195" y="153" text-anchor="middle" font-family="Share Tech Mono" font-size="14" font-weight="bold" fill="#7a8c6e">'+ans+'</text></g>'
 );}
-function playDiv2(done){setStatus("Rule for 2...");say("A number is divisible by 2 if its units digit is 0, 2, 4, 6 or 8.");at(600,function(){fade("d2r",1);});at(2500,function(){fade("d2y",1);say("Divisible examples: 124, 346, 800. All end in even digits.");});at(5000,function(){fade("d2n",1);say("Not divisible: 135, 247, 901. They end in odd digits.");});at(7500,function(){fade("d2a",1);setStatus("346 ends in 6 — divisible by 2!");say("346 ends in 6 which is even. So divisible by 2.");at(2000,done);});}
+
+function svgDiv2(){return makeRule("d2","DIVISIBILITY RULE FOR 2","Units digit must be 0, 2, 4, 6 or 8","Divisible: 124, 346, 800 (even last digit)","Not divisible: 135, 247, 901 (odd last digit)","346 ends in 6 = divisible by 2 &#10003;");}
+function playDiv2(done){setStatus("Rule for 2...");say("A number is divisible by 2 if its units digit is 0, 2, 4, 6 or 8.");at(600,function(){fade("d2r",1);});at(2500,function(){fade("d2y",1);say("Divisible: 124, 346, 800. All end in even digits.");});at(5000,function(){fade("d2n",1);say("Not divisible: 135, 247, 901. They end in odd digits.");});at(7500,function(){fade("d2a",1);setStatus("346 ends in 6 — divisible by 2!");say("346 ends in 6 which is even. Divisible by 2.");at(2000,done);});}
 
 function svgDiv3(){return makeSVG('DIVISIBILITY RULE FOR 3',
-  '<g id="d3r" opacity="0" style="transition:opacity .5s"><rect x="18" y="28" width="384" height="28" rx="8" fill="#f5e6c8" stroke="#6b4c2a" stroke-width="1.5"/><text x="210" y="47" text-anchor="middle" font-size="14" font-weight="900" fill="#d4870a">Sum of ALL digits divisible by 3</text></g>'
-  +'<g id="d3c" opacity="0" style="transition:opacity .5s"><text x="50" y="92" font-size="18" font-weight="900" fill="#2a2218">3 + 4 + 8 = <tspan fill="#d4870a">15</tspan></text></g>'
-  +'<g id="d3d" opacity="0" style="transition:opacity .5s"><text x="50" y="122" font-size="14" font-weight="800" fill="#5a4a30">15 &divide; 3 = 5 (exact)</text></g>'
-  +'<g id="d3a" opacity="0" style="transition:opacity .5s"><rect x="45" y="140" width="260" height="26" rx="7" fill="#eef2eb" stroke="#6b4c2a" stroke-width="1.5"/><text x="175" y="157" text-anchor="middle" font-family="Share Tech Mono" font-size="14" font-weight="bold" fill="#7a8c6e">348 is divisible by 3 &#10003;</text></g>'
+  '<g id="d3r" opacity="0" style="transition:opacity .5s"><rect x="18" y="28" width="384" height="28" rx="8" fill="#f5e6c8" stroke="#6b4c2a" stroke-width="1.5"/><text x="210" y="47" text-anchor="middle" font-size="14" font-weight="900" fill="#d4870a">Sum of ALL digits must be divisible by 3</text></g>'
+  +'<g id="d3c" opacity="0" style="transition:opacity .5s"><text x="50" y="94" font-size="20" font-weight="900" fill="#2a2218">3 + 4 + 8 = <tspan fill="#d4870a">15</tspan></text></g>'
+  +'<g id="d3d" opacity="0" style="transition:opacity .5s"><text x="50" y="124" font-size="14" font-weight="800" fill="#5a4a30">15 &divide; 3 = 5 (exact)</text></g>'
+  +'<g id="d3a" opacity="0" style="transition:opacity .5s"><rect x="45" y="142" width="260" height="26" rx="7" fill="#eef2eb" stroke="#6b4c2a" stroke-width="1.5"/><text x="175" y="159" text-anchor="middle" font-family="Share Tech Mono" font-size="14" font-weight="bold" fill="#7a8c6e">348 is divisible by 3 &#10003;</text></g>'
 );}
-function playDiv3(done){setStatus("Rule for 3 — add all digits!");say("For divisibility by 3: add all digits and check if the sum is divisible by 3.");at(600,function(){fade("d3r",1);});at(2500,function(){fade("d3c",1);say("For 348: 3 plus 4 plus 8 equals 15.");});at(5000,function(){fade("d3d",1);say("15 divided by 3 equals 5. Exact!");});at(7000,function(){fade("d3a",1);setStatus("348 is divisible by 3!");say("So 348 is divisible by 3.");at(2000,done);});}
+function playDiv3(done){setStatus("Rule for 3 — add all digits!");say("For divisibility by 3: add all digits and check if divisible by 3.");at(600,function(){fade("d3r",1);});at(2500,function(){fade("d3c",1);say("For 348: 3 plus 4 plus 8 equals 15.");});at(5000,function(){fade("d3d",1);say("15 divided by 3 is 5. Exact!");});at(7000,function(){fade("d3a",1);setStatus("348 is divisible by 3!");say("So 348 is divisible by 3.");at(2000,done);});}
 
 function svgDiv9(){return makeSVG('DIVISIBILITY RULE FOR 9',
-  '<g id="d9r" opacity="0" style="transition:opacity .5s"><rect x="18" y="28" width="384" height="28" rx="8" fill="#f5e6c8" stroke="#6b4c2a" stroke-width="1.5"/><text x="210" y="47" text-anchor="middle" font-size="14" font-weight="900" fill="#d4870a">Sum of ALL digits divisible by 9</text></g>'
-  +'<g id="d9c" opacity="0" style="transition:opacity .5s"><text x="50" y="92" font-size="18" font-weight="900" fill="#2a2218">7 + 2 + 9 = <tspan fill="#d4870a">18</tspan></text></g>'
-  +'<g id="d9d" opacity="0" style="transition:opacity .5s"><text x="50" y="122" font-size="14" font-weight="800" fill="#5a4a30">18 &divide; 9 = 2 (exact)</text></g>'
-  +'<g id="d9a" opacity="0" style="transition:opacity .5s"><rect x="45" y="140" width="260" height="26" rx="7" fill="#eef2eb" stroke="#6b4c2a" stroke-width="1.5"/><text x="175" y="157" text-anchor="middle" font-family="Share Tech Mono" font-size="14" font-weight="bold" fill="#7a8c6e">729 is divisible by 9 &#10003;</text></g>'
+  '<g id="d9r" opacity="0" style="transition:opacity .5s"><rect x="18" y="28" width="384" height="28" rx="8" fill="#f5e6c8" stroke="#6b4c2a" stroke-width="1.5"/><text x="210" y="47" text-anchor="middle" font-size="14" font-weight="900" fill="#d4870a">Sum of ALL digits must be divisible by 9</text></g>'
+  +'<g id="d9c" opacity="0" style="transition:opacity .5s"><text x="50" y="94" font-size="20" font-weight="900" fill="#2a2218">7 + 2 + 9 = <tspan fill="#d4870a">18</tspan></text></g>'
+  +'<g id="d9d" opacity="0" style="transition:opacity .5s"><text x="50" y="124" font-size="14" font-weight="800" fill="#5a4a30">18 &divide; 9 = 2 (exact)</text></g>'
+  +'<g id="d9a" opacity="0" style="transition:opacity .5s"><rect x="45" y="142" width="260" height="26" rx="7" fill="#eef2eb" stroke="#6b4c2a" stroke-width="1.5"/><text x="175" y="159" text-anchor="middle" font-family="Share Tech Mono" font-size="14" font-weight="bold" fill="#7a8c6e">729 is divisible by 9 &#10003;</text></g>'
 );}
-function playDiv9(done){setStatus("Rule for 9...");say("For divisibility by 9: add all digits and check if sum is divisible by 9.");at(600,function(){fade("d9r",1);});at(2500,function(){fade("d9c",1);say("For 729: 7 plus 2 plus 9 equals 18.");});at(5000,function(){fade("d9d",1);say("18 divided by 9 equals 2. Exact!");});at(7000,function(){fade("d9a",1);setStatus("729 is divisible by 9!");say("So 729 is divisible by 9.");at(2000,done);});}
+function playDiv9(done){setStatus("Rule for 9...");say("For divisibility by 9: add all digits and check if divisible by 9.");at(600,function(){fade("d9r",1);});at(2500,function(){fade("d9c",1);say("For 729: 7 plus 2 plus 9 equals 18.");});at(5000,function(){fade("d9d",1);say("18 divided by 9 is 2. Exact!");});at(7000,function(){fade("d9a",1);setStatus("729 is divisible by 9!");say("So 729 is divisible by 9.");at(2000,done);});}
 
-function svgDiv5(){return makeSVG('DIVISIBILITY RULE FOR 5',
-  '<g id="d5r" opacity="0" style="transition:opacity .5s"><rect x="18" y="28" width="384" height="28" rx="8" fill="#f5e6c8" stroke="#6b4c2a" stroke-width="1.5"/><text x="210" y="47" text-anchor="middle" font-size="14" font-weight="900" fill="#d4870a">Units digit must be 0 or 5</text></g>'
-  +'<g id="d5y" opacity="0" style="transition:opacity .5s"><text x="50" y="90" font-size="13" font-weight="800" fill="#7a8c6e">Divisible: 5765, 100, 235 (end in 0 or 5)</text></g>'
-  +'<g id="d5n" opacity="0" style="transition:opacity .5s"><text x="50" y="114" font-size="13" font-weight="800" fill="#b85c2a">Not divisible: 123, 247 (not 0 or 5)</text></g>'
-  +'<g id="d5a" opacity="0" style="transition:opacity .5s"><rect x="45" y="132" width="270" height="26" rx="7" fill="#eef2eb" stroke="#6b4c2a" stroke-width="1.5"/><text x="180" y="149" text-anchor="middle" font-family="Share Tech Mono" font-size="14" font-weight="bold" fill="#7a8c6e">5765 ends in 5 = divisible by 5</text></g>'
-);}
-function playDiv5(done){setStatus("Rule for 5...");say("A number is divisible by 5 if its units digit is 0 or 5.");at(600,function(){fade("d5r",1);});at(2500,function(){fade("d5y",1);say("Divisible: 5765, 100, 235. All end in 0 or 5.");});at(5000,function(){fade("d5n",1);say("Not divisible: 123, 247. They do not end in 0 or 5.");});at(7000,function(){fade("d5a",1);setStatus("5765 ends in 5 — divisible by 5!");say("5765 ends in 5. Divisible by 5.");at(2000,done);});}
+function svgDiv5(){return makeRule("d5","DIVISIBILITY RULE FOR 5","Units digit must be 0 or 5","Divisible: 5765, 100, 235 (end in 0 or 5)","Not divisible: 123, 247 (not 0 or 5)","5765 ends in 5 = divisible by 5 &#10003;");}
+function playDiv5(done){setStatus("Rule for 5...");say("A number is divisible by 5 if its units digit is 0 or 5.");at(600,function(){fade("d5r",1);});at(2500,function(){fade("d5y",1);say("Divisible: 5765, 100, 235. All end in 0 or 5.");});at(5000,function(){fade("d5n",1);say("Not divisible: 123, 247.");});at(7000,function(){fade("d5a",1);setStatus("5765 ends in 5 — divisible by 5!");say("5765 ends in 5. Divisible by 5.");at(2000,done);});}
 
 function svgDiv11(){return makeSVG('DIVISIBILITY RULE FOR 11',
-  '<g id="d11r" opacity="0" style="transition:opacity .5s"><rect x="15" y="28" width="390" height="40" rx="8" fill="#f5e6c8" stroke="#6b4c2a" stroke-width="1.5"/><text x="210" y="45" text-anchor="middle" font-size="12" font-weight="900" fill="#d4870a">Odd-position digits sum MINUS Even-position digits sum</text><text x="210" y="62" text-anchor="middle" font-size="12" font-weight="900" fill="#d4870a">= 0 or divisible by 11</text></g>'
-  +'<g id="d11c" opacity="0" style="transition:opacity .5s"><text x="50" y="98" font-size="13" font-weight="800" fill="#5a4a30">1001: positions 1(1), 2(0), 3(0), 4(1)</text><text x="50" y="118" font-size="13" font-weight="800" fill="#d4870a">Odd(1,3): 1+0=1 &nbsp; Even(2,4): 0+1=1</text></g>'
-  +'<g id="d11d" opacity="0" style="transition:opacity .5s"><text x="50" y="144" font-size="13" font-weight="800" fill="#5a4a30">Difference = 1-1 = 0</text></g>'
-  +'<g id="d11a" opacity="0" style="transition:opacity .5s"><rect x="45" y="156" width="280" height="20" rx="5" fill="#eef2eb" stroke="#6b4c2a" stroke-width="1.5"/><text x="185" y="170" text-anchor="middle" font-family="Share Tech Mono" font-size="13" font-weight="bold" fill="#7a8c6e">1001 is divisible by 11 &#10003;</text></g>'
+  '<g id="d11r" opacity="0" style="transition:opacity .5s"><rect x="15" y="28" width="390" height="38" rx="8" fill="#f5e6c8" stroke="#6b4c2a" stroke-width="1.5"/><text x="210" y="45" text-anchor="middle" font-size="12" font-weight="900" fill="#d4870a">Odd-position sum MINUS Even-position sum</text><text x="210" y="61" text-anchor="middle" font-size="12" font-weight="900" fill="#d4870a">= 0 or divisible by 11</text></g>'
+  +'<g id="d11c" opacity="0" style="transition:opacity .5s"><text x="50" y="96" font-size="13" font-weight="800" fill="#5a4a30">1001: positions 1(1), 2(0), 3(0), 4(1)</text><text x="50" y="116" font-size="13" font-weight="800" fill="#d4870a">Odd(1,3): 1+0=1 &nbsp; Even(2,4): 0+1=1</text></g>'
+  +'<g id="d11d" opacity="0" style="transition:opacity .5s"><text x="50" y="142" font-size="13" font-weight="800" fill="#5a4a30">Difference = 1 &minus; 1 = 0</text></g>'
+  +'<g id="d11a" opacity="0" style="transition:opacity .5s"><rect x="45" y="154" width="280" height="22" rx="6" fill="#eef2eb" stroke="#6b4c2a" stroke-width="1.5"/><text x="185" y="169" text-anchor="middle" font-family="Share Tech Mono" font-size="13" font-weight="bold" fill="#7a8c6e">1001 is divisible by 11 &#10003;</text></g>'
 );}
-function playDiv11(done){setStatus("Alternating digit sum rule...");say("For divisibility by 11: odd-position digit sum minus even-position digit sum must be 0 or a multiple of 11.");at(600,function(){fade("d11r",1);});at(3000,function(){fade("d11c",1);say("For 1001: odd positions 1 and 3 give 1 plus 0 equals 1. Even positions 2 and 4 give 0 plus 1 equals 1.");});at(6500,function(){fade("d11d",1);say("Difference equals 1 minus 1 equals 0.");});at(8500,function(){fade("d11a",1);setStatus("Difference=0, so divisible by 11!");say("Difference is 0, so 1001 is divisible by 11. Check: 1001 divided by 11 equals 91.");at(2000,done);});}
+function playDiv11(done){setStatus("Alternating digit sum rule...");say("For divisibility by 11: odd-position digit sum minus even-position digit sum must be 0 or a multiple of 11.");at(600,function(){fade("d11r",1);});at(3000,function(){fade("d11c",1);say("For 1001: odd positions give 1, even positions give 1.");});at(6500,function(){fade("d11d",1);say("Difference is 1 minus 1 equals 0.");});at(8500,function(){fade("d11a",1);setStatus("Difference=0, divisible by 11!");say("Difference is 0, so 1001 is divisible by 11.");at(2000,done);});}
 
-function svgReverse(){return makeSVG('NUMBER + REVERSE = MULTIPLE OF 11',
-  '<g id="rv1" opacity="0" style="transition:opacity .5s"><text x="50" y="56" font-size="14" font-weight="800" fill="#5a4a30">ab = 10a+b &nbsp;&nbsp; ba = 10b+a</text></g>'
-  +'<g id="rv2" opacity="0" style="transition:opacity .5s"><text x="50" y="86" font-size="14" font-weight="800" fill="#d4870a">Sum = (10a+b)+(10b+a) = 11a+11b</text><text x="50" y="108" font-size="14" font-weight="800" fill="#d4870a">= 11(a+b)</text></g>'
-  +'<g id="rv3" opacity="0" style="transition:opacity .5s"><rect x="45" y="126" width="280" height="26" rx="7" fill="#eef2eb" stroke="#6b4c2a" stroke-width="1.5"/><text x="185" y="143" text-anchor="middle" font-family="Share Tech Mono" font-size="13" font-weight="bold" fill="#7a8c6e">Always divisible by 11!</text></g>'
-  +'<g id="rv4" opacity="0" style="transition:opacity .5s"><text x="50" y="170" font-size="13" font-weight="800" fill="#5a4a30">Check: 47+74 = 121 = 11&times;11 &#10003;</text></g>'
+function svgSum11(){return makeSVG('NUMBER + REVERSE = MULTIPLE OF 11',
+  '<g id="s11a" opacity="0" style="transition:opacity .5s"><text x="50" y="56" font-size="14" font-weight="800" fill="#5a4a30">ab = 10a+b &nbsp;&nbsp;&nbsp; ba = 10b+a</text></g>'
+  +'<g id="s11b" opacity="0" style="transition:opacity .5s"><text x="50" y="88" font-size="14" font-weight="800" fill="#d4870a">Sum = 11a + 11b = 11(a+b)</text></g>'
+  +'<g id="s11c" opacity="0" style="transition:opacity .5s"><rect x="45" y="106" width="280" height="26" rx="7" fill="#eef2eb" stroke="#6b4c2a" stroke-width="1.5"/><text x="185" y="123" text-anchor="middle" font-family="Share Tech Mono" font-size="14" font-weight="bold" fill="#7a8c6e">Always divisible by 11!</text></g>'
+  +'<g id="s11d" opacity="0" style="transition:opacity .5s"><text x="50" y="160" font-size="13" font-weight="800" fill="#5a4a30">Check: 47+74 = 121 = 11&times;11 &#10003;</text></g>'
 );}
-function playReverse(done){setStatus("Sum of number and its reverse...");say("Let us prove that a 2-digit number plus its reverse is always divisible by 11.");at(600,function(){fade("rv1",1);say("Write ab as 10a plus b. Write ba as 10b plus a.");});at(3500,function(){fade("rv2",1);say("Add them: 10a plus b plus 10b plus a equals 11a plus 11b equals 11 times a plus b.");});at(7000,function(){fade("rv3",1);setStatus("Always 11(a+b)!");say("This is always 11 times something. Always divisible by 11.");});at(9500,function(){fade("rv4",1);say("Check: 47 plus 74 equals 121 equals 11 times 11.");at(2000,done);});}
+function playSum11(done){setStatus("Sum of number and its reverse...");say("Let us prove that a number plus its reverse is always divisible by 11.");at(600,function(){fade("s11a",1);say("Write ab as 10a plus b. Write ba as 10b plus a.");});at(3500,function(){fade("s11b",1);say("Adding gives 11a plus 11b which equals 11 times a plus b.");});at(6500,function(){fade("s11c",1);setStatus("Always 11(a+b)!");say("Always a multiple of 11.");});at(9000,function(){fade("s11d",1);say("Check: 47 plus 74 equals 121 equals 11 times 11.");at(2000,done);});}
 
 function svgDiff9(){return makeSVG('NUMBER - REVERSE = MULTIPLE OF 9',
-  '<g id="df1" opacity="0" style="transition:opacity .5s"><text x="50" y="56" font-size="14" font-weight="800" fill="#5a4a30">ab = 10a+b &nbsp;&nbsp; ba = 10b+a</text></g>'
-  +'<g id="df2" opacity="0" style="transition:opacity .5s"><text x="50" y="86" font-size="14" font-weight="800" fill="#d4870a">ab-ba = (10a+b)-(10b+a) = 9a-9b</text><text x="50" y="108" font-size="14" font-weight="800" fill="#d4870a">= 9(a-b)</text></g>'
-  +'<g id="df3" opacity="0" style="transition:opacity .5s"><rect x="45" y="126" width="260" height="26" rx="7" fill="#eef2eb" stroke="#6b4c2a" stroke-width="1.5"/><text x="175" y="143" text-anchor="middle" font-family="Share Tech Mono" font-size="13" font-weight="bold" fill="#7a8c6e">Always divisible by 9!</text></g>'
-  +'<g id="df4" opacity="0" style="transition:opacity .5s"><text x="50" y="170" font-size="13" font-weight="800" fill="#5a4a30">Check: 73-37 = 36 = 9&times;4 &#10003;</text></g>'
+  '<g id="d9xa" opacity="0" style="transition:opacity .5s"><text x="50" y="56" font-size="14" font-weight="800" fill="#5a4a30">ab = 10a+b &nbsp;&nbsp;&nbsp; ba = 10b+a</text></g>'
+  +'<g id="d9xb" opacity="0" style="transition:opacity .5s"><text x="50" y="88" font-size="14" font-weight="800" fill="#d4870a">ab &minus; ba = 9a &minus; 9b = 9(a&minus;b)</text></g>'
+  +'<g id="d9xc" opacity="0" style="transition:opacity .5s"><rect x="45" y="106" width="260" height="26" rx="7" fill="#eef2eb" stroke="#6b4c2a" stroke-width="1.5"/><text x="175" y="123" text-anchor="middle" font-family="Share Tech Mono" font-size="14" font-weight="bold" fill="#7a8c6e">Always divisible by 9!</text></g>'
+  +'<g id="d9xd" opacity="0" style="transition:opacity .5s"><text x="50" y="160" font-size="13" font-weight="800" fill="#5a4a30">Check: 73&minus;37 = 36 = 9&times;4 &#10003;</text></g>'
 );}
-function playDiff9(done){setStatus("Difference of number and its reverse...");say("The difference of a 2-digit number and its reverse is always divisible by 9.");at(600,function(){fade("df1",1);});at(2500,function(){fade("df2",1);say("ab minus ba equals 9a minus 9b equals 9 times a minus b.");});at(6500,function(){fade("df3",1);setStatus("Always 9(a-b)!");say("Always a multiple of 9.");});at(9000,function(){fade("df4",1);say("Check: 73 minus 37 equals 36 equals 9 times 4.");at(2000,done);});}
+function playDiff9(done){setStatus("Difference of number and its reverse...");say("The difference of a 2-digit number and its reverse is always divisible by 9.");at(600,function(){fade("d9xa",1);});at(2500,function(){fade("d9xb",1);say("ab minus ba equals 9a minus 9b equals 9 times a minus b.");});at(6000,function(){fade("d9xc",1);setStatus("Always 9(a-b)!");say("Always a multiple of 9.");});at(8500,function(){fade("d9xd",1);say("Check: 73 minus 37 equals 36 equals 9 times 4.");at(2000,done);});}
 
-function svgFindA9(){return makeSVG('FIND MISSING DIGIT — DIV BY 9',
-  '<g id="fa1" opacity="0" style="transition:opacity .5s"><text x="50" y="56" font-size="18" font-weight="900" fill="#2a2218">5A7 divisible by 9</text></g>'
-  +'<g id="fa2" opacity="0" style="transition:opacity .5s"><text x="50" y="88" font-size="14" font-weight="800" fill="#d4870a">Digit sum = 5+A+7 = 12+A</text></g>'
-  +'<g id="fa3" opacity="0" style="transition:opacity .5s"><text x="50" y="116" font-size="14" font-weight="800" fill="#5a4a30">Need 12+A divisible by 9</text><text x="50" y="138" font-size="14" font-weight="800" fill="#5a4a30">12+A = 18 &rarr; A = 6</text></g>'
+function svgFindA(){return makeSVG('FIND MISSING DIGIT &mdash; DIV BY 9',
+  '<g id="fa1" opacity="0" style="transition:opacity .5s"><text x="50" y="58" font-size="20" font-weight="900" fill="#2a2218">5A7 divisible by 9</text></g>'
+  +'<g id="fa2" opacity="0" style="transition:opacity .5s"><text x="50" y="90" font-size="14" font-weight="800" fill="#d4870a">Digit sum = 5+A+7 = 12+A</text></g>'
+  +'<g id="fa3" opacity="0" style="transition:opacity .5s"><text x="50" y="118" font-size="14" font-weight="800" fill="#5a4a30">Need 12+A divisible by 9 &rarr; 12+A=18</text><text x="50" y="140" font-size="14" font-weight="800" fill="#5a4a30">A = 6</text></g>'
   +'<g id="fa4" opacity="0" style="transition:opacity .5s"><rect x="45" y="154" width="240" height="22" rx="6" fill="#eef2eb" stroke="#6b4c2a" stroke-width="1.5"/><text x="165" y="169" text-anchor="middle" font-family="Share Tech Mono" font-size="15" font-weight="bold" fill="#7a8c6e">A = 6 (567 &divide; 9 = 63 &#10003;)</text></g>'
 );}
-function playFindA9(done){setStatus("Finding A using divisibility rule...");say("Find A if 5A7 is divisible by 9.");at(600,function(){fade("fa1",1);});at(2200,function(){fade("fa2",1);say("Digit sum equals 5 plus A plus 7 equals 12 plus A.");});at(5000,function(){fade("fa3",1);say("We need 12 plus A divisible by 9. Next multiple of 9 after 12 is 18. So A equals 6.");});at(8500,function(){fade("fa4",1);setStatus("A = 6");say("Check: 567 divided by 9 equals 63. Correct!");at(2000,done);});}
+function playFindA(done){setStatus("Finding missing digit A...");say("Find A if 5A7 is divisible by 9.");at(600,function(){fade("fa1",1);});at(2200,function(){fade("fa2",1);say("Digit sum equals 5 plus A plus 7 equals 12 plus A.");});at(5000,function(){fade("fa3",1);say("We need 12 plus A to be divisible by 9. 12 plus A equals 18 gives A equals 6.");});at(8500,function(){fade("fa4",1);setStatus("A = 6");say("Check: 567 divided by 9 equals 63. Correct!");at(2000,done);});}
 
-function svgGenform3(){return makeSVG('GENERAL FORM OF A 3-DIGIT NUMBER',
-  '<g id="g3b" opacity="0" style="transition:opacity .5s"><rect x="40" y="40" width="55" height="55" rx="8" fill="#f5e6c8" stroke="#6b4c2a" stroke-width="2"/><text x="67" y="74" text-anchor="middle" font-size="28" font-weight="900" fill="#d4870a">a</text><text x="67" y="102" text-anchor="middle" font-size="10" font-weight="800" fill="#5a4a30">hundreds</text><rect x="110" y="40" width="55" height="55" rx="8" fill="#eef2eb" stroke="#6b4c2a" stroke-width="2"/><text x="137" y="74" text-anchor="middle" font-size="28" font-weight="900" fill="#7a8c6e">b</text><text x="137" y="102" text-anchor="middle" font-size="10" font-weight="800" fill="#5a4a30">tens</text><rect x="180" y="40" width="55" height="55" rx="8" fill="#f5fbf2" stroke="#6b4c2a" stroke-width="2"/><text x="207" y="74" text-anchor="middle" font-size="28" font-weight="900" fill="#b85c2a">c</text><text x="207" y="102" text-anchor="middle" font-size="10" font-weight="800" fill="#5a4a30">units</text></g>'
-  +'<g id="g3f" opacity="0" style="transition:opacity .5s"><text x="270" y="70" font-size="18" font-weight="900" fill="#2a2218">= 100a + 10b + c</text></g>'
-  +'<g id="g3e" opacity="0" style="transition:opacity .5s"><text x="40" y="148" font-size="13" font-weight="800" fill="#5a4a30">Example: 437 = 400+30+7</text></g>'
+function svgGenform3(){return makeSVG('GENERAL FORM &mdash; 3-DIGIT NUMBER',
+  '<g id="g31" opacity="0" style="transition:opacity .5s"><rect x="40" y="40" width="55" height="55" rx="8" fill="#f5e6c8" stroke="#6b4c2a" stroke-width="2"/><text x="67" y="76" text-anchor="middle" font-size="28" font-weight="900" fill="#d4870a">a</text><text x="67" y="102" text-anchor="middle" font-size="10" font-weight="800" fill="#5a4a30">hundreds</text><rect x="108" y="40" width="55" height="55" rx="8" fill="#eef2eb" stroke="#6b4c2a" stroke-width="2"/><text x="135" y="76" text-anchor="middle" font-size="28" font-weight="900" fill="#7a8c6e">b</text><text x="135" y="102" text-anchor="middle" font-size="10" font-weight="800" fill="#5a4a30">tens</text><rect x="176" y="40" width="55" height="55" rx="8" fill="#f5fbf2" stroke="#6b4c2a" stroke-width="2"/><text x="203" y="76" text-anchor="middle" font-size="28" font-weight="900" fill="#b85c2a">c</text><text x="203" y="102" text-anchor="middle" font-size="10" font-weight="800" fill="#5a4a30">units</text></g>'
+  +'<g id="g32" opacity="0" style="transition:opacity .5s"><text x="270" y="70" font-size="18" font-weight="900" fill="#2a2218">= 100a + 10b + c</text></g>'
+  +'<g id="g33" opacity="0" style="transition:opacity .5s"><text x="40" y="148" font-size="13" font-weight="800" fill="#5a4a30">Example: 437 = 400 + 30 + 7</text></g>'
 );}
-function playGenform3(done){setStatus("General form of a 3-digit number...");say("A 3-digit number has hundreds, tens and units digits.");at(600,function(){fade("g3b",1);say("The hundreds digit a, tens digit b, and units digit c.");});at(3500,function(){fade("g3f",1);say("General form is 100a plus 10b plus c.");});at(6000,function(){fade("g3e",1);say("Example: 437 equals 400 plus 30 plus 7.");at(2000,done);});}
+function playGenform3(done){setStatus("General form of a 3-digit number...");say("A 3-digit number has hundreds, tens and units digits.");at(600,function(){fade("g31",1);say("Hundreds digit a, tens digit b and units digit c.");});at(3500,function(){fade("g32",1);say("General form is 100a plus 10b plus c.");});at(6000,function(){fade("g33",1);say("Example: 437 equals 400 plus 30 plus 7.");at(2000,done);});}
 
-function getAnimSVG(t){var m={genform:svgGenform,div2:svgDiv2,div3:svgDiv3,div9:svgDiv9,div5:svgDiv5,div11:svgDiv11,reverse:svgReverse,diff9:svgDiff9,findA9:svgFindA9,genform3:svgGenform3};return m[t]?m[t]():'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="background:#fffdf8"><text x="210" y="89" text-anchor="middle" font-family="Nunito" font-size="14" fill="#5a4a30">Loading...</text></svg>';}
-function getAnimPlay(t){var m={genform:playGenform,div2:playDiv2,div3:playDiv3,div9:playDiv9,div5:playDiv5,div11:playDiv11,reverse:playReverse,diff9:playDiff9,findA9:playFindA9,genform3:playGenform3};return m[t]||function(done){done();};}
-
-var atTimers=[];
-function clearAt(){for(var i=0;i<atTimers.length;i++)clearTimeout(atTimers[i]);atTimers=[];}
-function at(ms,fn){atTimers.push(setTimeout(fn,ms));}
-function G(id){return document.getElementById(id);}
-function fade(id,v){var e=G(id);if(e){e.style.transition="opacity .5s";e.style.opacity=v;}}
-function setStatus(t){var e=G("animStatus");if(e)e.textContent=t;}
-var BG='style="background:#fffdf8;font-family:Nunito,sans-serif"';
-var HDR='font-family="Orbitron" font-size="11" fill="#d4870a" font-weight="900"';
-function makeSVG(title,inner){return '<svg viewBox="0 0 420 178" width="100%" xmlns="http://www.w3.org/2000/svg" '+BG+'><text x="210" y="20" text-anchor="middle" '+HDR+'>'+title+'</text>'+inner+'</svg>';}
-
-function svgFreq1(){return makeSVG('WHAT IS FREQUENCY?',
-  '<g id="fr1d" opacity="0" style="transition:opacity .5s"><text x="50" y="54" font-size="13" font-weight="800" fill="#5a4a30">Data: 5, 7, 7, 8, 5, 9, 7, 8, 5, 7</text></g>'
-  +'<g id="fr1t" opacity="0" style="transition:opacity .5s"><text x="50" y="82" font-size="13" font-weight="800" fill="#d4870a">Count each value:</text><text x="50" y="102" font-size="13" font-weight="800" fill="#5a4a30">5 appears: 3 times &nbsp; 9 appears: 1 time</text><text x="50" y="122" font-size="15" font-weight="900" fill="#2a2218">7 appears: <tspan fill="#7a8c6e">4 times</tspan></text></g>'
-  +'<g id="fr1a" opacity="0" style="transition:opacity .5s"><rect x="45" y="140" width="260" height="26" rx="7" fill="#eef2eb" stroke="#6b4c2a" stroke-width="1.5"/><text x="175" y="157" text-anchor="middle" font-family="Share Tech Mono" font-size="14" font-weight="bold" fill="#7a8c6e">Frequency of 7 = 4</text></g>'
-);}
-function playFreq1(done){setStatus("What is frequency?");say("Frequency means how many times a value appears in data.");at(600,function(){fade("fr1d",1);say("Here is our data: 5, 7, 7, 8, 5, 9, 7, 8, 5, 7.");});at(3500,function(){fade("fr1t",1);say("Count each value. 5 appears 3 times. 9 appears once. 7 appears 4 times!");});at(7000,function(){fade("fr1a",1);setStatus("Frequency of 7 = 4");say("The frequency of 7 is 4.");at(2000,done);});}
-
-function svgGFT(){return makeSVG('GROUPED FREQUENCY TABLE',
-  '<g id="gf1h" opacity="0" style="transition:opacity .5s"><text x="50" y="48" font-size="11" font-weight="800" fill="#5a4a30">Class Interval</text><text x="210" y="48" font-size="11" font-weight="800" fill="#5a4a30">Frequency</text><line x1="40" y1="54" x2="320" y2="54" stroke="#c8b89a" stroke-width="1"/></g>'
-  +'<g id="gf1r" opacity="0" style="transition:opacity .5s"><text x="50" y="72" font-size="12" font-weight="800" fill="#5a4a30">0 &ndash; 10</text><text x="210" y="72" font-size="12" font-weight="800" fill="#5a4a30">5</text><text x="50" y="92" font-size="12" font-weight="900" fill="#d4870a">10 &ndash; 20</text><text x="210" y="92" font-size="12" font-weight="900" fill="#d4870a">8</text><text x="50" y="112" font-size="12" font-weight="800" fill="#5a4a30">20 &ndash; 30</text><text x="210" y="112" font-size="12" font-weight="800" fill="#5a4a30">12</text></g>'
-  +'<g id="gf1e" opacity="0" style="transition:opacity .5s"><rect x="45" y="128" width="320" height="32" rx="7" fill="#f5e6c8" stroke="#6b4c2a" stroke-width="1"/><text x="205" y="144" text-anchor="middle" font-size="11" font-weight="800" fill="#d4870a">8 values fall between 10 and 20</text><text x="205" y="158" text-anchor="middle" font-size="11" font-weight="800" fill="#5a4a30">Class width = 20&minus;10 = 10</text></g>'
-);}
-function playGFT(done){setStatus("Reading a grouped frequency table...");say("A grouped frequency table groups data into class intervals.");at(600,function(){fade("gf1h",1);});at(2200,function(){fade("gf1r",1);say("Class 10 to 20 has frequency 8. This means 8 data values fall between 10 and 20.");});at(5500,function(){fade("gf1e",1);setStatus("8 values in class 10-20. Width = 10.");say("The class width is upper minus lower: 20 minus 10 equals 10.");at(2000,done);});}
-
-function svgClassMark(){return makeSVG('CLASS MARK (MID-POINT)',
-  '<g id="cm1" opacity="0" style="transition:opacity .5s"><rect x="18" y="28" width="384" height="26" rx="7" fill="#f5e6c8" stroke="#6b4c2a" stroke-width="1.5"/><text x="210" y="45" text-anchor="middle" font-size="13" font-weight="900" fill="#d4870a">Class Mark = (Lower + Upper) &divide; 2</text></g>'
-  +'<g id="cm2" opacity="0" style="transition:opacity .5s"><line x1="60" y1="105" x2="360" y2="105" stroke="#c8b89a" stroke-width="2"/><line x1="110" y1="96" x2="110" y2="114" stroke="#6b4c2a" stroke-width="2"/><text x="110" y="128" text-anchor="middle" font-size="12" fill="#5a4a30">30</text><line x1="310" y1="96" x2="310" y2="114" stroke="#6b4c2a" stroke-width="2"/><text x="310" y="128" text-anchor="middle" font-size="12" fill="#5a4a30">40</text><circle cx="210" cy="105" r="7" fill="#d4870a"/><text x="210" y="90" text-anchor="middle" font-size="12" font-weight="900" fill="#d4870a">35</text></g>'
-  +'<g id="cm3" opacity="0" style="transition:opacity .5s"><rect x="110" y="142" width="200" height="26" rx="7" fill="#eef2eb" stroke="#6b4c2a" stroke-width="1.5"/><text x="210" y="159" text-anchor="middle" font-family="Share Tech Mono" font-size="15" font-weight="bold" fill="#7a8c6e">Class mark = 35</text></g>'
-);}
-function playClassMark(done){setStatus("Finding the class mark...");say("The class mark is the mid-point of a class interval.");at(600,function(){fade("cm1",1);});at(2500,function(){fade("cm2",1);say("For class 30 to 40: add 30 and 40 to get 70, then divide by 2.");});at(5500,function(){fade("cm3",1);setStatus("Class mark of 30-40 is 35.");say("Class mark equals 35. It represents the middle of that class.");at(2000,done);});}
-
-function svgMean1(){return makeSVG('MEAN (AVERAGE)',
-  '<g id="mn1f" opacity="0" style="transition:opacity .5s"><rect x="18" y="28" width="384" height="26" rx="7" fill="#f5e6c8" stroke="#6b4c2a" stroke-width="1.5"/><text x="210" y="45" text-anchor="middle" font-size="13" font-weight="900" fill="#d4870a">Mean = Sum of all values &divide; Number of values</text></g>'
-  +'<g id="mn1d" opacity="0" style="transition:opacity .5s"><text x="50" y="88" font-size="14" font-weight="800" fill="#5a4a30">Data: 4, 7, 13, 2, 4</text></g>'
-  +'<g id="mn1s" opacity="0" style="transition:opacity .5s"><text x="50" y="116" font-size="14" font-weight="800" fill="#d4870a">Sum = 4+7+13+2+4 = 30</text><text x="50" y="138" font-size="14" font-weight="800" fill="#d4870a">Count = 5</text></g>'
-  +'<g id="mn1a" opacity="0" style="transition:opacity .5s"><rect x="45" y="152" width="200" height="24" rx="6" fill="#eef2eb" stroke="#6b4c2a" stroke-width="1.5"/><text x="145" y="168" text-anchor="middle" font-family="Share Tech Mono" font-size="16" font-weight="bold" fill="#7a8c6e">Mean = 30 &divide; 5 = 6</text></g>'
-);}
-function playMean1(done){setStatus("Calculating the mean...");say("Mean is the average. Add all values and divide by how many there are.");at(600,function(){fade("mn1f",1);});at(2500,function(){fade("mn1d",1);say("Our data: 4, 7, 13, 2, 4.");});at(4500,function(){fade("mn1s",1);say("Sum equals 4 plus 7 plus 13 plus 2 plus 4 equals 30. There are 5 values.");});at(7500,function(){fade("mn1a",1);setStatus("Mean = 30 / 5 = 6");say("Mean equals 30 divided by 5 equals 6.");at(2000,done);});}
-
-function svgMedian1(){return makeSVG('MEDIAN (MIDDLE VALUE)',
-  '<g id="med1r" opacity="0" style="transition:opacity .5s"><rect x="18" y="28" width="384" height="24" rx="6" fill="#f5e6c8" stroke="#6b4c2a" stroke-width="1.5"/><text x="210" y="44" text-anchor="middle" font-size="12" font-weight="900" fill="#d4870a">Sort the data first, then find the middle value</text></g>'
-  +'<g id="med1s" opacity="0" style="transition:opacity .5s"><text x="50" y="82" font-size="13" font-weight="800" fill="#5a4a30">Sorted: 2, 3, <tspan fill="#d4870a" font-size="16" font-weight="900">5</tspan>, 7, 9</text></g>'
-  +'<g id="med1p" opacity="0" style="transition:opacity .5s"><text x="50" y="110" font-size="13" font-weight="800" fill="#5a4a30">5 values &rarr; middle is position 3 = <tspan fill="#7a8c6e" font-weight="900">5</tspan></text></g>'
-  +'<g id="med1a" opacity="0" style="transition:opacity .5s"><rect x="45" y="128" width="180" height="26" rx="7" fill="#eef2eb" stroke="#6b4c2a" stroke-width="1.5"/><text x="135" y="145" text-anchor="middle" font-family="Share Tech Mono" font-size="16" font-weight="bold" fill="#7a8c6e">Median = 5</text></g>'
-);}
-function playMedian1(done){setStatus("Finding the median...");say("Median is the middle value. Always sort the data first!");at(600,function(){fade("med1r",1);});at(2500,function(){fade("med1s",1);say("Sort: 2, 3, 5, 7, 9.");});at(5000,function(){fade("med1p",1);say("5 values. Middle is at position 3. That is 5.");});at(7500,function(){fade("med1a",1);setStatus("Median = 5");say("The median is 5.");at(2000,done);});}
-
-function svgMode1(){return makeSVG('MODE (MOST FREQUENT)',
-  '<g id="mo1r" opacity="0" style="transition:opacity .5s"><rect x="18" y="28" width="384" height="24" rx="6" fill="#f5e6c8" stroke="#6b4c2a" stroke-width="1.5"/><text x="210" y="44" text-anchor="middle" font-size="12" font-weight="900" fill="#d4870a">Mode = value that appears the most times</text></g>'
-  +'<g id="mo1d" opacity="0" style="transition:opacity .5s"><text x="50" y="82" font-size="13" font-weight="800" fill="#5a4a30">Data: 2, 3, 3, 4, 5, 3, 2, 3</text></g>'
-  +'<g id="mo1c" opacity="0" style="transition:opacity .5s"><text x="50" y="108" font-size="12" font-weight="800" fill="#5a4a30">2 appears: 2 times</text><text x="50" y="126" font-size="13" font-weight="900" fill="#d4870a">3 appears: 4 times &#9650;</text><text x="50" y="144" font-size="12" font-weight="800" fill="#5a4a30">4 appears: 1 time &nbsp; 5 appears: 1 time</text></g>'
-  +'<g id="mo1a" opacity="0" style="transition:opacity .5s"><rect x="45" y="154" width="160" height="22" rx="6" fill="#eef2eb" stroke="#6b4c2a" stroke-width="1.5"/><text x="125" y="169" text-anchor="middle" font-family="Share Tech Mono" font-size="15" font-weight="bold" fill="#7a8c6e">Mode = 3</text></g>'
-);}
-function playMode1(done){setStatus("Finding the mode...");say("Mode is the value that appears most often in the data.");at(600,function(){fade("mo1r",1);});at(2500,function(){fade("mo1d",1);say("Our data: 2, 3, 3, 4, 5, 3, 2, 3.");});at(4500,function(){fade("mo1c",1);say("Count: 2 appears twice, 3 appears 4 times, 4 and 5 appear once each. 3 wins!");});at(7500,function(){fade("mo1a",1);setStatus("Mode = 3");say("The mode is 3.");at(2000,done);});}
-
-function svgMissingF(){return makeSVG('FINDING MISSING FREQUENCY',
-  '<g id="mf1" opacity="0" style="transition:opacity .5s"><text x="50" y="52" font-size="13" font-weight="800" fill="#5a4a30">0&ndash;10: 8 &nbsp; 10&ndash;20: ? &nbsp; 20&ndash;30: 14 &nbsp; 30&ndash;40: 12</text></g>'
-  +'<g id="mf2" opacity="0" style="transition:opacity .5s"><text x="50" y="82" font-size="14" font-weight="800" fill="#d4870a">Total = 50</text><text x="50" y="104" font-size="14" font-weight="800" fill="#5a4a30">Known sum = 8 + 14 + 12 = 34</text></g>'
-  +'<g id="mf3" opacity="0" style="transition:opacity .5s"><text x="50" y="132" font-size="14" font-weight="800" fill="#5a4a30">Missing = 50 &minus; 34 = ?</text></g>'
-  +'<g id="mf4" opacity="0" style="transition:opacity .5s"><rect x="45" y="150" width="200" height="26" rx="7" fill="#eef2eb" stroke="#6b4c2a" stroke-width="1.5"/><text x="145" y="167" text-anchor="middle" font-family="Share Tech Mono" font-size="16" font-weight="bold" fill="#7a8c6e">Missing = 16</text></g>'
-);}
-function playMissingF(done){setStatus("Finding the missing frequency...");say("The sum of all frequencies equals the total number of observations.");at(600,function(){fade("mf1",1);say("We have 4 classes. Total is 50. Three frequencies are known: 8, 14 and 12.");});at(4000,function(){fade("mf2",1);say("Known sum equals 8 plus 14 plus 12 equals 34.");});at(6500,function(){fade("mf3",1);say("Missing frequency equals 50 minus 34.");});at(8500,function(){fade("mf4",1);setStatus("Missing frequency = 16");say("Missing frequency equals 16.");at(2000,done);});}
-
-function svgHistogram(){return makeSVG('HISTOGRAM',
-  '<g id="hi1" opacity="0" style="transition:opacity .5s"><line x1="50" y1="155" x2="390" y2="155" stroke="#6b4c2a" stroke-width="2"/><line x1="50" y1="30" x2="50" y2="155" stroke="#6b4c2a" stroke-width="2"/><text x="220" y="172" text-anchor="middle" font-size="11" font-weight="800" fill="#5a4a30">Class Intervals (horizontal axis)</text><text x="25" y="95" font-size="10" font-weight="800" fill="#5a4a30" transform="rotate(-90,25,95)">Frequency</text></g>'
-  +'<g id="hi2" opacity="0" style="transition:opacity .5s"><rect x="50" y="115" width="60" height="40" fill="#f5e6c8" stroke="#6b4c2a" stroke-width="1.5"/><rect x="110" y="90" width="60" height="65" fill="#e8b84b" stroke="#6b4c2a" stroke-width="1.5"/><rect x="170" y="60" width="60" height="95" fill="#d4870a" stroke="#6b4c2a" stroke-width="1.5"/><rect x="230" y="80" width="60" height="75" fill="#e8b84b" stroke="#6b4c2a" stroke-width="1.5"/><rect x="290" y="120" width="60" height="35" fill="#f5e6c8" stroke="#6b4c2a" stroke-width="1.5"/></g>'
-  +'<g id="hi3" opacity="0" style="transition:opacity .5s"><text x="210" y="48" text-anchor="middle" font-size="11" font-weight="800" fill="#b85c2a">Bars TOUCH each other (continuous data)</text></g>'
-);}
-function playHistogram(done){setStatus("Reading a histogram...");say("A histogram displays continuous data. Let us look at its features.");at(600,function(){fade("hi1",1);say("Horizontal axis shows class intervals. Vertical axis shows frequencies.");});at(4000,function(){fade("hi2",1);say("Bars represent each class interval. The height shows the frequency.");});at(7000,function(){fade("hi3",1);setStatus("Bars touch — continuous data!");say("In a histogram, unlike a bar graph, the bars touch each other because the data is continuous.");at(2000,done);});}
-
-function svgSumMean(){return makeSVG('SUM FROM MEAN AND n',
-  '<g id="sm1" opacity="0" style="transition:opacity .5s"><rect x="18" y="28" width="384" height="26" rx="7" fill="#f5e6c8" stroke="#6b4c2a" stroke-width="1.5"/><text x="210" y="45" text-anchor="middle" font-size="13" font-weight="900" fill="#d4870a">Mean = Sum &divide; n &nbsp;&rarr;&nbsp; Sum = Mean &times; n</text></g>'
-  +'<g id="sm2" opacity="0" style="transition:opacity .5s"><text x="50" y="90" font-size="14" font-weight="800" fill="#5a4a30">Mean = 25, n = 8</text></g>'
-  +'<g id="sm3" opacity="0" style="transition:opacity .5s"><text x="50" y="120" font-size="14" font-weight="800" fill="#d4870a">Sum = 25 &times; 8</text></g>'
-  +'<g id="sm4" opacity="0" style="transition:opacity .5s"><rect x="45" y="140" width="200" height="28" rx="7" fill="#eef2eb" stroke="#6b4c2a" stroke-width="1.5"/><text x="145" y="158" text-anchor="middle" font-family="Share Tech Mono" font-size="18" font-weight="bold" fill="#7a8c6e">Sum = 200</text></g>'
-);}
-function playSumMean(done){setStatus("Finding sum from mean...");say("Mean equals Sum divided by n. So Sum equals Mean times n.");at(600,function(){fade("sm1",1);});at(2500,function(){fade("sm2",1);say("Mean is 25 and n is 8.");});at(4500,function(){fade("sm3",1);say("Sum equals 25 times 8.");});at(6500,function(){fade("sm4",1);setStatus("Sum = 200");say("Sum equals 200.");at(2000,done);});}
-
-function svgRange1(){return makeSVG('RANGE OF DATA',
-  '<g id="rg1f" opacity="0" style="transition:opacity .5s"><rect x="18" y="28" width="384" height="26" rx="7" fill="#f5e6c8" stroke="#6b4c2a" stroke-width="1.5"/><text x="210" y="45" text-anchor="middle" font-size="13" font-weight="900" fill="#d4870a">Range = Highest value &minus; Lowest value</text></g>'
-  +'<g id="rg1l" opacity="0" style="transition:opacity .5s"><line x1="50" y1="110" x2="370" y2="110" stroke="#c8b89a" stroke-width="2"/><circle cx="80" cy="110" r="7" fill="#b85c2a"/><text x="80" y="130" text-anchor="middle" font-size="12" fill="#b85c2a">45 (min)</text><circle cx="340" cy="110" r="7" fill="#7a8c6e"/><text x="340" y="130" text-anchor="middle" font-size="12" fill="#7a8c6e">95 (max)</text></g>'
-  +'<g id="rg1a" opacity="0" style="transition:opacity .5s"><rect x="110" y="148" width="200" height="26" rx="7" fill="#eef2eb" stroke="#6b4c2a" stroke-width="1.5"/><text x="210" y="165" text-anchor="middle" font-family="Share Tech Mono" font-size="15" font-weight="bold" fill="#7a8c6e">Range = 95&minus;45 = 50</text></g>'
-);}
-function playRange1(done){setStatus("Calculating the range...");say("Range equals highest value minus lowest value. It measures the spread of data.");at(600,function(){fade("rg1f",1);});at(2500,function(){fade("rg1l",1);say("Scores go from 45 to 95.");});at(5000,function(){fade("rg1a",1);setStatus("Range = 95 - 45 = 50");say("Range equals 95 minus 45 equals 50.");at(2000,done);});}
-
-function getAnimSVG(t){var m={freq1:svgFreq1,gft:svgGFT,classMark:svgClassMark,mean1:svgMean1,median1:svgMedian1,mode1:svgMode1,missingF:svgMissingF,histogram:svgHistogram,sumMean:svgSumMean,range1:svgRange1};return m[t]?m[t]():'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="background:#fffdf8"><text x="210" y="89" text-anchor="middle" font-family="Nunito" font-size="14" fill="#5a4a30">Loading...</text></svg>';}
-function getAnimPlay(t){var m={freq1:playFreq1,gft:playGFT,classMark:playClassMark,mean1:playMean1,median1:playMedian1,mode1:playMode1,missingF:playMissingF,histogram:playHistogram,sumMean:playSumMean,range1:playRange1};return m[t]||function(done){done();};}
+function getAnimSVG(t){var m={genform:svgGenform,div2:svgDiv2,div3:svgDiv3,div9:svgDiv9,div5:svgDiv5,div11:svgDiv11,sum11:svgSum11,diff9:svgDiff9,findA:svgFindA,genform3:svgGenform3};return m[t]?m[t]():'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="background:#fffdf8"><text x="210" y="89" text-anchor="middle" font-family="Nunito" font-size="14" fill="#5a4a30">Loading...</text></svg>';}
+function getAnimPlay(t){var m={genform:playGenform,div2:playDiv2,div3:playDiv3,div9:playDiv9,div5:playDiv5,div11:playDiv11,sum11:playSum11,diff9:playDiff9,findA:playFindA,genform3:playGenform3};return m[t]||function(done){done();};}
 
 var session=[],idx=0,stepIdx=0,nudgeCount=0,completed=false,recog=null,listening=false,breakSecs=0,breakTmr=null,PER_SESSION=10;
 function init(){var st=JSON.parse(localStorage.getItem("rishi_current_student")||"{}");G("sName").textContent=st.studentName?st.studentName.split(" ")[0]:"there";var prog=JSON.parse(localStorage.getItem("rishi_progress")||"{}");if(prog["explain_playing_done"]){completed=true;G("doneBanner").classList.add("show");unlockNav();}buildSession();setupRecog();rInit();initVoices(function(){say(G("introText").innerText);setTimeout(showQ,2200);});}
