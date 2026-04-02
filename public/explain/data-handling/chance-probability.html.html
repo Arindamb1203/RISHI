@@ -3,302 +3,373 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Chance and Probability – Class 8 | RISHI</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<title>RISHI — Chance and Probability</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Nunito:wght@400;600;700;800;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Poppins',sans-serif;background:linear-gradient(135deg,#1a1a00,#2e2e00,#1a1a08);min-height:100vh;color:#fff;display:flex;flex-direction:column}
-.top-bar{display:flex;align-items:center;justify-content:space-between;padding:12px 20px;background:rgba(255,255,255,0.05);border-bottom:1px solid rgba(255,255,255,0.1)}
-.top-bar .logo{font-size:1.4rem;font-weight:700;color:#facc15;letter-spacing:2px}
-.top-bar .chapter{font-size:0.82rem;color:#aaa}
-.score-pill{background:rgba(250,204,21,0.15);border:1px solid #facc15;border-radius:20px;padding:4px 14px;font-size:0.78rem;color:#facc15}
-.progress-wrap{height:4px;background:rgba(255,255,255,0.1)}
-.progress-bar{height:4px;background:linear-gradient(90deg,#facc15,#ca8a04);transition:width 0.5s ease}
-.main{display:flex;flex:1}
-.rishika-panel{width:158px;min-width:158px;display:flex;flex-direction:column;align-items:center;padding:18px 10px;background:rgba(255,255,255,0.03);border-right:1px solid rgba(255,255,255,0.08)}
-.rishika-svg-wrap{width:118px;height:138px}
-.speech-bubble{background:rgba(255,255,255,0.95);color:#333;border-radius:12px;padding:9px 11px;font-size:0.68rem;line-height:1.5;margin-top:10px;position:relative;max-width:138px;min-height:38px}
-.speech-bubble::before{content:'';position:absolute;top:-8px;left:18px;border-left:8px solid transparent;border-right:8px solid transparent;border-bottom:8px solid rgba(255,255,255,0.95)}
-.replay-btn{margin-top:11px;background:none;border:1px solid rgba(255,255,255,0.3);color:#fff;border-radius:20px;padding:4px 12px;font-size:0.68rem;cursor:pointer;font-family:'Poppins',sans-serif}
-.replay-btn:hover{background:rgba(255,255,255,0.1)}
-.content{flex:1;padding:18px;display:flex;flex-direction:column;gap:13px;overflow-y:auto}
-.q-number{font-size:0.72rem;color:#facc15;margin-bottom:2px}
-.q-text{font-size:0.98rem;font-weight:600;color:#fff;line-height:1.6}
-.anim-canvas{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:6px;max-height:195px;overflow:hidden;display:flex;align-items:center;justify-content:center}
-.anim-canvas svg{max-height:195px;width:100%}
-.options-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
-.opt{background:rgba(255,255,255,0.07);border:1.5px solid rgba(255,255,255,0.15);border-radius:10px;padding:11px 14px;font-size:0.84rem;cursor:pointer;transition:all 0.2s;font-family:'Poppins',sans-serif;color:#fff;text-align:left}
-.opt:hover:not(:disabled){background:rgba(255,255,255,0.13);border-color:#facc15}
-.opt.correct{background:rgba(39,174,96,0.25);border-color:#27ae60}
-.opt.wrong{background:rgba(231,76,60,0.25);border-color:#e74c3c}
-.feedback{font-size:0.83rem;padding:9px 13px;border-radius:8px;min-height:34px}
-.feedback.correct{background:rgba(39,174,96,0.2);color:#2ecc71}
-.feedback.wrong{background:rgba(231,76,60,0.2);color:#e74c3c}
-.next-btn{align-self:flex-end;background:linear-gradient(135deg,#facc15,#ca8a04);color:#000;border:none;border-radius:24px;padding:10px 28px;font-weight:700;font-size:0.88rem;cursor:pointer;font-family:'Poppins',sans-serif;display:none}
-.next-btn:hover{transform:scale(1.03)}
-.done-screen{display:none;flex-direction:column;align-items:center;justify-content:center;flex:1;gap:18px;text-align:center;padding:40px}
-.done-screen h2{font-size:1.9rem;color:#facc15}
-.done-screen p{color:#ccc;font-size:0.96rem}
-.done-btn{background:linear-gradient(135deg,#facc15,#ca8a04);color:#000;border:none;border-radius:24px;padding:11px 30px;font-weight:700;font-size:0.96rem;cursor:pointer;font-family:'Poppins',sans-serif}
+:root{--cream:#fdf6ec;--warm-white:#fffdf8;--gold:#c8922a;--gold-light:#e8b84b;--gold-pale:#f5e6c8;--amber:#d4870a;--sage:#7a8c6e;--sage-light:#a8b89a;--rust:#b85c2a;--charcoal:#2a2218;--mid:#5a4a30;--soft:#8a7a5a;--inactive:#c8b89a;--border-dark:#6b4c2a;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--cream);font-family:'Nunito',sans-serif;min-height:100vh;color:var(--charcoal);}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(var(--gold-pale) 1px,transparent 1px),linear-gradient(90deg,var(--gold-pale) 1px,transparent 1px);background-size:40px 40px;opacity:.3;z-index:0;pointer-events:none;}
+.topbar{position:sticky;top:0;z-index:100;background:rgba(253,246,236,.97);border-bottom:2px solid var(--border-dark);backdrop-filter:blur(8px);padding:10px 18px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;}
+.logo-sm{font-family:'Orbitron',sans-serif;font-size:17px;font-weight:900;letter-spacing:4px;background:linear-gradient(135deg,var(--amber),var(--gold-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.topbar-center{font-family:'Orbitron',sans-serif;font-size:10px;letter-spacing:2px;color:var(--amber);text-transform:uppercase;}
+.topbar-right{display:flex;gap:8px;}
+.btn-topbar{font-family:'Nunito',sans-serif;font-size:12px;font-weight:900;padding:6px 14px;border-radius:20px;border:2px solid var(--border-dark);background:var(--warm-white);color:var(--mid);cursor:pointer;}
+.btn-topbar.back{background:var(--gold-pale);}
+.prog-wrap{position:relative;z-index:10;padding:8px 18px;background:rgba(255,253,248,.9);border-bottom:1.5px solid var(--gold-pale);}
+.prog-info{display:flex;justify-content:space-between;font-size:11px;font-weight:800;color:var(--mid);margin-bottom:5px;}
+.prog-bar{height:6px;background:var(--gold-pale);border-radius:4px;overflow:hidden;}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--sage),var(--gold));border-radius:4px;transition:width .5s ease;}
+.main{position:relative;z-index:10;max-width:820px;margin:0 auto;padding:14px 14px 120px;}
+.rishika-wrap{display:flex;align-items:flex-start;gap:12px;margin-bottom:14px;}
+.rishika-avatar{width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,#7c3aed,#a78bfa);border:2px solid var(--border-dark);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;}
+.rishika-bubble{background:rgba(255,253,248,.97);border:2px solid var(--border-dark);border-radius:0 16px 16px 16px;padding:12px 16px;flex:1;box-shadow:0 4px 20px rgba(107,76,42,.1);}
+.rishika-name{font-size:10px;font-weight:900;color:#7c3aed;letter-spacing:2px;text-transform:uppercase;margin-bottom:5px;}
+.rishika-text{font-size:14px;font-weight:700;color:var(--charcoal);line-height:1.6;}
+.hl{color:var(--amber);font-weight:900;}
+.btn-speak{display:inline-flex;align-items:center;gap:6px;font-family:'Nunito',sans-serif;font-size:11px;font-weight:900;padding:5px 11px;border-radius:20px;border:2px solid var(--sage);background:#eef2eb;color:var(--sage);cursor:pointer;margin-top:8px;}
+.q-card{background:rgba(255,253,248,.97);border:2px solid var(--border-dark);border-radius:16px;padding:16px 18px;margin-bottom:12px;box-shadow:0 4px 20px rgba(107,76,42,.1);}
+.q-label{font-family:'Orbitron',sans-serif;font-size:10px;letter-spacing:3px;color:var(--amber);text-transform:uppercase;margin-bottom:8px;}
+.q-text{font-size:15px;font-weight:800;color:var(--charcoal);line-height:1.6;margin-bottom:10px;}
+.step{display:flex;gap:10px;margin-bottom:12px;opacity:0;transform:translateY(6px);transition:all .4s ease;}
+.step.vis{opacity:1;transform:translateY(0);}
+.step-num{width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;font-size:11px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:2px solid var(--border-dark);}
+.step-body{flex:1;font-size:13px;font-weight:700;color:var(--mid);line-height:1.6;padding-top:2px;}
+.ans-tag{font-family:'Share Tech Mono',monospace;background:linear-gradient(135deg,#eef2eb,#f5fbf2);border:2px solid var(--border-dark);border-radius:7px;padding:2px 9px;color:var(--sage);font-size:13px;}
+.anim-panel{background:#fffdf8;border:2px solid var(--border-dark);border-radius:14px;margin-bottom:12px;overflow:hidden;box-shadow:0 4px 16px rgba(107,76,42,.1);}
+.anim-header{background:linear-gradient(135deg,var(--charcoal),#3d2e1a);padding:7px 14px;display:flex;align-items:center;justify-content:space-between;}
+.anim-header-lbl{font-family:'Orbitron',sans-serif;font-size:9px;letter-spacing:2px;color:var(--gold-light);text-transform:uppercase;}
+.anim-replay{font-size:10px;font-weight:900;color:var(--gold-pale);background:none;border:1px solid var(--gold-pale);border-radius:20px;padding:2px 9px;cursor:pointer;display:none;}
+.anim-canvas{width:100%;max-height:195px;overflow:hidden;display:flex;align-items:center;justify-content:center;background:#fffdf8;}
+.anim-canvas svg{width:100%;max-height:195px;}
+.anim-status{padding:6px 14px;font-family:'Nunito',sans-serif;font-size:12px;font-weight:800;color:var(--mid);text-align:center;min-height:26px;line-height:1.4;border-top:1px solid var(--gold-pale);}
+.anim-play-btn{width:100%;padding:10px;font-family:'Nunito',sans-serif;font-size:14px;font-weight:900;background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;border:none;cursor:pointer;}
+.anim-play-btn:disabled{background:var(--gold-pale);color:var(--inactive);cursor:not-allowed;}
+.steps-btn{width:100%;padding:10px;font-family:'Nunito',sans-serif;font-size:14px;font-weight:900;background:linear-gradient(135deg,var(--sage),var(--sage-light));color:#fff;border:none;cursor:pointer;display:none;border-top:1px solid var(--gold-pale);}
+.confirm-wrap{margin-top:12px;background:linear-gradient(135deg,#eef2eb,#f5fbf2);border:2px solid var(--border-dark);border-radius:14px;padding:16px 18px;}
+.confirm-title{font-size:11px;font-weight:900;color:var(--sage);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;}
+.confirm-q{font-size:14px;font-weight:800;color:var(--charcoal);margin-bottom:12px;line-height:1.5;}
+.mic-btn{display:flex;align-items:center;gap:10px;width:100%;font-family:'Nunito',sans-serif;font-size:14px;font-weight:900;padding:11px 16px;border-radius:12px;border:2px solid var(--border-dark);background:var(--warm-white);color:var(--mid);cursor:pointer;margin-bottom:8px;}
+.mic-btn.on{background:var(--sage);color:#fff;border-color:var(--sage);animation:blnk .8s ease-in-out infinite;}
+@keyframes blnk{0%,100%{opacity:1}50%{opacity:.5}}
+.transcript{font-family:'Share Tech Mono',monospace;font-size:12px;color:var(--charcoal);background:var(--warm-white);border:2px solid var(--border-dark);border-radius:9px;padding:8px 12px;min-height:34px;margin-bottom:8px;display:none;}
+.transcript.show{display:block;}
+.result-box{font-size:12px;font-weight:800;padding:9px 13px;border-radius:9px;display:none;line-height:1.4;}
+.result-box.ok{background:#eef2eb;border:2px solid var(--sage);color:var(--sage);display:block;}
+.result-box.no{background:#fff5f0;border:2px solid var(--rust);color:var(--rust);display:block;}
+.nudge{font-size:12px;font-weight:700;color:var(--mid);margin-top:7px;font-style:italic;display:none;}
+.nudge.show{display:block;}
+.btn-next{font-family:'Nunito',sans-serif;font-size:14px;font-weight:900;padding:11px 22px;border-radius:12px;border:none;background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;cursor:pointer;display:none;margin-top:10px;width:100%;}
+.btn-next.show{display:block;}
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;z-index:100;background:rgba(253,246,236,.97);border-top:2px solid var(--border-dark);padding:10px 18px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap;align-items:center;}
+.btn-nav{font-family:'Nunito',sans-serif;font-size:13px;font-weight:900;padding:10px 20px;border-radius:12px;border:2px solid var(--border-dark);cursor:pointer;}
+.btn-nav.practice{background:linear-gradient(135deg,var(--sage),var(--sage-light));color:#fff;border-color:var(--sage);}
+.btn-nav.exam{background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;border-color:var(--amber);}
+.btn-nav.locked{background:var(--gold-pale);color:var(--inactive);cursor:not-allowed;border-color:var(--inactive);}
+.lock-tip{font-size:10px;font-weight:700;color:var(--rust);width:100%;text-align:center;}
+.overlay{display:none;position:fixed;inset:0;background:rgba(42,34,24,.92);z-index:1000;flex-direction:column;align-items:center;justify-content:center;backdrop-filter:blur(6px);}
+.overlay.show{display:flex;}
+.break-box{background:var(--warm-white);border:2px solid var(--border-dark);border-radius:22px;padding:28px 32px;max-width:380px;width:90%;text-align:center;}
+.break-title{font-family:'Orbitron',sans-serif;font-size:14px;font-weight:900;color:var(--amber);letter-spacing:3px;margin-bottom:5px;}
+.break-sub{font-size:12px;font-weight:700;color:var(--soft);margin-bottom:16px;}
+.break-opts{display:flex;flex-direction:column;gap:8px;margin-bottom:12px;}
+.break-opt{font-family:'Nunito',sans-serif;font-size:14px;font-weight:800;padding:11px;border-radius:11px;border:2px solid var(--border-dark);background:var(--warm-white);color:var(--mid);cursor:pointer;}
+.timer-screen{display:none;position:fixed;inset:0;background:#1a1208;z-index:1001;flex-direction:column;align-items:center;justify-content:center;}
+.timer-screen.show{display:flex;}
+.timer-reason{font-family:'Orbitron',sans-serif;font-size:12px;letter-spacing:4px;color:var(--gold-light);margin-bottom:16px;text-transform:uppercase;}
+.timer-num{font-family:'Orbitron',sans-serif;font-size:68px;font-weight:900;color:var(--gold-light);letter-spacing:6px;margin-bottom:30px;}
+.btn-end{font-family:'Nunito',sans-serif;font-size:16px;font-weight:900;padding:13px 32px;border-radius:13px;border:2px solid var(--gold-light);background:transparent;color:var(--gold-light);cursor:pointer;}
+.done-banner{background:linear-gradient(135deg,#eef2eb,#f5fbf2);border:2px solid var(--border-dark);border-radius:14px;padding:14px 18px;text-align:center;margin-bottom:14px;display:none;}
+.done-banner.show{display:block;}
+.done-banner .dt{font-family:'Orbitron',sans-serif;font-size:12px;letter-spacing:2px;color:var(--sage);margin-bottom:4px;}
+.done-banner .ds{font-size:13px;font-weight:700;color:var(--mid);}
+#rWrap{position:fixed;bottom:68px;left:10px;z-index:200;width:82px;pointer-events:none;}
+#rChar{width:82px;filter:drop-shadow(0 4px 10px rgba(107,76,42,.3));}
+@keyframes rIn{from{transform:translateY(50px);opacity:0}to{transform:translateY(0);opacity:1}}
+@keyframes rBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+@media(max-width:600px){.main{padding:10px 10px 120px;}.topbar,.prog-wrap{padding-left:10px;padding-right:10px;}.timer-num{font-size:48px;}}
 </style>
 </head>
 <body>
-<div class="top-bar">
-  <span class="logo">RISHI</span>
-  <span class="chapter">Chance and Probability — Class 8 Data Handling</span>
-  <span class="score-pill" id="scorePill">Score: 0 / 15</span>
-</div>
-<div class="progress-wrap"><div class="progress-bar" id="progressBar" style="width:0%"></div></div>
-<div class="main" id="mainArea">
-  <div class="rishika-panel">
-    <div class="rishika-svg-wrap">
-      <svg viewBox="0 0 120 140" xmlns="http://www.w3.org/2000/svg">
-        <ellipse cx="60" cy="126" rx="34" ry="20" fill="#a16207"/>
-        <ellipse cx="60" cy="109" rx="21" ry="17" fill="#ca8a04"/>
-        <rect x="53" y="93" width="14" height="14" rx="4" fill="#f5c5a3"/>
-        <ellipse cx="60" cy="73" rx="30" ry="31" fill="#f5c5a3"/>
-        <ellipse cx="60" cy="46" rx="30" ry="15" fill="#451a03"/>
-        <ellipse cx="32" cy="69" rx="7" ry="17" fill="#451a03"/>
-        <ellipse cx="88" cy="69" rx="7" ry="17" fill="#451a03"/>
-        <circle cx="60" cy="37" r="9" fill="#451a03"/>
-        <circle cx="31" cy="77" r="3" fill="#facc15"/>
-        <circle cx="89" cy="77" r="3" fill="#facc15"/>
-        <ellipse cx="46" cy="72" rx="7" ry="7.5" fill="white"/>
-        <circle cx="47" cy="73" r="4.5" fill="#a16207"/>
-        <circle cx="47" cy="73" r="2.5" fill="#2c0a00"/>
-        <circle cx="49" cy="71" r="1.2" fill="white"/>
-        <ellipse id="lidL" cx="46" cy="72" rx="7" ry="7.5" fill="#f5c5a3" opacity="0"/>
-        <ellipse cx="74" cy="72" rx="7" ry="7.5" fill="white"/>
-        <circle cx="75" cy="73" r="4.5" fill="#a16207"/>
-        <circle cx="75" cy="73" r="2.5" fill="#2c0a00"/>
-        <circle cx="77" cy="71" r="1.2" fill="white"/>
-        <ellipse id="lidR" cx="74" cy="72" rx="7" ry="7.5" fill="#f5c5a3" opacity="0"/>
-        <path d="M40 63 Q46 60 52 63" stroke="#451a03" stroke-width="2" fill="none" stroke-linecap="round"/>
-        <path d="M68 63 Q74 60 80 63" stroke="#451a03" stroke-width="2" fill="none" stroke-linecap="round"/>
-        <ellipse cx="60" cy="81" rx="3" ry="2" fill="#e8a87c"/>
-        <ellipse id="blushL" cx="40" cy="83" rx="8" ry="5" fill="#ff9999" opacity="0"/>
-        <ellipse id="blushR" cx="80" cy="83" rx="8" ry="5" fill="#ff9999" opacity="0"/>
-        <path id="mouth" d="M53 89 Q60 93 67 89" stroke="#c0392b" stroke-width="2" fill="none" stroke-linecap="round"/>
-        <path d="M48 109 L60 117 L72 109" stroke="#a16207" stroke-width="2" fill="none"/>
-        <path d="M25 121 Q60 136 95 121" stroke="#fde047" stroke-width="3" fill="none" opacity="0.6"/>
-      </svg>
-    </div>
-    <div class="speech-bubble" id="bubble">Hi! I am Rishika. Let us explore Chance and Probability!</div>
-    <button class="replay-btn" onclick="replayAnim()">&#8635; Replay</button>
-  </div>
-  <div class="content" id="contentArea">
-    <div>
-      <div class="q-number" id="qNumber">Question 1 of 15</div>
-      <div class="q-text" id="qText"></div>
-    </div>
-    <div class="anim-canvas" id="animCanvas"></div>
-    <div class="options-grid" id="optionsGrid"></div>
-    <div class="feedback" id="feedback"></div>
-    <button class="next-btn" id="nextBtn" onclick="nextQ()">Next &#8594;</button>
+<div class="topbar">
+  <div class="logo-sm">RISHI</div>
+  <div class="topbar-center">&#127922; Chance and Probability</div>
+  <div class="topbar-right">
+    <button class="btn-topbar" onclick="openBreak()">&#9749; Break</button>
+    <button class="btn-topbar back" onclick="location.href='/syllabus.html'">&#8592; Syllabus</button>
   </div>
 </div>
-<div class="done-screen" id="doneScreen">
-  <div style="font-size:3rem">&#127881;</div>
-  <h2>All Chapters Complete!</h2>
-  <p id="doneScore"></p>
-  <p style="color:#aaa;font-size:0.82rem">Chance and Probability — Class 8 Data Handling</p>
-  <button class="done-btn" onclick="location.href='/syllabus.html'">Back to Syllabus</button>
+<div class="prog-wrap">
+  <div class="prog-info"><span id="progLabel">Question 1 of 10</span><span id="progPct">0%</span></div>
+  <div class="prog-bar"><div class="prog-fill" id="progFill" style="width:0%"></div></div>
+</div>
+<div class="main">
+  <div class="done-banner" id="doneBanner">
+    <div class="dt">&#10003; Explanation Completed!</div>
+    <div class="ds">Practice and Exam now unlocked.</div>
+  </div>
+  <div class="rishika-wrap">
+    <div class="rishika-avatar">&#128105;&#8205;&#127979;</div>
+    <div class="rishika-bubble">
+      <div class="rishika-name">Rishika</div>
+      <div class="rishika-text" id="introText">
+        Hi <span class="hl" id="sName">there</span>! &#128522; I am Rishika!
+        Today we explore <span class="hl">Chance and Probability</span>!
+        We will learn what probability means, how to calculate it,
+        complementary events, and solve real problems! &#127775;
+      </div>
+      <button class="btn-speak" onclick="say(G('introText').innerText)">&#128266; Hear Rishika</button>
+    </div>
+  </div>
+  <div id="qArea"></div>
+</div>
+<div class="bottom-nav">
+  <div class="lock-tip" id="lockTip">&#9757; Complete explanations to unlock Practice and Exam</div>
+  <button class="btn-nav practice locked" id="btnPractice" onclick="goPractice()">&#9999;&#65039; Practice</button>
+  <button class="btn-nav exam locked" id="btnExam" onclick="goExam()">&#128221; Exam</button>
+</div>
+<div class="overlay" id="breakOv">
+  <div class="break-box">
+    <div class="break-title">Break</div>
+    <div class="break-sub">Choose &mdash; timer starts</div>
+    <div class="break-opts">
+      <button class="break-opt" onclick="startBreak('Water')">&#128167; Water</button>
+      <button class="break-opt" onclick="startBreak('Washroom')">&#128701; Washroom</button>
+      <button class="break-opt" onclick="startBreak('Physical')">&#127939; Physical</button>
+    </div>
+    <button class="break-opt" style="color:var(--soft)" onclick="closeBreak()">Cancel</button>
+  </div>
+</div>
+<div class="timer-screen" id="timerScreen">
+  <div class="timer-reason" id="timerLbl">Break</div>
+  <div class="timer-num" id="timerNum">00:00</div>
+  <button class="btn-end" onclick="endBreak()">&#10003; End Break</button>
+</div>
+<div id="rWrap">
+<svg id="rChar" viewBox="0 0 100 130" xmlns="http://www.w3.org/2000/svg">
+  <ellipse cx="50" cy="108" rx="30" ry="18" fill="#7c3aed"/>
+  <ellipse cx="50" cy="94" rx="20" ry="16" fill="#8b5cf6"/>
+  <rect x="43" y="80" width="14" height="14" rx="4" fill="#f5c5a3"/>
+  <ellipse cx="50" cy="62" rx="27" ry="28" fill="#f5c5a3"/>
+  <ellipse cx="50" cy="38" rx="27" ry="14" fill="#2d1b69"/>
+  <ellipse cx="26" cy="58" rx="6" ry="14" fill="#2d1b69"/>
+  <ellipse cx="74" cy="58" rx="6" ry="14" fill="#2d1b69"/>
+  <circle cx="50" cy="30" r="8" fill="#2d1b69"/>
+  <ellipse cx="38" cy="61" rx="6.5" ry="7" fill="white"/>
+  <ellipse cx="38" cy="62" rx="4" ry="4.5" fill="#5b21b6"/>
+  <ellipse cx="38" cy="62" rx="2.5" ry="3" fill="#1e0a4d"/>
+  <circle cx="39.5" cy="60" r="1.2" fill="white"/>
+  <ellipse id="rLid1" cx="38" cy="61" rx="6.5" ry="1" fill="#f5c5a3" opacity="0"/>
+  <ellipse cx="62" cy="61" rx="6.5" ry="7" fill="white"/>
+  <ellipse cx="62" cy="62" rx="4" ry="4.5" fill="#5b21b6"/>
+  <ellipse cx="62" cy="62" rx="2.5" ry="3" fill="#1e0a4d"/>
+  <circle cx="63.5" cy="60" r="1.2" fill="white"/>
+  <ellipse id="rLid2" cx="62" cy="61" rx="6.5" ry="1" fill="#f5c5a3" opacity="0"/>
+  <ellipse cx="50" cy="70" rx="3" ry="2" fill="#e8a87c"/>
+  <path id="rMouth" d="M44,76 Q50,80 56,76" fill="none" stroke="#2a1208" stroke-width="2" stroke-linecap="round"/>
+  <ellipse id="rBlush1" cx="28" cy="70" rx="7" ry="4" fill="#ff9999" opacity="0"/>
+  <ellipse id="rBlush2" cx="72" cy="70" rx="7" ry="4" fill="#ff9999" opacity="0"/>
+  <path d="M38 94 L50 102 L62 94" stroke="#6d28d9" stroke-width="2" fill="none"/>
+  <rect x="28" y="116" width="44" height="10" fill="#5b21b6" rx="4"/>
+  <text x="50" y="124" text-anchor="middle" font-family="Nunito" font-size="7" font-weight="900" fill="white">RISHIKA</text>
+</svg>
 </div>
 <script>
-function G(id){return document.getElementById(id);}
-var atTimers=[];
-function clearAt(){atTimers.forEach(clearTimeout);atTimers=[];}
-function at(ms,fn){atTimers.push(setTimeout(fn,ms));}
-var chosenVoice=null,mouthTimer=null;
-function initVoices(cb){
-  var v=speechSynthesis.getVoices();
-  if(v.length){pickVoice(v);cb();return;}
-  speechSynthesis.onvoiceschanged=function(){pickVoice(speechSynthesis.getVoices());cb();};
-}
-function pickVoice(voices){
-  var pri=['heera','veena','priya','raveena','female','woman','zira','samantha','victoria','karen','moira','tessa','fiona'];
-  var enIN=voices.filter(function(v){return v.lang==='en-IN';});
-  for(var p=0;p<pri.length;p++){for(var i=0;i<enIN.length;i++){if(enIN[i].name.toLowerCase().indexOf(pri[p])>-1){chosenVoice=enIN[i];return;}}}
-  var enA=voices.filter(function(v){return v.lang.startsWith('en');});
-  for(var p=0;p<pri.length;p++){for(var i=0;i<enA.length;i++){if(enA[i].name.toLowerCase().indexOf(pri[p])>-1){chosenVoice=enA[i];return;}}}
-  if(enIN.length){chosenVoice=enIN[0];return;}
-  if(enA.length){chosenVoice=enA[0];}
-}
-function say(text){
-  speechSynthesis.cancel();rStopTalk();
-  var u=new SpeechSynthesisUtterance(text);
-  if(chosenVoice)u.voice=chosenVoice;
-  u.lang='en-IN';u.rate=0.88;u.pitch=1.15;
-  u.onstart=function(){rStartTalk();};
-  u.onend=function(){rStopTalk();};
-  speechSynthesis.speak(u);
-}
-function rStartTalk(){
-  G('blushL').style.opacity='0.7';G('blushR').style.opacity='0.7';
-  if(mouthTimer)clearInterval(mouthTimer);
-  var open=false;
-  mouthTimer=setInterval(function(){
-    open=!open;
-    G('mouth').setAttribute('d',open?'M53 87 Q60 96 67 87':'M53 89 Q60 93 67 89');
-  },160);
-}
-function rStopTalk(){
-  if(mouthTimer){clearInterval(mouthTimer);mouthTimer=null;}
-  G('mouth').setAttribute('d','M53 89 Q60 93 67 89');
-  G('blushL').style.opacity='0';G('blushR').style.opacity='0';
-}
-function startBlink(){
-  function doBlink(){
-    G('lidL').setAttribute('opacity','0.95');G('lidR').setAttribute('opacity','0.95');
-    setTimeout(function(){G('lidL').setAttribute('opacity','0');G('lidR').setAttribute('opacity','0');setTimeout(doBlink,2200+Math.random()*3000);},120);
-  }
-  setTimeout(doBlink,2200+Math.random()*3000);
-}
-function fade(id,v){var e=G(id);if(!e)return;e.style.transition='opacity .5s';e.style.opacity=v;}
+var voicesReady=false,selectedVoice=null;
+function pickVoice(){var vs=window.speechSynthesis.getVoices();if(!vs||vs.length===0)return false;var fk=["heera","veena","priya","raveena","female","woman","zira","samantha","victoria","karen","moira","tessa","fiona"];for(var i=0;i<vs.length;i++){if(vs[i].lang.toLowerCase().indexOf("en-in")===0){var n=vs[i].name.toLowerCase();for(var k=0;k<fk.length;k++){if(n.indexOf(fk[k])>=0){selectedVoice=vs[i];return true;}}}}for(var i=0;i<vs.length;i++){if(vs[i].lang.toLowerCase().indexOf("en")===0){var n=vs[i].name.toLowerCase();for(var k=0;k<fk.length;k++){if(n.indexOf(fk[k])>=0){selectedVoice=vs[i];return true;}}}}for(var i=0;i<vs.length;i++){if(vs[i].lang.toLowerCase().indexOf("en-in")===0){selectedVoice=vs[i];return true;}}for(var i=0;i<vs.length;i++){if(vs[i].lang.toLowerCase().indexOf("en-gb")===0){selectedVoice=vs[i];return true;}}return false;}
+function initVoices(cb){if(pickVoice()){voicesReady=true;cb();return;}window.speechSynthesis.onvoiceschanged=function(){window.speechSynthesis.onvoiceschanged=null;pickVoice();voicesReady=true;cb();};setTimeout(function(){if(!voicesReady){pickVoice();voicesReady=true;cb();}},2000);}
+function say(text){if(!window.speechSynthesis)return;window.speechSynthesis.cancel();var u=new SpeechSynthesisUtterance(text);u.lang="en-IN";u.rate=0.88;u.pitch=1.15;if(selectedVoice)u.voice=selectedVoice;rStartTalk(text.length);window.speechSynthesis.speak(u);}
+function sayEl(id){var e=G(id);if(e)say(e.innerText||e.textContent);}
+window.addEventListener("beforeunload",function(){window.speechSynthesis&&window.speechSynthesis.cancel();});
+window.addEventListener("pagehide",function(){window.speechSynthesis&&window.speechSynthesis.cancel();});
+var mouthTmr=null,mOpen=false;
+function rInit(){var c=G("rChar");if(c)c.style.animation="rIn .6s cubic-bezier(.34,1.56,.64,1) forwards";scheduleBlink();}
+function scheduleBlink(){setTimeout(function(){rBlink();scheduleBlink();},2200+Math.random()*3000);}
+function rBlink(){var l=G("rLid1"),r=G("rLid2");if(!l||!r)return;l.setAttribute("ry","7");r.setAttribute("ry","7");setTimeout(function(){l.setAttribute("ry","1");r.setAttribute("ry","1");},120);}
+function rStartTalk(len){rStopTalk();G("rBlush1").style.opacity="0.7";G("rBlush2").style.opacity="0.7";mOpen=false;mouthTmr=setInterval(function(){mOpen=!mOpen;var m=G("rMouth");if(!m)return;if(mOpen){m.setAttribute("d","M42,74 Q50,83 58,74");m.setAttribute("fill","#2a1208");}else{m.setAttribute("d","M44,76 Q50,80 56,76");m.setAttribute("fill","none");}},160);setTimeout(rStopTalk,Math.max(1800,len*58));}
+function rStopTalk(){clearInterval(mouthTmr);mOpen=false;var m=G("rMouth");if(m){m.setAttribute("d","M44,76 Q50,80 56,76");m.setAttribute("fill","none");}G("rBlush1").style.opacity="0";G("rBlush2").style.opacity="0";}
+function rHappy(){var c=G("rChar");if(c)c.style.animation="rBounce .35s ease-in-out 5";G("rBlush1").style.opacity="1";G("rBlush2").style.opacity="1";setTimeout(function(){rStopTalk();var c=G("rChar");if(c)c.style.animation="none";},2500);}
+function rThink(){setTimeout(rStopTalk,1800);}
 
-var questions=[
-{q:'What is probability?',opts:['Certainty of an event','Measure of how likely an event is','Number of outcomes','Always between 1 and 10'],ans:1,anim:'pr1',
-narr:'Probability is a number that measures how likely an event is to happen. It always lies between 0 and 1. A probability of 0 means impossible. A probability of 1 means certain.'},
-{q:'What is the probability formula?',opts:['Favourable / Total outcomes','Total / Favourable','Favourable x Total','Total - Favourable'],ans:0,anim:'pr2',
-narr:'Probability of an event equals number of favourable outcomes divided by total number of equally likely outcomes. This fraction always lies between 0 and 1.'},
-{q:'A fair coin is tossed. What is P(Head)?',opts:['0','1/4','1/2','1'],ans:2,anim:'pr3',
-narr:'When a fair coin is tossed, there are 2 equally likely outcomes: head or tail. Favourable outcomes for head equals 1. So P of head equals 1 divided by 2 equals one-half.'},
-{q:'A fair die is rolled. What is P(getting 4)?',opts:['1/2','1/3','1/4','1/6'],ans:3,anim:'pr4',
-narr:'A fair die has 6 faces numbered 1 to 6. Each outcome is equally likely. Favourable outcomes for getting 4 is 1. So P of 4 equals 1 divided by 6.'},
-{q:'A bag has 3 red, 5 blue balls. P(red ball) = ?',opts:['3/5','3/8','5/8','1/3'],ans:1,anim:'pr5',
-narr:'Total balls equal 3 plus 5 equals 8. Favourable outcomes for red equals 3. So P of red equals 3 divided by 8.'},
-{q:'P(an impossible event) = ?',opts:['1','0.5','1/2','0'],ans:3,anim:'pr6',
-narr:'An impossible event can never happen. Since there are zero favourable outcomes, probability equals 0 over total which is 0. For example, the probability of rolling a 7 on a regular die is 0.'},
-{q:'P(a certain event) = ?',opts:['0','0.5','1','2'],ans:2,anim:'pr7',
-narr:'A certain event always happens. Every outcome is favourable. So probability equals total outcomes divided by total outcomes which equals 1. For example, P of getting a number less than 7 on a die is 1.'},
-{q:'For any event A, P(A) + P(not A) = ?',opts:['0','0.5','1','2'],ans:2,anim:'pr8',
-narr:'The complementary rule: the probability of an event happening plus the probability of it not happening always equals 1. So P of A plus P of not A equals 1. This is very useful to find P of not A.'},
-{q:'A die is rolled. P(even number) = ?',opts:['1/6','1/3','1/2','2/3'],ans:2,anim:'pr9',
-narr:'Even numbers on a die are 2, 4 and 6. That is 3 favourable outcomes out of 6 total. P of even equals 3 divided by 6 which equals 1 over 2.'},
-{q:'Cards 1 to 10 are shuffled. P(prime number) = ?',opts:['2/5','1/2','3/10','4/10'],ans:0,anim:'pr10',
-narr:'Prime numbers between 1 and 10 are: 2, 3, 5, and 7. That is 4 primes out of 10 cards. P of prime equals 4 divided by 10 equals 2 over 5.'},
-{q:'P(not getting a 6) when a fair die is rolled = ?',opts:['1/6','5/6','1/2','2/3'],ans:1,anim:'pr11',
-narr:'P of getting 6 equals 1 over 6. Using complementary rule: P of not 6 equals 1 minus 1 over 6 equals 5 over 6.'},
-{q:'A bag has 4 red, 6 green, 2 blue balls. P(not red) = ?',opts:['4/12','8/12','6/12','2/12'],ans:1,anim:'pr12',
-narr:'Total balls equal 4 plus 6 plus 2 equals 12. P of red equals 4 over 12. P of not red equals 1 minus 4 over 12 equals 8 over 12. Or directly: non-red balls equal 6 plus 2 equals 8. P equals 8 over 12.'},
-{q:'If P(E) = 0.65, what is P(not E)?',opts:['0.65','0.35','1.65','0'],ans:1,anim:'pr13',
-narr:'Using the complementary rule: P of not E equals 1 minus P of E equals 1 minus 0.65 equals 0.35. Probabilities of an event and its complement always add up to 1.'},
-{q:'Two coins are tossed. P(at least one head) = ?',opts:['1/4','1/2','3/4','1'],ans:2,anim:'pr14',
-narr:'Sample space when two coins are tossed: H H, H T, T H, T T. Total outcomes: 4. At least one head includes H H, H T, T H — that is 3 outcomes. P equals 3 over 4.'},
-{q:'A die is rolled twice. P(both show 6) = ?',opts:['1/6','1/12','1/36','2/36'],ans:2,anim:'pr15',
-narr:'When a die is rolled twice, total outcomes equal 6 times 6 equals 36. The only favourable outcome is 6 comma 6, which is 1 outcome. So P equals 1 over 36.'}
+var QB=[
+{id:"pr0",q:"What is <span class='hl'>probability</span> and what are its possible values?",qs:"What is probability and what are its possible values?",anim:"prob1",
+ steps:[{t:"Probability measures how likely an event is to happen.",s:"Probability is a number that measures how likely an event is to happen."},
+        {t:"Probability is always between 0 and 1.",s:"Probability is always between 0 and 1. Never less than 0 and never more than 1."},
+        {t:"P = 0 means impossible. P = 1 means certain.",s:"A probability of 0 means the event is impossible. A probability of 1 means it is certain to happen."}],
+ cq:"What is the range of probability values?",cqs:"Range of probability?",
+ ans:["0 to 1","0 and 1","between 0 and 1","zero to one"],nudges:["Probability is never negative and never more than 1!","It is always between 0 and 1!","Say 0 to 1!"]},
+
+{id:"pr1",q:"State the <span class='hl'>probability formula</span>.",qs:"State the probability formula.",anim:"prob2",
+ steps:[{t:"P(Event) = Favourable Outcomes &divide; Total Outcomes",s:"Probability of an event equals number of favourable outcomes divided by total number of equally likely outcomes."},
+        {t:"Favourable = outcomes we want. Total = all possible outcomes.",s:"Favourable outcomes are the ones we are interested in. Total outcomes are all possible outcomes."},
+        {t:"Always: 0 &le; P(E) &le; 1",s:"Probability always lies between 0 and 1 inclusive."}],
+ cq:"State the probability formula.",cqs:"Probability formula?",
+ ans:["favourable over total","favourable divided by total","p equals favourable over total"],nudges:["It's a fraction — part over whole!","Favourable outcomes divided by total outcomes!","Say favourable divided by total!"]},
+
+{id:"pr2",q:"A fair coin is tossed. What is <span class='hl'>P(Head)</span>?",qs:"A fair coin is tossed. What is P of Head?",anim:"coin1",
+ steps:[{t:"Sample space = {Head, Tail}. Total outcomes = 2.",s:"When a coin is tossed, the sample space is Head and Tail. Total outcomes equals 2."},
+        {t:"Favourable outcomes for Head = 1.",s:"There is 1 favourable outcome for getting a Head."},
+        {t:"P(Head) = 1 &divide; 2 = <span class='ans-tag'>1/2</span>",s:"P of Head equals 1 divided by 2 equals one-half."}],
+ cq:"P of Head when a fair coin is tossed?",cqs:"P of Head?",
+ ans:["1/2","one half","half","0.5"],nudges:["Total outcomes are 2: Head or Tail!","Favourable is 1 (Head). Total is 2!","Say 1 over 2!"]},
+
+{id:"pr3",q:"A fair die is rolled. What is <span class='hl'>P(getting 4)</span>?",qs:"A fair die is rolled. What is P of getting 4?",anim:"die1",
+ steps:[{t:"A die has 6 faces: 1, 2, 3, 4, 5, 6. Total outcomes = 6.",s:"A fair die has 6 equally likely outcomes: 1, 2, 3, 4, 5 and 6."},
+        {t:"Favourable outcomes for 4 = 1 (only one face shows 4).",s:"There is only 1 face showing 4. So favourable outcomes equals 1."},
+        {t:"P(4) = 1 &divide; 6 = <span class='ans-tag'>1/6</span>",s:"P of 4 equals 1 divided by 6."}],
+ cq:"P of getting 4 when a die is rolled?",cqs:"P of getting 4?",
+ ans:["1/6","one sixth","one over six"],nudges:["A die has 6 faces. Only one shows 4!","Favourable is 1. Total is 6!","Say 1 over 6!"]},
+
+{id:"pr4",q:"A bag has 3 red and 5 blue balls. What is <span class='hl'>P(red ball)</span>?",qs:"Bag has 3 red and 5 blue balls. P of red?",anim:"bag1",
+ steps:[{t:"Total balls = 3 + 5 = 8.",s:"Total number of balls equals 3 plus 5 equals 8."},
+        {t:"Favourable outcomes (red) = 3.",s:"There are 3 red balls. So favourable outcomes equals 3."},
+        {t:"P(red) = 3 &divide; 8 = <span class='ans-tag'>3/8</span>",s:"P of red equals 3 divided by 8."}],
+ cq:"P of picking a red ball from this bag?",cqs:"P of red ball?",
+ ans:["3/8","three over eight","three eighths"],nudges:["Total balls is 3 plus 5 equals 8!","3 red balls out of 8 total!","Say 3 over 8!"]},
+
+{id:"pr5",q:"P(impossible event) = ? &nbsp; P(certain event) = ?",qs:"P of impossible event? P of certain event?",anim:"certain1",
+ steps:[{t:"Impossible event: can never happen. Favourable = 0.",s:"An impossible event has 0 favourable outcomes."},
+        {t:"P(impossible) = 0 &divide; total = <span class='ans-tag'>0</span>",s:"So probability of an impossible event is 0."},
+        {t:"P(certain) = total &divide; total = <span class='ans-tag'>1</span>",s:"A certain event always happens. All outcomes are favourable. So its probability is 1."}],
+ cq:"What is P of an impossible event?",cqs:"P of an impossible event?",
+ ans:["0","zero","probability 0","p equals 0"],nudges:["An impossible event can never happen!","Favourable outcomes are 0. So probability is 0!","Say 0!"]},
+
+{id:"pr6",q:"The <span class='hl'>complementary rule</span>: P(A) + P(not A) = ?",qs:"P of A plus P of not A equals?",anim:"comp1",
+ steps:[{t:"P(A) + P(not A) = 1",s:"The probability of an event plus the probability of it not happening always equals 1."},
+        {t:"So P(not A) = 1 &minus; P(A)",s:"Therefore P of not A equals 1 minus P of A. Very useful!"},
+        {t:"Example: P(rain) = 0.3. P(no rain) = 1&minus;0.3 = <span class='ans-tag'>0.7</span>",s:"Example: if P of rain is 0.3, then P of no rain equals 1 minus 0.3 equals 0.7."}],
+ cq:"P of A plus P of not A equals?",cqs:"P of A plus P of not A?",
+ ans:["1","one","equals 1"],nudges:["Either it happens or it doesn't — together they make certainty!","P of A plus P of not A equals?","Say 1!"]},
+
+{id:"pr7",q:"A die is rolled. Find <span class='hl'>P(even number)</span>.",qs:"A die is rolled. P of even number?",anim:"die2",
+ steps:[{t:"Even numbers on a die: 2, 4, 6. Favourable = 3.",s:"Even numbers on a die are 2, 4 and 6. That is 3 favourable outcomes."},
+        {t:"Total outcomes = 6.",s:"Total outcomes equals 6."},
+        {t:"P(even) = 3 &divide; 6 = <span class='ans-tag'>1/2</span>",s:"P of even equals 3 divided by 6 equals 1 over 2."}],
+ cq:"P of getting an even number when a die is rolled?",cqs:"P of even number on a die?",
+ ans:["1/2","one half","half","3/6"],nudges:["Even numbers on a die are 2, 4 and 6 — that's 3 out of 6!","3 favourable out of 6 total!","Say 1 over 2!"]},
+
+{id:"pr8",q:"Cards 1 to 10 are shuffled. Find <span class='hl'>P(prime number)</span>.",qs:"Cards 1 to 10. P of prime number?",anim:"cards1",
+ steps:[{t:"Prime numbers between 1 and 10: 2, 3, 5, 7. (Note: 1 is NOT prime)",s:"Prime numbers from 1 to 10 are 2, 3, 5 and 7. Remember, 1 is not prime."},
+        {t:"Favourable = 4. Total = 10.",s:"There are 4 prime numbers out of 10 cards."},
+        {t:"P(prime) = 4 &divide; 10 = <span class='ans-tag'>2/5</span>",s:"P of prime equals 4 divided by 10 equals 2 over 5."}],
+ cq:"P of picking a prime from cards 1 to 10?",cqs:"P of prime number?",
+ ans:["2/5","4/10","two fifths","four tenths"],nudges:["List primes from 1 to 10: 2, 3, 5, 7. That is 4!","4 favourable out of 10 total!","Say 2 over 5!"]},
+
+{id:"pr9",q:"Two coins are tossed. Find <span class='hl'>P(at least one Head)</span>.",qs:"Two coins are tossed. P of at least one Head?",anim:"twocoins",
+ steps:[{t:"Sample space: {HH, HT, TH, TT}. Total = 4.",s:"When two coins are tossed, the sample space is H H, H T, T H, T T. Total is 4."},
+        {t:"At least one Head: HH, HT, TH = 3 outcomes.",s:"At least one head includes H H, H T and T H. That is 3 outcomes."},
+        {t:"P(at least one Head) = 3 &divide; 4 = <span class='ans-tag'>3/4</span>",s:"P of at least one Head equals 3 divided by 4."}],
+ cq:"P of at least one Head when two coins are tossed?",cqs:"P of at least one Head?",
+ ans:["3/4","three quarters","three over four","three fourths"],nudges:["List all outcomes: HH, HT, TH, TT. Which have at least one Head?","HH, HT, TH all have at least one Head. That is 3 out of 4!","Say 3 over 4!"]},
 ];
 
-function getAnimSVG(type){
-var s={
-'pr1':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#1a1a00"/><text x="210" y="18" text-anchor="middle" fill="#facc15" font-size="13" font-weight="bold">What is Probability?</text><g id="p1scale" opacity="0"><line x1="40" y1="90" x2="380" y2="90" stroke="#888" stroke-width="3"/><line x1="40" y1="80" x2="40" y2="100" stroke="#e74c3c" stroke-width="2"/><text x="40" y="116" text-anchor="middle" fill="#e74c3c" font-size="11">0</text><text x="40" y="130" text-anchor="middle" fill="#e74c3c" font-size="10">Impossible</text><line x1="210" y1="80" x2="210" y2="100" stroke="#ffd700" stroke-width="2"/><text x="210" y="116" text-anchor="middle" fill="#ffd700" font-size="11">0.5</text><text x="210" y="130" text-anchor="middle" fill="#ffd700" font-size="10">50-50</text><line x1="380" y1="80" x2="380" y2="100" stroke="#2ecc71" stroke-width="2"/><text x="380" y="116" text-anchor="middle" fill="#2ecc71" font-size="11">1</text><text x="380" y="130" text-anchor="middle" fill="#2ecc71" font-size="10">Certain</text></g><g id="p1def" opacity="0"><rect x="60" y="144" width="300" height="24" rx="6" fill="rgba(250,204,21,0.1)" stroke="#facc15" stroke-width="1"/><text x="210" y="160" text-anchor="middle" fill="#facc15" font-size="11" font-weight="bold">Probability: 0 = impossible, 1 = certain</text></g></svg>',
+var atTimers=[];
+function clearAt(){for(var i=0;i<atTimers.length;i++)clearTimeout(atTimers[i]);atTimers=[];}
+function at(ms,fn){atTimers.push(setTimeout(fn,ms));}
+function G(id){return document.getElementById(id);}
+function fade(id,v){var e=G(id);if(e){e.style.transition="opacity .5s";e.style.opacity=v;}}
+function setStatus(t){var e=G("animStatus");if(e)e.textContent=t;}
+var BG='style="background:#fffdf8;font-family:Nunito,sans-serif"';
+var HDR='font-family="Orbitron" font-size="11" fill="#d4870a" font-weight="900"';
+function makeSVG(title,inner){return '<svg viewBox="0 0 420 178" width="100%" xmlns="http://www.w3.org/2000/svg" '+BG+'><text x="210" y="20" text-anchor="middle" '+HDR+'>'+title+'</text>'+inner+'</svg>';}
 
-'pr2':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#1a1a00"/><text x="210" y="18" text-anchor="middle" fill="#facc15" font-size="13" font-weight="bold">Probability Formula</text><g id="p2box" opacity="0"><rect x="50" y="32" width="320" height="48" rx="10" fill="rgba(250,204,21,0.1)" stroke="#facc15" stroke-width="2"/><text x="210" y="54" text-anchor="middle" fill="#facc15" font-size="13">P(Event) =</text><text x="210" y="74" text-anchor="middle" fill="#facc15" font-size="14" font-weight="bold">Favourable Outcomes / Total Outcomes</text></g><g id="p2note" opacity="0"><text x="60" y="112" fill="#aaa" font-size="12">Always: 0 less than or equal to P(E) less than or equal to 1</text></g><g id="p2eg" opacity="0"><text x="60" y="140" fill="#ffd700" font-size="12">Example: Toss a coin, P(H) = 1/2</text><text x="60" y="160" fill="#ffd700" font-size="12">Roll a die, P(3) = 1/6</text></g></svg>',
+function svgProb1(){return makeSVG('WHAT IS PROBABILITY?',
+  '<g id="p1s" opacity="0" style="transition:opacity .5s"><line x1="40" y1="105" x2="380" y2="105" stroke="#c8b89a" stroke-width="3"/><line x1="40" y1="96" x2="40" y2="114" stroke="#b85c2a" stroke-width="2"/><text x="40" y="128" text-anchor="middle" font-size="11" font-weight="800" fill="#b85c2a">0</text><text x="40" y="142" text-anchor="middle" font-size="10" fill="#b85c2a">Impossible</text><line x1="210" y1="96" x2="210" y2="114" stroke="#d4870a" stroke-width="2"/><text x="210" y="128" text-anchor="middle" font-size="11" font-weight="800" fill="#d4870a">0.5</text><text x="210" y="142" text-anchor="middle" font-size="10" fill="#d4870a">50-50</text><line x1="380" y1="96" x2="380" y2="114" stroke="#7a8c6e" stroke-width="2"/><text x="380" y="128" text-anchor="middle" font-size="11" font-weight="800" fill="#7a8c6e">1</text><text x="380" y="142" text-anchor="middle" font-size="10" fill="#7a8c6e">Certain</text></g>'
+  +'<g id="p1b" opacity="0" style="transition:opacity .5s"><rect x="55" y="154" width="310" height="22" rx="6" fill="#f5e6c8" stroke="#6b4c2a" stroke-width="1"/><text x="210" y="169" text-anchor="middle" font-size="12" font-weight="900" fill="#d4870a">Probability: 0 = impossible, 1 = certain</text></g>'
+);}
+function playProb1(done){setStatus("Probability scale...");say("Probability measures how likely an event is to happen.");at(600,function(){fade("p1s",1);say("Probability is always between 0 and 1. Zero means impossible. One means certain.");});at(4500,function(){fade("p1b",1);setStatus("0 = impossible, 1 = certain");say("Half means equally likely to happen or not happen.");at(2000,done);});}
 
-'pr3':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#1a1a00"/><text x="210" y="18" text-anchor="middle" fill="#facc15" font-size="13" font-weight="bold">Coin Toss Probability</text><g id="p3coin" opacity="0"><circle cx="110" cy="95" r="50" fill="rgba(250,204,21,0.15)" stroke="#facc15" stroke-width="3"/><text x="110" y="102" text-anchor="middle" fill="#facc15" font-size="28" font-weight="bold">H</text></g><g id="p3outcomes" opacity="0"><text x="220" y="64" fill="#aaa" font-size="12">Sample space: {H, T}</text><text x="220" y="86" fill="#aaa" font-size="12">Total outcomes = 2</text><text x="220" y="108" fill="#ffd700" font-size="12">Favourable (H) = 1</text></g><g id="p3ans" opacity="0"><rect x="215" y="124" width="160" height="26" rx="6" fill="rgba(46,204,113,0.2)" stroke="#2ecc71" stroke-width="1.5"/><text x="295" y="141" text-anchor="middle" fill="#2ecc71" font-size="16" font-weight="bold">P(H) = 1/2</text></g></svg>',
+function svgProb2(){return makeSVG('PROBABILITY FORMULA',
+  '<g id="p2f" opacity="0" style="transition:opacity .6s"><rect x="40" y="30" width="340" height="46" rx="12" fill="#f5e6c8" stroke="#6b4c2a" stroke-width="2"/><text x="210" y="52" text-anchor="middle" font-size="12" font-weight="900" fill="#d4870a">P(Event) =</text><text x="210" y="68" text-anchor="middle" font-size="12" font-weight="900" fill="#d4870a">Favourable Outcomes / Total Outcomes</text></g>'
+  +'<g id="p2e" opacity="0" style="transition:opacity .5s"><text x="50" y="110" font-size="13" font-weight="800" fill="#5a4a30">Example: Die, P(3) = 1/6</text><text x="50" y="132" font-size="13" font-weight="800" fill="#5a4a30">1 favourable (the face showing 3)</text><text x="50" y="154" font-size="13" font-weight="800" fill="#5a4a30">6 total outcomes</text></g>'
+);}
+function playProb2(done){setStatus("The probability formula...");say("Probability of an event equals favourable outcomes divided by total equally likely outcomes.");at(600,function(){fade("p2f",1);});at(3000,function(){fade("p2e",1);say("Example: rolling a 3 on a die. 1 favourable outcome. 6 total. P equals 1 over 6.");at(2500,done);});}
 
-'pr4':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#1a1a00"/><text x="210" y="18" text-anchor="middle" fill="#facc15" font-size="13" font-weight="bold">Rolling a Die</text><g id="p4die" opacity="0"><rect x="40" y="55" width="50" height="50" rx="8" fill="rgba(250,204,21,0.1)" stroke="#facc15" stroke-width="2"/><text x="65" y="86" text-anchor="middle" fill="#fff" font-size="20">1</text><rect x="100" y="55" width="50" height="50" rx="8" fill="rgba(250,204,21,0.1)" stroke="#facc15" stroke-width="2"/><text x="125" y="86" text-anchor="middle" fill="#fff" font-size="20">2</text><rect x="160" y="55" width="50" height="50" rx="8" fill="rgba(250,204,21,0.1)" stroke="#facc15" stroke-width="2"/><text x="185" y="86" text-anchor="middle" fill="#fff" font-size="20">3</text><rect x="220" y="55" width="50" height="50" rx="8" fill="rgba(46,204,113,0.3)" stroke="#2ecc71" stroke-width="2.5"/><text x="245" y="86" text-anchor="middle" fill="#2ecc71" font-size="22" font-weight="bold">4</text><rect x="280" y="55" width="50" height="50" rx="8" fill="rgba(250,204,21,0.1)" stroke="#facc15" stroke-width="2"/><text x="305" y="86" text-anchor="middle" fill="#fff" font-size="20">5</text><rect x="340" y="55" width="50" height="50" rx="8" fill="rgba(250,204,21,0.1)" stroke="#facc15" stroke-width="2"/><text x="365" y="86" text-anchor="middle" fill="#fff" font-size="20">6</text></g><g id="p4calc" opacity="0"><text x="60" y="130" fill="#ffd700" font-size="13">Total = 6, Favourable (4) = 1</text></g><g id="p4ans" opacity="0"><rect x="55" y="146" width="160" height="24" rx="6" fill="rgba(46,204,113,0.2)" stroke="#2ecc71" stroke-width="1.5"/><text x="135" y="162" text-anchor="middle" fill="#2ecc71" font-size="15" font-weight="bold">P(4) = 1/6</text></g></svg>',
+function svgCoin1(){return makeSVG('COIN TOSS',
+  '<g id="c1coin" opacity="0" style="transition:opacity .5s"><circle cx="110" cy="100" r="55" fill="#f5e6c8" stroke="#6b4c2a" stroke-width="3"/><text x="110" y="108" text-anchor="middle" font-size="30" font-weight="900" fill="#d4870a">H</text><text x="110" y="166" text-anchor="middle" font-size="11" fill="#5a4a30">Fair Coin</text></g>'
+  +'<g id="c1ss" opacity="0" style="transition:opacity .5s"><text x="250" y="60" font-size="12" font-weight="800" fill="#5a4a30">Sample space:</text><text x="250" y="80" font-size="13" font-weight="900" fill="#2a2218">{Head, Tail}</text><text x="250" y="104" font-size="12" font-weight="800" fill="#5a4a30">Total = 2</text><text x="250" y="126" font-size="12" font-weight="800" fill="#d4870a">Favourable (H) = 1</text></g>'
+  +'<g id="c1a" opacity="0" style="transition:opacity .5s"><rect x="245" y="142" width="130" height="26" rx="7" fill="#eef2eb" stroke="#6b4c2a" stroke-width="1.5"/><text x="310" y="159" text-anchor="middle" font-family="Share Tech Mono" font-size="15" font-weight="bold" fill="#7a8c6e">P(H) = 1/2</text></g>'
+);}
+function playCoin1(done){setStatus("Tossing a fair coin...");say("What is the probability of getting a Head?");at(600,function(){fade("c1coin",1);});at(2500,function(){fade("c1ss",1);say("Sample space is Head and Tail. Total outcomes is 2. Favourable for Head is 1.");});at(6000,function(){fade("c1a",1);setStatus("P(Head) = 1/2");say("P of Head equals 1 divided by 2 equals one-half.");at(2000,done);});}
 
-'pr5':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#1a1a00"/><text x="210" y="18" text-anchor="middle" fill="#facc15" font-size="13" font-weight="bold">Balls in a Bag</text><g id="p5bag" opacity="0"><text x="30" y="52" fill="#aaa" font-size="12">Bag: 3 Red + 5 Blue = 8 balls</text></g><g id="p5balls" opacity="0"><circle cx="60" cy="95" r="18" fill="rgba(231,76,60,0.6)" stroke="#e74c3c" stroke-width="2"/><circle cx="100" cy="95" r="18" fill="rgba(231,76,60,0.6)" stroke="#e74c3c" stroke-width="2"/><circle cx="140" cy="95" r="18" fill="rgba(231,76,60,0.6)" stroke="#e74c3c" stroke-width="2"/><circle cx="200" cy="95" r="18" fill="rgba(52,152,219,0.6)" stroke="#3498db" stroke-width="2"/><circle cx="240" cy="95" r="18" fill="rgba(52,152,219,0.6)" stroke="#3498db" stroke-width="2"/><circle cx="280" cy="95" r="18" fill="rgba(52,152,219,0.6)" stroke="#3498db" stroke-width="2"/><circle cx="320" cy="95" r="18" fill="rgba(52,152,219,0.6)" stroke="#3498db" stroke-width="2"/><circle cx="360" cy="95" r="18" fill="rgba(52,152,219,0.6)" stroke="#3498db" stroke-width="2"/></g><g id="p5calc" opacity="0"><text x="30" y="140" fill="#ffd700" font-size="13">P(Red) = 3/8</text></g></svg>',
+function svgDie1(){return makeSVG('ROLLING A DIE',
+  '<g id="d1f" opacity="0" style="transition:opacity .5s"><rect x="28" y="55" width="48" height="48" rx="8" fill="#f5e6c8" stroke="#6b4c2a" stroke-width="2"/><text x="52" y="86" text-anchor="middle" font-size="22" fill="#5a4a30">1</text><rect x="84" y="55" width="48" height="48" rx="8" fill="#f5e6c8" stroke="#6b4c2a" stroke-width="2"/><text x="108" y="86" text-anchor="middle" font-size="22" fill="#5a4a30">2</text><rect x="140" y="55" width="48" height="48" rx="8" fill="#f5e6c8" stroke="#6b4c2a" stroke-width="2"/><text x="164" y="86" text-anchor="middle" font-size="22" fill="#5a4a30">3</text><rect x="196" y="55" width="48" height="48" rx="8" fill="#eef2eb" stroke="#7a8c6e" stroke-width="2.5"/><text x="220" y="86" text-anchor="middle" font-size="24" font-weight="900" fill="#7a8c6e">4</text><rect x="252" y="55" width="48" height="48" rx="8" fill="#f5e6c8" stroke="#6b4c2a" stroke-width="2"/><text x="276" y="86" text-anchor="middle" font-size="22" fill="#5a4a30">5</text><rect x="308" y="55" width="48" height="48" rx="8" fill="#f5e6c8" stroke="#6b4c2a" stroke-width="2"/><text x="332" y="86" text-anchor="middle" font-size="22" fill="#5a4a30">6</text></g>'
+  +'<g id="d1c" opacity="0" style="transition:opacity .5s"><text x="50" y="130" font-size="13" font-weight="800" fill="#5a4a30">Total = 6 &nbsp; Favourable (4) = 1</text></g>'
+  +'<g id="d1a" opacity="0" style="transition:opacity .5s"><rect x="45" y="148" width="180" height="26" rx="7" fill="#eef2eb" stroke="#6b4c2a" stroke-width="1.5"/><text x="135" y="165" text-anchor="middle" font-family="Share Tech Mono" font-size="16" font-weight="bold" fill="#7a8c6e">P(4) = 1/6</text></g>'
+);}
+function playDie1(done){setStatus("Rolling a fair die...");say("What is the probability of rolling a 4?");at(600,function(){fade("d1f",1);say("A die has 6 faces: 1, 2, 3, 4, 5 and 6. All equally likely.");});at(4000,function(){fade("d1c",1);say("Only one face shows 4. So favourable equals 1 and total equals 6.");});at(6500,function(){fade("d1a",1);setStatus("P(4) = 1/6");say("P of 4 equals 1 over 6.");at(2000,done);});}
 
-'pr6':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#1a1a00"/><text x="210" y="18" text-anchor="middle" fill="#facc15" font-size="13" font-weight="bold">Impossible Event — P = 0</text><g id="p6def" opacity="0"><rect x="18" y="26" width="384" height="22" rx="6" fill="rgba(231,76,60,0.1)" stroke="#e74c3c" stroke-width="1"/><text x="210" y="41" text-anchor="middle" fill="#e74c3c" font-size="11">An event that CAN NEVER happen has P = 0</text></g><g id="p6eg" opacity="0"><text x="40" y="80" fill="#fff" font-size="13">Roll a standard die. P(getting 7) = ?</text><text x="40" y="104" fill="#ffd700" font-size="13">7 is not on the die. Favourable = 0</text><text x="40" y="128" fill="#ffd700" font-size="13">P(7) = 0/6 = 0</text></g><g id="p6ans" opacity="0"><rect x="35" y="144" width="260" height="24" rx="6" fill="rgba(231,76,60,0.15)" stroke="#e74c3c" stroke-width="1"/><text x="165" y="160" text-anchor="middle" fill="#e74c3c" font-size="13" font-weight="bold">Impossible event: P = 0</text></g></svg>',
+function svgBag1(){return makeSVG('BALLS IN A BAG',
+  '<g id="b1b" opacity="0" style="transition:opacity .5s"><circle cx="60" cy="100" r="18" fill="#b85c2a" stroke="#6b4c2a" stroke-width="2"/><circle cx="100" cy="100" r="18" fill="#b85c2a" stroke="#6b4c2a" stroke-width="2"/><circle cx="140" cy="100" r="18" fill="#b85c2a" stroke="#6b4c2a" stroke-width="2"/><text x="100" y="136" text-anchor="middle" font-size="11" fill="#5a4a30">3 Red</text><circle cx="200" cy="100" r="18" fill="#0e7490" stroke="#6b4c2a" stroke-width="2"/><circle cx="240" cy="100" r="18" fill="#0e7490" stroke="#6b4c2a" stroke-width="2"/><circle cx="280" cy="100" r="18" fill="#0e7490" stroke="#6b4c2a" stroke-width="2"/><circle cx="320" cy="100" r="18" fill="#0e7490" stroke="#6b4c2a" stroke-width="2"/><circle cx="360" cy="100" r="18" fill="#0e7490" stroke="#6b4c2a" stroke-width="2"/><text x="280" y="136" text-anchor="middle" font-size="11" fill="#5a4a30">5 Blue</text></g>'
+  +'<g id="b1c" opacity="0" style="transition:opacity .5s"><text x="50" y="160" font-size="13" font-weight="800" fill="#d4870a">Total = 8 &nbsp; Favourable (red) = 3</text></g>'
+  +'<g id="b1a" opacity="0" style="transition:opacity .5s"><rect x="280" y="148" width="130" height="22" rx="5" fill="#eef2eb" stroke="#6b4c2a" stroke-width="1.5"/><text x="345" y="163" text-anchor="middle" font-family="Share Tech Mono" font-size="14" font-weight="bold" fill="#7a8c6e">P(red) = 3/8</text></g>'
+);}
+function playBag1(done){setStatus("Picking from a bag...");say("A bag has 3 red and 5 blue balls. What is P of picking a red ball?");at(600,function(){fade("b1b",1);});at(3000,function(){fade("b1c",1);say("Total balls is 3 plus 5 equals 8. Favourable is 3 red balls.");});at(5500,function(){fade("b1a",1);setStatus("P(red) = 3/8");say("P of red equals 3 divided by 8.");at(2000,done);});}
 
-'pr7':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#1a1a00"/><text x="210" y="18" text-anchor="middle" fill="#facc15" font-size="13" font-weight="bold">Certain Event — P = 1</text><g id="p7def" opacity="0"><rect x="18" y="26" width="384" height="22" rx="6" fill="rgba(46,204,113,0.1)" stroke="#2ecc71" stroke-width="1"/><text x="210" y="41" text-anchor="middle" fill="#2ecc71" font-size="11">An event that ALWAYS happens has P = 1</text></g><g id="p7eg" opacity="0"><text x="40" y="80" fill="#fff" font-size="13">Roll a die. P(getting less than 7) = ?</text><text x="40" y="104" fill="#ffd700" font-size="13">All 6 outcomes are less than 7</text><text x="40" y="128" fill="#ffd700" font-size="13">P(less than 7) = 6/6 = 1</text></g><g id="p7ans" opacity="0"><rect x="35" y="144" width="260" height="24" rx="6" fill="rgba(46,204,113,0.15)" stroke="#2ecc71" stroke-width="1"/><text x="165" y="160" text-anchor="middle" fill="#2ecc71" font-size="13" font-weight="bold">Certain event: P = 1</text></g></svg>',
+function svgCertain1(){return makeSVG('IMPOSSIBLE AND CERTAIN EVENTS',
+  '<g id="ce1i" opacity="0" style="transition:opacity .5s"><rect x="18" y="30" width="185" height="60" rx="9" fill="#fff5f0" stroke="#b85c2a" stroke-width="1.5"/><text x="110" y="52" text-anchor="middle" font-size="12" font-weight="900" fill="#b85c2a">Impossible</text><text x="110" y="70" text-anchor="middle" font-size="13" font-weight="900" fill="#b85c2a">P = 0</text><text x="110" y="84" text-anchor="middle" font-size="10" fill="#b85c2a">Rolling 7 on a die</text></g>'
+  +'<g id="ce1c" opacity="0" style="transition:opacity .5s"><rect x="217" y="30" width="185" height="60" rx="9" fill="#eef2eb" stroke="#7a8c6e" stroke-width="1.5"/><text x="310" y="52" text-anchor="middle" font-size="12" font-weight="900" fill="#7a8c6e">Certain</text><text x="310" y="70" text-anchor="middle" font-size="13" font-weight="900" fill="#7a8c6e">P = 1</text><text x="310" y="84" text-anchor="middle" font-size="10" fill="#7a8c6e">Die shows &lt; 7</text></g>'
+  +'<g id="ce1r" opacity="0" style="transition:opacity .5s"><rect x="18" y="106" width="384" height="26" rx="7" fill="#f5e6c8" stroke="#6b4c2a" stroke-width="1"/><text x="210" y="123" text-anchor="middle" font-size="12" font-weight="900" fill="#d4870a">0 &le; P(E) &le; 1 always</text></g>'
+);}
+function playCertain1(done){setStatus("Impossible vs Certain...");say("Two special probability values: impossible events have P equals 0, and certain events have P equals 1.");at(600,function(){fade("ce1i",1);say("An impossible event can never happen. Rolling 7 on a standard die is impossible. P equals 0.");});at(4500,function(){fade("ce1c",1);say("A certain event always happens. Getting a number less than 7 on a die is certain. P equals 1.");});at(8000,function(){fade("ce1r",1);setStatus("Probability always between 0 and 1.");say("Probability is always between 0 and 1.");at(2000,done);});}
 
-'pr8':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#1a1a00"/><text x="210" y="18" text-anchor="middle" fill="#facc15" font-size="13" font-weight="bold">Complementary Events</text><g id="p8rule" opacity="0"><rect x="40" y="30" width="340" height="32" rx="8" fill="rgba(250,204,21,0.1)" stroke="#facc15" stroke-width="2"/><text x="210" y="51" text-anchor="middle" fill="#facc15" font-size="15" font-weight="bold">P(A) + P(not A) = 1</text></g><g id="p8eg" opacity="0"><text x="40" y="92" fill="#fff" font-size="13">P(rain) = 0.3</text><text x="40" y="114" fill="#ffd700" font-size="13">P(no rain) = 1 - 0.3 = 0.7</text></g><g id="p8use" opacity="0"><text x="40" y="148" fill="#aaa" font-size="12">Use this when P(not A) is easier to find!</text></g></svg>',
+function svgComp1(){return makeSVG('COMPLEMENTARY EVENTS',
+  '<g id="co1r" opacity="0" style="transition:opacity .6s"><rect x="40" y="30" width="340" height="36" rx="10" fill="#f5e6c8" stroke="#6b4c2a" stroke-width="2"/><text x="210" y="53" text-anchor="middle" font-size="16" font-weight="900" fill="#d4870a">P(A) + P(not A) = 1</text></g>'
+  +'<g id="co1d" opacity="0" style="transition:opacity .5s"><text x="50" y="96" font-size="13" font-weight="800" fill="#5a4a30">So: P(not A) = 1 &minus; P(A)</text></g>'
+  +'<g id="co1e" opacity="0" style="transition:opacity .5s"><text x="50" y="126" font-size="13" font-weight="800" fill="#5a4a30">Example: P(rain) = 0.3</text><text x="50" y="148" font-size="13" font-weight="800" fill="#d4870a">P(no rain) = 1 &minus; 0.3 = 0.7</text></g>'
+);}
+function playComp1(done){setStatus("Complementary rule...");say("The probability of an event plus the probability of it NOT happening always equals 1.");at(600,function(){fade("co1r",1);});at(2800,function(){fade("co1d",1);say("So P of not A equals 1 minus P of A. Very useful shortcut!");});at(5500,function(){fade("co1e",1);say("Example: if P of rain is 0.3, then P of no rain equals 1 minus 0.3 equals 0.7.");at(2500,done);});}
 
-'pr9':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#1a1a00"/><text x="210" y="18" text-anchor="middle" fill="#facc15" font-size="13" font-weight="bold">P(Even Number) on a Die</text><g id="p9die" opacity="0"><rect x="30" y="55" width="50" height="50" rx="8" fill="rgba(250,204,21,0.1)" stroke="#555" stroke-width="1"/><text x="55" y="86" text-anchor="middle" fill="#aaa" font-size="20">1</text><rect x="90" y="55" width="50" height="50" rx="8" fill="rgba(46,204,113,0.3)" stroke="#2ecc71" stroke-width="2"/><text x="115" y="86" text-anchor="middle" fill="#2ecc71" font-size="22" font-weight="bold">2</text><rect x="150" y="55" width="50" height="50" rx="8" fill="rgba(250,204,21,0.1)" stroke="#555" stroke-width="1"/><text x="175" y="86" text-anchor="middle" fill="#aaa" font-size="20">3</text><rect x="210" y="55" width="50" height="50" rx="8" fill="rgba(46,204,113,0.3)" stroke="#2ecc71" stroke-width="2"/><text x="235" y="86" text-anchor="middle" fill="#2ecc71" font-size="22" font-weight="bold">4</text><rect x="270" y="55" width="50" height="50" rx="8" fill="rgba(250,204,21,0.1)" stroke="#555" stroke-width="1"/><text x="295" y="86" text-anchor="middle" fill="#aaa" font-size="20">5</text><rect x="330" y="55" width="50" height="50" rx="8" fill="rgba(46,204,113,0.3)" stroke="#2ecc71" stroke-width="2"/><text x="355" y="86" text-anchor="middle" fill="#2ecc71" font-size="22" font-weight="bold">6</text></g><g id="p9calc" opacity="0"><text x="40" y="130" fill="#ffd700" font-size="13">Even = {2,4,6} = 3 outcomes</text></g><g id="p9ans" opacity="0"><rect x="35" y="148" width="200" height="24" rx="6" fill="rgba(46,204,113,0.2)" stroke="#2ecc71" stroke-width="1.5"/><text x="135" y="164" text-anchor="middle" fill="#2ecc71" font-size="15" font-weight="bold">P(even) = 3/6 = 1/2</text></g></svg>',
+function svgDie2(){return makeSVG('P(EVEN NUMBER) ON A DIE',
+  '<g id="d2f" opacity="0" style="transition:opacity .5s"><rect x="28" y="55" width="48" height="48" rx="8" fill="#f5e6c8" stroke="#c8b89a" stroke-width="1.5"/><text x="52" y="86" text-anchor="middle" font-size="22" fill="#8a7a5a">1</text><rect x="84" y="55" width="48" height="48" rx="8" fill="#eef2eb" stroke="#7a8c6e" stroke-width="2.5"/><text x="108" y="86" text-anchor="middle" font-size="24" font-weight="900" fill="#7a8c6e">2</text><rect x="140" y="55" width="48" height="48" rx="8" fill="#f5e6c8" stroke="#c8b89a" stroke-width="1.5"/><text x="164" y="86" text-anchor="middle" font-size="22" fill="#8a7a5a">3</text><rect x="196" y="55" width="48" height="48" rx="8" fill="#eef2eb" stroke="#7a8c6e" stroke-width="2.5"/><text x="220" y="86" text-anchor="middle" font-size="24" font-weight="900" fill="#7a8c6e">4</text><rect x="252" y="55" width="48" height="48" rx="8" fill="#f5e6c8" stroke="#c8b89a" stroke-width="1.5"/><text x="276" y="86" text-anchor="middle" font-size="22" fill="#8a7a5a">5</text><rect x="308" y="55" width="48" height="48" rx="8" fill="#eef2eb" stroke="#7a8c6e" stroke-width="2.5"/><text x="332" y="86" text-anchor="middle" font-size="24" font-weight="900" fill="#7a8c6e">6</text></g>'
+  +'<g id="d2c" opacity="0" style="transition:opacity .5s"><text x="50" y="130" font-size="13" font-weight="800" fill="#5a4a30">Even: {2,4,6} = 3 outcomes. Total = 6.</text></g>'
+  +'<g id="d2a" opacity="0" style="transition:opacity .5s"><rect x="45" y="148" width="220" height="26" rx="7" fill="#eef2eb" stroke="#6b4c2a" stroke-width="1.5"/><text x="155" y="165" text-anchor="middle" font-family="Share Tech Mono" font-size="15" font-weight="bold" fill="#7a8c6e">P(even) = 3/6 = 1/2</text></g>'
+);}
+function playDie2(done){setStatus("Finding P of even number...");say("What is P of getting an even number when a die is rolled?");at(600,function(){fade("d2f",1);say("Even numbers are 2, 4 and 6. Those are highlighted in green.");});at(4000,function(){fade("d2c",1);say("3 even numbers out of 6 total.");});at(6500,function(){fade("d2a",1);setStatus("P(even) = 3/6 = 1/2");say("P of even equals 3 over 6 equals 1 over 2.");at(2000,done);});}
 
-'pr10':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#1a1a00"/><text x="210" y="18" text-anchor="middle" fill="#facc15" font-size="13" font-weight="bold">Cards 1 to 10 — Prime Numbers</text><g id="p10cards" opacity="0"><text x="30" y="52" fill="#aaa" font-size="12">Cards: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10</text></g><g id="p10prime" opacity="0"><text x="30" y="82" fill="#ffd700" font-size="13">Prime numbers: 2, 3, 5, 7</text><text x="30" y="104" fill="#aaa" font-size="12">(1 is NOT prime, 4,6,8,9,10 are not prime)</text></g><g id="p10calc" opacity="0"><text x="30" y="134" fill="#ffd700" font-size="13">Favourable = 4, Total = 10</text></g><g id="p10ans" opacity="0"><rect x="25" y="150" width="200" height="24" rx="6" fill="rgba(46,204,113,0.2)" stroke="#2ecc71" stroke-width="1.5"/><text x="125" y="166" text-anchor="middle" fill="#2ecc71" font-size="15" font-weight="bold">P(prime) = 4/10 = 2/5</text></g></svg>',
+function svgCards1(){return makeSVG('PRIME NUMBERS FROM CARDS 1-10',
+  '<g id="ca1l" opacity="0" style="transition:opacity .5s"><text x="50" y="52" font-size="13" font-weight="800" fill="#5a4a30">Cards: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10</text></g>'
+  +'<g id="ca1p" opacity="0" style="transition:opacity .5s"><text x="50" y="82" font-size="13" font-weight="800" fill="#d4870a">Primes: 2, 3, 5, 7 (1 is NOT prime!)</text><text x="50" y="102" font-size="12" font-weight="800" fill="#5a4a30">Non-primes: 1, 4, 6, 8, 9, 10</text></g>'
+  +'<g id="ca1c" opacity="0" style="transition:opacity .5s"><text x="50" y="132" font-size="13" font-weight="800" fill="#5a4a30">Favourable = 4 &nbsp; Total = 10</text></g>'
+  +'<g id="ca1a" opacity="0" style="transition:opacity .5s"><rect x="45" y="150" width="250" height="26" rx="7" fill="#eef2eb" stroke="#6b4c2a" stroke-width="1.5"/><text x="170" y="167" text-anchor="middle" font-family="Share Tech Mono" font-size="15" font-weight="bold" fill="#7a8c6e">P(prime) = 4/10 = 2/5</text></g>'
+);}
+function playCards1(done){setStatus("Finding primes from 1 to 10...");say("Cards numbered 1 to 10. What is P of picking a prime?");at(600,function(){fade("ca1l",1);});at(2200,function(){fade("ca1p",1);say("Prime numbers are 2, 3, 5 and 7. Remember: 1 is not prime!");});at(5500,function(){fade("ca1c",1);say("4 primes out of 10 cards.");});at(7500,function(){fade("ca1a",1);setStatus("P(prime) = 4/10 = 2/5");say("P of prime equals 4 over 10 which simplifies to 2 over 5.");at(2000,done);});}
 
-'pr11':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#1a1a00"/><text x="210" y="18" text-anchor="middle" fill="#facc15" font-size="13" font-weight="bold">Complement Rule in Action</text><g id="p11given" opacity="0"><text x="40" y="58" fill="#fff" font-size="14">P(getting 6) = 1/6</text></g><g id="p11rule" opacity="0"><text x="40" y="88" fill="#ffd700" font-size="13">P(not 6) = 1 - P(6)</text><text x="40" y="110" fill="#ffd700" font-size="13">= 1 - 1/6</text><text x="40" y="132" fill="#ffd700" font-size="13">= 6/6 - 1/6</text></g><g id="p11ans" opacity="0"><rect x="35" y="148" width="200" height="24" rx="6" fill="rgba(46,204,113,0.2)" stroke="#2ecc71" stroke-width="1.5"/><text x="135" y="164" text-anchor="middle" fill="#2ecc71" font-size="16" font-weight="bold">= 5/6</text></g></svg>',
+function svgTwoCoins(){return makeSVG('TWO COINS TOSSED',
+  '<g id="tc1ss" opacity="0" style="transition:opacity .5s"><text x="50" y="50" font-size="13" font-weight="800" fill="#5a4a30">Sample space: {HH, HT, TH, TT}</text><text x="50" y="70" font-size="13" font-weight="800" fill="#5a4a30">Total outcomes = 4</text></g>'
+  +'<g id="tc1f" opacity="0" style="transition:opacity .5s"><rect x="45" y="82" width="66" height="28" rx="6" fill="#eef2eb" stroke="#7a8c6e" stroke-width="1.5"/><text x="78" y="100" text-anchor="middle" font-size="13" font-weight="900" fill="#7a8c6e">HH</text><rect x="119" y="82" width="66" height="28" rx="6" fill="#eef2eb" stroke="#7a8c6e" stroke-width="1.5"/><text x="152" y="100" text-anchor="middle" font-size="13" font-weight="900" fill="#7a8c6e">HT</text><rect x="193" y="82" width="66" height="28" rx="6" fill="#eef2eb" stroke="#7a8c6e" stroke-width="1.5"/><text x="226" y="100" text-anchor="middle" font-size="13" font-weight="900" fill="#7a8c6e">TH</text><rect x="267" y="82" width="66" height="28" rx="6" fill="#fff5f0" stroke="#b85c2a" stroke-width="1.5"/><text x="300" y="100" text-anchor="middle" font-size="13" font-weight="900" fill="#b85c2a">TT</text><text x="210" y="128" text-anchor="middle" font-size="11" font-weight="800" fill="#5a4a30">Green = at least 1 Head (3 outcomes)</text></g>'
+  +'<g id="tc1a" opacity="0" style="transition:opacity .5s"><rect x="45" y="148" width="280" height="26" rx="7" fill="#eef2eb" stroke="#6b4c2a" stroke-width="1.5"/><text x="185" y="165" text-anchor="middle" font-family="Share Tech Mono" font-size="15" font-weight="bold" fill="#7a8c6e">P(at least 1 Head) = 3/4</text></g>'
+);}
+function playTwoCoins(done){setStatus("Two coins — sample space...");say("Two coins are tossed. We want P of at least one Head.");at(600,function(){fade("tc1ss",1);say("Sample space: H H, H T, T H, T T. Total is 4 outcomes.");});at(4000,function(){fade("tc1f",1);say("At least one Head means H H, H T or T H. That is 3 outcomes. Only T T has no heads.");});at(7500,function(){fade("tc1a",1);setStatus("P(at least 1 Head) = 3/4");say("P of at least one Head equals 3 over 4.");at(2000,done);});}
 
-'pr12':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#1a1a00"/><text x="210" y="18" text-anchor="middle" fill="#facc15" font-size="13" font-weight="bold">Bag of Coloured Balls — Not Red</text><g id="p12given" opacity="0"><text x="30" y="54" fill="#fff" font-size="12">4 Red + 6 Green + 2 Blue = 12 balls</text></g><g id="p12calc" opacity="0"><text x="30" y="84" fill="#ffd700" font-size="13">Non-red = 6 + 2 = 8 balls</text><text x="30" y="106" fill="#ffd700" font-size="13">P(not red) = 8/12</text></g><g id="p12simplify" opacity="0"><text x="30" y="136" fill="#aaa" font-size="12">Or: P(not red) = 1 - 4/12 = 8/12</text></g><g id="p12ans" opacity="0"><rect x="25" y="152" width="200" height="22" rx="5" fill="rgba(46,204,113,0.15)" stroke="#2ecc71" stroke-width="1"/><text x="125" y="167" text-anchor="middle" fill="#2ecc71" font-size="14" font-weight="bold">P(not red) = 8/12 = 2/3</text></g></svg>',
+function getAnimSVG(t){var m={prob1:svgProb1,prob2:svgProb2,coin1:svgCoin1,die1:svgDie1,bag1:svgBag1,certain1:svgCertain1,comp1:svgComp1,die2:svgDie2,cards1:svgCards1,twocoins:svgTwoCoins};return m[t]?m[t]():'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="background:#fffdf8"><text x="210" y="89" text-anchor="middle" font-family="Nunito" font-size="14" fill="#5a4a30">Loading...</text></svg>';}
+function getAnimPlay(t){var m={prob1:playProb1,prob2:playProb2,coin1:playCoin1,die1:playDie1,bag1:playBag1,certain1:playCertain1,comp1:playComp1,die2:playDie2,cards1:playCards1,twocoins:playTwoCoins};return m[t]||function(done){done();};}
 
-'pr13':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#1a1a00"/><text x="210" y="18" text-anchor="middle" fill="#facc15" font-size="13" font-weight="bold">Finding P(not E)</text><g id="p13given" opacity="0"><text x="60" y="68" fill="#fff" font-size="18" font-weight="bold">P(E) = 0.65</text></g><g id="p13calc" opacity="0"><text x="60" y="106" fill="#ffd700" font-size="15">P(not E) = 1 - 0.65</text></g><g id="p13ans" opacity="0"><rect x="55" y="128" width="180" height="30" rx="7" fill="rgba(46,204,113,0.2)" stroke="#2ecc71" stroke-width="1.5"/><text x="145" y="148" text-anchor="middle" fill="#2ecc71" font-size="20" font-weight="bold">= 0.35</text></g></svg>',
-
-'pr14':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#1a1a00"/><text x="210" y="18" text-anchor="middle" fill="#facc15" font-size="13" font-weight="bold">Two Coins Tossed — Sample Space</text><g id="p14space" opacity="0"><text x="30" y="52" fill="#aaa" font-size="12">Sample space: {HH, HT, TH, TT}</text></g><g id="p14fav" opacity="0"><text x="30" y="80" fill="#ffd700" font-size="12">At least one H: HH, HT, TH = 3 outcomes</text><text x="30" y="100" fill="#e74c3c" font-size="12">No head: TT = 1 outcome</text></g><g id="p14grid" opacity="0"><rect x="30" y="114" width="60" height="28" rx="5" fill="rgba(46,204,113,0.3)" stroke="#2ecc71" stroke-width="1"/><text x="60" y="132" text-anchor="middle" fill="#2ecc71" font-size="11">HH</text><rect x="98" y="114" width="60" height="28" rx="5" fill="rgba(46,204,113,0.3)" stroke="#2ecc71" stroke-width="1"/><text x="128" y="132" text-anchor="middle" fill="#2ecc71" font-size="11">HT</text><rect x="166" y="114" width="60" height="28" rx="5" fill="rgba(46,204,113,0.3)" stroke="#2ecc71" stroke-width="1"/><text x="196" y="132" text-anchor="middle" fill="#2ecc71" font-size="11">TH</text><rect x="234" y="114" width="60" height="28" rx="5" fill="rgba(231,76,60,0.3)" stroke="#e74c3c" stroke-width="1"/><text x="264" y="132" text-anchor="middle" fill="#e74c3c" font-size="11">TT</text></g><g id="p14ans" opacity="0"><rect x="25" y="152" width="240" height="22" rx="5" fill="rgba(46,204,113,0.15)" stroke="#2ecc71" stroke-width="1"/><text x="145" y="167" text-anchor="middle" fill="#2ecc71" font-size="13" font-weight="bold">P(at least one H) = 3/4</text></g></svg>',
-
-'pr15':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#1a1a00"/><text x="210" y="18" text-anchor="middle" fill="#facc15" font-size="13" font-weight="bold">Two Dice Rolled — P(both show 6)</text><g id="p15space" opacity="0"><text x="30" y="54" fill="#aaa" font-size="12">Total outcomes = 6 x 6 = 36</text></g><g id="p15fav" opacity="0"><text x="30" y="82" fill="#ffd700" font-size="13">Favourable: only (6,6) = 1 outcome</text></g><g id="p15grid" opacity="0"><text x="30" y="110" fill="#aaa" font-size="11">Die 1: 1,2,3,4,5,6   x   Die 2: 1,2,3,4,5,6</text><text x="30" y="130" fill="#aaa" font-size="11">= 36 possible pairs, only 1 is (6,6)</text></g><g id="p15ans" opacity="0"><rect x="25" y="150" width="200" height="24" rx="6" fill="rgba(46,204,113,0.2)" stroke="#2ecc71" stroke-width="1.5"/><text x="125" y="166" text-anchor="middle" fill="#2ecc71" font-size="16" font-weight="bold">P(6,6) = 1/36</text></g></svg>'
-};
-return s[type]||'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg"><rect width="420" height="178" fill="#1a1a00"/><text x="210" y="89" text-anchor="middle" fill="#555" font-size="14">Loading...</text></svg>';
-}
-
-function runAnim(type){
-var fns={
-'pr1':function(){fade('p1scale','1');at(1400,function(){fade('p1def','1');});},
-'pr2':function(){fade('p2box','1');at(900,function(){fade('p2note','1');});at(2000,function(){fade('p2eg','1');});},
-'pr3':function(){fade('p3coin','1');at(900,function(){fade('p3outcomes','1');});at(2400,function(){fade('p3ans','1');});},
-'pr4':function(){fade('p4die','1');at(1000,function(){fade('p4calc','1');});at(2200,function(){fade('p4ans','1');});},
-'pr5':function(){fade('p5bag','1');at(700,function(){fade('p5balls','1');});at(1800,function(){fade('p5calc','1');});},
-'pr6':function(){fade('p6def','1');at(700,function(){fade('p6eg','1');});at(2400,function(){fade('p6ans','1');});},
-'pr7':function(){fade('p7def','1');at(700,function(){fade('p7eg','1');});at(2400,function(){fade('p7ans','1');});},
-'pr8':function(){fade('p8rule','1');at(900,function(){fade('p8eg','1');});at(2400,function(){fade('p8use','1');});},
-'pr9':function(){fade('p9die','1');at(1000,function(){fade('p9calc','1');});at(2200,function(){fade('p9ans','1');});},
-'pr10':function(){fade('p10cards','1');at(700,function(){fade('p10prime','1');});at(2000,function(){fade('p10calc','1');});at(3000,function(){fade('p10ans','1');});},
-'pr11':function(){fade('p11given','1');at(700,function(){fade('p11rule','1');});at(2400,function(){fade('p11ans','1');});},
-'pr12':function(){fade('p12given','1');at(700,function(){fade('p12calc','1');});at(1800,function(){fade('p12simplify','1');});at(2800,function(){fade('p12ans','1');});},
-'pr13':function(){fade('p13given','1');at(800,function(){fade('p13calc','1');});at(2000,function(){fade('p13ans','1');});},
-'pr14':function(){fade('p14space','1');at(700,function(){fade('p14fav','1');});at(1600,function(){fade('p14grid','1');});at(2600,function(){fade('p14ans','1');});},
-'pr15':function(){fade('p15space','1');at(700,function(){fade('p15fav','1');});at(1600,function(){fade('p15grid','1');});at(2800,function(){fade('p15ans','1');});}
-};
-if(fns[type])fns[type]();
-}
-
-var cur=0,score=0,answered=false;
-function loadQ(i){
-  answered=false;
-  var q=questions[i];
-  G('qNumber').textContent='Question '+(i+1)+' of 15';
-  G('qText').textContent=q.q;
-  G('feedback').textContent='';G('feedback').className='feedback';
-  G('nextBtn').style.display='none';
-  G('progressBar').style.width=(i/15*100)+'%';
-  G('scorePill').textContent='Score: '+score+' / 15';
-  var og=G('optionsGrid');og.innerHTML='';
-  q.opts.forEach(function(o,idx){
-    var b=document.createElement('button');b.className='opt';b.textContent=o;
-    b.onclick=function(){checkAns(idx);};og.appendChild(b);
-  });
-  clearAt();
-  G('animCanvas').innerHTML=getAnimSVG(q.anim);
-  at(400,function(){runAnim(q.anim);});
-  G('bubble').textContent=q.narr.substring(0,78)+'...';
-  at(300,function(){say(q.narr);});
-}
-function checkAns(idx){
-  if(answered)return;answered=true;
-  var q=questions[cur];
-  var opts=G('optionsGrid').querySelectorAll('.opt');
-  opts.forEach(function(b){b.disabled=true;});
-  if(idx===q.ans){
-    opts[idx].classList.add('correct');score++;
-    G('feedback').textContent='Correct! Well done!';G('feedback').className='feedback correct';
-    G('scorePill').textContent='Score: '+score+' / 15';
-    say('Excellent! That is correct!');
-  }else{
-    opts[idx].classList.add('wrong');opts[q.ans].classList.add('correct');
-    G('feedback').textContent='Incorrect. Right answer: '+q.opts[q.ans];G('feedback').className='feedback wrong';
-    say('Not quite. The correct answer is '+q.opts[q.ans]);
-  }
-  G('nextBtn').style.display='block';
-}
-function nextQ(){cur++;if(cur>=questions.length){showDone();return;}loadQ(cur);}
-function replayAnim(){
-  var q=questions[cur];clearAt();speechSynthesis.cancel();rStopTalk();
-  G('animCanvas').innerHTML=getAnimSVG(q.anim);
-  at(200,function(){runAnim(q.anim);});at(400,function(){say(q.narr);});
-}
-function showDone(){
-  G('mainArea').style.display='none';G('doneScreen').style.display='flex';
-  G('progressBar').style.width='100%';
-  G('doneScore').textContent='You scored '+score+' out of 15!';
-  localStorage.setItem('explain_probability_done','1');
-  say('Amazing! You have completed all explain chapters! You scored '+score+' out of 15 in Probability!');
-}
-window.onload=function init(){initVoices(function(){startBlink();loadQ(0);});};
-window.addEventListener('beforeunload',function(){speechSynthesis.cancel();});
-window.addEventListener('pagehide',function(){speechSynthesis.cancel();});
+var session=[],idx=0,stepIdx=0,nudgeCount=0,completed=false,recog=null,listening=false,breakSecs=0,breakTmr=null,PER_SESSION=10;
+function init(){var st=JSON.parse(localStorage.getItem("rishi_current_student")||"{}");G("sName").textContent=st.studentName?st.studentName.split(" ")[0]:"there";var prog=JSON.parse(localStorage.getItem("rishi_progress")||"{}");if(prog["explain_probability_done"]){completed=true;G("doneBanner").classList.add("show");unlockNav();}buildSession();setupRecog();rInit();initVoices(function(){say(G("introText").innerText);setTimeout(showQ,2200);});}
+function buildSession(){var first=QB[0];var rest=QB.slice(1).sort(function(){return Math.random()-.5;});session=[first].concat(rest.slice(0,PER_SESSION-1));}
+function showQ(){if(idx>=session.length){onComplete();return;}var q=session[idx];stepIdx=0;nudgeCount=0;updateProg();G("qArea").innerHTML="";clearAt();var qc=document.createElement("div");qc.className="q-card";qc.innerHTML='<div class="q-label">Question '+(idx+1)+' of '+PER_SESSION+'</div><div class="q-text">'+q.q+'</div><button class="btn-speak" onclick="say(session[idx].qs)">&#128266; Hear</button>';G("qArea").appendChild(qc);var ap=document.createElement("div");ap.className="anim-panel";ap.innerHTML='<div class="anim-header"><span class="anim-header-lbl">&#127909; Live Animation</span><button class="anim-replay" id="animReplay" onclick="replayAnim()">&#8635; Replay</button></div><div class="anim-canvas" id="animCanvas">'+getAnimSVG(q.anim)+'</div><div class="anim-status" id="animStatus">Tap Play to watch with narration!</div><button class="anim-play-btn" id="animPlayBtn" onclick="startAnim()">&#9654; Play Animation</button><button class="steps-btn" id="stepsBtn" onclick="beginSteps()">&#128214; See Step-by-Step</button>';G("qArea").appendChild(ap);}
+function startAnim(){var q=session[idx];var pb=G("animPlayBtn");if(pb){pb.disabled=true;pb.textContent="&#9654; Playing...";}getAnimPlay(q.anim)(function(){var sb=G("stepsBtn");if(sb)sb.style.display="block";var rb=G("animReplay");if(rb)rb.style.display="block";if(pb)pb.style.display="none";});}
+function replayAnim(){clearAt();window.speechSynthesis&&window.speechSynthesis.cancel();rStopTalk();var q=session[idx];var canvas=G("animCanvas");if(canvas)canvas.innerHTML=getAnimSVG(q.anim);G("animReplay").style.display="none";G("stepsBtn").style.display="none";var pb=G("animPlayBtn");if(pb){pb.style.display="block";pb.disabled=false;pb.textContent="&#9654; Play Animation";}setStatus("Tap Play to watch with narration!");}
+function beginSteps(){var q=session[idx];var sc=document.createElement("div");sc.className="q-card";sc.innerHTML='<div class="q-label">&#128214; Step-by-Step</div><div id="stepsWrap"></div><button class="btn-speak" id="nxtStepBtn" onclick="nextStep()" style="margin-top:10px;">&#9654; Next Step</button>';G("qArea").appendChild(sc);sc.scrollIntoView({behavior:"smooth",block:"start"});G("stepsBtn").style.display="none";setTimeout(nextStep,350);}
+function nextStep(){var q=session[idx];if(stepIdx>=q.steps.length){G("nxtStepBtn").style.display="none";showConfirm();return;}var s=q.steps[stepIdx];var wrap=G("stepsWrap");var d=document.createElement("div");d.className="step";d.innerHTML='<div class="step-num">'+(stepIdx+1)+'</div><div class="step-body">'+s.t+'</div>';wrap.appendChild(d);setTimeout(function(){d.classList.add("vis");},40);setTimeout(function(){say(s.s);},280);stepIdx++;}
+function showConfirm(){var q=session[idx];var c=document.createElement("div");c.className="confirm-wrap";c.innerHTML='<div class="confirm-title">&#127908; Rishika asks!</div><div class="confirm-q">'+q.cq+'</div><button class="mic-btn" id="micBtn" onclick="startListen()">&#127908; Tap and Speak</button><div class="transcript" id="tbox"></div><div class="result-box" id="rbox"></div><div class="nudge" id="nudgeBox"></div><button class="btn-next" id="btnNext" onclick="goNext()">Next Question &#9654;</button>';G("qArea").appendChild(c);c.scrollIntoView({behavior:"smooth",block:"center"});setTimeout(function(){say(q.cqs);},500);}
+function goNext(){idx++;G("qArea").innerHTML="";showQ();window.scrollTo({top:0,behavior:"smooth"});}
+function updateProg(){var pct=Math.round((idx/PER_SESSION)*100);G("progFill").style.width=pct+"%";G("progLabel").textContent="Question "+(idx+1)+" of "+PER_SESSION;G("progPct").textContent=pct+"%";}
+function unlockNav(){G("btnPractice").classList.remove("locked");G("btnExam").classList.remove("locked");G("lockTip").style.display="none";}
+function onComplete(){var prog=JSON.parse(localStorage.getItem("rishi_progress")||"{}");prog["explain_probability_done"]=true;localStorage.setItem("rishi_progress",JSON.stringify(prog));completed=true;G("doneBanner").classList.add("show");unlockNav();var st=JSON.parse(localStorage.getItem("rishi_current_student")||"{}");var nm=st.studentName?st.studentName.split(" ")[0]:"champion";var cel=document.createElement("div");cel.className="rishika-wrap";cel.innerHTML='<div class="rishika-avatar">&#128105;&#8205;&#127979;</div><div class="rishika-bubble"><div class="rishika-name">Rishika</div><div class="rishika-text" id="celText">&#127881; <span class="hl">'+nm+'</span>, you have completed ALL explain chapters! You are amazing! &#128537;</div><button class="btn-speak" onclick="sayEl(\'celText\')">&#128266; Hear</button></div>';G("qArea").appendChild(cel);setTimeout(function(){sayEl("celText");rHappy();},400);}
+function goPractice(){if(!completed){alert("Complete explanations first!");return;}location.href="/practice.html?chapter=chance_probability";}
+function goExam(){if(!completed){alert("Complete explanations first!");return;}location.href="/exam.html?chapter=chance_probability";}
+function setupRecog(){var SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR)return;recog=new SR();recog.lang="en-IN";recog.continuous=false;recog.interimResults=false;recog.onresult=function(e){handleAnswer(e.results[0][0].transcript.toLowerCase().trim());};recog.onerror=function(){setListen(false);showNudge("Could not hear. Try again!");};recog.onend=function(){setListen(false);};}
+function startListen(){if(!recog){showNudge("Voice needs Chrome!");return;}if(listening){recog.stop();return;}setListen(true);var tb=G("tbox");if(tb){tb.classList.add("show");tb.textContent="Listening...";}recog.start();}
+function setListen(on){listening=on;var btn=G("micBtn");if(btn){btn.className="mic-btn"+(on?" on":"");btn.textContent=on?"&#127908; Listening...":"&#127908; Tap and Speak";}}
+function handleAnswer(text){var tb=G("tbox");if(tb)tb.textContent='"'+text+'"';var q=session[idx];var ok=q.ans.some(function(a){return text.includes(a.toLowerCase())||a.toLowerCase().includes(text);});var rb=G("rbox");if(ok){rb.className="result-box ok";rb.textContent="&#10003; Correct! Excellent!";G("nudgeBox").classList.remove("show");var nb=G("btnNext");if(nb)nb.classList.add("show");say("Correct! Excellent!");rHappy();}else{nudgeCount++;rb.className="result-box no";rb.textContent="&#10006; Not quite. Listen to my hint!";var nudge=q.nudges[Math.min(nudgeCount-1,q.nudges.length-1)];showNudge(nudge);say(nudge);rThink();if(nudgeCount>=3){var nb2=G("btnNext");if(nb2){nb2.classList.add("show");nb2.textContent="I Understand &#9654;";}}}}
+function showNudge(msg){var n=G("nudgeBox");if(n){n.textContent=msg;n.classList.add("show");}}
+function openBreak(){G("breakOv").classList.add("show");}
+function closeBreak(){G("breakOv").classList.remove("show");}
+function startBreak(r){closeBreak();breakSecs=0;G("timerLbl").textContent=r;G("timerNum").textContent="00:00";G("timerScreen").classList.add("show");breakTmr=setInterval(function(){breakSecs++;var m=String(Math.floor(breakSecs/60)).padStart(2,"0");var s=String(breakSecs%60).padStart(2,"0");G("timerNum").textContent=m+":"+s;},1000);}
+function endBreak(){clearInterval(breakTmr);G("timerScreen").classList.remove("show");}
+window.onload=init;
 </script>
 </body>
 </html>

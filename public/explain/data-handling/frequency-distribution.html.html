@@ -3,302 +3,379 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Frequency Distribution – Class 8 | RISHI</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<title>RISHI — Frequency Distribution</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Nunito:wght@400;600;700;800;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Poppins',sans-serif;background:linear-gradient(135deg,#0a1a2e,#0f2744,#08182a);min-height:100vh;color:#fff;display:flex;flex-direction:column}
-.top-bar{display:flex;align-items:center;justify-content:space-between;padding:12px 20px;background:rgba(255,255,255,0.05);border-bottom:1px solid rgba(255,255,255,0.1)}
-.top-bar .logo{font-size:1.4rem;font-weight:700;color:#60a5fa;letter-spacing:2px}
-.top-bar .chapter{font-size:0.82rem;color:#aaa}
-.score-pill{background:rgba(96,165,250,0.15);border:1px solid #60a5fa;border-radius:20px;padding:4px 14px;font-size:0.78rem;color:#60a5fa}
-.progress-wrap{height:4px;background:rgba(255,255,255,0.1)}
-.progress-bar{height:4px;background:linear-gradient(90deg,#60a5fa,#2563eb);transition:width 0.5s ease}
-.main{display:flex;flex:1}
-.rishika-panel{width:158px;min-width:158px;display:flex;flex-direction:column;align-items:center;padding:18px 10px;background:rgba(255,255,255,0.03);border-right:1px solid rgba(255,255,255,0.08)}
-.rishika-svg-wrap{width:118px;height:138px}
-.speech-bubble{background:rgba(255,255,255,0.95);color:#333;border-radius:12px;padding:9px 11px;font-size:0.68rem;line-height:1.5;margin-top:10px;position:relative;max-width:138px;min-height:38px}
-.speech-bubble::before{content:'';position:absolute;top:-8px;left:18px;border-left:8px solid transparent;border-right:8px solid transparent;border-bottom:8px solid rgba(255,255,255,0.95)}
-.replay-btn{margin-top:11px;background:none;border:1px solid rgba(255,255,255,0.3);color:#fff;border-radius:20px;padding:4px 12px;font-size:0.68rem;cursor:pointer;font-family:'Poppins',sans-serif}
-.replay-btn:hover{background:rgba(255,255,255,0.1)}
-.content{flex:1;padding:18px;display:flex;flex-direction:column;gap:13px;overflow-y:auto}
-.q-number{font-size:0.72rem;color:#60a5fa;margin-bottom:2px}
-.q-text{font-size:0.98rem;font-weight:600;color:#fff;line-height:1.6}
-.anim-canvas{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:6px;max-height:195px;overflow:hidden;display:flex;align-items:center;justify-content:center}
-.anim-canvas svg{max-height:195px;width:100%}
-.options-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
-.opt{background:rgba(255,255,255,0.07);border:1.5px solid rgba(255,255,255,0.15);border-radius:10px;padding:11px 14px;font-size:0.84rem;cursor:pointer;transition:all 0.2s;font-family:'Poppins',sans-serif;color:#fff;text-align:left}
-.opt:hover:not(:disabled){background:rgba(255,255,255,0.13);border-color:#60a5fa}
-.opt.correct{background:rgba(39,174,96,0.25);border-color:#27ae60}
-.opt.wrong{background:rgba(231,76,60,0.25);border-color:#e74c3c}
-.feedback{font-size:0.83rem;padding:9px 13px;border-radius:8px;min-height:34px}
-.feedback.correct{background:rgba(39,174,96,0.2);color:#2ecc71}
-.feedback.wrong{background:rgba(231,76,60,0.2);color:#e74c3c}
-.next-btn{align-self:flex-end;background:linear-gradient(135deg,#60a5fa,#2563eb);color:#fff;border:none;border-radius:24px;padding:10px 28px;font-weight:700;font-size:0.88rem;cursor:pointer;font-family:'Poppins',sans-serif;display:none}
-.next-btn:hover{transform:scale(1.03)}
-.done-screen{display:none;flex-direction:column;align-items:center;justify-content:center;flex:1;gap:18px;text-align:center;padding:40px}
-.done-screen h2{font-size:1.9rem;color:#60a5fa}
-.done-screen p{color:#ccc;font-size:0.96rem}
-.done-btn{background:linear-gradient(135deg,#60a5fa,#2563eb);color:#fff;border:none;border-radius:24px;padding:11px 30px;font-weight:700;font-size:0.96rem;cursor:pointer;font-family:'Poppins',sans-serif}
+:root{--cream:#fdf6ec;--warm-white:#fffdf8;--gold:#c8922a;--gold-light:#e8b84b;--gold-pale:#f5e6c8;--amber:#d4870a;--sage:#7a8c6e;--sage-light:#a8b89a;--rust:#b85c2a;--charcoal:#2a2218;--mid:#5a4a30;--soft:#8a7a5a;--inactive:#c8b89a;--border-dark:#6b4c2a;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--cream);font-family:'Nunito',sans-serif;min-height:100vh;color:var(--charcoal);}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(var(--gold-pale) 1px,transparent 1px),linear-gradient(90deg,var(--gold-pale) 1px,transparent 1px);background-size:40px 40px;opacity:.3;z-index:0;pointer-events:none;}
+.topbar{position:sticky;top:0;z-index:100;background:rgba(253,246,236,.97);border-bottom:2px solid var(--border-dark);backdrop-filter:blur(8px);padding:10px 18px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;}
+.logo-sm{font-family:'Orbitron',sans-serif;font-size:17px;font-weight:900;letter-spacing:4px;background:linear-gradient(135deg,var(--amber),var(--gold-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.topbar-center{font-family:'Orbitron',sans-serif;font-size:10px;letter-spacing:2px;color:var(--amber);text-transform:uppercase;}
+.topbar-right{display:flex;gap:8px;}
+.btn-topbar{font-family:'Nunito',sans-serif;font-size:12px;font-weight:900;padding:6px 14px;border-radius:20px;border:2px solid var(--border-dark);background:var(--warm-white);color:var(--mid);cursor:pointer;}
+.btn-topbar.back{background:var(--gold-pale);}
+.prog-wrap{position:relative;z-index:10;padding:8px 18px;background:rgba(255,253,248,.9);border-bottom:1.5px solid var(--gold-pale);}
+.prog-info{display:flex;justify-content:space-between;font-size:11px;font-weight:800;color:var(--mid);margin-bottom:5px;}
+.prog-bar{height:6px;background:var(--gold-pale);border-radius:4px;overflow:hidden;}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--sage),var(--gold));border-radius:4px;transition:width .5s ease;}
+.main{position:relative;z-index:10;max-width:820px;margin:0 auto;padding:14px 14px 120px;}
+.rishika-wrap{display:flex;align-items:flex-start;gap:12px;margin-bottom:14px;}
+.rishika-avatar{width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,#7c3aed,#a78bfa);border:2px solid var(--border-dark);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;}
+.rishika-bubble{background:rgba(255,253,248,.97);border:2px solid var(--border-dark);border-radius:0 16px 16px 16px;padding:12px 16px;flex:1;box-shadow:0 4px 20px rgba(107,76,42,.1);}
+.rishika-name{font-size:10px;font-weight:900;color:#7c3aed;letter-spacing:2px;text-transform:uppercase;margin-bottom:5px;}
+.rishika-text{font-size:14px;font-weight:700;color:var(--charcoal);line-height:1.6;}
+.hl{color:var(--amber);font-weight:900;}
+.btn-speak{display:inline-flex;align-items:center;gap:6px;font-family:'Nunito',sans-serif;font-size:11px;font-weight:900;padding:5px 11px;border-radius:20px;border:2px solid var(--sage);background:#eef2eb;color:var(--sage);cursor:pointer;margin-top:8px;}
+.q-card{background:rgba(255,253,248,.97);border:2px solid var(--border-dark);border-radius:16px;padding:16px 18px;margin-bottom:12px;box-shadow:0 4px 20px rgba(107,76,42,.1);}
+.q-label{font-family:'Orbitron',sans-serif;font-size:10px;letter-spacing:3px;color:var(--amber);text-transform:uppercase;margin-bottom:8px;}
+.q-text{font-size:15px;font-weight:800;color:var(--charcoal);line-height:1.6;margin-bottom:10px;}
+.step{display:flex;gap:10px;margin-bottom:12px;opacity:0;transform:translateY(6px);transition:all .4s ease;}
+.step.vis{opacity:1;transform:translateY(0);}
+.step-num{width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;font-size:11px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:2px solid var(--border-dark);}
+.step-body{flex:1;font-size:13px;font-weight:700;color:var(--mid);line-height:1.6;padding-top:2px;}
+.ans-tag{font-family:'Share Tech Mono',monospace;background:linear-gradient(135deg,#eef2eb,#f5fbf2);border:2px solid var(--border-dark);border-radius:7px;padding:2px 9px;color:var(--sage);font-size:13px;}
+.anim-panel{background:#fffdf8;border:2px solid var(--border-dark);border-radius:14px;margin-bottom:12px;overflow:hidden;box-shadow:0 4px 16px rgba(107,76,42,.1);}
+.anim-header{background:linear-gradient(135deg,var(--charcoal),#3d2e1a);padding:7px 14px;display:flex;align-items:center;justify-content:space-between;}
+.anim-header-lbl{font-family:'Orbitron',sans-serif;font-size:9px;letter-spacing:2px;color:var(--gold-light);text-transform:uppercase;}
+.anim-replay{font-size:10px;font-weight:900;color:var(--gold-pale);background:none;border:1px solid var(--gold-pale);border-radius:20px;padding:2px 9px;cursor:pointer;display:none;}
+.anim-canvas{width:100%;max-height:195px;overflow:hidden;display:flex;align-items:center;justify-content:center;background:#fffdf8;}
+.anim-canvas svg{width:100%;max-height:195px;}
+.anim-status{padding:6px 14px;font-family:'Nunito',sans-serif;font-size:12px;font-weight:800;color:var(--mid);text-align:center;min-height:26px;line-height:1.4;border-top:1px solid var(--gold-pale);}
+.anim-play-btn{width:100%;padding:10px;font-family:'Nunito',sans-serif;font-size:14px;font-weight:900;background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;border:none;cursor:pointer;}
+.anim-play-btn:disabled{background:var(--gold-pale);color:var(--inactive);cursor:not-allowed;}
+.steps-btn{width:100%;padding:10px;font-family:'Nunito',sans-serif;font-size:14px;font-weight:900;background:linear-gradient(135deg,var(--sage),var(--sage-light));color:#fff;border:none;cursor:pointer;display:none;border-top:1px solid var(--gold-pale);}
+.confirm-wrap{margin-top:12px;background:linear-gradient(135deg,#eef2eb,#f5fbf2);border:2px solid var(--border-dark);border-radius:14px;padding:16px 18px;}
+.confirm-title{font-size:11px;font-weight:900;color:var(--sage);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;}
+.confirm-q{font-size:14px;font-weight:800;color:var(--charcoal);margin-bottom:12px;line-height:1.5;}
+.mic-btn{display:flex;align-items:center;gap:10px;width:100%;font-family:'Nunito',sans-serif;font-size:14px;font-weight:900;padding:11px 16px;border-radius:12px;border:2px solid var(--border-dark);background:var(--warm-white);color:var(--mid);cursor:pointer;margin-bottom:8px;}
+.mic-btn.on{background:var(--sage);color:#fff;border-color:var(--sage);animation:blnk .8s ease-in-out infinite;}
+@keyframes blnk{0%,100%{opacity:1}50%{opacity:.5}}
+.transcript{font-family:'Share Tech Mono',monospace;font-size:12px;color:var(--charcoal);background:var(--warm-white);border:2px solid var(--border-dark);border-radius:9px;padding:8px 12px;min-height:34px;margin-bottom:8px;display:none;}
+.transcript.show{display:block;}
+.result-box{font-size:12px;font-weight:800;padding:9px 13px;border-radius:9px;display:none;line-height:1.4;}
+.result-box.ok{background:#eef2eb;border:2px solid var(--sage);color:var(--sage);display:block;}
+.result-box.no{background:#fff5f0;border:2px solid var(--rust);color:var(--rust);display:block;}
+.nudge{font-size:12px;font-weight:700;color:var(--mid);margin-top:7px;font-style:italic;display:none;}
+.nudge.show{display:block;}
+.btn-next{font-family:'Nunito',sans-serif;font-size:14px;font-weight:900;padding:11px 22px;border-radius:12px;border:none;background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;cursor:pointer;display:none;margin-top:10px;width:100%;}
+.btn-next.show{display:block;}
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;z-index:100;background:rgba(253,246,236,.97);border-top:2px solid var(--border-dark);padding:10px 18px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap;align-items:center;}
+.btn-nav{font-family:'Nunito',sans-serif;font-size:13px;font-weight:900;padding:10px 20px;border-radius:12px;border:2px solid var(--border-dark);cursor:pointer;}
+.btn-nav.practice{background:linear-gradient(135deg,var(--sage),var(--sage-light));color:#fff;border-color:var(--sage);}
+.btn-nav.exam{background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;border-color:var(--amber);}
+.btn-nav.locked{background:var(--gold-pale);color:var(--inactive);cursor:not-allowed;border-color:var(--inactive);}
+.lock-tip{font-size:10px;font-weight:700;color:var(--rust);width:100%;text-align:center;}
+.overlay{display:none;position:fixed;inset:0;background:rgba(42,34,24,.92);z-index:1000;flex-direction:column;align-items:center;justify-content:center;backdrop-filter:blur(6px);}
+.overlay.show{display:flex;}
+.break-box{background:var(--warm-white);border:2px solid var(--border-dark);border-radius:22px;padding:28px 32px;max-width:380px;width:90%;text-align:center;}
+.break-title{font-family:'Orbitron',sans-serif;font-size:14px;font-weight:900;color:var(--amber);letter-spacing:3px;margin-bottom:5px;}
+.break-sub{font-size:12px;font-weight:700;color:var(--soft);margin-bottom:16px;}
+.break-opts{display:flex;flex-direction:column;gap:8px;margin-bottom:12px;}
+.break-opt{font-family:'Nunito',sans-serif;font-size:14px;font-weight:800;padding:11px;border-radius:11px;border:2px solid var(--border-dark);background:var(--warm-white);color:var(--mid);cursor:pointer;}
+.timer-screen{display:none;position:fixed;inset:0;background:#1a1208;z-index:1001;flex-direction:column;align-items:center;justify-content:center;}
+.timer-screen.show{display:flex;}
+.timer-reason{font-family:'Orbitron',sans-serif;font-size:12px;letter-spacing:4px;color:var(--gold-light);margin-bottom:16px;text-transform:uppercase;}
+.timer-num{font-family:'Orbitron',sans-serif;font-size:68px;font-weight:900;color:var(--gold-light);letter-spacing:6px;margin-bottom:30px;}
+.btn-end{font-family:'Nunito',sans-serif;font-size:16px;font-weight:900;padding:13px 32px;border-radius:13px;border:2px solid var(--gold-light);background:transparent;color:var(--gold-light);cursor:pointer;}
+.done-banner{background:linear-gradient(135deg,#eef2eb,#f5fbf2);border:2px solid var(--border-dark);border-radius:14px;padding:14px 18px;text-align:center;margin-bottom:14px;display:none;}
+.done-banner.show{display:block;}
+.done-banner .dt{font-family:'Orbitron',sans-serif;font-size:12px;letter-spacing:2px;color:var(--sage);margin-bottom:4px;}
+.done-banner .ds{font-size:13px;font-weight:700;color:var(--mid);}
+#rWrap{position:fixed;bottom:68px;left:10px;z-index:200;width:82px;pointer-events:none;}
+#rChar{width:82px;filter:drop-shadow(0 4px 10px rgba(107,76,42,.3));}
+@keyframes rIn{from{transform:translateY(50px);opacity:0}to{transform:translateY(0);opacity:1}}
+@keyframes rBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+@media(max-width:600px){.main{padding:10px 10px 120px;}.topbar,.prog-wrap{padding-left:10px;padding-right:10px;}.timer-num{font-size:48px;}}
 </style>
 </head>
 <body>
-<div class="top-bar">
-  <span class="logo">RISHI</span>
-  <span class="chapter">Frequency Distribution — Class 8 Data Handling</span>
-  <span class="score-pill" id="scorePill">Score: 0 / 15</span>
-</div>
-<div class="progress-wrap"><div class="progress-bar" id="progressBar" style="width:0%"></div></div>
-<div class="main" id="mainArea">
-  <div class="rishika-panel">
-    <div class="rishika-svg-wrap">
-      <svg viewBox="0 0 120 140" xmlns="http://www.w3.org/2000/svg">
-        <ellipse cx="60" cy="126" rx="34" ry="20" fill="#1d4ed8"/>
-        <ellipse cx="60" cy="109" rx="21" ry="17" fill="#2563eb"/>
-        <rect x="53" y="93" width="14" height="14" rx="4" fill="#f5c5a3"/>
-        <ellipse cx="60" cy="73" rx="30" ry="31" fill="#f5c5a3"/>
-        <ellipse cx="60" cy="46" rx="30" ry="15" fill="#1e3a8a"/>
-        <ellipse cx="32" cy="69" rx="7" ry="17" fill="#1e3a8a"/>
-        <ellipse cx="88" cy="69" rx="7" ry="17" fill="#1e3a8a"/>
-        <circle cx="60" cy="37" r="9" fill="#1e3a8a"/>
-        <circle cx="31" cy="77" r="3" fill="#60a5fa"/>
-        <circle cx="89" cy="77" r="3" fill="#60a5fa"/>
-        <ellipse cx="46" cy="72" rx="7" ry="7.5" fill="white"/>
-        <circle cx="47" cy="73" r="4.5" fill="#1d4ed8"/>
-        <circle cx="47" cy="73" r="2.5" fill="#0a1f5e"/>
-        <circle cx="49" cy="71" r="1.2" fill="white"/>
-        <ellipse id="lidL" cx="46" cy="72" rx="7" ry="7.5" fill="#f5c5a3" opacity="0"/>
-        <ellipse cx="74" cy="72" rx="7" ry="7.5" fill="white"/>
-        <circle cx="75" cy="73" r="4.5" fill="#1d4ed8"/>
-        <circle cx="75" cy="73" r="2.5" fill="#0a1f5e"/>
-        <circle cx="77" cy="71" r="1.2" fill="white"/>
-        <ellipse id="lidR" cx="74" cy="72" rx="7" ry="7.5" fill="#f5c5a3" opacity="0"/>
-        <path d="M40 63 Q46 60 52 63" stroke="#1e3a8a" stroke-width="2" fill="none" stroke-linecap="round"/>
-        <path d="M68 63 Q74 60 80 63" stroke="#1e3a8a" stroke-width="2" fill="none" stroke-linecap="round"/>
-        <ellipse cx="60" cy="81" rx="3" ry="2" fill="#e8a87c"/>
-        <ellipse id="blushL" cx="40" cy="83" rx="8" ry="5" fill="#ff9999" opacity="0"/>
-        <ellipse id="blushR" cx="80" cy="83" rx="8" ry="5" fill="#ff9999" opacity="0"/>
-        <path id="mouth" d="M53 89 Q60 93 67 89" stroke="#c0392b" stroke-width="2" fill="none" stroke-linecap="round"/>
-        <path d="M48 109 L60 117 L72 109" stroke="#1d4ed8" stroke-width="2" fill="none"/>
-        <path d="M25 121 Q60 136 95 121" stroke="#93c5fd" stroke-width="3" fill="none" opacity="0.6"/>
-      </svg>
-    </div>
-    <div class="speech-bubble" id="bubble">Hi! I am Rishika. Let us learn to read and understand data!</div>
-    <button class="replay-btn" onclick="replayAnim()">&#8635; Replay</button>
-  </div>
-  <div class="content" id="contentArea">
-    <div>
-      <div class="q-number" id="qNumber">Question 1 of 15</div>
-      <div class="q-text" id="qText"></div>
-    </div>
-    <div class="anim-canvas" id="animCanvas"></div>
-    <div class="options-grid" id="optionsGrid"></div>
-    <div class="feedback" id="feedback"></div>
-    <button class="next-btn" id="nextBtn" onclick="nextQ()">Next &#8594;</button>
+<div class="topbar">
+  <div class="logo-sm">RISHI</div>
+  <div class="topbar-center">&#128202; Frequency Distribution</div>
+  <div class="topbar-right">
+    <button class="btn-topbar" onclick="openBreak()">&#9749; Break</button>
+    <button class="btn-topbar back" onclick="location.href='/syllabus.html'">&#8592; Syllabus</button>
   </div>
 </div>
-<div class="done-screen" id="doneScreen">
-  <div style="font-size:3rem">&#127881;</div>
-  <h2>Chapter Complete!</h2>
-  <p id="doneScore"></p>
-  <p style="color:#aaa;font-size:0.82rem">Frequency Distribution — Class 8 Data Handling</p>
-  <button class="done-btn" onclick="location.href='/syllabus.html'">Back to Syllabus</button>
+<div class="prog-wrap">
+  <div class="prog-info"><span id="progLabel">Question 1 of 10</span><span id="progPct">0%</span></div>
+  <div class="prog-bar"><div class="prog-fill" id="progFill" style="width:0%"></div></div>
+</div>
+<div class="main">
+  <div class="done-banner" id="doneBanner">
+    <div class="dt">&#10003; Explanation Completed!</div>
+    <div class="ds">Practice and Exam now unlocked.</div>
+  </div>
+  <div class="rishika-wrap">
+    <div class="rishika-avatar">&#128105;&#8205;&#127979;</div>
+    <div class="rishika-bubble">
+      <div class="rishika-name">Rishika</div>
+      <div class="rishika-text" id="introText">
+        Hi <span class="hl" id="sName">there</span>! &#128522; I am Rishika!
+        Today we explore <span class="hl">Frequency Distribution</span> and Data Handling!
+        We will learn frequency tables, histograms, bar graphs, mean, median and mode.
+        Data tells amazing stories! &#127775;
+      </div>
+      <button class="btn-speak" onclick="say(G('introText').innerText)">&#128266; Hear Rishika</button>
+    </div>
+  </div>
+  <div id="qArea"></div>
+</div>
+<div class="bottom-nav">
+  <div class="lock-tip" id="lockTip">&#9757; Complete explanations to unlock Practice and Exam</div>
+  <button class="btn-nav practice locked" id="btnPractice" onclick="goPractice()">&#9999;&#65039; Practice</button>
+  <button class="btn-nav exam locked" id="btnExam" onclick="goExam()">&#128221; Exam</button>
+</div>
+<div class="overlay" id="breakOv">
+  <div class="break-box">
+    <div class="break-title">Break</div>
+    <div class="break-sub">Choose &mdash; timer starts</div>
+    <div class="break-opts">
+      <button class="break-opt" onclick="startBreak('Water')">&#128167; Water</button>
+      <button class="break-opt" onclick="startBreak('Washroom')">&#128701; Washroom</button>
+      <button class="break-opt" onclick="startBreak('Physical')">&#127939; Physical</button>
+    </div>
+    <button class="break-opt" style="color:var(--soft)" onclick="closeBreak()">Cancel</button>
+  </div>
+</div>
+<div class="timer-screen" id="timerScreen">
+  <div class="timer-reason" id="timerLbl">Break</div>
+  <div class="timer-num" id="timerNum">00:00</div>
+  <button class="btn-end" onclick="endBreak()">&#10003; End Break</button>
+</div>
+<div id="rWrap">
+<svg id="rChar" viewBox="0 0 100 130" xmlns="http://www.w3.org/2000/svg">
+  <ellipse cx="50" cy="108" rx="30" ry="18" fill="#7c3aed"/>
+  <ellipse cx="50" cy="94" rx="20" ry="16" fill="#8b5cf6"/>
+  <rect x="43" y="80" width="14" height="14" rx="4" fill="#f5c5a3"/>
+  <ellipse cx="50" cy="62" rx="27" ry="28" fill="#f5c5a3"/>
+  <ellipse cx="50" cy="38" rx="27" ry="14" fill="#2d1b69"/>
+  <ellipse cx="26" cy="58" rx="6" ry="14" fill="#2d1b69"/>
+  <ellipse cx="74" cy="58" rx="6" ry="14" fill="#2d1b69"/>
+  <circle cx="50" cy="30" r="8" fill="#2d1b69"/>
+  <ellipse cx="38" cy="61" rx="6.5" ry="7" fill="white"/>
+  <ellipse cx="38" cy="62" rx="4" ry="4.5" fill="#5b21b6"/>
+  <ellipse cx="38" cy="62" rx="2.5" ry="3" fill="#1e0a4d"/>
+  <circle cx="39.5" cy="60" r="1.2" fill="white"/>
+  <ellipse id="rLid1" cx="38" cy="61" rx="6.5" ry="1" fill="#f5c5a3" opacity="0"/>
+  <ellipse cx="62" cy="61" rx="6.5" ry="7" fill="white"/>
+  <ellipse cx="62" cy="62" rx="4" ry="4.5" fill="#5b21b6"/>
+  <ellipse cx="62" cy="62" rx="2.5" ry="3" fill="#1e0a4d"/>
+  <circle cx="63.5" cy="60" r="1.2" fill="white"/>
+  <ellipse id="rLid2" cx="62" cy="61" rx="6.5" ry="1" fill="#f5c5a3" opacity="0"/>
+  <ellipse cx="50" cy="70" rx="3" ry="2" fill="#e8a87c"/>
+  <path id="rMouth" d="M44,76 Q50,80 56,76" fill="none" stroke="#2a1208" stroke-width="2" stroke-linecap="round"/>
+  <ellipse id="rBlush1" cx="28" cy="70" rx="7" ry="4" fill="#ff9999" opacity="0"/>
+  <ellipse id="rBlush2" cx="72" cy="70" rx="7" ry="4" fill="#ff9999" opacity="0"/>
+  <path d="M38 94 L50 102 L62 94" stroke="#6d28d9" stroke-width="2" fill="none"/>
+  <rect x="28" y="116" width="44" height="10" fill="#5b21b6" rx="4"/>
+  <text x="50" y="124" text-anchor="middle" font-family="Nunito" font-size="7" font-weight="900" fill="white">RISHIKA</text>
+</svg>
 </div>
 <script>
-function G(id){return document.getElementById(id);}
-var atTimers=[];
-function clearAt(){atTimers.forEach(clearTimeout);atTimers=[];}
-function at(ms,fn){atTimers.push(setTimeout(fn,ms));}
-var chosenVoice=null,mouthTimer=null;
-function initVoices(cb){
-  var v=speechSynthesis.getVoices();
-  if(v.length){pickVoice(v);cb();return;}
-  speechSynthesis.onvoiceschanged=function(){pickVoice(speechSynthesis.getVoices());cb();};
-}
-function pickVoice(voices){
-  var pri=['heera','veena','priya','raveena','female','woman','zira','samantha','victoria','karen','moira','tessa','fiona'];
-  var enIN=voices.filter(function(v){return v.lang==='en-IN';});
-  for(var p=0;p<pri.length;p++){for(var i=0;i<enIN.length;i++){if(enIN[i].name.toLowerCase().indexOf(pri[p])>-1){chosenVoice=enIN[i];return;}}}
-  var enA=voices.filter(function(v){return v.lang.startsWith('en');});
-  for(var p=0;p<pri.length;p++){for(var i=0;i<enA.length;i++){if(enA[i].name.toLowerCase().indexOf(pri[p])>-1){chosenVoice=enA[i];return;}}}
-  if(enIN.length){chosenVoice=enIN[0];return;}
-  if(enA.length){chosenVoice=enA[0];}
-}
-function say(text){
-  speechSynthesis.cancel();rStopTalk();
-  var u=new SpeechSynthesisUtterance(text);
-  if(chosenVoice)u.voice=chosenVoice;
-  u.lang='en-IN';u.rate=0.88;u.pitch=1.15;
-  u.onstart=function(){rStartTalk();};
-  u.onend=function(){rStopTalk();};
-  speechSynthesis.speak(u);
-}
-function rStartTalk(){
-  G('blushL').style.opacity='0.7';G('blushR').style.opacity='0.7';
-  if(mouthTimer)clearInterval(mouthTimer);
-  var open=false;
-  mouthTimer=setInterval(function(){
-    open=!open;
-    G('mouth').setAttribute('d',open?'M53 87 Q60 96 67 87':'M53 89 Q60 93 67 89');
-  },160);
-}
-function rStopTalk(){
-  if(mouthTimer){clearInterval(mouthTimer);mouthTimer=null;}
-  G('mouth').setAttribute('d','M53 89 Q60 93 67 89');
-  G('blushL').style.opacity='0';G('blushR').style.opacity='0';
-}
-function startBlink(){
-  function doBlink(){
-    G('lidL').setAttribute('opacity','0.95');G('lidR').setAttribute('opacity','0.95');
-    setTimeout(function(){G('lidL').setAttribute('opacity','0');G('lidR').setAttribute('opacity','0');setTimeout(doBlink,2200+Math.random()*3000);},120);
-  }
-  setTimeout(doBlink,2200+Math.random()*3000);
-}
-function fade(id,v){var e=G(id);if(!e)return;e.style.transition='opacity .5s';e.style.opacity=v;}
+var voicesReady=false,selectedVoice=null;
+function pickVoice(){var vs=window.speechSynthesis.getVoices();if(!vs||vs.length===0)return false;var fk=["heera","veena","priya","raveena","female","woman","zira","samantha","victoria","karen","moira","tessa","fiona"];for(var i=0;i<vs.length;i++){if(vs[i].lang.toLowerCase().indexOf("en-in")===0){var n=vs[i].name.toLowerCase();for(var k=0;k<fk.length;k++){if(n.indexOf(fk[k])>=0){selectedVoice=vs[i];return true;}}}}for(var i=0;i<vs.length;i++){if(vs[i].lang.toLowerCase().indexOf("en")===0){var n=vs[i].name.toLowerCase();for(var k=0;k<fk.length;k++){if(n.indexOf(fk[k])>=0){selectedVoice=vs[i];return true;}}}}for(var i=0;i<vs.length;i++){if(vs[i].lang.toLowerCase().indexOf("en-in")===0){selectedVoice=vs[i];return true;}}for(var i=0;i<vs.length;i++){if(vs[i].lang.toLowerCase().indexOf("en-gb")===0){selectedVoice=vs[i];return true;}}return false;}
+function initVoices(cb){if(pickVoice()){voicesReady=true;cb();return;}window.speechSynthesis.onvoiceschanged=function(){window.speechSynthesis.onvoiceschanged=null;pickVoice();voicesReady=true;cb();};setTimeout(function(){if(!voicesReady){pickVoice();voicesReady=true;cb();}},2000);}
+function say(text){if(!window.speechSynthesis)return;window.speechSynthesis.cancel();var u=new SpeechSynthesisUtterance(text);u.lang="en-IN";u.rate=0.88;u.pitch=1.15;if(selectedVoice)u.voice=selectedVoice;rStartTalk(text.length);window.speechSynthesis.speak(u);}
+function sayEl(id){var e=G(id);if(e)say(e.innerText||e.textContent);}
+window.addEventListener("beforeunload",function(){window.speechSynthesis&&window.speechSynthesis.cancel();});
+window.addEventListener("pagehide",function(){window.speechSynthesis&&window.speechSynthesis.cancel();});
+var mouthTmr=null,mOpen=false;
+function rInit(){var c=G("rChar");if(c)c.style.animation="rIn .6s cubic-bezier(.34,1.56,.64,1) forwards";scheduleBlink();}
+function scheduleBlink(){setTimeout(function(){rBlink();scheduleBlink();},2200+Math.random()*3000);}
+function rBlink(){var l=G("rLid1"),r=G("rLid2");if(!l||!r)return;l.setAttribute("ry","7");r.setAttribute("ry","7");setTimeout(function(){l.setAttribute("ry","1");r.setAttribute("ry","1");},120);}
+function rStartTalk(len){rStopTalk();G("rBlush1").style.opacity="0.7";G("rBlush2").style.opacity="0.7";mOpen=false;mouthTmr=setInterval(function(){mOpen=!mOpen;var m=G("rMouth");if(!m)return;if(mOpen){m.setAttribute("d","M42,74 Q50,83 58,74");m.setAttribute("fill","#2a1208");}else{m.setAttribute("d","M44,76 Q50,80 56,76");m.setAttribute("fill","none");}},160);setTimeout(rStopTalk,Math.max(1800,len*58));}
+function rStopTalk(){clearInterval(mouthTmr);mOpen=false;var m=G("rMouth");if(m){m.setAttribute("d","M44,76 Q50,80 56,76");m.setAttribute("fill","none");}G("rBlush1").style.opacity="0";G("rBlush2").style.opacity="0";}
+function rHappy(){var c=G("rChar");if(c)c.style.animation="rBounce .35s ease-in-out 5";G("rBlush1").style.opacity="1";G("rBlush2").style.opacity="1";setTimeout(function(){rStopTalk();var c=G("rChar");if(c)c.style.animation="none";},2500);}
+function rThink(){setTimeout(rStopTalk,1800);}
 
-var questions=[
-{q:'What does "frequency" mean in statistics?',opts:['The highest value','Number of times a value occurs','The middle value','The total of all values'],ans:1,anim:'fd1',
-narr:'Frequency means how many times a particular value or observation appears in a dataset. If the score 7 appears 4 times in a list of scores, then the frequency of 7 is 4.'},
-{q:'In a grouped frequency table, the class 10–20 has frequency 8. This means:',opts:['8 values equal 10','8 values equal 20','8 values fall between 10 and 20','8 is the average of the class'],ans:2,anim:'fd2',
-narr:'In a grouped frequency table, the class interval 10 to 20 with frequency 8 means that exactly 8 data values fall within the range 10 to 20. These are grouped together to make the data manageable.'},
-{q:'What is the class width (class size) of the interval 20–30?',opts:['20','30','10','50'],ans:2,anim:'fd3',
-narr:'Class width equals upper boundary minus lower boundary. For the class 20 to 30: class width equals 30 minus 20 equals 10. All classes in a frequency table usually have the same width.'},
-{q:'The class mark (mid-point) of the interval 30–40 is:',opts:['30','35','40','70'],ans:1,anim:'fd4',
-narr:'Class mark equals lower limit plus upper limit divided by 2. For 30 to 40: class mark equals 30 plus 40 divided by 2 equals 70 divided by 2 equals 35. The class mark represents the middle value of that class.'},
-{q:'The sum of all frequencies in a frequency distribution equals:',opts:['The highest frequency','The number of classes','The total number of observations','The range of data'],ans:2,anim:'fd5',
-narr:'The sum of all frequencies always equals the total number of observations, or n, in the dataset. This is a fundamental property. It is a good way to check if your frequency table is correct.'},
-{q:'In a histogram, the horizontal axis shows:',opts:['Frequencies','Class intervals','Tally marks','Cumulative frequencies'],ans:1,anim:'fd6',
-narr:'In a histogram, the horizontal axis, called the x-axis, shows the class intervals. The vertical axis shows the frequencies. Unlike a bar graph, the bars in a histogram touch each other because the data is continuous.'},
-{q:'What does a cumulative frequency tell you?',opts:['The frequency of each class','The total frequency up to and including that class','The average frequency','The most common class'],ans:1,anim:'fd7',
-narr:'Cumulative frequency is the running total of frequencies. It tells you the total number of observations up to and including that class. It is useful for finding medians and drawing ogives.'},
-{q:'Scores of 10 students: 5,7,7,8,5,9,7,8,5,7. What is the frequency of score 7?',opts:['2','3','4','5'],ans:2,anim:'fd8',
-narr:'Count how many times 7 appears in the list: 5, 7, 7, 8, 5, 9, 7, 8, 5, 7. The value 7 appears at positions 2, 3, 7 and 10. So the frequency of 7 is 4.'},
-{q:'In the frequency table below, what is the missing frequency if total = 50? Classes: 0-10 (f=8), 10-20 (f=?), 20-30 (f=14), 30-40 (f=12)',opts:['14','16','18','20'],ans:1,anim:'fd9',
-narr:'Total frequency equals sum of all frequencies equals 50. Known frequencies: 8 plus 14 plus 12 equals 34. Missing frequency equals 50 minus 34 equals 16.'},
-{q:'A bar graph shows data about 4 subjects. The tallest bar represents:',opts:['The least popular subject','The most popular subject','The average subject','The hardest subject'],ans:1,anim:'fd10',
-narr:'In a bar graph, the height of each bar represents the frequency or count for that category. The tallest bar represents the category with the highest frequency — in this case the most popular subject.'},
-{q:'The range of data is defined as:',opts:['Highest value','Lowest value','Highest minus lowest value','Sum of all values'],ans:2,anim:'fd11',
-narr:'Range equals the highest value minus the lowest value in a dataset. It measures the spread of the data. For example, if scores range from 45 to 95, the range is 95 minus 45 equals 50.'},
-{q:'What is the mean of 4, 7, 13, 2, 4?',opts:['4','5','6','7'],ans:2,anim:'fd12',
-narr:'Mean equals sum of all values divided by total count. Sum equals 4 plus 7 plus 13 plus 2 plus 4 equals 30. Count equals 5. Mean equals 30 divided by 5 equals 6.'},
-{q:'What is the median of 3, 7, 2, 9, 5?',opts:['3','5','7','9'],ans:1,anim:'fd13',
-narr:'To find the median, first arrange in ascending order: 2, 3, 5, 7, 9. There are 5 values, so the median is the middle value which is the 3rd value. That is 5.'},
-{q:'The mode of 2, 3, 3, 4, 5, 3, 2, 3 is:',opts:['2','3','4','5'],ans:1,anim:'fd14',
-narr:'The mode is the value that appears most often. Count: 2 appears twice, 3 appears four times, 4 appears once, 5 appears once. The value 3 appears most frequently, so the mode is 3.'},
-{q:'Mean of a dataset is 25 and there are 8 observations. What is the sum of all observations?',opts:['25','33','200','8'],ans:2,anim:'fd15',
-narr:'Mean equals sum divided by number of observations. So sum equals mean times number of observations. Sum equals 25 times 8 equals 200. This formula is very useful in data problems.'}
+var QB=[
+{id:"fd0",q:"What does <span class='hl'>frequency</span> mean in statistics?",qs:"What does frequency mean in statistics?",anim:"freq1",
+ steps:[{t:"Frequency = number of times a value appears in a dataset.",s:"Frequency means how many times a particular value appears in a dataset."},
+        {t:"Data: 5,7,7,8,5,9,7,8,5,7",s:"For this data: 5, 7, 7, 8, 5, 9, 7, 8, 5, 7."},
+        {t:"Frequency of 7 = <span class='ans-tag'>4</span> (appears 4 times)",s:"The value 7 appears 4 times. So frequency of 7 is 4."}],
+ cq:"What is the frequency of 7 in: 5,7,7,8,5,9,7,8,5,7?",cqs:"Frequency of 7 in the data?",
+ ans:["4","four","frequency 4","frequency is 4"],nudges:["Count how many times 7 appears in the list!","7 appears at positions 2, 3, 7 and 10!","Say 4!"]},
+
+{id:"fd1",q:"In a grouped frequency table, the class <span class='hl'>10–20</span> has frequency 8. This means?",qs:"Class 10 to 20 has frequency 8. What does this mean?",anim:"gft",
+ steps:[{t:"A grouped frequency table organises data into class intervals.",s:"A grouped frequency table groups data into ranges called class intervals."},
+        {t:"Frequency 8 in class 10–20 means 8 data values fall between 10 and 20.",s:"Frequency 8 in class 10 to 20 means exactly 8 data values fall within that range."},
+        {t:"Class width = upper limit &minus; lower limit = <span class='ans-tag'>10</span>",s:"The class width is upper limit minus lower limit. 20 minus 10 equals 10."}],
+ cq:"How many values fall in the class 10 to 20?",cqs:"How many values in class 10 to 20?",
+ ans:["8","eight","8 values"],nudges:["The frequency tells you how many values fall in that class interval!","Frequency 8 means 8 data values are in that range!","Say 8!"]},
+
+{id:"fd2",q:"The class mark (mid-point) of the interval <span class='hl'>30–40</span> is?",qs:"Class mark of the interval 30 to 40?",anim:"classMark",
+ steps:[{t:"Class mark = (lower limit + upper limit) &divide; 2",s:"Class mark equals lower limit plus upper limit divided by 2."},
+        {t:"= (30 + 40) &divide; 2 = 70 &divide; 2",s:"30 plus 40 equals 70. 70 divided by 2."},
+        {t:"Class mark = <span class='ans-tag'>35</span>",s:"The class mark is 35. It represents the middle value of the class."}],
+ cq:"Class mark of interval 30 to 40?",cqs:"Class mark of 30 to 40?",
+ ans:["35","thirty five"],nudges:["Add lower and upper limits then divide by 2!","30 plus 40 equals 70. 70 divided by 2 equals?","Say 35!"]},
+
+{id:"fd3",q:"Find the <span class='hl'>mean</span> of: 4, 7, 13, 2, 4",qs:"Mean of 4, 7, 13, 2, 4?",anim:"mean1",
+ steps:[{t:"Mean = Sum of all values &divide; Number of values",s:"Mean equals the sum of all values divided by the number of values."},
+        {t:"Sum = 4+7+13+2+4 = <span class='ans-tag'>30</span>",s:"Add all values: 4 plus 7 plus 13 plus 2 plus 4 equals 30."},
+        {t:"Mean = 30 &divide; 5 = <span class='ans-tag'>6</span>",s:"Mean equals 30 divided by 5 equals 6."}],
+ cq:"What is the mean of 4, 7, 13, 2, 4?",cqs:"Mean of 4, 7, 13, 2, 4?",
+ ans:["6","six","mean is 6","mean equals 6"],nudges:["Add all values and divide by how many there are!","4+7+13+2+4 = 30. Then divide by 5!","Mean is 6!"]},
+
+{id:"fd4",q:"Find the <span class='hl'>median</span> of: 3, 7, 2, 9, 5",qs:"Median of 3, 7, 2, 9, 5?",anim:"median1",
+ steps:[{t:"Sort in ascending order first: 2, 3, 5, 7, 9",s:"First sort the data: 2, 3, 5, 7, 9."},
+        {t:"5 values. Middle value is the 3rd value.",s:"There are 5 values. The middle value is at position 3."},
+        {t:"Median = <span class='ans-tag'>5</span>",s:"The 3rd value is 5. So the median is 5."}],
+ cq:"Median of 3, 7, 2, 9, 5?",cqs:"Median of 3, 7, 2, 9, 5?",
+ ans:["5","five","median is 5","median equals 5"],nudges:["Sort the data first: 2, 3, 5, 7, 9!","5 values, so middle is the 3rd one!","Say 5!"]},
+
+{id:"fd5",q:"Find the <span class='hl'>mode</span> of: 2, 3, 3, 4, 5, 3, 2, 3",qs:"Mode of 2, 3, 3, 4, 5, 3, 2, 3?",anim:"mode1",
+ steps:[{t:"Mode = value that appears most often.",s:"The mode is the value that appears most frequently in the data."},
+        {t:"Count: 2 appears 2 times, 3 appears <b>4 times</b>, 4 once, 5 once.",s:"Count: 2 appears twice, 3 appears 4 times, 4 and 5 appear once each."},
+        {t:"Mode = <span class='ans-tag'>3</span> (appears most)",s:"3 appears most often. So the mode is 3."}],
+ cq:"Mode of 2, 3, 3, 4, 5, 3, 2, 3?",cqs:"Mode of the data?",
+ ans:["3","three","mode is 3","mode equals 3"],nudges:["Find which value appears the most times!","3 appears 4 times — more than any other value!","Say 3!"]},
+
+{id:"fd6",q:"Missing frequency: Total=50, classes: 0–10(f=8), 10–20(?), 20–30(f=14), 30–40(f=12)",qs:"Find the missing frequency if total equals 50.",anim:"missingF",
+ steps:[{t:"Sum of all frequencies = Total = 50",s:"The sum of all frequencies equals the total number of observations, which is 50."},
+        {t:"Known sum = 8 + 14 + 12 = 34",s:"Add the known frequencies: 8 plus 14 plus 12 equals 34."},
+        {t:"Missing frequency = 50 &minus; 34 = <span class='ans-tag'>16</span>",s:"Missing frequency equals 50 minus 34 equals 16."}],
+ cq:"What is the missing frequency?",cqs:"Missing frequency?",
+ ans:["16","sixteen","frequency is 16"],nudges:["Sum of all frequencies equals 50!","Known sum is 8+14+12 = 34. What is 50 minus 34?","Say 16!"]},
+
+{id:"fd7",q:"In a histogram, what is shown on the <span class='hl'>horizontal axis</span>?",qs:"What is on the horizontal axis of a histogram?",anim:"histogram",
+ steps:[{t:"A histogram is like a bar graph but for continuous data.",s:"A histogram displays continuous data. The bars touch each other."},
+        {t:"Horizontal axis (x-axis): shows the <b>class intervals</b>.",s:"The horizontal axis shows the class intervals."},
+        {t:"Vertical axis (y-axis): shows the <b>frequencies</b>.",s:"The vertical axis shows the frequencies. No gaps between bars."}],
+ cq:"What is shown on the horizontal axis of a histogram?",cqs:"Horizontal axis of histogram shows?",
+ ans:["class intervals","class","intervals","classes"],nudges:["Think about what goes along the bottom of a histogram!","The bottom shows the ranges of data — the class intervals!","Say class intervals!"]},
+
+{id:"fd8",q:"Mean of a dataset is 25 and there are 8 observations. Find the <span class='hl'>sum</span>.",qs:"Mean is 25 and 8 observations. Find the sum.",anim:"sumMean",
+ steps:[{t:"Mean = Sum &divide; n &nbsp; so &nbsp; Sum = Mean &times; n",s:"Mean equals Sum divided by n. Rearranging: Sum equals Mean times n."},
+        {t:"Sum = 25 &times; 8",s:"Sum equals 25 times 8."},
+        {t:"Sum = <span class='ans-tag'>200</span>",s:"Sum equals 200."}],
+ cq:"Sum of all observations if mean is 25 and n is 8?",cqs:"What is the sum?",
+ ans:["200","two hundred","sum is 200"],nudges:["Sum equals Mean times n!","25 times 8 equals?","Say 200!"]},
+
+{id:"fd9",q:"The <span class='hl'>range</span> of data is defined as?",qs:"What is the range of data?",anim:"range1",
+ steps:[{t:"Range = Highest value &minus; Lowest value",s:"Range equals the highest value minus the lowest value."},
+        {t:"It measures the spread of data.",s:"The range measures how spread out the data is."},
+        {t:"Example: scores 45 to 95. Range = 95&minus;45 = <span class='ans-tag'>50</span>",s:"If scores go from 45 to 95, the range is 95 minus 45 equals 50."}],
+ cq:"What is the range if scores go from 45 to 95?",cqs:"Range of scores from 45 to 95?",
+ ans:["50","fifty","range is 50","range equals 50"],nudges:["Range = Highest minus Lowest!","95 minus 45 equals?","Say 50!"]},
 ];
 
-function getAnimSVG(type){
-var s={
-'fd1':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#0a1a2e"/><text x="210" y="18" text-anchor="middle" fill="#60a5fa" font-size="13" font-weight="bold">What is Frequency?</text><g id="f1data" opacity="0"><text x="30" y="52" fill="#aaa" font-size="12">Data: 5, 7, 3, 7, 5, 9, 7, 5, 7, 3</text></g><g id="f1count" opacity="0"><text x="30" y="80" fill="#ffd700" font-size="12">Count each value:</text><text x="30" y="100" fill="#fff" font-size="12">5 appears: 3 times   7 appears: 4 times</text><text x="30" y="120" fill="#fff" font-size="12">3 appears: 2 times   9 appears: 1 time</text></g><g id="f1def" opacity="0"><rect x="25" y="136" width="300" height="22" rx="5" fill="rgba(96,165,250,0.1)" stroke="#60a5fa" stroke-width="1"/><text x="175" y="151" text-anchor="middle" fill="#60a5fa" font-size="11" font-weight="bold">Frequency = how many times a value occurs</text></g></svg>',
+var atTimers=[];
+function clearAt(){for(var i=0;i<atTimers.length;i++)clearTimeout(atTimers[i]);atTimers=[];}
+function at(ms,fn){atTimers.push(setTimeout(fn,ms));}
+function G(id){return document.getElementById(id);}
+function fade(id,v){var e=G(id);if(e){e.style.transition="opacity .5s";e.style.opacity=v;}}
+function setStatus(t){var e=G("animStatus");if(e)e.textContent=t;}
+var BG='style="background:#fffdf8;font-family:Nunito,sans-serif"';
+var HDR='font-family="Orbitron" font-size="11" fill="#d4870a" font-weight="900"';
+function makeSVG(title,inner){return '<svg viewBox="0 0 420 178" width="100%" xmlns="http://www.w3.org/2000/svg" '+BG+'><text x="210" y="20" text-anchor="middle" '+HDR+'>'+title+'</text>'+inner+'</svg>';}
 
-'fd2':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#0a1a2e"/><text x="210" y="18" text-anchor="middle" fill="#60a5fa" font-size="13" font-weight="bold">Grouped Frequency Table</text><g id="f2table" opacity="0"><text x="40" y="50" fill="#aaa" font-size="11">Class Interval</text><text x="200" y="50" fill="#aaa" font-size="11">Frequency</text><line x1="30" y1="56" x2="300" y2="56" stroke="#444" stroke-width="1"/><text x="40" y="74" fill="#fff" font-size="12">0 - 10</text><text x="200" y="74" fill="#fff" font-size="12">5</text><text x="40" y="94" fill="#60a5fa" font-size="12" font-weight="bold">10 - 20</text><text x="200" y="94" fill="#60a5fa" font-size="12" font-weight="bold">8</text><text x="40" y="114" fill="#fff" font-size="12">20 - 30</text><text x="200" y="114" fill="#fff" font-size="12">12</text></g><g id="f2explain" opacity="0"><rect x="25" y="128" width="330" height="34" rx="5" fill="rgba(96,165,250,0.08)" stroke="#60a5fa" stroke-width="1"/><text x="190" y="144" text-anchor="middle" fill="#60a5fa" font-size="11">Frequency 8 in 10-20 means</text><text x="190" y="158" text-anchor="middle" fill="#ffd700" font-size="11">8 data values fall between 10 and 20</text></g></svg>',
+function svgFreq1(){return makeSVG('WHAT IS FREQUENCY?',
+  '<g id="fr1d" opacity="0" style="transition:opacity .5s"><text x="50" y="54" font-size="13" font-weight="800" fill="#5a4a30">Data: 5, 7, 7, 8, 5, 9, 7, 8, 5, 7</text></g>'
+  +'<g id="fr1t" opacity="0" style="transition:opacity .5s"><text x="50" y="82" font-size="13" font-weight="800" fill="#d4870a">Count each value:</text><text x="50" y="102" font-size="13" font-weight="800" fill="#5a4a30">5 appears: 3 times &nbsp; 9 appears: 1 time</text><text x="50" y="122" font-size="15" font-weight="900" fill="#2a2218">7 appears: <tspan fill="#7a8c6e">4 times</tspan></text></g>'
+  +'<g id="fr1a" opacity="0" style="transition:opacity .5s"><rect x="45" y="140" width="260" height="26" rx="7" fill="#eef2eb" stroke="#6b4c2a" stroke-width="1.5"/><text x="175" y="157" text-anchor="middle" font-family="Share Tech Mono" font-size="14" font-weight="bold" fill="#7a8c6e">Frequency of 7 = 4</text></g>'
+);}
+function playFreq1(done){setStatus("What is frequency?");say("Frequency means how many times a value appears in data.");at(600,function(){fade("fr1d",1);say("Here is our data: 5, 7, 7, 8, 5, 9, 7, 8, 5, 7.");});at(3500,function(){fade("fr1t",1);say("Count each value. 5 appears 3 times. 9 appears once. 7 appears 4 times!");});at(7000,function(){fade("fr1a",1);setStatus("Frequency of 7 = 4");say("The frequency of 7 is 4.");at(2000,done);});}
 
-'fd3':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#0a1a2e"/><text x="210" y="18" text-anchor="middle" fill="#60a5fa" font-size="13" font-weight="bold">Class Width (Class Size)</text><g id="f3line" opacity="0"><line x1="60" y1="90" x2="340" y2="90" stroke="#888" stroke-width="2"/><line x1="60" y1="80" x2="60" y2="100" stroke="#60a5fa" stroke-width="2"/><line x1="200" y1="80" x2="200" y2="100" stroke="#60a5fa" stroke-width="2"/><line x1="340" y1="80" x2="340" y2="100" stroke="#60a5fa" stroke-width="2"/><text x="60" y="115" text-anchor="middle" fill="#fff" font-size="12">0</text><text x="200" y="115" text-anchor="middle" fill="#ffd700" font-size="12">20</text><text x="340" y="115" text-anchor="middle" fill="#ffd700" font-size="12">30</text></g><g id="f3bracket" opacity="0"><path d="M200 70 L200 60 L340 60 L340 70" fill="none" stroke="#2ecc71" stroke-width="2"/><text x="270" y="50" text-anchor="middle" fill="#2ecc71" font-size="12" font-weight="bold">Class width = 10</text></g><g id="f3formula" opacity="0"><text x="100" y="150" fill="#ffd700" font-size="13">Width = Upper - Lower = 30 - 20 = 10</text></g></svg>',
+function svgGFT(){return makeSVG('GROUPED FREQUENCY TABLE',
+  '<g id="gf1h" opacity="0" style="transition:opacity .5s"><text x="50" y="48" font-size="11" font-weight="800" fill="#5a4a30">Class Interval</text><text x="210" y="48" font-size="11" font-weight="800" fill="#5a4a30">Frequency</text><line x1="40" y1="54" x2="320" y2="54" stroke="#c8b89a" stroke-width="1"/></g>'
+  +'<g id="gf1r" opacity="0" style="transition:opacity .5s"><text x="50" y="72" font-size="12" font-weight="800" fill="#5a4a30">0 &ndash; 10</text><text x="210" y="72" font-size="12" font-weight="800" fill="#5a4a30">5</text><text x="50" y="92" font-size="12" font-weight="900" fill="#d4870a">10 &ndash; 20</text><text x="210" y="92" font-size="12" font-weight="900" fill="#d4870a">8</text><text x="50" y="112" font-size="12" font-weight="800" fill="#5a4a30">20 &ndash; 30</text><text x="210" y="112" font-size="12" font-weight="800" fill="#5a4a30">12</text></g>'
+  +'<g id="gf1e" opacity="0" style="transition:opacity .5s"><rect x="45" y="128" width="320" height="32" rx="7" fill="#f5e6c8" stroke="#6b4c2a" stroke-width="1"/><text x="205" y="144" text-anchor="middle" font-size="11" font-weight="800" fill="#d4870a">8 values fall between 10 and 20</text><text x="205" y="158" text-anchor="middle" font-size="11" font-weight="800" fill="#5a4a30">Class width = 20&minus;10 = 10</text></g>'
+);}
+function playGFT(done){setStatus("Reading a grouped frequency table...");say("A grouped frequency table groups data into class intervals.");at(600,function(){fade("gf1h",1);});at(2200,function(){fade("gf1r",1);say("Class 10 to 20 has frequency 8. This means 8 data values fall between 10 and 20.");});at(5500,function(){fade("gf1e",1);setStatus("8 values in class 10-20. Width = 10.");say("The class width is upper minus lower: 20 minus 10 equals 10.");at(2000,done);});}
 
-'fd4':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#0a1a2e"/><text x="210" y="18" text-anchor="middle" fill="#60a5fa" font-size="13" font-weight="bold">Class Mark (Mid-point)</text><g id="f4line" opacity="0"><line x1="60" y1="90" x2="360" y2="90" stroke="#888" stroke-width="2"/><line x1="110" y1="80" x2="110" y2="100" stroke="#60a5fa" stroke-width="2"/><line x1="310" y1="80" x2="310" y2="100" stroke="#60a5fa" stroke-width="2"/><text x="110" y="115" text-anchor="middle" fill="#fff" font-size="12">30</text><text x="310" y="115" text-anchor="middle" fill="#fff" font-size="12">40</text></g><g id="f4mid" opacity="0"><circle cx="210" cy="90" r="8" fill="#ffd700"/><text x="210" y="115" text-anchor="middle" fill="#ffd700" font-size="12">35</text><text x="210" y="75" text-anchor="middle" fill="#ffd700" font-size="11">Class Mark</text></g><g id="f4formula" opacity="0"><text x="80" y="150" fill="#ffd700" font-size="13">Class Mark = (30+40)/2 = 70/2 = 35</text></g></svg>',
+function svgClassMark(){return makeSVG('CLASS MARK (MID-POINT)',
+  '<g id="cm1" opacity="0" style="transition:opacity .5s"><rect x="18" y="28" width="384" height="26" rx="7" fill="#f5e6c8" stroke="#6b4c2a" stroke-width="1.5"/><text x="210" y="45" text-anchor="middle" font-size="13" font-weight="900" fill="#d4870a">Class Mark = (Lower + Upper) &divide; 2</text></g>'
+  +'<g id="cm2" opacity="0" style="transition:opacity .5s"><line x1="60" y1="105" x2="360" y2="105" stroke="#c8b89a" stroke-width="2"/><line x1="110" y1="96" x2="110" y2="114" stroke="#6b4c2a" stroke-width="2"/><text x="110" y="128" text-anchor="middle" font-size="12" fill="#5a4a30">30</text><line x1="310" y1="96" x2="310" y2="114" stroke="#6b4c2a" stroke-width="2"/><text x="310" y="128" text-anchor="middle" font-size="12" fill="#5a4a30">40</text><circle cx="210" cy="105" r="7" fill="#d4870a"/><text x="210" y="90" text-anchor="middle" font-size="12" font-weight="900" fill="#d4870a">35</text></g>'
+  +'<g id="cm3" opacity="0" style="transition:opacity .5s"><rect x="110" y="142" width="200" height="26" rx="7" fill="#eef2eb" stroke="#6b4c2a" stroke-width="1.5"/><text x="210" y="159" text-anchor="middle" font-family="Share Tech Mono" font-size="15" font-weight="bold" fill="#7a8c6e">Class mark = 35</text></g>'
+);}
+function playClassMark(done){setStatus("Finding the class mark...");say("The class mark is the mid-point of a class interval.");at(600,function(){fade("cm1",1);});at(2500,function(){fade("cm2",1);say("For class 30 to 40: add 30 and 40 to get 70, then divide by 2.");});at(5500,function(){fade("cm3",1);setStatus("Class mark of 30-40 is 35.");say("Class mark equals 35. It represents the middle of that class.");at(2000,done);});}
 
-'fd5':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#0a1a2e"/><text x="210" y="18" text-anchor="middle" fill="#60a5fa" font-size="13" font-weight="bold">Sum of All Frequencies = Total Observations</text><g id="f5table" opacity="0"><text x="40" y="52" fill="#aaa" font-size="11">Class</text><text x="160" y="52" fill="#aaa" font-size="11">Freq</text><text x="40" y="70" fill="#fff" font-size="11">0-10</text><text x="160" y="70" fill="#fff" font-size="11">5</text><text x="40" y="88" fill="#fff" font-size="11">10-20</text><text x="160" y="88" fill="#fff" font-size="11">8</text><text x="40" y="106" fill="#fff" font-size="11">20-30</text><text x="160" y="106" fill="#fff" font-size="11">12</text><line x1="148" y1="112" x2="200" y2="112" stroke="#60a5fa" stroke-width="1"/><text x="160" y="128" fill="#60a5fa" font-size="12" font-weight="bold">25</text></g><g id="f5rule" opacity="0"><rect x="220" y="60" width="180" height="56" rx="6" fill="rgba(96,165,250,0.1)" stroke="#60a5fa" stroke-width="1"/><text x="310" y="82" text-anchor="middle" fill="#60a5fa" font-size="11">Sum of all</text><text x="310" y="98" text-anchor="middle" fill="#60a5fa" font-size="11">frequencies = n</text><text x="310" y="114" text-anchor="middle" fill="#ffd700" font-size="13" font-weight="bold">= 25 here</text></g></svg>',
+function svgMean1(){return makeSVG('MEAN (AVERAGE)',
+  '<g id="mn1f" opacity="0" style="transition:opacity .5s"><rect x="18" y="28" width="384" height="26" rx="7" fill="#f5e6c8" stroke="#6b4c2a" stroke-width="1.5"/><text x="210" y="45" text-anchor="middle" font-size="13" font-weight="900" fill="#d4870a">Mean = Sum of all values &divide; Number of values</text></g>'
+  +'<g id="mn1d" opacity="0" style="transition:opacity .5s"><text x="50" y="88" font-size="14" font-weight="800" fill="#5a4a30">Data: 4, 7, 13, 2, 4</text></g>'
+  +'<g id="mn1s" opacity="0" style="transition:opacity .5s"><text x="50" y="116" font-size="14" font-weight="800" fill="#d4870a">Sum = 4+7+13+2+4 = 30</text><text x="50" y="138" font-size="14" font-weight="800" fill="#d4870a">Count = 5</text></g>'
+  +'<g id="mn1a" opacity="0" style="transition:opacity .5s"><rect x="45" y="152" width="200" height="24" rx="6" fill="#eef2eb" stroke="#6b4c2a" stroke-width="1.5"/><text x="145" y="168" text-anchor="middle" font-family="Share Tech Mono" font-size="16" font-weight="bold" fill="#7a8c6e">Mean = 30 &divide; 5 = 6</text></g>'
+);}
+function playMean1(done){setStatus("Calculating the mean...");say("Mean is the average. Add all values and divide by how many there are.");at(600,function(){fade("mn1f",1);});at(2500,function(){fade("mn1d",1);say("Our data: 4, 7, 13, 2, 4.");});at(4500,function(){fade("mn1s",1);say("Sum equals 4 plus 7 plus 13 plus 2 plus 4 equals 30. There are 5 values.");});at(7500,function(){fade("mn1a",1);setStatus("Mean = 30 / 5 = 6");say("Mean equals 30 divided by 5 equals 6.");at(2000,done);});}
 
-'fd6':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#0a1a2e"/><text x="210" y="18" text-anchor="middle" fill="#60a5fa" font-size="13" font-weight="bold">Reading a Histogram</text><g id="f6axes" opacity="0"><line x1="50" y1="140" x2="360" y2="140" stroke="#888" stroke-width="2"/><line x1="50" y1="30" x2="50" y2="140" stroke="#888" stroke-width="2"/><text x="205" y="165" text-anchor="middle" fill="#aaa" font-size="11">Class Intervals (horizontal)</text><text x="20" y="85" fill="#aaa" font-size="11" transform="rotate(-90,20,85)">Freq</text></g><g id="f6bars" opacity="0"><rect x="50" y="100" width="60" height="40" fill="rgba(96,165,250,0.5)" stroke="#60a5fa" stroke-width="1"/><rect x="110" y="70" width="60" height="70" fill="rgba(96,165,250,0.5)" stroke="#60a5fa" stroke-width="1"/><rect x="170" y="50" width="60" height="90" fill="rgba(96,165,250,0.5)" stroke="#60a5fa" stroke-width="1"/><rect x="230" y="85" width="60" height="55" fill="rgba(96,165,250,0.5)" stroke="#60a5fa" stroke-width="1"/><rect x="290" y="110" width="60" height="30" fill="rgba(96,165,250,0.5)" stroke="#60a5fa" stroke-width="1"/></g><g id="f6note" opacity="0"><text x="80" y="18" fill="#ffd700" font-size="10">Bars touch each other (continuous data)</text></g></svg>',
+function svgMedian1(){return makeSVG('MEDIAN (MIDDLE VALUE)',
+  '<g id="med1r" opacity="0" style="transition:opacity .5s"><rect x="18" y="28" width="384" height="24" rx="6" fill="#f5e6c8" stroke="#6b4c2a" stroke-width="1.5"/><text x="210" y="44" text-anchor="middle" font-size="12" font-weight="900" fill="#d4870a">Sort the data first, then find the middle value</text></g>'
+  +'<g id="med1s" opacity="0" style="transition:opacity .5s"><text x="50" y="82" font-size="13" font-weight="800" fill="#5a4a30">Sorted: 2, 3, <tspan fill="#d4870a" font-size="16" font-weight="900">5</tspan>, 7, 9</text></g>'
+  +'<g id="med1p" opacity="0" style="transition:opacity .5s"><text x="50" y="110" font-size="13" font-weight="800" fill="#5a4a30">5 values &rarr; middle is position 3 = <tspan fill="#7a8c6e" font-weight="900">5</tspan></text></g>'
+  +'<g id="med1a" opacity="0" style="transition:opacity .5s"><rect x="45" y="128" width="180" height="26" rx="7" fill="#eef2eb" stroke="#6b4c2a" stroke-width="1.5"/><text x="135" y="145" text-anchor="middle" font-family="Share Tech Mono" font-size="16" font-weight="bold" fill="#7a8c6e">Median = 5</text></g>'
+);}
+function playMedian1(done){setStatus("Finding the median...");say("Median is the middle value. Always sort the data first!");at(600,function(){fade("med1r",1);});at(2500,function(){fade("med1s",1);say("Sort: 2, 3, 5, 7, 9.");});at(5000,function(){fade("med1p",1);say("5 values. Middle is at position 3. That is 5.");});at(7500,function(){fade("med1a",1);setStatus("Median = 5");say("The median is 5.");at(2000,done);});}
 
-'fd7':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#0a1a2e"/><text x="210" y="18" text-anchor="middle" fill="#60a5fa" font-size="13" font-weight="bold">Cumulative Frequency</text><g id="f7table" opacity="0"><text x="20" y="46" fill="#aaa" font-size="10">Class</text><text x="100" y="46" fill="#aaa" font-size="10">Freq</text><text x="190" y="46" fill="#60a5fa" font-size="10">Cumulative Freq</text><text x="20" y="64" fill="#fff" font-size="11">0-10</text><text x="100" y="64" fill="#fff" font-size="11">5</text><text x="190" y="64" fill="#60a5fa" font-size="11">5</text><text x="20" y="82" fill="#fff" font-size="11">10-20</text><text x="100" y="82" fill="#fff" font-size="11">8</text><text x="190" y="82" fill="#60a5fa" font-size="11">5+8 = 13</text><text x="20" y="100" fill="#fff" font-size="11">20-30</text><text x="100" y="100" fill="#fff" font-size="11">12</text><text x="190" y="100" fill="#60a5fa" font-size="11">13+12 = 25</text></g><g id="f7meaning" opacity="0"><text x="20" y="132" fill="#ffd700" font-size="11">CF of 25 means: 25 values are below 30</text></g></svg>',
+function svgMode1(){return makeSVG('MODE (MOST FREQUENT)',
+  '<g id="mo1r" opacity="0" style="transition:opacity .5s"><rect x="18" y="28" width="384" height="24" rx="6" fill="#f5e6c8" stroke="#6b4c2a" stroke-width="1.5"/><text x="210" y="44" text-anchor="middle" font-size="12" font-weight="900" fill="#d4870a">Mode = value that appears the most times</text></g>'
+  +'<g id="mo1d" opacity="0" style="transition:opacity .5s"><text x="50" y="82" font-size="13" font-weight="800" fill="#5a4a30">Data: 2, 3, 3, 4, 5, 3, 2, 3</text></g>'
+  +'<g id="mo1c" opacity="0" style="transition:opacity .5s"><text x="50" y="108" font-size="12" font-weight="800" fill="#5a4a30">2 appears: 2 times</text><text x="50" y="126" font-size="13" font-weight="900" fill="#d4870a">3 appears: 4 times &#9650;</text><text x="50" y="144" font-size="12" font-weight="800" fill="#5a4a30">4 appears: 1 time &nbsp; 5 appears: 1 time</text></g>'
+  +'<g id="mo1a" opacity="0" style="transition:opacity .5s"><rect x="45" y="154" width="160" height="22" rx="6" fill="#eef2eb" stroke="#6b4c2a" stroke-width="1.5"/><text x="125" y="169" text-anchor="middle" font-family="Share Tech Mono" font-size="15" font-weight="bold" fill="#7a8c6e">Mode = 3</text></g>'
+);}
+function playMode1(done){setStatus("Finding the mode...");say("Mode is the value that appears most often in the data.");at(600,function(){fade("mo1r",1);});at(2500,function(){fade("mo1d",1);say("Our data: 2, 3, 3, 4, 5, 3, 2, 3.");});at(4500,function(){fade("mo1c",1);say("Count: 2 appears twice, 3 appears 4 times, 4 and 5 appear once each. 3 wins!");});at(7500,function(){fade("mo1a",1);setStatus("Mode = 3");say("The mode is 3.");at(2000,done);});}
 
-'fd8':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#0a1a2e"/><text x="210" y="18" text-anchor="middle" fill="#60a5fa" font-size="13" font-weight="bold">Counting Frequency from Raw Data</text><g id="f8data" opacity="0"><text x="30" y="52" fill="#aaa" font-size="12">Scores: 5, 7, 7, 8, 5, 9, 7, 8, 5, 7</text></g><g id="f8highlight" opacity="0"><text x="30" y="82" fill="#ffd700" font-size="13">Highlight all 7s:</text><text x="30" y="104" fill="#fff" font-size="13">5, <tspan fill="#60a5fa" font-weight="bold">7</tspan>, <tspan fill="#60a5fa" font-weight="bold">7</tspan>, 8, 5, 9, <tspan fill="#60a5fa" font-weight="bold">7</tspan>, 8, 5, <tspan fill="#60a5fa" font-weight="bold">7</tspan></text></g><g id="f8ans" opacity="0"><rect x="25" y="124" width="230" height="28" rx="6" fill="rgba(46,204,113,0.2)" stroke="#2ecc71" stroke-width="1.5"/><text x="140" y="142" text-anchor="middle" fill="#2ecc71" font-size="15" font-weight="bold">Frequency of 7 = 4</text></g></svg>',
+function svgMissingF(){return makeSVG('FINDING MISSING FREQUENCY',
+  '<g id="mf1" opacity="0" style="transition:opacity .5s"><text x="50" y="52" font-size="13" font-weight="800" fill="#5a4a30">0&ndash;10: 8 &nbsp; 10&ndash;20: ? &nbsp; 20&ndash;30: 14 &nbsp; 30&ndash;40: 12</text></g>'
+  +'<g id="mf2" opacity="0" style="transition:opacity .5s"><text x="50" y="82" font-size="14" font-weight="800" fill="#d4870a">Total = 50</text><text x="50" y="104" font-size="14" font-weight="800" fill="#5a4a30">Known sum = 8 + 14 + 12 = 34</text></g>'
+  +'<g id="mf3" opacity="0" style="transition:opacity .5s"><text x="50" y="132" font-size="14" font-weight="800" fill="#5a4a30">Missing = 50 &minus; 34 = ?</text></g>'
+  +'<g id="mf4" opacity="0" style="transition:opacity .5s"><rect x="45" y="150" width="200" height="26" rx="7" fill="#eef2eb" stroke="#6b4c2a" stroke-width="1.5"/><text x="145" y="167" text-anchor="middle" font-family="Share Tech Mono" font-size="16" font-weight="bold" fill="#7a8c6e">Missing = 16</text></g>'
+);}
+function playMissingF(done){setStatus("Finding the missing frequency...");say("The sum of all frequencies equals the total number of observations.");at(600,function(){fade("mf1",1);say("We have 4 classes. Total is 50. Three frequencies are known: 8, 14 and 12.");});at(4000,function(){fade("mf2",1);say("Known sum equals 8 plus 14 plus 12 equals 34.");});at(6500,function(){fade("mf3",1);say("Missing frequency equals 50 minus 34.");});at(8500,function(){fade("mf4",1);setStatus("Missing frequency = 16");say("Missing frequency equals 16.");at(2000,done);});}
 
-'fd9':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#0a1a2e"/><text x="210" y="18" text-anchor="middle" fill="#60a5fa" font-size="13" font-weight="bold">Finding Missing Frequency</text><g id="f9table" opacity="0"><text x="30" y="52" fill="#aaa" font-size="11">0-10: 8   10-20: ?   20-30: 14   30-40: 12</text></g><g id="f9calc" opacity="0"><text x="30" y="82" fill="#ffd700" font-size="13">Total = 50</text><text x="30" y="104" fill="#ffd700" font-size="13">Known sum = 8+14+12 = 34</text><text x="30" y="126" fill="#fff" font-size="13">Missing = 50 - 34</text></g><g id="f9ans" opacity="0"><rect x="25" y="142" width="160" height="28" rx="6" fill="rgba(46,204,113,0.2)" stroke="#2ecc71" stroke-width="1.5"/><text x="105" y="161" text-anchor="middle" fill="#2ecc71" font-size="17" font-weight="bold">= 16</text></g></svg>',
+function svgHistogram(){return makeSVG('HISTOGRAM',
+  '<g id="hi1" opacity="0" style="transition:opacity .5s"><line x1="50" y1="155" x2="390" y2="155" stroke="#6b4c2a" stroke-width="2"/><line x1="50" y1="30" x2="50" y2="155" stroke="#6b4c2a" stroke-width="2"/><text x="220" y="172" text-anchor="middle" font-size="11" font-weight="800" fill="#5a4a30">Class Intervals (horizontal axis)</text><text x="25" y="95" font-size="10" font-weight="800" fill="#5a4a30" transform="rotate(-90,25,95)">Frequency</text></g>'
+  +'<g id="hi2" opacity="0" style="transition:opacity .5s"><rect x="50" y="115" width="60" height="40" fill="#f5e6c8" stroke="#6b4c2a" stroke-width="1.5"/><rect x="110" y="90" width="60" height="65" fill="#e8b84b" stroke="#6b4c2a" stroke-width="1.5"/><rect x="170" y="60" width="60" height="95" fill="#d4870a" stroke="#6b4c2a" stroke-width="1.5"/><rect x="230" y="80" width="60" height="75" fill="#e8b84b" stroke="#6b4c2a" stroke-width="1.5"/><rect x="290" y="120" width="60" height="35" fill="#f5e6c8" stroke="#6b4c2a" stroke-width="1.5"/></g>'
+  +'<g id="hi3" opacity="0" style="transition:opacity .5s"><text x="210" y="48" text-anchor="middle" font-size="11" font-weight="800" fill="#b85c2a">Bars TOUCH each other (continuous data)</text></g>'
+);}
+function playHistogram(done){setStatus("Reading a histogram...");say("A histogram displays continuous data. Let us look at its features.");at(600,function(){fade("hi1",1);say("Horizontal axis shows class intervals. Vertical axis shows frequencies.");});at(4000,function(){fade("hi2",1);say("Bars represent each class interval. The height shows the frequency.");});at(7000,function(){fade("hi3",1);setStatus("Bars touch — continuous data!");say("In a histogram, unlike a bar graph, the bars touch each other because the data is continuous.");at(2000,done);});}
 
-'fd10':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#0a1a2e"/><text x="210" y="18" text-anchor="middle" fill="#60a5fa" font-size="13" font-weight="bold">Reading a Bar Graph</text><g id="f10bars" opacity="0"><line x1="40" y1="140" x2="380" y2="140" stroke="#888" stroke-width="2"/><rect x="55" y="100" width="50" height="40" fill="rgba(96,165,250,0.4)" stroke="#60a5fa" stroke-width="1"/><rect x="125" y="60" width="50" height="80" fill="rgba(96,165,250,0.8)" stroke="#60a5fa" stroke-width="1.5"/><rect x="195" y="90" width="50" height="50" fill="rgba(96,165,250,0.4)" stroke="#60a5fa" stroke-width="1"/><rect x="265" y="80" width="50" height="60" fill="rgba(96,165,250,0.4)" stroke="#60a5fa" stroke-width="1"/><text x="80" y="155" text-anchor="middle" fill="#aaa" font-size="10">Maths</text><text x="150" y="155" text-anchor="middle" fill="#ffd700" font-size="10">Science</text><text x="220" y="155" text-anchor="middle" fill="#aaa" font-size="10">Hindi</text><text x="290" y="155" text-anchor="middle" fill="#aaa" font-size="10">English</text></g><g id="f10label" opacity="0"><text x="140" y="50" fill="#ffd700" font-size="11">Tallest bar = most popular</text></g></svg>',
+function svgSumMean(){return makeSVG('SUM FROM MEAN AND n',
+  '<g id="sm1" opacity="0" style="transition:opacity .5s"><rect x="18" y="28" width="384" height="26" rx="7" fill="#f5e6c8" stroke="#6b4c2a" stroke-width="1.5"/><text x="210" y="45" text-anchor="middle" font-size="13" font-weight="900" fill="#d4870a">Mean = Sum &divide; n &nbsp;&rarr;&nbsp; Sum = Mean &times; n</text></g>'
+  +'<g id="sm2" opacity="0" style="transition:opacity .5s"><text x="50" y="90" font-size="14" font-weight="800" fill="#5a4a30">Mean = 25, n = 8</text></g>'
+  +'<g id="sm3" opacity="0" style="transition:opacity .5s"><text x="50" y="120" font-size="14" font-weight="800" fill="#d4870a">Sum = 25 &times; 8</text></g>'
+  +'<g id="sm4" opacity="0" style="transition:opacity .5s"><rect x="45" y="140" width="200" height="28" rx="7" fill="#eef2eb" stroke="#6b4c2a" stroke-width="1.5"/><text x="145" y="158" text-anchor="middle" font-family="Share Tech Mono" font-size="18" font-weight="bold" fill="#7a8c6e">Sum = 200</text></g>'
+);}
+function playSumMean(done){setStatus("Finding sum from mean...");say("Mean equals Sum divided by n. So Sum equals Mean times n.");at(600,function(){fade("sm1",1);});at(2500,function(){fade("sm2",1);say("Mean is 25 and n is 8.");});at(4500,function(){fade("sm3",1);say("Sum equals 25 times 8.");});at(6500,function(){fade("sm4",1);setStatus("Sum = 200");say("Sum equals 200.");at(2000,done);});}
 
-'fd11':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#0a1a2e"/><text x="210" y="18" text-anchor="middle" fill="#60a5fa" font-size="13" font-weight="bold">Range of Data</text><g id="f11def" opacity="0"><rect x="18" y="26" width="384" height="24" rx="6" fill="rgba(96,165,250,0.1)" stroke="#60a5fa" stroke-width="1"/><text x="210" y="42" text-anchor="middle" fill="#60a5fa" font-size="12" font-weight="bold">Range = Highest value - Lowest value</text></g><g id="f11line" opacity="0"><line x1="50" y1="90" x2="370" y2="90" stroke="#888" stroke-width="2"/><circle cx="80" cy="90" r="6" fill="#e74c3c"/><text x="80" y="110" text-anchor="middle" fill="#e74c3c" font-size="11">45 (min)</text><circle cx="340" cy="90" r="6" fill="#2ecc71"/><text x="340" y="110" text-anchor="middle" fill="#2ecc71" font-size="11">95 (max)</text></g><g id="f11calc" opacity="0"><path d="M80 72 L340 72" stroke="#ffd700" stroke-width="2" marker-start="url(#arr)" marker-end="url(#arr)"/><text x="210" y="65" text-anchor="middle" fill="#ffd700" font-size="12" font-weight="bold">Range = 95 - 45 = 50</text></g></svg>',
+function svgRange1(){return makeSVG('RANGE OF DATA',
+  '<g id="rg1f" opacity="0" style="transition:opacity .5s"><rect x="18" y="28" width="384" height="26" rx="7" fill="#f5e6c8" stroke="#6b4c2a" stroke-width="1.5"/><text x="210" y="45" text-anchor="middle" font-size="13" font-weight="900" fill="#d4870a">Range = Highest value &minus; Lowest value</text></g>'
+  +'<g id="rg1l" opacity="0" style="transition:opacity .5s"><line x1="50" y1="110" x2="370" y2="110" stroke="#c8b89a" stroke-width="2"/><circle cx="80" cy="110" r="7" fill="#b85c2a"/><text x="80" y="130" text-anchor="middle" font-size="12" fill="#b85c2a">45 (min)</text><circle cx="340" cy="110" r="7" fill="#7a8c6e"/><text x="340" y="130" text-anchor="middle" font-size="12" fill="#7a8c6e">95 (max)</text></g>'
+  +'<g id="rg1a" opacity="0" style="transition:opacity .5s"><rect x="110" y="148" width="200" height="26" rx="7" fill="#eef2eb" stroke="#6b4c2a" stroke-width="1.5"/><text x="210" y="165" text-anchor="middle" font-family="Share Tech Mono" font-size="15" font-weight="bold" fill="#7a8c6e">Range = 95&minus;45 = 50</text></g>'
+);}
+function playRange1(done){setStatus("Calculating the range...");say("Range equals highest value minus lowest value. It measures the spread of data.");at(600,function(){fade("rg1f",1);});at(2500,function(){fade("rg1l",1);say("Scores go from 45 to 95.");});at(5000,function(){fade("rg1a",1);setStatus("Range = 95 - 45 = 50");say("Range equals 95 minus 45 equals 50.");at(2000,done);});}
 
-'fd12':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#0a1a2e"/><text x="210" y="18" text-anchor="middle" fill="#60a5fa" font-size="13" font-weight="bold">Mean (Average)</text><g id="f12formula" opacity="0"><rect x="40" y="28" width="340" height="24" rx="6" fill="rgba(96,165,250,0.1)" stroke="#60a5fa" stroke-width="1"/><text x="210" y="44" text-anchor="middle" fill="#60a5fa" font-size="12" font-weight="bold">Mean = Sum of all values / Number of values</text></g><g id="f12data" opacity="0"><text x="40" y="80" fill="#fff" font-size="14">Data: 4, 7, 13, 2, 4</text></g><g id="f12calc" opacity="0"><text x="40" y="110" fill="#ffd700" font-size="13">Sum = 4+7+13+2+4 = 30</text><text x="40" y="132" fill="#ffd700" font-size="13">Count = 5</text></g><g id="f12ans" opacity="0"><rect x="35" y="148" width="180" height="24" rx="6" fill="rgba(46,204,113,0.2)" stroke="#2ecc71" stroke-width="1.5"/><text x="125" y="164" text-anchor="middle" fill="#2ecc71" font-size="15" font-weight="bold">Mean = 30/5 = 6</text></g></svg>',
+function getAnimSVG(t){var m={freq1:svgFreq1,gft:svgGFT,classMark:svgClassMark,mean1:svgMean1,median1:svgMedian1,mode1:svgMode1,missingF:svgMissingF,histogram:svgHistogram,sumMean:svgSumMean,range1:svgRange1};return m[t]?m[t]():'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="background:#fffdf8"><text x="210" y="89" text-anchor="middle" font-family="Nunito" font-size="14" fill="#5a4a30">Loading...</text></svg>';}
+function getAnimPlay(t){var m={freq1:playFreq1,gft:playGFT,classMark:playClassMark,mean1:playMean1,median1:playMedian1,mode1:playMode1,missingF:playMissingF,histogram:playHistogram,sumMean:playSumMean,range1:playRange1};return m[t]||function(done){done();};}
 
-'fd13':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#0a1a2e"/><text x="210" y="18" text-anchor="middle" fill="#60a5fa" font-size="13" font-weight="bold">Median — Middle Value</text><g id="f13rule" opacity="0"><rect x="18" y="26" width="384" height="22" rx="6" fill="rgba(96,165,250,0.1)" stroke="#60a5fa" stroke-width="1"/><text x="210" y="41" text-anchor="middle" fill="#60a5fa" font-size="11">Sort data first, then pick the middle value</text></g><g id="f13sort" opacity="0"><text x="30" y="76" fill="#ffd700" font-size="13">Sort: 3, 7, 2, 9, 5  to  2, 3, 5, 7, 9</text></g><g id="f13mid" opacity="0"><text x="30" y="106" fill="#aaa" font-size="15">2,  3,  </text><text x="120" y="106" fill="#2ecc71" font-size="18" font-weight="bold">5</text><text x="136" y="106" fill="#aaa" font-size="15">,  7,  9</text><text x="120" y="126" text-anchor="middle" fill="#2ecc71" font-size="11">Middle (3rd)</text></g><g id="f13ans" opacity="0"><rect x="25" y="144" width="180" height="26" rx="6" fill="rgba(46,204,113,0.2)" stroke="#2ecc71" stroke-width="1.5"/><text x="115" y="162" text-anchor="middle" fill="#2ecc71" font-size="16" font-weight="bold">Median = 5</text></g></svg>',
-
-'fd14':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#0a1a2e"/><text x="210" y="18" text-anchor="middle" fill="#60a5fa" font-size="13" font-weight="bold">Mode — Most Frequent Value</text><g id="f14rule" opacity="0"><rect x="18" y="26" width="384" height="22" rx="6" fill="rgba(96,165,250,0.1)" stroke="#60a5fa" stroke-width="1"/><text x="210" y="41" text-anchor="middle" fill="#60a5fa" font-size="11">Mode = value that appears most often</text></g><g id="f14data" opacity="0"><text x="30" y="76" fill="#fff" font-size="13">Data: 2, 3, 3, 4, 5, 3, 2, 3</text></g><g id="f14count" opacity="0"><text x="30" y="104" fill="#aaa" font-size="12">2 appears: 2 times</text><text x="30" y="122" fill="#60a5fa" font-size="12" font-weight="bold">3 appears: 4 times (most!)</text><text x="30" y="140" fill="#aaa" font-size="12">4,5 appear: 1 time each</text></g><g id="f14ans" opacity="0"><rect x="25" y="152" width="160" height="22" rx="5" fill="rgba(46,204,113,0.15)" stroke="#2ecc71" stroke-width="1"/><text x="105" y="167" text-anchor="middle" fill="#2ecc71" font-size="14" font-weight="bold">Mode = 3</text></g></svg>',
-
-'fd15':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#0a1a2e"/><text x="210" y="18" text-anchor="middle" fill="#60a5fa" font-size="13" font-weight="bold">Using Mean to Find the Sum</text><g id="f15formula" opacity="0"><rect x="40" y="28" width="340" height="24" rx="6" fill="rgba(96,165,250,0.1)" stroke="#60a5fa" stroke-width="1"/><text x="210" y="44" text-anchor="middle" fill="#60a5fa" font-size="12">Mean = Sum / n   so   Sum = Mean x n</text></g><g id="f15given" opacity="0"><text x="40" y="82" fill="#fff" font-size="13">Mean = 25, n = 8 observations</text></g><g id="f15calc" opacity="0"><text x="40" y="112" fill="#ffd700" font-size="14">Sum = 25 x 8</text></g><g id="f15ans" opacity="0"><rect x="35" y="130" width="180" height="28" rx="6" fill="rgba(46,204,113,0.2)" stroke="#2ecc71" stroke-width="1.5"/><text x="125" y="149" text-anchor="middle" fill="#2ecc71" font-size="18" font-weight="bold">Sum = 200</text></g></svg>'
-};
-return s[type]||'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg"><rect width="420" height="178" fill="#0a1a2e"/><text x="210" y="89" text-anchor="middle" fill="#555" font-size="14">Loading...</text></svg>';
-}
-
-function runAnim(type){
-var fns={
-'fd1':function(){fade('f1data','1');at(800,function(){fade('f1count','1');});at(2400,function(){fade('f1def','1');});},
-'fd2':function(){fade('f2table','1');at(1200,function(){fade('f2explain','1');});},
-'fd3':function(){fade('f3line','1');at(900,function(){fade('f3bracket','1');});at(2200,function(){fade('f3formula','1');});},
-'fd4':function(){fade('f4line','1');at(900,function(){fade('f4mid','1');});at(2200,function(){fade('f4formula','1');});},
-'fd5':function(){fade('f5table','1');at(1200,function(){fade('f5rule','1');});},
-'fd6':function(){fade('f6axes','1');at(700,function(){fade('f6bars','1');});at(2000,function(){fade('f6note','1');});},
-'fd7':function(){fade('f7table','1');at(1600,function(){fade('f7meaning','1');});},
-'fd8':function(){fade('f8data','1');at(800,function(){fade('f8highlight','1');});at(2000,function(){fade('f8ans','1');});},
-'fd9':function(){fade('f9table','1');at(800,function(){fade('f9calc','1');});at(2400,function(){fade('f9ans','1');});},
-'fd10':function(){fade('f10bars','1');at(1200,function(){fade('f10label','1');});},
-'fd11':function(){fade('f11def','1');at(700,function(){fade('f11line','1');});at(1800,function(){fade('f11calc','1');});},
-'fd12':function(){fade('f12formula','1');at(700,function(){fade('f12data','1');});at(1600,function(){fade('f12calc','1');});at(2800,function(){fade('f12ans','1');});},
-'fd13':function(){fade('f13rule','1');at(700,function(){fade('f13sort','1');});at(1800,function(){fade('f13mid','1');});at(3000,function(){fade('f13ans','1');});},
-'fd14':function(){fade('f14rule','1');at(700,function(){fade('f14data','1');});at(1600,function(){fade('f14count','1');});at(2800,function(){fade('f14ans','1');});},
-'fd15':function(){fade('f15formula','1');at(700,function(){fade('f15given','1');});at(1600,function(){fade('f15calc','1');});at(2600,function(){fade('f15ans','1');});}
-};
-if(fns[type])fns[type]();
-}
-
-var cur=0,score=0,answered=false;
-function loadQ(i){
-  answered=false;
-  var q=questions[i];
-  G('qNumber').textContent='Question '+(i+1)+' of 15';
-  G('qText').textContent=q.q;
-  G('feedback').textContent='';G('feedback').className='feedback';
-  G('nextBtn').style.display='none';
-  G('progressBar').style.width=(i/15*100)+'%';
-  G('scorePill').textContent='Score: '+score+' / 15';
-  var og=G('optionsGrid');og.innerHTML='';
-  q.opts.forEach(function(o,idx){
-    var b=document.createElement('button');b.className='opt';b.textContent=o;
-    b.onclick=function(){checkAns(idx);};og.appendChild(b);
-  });
-  clearAt();
-  G('animCanvas').innerHTML=getAnimSVG(q.anim);
-  at(400,function(){runAnim(q.anim);});
-  G('bubble').textContent=q.narr.substring(0,78)+'...';
-  at(300,function(){say(q.narr);});
-}
-function checkAns(idx){
-  if(answered)return;answered=true;
-  var q=questions[cur];
-  var opts=G('optionsGrid').querySelectorAll('.opt');
-  opts.forEach(function(b){b.disabled=true;});
-  if(idx===q.ans){
-    opts[idx].classList.add('correct');score++;
-    G('feedback').textContent='Correct! Well done!';G('feedback').className='feedback correct';
-    G('scorePill').textContent='Score: '+score+' / 15';
-    say('Excellent! That is correct!');
-  }else{
-    opts[idx].classList.add('wrong');opts[q.ans].classList.add('correct');
-    G('feedback').textContent='Incorrect. Right answer: '+q.opts[q.ans];G('feedback').className='feedback wrong';
-    say('Not quite. The correct answer is '+q.opts[q.ans]);
-  }
-  G('nextBtn').style.display='block';
-}
-function nextQ(){cur++;if(cur>=questions.length){showDone();return;}loadQ(cur);}
-function replayAnim(){
-  var q=questions[cur];clearAt();speechSynthesis.cancel();rStopTalk();
-  G('animCanvas').innerHTML=getAnimSVG(q.anim);
-  at(200,function(){runAnim(q.anim);});at(400,function(){say(q.narr);});
-}
-function showDone(){
-  G('mainArea').style.display='none';G('doneScreen').style.display='flex';
-  G('progressBar').style.width='100%';
-  G('doneScore').textContent='You scored '+score+' out of 15!';
-  localStorage.setItem('explain_frequency_done','1');
-  say('Congratulations! You have completed Frequency Distribution! You scored '+score+' out of 15!');
-}
-window.onload=function init(){initVoices(function(){startBlink();loadQ(0);});};
-window.addEventListener('beforeunload',function(){speechSynthesis.cancel();});
-window.addEventListener('pagehide',function(){speechSynthesis.cancel();});
+var session=[],idx=0,stepIdx=0,nudgeCount=0,completed=false,recog=null,listening=false,breakSecs=0,breakTmr=null,PER_SESSION=10;
+function init(){var st=JSON.parse(localStorage.getItem("rishi_current_student")||"{}");G("sName").textContent=st.studentName?st.studentName.split(" ")[0]:"there";var prog=JSON.parse(localStorage.getItem("rishi_progress")||"{}");if(prog["explain_frequency_done"]){completed=true;G("doneBanner").classList.add("show");unlockNav();}buildSession();setupRecog();rInit();initVoices(function(){say(G("introText").innerText);setTimeout(showQ,2200);});}
+function buildSession(){var first=QB[0];var rest=QB.slice(1).sort(function(){return Math.random()-.5;});session=[first].concat(rest.slice(0,PER_SESSION-1));}
+function showQ(){if(idx>=session.length){onComplete();return;}var q=session[idx];stepIdx=0;nudgeCount=0;updateProg();G("qArea").innerHTML="";clearAt();var qc=document.createElement("div");qc.className="q-card";qc.innerHTML='<div class="q-label">Question '+(idx+1)+' of '+PER_SESSION+'</div><div class="q-text">'+q.q+'</div><button class="btn-speak" onclick="say(session[idx].qs)">&#128266; Hear</button>';G("qArea").appendChild(qc);var ap=document.createElement("div");ap.className="anim-panel";ap.innerHTML='<div class="anim-header"><span class="anim-header-lbl">&#127909; Live Animation</span><button class="anim-replay" id="animReplay" onclick="replayAnim()">&#8635; Replay</button></div><div class="anim-canvas" id="animCanvas">'+getAnimSVG(q.anim)+'</div><div class="anim-status" id="animStatus">Tap Play to watch with narration!</div><button class="anim-play-btn" id="animPlayBtn" onclick="startAnim()">&#9654; Play Animation</button><button class="steps-btn" id="stepsBtn" onclick="beginSteps()">&#128214; See Step-by-Step</button>';G("qArea").appendChild(ap);}
+function startAnim(){var q=session[idx];var pb=G("animPlayBtn");if(pb){pb.disabled=true;pb.textContent="&#9654; Playing...";}getAnimPlay(q.anim)(function(){var sb=G("stepsBtn");if(sb)sb.style.display="block";var rb=G("animReplay");if(rb)rb.style.display="block";if(pb)pb.style.display="none";});}
+function replayAnim(){clearAt();window.speechSynthesis&&window.speechSynthesis.cancel();rStopTalk();var q=session[idx];var canvas=G("animCanvas");if(canvas)canvas.innerHTML=getAnimSVG(q.anim);G("animReplay").style.display="none";G("stepsBtn").style.display="none";var pb=G("animPlayBtn");if(pb){pb.style.display="block";pb.disabled=false;pb.textContent="&#9654; Play Animation";}setStatus("Tap Play to watch with narration!");}
+function beginSteps(){var q=session[idx];var sc=document.createElement("div");sc.className="q-card";sc.innerHTML='<div class="q-label">&#128214; Step-by-Step</div><div id="stepsWrap"></div><button class="btn-speak" id="nxtStepBtn" onclick="nextStep()" style="margin-top:10px;">&#9654; Next Step</button>';G("qArea").appendChild(sc);sc.scrollIntoView({behavior:"smooth",block:"start"});G("stepsBtn").style.display="none";setTimeout(nextStep,350);}
+function nextStep(){var q=session[idx];if(stepIdx>=q.steps.length){G("nxtStepBtn").style.display="none";showConfirm();return;}var s=q.steps[stepIdx];var wrap=G("stepsWrap");var d=document.createElement("div");d.className="step";d.innerHTML='<div class="step-num">'+(stepIdx+1)+'</div><div class="step-body">'+s.t+'</div>';wrap.appendChild(d);setTimeout(function(){d.classList.add("vis");},40);setTimeout(function(){say(s.s);},280);stepIdx++;}
+function showConfirm(){var q=session[idx];var c=document.createElement("div");c.className="confirm-wrap";c.innerHTML='<div class="confirm-title">&#127908; Rishika asks!</div><div class="confirm-q">'+q.cq+'</div><button class="mic-btn" id="micBtn" onclick="startListen()">&#127908; Tap and Speak</button><div class="transcript" id="tbox"></div><div class="result-box" id="rbox"></div><div class="nudge" id="nudgeBox"></div><button class="btn-next" id="btnNext" onclick="goNext()">Next Question &#9654;</button>';G("qArea").appendChild(c);c.scrollIntoView({behavior:"smooth",block:"center"});setTimeout(function(){say(q.cqs);},500);}
+function goNext(){idx++;G("qArea").innerHTML="";showQ();window.scrollTo({top:0,behavior:"smooth"});}
+function updateProg(){var pct=Math.round((idx/PER_SESSION)*100);G("progFill").style.width=pct+"%";G("progLabel").textContent="Question "+(idx+1)+" of "+PER_SESSION;G("progPct").textContent=pct+"%";}
+function unlockNav(){G("btnPractice").classList.remove("locked");G("btnExam").classList.remove("locked");G("lockTip").style.display="none";}
+function onComplete(){var prog=JSON.parse(localStorage.getItem("rishi_progress")||"{}");prog["explain_frequency_done"]=true;localStorage.setItem("rishi_progress",JSON.stringify(prog));completed=true;G("doneBanner").classList.add("show");unlockNav();var st=JSON.parse(localStorage.getItem("rishi_current_student")||"{}");var nm=st.studentName?st.studentName.split(" ")[0]:"champion";var cel=document.createElement("div");cel.className="rishika-wrap";cel.innerHTML='<div class="rishika-avatar">&#128105;&#8205;&#127979;</div><div class="rishika-bubble"><div class="rishika-name">Rishika</div><div class="rishika-text" id="celText">&#127881; <span class="hl">'+nm+'</span>, excellent work! You have mastered <span class="hl">Frequency Distribution</span>! &#128537;</div><button class="btn-speak" onclick="sayEl(\'celText\')">&#128266; Hear</button></div>';G("qArea").appendChild(cel);setTimeout(function(){sayEl("celText");rHappy();},400);}
+function goPractice(){if(!completed){alert("Complete explanations first!");return;}location.href="/practice.html?chapter=frequency_distribution";}
+function goExam(){if(!completed){alert("Complete explanations first!");return;}location.href="/exam.html?chapter=frequency_distribution";}
+function setupRecog(){var SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR)return;recog=new SR();recog.lang="en-IN";recog.continuous=false;recog.interimResults=false;recog.onresult=function(e){handleAnswer(e.results[0][0].transcript.toLowerCase().trim());};recog.onerror=function(){setListen(false);showNudge("Could not hear. Try again!");};recog.onend=function(){setListen(false);};}
+function startListen(){if(!recog){showNudge("Voice needs Chrome!");return;}if(listening){recog.stop();return;}setListen(true);var tb=G("tbox");if(tb){tb.classList.add("show");tb.textContent="Listening...";}recog.start();}
+function setListen(on){listening=on;var btn=G("micBtn");if(btn){btn.className="mic-btn"+(on?" on":"");btn.textContent=on?"&#127908; Listening...":"&#127908; Tap and Speak";}}
+function handleAnswer(text){var tb=G("tbox");if(tb)tb.textContent='"'+text+'"';var q=session[idx];var ok=q.ans.some(function(a){return text.includes(a.toLowerCase())||a.toLowerCase().includes(text);});var rb=G("rbox");if(ok){rb.className="result-box ok";rb.textContent="&#10003; Correct! Excellent!";G("nudgeBox").classList.remove("show");var nb=G("btnNext");if(nb)nb.classList.add("show");say("Correct! Excellent!");rHappy();}else{nudgeCount++;rb.className="result-box no";rb.textContent="&#10006; Not quite. Listen to my hint!";var nudge=q.nudges[Math.min(nudgeCount-1,q.nudges.length-1)];showNudge(nudge);say(nudge);rThink();if(nudgeCount>=3){var nb2=G("btnNext");if(nb2){nb2.classList.add("show");nb2.textContent="I Understand &#9654;";}}}}
+function showNudge(msg){var n=G("nudgeBox");if(n){n.textContent=msg;n.classList.add("show");}}
+function openBreak(){G("breakOv").classList.add("show");}
+function closeBreak(){G("breakOv").classList.remove("show");}
+function startBreak(r){closeBreak();breakSecs=0;G("timerLbl").textContent=r;G("timerNum").textContent="00:00";G("timerScreen").classList.add("show");breakTmr=setInterval(function(){breakSecs++;var m=String(Math.floor(breakSecs/60)).padStart(2,"0");var s=String(breakSecs%60).padStart(2,"0");G("timerNum").textContent=m+":"+s;},1000);}
+function endBreak(){clearInterval(breakTmr);G("timerScreen").classList.remove("show");}
+window.onload=init;
 </script>
 </body>
 </html>
