@@ -268,8 +268,7 @@ function goToDestination(account){
   if(!account) {
     var student = JSON.parse(localStorage.getItem('rishi_current_student') || '{}');
     var role = student.role || 'student';
-    if(role === 'parent') { window.location.href = '/parent/'; return; }
-    window.location.href = '/syllabus.html?board=' + (student.board||'CBSE') + '&class=' + (student.class||'8');
+    if(role === 'parent') { window.location.href = '/parent/'; return; }    window.location.href = '/syllabus.html?board=' + (student.board||'CBSE') + '&class=' + (student.class||'8');
     return;
   }
   if(account.role === 'parent') { window.location.href = '/parent/'; return; }
