@@ -1,3 +1,13 @@
+// TEST MODE: Add ?test=true to URL to bypass plan check
+const urlParams = new URLSearchParams(window.location.search);
+if (urlParams.get('test') === 'true') {
+    console.log('TEST MODE: Bypassing plan check');
+} else {
+    // Normal plan check
+    if (typeof rishiCheckPlan === 'function') {
+        rishiCheckPlan('factorisation');
+    }
+}
 <!DOCTYPE html>
 <html lang="en">
 <head>
