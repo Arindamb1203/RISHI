@@ -1,5 +1,256 @@
     <script src="../../rishi-core.js"></script>
     <script>
+        // Question Bank - Factorisation (15 Hard Questions)
+        const questionBank = [
+            {
+                id: 1,
+                question: "Factorise completely: 12x²y - 18xy² + 24x²y²",
+                answer: ["6xy(2x-3y+4xy)", "6xy(2x - 3y + 4xy)", "6xy(2x+4xy-3y)"],
+                steps: [
+                    "Find HCF of coefficients: HCF(12,18,24) = 6",
+                    "Find common variables: xy is common in all terms",
+                    "Divide each term by 6xy:",
+                    "12x²y ÷ 6xy = 2x",
+                    "-18xy² ÷ 6xy = -3y",
+                    "24x²y² ÷ 6xy = 4xy",
+                    "Final answer: 6xy(2x - 3y + 4xy)"
+                ],
+                trick: "Always take the lowest power of each variable that appears in ALL terms",
+                similar: {
+                    question: "Factorise: 15a²b - 25ab² + 35a²b²",
+                    answer: ["5ab(3a-5b+7ab)", "5ab(3a - 5b + 7ab)"]
+                }
+            },
+            {
+                id: 2,
+                question: "Factorise: x² + 8x + 15",
+                answer: ["(x+3)(x+5)", "(x+5)(x+3)", "(x + 3)(x + 5)"],
+                steps: [
+                    "We need two numbers that multiply to 15 and add to 8",
+                    "Factors of 15: (1,15), (3,5)",
+                    "3 + 5 = 8 ✓",
+                    "So split middle term: x² + 3x + 5x + 15",
+                    "Group: x(x+3) + 5(x+3)",
+                    "Final answer: (x+3)(x+5)"
+                ],
+                trick: "Find factor pairs of constant term, check which pair sums to middle coefficient",
+                similar: {
+                    question: "Factorise: x² + 11x + 24",
+                    answer: ["(x+3)(x+8)", "(x+8)(x+3)"]
+                }
+            },
+            {
+                id: 3,
+                question: "Factorise: 6x² - 5x - 6",
+                answer: ["(2x-3)(3x+2)", "(3x+2)(2x-3)", "(2x - 3)(3x + 2)"],
+                steps: [
+                    "Multiply first and last coefficients: 6 × (-6) = -36",
+                    "Find factors of -36 that add to -5: (-9, 4)",
+                    "Split middle term: 6x² - 9x + 4x - 6",
+                    "Group: 3x(2x-3) + 2(2x-3)",
+                    "Final answer: (2x-3)(3x+2)"
+                ],
+                trick: "AC method: multiply a×c, find factors that give middle term",
+                similar: {
+                    question: "Factorise: 8x² - 10x - 3",
+                    answer: ["(2x-3)(4x+1)", "(4x+1)(2x-3)"]
+                }
+            },
+            {
+                id: 4,
+                question: "Factorise: (a+b)² - 9c²",
+                answer: ["(a+b+3c)(a+b-3c)", "(a+b-3c)(a+b+3c)"],
+                steps: [
+                    "Recognize pattern: X² - Y² = (X+Y)(X-Y)",
+                    "Here X = (a+b) and Y = 3c",
+                    "So: [(a+b) + 3c][(a+b) - 3c]",
+                    "Final answer: (a+b+3c)(a+b-3c)"
+                ],
+                trick: "Difference of squares works with any expressions, not just single variables!",
+                similar: {
+                    question: "Factorise: (2x+y)² - 16z²",
+                    answer: ["(2x+y+4z)(2x+y-4z)"]
+                }
+            },
+            {
+                id: 5,
+                question: "Factorise: x⁴ - 16",
+                answer: ["(x²+4)(x+2)(x-2)", "(x²+4)(x-2)(x+2)", "(x-2)(x+2)(x²+4)"],
+                steps: [
+                    "First apply difference of squares: (x²)² - 4² = (x²+4)(x²-4)",
+                    "Notice (x²-4) is also difference of squares!",
+                    "x² - 4 = (x+2)(x-2)",
+                    "Final answer: (x²+4)(x+2)(x-2)"
+                ],
+                trick: "Keep factoring until you can't factor anymore - check if factors can be broken down further",
+                similar: {
+                    question: "Factorise: a⁴ - 81",
+                    answer: ["(a²+9)(a+3)(a-3)"]
+                }
+            },
+            {
+                id: 6,
+                question: "Factorise: 8x³ + 27y³",
+                answer: ["(2x+3y)(4x²-6xy+9y²)", "(2x+3y)(4x² - 6xy + 9y²)"],
+                steps: [
+                    "Recognize sum of cubes: a³ + b³ = (a+b)(a²-ab+b²)",
+                    "Here a = 2x (since (2x)³ = 8x³) and b = 3y (since (3y)³ = 27y³)",
+                    "Apply formula: (2x+3y)[(2x)² - (2x)(3y) + (3y)²]",
+                    "Simplify: (2x+3y)(4x² - 6xy + 9y²)"
+                ],
+                trick: "Sum of cubes: a³+b³ = (a+b)(a²-ab+b²). The signs alternate: + - +",
+                similar: {
+                    question: "Factorise: 64a³ + 125b³",
+                    answer: ["(4a+5b)(16a²-20ab+25b²)"]
+                }
+            },
+            {
+                id: 7,
+                question: "Factorise: x² - 2xy + y² - 9",
+                answer: ["(x-y+3)(x-y-3)", "(x-y-3)(x-y+3)"],
+                steps: [
+                    "Group first three terms: (x² - 2xy + y²) - 9",
+                    "Recognize perfect square: (x-y)² - 9",
+                    "Now difference of squares: (x-y)² - 3²",
+                    "Final answer: [(x-y)+3][(x-y)-3] = (x-y+3)(x-y-3)"
+                ],
+                trick: "Look for hidden perfect squares within the expression",
+                similar: {
+                    question: "Factorise: a² + 2ab + b² - 25",
+                    answer: ["(a+b+5)(a+b-5)"]
+                }
+            },
+            {
+                id: 8,
+                question: "Factorise: x³ - 3x² - 9x + 27",
+                answer: ["(x-3)(x+3)(x-3)", "(x-3)²(x+3)", "(x+3)(x-3)²"],
+                steps: [
+                    "Factor by grouping: x²(x-3) - 9(x-3)",
+                    "Common factor (x-3): (x-3)(x²-9)",
+                    "x²-9 is difference of squares: (x+3)(x-3)",
+                    "Final answer: (x-3)(x+3)(x-3) = (x-3)²(x+3)"
+                ],
+                trick: "Factor by grouping works when you have even number of terms",
+                similar: {
+                    question: "Factorise: x³ - 5x² - 4x + 20",
+                    answer: ["(x-5)(x+2)(x-2)", "(x-5)(x-2)(x+2)"]
+                }
+            },
+            {
+                id: 9,
+                question: "Factorise: 25x² - 30xy + 9y² - 4z²",
+                answer: ["(5x-3y+2z)(5x-3y-2z)", "(5x-3y-2z)(5x-3y+2z)"],
+                steps: [
+                    "Group: (25x² - 30xy + 9y²) - 4z²",
+                    "Perfect square trinomial: (5x-3y)² - (2z)²",
+                    "Difference of squares: [(5x-3y)+2z][(5x-3y)-2z]",
+                    "Final answer: (5x-3y+2z)(5x-3y-2z)"
+                ],
+                trick: "Perfect square trinomial: a²-2ab+b² = (a-b)². Check: (5x)²=25x², (3y)²=9y², 2(5x)(3y)=30xy ✓",
+                similar: {
+                    question: "Factorise: 16a² + 24ab + 9b² - 49c²",
+                    answer: ["(4a+3b+7c)(4a+3b-7c)"]
+                }
+            },
+            {
+                id: 10,
+                question: "Factorise: (x+1)(x+2)(x+3)(x+4) - 3",
+                answer: ["(x²+5x+3)(x²+5x+5)", "(x²+5x+5)(x²+5x+3)"],
+                steps: [
+                    "Rearrange: [(x+1)(x+4)][(x+2)(x+3)] - 3",
+                    "Multiply: (x²+5x+4)(x²+5x+6) - 3",
+                    "Let y = x²+5x, so (y+4)(y+6) - 3",
+                    "Expand: y² + 10y + 24 - 3 = y² + 10y + 21",
+                    "Factor: (y+3)(y+7) = (x²+5x+3)(x²+5x+5)"
+                ],
+                trick: "Super tricky! Pair first-last and middle terms, then substitute",
+                similar: {
+                    question: "Factorise: (x+1)(x+3)(x+5)(x+7) - 16",
+                    answer: ["(x²+8x+11)(x²+8x+19)"]
+                }
+            },
+            {
+                id: 11,
+                question: "Factorise: 2x² + 7xy + 3y² + 4x + 7y + 2",
+                answer: ["(2x+y+2)(x+3y+1)", "(x+3y+1)(2x+y+2)"],
+                steps: [
+                    "Treat as quadratic in x: 2x² + (7y+4)x + (3y²+7y+2)",
+                    "Factor constant term: 3y²+7y+2 = (3y+1)(y+2)",
+                    "Find combination: (2x+y+2)(x+3y+1)",
+                    "Verify by expansion"
+                ],
+                trick: "For ax²+bxy+cy²+dx+ey+f, try (px+qy+r)(sx+ty+u) format",
+                similar: {
+                    question: "Factorise: 3x² + 8xy + 4y² + 8x + 8y + 4",
+                    answer: ["(3x+2y+2)(x+2y+2)"]
+                }
+            },
+            {
+                id: 12,
+                question: "Factorise: a³ + b³ + c³ - 3abc",
+                answer: ["(a+b+c)(a²+b²+c²-ab-bc-ca)", "(a+b+c)(a²+b²+c²-ab-bc-ac)"],
+                steps: [
+                    "Use identity: a³+b³+c³-3abc = (a+b+c)(a²+b²+c²-ab-bc-ca)",
+                    "This is a standard formula worth memorizing!",
+                    "If a+b+c=0, then a³+b³+c³=3abc (special case)"
+                ],
+                trick: "Important identity: a³+b³+c³-3abc = (a+b+c)(a²+b²+c²-ab-bc-ca)",
+                similar: {
+                    question: "Factorise: x³ + 8y³ + 27z³ - 18xyz",
+                    answer: ["(x+2y+3z)(x²+4y²+9z²-2xy-6yz-3xz)"]
+                }
+            },
+            {
+                id: 13,
+                question: "Factorise: x⁶ - y⁶",
+                answer: ["(x-y)(x+y)(x²+xy+y²)(x²-xy+y²)", "(x+y)(x-y)(x²-xy+y²)(x²+xy+y²)"],
+                steps: [
+                    "As difference of squares: (x³)² - (y³)² = (x³+y³)(x³-y³)",
+                    "Sum of cubes: x³+y³ = (x+y)(x²-xy+y²)",
+                    "Difference of cubes: x³-y³ = (x-y)(x²+xy+y²)",
+                    "Final: (x+y)(x-y)(x²-xy+y²)(x²+xy+y²)"
+                ],
+                trick: "Apply difference of squares first, then sum/difference of cubes",
+                similar: {
+                    question: "Factorise: a⁶ - 64b⁶",
+                    answer: ["(a-2b)(a+2b)(a²+2ab+4b²)(a²-2ab+4b²)"]
+                }
+            },
+            {
+                id: 14,
+                question: "Factorise: (a²+b²-c²)² - 4a²b²",
+                answer: ["(a+b+c)(a+b-c)(a-b+c)(a-b-c)"],
+                steps: [
+                    "Difference of squares: X² - Y² where X=a²+b²-c², Y=2ab",
+                    "[(a²+b²-c²)+2ab][(a²+b²-c²)-2ab]",
+                    "Simplify: [(a+b)²-c²][(a-b)²-c²]",
+                    "Difference of squares again on each",
+                    "Final: (a+b+c)(a+b-c)(a-b+c)(a-b-c)"
+                ],
+                trick: "Multiple applications of difference of squares - be patient!",
+                similar: {
+                    question: "Factorise: (x²+y²-z²)² - 4x²y²",
+                    answer: ["(x+y+z)(x+y-z)(x-y+z)(x-y-z)"]
+                }
+            },
+            {
+                id: 15,
+                question: "Factorise: 4x⁴ + 81",
+                answer: ["(2x²+6x+9)(2x²-6x+9)", "(2x²-6x+9)(2x²+6x+9)"],
+                steps: [
+                    "Add and subtract 36x²: 4x⁴ + 36x² + 81 - 36x²",
+                    "Perfect square: (2x²+9)² - (6x)²",
+                    "Difference of squares: (2x²+9+6x)(2x²+9-6x)",
+                    "Rearrange: (2x²+6x+9)(2x²-6x+9)"
+                ],
+                trick: "Sophie Germain identity: a⁴+4b⁴ = (a²+2b²+2ab)(a²+2b²-2ab). Here a=x√2, b=3/√2... or just add/subtract 36x²!",
+                similar: {
+                    question: "Factorise: x⁴ + 4",
+                    answer: ["(x²+2x+2)(x²-2x+2)"]
+                }
+            }
+        ];
+
         // TEST MODE: Add ?test=true to URL to bypass plan check
         const urlParams = new URLSearchParams(window.location.search);
         const isTestMode = urlParams.get('test') === 'true';
@@ -44,8 +295,6 @@
                 if (e.key === 'Enter') checkAnswer();
             });
         });
-        
-        // ... rest of your functions remain the same ...
         
         function initializeQuestions() {
             // Check if coming from failed first session
