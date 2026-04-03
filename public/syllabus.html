@@ -21,132 +21,114 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 body::after{content:'RISHI';position:fixed;bottom:-40px;right:-30px;font-family:'Orbitron',sans-serif;font-size:220px;font-weight:900;color:var(--gold-pale);opacity:.15;z-index:0;pointer-events:none;}
 .orb{position:fixed;top:-80px;right:-80px;width:300px;height:300px;background:radial-gradient(circle at 40% 40%,var(--gold-light),var(--amber),#8a4a10);border-radius:50%;opacity:.18;z-index:0;animation:pulse 4s ease-in-out infinite;pointer-events:none;}
 @keyframes pulse{0%,100%{transform:scale(1);opacity:.18;}50%{transform:scale(1.06);opacity:.24;}}
-@keyframes fadeUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
-@keyframes fillBar{from{width:0;}to{width:var(--w);}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
 
-/* ── HEADER ── */
-.hdr{position:relative;z-index:10;display:flex;align-items:center;justify-content:space-between;padding:18px 24px;border-bottom:1.5px solid var(--gold-pale);background:rgba(253,246,236,.9);backdrop-filter:blur(4px);}
-.hdr-logo{font-family:'Orbitron',sans-serif;font-size:22px;font-weight:900;letter-spacing:5px;background:linear-gradient(135deg,var(--amber),var(--gold-light),var(--rust));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+/* HEADER */
+.hdr{position:relative;z-index:10;display:flex;align-items:center;justify-content:space-between;padding:16px 22px;border-bottom:1.5px solid var(--gold-pale);background:rgba(253,246,236,.95);backdrop-filter:blur(4px);}
+.hdr-logo{font-family:'Orbitron',sans-serif;font-size:20px;font-weight:900;letter-spacing:5px;background:linear-gradient(135deg,var(--amber),var(--gold-light),var(--rust));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
 .hdr-right{display:flex;align-items:center;gap:12px;}
 .hdr-name{font-size:13px;font-weight:800;color:var(--mid);}
-.btn-logout{font-family:'Nunito',sans-serif;font-size:12px;font-weight:700;padding:7px 14px;border-radius:8px;border:1.5px solid var(--gold-pale);background:transparent;color:var(--soft);cursor:pointer;transition:all .2s;}
-.btn-logout:hover{border-color:var(--amber);color:var(--amber);}
+.btn-sm-hdr{font-family:'Nunito',sans-serif;font-size:11px;font-weight:700;padding:6px 13px;border-radius:8px;border:1.5px solid var(--gold-pale);background:transparent;color:var(--soft);cursor:pointer;transition:all .2s;}
+.btn-sm-hdr:hover{border-color:var(--amber);color:var(--amber);}
 
-/* ── MAIN ── */
-.main{position:relative;z-index:10;max-width:860px;margin:0 auto;padding:24px 16px 60px;}
+/* MAIN */
+.main{position:relative;z-index:10;max-width:900px;margin:0 auto;padding:22px 16px 60px;}
 
-/* ── WELCOME BAND ── */
-.welcome{background:linear-gradient(135deg,var(--warm-white),var(--gold-pale));border:2px solid var(--border-dark);border-radius:20px;padding:24px 28px;margin-bottom:20px;animation:fadeUp .4s ease;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;}
-.welcome-left{}
-.w-greeting{font-size:12px;font-weight:800;color:var(--soft);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:3px;}
-.w-name{font-family:'Orbitron',sans-serif;font-size:22px;font-weight:900;color:var(--amber);margin-bottom:4px;}
-.w-sub{font-size:13px;font-weight:700;color:var(--mid);}
-.rishika-badge{display:flex;align-items:center;gap:10px;background:white;border:1.5px solid var(--gold-pale);border-radius:14px;padding:10px 16px;}
-.rishika-ico{font-size:28px;}
+/* WELCOME */
+.welcome{background:linear-gradient(135deg,var(--warm-white),var(--gold-pale));border:2px solid var(--border-dark);border-radius:18px;padding:20px 24px;margin-bottom:16px;animation:fadeUp .4s ease;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;}
+.w-name{font-family:'Orbitron',sans-serif;font-size:20px;font-weight:900;color:var(--amber);}
+.w-sub{font-size:12px;font-weight:700;color:var(--mid);margin-top:2px;}
+.rishika-badge{display:flex;align-items:center;gap:8px;background:white;border:1.5px solid var(--gold-pale);border-radius:12px;padding:8px 14px;flex-shrink:0;}
+.rishika-ico{font-size:24px;}
 .rishika-txt{font-size:11px;font-weight:800;color:var(--mid);line-height:1.5;}
 
-/* ── STATUS BANNER ── */
-.status-banner{border-radius:16px;padding:18px 22px;margin-bottom:20px;display:flex;align-items:center;gap:16px;animation:fadeUp .45s ease;border:2px solid;}
+/* STATUS BANNER — only shown when plan exists */
+.status-banner{border-radius:14px;padding:16px 20px;margin-bottom:14px;display:flex;align-items:center;gap:14px;border:2px solid;animation:fadeUp .4s ease;}
 .sb-on{background:var(--green-pale);border-color:var(--green-border);}
 .sb-behind{background:var(--red-pale);border-color:var(--red-border);}
 .sb-ahead{background:var(--amber-pale);border-color:var(--amber-border);}
-.sb-none{background:var(--warm-white);border-color:var(--gold-pale);}
-.sb-ico{font-size:32px;flex-shrink:0;}
-.sb-txt{}
-.sb-title{font-family:'Orbitron',sans-serif;font-size:15px;font-weight:900;margin-bottom:3px;}
+.sb-ico{font-size:28px;flex-shrink:0;}
+.sb-title{font-family:'Orbitron',sans-serif;font-size:14px;font-weight:900;margin-bottom:2px;}
 .sb-on .sb-title{color:var(--green);}
 .sb-behind .sb-title{color:var(--red);}
 .sb-ahead .sb-title{color:var(--amber);}
-.sb-none .sb-title{color:var(--mid);}
-.sb-sub{font-size:13px;font-weight:700;color:var(--soft);line-height:1.6;}
+.sb-sub{font-size:12px;font-weight:700;color:var(--soft);}
 .sb-right{margin-left:auto;text-align:right;flex-shrink:0;}
-.sb-pct{font-family:'Orbitron',sans-serif;font-size:28px;font-weight:900;}
+.sb-pct{font-family:'Orbitron',sans-serif;font-size:26px;font-weight:900;}
 .sb-on .sb-pct{color:var(--green);}
 .sb-behind .sb-pct{color:var(--red);}
 .sb-ahead .sb-pct{color:var(--amber);}
-.sb-pct-lbl{font-size:10px;font-weight:700;color:var(--soft);text-transform:uppercase;letter-spacing:.8px;}
+.sb-pct-lbl{font-size:9px;font-weight:700;color:var(--soft);text-transform:uppercase;letter-spacing:.8px;}
 
-/* ── KPI ROW ── */
-.kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px;}
-@media(max-width:600px){.kpi-row{grid-template-columns:repeat(2,1fr);}}
-.kpi{background:var(--warm-white);border:1.5px solid var(--gold-pale);border-radius:14px;padding:16px 14px;text-align:center;animation:fadeUp .5s ease;}
-.kpi-n{font-family:'Orbitron',sans-serif;font-size:24px;font-weight:900;color:var(--amber);line-height:1;}
-.kpi-l{font-size:10px;font-weight:800;color:var(--soft);text-transform:uppercase;letter-spacing:.8px;margin-top:4px;}
-.kpi-sub{font-size:10px;font-weight:700;color:var(--sage);margin-top:2px;}
+/* KPI ROW */
+.kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:18px;}
+@media(max-width:580px){.kpi-row{grid-template-columns:repeat(2,1fr);}}
+.kpi{background:var(--warm-white);border:1.5px solid var(--gold-pale);border-radius:12px;padding:14px;text-align:center;animation:fadeUp .5s ease;}
+.kpi-n{font-family:'Orbitron',sans-serif;font-size:22px;font-weight:900;color:var(--amber);line-height:1;}
+.kpi-l{font-size:9px;font-weight:800;color:var(--soft);text-transform:uppercase;letter-spacing:.8px;margin-top:3px;}
+.kpi-sub{font-size:9px;font-weight:700;color:var(--sage);margin-top:1px;}
 
-/* ── SECTION TITLE ── */
-.sec-title{font-family:'Orbitron',sans-serif;font-size:11px;letter-spacing:3px;color:var(--amber);text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:10px;}
+/* SECTION TITLE */
+.sec-title{font-family:'Orbitron',sans-serif;font-size:10px;letter-spacing:3px;color:var(--amber);text-transform:uppercase;margin:22px 0 12px;display:flex;align-items:center;gap:10px;}
 .sec-title::after{content:'';flex:1;height:1.5px;background:linear-gradient(90deg,var(--gold-pale),transparent);}
 
-/* ── CHAPTER CARDS ── */
-.ch-card{background:var(--warm-white);border:1.5px solid var(--gold-pale);border-radius:16px;margin-bottom:10px;overflow:hidden;animation:fadeUp .5s ease;transition:box-shadow .2s;}
-.ch-card:hover{box-shadow:0 4px 20px rgba(200,146,42,.12);}
-.ch-card.on-track{border-left:4px solid var(--green);}
-.ch-card.behind{border-left:4px solid var(--red);}
-.ch-card.ahead{border-left:4px solid var(--amber);}
-.ch-card.not-started{border-left:4px solid #ccc;}
-.ch-card.done{border-left:4px solid var(--sage);}
+/* CHAPTER GRID — always shown */
+.ch-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px;}
+.ch-card{background:var(--warm-white);border:1.5px solid var(--gold-pale);border-radius:14px;overflow:hidden;animation:fadeUp .5s ease;transition:box-shadow .2s,border-color .2s;}
+.ch-card:hover{box-shadow:0 4px 20px rgba(200,146,42,.12);border-color:var(--gold);}
 
-.ch-main{display:flex;align-items:center;gap:14px;padding:16px 18px;cursor:pointer;}
-.ch-num-badge{width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-family:'Share Tech Mono',monospace;font-size:13px;font-weight:700;color:white;flex-shrink:0;}
+/* schedule stripe */
+.ch-card.on-track{border-top:3px solid var(--green);}
+.ch-card.behind{border-top:3px solid var(--red);}
+.ch-card.ahead{border-top:3px solid var(--amber);}
+.ch-card.done{border-top:3px solid var(--sage);}
+
+.ch-top{display:flex;align-items:flex-start;gap:10px;padding:14px 14px 10px;}
+.ch-num{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-family:'Share Tech Mono',monospace;font-size:13px;font-weight:700;color:white;flex-shrink:0;margin-top:1px;}
 .ch-info{flex:1;min-width:0;}
-.ch-name{font-size:14px;font-weight:800;color:var(--charcoal);margin-bottom:2px;}
-.ch-topic{font-size:10px;font-weight:700;color:var(--soft);text-transform:uppercase;letter-spacing:.8px;}
-.ch-right{display:flex;align-items:center;gap:10px;flex-shrink:0;}
-.ch-status-badge{font-size:10px;font-weight:800;padding:4px 10px;border-radius:20px;white-space:nowrap;}
-.badge-on{background:var(--green-pale);color:var(--green);border:1px solid var(--green-border);}
-.badge-behind{background:var(--red-pale);color:var(--red);border:1px solid var(--red-border);}
-.badge-ahead{background:var(--amber-pale);color:var(--amber);border:1px solid var(--amber-border);}
-.badge-ns{background:#f0f0f0;color:#888;border:1px solid #ddd;}
-.badge-done{background:var(--green-pale);color:var(--sage);border:1px solid var(--green-border);}
-.ch-days-left{text-align:right;}
-.ch-dl-n{font-family:'Orbitron',sans-serif;font-size:18px;font-weight:900;line-height:1;}
-.ch-dl-l{font-size:9px;font-weight:700;color:var(--soft);text-transform:uppercase;letter-spacing:.5px;}
-.ch-toggle{font-size:16px;color:var(--soft);margin-left:4px;transition:transform .2s;}
-.ch-toggle.open{transform:rotate(180deg);}
+.ch-name{font-size:13px;font-weight:800;color:var(--charcoal);line-height:1.3;margin-bottom:2px;}
+.ch-meta{display:flex;align-items:center;gap:5px;flex-wrap:wrap;}
+.ch-topic-tag{font-size:9px;font-weight:700;color:var(--soft);text-transform:uppercase;letter-spacing:.5px;}
+.ch-sched-badge{font-size:8px;font-weight:800;padding:2px 7px;border-radius:10px;white-space:nowrap;}
+.badge-on{background:var(--green-pale);color:var(--green);}
+.badge-behind{background:var(--red-pale);color:var(--red);}
+.badge-ahead{background:var(--amber-pale);color:var(--amber);}
+.badge-done{background:var(--green-pale);color:var(--sage);}
 
-/* Progress bar inside card */
-.ch-prog-row{padding:0 18px 4px;display:flex;align-items:center;gap:10px;}
-.ch-prog-track{flex:1;height:5px;background:var(--gold-pale);border-radius:3px;overflow:hidden;}
-.ch-prog-fill{height:100%;border-radius:3px;transition:width .8s ease;}
-.ch-prog-pct{font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--soft);width:30px;text-align:right;flex-shrink:0;}
-.ch-prog-lbl{font-size:10px;font-weight:700;color:var(--soft);width:80px;flex-shrink:0;}
+/* Progress bar */
+.ch-prog{padding:0 14px 8px;display:flex;align-items:center;gap:8px;}
+.ch-prog-track{flex:1;height:4px;background:var(--gold-pale);border-radius:2px;overflow:hidden;}
+.ch-prog-fill{height:100%;border-radius:2px;}
+.ch-prog-pct{font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--soft);width:26px;text-align:right;flex-shrink:0;}
 
-/* Expand panel */
-.ch-expand{display:none;border-top:1.5px solid var(--gold-pale);padding:16px 18px;background:rgba(245,230,200,.15);}
-.ch-expand.open{display:block;}
-.exp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px;}
-@media(max-width:500px){.exp-grid{grid-template-columns:repeat(2,1fr);}}
-.exp-stat{background:white;border:1px solid var(--gold-pale);border-radius:10px;padding:10px;text-align:center;}
-.exp-n{font-family:'Orbitron',sans-serif;font-size:16px;font-weight:900;color:var(--amber);}
-.exp-l{font-size:9px;font-weight:700;color:var(--soft);text-transform:uppercase;letter-spacing:.5px;margin-top:3px;}
-.exp-dates{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px;}
-.exp-date{background:white;border:1px solid var(--gold-pale);border-radius:9px;padding:8px 14px;font-size:11px;font-weight:700;color:var(--mid);}
-.exp-date span{font-size:9px;color:var(--soft);display:block;text-transform:uppercase;letter-spacing:.5px;margin-bottom:1px;}
-.exp-cta{display:flex;gap:8px;flex-wrap:wrap;}
-.btn-explain{font-family:'Nunito',sans-serif;font-size:12px;font-weight:800;padding:9px 16px;border-radius:9px;border:none;cursor:pointer;transition:all .2s;text-decoration:none;display:inline-block;text-align:center;}
-.btn-explain-active{background:linear-gradient(135deg,var(--amber),var(--gold-light));color:white;box-shadow:0 3px 12px rgba(212,135,10,.3);}
-.btn-explain-active:hover{transform:translateY(-1px);box-shadow:0 5px 18px rgba(212,135,10,.4);}
-.btn-explain-locked{background:var(--gold-pale);color:var(--soft);cursor:not-allowed;}
-.btn-practice{background:linear-gradient(135deg,var(--sage),var(--sage-light));color:white;box-shadow:0 3px 12px rgba(122,140,110,.25);}
-.btn-practice:hover{transform:translateY(-1px);}
-.btn-practice-locked{background:#eee;color:#aaa;cursor:not-allowed;}
+/* Schedule info strip */
+.ch-sched-strip{background:rgba(245,230,200,.3);border-top:1px solid var(--gold-pale);padding:7px 14px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.sched-item{font-size:9px;font-weight:700;color:var(--soft);}
+.sched-item span{color:var(--charcoal);}
+.days-chip{font-family:'Orbitron',sans-serif;font-size:11px;font-weight:900;margin-left:auto;}
 
-/* ── NO PLAN STATE ── */
-.no-plan{text-align:center;padding:48px 24px;background:var(--warm-white);border:2px dashed var(--gold-pale);border-radius:20px;}
-.no-plan-ico{font-size:52px;margin-bottom:12px;}
-.no-plan-txt{font-size:15px;font-weight:700;color:var(--mid);line-height:1.7;}
+/* Action buttons */
+.ch-actions{padding:10px 14px;display:flex;gap:7px;}
+.btn-explain{font-family:'Nunito',sans-serif;font-size:11px;font-weight:800;padding:7px 12px;border-radius:8px;border:none;cursor:pointer;transition:all .2s;text-decoration:none;display:inline-block;text-align:center;flex:1;}
+.btn-active{background:linear-gradient(135deg,var(--amber),var(--gold-light));color:white;box-shadow:0 2px 10px rgba(212,135,10,.25);}
+.btn-active:hover{transform:translateY(-1px);box-shadow:0 4px 14px rgba(212,135,10,.35);}
+.btn-done{background:var(--green-pale);color:var(--green);border:1px solid var(--green-border);}
+.btn-done:hover{opacity:.85;}
+.btn-locked{background:var(--gold-pale);color:var(--soft);cursor:not-allowed;}
+.btn-plan-locked{background:#f0f0f0;color:#bbb;cursor:not-allowed;border:1px solid #e0e0e0;}
 
-/* ── UNSCHEDULED CHAPTERS ── */
-.unsched-section{margin-top:28px;}
-.unsched-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:8px;}
-.unsched-tile{background:var(--warm-white);border:1.5px solid var(--gold-pale);border-radius:12px;padding:12px 14px;display:flex;align-items:center;gap:10px;}
-.unsched-n{width:28px;height:28px;border-radius:7px;background:var(--gold-pale);display:flex;align-items:center;justify-content:center;font-family:'Share Tech Mono',monospace;font-size:11px;font-weight:700;color:var(--amber);flex-shrink:0;}
-.unsched-info{}
-.unsched-name{font-size:11px;font-weight:700;color:var(--mid);line-height:1.3;}
-.unsched-tag{font-size:9px;color:var(--soft);margin-top:1px;}
+/* No plan notice */
+.no-plan-notice{background:var(--warm-white);border:1.5px dashed var(--gold-pale);border-radius:14px;padding:18px 20px;margin-bottom:18px;text-align:center;animation:fadeUp .4s ease;}
+.no-plan-notice .ico{font-size:32px;margin-bottom:6px;}
+.no-plan-notice .txt{font-size:13px;font-weight:700;color:var(--soft);line-height:1.7;}
 
-@media(max-width:600px){.welcome{flex-direction:column;}.ch-right{gap:6px;}.exp-grid{grid-template-columns:1fr 1fr;}.ch-main{flex-wrap:wrap;}}
+/* Exam placeholder */
+.exam-placeholder{background:var(--warm-white);border:2px dashed var(--gold-pale);border-radius:14px;padding:24px;text-align:center;margin-top:8px;}
+.exam-placeholder .ico{font-size:32px;margin-bottom:8px;}
+.exam-placeholder .ttl{font-family:'Orbitron',sans-serif;font-size:11px;color:var(--amber);font-weight:700;letter-spacing:2px;margin-bottom:6px;}
+.exam-placeholder .sub{font-size:12px;font-weight:700;color:var(--soft);line-height:1.7;}
+
+@media(max-width:600px){.welcome{flex-direction:column;}.ch-grid{grid-template-columns:1fr;}}
 </style>
 </head>
 <body>
@@ -156,7 +138,7 @@ body::after{content:'RISHI';position:fixed;bottom:-40px;right:-30px;font-family:
   <div class="hdr-logo">RISHI</div>
   <div class="hdr-right">
     <div class="hdr-name" id="hdr-name"></div>
-    <button class="btn-logout" onclick="logout()">← Logout</button>
+    <button class="btn-sm-hdr" onclick="logout()">← Logout</button>
   </div>
 </header>
 
@@ -164,8 +146,7 @@ body::after{content:'RISHI';position:fixed;bottom:-40px;right:-30px;font-family:
 
   <!-- WELCOME -->
   <div class="welcome">
-    <div class="welcome-left">
-      <div class="w-greeting">Welcome back</div>
+    <div>
       <div class="w-name" id="w-name">Student</div>
       <div class="w-sub" id="w-sub">Class 8 · CBSE Mathematics</div>
     </div>
@@ -175,336 +156,313 @@ body::after{content:'RISHI';position:fixed;bottom:-40px;right:-30px;font-family:
     </div>
   </div>
 
-  <!-- STATUS BANNER -->
-  <div class="status-banner sb-none" id="status-banner">
-    <div class="sb-ico" id="sb-ico">📋</div>
-    <div class="sb-txt">
-      <div class="sb-title" id="sb-title">Loading your plan…</div>
-      <div class="sb-sub" id="sb-sub">Checking your study schedule</div>
-    </div>
-    <div class="sb-right">
-      <div class="sb-pct" id="sb-pct">—</div>
-      <div class="sb-pct-lbl">Overall Done</div>
-    </div>
-  </div>
+  <!-- STATUS BANNER — only if plan exists -->
+  <div id="status-section"></div>
 
-  <!-- KPIs -->
-  <div class="kpi-row" id="kpi-row">
-    <div class="kpi"><div class="kpi-n" id="kpi-total">—</div><div class="kpi-l">Chapters</div><div class="kpi-sub">Scheduled</div></div>
-    <div class="kpi"><div class="kpi-n" id="kpi-days">—</div><div class="kpi-l">Days Left</div><div class="kpi-sub" id="kpi-days-sub">to final target</div></div>
-    <div class="kpi"><div class="kpi-n" id="kpi-done">—</div><div class="kpi-l">Chapters</div><div class="kpi-sub">Completed</div></div>
-    <div class="kpi"><div class="kpi-n" id="kpi-sessions">—</div><div class="kpi-l">Sessions</div><div class="kpi-sub">Total practice</div></div>
-  </div>
+  <!-- KPI ROW — only if plan exists -->
+  <div id="kpi-section"></div>
 
-  <!-- SCHEDULED CHAPTERS -->
-  <div id="sched-section">
-    <div class="sec-title">📅 My Study Schedule</div>
-    <div id="ch-list"></div>
-  </div>
+  <!-- SCHEDULE SECTION — only if plan exists -->
+  <div id="sched-section"></div>
 
-  <!-- UNSCHEDULED -->
-  <div class="unsched-section" id="unsched-section" style="display:none;">
-    <div class="sec-title">📚 All Chapters</div>
-    <div class="unsched-grid" id="unsched-grid"></div>
-  </div>
+  <!-- ALL CHAPTERS — always shown -->
+  <div class="sec-title" id="all-ch-title">📚 All Chapters</div>
+  <div class="ch-grid" id="ch-grid"></div>
 
-</div><!-- /main -->
+  <!-- SAMPURNA PARIKSHA -->
+  <div class="sec-title" style="margin-top:28px;">🏆 Sampurna Pariksha</div>
+  <div id="sampurna-section"></div>
+
+</div>
 
 <script>
 var CHAPTERS = [
-  {id:1,  name:"Rational Numbers",                    topic:"Arithmetic",    explainPath:"",                                                               built:false},
-  {id:2,  name:"Linear Equations",                    topic:"Algebra",       explainPath:"/explain/algebra/linear-equations.html",                         built:true},
-  {id:3,  name:"Understanding Quadrilaterals",         topic:"Geometry",      explainPath:"/explain/geometry/understanding-quadrilaterals.html",             built:true},
-  {id:4,  name:"Practical Geometry",                  topic:"Geometry",      explainPath:"/explain/geometry/practical-geometry.html",                       built:true},
-  {id:5,  name:"Data Handling",                       topic:"Statistics",    explainPath:"",                                                               built:false},
-  {id:6,  name:"Squares and Square Roots",            topic:"Number System", explainPath:"",                                                               built:false},
-  {id:7,  name:"Cubes and Cube Roots",                topic:"Number System", explainPath:"",                                                               built:false},
-  {id:8,  name:"Comparing Quantities",                topic:"Arithmetic",    explainPath:"",                                                               built:false},
-  {id:9,  name:"Algebraic Expressions & Identities",  topic:"Algebra",       explainPath:"/explain/algebra/algebraic-expressions-identities.html",          built:true},
-  {id:10, name:"Visualising Solid Shapes",            topic:"Geometry",      explainPath:"",                                                               built:false},
-  {id:11, name:"Mensuration",                         topic:"Geometry",      explainPath:"/explain/mensuration/area-plane-figures.html",                    built:true},
-  {id:12, name:"Exponents and Powers",                topic:"Number System", explainPath:"",                                                               built:false},
-  {id:13, name:"Direct & Inverse Proportions",        topic:"Arithmetic",    explainPath:"",                                                               built:false},
-  {id:14, name:"Factorisation",                       topic:"Algebra",       explainPath:"",                                                               built:false},
-  {id:15, name:"Introduction to Graphs",              topic:"Algebra",       explainPath:"/explain/algebra/introduction-to-graphs.html",                    built:true},
-  {id:16, name:"Playing with Numbers",                topic:"Arithmetic",    explainPath:"",                                                               built:false}
+  {id:1,  name:"Rational Numbers",                    topic:"Arithmetic",    explainPath:"",                                                              built:false},
+  {id:2,  name:"Linear Equations",                    topic:"Algebra",       explainPath:"/explain/algebra/linear-equations.html",                        built:true},
+  {id:3,  name:"Understanding Quadrilaterals",         topic:"Geometry",      explainPath:"/explain/geometry/understanding-quadrilaterals.html",            built:true},
+  {id:4,  name:"Practical Geometry",                  topic:"Geometry",      explainPath:"/explain/geometry/practical-geometry.html",                      built:true},
+  {id:5,  name:"Data Handling",                       topic:"Statistics",    explainPath:"",                                                              built:false},
+  {id:6,  name:"Squares and Square Roots",            topic:"Number System", explainPath:"",                                                              built:false},
+  {id:7,  name:"Cubes and Cube Roots",                topic:"Number System", explainPath:"",                                                              built:false},
+  {id:8,  name:"Comparing Quantities",                topic:"Arithmetic",    explainPath:"",                                                              built:false},
+  {id:9,  name:"Algebraic Expressions & Identities",  topic:"Algebra",       explainPath:"/explain/algebra/algebraic-expressions-identities.html",         built:true},
+  {id:10, name:"Visualising Solid Shapes",            topic:"Geometry",      explainPath:"",                                                              built:false},
+  {id:11, name:"Mensuration",                         topic:"Geometry",      explainPath:"/explain/mensuration/area-plane-figures.html",                   built:true},
+  {id:12, name:"Exponents and Powers",                topic:"Number System", explainPath:"",                                                              built:false},
+  {id:13, name:"Direct & Inverse Proportions",        topic:"Arithmetic",    explainPath:"",                                                              built:false},
+  {id:14, name:"Factorisation",                       topic:"Algebra",       explainPath:"",                                                              built:false},
+  {id:15, name:"Introduction to Graphs",              topic:"Algebra",       explainPath:"/explain/algebra/introduction-to-graphs.html",                   built:true},
+  {id:16, name:"Playing with Numbers",                topic:"Arithmetic",    explainPath:"",                                                              built:false}
 ];
 
-var CH_COLORS = [
-  "#6C63FF","#2563EB","#059669","#0D9488","#D97706",
-  "#DC2626","#EA580C","#7C3AED","#0891B2","#16A34A",
-  "#B45309","#4338CA","#DB2777","#65A30D","#0284C7","#7E22CE"
-];
+var CH_COLORS=["#6C63FF","#2563EB","#059669","#0D9488","#D97706","#DC2626","#EA580C","#7C3AED","#0891B2","#16A34A","#B45309","#4338CA","#DB2777","#65A30D","#0284C7","#7E22CE"];
 
 function toDateStr(d){var y=d.getFullYear(),m=('0'+(d.getMonth()+1)).slice(-2),dd=('0'+d.getDate()).slice(-2);return y+'-'+m+'-'+dd;}
 function daysBetween(a,b){if(!a||!b)return 0;return Math.round((new Date(b)-new Date(a))/86400000);}
-function formatDate(s){if(!s)return '—';var MONTHS=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];var p=s.split('-');return parseInt(p[2])+' '+MONTHS[parseInt(p[1])-1];}
+function fmtDate(s){if(!s)return '—';var M=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],p=s.split('-');return parseInt(p[2])+' '+M[parseInt(p[1])-1];}
 function getCh(id){for(var i=0;i<CHAPTERS.length;i++)if(CHAPTERS[i].id===id)return CHAPTERS[i];return null;}
 
+function logout(){localStorage.removeItem('rishi_current_student');window.location.href='/login.html';}
+
 function loadData(){
-  var active={}, progress={}, student={};
+  var active={},progress={},student={};
   try{active=JSON.parse(localStorage.getItem('rishi_active_chapters')||'{}');}catch(e){}
   try{progress=JSON.parse(localStorage.getItem('rishi_chapter_progress')||'{}');}catch(e){}
   try{student=JSON.parse(localStorage.getItem('rishi_current_student')||'{}');}catch(e){}
-  return {active:active, progress:progress, student:student};
+  return {active:active,progress:progress,student:student};
 }
 
-function logout(){
-  localStorage.removeItem('rishi_current_student');
-  window.location.href='/login.html';
-}
-
-function getStatus(pr, active, today){
-  var cid=pr.cid, ac=active[cid];
-  var prog=pr.prog;
-  var completed=prog.completed||0, total=prog.total||15;
+function getSchedStatus(cid, ac, pr, today){
+  var completed=pr.completed||0, total=pr.total||15;
   var compRatio=total>0?completed/total:0;
-  if(!ac) return {type:'ns', label:'Not Scheduled'};
-  if(compRatio>=1) return {type:'done', label:'✓ Done'};
-
-  var dLeft=daysBetween(today, ac.targetDate);
-  if(dLeft<0) return {type:'behind', label:'Past Due'};
-
-  // Expected completion by now
-  var totalDays=daysBetween(ac.startDate, ac.targetDate)||1;
-  var donedays=daysBetween(ac.startDate, today);
-  var expectedRatio=Math.min(1, Math.max(0, donedays/totalDays));
-  var diff=compRatio-expectedRatio;
-
-  if(compRatio===0 && donedays<0) return {type:'ns', label:'Not Started Yet'};
-  if(diff >= 0.1) return {type:'ahead', label:'Ahead of schedule!'};
-  if(diff < -0.2) return {type:'behind', label:'Behind schedule'};
-  return {type:'on', label:'On schedule ✓'};
+  if(compRatio>=1) return {type:'done',label:'✓ Done'};
+  var dLeft=daysBetween(today,ac.targetDate);
+  if(dLeft<0) return {type:'behind',label:'Past Due'};
+  var span=daysBetween(ac.startDate,ac.targetDate)||1;
+  var elapsed=daysBetween(ac.startDate,today);
+  var expected=Math.min(1,Math.max(0,elapsed/span));
+  var diff=compRatio-expected;
+  if(diff>= 0.1) return {type:'ahead',label:'Ahead ↑'};
+  if(diff<-0.2) return {type:'behind',label:'Behind ↓'};
+  return {type:'on',label:'On track ✓'};
 }
 
 function render(){
   var d=loadData();
   var today=toDateStr(new Date());
 
-  // Student info
+  // Student header
   var name=(d.student.studentName||'Student').split(' ')[0];
   document.getElementById('hdr-name').textContent=name;
   document.getElementById('w-name').textContent=name;
   document.getElementById('w-sub').textContent='Class '+(d.student.class||8)+' · '+(d.student.board||'CBSE')+' Mathematics';
 
-  // Get scheduled chapter ids
   var schedIds=Object.keys(d.active).map(Number).sort(function(a,b){return a-b;});
+  var hasPlan=schedIds.length>0;
 
-  // Overall stats
-  var totalSess=0, totalCompleted=0, totalChDone=0;
-  for(var i=0;i<CHAPTERS.length;i++){
-    var pr=d.progress[CHAPTERS[i].id]||{};
-    totalSess+=(pr.sessions||0);
-    totalCompleted+=(pr.completed||0);
-    if((pr.completed||0)>=(pr.total||15)&&pr.total>0) totalChDone++;
+  if(hasPlan){
+    renderStatusAndKPIs(schedIds, d, today);
+    renderScheduleSection(schedIds, d, today);
+    document.getElementById('all-ch-title').textContent='📚 All 16 Chapters';
+  } else {
+    document.getElementById('status-section').innerHTML='<div class="no-plan-notice"><div class="ico">📋</div><div class="txt">Your parent hasn\'t set a study plan yet.<br>Meanwhile, explore the explain sessions below — they\'re ready for you!</div></div>';
   }
 
-  // Days to final target
+  renderAllChapters(schedIds, d, today);
+}
+
+function renderStatusAndKPIs(schedIds, d, today){
+  var totalQ=0,doneQ=0,totalSess=0,chDone=0;
+  var behindCount=0,aheadCount=0,onCount=0;
   var maxTarget=null;
-  for(var cid in d.active){
-    var t=d.active[cid].targetDate;
-    if(!maxTarget||t>maxTarget) maxTarget=t;
-  }
-  var daysToFinal=maxTarget?daysBetween(today,maxTarget):null;
 
-  // Overall completion across scheduled chapters
-  var totalQ=0, doneQ=0;
   for(var i=0;i<schedIds.length;i++){
     var cid=schedIds[i];
     var pr=d.progress[cid]||{};
+    var ac=d.active[cid];
     totalQ+=(pr.total||15);
     doneQ+=(pr.completed||0);
-  }
-  var overallPct=totalQ>0?Math.round(doneQ/totalQ*100):0;
-
-  // Status assessment
-  var behindCount=0, aheadCount=0, onCount=0;
-  for(var i=0;i<schedIds.length;i++){
-    var cid=schedIds[i];
-    var st=getStatus({cid:cid,prog:d.progress[cid]||{}}, d.active, today);
+    totalSess+=(pr.sessions||0);
+    if((pr.completed||0)>=(pr.total||15)&&pr.total>0) chDone++;
+    if(ac&&ac.targetDate&&(!maxTarget||ac.targetDate>maxTarget)) maxTarget=ac.targetDate;
+    var st=getSchedStatus(cid,ac,pr,today);
     if(st.type==='behind') behindCount++;
     else if(st.type==='ahead') aheadCount++;
     else if(st.type==='on') onCount++;
   }
 
-  // Banner
-  var banner=document.getElementById('status-banner');
-  var ico='📋', title='No study plan set yet', sub='Ask your parent to create a study plan in the Parent Portal.', cls='sb-none';
-  if(schedIds.length>0){
-    if(behindCount>0){
-      ico='⚠️'; cls='sb-behind';
-      title='You are behind schedule on '+behindCount+' chapter'+(behindCount>1?'s':'');
-      sub='You need to put in extra effort this week. You can catch up — Rishika believes in you!';
-    } else if(aheadCount>0){
-      ico='🚀'; cls='sb-ahead';
-      title='Great work — you are ahead of schedule!';
-      sub='Keep this momentum going. You are '+aheadCount+' chapter'+(aheadCount>1?'s':'')+' ahead of plan.';
-    } else if(onCount>0){
-      ico='✅'; cls='sb-on';
-      title='You are right on schedule!';
-      sub='Consistent effort every day is the key. Keep it up!';
-    } else {
-      ico='📅'; cls='sb-none';
-      title='Study plan is active';
-      sub='Start working through your chapters below.';
-    }
+  var overallPct=totalQ>0?Math.round(doneQ/totalQ*100):0;
+  var daysLeft=maxTarget?daysBetween(today,maxTarget):null;
+
+  // Status banner
+  var cls,ico,title,sub;
+  if(behindCount>0){
+    cls='sb-behind';ico='⚠️';
+    title='Behind on '+behindCount+' chapter'+(behindCount>1?'s':'');
+    sub='Extra effort needed this week — you can catch up!';
+  } else if(aheadCount>0){
+    cls='sb-ahead';ico='🚀';
+    title='Ahead of schedule!';
+    sub=aheadCount+' chapter'+(aheadCount>1?'s':'')+' ahead of plan. Keep going!';
+  } else {
+    cls='sb-on';ico='✅';
+    title='Right on schedule!';
+    sub='Consistent effort every day. Well done!';
   }
-  banner.className='status-banner '+cls;
-  document.getElementById('sb-ico').textContent=ico;
-  document.getElementById('sb-title').textContent=title;
-  document.getElementById('sb-sub').textContent=sub;
-  document.getElementById('sb-pct').textContent=overallPct+'%';
 
-  // KPIs
-  document.getElementById('kpi-total').textContent=schedIds.length||'—';
-  document.getElementById('kpi-days').textContent=daysToFinal!==null?(daysToFinal>=0?daysToFinal+'d':'Past'):'—';
-  document.getElementById('kpi-done').textContent=totalChDone;
-  document.getElementById('kpi-sessions').textContent=totalSess;
-  if(maxTarget) document.getElementById('kpi-days-sub').textContent='target: '+formatDate(maxTarget);
+  document.getElementById('status-section').innerHTML=
+    '<div class="status-banner '+cls+'">'+
+    '<div class="sb-ico">'+ico+'</div>'+
+    '<div><div class="sb-title">'+title+'</div><div class="sb-sub">'+sub+'</div></div>'+
+    '<div class="sb-right"><div class="sb-pct">'+overallPct+'%</div><div class="sb-pct-lbl">Overall Done</div></div>'+
+    '</div>';
 
-  // Chapter list
-  renderChapterList(schedIds, d, today);
-
-  // Unscheduled
-  renderUnscheduled(schedIds);
+  document.getElementById('kpi-section').innerHTML=
+    '<div class="kpi-row">'+
+    '<div class="kpi"><div class="kpi-n">'+schedIds.length+'</div><div class="kpi-l">Chapters</div><div class="kpi-sub">In plan</div></div>'+
+    '<div class="kpi"><div class="kpi-n">'+(daysLeft!==null&&daysLeft>=0?daysLeft+'d':daysLeft!==null?'Past':'—')+'</div><div class="kpi-l">Days Left</div><div class="kpi-sub">'+(maxTarget?'target '+fmtDate(maxTarget):'to final target')+'</div></div>'+
+    '<div class="kpi"><div class="kpi-n">'+chDone+'</div><div class="kpi-l">Completed</div><div class="kpi-sub">Of '+schedIds.length+' chapters</div></div>'+
+    '<div class="kpi"><div class="kpi-n">'+totalSess+'</div><div class="kpi-l">Sessions</div><div class="kpi-sub">Total practice</div></div>'+
+    '</div>';
 }
 
-function renderChapterList(schedIds, d, today){
-  var con=document.getElementById('ch-list');
-  if(schedIds.length===0){
-    con.innerHTML='<div class="no-plan"><div class="no-plan-ico">📚</div><div class="no-plan-txt">No chapters scheduled yet.<br>Your parent will set up your study plan.<br><br>All 16 chapters are shown below.</div></div>';
-    document.getElementById('unsched-section').style.display='block';
-    renderUnscheduled([]);
-    return;
-  }
-
-  var html='';
+function renderScheduleSection(schedIds, d, today){
+  // Only show schedule section if plan exists — it's a compact list view
+  var html='<div class="sec-title">📅 My Study Schedule</div>';
+  html+='<div style="background:var(--warm-white);border:1.5px solid var(--gold-pale);border-radius:14px;overflow:hidden;margin-bottom:4px;">';
   for(var i=0;i<schedIds.length;i++){
     var cid=schedIds[i];
     var ch=getCh(cid);
     if(!ch) continue;
+    var pr=d.progress[cid]||{};
+    var ac=d.active[cid];
+    var st=getSchedStatus(cid,ac,pr,today);
+    var dLeft=ac&&ac.targetDate?daysBetween(today,ac.targetDate):null;
+    var compPct=Math.round((pr.completed||0)/(pr.total||15)*100);
+    var progCol=compPct>=75?'var(--green)':compPct>=50?'var(--amber)':'var(--red)';
+    var dlCol=dLeft===null?'var(--soft)':dLeft<=3?'var(--red)':dLeft<=7?'var(--amber)':'var(--green)';
+    var dlTxt=st.type==='done'?'Done':dLeft!==null&&dLeft>=0?dLeft+'d left':dLeft!==null?'Past due':'—';
+    var badgeCls=st.type==='on'?'badge-on':st.type==='behind'?'badge-behind':st.type==='ahead'?'badge-ahead':st.type==='done'?'badge-done':'';
+    html+='<div style="display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid var(--gold-pale);">';
+    html+='<div style="width:28px;height:28px;border-radius:7px;background:'+CH_COLORS[cid-1]+';display:flex;align-items:center;justify-content:center;font-family:\'Share Tech Mono\',monospace;font-size:11px;font-weight:700;color:white;flex-shrink:0;">'+cid+'</div>';
+    html+='<div style="flex:1;min-width:0;">';
+    html+='<div style="font-size:12px;font-weight:800;color:var(--charcoal);">'+ch.name+'</div>';
+    html+='<div style="display:flex;align-items:center;gap:6px;margin-top:3px;">';
+    html+='<div style="flex:1;height:3px;background:var(--gold-pale);border-radius:2px;overflow:hidden;"><div style="height:100%;width:'+compPct+'%;background:'+progCol+';border-radius:2px;"></div></div>';
+    html+='<span style="font-family:\'Share Tech Mono\',monospace;font-size:9px;color:var(--soft);">'+compPct+'%</span>';
+    html+='</div></div>';
+    html+='<span class="ch-sched-badge '+badgeCls+'">'+st.label+'</span>';
+    html+='<div style="text-align:right;flex-shrink:0;"><div style="font-family:\'Orbitron\',sans-serif;font-size:13px;font-weight:900;color:'+dlCol+';">'+dlTxt+'</div></div>';
+    html+='</div>';
+  }
+  html+='</div>';
+  document.getElementById('sched-section').innerHTML=html;
+}
+
+function isExplainDone(cid){
+  if(localStorage.getItem("rishi_explain_done_"+cid)==="1") return true;
+  var LEGACY={2:"explain_linear_done",3:"explain_quadrilaterals_done",4:"explain_practical_done",9:"explain_algebraic_done",11:"explain_area_done",15:"explain_graphs_done"};
+  if(LEGACY[cid]){var p={};try{p=JSON.parse(localStorage.getItem("rishi_progress")||"{}");}catch(e){}if(p[LEGACY[cid]])return true;}
+  return false;
+}
+function isPracticeDone(cid){return localStorage.getItem("rishi_practice_done_"+cid)==="1";}
+function isChapExamDone(cid){return localStorage.getItem("rishi_chapexam_done_"+cid)==="1";}
+
+function renderAllChapters(schedIds, d, today){
+  var hasPlan=schedIds.length>0;
+  var html='';
+  for(var i=0;i<CHAPTERS.length;i++){
+    var ch=CHAPTERS[i]; var cid=ch.id;
     var color=CH_COLORS[cid-1];
     var pr=d.progress[cid]||{};
     var ac=d.active[cid];
-    var st=getStatus({cid:cid,prog:pr}, d.active, today);
-    var completed=pr.completed||0, total=pr.total||15;
-    var compPct=total>0?Math.round(completed/total*100):0;
-    var dLeft=ac&&ac.targetDate?daysBetween(today,ac.targetDate):null;
-    var sessions=pr.sessions||0;
-    var accuracy=pr.accuracy||0;
+    var compPct=Math.round((pr.completed||0)/(pr.total||15)*100);
+    var progCol=compPct>=75?'var(--green)':compPct>=50?'var(--amber)':'#ccc';
+    var isInPlan=schedIds.indexOf(cid)>-1;
+    var explainDone=isExplainDone(cid);
+    var practiceDone=isPracticeDone(cid);
+    var chapExamDone=isChapExamDone(cid);
 
-    var cardCls='ch-card ';
-    var badgeCls='ch-status-badge ';
-    if(st.type==='on'){cardCls+='on-track';badgeCls+='badge-on';}
-    else if(st.type==='behind'||st.type==='ahead'&&dLeft<0){cardCls+='behind';badgeCls+='badge-behind';}
-    else if(st.type==='ahead'){cardCls+='ahead';badgeCls+='badge-ahead';}
-    else if(st.type==='done'){cardCls+='done';badgeCls+='badge-done';}
-    else{cardCls+='not-started';badgeCls+='badge-ns';}
-
-    var progColor=compPct>=75?'#4a8a4a':compPct>=50?'#d4870a':'#c0392b';
-
-    var dlDisplay='—';
-    var dlCol=color;
-    if(st.type==='done'){dlDisplay='✓';dlCol='var(--sage)';}
-    else if(dLeft!==null&&dLeft>=0){dlDisplay=dLeft;dlCol=dLeft<=3?'var(--red)':dLeft<=7?'var(--amber)':'var(--green)';}
-    else if(dLeft!==null&&dLeft<0){dlDisplay='!';dlCol='var(--red)';}
-
-    html+='<div class="'+cardCls+'" id="chcard-'+cid+'">';
-    // Main row (clickable)
-    html+='<div class="ch-main" onclick="toggleExpand('+cid+')">';
-    html+='<div class="ch-num-badge" style="background:'+color+'">'+cid+'</div>';
-    html+='<div class="ch-info"><div class="ch-name">'+ch.name+'</div><div class="ch-topic">'+ch.topic+'</div></div>';
-    html+='<div class="ch-right">';
-    html+='<span class="'+badgeCls+'">'+st.label+'</span>';
-    if(st.type!=='done'&&st.type!=='ns'){
-      html+='<div class="ch-days-left"><div class="ch-dl-n" style="color:'+dlCol+'">'+dlDisplay+'</div><div class="ch-dl-l">'+(typeof dlDisplay==='number'?'days left':'')+'</div></div>';
+    var cardCls='ch-card', schedBadge='', schedStrip='';
+    if(isInPlan && ac){
+      var st=getSchedStatus(cid,ac,pr,today);
+      var dLeft=daysBetween(today,ac.targetDate);
+      var dlCol=dLeft<=3?'var(--red)':dLeft<=7?'var(--amber)':'var(--green)';
+      cardCls+=' '+st.type;
+      var bCls=st.type==='on'?'badge-on':st.type==='behind'?'badge-behind':st.type==='ahead'?'badge-ahead':st.type==='done'?'badge-done':'';
+      schedBadge='<span class="ch-sched-badge '+bCls+'" style="margin-left:4px;">'+st.label+'</span>';
+      var dlTxt=st.type==='done'?'Done':(dLeft>=0?dLeft+'d left':'Overdue');
+      schedStrip='<div class="ch-sched-strip">'+
+        '<span class="sched-item">Start: <span>'+fmtDate(ac.startDate)+'</span></span>'+
+        '<span class="sched-item">Target: <span>'+fmtDate(ac.targetDate)+'</span></span>'+
+        '<span class="days-chip" style="color:'+dlCol+';">'+dlTxt+'</span>'+
+        '</div>';
     }
-    html+='<div class="ch-toggle" id="toggle-'+cid+'">▾</div>';
+
+    html+='<div class="'+cardCls+'">';
+    html+='<div class="ch-top">';
+    html+='<div class="ch-num" style="background:'+color+'">'+cid+'</div>';
+    html+='<div class="ch-info">';
+    html+='<div class="ch-name">'+ch.name+'</div>';
+    html+='<div class="ch-meta"><span class="ch-topic-tag">'+ch.topic+'</span>'+schedBadge+'</div>';
     html+='</div></div>';
-    // Progress bar
-    html+='<div class="ch-prog-row"><div class="ch-prog-lbl" style="font-size:10px;font-weight:700;color:var(--soft);width:80px;flex-shrink:0">Practice</div><div class="ch-prog-track"><div class="ch-prog-fill" style="width:'+compPct+'%;background:'+progColor+'"></div></div><div class="ch-prog-pct">'+compPct+'%</div></div>';
-    // Expand panel
-    html+='<div class="ch-expand" id="exp-'+cid+'">';
-    html+='<div class="exp-grid">';
-    html+='<div class="exp-stat"><div class="exp-n">'+sessions+'</div><div class="exp-l">Sessions</div></div>';
-    html+='<div class="exp-stat"><div class="exp-n">'+completed+'/'+total+'</div><div class="exp-l">Questions</div></div>';
-    html+='<div class="exp-stat"><div class="exp-n">'+accuracy+'%</div><div class="exp-l">Accuracy</div></div>';
-    html+='</div>';
-    if(ac){
-      html+='<div class="exp-dates">';
-      html+='<div class="exp-date"><span>Start</span>'+formatDate(ac.startDate)+'</div>';
-      html+='<div class="exp-date"><span>Target</span>'+formatDate(ac.targetDate)+'</div>';
-      if(dLeft!==null&&dLeft>=0&&st.type!=='done'){
-        var urgency=dLeft<=3?'color:var(--red);font-weight:900':dLeft<=7?'color:var(--amber)':'color:var(--green)';
-        html+='<div class="exp-date" style="'+urgency+'"><span>Days left</span>'+dLeft+' days</div>';
-      }
-      html+='</div>';
+
+    if(compPct>0){
+      html+='<div class="ch-prog"><span style="font-size:9px;font-weight:700;color:var(--soft);width:52px;flex-shrink:0;">Practice</span><div class="ch-prog-track"><div class="ch-prog-fill" style="width:'+compPct+'%;background:'+progCol+'"></div></div><span class="ch-prog-pct">'+compPct+'%</span></div>';
     }
-    html+='<div class="exp-cta">';
-    if(ch.built){
-      html+='<a href="'+ch.explainPath+'" class="btn-explain btn-explain-active">📖 Watch Explain</a>';
+    if(schedStrip) html+=schedStrip;
+
+    html+='<div class="ch-actions">';
+
+    if(hasPlan && !isInPlan){
+      html+='<span class="btn-explain btn-plan-locked" style="flex:1;text-align:center;">🔒 Not in your plan</span>';
+      html+='</div></div>';
+      continue;
+    }
+
+    /* EXPLAIN */
+    if(!ch.built){
+      html+='<span class="btn-explain btn-locked">📖 Explain — Coming Soon</span>';
+    } else if(explainDone){
+      html+='<a href="'+ch.explainPath+'" class="btn-explain btn-done">✓ Re-watch</a>';
     } else {
-      html+='<span class="btn-explain btn-explain-locked">📖 Explain — Coming Soon</span>';
+      html+='<a href="'+ch.explainPath+'" class="btn-explain btn-active">📖 Watch Explain</a>';
     }
-    html+='<span class="btn-explain btn-practice-locked">✏️ Practice — Coming Soon</span>';
-    html+='</div>';
-    html+='</div>';
-    html+='</div>';
-  }
-  con.innerHTML=html;
 
-  // Unscheduled after list
-  var unschedIds=[];
-  for(var i=0;i<CHAPTERS.length;i++){
-    if(schedIds.indexOf(CHAPTERS[i].id)===-1) unschedIds.push(CHAPTERS[i].id);
+    /* PRACTICE */
+    if(!explainDone){
+      html+='<span class="btn-explain btn-locked">✏️ Explain first</span>';
+    } else if(practiceDone){
+      html+='<span class="btn-explain btn-done">✓ Practice Done</span>';
+    } else {
+      html+='<span class="btn-explain btn-locked">✏️ Practice — Coming Soon</span>';
+    }
+
+    /* CHAPTER EXAM */
+    if(!practiceDone){
+      html+='<span class="btn-explain btn-locked">📝 Practice first</span>';
+    } else if(chapExamDone){
+      html+='<span class="btn-explain btn-done">✓ Exam Done</span>';
+    } else {
+      html+='<span class="btn-explain btn-locked">📝 Exam — Coming Soon</span>';
+    }
+
+    html+='</div></div>';
   }
-  if(unschedIds.length>0){
-    document.getElementById('unsched-section').style.display='block';
-    renderUnscheduled(schedIds);
-  }
+  document.getElementById('ch-grid').innerHTML=html;
+  renderSampurnaPariksha();
 }
 
-function toggleExpand(cid){
-  var panel=document.getElementById('exp-'+cid);
-  var tog=document.getElementById('toggle-'+cid);
-  var isOpen=panel.classList.contains('open');
-  // Close all
-  var all=document.querySelectorAll('.ch-expand');
-  for(var i=0;i<all.length;i++) all[i].classList.remove('open');
-  var allTog=document.querySelectorAll('.ch-toggle');
-  for(var i=0;i<allTog.length;i++) allTog[i].classList.remove('open');
-  // Toggle this
-  if(!isOpen){ panel.classList.add('open'); tog.classList.add('open'); }
-}
-
-function renderUnscheduled(schedIds){
-  var unschedIds=[];
-  for(var i=0;i<CHAPTERS.length;i++){
-    if(schedIds.indexOf(CHAPTERS[i].id)===-1) unschedIds.push(CHAPTERS[i].id);
-  }
-  if(!unschedIds.length){ document.getElementById('unsched-section').style.display='none'; return; }
+function renderSampurnaPariksha(){
+  var examsDone=0;
+  for(var i=0;i<CHAPTERS.length;i++){if(isChapExamDone(CHAPTERS[i].id))examsDone++;}
+  var allDone=(examsDone===16);
+  var pct=Math.round(examsDone/16*100);
   var html='';
-  for(var i=0;i<unschedIds.length;i++){
-    var cid=unschedIds[i];
-    var ch=getCh(cid);
-    var color=CH_COLORS[cid-1];
-    html+='<div class="unsched-tile">';
-    html+='<div class="unsched-n" style="background:'+color+'22;color:'+color+'">'+cid+'</div>';
-    html+='<div class="unsched-info"><div class="unsched-name">'+ch.name+'</div><div class="unsched-tag">'+ch.topic+' · Not scheduled</div></div>';
-    html+='</div>';
+  if(allDone){
+    html='<div style="background:linear-gradient(135deg,var(--gold-pale),#fff9ee);border:2px solid var(--gold);border-radius:16px;padding:24px;text-align:center;">'+
+      '<div style="font-size:42px;margin-bottom:8px;">🏆</div>'+
+      '<div style="font-family:Orbitron,sans-serif;font-size:14px;color:var(--amber);font-weight:900;letter-spacing:2px;margin-bottom:6px;">SAMPURNA PARIKSHA</div>'+
+      '<div style="font-size:12px;font-weight:700;color:var(--mid);margin-bottom:16px;">All 16 chapters mastered! You are ready for the grand exam.</div>'+
+      '<span class="btn-explain btn-locked" style="max-width:240px;margin:0 auto;display:block;">📝 Full Exam — Coming Soon</span></div>';
+  } else {
+    html='<div style="background:var(--warm-white);border:2px dashed var(--gold-pale);border-radius:16px;padding:22px;text-align:center;">'+
+      '<div style="font-size:32px;margin-bottom:6px;">🏆</div>'+
+      '<div style="font-family:Orbitron,sans-serif;font-size:11px;color:var(--amber);font-weight:700;letter-spacing:2px;margin-bottom:4px;">SAMPURNA PARIKSHA</div>'+
+      '<div style="font-size:12px;font-weight:700;color:var(--soft);line-height:1.7;margin-bottom:10px;">Complete all 16 chapter exams to unlock the full syllabus exam.<br>'+examsDone+' of 16 chapters done.</div>'+
+      '<div style="height:5px;background:var(--gold-pale);border-radius:3px;overflow:hidden;max-width:260px;margin:0 auto;">'+
+      '<div style="height:100%;width:'+pct+'%;background:linear-gradient(90deg,var(--sage),var(--gold));border-radius:3px;"></div></div></div>';
   }
-  document.getElementById('unsched-grid').innerHTML=html;
+  document.getElementById('sampurna-section').innerHTML=html;
 }
+
 
 window.onload=function(){
-  // Get name from URL param too
   var params=new URLSearchParams(window.location.search);
-  var urlBoard=params.get('board');
-  var urlClass=params.get('class');
   var student={};
   try{student=JSON.parse(localStorage.getItem('rishi_current_student')||'{}');}catch(e){}
-  if(urlBoard) student.board=urlBoard;
-  if(urlClass) student.class=urlClass;
+  if(params.get('board')) student.board=params.get('board');
+  if(params.get('class')) student.class=params.get('class');
   localStorage.setItem('rishi_current_student',JSON.stringify(student));
   render();
 };
