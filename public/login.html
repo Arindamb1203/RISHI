@@ -264,9 +264,20 @@ function stopCountdown(){
   }
 }
 
+function goToDestination(account){
+  if(!account) {
+    var student = JSON.parse(localStorage.getItem('rishi_current_student') || '{}');
+    var role = student.role || 'student';
+    if(role === 'parent') { window.location.href = '/parent/'; return; }
+    window.location.href = '/syllabus.html?board=' + (student.board||'CBSE') + '&class=' + (student.class||'8');
+    return;
+  }
+  if(account.role === 'parent') { window.location.href = '/parent/'; return; }
+  window.location.href = '/syllabus.html?board=' + account.board + '&class=' + account.class;
+}
+
 function goToSyllabus(){
-  const student = JSON.parse(localStorage.getItem('rishi_current_student') || '{}');
-  window.location.href = '/syllabus.html?board=' + (student.board||'CBSE') + '&class=' + (student.class||'8');
+  goToDestination(null);
 }
 
 // ── LOGIN ─────────────────────────────────────────────────────────────────────
@@ -288,19 +299,15 @@ function handleLogin(){
   }
 
   var existing = JSON.parse(localStorage.getItem('rishi_current_student') || '{}');
-  localStorage.setItem('rishi_current_student', JSON.stringify(
-    Object.assign({}, existing, {board: account.board, class: account.class})
-  ));
 
-  // Detect parent account → redirect to parent portal
   var role = window._loginRole || account.role || 'student';
   var isParent = (u.indexOf('PARENT-') === 0) || role === 'parent';
-  if(isParent){
-    window.location.href = '/parent.html';
-    return;
-  }
 
-  goToSyllabus();
+  localStorage.setItem('rishi_current_student', JSON.stringify(
+    Object.assign({}, existing, {board: account.board, class: account.class, role: isParent ? 'parent' : 'student'})
+  ));
+
+  goToDestination(account);
 }
 
 // ── FORGOT CREDENTIALS ────────────────────────────────────────────────────────
