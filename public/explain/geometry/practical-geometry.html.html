@@ -90,6 +90,7 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 @keyframes rBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
 @media(max-width:600px){.main{padding:10px 10px 120px;}.topbar,.prog-wrap{padding-left:10px;padding-right:10px;}.timer-num{font-size:48px;}}
 </style>
+<script src="/rishi-core.js"></script>
 </head>
 <body>
 <div class="topbar">
@@ -1052,6 +1053,7 @@ var recog=null,listening=false,breakSecs=0,breakTmr=null;
 var PER_SESSION=10;
 
 function init(){
+  rishiCheckPlan(4); /* Chapter 4 — Practical Geometry */
   var st=JSON.parse(localStorage.getItem("rishi_current_student")||"{}");
   G("sName").textContent=st.studentName?st.studentName.split(" ")[0]:"there";
   var prog=JSON.parse(localStorage.getItem("rishi_progress")||"{}");
@@ -1178,6 +1180,7 @@ function unlockNav(){
 }
 
 function onComplete(){
+  rishiMarkExplainDone(4); /* Chapter 4 — Practical Geometry */
   var prog=JSON.parse(localStorage.getItem("rishi_progress")||"{}");
   prog["explain_practical_done"]=true;
   localStorage.setItem("rishi_progress",JSON.stringify(prog));
