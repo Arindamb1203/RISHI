@@ -313,6 +313,32 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);min-hei
 .hidden{display:none!important;}
 .divider{height:1px;background:var(--border);margin:0 0 14px;}
 .no-data{text-align:center;padding:28px;color:var(--muted);font-size:12px;}
+
+/* ── BREAK ANALYTICS ── */
+.break-summary-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:18px;}
+@media(max-width:600px){.break-summary-row{grid-template-columns:repeat(2,1fr);}}
+.break-kpi{background:var(--panel2);border:1px solid var(--border);border-radius:12px;padding:14px;text-align:center;}
+.bk-n{font-family:var(--font-head);font-size:22px;font-weight:900;color:var(--gold);}
+.bk-l{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin-top:3px;}
+.break-date-block{background:var(--panel2);border:1px solid var(--border);border-radius:12px;margin-bottom:8px;overflow:hidden;}
+.break-date-hdr{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;cursor:pointer;transition:background .15s;}
+.break-date-hdr:hover{background:rgba(255,255,255,.03);}
+.break-date-lbl{font-family:var(--font-mono);font-size:12px;color:var(--text);font-weight:500;}
+.break-date-meta{font-size:11px;color:var(--muted);}
+.break-date-arrow{font-size:14px;color:var(--muted);transition:transform .2s;}
+.break-date-arrow.open{transform:rotate(180deg);}
+.break-rows{display:none;border-top:1px solid var(--border);}
+.break-rows.open{display:block;}
+.break-row{display:grid;grid-template-columns:60px 1fr 80px 70px;align-items:center;gap:10px;padding:9px 16px;border-bottom:1px solid var(--border);font-size:12px;}
+.break-row:last-child{border-bottom:none;}
+.break-time{font-family:var(--font-mono);color:var(--muted);}
+.break-type{font-weight:600;color:var(--text);}
+.break-type-badge{font-size:10px;font-weight:700;padding:2px 8px;border-radius:5px;}
+.bt-water{background:rgba(74,158,255,.15);color:#4A9EFF;}
+.bt-washroom{background:rgba(162,135,250,.15);color:#A78BFA;}
+.bt-physical{background:rgba(34,201,125,.15);color:var(--green);}
+.break-dur{font-family:var(--font-mono);color:var(--gold);text-align:right;font-size:11px;}
+.no-breaks{text-align:center;padding:28px;color:var(--muted);font-size:12px;background:var(--panel2);border:1px dashed var(--border);border-radius:12px;}
 </style>
 </head>
 <body>
@@ -431,6 +457,15 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);min-hei
       <div class="sec-line"></div>
     </div>
     <div class="exam-grid" id="exam-grid"></div>
+  </div>
+
+  <!-- ── BREAK ANALYTICS ── -->
+  <div class="sec">
+    <div class="sec-hdr">
+      <div class="sec-title">☕ Break Analytics</div>
+      <div class="sec-line"></div>
+    </div>
+    <div id="break-dash"></div>
   </div>
 
   <!-- ── PREDICTION BREAKDOWN ── -->
@@ -587,6 +622,7 @@ function renderAll() {
   renderMeter(preds, d);
   renderExamDash(d.examScores);
   renderPredBreakdown(preds, d);
+  renderBreakDash();
   renderTimestamp();
 }
 
@@ -1039,6 +1075,94 @@ function renderTimestamp() {
 }
 
 // ══ INIT ══
+function renderBreakDash() {
+  var log = [];
+  try { log = JSON.parse(localStorage.getItem('rishi_break_log') || '[]'); } catch(e) {}
+
+  var con = document.getElementById('break-dash');
+  if (!log.length) {
+    con.innerHTML = '<div class="no-breaks">☕ No break data yet. Break sessions from explain pages will appear here automatically.</div>';
+    return;
+  }
+
+  // Summary totals
+  var totalBreaks = log.length;
+  var totalSecs = 0, waterSecs = 0, washroomSecs = 0, physicalSecs = 0;
+  for (var i = 0; i < log.length; i++) {
+    totalSecs += log[i].secs || 0;
+    if (log[i].type === 'Water') waterSecs += log[i].secs || 0;
+    if (log[i].type === 'Washroom') washroomSecs += log[i].secs || 0;
+    if (log[i].type === 'Physical') physicalSecs += log[i].secs || 0;
+  }
+
+  function fmtSecs(s) {
+    var m = Math.floor(s / 60), sec = s % 60;
+    return m > 0 ? m + 'm ' + sec + 's' : sec + 's';
+  }
+
+  var html = '<div class="break-summary-row">';
+  html += '<div class="break-kpi"><div class="bk-n">' + totalBreaks + '</div><div class="bk-l">Total Breaks</div></div>';
+  html += '<div class="break-kpi"><div class="bk-n">' + fmtSecs(totalSecs) + '</div><div class="bk-l">Total Time</div></div>';
+  html += '<div class="break-kpi"><div class="bk-n">' + fmtSecs(Math.round(totalSecs / totalBreaks)) + '</div><div class="bk-l">Avg per Break</div></div>';
+  var mostType = waterSecs >= washroomSecs && waterSecs >= physicalSecs ? '💧 Water' : washroomSecs >= physicalSecs ? '🚻 Washroom' : '🏃 Physical';
+  html += '<div class="break-kpi"><div class="bk-n" style="font-size:16px;">' + mostType + '</div><div class="bk-l">Most Common</div></div>';
+  html += '</div>';
+
+  // Group by date
+  var byDate = {};
+  for (var i = 0; i < log.length; i++) {
+    var dt = log[i].date;
+    if (!byDate[dt]) byDate[dt] = [];
+    byDate[dt].push(log[i]);
+  }
+
+  // Sort dates descending
+  var dates = Object.keys(byDate).sort().reverse();
+
+  for (var di = 0; di < dates.length; di++) {
+    var date = dates[di];
+    var entries = byDate[date];
+    var dayTotal = 0;
+    for (var j = 0; j < entries.length; j++) dayTotal += entries[j].secs || 0;
+
+    // Format date nicely
+    var dp = date.split('-');
+    var MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    var dateLabel = parseInt(dp[2]) + ' ' + MONTHS[parseInt(dp[1])-1] + ' ' + dp[0];
+
+    html += '<div class="break-date-block">';
+    html += '<div class="break-date-hdr" onclick="toggleBreakDate(\'' + date + '\')">';
+    html += '<div class="break-date-lbl">' + dateLabel + '</div>';
+    html += '<div style="display:flex;align-items:center;gap:12px;">';
+    html += '<div class="break-date-meta">' + entries.length + ' break' + (entries.length > 1 ? 's' : '') + ' · ' + fmtSecs(dayTotal) + ' total</div>';
+    html += '<div class="break-date-arrow" id="barrow-' + date + '">▾</div>';
+    html += '</div></div>';
+    html += '<div class="break-rows" id="brows-' + date + '">';
+
+    for (var j = 0; j < entries.length; j++) {
+      var e = entries[j];
+      var typeCls = e.type === 'Water' ? 'bt-water' : e.type === 'Washroom' ? 'bt-washroom' : 'bt-physical';
+      var typeIco = e.type === 'Water' ? '💧' : e.type === 'Washroom' ? '🚻' : '🏃';
+      html += '<div class="break-row">';
+      html += '<div class="break-time">' + (e.time || '—') + '</div>';
+      html += '<div><span class="break-type-badge ' + typeCls + '">' + typeIco + ' ' + e.type + '</span></div>';
+      html += '<div class="break-dur">' + fmtSecs(e.secs || 0) + '</div>';
+      html += '</div>';
+    }
+    html += '</div></div>';
+  }
+
+  con.innerHTML = html;
+}
+
+function toggleBreakDate(date) {
+  var rows = document.getElementById('brows-' + date);
+  var arrow = document.getElementById('barrow-' + date);
+  var isOpen = rows.classList.contains('open');
+  rows.classList.toggle('open', !isOpen);
+  if (arrow) arrow.classList.toggle('open', !isOpen);
+}
+
 window.onload = function() {
   seedDemo();
   renderAll();

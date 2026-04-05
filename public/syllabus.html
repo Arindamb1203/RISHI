@@ -227,7 +227,7 @@ var CHAPTERS = {
   11:{name:"Mensuration",               topic:"Geometry",      built:true,  path:"/explain/mensuration/area-plane-figures.html"},
   12:{name:"Exponents and Powers",      topic:"Number System", built:false, path:""},
   13:{name:"Direct & Inverse Proportions",topic:"Arithmetic",  built:false, path:""},
-  14:{name:"Factorisation",             topic:"Algebra",       built:true,  path:"/explain/algebra/factorisation.html"},
+  14:{name:"Factorisation",             topic:"Algebra",       built:false, path:""},
   15:{name:"Introduction to Graphs",    topic:"Algebra",       built:true,  path:"/explain/algebra/introduction-to-graphs.html"},
   16:{name:"Playing with Numbers",      topic:"Number System", built:false, path:""}
 };
@@ -248,7 +248,6 @@ function logout(){localStorage.removeItem('rishi_current_student');window.locati
 
 function isExplainDone(cid){
   if(localStorage.getItem("rishi_explain_done_"+cid)==="1") return true;
-  if(cid===14&&localStorage.getItem("rishi_explain_done_factorisation")==="1") return true;
   if(LEGACY_KEYS[cid]){var p={};try{p=JSON.parse(localStorage.getItem("rishi_progress")||"{}");}catch(e){}if(p[LEGACY_KEYS[cid]])return true;}
   return false;
 }
@@ -291,6 +290,18 @@ function render(){
 
   var schedIds=Object.keys(d.active).map(Number);
   var hasPlan=schedIds.length>0;
+
+  /* ── TESTING MODE ──────────────────────────────
+     Set to true during testing — all 16 chapters
+     treated as in-plan, no parent lock required.
+     Set to false when ready for live parent gating.
+     ─────────────────────────────────────────── */
+  var TESTING_MODE = true;
+  if(TESTING_MODE){
+    schedIds=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16];
+    hasPlan=false; // hides status banner/KPIs so no fake schedule shown
+    d.active={}; // no dates shown — clean slate
+  }
 
   if(hasPlan){
     renderStatusKPIs(schedIds,d,today);

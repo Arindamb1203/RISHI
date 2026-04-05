@@ -91,3 +91,47 @@ function rishiChName(chId) {
   };
   return names[chId] || "Chapter " + chId;
 }
+
+/* ── BREAK LOGGING ──────────────────────────
+   Automatically patches startBreak / endBreak
+   in every explain page — no page edits needed.
+   ─────────────────────────────────────────── */
+var _rishiBreakType = '';
+var _rishiBreakStart = 0;
+
+function rishiLogBreak(type, secs) {
+  if (!type || secs < 3) return; // ignore accidental clicks
+  var log = [];
+  try { log = JSON.parse(localStorage.getItem('rishi_break_log') || '[]'); } catch(e) {}
+  log.push({
+    date: new Date().toISOString().slice(0, 10),
+    time: new Date().toTimeString().slice(0, 5),
+    type: type,
+    secs: secs
+  });
+  localStorage.setItem('rishi_break_log', JSON.stringify(log));
+}
+
+// Patch startBreak + endBreak after page fully loads
+window.addEventListener('load', function() {
+  // Patch startBreak
+  if (typeof window.startBreak === 'function') {
+    var _origStart = window.startBreak;
+    window.startBreak = function(r) {
+      _rishiBreakType = r;
+      _rishiBreakStart = Math.floor(Date.now() / 1000);
+      _origStart(r);
+    };
+  }
+  // Patch endBreak
+  if (typeof window.endBreak === 'function') {
+    var _origEnd = window.endBreak;
+    window.endBreak = function() {
+      var secs = _rishiBreakType ? Math.floor(Date.now() / 1000) - _rishiBreakStart : 0;
+      rishiLogBreak(_rishiBreakType, secs);
+      _rishiBreakType = '';
+      _rishiBreakStart = 0;
+      _origEnd();
+    };
+  }
+});
