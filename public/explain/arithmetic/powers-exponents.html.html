@@ -104,6 +104,7 @@ body{font-family:'Poppins',sans-serif;background:linear-gradient(135deg,#0d1f12,
   <p style="color:#aaa;font-size:0.82rem">Powers and Exponents — Class 8 Arithmetic</p>
   <button class="done-btn" onclick="location.href='/syllabus.html'">Back to Syllabus</button>
 </div>
+<script src="/rishi-core.js"></script>
 <script>
 function G(id){return document.getElementById(id);}
 var atTimers=[];
@@ -290,13 +291,14 @@ function replayAnim(){
   at(200,function(){runAnim(q.anim);});at(400,function(){say(q.narr);});
 }
 function showDone(){
+  rishiMarkExplainDone(12); /* Chapter 12 — Exponents and Powers */
   G('mainArea').style.display='none';G('doneScreen').style.display='flex';
   G('progressBar').style.width='100%';
   G('doneScore').textContent='You scored '+score+' out of 15!';
   localStorage.setItem('explain_powers_done','1');
   say('Congratulations! You have completed Powers and Exponents! You scored '+score+' out of 15!');
 }
-window.onload=function init(){initVoices(function(){startBlink();loadQ(0);});};
+window.onload=function init(){rishiCheckPlan(12); /* Chapter 12 — Exponents and Powers */initVoices(function(){startBlink();loadQ(0);});};
 window.addEventListener('beforeunload',function(){speechSynthesis.cancel();});
 window.addEventListener('pagehide',function(){speechSynthesis.cancel();});
 </script>
