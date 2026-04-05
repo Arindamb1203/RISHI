@@ -299,8 +299,8 @@ function render(){
   var TESTING_MODE = true;
   if(TESTING_MODE){
     schedIds=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16];
-    hasPlan=false; // hides status banner/KPIs so no fake schedule shown
-    d.active={}; // no dates shown — clean slate
+    hasPlan=false; // hides status banner/KPIs — no fake schedule data shown
+    // d.active kept as-is so getSchedStatus doesn't crash on undefined
   }
 
   if(hasPlan){
@@ -389,15 +389,41 @@ function renderTopics(schedIds,d,today){
       var isInPlan=schedIds.indexOf(cid)>-1;
       var ac=d.active[cid];
       var pr=d.progress[cid]||{};
+      var explainDone=isExplainDone(cid);
+      var practiceDone=isPracticeDone(cid);
+      var chapExamDone=isChapExamDone(cid);
 
       if(!isInPlan){
-        // Not in plan — greyed row, not clickable
         html+='<div class="ch-row">';
         html+='<div class="ch-summary not-in-plan">';
-        html+='<div class="ch-dot" style="background:#ccc">'+cid+'</div>';
+        html+='<div class="ch-dot" style="background:#aaa">'+cid+'</div>';
         html+='<div class="ch-row-name" style="color:#bbb">'+ch.name+'</div>';
         html+='<span class="ch-row-badge badge-ns">🔒 Not in plan</span>';
         html+='</div></div>';
+        continue;
+      }
+
+      // No dates set (testing mode or parent hasn't set dates yet)
+      if(!ac){
+        html+='<div class="ch-row" id="chrow-'+cid+'">';
+        html+='<div class="ch-summary" onclick="toggleChapter('+cid+')">';
+        html+='<div class="ch-dot" style="background:'+color+'">'+cid+'</div>';
+        html+='<div class="ch-row-name">'+ch.name+'</div>';
+        html+='<span class="ch-row-badge '+(explainDone?'badge-on':'badge-ns')+'">'+(explainDone?'Explain ✓':'Not started')+'</span>';
+        html+='<div class="ch-expand-arrow" id="carrow-'+cid+'">▾</div>';
+        html+='</div>';
+        html+='<div class="ch-panel" id="cpanel-'+cid+'">';
+        html+='<div class="ch-btns">';
+        if(!ch.built) html+='<span class="ch-btn coming"><span class="ch-btn-ico">📖</span><span class="ch-btn-name">Explain</span><span class="ch-btn-sub">Coming Soon</span></span>';
+        else if(explainDone) html+='<a href="'+ch.path+'" class="ch-btn done"><span class="ch-btn-ico">📖</span><span class="ch-btn-name">Explain</span><span class="ch-btn-sub">✓ Done · Re-watch</span></a>';
+        else html+='<a href="'+ch.path+'" class="ch-btn active"><span class="ch-btn-ico">📖</span><span class="ch-btn-name">Explain</span><span class="ch-btn-sub">▶ Watch Now</span></a>';
+        if(!explainDone) html+='<span class="ch-btn locked"><span class="ch-btn-ico">✏️</span><span class="ch-btn-name">Practice</span><span class="ch-btn-sub">🔒 After Explain</span></span>';
+        else if(practiceDone) html+='<span class="ch-btn done"><span class="ch-btn-ico">✏️</span><span class="ch-btn-name">Practice</span><span class="ch-btn-sub">✓ Completed</span></span>';
+        else html+='<span class="ch-btn coming"><span class="ch-btn-ico">✏️</span><span class="ch-btn-name">Practice</span><span class="ch-btn-sub">Coming Soon</span></span>';
+        if(!practiceDone) html+='<span class="ch-btn locked"><span class="ch-btn-ico">📝</span><span class="ch-btn-name">Exam</span><span class="ch-btn-sub">🔒 After Practice</span></span>';
+        else if(chapExamDone) html+='<span class="ch-btn done"><span class="ch-btn-ico">📝</span><span class="ch-btn-name">Exam</span><span class="ch-btn-sub">✓ Completed</span></span>';
+        else html+='<span class="ch-btn coming"><span class="ch-btn-ico">📝</span><span class="ch-btn-name">Exam</span><span class="ch-btn-sub">Coming Soon</span></span>';
+        html+='</div></div></div>';
         continue;
       }
 
