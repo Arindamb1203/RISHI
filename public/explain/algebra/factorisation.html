@@ -114,7 +114,7 @@ input.transcript.show{display:block;}
     <div class="ds">Practice and Exam now unlocked.</div>
   </div>
   <div class="rishika-wrap">
-    <div class="rishika-avatar"><img id="rAvatarHeader" class="rishika-avatar-img" src="/explain/Rishika%20Avatar%20Pic/idle.png" alt=""/></div>
+    <div class="rishika-avatar" id="rAvatarHeader" style="font-size:22px;display:flex;align-items:center;justify-content:center;">👩‍🏫</div>
     <div class="rishika-bubble">
       <div class="rishika-name">Rishika</div>
       <div class="rishika-text" id="introText">
@@ -151,7 +151,33 @@ input.transcript.show{display:block;}
   <button class="btn-end" onclick="endBreak()">&#10003; End Break</button>
 </div>
 <div id="rWrap">
-<img id="rCharImg" src="/explain/Rishika%20Avatar%20Pic/idle.png" alt=""/>
+<svg id="rChar" viewBox="0 0 100 130" xmlns="http://www.w3.org/2000/svg" style="width:82px;filter:drop-shadow(0 4px 10px rgba(107,76,42,.3))">
+  <ellipse cx="50" cy="108" rx="30" ry="18" fill="#7c3aed"/>
+  <ellipse cx="50" cy="94" rx="20" ry="16" fill="#8b5cf6"/>
+  <rect x="43" y="80" width="14" height="14" rx="4" fill="#f5c5a3"/>
+  <ellipse cx="50" cy="62" rx="27" ry="28" fill="#f5c5a3"/>
+  <ellipse cx="50" cy="38" rx="27" ry="14" fill="#2d1b69"/>
+  <ellipse cx="26" cy="58" rx="6" ry="14" fill="#2d1b69"/>
+  <ellipse cx="74" cy="58" rx="6" ry="14" fill="#2d1b69"/>
+  <circle cx="50" cy="30" r="8" fill="#2d1b69"/>
+  <ellipse cx="38" cy="61" rx="6.5" ry="7" fill="white"/>
+  <ellipse cx="38" cy="62" rx="4" ry="4.5" fill="#5b21b6"/>
+  <ellipse cx="38" cy="62" rx="2.5" ry="3" fill="#1e0a4d"/>
+  <circle cx="39.5" cy="60" r="1.2" fill="white"/>
+  <ellipse id="rLid1" cx="38" cy="61" rx="6.5" ry="1" fill="#f5c5a3" opacity="0"/>
+  <ellipse cx="62" cy="61" rx="6.5" ry="7" fill="white"/>
+  <ellipse cx="62" cy="62" rx="4" ry="4.5" fill="#5b21b6"/>
+  <ellipse cx="62" cy="62" rx="2.5" ry="3" fill="#1e0a4d"/>
+  <circle cx="63.5" cy="60" r="1.2" fill="white"/>
+  <ellipse id="rLid2" cx="62" cy="61" rx="6.5" ry="1" fill="#f5c5a3" opacity="0"/>
+  <ellipse cx="50" cy="70" rx="3" ry="2" fill="#e8a87c"/>
+  <path id="rMouth" d="M44,76 Q50,80 56,76" fill="none" stroke="#2a1208" stroke-width="2" stroke-linecap="round"/>
+  <ellipse id="rBlush1" cx="28" cy="70" rx="7" ry="4" fill="#ff9999" opacity="0"/>
+  <ellipse id="rBlush2" cx="72" cy="70" rx="7" ry="4" fill="#ff9999" opacity="0"/>
+  <path d="M38 94 L50 102 L62 94" stroke="#6d28d9" stroke-width="2" fill="none"/>
+  <rect x="28" y="116" width="44" height="10" fill="#5b21b6" rx="4"/>
+  <text x="50" y="124" text-anchor="middle" font-family="Nunito" font-size="7" font-weight="900" fill="white">RISHIKA</text>
+</svg>
 </div>
 <script>
 var voicesReady=false,selectedVoice=null;
@@ -183,7 +209,7 @@ var AV={
 };
 var speakAltTmr=null,speakAltFlip=true;
 function factorHasSeen(){return localStorage.getItem("rishi_explain_seen_factorisation")==="true";}
-function setAvatarImgs(src){var h=G("rAvatarHeader"),c=G("rCharImg");if(h)h.src=src;if(c)c.src=src;}
+function setAvatarImgs(src){/* SVG avatar — no src change needed */}
 function stopSpeakAnim(){if(speakAltTmr){clearInterval(speakAltTmr);speakAltTmr=null;}}
 function startSpeakAnim(){
   stopSpeakAnim();
@@ -469,6 +495,8 @@ function showQ(){
     +'<button class="anim-play-btn" id="animPlayBtn" onclick="startAnim()">&#9654; Play Animation</button>'
     +'<button class="steps-btn" id="stepsBtn" onclick="beginSteps()">&#128214; See Step-by-Step</button>';
   G("qArea").appendChild(ap);
+  /* Auto-speak question after brief delay */
+  setTimeout(function(){say(q.qs);},400);
 }
 function startAnim(){
   var q=session[idx];var pb=G("animPlayBtn");if(pb){pb.disabled=true;pb.innerHTML="▶ Playing...";}
@@ -540,7 +568,14 @@ function showConfirm(){
   G("qArea").appendChild(c);c.scrollIntoView({behavior:"smooth",block:"center"});
   var ai=G("answerInput");
   if(ai)ai.addEventListener("keydown",function(ev){if(ev.key==="Enter"){ev.preventDefault();handleAnswer(String(ai.value||"").toLowerCase().trim());}});
-  setTimeout(function(){say(q.cqs);},500);
+  /* Speak the question then auto-start listening */
+  setTimeout(function(){
+    say(q.cqs, function(){
+      setTimeout(function(){
+        if(!listening) startListen();
+      }, 600);
+    });
+  },500);
 }
 function goNext(){idx++;G("qArea").innerHTML="";showQ();window.scrollTo({top:0,behavior:"smooth"});}
 function updateProg(){var pct=Math.round((idx/PER_SESSION)*100);G("progFill").style.width=pct+"%";G("progLabel").textContent="Question "+(idx+1)+" of "+PER_SESSION;G("progPct").textContent=pct+"%";}
@@ -568,36 +603,45 @@ function setupRecog(){
   if(!SR)return;
   recog=new SR();
   recog.lang="en-IN";
-  recog.continuous=false;
-  recog.interimResults=false;
+  recog.continuous=true;
+  recog.interimResults=true;
+  recog.maxAlternatives=3;
   recog.onresult=function(e){
-    voiceHandled=true;
-    var t="";
-    if(e.results&&e.results.length){
-      var last=e.results[e.results.length-1];
-      if(last&&last[0])t=last[0].transcript||"";
+    var interim="", final_t="";
+    for(var i=e.resultIndex;i<e.results.length;i++){
+      var t=e.results[i][0].transcript||"";
+      if(e.results[i].isFinal){final_t+=t;}
+      else{interim+=t;}
     }
-    t=String(t).trim();
-    try{recog.stop();}catch(x){}
-    setListen(false);
     var inp=G("answerInput");
-    if(inp){inp.classList.add("show");inp.value=t;inp.placeholder="Type or speak your answer";}
-    handleAnswer(t.toLowerCase());
+    if(inp){inp.classList.add("show");inp.value=final_t||interim;inp.placeholder="Listening...";}
+    if(final_t.trim()){
+      voiceHandled=true;
+      try{recog.stop();}catch(x){}
+      setListen(false);
+      if(inp){inp.value=final_t.trim();inp.placeholder="Type or speak your answer";}
+      handleAnswer(final_t.trim().toLowerCase());
+    }
   };
   recog.onerror=function(ev){
     voiceHandled=true;
     setListen(false);
     try{recog.stop();}catch(x){}
     rSetAvatar("confused");
-    var msg="Could not hear. Try again!";
-    if(ev&&ev.error)msg="Voice: "+ev.error+". Try again!";
+    var msg="Could not hear — tap mic and speak clearly.";
+    if(ev&&ev.error==="no-speech")msg="No speech detected — tap mic and try again.";
+    else if(ev&&ev.error==="network")msg="Network error — check connection.";
     showNudge(msg);
     setTimeout(function(){rSetAvatar("idle");},2200);
   };
   recog.onend=function(){
-    setListen(false);
-    if(!voiceHandled)rSetAvatar("idle");
-    voiceHandled=false;
+    /* Auto-restart if still in listening mode */
+    if(listening){
+      try{recog.start();}catch(x){setListen(false);}
+    } else {
+      if(!voiceHandled)rSetAvatar("idle");
+      voiceHandled=false;
+    }
   };
 }
 function startListen(){
