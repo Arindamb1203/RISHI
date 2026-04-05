@@ -561,13 +561,24 @@ function nextStep(){
 function showConfirm(){
   var q=session[idx];var c=document.createElement("div");c.className="confirm-wrap";
   c.innerHTML='<div class="confirm-title">&#127908; Rishika asks!</div><div class="confirm-q">'+q.cq+'</div>'
-    +'<button type="button" class="mic-btn" id="micBtn" onclick="startListen()">&#127908; Tap and Speak</button>'
-    +'<input type="text" class="transcript" id="answerInput" autocomplete="off" placeholder="Type or speak your answer" />'
+    +'<div style="display:flex;gap:8px;margin-bottom:8px;">'
+    +'<input type="text" id="answerInput" autocomplete="off" placeholder="Type your answer here..." '
+    +'style="flex:1;font-family:Nunito,sans-serif;font-size:16px;font-weight:700;padding:12px 14px;border:2px solid var(--border-dark);border-radius:12px;outline:none;background:var(--warm-white);color:var(--charcoal);" />'
+    +'<button type="button" onclick="submitTyped()" '
+    +'style="font-family:Nunito,sans-serif;font-size:14px;font-weight:900;padding:12px 18px;border-radius:12px;border:none;background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;cursor:pointer;">Submit</button>'
+    +'</div>'
+    +'<button type="button" class="mic-btn" id="micBtn" onclick="startListen()">🎤 Tap and Speak</button>'
     +'<div class="result-box" id="rbox"></div>'
     +'<div class="nudge" id="nudgeBox"></div><button type="button" class="btn-next" id="btnNext" onclick="goNext()">Next Question &#9654;</button>';
   G("qArea").appendChild(c);c.scrollIntoView({behavior:"smooth",block:"center"});
   var ai=G("answerInput");
-  if(ai)ai.addEventListener("keydown",function(ev){if(ev.key==="Enter"){ev.preventDefault();handleAnswer(String(ai.value||"").toLowerCase().trim());}});
+  if(ai){
+    ai.addEventListener("keydown",function(ev){
+      if(ev.key==="Enter"){ev.preventDefault();submitTyped();}
+    });
+    /* Focus input immediately so student can type right away */
+    setTimeout(function(){ai.focus();},300);
+  }
   /* Speak the question then auto-start listening */
   setTimeout(function(){
     say(q.cqs, function(){
@@ -576,6 +587,13 @@ function showConfirm(){
       }, 600);
     });
   },500);
+}
+function submitTyped(){
+  var ai=G("answerInput");
+  if(!ai) return;
+  var val=String(ai.value||"").trim();
+  if(!val){ai.focus();return;}
+  handleAnswer(val.toLowerCase());
 }
 function goNext(){idx++;G("qArea").innerHTML="";showQ();window.scrollTo({top:0,behavior:"smooth"});}
 function updateProg(){var pct=Math.round((idx/PER_SESSION)*100);G("progFill").style.width=pct+"%";G("progLabel").textContent="Question "+(idx+1)+" of "+PER_SESSION;G("progPct").textContent=pct+"%";}
@@ -614,12 +632,12 @@ function setupRecog(){
       else{interim+=t;}
     }
     var inp=G("answerInput");
-    if(inp){inp.classList.add("show");inp.value=final_t||interim;inp.placeholder="Listening...";}
+    if(inp){inp.value=final_t||interim;inp.placeholder="Listening...";}
     if(final_t.trim()){
       voiceHandled=true;
       try{recog.stop();}catch(x){}
       setListen(false);
-      if(inp){inp.value=final_t.trim();inp.placeholder="Type or speak your answer";}
+      if(inp){inp.value=final_t.trim();}
       handleAnswer(final_t.trim().toLowerCase());
     }
   };
