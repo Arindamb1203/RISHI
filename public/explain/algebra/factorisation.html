@@ -114,7 +114,7 @@ input.transcript.show{display:block;}
     <div class="ds">Practice and Exam now unlocked.</div>
   </div>
   <div class="rishika-wrap">
-    <div class="rishika-avatar"><img id="rAvatarHeader" class="rishika-avatar-img" src="/explain/Rishika Avatar Pic/idle.png" alt=""/></div>
+    <div class="rishika-avatar"><img id="rAvatarHeader" class="rishika-avatar-img" src="/explain/Rishika%20Avatar%20Pic/idle.png" alt=""/></div>
     <div class="rishika-bubble">
       <div class="rishika-name">Rishika</div>
       <div class="rishika-text" id="introText">
@@ -151,7 +151,7 @@ input.transcript.show{display:block;}
   <button class="btn-end" onclick="endBreak()">&#10003; End Break</button>
 </div>
 <div id="rWrap">
-<img id="rCharImg" src="/explain/Rishika Avatar Pic/idle.png" alt=""/>
+<img id="rCharImg" src="/explain/Rishika%20Avatar%20Pic/idle.png" alt=""/>
 </div>
 <script>
 var voicesReady=false,selectedVoice=null;
@@ -174,12 +174,12 @@ window.addEventListener("beforeunload",function(){window.speechSynthesis&&window
 window.addEventListener("pagehide",function(){window.speechSynthesis&&window.speechSynthesis.cancel();});
 
 var AV={
-  idle:"/explain/Rishika Avatar Pic/idle.png",
-  speaking:"/explain/Rishika Avatar Pic/speaking.png",
-  happy:"/explain/Rishika Avatar Pic/happy.png",
-  confused:"/explain/Rishika Avatar Pic/confused.png",
-  listening:"/explain/Rishika Avatar Pic/listening.png",
-  thinking:"/explain/Rishika Avatar Pic/thinking.png"
+  idle:"/explain/Rishika%20Avatar%20Pic/idle.png",
+  speaking:"/explain/Rishika%20Avatar%20Pic/speaking.png",
+  happy:"/explain/Rishika%20Avatar%20Pic/happy.png",
+  confused:"/explain/Rishika%20Avatar%20Pic/confused.png",
+  listening:"/explain/Rishika%20Avatar%20Pic/listening.png",
+  thinking:"/explain/Rishika%20Avatar%20Pic/thinking.png"
 };
 var speakAltTmr=null,speakAltFlip=true;
 function factorHasSeen(){return localStorage.getItem("rishi_explain_seen_factorisation")==="true";}
@@ -471,7 +471,7 @@ function showQ(){
   G("qArea").appendChild(ap);
 }
 function startAnim(){
-  var q=session[idx];var pb=G("animPlayBtn");if(pb){pb.disabled=true;pb.textContent="&#9654; Playing...";}
+  var q=session[idx];var pb=G("animPlayBtn");if(pb){pb.disabled=true;pb.innerHTML="▶ Playing...";}
   getAnimPlay(q.anim)(function(){
     var sb=G("stepsBtn");if(sb)sb.style.display="block";
     var rb=G("animReplay");if(rb)rb.style.display="block";
@@ -485,7 +485,7 @@ function replayAnim(){
   var root=G("animPanelRoot");if(root)root.style.display="";
   G("animReplay").style.display="none";G("stepsBtn").style.display="none";
   var sk=G("btnSkipAnim");if(sk)sk.style.display=factorHasSeen()?"inline-block":"none";
-  var pb=G("animPlayBtn");if(pb){pb.style.display="block";pb.disabled=false;pb.textContent="&#9654; Play Animation";}
+  var pb=G("animPlayBtn");if(pb){pb.style.display="block";pb.disabled=false;pb.innerHTML="▶ Play Animation";}
   setStatus("Tap Play to watch with narration!");
 }
 function skipToSteps(){
@@ -555,7 +555,7 @@ function onComplete(){
   var st=JSON.parse(localStorage.getItem("rishi_current_student")||"{}");
   var nm=st.studentName?st.studentName.split(" ")[0]:"champion";
   var cel=document.createElement("div");cel.className="rishika-wrap";
-  cel.innerHTML='<div class="rishika-avatar"><img class="rishika-avatar-img" src="/explain/Rishika Avatar Pic/happy.png" alt=""/></div>'
+  cel.innerHTML='<div class="rishika-avatar"><img class="rishika-avatar-img" src="/explain/Rishika%20Avatar%20Pic/happy.png" alt=""/></div>'
     +'<div class="rishika-bubble"><div class="rishika-name">Rishika</div>'
     +'<div class="rishika-text" id="celText">&#127881; <span class="hl">'+nm+'</span>, excellent work! You have mastered <span class="hl">Factorisation</span>! &#128537;</div>'
     +'<button class="btn-speak" onclick="sayEl(\'celText\')">&#128266; Hear</button></div>';
@@ -617,7 +617,7 @@ function startListen(){
 function setListen(on){
   listening=on;
   var btn=G("micBtn");
-  if(btn){btn.className="mic-btn"+(on?" on":"");btn.textContent=on?"&#127908; Listening...":"&#127908; Tap and Speak";}
+  if(btn){btn.className="mic-btn"+(on?" on":"");btn.innerHTML=on?"🎤 Listening...":"🎤 Tap and Speak";}
 }
 function handleAnswer(text){
   if(text==null||text===""){
@@ -633,7 +633,7 @@ function handleAnswer(text){
   var rb=G("rbox");
   if(ok){
     rb.className="result-box ok";
-    rb.textContent="&#10003; Correct! Excellent!";
+    rb.innerHTML="✓ Correct! Excellent!";
     G("nudgeBox").classList.remove("show");
     var nb=G("btnNext");if(nb)nb.classList.add("show");
     say("Correct! Excellent!");
@@ -641,14 +641,14 @@ function handleAnswer(text){
   }else{
     nudgeCount++;
     rb.className="result-box no";
-    rb.textContent="&#10006; Not quite. Listen to my hint!";
+    rb.innerHTML="✗ Not quite. Listen to my hint!";
     rSetAvatar("confused");
     var nudge=q.nudges[Math.min(nudgeCount-1,q.nudges.length-1)];
     showNudge(nudge);
     setTimeout(function(){
       say(nudge,function(){rThink();});
     },500);
-    if(nudgeCount>=3){var nb2=G("btnNext");if(nb2){nb2.classList.add("show");nb2.textContent="I Understand &#9654;";}}
+    if(nudgeCount>=3){var nb2=G("btnNext");if(nb2){nb2.classList.add("show");nb2.innerHTML="I Understand ▶";}}
   }
 }
 function showNudge(msg){var n=G("nudgeBox");if(n){n.textContent=msg;n.classList.add("show");}}
