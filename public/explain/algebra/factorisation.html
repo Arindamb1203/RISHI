@@ -443,7 +443,7 @@ function rishiSyncFactorisationPlanAlias(){
 
 function init(){
   rishiSyncFactorisationPlanAlias();
-  rishiCheckPlan("factorisation");
+  rishiCheckPlan(14); /* Chapter 14 — Factorisation */
   var st=JSON.parse(localStorage.getItem("rishi_current_student")||"{}");
   G("sName").textContent=st.studentName?st.studentName.split(" ")[0]:"there";
   var prog=JSON.parse(localStorage.getItem("rishi_progress")||"{}");
@@ -546,7 +546,7 @@ function goNext(){idx++;G("qArea").innerHTML="";showQ();window.scrollTo({top:0,b
 function updateProg(){var pct=Math.round((idx/PER_SESSION)*100);G("progFill").style.width=pct+"%";G("progLabel").textContent="Question "+(idx+1)+" of "+PER_SESSION;G("progPct").textContent=pct+"%";}
 function unlockNav(){G("btnPractice").classList.remove("locked");G("btnExam").classList.remove("locked");G("lockTip").style.display="none";}
 function onComplete(){
-  rishiMarkExplainDone("factorisation");
+  rishiMarkExplainDone(14); /* Chapter 14 — Factorisation */
   localStorage.setItem("rishi_explain_seen_factorisation","true");
   var prog=JSON.parse(localStorage.getItem("rishi_progress")||"{}");
   prog["explain_factorisation_done"]=true;
