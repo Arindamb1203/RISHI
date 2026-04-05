@@ -114,7 +114,7 @@ input.transcript.show{display:block;}
     <div class="ds">Practice and Exam now unlocked.</div>
   </div>
   <div class="rishika-wrap">
-    <div class="rishika-avatar"><img id="rAvatarHeader" class="rishika-avatar-img" src="/explain/rishika-avatars/idle.png" alt=""/></div>
+    <div class="rishika-avatar"><img id="rAvatarHeader" class="rishika-avatar-img" src="/explain/rishika-avatars/idle.svg" alt="Rishika"/></div>
     <div class="rishika-bubble">
       <div class="rishika-name">Rishika</div>
       <div class="rishika-text" id="introText">
@@ -151,7 +151,7 @@ input.transcript.show{display:block;}
   <button class="btn-end" onclick="endBreak()">&#10003; End Break</button>
 </div>
 <div id="rWrap">
-<img id="rCharImg" src="/explain/rishika-avatars/idle.png" style="width:82px;height:82px;object-fit:cover;border-radius:12px;filter:drop-shadow(0 4px 10px rgba(107,76,42,.3));display:block;" alt=""/>
+<img id="rCharImg" src="/explain/rishika-avatars/idle.svg" style="width:82px;height:82px;object-fit:cover;border-radius:12px;filter:drop-shadow(0 4px 10px rgba(107,76,42,.3));display:block;" alt="Rishika"/>
 </div>
 <script>
 var voicesReady=false,selectedVoice=null;
@@ -174,12 +174,12 @@ window.addEventListener("beforeunload",function(){window.speechSynthesis&&window
 window.addEventListener("pagehide",function(){window.speechSynthesis&&window.speechSynthesis.cancel();});
 
 var AV={
-  idle:"/explain/rishika-avatars/idle.png",
-  speaking:"/explain/rishika-avatars/speaking.png",
-  happy:"/explain/rishika-avatars/happy.png",
-  confused:"/explain/rishika-avatars/confused.png",
-  listening:"/explain/rishika-avatars/listening.png",
-  thinking:"/explain/rishika-avatars/thinking.png"
+  idle:"/explain/rishika-avatars/idle.svg",
+  speaking:"/explain/rishika-avatars/speaking.svg",
+  happy:"/explain/rishika-avatars/happy.svg",
+  confused:"/explain/rishika-avatars/confused.svg",
+  listening:"/explain/rishika-avatars/listening.svg",
+  thinking:"/explain/rishika-avatars/thinking.svg"
 };
 var speakAltTmr=null,speakAltFlip=true;
 function factorHasSeen(){return localStorage.getItem("rishi_explain_seen_factorisation")==="true";}
@@ -579,16 +579,19 @@ function showConfirm(){
     /* Focus input immediately so student can type right away */
     setTimeout(function(){ai.focus();},300);
   }
-  /* Speak the question then auto-start listening */
+  /* Speak the question; start mic after TTS ends + pause (avoids echo / missed finals) */
   setTimeout(function(){
     say(q.cqs, function(){
       setTimeout(function(){
-        if(!listening) startListen();
-      }, 600);
+        if(G("answerInput")&&!listening) startListen();
+      }, 900);
     });
   },500);
 }
 function submitTyped(){
+  if(recog && listening){try{recog.stop();}catch(x){}}
+  listening=false;
+  setListen(false);
   var ai=G("answerInput");
   if(!ai) return;
   var val=String(ai.value||"").trim();
@@ -608,7 +611,7 @@ function onComplete(){
   var st=JSON.parse(localStorage.getItem("rishi_current_student")||"{}");
   var nm=st.studentName?st.studentName.split(" ")[0]:"champion";
   var cel=document.createElement("div");cel.className="rishika-wrap";
-  cel.innerHTML='<div class="rishika-avatar"><img class="rishika-avatar-img" src="/explain/rishika-avatars/happy.png" alt=""/></div>'
+  cel.innerHTML='<div class="rishika-avatar"><img class="rishika-avatar-img" src="/explain/rishika-avatars/happy.svg" alt=""/></div>'
     +'<div class="rishika-bubble"><div class="rishika-name">Rishika</div>'
     +'<div class="rishika-text" id="celText">&#127881; <span class="hl">'+nm+'</span>, excellent work! You have mastered <span class="hl">Factorisation</span>! &#128537;</div>'
     +'<button class="btn-speak" onclick="sayEl(\'celText\')">&#128266; Hear</button></div>';
@@ -621,50 +624,70 @@ function setupRecog(){
   if(!SR)return;
   recog=new SR();
   recog.lang="en-IN";
-  recog.continuous=true;
-  recog.interimResults=true;
-  recog.maxAlternatives=3;
+  /* continuous + auto-restart breaks finals on many browsers; single-utterance mode is reliable */
+  recog.continuous=false;
+  recog.interimResults=false;
+  recog.maxAlternatives=1;
   recog.onresult=function(e){
-    var interim="", final_t="";
-    for(var i=e.resultIndex;i<e.results.length;i++){
-      var t=e.results[i][0].transcript||"";
-      if(e.results[i].isFinal){final_t+=t;}
-      else{interim+=t;}
+    var final_t="",i,r;
+    for(i=e.resultIndex;i<e.results.length;i++){
+      r=e.results[i];
+      if(r.isFinal)final_t+=(r[0]&&r[0].transcript)?r[0].transcript:"";
+    }
+    final_t=final_t.trim();
+    if(!final_t&&e.results.length>0){
+      r=e.results[e.results.length-1];
+      if(r[0]&&r[0].transcript)final_t=String(r[0].transcript).trim();
     }
     var inp=G("answerInput");
-    if(inp){inp.value=final_t||interim;inp.placeholder="Listening...";}
-    if(final_t.trim()){
-      voiceHandled=true;
-      try{recog.stop();}catch(x){}
-      setListen(false);
-      if(inp){inp.value=final_t.trim();}
-      handleAnswer(final_t.trim().toLowerCase());
-    }
+    if(inp&&final_t)inp.value=final_t;
+    if(!final_t)return;
+    voiceHandled=true;
+    listening=false;
+    try{recog.stop();}catch(x){}
+    setListen(false);
+    handleAnswer(final_t.toLowerCase());
+  };
+  recog.onnomatch=function(){
+    voiceHandled=true;
+    listening=false;
+    setListen(false);
+    showNudge("Did not catch that — tap the mic and speak a bit louder.");
+    rSetAvatar("idle");
   };
   recog.onerror=function(ev){
     voiceHandled=true;
-    setListen(false);
+    listening=false;
     try{recog.stop();}catch(x){}
+    setListen(false);
     rSetAvatar("confused");
     var msg="Could not hear — tap mic and speak clearly.";
-    if(ev&&ev.error==="no-speech")msg="No speech detected — tap mic and try again.";
-    else if(ev&&ev.error==="network")msg="Network error — check connection.";
+    if(ev&&ev.error==="no-speech")msg="No speech heard — tap mic, wait for Listening, then speak.";
+    else if(ev&&ev.error==="aborted"){listening=false;setListen(false);return;}
+    else if(ev&&ev.error==="not-allowed")msg="Microphone blocked — allow mic for this site in browser settings.";
+    else if(ev&&ev.error==="network")msg="Network error — speech service needs internet.";
     showNudge(msg);
     setTimeout(function(){rSetAvatar("idle");},2200);
   };
   recog.onend=function(){
-    /* Auto-restart if still in listening mode */
-    if(listening){
-      try{recog.start();}catch(x){setListen(false);}
-    } else {
-      if(!voiceHandled)rSetAvatar("idle");
-      voiceHandled=false;
-    }
+    var hadResult=voiceHandled;
+    listening=false;
+    setListen(false);
+    if(!hadResult)rSetAvatar("idle");
+    voiceHandled=false;
   };
 }
 function startListen(){
   if(!recog){showNudge("Voice needs Chrome!");return;}
-  if(listening){try{recog.stop();}catch(x){}return;}
+  if(listening){
+    try{recog.stop();}catch(x){}
+    listening=false;
+    setListen(false);
+    rSetAvatar("idle");
+    return;
+  }
+  if(window.speechSynthesis)window.speechSynthesis.cancel();
+  rStopTalk();
   voiceHandled=false;
   setListen(true);
   rSetAvatar("listening");
@@ -677,11 +700,17 @@ function startListen(){
   }
 }
 function setListen(on){
-  listening=on;
+  listening=!!on;
   var btn=G("micBtn");
-  if(btn){btn.className="mic-btn"+(on?" on":"");btn.innerHTML=on?"🎤 Listening...":"🎤 Tap and Speak";}
+  if(btn){
+    btn.className="mic-btn"+(listening?" on":"");
+    btn.innerHTML=listening?"🎤 Listening...":"🎤 Tap and Speak";
+  }
 }
 function handleAnswer(text){
+  if(recog && listening){try{recog.stop();}catch(x){}}
+  listening=false;
+  setListen(false);
   if(text==null||text===""){
     var inp=G("answerInput");
     text=inp?String(inp.value).toLowerCase().trim():"";
