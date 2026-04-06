@@ -100,8 +100,8 @@ input.transcript.show{display:block;}
   <div class="logo-sm">RISHI</div>
   <div class="topbar-center">&#9670; Factorisation</div>
   <div class="topbar-right">
-    <button class="btn-topbar" onclick="startListening()" >&#9749; Break</button>
-    <button class="btn-topbar back" onclick="startListening()" >&#8592; Syllabus</button>
+    <button class="btn-topbar" onclick="openBreak()">&#9749; Break</button>
+    <button class="btn-topbar back" onclick="history.back()">&#8592; Syllabus</button>
   </div>
 </div>
 <div class="prog-wrap">
@@ -123,32 +123,32 @@ input.transcript.show{display:block;}
         We will master the HCF method, splitting the middle term,
         difference of squares, and grouping. Let us begin! &#127775;
       </div>
-      <button class="btn-speak" onclick="startListening()" >&#128266; Hear Rishika</button>
+      <button class="btn-speak" onclick="sayEl('introText')">&#128266; Hear Rishika</button>
     </div>
   </div>
   <div id="qArea"></div>
 </div>
 <div class="bottom-nav">
   <div class="lock-tip" id="lockTip">&#9757; Complete explanations to unlock Practice and Exam</div>
-  <button class="btn-nav practice locked" id="btnPractice" onclick="startListening()" >&#9999;&#65039; Practice</button>
-  <button class="btn-nav exam locked" id="btnExam" onclick="startListening()" >&#128221; Exam</button>
+  <button class="btn-nav practice locked" id="btnPractice" onclick="goPractice()">&#9999;&#65039; Practice</button>
+  <button class="btn-nav exam locked" id="btnExam" onclick="goExam()">&#128221; Exam</button>
 </div>
 <div class="overlay" id="breakOv">
   <div class="break-box">
     <div class="break-title">Break</div>
     <div class="break-sub">Choose &mdash; timer starts</div>
     <div class="break-opts">
-      <button class="break-opt" onclick="startListening()" >&#128167; Water</button>
-      <button class="break-opt" onclick="startListening()" >&#128701; Washroom</button>
-      <button class="break-opt" onclick="startListening()" >&#127939; Physical</button>
+      <button class="break-opt" onclick="startBreak('Water')">&#128167; Water</button>
+      <button class="break-opt" onclick="startBreak('Washroom')">&#128701; Washroom</button>
+      <button class="break-opt" onclick="startBreak('Physical')">&#127939; Physical</button>
     </div>
-    <button class="break-opt" style="color:var(--soft)" onclick="startListening()" >Cancel</button>
+    <button class="break-opt" style="color:var(--soft)" onclick="closeBreak()">Cancel</button>
   </div>
 </div>
 <div class="timer-screen" id="timerScreen">
   <div class="timer-reason" id="timerLbl">Break</div>
   <div class="timer-num" id="timerNum">00:00</div>
-  <button class="btn-end" onclick="startListening()" >&#10003; End Break</button>
+  <button class="btn-end" onclick="endBreak()">&#10003; End Break</button>
 </div>
 <div id="rWrap">
 <img id="rCharImg" src="/explain/rishika-avatars/idle.svg" style="width:82px;height:82px;object-fit:cover;border-radius:12px;filter:drop-shadow(0 4px 10px rgba(107,76,42,.3));display:block;" alt="Rishika"/>
@@ -486,14 +486,14 @@ function showQ(){
   if(idx>=session.length){onComplete();return;}
   var q=session[idx];stepIdx=0;nudgeCount=0;updateProg();G("qArea").innerHTML="";clearAt();
   var qc=document.createElement("div");qc.className="q-card";
-  qc.innerHTML='<div class="q-label">Question '+(idx+1)+' of '+PER_SESSION+'</div><div class="q-text">'+q.q+'</div><button class="btn-speak" onclick="startListening()" >&#128266; Hear</button>';
+  qc.innerHTML='<div class="q-label">Question '+(idx+1)+' of '+PER_SESSION+'</div><div class="q-text">'+q.q+'</div><button class="btn-speak" onclick="say(session[idx].qs)">&#128266; Hear</button>';
   G("qArea").appendChild(qc);
   var ap=document.createElement("div");ap.className="anim-panel";ap.id="animPanelRoot";
-  ap.innerHTML='<div class="anim-header"><span class="anim-header-lbl">&#127909; Live Animation</span><button type="button" class="anim-replay" id="btnSkipAnim" onclick="startListening()"  style="'+(factorHasSeen()?"display:inline-block;":"display:none;")+'">Skip</button><button class="anim-replay" id="animReplay" onclick="startListening()" >&#8635; Replay</button></div>'
+  ap.innerHTML='<div class="anim-header"><span class="anim-header-lbl">&#127909; Live Animation</span><button type="button" class="anim-replay" id="btnSkipAnim" onclick="skipToSteps()"  style="'+(factorHasSeen()?"display:inline-block;":"display:none;")+'">Skip</button><button class="anim-replay" id="animReplay" onclick="replayAnim()">&#8635; Replay</button></div>'
     +'<div class="anim-canvas" id="animCanvas">'+getAnimSVG(q.anim)+'</div>'
     +'<div class="anim-status" id="animStatus">Tap Play to watch with narration!</div>'
-    +'<button class="anim-play-btn" id="animPlayBtn" onclick="startListening()" >&#9654; Play Animation</button>'
-    +'<button class="steps-btn" id="stepsBtn" onclick="startListening()" >&#128214; See Step-by-Step</button>';
+    +'<button class="anim-play-btn" id="animPlayBtn" onclick="startAnim()">&#9654; Play Animation</button>'
+    +'<button class="steps-btn" id="stepsBtn" onclick="beginSteps()">&#128214; See Step-by-Step</button>';
   G("qArea").appendChild(ap);
   /* Auto-speak question after brief delay */
   setTimeout(function(){say(q.qs);},400);
@@ -525,8 +525,8 @@ function beginSteps(){
   var q=session[idx];var sc=document.createElement("div");sc.className="q-card";
   var seen=factorHasSeen();
   sc.innerHTML='<div class="q-label">&#128214; Step-by-Step</div><div id="stepsWrap"></div>'
-    +'<button type="button" class="btn-speak" id="nxtStepBtn" onclick="startListening()"  style="margin-top:10px;'+(seen?"":"display:none;")+'">&#9654; Next Step</button>'
-    +'<button type="button" class="btn-speak" id="btnSkipSteps" onclick="startListening()"  style="margin-top:8px;'+(seen?"":"display:none;")+'">Skip</button>';
+    +'<button type="button" class="btn-speak" id="nxtStepBtn" onclick="nextStep()"  style="margin-top:10px;'+(seen?"":"display:none;")+'">&#9654; Next Step</button>'
+    +'<button type="button" class="btn-speak" id="btnSkipSteps" onclick="skipStepsToConfirm()"  style="margin-top:8px;'+(seen?"":"display:none;")+'">Skip</button>';
   G("qArea").appendChild(sc);sc.scrollIntoView({behavior:"smooth",block:"start"});
   G("stepsBtn").style.display="none";setTimeout(nextStep,350);
 }
@@ -564,12 +564,12 @@ function showConfirm(){
     +'<div style="display:flex;gap:8px;margin-bottom:8px;">'
     +'<input type="text" id="answerInput" autocomplete="off" placeholder="Type your answer here..." '
     +'style="flex:1;font-family:Nunito,sans-serif;font-size:16px;font-weight:700;padding:12px 14px;border:2px solid var(--border-dark);border-radius:12px;outline:none;background:var(--warm-white);color:var(--charcoal);" />'
-    +'<button type="button" onclick="startListening()"  '
+    +'<button type="button" onclick="submitTyped()"  '
     +'style="font-family:Nunito,sans-serif;font-size:14px;font-weight:900;padding:12px 18px;border-radius:12px;border:none;background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;cursor:pointer;">Submit</button>'
     +'</div>'
-    +'<button type="button" class="mic-btn" id="micBtn" onclick="startListening()" >🎤 Tap and Speak</button>'
+    +'<button type="button" class="mic-btn" id="micBtn" onclick="startListen()">🎤 Tap and Speak</button>'
     +'<div class="result-box" id="rbox"></div>'
-    +'<div class="nudge" id="nudgeBox"></div><button type="button" class="btn-next" id="btnNext" onclick="startListening()" >Next Question &#9654;</button>';
+    +'<div class="nudge" id="nudgeBox"></div><button type="button" class="btn-next" id="btnNext" onclick="goNext()">Next Question &#9654;</button>';
   G("qArea").appendChild(c);c.scrollIntoView({behavior:"smooth",block:"center"});
   var ai=G("answerInput");
   if(ai){
@@ -614,89 +614,40 @@ function onComplete(){
   cel.innerHTML='<div class="rishika-avatar"><img class="rishika-avatar-img" src="/explain/rishika-avatars/happy.svg" alt=""/></div>'
     +'<div class="rishika-bubble"><div class="rishika-name">Rishika</div>'
     +'<div class="rishika-text" id="celText">&#127881; <span class="hl">'+nm+'</span>, excellent work! You have mastered <span class="hl">Factorisation</span>! &#128537;</div>'
-    +'<button class="btn-speak" onclick="startListening()" >&#128266; Hear</button></div>';
+    +'<button class="btn-speak" onclick="sayEl(\'celText\')">&#128266; Hear</button></div>';
   G("qArea").appendChild(cel);setTimeout(function(){sayEl("celText");rHappy();},400);
 }
 function goPractice(){if(!completed){alert("Complete explanations first!");return;}location.href="/practice.html?chapter=factorisation";}
 function goExam(){if(!completed){alert("Complete explanations first!");return;}location.href="/exam.html?chapter=factorisation";}
-function {
-  var SR=window.
-  recog=new SR();
-  recog.lang="en-IN";
-  /* continuous + auto-restart breaks finals on many browsers; single-utterance mode is reliable */
-  recog.continuous=false;
-  recog.interimResults=false;
-  recog.maxAlternatives=1;
-  recog.onresult=function(e){
-    var final_t="",i,r;
-    for(i=e.resultIndex;i<e.results.length;i++){
-      r=e.results[i];
-      if(r.isFinal)final_t+=(r[0]&&r[0].transcript)?r[0].transcript:"";
-    }
-    final_t=final_t.trim();
-    if(!final_t&&e.results.length>0){
-      r=e.results[e.results.length-1];
-      if(r[0]&&r[0].transcript)final_t=String(r[0].transcript).trim();
-    }
-    var inp=G("answerInput");
-    if(inp&&final_t)inp.value=final_t;
-    if(!final_t)return;
-    voiceHandled=true;
-    listening=false;
-    try{recog.stop();}catch(x){}
-    setListen(false);
-    handleAnswer(final_t.toLowerCase());
-  };
-  recog.onnomatch=function(){
-    voiceHandled=true;
-    listening=false;
-    setListen(false);
-    showNudge("Did not catch that — tap the mic and speak a bit louder.");
-    rSetAvatar("idle");
-  };
-  recog.onerror=function(ev){
-    voiceHandled=true;
-    listening=false;
-    try{recog.stop();}catch(x){}
-    setListen(false);
-    rSetAvatar("confused");
-    var msg="Could not hear — tap mic and speak clearly.";
-    if(ev&&ev.error==="no-speech")msg="No speech heard — tap mic, wait for Listening, then speak.";
-    else if(ev&&ev.error==="aborted"){listening=false;setListen(false);return;}
-    else if(ev&&ev.error==="not-allowed")msg="Microphone blocked — allow mic for this site in browser settings.";
-    else if(ev&&ev.error==="network")msg="Network error — speech service needs internet.";
-    showNudge(msg);
-    setTimeout(function(){rSetAvatar("idle");},2200);
-  };
-  recog.onend=function(){
-    var hadResult=voiceHandled;
-    listening=false;
-    setListen(false);
-    if(!hadResult)rSetAvatar("idle");
-    voiceHandled=false;
-  };
-}
+/* Google Speech API is used for voice input — no Web Speech API recog needed */
+function setupRecog(){ recog = null; /* Google STT handles everything */ }
 function startListen(){
-  if(!recog){showNudge("Voice needs Chrome!");return;}
+  /* Stop TTS and any existing animation */
+  if(window.speechSynthesis) window.speechSynthesis.cancel();
+  rStopTalk();
+  /* Toggle off if already listening */
   if(listening){
-    try{recog.stop();}catch(x){}
-    listening=false;
+    listening = false;
     setListen(false);
     rSetAvatar("idle");
     return;
   }
-  if(window.speechSynthesis)window.speechSynthesis.cancel();
-  rStopTalk();
-  voiceHandled=false;
+  /* Set up answer input UI */
+  voiceHandled = false;
+  var inp = G("answerInput");
+  if(inp){ inp.classList.add("show"); inp.value = ""; inp.placeholder = "Listening..."; }
   setListen(true);
   rSetAvatar("listening");
-  var inp=G("answerInput");
-  if(inp){inp.classList.add("show");inp.value="";inp.placeholder="Listening...";}
-  try{recog.start();}catch(e){
+  /* Wire the Google STT result back to handleAnswer for this question */
+  window.onVoiceAnswer = function(text){
     setListen(false);
     rSetAvatar("idle");
-    showNudge("Mic busy — tap again.");
-  }
+    listening = false;
+    if(text){ handleAnswer(text); }
+    else { showNudge("Did not catch that — tap the mic and try again."); }
+  };
+  /* Start Google Speech API recording */
+  startListening();
 }
 function setListen(on){
   listening=!!on;
@@ -749,73 +700,6 @@ function endBreak(){clearInterval(breakTmr);G("timerScreen").classList.remove("s
 window.onload=init;
 </script>
 
-<script>
-// === FIXED SPEECH SYSTEM ===
-let recognition;
-let isListening = false;
-let finalTranscript = "";
-
-// Normalize answers (2 vs two etc)
-function normalizeAnswer(text){
-  text = text.toLowerCase();
-  text = text.replace(/\btwo\b/g, "2");
-  text = text.replace(/\bone\b/g, "1");
-  text = text.replace(/\bthree\b/g, "3");
-  text = text.replace(/[^a-z0-9\(\)\+\-]/g, "");
-  return text;
-}
-
-// Stop TTS before listening
-function stopTTS(){
-  if(window.speechSynthesis){
-    window.speechSynthesis.cancel();
-  }
-}
-
-// Setup recognition
-function {
-  const 
-
-  recognition = new 
-  recognition.continuous = false;
-  recognition.interimResults = false;
-  recognition.lang = "en-IN";
-
-  recognition.onstart = () => {
-    isListening = true;
-    finalTranscript = "";
-    stopTTS();
-  };
-
-  recognition.onresult = (event) => {
-    let text = event.results[0][0].transcript;
-    finalTranscript = normalizeAnswer(text);
-    console.log("Captured:", finalTranscript);
-  };
-
-  recognition.onend = () => {
-    isListening = false;
-  };
-
-  recognition.onerror = () => {
-    isListening = false;
-  };
-}
-
-// Safe start
-function startListening(){
-  if(!recognition) return;
-  if(isListening) recognition.stop();
-  setTimeout(()=>{
-    recognition.start();
-  },200);
-}
-
-// Init override
-window.addEventListener("load", ()=>{
-  
-});
-</script>
 
 
 <script>
@@ -841,23 +725,36 @@ function normalize(text){
 
 async function startListening(){
   stopTTS();
-  const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-  mediaRecorder = new MediaRecorder(stream);
-  audioChunks = [];
+  try {
+    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    mediaRecorder = new MediaRecorder(stream);
+    audioChunks = [];
 
-  mediaRecorder.ondataavailable = e => audioChunks.push(e.data);
+    mediaRecorder.ondataavailable = e => audioChunks.push(e.data);
 
-  mediaRecorder.onstop = async () => {
-    const blob = new Blob(audioChunks, { type: "audio/webm" });
-    const base64 = await blobToBase64(blob);
-    const text = await sendToGoogle(base64);
-    const final = normalize(text);
-    console.log("FINAL:", final);
-    if(window.onVoiceAnswer){ window.onVoiceAnswer(final); }
-  };
+    mediaRecorder.onstop = async () => {
+      /* Stop all mic tracks */
+      stream.getTracks().forEach(t => t.stop());
+      const blob = new Blob(audioChunks, { type: "audio/webm" });
+      const base64 = await blobToBase64(blob);
+      const text = await sendToGoogle(base64);
+      const final = normalize(text);
+      console.log("FINAL:", final);
+      /* Update answer input with what was heard */
+      const inp = document.getElementById("answerInput");
+      if(inp && final) inp.value = final;
+      if(window.onVoiceAnswer){ window.onVoiceAnswer(final); }
+    };
 
-  mediaRecorder.start();
-  setTimeout(()=>mediaRecorder.stop(), 3500);
+    mediaRecorder.start();
+    setTimeout(()=>{ if(mediaRecorder && mediaRecorder.state === "recording") mediaRecorder.stop(); }, 3500);
+  } catch(err) {
+    console.error("Mic error:", err);
+    /* Reset UI on failure */
+    if(window.onVoiceAnswer) window.onVoiceAnswer("");
+    const nudge = document.getElementById("nudgeBox");
+    if(nudge){ nudge.textContent = "Microphone blocked — please allow mic access in browser settings."; nudge.classList.add("show"); }
+  }
 }
 
 function blobToBase64(blob){
