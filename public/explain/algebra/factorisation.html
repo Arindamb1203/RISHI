@@ -100,8 +100,8 @@ input.transcript.show{display:block;}
   <div class="logo-sm">RISHI</div>
   <div class="topbar-center">&#9670; Factorisation</div>
   <div class="topbar-right">
-    <button class="btn-topbar" onclick="openBreak()">&#9749; Break</button>
-    <button class="btn-topbar back" onclick="location.href='/syllabus.html'">&#8592; Syllabus</button>
+    <button class="btn-topbar" onclick="startListening()" >&#9749; Break</button>
+    <button class="btn-topbar back" onclick="startListening()" >&#8592; Syllabus</button>
   </div>
 </div>
 <div class="prog-wrap">
@@ -123,32 +123,32 @@ input.transcript.show{display:block;}
         We will master the HCF method, splitting the middle term,
         difference of squares, and grouping. Let us begin! &#127775;
       </div>
-      <button class="btn-speak" onclick="say(G('introText').innerText)">&#128266; Hear Rishika</button>
+      <button class="btn-speak" onclick="startListening()" >&#128266; Hear Rishika</button>
     </div>
   </div>
   <div id="qArea"></div>
 </div>
 <div class="bottom-nav">
   <div class="lock-tip" id="lockTip">&#9757; Complete explanations to unlock Practice and Exam</div>
-  <button class="btn-nav practice locked" id="btnPractice" onclick="goPractice()">&#9999;&#65039; Practice</button>
-  <button class="btn-nav exam locked" id="btnExam" onclick="goExam()">&#128221; Exam</button>
+  <button class="btn-nav practice locked" id="btnPractice" onclick="startListening()" >&#9999;&#65039; Practice</button>
+  <button class="btn-nav exam locked" id="btnExam" onclick="startListening()" >&#128221; Exam</button>
 </div>
 <div class="overlay" id="breakOv">
   <div class="break-box">
     <div class="break-title">Break</div>
     <div class="break-sub">Choose &mdash; timer starts</div>
     <div class="break-opts">
-      <button class="break-opt" onclick="startBreak('Water')">&#128167; Water</button>
-      <button class="break-opt" onclick="startBreak('Washroom')">&#128701; Washroom</button>
-      <button class="break-opt" onclick="startBreak('Physical')">&#127939; Physical</button>
+      <button class="break-opt" onclick="startListening()" >&#128167; Water</button>
+      <button class="break-opt" onclick="startListening()" >&#128701; Washroom</button>
+      <button class="break-opt" onclick="startListening()" >&#127939; Physical</button>
     </div>
-    <button class="break-opt" style="color:var(--soft)" onclick="closeBreak()">Cancel</button>
+    <button class="break-opt" style="color:var(--soft)" onclick="startListening()" >Cancel</button>
   </div>
 </div>
 <div class="timer-screen" id="timerScreen">
   <div class="timer-reason" id="timerLbl">Break</div>
   <div class="timer-num" id="timerNum">00:00</div>
-  <button class="btn-end" onclick="endBreak()">&#10003; End Break</button>
+  <button class="btn-end" onclick="startListening()" >&#10003; End Break</button>
 </div>
 <div id="rWrap">
 <img id="rCharImg" src="/explain/rishika-avatars/idle.svg" style="width:82px;height:82px;object-fit:cover;border-radius:12px;filter:drop-shadow(0 4px 10px rgba(107,76,42,.3));display:block;" alt="Rishika"/>
@@ -486,14 +486,14 @@ function showQ(){
   if(idx>=session.length){onComplete();return;}
   var q=session[idx];stepIdx=0;nudgeCount=0;updateProg();G("qArea").innerHTML="";clearAt();
   var qc=document.createElement("div");qc.className="q-card";
-  qc.innerHTML='<div class="q-label">Question '+(idx+1)+' of '+PER_SESSION+'</div><div class="q-text">'+q.q+'</div><button class="btn-speak" onclick="say(session[idx].qs)">&#128266; Hear</button>';
+  qc.innerHTML='<div class="q-label">Question '+(idx+1)+' of '+PER_SESSION+'</div><div class="q-text">'+q.q+'</div><button class="btn-speak" onclick="startListening()" >&#128266; Hear</button>';
   G("qArea").appendChild(qc);
   var ap=document.createElement("div");ap.className="anim-panel";ap.id="animPanelRoot";
-  ap.innerHTML='<div class="anim-header"><span class="anim-header-lbl">&#127909; Live Animation</span><button type="button" class="anim-replay" id="btnSkipAnim" onclick="skipToSteps()" style="'+(factorHasSeen()?"display:inline-block;":"display:none;")+'">Skip</button><button class="anim-replay" id="animReplay" onclick="replayAnim()">&#8635; Replay</button></div>'
+  ap.innerHTML='<div class="anim-header"><span class="anim-header-lbl">&#127909; Live Animation</span><button type="button" class="anim-replay" id="btnSkipAnim" onclick="startListening()"  style="'+(factorHasSeen()?"display:inline-block;":"display:none;")+'">Skip</button><button class="anim-replay" id="animReplay" onclick="startListening()" >&#8635; Replay</button></div>'
     +'<div class="anim-canvas" id="animCanvas">'+getAnimSVG(q.anim)+'</div>'
     +'<div class="anim-status" id="animStatus">Tap Play to watch with narration!</div>'
-    +'<button class="anim-play-btn" id="animPlayBtn" onclick="startAnim()">&#9654; Play Animation</button>'
-    +'<button class="steps-btn" id="stepsBtn" onclick="beginSteps()">&#128214; See Step-by-Step</button>';
+    +'<button class="anim-play-btn" id="animPlayBtn" onclick="startListening()" >&#9654; Play Animation</button>'
+    +'<button class="steps-btn" id="stepsBtn" onclick="startListening()" >&#128214; See Step-by-Step</button>';
   G("qArea").appendChild(ap);
   /* Auto-speak question after brief delay */
   setTimeout(function(){say(q.qs);},400);
@@ -525,8 +525,8 @@ function beginSteps(){
   var q=session[idx];var sc=document.createElement("div");sc.className="q-card";
   var seen=factorHasSeen();
   sc.innerHTML='<div class="q-label">&#128214; Step-by-Step</div><div id="stepsWrap"></div>'
-    +'<button type="button" class="btn-speak" id="nxtStepBtn" onclick="nextStep()" style="margin-top:10px;'+(seen?"":"display:none;")+'">&#9654; Next Step</button>'
-    +'<button type="button" class="btn-speak" id="btnSkipSteps" onclick="skipStepsToConfirm()" style="margin-top:8px;'+(seen?"":"display:none;")+'">Skip</button>';
+    +'<button type="button" class="btn-speak" id="nxtStepBtn" onclick="startListening()"  style="margin-top:10px;'+(seen?"":"display:none;")+'">&#9654; Next Step</button>'
+    +'<button type="button" class="btn-speak" id="btnSkipSteps" onclick="startListening()"  style="margin-top:8px;'+(seen?"":"display:none;")+'">Skip</button>';
   G("qArea").appendChild(sc);sc.scrollIntoView({behavior:"smooth",block:"start"});
   G("stepsBtn").style.display="none";setTimeout(nextStep,350);
 }
@@ -564,12 +564,12 @@ function showConfirm(){
     +'<div style="display:flex;gap:8px;margin-bottom:8px;">'
     +'<input type="text" id="answerInput" autocomplete="off" placeholder="Type your answer here..." '
     +'style="flex:1;font-family:Nunito,sans-serif;font-size:16px;font-weight:700;padding:12px 14px;border:2px solid var(--border-dark);border-radius:12px;outline:none;background:var(--warm-white);color:var(--charcoal);" />'
-    +'<button type="button" onclick="submitTyped()" '
+    +'<button type="button" onclick="startListening()"  '
     +'style="font-family:Nunito,sans-serif;font-size:14px;font-weight:900;padding:12px 18px;border-radius:12px;border:none;background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;cursor:pointer;">Submit</button>'
     +'</div>'
-    +'<button type="button" class="mic-btn" id="micBtn" onclick="startListen()">🎤 Tap and Speak</button>'
+    +'<button type="button" class="mic-btn" id="micBtn" onclick="startListening()" >🎤 Tap and Speak</button>'
     +'<div class="result-box" id="rbox"></div>'
-    +'<div class="nudge" id="nudgeBox"></div><button type="button" class="btn-next" id="btnNext" onclick="goNext()">Next Question &#9654;</button>';
+    +'<div class="nudge" id="nudgeBox"></div><button type="button" class="btn-next" id="btnNext" onclick="startListening()" >Next Question &#9654;</button>';
   G("qArea").appendChild(c);c.scrollIntoView({behavior:"smooth",block:"center"});
   var ai=G("answerInput");
   if(ai){
@@ -614,12 +614,12 @@ function onComplete(){
   cel.innerHTML='<div class="rishika-avatar"><img class="rishika-avatar-img" src="/explain/rishika-avatars/happy.svg" alt=""/></div>'
     +'<div class="rishika-bubble"><div class="rishika-name">Rishika</div>'
     +'<div class="rishika-text" id="celText">&#127881; <span class="hl">'+nm+'</span>, excellent work! You have mastered <span class="hl">Factorisation</span>! &#128537;</div>'
-    +'<button class="btn-speak" onclick="sayEl(\'celText\')">&#128266; Hear</button></div>';
+    +'<button class="btn-speak" onclick="startListening()" >&#128266; Hear</button></div>';
   G("qArea").appendChild(cel);setTimeout(function(){sayEl("celText");rHappy();},400);
 }
 function goPractice(){if(!completed){alert("Complete explanations first!");return;}location.href="/practice.html?chapter=factorisation";}
 function goExam(){if(!completed){alert("Complete explanations first!");return;}location.href="/exam.html?chapter=factorisation";}
-function setupRecog(){
+function {
   var SR=window.
   recog=new SR();
   recog.lang="en-IN";
@@ -773,7 +773,7 @@ function stopTTS(){
 }
 
 // Setup recognition
-function setupRecog(){
+function {
   const 
 
   recognition = new 
@@ -825,25 +825,22 @@ let mediaRecorder;
 let audioChunks = [];
 
 function stopTTS(){
-  if(window.speechSynthesis){
-    window.speechSynthesis.cancel();
-  }
+  try{ if(window.speechSynthesis){ window.speechSynthesis.cancel(); } }catch(e){}
 }
 
 function normalize(text){
-  text = text.toLowerCase();
+  text = (text||"").toLowerCase();
   const map = {"zero":"0","one":"1","two":"2","three":"3","four":"4","five":"5","six":"6","seven":"7","eight":"8","nine":"9","ten":"10"};
   Object.keys(map).forEach(k=>{
     text = text.replace(new RegExp("\\b"+k+"\\b","g"), map[k]);
   });
-  let num = text.match(/\d+/);
+  const num = text.match(/\d+/);
   if(num) return num[0];
   return text.replace(/[^a-z0-9\(\)\+\-]/g,"");
 }
 
 async function startListening(){
   stopTTS();
-
   const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
   mediaRecorder = new MediaRecorder(stream);
   audioChunks = [];
@@ -856,10 +853,11 @@ async function startListening(){
     const text = await sendToGoogle(base64);
     const final = normalize(text);
     console.log("FINAL:", final);
+    if(window.onVoiceAnswer){ window.onVoiceAnswer(final); }
   };
 
   mediaRecorder.start();
-  setTimeout(()=>mediaRecorder.stop(), 3000);
+  setTimeout(()=>mediaRecorder.stop(), 3500);
 }
 
 function blobToBase64(blob){
@@ -883,9 +881,8 @@ async function sendToGoogle(base64){
       audio:{ content: base64 }
     })
   });
-
   const data = await res.json();
-  return data.results?.[0]?.alternatives?.[0]?.transcript || "";
+  return data?.results?.[0]?.alternatives?.[0]?.transcript || "";
 }
 
 window.startListening = startListening;
