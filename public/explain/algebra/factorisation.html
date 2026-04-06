@@ -749,5 +749,75 @@ function startBreak(r){closeBreak();breakSecs=0;G("timerLbl").textContent=r;G("t
 function endBreak(){clearInterval(breakTmr);G("timerScreen").classList.remove("show");}
 window.onload=init;
 </script>
+
+<script>
+// === FIXED SPEECH SYSTEM ===
+let recognition;
+let isListening = false;
+let finalTranscript = "";
+
+// Normalize answers (2 vs two etc)
+function normalizeAnswer(text){
+  text = text.toLowerCase();
+  text = text.replace(/\btwo\b/g, "2");
+  text = text.replace(/\bone\b/g, "1");
+  text = text.replace(/\bthree\b/g, "3");
+  text = text.replace(/[^a-z0-9\(\)\+\-]/g, "");
+  return text;
+}
+
+// Stop TTS before listening
+function stopTTS(){
+  if(window.speechSynthesis){
+    window.speechSynthesis.cancel();
+  }
+}
+
+// Setup recognition
+function setupRecog(){
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if(!SpeechRecognition) return;
+
+  recognition = new SpeechRecognition();
+  recognition.continuous = false;
+  recognition.interimResults = false;
+  recognition.lang = "en-IN";
+
+  recognition.onstart = () => {
+    isListening = true;
+    finalTranscript = "";
+    stopTTS();
+  };
+
+  recognition.onresult = (event) => {
+    let text = event.results[0][0].transcript;
+    finalTranscript = normalizeAnswer(text);
+    console.log("Captured:", finalTranscript);
+  };
+
+  recognition.onend = () => {
+    isListening = false;
+  };
+
+  recognition.onerror = () => {
+    isListening = false;
+  };
+}
+
+// Safe start
+function startListening(){
+  if(!recognition) return;
+  if(isListening) recognition.stop();
+  setTimeout(()=>{
+    recognition.start();
+  },200);
+}
+
+// Init override
+window.addEventListener("load", ()=>{
+  setupRecog();
+});
+</script>
+
 </body>
 </html>
