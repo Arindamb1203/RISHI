@@ -452,7 +452,7 @@ function init(){
     localStorage.setItem("rishi_explain_seen_factorisation","true");
     G("doneBanner").classList.add("show");unlockNav();
   }
-  buildSession();setupRecog();rInit();
+  buildSession();rInit();
   /* Browsers block audio until first user interaction.
      We queue the intro and play it on first tap/click. */
   initVoices(function(){
@@ -620,8 +620,7 @@ function onComplete(){
 function goPractice(){if(!completed){alert("Complete explanations first!");return;}location.href="/practice.html?chapter=factorisation";}
 function goExam(){if(!completed){alert("Complete explanations first!");return;}location.href="/exam.html?chapter=factorisation";}
 function setupRecog(){
-  var SR=window.SpeechRecognition||window.webkitSpeechRecognition;
-  if(!SR)return;
+  var SR=window.
   recog=new SR();
   recog.lang="en-IN";
   /* continuous + auto-restart breaks finals on many browsers; single-utterance mode is reliable */
@@ -775,10 +774,9 @@ function stopTTS(){
 
 // Setup recognition
 function setupRecog(){
-  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-  if(!SpeechRecognition) return;
+  const 
 
-  recognition = new SpeechRecognition();
+  recognition = new 
   recognition.continuous = false;
   recognition.interimResults = false;
   recognition.lang = "en-IN";
@@ -815,7 +813,7 @@ function startListening(){
 
 // Init override
 window.addEventListener("load", ()=>{
-  setupRecog();
+  
 });
 </script>
 
@@ -843,8 +841,9 @@ function normalize(text){
   return text.replace(/[^a-z0-9\(\)\+\-]/g,"");
 }
 
-async function startRecording(){
+async function startListening(){
   stopTTS();
+
   const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
   mediaRecorder = new MediaRecorder(stream);
   audioChunks = [];
@@ -855,11 +854,11 @@ async function startRecording(){
     const blob = new Blob(audioChunks, { type: "audio/webm" });
     const base64 = await blobToBase64(blob);
     const text = await sendToGoogle(base64);
-    console.log("FINAL:", normalize(text));
+    const final = normalize(text);
+    console.log("FINAL:", final);
   };
 
   mediaRecorder.start();
-
   setTimeout(()=>mediaRecorder.stop(), 3000);
 }
 
@@ -889,7 +888,7 @@ async function sendToGoogle(base64){
   return data.results?.[0]?.alternatives?.[0]?.transcript || "";
 }
 
-window.startListening = startRecording;
+window.startListening = startListening;
 </script>
 
 </body>
