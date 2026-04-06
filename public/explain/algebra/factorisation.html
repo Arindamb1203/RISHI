@@ -50,9 +50,16 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 .confirm-wrap{margin-top:12px;background:linear-gradient(135deg,#eef2eb,#f5fbf2);border:2px solid var(--border-dark);border-radius:14px;padding:16px 18px;}
 .confirm-title{font-size:11px;font-weight:900;color:var(--sage);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;}
 .confirm-q{font-size:14px;font-weight:800;color:var(--charcoal);margin-bottom:12px;line-height:1.5;}
-.mic-btn{display:flex;align-items:center;gap:10px;width:100%;font-family:'Nunito',sans-serif;font-size:14px;font-weight:900;padding:11px 16px;border-radius:12px;border:2px solid var(--border-dark);background:var(--warm-white);color:var(--mid);cursor:pointer;margin-bottom:8px;}
+.mic-btn{display:flex;align-items:center;gap:10px;width:100%;font-family:'Nunito',sans-serif;font-size:14px;font-weight:900;padding:11px 16px;border-radius:12px;border:2px solid var(--border-dark);background:var(--warm-white);color:var(--mid);cursor:pointer;margin-bottom:8px;transition:background .2s,border-color .2s,color .2s;}
 .mic-btn.on{background:var(--sage);color:#fff;border-color:var(--sage);animation:blnk .8s ease-in-out infinite;}
+.mic-btn.listening{background:linear-gradient(135deg,#e8f4ff,#d0eaff);border-color:#4a90d9;color:#1d4ed8;animation:pulse-ring .9s ease-in-out infinite;}
+.mic-btn.speaking{background:linear-gradient(135deg,#ffeaea,#ffd0d0);border-color:#e53e3e;color:#c53030;animation:speaking-flash .5s ease-in-out infinite alternate;}
+.mic-btn.processing{background:var(--gold-pale);border-color:var(--amber);color:var(--amber);cursor:not-allowed;opacity:.85;}
+.mic-btn.processing::before{content:"";display:inline-block;width:14px;height:14px;border:2px solid var(--amber);border-top-color:transparent;border-radius:50%;animation:spin .7s linear infinite;margin-right:6px;}
 @keyframes blnk{0%,100%{opacity:1}50%{opacity:.5}}
+@keyframes pulse-ring{0%,100%{box-shadow:0 0 0 0 rgba(74,144,217,.5)}60%{box-shadow:0 0 0 8px rgba(74,144,217,0)}}
+@keyframes speaking-flash{from{box-shadow:0 0 0 3px rgba(229,62,62,.3)}to{box-shadow:0 0 0 7px rgba(229,62,62,0)}}
+@keyframes spin{to{transform:rotate(360deg)}}
 .transcript{font-family:'Share Tech Mono',monospace;font-size:12px;color:var(--charcoal);background:var(--warm-white);border:2px solid var(--border-dark);border-radius:9px;padding:8px 12px;min-height:34px;margin-bottom:8px;display:none;}
 .transcript.show{display:block;}
 .result-box{font-size:12px;font-weight:800;padding:9px 13px;border-radius:9px;display:none;line-height:1.4;}
@@ -622,31 +629,27 @@ function goExam(){if(!completed){alert("Complete explanations first!");return;}l
 /* Google Speech API is used for voice input — no Web Speech API recog needed */
 function setupRecog(){ recog = null; /* Google STT handles everything */ }
 function startListen(){
-  /* Stop TTS and any existing animation */
+  /* Stop TTS */
   if(window.speechSynthesis) window.speechSynthesis.cancel();
   rStopTalk();
-  /* Toggle off if already listening */
-  if(listening){
-    listening = false;
-    setListen(false);
-    rSetAvatar("idle");
-    return;
-  }
-  /* Set up answer input UI */
-  voiceHandled = false;
+  /* Show answer input */
   var inp = G("answerInput");
-  if(inp){ inp.classList.add("show"); inp.value = ""; inp.placeholder = "Listening..."; }
-  setListen(true);
+  if(inp){ inp.classList.add("show"); inp.value = ""; inp.placeholder = "Speak or type your answer..."; }
+  /* Set avatar */
   rSetAvatar("listening");
-  /* Wire the Google STT result back to handleAnswer for this question */
+  listening = true;
+  /* Wire Google STT result → handleAnswer */
   window.onVoiceAnswer = function(text){
-    setListen(false);
-    rSetAvatar("idle");
     listening = false;
-    if(text){ handleAnswer(text); }
-    else { showNudge("Did not catch that — tap the mic and try again."); }
+    setListen(false);       /* resets listening var + fallback btn reset */
+    rSetAvatar("idle");
+    if(text){
+      handleAnswer(text);
+    } else {
+      showNudge("Did not catch that — tap the mic and try again.");
+    }
   };
-  /* Start Google Speech API recording */
+  /* Start Google STT with VAD */
   startListening();
 }
 function setListen(on){
@@ -703,83 +706,253 @@ window.onload=init;
 
 
 <script>
-const API_KEY = prompt("Enter API Key");
+/* ============================================================
+   RISHI — Google Cloud STT with Voice Activity Detection (VAD)
+   Flow: Tap → Listening (waiting) → Speaking (detected) → Processing → Result
+   ============================================================ */
+const API_KEY = prompt("Enter Google Speech API Key");
 
-let mediaRecorder;
-let audioChunks = [];
+/* --- State --- */
+let mediaRecorder   = null;
+let audioChunks     = [];
+let audioCtx        = null;
+let analyser        = null;
+let micStream       = null;
+let vadInterval     = null;
+let silenceTimer    = null;
+let maxTimer        = null;
+let noSpeechTimer   = null;
+let hasSpeech       = false;
+let isRecording     = false;
 
+/* --- Tuning --- */
+const VAD_THRESHOLD    = 0.011;  /* RMS above = voice detected  */
+const SILENCE_MS       = 1100;   /* silence this long → stop    */
+const MAX_MS           = 8000;   /* hard cap on recording       */
+const NO_SPEECH_MS     = 6000;   /* give up if no voice at all  */
+
+/* --- Utility --- */
 function stopTTS(){
-  try{ if(window.speechSynthesis){ window.speechSynthesis.cancel(); } }catch(e){}
+  try{ window.speechSynthesis && window.speechSynthesis.cancel(); }catch(e){}
 }
 
 function normalize(text){
   text = (text||"").toLowerCase();
-  const map = {"zero":"0","one":"1","two":"2","three":"3","four":"4","five":"5","six":"6","seven":"7","eight":"8","nine":"9","ten":"10"};
+  const map = {zero:"0",one:"1",two:"2",three:"3",four:"4",
+                five:"5",six:"6",seven:"7",eight:"8",nine:"9",ten:"10"};
   Object.keys(map).forEach(k=>{
     text = text.replace(new RegExp("\\b"+k+"\\b","g"), map[k]);
   });
-  const num = text.match(/\d+/);
-  if(num) return num[0];
-  return text.replace(/[^a-z0-9\(\)\+\-]/g,"");
+  return text.replace(/[^a-z0-9()+\-\s]/g,"").trim();
 }
 
+/* --- Mic button visual states --- */
+function setMicState(state){
+  const btn = document.getElementById("micBtn");
+  if(!btn) return;
+  btn.disabled = (state === "processing");
+  const labels = {
+    idle:       "🎤 Tap and Speak",
+    listening:  "👂 Listening — go ahead and speak!",
+    speaking:   "🔴 Got you — keep speaking...",
+    processing: "Processing your answer..."
+  };
+  btn.className = "mic-btn" + (state !== "idle" ? " " + state : "");
+  btn.innerHTML  = labels[state] || labels.idle;
+}
+
+/* --- Main entry: called by startListen() in main script --- */
 async function startListening(){
   stopTTS();
-  try {
-    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-    mediaRecorder = new MediaRecorder(stream);
-    audioChunks = [];
+  cleanupMic();   /* always start fresh */
 
-    mediaRecorder.ondataavailable = e => audioChunks.push(e.data);
+  try{
+    micStream = await navigator.mediaDevices.getUserMedia({
+      audio:{ channelCount:1, echoCancellation:true, noiseSuppression:true, autoGainControl:true }
+    });
 
-    mediaRecorder.onstop = async () => {
-      /* Stop all mic tracks */
-      stream.getTracks().forEach(t => t.stop());
-      const blob = new Blob(audioChunks, { type: "audio/webm" });
-      const base64 = await blobToBase64(blob);
-      const text = await sendToGoogle(base64);
-      const final = normalize(text);
-      console.log("FINAL:", final);
-      /* Update answer input with what was heard */
-      const inp = document.getElementById("answerInput");
-      if(inp && final) inp.value = final;
-      if(window.onVoiceAnswer){ window.onVoiceAnswer(final); }
-    };
+    /* AudioContext for VAD */
+    audioCtx  = new (window.AudioContext || window.webkitAudioContext)();
+    const src = audioCtx.createMediaStreamSource(micStream);
+    analyser  = audioCtx.createAnalyser();
+    analyser.fftSize = 512;
+    analyser.smoothingTimeConstant = 0.35;
+    src.connect(analyser);
 
-    mediaRecorder.start();
-    setTimeout(()=>{ if(mediaRecorder && mediaRecorder.state === "recording") mediaRecorder.stop(); }, 3500);
-  } catch(err) {
+    /* MediaRecorder — collect data every 100ms chunks */
+    mediaRecorder = new MediaRecorder(micStream);
+    audioChunks   = [];
+    mediaRecorder.ondataavailable = e => { if(e.data && e.data.size > 0) audioChunks.push(e.data); };
+    mediaRecorder.onstop = handleRecordingDone;
+
+    /* Start recording and VAD */
+    mediaRecorder.start(100);
+    isRecording = true;
+    hasSpeech   = false;
+    setMicState("listening");
+
+    /* Safety: max total duration */
+    maxTimer = setTimeout(()=> stopRecording(), MAX_MS);
+
+    /* Safety: if no voice at all within NO_SPEECH_MS */
+    noSpeechTimer = setTimeout(()=>{
+      if(!hasSpeech){
+        cleanupMic();
+        setMicState("idle");
+        /* Reset main-script listening state */
+        if(typeof setListen === "function") setListen(false);
+        if(typeof rSetAvatar === "function") rSetAvatar("idle");
+        showNudgeMsg("No voice heard — tap the mic and speak clearly.");
+        if(window.onVoiceAnswer) window.onVoiceAnswer("");
+      }
+    }, NO_SPEECH_MS);
+
+    /* VAD loop — check RMS every 80ms */
+    const data = new Uint8Array(analyser.fftSize);
+    vadInterval = setInterval(()=>{
+      if(!isRecording) return;
+      analyser.getByteTimeDomainData(data);
+      let sum = 0;
+      for(let i=0; i<data.length; i++){
+        const v = (data[i]-128)/128;
+        sum += v*v;
+      }
+      const rms = Math.sqrt(sum/data.length);
+
+      if(rms > VAD_THRESHOLD){
+        /* Voice detected */
+        if(!hasSpeech){
+          hasSpeech = true;
+          clearTimeout(noSpeechTimer);
+          setMicState("speaking");
+        }
+        /* Reset silence countdown every time voice is active */
+        clearTimeout(silenceTimer);
+        silenceTimer = null;
+      } else {
+        /* Silence */
+        if(hasSpeech && !silenceTimer){
+          silenceTimer = setTimeout(()=> stopRecording(), SILENCE_MS);
+        }
+      }
+    }, 80);
+
+  } catch(err){
     console.error("Mic error:", err);
-    /* Reset UI on failure */
+    cleanupMic();
+    setMicState("idle");
+    if(typeof setListen === "function") setListen(false);
+    if(typeof rSetAvatar === "function") rSetAvatar("idle");
+    const msg = err.name === "NotAllowedError"
+      ? "Microphone blocked — please allow mic access in your browser settings."
+      : "Could not access microphone — please try again.";
+    showNudgeMsg(msg);
     if(window.onVoiceAnswer) window.onVoiceAnswer("");
-    const nudge = document.getElementById("nudgeBox");
-    if(nudge){ nudge.textContent = "Microphone blocked — please allow mic access in browser settings."; nudge.classList.add("show"); }
   }
+}
+
+function stopRecording(){
+  if(!isRecording) return;
+  isRecording = false;
+  clearInterval(vadInterval);
+  clearTimeout(maxTimer);
+  clearTimeout(noSpeechTimer);
+  clearTimeout(silenceTimer);
+  if(mediaRecorder && mediaRecorder.state === "recording"){
+    setMicState("processing");
+    mediaRecorder.stop();
+  }
+}
+
+function cleanupMic(){
+  isRecording = false;
+  clearInterval(vadInterval);
+  clearTimeout(maxTimer);
+  clearTimeout(noSpeechTimer);
+  clearTimeout(silenceTimer);
+  if(mediaRecorder && mediaRecorder.state !== "inactive"){
+    try{ mediaRecorder.stop(); }catch(e){}
+  }
+  if(micStream) micStream.getTracks().forEach(t => t.stop());
+  if(audioCtx){ try{ audioCtx.close(); }catch(e){} }
+  audioCtx = null; analyser = null; micStream = null;
+  mediaRecorder = null; audioChunks = [];
+}
+
+async function handleRecordingDone(){
+  /* Release mic hardware */
+  if(micStream) micStream.getTracks().forEach(t => t.stop());
+  if(audioCtx){ try{ audioCtx.close(); }catch(e){} }
+
+  if(!hasSpeech || audioChunks.length === 0){
+    setMicState("idle");
+    if(window.onVoiceAnswer) window.onVoiceAnswer("");
+    return;
+  }
+
+  /* Send to Google STT */
+  const blob   = new Blob(audioChunks, { type:"audio/webm" });
+  const b64    = await blobToBase64(blob);
+  const raw    = await sendToGoogle(b64);
+  const final  = normalize(raw);
+  console.log("Google STT →", JSON.stringify(raw), "→ normalised:", final);
+
+  /* Show transcript in input box */
+  const inp = document.getElementById("answerInput");
+  if(inp && final){ inp.value = final; inp.classList.add("show"); }
+
+  setMicState("idle");
+  if(window.onVoiceAnswer) window.onVoiceAnswer(final);
 }
 
 function blobToBase64(blob){
   return new Promise(resolve=>{
-    const reader = new FileReader();
-    reader.onloadend = ()=>resolve(reader.result.split(",")[1]);
-    reader.readAsDataURL(blob);
+    const r = new FileReader();
+    r.onloadend = ()=> resolve(r.result.split(",")[1]);
+    r.readAsDataURL(blob);
   });
 }
 
-async function sendToGoogle(base64){
-  const res = await fetch("https://speech.googleapis.com/v1/speech:recognize?key="+API_KEY,{
-    method:"POST",
-    headers:{ "Content-Type":"application/json" },
-    body: JSON.stringify({
-      config:{
-        encoding:"WEBM_OPUS",
-        sampleRateHertz:48000,
-        languageCode:"en-IN"
-      },
-      audio:{ content: base64 }
-    })
-  });
-  const data = await res.json();
-  return data?.results?.[0]?.alternatives?.[0]?.transcript || "";
+async function sendToGoogle(b64){
+  try{
+    const res = await fetch(
+      "https://speech.googleapis.com/v1/speech:recognize?key=" + API_KEY,
+      {
+        method:"POST",
+        headers:{ "Content-Type":"application/json" },
+        body: JSON.stringify({
+          config:{
+            encoding: "WEBM_OPUS",
+            languageCode: "en-IN",
+            alternativeLanguageCodes: ["en-US"],
+            enableAutomaticPunctuation: false,
+            /* Boost maths vocabulary so Google picks the right words */
+            speechContexts:[{
+              phrases:[
+                "factorisation","HCF","bracket","squared","x plus","x minus",
+                "x times","common factor","grouping","difference of squares",
+                "perfect square","split middle term","3a","4x","2x",
+                "(x+2)(x+3)","(x-3)(x-4)","(x+3) squared"
+              ],
+              boost: 20
+            }]
+          },
+          audio:{ content: b64 }
+        })
+      }
+    );
+    const data = await res.json();
+    if(data.error){ console.error("Google STT API error:", data.error.message); return ""; }
+    return data?.results?.[0]?.alternatives?.[0]?.transcript || "";
+  } catch(e){
+    console.error("STT network error:", e);
+    return "";
+  }
+}
+
+function showNudgeMsg(msg){
+  const n = document.getElementById("nudgeBox");
+  if(n){ n.textContent = msg; n.classList.add("show"); }
 }
 
 window.startListening = startListening;
