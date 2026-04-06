@@ -690,88 +690,77 @@ window.onload=init;
 
 <script>
 /* ============================================================
-   RISHI — Web Speech API (Chrome built-in, free, real-time)
-   Same engine as Google Search voice input.
+   RISHI — Web Speech API, clean & reliable
    ============================================================ */
-
 (function(){
   var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
   if(!SR){
-    /* Browser doesn't support Web Speech API — show a message */
     window.RISHI_startVoice = function(cb){
       var n = document.getElementById("nudgeBox");
-      if(n){ n.textContent = "Voice needs Chrome browser. Please type your answer."; n.classList.add("show"); }
+      if(n){ n.textContent = "Please use Chrome browser for voice input."; n.classList.add("show"); }
       cb("");
     };
     return;
   }
 
-  var recog        = null;
-  var onDone       = null;   /* callback(text) set by startListen */
-  var active       = false;
+  var recog    = null;
+  var onDone   = null;
+  var lastText = "";
+  var fired    = false;
 
   function buildRecog(){
     var r = new SR();
-    r.lang              = "en-IN";
-    r.continuous        = false;   /* single-utterance — most reliable on mobile */
-    r.interimResults    = true;    /* show words as they're spoken              */
-    r.maxAlternatives   = 1;
+    r.lang           = "en-IN";
+    r.continuous     = false;
+    r.interimResults = true;
+    r.maxAlternatives = 1;
 
     r.onstart = function(){
-      active = true;
       setMicBtn("listening");
+      lastText = "";
+      fired    = false;
     };
 
     r.onresult = function(e){
-      var interim = "", final = "";
-      for(var i = e.resultIndex; i < e.results.length; i++){
-        var t = e.results[i][0].transcript;
-        if(e.results[i].isFinal) final += t;
-        else interim += t;
+      var t = "";
+      for(var i = 0; i < e.results.length; i++){
+        t += e.results[i][0].transcript;
       }
-      /* Show live text in the input box as user speaks */
+      lastText = t;
       var inp = document.getElementById("answerInput");
-      if(inp){ inp.value = final || interim; inp.classList.add("show"); }
-      if(final){
-        setMicBtn("got-it");
-        active = false;
-        fire(final);
+      if(inp && t){ inp.value = t; inp.classList.add("show"); }
+      if(e.results[e.results.length - 1].isFinal){
+        done(t);
       }
-    };
-
-    r.onnomatch = function(){
-      active = false;
-      fire("");
     };
 
     r.onerror = function(e){
-      active = false;
-      if(e.error === "aborted") return;   /* we stopped it — ignore */
+      if(e.error === "aborted") return;
       var msg = "Tap mic and try again.";
-      if(e.error === "no-speech")    msg = "No speech heard — tap mic then speak clearly.";
-      if(e.error === "not-allowed")  msg = "Mic blocked — allow microphone in browser settings.";
-      if(e.error === "network")      msg = "Network error — check your internet connection.";
+      if(e.error === "no-speech")   msg = "No speech heard — tap mic, then speak.";
+      if(e.error === "not-allowed") msg = "Mic blocked — allow microphone in browser settings.";
+      if(e.error === "network")     msg = "Network error — check your connection.";
       var n = document.getElementById("nudgeBox");
       if(n){ n.textContent = msg; n.classList.add("show"); }
-      setMicBtn("idle");
-      if(onDone){ var cb = onDone; onDone = null; cb(""); }
+      done("");
     };
 
     r.onend = function(){
-      active = false;
-      setMicBtn("idle");
-      /* If onresult already fired with final, onDone is already null — safe */
-      if(onDone){ var cb = onDone; onDone = null; cb(""); }
+      /* isFinal may never fire on some mobile Chrome versions —
+         use whatever interim text we captured */
+      done(lastText);
     };
 
     return r;
   }
 
-  function fire(text){
-    setMicBtn(text ? "got-it" : "idle");
+  function done(text){
+    if(fired) return;
+    fired = true;
     var norm = normalise(text);
     var inp  = document.getElementById("answerInput");
-    if(inp && norm){ inp.value = norm; }
+    if(inp && norm){ inp.value = norm; inp.classList.add("show"); }
+    setMicBtn(norm ? "got-it" : "idle");
     if(onDone){ var cb = onDone; onDone = null; cb(norm); }
   }
 
@@ -786,20 +775,15 @@ window.onload=init;
   }
 
   window.RISHI_startVoice = function(callback){
-    onDone = callback;
-    /* Rebuild each time — avoids stale state after errors */
-    if(recog && active){ try{ recog.stop(); }catch(x){} }
+    onDone   = callback;
+    lastText = "";
+    fired    = false;
+    if(recog){ try{ recog.abort(); }catch(x){} }
     recog = buildRecog();
-    setMicBtn("listening");
-    try{
-      recog.start();
-    } catch(err){
-      /* Already started — wait for onend to fire */
-    }
+    try{ recog.start(); }catch(e){ console.error("recog start:", e); }
   };
 
 })();
-
 </script>
 
 </body>
