@@ -656,7 +656,13 @@ function handleAnswer(text){
     if(inp2)inp2.value=text;
   }
   var q=session[idx];
-  var ok=q.ans.some(function(a){return text.includes(a.toLowerCase())||a.toLowerCase().includes(text);});
+  /* Match ignoring spaces so "3 a" == "3a", "x plus 2" == "xplus2" etc */
+  function squish(s){ return String(s).toLowerCase().replace(/\s+/g,""); }
+  var sqText = squish(text);
+  var ok = q.ans.some(function(a){
+    var sa = squish(a);
+    return sqText === sa || sqText.includes(sa) || sa.includes(sqText);
+  });
   var rb=G("rbox");
   if(ok){
     rb.className="result-box ok";
@@ -765,12 +771,23 @@ window.onload=init;
   }
 
   function normalise(text){
-    text = (text||"").toLowerCase();
+    text = (text||"").toLowerCase().trim();
+    /* Word → digit */
     var map = {zero:"0",one:"1",two:"2",three:"3",four:"4",
                five:"5",six:"6",seven:"7",eight:"8",nine:"9",ten:"10"};
     Object.keys(map).forEach(function(k){
       text = text.replace(new RegExp("\\b"+k+"\\b","g"), map[k]);
     });
+    /* Phonetic homophones the API commonly returns instead of digits */
+    text = text.replace(/\bfor\b/g,"4").replace(/\bfore\b/g,"4").replace(/\bfour\b/g,"4");
+    text = text.replace(/\bto\b/g,"2").replace(/\btoo\b/g,"2");
+    text = text.replace(/\bwon\b/g,"1").replace(/\bate\b/g,"8");
+    text = text.replace(/\bsix\b/g,"6").replace(/\bseven\b/g,"7");
+    /* Remove spaces around math symbols so "3 a" matches "3a",
+       "x plus 2" stays readable but "( x + 2 )" tightens up */
+    text = text.replace(/\s*\(\s*/g,"(").replace(/\s*\)\s*/g,")");
+    text = text.replace(/(\d)\s+([a-z])/g,"$1$2"); /* "3 a" → "3a" */
+    text = text.replace(/([a-z])\s+(\d)/g,"$1$2"); /* "a 3" → "a3" */
     return text.trim();
   }
 
