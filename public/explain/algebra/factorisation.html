@@ -819,5 +819,78 @@ window.addEventListener("load", ()=>{
 });
 </script>
 
+
+<script>
+const API_KEY = "PASTE_YOUR_KEY_HERE";
+
+let mediaRecorder;
+let audioChunks = [];
+
+function stopTTS(){
+  if(window.speechSynthesis){
+    window.speechSynthesis.cancel();
+  }
+}
+
+function normalize(text){
+  text = text.toLowerCase();
+  const map = {"zero":"0","one":"1","two":"2","three":"3","four":"4","five":"5","six":"6","seven":"7","eight":"8","nine":"9","ten":"10"};
+  Object.keys(map).forEach(k=>{
+    text = text.replace(new RegExp("\\b"+k+"\\b","g"), map[k]);
+  });
+  let num = text.match(/\d+/);
+  if(num) return num[0];
+  return text.replace(/[^a-z0-9\(\)\+\-]/g,"");
+}
+
+async function startRecording(){
+  stopTTS();
+  const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+  mediaRecorder = new MediaRecorder(stream);
+  audioChunks = [];
+
+  mediaRecorder.ondataavailable = e => audioChunks.push(e.data);
+
+  mediaRecorder.onstop = async () => {
+    const blob = new Blob(audioChunks, { type: "audio/webm" });
+    const base64 = await blobToBase64(blob);
+    const text = await sendToGoogle(base64);
+    console.log("FINAL:", normalize(text));
+  };
+
+  mediaRecorder.start();
+
+  setTimeout(()=>mediaRecorder.stop(), 3000);
+}
+
+function blobToBase64(blob){
+  return new Promise(resolve=>{
+    const reader = new FileReader();
+    reader.onloadend = ()=>resolve(reader.result.split(",")[1]);
+    reader.readAsDataURL(blob);
+  });
+}
+
+async function sendToGoogle(base64){
+  const res = await fetch("https://speech.googleapis.com/v1/speech:recognize?key="+API_KEY,{
+    method:"POST",
+    headers:{ "Content-Type":"application/json" },
+    body: JSON.stringify({
+      config:{
+        encoding:"WEBM_OPUS",
+        sampleRateHertz:48000,
+        languageCode:"en-IN"
+      },
+      audio:{ content: base64 }
+    })
+  });
+
+  const data = await res.json();
+  return data.results?.[0]?.alternatives?.[0]?.transcript || "";
+}
+
+window.startListening = startRecording;
+</script>
+
 </body>
 </html>
