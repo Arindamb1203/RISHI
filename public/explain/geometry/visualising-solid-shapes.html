@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>RISHI — Visualising Solid Shapes</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Nunito:wght@400;600;700;800;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
 <style>
 :root{--cream:#fdf6ec;--warm-white:#fffdf8;--gold:#c8922a;--gold-light:#e8b84b;--gold-pale:#f5e6c8;--amber:#d4870a;--sage:#7a8c6e;--sage-light:#a8b89a;--rust:#b85c2a;--charcoal:#2a2218;--mid:#5a4a30;--soft:#8a7a5a;--inactive:#c8b89a;--border-dark:#6b4c2a;}
 *{box-sizing:border-box;margin:0;padding:0;}
@@ -49,14 +51,14 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 .confirm-wrap{margin-top:12px;background:linear-gradient(135deg,#eef2eb,#f5fbf2);border:2px solid var(--border-dark);border-radius:14px;padding:16px 18px;}
 .confirm-title{font-size:11px;font-weight:900;color:var(--sage);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;}
 .confirm-q{font-size:14px;font-weight:800;color:var(--charcoal);margin-bottom:12px;line-height:1.5;}
-.mic-btn{display:flex;align-items:center;gap:10px;width:100%;font-family:'Nunito',sans-serif;font-size:14px;font-weight:900;padding:11px 16px;border-radius:12px;border:2px solid var(--border-dark);background:var(--warm-white);color:var(--mid);cursor:pointer;margin-bottom:8px;}
-.mic-btn.on{background:var(--sage);color:#fff;border-color:var(--sage);animation:blnk .8s ease-in-out infinite;}
+
+
 @keyframes blnk{0%,100%{opacity:1}50%{opacity:.5}}
-.transcript{font-family:'Share Tech Mono',monospace;font-size:12px;color:var(--charcoal);background:var(--warm-white);border:2px solid var(--border-dark);border-radius:9px;padding:8px 12px;min-height:34px;margin-bottom:8px;display:none;}
-.transcript.show{display:block;}
+
+
 .result-box{font-size:12px;font-weight:800;padding:9px 13px;border-radius:9px;display:none;line-height:1.4;}
-.result-box.ok{background:#eef2eb;border:2px solid var(--sage);color:var(--sage);display:block;}
-.result-box.no{background:#fff5f0;border:2px solid var(--rust);color:var(--rust);display:block;}
+
+
 .nudge{font-size:12px;font-weight:700;color:var(--mid);margin-top:7px;font-style:italic;display:none;}
 .nudge.show{display:block;}
 .btn-next{font-family:'Nunito',sans-serif;font-size:14px;font-weight:900;padding:11px 22px;border-radius:12px;border:none;background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;cursor:pointer;display:none;margin-top:10px;width:100%;}
@@ -88,6 +90,32 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 @keyframes rIn{from{transform:translateY(50px);opacity:0}to{transform:translateY(0);opacity:1}}
 @keyframes rBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
 @media(max-width:600px){.main{padding:10px 10px 120px;}.topbar,.prog-wrap{padding-left:10px;padding-right:10px;}.timer-num{font-size:48px;}}
+.math-input-wrap{margin-bottom:10px;}
+.math-raw{width:100%;padding:10px 13px;border-radius:10px;border:2px solid var(--border-dark);background:var(--warm-white);color:var(--charcoal);font-size:1rem;font-family:'Share Tech Mono',monospace;resize:none;outline:none;min-height:48px;line-height:1.6;transition:border-color .2s;}
+.math-raw:focus{border-color:var(--amber);box-shadow:0 0 0 3px rgba(212,135,10,.12);}
+.math-raw::placeholder{color:var(--inactive);font-family:'Nunito',sans-serif;}
+.math-preview-label{font-size:0.68rem;text-transform:uppercase;letter-spacing:2px;color:var(--soft);margin:.5rem 0 .25rem;}
+.math-preview{min-height:44px;padding:.6rem 1rem;background:#f9f4ec;border-radius:8px;border:1.5px solid var(--gold-pale);font-size:1.2rem;color:var(--charcoal);overflow-x:auto;display:flex;align-items:center;justify-content:center;margin-bottom:10px;}
+.math-preview .katex{font-size:1.2rem;}
+.math-preview .mph{color:var(--inactive);font-style:italic;font-size:.85rem;font-family:'Nunito',sans-serif;}
+.sugg-strip{margin-bottom:10px;}
+.sugg-strip-head{font-size:.68rem;text-transform:uppercase;letter-spacing:1.5px;color:var(--soft);margin-bottom:.4rem;}
+.sugg-chips{display:flex;flex-wrap:wrap;gap:.35rem;}
+.schip{border:1.5px solid;border-radius:20px;padding:.25rem .75rem;font-size:.78rem;cursor:pointer;background:transparent;font-family:'Nunito',sans-serif;font-weight:700;transition:all .15s;}
+.schip.identity{border-color:#4a8a4a;color:#3a7a3a;background:#f0f8f0;}
+.schip.identity:hover{background:#d8f0d8;}
+.schip.shortcut{border-color:#7a4aaa;color:#6a3a9a;background:#f5f0ff;}
+.schip.shortcut:hover{background:#e8e0ff;}
+.schip.hint{border-color:#aa6a0a;color:#8a5008;background:#fff8ee;}
+.schip.hint:hover{background:#ffeedd;}
+.schip.confirm{border-color:#1a6aaa;color:#0a5a9a;background:#eef6ff;font-weight:800;}
+.schip.confirm:hover{background:#d8eeff;}
+.schip.fuzzy{border-color:#0a8a8a;color:#0a6a6a;background:#eefafa;border-style:dashed;}
+.math-hint-toast{font-size:.78rem;color:#8a5008;background:#fff8ee;border:1.5px solid #aa6a0a;border-radius:7px;padding:.4rem .7rem;margin-bottom:8px;}
+.result-box.ok{background:#eef2eb;border:2px solid var(--sage);color:var(--sage);display:block;}
+.result-box.no{background:#fff5f0;border:2px solid var(--rust);color:var(--rust);display:block;}
+.cel-word{font-size:1.5rem;font-weight:900;letter-spacing:1px;line-height:1.2;margin-bottom:3px;}
+.cel-meta{font-size:0.75rem;font-weight:700;opacity:0.8;letter-spacing:0.5px;}
 </style>
 <script src="/rishi-core.js"></script>
 </head>
@@ -177,12 +205,41 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 </div>
 <script>
 var voicesReady=false,selectedVoice=null;
+var elAudio=null;
 function pickVoice(){var vs=window.speechSynthesis.getVoices();if(!vs||vs.length===0)return false;var fk=["heera","veena","priya","raveena","female","woman","zira","samantha","victoria","karen","moira","tessa","fiona"];for(var i=0;i<vs.length;i++){if(vs[i].lang.toLowerCase().indexOf("en-in")===0){var n=vs[i].name.toLowerCase();for(var k=0;k<fk.length;k++){if(n.indexOf(fk[k])>=0){selectedVoice=vs[i];return true;}}}}for(var i=0;i<vs.length;i++){if(vs[i].lang.toLowerCase().indexOf("en")===0){var n=vs[i].name.toLowerCase();for(var k=0;k<fk.length;k++){if(n.indexOf(fk[k])>=0){selectedVoice=vs[i];return true;}}}}for(var i=0;i<vs.length;i++){if(vs[i].lang.toLowerCase().indexOf("en-in")===0){selectedVoice=vs[i];return true;}}for(var i=0;i<vs.length;i++){if(vs[i].lang.toLowerCase().indexOf("en-gb")===0){selectedVoice=vs[i];return true;}}return false;}
 function initVoices(cb){if(pickVoice()){voicesReady=true;cb();return;}window.speechSynthesis.onvoiceschanged=function(){window.speechSynthesis.onvoiceschanged=null;pickVoice();voicesReady=true;cb();};setTimeout(function(){if(!voicesReady){pickVoice();voicesReady=true;cb();}},2000);}
-function say(text){if(!window.speechSynthesis)return;window.speechSynthesis.cancel();var u=new SpeechSynthesisUtterance(text);u.lang="en-IN";u.rate=0.88;u.pitch=1.15;if(selectedVoice)u.voice=selectedVoice;rStartTalk(text.length);window.speechSynthesis.speak(u);}
+function stopAllAudio(){
+  if(elAudio){try{elAudio.pause();elAudio.src="";}catch(x){} elAudio=null;}
+  if(window.speechSynthesis)window.speechSynthesis.cancel();
+}
+function sayBrowser(text,onEnd){
+  if(!window.speechSynthesis)return;
+  window.speechSynthesis.cancel();
+  rSetAvatar("speaking");startSpeakAnim();
+  var u=new SpeechSynthesisUtterance(text);
+  u.lang="en-IN";u.rate=0.88;u.pitch=1.15;
+  if(selectedVoice)u.voice=selectedVoice;
+  u.onend=function(){stopSpeakAnim();rSetAvatar("idle");if(onEnd)onEnd();};
+  u.onerror=function(){stopSpeakAnim();rSetAvatar("idle");if(onEnd)onEnd();};
+  window.speechSynthesis.speak(u);
+}
+function say(text,onEnd){
+  stopAllAudio();
+  rSetAvatar("speaking");startSpeakAnim();
+  fetch("/tts",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({text:text})})
+  .then(function(res){if(!res.ok)throw new Error("TTS "+res.status);return res.blob();})
+  .then(function(blob){
+    var url=URL.createObjectURL(blob);
+    elAudio=new Audio(url);
+    elAudio.onended=function(){URL.revokeObjectURL(url);elAudio=null;stopSpeakAnim();rSetAvatar("idle");if(onEnd)onEnd();};
+    elAudio.onerror=function(){URL.revokeObjectURL(url);elAudio=null;stopSpeakAnim();rSetAvatar("idle");if(onEnd)onEnd();};
+    elAudio.play();
+  })
+  .catch(function(err){sayBrowser(text,onEnd);});
+}
 function sayEl(id){var e=G(id);if(e)say(e.innerText||e.textContent);}
-window.addEventListener("beforeunload",function(){window.speechSynthesis&&window.speechSynthesis.cancel();});
-window.addEventListener("pagehide",function(){window.speechSynthesis&&window.speechSynthesis.cancel();});
+window.addEventListener("beforeunload",function(){stopAllAudio();});
+window.addEventListener("pagehide",function(){stopAllAudio();});
 var mouthTmr=null,mOpen=false;
 function rInit(){var c=G("rChar");if(c)c.style.animation="rIn .6s cubic-bezier(.34,1.56,.64,1) forwards";scheduleBlink();}
 function scheduleBlink(){setTimeout(function(){rBlink();scheduleBlink();},2200+Math.random()*3000);}
@@ -341,7 +398,28 @@ function startAnim(){var q=session[idx];var pb=G("animPlayBtn");if(pb){pb.disabl
 function replayAnim(){clearAt();window.speechSynthesis&&window.speechSynthesis.cancel();rStopTalk();var q=session[idx];var canvas=G("animCanvas");if(canvas)canvas.innerHTML=getAnimSVG(q.anim);G("animReplay").style.display="none";G("stepsBtn").style.display="none";var pb=G("animPlayBtn");if(pb){pb.style.display="block";pb.disabled=false;pb.textContent="&#9654; Play Animation";}setStatus("Tap Play to watch with narration!");}
 function beginSteps(){var q=session[idx];var sc=document.createElement("div");sc.className="q-card";sc.innerHTML='<div class="q-label">&#128214; Step-by-Step</div><div id="stepsWrap"></div><button class="btn-speak" id="nxtStepBtn" onclick="nextStep()" style="margin-top:10px;">&#9654; Next Step</button>';G("qArea").appendChild(sc);sc.scrollIntoView({behavior:"smooth",block:"start"});G("stepsBtn").style.display="none";setTimeout(nextStep,350);}
 function nextStep(){var q=session[idx];if(stepIdx>=q.steps.length){G("nxtStepBtn").style.display="none";showConfirm();return;}var s=q.steps[stepIdx];var wrap=G("stepsWrap");var d=document.createElement("div");d.className="step";d.innerHTML='<div class="step-num">'+(stepIdx+1)+'</div><div class="step-body">'+s.t+'</div>';wrap.appendChild(d);setTimeout(function(){d.classList.add("vis");},40);setTimeout(function(){say(s.s);},280);stepIdx++;}
-function showConfirm(){var q=session[idx];var c=document.createElement("div");c.className="confirm-wrap";c.innerHTML='<div class="confirm-title">&#127908; Rishika asks!</div><div class="confirm-q">'+q.cq+'</div><button class="mic-btn" id="micBtn" onclick="startListen()">&#127908; Tap and Speak</button><div class="transcript" id="tbox"></div><div class="result-box" id="rbox"></div><div class="nudge" id="nudgeBox"></div><button class="btn-next" id="btnNext" onclick="goNext()">Next Question &#9654;</button>';G("qArea").appendChild(c);c.scrollIntoView({behavior:"smooth",block:"center"});setTimeout(function(){say(q.cqs);},500);}
+function showConfirm(){
+  var q=session[idx];var c=document.createElement("div");c.className="confirm-wrap";
+  c.innerHTML='<div class="confirm-title">&#127917; Rishika asks!</div>'
+    +'<div class="confirm-q">'+q.cq+'</div>'
+    +'<div class="math-input-wrap"><textarea id="rawAnswer" class="math-raw" rows="2" autocomplete="off" placeholder="Type your answer e.g. (x+2)(x-3) or 4(x+2) or x^2-9"></textarea></div>'
+    +'<div class="math-preview-label">Rendered preview</div>'
+    +'<div class="math-preview" id="mathPreview"><span class="mph">your answer will render here...</span></div>'
+    +'<div class="sugg-strip"><div class="sugg-strip-head">Suggestions</div><div class="sugg-chips" id="suggChips"></div></div>'
+    +'<button type="button" onclick="submitTyped()" style="width:100%;font-family:\'Nunito\',sans-serif;font-size:14px;font-weight:900;padding:11px;border-radius:12px;border:none;background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;cursor:pointer;margin-bottom:8px;">Submit Answer</button>'
+    +'<div class="result-box" id="rbox"></div>'
+    +'<div class="nudge" id="nudgeBox"></div>'
+    +'<button type="button" class="btn-next" id="btnNext" onclick="goNext()">Next Question &#9654;</button>';
+  G("qArea").appendChild(c);c.scrollIntoView({behavior:"smooth",block:"center"});
+  var ra=G("rawAnswer");
+  if(ra){
+    ra.addEventListener("input",mathUpdate);
+    ra.addEventListener("keydown",function(ev){if(ev.key==="Enter"&&!ev.shiftKey){ev.preventDefault();submitTyped();}});
+    setTimeout(function(){ra.focus();},300);
+  }
+  buildSuggChips(MATH_DEFAULTS);
+  say(q.cqs);
+}
 function goNext(){idx++;G("qArea").innerHTML="";showQ();window.scrollTo({top:0,behavior:"smooth"});}
 function updateProg(){var pct=Math.round((idx/PER_SESSION)*100);G("progFill").style.width=pct+"%";G("progLabel").textContent="Question "+(idx+1)+" of "+PER_SESSION;G("progPct").textContent=pct+"%";}
 function unlockNav(){G("btnPractice").classList.remove("locked");G("btnExam").classList.remove("locked");G("lockTip").style.display="none";}
@@ -350,15 +428,128 @@ function onComplete(){
 function goPractice(){if(!completed){alert("Complete explanations first!");return;}location.href="/practice.html?chapter=visualising_solid_shapes";}
 function goExam(){if(!completed){alert("Complete explanations first!");return;}location.href="/exam.html?chapter=visualising_solid_shapes";}
 function setupRecog(){var SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR)return;recog=new SR();recog.lang="en-IN";recog.continuous=false;recog.interimResults=false;recog.onresult=function(e){handleAnswer(e.results[0][0].transcript.toLowerCase().trim());};recog.onerror=function(){setListen(false);showNudge("Could not hear. Try again!");};recog.onend=function(){setListen(false);};}
-function startListen(){if(!recog){showNudge("Voice needs Chrome!");return;}if(listening){recog.stop();return;}setListen(true);var tb=G("tbox");if(tb){tb.classList.add("show");tb.textContent="Listening...";}recog.start();}
-function setListen(on){listening=on;var btn=G("micBtn");if(btn){btn.className="mic-btn"+(on?" on":"");btn.textContent=on?"&#127908; Listening...":"&#127908; Tap and Speak";}}
-function handleAnswer(text){var tb=G("tbox");if(tb)tb.textContent='"'+text+'"';var q=session[idx];var ok=q.ans.some(function(a){return text.includes(a.toLowerCase())||a.toLowerCase().includes(text);});var rb=G("rbox");if(ok){rb.className="result-box ok";rb.textContent="&#10003; Correct! Excellent!";G("nudgeBox").classList.remove("show");var nb=G("btnNext");if(nb)nb.classList.add("show");say("Correct! Excellent!");rHappy();}else{nudgeCount++;rb.className="result-box no";rb.textContent="&#10006; Not quite. Listen to my hint!";var nudge=q.nudges[Math.min(nudgeCount-1,q.nudges.length-1)];showNudge(nudge);say(nudge);rThink();if(nudgeCount>=3){var nb2=G("btnNext");if(nb2){nb2.classList.add("show");nb2.textContent="I Understand &#9654;";}}}}
+
+
+function handleAnswer(text){var tb=G("tbox");if(tb)tb.textContent='"'+text+'"';var q=session[idx];var ok=q.ans.some(function(a){return text.includes(a.toLowerCase())||a.toLowerCase().includes(text);});var rb=G("rbox");if(ok){
+    celebrate();
+  }else{nudgeCount++;rb.className="result-box no";rb.textContent="&#10006; Not quite. Listen to my hint!";var nudge=q.nudges[Math.min(nudgeCount-1,q.nudges.length-1)];showNudge(nudge);say(nudge);rThink();if(nudgeCount>=3){var nb2=G("btnNext");if(nb2){nb2.classList.add("show");nb2.textContent="I Understand &#9654;";}}}}
 function showNudge(msg){var n=G("nudgeBox");if(n){n.textContent=msg;n.classList.add("show");}}
 function openBreak(){G("breakOv").classList.add("show");}
 function closeBreak(){G("breakOv").classList.remove("show");}
 function startBreak(r){closeBreak();breakSecs=0;G("timerLbl").textContent=r;G("timerNum").textContent="00:00";G("timerScreen").classList.add("show");breakTmr=setInterval(function(){breakSecs++;var m=String(Math.floor(breakSecs/60)).padStart(2,"0");var s=String(breakSecs%60).padStart(2,"0");G("timerNum").textContent=m+":"+s;},1000);}
 function endBreak(){clearInterval(breakTmr);G("timerScreen").classList.remove("show");}
 window.onload=init;
+</script>
+
+<script>
+function mathNormalise(raw){
+  var s=raw,fixes=[];
+  if(/sq[\.\s_-]*r[\.\s_-]*t|square[\s_-]*root|squrt|squroot|sqroot/i.test(s)){
+    s=s.replace(/square[\s_-]*root[\s_-]*(of[\s_-]*)?/gi,"sqrt ");
+    s=s.replace(/sq[\.\s_-]*r[\.\s_-]*t[\.\s_-]*/gi,"sqrt ");
+    s=s.replace(/\b(squrt|squroot|sqroot)\b/gi,"sqrt ");
+    fixes.push({label:"Did you mean: sqrt?",type:"fuzzy"});
+  }
+  if(/cube[\s_-]*root|cubert|cbroot/i.test(s)){
+    s=s.replace(/cube[\s_-]*root[\s_-]*(of[\s_-]*)?/gi,"cbrt ");
+    s=s.replace(/\b(cubert|cbroot)\b/gi,"cbrt ");
+    fixes.push({label:"Did you mean: cbrt?",type:"fuzzy"});
+  }
+  s=s.replace(/([a-zA-Z])(\d+)/g,function(m,l,d){return l+"^"+d;});
+  return {normalised:s.trim(),fixes:fixes};
+}
+function mathToLatex(s){
+  s=s.replace(/sqrt\s*\(([^)]*)\)/g,"\\sqrt{$1}");
+  s=s.replace(/sqrt\s+([^\s+\-*\/\^]+)/g,"\\sqrt{$1}");
+  s=s.replace(/cbrt\s*\(([^)]*)\)/g,"\\sqrt[3]{$1}");
+  s=s.replace(/cbrt\s+([^\s+\-*\/\^]+)/g,"\\sqrt[3]{$1}");
+  s=s.replace(/\(([^)]+)\)\/\(([^)]+)\)/g,"\\frac{$1}{$2}");
+  s=s.replace(/([A-Za-z0-9\^\{\}]+)\/([A-Za-z0-9\^\{\}]+)/g,"\\frac{$1}{$2}");
+  s=s.replace(/\bpi\b/g,"\\pi");
+  s=s.replace(/\*/g,"\\times");
+  s=s.replace(/\+-/g,"\\pm");
+  s=s.replace(/!=/g,"\\neq");
+  s=s.replace(/>=/g,"\\geq");
+  s=s.replace(/<=/g,"\\leq");
+  return s;
+}
+function mathRender(latex){
+  var el=G("mathPreview");if(!el)return;
+  if(!latex.trim()){el.innerHTML='<span class="mph">your answer will render here...</span>';return;}
+  try{katex.render(latex,el,{throwOnError:false,displayMode:true});}
+  catch(e){el.textContent=latex;}
+}
+function mathGetSuggs(raw,norm){
+  if(/[a-zA-Z]\^2/.test(norm)&&!/[a-zA-Z]\^3/.test(norm)){
+    var b=(norm.match(/([a-zA-Z])\^2/)||["","x"])[1];
+    return {chips:[
+      {label:b+"^2 confirmed",ins:b+"^2",type:"confirm"},
+      {label:b+"^2-b^2=("+b+"+b)("+b+"-b)",ins:b+"^2-b^2=("+b+"+b)("+b+"-b)",type:"identity"},
+      {label:b+"^2+2"+b+"b+b^2=("+b+"+b)^2",ins:b+"^2+2"+b+"b+b^2=("+b+"+b)^2",type:"identity"},
+      {label:"("+b+"+a)("+b+"+b)",ins:"("+b+"+a)("+b+"+b)",type:"shortcut"},
+    ]};}
+  if(/[a-zA-Z]\^3/.test(norm)){return {chips:[
+    {label:"a^3+b^3=(a+b)(a^2-ab+b^2)",ins:"a^3+b^3=(a+b)(a^2-ab+b^2)",type:"identity"},
+    {label:"a^3-b^3=(a-b)(a^2+ab+b^2)",ins:"a^3-b^3=(a-b)(a^2+ab+b^2)",type:"identity"},
+  ]};}
+  if(/\\sqrt/.test(mathToLatex(norm))){return {chips:[
+    {label:"sqrt confirmed",ins:"sqrt()",type:"confirm"},
+    {label:"sqrt(a^2)=a",ins:"sqrt(a^2)=a",type:"identity"},
+  ]};}
+  if(/\//.test(norm)){return {chips:[
+    {label:"Factor numerator",ins:"",type:"hint",action:"num"},
+    {label:"Factor denominator",ins:"",type:"hint",action:"den"},
+    {label:"Cancel common factor",ins:"",type:"hint",action:"cancel"},
+  ]};}
+  if(/\(/.test(norm)){return {chips:[
+    {label:"(x+a)(x+b)",ins:"(x+a)(x+b)",type:"shortcut"},
+    {label:"(x+a)(x-a)",ins:"(x+a)(x-a)",type:"shortcut"},
+  ]};}
+  return null;
+}
+var MATH_HINTS={split:"Find two numbers: product=axc, sum=b.",num:"Factor numerator first.",den:"Factor denominator first.",cancel:"Cancel common factors.",hcf:"HCF: ab+ac=a(b+c)"};
+var MATH_DEFAULTS=[
+  {label:"x^2",ins:"x^2",type:"shortcut"},{label:"x^3",ins:"x^3",type:"shortcut"},
+  {label:"(a+b)^2",ins:"(a+b)^2",type:"shortcut"},{label:"(a-b)^2",ins:"(a-b)^2",type:"shortcut"},
+  {label:"a^2-b^2",ins:"a^2-b^2",type:"shortcut"},{label:"(x+a)(x+b)",ins:"(x+a)(x+b)",type:"shortcut"},
+  {label:"sqrt()",ins:"sqrt()",type:"shortcut"},{label:"cbrt()",ins:"cbrt()",type:"shortcut"},
+  {label:"Take HCF out",ins:"",type:"hint",action:"hcf"},
+];
+function buildSuggChips(list){
+  var el=G("suggChips");if(!el)return;
+  var ra=G("rawAnswer");
+  el.innerHTML="";
+  list.forEach(function(c){
+    var btn=document.createElement("button");
+    btn.className="schip "+(c.type||"shortcut");
+    btn.textContent=c.label;btn.type="button";
+    btn.addEventListener("click",function(){
+      if(c.action&&MATH_HINTS[c.action]){showMathHint(MATH_HINTS[c.action]);return;}
+      if(c.ins&&ra){var s=ra.selectionStart,e=ra.selectionEnd;ra.value=ra.value.slice(0,s)+c.ins+ra.value.slice(e);ra.selectionStart=ra.selectionEnd=s+c.ins.length;ra.focus();mathUpdate();}
+    });
+    el.appendChild(btn);
+  });
+}
+function showMathHint(msg){
+  var old=G("mathHintToast");if(old)old.remove();
+  var t=document.createElement("div");t.id="mathHintToast";t.className="math-hint-toast";t.textContent=msg;
+  var sc=G("suggChips");if(sc)sc.parentNode.insertBefore(t,sc.nextSibling);
+  setTimeout(function(){t.remove();},4000);
+}
+function mathUpdate(){
+  var ra=G("rawAnswer");if(!ra)return;
+  var raw=ra.value;
+  var res=mathNormalise(raw);
+  var latex=mathToLatex(res.normalised);
+  mathRender(latex);
+  var result=raw.trim()?mathGetSuggs(raw,res.normalised):null;
+  var chips=[];
+  res.fixes.forEach(function(f){chips.push(f);});
+  if(result)result.chips.forEach(function(c){chips.push(c);});
+  else MATH_DEFAULTS.forEach(function(c){chips.push(c);});
+  buildSuggChips(chips);
+}
+
 </script>
 </body>
 </html>
