@@ -78,6 +78,8 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 .result-box{font-size:12px;font-weight:800;padding:9px 13px;border-radius:9px;display:none;line-height:1.4;}
 .result-box.ok{background:#eef2eb;border:2px solid var(--sage);color:var(--sage);display:block;}
 .result-box.no{background:#fff5f0;border:2px solid var(--rust);color:var(--rust);display:block;}
+.cel-word{font-size:1.5rem;font-weight:900;letter-spacing:1px;line-height:1.2;margin-bottom:3px;}
+.cel-meta{font-size:0.75rem;font-weight:700;opacity:0.8;letter-spacing:0.5px;}
 .nudge{font-size:12px;font-weight:700;color:var(--mid);margin-top:7px;font-style:italic;display:none;}
 .nudge.show{display:block;}
 .btn-next{font-family:'Nunito',sans-serif;font-size:14px;font-weight:900;padding:11px 22px;border-radius:12px;border:none;background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;cursor:pointer;display:none;margin-top:10px;width:100%;}
@@ -680,6 +682,32 @@ function goExam(){if(!completed){alert("Complete explanations first!");return;}l
 
 
 
+var CELEBRATIONS=[
+  {word:"Magnifique !",    lang:"French",     meaning:"Magnificent!",   speak:"Magnifique"},
+  {word:"¡Brillante!",     lang:"Spanish",    meaning:"Brilliant!",     speak:"Brillante"},
+  {word:"素晴らしい！",      lang:"Japanese",   meaning:"Wonderful!",     speak:"素晴らしい"},
+  {word:"Wunderbar!",      lang:"German",     meaning:"Wonderful!",     speak:"Wunderbar"},
+  {word:"Bravissimo!",     lang:"Italian",    meaning:"Very well done!", speak:"Bravissimo"},
+  {word:"!ممتاز",          lang:"Arabic",     meaning:"Excellent!",     speak:"ممتاز"},
+  {word:"Fantástico!",     lang:"Portuguese", meaning:"Fantastic!",     speak:"Fantástico"},
+  {word:"훌륭해요!",         lang:"Korean",     meaning:"Excellent!",     speak:"훌륭해요"},
+];
+var lastCelIdx=-1;
+function celebrate(){
+  var idx;
+  do{ idx=Math.floor(Math.random()*CELEBRATIONS.length); }while(idx===lastCelIdx&&CELEBRATIONS.length>1);
+  lastCelIdx=idx;
+  var c=CELEBRATIONS[idx];
+  var rb=G("rbox");
+  rb.className="result-box ok";
+  rb.innerHTML='<div class="cel-word">'+c.word+'</div>'
+    +'<div class="cel-meta">'+c.lang+' &nbsp;·&nbsp; <em>'+c.meaning+'</em></div>';
+  G("nudgeBox").classList.remove("show");
+  var nb=G("btnNext");if(nb)nb.classList.add("show");
+  say(c.speak);
+  rHappy();
+}
+
 function handleAnswer(text){
   if(text==null||text===""){
     var ra=G("rawAnswer");
@@ -699,12 +727,7 @@ function handleAnswer(text){
   });
   var rb=G("rbox");
   if(ok){
-    rb.className="result-box ok";
-    rb.innerHTML="✓ Correct! Excellent!";
-    G("nudgeBox").classList.remove("show");
-    var nb=G("btnNext");if(nb)nb.classList.add("show");
-    say("Correct! Excellent!");
-    rHappy();
+    celebrate();
   }else{
     nudgeCount++;
     rb.className="result-box no";
