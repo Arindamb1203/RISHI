@@ -135,6 +135,10 @@ body::after{content:'RISHI';position:fixed;bottom:-40px;right:-30px;font-family:
   </div>
 </div>
 
+
+  <!-- Stats bar -->
+  <div id="statsBar" style="position:relative;z-index:10;display:flex;gap:0;border-bottom:2px solid var(--border-dark);background:var(--warm-white);"></div>
+
 <div class="two-panel">
   <nav class="topic-rail" id="topicRail"></nav>
   <div class="chapter-panel" id="chapterPanel">
@@ -153,7 +157,7 @@ body::after{content:'RISHI';position:fixed;bottom:-40px;right:-30px;font-family:
 var TOPICS = [
   {id:'algebra',     name:'Algebra',      icon:'🔣', chapters:[2,9,14,15]  },
   {id:'geometry',    name:'Geometry',     icon:'📐', chapters:[3,4,10]     },
-  {id:'mensuration', name:'Mensuration',  icon:'📏', chapters:[11]         },
+  {id:'mensuration', name:'Mensuration',  icon:'📏', chapters:[11,112]     },
   {id:'arithmetic',  name:'Arithmetic',   icon:'🔢', chapters:[1,8,12,13,16]},
   {id:'datahandling',name:'Data Handling',icon:'📊', chapters:[5]          }
 ];
@@ -169,7 +173,8 @@ var CHAPTERS = {
   8: {name:"Comparing Quantities",         built:true,  path:"/explain/arithmetic/comparing-quantities.html"},
   9: {name:"Algebraic Expressions",        built:true,  path:"/explain/algebra/algebraic-expressions-identities.html"},
   10:{name:"Visualising Solid Shapes",     built:true,  path:"/explain/geometry/visualising-solid-shapes.html"},
-  11:{name:"Mensuration",                  built:true,  path:"/explain/mensuration/area-plane-figures.html", path2:"/explain/mensuration/surface-area-volume.html"},
+  11:{name:"Area of Plane Figures",         built:true,  path:"/explain/mensuration/area-plane-figures.html"},
+  112:{name:"Surface Area & Volume",          built:true,  path:"/explain/mensuration/surface-area-volume.html",  legacyKey:"explain_surface_done"},
   12:{name:"Exponents and Powers",         built:true,  path:"/explain/arithmetic/powers-exponents.html"},
   13:{name:"Direct & Inverse Proportions", built:true,  path:"/explain/arithmetic/direct-inverse-proportions.html"},
   14:{name:"Factorisation",                built:true,  path:"/explain/algebra/factorisation.html"},
@@ -180,16 +185,16 @@ var CHAPTERS = {
 var CH_COLORS = {
   1:"#6C63FF",2:"#2563EB",3:"#059669",4:"#0D9488",5:"#D97706",
   6:"#DC2626",7:"#EA580C",8:"#7C3AED",9:"#0891B2",10:"#16A34A",
-  11:"#B45309",12:"#4338CA",13:"#DB2777",14:"#65A30D",15:"#0284C7",16:"#7E22CE"
+  11:"#B45309",112:"#92400e",12:"#4338CA",13:"#DB2777",14:"#65A30D",15:"#0284C7",16:"#7E22CE"
 };
 
 var LEGACY_KEYS = {
   2:"explain_linear_done",3:"explain_quadrilaterals_done",
   4:"explain_practical_done",9:"explain_algebraic_done",
-  11:"explain_area_done",15:"explain_graphs_done"
+  11:"explain_area_done",112:"explain_surface_done",15:"explain_graphs_done"
 };
 
-var activeTopic = TOPICS[0].id;
+var activeTopic = sessionStorage.getItem("rishi_syllabus_topic")||TOPICS[0].id;
 
 function G(id){return document.getElementById(id);}
 function logout(){localStorage.removeItem('rishi_current_student');window.location.href='/login.html';}
@@ -224,6 +229,7 @@ function buildTopicRail(){
 
 function selectTopic(id){
   activeTopic=id;
+  sessionStorage.setItem("rishi_syllabus_topic",id);
   for(var i=0;i<TOPICS.length;i++){
     var b=G('tbtn-'+TOPICS[i].id);
     if(b) b.className='topic-btn'+(TOPICS[i].id===id?' active':'');
@@ -268,20 +274,7 @@ function buildChapterList(){
       html+='<div class="three-btns">';
 
       /* EXPLAIN */
-      if(ch.path2){
-        // Two-part explain (e.g. Mensuration)
-        if(explainDone){
-          html+='<div style="display:flex;flex-direction:column;gap:5px;">';
-          html+='<a href="'+ch.path+'" class="abtn done-btn" style="padding:8px 4px;"><span class="abtn-ico">📖</span><span class="abtn-name" style="font-size:10px;">Area of Plane Figures</span><span class="abtn-sub">✓ Done</span></a>';
-          html+='<a href="'+ch.path2+'" class="abtn done-btn" style="padding:8px 4px;"><span class="abtn-ico">📖</span><span class="abtn-name" style="font-size:10px;">Surface Area &amp; Volume</span><span class="abtn-sub">✓ Done</span></a>';
-          html+='</div>';
-        } else {
-          html+='<div style="display:flex;flex-direction:column;gap:5px;">';
-          html+='<a href="'+ch.path+'" class="abtn go" style="padding:8px 4px;"><span class="abtn-ico">📖</span><span class="abtn-name" style="font-size:10px;">Area of Plane Figures</span><span class="abtn-sub">▶ Watch Now</span></a>';
-          html+='<a href="'+ch.path2+'" class="abtn go" style="padding:8px 4px;"><span class="abtn-ico">📖</span><span class="abtn-name" style="font-size:10px;">Surface Area &amp; Volume</span><span class="abtn-sub">▶ Watch Now</span></a>';
-          html+='</div>';
-        }
-      } else if(explainDone){
+      if(explainDone){
         html+='<a href="'+ch.path+'" class="abtn done-btn"><span class="abtn-ico">📖</span><span class="abtn-name">Explain</span><span class="abtn-sub">✓ Done · Re-watch</span></a>';
       } else {
         html+='<a href="'+ch.path+'" class="abtn go"><span class="abtn-ico">📖</span><span class="abtn-name">Explain</span><span class="abtn-sub">▶ Watch Now</span></a>';
@@ -333,6 +326,36 @@ function renderSampurna(){
   G('sampurnaSection').innerHTML=html;
 }
 
+
+/* ── Stats Bar ── */
+function renderStats(){
+  var allBuilt=[2,3,4,5,8,9,10,11,112,12,13,14,15,16,1];
+  var explained=0,practiced=0,examDone=0;
+  for(var i=0;i<allBuilt.length;i++){
+    var cid=allBuilt[i];
+    if(isExplainDone(cid)) explained++;
+    if(isPracticeDone(cid)) practiced++;
+    if(isChapExamDone(cid)) examDone++;
+  }
+  var total=allBuilt.length;
+  var items=[
+    {lbl:'Explained', val:explained, tot:total, col:'var(--amber)'},
+    {lbl:'Practised', val:practiced, tot:total, col:'var(--sage)'},
+    {lbl:'Exam Done', val:examDone,  tot:total, col:'var(--green)'}
+  ];
+  var html='';
+  for(var j=0;j<items.length;j++){
+    var it=items[j];
+    var pct=Math.round(it.val/it.tot*100);
+    html+='<div style="flex:1;padding:10px 14px;border-right:1px solid var(--gold-pale);text-align:center;">';
+    html+='<div style="font-family:Orbitron,sans-serif;font-size:18px;font-weight:900;color:'+it.col+'">'+it.val+'<span style="font-size:11px;color:var(--soft)">/'+it.tot+'</span></div>';
+    html+='<div style="font-size:10px;font-weight:800;color:var(--soft);text-transform:uppercase;letter-spacing:.5px;margin-top:2px;">'+it.lbl+'</div>';
+    html+='<div style="height:4px;background:var(--gold-pale);border-radius:2px;margin-top:5px;overflow:hidden;"><div style="height:100%;width:'+pct+'%;background:'+it.col+';border-radius:2px;transition:width .8s ease;"></div></div>';
+    html+='</div>';
+  }
+  G('statsBar').innerHTML=html;
+}
+
 /* ── Init ── */
 window.onload=function(){
   var params=new URLSearchParams(window.location.search);
@@ -348,6 +371,7 @@ window.onload=function(){
   buildTopicRail();
   buildChapterList();
   renderSampurna();
+  renderStats();
 };
 </script>
 </body>
