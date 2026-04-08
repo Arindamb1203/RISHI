@@ -1,288 +1,284 @@
-import os, re, glob
+#!/usr/bin/env python3
+"""
+RISHI Explain Pages — Standard Upgrade Script v2
+Targets: public/explain/**/*.html
+Run from repo root: python upgrade.py
 
-# ── Read math JS block from companion file ────────────────────────────────
-script_dir = os.path.dirname(os.path.abspath(__file__))
-with open(os.path.join(script_dir, 'math_block.js'), 'r', encoding='utf-8') as f:
-    MATH_JS = f.read()
+Groups:
+  A/C — standard SVG template (11 files + factorisation)
+  B   — panel-layout MCQ (comparing-quantities, direct-inverse-proportions,
+         powers-exponents, rational-numbers)
+  SKIP — introduction-to-graphs (needs full rebuild)
+"""
 
-MATH_SCRIPT_BLOCK = '\n<script>\n' + MATH_JS + '\n</script>'
+import re, os, glob, sys
 
-KATEX_CDN = '<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">\n<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>'
+SKIP_FILES = {"introduction-to-graphs.html"}
 
-MATH_CSS = """.math-input-wrap{margin-bottom:10px;}
-.math-raw{width:100%;padding:10px 13px;border-radius:10px;border:2px solid var(--border-dark);background:var(--warm-white);color:var(--charcoal);font-size:1rem;font-family:'Share Tech Mono',monospace;resize:none;outline:none;min-height:48px;line-height:1.6;transition:border-color .2s;}
-.math-raw:focus{border-color:var(--amber);box-shadow:0 0 0 3px rgba(212,135,10,.12);}
-.math-raw::placeholder{color:var(--inactive);font-family:'Nunito',sans-serif;}
-.math-preview-label{font-size:0.68rem;text-transform:uppercase;letter-spacing:2px;color:var(--soft);margin:.5rem 0 .25rem;}
-.math-preview{min-height:44px;padding:.6rem 1rem;background:#f9f4ec;border-radius:8px;border:1.5px solid var(--gold-pale);font-size:1.2rem;color:var(--charcoal);overflow-x:auto;display:flex;align-items:center;justify-content:center;margin-bottom:10px;}
-.math-preview .katex{font-size:1.2rem;}
-.math-preview .mph{color:var(--inactive);font-style:italic;font-size:.85rem;font-family:'Nunito',sans-serif;}
-.sugg-strip{margin-bottom:10px;}
-.sugg-strip-head{font-size:.68rem;text-transform:uppercase;letter-spacing:1.5px;color:var(--soft);margin-bottom:.4rem;}
-.sugg-chips{display:flex;flex-wrap:wrap;gap:.35rem;}
-.schip{border:1.5px solid;border-radius:20px;padding:.25rem .75rem;font-size:.78rem;cursor:pointer;background:transparent;font-family:'Nunito',sans-serif;font-weight:700;transition:all .15s;}
-.schip.identity{border-color:#4a8a4a;color:#3a7a3a;background:#f0f8f0;}
-.schip.identity:hover{background:#d8f0d8;}
-.schip.shortcut{border-color:#7a4aaa;color:#6a3a9a;background:#f5f0ff;}
-.schip.shortcut:hover{background:#e8e0ff;}
-.schip.hint{border-color:#aa6a0a;color:#8a5008;background:#fff8ee;}
-.schip.hint:hover{background:#ffeedd;}
-.schip.confirm{border-color:#1a6aaa;color:#0a5a9a;background:#eef6ff;font-weight:800;}
-.schip.confirm:hover{background:#d8eeff;}
-.schip.fuzzy{border-color:#0a8a8a;color:#0a6a6a;background:#eefafa;border-style:dashed;}
-.math-hint-toast{font-size:.78rem;color:#8a5008;background:#fff8ee;border:1.5px solid #aa6a0a;border-radius:7px;padding:.4rem .7rem;margin-bottom:8px;}
-.result-box.ok{background:#eef2eb;border:2px solid var(--sage);color:var(--sage);display:block;}
-.result-box.no{background:#fff5f0;border:2px solid var(--rust);color:var(--rust);display:block;}
-.cel-word{font-size:1.5rem;font-weight:900;letter-spacing:1px;line-height:1.2;margin-bottom:3px;}
-.cel-meta{font-size:0.75rem;font-weight:700;opacity:0.8;letter-spacing:0.5px;}"""
+TURTLE_HTML = '''<div id="rWrap">
+<svg id="rChar" viewBox="0 0 100 110" xmlns="http://www.w3.org/2000/svg">
+  <ellipse cx="50" cy="68" rx="36" ry="28" fill="#5a8a60" stroke="#3d6b42" stroke-width="2"/>
+  <ellipse cx="50" cy="66" rx="22" ry="16" fill="#7ab87a" stroke="#5a8a60" stroke-width="1.5"/>
+  <line x1="50" y1="50" x2="50" y2="82" stroke="#5a8a60" stroke-width="1.5"/>
+  <line x1="28" y1="66" x2="72" y2="66" stroke="#5a8a60" stroke-width="1.5"/>
+  <line x1="32" y1="55" x2="68" y2="77" stroke="#5a8a60" stroke-width="1"/>
+  <line x1="68" y1="55" x2="32" y2="77" stroke="#5a8a60" stroke-width="1"/>
+  <ellipse cx="20" cy="82" rx="10" ry="7" fill="#7ab87a" stroke="#5a8a60" stroke-width="1.5" transform="rotate(-20,20,82)"/>
+  <ellipse cx="80" cy="82" rx="10" ry="7" fill="#7ab87a" stroke="#5a8a60" stroke-width="1.5" transform="rotate(20,80,82)"/>
+  <ellipse cx="22" cy="58" rx="9" ry="6" fill="#7ab87a" stroke="#5a8a60" stroke-width="1.5" transform="rotate(20,22,58)"/>
+  <ellipse cx="78" cy="58" rx="9" ry="6" fill="#7ab87a" stroke="#5a8a60" stroke-width="1.5" transform="rotate(-20,78,58)"/>
+  <ellipse cx="50" cy="42" rx="10" ry="14" fill="#8fba6a" stroke="#5a8a60" stroke-width="1.5"/>
+  <ellipse cx="50" cy="28" rx="18" ry="16" fill="#8fba6a" stroke="#5a8a60" stroke-width="2"/>
+  <ellipse cx="43" cy="24" rx="5" ry="5.5" fill="white"/>
+  <ellipse cx="57" cy="24" rx="5" ry="5.5" fill="white"/>
+  <ellipse cx="43" cy="25" rx="3" ry="3.5" fill="#1a3a1a"/>
+  <ellipse cx="57" cy="25" rx="3" ry="3.5" fill="#1a3a1a"/>
+  <circle cx="44" cy="23" r="1.2" fill="white"/>
+  <circle cx="58" cy="23" r="1.2" fill="white"/>
+  <ellipse id="rLid1" cx="43" cy="24" rx="5" ry="1" fill="#8fba6a" opacity="0"/>
+  <ellipse id="rLid2" cx="57" cy="24" rx="5" ry="1" fill="#8fba6a" opacity="0"/>
+  <path id="rMouth" d="M44,33 Q50,38 56,33" fill="none" stroke="#3d6b42" stroke-width="2" stroke-linecap="round"/>
+  <ellipse id="rBlush1" cx="36" cy="30" rx="7" ry="4" fill="#ff9999" opacity="0"/>
+  <ellipse id="rBlush2" cx="64" cy="30" rx="7" ry="4" fill="#ff9999" opacity="0"/>
+  <rect x="28" y="90" width="44" height="13" fill="#d4870a" rx="4"/>
+  <text x="50" y="100" text-anchor="middle" font-family="Nunito" font-size="7" font-weight="900" fill="white">REKHA</text>
+</svg>
+</div>'''
 
-STOP_ALL_AND_SAY = """function stopAllAudio(){
-  if(elAudio){try{elAudio.pause();elAudio.src="";}catch(x){} elAudio=null;}
-  if(window.speechSynthesis)window.speechSynthesis.cancel();
+TURTLE_CSS = '''#rWrap{position:fixed;bottom:68px;left:10px;z-index:200;width:82px;pointer-events:none;}
+#rChar{width:82px;filter:drop-shadow(0 4px 10px rgba(107,76,42,.3));}
+@keyframes rIn{from{transform:translateY(50px);opacity:0}to{transform:translateY(0);opacity:1}}
+@keyframes rBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}'''
+
+TURTLE_JS = '''/* ═══════ REKHA (TURTLE) CHARACTER ═══════ */
+var mouthTmr=null, blinkTmr=null, mOpen=false;
+function rInit(){
+  var c=G("rChar");
+  if(c)c.style.animation="rIn .6s cubic-bezier(.34,1.56,.64,1) forwards";
+  scheduleBlink();
 }
-function sayBrowser(text,onEnd){
+function scheduleBlink(){
+  blinkTmr=setTimeout(function(){rBlink();scheduleBlink();},2200+Math.random()*3000);
+}
+function rBlink(){
+  var l=G("rLid1"),r=G("rLid2");if(!l||!r)return;
+  l.setAttribute("ry","5.5");r.setAttribute("ry","5.5");
+  setTimeout(function(){l.setAttribute("ry","1");r.setAttribute("ry","1");},120);
+}
+function rStartTalk(len){
+  rStopTalk();
+  G("rBlush1").style.opacity="0.7";G("rBlush2").style.opacity="0.7";
+  mOpen=false;
+  mouthTmr=setInterval(function(){
+    mOpen=!mOpen;
+    var m=G("rMouth");if(!m)return;
+    if(mOpen){m.setAttribute("d","M42,33 Q50,42 58,33");m.setAttribute("fill","#1a3a1a");}
+    else{m.setAttribute("d","M44,33 Q50,38 56,33");m.setAttribute("fill","none");}
+  },160);
+  setTimeout(rStopTalk,Math.max(1800,(len||20)*58));
+}
+function rStopTalk(){
+  clearInterval(mouthTmr);mOpen=false;
+  var m=G("rMouth");
+  if(m){m.setAttribute("d","M44,33 Q50,38 56,33");m.setAttribute("fill","none");}
+  G("rBlush1").style.opacity="0";G("rBlush2").style.opacity="0";
+}
+function rHappy(){
+  var c=G("rChar");if(c)c.style.animation="rBounce .35s ease-in-out 5";
+  G("rBlush1").style.opacity="1";G("rBlush2").style.opacity="1";
+  setTimeout(function(){rStopTalk();var c=G("rChar");if(c)c.style.animation="none";},2500);
+}
+function rThink(){setTimeout(rStopTalk,1800);}'''
+
+SAY_BROWSER = '''function sayBrowser(text,onEnd){
   if(!window.speechSynthesis)return;
   window.speechSynthesis.cancel();
-  rSetAvatar("speaking");startSpeakAnim();
+  rStartTalk(text.length);
   var u=new SpeechSynthesisUtterance(text);
   u.lang="en-IN";u.rate=0.88;u.pitch=1.15;
-  if(selectedVoice)u.voice=selectedVoice;
-  u.onend=function(){stopSpeakAnim();rSetAvatar("idle");if(onEnd)onEnd();};
-  u.onerror=function(){stopSpeakAnim();rSetAvatar("idle");if(onEnd)onEnd();};
+  var v=(typeof selectedVoice!=="undefined"&&selectedVoice)?selectedVoice:
+         (typeof chosenVoice!=="undefined"&&chosenVoice)?chosenVoice:null;
+  if(v)u.voice=v;
+  u.onend=function(){rStopTalk();if(onEnd)onEnd();};
+  u.onerror=function(){rStopTalk();if(onEnd)onEnd();};
   window.speechSynthesis.speak(u);
-}
-function say(text,onEnd){
+}'''
+
+SAY_FUNC = '''function say(text,onEnd){
   stopAllAudio();
-  rSetAvatar("speaking");startSpeakAnim();
+  rStartTalk(text.length);
   fetch("/tts",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({text:text})})
   .then(function(res){if(!res.ok)throw new Error("TTS "+res.status);return res.blob();})
   .then(function(blob){
     var url=URL.createObjectURL(blob);
     elAudio=new Audio(url);
-    elAudio.onended=function(){URL.revokeObjectURL(url);elAudio=null;stopSpeakAnim();rSetAvatar("idle");if(onEnd)onEnd();};
-    elAudio.onerror=function(){URL.revokeObjectURL(url);elAudio=null;stopSpeakAnim();rSetAvatar("idle");if(onEnd)onEnd();};
-    elAudio.play();
+    elAudio.onended=function(){URL.revokeObjectURL(url);elAudio=null;rStopTalk();if(onEnd)onEnd();};
+    elAudio.onerror=function(){URL.revokeObjectURL(url);elAudio=null;rStopTalk();if(onEnd)onEnd();};
+    var p=elAudio.play();
+    if(p&&p.catch){p.catch(function(){URL.revokeObjectURL(url);elAudio=null;sayBrowser(text,onEnd);});}
   })
   .catch(function(err){sayBrowser(text,onEnd);});
-}"""
+}'''
 
-NEW_SHOW_CONFIRM = r"""function showConfirm(){
-  var q=session[idx];var c=document.createElement("div");c.className="confirm-wrap";
-  c.innerHTML='<div class="confirm-title">&#127917; Rishika asks!</div>'
-    +'<div class="confirm-q">'+q.cq+'</div>'
-    +'<div class="math-input-wrap"><textarea id="rawAnswer" class="math-raw" rows="2" autocomplete="off" placeholder="Type your answer e.g. (x+2)(x-3) or 4(x+2) or x^2-9"></textarea></div>'
-    +'<div class="math-preview-label">Rendered preview</div>'
-    +'<div class="math-preview" id="mathPreview"><span class="mph">your answer will render here...</span></div>'
-    +'<div class="sugg-strip"><div class="sugg-strip-head">Suggestions</div><div class="sugg-chips" id="suggChips"></div></div>'
-    +'<button type="button" onclick="submitTyped()" style="width:100%;font-family:\'Nunito\',sans-serif;font-size:14px;font-weight:900;padding:11px;border-radius:12px;border:none;background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;cursor:pointer;margin-bottom:8px;">Submit Answer</button>'
-    +'<div class="result-box" id="rbox"></div>'
-    +'<div class="nudge" id="nudgeBox"></div>'
-    +'<button type="button" class="btn-next" id="btnNext" onclick="goNext()">Next Question &#9654;</button>';
-  G("qArea").appendChild(c);c.scrollIntoView({behavior:"smooth",block:"center"});
-  var ra=G("rawAnswer");
-  if(ra){
-    ra.addEventListener("input",mathUpdate);
-    ra.addEventListener("keydown",function(ev){if(ev.key==="Enter"&&!ev.shiftKey){ev.preventDefault();submitTyped();}});
-    setTimeout(function(){ra.focus();},300);
-  }
-  buildSuggChips(MATH_DEFAULTS);
-  say(q.cqs);
-}"""
 
-NEW_SUBMIT_TYPED = """function submitTyped(){
-  var ra=G("rawAnswer");
-  if(!ra)return;
-  var val=String(ra.value||"").trim();
-  if(!val){ra.focus();return;}
-  handleAnswer(val.toLowerCase());
-}"""
-
-CELEBRATIONS_BLOCK = """var CELEBRATIONS=[
-  {word:"Magnifique !",lang:"French",meaning:"Magnificent!",speak:"Magnifique"},
-  {word:"Brillante!",lang:"Spanish",meaning:"Brilliant!",speak:"Brillante"},
-  {word:"Wunderbar!",lang:"German",meaning:"Wonderful!",speak:"Wunderbar"},
-  {word:"Bravissimo!",lang:"Italian",meaning:"Very well done!",speak:"Bravissimo"},
-  {word:"Fantastico!",lang:"Portuguese",meaning:"Fantastic!",speak:"Fantastico"},
-  {word:"Muhteşem!",lang:"Turkish",meaning:"Magnificent!",speak:"Muhteşem"},
-  {word:"Formidable!",lang:"French",meaning:"Formidable!",speak:"Formidable"},
-  {word:"Bravo!",lang:"Italian",meaning:"Well done!",speak:"Bravo"},
-];
-var lastCelIdx=-1;
-function celebrate(){
-  var idx;
-  do{idx=Math.floor(Math.random()*CELEBRATIONS.length);}while(idx===lastCelIdx&&CELEBRATIONS.length>1);
-  lastCelIdx=idx;
-  var c=CELEBRATIONS[idx];
-  var rb=G("rbox");
-  rb.className="result-box ok";
-  rb.innerHTML='<div class="cel-word">'+c.word+'</div><div class="cel-meta">'+c.lang+' &nbsp;&middot;&nbsp; <em>'+c.meaning+'</em></div>';
-  G("nudgeBox").classList.remove("show");
-  var nb=G("btnNext");if(nb)nb.classList.add("show");
-  say(c.speak);
-  rHappy();
-}
-"""
-
-def replace_function(content, func_name, replacement):
-    pattern = r'function ' + re.escape(func_name) + r'\s*\([^)]*\)\s*\{'
-    match = re.search(pattern, content)
-    if not match:
-        return content, False
-    start = match.start()
-    brace_count = 0
-    i = match.end() - 1
-    end = len(content)
+def find_function_end(content, start):
+    depth, i = 0, start
     while i < len(content):
-        if content[i] == '{':
-            brace_count += 1
+        if content[i] == '{': depth += 1
         elif content[i] == '}':
-            brace_count -= 1
-            if brace_count == 0:
-                end = i + 1
-                break
+            depth -= 1
+            if depth == 0: return i + 1
         i += 1
-    content = content[:start] + replacement + content[end:]
-    return content, True
+    return -1
 
-# ── Find all explain HTML files ───────────────────────────────────────────
-files = glob.glob('public/explain/**/*.html', recursive=True)
-files += glob.glob('public/explain/*.html')
-files = list(set(files))
-files = [f for f in files if 'factorisation.html' not in f.replace('\\', '/')]
+def replace_function(content, name, replacement):
+    m = re.search(r'function\s+' + re.escape(name) + r'\s*\([^)]*\)\s*\{', content)
+    if not m: return content, False
+    end = find_function_end(content, m.end() - 1)
+    if end == -1: return content, False
+    while end < len(content) and content[end] in '\n\r': end += 1
+    return content[:m.start()] + replacement + '\n' + content[end:], True
 
-if not files:
-    print("ERROR: No HTML files found.")
-    print("Make sure you run this from D:\\rishi\\ (your repo root folder)")
-    input("Press Enter to exit.")
-    exit()
+def remove_function(content, name):
+    m = re.search(r'function\s+' + re.escape(name) + r'\s*\([^)]*\)\s*\{', content)
+    if not m: return content, False
+    end = find_function_end(content, m.end() - 1)
+    if end == -1: return content, False
+    while end < len(content) and content[end] in '\n\r': end += 1
+    return content[:m.start()] + content[end:], True
 
-print(f"Found {len(files)} files to process:\n")
-for f in files:
-    print(f"  {f}")
-print()
 
-done, skipped, errors = [], [], []
+# ── Group A/C steps ────────────────────────────────────────────────────────────
 
-for filepath in files:
-    try:
-        with open(filepath, 'r', encoding='utf-8') as f:
-            content = f.read()
+def step_avatar_html(c):
+    p = re.compile(r'<div id="rWrap">.*?</div>', re.DOTALL)
+    new, n = p.subn(TURTLE_HTML, c, count=1)
+    return new, n > 0
 
-        if 'mathUpdate' in content:
-            print(f"  SKIP (already done): {filepath}")
-            skipped.append(filepath)
-            continue
+def step_fix_css(c):
+    changed = False
+    if '#rCharImg' in c:
+        c = re.sub(r'#rCharImg\{[^}]*\}[\r\n]*', '', c); changed = True
+    if '#rChar{' not in c and '#rWrap{' in c:
+        c = c.replace(
+            '#rWrap{position:fixed;bottom:68px;left:10px;z-index:200;width:82px;pointer-events:none;}',
+            '#rWrap{position:fixed;bottom:68px;left:10px;z-index:200;width:82px;pointer-events:none;}\n#rChar{width:82px;filter:drop-shadow(0 4px 10px rgba(107,76,42,.3));}', 1)
+        changed = True
+    return c, changed
 
-        # 1. Add KaTeX CDN after Google Fonts link
-        if 'katex' not in content:
-            content = re.sub(
-                r'(googleapis\.com[^\n]+rel="stylesheet">)',
-                r'\1\n' + KATEX_CDN,
-                content
-            )
+def step_character_js(c):
+    for pat in [
+        re.compile(r'/\*\s*═+[^*]*CHARACTER[^*]*═+\s*\*/.*?function\s+rThink\s*\(\)\s*\{[^}]*\}', re.DOTALL),
+        re.compile(r'function\s+stopSpeakAnim\s*\(.*?function\s+rThink\s*\(\)\s*\{[^}]*\}', re.DOTALL),
+        re.compile(r'function\s+rInit\s*\(\s*\)\s*\{.*?function\s+rThink\s*\(\)\s*\{[^}]*\}', re.DOTALL),
+    ]:
+        new, n = pat.subn(TURTLE_JS, c, count=1)
+        if n: return new, True
+    return c, False
 
-        # 2. Remove mic CSS
-        for pat in [
-            r'\.mic-btn\.[a-z-]+\{[^}]*\}',
-            r'\.mic-btn\{[^}]*\}',
-            r'@keyframes mic-pulse\{[^}]*\}',
-            r'input\.transcript\.[a-z]+\{[^}]*\}',
-            r'input\.transcript\{[^}]*\}',
-            r'\.transcript\.[a-z]+\{[^}]*\}',
-            r'\.transcript\{[^}]*\}',
+def step_fix_say(c):
+    changed = False
+    c, ok = replace_function(c, 'sayBrowser', SAY_BROWSER); changed = changed or ok
+    c, ok = replace_function(c, 'say', SAY_FUNC);           changed = changed or ok
+    return c, changed
+
+def step_elaudio(c):
+    if 'var elAudio' in c or 'elAudio=null' in c: return c, False
+    new, n = re.subn(r'var voicesReady\s*=\s*false\s*,\s*selectedVoice\s*=\s*null\s*;',
+                     'var voicesReady=false, selectedVoice=null, elAudio=null;', c, count=1)
+    return (new, True) if n else (c, False)
+
+def step_remove_recog(c):
+    changed = False
+    c, ok = remove_function(c, 'setupRecog'); changed = changed or ok
+    new, n = re.subn(r'setupRecog\(\)\s*;?\s*', '', c)
+    if n: c = new; changed = True
+    return c, changed
+
+# ── Group B steps ──────────────────────────────────────────────────────────────
+
+def step_b_turtle_css(c):
+    if '#rWrap' in c or '</style>' not in c: return c, False
+    return c.replace('</style>', TURTLE_CSS + '\n</style>', 1), True
+
+def step_b_turtle_html(c):
+    if '<div id="rWrap">' in c or '</body>' not in c: return c, False
+    return c.replace('</body>', TURTLE_HTML + '\n</body>', 1), True
+
+def step_b_turtle_js(c):
+    if 'function rInit(' in c or 'window.onload=' not in c: return c, False
+    return c.replace('window.onload=', TURTLE_JS + '\nwindow.onload=', 1), True
+
+def step_b_elaudio(c):
+    if 'var elAudio' in c or 'elAudio=null' in c: return c, False
+    new, n = re.subn(r'(var chosenVoice[^;]+;)', r'\1\nvar elAudio=null;', c, count=1)
+    return (new, True) if n else (c, False)
+
+def step_b_rinit(c):
+    if 'rInit()' in c or 'startBlink();' not in c: return c, False
+    return c.replace('startBlink();', 'startBlink();rInit();', 1), True
+
+
+# ── Main ───────────────────────────────────────────────────────────────────────
+
+def is_group_b(c):
+    return '<div id="rWrap">' not in c and 'var chosenVoice' in c
+
+def process_file(filepath):
+    fname = os.path.basename(filepath)
+    if fname in SKIP_FILES:
+        print(f"  SKIP  {fname}  (needs full rebuild)")
+        return False
+
+    with open(filepath, 'r', encoding='utf-8', errors='replace') as f:
+        c = f.read()
+    c = c.replace('\r\n', '\n').replace('\r', '\n')
+
+    report = []
+    grp = 'B' if is_group_b(c) else 'A'
+
+    if grp == 'B':
+        for fn, label in [
+            (step_b_turtle_css,  'turtle_css'),
+            (step_b_turtle_html, 'turtle_html'),
+            (step_b_turtle_js,   'turtle_js'),
+            (step_b_elaudio,     'elaudio'),
+            (step_b_rinit,       'rinit'),
+            (step_fix_say,       'say_fix'),
+            (step_remove_recog,  'recog_remove'),
         ]:
-            content = re.sub(pat, '', content)
+            c, ok = fn(c)
+            if ok: report.append(label)
+    else:
+        for fn, label in [
+            (step_avatar_html,  'avatar_html'),
+            (step_fix_css,      'css_fix'),
+            (step_character_js, 'character_js'),
+            (step_fix_say,      'say_fix'),
+            (step_elaudio,      'elaudio'),
+            (step_remove_recog, 'recog_remove'),
+        ]:
+            c, ok = fn(c)
+            if ok: report.append(label)
 
-        # 3. Replace result-box ok/no, add math CSS before </style>
-        content = re.sub(r'\.result-box\.ok\{[^}]*\}', '', content)
-        content = re.sub(r'\.result-box\.no\{[^}]*\}', '', content)
-        content = content.replace('</style>', MATH_CSS + '\n</style>', 1)
+    with open(filepath, 'w', encoding='utf-8') as f:
+        f.write(c)
 
-        # 4. Add elAudio var
-        content = content.replace(
-            'var voicesReady=false,selectedVoice=null;',
-            'var voicesReady=false,selectedVoice=null;\nvar elAudio=null;'
-        )
+    print(f"  {'OK' if report else 'NOOP'} [{grp}] {fname}")
+    if report: print(f"         ✓ {', '.join(report)}")
+    return True
 
-        # 5. Fix beforeunload listener
-        content = content.replace(
-            'window.addEventListener("beforeunload",function(){window.speechSynthesis&&window.speechSynthesis.cancel();});',
-            'window.addEventListener("beforeunload",function(){stopAllAudio();});'
-        )
-        content = content.replace(
-            'window.addEventListener("pagehide",function(){window.speechSynthesis&&window.speechSynthesis.cancel();});',
-            'window.addEventListener("pagehide",function(){stopAllAudio();});'
-        )
 
-        # 6. Replace say() with new version (includes stopAllAudio + sayBrowser)
-        content, ok = replace_function(content, 'say', STOP_ALL_AND_SAY)
-        if not ok:
-            print(f"  WARNING: say() not found in {filepath}")
+if __name__ == '__main__':
+    d = sys.argv[1] if len(sys.argv) > 1 else os.path.join(os.path.dirname(os.path.abspath(__file__)), 'public')
+    files = sorted(glob.glob(os.path.join(d, '**', '*.html'), recursive=True))
+    if not files: files = sorted(glob.glob(os.path.join(d, '*.html')))
+    if not files: print(f"No HTML files found under: {d}"); sys.exit(1)
 
-        # 7. Fix recog/listening variable
-        content = re.sub(
-            r'var recog\s*=\s*null\s*,\s*listening\s*=\s*false[^;]*;',
-            'var breakSecs=0,breakTmr=null;',
-            content
-        )
-
-        # 8. Replace showConfirm()
-        content, _ = replace_function(content, 'showConfirm', NEW_SHOW_CONFIRM)
-
-        # 9. Replace submitTyped()
-        content, _ = replace_function(content, 'submitTyped', NEW_SUBMIT_TYPED)
-
-        # 10. answerInput → rawAnswer
-        content = content.replace('G("answerInput")', 'G("rawAnswer")')
-        content = content.replace("G('answerInput')", "G('rawAnswer')")
-
-        # 11. Replace if(ok){ block with celebrate()
-        content = re.sub(
-            r'if\(ok\)\{.*?\}else\{',
-            'if(ok){\n    celebrate();\n  }else{',
-            content,
-            flags=re.DOTALL
-        )
-
-        # 12. Add CELEBRATIONS + celebrate() before handleAnswer
-        if 'celebrate' not in content:
-            content = content.replace(
-                'function handleAnswer(',
-                CELEBRATIONS_BLOCK + '\nfunction handleAnswer('
-            )
-
-        # 13. Remove voice recognition script block
-        content = re.sub(
-            r'<script>\s*\(function\(\)\{[^<]*(?:SpeechRecognition|RISHI_startVoice)[^<]*\}\)\(\);\s*</script>',
-            '',
-            content,
-            flags=re.DOTALL
-        )
-
-        # 14. Remove leftover voice functions
-        for fn in ['startListen', 'setMicBtn', 'setListen']:
-            content, _ = replace_function(content, fn, '')
-
-        # 15. Add math script block before </body>
-        content = content.replace('</body>', MATH_SCRIPT_BLOCK + '\n</body>')
-
-        with open(filepath, 'w', encoding='utf-8') as f:
-            f.write(content)
-
-        print(f"  DONE: {filepath}")
-        done.append(filepath)
-
-    except Exception as e:
-        print(f"  ERROR in {filepath}: {e}")
-        errors.append(filepath)
-
-print(f"\n{'='*60}")
-print(f"  Upgraded : {len(done)} files")
-print(f"  Skipped  : {len(skipped)} files (already done)")
-print(f"  Errors   : {len(errors)} files")
-if not errors:
-    print(f"\n  Now run:")
-    print(f"  git add .")
-    print(f'  git commit -m "Upgrade all explain pages: math input + ElevenLabs + celebrations"')
-    print(f"  git push")
-input("\nPress Enter to close.")
+    print(f"\nRISHI Upgrade v2 — {len(files)} file(s)\n")
+    n = sum(1 for fp in files if process_file(fp))
+    print(f"\nDone. {n} file(s) written.")
+    if SKIP_FILES:
+        print("\nSkipped:")
+        for s in sorted(SKIP_FILES): print(f"  - {s}")
+    print()

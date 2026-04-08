@@ -68,6 +68,10 @@ body{font-family:'Poppins',sans-serif;background:linear-gradient(135deg,#1a0a00,
 .result-box.no{background:#fff5f0;border:2px solid var(--rust);color:var(--rust);display:block;}
 .cel-word{font-size:1.5rem;font-weight:900;letter-spacing:1px;line-height:1.2;margin-bottom:3px;}
 .cel-meta{font-size:0.75rem;font-weight:700;opacity:0.8;letter-spacing:0.5px;}
+#rWrap{position:fixed;bottom:68px;left:10px;z-index:200;width:82px;pointer-events:none;}
+#rChar{width:82px;filter:drop-shadow(0 4px 10px rgba(107,76,42,.3));}
+@keyframes rIn{from{transform:translateY(50px);opacity:0}to{transform:translateY(0);opacity:1}}
+@keyframes rBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
 </style>
 </head>
 <body>
@@ -160,25 +164,28 @@ function stopAllAudio(){
 function sayBrowser(text,onEnd){
   if(!window.speechSynthesis)return;
   window.speechSynthesis.cancel();
-  rSetAvatar("speaking");startSpeakAnim();
+  rStartTalk(text.length);
   var u=new SpeechSynthesisUtterance(text);
   u.lang="en-IN";u.rate=0.88;u.pitch=1.15;
-  if(selectedVoice)u.voice=selectedVoice;
-  u.onend=function(){stopSpeakAnim();rSetAvatar("idle");if(onEnd)onEnd();};
-  u.onerror=function(){stopSpeakAnim();rSetAvatar("idle");if(onEnd)onEnd();};
+  var v=(typeof selectedVoice!=="undefined"&&selectedVoice)?selectedVoice:
+         (typeof chosenVoice!=="undefined"&&chosenVoice)?chosenVoice:null;
+  if(v)u.voice=v;
+  u.onend=function(){rStopTalk();if(onEnd)onEnd();};
+  u.onerror=function(){rStopTalk();if(onEnd)onEnd();};
   window.speechSynthesis.speak(u);
 }
 function say(text,onEnd){
   stopAllAudio();
-  rSetAvatar("speaking");startSpeakAnim();
+  rStartTalk(text.length);
   fetch("/tts",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({text:text})})
   .then(function(res){if(!res.ok)throw new Error("TTS "+res.status);return res.blob();})
   .then(function(blob){
     var url=URL.createObjectURL(blob);
     elAudio=new Audio(url);
-    elAudio.onended=function(){URL.revokeObjectURL(url);elAudio=null;stopSpeakAnim();rSetAvatar("idle");if(onEnd)onEnd();};
-    elAudio.onerror=function(){URL.revokeObjectURL(url);elAudio=null;stopSpeakAnim();rSetAvatar("idle");if(onEnd)onEnd();};
-    elAudio.play();
+    elAudio.onended=function(){URL.revokeObjectURL(url);elAudio=null;rStopTalk();if(onEnd)onEnd();};
+    elAudio.onerror=function(){URL.revokeObjectURL(url);elAudio=null;rStopTalk();if(onEnd)onEnd();};
+    var p=elAudio.play();
+    if(p&&p.catch){p.catch(function(){URL.revokeObjectURL(url);elAudio=null;sayBrowser(text,onEnd);});}
   })
   .catch(function(err){sayBrowser(text,onEnd);});
 }
@@ -359,6 +366,45 @@ function showDone(){
   localStorage.setItem('explain_proportions_done','1');
   say('Congratulations! You have completed Direct and Inverse Proportions! You scored '+score+' out of 15!');
 }
+/* ═══════ REKHA (TURTLE) CHARACTER ═══════ */
+var mouthTmr=null, blinkTmr=null, mOpen=false;
+function rInit(){
+  var c=G("rChar");
+  if(c)c.style.animation="rIn .6s cubic-bezier(.34,1.56,.64,1) forwards";
+  scheduleBlink();
+}
+function scheduleBlink(){
+  blinkTmr=setTimeout(function(){rBlink();scheduleBlink();},2200+Math.random()*3000);
+}
+function rBlink(){
+  var l=G("rLid1"),r=G("rLid2");if(!l||!r)return;
+  l.setAttribute("ry","5.5");r.setAttribute("ry","5.5");
+  setTimeout(function(){l.setAttribute("ry","1");r.setAttribute("ry","1");},120);
+}
+function rStartTalk(len){
+  rStopTalk();
+  G("rBlush1").style.opacity="0.7";G("rBlush2").style.opacity="0.7";
+  mOpen=false;
+  mouthTmr=setInterval(function(){
+    mOpen=!mOpen;
+    var m=G("rMouth");if(!m)return;
+    if(mOpen){m.setAttribute("d","M42,33 Q50,42 58,33");m.setAttribute("fill","#1a3a1a");}
+    else{m.setAttribute("d","M44,33 Q50,38 56,33");m.setAttribute("fill","none");}
+  },160);
+  setTimeout(rStopTalk,Math.max(1800,(len||20)*58));
+}
+function rStopTalk(){
+  clearInterval(mouthTmr);mOpen=false;
+  var m=G("rMouth");
+  if(m){m.setAttribute("d","M44,33 Q50,38 56,33");m.setAttribute("fill","none");}
+  G("rBlush1").style.opacity="0";G("rBlush2").style.opacity="0";
+}
+function rHappy(){
+  var c=G("rChar");if(c)c.style.animation="rBounce .35s ease-in-out 5";
+  G("rBlush1").style.opacity="1";G("rBlush2").style.opacity="1";
+  setTimeout(function(){rStopTalk();var c=G("rChar");if(c)c.style.animation="none";},2500);
+}
+function rThink(){setTimeout(rStopTalk,1800);}
 window.onload=function init(){rishiCheckPlan(13); /* Chapter 13 — Direct & Inverse Proportions */initVoices(function(){startBlink();loadQ(0);});};
 window.addEventListener('beforeunload',function(){speechSynthesis.cancel();});
 window.addEventListener('pagehide',function(){speechSynthesis.cancel();});
@@ -474,5 +520,34 @@ function mathUpdate(){
 }
 
 </script>
+<div id="rWrap">
+<svg id="rChar" viewBox="0 0 100 110" xmlns="http://www.w3.org/2000/svg">
+  <ellipse cx="50" cy="68" rx="36" ry="28" fill="#5a8a60" stroke="#3d6b42" stroke-width="2"/>
+  <ellipse cx="50" cy="66" rx="22" ry="16" fill="#7ab87a" stroke="#5a8a60" stroke-width="1.5"/>
+  <line x1="50" y1="50" x2="50" y2="82" stroke="#5a8a60" stroke-width="1.5"/>
+  <line x1="28" y1="66" x2="72" y2="66" stroke="#5a8a60" stroke-width="1.5"/>
+  <line x1="32" y1="55" x2="68" y2="77" stroke="#5a8a60" stroke-width="1"/>
+  <line x1="68" y1="55" x2="32" y2="77" stroke="#5a8a60" stroke-width="1"/>
+  <ellipse cx="20" cy="82" rx="10" ry="7" fill="#7ab87a" stroke="#5a8a60" stroke-width="1.5" transform="rotate(-20,20,82)"/>
+  <ellipse cx="80" cy="82" rx="10" ry="7" fill="#7ab87a" stroke="#5a8a60" stroke-width="1.5" transform="rotate(20,80,82)"/>
+  <ellipse cx="22" cy="58" rx="9" ry="6" fill="#7ab87a" stroke="#5a8a60" stroke-width="1.5" transform="rotate(20,22,58)"/>
+  <ellipse cx="78" cy="58" rx="9" ry="6" fill="#7ab87a" stroke="#5a8a60" stroke-width="1.5" transform="rotate(-20,78,58)"/>
+  <ellipse cx="50" cy="42" rx="10" ry="14" fill="#8fba6a" stroke="#5a8a60" stroke-width="1.5"/>
+  <ellipse cx="50" cy="28" rx="18" ry="16" fill="#8fba6a" stroke="#5a8a60" stroke-width="2"/>
+  <ellipse cx="43" cy="24" rx="5" ry="5.5" fill="white"/>
+  <ellipse cx="57" cy="24" rx="5" ry="5.5" fill="white"/>
+  <ellipse cx="43" cy="25" rx="3" ry="3.5" fill="#1a3a1a"/>
+  <ellipse cx="57" cy="25" rx="3" ry="3.5" fill="#1a3a1a"/>
+  <circle cx="44" cy="23" r="1.2" fill="white"/>
+  <circle cx="58" cy="23" r="1.2" fill="white"/>
+  <ellipse id="rLid1" cx="43" cy="24" rx="5" ry="1" fill="#8fba6a" opacity="0"/>
+  <ellipse id="rLid2" cx="57" cy="24" rx="5" ry="1" fill="#8fba6a" opacity="0"/>
+  <path id="rMouth" d="M44,33 Q50,38 56,33" fill="none" stroke="#3d6b42" stroke-width="2" stroke-linecap="round"/>
+  <ellipse id="rBlush1" cx="36" cy="30" rx="7" ry="4" fill="#ff9999" opacity="0"/>
+  <ellipse id="rBlush2" cx="64" cy="30" rx="7" ry="4" fill="#ff9999" opacity="0"/>
+  <rect x="28" y="90" width="44" height="13" fill="#d4870a" rx="4"/>
+  <text x="50" y="100" text-anchor="middle" font-family="Nunito" font-size="7" font-weight="900" fill="white">REKHA</text>
+</svg>
+</div>
 </body>
 </html>
