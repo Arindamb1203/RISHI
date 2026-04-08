@@ -272,13 +272,13 @@ function buildChapterList(){
         // Two-part explain (e.g. Mensuration)
         if(explainDone){
           html+='<div style="display:flex;flex-direction:column;gap:5px;">';
-          html+='<a href="'+ch.path+'" class="abtn done-btn" style="padding:8px 4px;"><span class="abtn-ico">📖</span><span class="abtn-name" style="font-size:11px;">Part 1</span><span class="abtn-sub">✓ Done</span></a>';
-          html+='<a href="'+ch.path2+'" class="abtn done-btn" style="padding:8px 4px;"><span class="abtn-ico">📖</span><span class="abtn-name" style="font-size:11px;">Part 2</span><span class="abtn-sub">✓ Done</span></a>';
+          html+='<a href="'+ch.path+'" class="abtn done-btn" style="padding:8px 4px;"><span class="abtn-ico">📖</span><span class="abtn-name" style="font-size:10px;">Area of Plane Figures</span><span class="abtn-sub">✓ Done</span></a>';
+          html+='<a href="'+ch.path2+'" class="abtn done-btn" style="padding:8px 4px;"><span class="abtn-ico">📖</span><span class="abtn-name" style="font-size:10px;">Surface Area &amp; Volume</span><span class="abtn-sub">✓ Done</span></a>';
           html+='</div>';
         } else {
           html+='<div style="display:flex;flex-direction:column;gap:5px;">';
-          html+='<a href="'+ch.path+'" class="abtn go" style="padding:8px 4px;"><span class="abtn-ico">📖</span><span class="abtn-name" style="font-size:11px;">Part 1</span><span class="abtn-sub">▶ Area</span></a>';
-          html+='<a href="'+ch.path2+'" class="abtn go" style="padding:8px 4px;"><span class="abtn-ico">📖</span><span class="abtn-name" style="font-size:11px;">Part 2</span><span class="abtn-sub">▶ Surface &amp; Vol</span></a>';
+          html+='<a href="'+ch.path+'" class="abtn go" style="padding:8px 4px;"><span class="abtn-ico">📖</span><span class="abtn-name" style="font-size:10px;">Area of Plane Figures</span><span class="abtn-sub">▶ Watch Now</span></a>';
+          html+='<a href="'+ch.path2+'" class="abtn go" style="padding:8px 4px;"><span class="abtn-ico">📖</span><span class="abtn-name" style="font-size:10px;">Surface Area &amp; Volume</span><span class="abtn-sub">▶ Watch Now</span></a>';
           html+='</div>';
         }
       } else if(explainDone){
