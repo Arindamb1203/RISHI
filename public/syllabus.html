@@ -151,12 +151,11 @@ body::after{content:'RISHI';position:fixed;bottom:-40px;right:-30px;font-family:
    NCERT CLASS 8 MATHS — CORRECT DATA
    ══════════════════════════════════════ */
 var TOPICS = [
-  {id:'algebra',     name:'Algebra',           icon:'🔣', chapters:[2,9,14,15]   },
-  {id:'geometry',    name:'Geometry',           icon:'📐', chapters:[3,4,10]      },
-  {id:'mensuration', name:'Mensuration',        icon:'📏', chapters:[11]          },
-  {id:'numsystem',   name:'Number System',      icon:'💡', chapters:[1,6,7,12,16] },
-  {id:'proportion',  name:'Ratio & Proportion', icon:'⚖️', chapters:[8,13]        },
-  {id:'datahandling',name:'Data Handling',      icon:'📊', chapters:[5]           }
+  {id:'algebra',     name:'Algebra',      icon:'🔣', chapters:[2,9,14,15]  },
+  {id:'geometry',    name:'Geometry',     icon:'📐', chapters:[3,4,10]     },
+  {id:'mensuration', name:'Mensuration',  icon:'📏', chapters:[11]         },
+  {id:'arithmetic',  name:'Arithmetic',   icon:'🔢', chapters:[1,8,12,13,16]},
+  {id:'datahandling',name:'Data Handling',icon:'📊', chapters:[5]          }
 ];
 
 var CHAPTERS = {
@@ -170,7 +169,7 @@ var CHAPTERS = {
   8: {name:"Comparing Quantities",         built:true,  path:"/explain/arithmetic/comparing-quantities.html"},
   9: {name:"Algebraic Expressions",        built:true,  path:"/explain/algebra/algebraic-expressions-identities.html"},
   10:{name:"Visualising Solid Shapes",     built:true,  path:"/explain/geometry/visualising-solid-shapes.html"},
-  11:{name:"Mensuration",                  built:true,  path:"/explain/mensuration/area-plane-figures.html"},
+  11:{name:"Mensuration",                  built:true,  path:"/explain/mensuration/area-plane-figures.html", path2:"/explain/mensuration/surface-area-volume.html"},
   12:{name:"Exponents and Powers",         built:true,  path:"/explain/arithmetic/powers-exponents.html"},
   13:{name:"Direct & Inverse Proportions", built:true,  path:"/explain/arithmetic/direct-inverse-proportions.html"},
   14:{name:"Factorisation",                built:true,  path:"/explain/algebra/factorisation.html"},
@@ -269,7 +268,20 @@ function buildChapterList(){
       html+='<div class="three-btns">';
 
       /* EXPLAIN */
-      if(explainDone){
+      if(ch.path2){
+        // Two-part explain (e.g. Mensuration)
+        if(explainDone){
+          html+='<div style="display:flex;flex-direction:column;gap:5px;">';
+          html+='<a href="'+ch.path+'" class="abtn done-btn" style="padding:8px 4px;"><span class="abtn-ico">📖</span><span class="abtn-name" style="font-size:11px;">Part 1</span><span class="abtn-sub">✓ Done</span></a>';
+          html+='<a href="'+ch.path2+'" class="abtn done-btn" style="padding:8px 4px;"><span class="abtn-ico">📖</span><span class="abtn-name" style="font-size:11px;">Part 2</span><span class="abtn-sub">✓ Done</span></a>';
+          html+='</div>';
+        } else {
+          html+='<div style="display:flex;flex-direction:column;gap:5px;">';
+          html+='<a href="'+ch.path+'" class="abtn go" style="padding:8px 4px;"><span class="abtn-ico">📖</span><span class="abtn-name" style="font-size:11px;">Part 1</span><span class="abtn-sub">▶ Area</span></a>';
+          html+='<a href="'+ch.path2+'" class="abtn go" style="padding:8px 4px;"><span class="abtn-ico">📖</span><span class="abtn-name" style="font-size:11px;">Part 2</span><span class="abtn-sub">▶ Surface &amp; Vol</span></a>';
+          html+='</div>';
+        }
+      } else if(explainDone){
         html+='<a href="'+ch.path+'" class="abtn done-btn"><span class="abtn-ico">📖</span><span class="abtn-name">Explain</span><span class="abtn-sub">✓ Done · Re-watch</span></a>';
       } else {
         html+='<a href="'+ch.path+'" class="abtn go"><span class="abtn-ico">📖</span><span class="abtn-name">Explain</span><span class="abtn-sub">▶ Watch Now</span></a>';
