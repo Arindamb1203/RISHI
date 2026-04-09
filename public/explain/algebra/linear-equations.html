@@ -754,7 +754,7 @@ function init(){
   var st=JSON.parse(localStorage.getItem("rishi_current_student")||"{}");
   G("sName").textContent=st.studentName?st.studentName.split(" ")[0]:"there";
   var prog=JSON.parse(localStorage.getItem("rishi_progress")||"{}");
-  if(prog["explain_linear_done"] || rishiIsExplainDone(2)){completed=true;G("doneBanner").classList.add("show");unlockNav();}
+  if(prog["explain_linear_done"] || localStorage.getItem("rishi_explain_done_2")==="1"){completed=true;G("doneBanner").classList.add("show");unlockNav();}
   buildSession();
   rInit();
   /* Wait for voices THEN speak intro */
