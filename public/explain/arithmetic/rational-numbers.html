@@ -3,510 +3,155 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Rational Numbers – Class 8 | RISHI</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<title>RISHI — Rational Numbers</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Nunito:wght@400;600;700;800;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Poppins',sans-serif;background:linear-gradient(135deg,#1a0533,#2d1b69,#1a0a3d);min-height:100vh;color:#fff;display:flex;flex-direction:column}
-.top-bar{display:flex;align-items:center;justify-content:space-between;padding:12px 20px;background:rgba(255,255,255,0.05);border-bottom:1px solid rgba(255,255,255,0.1)}
-.top-bar .logo{font-size:1.4rem;font-weight:700;color:#c084fc;letter-spacing:2px}
-.top-bar .chapter{font-size:0.82rem;color:#aaa}
-.score-pill{background:rgba(192,132,252,0.15);border:1px solid #c084fc;border-radius:20px;padding:4px 14px;font-size:0.78rem;color:#c084fc}
-.progress-wrap{height:4px;background:rgba(255,255,255,0.1)}
-.progress-bar{height:4px;background:linear-gradient(90deg,#c084fc,#7c3aed);transition:width 0.5s ease}
-.main{display:flex;flex:1}
-.rishika-panel{width:158px;min-width:158px;display:flex;flex-direction:column;align-items:center;padding:18px 10px;background:rgba(255,255,255,0.03);border-right:1px solid rgba(255,255,255,0.08)}
-.rishika-svg-wrap{width:118px;height:138px}
-.speech-bubble{background:rgba(255,255,255,0.95);color:#333;border-radius:12px;padding:9px 11px;font-size:0.68rem;line-height:1.5;margin-top:10px;position:relative;max-width:138px;min-height:38px}
-.speech-bubble::before{content:'';position:absolute;top:-8px;left:18px;border-left:8px solid transparent;border-right:8px solid transparent;border-bottom:8px solid rgba(255,255,255,0.95)}
-.replay-btn{margin-top:11px;background:none;border:1px solid rgba(255,255,255,0.3);color:#fff;border-radius:20px;padding:4px 12px;font-size:0.68rem;cursor:pointer;font-family:'Poppins',sans-serif}
-.replay-btn:hover{background:rgba(255,255,255,0.1)}
-.content{flex:1;padding:18px;display:flex;flex-direction:column;gap:13px;overflow-y:auto}
-.q-number{font-size:0.72rem;color:#c084fc;margin-bottom:2px}
-.q-text{font-size:0.98rem;font-weight:600;color:#fff;line-height:1.6}
-.anim-canvas{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:6px;max-height:195px;overflow:hidden;display:flex;align-items:center;justify-content:center}
-.anim-canvas svg{max-height:195px;width:100%}
-.options-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
-.opt{background:rgba(255,255,255,0.07);border:1.5px solid rgba(255,255,255,0.15);border-radius:10px;padding:11px 14px;font-size:0.84rem;cursor:pointer;transition:all 0.2s;font-family:'Poppins',sans-serif;color:#fff;text-align:left}
-.opt:hover:not(:disabled){background:rgba(255,255,255,0.13);border-color:#c084fc}
-.opt.correct{background:rgba(39,174,96,0.25);border-color:#27ae60}
-.opt.wrong{background:rgba(231,76,60,0.25);border-color:#e74c3c}
-.feedback{font-size:0.83rem;padding:9px 13px;border-radius:8px;min-height:34px}
-.feedback.correct{background:rgba(39,174,96,0.2);color:#2ecc71}
-.feedback.wrong{background:rgba(231,76,60,0.2);color:#e74c3c}
-.next-btn{align-self:flex-end;background:linear-gradient(135deg,#c084fc,#7c3aed);color:#fff;border:none;border-radius:24px;padding:10px 28px;font-weight:700;font-size:0.88rem;cursor:pointer;font-family:'Poppins',sans-serif;display:none}
-.next-btn:hover{transform:scale(1.03)}
-.done-screen{display:none;flex-direction:column;align-items:center;justify-content:center;flex:1;gap:18px;text-align:center;padding:40px}
-.done-screen h2{font-size:1.9rem;color:#c084fc}
-.done-screen p{color:#ccc;font-size:0.96rem}
-.done-btn{background:linear-gradient(135deg,#c084fc,#7c3aed);color:#fff;border:none;border-radius:24px;padding:11px 30px;font-weight:700;font-size:0.96rem;cursor:pointer;font-family:'Poppins',sans-serif}
-.math-input-wrap{margin-bottom:10px;}
-.math-raw{width:100%;padding:10px 13px;border-radius:10px;border:2px solid var(--border-dark);background:var(--warm-white);color:var(--charcoal);font-size:1rem;font-family:'Share Tech Mono',monospace;resize:none;outline:none;min-height:48px;line-height:1.6;transition:border-color .2s;}
-.math-raw:focus{border-color:var(--amber);box-shadow:0 0 0 3px rgba(212,135,10,.12);}
-.math-raw::placeholder{color:var(--inactive);font-family:'Nunito',sans-serif;}
-.math-preview-label{font-size:0.68rem;text-transform:uppercase;letter-spacing:2px;color:var(--soft);margin:.5rem 0 .25rem;}
-.math-preview{min-height:44px;padding:.6rem 1rem;background:#f9f4ec;border-radius:8px;border:1.5px solid var(--gold-pale);font-size:1.2rem;color:var(--charcoal);overflow-x:auto;display:flex;align-items:center;justify-content:center;margin-bottom:10px;}
-.math-preview .katex{font-size:1.2rem;}
-.math-preview .mph{color:var(--inactive);font-style:italic;font-size:.85rem;font-family:'Nunito',sans-serif;}
-.sugg-strip{margin-bottom:10px;}
-.sugg-strip-head{font-size:.68rem;text-transform:uppercase;letter-spacing:1.5px;color:var(--soft);margin-bottom:.4rem;}
-.sugg-chips{display:flex;flex-wrap:wrap;gap:.35rem;}
-.schip{border:1.5px solid;border-radius:20px;padding:.25rem .75rem;font-size:.78rem;cursor:pointer;background:transparent;font-family:'Nunito',sans-serif;font-weight:700;transition:all .15s;}
-.schip.identity{border-color:#4a8a4a;color:#3a7a3a;background:#f0f8f0;}
-.schip.identity:hover{background:#d8f0d8;}
-.schip.shortcut{border-color:#7a4aaa;color:#6a3a9a;background:#f5f0ff;}
-.schip.shortcut:hover{background:#e8e0ff;}
-.schip.hint{border-color:#aa6a0a;color:#8a5008;background:#fff8ee;}
-.schip.hint:hover{background:#ffeedd;}
-.schip.confirm{border-color:#1a6aaa;color:#0a5a9a;background:#eef6ff;font-weight:800;}
-.schip.confirm:hover{background:#d8eeff;}
-.schip.fuzzy{border-color:#0a8a8a;color:#0a6a6a;background:#eefafa;border-style:dashed;}
-.math-hint-toast{font-size:.78rem;color:#8a5008;background:#fff8ee;border:1.5px solid #aa6a0a;border-radius:7px;padding:.4rem .7rem;margin-bottom:8px;}
+:root{--cream:#fdf6ec;--warm-white:#fffdf8;--gold:#c8922a;--gold-light:#e8b84b;--gold-pale:#f5e6c8;--amber:#d4870a;--sage:#7a8c6e;--sage-light:#a8b89a;--rust:#b85c2a;--charcoal:#2a2218;--mid:#5a4a30;--soft:#8a7a5a;--inactive:#c8b89a;--border-dark:#6b4c2a;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--cream);font-family:Nunito,sans-serif;min-height:100vh;color:var(--charcoal);}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(var(--gold-pale) 1px,transparent 1px),linear-gradient(90deg,var(--gold-pale) 1px,transparent 1px);background-size:40px 40px;opacity:.3;z-index:0;pointer-events:none;}
+.topbar{position:sticky;top:0;z-index:100;background:rgba(253,246,236,.97);border-bottom:2px solid var(--border-dark);backdrop-filter:blur(8px);padding:10px 18px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;}
+.logo-sm{font-family:'Orbitron',sans-serif;font-size:17px;font-weight:900;letter-spacing:4px;background:linear-gradient(135deg,var(--amber),var(--gold-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.topbar-center{font-family:'Orbitron',sans-serif;font-size:10px;letter-spacing:2px;color:var(--amber);text-transform:uppercase;}
+.topbar-right{display:flex;gap:8px;}
+.btn-topbar{font-family:Nunito,sans-serif;font-size:12px;font-weight:900;padding:6px 14px;border-radius:20px;border:2px solid var(--border-dark);background:var(--warm-white);color:var(--mid);cursor:pointer;}
+.btn-topbar.back{background:var(--gold-pale);}
+.prog-wrap{position:relative;z-index:10;padding:8px 18px;background:rgba(255,253,248,.9);border-bottom:1.5px solid var(--gold-pale);}
+.prog-info{display:flex;justify-content:space-between;font-size:11px;font-weight:800;color:var(--mid);margin-bottom:5px;}
+.prog-bar{height:6px;background:var(--gold-pale);border-radius:4px;overflow:hidden;}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--sage),var(--gold));border-radius:4px;transition:width .5s ease;}
+.main{position:relative;z-index:10;max-width:820px;margin:0 auto;padding:14px 14px 120px;}
+.rishika-wrap{display:flex;align-items:flex-start;gap:12px;margin-bottom:14px;}
+.rishika-avatar{width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,var(--sage),var(--sage-light));border:2px solid var(--border-dark);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;}
+.rishika-bubble{background:rgba(255,253,248,.97);border:2px solid var(--border-dark);border-radius:0 16px 16px 16px;padding:12px 16px;flex:1;box-shadow:0 4px 20px rgba(107,76,42,.1);}
+.rishika-name{font-size:10px;font-weight:900;color:var(--sage);letter-spacing:2px;text-transform:uppercase;margin-bottom:5px;}
+.rishika-text{font-size:14px;font-weight:700;color:var(--charcoal);line-height:1.6;}
+.hl{color:var(--amber);font-weight:900;}
+.btn-speak{display:inline-flex;align-items:center;gap:6px;font-family:Nunito,sans-serif;font-size:11px;font-weight:900;padding:5px 11px;border-radius:20px;border:2px solid var(--sage);background:#eef2eb;color:var(--sage);cursor:pointer;margin-top:8px;}
+.q-card{background:rgba(255,253,248,.97);border:2px solid var(--border-dark);border-radius:16px;padding:16px 18px;margin-bottom:12px;box-shadow:0 4px 20px rgba(107,76,42,.1);}
+.q-label{font-family:'Orbitron',sans-serif;font-size:10px;letter-spacing:3px;color:var(--amber);text-transform:uppercase;margin-bottom:8px;}
+.q-text{font-size:15px;font-weight:800;color:var(--charcoal);line-height:1.6;margin-bottom:10px;}
+.step{display:flex;gap:10px;margin-bottom:12px;opacity:0;transform:translateY(6px);transition:all .4s ease;}
+.step.vis{opacity:1;transform:translateY(0);}
+.step-num{width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;font-size:11px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:2px solid var(--border-dark);}
+.step-body{flex:1;font-size:13px;font-weight:700;color:var(--mid);line-height:1.6;padding-top:2px;}
+.anim-panel{background:#fffdf8;border:2px solid var(--border-dark);border-radius:14px;margin-bottom:12px;overflow:hidden;box-shadow:0 4px 16px rgba(107,76,42,.1);}
+.anim-header{background:linear-gradient(135deg,var(--charcoal),#3d2e1a);padding:7px 14px;display:flex;align-items:center;justify-content:space-between;}
+.anim-header-lbl{font-family:'Orbitron',sans-serif;font-size:9px;letter-spacing:2px;color:var(--gold-light);text-transform:uppercase;}
+.anim-replay{font-size:10px;font-weight:900;color:var(--gold-pale);background:none;border:1px solid var(--gold-pale);border-radius:20px;padding:2px 9px;cursor:pointer;display:none;}
+.anim-canvas{width:100%;max-height:195px;overflow:hidden;display:flex;align-items:center;justify-content:center;background:#fffdf8;}
+.anim-canvas svg{width:100%;max-height:195px;}
+.anim-status{padding:6px 14px;font-family:Nunito,sans-serif;font-size:12px;font-weight:800;color:var(--mid);text-align:center;min-height:26px;border-top:1px solid var(--gold-pale);}
+.anim-play-btn{width:100%;padding:10px;font-family:Nunito,sans-serif;font-size:14px;font-weight:900;background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;border:none;cursor:pointer;}
+.anim-play-btn:disabled{background:var(--gold-pale);color:var(--inactive);cursor:not-allowed;}
+.steps-btn{width:100%;padding:10px;font-family:Nunito,sans-serif;font-size:14px;font-weight:900;background:linear-gradient(135deg,var(--sage),var(--sage-light));color:#fff;border:none;cursor:pointer;display:none;border-top:1px solid var(--gold-pale);}
+.confirm-wrap{margin-top:12px;background:linear-gradient(135deg,#eef2eb,#f5fbf2);border:2px solid var(--border-dark);border-radius:14px;padding:16px 18px;}
+.confirm-title{font-size:11px;font-weight:900;color:var(--sage);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;}
+.confirm-q{font-size:14px;font-weight:800;color:var(--charcoal);margin-bottom:12px;line-height:1.5;}
+.result-box{font-size:12px;font-weight:800;padding:9px 13px;border-radius:9px;display:none;line-height:1.4;}
 .result-box.ok{background:#eef2eb;border:2px solid var(--sage);color:var(--sage);display:block;}
 .result-box.no{background:#fff5f0;border:2px solid var(--rust);color:var(--rust);display:block;}
-.cel-word{font-size:1.5rem;font-weight:900;letter-spacing:1px;line-height:1.2;margin-bottom:3px;}
-.cel-meta{font-size:0.75rem;font-weight:700;opacity:0.8;letter-spacing:0.5px;}
+.nudge{font-size:12px;font-weight:700;color:var(--mid);margin-top:7px;font-style:italic;display:none;}
+.nudge.show{display:block;}
+.btn-next{font-family:Nunito,sans-serif;font-size:14px;font-weight:900;padding:11px 22px;border-radius:12px;border:none;background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;cursor:pointer;display:none;margin-top:10px;width:100%;}
+.btn-next.show{display:block;}
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;z-index:100;background:rgba(253,246,236,.97);border-top:2px solid var(--border-dark);padding:10px 18px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap;align-items:center;}
+.btn-nav{font-family:Nunito,sans-serif;font-size:13px;font-weight:900;padding:10px 20px;border-radius:12px;border:2px solid var(--border-dark);cursor:pointer;}
+.btn-nav.practice{background:linear-gradient(135deg,var(--sage),var(--sage-light));color:#fff;border-color:var(--sage);}
+.btn-nav.exam{background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;border-color:var(--amber);}
+.btn-nav.locked{background:var(--gold-pale);color:var(--inactive);cursor:not-allowed;border-color:var(--inactive);}
+.lock-tip{font-size:10px;font-weight:700;color:var(--rust);width:100%;text-align:center;}
+.overlay{display:none;position:fixed;inset:0;background:rgba(42,34,24,.92);z-index:1000;flex-direction:column;align-items:center;justify-content:center;backdrop-filter:blur(6px);}
+.overlay.show{display:flex;}
+.break-box{background:var(--warm-white);border:2px solid var(--border-dark);border-radius:22px;padding:28px 32px;max-width:380px;width:90%;text-align:center;}
+.break-title{font-family:'Orbitron',sans-serif;font-size:14px;font-weight:900;color:var(--amber);letter-spacing:3px;margin-bottom:5px;}
+.break-sub{font-size:12px;font-weight:700;color:var(--soft);margin-bottom:16px;}
+.break-opts{display:flex;flex-direction:column;gap:8px;margin-bottom:12px;}
+.break-opt{font-family:Nunito,sans-serif;font-size:14px;font-weight:800;padding:11px;border-radius:11px;border:2px solid var(--border-dark);background:var(--warm-white);color:var(--mid);cursor:pointer;}
+.timer-screen{display:none;position:fixed;inset:0;background:#1a1208;z-index:1001;flex-direction:column;align-items:center;justify-content:center;}
+.timer-screen.show{display:flex;}
+.timer-reason{font-family:'Orbitron',sans-serif;font-size:12px;letter-spacing:4px;color:var(--gold-light);margin-bottom:16px;text-transform:uppercase;}
+.timer-num{font-family:'Orbitron',sans-serif;font-size:68px;font-weight:900;color:var(--gold-light);letter-spacing:6px;margin-bottom:30px;}
+.btn-end{font-family:Nunito,sans-serif;font-size:16px;font-weight:900;padding:13px 32px;border-radius:13px;border:2px solid var(--gold-light);background:transparent;color:var(--gold-light);cursor:pointer;}
+.done-banner{background:linear-gradient(135deg,#eef2eb,#f5fbf2);border:2px solid var(--border-dark);border-radius:14px;padding:14px 18px;text-align:center;margin-bottom:14px;display:none;}
+.done-banner.show{display:block;}
+.done-banner .dt{font-family:'Orbitron',sans-serif;font-size:12px;letter-spacing:2px;color:var(--sage);margin-bottom:4px;}
+.done-banner .ds{font-size:13px;font-weight:700;color:var(--mid);}
 #rWrap{position:fixed;bottom:68px;left:10px;z-index:200;width:82px;pointer-events:none;}
 #rChar{width:82px;filter:drop-shadow(0 4px 10px rgba(107,76,42,.3));}
 @keyframes rIn{from{transform:translateY(50px);opacity:0}to{transform:translateY(0);opacity:1}}
 @keyframes rBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+@media(max-width:600px){.main{padding:10px 10px 120px;}.topbar,.prog-wrap{padding-left:10px;padding-right:10px;}.timer-num{font-size:48px;}}
+.math-input-wrap{margin-bottom:10px;}
+.math-raw{width:100%;padding:10px 13px;border-radius:10px;border:2px solid var(--border-dark);background:var(--warm-white);color:var(--charcoal);font-size:1rem;font-family:'Share Tech Mono',monospace;resize:none;outline:none;min-height:48px;line-height:1.6;transition:border-color .2s;}
+.math-raw:focus{border-color:var(--amber);box-shadow:0 0 0 3px rgba(212,135,10,.12);}
+.math-raw::placeholder{color:var(--inactive);font-family:Nunito,sans-serif;}
+.math-preview-label{font-size:0.68rem;text-transform:uppercase;letter-spacing:2px;color:var(--soft);margin:.5rem 0 .25rem;}
+.math-preview{min-height:44px;padding:.6rem 1rem;background:#f9f4ec;border-radius:8px;border:1.5px solid var(--gold-pale);font-size:1.1rem;color:var(--charcoal);overflow-x:auto;display:flex;align-items:center;justify-content:center;margin-bottom:10px;}
+.math-preview .mph{color:var(--inactive);font-style:italic;font-size:.85rem;}
+.sugg-strip{margin-bottom:10px;}
+.sugg-strip-head{font-size:.68rem;text-transform:uppercase;letter-spacing:1.5px;color:var(--soft);margin-bottom:.4rem;}
+.sugg-chips{display:flex;flex-wrap:wrap;gap:.35rem;}
+.schip{border:1.5px solid;border-radius:20px;padding:.25rem .75rem;font-size:.78rem;cursor:pointer;background:transparent;font-family:Nunito,sans-serif;font-weight:700;transition:all .15s;}
+.schip.shortcut{border-color:#7a4aaa;color:#6a3a9a;background:#f5f0ff;}
+.schip.confirm{border-color:#1a6aaa;color:#0a5a9a;background:#eef6ff;font-weight:800;}
+.cel-word{font-size:1.5rem;font-weight:900;letter-spacing:1px;line-height:1.2;margin-bottom:3px;}
+.cel-meta{font-size:0.75rem;font-weight:700;opacity:0.8;}
 </style>
+<script src="/rishi-core.js"></script>
 </head>
 <body>
-<div class="top-bar">
-  <span class="logo">RISHI</span>
-  <span class="chapter">Rational Numbers — Class 8 Arithmetic</span>
-  <span class="score-pill" id="scorePill">Score: 0 / 15</span>
-</div>
-<div class="progress-wrap"><div class="progress-bar" id="progressBar" style="width:0%"></div></div>
-<div class="main" id="mainArea">
-  <div class="rishika-panel">
-    <div class="rishika-svg-wrap">
-      <svg viewBox="0 0 120 140" xmlns="http://www.w3.org/2000/svg">
-        <ellipse cx="60" cy="126" rx="34" ry="20" fill="#7c3aed"/>
-        <ellipse cx="60" cy="109" rx="21" ry="17" fill="#8b5cf6"/>
-        <rect x="53" y="93" width="14" height="14" rx="4" fill="#f5c5a3"/>
-        <ellipse cx="60" cy="73" rx="30" ry="31" fill="#f5c5a3"/>
-        <ellipse cx="60" cy="46" rx="30" ry="15" fill="#2d1b69"/>
-        <ellipse cx="32" cy="69" rx="7" ry="17" fill="#2d1b69"/>
-        <ellipse cx="88" cy="69" rx="7" ry="17" fill="#2d1b69"/>
-        <circle cx="60" cy="37" r="9" fill="#2d1b69"/>
-        <circle cx="31" cy="77" r="3" fill="#c084fc"/>
-        <circle cx="89" cy="77" r="3" fill="#c084fc"/>
-        <ellipse cx="46" cy="72" rx="7" ry="7.5" fill="white"/>
-        <circle cx="47" cy="73" r="4.5" fill="#5b21b6"/>
-        <circle cx="47" cy="73" r="2.5" fill="#1e0a4d"/>
-        <circle cx="49" cy="71" r="1.2" fill="white"/>
-        <ellipse id="lidL" cx="46" cy="72" rx="7" ry="7.5" fill="#f5c5a3" opacity="0"/>
-        <ellipse cx="74" cy="72" rx="7" ry="7.5" fill="white"/>
-        <circle cx="75" cy="73" r="4.5" fill="#5b21b6"/>
-        <circle cx="75" cy="73" r="2.5" fill="#1e0a4d"/>
-        <circle cx="77" cy="71" r="1.2" fill="white"/>
-        <ellipse id="lidR" cx="74" cy="72" rx="7" ry="7.5" fill="#f5c5a3" opacity="0"/>
-        <path d="M40 63 Q46 60 52 63" stroke="#4c1d95" stroke-width="2" fill="none" stroke-linecap="round"/>
-        <path d="M68 63 Q74 60 80 63" stroke="#4c1d95" stroke-width="2" fill="none" stroke-linecap="round"/>
-        <ellipse cx="60" cy="81" rx="3" ry="2" fill="#e8a87c"/>
-        <ellipse id="blushL" cx="40" cy="83" rx="8" ry="5" fill="#ff9999" opacity="0"/>
-        <ellipse id="blushR" cx="80" cy="83" rx="8" ry="5" fill="#ff9999" opacity="0"/>
-        <path id="mouth" d="M53 89 Q60 93 67 89" stroke="#c0392b" stroke-width="2" fill="none" stroke-linecap="round"/>
-        <path d="M48 109 L60 117 L72 109" stroke="#6d28d9" stroke-width="2" fill="none"/>
-        <path d="M25 121 Q60 136 95 121" stroke="#a78bfa" stroke-width="3" fill="none" opacity="0.6"/>
-      </svg>
-    </div>
-    <div class="speech-bubble" id="bubble">Hi! I am Rishika. Let us master Rational Numbers!</div>
-    <button class="replay-btn" onclick="replayAnim()">&#8635; Replay</button>
-  </div>
-  <div class="content" id="contentArea">
-    <div>
-      <div class="q-number" id="qNumber">Question 1 of 15</div>
-      <div class="q-text" id="qText"></div>
-    </div>
-    <div class="anim-canvas" id="animCanvas"></div>
-    <div class="options-grid" id="optionsGrid"></div>
-    <div class="feedback" id="feedback"></div>
-    <button class="next-btn" id="nextBtn" onclick="nextQ()">Next &#8594;</button>
+<div class="topbar">
+  <div class="logo-sm">RISHI</div>
+  <div class="topbar-center">🔢 Rational Numbers</div>
+  <div class="topbar-right">
+    <button class="btn-topbar" onclick="openBreak()">&#9749; Break</button>
+    <button class="btn-topbar back" onclick="location.href='/syllabus.html'">&#8592; Syllabus</button>
   </div>
 </div>
-<div class="done-screen" id="doneScreen">
-  <div style="font-size:3rem">&#127881;</div>
-  <h2>Chapter Complete!</h2>
-  <p id="doneScore"></p>
-  <p style="color:#aaa;font-size:0.82rem">Rational Numbers — Class 8 Arithmetic</p>
-  <button class="done-btn" onclick="location.href='/syllabus.html'">Back to Syllabus</button>
+<div class="prog-wrap">
+  <div class="prog-info"><span id="progLabel">Question 1 of 10</span><span id="progPct">0%</span></div>
+  <div class="prog-bar"><div class="prog-fill" id="progFill" style="width:0%"></div></div>
 </div>
-<script src="/rishi-core.js"></script>
-<script>
-function G(id){return document.getElementById(id);}
-var atTimers=[];
-function clearAt(){atTimers.forEach(clearTimeout);atTimers=[];}
-function at(ms,fn){atTimers.push(setTimeout(fn,ms));}
-var chosenVoice=null,mouthTimer=null;
-function initVoices(cb){
-  var v=speechSynthesis.getVoices();
-  if(v.length){pickVoice(v);cb();return;}
-  speechSynthesis.onvoiceschanged=function(){pickVoice(speechSynthesis.getVoices());cb();};
-}
-function pickVoice(voices){
-  var pri=['heera','veena','priya','raveena','female','woman','zira','samantha','victoria','karen','moira','tessa','fiona'];
-  var enIN=voices.filter(function(v){return v.lang==='en-IN';});
-  for(var p=0;p<pri.length;p++){for(var i=0;i<enIN.length;i++){if(enIN[i].name.toLowerCase().indexOf(pri[p])>-1){chosenVoice=enIN[i];return;}}}
-  var enA=voices.filter(function(v){return v.lang.startsWith('en');});
-  for(var p=0;p<pri.length;p++){for(var i=0;i<enA.length;i++){if(enA[i].name.toLowerCase().indexOf(pri[p])>-1){chosenVoice=enA[i];return;}}}
-  if(enIN.length){chosenVoice=enIN[0];return;}
-  if(enA.length){chosenVoice=enA[0];}
-}
-function stopAllAudio(){
-  if(elAudio){try{elAudio.pause();elAudio.src="";}catch(x){} elAudio=null;}
-  if(window.speechSynthesis)window.speechSynthesis.cancel();
-}
-function sayBrowser(text,onEnd){
-  if(!window.speechSynthesis)return;
-  window.speechSynthesis.cancel();
-  rStartTalk(text.length);
-  var u=new SpeechSynthesisUtterance(text);
-  u.lang="en-IN";u.rate=0.88;u.pitch=1.15;
-  var v=(typeof selectedVoice!=="undefined"&&selectedVoice)?selectedVoice:
-         (typeof chosenVoice!=="undefined"&&chosenVoice)?chosenVoice:null;
-  if(v)u.voice=v;
-  u.onend=function(){rStopTalk();if(onEnd)onEnd();};
-  u.onerror=function(){rStopTalk();if(onEnd)onEnd();};
-  window.speechSynthesis.speak(u);
-}
-function say(text,onEnd){
-  stopAllAudio();
-  rStartTalk(text.length);
-  fetch("/tts",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({text:text})})
-  .then(function(res){if(!res.ok)throw new Error("TTS "+res.status);return res.blob();})
-  .then(function(blob){
-    var url=URL.createObjectURL(blob);
-    elAudio=new Audio(url);
-    elAudio.onended=function(){URL.revokeObjectURL(url);elAudio=null;rStopTalk();if(onEnd)onEnd();};
-    elAudio.onerror=function(){URL.revokeObjectURL(url);elAudio=null;rStopTalk();if(onEnd)onEnd();};
-    var p=elAudio.play();
-    if(p&&p.catch){p.catch(function(){URL.revokeObjectURL(url);elAudio=null;sayBrowser(text,onEnd);});}
-  })
-  .catch(function(err){sayBrowser(text,onEnd);});
-}
-function rStartTalk(){
-  G('blushL').style.opacity='0.7';G('blushR').style.opacity='0.7';
-  if(mouthTimer)clearInterval(mouthTimer);
-  var open=false;
-  mouthTimer=setInterval(function(){
-    open=!open;
-    G('mouth').setAttribute('d',open?'M53 87 Q60 96 67 87':'M53 89 Q60 93 67 89');
-  },160);
-}
-function rStopTalk(){
-  if(mouthTimer){clearInterval(mouthTimer);mouthTimer=null;}
-  G('mouth').setAttribute('d','M53 89 Q60 93 67 89');
-  G('blushL').style.opacity='0';G('blushR').style.opacity='0';
-}
-function startBlink(){
-  function doBlink(){
-    G('lidL').setAttribute('opacity','0.95');G('lidR').setAttribute('opacity','0.95');
-    setTimeout(function(){G('lidL').setAttribute('opacity','0');G('lidR').setAttribute('opacity','0');setTimeout(doBlink,2200+Math.random()*3000);},120);
-  }
-  setTimeout(doBlink,2200+Math.random()*3000);
-}
-function fade(id,v){var e=G(id);if(!e)return;e.style.transition='opacity .5s';e.style.opacity=v;}
-
-var questions=[
-{q:'Which of the following is a rational number?',opts:['Root 2','Pi (π)','3/4','Root 3'],ans:2,anim:'rn1',
-narr:'A rational number can be written as p over q, where p and q are integers and q is not zero. Three-fourths fits perfectly. Root 2 and pi are irrational.'},
-{q:'What is the additive inverse of –3/5?',opts:['3/5','–3/5','5/3','–5/3'],ans:0,anim:'rn2',
-narr:'The additive inverse is what you add to get zero. Minus 3 over 5 plus 3 over 5 equals zero. So the additive inverse of minus 3 over 5 is positive 3 over 5.'},
-{q:'What is the multiplicative inverse of 7/9?',opts:['–9/7','7/9','9/7','–7/9'],ans:2,anim:'rn3',
-narr:'The multiplicative inverse, or reciprocal, is what you multiply to get 1. 7 over 9 times 9 over 7 equals 1. So the reciprocal of 7 over 9 is 9 over 7.'},
-{q:'3/4 + (1/4 + 5/8) = (3/4 + 1/4) + 5/8 shows which property?',opts:['Commutative','Associative','Distributive','Closure'],ans:1,anim:'rn4',
-narr:'When we rearrange the brackets but keep the numbers in the same order, that is the Associative Property of addition. The grouping changes but the result stays the same.'},
-{q:'Simplify: –3/7 + (–2/7)',opts:['–5/7','5/7','–1/7','1/7'],ans:0,anim:'rn5',
-narr:'Both fractions have the same denominator 7. Add the numerators: minus 3 plus minus 2 equals minus 5. Answer is minus 5 over 7.'},
-{q:'Between which two consecutive integers does –7/3 lie?',opts:['–3 and –2','–2 and –1','–4 and –3','–1 and 0'],ans:0,anim:'rn6',
-narr:'7 divided by 3 equals 2.33. So minus 7 over 3 equals minus 2.33. On the number line, minus 2.33 lies between minus 3 and minus 2.'},
-{q:'The product of 4/9 and –3/8 is:',opts:['–1/6','1/6','–12/17','–7/72'],ans:0,anim:'rn7',
-narr:'Multiply numerators: 4 times minus 3 equals minus 12. Multiply denominators: 9 times 8 equals 72. Simplify minus 12 over 72 by dividing both by 12 to get minus 1 over 6.'},
-{q:'Rational numbers are closed under which operations?',opts:['+  and – only','× only','+, –, × and ÷ (not ÷0)','+ only'],ans:2,anim:'rn8',
-narr:'Rational numbers are closed under addition, subtraction, multiplication and division — except division by zero. All four operations keep us within rational numbers.'},
-{q:'Simplify: (–5/6) ÷ (5/12)',opts:['–2','2','–25/72','1/2'],ans:0,anim:'rn9',
-narr:'To divide fractions, multiply by the reciprocal. Minus 5 over 6 times 12 over 5. The 5s cancel and 12 over 6 equals 2. Answer: minus 2.'},
-{q:'A rational number between 1/4 and 1/2 is:',opts:['1/3','1/5','2/3','3/4'],ans:0,anim:'rn10',
-narr:'1 over 4 equals 0.25 and 1 over 2 equals 0.5. We need a number between them. 1 over 3 equals 0.33, which lies between 0.25 and 0.5. So 1 over 3 is our answer.'},
-{q:'What is (–3/5) × (–5/3)?',opts:['–1','1','9/25','–9/25'],ans:1,anim:'rn11',
-narr:'Multiply numerators: minus 3 times minus 5 equals positive 15. Multiply denominators: 5 times 3 equals 15. So the answer is 15 over 15 which equals 1. A number times its reciprocal is always 1.'},
-{q:'Which of these lies between –1 and 0 on the number line?',opts:['–3/2','–1/3','–5/4','–7/6'],ans:1,anim:'rn12',
-narr:'We need a number with absolute value less than 1. Minus 3 over 2 equals minus 1.5, outside the range. Minus 1 over 3 equals approximately minus 0.33, which is between minus 1 and 0.'},
-{q:'Find x if (2/3) × x = –4/9',opts:['–2/3','–6/9','2/3','–3/6'],ans:0,anim:'rn13',
-narr:'Divide both sides by 2 over 3, meaning multiply by its reciprocal 3 over 2. x equals minus 4 over 9 times 3 over 2 equals minus 12 over 18 which simplifies to minus 2 over 3.'},
-{q:'The sum of a rational number and its additive inverse is always:',opts:['1','–1','0','The number itself'],ans:2,anim:'rn14',
-narr:'By definition, the additive inverse of p over q is minus p over q. Their sum equals p over q plus minus p over q equals zero. Always zero, for every rational number.'},
-{q:'If p/q = –8/12, which is the standard form?',opts:['–2/3','–4/6','–8/12','2/3'],ans:0,anim:'rn15',
-narr:'Standard form means the denominator is positive and the fraction is fully simplified. H C F of 8 and 12 is 4. Dividing both by 4 gives minus 2 over 3. The negative sign stays with the numerator.'}
-];
-
-function getAnimSVG(type){
-var s={
-'rn1':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#1a0533"/><text x="210" y="18" text-anchor="middle" fill="#c084fc" font-size="13" font-weight="bold">What is a Rational Number?</text><g id="r1def" opacity="0"><rect x="18" y="26" width="384" height="26" rx="6" fill="rgba(192,132,252,0.1)" stroke="#c084fc" stroke-width="1"/><text x="210" y="43" text-anchor="middle" fill="#c084fc" font-size="11" font-weight="bold">p/q where p, q are integers and q is not 0</text></g><g id="r1yes" opacity="0"><text x="30" y="80" fill="#2ecc71" font-size="13">Rational: 3/4, -2/7, 0, 5, -3</text></g><g id="r1no" opacity="0"><text x="30" y="104" fill="#e74c3c" font-size="13">Irrational: root 2,  pi,  root 3</text></g><g id="r1check" opacity="0"><text x="30" y="136" fill="#fff" font-size="12">3/4  p=3, q=4, q not 0  Rational</text><text x="30" y="158" fill="#aaa" font-size="12">root 2 cannot be written as p/q  Irrational</text></g></svg>',
-
-'rn2':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#1a0533"/><text x="210" y="18" text-anchor="middle" fill="#c084fc" font-size="13" font-weight="bold">Additive Inverse</text><g id="r2def" opacity="0"><rect x="18" y="26" width="384" height="24" rx="6" fill="rgba(192,132,252,0.1)" stroke="#c084fc" stroke-width="1"/><text x="210" y="42" text-anchor="middle" fill="#c084fc" font-size="11">Additive Inverse of p/q = -p/q   Their sum = 0</text></g><g id="r2nl" opacity="0"><line x1="40" y1="98" x2="380" y2="98" stroke="#888" stroke-width="2"/><line x1="210" y1="88" x2="210" y2="108" stroke="#fff" stroke-width="2"/><text x="210" y="120" text-anchor="middle" fill="#fff" font-size="11">0</text><line x1="118" y1="88" x2="118" y2="108" stroke="#e74c3c" stroke-width="2"/><text x="118" y="120" text-anchor="middle" fill="#e74c3c" font-size="11">-3/5</text><line x1="302" y1="88" x2="302" y2="108" stroke="#2ecc71" stroke-width="2"/><text x="302" y="120" text-anchor="middle" fill="#2ecc71" font-size="11">3/5</text></g><g id="r2ans" opacity="0"><text x="90" y="150" fill="#fff" font-size="14">(-3/5) + (3/5) = 0</text><rect x="85" y="157" width="175" height="18" rx="5" fill="rgba(46,204,113,0.15)" stroke="#2ecc71" stroke-width="1"/><text x="172" y="170" text-anchor="middle" fill="#2ecc71" font-size="12" font-weight="bold">Additive Inverse = 3/5</text></g></svg>',
-
-'rn3':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#1a0533"/><text x="210" y="18" text-anchor="middle" fill="#c084fc" font-size="13" font-weight="bold">Multiplicative Inverse</text><g id="r3def" opacity="0"><rect x="18" y="26" width="384" height="24" rx="6" fill="rgba(192,132,252,0.1)" stroke="#c084fc" stroke-width="1"/><text x="210" y="42" text-anchor="middle" fill="#c084fc" font-size="11">Reciprocal of p/q = q/p   Product = 1</text></g><g id="r3show" opacity="0"><text x="65" y="92" fill="#fff" font-size="24" font-weight="bold">7/9</text><text x="135" y="92" fill="#aaa" font-size="22">x</text><text x="160" y="92" fill="#ffd700" font-size="24" font-weight="bold">9/7</text><text x="228" y="92" fill="#aaa" font-size="22">=</text><text x="256" y="92" fill="#2ecc71" font-size="24" font-weight="bold">1</text></g><g id="r3rule" opacity="0"><text x="60" y="128" fill="#aaa" font-size="12">Flip numerator and denominator</text><rect x="55" y="138" width="175" height="20" rx="5" fill="rgba(46,204,113,0.15)" stroke="#2ecc71" stroke-width="1"/><text x="142" y="153" text-anchor="middle" fill="#2ecc71" font-size="12" font-weight="bold">Reciprocal of 7/9 = 9/7</text></g></svg>',
-
-'rn4':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#1a0533"/><text x="210" y="18" text-anchor="middle" fill="#c084fc" font-size="13" font-weight="bold">Associative Property</text><g id="r4rule" opacity="0"><rect x="18" y="26" width="384" height="24" rx="6" fill="rgba(192,132,252,0.1)" stroke="#c084fc" stroke-width="1"/><text x="210" y="42" text-anchor="middle" fill="#c084fc" font-size="11">a + (b + c) = (a + b) + c    Grouping changes, result same</text></g><g id="r4left" opacity="0"><text x="25" y="76" fill="#ffd700" font-size="11">Left side: 3/4 + (1/4 + 5/8)</text><text x="25" y="94" fill="#fff" font-size="11">= 3/4 + (2/8 + 5/8) = 3/4 + 7/8 = 6/8 + 7/8 = 13/8</text></g><g id="r4right" opacity="0"><text x="25" y="120" fill="#ffd700" font-size="11">Right side: (3/4 + 1/4) + 5/8</text><text x="25" y="138" fill="#fff" font-size="11">= (6/8 + 2/8) + 5/8 = 8/8 + 5/8 = 13/8</text></g><g id="r4same" opacity="0"><rect x="20" y="152" width="220" height="20" rx="5" fill="rgba(46,204,113,0.15)" stroke="#2ecc71" stroke-width="1"/><text x="130" y="166" text-anchor="middle" fill="#2ecc71" font-size="12" font-weight="bold">Both = 13/8   Associative!</text></g></svg>',
-
-'rn5':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#1a0533"/><text x="210" y="18" text-anchor="middle" fill="#c084fc" font-size="13" font-weight="bold">Adding Rational Numbers</text><g id="r5expr" opacity="0"><text x="55" y="68" fill="#fff" font-size="22" font-weight="bold">-3/7 + (-2/7)</text></g><g id="r5step" opacity="0"><text x="55" y="100" fill="#ffd700" font-size="13">Same denominator: add numerators</text><text x="55" y="124" fill="#fff" font-size="18">(-3) + (-2) = -5</text></g><g id="r5ans" opacity="0"><rect x="50" y="142" width="130" height="28" rx="7" fill="rgba(192,132,252,0.2)" stroke="#c084fc" stroke-width="1.5"/><text x="115" y="161" text-anchor="middle" fill="#c084fc" font-size="18" font-weight="bold">= -5/7</text></g></svg>',
-
-'rn6':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#1a0533"/><text x="210" y="18" text-anchor="middle" fill="#c084fc" font-size="13" font-weight="bold">Locating -7/3 on the Number Line</text><g id="r6line" opacity="0"><line x1="28" y1="90" x2="390" y2="90" stroke="#888" stroke-width="2"/><line x1="28" y1="82" x2="28" y2="98" stroke="#fff" stroke-width="2"/><text x="28" y="112" text-anchor="middle" fill="#aaa" font-size="10">-4</text><line x1="100" y1="82" x2="100" y2="98" stroke="#fff" stroke-width="2"/><text x="100" y="112" text-anchor="middle" fill="#aaa" font-size="10">-3</text><line x1="172" y1="82" x2="172" y2="98" stroke="#fff" stroke-width="2"/><text x="172" y="112" text-anchor="middle" fill="#aaa" font-size="10">-2</text><line x1="244" y1="82" x2="244" y2="98" stroke="#fff" stroke-width="2"/><text x="244" y="112" text-anchor="middle" fill="#aaa" font-size="10">-1</text><line x1="316" y1="82" x2="316" y2="98" stroke="#fff" stroke-width="2"/><text x="316" y="112" text-anchor="middle" fill="#aaa" font-size="10">0</text></g><g id="r6pt" opacity="0"><circle cx="124" cy="90" r="7" fill="#c084fc"/><text x="124" y="74" text-anchor="middle" fill="#c084fc" font-size="11" font-weight="bold">-7/3 = -2.33</text></g><g id="r6exp" opacity="0"><text x="55" y="140" fill="#ffd700" font-size="12">7 / 3 = 2.33  so  -7/3 = -2.33</text><text x="55" y="160" fill="#2ecc71" font-size="12">Lies between -3 and -2</text></g></svg>',
-
-'rn7':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#1a0533"/><text x="210" y="18" text-anchor="middle" fill="#c084fc" font-size="13" font-weight="bold">Multiplying Rational Numbers</text><g id="r7expr" opacity="0"><text x="40" y="60" fill="#fff" font-size="19" font-weight="bold">4/9 x (-3/8)</text></g><g id="r7step" opacity="0"><text x="40" y="90" fill="#ffd700" font-size="13">Multiply numerators: 4 x -3 = -12</text><text x="40" y="112" fill="#ffd700" font-size="13">Multiply denominators: 9 x 8 = 72</text><text x="40" y="134" fill="#fff" font-size="14">= -12/72</text></g><g id="r7ans" opacity="0"><text x="40" y="158" fill="#aaa" font-size="12">Simplify (divide by HCF 12):</text><rect x="140" y="146" width="120" height="24" rx="6" fill="rgba(46,204,113,0.15)" stroke="#2ecc71" stroke-width="1"/><text x="200" y="162" text-anchor="middle" fill="#2ecc71" font-size="14" font-weight="bold">= -1/6</text></g></svg>',
-
-'rn8':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#1a0533"/><text x="210" y="18" text-anchor="middle" fill="#c084fc" font-size="13" font-weight="bold">Closure Property of Rational Numbers</text><g id="r8rule" opacity="0"><rect x="18" y="26" width="384" height="24" rx="6" fill="rgba(192,132,252,0.1)" stroke="#c084fc" stroke-width="1"/><text x="210" y="42" text-anchor="middle" fill="#c084fc" font-size="11">Result of any operation on rationals is also rational</text></g><g id="r8ops" opacity="0"><text x="30" y="76" fill="#2ecc71" font-size="12">1/2 + 1/3 = 5/6  Rational</text><text x="30" y="96" fill="#2ecc71" font-size="12">3/4 - 1/4 = 2/4  Rational</text><text x="30" y="116" fill="#2ecc71" font-size="12">2/3 x 3/4 = 6/12  Rational</text><text x="30" y="136" fill="#2ecc71" font-size="12">4/5 / 2/5 = 2/1  Rational</text></g><g id="r8exc" opacity="0"><text x="30" y="162" fill="#e74c3c" font-size="12">Exception: division by zero is not defined</text></g></svg>',
-
-'rn9':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#1a0533"/><text x="210" y="18" text-anchor="middle" fill="#c084fc" font-size="13" font-weight="bold">Dividing Rational Numbers</text><g id="r9expr" opacity="0"><text x="40" y="60" fill="#fff" font-size="18" font-weight="bold">(-5/6) / (5/12)</text></g><g id="r9step" opacity="0"><text x="40" y="88" fill="#ffd700" font-size="13">Division = multiply by reciprocal</text><text x="40" y="110" fill="#fff" font-size="16">= (-5/6) x (12/5)</text></g><g id="r9cancel" opacity="0"><text x="40" y="134" fill="#aaa" font-size="12">5s cancel, 12/6 = 2</text><text x="40" y="154" fill="#fff" font-size="16">= -1 x 2 = -2</text></g><g id="r9ans" opacity="0"><rect x="160" y="144" width="80" height="24" rx="6" fill="rgba(46,204,113,0.15)" stroke="#2ecc71" stroke-width="1"/><text x="200" y="160" text-anchor="middle" fill="#2ecc71" font-size="15" font-weight="bold">= -2</text></g></svg>',
-
-'rn10':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#1a0533"/><text x="210" y="18" text-anchor="middle" fill="#c084fc" font-size="13" font-weight="bold">Finding a Rational Number Between Two</text><g id="r10line" opacity="0"><line x1="40" y1="80" x2="380" y2="80" stroke="#888" stroke-width="2"/><line x1="80" y1="70" x2="80" y2="90" stroke="#e74c3c" stroke-width="2"/><text x="80" y="104" text-anchor="middle" fill="#e74c3c" font-size="11">1/4 = 0.25</text><line x1="340" y1="70" x2="340" y2="90" stroke="#e74c3c" stroke-width="2"/><text x="340" y="104" text-anchor="middle" fill="#e74c3c" font-size="11">1/2 = 0.5</text></g><g id="r10pt" opacity="0"><circle cx="180" cy="80" r="8" fill="#c084fc"/><text x="180" y="64" text-anchor="middle" fill="#c084fc" font-size="12" font-weight="bold">1/3 = 0.33</text></g><g id="r10check" opacity="0"><text x="80" y="136" fill="#ffd700" font-size="12">0.25  &lt;  0.33  &lt;  0.5</text><rect x="75" y="148" width="170" height="20" rx="5" fill="rgba(46,204,113,0.15)" stroke="#2ecc71" stroke-width="1"/><text x="160" y="162" text-anchor="middle" fill="#2ecc71" font-size="12" font-weight="bold">1/3 lies between 1/4 and 1/2</text></g></svg>',
-
-'rn11':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#1a0533"/><text x="210" y="18" text-anchor="middle" fill="#c084fc" font-size="13" font-weight="bold">Number Times Its Reciprocal = 1</text><g id="r11expr" opacity="0"><text x="55" y="72" fill="#fff" font-size="22" font-weight="bold">(-3/5) x (-5/3)</text></g><g id="r11calc" opacity="0"><text x="55" y="102" fill="#ffd700" font-size="13">Neg x Neg = Positive</text><text x="55" y="124" fill="#fff" font-size="16">= (3 x 5) / (5 x 3) = 15/15</text></g><g id="r11ans" opacity="0"><rect x="50" y="140" width="140" height="28" rx="7" fill="rgba(46,204,113,0.2)" stroke="#2ecc71" stroke-width="1.5"/><text x="120" y="159" text-anchor="middle" fill="#2ecc71" font-size="20" font-weight="bold">= 1</text><text x="220" y="159" fill="#aaa" font-size="12">Always 1 !</text></g></svg>',
-
-'rn12':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#1a0533"/><text x="210" y="18" text-anchor="middle" fill="#c084fc" font-size="13" font-weight="bold">Between -1 and 0 on the Number Line</text><g id="r12line" opacity="0"><line x1="40" y1="80" x2="380" y2="80" stroke="#888" stroke-width="2"/><line x1="40" y1="70" x2="40" y2="90" stroke="#fff" stroke-width="2"/><text x="40" y="104" text-anchor="middle" fill="#fff" font-size="11">-2</text><line x1="150" y1="70" x2="150" y2="90" stroke="#e74c3c" stroke-width="2"/><text x="150" y="104" text-anchor="middle" fill="#e74c3c" font-size="11">-1</text><line x1="260" y1="70" x2="260" y2="90" stroke="#e74c3c" stroke-width="2"/><text x="260" y="104" text-anchor="middle" fill="#e74c3c" font-size="11">0</text><line x1="370" y1="70" x2="370" y2="90" stroke="#fff" stroke-width="2"/><text x="370" y="104" text-anchor="middle" fill="#fff" font-size="11">1</text></g><g id="r12pt" opacity="0"><circle cx="223" cy="80" r="8" fill="#c084fc"/><text x="223" y="64" text-anchor="middle" fill="#c084fc" font-size="11" font-weight="bold">-1/3 = -0.33</text></g><g id="r12check" opacity="0"><text x="75" y="136" fill="#ffd700" font-size="12">-1  &lt;  -0.33  &lt;  0</text><rect x="70" y="148" width="200" height="20" rx="5" fill="rgba(46,204,113,0.15)" stroke="#2ecc71" stroke-width="1"/><text x="170" y="162" text-anchor="middle" fill="#2ecc71" font-size="12" font-weight="bold">-1/3 lies between -1 and 0</text></g></svg>',
-
-'rn13':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#1a0533"/><text x="210" y="18" text-anchor="middle" fill="#c084fc" font-size="13" font-weight="bold">Solving for x — Rational Equation</text><g id="r13expr" opacity="0"><text x="40" y="60" fill="#fff" font-size="18" font-weight="bold">(2/3) x x = -4/9</text></g><g id="r13step" opacity="0"><text x="40" y="90" fill="#ffd700" font-size="13">Multiply both sides by reciprocal of 2/3</text><text x="40" y="112" fill="#fff" font-size="15">x = -4/9 x 3/2</text></g><g id="r13calc" opacity="0"><text x="40" y="138" fill="#fff" font-size="15">x = -12/18</text><text x="40" y="158" fill="#aaa" font-size="12">Simplify (divide by HCF 6):</text></g><g id="r13ans" opacity="0"><rect x="160" y="146" width="110" height="22" rx="5" fill="rgba(46,204,113,0.15)" stroke="#2ecc71" stroke-width="1"/><text x="215" y="162" text-anchor="middle" fill="#2ecc71" font-size="13" font-weight="bold">x = -2/3</text></g></svg>',
-
-'rn14':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#1a0533"/><text x="210" y="18" text-anchor="middle" fill="#c084fc" font-size="13" font-weight="bold">Additive Inverse Sum = 0 Always</text><g id="r14rule" opacity="0"><rect x="18" y="26" width="384" height="24" rx="6" fill="rgba(192,132,252,0.1)" stroke="#c084fc" stroke-width="1"/><text x="210" y="42" text-anchor="middle" fill="#c084fc" font-size="11">p/q + (-p/q) = 0  for every rational number</text></g><g id="r14eg1" opacity="0"><text x="40" y="80" fill="#fff" font-size="13">3/7 + (-3/7) = 0</text></g><g id="r14eg2" opacity="0"><text x="40" y="106" fill="#fff" font-size="13">-5/9 + (5/9) = 0</text></g><g id="r14eg3" opacity="0"><text x="40" y="132" fill="#fff" font-size="13">p/q + (-p/q) = 0</text></g><g id="r14box" opacity="0"><rect x="35" y="148" width="240" height="22" rx="6" fill="rgba(46,204,113,0.15)" stroke="#2ecc71" stroke-width="1"/><text x="155" y="163" text-anchor="middle" fill="#2ecc71" font-size="12" font-weight="bold">Sum is ALWAYS zero</text></g></svg>',
-
-'rn15':'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Poppins,sans-serif"><rect width="420" height="178" fill="#1a0533"/><text x="210" y="18" text-anchor="middle" fill="#c084fc" font-size="13" font-weight="bold">Standard Form of a Rational Number</text><g id="r15rule" opacity="0"><rect x="18" y="26" width="384" height="24" rx="6" fill="rgba(192,132,252,0.1)" stroke="#c084fc" stroke-width="1"/><text x="210" y="42" text-anchor="middle" fill="#c084fc" font-size="11">Standard form: denominator positive, HCF of |p| and q = 1</text></g><g id="r15expr" opacity="0"><text x="40" y="82" fill="#fff" font-size="17" font-weight="bold">-8/12</text></g><g id="r15step" opacity="0"><text x="40" y="110" fill="#ffd700" font-size="13">HCF(8, 12) = 4</text><text x="40" y="132" fill="#fff" font-size="14">-8 / 4 = -2,   12 / 4 = 3</text></g><g id="r15ans" opacity="0"><rect x="35" y="148" width="160" height="24" rx="6" fill="rgba(46,204,113,0.15)" stroke="#2ecc71" stroke-width="1.5"/><text x="115" y="164" text-anchor="middle" fill="#2ecc71" font-size="15" font-weight="bold">Standard form = -2/3</text></g></svg>'
-};
-return s[type]||'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg"><rect width="420" height="178" fill="#1a0533"/><text x="210" y="89" text-anchor="middle" fill="#555" font-size="14">Loading...</text></svg>';
-}
-
-function runAnim(type){
-var s={
-'rn1':function(){fade('r1def','1');at(800,function(){fade('r1yes','1');});at(1800,function(){fade('r1no','1');});at(2800,function(){fade('r1check','1');});},
-'rn2':function(){fade('r2def','1');at(800,function(){fade('r2nl','1');});at(2000,function(){fade('r2ans','1');});},
-'rn3':function(){fade('r3def','1');at(800,function(){fade('r3show','1');});at(2200,function(){fade('r3rule','1');});},
-'rn4':function(){fade('r4rule','1');at(800,function(){fade('r4left','1');});at(2200,function(){fade('r4right','1');});at(3600,function(){fade('r4same','1');});},
-'rn5':function(){fade('r5expr','1');at(700,function(){fade('r5step','1');});at(2200,function(){fade('r5ans','1');});},
-'rn6':function(){fade('r6line','1');at(1000,function(){fade('r6pt','1');});at(2200,function(){fade('r6exp','1');});},
-'rn7':function(){fade('r7expr','1');at(700,function(){fade('r7step','1');});at(2400,function(){fade('r7ans','1');});},
-'rn8':function(){fade('r8rule','1');at(700,function(){fade('r8ops','1');});at(2400,function(){fade('r8exc','1');});},
-'rn9':function(){fade('r9expr','1');at(700,function(){fade('r9step','1');});at(2000,function(){fade('r9cancel','1');});at(3000,function(){fade('r9ans','1');});},
-'rn10':function(){fade('r10line','1');at(900,function(){fade('r10pt','1');});at(2200,function(){fade('r10check','1');});},
-'rn11':function(){fade('r11expr','1');at(800,function(){fade('r11calc','1');});at(2200,function(){fade('r11ans','1');});},
-'rn12':function(){fade('r12line','1');at(900,function(){fade('r12pt','1');});at(2200,function(){fade('r12check','1');});},
-'rn13':function(){fade('r13expr','1');at(700,function(){fade('r13step','1');});at(2000,function(){fade('r13calc','1');});at(3000,function(){fade('r13ans','1');});},
-'rn14':function(){fade('r14rule','1');at(700,function(){fade('r14eg1','1');});at(1600,function(){fade('r14eg2','1');});at(2400,function(){fade('r14eg3','1');});at(3200,function(){fade('r14box','1');});},
-'rn15':function(){fade('r15rule','1');at(700,function(){fade('r15expr','1');});at(1600,function(){fade('r15step','1');});at(2800,function(){fade('r15ans','1');});}
-};
-if(s[type])s[type]();
-}
-
-var cur=0,score=0,answered=false;
-function loadQ(i){
-  answered=false;
-  var q=questions[i];
-  G('qNumber').textContent='Question '+(i+1)+' of 15';
-  G('qText').textContent=q.q;
-  G('feedback').textContent='';G('feedback').className='feedback';
-  G('nextBtn').style.display='none';
-  G('progressBar').style.width=(i/15*100)+'%';
-  G('scorePill').textContent='Score: '+score+' / 15';
-  var og=G('optionsGrid');og.innerHTML='';
-  q.opts.forEach(function(o,idx){
-    var b=document.createElement('button');b.className='opt';b.textContent=o;
-    b.onclick=function(){checkAns(idx);};og.appendChild(b);
-  });
-  clearAt();
-  G('animCanvas').innerHTML=getAnimSVG(q.anim);
-  at(400,function(){runAnim(q.anim);});
-  G('bubble').textContent=q.narr.substring(0,78)+'...';
-  at(300,function(){say(q.narr);});
-}
-function checkAns(idx){
-  if(answered)return;answered=true;
-  var q=questions[cur];
-  var opts=G('optionsGrid').querySelectorAll('.opt');
-  opts.forEach(function(b){b.disabled=true;});
-  if(idx===q.ans){
-    opts[idx].classList.add('correct');score++;
-    G('feedback').textContent='Correct! Well done!';G('feedback').className='feedback correct';
-    G('scorePill').textContent='Score: '+score+' / 15';
-    say('Excellent! That is correct!');
-  }else{
-    opts[idx].classList.add('wrong');opts[q.ans].classList.add('correct');
-    G('feedback').textContent='Incorrect. Right answer: '+q.opts[q.ans];G('feedback').className='feedback wrong';
-    say('Not quite. The correct answer is '+q.opts[q.ans]);
-  }
-  G('nextBtn').style.display='block';
-}
-function nextQ(){cur++;if(cur>=questions.length){showDone();return;}loadQ(cur);}
-function replayAnim(){
-  var q=questions[cur];clearAt();speechSynthesis.cancel();rStopTalk();
-  G('animCanvas').innerHTML=getAnimSVG(q.anim);
-  at(200,function(){runAnim(q.anim);});at(400,function(){say(q.narr);});
-}
-function showDone(){
-  rishiMarkExplainDone(1); /* Chapter 1 — Rational Numbers */
-  G('mainArea').style.display='none';G('doneScreen').style.display='flex';
-  G('progressBar').style.width='100%';
-  G('doneScore').textContent='You scored '+score+' out of 15!';
-  localStorage.setItem('explain_rational_done','1');
-  say('Congratulations! You have completed Rational Numbers! You scored '+score+' out of 15!');
-}
-/* ═══════ REKHA (TURTLE) CHARACTER ═══════ */
-var mouthTmr=null, blinkTmr=null, mOpen=false;
-function rInit(){
-  var c=G("rChar");
-  if(c)c.style.animation="rIn .6s cubic-bezier(.34,1.56,.64,1) forwards";
-  scheduleBlink();
-}
-function scheduleBlink(){
-  blinkTmr=setTimeout(function(){rBlink();scheduleBlink();},2200+Math.random()*3000);
-}
-function rBlink(){
-  var l=G("rLid1"),r=G("rLid2");if(!l||!r)return;
-  l.setAttribute("ry","5.5");r.setAttribute("ry","5.5");
-  setTimeout(function(){l.setAttribute("ry","1");r.setAttribute("ry","1");},120);
-}
-function rStartTalk(len){
-  rStopTalk();
-  G("rBlush1").style.opacity="0.7";G("rBlush2").style.opacity="0.7";
-  mOpen=false;
-  mouthTmr=setInterval(function(){
-    mOpen=!mOpen;
-    var m=G("rMouth");if(!m)return;
-    if(mOpen){m.setAttribute("d","M42,33 Q50,42 58,33");m.setAttribute("fill","#1a3a1a");}
-    else{m.setAttribute("d","M44,33 Q50,38 56,33");m.setAttribute("fill","none");}
-  },160);
-  setTimeout(rStopTalk,Math.max(1800,(len||20)*58));
-}
-function rStopTalk(){
-  clearInterval(mouthTmr);mOpen=false;
-  var m=G("rMouth");
-  if(m){m.setAttribute("d","M44,33 Q50,38 56,33");m.setAttribute("fill","none");}
-  G("rBlush1").style.opacity="0";G("rBlush2").style.opacity="0";
-}
-function rHappy(){
-  var c=G("rChar");if(c)c.style.animation="rBounce .35s ease-in-out 5";
-  G("rBlush1").style.opacity="1";G("rBlush2").style.opacity="1";
-  setTimeout(function(){rStopTalk();var c=G("rChar");if(c)c.style.animation="none";},2500);
-}
-function rThink(){setTimeout(rStopTalk,1800);}
-window.onload=function init(){rishiCheckPlan(1); /* Chapter 1 — Rational Numbers */initVoices(function(){startBlink();loadQ(0);});};
-window.addEventListener('beforeunload',function(){speechSynthesis.cancel();});
-window.addEventListener('pagehide',function(){speechSynthesis.cancel();});
-</script>
-
-<script>
-function mathNormalise(raw){
-  var s=raw,fixes=[];
-  if(/sq[\.\s_-]*r[\.\s_-]*t|square[\s_-]*root|squrt|squroot|sqroot/i.test(s)){
-    s=s.replace(/square[\s_-]*root[\s_-]*(of[\s_-]*)?/gi,"sqrt ");
-    s=s.replace(/sq[\.\s_-]*r[\.\s_-]*t[\.\s_-]*/gi,"sqrt ");
-    s=s.replace(/\b(squrt|squroot|sqroot)\b/gi,"sqrt ");
-    fixes.push({label:"Did you mean: sqrt?",type:"fuzzy"});
-  }
-  if(/cube[\s_-]*root|cubert|cbroot/i.test(s)){
-    s=s.replace(/cube[\s_-]*root[\s_-]*(of[\s_-]*)?/gi,"cbrt ");
-    s=s.replace(/\b(cubert|cbroot)\b/gi,"cbrt ");
-    fixes.push({label:"Did you mean: cbrt?",type:"fuzzy"});
-  }
-  s=s.replace(/([a-zA-Z])(\d+)/g,function(m,l,d){return l+"^"+d;});
-  return {normalised:s.trim(),fixes:fixes};
-}
-function mathToLatex(s){
-  s=s.replace(/sqrt\s*\(([^)]*)\)/g,"\\sqrt{$1}");
-  s=s.replace(/sqrt\s+([^\s+\-*\/\^]+)/g,"\\sqrt{$1}");
-  s=s.replace(/cbrt\s*\(([^)]*)\)/g,"\\sqrt[3]{$1}");
-  s=s.replace(/cbrt\s+([^\s+\-*\/\^]+)/g,"\\sqrt[3]{$1}");
-  s=s.replace(/\(([^)]+)\)\/\(([^)]+)\)/g,"\\frac{$1}{$2}");
-  s=s.replace(/([A-Za-z0-9\^\{\}]+)\/([A-Za-z0-9\^\{\}]+)/g,"\\frac{$1}{$2}");
-  s=s.replace(/\bpi\b/g,"\\pi");
-  s=s.replace(/\*/g,"\\times");
-  s=s.replace(/\+-/g,"\\pm");
-  s=s.replace(/!=/g,"\\neq");
-  s=s.replace(/>=/g,"\\geq");
-  s=s.replace(/<=/g,"\\leq");
-  return s;
-}
-function mathRender(latex){
-  var el=G("mathPreview");if(!el)return;
-  if(!latex.trim()){el.innerHTML='<span class="mph">your answer will render here...</span>';return;}
-  try{katex.render(latex,el,{throwOnError:false,displayMode:true});}
-  catch(e){el.textContent=latex;}
-}
-function mathGetSuggs(raw,norm){
-  if(/[a-zA-Z]\^2/.test(norm)&&!/[a-zA-Z]\^3/.test(norm)){
-    var b=(norm.match(/([a-zA-Z])\^2/)||["","x"])[1];
-    return {chips:[
-      {label:b+"^2 confirmed",ins:b+"^2",type:"confirm"},
-      {label:b+"^2-b^2=("+b+"+b)("+b+"-b)",ins:b+"^2-b^2=("+b+"+b)("+b+"-b)",type:"identity"},
-      {label:b+"^2+2"+b+"b+b^2=("+b+"+b)^2",ins:b+"^2+2"+b+"b+b^2=("+b+"+b)^2",type:"identity"},
-      {label:"("+b+"+a)("+b+"+b)",ins:"("+b+"+a)("+b+"+b)",type:"shortcut"},
-    ]};}
-  if(/[a-zA-Z]\^3/.test(norm)){return {chips:[
-    {label:"a^3+b^3=(a+b)(a^2-ab+b^2)",ins:"a^3+b^3=(a+b)(a^2-ab+b^2)",type:"identity"},
-    {label:"a^3-b^3=(a-b)(a^2+ab+b^2)",ins:"a^3-b^3=(a-b)(a^2+ab+b^2)",type:"identity"},
-  ]};}
-  if(/\\sqrt/.test(mathToLatex(norm))){return {chips:[
-    {label:"sqrt confirmed",ins:"sqrt()",type:"confirm"},
-    {label:"sqrt(a^2)=a",ins:"sqrt(a^2)=a",type:"identity"},
-  ]};}
-  if(/\//.test(norm)){return {chips:[
-    {label:"Factor numerator",ins:"",type:"hint",action:"num"},
-    {label:"Factor denominator",ins:"",type:"hint",action:"den"},
-    {label:"Cancel common factor",ins:"",type:"hint",action:"cancel"},
-  ]};}
-  if(/\(/.test(norm)){return {chips:[
-    {label:"(x+a)(x+b)",ins:"(x+a)(x+b)",type:"shortcut"},
-    {label:"(x+a)(x-a)",ins:"(x+a)(x-a)",type:"shortcut"},
-  ]};}
-  return null;
-}
-var MATH_HINTS={split:"Find two numbers: product=axc, sum=b.",num:"Factor numerator first.",den:"Factor denominator first.",cancel:"Cancel common factors.",hcf:"HCF: ab+ac=a(b+c)"};
-var MATH_DEFAULTS=[
-  {label:"x^2",ins:"x^2",type:"shortcut"},{label:"x^3",ins:"x^3",type:"shortcut"},
-  {label:"(a+b)^2",ins:"(a+b)^2",type:"shortcut"},{label:"(a-b)^2",ins:"(a-b)^2",type:"shortcut"},
-  {label:"a^2-b^2",ins:"a^2-b^2",type:"shortcut"},{label:"(x+a)(x+b)",ins:"(x+a)(x+b)",type:"shortcut"},
-  {label:"sqrt()",ins:"sqrt()",type:"shortcut"},{label:"cbrt()",ins:"cbrt()",type:"shortcut"},
-  {label:"Take HCF out",ins:"",type:"hint",action:"hcf"},
-];
-function buildSuggChips(list){
-  var el=G("suggChips");if(!el)return;
-  var ra=G("rawAnswer");
-  el.innerHTML="";
-  list.forEach(function(c){
-    var btn=document.createElement("button");
-    btn.className="schip "+(c.type||"shortcut");
-    btn.textContent=c.label;btn.type="button";
-    btn.addEventListener("click",function(){
-      if(c.action&&MATH_HINTS[c.action]){showMathHint(MATH_HINTS[c.action]);return;}
-      if(c.ins&&ra){var s=ra.selectionStart,e=ra.selectionEnd;ra.value=ra.value.slice(0,s)+c.ins+ra.value.slice(e);ra.selectionStart=ra.selectionEnd=s+c.ins.length;ra.focus();mathUpdate();}
-    });
-    el.appendChild(btn);
-  });
-}
-function showMathHint(msg){
-  var old=G("mathHintToast");if(old)old.remove();
-  var t=document.createElement("div");t.id="mathHintToast";t.className="math-hint-toast";t.textContent=msg;
-  var sc=G("suggChips");if(sc)sc.parentNode.insertBefore(t,sc.nextSibling);
-  setTimeout(function(){t.remove();},4000);
-}
-function mathUpdate(){
-  var ra=G("rawAnswer");if(!ra)return;
-  var raw=ra.value;
-  var res=mathNormalise(raw);
-  var latex=mathToLatex(res.normalised);
-  mathRender(latex);
-  var result=raw.trim()?mathGetSuggs(raw,res.normalised):null;
-  var chips=[];
-  res.fixes.forEach(function(f){chips.push(f);});
-  if(result)result.chips.forEach(function(c){chips.push(c);});
-  else MATH_DEFAULTS.forEach(function(c){chips.push(c);});
-  buildSuggChips(chips);
-}
-
-</script>
+<div class="main">
+  <div class="done-banner" id="doneBanner">
+    <div class="dt">&#10003; Explanation Completed!</div>
+    <div class="ds">Practice and Exam now unlocked.</div>
+  </div>
+  <div class="rishika-wrap">
+    <div class="rishika-avatar">&#128105;&#8205;&#127979;</div>
+    <div class="rishika-bubble">
+      <div class="rishika-name">Rekha</div>
+      <div class="rishika-text" id="introText">Hi <span class="hl" id="sName">there</span>! &#128522; Today we master <span class="hl">Rational Numbers</span> — numbers of the form p/q, their properties and operations! &#128162;</div>
+      <button class="btn-speak" onclick="say(G('introText').innerText)">&#128266; Hear Rekha</button>
+    </div>
+  </div>
+  <div id="qArea"></div>
+</div>
+<div class="bottom-nav">
+  <div class="lock-tip" id="lockTip">&#9757; Complete explanations to unlock Practice and Exam</div>
+  <button class="btn-nav practice locked" id="btnPractice" onclick="goPractice()">&#9999;&#65039; Practice</button>
+  <button class="btn-nav exam locked" id="btnExam" onclick="goExam()">&#128221; Exam</button>
+</div>
+<div class="overlay" id="breakOv">
+  <div class="break-box">
+    <div class="break-title">Break</div>
+    <div class="break-sub">Choose &mdash; timer starts</div>
+    <div class="break-opts">
+      <button class="break-opt" onclick="startBreak('Water')">&#128167; Water</button>
+      <button class="break-opt" onclick="startBreak('Washroom')">&#128701; Washroom</button>
+      <button class="break-opt" onclick="startBreak('Physical')">&#127939; Physical</button>
+    </div>
+    <button class="break-opt" style="color:var(--soft)" onclick="closeBreak()">Cancel</button>
+  </div>
+</div>
+<div class="timer-screen" id="timerScreen">
+  <div class="timer-reason" id="timerLbl">Break</div>
+  <div class="timer-num" id="timerNum">00:00</div>
+  <button class="btn-end" onclick="endBreak()">&#10003; End Break</button>
+</div>
 <div id="rWrap">
 <svg id="rChar" viewBox="0 0 100 110" xmlns="http://www.w3.org/2000/svg">
   <ellipse cx="50" cy="68" rx="36" ry="28" fill="#5a8a60" stroke="#3d6b42" stroke-width="2"/>
@@ -521,12 +166,9 @@ function mathUpdate(){
   <ellipse cx="78" cy="58" rx="9" ry="6" fill="#7ab87a" stroke="#5a8a60" stroke-width="1.5" transform="rotate(-20,78,58)"/>
   <ellipse cx="50" cy="42" rx="10" ry="14" fill="#8fba6a" stroke="#5a8a60" stroke-width="1.5"/>
   <ellipse cx="50" cy="28" rx="18" ry="16" fill="#8fba6a" stroke="#5a8a60" stroke-width="2"/>
-  <ellipse cx="43" cy="24" rx="5" ry="5.5" fill="white"/>
-  <ellipse cx="57" cy="24" rx="5" ry="5.5" fill="white"/>
-  <ellipse cx="43" cy="25" rx="3" ry="3.5" fill="#1a3a1a"/>
-  <ellipse cx="57" cy="25" rx="3" ry="3.5" fill="#1a3a1a"/>
-  <circle cx="44" cy="23" r="1.2" fill="white"/>
-  <circle cx="58" cy="23" r="1.2" fill="white"/>
+  <ellipse cx="43" cy="24" rx="5" ry="5.5" fill="white"/><ellipse cx="57" cy="24" rx="5" ry="5.5" fill="white"/>
+  <ellipse cx="43" cy="25" rx="3" ry="3.5" fill="#1a3a1a"/><ellipse cx="57" cy="25" rx="3" ry="3.5" fill="#1a3a1a"/>
+  <circle cx="44" cy="23" r="1.2" fill="white"/><circle cx="58" cy="23" r="1.2" fill="white"/>
   <ellipse id="rLid1" cx="43" cy="24" rx="5" ry="1" fill="#8fba6a" opacity="0"/>
   <ellipse id="rLid2" cx="57" cy="24" rx="5" ry="1" fill="#8fba6a" opacity="0"/>
   <path id="rMouth" d="M44,33 Q50,38 56,33" fill="none" stroke="#3d6b42" stroke-width="2" stroke-linecap="round"/>
@@ -536,5 +178,301 @@ function mathUpdate(){
   <text x="50" y="100" text-anchor="middle" font-family="Nunito" font-size="7" font-weight="900" fill="white">REKHA</text>
 </svg>
 </div>
+<script>
+var voicesReady=false,selectedVoice=null,elAudio=null;
+function pickVoice(){var vs=window.speechSynthesis.getVoices();if(!vs||vs.length===0)return false;var fk=["heera","veena","priya","raveena","female","woman","zira","samantha","victoria","karen","moira","tessa","fiona"];for(var i=0;i<vs.length;i++){if(vs[i].lang.toLowerCase().indexOf("en-in")===0){var n=vs[i].name.toLowerCase();for(var k=0;k<fk.length;k++){if(n.indexOf(fk[k])>=0){selectedVoice=vs[i];return true;}}}}for(var i=0;i<vs.length;i++){if(vs[i].lang.toLowerCase().indexOf("en")===0){var n=vs[i].name.toLowerCase();for(var k=0;k<fk.length;k++){if(n.indexOf(fk[k])>=0){selectedVoice=vs[i];return true;}}}}return false;}
+function initVoices(cb){if(pickVoice()){voicesReady=true;cb();return;}window.speechSynthesis.onvoiceschanged=function(){window.speechSynthesis.onvoiceschanged=null;pickVoice();voicesReady=true;cb();};setTimeout(function(){if(!voicesReady){pickVoice();voicesReady=true;cb();}},2000);}
+function stopAllAudio(){if(elAudio){try{elAudio.pause();elAudio.src="";}catch(x){}elAudio=null;}if(window.speechSynthesis)window.speechSynthesis.cancel();}
+function sayBrowser(text,onEnd){if(!window.speechSynthesis)return;window.speechSynthesis.cancel();rStartTalk(text.length);var u=new SpeechSynthesisUtterance(text);u.lang="en-IN";u.rate=0.88;u.pitch=1.15;if(selectedVoice)u.voice=selectedVoice;u.onend=function(){rStopTalk();if(onEnd)onEnd();};u.onerror=function(){rStopTalk();if(onEnd)onEnd();};window.speechSynthesis.speak(u);}
+function say(text,onEnd){stopAllAudio();rStartTalk(text.length);fetch("/tts",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({text:text})}).then(function(res){if(!res.ok)throw new Error("TTS "+res.status);return res.blob();}).then(function(blob){var url=URL.createObjectURL(blob);elAudio=new Audio(url);elAudio.onended=function(){URL.revokeObjectURL(url);elAudio=null;rStopTalk();if(onEnd)onEnd();};elAudio.onerror=function(){URL.revokeObjectURL(url);elAudio=null;rStopTalk();if(onEnd)onEnd();};var p=elAudio.play();if(p&&p.catch){p.catch(function(){URL.revokeObjectURL(url);elAudio=null;sayBrowser(text,onEnd);});}}).catch(function(err){sayBrowser(text,onEnd);});}
+function sayEl(id){var e=G(id);if(e)say(e.innerText||e.textContent);}
+window.addEventListener("beforeunload",function(){stopAllAudio();});
+window.addEventListener("pagehide",function(){stopAllAudio();});
+var mouthTmr=null,blinkTmr=null,mOpen=false;
+function rInit(){var c=G("rChar");if(c)c.style.animation="rIn .6s cubic-bezier(.34,1.56,.64,1) forwards";scheduleBlink();}
+function scheduleBlink(){blinkTmr=setTimeout(function(){rBlink();scheduleBlink();},2200+Math.random()*3000);}
+function rBlink(){var l=G("rLid1"),r=G("rLid2");if(!l||!r)return;l.setAttribute("ry","5.5");r.setAttribute("ry","5.5");setTimeout(function(){l.setAttribute("ry","1");r.setAttribute("ry","1");},120);}
+function rStartTalk(len){rStopTalk();G("rBlush1").style.opacity="0.7";G("rBlush2").style.opacity="0.7";mOpen=false;mouthTmr=setInterval(function(){mOpen=!mOpen;var m=G("rMouth");if(!m)return;if(mOpen){m.setAttribute("d","M42,33 Q50,42 58,33");m.setAttribute("fill","#1a3a1a");}else{m.setAttribute("d","M44,33 Q50,38 56,33");m.setAttribute("fill","none");}},160);setTimeout(rStopTalk,Math.max(1800,(len||20)*58));}
+function rStopTalk(){clearInterval(mouthTmr);mOpen=false;var m=G("rMouth");if(m){m.setAttribute("d","M44,33 Q50,38 56,33");m.setAttribute("fill","none");}G("rBlush1").style.opacity="0";G("rBlush2").style.opacity="0";}
+function rHappy(){var c=G("rChar");if(c)c.style.animation="rBounce .35s ease-in-out 5";G("rBlush1").style.opacity="1";G("rBlush2").style.opacity="1";setTimeout(function(){rStopTalk();var c=G("rChar");if(c)c.style.animation="none";},2500);}
+function rThink(){setTimeout(rStopTalk,1800);}
+
+var QB=[
+{id:"rn1",q:"Which of the following is a rational number?",qs:"Which of the following is a rational number?",anim:"rn1",steps:[{t:"A rational number can be written as p over q, where p and q are integers and q is not zero",s:"A rational number can be written as p over q, where p and q are integers and q is not zero"},{t:"Three-fourths fits perfectly",s:"Three-fourths fits perfectly"},{t:"Root 2 and pi are irrational.",s:"Root 2 and pi are irrational."}],cq:"Which of the following is a rational number?",cqs:"Which of the following is a rational number?",ans:["3/4", "3"],nudges:["A rational number can be written as p over q, where p and q are integers and q is not zero", "Three-fourths fits perfectly", "The answer is 3/4!"]},
+{id:"rn2",q:"What is the additive inverse of –3/5?",qs:"What is the additive inverse of –3/5?",anim:"rn2",steps:[{t:"The additive inverse is what you add to get zero",s:"The additive inverse is what you add to get zero"},{t:"Minus 3 over 5 plus 3 over 5 equals zero",s:"Minus 3 over 5 plus 3 over 5 equals zero"},{t:"So the additive inverse of minus 3 over 5 is positive 3 over 5.",s:"So the additive inverse of minus 3 over 5 is positive 3 over 5."}],cq:"What is the additive inverse of –3/5?",cqs:"What is the additive inverse of –3/5?",ans:["3/5", "3"],nudges:["The additive inverse is what you add to get zero", "Minus 3 over 5 plus 3 over 5 equals zero", "The answer is 3/5!"]},
+{id:"rn3",q:"What is the multiplicative inverse of 7/9?",qs:"What is the multiplicative inverse of 7/9?",anim:"rn3",steps:[{t:"The multiplicative inverse, or reciprocal, is what you multiply to get 1",s:"The multiplicative inverse, or reciprocal, is what you multiply to get 1"},{t:"7 over 9 times 9 over 7 equals 1",s:"7 over 9 times 9 over 7 equals 1"},{t:"So the reciprocal of 7 over 9 is 9 over 7.",s:"So the reciprocal of 7 over 9 is 9 over 7."}],cq:"What is the multiplicative inverse of 7/9?",cqs:"What is the multiplicative inverse of 7/9?",ans:["9/7", "9"],nudges:["The multiplicative inverse, or reciprocal, is what you multiply to get 1", "7 over 9 times 9 over 7 equals 1", "The answer is 9/7!"]},
+{id:"rn4",q:"3/4 + (1/4 + 5/8) = (3/4 + 1/4) + 5/8 shows which property?",qs:"3/4 + (1/4 + 5/8) = (3/4 + 1/4) + 5/8 shows which property?",anim:"rn4",steps:[{t:"When we rearrange the brackets but keep the numbers in the same order, that is the Associative Property of addition",s:"When we rearrange the brackets but keep the numbers in the same order, that is the Associative Property of addition"},{t:"The grouping changes but the result stays the same.",s:"The grouping changes but the result stays the same."}],cq:"3/4 + (1/4 + 5/8) = (3/4 + 1/4) + 5/8 shows which property?",cqs:"3/4 + (1/4 + 5/8) = (3/4 + 1/4) + 5/8 shows which property?",ans:["associative"],nudges:["When we rearrange the brackets but keep the numbers in the same order, that is the Associative Prope", "The grouping changes but the result stays the same.", "The answer is Associative!"]},
+{id:"rn5",q:"Simplify: –3/7 + (–2/7)",qs:"Simplify: –3/7 + (–2/7)",anim:"rn5",steps:[{t:"Both fractions have the same denominator 7",s:"Both fractions have the same denominator 7"},{t:"Add the numerators: minus 3 plus minus 2 equals minus 5",s:"Add the numerators: minus 3 plus minus 2 equals minus 5"},{t:"Answer is minus 5 over 7.",s:"Answer is minus 5 over 7."}],cq:"Simplify: –3/7 + (–2/7)",cqs:"Simplify: –3/7 + (–2/7)",ans:["\u20135/7", "5"],nudges:["Both fractions have the same denominator 7", "Add the numerators: minus 3 plus minus 2 equals minus 5", "The answer is \u20135/7!"]},
+{id:"rn6",q:"Between which two consecutive integers does –7/3 lie?",qs:"Between which two consecutive integers does –7/3 lie?",anim:"rn6",steps:[{t:"7 divided by 3 equals 2.33",s:"7 divided by 3 equals 2.33"},{t:"So minus 7 over 3 equals minus 2.33",s:"So minus 7 over 3 equals minus 2.33"},{t:"On the number line, minus 2.33 lies between minus 3 and minus 2.",s:"On the number line, minus 2.33 lies between minus 3 and minus 2."}],cq:"Between which two consecutive integers does –7/3 lie?",cqs:"Between which two consecutive integers does –7/3 lie?",ans:["\u20133 and \u20132", "3"],nudges:["7 divided by 3 equals 2.33", "So minus 7 over 3 equals minus 2.33", "The answer is \u20133 and \u20132!"]},
+{id:"rn7",q:"The product of 4/9 and –3/8 is:",qs:"The product of 4/9 and –3/8 is:",anim:"rn7",steps:[{t:"Multiply numerators: 4 times minus 3 equals minus 12",s:"Multiply numerators: 4 times minus 3 equals minus 12"},{t:"Multiply denominators: 9 times 8 equals 72",s:"Multiply denominators: 9 times 8 equals 72"},{t:"Simplify minus 12 over 72 by dividing both by 12 to get minus 1 over 6.",s:"Simplify minus 12 over 72 by dividing both by 12 to get minus 1 over 6."}],cq:"The product of 4/9 and –3/8 is:",cqs:"The product of 4/9 and –3/8 is:",ans:["\u20131/6", "1"],nudges:["Multiply numerators: 4 times minus 3 equals minus 12", "Multiply denominators: 9 times 8 equals 72", "The answer is \u20131/6!"]},
+{id:"rn8",q:"Rational numbers are closed under which operations?",qs:"Rational numbers are closed under which operations?",anim:"rn8",steps:[{t:"Rational numbers are closed under addition, subtraction, multiplication and division — except division by zero",s:"Rational numbers are closed under addition, subtraction, multiplication and division — except division by zero"},{t:"All four operations keep us within rational numbers.",s:"All four operations keep us within rational numbers."}],cq:"Rational numbers are closed under which operations?",cqs:"Rational numbers are closed under which operations?",ans:["+, \u2013, \u00d7 and \u00f7 (not \u00f70)", "0"],nudges:["Rational numbers are closed under addition, subtraction, multiplication and division \u2014 except divisi", "All four operations keep us within rational numbers.", "The answer is +, \u2013, \u00d7 and \u00f7 (not \u00f70)!"]},
+{id:"rn9",q:"Simplify: (–5/6) ÷ (5/12)",qs:"Simplify: (–5/6) ÷ (5/12)",anim:"rn9",steps:[{t:"To divide fractions, multiply by the reciprocal",s:"To divide fractions, multiply by the reciprocal"},{t:"Minus 5 over 6 times 12 over 5",s:"Minus 5 over 6 times 12 over 5"},{t:"The 5s cancel and 12 over 6 equals 2",s:"The 5s cancel and 12 over 6 equals 2"}],cq:"Simplify: (–5/6) ÷ (5/12)",cqs:"Simplify: (–5/6) ÷ (5/12)",ans:["\u20132", "2"],nudges:["To divide fractions, multiply by the reciprocal", "Minus 5 over 6 times 12 over 5", "The answer is \u20132!"]},
+{id:"rn10",q:"A rational number between 1/4 and 1/2 is:",qs:"A rational number between 1/4 and 1/2 is:",anim:"rn10",steps:[{t:"1 over 4 equals 0.25 and 1 over 2 equals 0.5",s:"1 over 4 equals 0.25 and 1 over 2 equals 0.5"},{t:"We need a number between them",s:"We need a number between them"},{t:"1 over 3 equals 0.33, which lies between 0.25 and 0.5",s:"1 over 3 equals 0.33, which lies between 0.25 and 0.5"}],cq:"A rational number between 1/4 and 1/2 is:",cqs:"A rational number between 1/4 and 1/2 is:",ans:["1/3", "1"],nudges:["1 over 4 equals 0.25 and 1 over 2 equals 0.5", "We need a number between them", "The answer is 1/3!"]},
+{id:"rn11",q:"What is (–3/5) × (–5/3)?",qs:"What is (–3/5) × (–5/3)?",anim:"rn11",steps:[{t:"Multiply numerators: minus 3 times minus 5 equals positive 15",s:"Multiply numerators: minus 3 times minus 5 equals positive 15"},{t:"Multiply denominators: 5 times 3 equals 15",s:"Multiply denominators: 5 times 3 equals 15"},{t:"So the answer is 15 over 15 which equals 1",s:"So the answer is 15 over 15 which equals 1"}],cq:"What is (–3/5) × (–5/3)?",cqs:"What is (–3/5) × (–5/3)?",ans:["1"],nudges:["Multiply numerators: minus 3 times minus 5 equals positive 15", "Multiply denominators: 5 times 3 equals 15", "The answer is 1!"]},
+{id:"rn12",q:"Which of these lies between –1 and 0 on the number line?",qs:"Which of these lies between –1 and 0 on the number line?",anim:"rn12",steps:[{t:"We need a number with absolute value less than 1",s:"We need a number with absolute value less than 1"},{t:"Minus 3 over 2 equals minus 1.5, outside the range",s:"Minus 3 over 2 equals minus 1.5, outside the range"},{t:"Minus 1 over 3 equals approximately minus 0.33, which is between minus 1 and 0.",s:"Minus 1 over 3 equals approximately minus 0.33, which is between minus 1 and 0."}],cq:"Which of these lies between –1 and 0 on the number line?",cqs:"Which of these lies between –1 and 0 on the number line?",ans:["\u20131/3", "1"],nudges:["We need a number with absolute value less than 1", "Minus 3 over 2 equals minus 1.5, outside the range", "The answer is \u20131/3!"]},
+{id:"rn13",q:"Find x if (2/3) × x = –4/9",qs:"Find x if (2/3) × x = –4/9",anim:"rn13",steps:[{t:"Divide both sides by 2 over 3, meaning multiply by its reciprocal 3 over 2",s:"Divide both sides by 2 over 3, meaning multiply by its reciprocal 3 over 2"},{t:"x equals minus 4 over 9 times 3 over 2 equals minus 12 over 18 which simplifies to minus 2 over 3.",s:"x equals minus 4 over 9 times 3 over 2 equals minus 12 over 18 which simplifies to minus 2 over 3."}],cq:"Find x if (2/3) × x = –4/9",cqs:"Find x if (2/3) × x = –4/9",ans:["\u20132/3", "2"],nudges:["Divide both sides by 2 over 3, meaning multiply by its reciprocal 3 over 2", "x equals minus 4 over 9 times 3 over 2 equals minus 12 over 18 which simplifies to minus 2 over 3.", "The answer is \u20132/3!"]},
+{id:"rn14",q:"The sum of a rational number and its additive inverse is always:",qs:"The sum of a rational number and its additive inverse is always:",anim:"rn14",steps:[{t:"By definition, the additive inverse of p over q is minus p over q",s:"By definition, the additive inverse of p over q is minus p over q"},{t:"Their sum equals p over q plus minus p over q equals zero",s:"Their sum equals p over q plus minus p over q equals zero"},{t:"Always zero, for every rational number.",s:"Always zero, for every rational number."}],cq:"The sum of a rational number and its additive inverse is always:",cqs:"The sum of a rational number and its additive inverse is always:",ans:["0"],nudges:["By definition, the additive inverse of p over q is minus p over q", "Their sum equals p over q plus minus p over q equals zero", "The answer is 0!"]},
+{id:"rn15",q:"If p/q = –8/12, which is the standard form?",qs:"If p/q = –8/12, which is the standard form?",anim:"rn15",steps:[{t:"Standard form means the denominator is positive and the fraction is fully simplified",s:"Standard form means the denominator is positive and the fraction is fully simplified"},{t:"H C F of 8 and 12 is 4",s:"H C F of 8 and 12 is 4"},{t:"Dividing both by 4 gives minus 2 over 3",s:"Dividing both by 4 gives minus 2 over 3"}],cq:"If p/q = –8/12, which is the standard form?",cqs:"If p/q = –8/12, which is the standard form?",ans:["\u20132/3", "2"],nudges:["Standard form means the denominator is positive and the fraction is fully simplified", "H C F of 8 and 12 is 4", "The answer is \u20132/3!"]},
+];
+
+function play_rn1(done){
+  setStatus("Solving step by step...");
+  say("A rational number can be written as p over q, where p and q are integers and q is not zero");
+  at(600,function(){fade("rn1s0",1);});
+  at(3200,function(){say("Three-fourths fits perfectly");});
+  at(3400,function(){fade("rn1s1",1);});
+  at(6000,function(){say("Root 2 and pi are irrational.");});
+  at(6200,function(){fade("rn1s2",1);});
+  at(9000,function(){fade("rn1ans",1);setStatus("Answer: 3/4");say("The answer is 3/4.");at(2000,done);});
+}
+
+function play_rn2(done){
+  setStatus("Solving step by step...");
+  say("The additive inverse is what you add to get zero");
+  at(600,function(){fade("rn2s0",1);});
+  at(3200,function(){say("Minus 3 over 5 plus 3 over 5 equals zero");});
+  at(3400,function(){fade("rn2s1",1);});
+  at(6000,function(){say("So the additive inverse of minus 3 over 5 is positive 3 over 5.");});
+  at(6200,function(){fade("rn2s2",1);});
+  at(9000,function(){fade("rn2ans",1);setStatus("Answer: 3/5");say("The answer is 3/5.");at(2000,done);});
+}
+
+function play_rn3(done){
+  setStatus("Solving step by step...");
+  say("The multiplicative inverse, or reciprocal, is what you multiply to get 1");
+  at(600,function(){fade("rn3s0",1);});
+  at(3200,function(){say("7 over 9 times 9 over 7 equals 1");});
+  at(3400,function(){fade("rn3s1",1);});
+  at(6000,function(){say("So the reciprocal of 7 over 9 is 9 over 7.");});
+  at(6200,function(){fade("rn3s2",1);});
+  at(9000,function(){fade("rn3ans",1);setStatus("Answer: 9/7");say("The answer is 9/7.");at(2000,done);});
+}
+
+function play_rn4(done){
+  setStatus("Solving step by step...");
+  say("When we rearrange the brackets but keep the numbers in the same order, that is the Associative Property of addition");
+  at(600,function(){fade("rn4s0",1);});
+  at(3200,function(){say("The grouping changes but the result stays the same.");});
+  at(3400,function(){fade("rn4s1",1);});
+  at(6200,function(){fade("rn4ans",1);setStatus("Answer: Associative");say("The answer is Associative.");at(2000,done);});
+}
+
+function play_rn5(done){
+  setStatus("Solving step by step...");
+  say("Both fractions have the same denominator 7");
+  at(600,function(){fade("rn5s0",1);});
+  at(3200,function(){say("Add the numerators: minus 3 plus minus 2 equals minus 5");});
+  at(3400,function(){fade("rn5s1",1);});
+  at(6000,function(){say("Answer is minus 5 over 7.");});
+  at(6200,function(){fade("rn5s2",1);});
+  at(9000,function(){fade("rn5ans",1);setStatus("Answer: –5/7");say("The answer is –5/7.");at(2000,done);});
+}
+
+function play_rn6(done){
+  setStatus("Solving step by step...");
+  say("7 divided by 3 equals 2.33");
+  at(600,function(){fade("rn6s0",1);});
+  at(3200,function(){say("So minus 7 over 3 equals minus 2.33");});
+  at(3400,function(){fade("rn6s1",1);});
+  at(6000,function(){say("On the number line, minus 2.33 lies between minus 3 and minus 2.");});
+  at(6200,function(){fade("rn6s2",1);});
+  at(9000,function(){fade("rn6ans",1);setStatus("Answer: –3 and –2");say("The answer is –3 and –2.");at(2000,done);});
+}
+
+function play_rn7(done){
+  setStatus("Solving step by step...");
+  say("Multiply numerators: 4 times minus 3 equals minus 12");
+  at(600,function(){fade("rn7s0",1);});
+  at(3200,function(){say("Multiply denominators: 9 times 8 equals 72");});
+  at(3400,function(){fade("rn7s1",1);});
+  at(6000,function(){say("Simplify minus 12 over 72 by dividing both by 12 to get minus 1 over 6.");});
+  at(6200,function(){fade("rn7s2",1);});
+  at(9000,function(){fade("rn7ans",1);setStatus("Answer: –1/6");say("The answer is –1/6.");at(2000,done);});
+}
+
+function play_rn8(done){
+  setStatus("Solving step by step...");
+  say("Rational numbers are closed under addition, subtraction, multiplication and division — except division by zero");
+  at(600,function(){fade("rn8s0",1);});
+  at(3200,function(){say("All four operations keep us within rational numbers.");});
+  at(3400,function(){fade("rn8s1",1);});
+  at(6200,function(){fade("rn8ans",1);setStatus("Answer: +, –, × and ÷ (not ÷0)");say("The answer is +, –, × and ÷ (not ÷0).");at(2000,done);});
+}
+
+function play_rn9(done){
+  setStatus("Solving step by step...");
+  say("To divide fractions, multiply by the reciprocal");
+  at(600,function(){fade("rn9s0",1);});
+  at(3200,function(){say("Minus 5 over 6 times 12 over 5");});
+  at(3400,function(){fade("rn9s1",1);});
+  at(6000,function(){say("The 5s cancel and 12 over 6 equals 2");});
+  at(6200,function(){fade("rn9s2",1);});
+  at(9000,function(){fade("rn9ans",1);setStatus("Answer: –2");say("The answer is –2.");at(2000,done);});
+}
+
+function play_rn10(done){
+  setStatus("Solving step by step...");
+  say("1 over 4 equals 0.25 and 1 over 2 equals 0.5");
+  at(600,function(){fade("rn10s0",1);});
+  at(3200,function(){say("We need a number between them");});
+  at(3400,function(){fade("rn10s1",1);});
+  at(6000,function(){say("1 over 3 equals 0.33, which lies between 0.25 and 0.5");});
+  at(6200,function(){fade("rn10s2",1);});
+  at(9000,function(){fade("rn10ans",1);setStatus("Answer: 1/3");say("The answer is 1/3.");at(2000,done);});
+}
+
+function play_rn11(done){
+  setStatus("Solving step by step...");
+  say("Multiply numerators: minus 3 times minus 5 equals positive 15");
+  at(600,function(){fade("rn11s0",1);});
+  at(3200,function(){say("Multiply denominators: 5 times 3 equals 15");});
+  at(3400,function(){fade("rn11s1",1);});
+  at(6000,function(){say("So the answer is 15 over 15 which equals 1");});
+  at(6200,function(){fade("rn11s2",1);});
+  at(9000,function(){fade("rn11ans",1);setStatus("Answer: 1");say("The answer is 1.");at(2000,done);});
+}
+
+function play_rn12(done){
+  setStatus("Solving step by step...");
+  say("We need a number with absolute value less than 1");
+  at(600,function(){fade("rn12s0",1);});
+  at(3200,function(){say("Minus 3 over 2 equals minus 1.5, outside the range");});
+  at(3400,function(){fade("rn12s1",1);});
+  at(6000,function(){say("Minus 1 over 3 equals approximately minus 0.33, which is between minus 1 and 0.");});
+  at(6200,function(){fade("rn12s2",1);});
+  at(9000,function(){fade("rn12ans",1);setStatus("Answer: –1/3");say("The answer is –1/3.");at(2000,done);});
+}
+
+function play_rn13(done){
+  setStatus("Solving step by step...");
+  say("Divide both sides by 2 over 3, meaning multiply by its reciprocal 3 over 2");
+  at(600,function(){fade("rn13s0",1);});
+  at(3200,function(){say("x equals minus 4 over 9 times 3 over 2 equals minus 12 over 18 which simplifies to minus 2 over 3.");});
+  at(3400,function(){fade("rn13s1",1);});
+  at(6200,function(){fade("rn13ans",1);setStatus("Answer: –2/3");say("The answer is –2/3.");at(2000,done);});
+}
+
+function play_rn14(done){
+  setStatus("Solving step by step...");
+  say("By definition, the additive inverse of p over q is minus p over q");
+  at(600,function(){fade("rn14s0",1);});
+  at(3200,function(){say("Their sum equals p over q plus minus p over q equals zero");});
+  at(3400,function(){fade("rn14s1",1);});
+  at(6000,function(){say("Always zero, for every rational number.");});
+  at(6200,function(){fade("rn14s2",1);});
+  at(9000,function(){fade("rn14ans",1);setStatus("Answer: 0");say("The answer is 0.");at(2000,done);});
+}
+
+function play_rn15(done){
+  setStatus("Solving step by step...");
+  say("Standard form means the denominator is positive and the fraction is fully simplified");
+  at(600,function(){fade("rn15s0",1);});
+  at(3200,function(){say("H C F of 8 and 12 is 4");});
+  at(3400,function(){fade("rn15s1",1);});
+  at(6000,function(){say("Dividing both by 4 gives minus 2 over 3");});
+  at(6200,function(){fade("rn15s2",1);});
+  at(9000,function(){fade("rn15ans",1);setStatus("Answer: –2/3");say("The answer is –2/3.");at(2000,done);});
+}
+
+
+function getAnimSVG(t){var m={"rn1":function(){return "<svg viewBox=\"0 0 420 178\" xmlns=\"http://www.w3.org/2000/svg\" style=\"font-family:Nunito,sans-serif;background:#fffdf8\"><rect width=\"420\" height=\"178\" fill=\"#fffdf8\"/><g id=\"rn1s0\" opacity=\"0\"><text x=\"22\" y=\"34\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">A rational number can be written as p over q, where p and q ar...</text></g><g id=\"rn1s1\" opacity=\"0\"><text x=\"22\" y=\"74\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Three-fourths fits perfectly</text></g><g id=\"rn1s2\" opacity=\"0\"><text x=\"22\" y=\"114\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Root 2 and pi are irrational.</text></g><g id=\"rn1ans\" opacity=\"0\"><rect x=\"40\" y=\"158\" width=\"320\" height=\"28\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"200\" y=\"177\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"14\" font-weight=\"bold\" fill=\"#7a8c6e\">Answer: 3/4</text></g></svg>";},"rn2":function(){return "<svg viewBox=\"0 0 420 178\" xmlns=\"http://www.w3.org/2000/svg\" style=\"font-family:Nunito,sans-serif;background:#fffdf8\"><rect width=\"420\" height=\"178\" fill=\"#fffdf8\"/><g id=\"rn2s0\" opacity=\"0\"><text x=\"22\" y=\"34\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">The additive inverse is what you add to get zero</text></g><g id=\"rn2s1\" opacity=\"0\"><text x=\"22\" y=\"74\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Minus 3 over 5 plus 3 over 5 equals zero</text></g><g id=\"rn2s2\" opacity=\"0\"><text x=\"22\" y=\"114\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">So the additive inverse of minus 3 over 5 is positive 3 over 5.</text></g><g id=\"rn2ans\" opacity=\"0\"><rect x=\"40\" y=\"158\" width=\"320\" height=\"28\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"200\" y=\"177\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"14\" font-weight=\"bold\" fill=\"#7a8c6e\">Answer: 3/5</text></g></svg>";},"rn3":function(){return "<svg viewBox=\"0 0 420 178\" xmlns=\"http://www.w3.org/2000/svg\" style=\"font-family:Nunito,sans-serif;background:#fffdf8\"><rect width=\"420\" height=\"178\" fill=\"#fffdf8\"/><g id=\"rn3s0\" opacity=\"0\"><text x=\"22\" y=\"34\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">The multiplicative inverse, or reciprocal, is what you multipl...</text></g><g id=\"rn3s1\" opacity=\"0\"><text x=\"22\" y=\"74\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">7 over 9 times 9 over 7 equals 1</text></g><g id=\"rn3s2\" opacity=\"0\"><text x=\"22\" y=\"114\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">So the reciprocal of 7 over 9 is 9 over 7.</text></g><g id=\"rn3ans\" opacity=\"0\"><rect x=\"40\" y=\"158\" width=\"320\" height=\"28\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"200\" y=\"177\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"14\" font-weight=\"bold\" fill=\"#7a8c6e\">Answer: 9/7</text></g></svg>";},"rn4":function(){return "<svg viewBox=\"0 0 420 178\" xmlns=\"http://www.w3.org/2000/svg\" style=\"font-family:Nunito,sans-serif;background:#fffdf8\"><rect width=\"420\" height=\"178\" fill=\"#fffdf8\"/><g id=\"rn4s0\" opacity=\"0\"><text x=\"22\" y=\"34\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">When we rearrange the brackets but keep the numbers in the sam...</text></g><g id=\"rn4s1\" opacity=\"0\"><text x=\"22\" y=\"74\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">The grouping changes but the result stays the same.</text></g><g id=\"rn4ans\" opacity=\"0\"><rect x=\"40\" y=\"118\" width=\"320\" height=\"28\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"200\" y=\"137\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"14\" font-weight=\"bold\" fill=\"#7a8c6e\">Answer: Associative</text></g></svg>";},"rn5":function(){return "<svg viewBox=\"0 0 420 178\" xmlns=\"http://www.w3.org/2000/svg\" style=\"font-family:Nunito,sans-serif;background:#fffdf8\"><rect width=\"420\" height=\"178\" fill=\"#fffdf8\"/><g id=\"rn5s0\" opacity=\"0\"><text x=\"22\" y=\"34\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Both fractions have the same denominator 7</text></g><g id=\"rn5s1\" opacity=\"0\"><text x=\"22\" y=\"74\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Add the numerators: minus 3 plus minus 2 equals minus 5</text></g><g id=\"rn5s2\" opacity=\"0\"><text x=\"22\" y=\"114\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Answer is minus 5 over 7.</text></g><g id=\"rn5ans\" opacity=\"0\"><rect x=\"40\" y=\"158\" width=\"320\" height=\"28\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"200\" y=\"177\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"14\" font-weight=\"bold\" fill=\"#7a8c6e\">Answer: \u20135/7</text></g></svg>";},"rn6":function(){return "<svg viewBox=\"0 0 420 178\" xmlns=\"http://www.w3.org/2000/svg\" style=\"font-family:Nunito,sans-serif;background:#fffdf8\"><rect width=\"420\" height=\"178\" fill=\"#fffdf8\"/><g id=\"rn6s0\" opacity=\"0\"><text x=\"22\" y=\"34\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">7 divided by 3 equals 2.33</text></g><g id=\"rn6s1\" opacity=\"0\"><text x=\"22\" y=\"74\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">So minus 7 over 3 equals minus 2.33</text></g><g id=\"rn6s2\" opacity=\"0\"><text x=\"22\" y=\"114\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">On the number line, minus 2.33 lies between minus 3 and minus 2.</text></g><g id=\"rn6ans\" opacity=\"0\"><rect x=\"40\" y=\"158\" width=\"320\" height=\"28\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"200\" y=\"177\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"14\" font-weight=\"bold\" fill=\"#7a8c6e\">Answer: \u20133 and \u20132</text></g></svg>";},"rn7":function(){return "<svg viewBox=\"0 0 420 178\" xmlns=\"http://www.w3.org/2000/svg\" style=\"font-family:Nunito,sans-serif;background:#fffdf8\"><rect width=\"420\" height=\"178\" fill=\"#fffdf8\"/><g id=\"rn7s0\" opacity=\"0\"><text x=\"22\" y=\"34\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Multiply numerators: 4 times minus 3 equals minus 12</text></g><g id=\"rn7s1\" opacity=\"0\"><text x=\"22\" y=\"74\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Multiply denominators: 9 times 8 equals 72</text></g><g id=\"rn7s2\" opacity=\"0\"><text x=\"22\" y=\"114\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Simplify minus 12 over 72 by dividing both by 12 to get minus ...</text></g><g id=\"rn7ans\" opacity=\"0\"><rect x=\"40\" y=\"158\" width=\"320\" height=\"28\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"200\" y=\"177\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"14\" font-weight=\"bold\" fill=\"#7a8c6e\">Answer: \u20131/6</text></g></svg>";},"rn8":function(){return "<svg viewBox=\"0 0 420 178\" xmlns=\"http://www.w3.org/2000/svg\" style=\"font-family:Nunito,sans-serif;background:#fffdf8\"><rect width=\"420\" height=\"178\" fill=\"#fffdf8\"/><g id=\"rn8s0\" opacity=\"0\"><text x=\"22\" y=\"34\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Rational numbers are closed under addition, subtraction, multi...</text></g><g id=\"rn8s1\" opacity=\"0\"><text x=\"22\" y=\"74\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">All four operations keep us within rational numbers.</text></g><g id=\"rn8ans\" opacity=\"0\"><rect x=\"40\" y=\"118\" width=\"320\" height=\"28\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"200\" y=\"137\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"14\" font-weight=\"bold\" fill=\"#7a8c6e\">Answer: +, \u2013, \u00d7 and \u00f7 (not \u00f70)</text></g></svg>";},"rn9":function(){return "<svg viewBox=\"0 0 420 178\" xmlns=\"http://www.w3.org/2000/svg\" style=\"font-family:Nunito,sans-serif;background:#fffdf8\"><rect width=\"420\" height=\"178\" fill=\"#fffdf8\"/><g id=\"rn9s0\" opacity=\"0\"><text x=\"22\" y=\"34\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">To divide fractions, multiply by the reciprocal</text></g><g id=\"rn9s1\" opacity=\"0\"><text x=\"22\" y=\"74\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Minus 5 over 6 times 12 over 5</text></g><g id=\"rn9s2\" opacity=\"0\"><text x=\"22\" y=\"114\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">The 5s cancel and 12 over 6 equals 2</text></g><g id=\"rn9ans\" opacity=\"0\"><rect x=\"40\" y=\"158\" width=\"320\" height=\"28\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"200\" y=\"177\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"14\" font-weight=\"bold\" fill=\"#7a8c6e\">Answer: \u20132</text></g></svg>";},"rn10":function(){return "<svg viewBox=\"0 0 420 178\" xmlns=\"http://www.w3.org/2000/svg\" style=\"font-family:Nunito,sans-serif;background:#fffdf8\"><rect width=\"420\" height=\"178\" fill=\"#fffdf8\"/><g id=\"rn10s0\" opacity=\"0\"><text x=\"22\" y=\"34\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">1 over 4 equals 0.25 and 1 over 2 equals 0.5</text></g><g id=\"rn10s1\" opacity=\"0\"><text x=\"22\" y=\"74\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">We need a number between them</text></g><g id=\"rn10s2\" opacity=\"0\"><text x=\"22\" y=\"114\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">1 over 3 equals 0.33, which lies between 0.25 and 0.5</text></g><g id=\"rn10ans\" opacity=\"0\"><rect x=\"40\" y=\"158\" width=\"320\" height=\"28\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"200\" y=\"177\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"14\" font-weight=\"bold\" fill=\"#7a8c6e\">Answer: 1/3</text></g></svg>";},"rn11":function(){return "<svg viewBox=\"0 0 420 178\" xmlns=\"http://www.w3.org/2000/svg\" style=\"font-family:Nunito,sans-serif;background:#fffdf8\"><rect width=\"420\" height=\"178\" fill=\"#fffdf8\"/><g id=\"rn11s0\" opacity=\"0\"><text x=\"22\" y=\"34\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Multiply numerators: minus 3 times minus 5 equals positive 15</text></g><g id=\"rn11s1\" opacity=\"0\"><text x=\"22\" y=\"74\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Multiply denominators: 5 times 3 equals 15</text></g><g id=\"rn11s2\" opacity=\"0\"><text x=\"22\" y=\"114\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">So the answer is 15 over 15 which equals 1</text></g><g id=\"rn11ans\" opacity=\"0\"><rect x=\"40\" y=\"158\" width=\"320\" height=\"28\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"200\" y=\"177\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"14\" font-weight=\"bold\" fill=\"#7a8c6e\">Answer: 1</text></g></svg>";},"rn12":function(){return "<svg viewBox=\"0 0 420 178\" xmlns=\"http://www.w3.org/2000/svg\" style=\"font-family:Nunito,sans-serif;background:#fffdf8\"><rect width=\"420\" height=\"178\" fill=\"#fffdf8\"/><g id=\"rn12s0\" opacity=\"0\"><text x=\"22\" y=\"34\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">We need a number with absolute value less than 1</text></g><g id=\"rn12s1\" opacity=\"0\"><text x=\"22\" y=\"74\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Minus 3 over 2 equals minus 1.5, outside the range</text></g><g id=\"rn12s2\" opacity=\"0\"><text x=\"22\" y=\"114\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Minus 1 over 3 equals approximately minus 0.33, which is betwe...</text></g><g id=\"rn12ans\" opacity=\"0\"><rect x=\"40\" y=\"158\" width=\"320\" height=\"28\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"200\" y=\"177\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"14\" font-weight=\"bold\" fill=\"#7a8c6e\">Answer: \u20131/3</text></g></svg>";},"rn13":function(){return "<svg viewBox=\"0 0 420 178\" xmlns=\"http://www.w3.org/2000/svg\" style=\"font-family:Nunito,sans-serif;background:#fffdf8\"><rect width=\"420\" height=\"178\" fill=\"#fffdf8\"/><g id=\"rn13s0\" opacity=\"0\"><text x=\"22\" y=\"34\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Divide both sides by 2 over 3, meaning multiply by its recipro...</text></g><g id=\"rn13s1\" opacity=\"0\"><text x=\"22\" y=\"74\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">x equals minus 4 over 9 times 3 over 2 equals minus 12 over 18...</text></g><g id=\"rn13ans\" opacity=\"0\"><rect x=\"40\" y=\"118\" width=\"320\" height=\"28\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"200\" y=\"137\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"14\" font-weight=\"bold\" fill=\"#7a8c6e\">Answer: \u20132/3</text></g></svg>";},"rn14":function(){return "<svg viewBox=\"0 0 420 178\" xmlns=\"http://www.w3.org/2000/svg\" style=\"font-family:Nunito,sans-serif;background:#fffdf8\"><rect width=\"420\" height=\"178\" fill=\"#fffdf8\"/><g id=\"rn14s0\" opacity=\"0\"><text x=\"22\" y=\"34\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">By definition, the additive inverse of p over q is minus p over q</text></g><g id=\"rn14s1\" opacity=\"0\"><text x=\"22\" y=\"74\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Their sum equals p over q plus minus p over q equals zero</text></g><g id=\"rn14s2\" opacity=\"0\"><text x=\"22\" y=\"114\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Always zero, for every rational number.</text></g><g id=\"rn14ans\" opacity=\"0\"><rect x=\"40\" y=\"158\" width=\"320\" height=\"28\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"200\" y=\"177\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"14\" font-weight=\"bold\" fill=\"#7a8c6e\">Answer: 0</text></g></svg>";},"rn15":function(){return "<svg viewBox=\"0 0 420 178\" xmlns=\"http://www.w3.org/2000/svg\" style=\"font-family:Nunito,sans-serif;background:#fffdf8\"><rect width=\"420\" height=\"178\" fill=\"#fffdf8\"/><g id=\"rn15s0\" opacity=\"0\"><text x=\"22\" y=\"34\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Standard form means the denominator is positive and the fracti...</text></g><g id=\"rn15s1\" opacity=\"0\"><text x=\"22\" y=\"74\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">H C F of 8 and 12 is 4</text></g><g id=\"rn15s2\" opacity=\"0\"><text x=\"22\" y=\"114\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Dividing both by 4 gives minus 2 over 3</text></g><g id=\"rn15ans\" opacity=\"0\"><rect x=\"40\" y=\"158\" width=\"320\" height=\"28\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"200\" y=\"177\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"14\" font-weight=\"bold\" fill=\"#7a8c6e\">Answer: \u20132/3</text></g></svg>";}};return m[t]?m[t]():'<svg viewBox="0 0 420 178"><text x="210" y="89" text-anchor="middle" font-family="Nunito" font-size="14" fill="#5a4a30">Loading...</text></svg>';}
+function getAnimPlay(t){var m={"rn1":play_rn1,"rn2":play_rn2,"rn3":play_rn3,"rn4":play_rn4,"rn5":play_rn5,"rn6":play_rn6,"rn7":play_rn7,"rn8":play_rn8,"rn9":play_rn9,"rn10":play_rn10,"rn11":play_rn11,"rn12":play_rn12,"rn13":play_rn13,"rn14":play_rn14,"rn15":play_rn15};return m[t]||function(done){done();};}
+
+var atTimers=[],session=[],idx=0,stepIdx=0,nudgeCount=0,completed=false,breakSecs=0,breakTmr=null,PER_SESSION=10;
+function G(id){return document.getElementById(id);}
+function clearAt(){for(var i=0;i<atTimers.length;i++)clearTimeout(atTimers[i]);atTimers=[];}
+function at(ms,fn){atTimers.push(setTimeout(fn,ms));}
+function fade(id,v){var e=G(id);if(e){e.style.transition="opacity .5s";e.style.opacity=v;}}
+function setStatus(t){var e=G("animStatus");if(e)e.textContent=t;}
+
+function init(){
+  rishiCheckPlan(1);
+  var st=JSON.parse(localStorage.getItem("rishi_current_student")||"{}");
+  G("sName").textContent=st.studentName?st.studentName.split(" ")[0]:"there";
+  var prog=JSON.parse(localStorage.getItem("rishi_progress")||"{}");
+  if(localStorage.getItem("rishi_explain_done_1")==="1"||prog["explain_rational_done"]){completed=true;G("doneBanner").classList.add("show");unlockNav();}
+  buildSession();rInit();
+  initVoices(function(){say(G("introText").innerText);setTimeout(showQ,2200);});
+}
+function buildSession(){session=QB.slice().sort(function(){return Math.random()-.5;}).slice(0,PER_SESSION);}
+function showQ(){
+  if(idx>=session.length){onComplete();return;}
+  var q=session[idx];stepIdx=0;nudgeCount=0;updateProg();G("qArea").innerHTML="";clearAt();
+  var qc=document.createElement("div");qc.className="q-card";
+  qc.innerHTML='<div class="q-label">Question '+(idx+1)+' of '+PER_SESSION+'</div><div class="q-text">'+q.q+'</div><button class="btn-speak" onclick="say(session[idx].qs)">&#128266; Hear</button>';
+  G("qArea").appendChild(qc);
+  var ap=document.createElement("div");ap.className="anim-panel";
+  ap.innerHTML='<div class="anim-header"><span class="anim-header-lbl">&#127909; Live Animation</span><button class="anim-replay" id="animReplay" onclick="replayAnim()">&#8635; Replay</button></div>'
+    +'<div class="anim-canvas" id="animCanvas">'+getAnimSVG(q.anim)+'</div>'
+    +'<div class="anim-status" id="animStatus">Tap Play to watch with narration!</div>'
+    +'<button class="anim-play-btn" id="animPlayBtn" onclick="startAnim()">&#9654; Play Animation</button>'
+    +'<button class="steps-btn" id="stepsBtn" onclick="beginSteps()">&#128214; See Step-by-Step</button>';
+  G("qArea").appendChild(ap);
+}
+function startAnim(){var q=session[idx];var pb=G("animPlayBtn");if(pb){pb.disabled=true;pb.textContent="&#9654; Playing...";}getAnimPlay(q.anim)(function(){var sb=G("stepsBtn");if(sb)sb.style.display="block";var rb=G("animReplay");if(rb)rb.style.display="block";if(pb)pb.style.display="none";});}
+function replayAnim(){clearAt();window.speechSynthesis&&window.speechSynthesis.cancel();rStopTalk();var q=session[idx];var canvas=G("animCanvas");if(canvas)canvas.innerHTML=getAnimSVG(q.anim);G("animReplay").style.display="none";G("stepsBtn").style.display="none";var pb=G("animPlayBtn");if(pb){pb.style.display="block";pb.disabled=false;pb.textContent="&#9654; Play Animation";}setStatus("Tap Play to watch with narration!");}
+function beginSteps(){var q=session[idx];var sc=document.createElement("div");sc.className="q-card";sc.innerHTML='<div class="q-label">&#128214; Step-by-Step</div><div id="stepsWrap"></div><button class="btn-speak" id="nxtStepBtn" onclick="nextStep()" style="margin-top:10px;">&#9654; Next Step</button>';G("qArea").appendChild(sc);sc.scrollIntoView({behavior:"smooth",block:"start"});G("stepsBtn").style.display="none";setTimeout(nextStep,350);}
+function nextStep(){var q=session[idx];if(stepIdx>=q.steps.length){G("nxtStepBtn").style.display="none";showConfirm();return;}var s=q.steps[stepIdx];var wrap=G("stepsWrap");var d=document.createElement("div");d.className="step";d.innerHTML='<div class="step-num">'+(stepIdx+1)+'</div><div class="step-body">'+s.t+'</div>';wrap.appendChild(d);setTimeout(function(){d.classList.add("vis");},40);setTimeout(function(){say(s.s);},280);stepIdx++;}
+function showConfirm(){
+  var q=session[idx];var c=document.createElement("div");c.className="confirm-wrap";
+  c.innerHTML='<div class="confirm-title">&#127917; Rekha asks!</div>'
+    +'<div class="confirm-q">'+q.cq+'</div>'
+    +'<div class="math-input-wrap"><textarea id="rawAnswer" class="math-raw" rows="2" autocomplete="off" placeholder="Type your answer here..."></textarea></div>'
+    +'<div class="math-preview-label">Preview</div>'
+    +'<div class="math-preview" id="mathPreview"><span class="mph">your answer will appear here...</span></div>'
+    +'<div class="sugg-strip"><div class="sugg-strip-head">Quick chips</div><div class="sugg-chips" id="suggChips"></div></div>'
+    +'<button type="button" onclick="submitTyped()" style="width:100%;font-family:Nunito,sans-serif;font-size:14px;font-weight:900;padding:11px;border-radius:12px;border:none;background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;cursor:pointer;margin-bottom:8px;">Submit Answer</button>'
+    +'<div class="result-box" id="rbox"></div>'
+    +'<div class="nudge" id="nudgeBox"></div>'
+    +'<button type="button" class="btn-next" id="btnNext" onclick="goNext()">Next Question &#9654;</button>';
+  G("qArea").appendChild(c);c.scrollIntoView({behavior:"smooth",block:"center"});
+  var ra=G("rawAnswer");
+  if(ra){ra.addEventListener("input",mathUpdate);ra.addEventListener("keydown",function(ev){if(ev.key==="Enter"&&!ev.shiftKey){ev.preventDefault();submitTyped();}});setTimeout(function(){ra.focus();},300);}
+  buildSuggChips(makeChips(q));say(q.cqs);
+}
+function makeChips(q){
+  var chips=[];
+  (q.ans||[]).forEach(function(a){chips.push({label:a,ins:a,type:"confirm"});});
+  return chips;
+}
+function submitTyped(){var ra=G("rawAnswer");if(!ra)return;var val=String(ra.value||"").trim();if(!val){ra.focus();return;}handleAnswer(val.toLowerCase());}
+function goNext(){idx++;G("qArea").innerHTML="";showQ();window.scrollTo({top:0,behavior:"smooth"});}
+function updateProg(){var pct=Math.round((idx/PER_SESSION)*100);G("progFill").style.width=pct+"%";G("progLabel").textContent="Question "+(idx+1)+" of "+PER_SESSION;G("progPct").textContent=pct+"%";}
+function unlockNav(){G("btnPractice").classList.remove("locked");G("btnExam").classList.remove("locked");G("lockTip").style.display="none";}
+function onComplete(){
+  rishiMarkExplainDone(1);
+  var prog=JSON.parse(localStorage.getItem("rishi_progress")||"{}");
+  prog["explain_rational_done"]=true;localStorage.setItem("rishi_progress",JSON.stringify(prog));
+  completed=true;G("doneBanner").classList.add("show");unlockNav();
+  var st=JSON.parse(localStorage.getItem("rishi_current_student")||"{}");
+  var nm=st.studentName?st.studentName.split(" ")[0]:"champion";
+  var cel=document.createElement("div");cel.className="rishika-wrap";
+  cel.innerHTML='<div class="rishika-avatar">&#128105;&#8205;&#127979;</div>'
+    +'<div class="rishika-bubble"><div class="rishika-name">Rekha</div>'
+    +'<div class="rishika-text" id="celText">&#127881; <span class="hl">'+nm+'</span>, excellent work! You have mastered <span class="hl">Rational Numbers</span>! &#128170;</div>'
+    +'<button class="btn-speak" onclick="sayEl(&apos;celText&apos;)">&#128266; Hear</button></div>';
+  G("qArea").appendChild(cel);setTimeout(function(){sayEl("celText");rHappy();},400);
+}
+function goPractice(){if(!completed){alert("Complete explanations first!");return;}location.href="/practice.html?chapter=rational_numbers";}
+function goExam(){if(!completed){alert("Complete explanations first!");return;}location.href="/exam.html?chapter=rational_numbers";}
+var CELEBRATIONS=[
+  {word:"Magnifique !",lang:"French",meaning:"Magnificent!",speak:"Magnifique"},
+  {word:"Brillante!",lang:"Spanish",meaning:"Brilliant!",speak:"Brillante"},
+  {word:"Wunderbar!",lang:"German",meaning:"Wonderful!",speak:"Wunderbar"},
+  {word:"Bravissimo!",lang:"Italian",meaning:"Very well done!",speak:"Bravissimo"},
+  {word:"Bravo!",lang:"Italian",meaning:"Well done!",speak:"Bravo"},
+];
+var lastCelIdx=-1;
+function celebrate(){var i;do{i=Math.floor(Math.random()*CELEBRATIONS.length);}while(i===lastCelIdx&&CELEBRATIONS.length>1);lastCelIdx=i;var c=CELEBRATIONS[i];var rb=G("rbox");rb.className="result-box ok";rb.innerHTML='<div class="cel-word">'+c.word+'</div><div class="cel-meta">'+c.lang+' &middot; <em>'+c.meaning+'</em></div>';G("nudgeBox").classList.remove("show");var nb=G("btnNext");if(nb)nb.classList.add("show");say(c.speak);rHappy();}
+function handleAnswer(text){var q=session[idx];var ok=q.ans.some(function(a){return text.includes(a.toLowerCase())||a.toLowerCase().includes(text);});var rb=G("rbox");if(ok){celebrate();}else{nudgeCount++;rb.className="result-box no";rb.textContent="&#10006; Not quite. Listen to my hint!";var nudge=q.nudges[Math.min(nudgeCount-1,q.nudges.length-1)];showNudge(nudge);say(nudge);rThink();if(nudgeCount>=3){var nb2=G("btnNext");if(nb2){nb2.classList.add("show");nb2.textContent="I Understand &#9654;";}};}}
+function showNudge(msg){var n=G("nudgeBox");if(n){n.textContent=msg;n.classList.add("show");}}
+function openBreak(){G("breakOv").classList.add("show");}
+function closeBreak(){G("breakOv").classList.remove("show");}
+function startBreak(r){closeBreak();breakSecs=0;G("timerLbl").textContent=r;G("timerNum").textContent="00:00";G("timerScreen").classList.add("show");breakTmr=setInterval(function(){breakSecs++;var m=String(Math.floor(breakSecs/60)).padStart(2,"0");var s=String(breakSecs%60).padStart(2,"0");G("timerNum").textContent=m+":"+s;},1000);}
+function endBreak(){clearInterval(breakTmr);G("timerScreen").classList.remove("show");}
+function mathUpdate(){var ra=G("rawAnswer");if(!ra)return;var v=ra.value.trim();var el=G("mathPreview");if(el)el.textContent=v||"";}
+function buildSuggChips(list){var el=G("suggChips");if(!el)return;var ra=G("rawAnswer");el.innerHTML="";list.forEach(function(c){var btn=document.createElement("button");btn.className="schip "+(c.type||"shortcut");btn.textContent=c.label;btn.type="button";btn.addEventListener("click",function(){if(c.ins&&ra){var s=ra.selectionStart,e=ra.selectionEnd;ra.value=ra.value.slice(0,s)+c.ins+ra.value.slice(e);ra.focus();mathUpdate();}});el.appendChild(btn);});}
+window.onload=init;
+</script>
 </body>
 </html>
