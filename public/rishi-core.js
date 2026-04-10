@@ -72,6 +72,15 @@ function rishiIsExplainDone(chId) {
   return false;
 }
 
+function rishiMarkPracticeDone(chId) {
+  localStorage.setItem('rishi_practice_done_' + chId, '1');
+  var sessKey = 'rishi_practice_sessions';
+  var sess = {};
+  try { sess = JSON.parse(localStorage.getItem(sessKey) || '{}'); } catch(e) {}
+  sess[chId] = (sess[chId] || 0) + 1;
+  localStorage.setItem(sessKey, JSON.stringify(sess));
+}
+
 function rishiIsPracticeDone(chId) {
   return localStorage.getItem("rishi_practice_done_" + chId) === "1";
 }

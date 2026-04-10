@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Practice – Playing with Numbers | RISHI</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Nunito',sans-serif;background:#0d0d1a;min-height:100vh;color:#fff;overflow-x:hidden;}
+/* ─ TOPBAR ─ */
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:10px 20px;background:rgba(0,0,0,.5);border-bottom:1px solid rgba(255,215,0,.2);position:sticky;top:0;z-index:200;gap:10px;flex-wrap:wrap;}
+.topbar-left{display:flex;gap:8px;align-items:center;}
+.topbar-right{display:flex;gap:8px;align-items:center;}
+.tbtn{padding:8px 16px;border-radius:20px;border:none;cursor:pointer;font-family:'Nunito',sans-serif;font-weight:700;font-size:13px;}
+.tbtn-back{background:rgba(255,215,0,.15);border:1px solid #ffd700;color:#ffd700;}
+.tbtn-break{background:rgba(255,107,107,.2);border:1px solid #ff6b6b;color:#ff6b6b;position:relative;}
+.break-menu{display:none;position:absolute;top:40px;right:0;background:#1a1a2e;border:1px solid rgba(255,255,255,.15);border-radius:10px;min-width:160px;z-index:300;}
+.break-menu.show{display:block;}
+.break-opt{padding:10px 16px;cursor:pointer;font-size:13px;border-bottom:1px solid rgba(255,255,255,.05);}
+.break-opt:hover{background:rgba(255,215,0,.1);}
+.session-timer{font-family:'Courier New',monospace;font-size:14px;color:#aaa;background:rgba(0,0,0,.3);padding:6px 12px;border-radius:12px;}
+.coins-badge{background:linear-gradient(135deg,#ffd700,#ffed4e);color:#1a1a2e;padding:6px 14px;border-radius:20px;font-weight:900;font-size:14px;display:flex;align-items:center;gap:5px;}
+/* ─ LAYOUT ─ */
+.main-layout{display:grid;grid-template-columns:220px 1fr 300px;gap:16px;padding:16px;max-width:1400px;margin:0 auto;}
+@media(max-width:1100px){.main-layout{grid-template-columns:1fr;}}
+/* ─ LEFT PANEL ─ */
+.left-panel{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:16px;height:fit-content;position:sticky;top:70px;}
+.lp-chapter{font-size:11px;text-transform:uppercase;letter-spacing:2px;color:rgba(255,255,255,.4);margin-bottom:6px;}
+.lp-title{font-size:15px;font-weight:800;color:#ffd700;margin-bottom:16px;line-height:1.3;}
+.lp-stat{margin-bottom:12px;}
+.lp-stat-label{font-size:11px;color:rgba(255,255,255,.4);margin-bottom:4px;}
+.lp-stat-val{font-size:22px;font-weight:900;color:#fff;}
+.lp-stat-sub{font-size:11px;color:rgba(255,255,255,.4);}
+.progress-dots{display:flex;flex-wrap:wrap;gap:5px;margin-top:12px;}
+.pdot{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.4);}
+.pdot.active{background:#ffd700;color:#1a1a2e;border-color:#ffd700;}
+.pdot.correct{background:#2ecc71;color:#fff;border-color:#2ecc71;}
+.pdot.wrong{background:#e74c3c;color:#fff;border-color:#e74c3c;}
+.streak-bar{margin-top:14px;}
+.streak-label{font-size:11px;color:rgba(255,255,255,.4);margin-bottom:6px;}
+.streak-pips{display:flex;gap:4px;}
+.spip{width:28px;height:8px;border-radius:4px;background:rgba(255,255,255,.1);}
+.spip.filled{background:#2ecc71;}
+/* ─ QUESTION AREA ─ */
+.q-area{display:flex;flex-direction:column;gap:14px;}
+.q-card{border-radius:18px;padding:28px;position:relative;overflow:hidden;min-height:160px;border:1px solid rgba(255,255,255,.1);}
+.q-card-inner{position:relative;z-index:2;}
+.q-badge{font-size:10px;text-transform:uppercase;letter-spacing:2px;color:rgba(255,255,255,.5);margin-bottom:8px;}
+.q-text{font-size:20px;font-weight:700;line-height:1.5;margin-bottom:6px;}
+.q-hint{font-size:12px;color:rgba(255,255,255,.5);font-style:italic;}
+.attempt-info{display:flex;gap:12px;font-size:12px;color:rgba(255,255,255,.5);}
+.attempt-info span{background:rgba(255,255,255,.08);padding:3px 10px;border-radius:10px;}
+.earn-badge{background:rgba(255,215,0,.15);color:#ffd700;border:1px solid rgba(255,215,0,.3);}
+/* travel bg gradients */
+.tbg-0{background:linear-gradient(135deg,#0a2a4a,#1a5276);}
+.tbg-1{background:linear-gradient(135deg,#1b2838,#2d6a4f);}
+.tbg-2{background:linear-gradient(135deg,#2c1810,#922b21);}
+.tbg-3{background:linear-gradient(135deg,#0d1b2a,#1f3a5c);}
+.tbg-4{background:linear-gradient(135deg,#1a0a2e,#4a235a);}
+.tbg-5{background:linear-gradient(135deg,#1c2237,#0e4d5c);}
+.tbg-6{background:linear-gradient(135deg,#2a1e00,#7d6608);}
+.tbg-7{background:linear-gradient(135deg,#0a1628,#154360);}
+.tbg-8{background:linear-gradient(135deg,#1a2c1a,#1d5e35);}
+.tbg-9{background:linear-gradient(135deg,#2c0a0a,#7b241c);}
+.tbg-10{background:linear-gradient(135deg,#0d0d2e,#283593);}
+.tbg-11{background:linear-gradient(135deg,#0a2010,#145a32);}
+.tbg-12{background:linear-gradient(135deg,#1a0d00,#784212);}
+.tbg-13{background:linear-gradient(135deg,#00141a,#0e6655);}
+.tbg-14{background:linear-gradient(135deg,#1a0028,#6c3483);}
+.destination-tag{position:absolute;bottom:12px;right:16px;font-size:10px;color:rgba(255,255,255,.3);font-style:italic;}
+/* ─ INSTRUCTION TYPING ─ */
+.instruction-box{background:rgba(255,215,0,.06);border:1px solid rgba(255,215,0,.2);border-radius:12px;padding:14px 18px;font-size:13px;font-weight:700;color:#ffd700;min-height:40px;}
+/* ─ ANSWER AREA ─ */
+.answer-wrap{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:20px;}
+.answer-input{width:100%;padding:14px 18px;background:rgba(0,0,0,.4);border:2px solid rgba(255,215,0,.3);border-radius:30px;color:#fff;font-size:17px;font-family:'Nunito',sans-serif;outline:none;transition:.2s;}
+.answer-input:focus{border-color:#ffd700;}
+.submit-btn{width:100%;margin-top:10px;padding:13px;background:linear-gradient(135deg,#ffd700,#f39c12);color:#1a1a2e;border:none;border-radius:30px;font-size:16px;font-weight:900;cursor:pointer;font-family:'Nunito',sans-serif;transition:.15s;}
+.submit-btn:hover{opacity:.9;transform:translateY(-1px);}
+.submit-btn:disabled{opacity:.4;cursor:not-allowed;transform:none;}
+/* ─ FEEDBACK ─ */
+.feedback-box{border-radius:16px;padding:20px;display:none;}
+.feedback-box.correct{display:block;background:rgba(46,204,113,.1);border:1px solid rgba(46,204,113,.4);}
+.feedback-box.wrong{display:block;background:rgba(231,76,60,.08);border:1px solid rgba(231,76,60,.3);}
+.fb-title{font-size:18px;font-weight:800;margin-bottom:12px;}
+.feedback-box.correct .fb-title{color:#2ecc71;}
+.feedback-box.wrong .fb-title{color:#e74c3c;}
+.steps-list{background:rgba(0,0,0,.3);border-radius:10px;padding:14px;margin:10px 0;}
+.step-item{padding:6px 0 6px 22px;position:relative;font-size:14px;line-height:1.5;border-bottom:1px solid rgba(255,255,255,.05);}
+.step-item:last-child{border-bottom:none;}
+.step-item::before{content:"→";position:absolute;left:0;color:#ffd700;}
+.trick-box{background:rgba(255,215,0,.08);border:1px solid rgba(255,215,0,.2);border-radius:8px;padding:10px 14px;margin-top:10px;font-size:13px;}
+.trick-box strong{color:#ffd700;}
+.clear-check{margin-top:16px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+.clear-check span{font-size:14px;font-weight:700;flex:1;}
+.btn-yes{padding:10px 22px;background:#2ecc71;color:#fff;border:none;border-radius:20px;cursor:pointer;font-weight:700;font-size:14px;font-family:'Nunito',sans-serif;}
+.btn-no{padding:10px 22px;background:#e74c3c;color:#fff;border:none;border-radius:20px;cursor:pointer;font-weight:700;font-size:14px;font-family:'Nunito',sans-serif;}
+.try-again-btn{display:none;width:100%;margin-top:12px;padding:14px;background:#c0392b;color:#ffd700;border:none;border-radius:14px;font-size:17px;font-weight:900;cursor:pointer;letter-spacing:1px;font-family:'Nunito',sans-serif;border:2px solid rgba(255,215,0,.3);}
+.try-again-btn:hover{background:#e74c3c;}
+/* ─ COIN ANIMATION ─ */
+@keyframes coinFall{0%{transform:translateY(-60px) scale(1.2);opacity:1;}80%{opacity:1;}100%{transform:translateY(0) scale(0.5);opacity:0;}}
+.coin-anim{position:fixed;top:50px;right:80px;font-size:28px;z-index:1000;animation:coinFall 1s ease-in forwards;pointer-events:none;}
+/* multilingual praise */
+.praise-word{font-size:28px;color:#ffd700;font-weight:900;font-style:italic;}
+.praise-meta{font-size:12px;color:rgba(255,255,255,.5);margin-top:4px;}
+.next-btn{width:100%;margin-top:12px;padding:13px;background:rgba(255,215,0,.15);border:1px solid #ffd700;color:#ffd700;border-radius:14px;font-size:15px;font-weight:900;cursor:pointer;font-family:'Nunito',sans-serif;display:none;}
+.next-btn.show{display:block;}
+/* ─ RIGHT PANEL ─ */
+.right-panel{display:flex;flex-direction:column;gap:14px;}
+.rishika-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:16px;text-align:center;}
+.rishika-face{font-size:72px;margin-bottom:8px;transition:.3s;display:inline-block;}
+.rishika-name-tag{font-size:11px;letter-spacing:2px;color:rgba(255,215,0,.7);text-transform:uppercase;margin-bottom:6px;}
+.rishika-bubble{background:rgba(255,215,0,.08);border-radius:12px;padding:10px 14px;font-size:13px;line-height:1.5;min-height:48px;border:1px solid rgba(255,215,0,.15);}
+.rough-card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:16px;flex:1;}
+.rough-title{font-size:12px;text-transform:uppercase;letter-spacing:2px;color:rgba(255,255,255,.3);margin-bottom:8px;}
+.rough-area{width:100%;min-height:280px;background:#f8f5ec;color:#333;border-radius:10px;padding:14px;font-family:'Courier New',monospace;font-size:14px;line-height:1.8;border:none;outline:none;resize:vertical;}
+/* ─ BREAK OVERLAY ─ */
+.break-overlay{display:none;position:fixed;inset:0;background:#0a0a1a;z-index:500;flex-direction:column;align-items:center;justify-content:center;text-align:center;}
+.break-overlay.show{display:flex;}
+.break-type{font-size:20px;color:rgba(255,255,255,.6);margin-bottom:10px;}
+.break-clock{font-family:'Courier New',monospace;font-size:96px;font-weight:700;color:#ffd700;margin-bottom:30px;}
+.end-break-btn{padding:16px 48px;background:#2ecc71;color:#fff;border:none;border-radius:30px;font-size:20px;font-weight:700;cursor:pointer;font-family:'Nunito',sans-serif;}
+/* ─ COMPLETION MODAL ─ */
+.comp-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:600;align-items:center;justify-content:center;}
+.comp-overlay.show{display:flex;}
+.comp-box{background:linear-gradient(135deg,#0d0d1a,#1a1a2e);border:2px solid #ffd700;border-radius:24px;padding:48px;text-align:center;max-width:500px;width:90%;}
+.comp-icon{font-size:64px;margin-bottom:12px;}
+.comp-title{font-size:28px;font-weight:900;color:#ffd700;margin-bottom:8px;}
+.comp-msg{color:rgba(255,255,255,.7);font-size:15px;line-height:1.6;margin-bottom:20px;}
+.comp-foreign{font-size:22px;color:#4ecdc4;font-style:italic;margin-bottom:24px;}
+.comp-btn{padding:14px 40px;background:linear-gradient(135deg,#ffd700,#f39c12);color:#1a1a2e;border:none;border-radius:24px;font-size:16px;font-weight:900;cursor:pointer;font-family:'Nunito',sans-serif;}
+/* ─ STREAK UNLOCK TOAST ─ */
+@keyframes toastIn{0%{transform:translateX(120%);opacity:0;}20%{transform:translateX(0);opacity:1;}80%{transform:translateX(0);opacity:1;}100%{transform:translateX(120%);opacity:0;}}
+.streak-toast{position:fixed;bottom:30px;right:20px;background:#2ecc71;color:#fff;padding:14px 22px;border-radius:14px;font-weight:900;font-size:15px;z-index:700;animation:toastIn 3.5s ease forwards;pointer-events:none;}
+
+</style>
+</head>
+<body>
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="topbar-left">
+    <button class="tbtn tbtn-back" onclick="backToSyllabus()">← Syllabus</button>
+    <div style="font-family:'Orbitron',sans-serif;font-size:11px;letter-spacing:2px;color:rgba(255,215,0,.6);">✏️ PRACTICE</div>
+  </div>
+  <span class="session-timer" id="sessionTimer">00:00</span>
+  <div class="topbar-right">
+    <div style="position:relative;">
+      <button class="tbtn tbtn-break" onclick="toggleBreakMenu()">⏸ Break ▾</button>
+      <div class="break-menu" id="breakMenu">
+        <div class="break-opt" onclick="startBreak('Water')">💧 Water</div>
+        <div class="break-opt" onclick="startBreak('Washroom')">🚻 Washroom</div>
+        <div class="break-opt" onclick="startBreak('Physical Game')">🏃 Physical Game</div>
+        <div class="break-opt" onclick="startBreak('Play with me')">🎮 Play with me</div>
+      </div>
+    </div>
+    <div class="coins-badge">🪙 <span id="coinCount">0</span></div>
+  </div>
+</div>
+
+<!-- MAIN LAYOUT -->
+<div class="main-layout">
+  <!-- LEFT PANEL -->
+  <div class="left-panel">
+    <div class="lp-chapter">Chapter 16</div>
+    <div class="lp-title">Playing with Numbers</div>
+    <div class="lp-stat">
+      <div class="lp-stat-label">Question</div>
+      <div class="lp-stat-val"><span id="qNumDisp">1</span><span style="font-size:14px;color:rgba(255,255,255,.3);">/15</span></div>
+    </div>
+    <div class="lp-stat">
+      <div class="lp-stat-label">Correct Streak</div>
+      <div class="lp-stat-val" id="streakNum">0</div>
+      <div class="lp-stat-sub">Need 5 to unlock exam</div>
+    </div>
+    <div class="lp-stat">
+      <div class="lp-stat-label">Correct Total</div>
+      <div class="lp-stat-val" id="totalCorr">0</div>
+    </div>
+    <div class="streak-bar">
+      <div class="streak-label">Streak progress</div>
+      <div class="streak-pips" id="streakPips"></div>
+    </div>
+    <div class="progress-dots" id="progressDots"></div>
+  </div>
+
+  <!-- QUESTION AREA -->
+  <div class="q-area">
+    <div class="q-card tbg-0" id="qCard">
+      <div class="q-card-inner">
+        <div class="q-badge" id="qBadge">Question 1 of 15</div>
+        <div class="q-text" id="qText">Loading...</div>
+        <div class="attempt-info" style="margin-top:8px;">
+          <span id="attemptNum">Attempt: 1</span>
+          <span class="earn-badge" id="earnCoins">5 coins if correct</span>
+        </div>
+      </div>
+      <div class="destination-tag" id="destTag">🌍 Paris, France</div>
+    </div>
+
+    <div class="instruction-box" id="instrBox"></div>
+
+    <div class="answer-wrap">
+      <input type="text" class="answer-input" id="answerInput"
+        placeholder="Type your answer here..."
+        onkeydown="if(event.key==='Enter')submitAnswer();">
+      <button class="submit-btn" id="submitBtn" onclick="submitAnswer()">Submit Answer ▶</button>
+    </div>
+
+    <div class="feedback-box" id="feedbackBox"></div>
+    <button class="next-btn" id="nextBtn" onclick="nextQ()">Next Question ▶</button>
+  </div>
+
+  <!-- RIGHT PANEL -->
+  <div class="right-panel">
+    <div class="rishika-card">
+      <div class="rishika-name-tag">Rishika</div>
+      <div class="rishika-face" id="rishikaFace">👩‍🎓</div>
+      <div class="rishika-bubble" id="rishikaBubble">Getting ready for your practice session! 🎯</div>
+    </div>
+    <div class="rough-card">
+      <div class="rough-title">📝 Rough Work</div>
+      <textarea class="rough-area" placeholder="Do all working here..."></textarea>
+    </div>
+  </div>
+</div>
+
+<!-- BREAK OVERLAY -->
+<div class="break-overlay" id="breakOverlay">
+  <div class="break-type" id="breakType">Break</div>
+  <div class="break-clock" id="breakClock">00:00</div>
+  <button class="end-break-btn" onclick="endBreak()">End Break ▶</button>
+</div>
+
+<!-- COMPLETION MODAL -->
+<div class="comp-overlay" id="compOverlay">
+  <div class="comp-box">
+    <div class="comp-icon" id="compIcon">🏆</div>
+    <div class="comp-title" id="compTitle">Session Complete!</div>
+    <div class="comp-msg" id="compMsg"></div>
+    <div class="comp-foreign" id="compForeign"></div>
+    <button class="comp-btn" onclick="backToSyllabus()">Back to Syllabus</button>
+  </div>
+</div>
+
+<script src="/rishi-core.js"></script>
+<script>
+var CHAP_ID=16;
+var QB=[
+  {q:"Check divisibility: Is <strong>7254</strong> divisible by <strong>3</strong>? Answer Yes or No.",qs:"Is 7254 divisible by 3? Yes or No.",ans:["yes", "yes it is", "divisible"],steps:["Rule: A number is divisible by 3 if sum of digits is divisible by 3", "Sum = 7+2+5+4 = 18", "18 \u00f7 3 = 6. Yes, it's divisible!", "Answer: Yes"],trick:"Divisibility by 3: just add ALL the digits. If sum is divisible by 3, the number is too. 7+2+5+4=18. 18/3=6. \u2713",alt:"18 is divisible by 3 (3\u00d76=18). So 7254 is divisible by 3."},
+  {q:"Is <strong>8940</strong> divisible by both <strong>4 and 5</strong>? Answer Yes or No.",qs:"Is 8940 divisible by both 4 and 5? Yes or No.",ans:["yes", "yes it is", "both", "divisible by both"],steps:["Divisible by 5: last digit is 0 or 5. Last digit = 0. \u2713", "Divisible by 4: last 2 digits divisible by 4. Last 2 = 40. 40\u00f74=10. \u2713", "Both conditions satisfied. Answer: Yes"],trick:"For 4: check LAST 2 DIGITS (40). For 5: check LAST DIGIT (0). 40 div by 4 \u2713. 0 means div by 5 \u2713.",alt:"If divisible by both 4 and 5, it's divisible by 20. 8940/20 = 447. Yes!"},
+  {q:"Find digit A: <strong>6A3</strong> is divisible by <strong>9</strong>. (Find smallest possible A)",qs:"Find digit A such that 6 A 3 is divisible by 9. Find the smallest possible A.",ans:["0", "a=0", "A is 0", "zero"],steps:["Rule: sum of digits divisible by 9", "6 + A + 3 = 9 + A", "For div by 9: 9+A = 9 or 18", "A=0 gives 9 (divisible). A=9 gives 18 (also divisible)", "Smallest A = 0"],trick:"Divisibility by 9: digit sum must be multiple of 9. 6+3=9. So A=0 makes sum=9. Perfect!",alt:"9+A divisible by 9. A=0 (sum=9) or A=9 (sum=18). Both work. Smallest is 0."},
+  {q:"What is the generalised form of a <strong>3-digit number with digits A, B, C</strong>?",qs:"What is the generalised form of a 3-digit number with digits A, B, and C?",ans:["100a+10b+c", "100A+10B+C", "100a + 10b + c", "100A + 10B + C"],steps:["Hundreds digit A has place value 100A", "Tens digit B has place value 10B", "Units digit C has place value C", "Number = 100A + 10B + C"],trick:"Place values: hundreds=100, tens=10, units=1. Multiply each digit by its place value and add.",alt:"Just like 352 = 300+50+2 = 3\u00d7100 + 5\u00d710 + 2\u00d71. For ABC: A\u00d7100 + B\u00d710 + C\u00d71."},
+  {q:"Find the missing digit: <strong>_54</strong> is divisible by 3 and the digit sum is 12. Find the missing digit.",qs:"A 3-digit number blank 54 is divisible by 3 and digit sum is 12. Find the missing digit.",ans:["3", "digit is 3", "missing digit is 3"],steps:["Let missing digit = x", "x + 5 + 4 = 12 (given)", "x + 9 = 12", "x = 3"],trick:"x+5+4=12 means x+9=12, so x=3. Check: 354 \u2192 3+5+4=12, 12/3=4. \u2713",alt:"5+4=9. Sum = 12. Missing digit = 12-9 = 3."},
+  {q:"Show that <strong>AB + BA</strong> is always divisible by <strong>11</strong>. Find AB + BA when A=3, B=7.",qs:"For a 2-digit number AB, find AB plus BA when A equals 3 and B equals 7.",ans:["110", "11 times 10", "11 \u00d7 10"],steps:["AB = 10A+B = 10(3)+7 = 37", "BA = 10B+A = 10(7)+3 = 73", "37 + 73 = 110", "110 \u00f7 11 = 10 \u2713 Divisible by 11"],trick:"AB + BA = (10A+B)+(10B+A) = 11A+11B = 11(A+B). Always divisible by 11!",alt:"37+73=110=11\u00d710. The sum is always 11(A+B)."},
+  {q:"A number when divided by 9 leaves <strong>remainder 3</strong>. What remainder does it leave when divided by <strong>3</strong>?",qs:"A number when divided by 9 leaves remainder 3. What remainder when divided by 3?",ans:["0", "zero", "no remainder", "remainder 0"],steps:["Number = 9k + 3 for some integer k", "= 3(3k + 1)", "This is exactly divisible by 3", "Remainder = 0"],trick:"9 = 3\u00d73. So any multiple of 9 is also a multiple of 3. And 3 is also divisible by 3. So 9k+3 = 3(3k+1) \u2192 remainder 0.",alt:"9k is divisible by 3. 3 is divisible by 3. So 9k+3 is divisible by 3. Remainder = 0."},
+  {q:"Find A and B (both are digits): <strong>AB + BA = 99</strong>. What is A + B?",qs:"Find the sum of digits A and B if AB plus BA equals 99.",ans:["9", "a+b=9", "A+B equals 9", "sum is 9"],steps:["AB = 10A+B, BA = 10B+A", "AB + BA = 11A + 11B = 11(A+B)", "11(A+B) = 99", "A+B = 9"],trick:"AB+BA = 11(A+B) always. 11(A+B)=99 \u2192 A+B=9. Valid pairs: (1,8),(2,7),(3,6),(4,5) etc.",alt:"11(A+B) = 99. Divide both sides by 11. A+B = 9."},
+  {q:"Check if <strong>29018</strong> is divisible by <strong>11</strong>.",qs:"Check if 29018 is divisible by 11. Answer Yes or No.",ans:["yes", "yes it is", "divisible"],steps:["Rule: alternating sum (odd-place digits minus even-place digits)", "Odd places (1st, 3rd, 5th): 2, 0, 8. Sum = 10", "Even places (2nd, 4th): 9, 1. Sum = 10", "Difference = 10 - 10 = 0. Divisible by 11!"],trick:"Divisibility by 11: sum of odd-position digits - sum of even-position digits = 0 or multiple of 11. Here 10-10=0. \u2713",alt:"29018 \u00f7 11 = 2638. Yes, exactly divisible."},
+  {q:"Find the largest 4-digit number divisible by both <strong>3 and 5</strong>.",qs:"Find the largest 4-digit number divisible by both 3 and 5.",ans:["9990", "9,990"],steps:["Divisible by both 3 and 5 \u2192 divisible by 15", "Largest 4-digit multiple of 15: 9999/15 = 666.6", "Floor: 666 \u00d7 15 = 9990", "Check: 9+9+9+0=27 (\u00f73 \u2713), ends in 0 (\u00f75 \u2713)"],trick:"Div by 3 AND 5 = div by 15. Largest 4-digit number = 9999. 9999/15=666.6 \u2192 666\u00d715=9990.",alt:"9990: digit sum=27 (divisible by 3 \u2713), last digit=0 (divisible by 5 \u2713)."},
+  {q:"Write <strong>52</strong> in generalised form.",qs:"Write 52 in generalised form using tens and units.",ans:["5\u00d710+2", "50+2", "5 times 10 plus 2", "50 + 2"],steps:["5 is in tens place: value = 5 \u00d7 10 = 50", "2 is in units place: value = 2 \u00d7 1 = 2", "52 = 5 \u00d7 10 + 2 = 50 + 2"],trick:"Place value expansion: tens digit \u00d7 10 + units digit. 52 = 5\u00d710 + 2\u00d71 = 50+2.",alt:"Any 2-digit number AB = 10A + B. For 52: A=5, B=2. 10\u00d75+2 = 52."},
+  {q:"If <strong>31A5</strong> is divisible by <strong>9</strong>, find A.",qs:"If 31A5 is divisible by 9, find digit A.",ans:["0", "A=0", "a is 0", "zero", "digit is 0"],steps:["Sum of digits = 3+1+A+5 = 9+A", "For divisibility by 9: 9+A must be 9 or 18", "A=0: sum=9 \u2713. A=9: sum=18 \u2713", "Primary answer: A=0 (or A=9)"],trick:"3+1+5=9. Add A to get 9+A. For div by 9: 9+A=9 \u2192 A=0, or 9+A=18 \u2192 A=9.",alt:"Digit sum = 9+A. Must be multiple of 9. So A=0 (sum=9) or A=9 (sum=18)."},
+  {q:"A 3-digit number has digits A, B, C with A+B+C = 15, A=5, C=4. Find B.",qs:"A 3-digit number has digit sum 15. Hundreds digit is 5, units digit is 4. Find tens digit.",ans:["6", "B=6", "tens digit is 6", "six"],steps:["A + B + C = 15", "5 + B + 4 = 15", "9 + B = 15", "B = 6"],trick:"Substitute known digits: 5+B+4=15 \u2192 9+B=15 \u2192 B=6. Straightforward!",alt:"Sum of known digits = 5+4=9. Remaining = 15-9 = 6. B=6."},
+  {q:"Prove: The difference of a 2-digit number and its reverse is divisible by <strong>9</strong>. Verify with 73 \u2013 37.",qs:"Show that 73 minus 37 is divisible by 9.",ans:["36", "36 which is divisible by 9", "yes 36"],steps:["73 - 37 = 36", "36 \u00f7 9 = 4. Yes, divisible!", "Proof: AB - BA = (10A+B)-(10B+A) = 9A-9B = 9(A-B)"],trick:"AB - BA = 9(A-B) ALWAYS. 73-37: A=7,B=3. 9(7-3)=9\u00d74=36. \u2713",alt:"Any 2-digit number minus its reverse = 9 \u00d7 (difference of digits). 73-37=36=9\u00d74."},
+  {q:"<strong>HOTS:</strong> A 3-digit number of form ABB. Show ABB \u2013 BBA is divisible by 99. Find ABB \u2013 BBA when A=5, B=2.",qs:"For form A B B, find ABB minus BBA when A equals 5 and B equals 2.",ans:["297", "297 which is divisible by 99", "99 times 3"],steps:["ABB = 100A + 11B. When A=5,B=2: 500+22 = 522", "BBA = 110B + A. When B=2,A=5: 220+5 = 225", "522 - 225 = 297", "297 \u00f7 99 = 3. \u2713 Divisible by 99"],trick:"ABB - BBA = (100A+11B)-(110B+A) = 99A-99B = 99(A-B). Always divisible by 99! Here 99\u00d7(5-2)=297.",alt:"522-225=297. 297/99=3. The difference is always 99\u00d7(A-B)."}
+];
+
+/* ── TTS ── */
+var voices=[],selVoice=null;
+function initVoices(cb){
+  function load(){
+    voices=window.speechSynthesis.getVoices();
+    var pref=['Riya','Heera','Priya','Aditi','Zira','Samantha','Google UK English Female','Microsoft Zira','en-IN','en-GB','en-US'];
+    for(var p of pref){for(var v of voices){if(v.name.includes(p)||v.lang.includes(p)){selVoice=v;break;}}if(selVoice)break;}
+    if(!selVoice&&voices.length)selVoice=voices.find(v=>v.lang.startsWith('en'))||voices[0];
+    if(cb)cb();
+  }
+  if(window.speechSynthesis.getVoices().length>0)load();
+  else{window.speechSynthesis.onvoiceschanged=load;setTimeout(function(){if(!selVoice)load();},1000);}
+}
+function say(txt,rate,pitch){
+  window.speechSynthesis.cancel();
+  var u=new SpeechSynthesisUtterance(txt);
+  if(selVoice)u.voice=selVoice;
+  u.rate=rate||0.88;u.pitch=pitch||1.05;u.lang='en-IN';
+  window.speechSynthesis.speak(u);
+}
+/* ── CORE STATE ── */
+var QB=[];
+var idx=0,attemptNo=0,correctStreak=0,totalCorrect=0,sessionOver=false;
+var coins=parseInt(localStorage.getItem('rishi_coins')||'0');
+var answered=[]; // per Q: null|'correct'|'wrong'
+var breakInterval=null,sessionInterval=null,sessionSecs=0;
+var DESTINATIONS=['Paris, France','Bali, Indonesia','Machu Picchu, Peru','Santorini, Greece','Kyoto, Japan','Grand Canyon, USA','Amalfi Coast, Italy','Swiss Alps','Maldives','Rajasthan, India','Cape Town, S. Africa','New Zealand Fjords','Amazon Rainforest','Iceland Aurora','Dubai City'];
+var PRAISES=[
+  {word:'Magnifique!',lang:'French',mean:'Magnificent!'},
+  {word:'Bravissimo!',lang:'Italian',mean:'Very well done!'},
+  {word:'Wunderbar!',lang:'German',mean:'Wonderful!'},
+  {word:'Shabash!',lang:'Hindi',mean:'Well done!'},
+  {word:'Felicitaciones!',lang:'Spanish',mean:'Congratulations!'},
+  {word:'素晴らしい!',lang:'Japanese',mean:'Subarashii — Splendid!'},
+  {word:'Parabéns!',lang:'Portuguese',mean:'Congratulations!'},
+  {word:'Отлично!',lang:'Russian',mean:'Excellent!'},
+  {word:'Uitstekend!',lang:'Dutch',mean:'Outstanding!'},
+  {word:'Marvellous!',lang:'British English',mean:'Marvellous!'}
+];
+function G(id){return document.getElementById(id);}
+/* ── INIT ── */
+function init(){
+  rishiCheckPlan(CHAP_ID);
+  coins=parseInt(localStorage.getItem('rishi_coins')||'0');
+  updateCoins();
+  answered=new Array(QB.length).fill(null);
+  renderDots();
+  renderStreak();
+  initVoices(function(){loadQ(0);});
+  sessionInterval=setInterval(function(){
+    sessionSecs++;
+    var m=Math.floor(sessionSecs/60).toString().padStart(2,'0');
+    var s=(sessionSecs%60).toString().padStart(2,'0');
+    var el=G('sessionTimer');if(el)el.textContent=m+':'+s;
+  },1000);
+}
+/* ── LOAD QUESTION ── */
+function loadQ(i){
+  if(i>=QB.length){onComplete();return;}
+  idx=i;attemptNo=0;
+  var q=QB[i];
+  // travel bg
+  var card=G('qCard');
+  card.className='q-card tbg-'+(i%15);
+  // content
+  G('qBadge').textContent='Question '+(i+1)+' of '+QB.length;
+  G('qText').innerHTML=q.q;
+  G('destTag').textContent='🌍 '+DESTINATIONS[i%DESTINATIONS.length];
+  G('attemptNum').textContent='Attempt: 1';
+  G('earnCoins').textContent='5 coins if correct';
+  // reset UI
+  G('answerInput').value='';
+  G('answerInput').disabled=false;
+  G('submitBtn').disabled=false;
+  G('feedbackBox').className='feedback-box';
+  G('nextBtn').className='next-btn';
+  // instruction typing
+  typeInstruction('Please do the sum in your copy and put answer in below text box');
+  // Rishika
+  setRishika('neutral','Ready for question '+(i+1)+'? Give it your best shot! 🎯');
+  // speak
+  setTimeout(function(){say(q.qs||q.q.replace(/<[^>]+>/g,''));},600);
+  updateDots();
+}
+/* ── TYPING ANIMATION ── */
+var typeTimer=null;
+function typeInstruction(txt){
+  var el=G('instrBox');el.textContent='';
+  if(typeTimer)clearInterval(typeTimer);
+  var i=0;
+  typeTimer=setInterval(function(){
+    if(i<txt.length){el.textContent+=txt[i];i++;}
+    else clearInterval(typeTimer);
+  },35);
+}
+/* ── ANSWER SUBMIT ── */
+function submitAnswer(){
+  var raw=G('answerInput').value.trim();
+  if(!raw){G('answerInput').focus();return;}
+  var q=QB[idx];
+  attemptNo++;
+  G('attemptNum').textContent='Attempt: '+attemptNo;
+  var userClean=raw.toLowerCase().replace(/\s+/g,'').replace(/×/g,'x').replace(/÷/g,'/');
+  var ok=q.ans.some(function(a){
+    var ac=a.toLowerCase().replace(/\s+/g,'').replace(/×/g,'x').replace(/÷/g,'/');
+    return userClean===ac||userClean.includes(ac)||ac.includes(userClean);
+  });
+  if(ok){handleCorrect(q);}
+  else{handleWrong(q,raw);}
+}
+/* ── CORRECT ── */
+function handleCorrect(q){
+  correctStreak++;totalCorrect++;
+  if(attemptNo===1){
+    coins+=5;localStorage.setItem('rishi_coins',coins);updateCoins();
+    spawnCoin();say('Correct! You earned 5 coins!');
+    G('earnCoins').textContent='✓ +5 coins earned';
+  } else {
+    say('Correct! Well done!');
+    G('earnCoins').textContent='✓ Correct!';
+  }
+  answered[idx]='correct';
+  renderDots();renderStreak();
+  // praise
+  var p=PRAISES[Math.floor(Math.random()*PRAISES.length)];
+  var fb=G('feedbackBox');
+  fb.className='feedback-box correct';
+  fb.innerHTML='<div class="fb-title">✓ Correct!</div>'
+    +'<div class="praise-word">'+p.word+'</div>'
+    +'<div class="praise-meta">'+p.lang+' — "'+p.mean+'"</div>';
+  G('nextBtn').className='next-btn show';
+  setRishika('celebrate','Excellent work! '+p.word+' 🎉');
+  G('answerInput').disabled=true;G('submitBtn').disabled=true;
+  // check streak unlock
+  if(correctStreak>=5 && !rishiIsPracticeDone(CHAP_ID)){
+    localStorage.setItem('rishi_practice_done_'+CHAP_ID,'1');
+    showStreakToast();
+  }
+}
+/* ── WRONG ── */
+function handleWrong(q,userAns){
+  correctStreak=0;
+  answered[idx]='wrong';
+  renderDots();renderStreak();
+  setRishika('disappointed',"Hmm, not quite! Let me show you how. Pay close attention! 💪");
+  say("Not quite right. Let me explain step by step.");
+  G('answerInput').disabled=true;G('submitBtn').disabled=true;
+  G('earnCoins').textContent='Coins: missed this one';
+  var stepsHtml=q.steps.map(function(s){return '<div class="step-item">'+s+'</div>';}).join('');
+  var fb=G('feedbackBox');
+  fb.className='feedback-box wrong';
+  fb.innerHTML='<div class="fb-title">✗ Not quite right</div>'
+    +'<div style="font-size:13px;color:rgba(255,255,255,.6);margin-bottom:8px;">Your answer: <span style="color:#e74c3c;font-weight:700;">'+userAns+'</span></div>'
+    +'<div class="steps-list">'+stepsHtml+'</div>'
+    +'<div class="trick-box"><strong>💡 Rishika\'s Trick:</strong> '+q.trick+'</div>'
+    +'<div class="clear-check"><span>Is it clear now?</span>'
+    +'<button class="btn-yes" onclick="isClear(true)">Yes ✓</button>'
+    +'<button class="btn-no" onclick="isClear(false)">No, explain again</button></div>'
+    +'<button class="try-again-btn" id="tryAgainBtn" onclick="tryAgain()">TRY AGAIN ▶</button>';
+}
+/* ── IS IT CLEAR ── */
+function isClear(yes){
+  if(yes){
+    G('tryAgainBtn').style.display='block';
+    setRishika('thinking',"Great! Now try the question again. You can do it! 🌟");
+    say("Good! Now try the question again.");
+  } else {
+    setRishika('thinking',"No problem! Let me explain with a different approach. Listen carefully!");
+    say("Let me try explaining differently.");
+    var q=QB[idx];
+    var alt=G('feedbackBox');
+    // append alternative explanation
+    var div=document.createElement('div');
+    div.style.cssText='margin-top:12px;padding:12px;background:rgba(78,205,196,.08);border-radius:10px;border:1px solid rgba(78,205,196,.2);font-size:13px;line-height:1.6;';
+    div.innerHTML='<strong style="color:#4ecdc4;">🔄 Alternative approach:</strong><br>'+q.alt;
+    alt.appendChild(div);
+    setTimeout(function(){G('tryAgainBtn').style.display='block';},500);
+  }
+}
+/* ── TRY AGAIN ── */
+function tryAgain(){
+  G('answerInput').value='';
+  G('answerInput').disabled=false;
+  G('submitBtn').disabled=false;
+  G('feedbackBox').className='feedback-box';
+  answered[idx]=null; // reset dot for retry
+  attemptNo++;
+  G('attemptNum').textContent='Attempt: '+attemptNo;
+  G('earnCoins').textContent='Keep trying!';
+  setRishika('neutral',"Take your time! Work it out step by step in the rough space. 📝");
+  G('answerInput').focus();
+}
+/* ── NEXT ── */
+function nextQ(){loadQ(idx+1);}
+/* ── COMPLETE ── */
+function onComplete(){
+  sessionOver=true;
+  clearInterval(sessionInterval);
+  var done=rishiIsPracticeDone(CHAP_ID);
+  var icon=done?'🏆':'📚';
+  var title=done?'Practice Complete! Exam Unlocked!':'Session Complete!';
+  var msg=done
+    ?'You got 5 in a row — the Chapter Exam is now unlocked! Great work, champion! 🎉'
+    :'Good effort! Keep practising to achieve 5 consecutive correct answers and unlock the exam.';
+  var phrases=[
+    'Félicitations! (French) — Congratulations!',
+    'Ausgezeichnet! (German) — Excellent!',
+    'Mazel Tov! (Hebrew) — Congratulations!',
+    'Bravissimo! (Italian) — Very well done!',
+    'Koko yoku dekimashita! (Japanese) — Well done!',
+    'Parabéns! (Portuguese) — Congratulations!'
+  ];
+  var phrase=phrases[Math.floor(Math.random()*phrases.length)];
+  G('compIcon').textContent=icon;
+  G('compTitle').textContent=title;
+  G('compMsg').textContent=msg;
+  G('compForeign').textContent=phrase;
+  G('compOverlay').className='comp-overlay show';
+  setRishika(done?'celebrate':'praise',done?'You did it! Exam unlocked! 🏆':'Great session! Practice more to unlock exam!');
+  say(title+'. '+msg);
+}
+/* ── STREAK TOAST ── */
+function showStreakToast(){
+  var t=document.createElement('div');t.className='streak-toast';
+  t.textContent='🔥 5-in-a-row! Chapter Exam Unlocked!';
+  document.body.appendChild(t);
+  setTimeout(function(){if(t.parentNode)t.parentNode.removeChild(t);},3600);
+}
+/* ── COIN SPAWN ── */
+function spawnCoin(){
+  for(var i=0;i<3;i++){
+    (function(delay){
+      setTimeout(function(){
+        var c=document.createElement('div');c.className='coin-anim';
+        c.textContent='🪙';c.style.right=(60+Math.random()*40)+'px';
+        document.body.appendChild(c);
+        setTimeout(function(){if(c.parentNode)c.parentNode.removeChild(c);},1100);
+      },delay);
+    })(i*200);
+  }
+}
+/* ── RISHIKA ── */
+var RFACES={neutral:'👩‍🎓',celebrate:'🎉',praise:'🌟',disappointed:'😟',thinking:'🤔'};
+function setRishika(expr,txt){
+  var face=G('rishikaFace');
+  if(face){face.textContent=RFACES[expr]||RFACES.neutral;}
+  var bubble=G('rishikaBubble');
+  if(bubble&&txt){bubble.textContent=txt;}
+}
+/* ── COINS ── */
+function updateCoins(){var el=G('coinCount');if(el)el.textContent=coins;}
+/* ── DOTS ── */
+function renderDots(){
+  var c=G('progressDots');if(!c)return;
+  var h='';
+  for(var i=0;i<QB.length;i++){
+    var cls='pdot';
+    if(i===idx)cls+=' active';
+    else if(answered[i]==='correct')cls+=' correct';
+    else if(answered[i]==='wrong')cls+=' wrong';
+    h+='<div class="'+cls+'">'+(i+1)+'</div>';
+  }
+  c.innerHTML=h;
+}
+/* ── STREAK ── */
+function renderStreak(){
+  var c=G('streakPips');if(!c)return;
+  var h='';
+  for(var i=0;i<5;i++){h+='<div class="spip'+(i<correctStreak?' filled':'')+'"></div>';}
+  c.innerHTML=h;
+}
+/* ── BREAK ── */
+function toggleBreakMenu(){var m=G('breakMenu');if(m)m.classList.toggle('show');}
+function startBreak(reason){
+  var el=G('breakType');if(el)el.textContent=reason+' Break';
+  var bs=G('breakOverlay');if(bs)bs.className='break-overlay show';
+  var m=G('breakMenu');if(m)m.classList.remove('show');
+  clearInterval(sessionInterval); // pause session timer
+  var bSecs=0;
+  breakInterval=setInterval(function(){
+    bSecs++;
+    var m2=Math.floor(bSecs/60).toString().padStart(2,'0');
+    var s=(bSecs%60).toString().padStart(2,'0');
+    var el2=G('breakClock');if(el2)el2.textContent=m2+':'+s;
+    if(bSecs>=300){
+      setRishika('disappointed','Aye! Time to get back! Padhai karo! ⏰');
+    }
+  },1000);
+}
+function endBreak(){
+  clearInterval(breakInterval);
+  var bs=G('breakOverlay');if(bs)bs.className='break-overlay';
+  // resume session timer
+  sessionInterval=setInterval(function(){
+    sessionSecs++;
+    var m=Math.floor(sessionSecs/60).toString().padStart(2,'0');
+    var s=(sessionSecs%60).toString().padStart(2,'0');
+    var el=G('sessionTimer');if(el)el.textContent=m+':'+s;
+  },1000);
+}
+/* ── BACK ── */
+function backToSyllabus(){window.location.href='/syllabus.html';}
+/* ── CLOSE BREAK MENU ON OUTSIDE CLICK ── */
+document.addEventListener('click',function(e){
+  if(!e.target.closest('.tbtn-break')){{var m=G('breakMenu');if(m)m.classList.remove('show');}}
+});
+window.onload=function(){init();};
+
+/* update displayed Q number on load */
+var _origLoadQ=loadQ;
+loadQ=function(i){
+  _origLoadQ(i);
+  var e=G('qNumDisp');if(e)e.textContent=i+1;
+  var e2=G('streakNum');if(e2)e2.textContent=correctStreak;
+  var e3=G('totalCorr');if(e3)e3.textContent=totalCorrect;
+};
+var _origHandleCorrect=handleCorrect;
+handleCorrect=function(q){
+  _origHandleCorrect(q);
+  setTimeout(function(){
+    var e2=G('streakNum');if(e2)e2.textContent=correctStreak;
+    var e3=G('totalCorr');if(e3)e3.textContent=totalCorrect;
+  },100);
+};
+var _origHandleWrong=handleWrong;
+handleWrong=function(q,u){
+  _origHandleWrong(q,u);
+  setTimeout(function(){
+    var e2=G('streakNum');if(e2)e2.textContent=correctStreak;
+  },100);
+};
+</script>
+</body>
+</html>

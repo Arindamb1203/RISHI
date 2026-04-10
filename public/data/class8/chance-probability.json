@@ -1,0 +1,509 @@
+{
+  "_meta": {
+    "class": "8",
+    "topic": "data-handling",
+    "chapter": "chance-probability",
+    "chapter_display": "Data Handling — Chance and Probability",
+    "version": "1.0",
+    "created": "2026-04-09",
+    "total_questions": 11,
+    "source_codes": "ADMIN ONLY — NCT=NCERT, RDS=RD Sharma style, RSA=RS Aggarwal style, EXM=NCERT Exemplar, CBP=CBSE Past Paper, OLY=Olympiad pattern, ORI=Original"
+  },
+
+  "questions": [
+
+    {
+      "id": "Q-C8-PRB-001",
+      "chapter": "chance-probability",
+      "topic": "basic-definition",
+      "type": "FILLIN",
+      "difficulty": "easy",
+      "marks": 1,
+      "question_text": "The probability of an impossible event is ____.",
+      "diagram_needed": false,
+      "diagram_description": null,
+      "options": null,
+      "correct_answer": "0",
+      "answer_tolerance": 0,
+      "solution_steps": [
+        {
+          "step_number": 1,
+          "instruction": "Recall definition",
+          "working": "An impossible event can never happen. Favourable outcomes = 0. P = 0/total = 0.",
+          "result": "0",
+          "voice_text": "An impossible event has zero probability because it can never happen."
+        }
+      ],
+      "trick_id": null,
+      "source": "NCT",
+      "cbse_pattern": true,
+      "exam_exclusive": false,
+      "verified": true,
+      "year_last_used": null,
+      "rested": false,
+      "times_served": 0,
+      "times_correct": 0,
+      "times_wrong": 0
+    },
+
+    {
+      "id": "Q-C8-PRB-002",
+      "chapter": "chance-probability",
+      "topic": "basic-definition",
+      "type": "FILLIN",
+      "difficulty": "easy",
+      "marks": 1,
+      "question_text": "The probability of a certain event is ____.",
+      "diagram_needed": false,
+      "diagram_description": null,
+      "options": null,
+      "correct_answer": "1",
+      "answer_tolerance": 0,
+      "solution_steps": [
+        {
+          "step_number": 1,
+          "instruction": "Recall definition",
+          "working": "A certain event always happens. P = total/total = 1.",
+          "result": "1",
+          "voice_text": "A certain event always happens. Its probability is always 1."
+        }
+      ],
+      "trick_id": null,
+      "source": "NCT",
+      "cbse_pattern": true,
+      "exam_exclusive": false,
+      "verified": true,
+      "year_last_used": null,
+      "rested": false,
+      "times_served": 0,
+      "times_correct": 0,
+      "times_wrong": 0
+    },
+
+    {
+      "id": "Q-C8-PRB-003",
+      "chapter": "chance-probability",
+      "topic": "coin",
+      "type": "MCQ",
+      "difficulty": "easy",
+      "marks": 1,
+      "question_text": "A coin is tossed once. What is the probability of getting a tail?",
+      "diagram_needed": false,
+      "diagram_description": null,
+      "options": ["A: 0", "B: 1/4", "C: 1/2", "D: 1"],
+      "correct_answer": "C",
+      "answer_tolerance": 0,
+      "solution_steps": [
+        {
+          "step_number": 1,
+          "instruction": "List all outcomes",
+          "working": "{Head, Tail} → Total = 2",
+          "result": "Total outcomes = 2",
+          "voice_text": "When a coin is tossed, there are only two possible outcomes — Head or Tail."
+        },
+        {
+          "step_number": 2,
+          "instruction": "Count favourable outcomes",
+          "working": "Tail = 1 outcome",
+          "result": "Favourable = 1",
+          "voice_text": "We want a Tail. There is only one Tail."
+        },
+        {
+          "step_number": 3,
+          "instruction": "Apply formula",
+          "working": "P(Tail) = 1/2",
+          "result": "1/2",
+          "voice_text": "Probability equals favourable divided by total. 1 by 2."
+        }
+      ],
+      "trick_id": null,
+      "source": "NCT",
+      "cbse_pattern": true,
+      "exam_exclusive": false,
+      "verified": true,
+      "year_last_used": null,
+      "rested": false,
+      "times_served": 0,
+      "times_correct": 0,
+      "times_wrong": 0
+    },
+
+    {
+      "id": "Q-C8-PRB-004",
+      "chapter": "chance-probability",
+      "topic": "die",
+      "type": "SHORT",
+      "difficulty": "easy",
+      "marks": 2,
+      "question_text": "A die is thrown once. Find the probability of getting a number greater than 4.",
+      "diagram_needed": false,
+      "diagram_description": null,
+      "options": null,
+      "correct_answer": "1/3",
+      "answer_tolerance": 0,
+      "solution_steps": [
+        {
+          "step_number": 1,
+          "instruction": "List all outcomes",
+          "working": "{1, 2, 3, 4, 5, 6} → Total = 6",
+          "result": "Total = 6",
+          "voice_text": "A standard die has 6 faces numbered 1 to 6."
+        },
+        {
+          "step_number": 2,
+          "instruction": "Identify favourable outcomes",
+          "working": "Numbers greater than 4: {5, 6} → 2 outcomes",
+          "result": "Favourable = 2",
+          "voice_text": "Numbers greater than 4 are 5 and 6. Two favourable outcomes."
+        },
+        {
+          "step_number": 3,
+          "instruction": "Calculate",
+          "working": "P = 2/6 = 1/3",
+          "result": "1/3",
+          "voice_text": "2 divided by 6, simplified to 1 by 3."
+        }
+      ],
+      "trick_id": null,
+      "source": "RDS",
+      "cbse_pattern": true,
+      "exam_exclusive": false,
+      "verified": true,
+      "year_last_used": null,
+      "rested": false,
+      "times_served": 0,
+      "times_correct": 0,
+      "times_wrong": 0
+    },
+
+    {
+      "id": "Q-C8-PRB-005",
+      "chapter": "chance-probability",
+      "topic": "die",
+      "type": "SHORT",
+      "difficulty": "medium",
+      "marks": 2,
+      "question_text": "A die is rolled once. Find the probability of getting (i) an even number, (ii) a multiple of 3.",
+      "diagram_needed": false,
+      "diagram_description": null,
+      "options": null,
+      "correct_answer": "1/2, 1/3",
+      "answer_tolerance": 0,
+      "solution_steps": [
+        {
+          "step_number": 1,
+          "instruction": "Total outcomes",
+          "working": "{1,2,3,4,5,6} → 6",
+          "result": "Total = 6",
+          "voice_text": "Die has 6 outcomes."
+        },
+        {
+          "step_number": 2,
+          "instruction": "P(even number)",
+          "working": "Even: {2,4,6} → 3 outcomes → P = 3/6 = 1/2",
+          "result": "1/2",
+          "voice_text": "Even numbers on a die are 2, 4, and 6. Probability is 3 by 6 = 1 by 2."
+        },
+        {
+          "step_number": 3,
+          "instruction": "P(multiple of 3)",
+          "working": "Multiples of 3: {3,6} → 2 outcomes → P = 2/6 = 1/3",
+          "result": "1/3",
+          "voice_text": "Multiples of 3 on a die are 3 and 6. Probability is 2 by 6 = 1 by 3."
+        }
+      ],
+      "trick_id": null,
+      "source": "NCT",
+      "cbse_pattern": true,
+      "exam_exclusive": false,
+      "verified": true,
+      "year_last_used": null,
+      "rested": false,
+      "times_served": 0,
+      "times_correct": 0,
+      "times_wrong": 0
+    },
+
+    {
+      "id": "Q-C8-PRB-006",
+      "chapter": "chance-probability",
+      "topic": "cards",
+      "type": "LONG",
+      "difficulty": "medium",
+      "marks": 3,
+      "question_text": "A card is drawn at random from a well-shuffled deck of 52 cards. Find the probability that the card is: (i) a king, (ii) a red card, (iii) a face card.",
+      "diagram_needed": false,
+      "diagram_description": null,
+      "options": null,
+      "correct_answer": "1/13, 1/2, 3/13",
+      "answer_tolerance": 0,
+      "solution_steps": [
+        {
+          "step_number": 1,
+          "instruction": "Total outcomes",
+          "working": "52 cards in a standard deck",
+          "result": "Total = 52",
+          "voice_text": "A standard deck has 52 cards — 4 suits of 13 cards each."
+        },
+        {
+          "step_number": 2,
+          "instruction": "P(King)",
+          "working": "4 kings in deck → P = 4/52 = 1/13",
+          "result": "1/13",
+          "voice_text": "There are 4 kings — one in each suit. Probability is 1 by 13."
+        },
+        {
+          "step_number": 3,
+          "instruction": "P(Red card)",
+          "working": "Hearts + Diamonds = 26 red cards → P = 26/52 = 1/2",
+          "result": "1/2",
+          "voice_text": "Half the deck is red — 13 hearts and 13 diamonds. Probability is 1 by 2."
+        },
+        {
+          "step_number": 4,
+          "instruction": "P(Face card)",
+          "working": "Jack, Queen, King × 4 suits = 12 face cards → P = 12/52 = 3/13",
+          "result": "3/13",
+          "voice_text": "Face cards are Jack, Queen, King — 3 per suit, 4 suits = 12 total. Probability is 3 by 13."
+        }
+      ],
+      "trick_id": null,
+      "source": "EXM",
+      "cbse_pattern": true,
+      "exam_exclusive": false,
+      "verified": true,
+      "year_last_used": null,
+      "rested": false,
+      "times_served": 0,
+      "times_correct": 0,
+      "times_wrong": 0
+    },
+
+    {
+      "id": "Q-C8-PRB-007",
+      "chapter": "chance-probability",
+      "topic": "cards",
+      "type": "SHORT",
+      "difficulty": "medium",
+      "marks": 2,
+      "question_text": "From a deck of 52 cards, one card is drawn. Find the probability that it is a black queen.",
+      "diagram_needed": false,
+      "diagram_description": null,
+      "options": null,
+      "correct_answer": "1/26",
+      "answer_tolerance": 0,
+      "solution_steps": [
+        {
+          "step_number": 1,
+          "instruction": "Identify black queens",
+          "working": "Black suits = Spades and Clubs. Each has one queen → 2 black queens total.",
+          "result": "Favourable = 2",
+          "voice_text": "Black cards belong to Spades and Clubs. Each suit has one queen. So 2 black queens."
+        },
+        {
+          "step_number": 2,
+          "instruction": "Calculate probability",
+          "working": "P = 2/52 = 1/26",
+          "result": "1/26",
+          "voice_text": "2 divided by 52 simplifies to 1 by 26."
+        }
+      ],
+      "trick_id": null,
+      "source": "RSA",
+      "cbse_pattern": true,
+      "exam_exclusive": false,
+      "verified": true,
+      "year_last_used": null,
+      "rested": false,
+      "times_served": 0,
+      "times_correct": 0,
+      "times_wrong": 0
+    },
+
+    {
+      "id": "Q-C8-PRB-008",
+      "chapter": "chance-probability",
+      "topic": "bag-balls",
+      "type": "SHORT",
+      "difficulty": "medium",
+      "marks": 2,
+      "question_text": "A bag contains 4 red balls, 3 blue balls and 5 green balls. A ball is picked at random. Find the probability of picking a blue ball.",
+      "diagram_needed": false,
+      "diagram_description": null,
+      "options": null,
+      "correct_answer": "1/4",
+      "answer_tolerance": 0,
+      "solution_steps": [
+        {
+          "step_number": 1,
+          "instruction": "Find total balls",
+          "working": "4 + 3 + 5 = 12",
+          "result": "Total = 12",
+          "voice_text": "Add all the balls. Total is 12."
+        },
+        {
+          "step_number": 2,
+          "instruction": "Calculate probability of blue",
+          "working": "P(blue) = 3/12 = 1/4",
+          "result": "1/4",
+          "voice_text": "3 blue balls out of 12 total. Simplify to 1 by 4."
+        }
+      ],
+      "trick_id": null,
+      "source": "RDS",
+      "cbse_pattern": true,
+      "exam_exclusive": false,
+      "verified": true,
+      "year_last_used": null,
+      "rested": false,
+      "times_served": 0,
+      "times_correct": 0,
+      "times_wrong": 0
+    },
+
+    {
+      "id": "Q-C8-PRB-009",
+      "chapter": "chance-probability",
+      "topic": "complementary-events",
+      "type": "SHORT",
+      "difficulty": "medium",
+      "marks": 2,
+      "question_text": "The probability that it will rain tomorrow is 0.35. What is the probability that it will NOT rain tomorrow?",
+      "diagram_needed": false,
+      "diagram_description": null,
+      "options": null,
+      "correct_answer": "0.65",
+      "answer_tolerance": 0.01,
+      "solution_steps": [
+        {
+          "step_number": 1,
+          "instruction": "Use complementary event rule",
+          "working": "P(not rain) = 1 − P(rain) = 1 − 0.35",
+          "result": "0.65",
+          "voice_text": "The probability of an event and its complement always add up to 1. So subtract from 1."
+        }
+      ],
+      "trick_id": null,
+      "source": "NCT",
+      "cbse_pattern": true,
+      "exam_exclusive": false,
+      "verified": true,
+      "year_last_used": null,
+      "rested": false,
+      "times_served": 0,
+      "times_correct": 0,
+      "times_wrong": 0
+    },
+
+    {
+      "id": "Q-C8-PRB-010",
+      "chapter": "chance-probability",
+      "topic": "bag-balls",
+      "type": "LONG",
+      "difficulty": "hard",
+      "marks": 4,
+      "question_text": "A box contains 5 orange, 4 white and 3 blue marbles. If one marble is drawn at random, find the probability that it is (i) orange, (ii) not white, (iii) blue or white.",
+      "diagram_needed": false,
+      "diagram_description": null,
+      "options": null,
+      "correct_answer": "5/12, 2/3, 7/12",
+      "answer_tolerance": 0,
+      "solution_steps": [
+        {
+          "step_number": 1,
+          "instruction": "Total marbles",
+          "working": "5 + 4 + 3 = 12",
+          "result": "Total = 12",
+          "voice_text": "Total marbles = 12."
+        },
+        {
+          "step_number": 2,
+          "instruction": "P(orange)",
+          "working": "P = 5/12",
+          "result": "5/12",
+          "voice_text": "5 orange out of 12. Probability is 5 by 12."
+        },
+        {
+          "step_number": 3,
+          "instruction": "P(not white)",
+          "working": "Not white = orange + blue = 5 + 3 = 8. P = 8/12 = 2/3",
+          "result": "2/3",
+          "voice_text": "Not white means orange or blue. That is 8 marbles. Probability is 2 by 3."
+        },
+        {
+          "step_number": 4,
+          "instruction": "P(blue or white)",
+          "working": "Blue + white = 3 + 4 = 7. P = 7/12",
+          "result": "7/12",
+          "voice_text": "Blue or white means 7 marbles. Probability is 7 by 12."
+        }
+      ],
+      "trick_id": null,
+      "source": "CBP",
+      "cbse_pattern": true,
+      "exam_exclusive": true,
+      "verified": true,
+      "year_last_used": null,
+      "rested": false,
+      "times_served": 0,
+      "times_correct": 0,
+      "times_wrong": 0
+    },
+
+    {
+      "id": "Q-C8-PRB-011",
+      "chapter": "chance-probability",
+      "topic": "die",
+      "type": "LONG",
+      "difficulty": "hard",
+      "marks": 4,
+      "question_text": "Two dice are thrown simultaneously. Find the probability of getting: (i) a sum of 7, (ii) a doublet (same number on both), (iii) a sum greater than 10.",
+      "diagram_needed": false,
+      "diagram_description": null,
+      "options": null,
+      "correct_answer": "1/6, 1/6, 1/12",
+      "answer_tolerance": 0,
+      "solution_steps": [
+        {
+          "step_number": 1,
+          "instruction": "Total outcomes for two dice",
+          "working": "6 × 6 = 36 outcomes",
+          "result": "Total = 36",
+          "voice_text": "When two dice are thrown, the total number of outcomes is 6 times 6 = 36."
+        },
+        {
+          "step_number": 2,
+          "instruction": "P(sum = 7)",
+          "working": "Pairs: (1,6),(2,5),(3,4),(4,3),(5,2),(6,1) → 6 outcomes",
+          "result": "P = 6/36 = 1/6",
+          "voice_text": "List all pairs that add to 7. There are 6 such pairs. Probability is 1 by 6."
+        },
+        {
+          "step_number": 3,
+          "instruction": "P(doublet)",
+          "working": "Pairs: (1,1),(2,2),(3,3),(4,4),(5,5),(6,6) → 6 outcomes",
+          "result": "P = 6/36 = 1/6",
+          "voice_text": "A doublet means both dice show the same number. There are 6 such pairs. Probability is 1 by 6."
+        },
+        {
+          "step_number": 4,
+          "instruction": "P(sum > 10)",
+          "working": "Pairs: (5,6),(6,5),(6,6) → 3 outcomes",
+          "result": "P = 3/36 = 1/12",
+          "voice_text": "Sums greater than 10 are 11 and 12. Only 3 pairs give this. Probability is 1 by 12."
+        }
+      ],
+      "trick_id": null,
+      "source": "EXM",
+      "cbse_pattern": true,
+      "exam_exclusive": true,
+      "verified": true,
+      "year_last_used": null,
+      "rested": false,
+      "times_served": 0,
+      "times_correct": 0,
+      "times_wrong": 0
+    }
+
+  ]
+}

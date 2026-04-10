@@ -1,0 +1,461 @@
+{
+  "_meta": {
+    "class": "8",
+    "topic": "geometry",
+    "chapter": "practical-geometry",
+    "chapter_display": "Practical Geometry",
+    "version": "1.0",
+    "created": "2026-04-09",
+    "total_questions": 10,
+    "source_codes": "ADMIN ONLY — NCT=NCERT, RDS=RD Sharma style, RSA=RS Aggarwal style, EXM=NCERT Exemplar, CBP=CBSE Past Paper, OLY=Olympiad pattern, ORI=Original"
+  },
+
+  "questions": [
+
+    {
+      "id": "Q-C8-PGM-001",
+      "chapter": "practical-geometry",
+      "topic": "construction-quadrilateral",
+      "type": "MCQ",
+      "difficulty": "easy",
+      "marks": 1,
+      "question_text": "How many independent measurements are needed to construct a unique quadrilateral?",
+      "diagram_needed": false,
+      "diagram_description": null,
+      "options": ["A: 3", "B: 4", "C: 5", "D: 6"],
+      "correct_answer": "C",
+      "answer_tolerance": 0,
+      "solution_steps": [
+        {
+          "step_number": 1,
+          "instruction": "Recall construction rule",
+          "working": "A quadrilateral has 4 sides + 4 angles = 8 measurements. But knowing 5 independent ones uniquely determines the quadrilateral.",
+          "result": "5",
+          "voice_text": "To construct a unique quadrilateral, we need exactly 5 independent measurements — sides, angles, or diagonals."
+        }
+      ],
+      "trick_id": null,
+      "source": "NCT",
+      "cbse_pattern": true,
+      "exam_exclusive": false,
+      "verified": true,
+      "year_last_used": null,
+      "rested": false,
+      "times_served": 0,
+      "times_correct": 0,
+      "times_wrong": 0
+    },
+
+    {
+      "id": "Q-C8-PGM-002",
+      "chapter": "practical-geometry",
+      "topic": "construction-quadrilateral",
+      "type": "SHORT",
+      "difficulty": "easy",
+      "marks": 2,
+      "question_text": "To construct a parallelogram, what is the minimum number of measurements needed? Name them.",
+      "diagram_needed": false,
+      "diagram_description": null,
+      "options": null,
+      "correct_answer": "3: two adjacent sides and one angle (or one diagonal)",
+      "answer_tolerance": 0,
+      "solution_steps": [
+        {
+          "step_number": 1,
+          "instruction": "Recall parallelogram properties",
+          "working": "Opposite sides equal, opposite angles equal. So if we know 2 adjacent sides and 1 included angle, all else is determined.",
+          "result": "3 measurements needed",
+          "voice_text": "Because a parallelogram has special properties, we only need 3 measurements — two adjacent sides and one angle between them."
+        }
+      ],
+      "trick_id": null,
+      "source": "NCT",
+      "cbse_pattern": true,
+      "exam_exclusive": false,
+      "verified": true,
+      "year_last_used": null,
+      "rested": false,
+      "times_served": 0,
+      "times_correct": 0,
+      "times_wrong": 0
+    },
+
+    {
+      "id": "Q-C8-PGM-003",
+      "chapter": "practical-geometry",
+      "topic": "construction-quadrilateral",
+      "type": "LONG",
+      "difficulty": "medium",
+      "marks": 3,
+      "question_text": "Describe the steps to construct a quadrilateral ABCD where AB = 5 cm, BC = 4 cm, CD = 3 cm, DA = 4.5 cm and diagonal AC = 6 cm.",
+      "diagram_needed": true,
+      "diagram_description": "Quadrilateral ABCD constructed using diagonal AC=6cm as base. Triangle ABC drawn first (AB=5,BC=4,AC=6), then triangle ACD (AC=6,CD=3,DA=4.5).",
+      "options": null,
+      "correct_answer": "Construction using diagonal to split into two triangles",
+      "answer_tolerance": 0,
+      "solution_steps": [
+        {
+          "step_number": 1,
+          "instruction": "Draw AB = 5 cm",
+          "working": "Draw a base line AB of length 5 cm.",
+          "result": "AB drawn",
+          "voice_text": "Start with the base side AB of 5 cm."
+        },
+        {
+          "step_number": 2,
+          "instruction": "Locate C using BC and AC",
+          "working": "With B as centre, draw arc of radius 4 cm. With A as centre, draw arc of radius 6 cm. Intersection is point C.",
+          "result": "C located",
+          "voice_text": "Draw arcs from B with radius 4 and from A with radius 6. Where they meet is point C."
+        },
+        {
+          "step_number": 3,
+          "instruction": "Locate D using CD and DA",
+          "working": "With C as centre, draw arc of radius 3 cm. With A as centre, draw arc of radius 4.5 cm. Intersection is D.",
+          "result": "D located",
+          "voice_text": "Similarly locate D using CD = 3 cm and DA = 4.5 cm."
+        },
+        {
+          "step_number": 4,
+          "instruction": "Join all vertices",
+          "working": "Join A-B-C-D-A to complete the quadrilateral.",
+          "result": "ABCD complete",
+          "voice_text": "Join all four vertices in order to complete the quadrilateral."
+        }
+      ],
+      "trick_id": null,
+      "source": "NCT",
+      "cbse_pattern": true,
+      "exam_exclusive": false,
+      "verified": true,
+      "year_last_used": null,
+      "rested": false,
+      "times_served": 0,
+      "times_correct": 0,
+      "times_wrong": 0
+    },
+
+    {
+      "id": "Q-C8-PGM-004",
+      "chapter": "practical-geometry",
+      "topic": "construction-special",
+      "type": "LONG",
+      "difficulty": "medium",
+      "marks": 3,
+      "question_text": "Describe the steps to construct a square with side 4.5 cm.",
+      "diagram_needed": true,
+      "diagram_description": "Square ABCD with all sides 4.5 cm. All angles 90 degrees. Constructed with set square or compass.",
+      "options": null,
+      "correct_answer": "Construction using perpendicular lines at each vertex",
+      "answer_tolerance": 0,
+      "solution_steps": [
+        {
+          "step_number": 1,
+          "instruction": "Draw AB = 4.5 cm",
+          "working": "Draw base AB.",
+          "result": "Base drawn",
+          "voice_text": "Draw the base AB of 4.5 cm."
+        },
+        {
+          "step_number": 2,
+          "instruction": "Draw 90° at B",
+          "working": "Using compass or set square, construct angle of 90° at B. Mark BC = 4.5 cm.",
+          "result": "BC drawn perpendicular to AB",
+          "voice_text": "At B, draw a perpendicular line and mark C at 4.5 cm."
+        },
+        {
+          "step_number": 3,
+          "instruction": "Draw 90° at A",
+          "working": "Construct 90° at A. Mark AD = 4.5 cm.",
+          "result": "AD drawn",
+          "voice_text": "Similarly draw the perpendicular at A and mark D."
+        },
+        {
+          "step_number": 4,
+          "instruction": "Join D and C",
+          "working": "DC should equal 4.5 cm. Join to complete the square.",
+          "result": "Square ABCD complete",
+          "voice_text": "Join D to C. Verify DC equals 4.5 cm. The square is complete."
+        }
+      ],
+      "trick_id": null,
+      "source": "NCT",
+      "cbse_pattern": true,
+      "exam_exclusive": false,
+      "verified": true,
+      "year_last_used": null,
+      "rested": false,
+      "times_served": 0,
+      "times_correct": 0,
+      "times_wrong": 0
+    },
+
+    {
+      "id": "Q-C8-PGM-005",
+      "chapter": "practical-geometry",
+      "topic": "construction-rhombus",
+      "type": "LONG",
+      "difficulty": "medium",
+      "marks": 3,
+      "question_text": "Describe steps to construct a rhombus PQRS with side 5 cm and one diagonal PR = 8 cm.",
+      "diagram_needed": true,
+      "diagram_description": "Rhombus PQRS. Diagonal PR = 8 cm drawn first. Q and S located using arcs of radius 5 cm from P and R. Both lie equidistant from PR.",
+      "options": null,
+      "correct_answer": "Construction using diagonal and equal sides",
+      "answer_tolerance": 0,
+      "solution_steps": [
+        {
+          "step_number": 1,
+          "instruction": "Draw diagonal PR = 8 cm",
+          "working": "Draw PR of length 8 cm as base.",
+          "result": "Diagonal drawn",
+          "voice_text": "Start with the diagonal PR of 8 cm."
+        },
+        {
+          "step_number": 2,
+          "instruction": "Locate Q using arcs from P and R",
+          "working": "With P as centre, arc radius 5 cm. With R as centre, arc radius 5 cm. They meet at Q.",
+          "result": "Q located above PR",
+          "voice_text": "Since all sides of a rhombus are equal, draw arcs of 5 cm from both P and R. They meet at Q."
+        },
+        {
+          "step_number": 3,
+          "instruction": "Locate S on the other side",
+          "working": "Repeat: arcs of 5 cm from P and R on the other side. They meet at S.",
+          "result": "S located below PR",
+          "voice_text": "S is the mirror image of Q on the other side of the diagonal."
+        },
+        {
+          "step_number": 4,
+          "instruction": "Join all vertices",
+          "working": "Join P-Q-R-S-P.",
+          "result": "Rhombus complete",
+          "voice_text": "Join all vertices. The rhombus is complete. Verify all sides are 5 cm."
+        }
+      ],
+      "trick_id": null,
+      "source": "NCT",
+      "cbse_pattern": true,
+      "exam_exclusive": false,
+      "verified": true,
+      "year_last_used": null,
+      "rested": false,
+      "times_served": 0,
+      "times_correct": 0,
+      "times_wrong": 0
+    },
+
+    {
+      "id": "Q-C8-PGM-006",
+      "chapter": "practical-geometry",
+      "topic": "construction-quadrilateral",
+      "type": "MCQ",
+      "difficulty": "medium",
+      "marks": 1,
+      "question_text": "When constructing a quadrilateral with 4 sides and 1 diagonal given, into how many triangles is it divided?",
+      "diagram_needed": false,
+      "diagram_description": null,
+      "options": ["A: 1", "B: 2", "C: 3", "D: 4"],
+      "correct_answer": "B",
+      "answer_tolerance": 0,
+      "solution_steps": [
+        {
+          "step_number": 1,
+          "instruction": "Visualise the construction",
+          "working": "One diagonal splits the quadrilateral into 2 triangles.",
+          "result": "2 triangles",
+          "voice_text": "A diagonal divides a quadrilateral into exactly 2 triangles, which we construct separately."
+        }
+      ],
+      "trick_id": null,
+      "source": "NCT",
+      "cbse_pattern": true,
+      "exam_exclusive": false,
+      "verified": true,
+      "year_last_used": null,
+      "rested": false,
+      "times_served": 0,
+      "times_correct": 0,
+      "times_wrong": 0
+    },
+
+    {
+      "id": "Q-C8-PGM-007",
+      "chapter": "practical-geometry",
+      "topic": "construction-special",
+      "type": "LONG",
+      "difficulty": "hard",
+      "marks": 4,
+      "question_text": "Describe the steps to construct a rectangle ABCD where AB = 6 cm and BC = 4 cm.",
+      "diagram_needed": true,
+      "diagram_description": "Rectangle ABCD. AB=CD=6cm, BC=AD=4cm. All angles 90 degrees.",
+      "options": null,
+      "correct_answer": "Construction with perpendicular sides",
+      "answer_tolerance": 0,
+      "solution_steps": [
+        {
+          "step_number": 1,
+          "instruction": "Draw AB = 6 cm",
+          "working": "Draw base AB.",
+          "result": "AB drawn",
+          "voice_text": "Start by drawing AB of 6 cm."
+        },
+        {
+          "step_number": 2,
+          "instruction": "Construct 90° at A, mark AD = 4 cm",
+          "working": "Perpendicular at A. Mark D at 4 cm.",
+          "result": "AD drawn",
+          "voice_text": "Construct a right angle at A and mark D at 4 cm."
+        },
+        {
+          "step_number": 3,
+          "instruction": "Construct 90° at B, mark BC = 4 cm",
+          "working": "Perpendicular at B. Mark C at 4 cm.",
+          "result": "BC drawn",
+          "voice_text": "Similarly construct the right angle at B and mark C."
+        },
+        {
+          "step_number": 4,
+          "instruction": "Join D and C, verify",
+          "working": "DC should = 6 cm. Verify with ruler.",
+          "result": "Rectangle complete",
+          "voice_text": "Join D to C. Measure DC — it should be 6 cm. If correct, the rectangle is complete."
+        }
+      ],
+      "trick_id": null,
+      "source": "NCT",
+      "cbse_pattern": true,
+      "exam_exclusive": true,
+      "verified": true,
+      "year_last_used": null,
+      "rested": false,
+      "times_served": 0,
+      "times_correct": 0,
+      "times_wrong": 0
+    },
+
+    {
+      "id": "Q-C8-PGM-008",
+      "chapter": "practical-geometry",
+      "topic": "construction-quadrilateral",
+      "type": "LONG",
+      "difficulty": "hard",
+      "marks": 4,
+      "question_text": "Construct a quadrilateral ABCD with AB = 4 cm, BC = 5 cm, angle B = 60°, angle C = 120° and CD = 3 cm.",
+      "diagram_needed": true,
+      "diagram_description": "Quadrilateral ABCD. AB=4cm at base. Angle B=60 degrees, BC=5cm. Angle C=120 degrees, CD=3cm. D connected to A.",
+      "options": null,
+      "correct_answer": "Construction step-by-step",
+      "answer_tolerance": 0,
+      "solution_steps": [
+        {
+          "step_number": 1,
+          "instruction": "Draw AB = 4 cm",
+          "working": "Base AB of 4 cm.",
+          "result": "AB drawn",
+          "voice_text": "Draw the base AB of 4 cm."
+        },
+        {
+          "step_number": 2,
+          "instruction": "Construct angle B = 60°, mark BC = 5 cm",
+          "working": "At B, using protractor draw 60°. Mark C at 5 cm on this ray.",
+          "result": "BC drawn",
+          "voice_text": "At B, construct an angle of 60 degrees and mark C at 5 cm."
+        },
+        {
+          "step_number": 3,
+          "instruction": "Construct angle C = 120°, mark CD = 3 cm",
+          "working": "At C, measure 120° from CB. Mark D at 3 cm.",
+          "result": "CD drawn",
+          "voice_text": "At C, construct 120 degrees from the direction of CB and mark D at 3 cm."
+        },
+        {
+          "step_number": 4,
+          "instruction": "Join DA",
+          "working": "Join D to A to complete the quadrilateral.",
+          "result": "ABCD complete",
+          "voice_text": "Join D to A. The quadrilateral is complete."
+        }
+      ],
+      "trick_id": null,
+      "source": "RDS",
+      "cbse_pattern": true,
+      "exam_exclusive": true,
+      "verified": true,
+      "year_last_used": null,
+      "rested": false,
+      "times_served": 0,
+      "times_correct": 0,
+      "times_wrong": 0
+    },
+
+    {
+      "id": "Q-C8-PGM-009",
+      "chapter": "practical-geometry",
+      "topic": "construction-special",
+      "type": "SHORT",
+      "difficulty": "medium",
+      "marks": 2,
+      "question_text": "What is the minimum data required to construct a unique rhombus? Give one example set of data.",
+      "diagram_needed": false,
+      "diagram_description": null,
+      "options": null,
+      "correct_answer": "One side and one angle (or one side and one diagonal)",
+      "answer_tolerance": 0,
+      "solution_steps": [
+        {
+          "step_number": 1,
+          "instruction": "Recall rhombus properties",
+          "working": "All sides equal in a rhombus. So side length is just one measurement. One angle (or diagonal) determines the shape.",
+          "result": "2 measurements: side + angle or side + diagonal",
+          "voice_text": "A rhombus has all sides equal. So we only need the side length and one angle — or side and one diagonal — to construct it uniquely."
+        }
+      ],
+      "trick_id": null,
+      "source": "NCT",
+      "cbse_pattern": true,
+      "exam_exclusive": false,
+      "verified": true,
+      "year_last_used": null,
+      "rested": false,
+      "times_served": 0,
+      "times_correct": 0,
+      "times_wrong": 0
+    },
+
+    {
+      "id": "Q-C8-PGM-010",
+      "chapter": "practical-geometry",
+      "topic": "construction-quadrilateral",
+      "type": "FILLIN",
+      "difficulty": "easy",
+      "marks": 1,
+      "question_text": "A quadrilateral can be divided into ____ triangles by drawing one diagonal.",
+      "diagram_needed": false,
+      "diagram_description": null,
+      "options": null,
+      "correct_answer": "2",
+      "answer_tolerance": 0,
+      "solution_steps": [
+        {
+          "step_number": 1,
+          "instruction": "Visualise",
+          "working": "One diagonal joins two opposite vertices, splitting the quadrilateral into 2 triangles.",
+          "result": "2",
+          "voice_text": "One diagonal divides a quadrilateral into 2 triangles."
+        }
+      ],
+      "trick_id": null,
+      "source": "NCT",
+      "cbse_pattern": true,
+      "exam_exclusive": false,
+      "verified": true,
+      "year_last_used": null,
+      "rested": false,
+      "times_served": 0,
+      "times_correct": 0,
+      "times_wrong": 0
+    }
+
+  ]
+}

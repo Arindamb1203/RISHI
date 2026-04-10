@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Practice – Understanding Quadrilaterals | RISHI</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Nunito',sans-serif;background:#0d0d1a;min-height:100vh;color:#fff;overflow-x:hidden;}
+/* ─ TOPBAR ─ */
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:10px 20px;background:rgba(0,0,0,.5);border-bottom:1px solid rgba(255,215,0,.2);position:sticky;top:0;z-index:200;gap:10px;flex-wrap:wrap;}
+.topbar-left{display:flex;gap:8px;align-items:center;}
+.topbar-right{display:flex;gap:8px;align-items:center;}
+.tbtn{padding:8px 16px;border-radius:20px;border:none;cursor:pointer;font-family:'Nunito',sans-serif;font-weight:700;font-size:13px;}
+.tbtn-back{background:rgba(255,215,0,.15);border:1px solid #ffd700;color:#ffd700;}
+.tbtn-break{background:rgba(255,107,107,.2);border:1px solid #ff6b6b;color:#ff6b6b;position:relative;}
+.break-menu{display:none;position:absolute;top:40px;right:0;background:#1a1a2e;border:1px solid rgba(255,255,255,.15);border-radius:10px;min-width:160px;z-index:300;}
+.break-menu.show{display:block;}
+.break-opt{padding:10px 16px;cursor:pointer;font-size:13px;border-bottom:1px solid rgba(255,255,255,.05);}
+.break-opt:hover{background:rgba(255,215,0,.1);}
+.session-timer{font-family:'Courier New',monospace;font-size:14px;color:#aaa;background:rgba(0,0,0,.3);padding:6px 12px;border-radius:12px;}
+.coins-badge{background:linear-gradient(135deg,#ffd700,#ffed4e);color:#1a1a2e;padding:6px 14px;border-radius:20px;font-weight:900;font-size:14px;display:flex;align-items:center;gap:5px;}
+/* ─ LAYOUT ─ */
+.main-layout{display:grid;grid-template-columns:220px 1fr 300px;gap:16px;padding:16px;max-width:1400px;margin:0 auto;}
+@media(max-width:1100px){.main-layout{grid-template-columns:1fr;}}
+/* ─ LEFT PANEL ─ */
+.left-panel{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:16px;height:fit-content;position:sticky;top:70px;}
+.lp-chapter{font-size:11px;text-transform:uppercase;letter-spacing:2px;color:rgba(255,255,255,.4);margin-bottom:6px;}
+.lp-title{font-size:15px;font-weight:800;color:#ffd700;margin-bottom:16px;line-height:1.3;}
+.lp-stat{margin-bottom:12px;}
+.lp-stat-label{font-size:11px;color:rgba(255,255,255,.4);margin-bottom:4px;}
+.lp-stat-val{font-size:22px;font-weight:900;color:#fff;}
+.lp-stat-sub{font-size:11px;color:rgba(255,255,255,.4);}
+.progress-dots{display:flex;flex-wrap:wrap;gap:5px;margin-top:12px;}
+.pdot{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.4);}
+.pdot.active{background:#ffd700;color:#1a1a2e;border-color:#ffd700;}
+.pdot.correct{background:#2ecc71;color:#fff;border-color:#2ecc71;}
+.pdot.wrong{background:#e74c3c;color:#fff;border-color:#e74c3c;}
+.streak-bar{margin-top:14px;}
+.streak-label{font-size:11px;color:rgba(255,255,255,.4);margin-bottom:6px;}
+.streak-pips{display:flex;gap:4px;}
+.spip{width:28px;height:8px;border-radius:4px;background:rgba(255,255,255,.1);}
+.spip.filled{background:#2ecc71;}
+/* ─ QUESTION AREA ─ */
+.q-area{display:flex;flex-direction:column;gap:14px;}
+.q-card{border-radius:18px;padding:28px;position:relative;overflow:hidden;min-height:160px;border:1px solid rgba(255,255,255,.1);}
+.q-card-inner{position:relative;z-index:2;}
+.q-badge{font-size:10px;text-transform:uppercase;letter-spacing:2px;color:rgba(255,255,255,.5);margin-bottom:8px;}
+.q-text{font-size:20px;font-weight:700;line-height:1.5;margin-bottom:6px;}
+.q-hint{font-size:12px;color:rgba(255,255,255,.5);font-style:italic;}
+.attempt-info{display:flex;gap:12px;font-size:12px;color:rgba(255,255,255,.5);}
+.attempt-info span{background:rgba(255,255,255,.08);padding:3px 10px;border-radius:10px;}
+.earn-badge{background:rgba(255,215,0,.15);color:#ffd700;border:1px solid rgba(255,215,0,.3);}
+/* travel bg gradients */
+.tbg-0{background:linear-gradient(135deg,#0a2a4a,#1a5276);}
+.tbg-1{background:linear-gradient(135deg,#1b2838,#2d6a4f);}
+.tbg-2{background:linear-gradient(135deg,#2c1810,#922b21);}
+.tbg-3{background:linear-gradient(135deg,#0d1b2a,#1f3a5c);}
+.tbg-4{background:linear-gradient(135deg,#1a0a2e,#4a235a);}
+.tbg-5{background:linear-gradient(135deg,#1c2237,#0e4d5c);}
+.tbg-6{background:linear-gradient(135deg,#2a1e00,#7d6608);}
+.tbg-7{background:linear-gradient(135deg,#0a1628,#154360);}
+.tbg-8{background:linear-gradient(135deg,#1a2c1a,#1d5e35);}
+.tbg-9{background:linear-gradient(135deg,#2c0a0a,#7b241c);}
+.tbg-10{background:linear-gradient(135deg,#0d0d2e,#283593);}
+.tbg-11{background:linear-gradient(135deg,#0a2010,#145a32);}
+.tbg-12{background:linear-gradient(135deg,#1a0d00,#784212);}
+.tbg-13{background:linear-gradient(135deg,#00141a,#0e6655);}
+.tbg-14{background:linear-gradient(135deg,#1a0028,#6c3483);}
+.destination-tag{position:absolute;bottom:12px;right:16px;font-size:10px;color:rgba(255,255,255,.3);font-style:italic;}
+/* ─ INSTRUCTION TYPING ─ */
+.instruction-box{background:rgba(255,215,0,.06);border:1px solid rgba(255,215,0,.2);border-radius:12px;padding:14px 18px;font-size:13px;font-weight:700;color:#ffd700;min-height:40px;}
+/* ─ ANSWER AREA ─ */
+.answer-wrap{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:20px;}
+.answer-input{width:100%;padding:14px 18px;background:rgba(0,0,0,.4);border:2px solid rgba(255,215,0,.3);border-radius:30px;color:#fff;font-size:17px;font-family:'Nunito',sans-serif;outline:none;transition:.2s;}
+.answer-input:focus{border-color:#ffd700;}
+.submit-btn{width:100%;margin-top:10px;padding:13px;background:linear-gradient(135deg,#ffd700,#f39c12);color:#1a1a2e;border:none;border-radius:30px;font-size:16px;font-weight:900;cursor:pointer;font-family:'Nunito',sans-serif;transition:.15s;}
+.submit-btn:hover{opacity:.9;transform:translateY(-1px);}
+.submit-btn:disabled{opacity:.4;cursor:not-allowed;transform:none;}
+/* ─ FEEDBACK ─ */
+.feedback-box{border-radius:16px;padding:20px;display:none;}
+.feedback-box.correct{display:block;background:rgba(46,204,113,.1);border:1px solid rgba(46,204,113,.4);}
+.feedback-box.wrong{display:block;background:rgba(231,76,60,.08);border:1px solid rgba(231,76,60,.3);}
+.fb-title{font-size:18px;font-weight:800;margin-bottom:12px;}
+.feedback-box.correct .fb-title{color:#2ecc71;}
+.feedback-box.wrong .fb-title{color:#e74c3c;}
+.steps-list{background:rgba(0,0,0,.3);border-radius:10px;padding:14px;margin:10px 0;}
+.step-item{padding:6px 0 6px 22px;position:relative;font-size:14px;line-height:1.5;border-bottom:1px solid rgba(255,255,255,.05);}
+.step-item:last-child{border-bottom:none;}
+.step-item::before{content:"→";position:absolute;left:0;color:#ffd700;}
+.trick-box{background:rgba(255,215,0,.08);border:1px solid rgba(255,215,0,.2);border-radius:8px;padding:10px 14px;margin-top:10px;font-size:13px;}
+.trick-box strong{color:#ffd700;}
+.clear-check{margin-top:16px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+.clear-check span{font-size:14px;font-weight:700;flex:1;}
+.btn-yes{padding:10px 22px;background:#2ecc71;color:#fff;border:none;border-radius:20px;cursor:pointer;font-weight:700;font-size:14px;font-family:'Nunito',sans-serif;}
+.btn-no{padding:10px 22px;background:#e74c3c;color:#fff;border:none;border-radius:20px;cursor:pointer;font-weight:700;font-size:14px;font-family:'Nunito',sans-serif;}
+.try-again-btn{display:none;width:100%;margin-top:12px;padding:14px;background:#c0392b;color:#ffd700;border:none;border-radius:14px;font-size:17px;font-weight:900;cursor:pointer;letter-spacing:1px;font-family:'Nunito',sans-serif;border:2px solid rgba(255,215,0,.3);}
+.try-again-btn:hover{background:#e74c3c;}
+/* ─ COIN ANIMATION ─ */
+@keyframes coinFall{0%{transform:translateY(-60px) scale(1.2);opacity:1;}80%{opacity:1;}100%{transform:translateY(0) scale(0.5);opacity:0;}}
+.coin-anim{position:fixed;top:50px;right:80px;font-size:28px;z-index:1000;animation:coinFall 1s ease-in forwards;pointer-events:none;}
+/* multilingual praise */
+.praise-word{font-size:28px;color:#ffd700;font-weight:900;font-style:italic;}
+.praise-meta{font-size:12px;color:rgba(255,255,255,.5);margin-top:4px;}
+.next-btn{width:100%;margin-top:12px;padding:13px;background:rgba(255,215,0,.15);border:1px solid #ffd700;color:#ffd700;border-radius:14px;font-size:15px;font-weight:900;cursor:pointer;font-family:'Nunito',sans-serif;display:none;}
+.next-btn.show{display:block;}
+/* ─ RIGHT PANEL ─ */
+.right-panel{display:flex;flex-direction:column;gap:14px;}
+.rishika-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:16px;text-align:center;}
+.rishika-face{font-size:72px;margin-bottom:8px;transition:.3s;display:inline-block;}
+.rishika-name-tag{font-size:11px;letter-spacing:2px;color:rgba(255,215,0,.7);text-transform:uppercase;margin-bottom:6px;}
+.rishika-bubble{background:rgba(255,215,0,.08);border-radius:12px;padding:10px 14px;font-size:13px;line-height:1.5;min-height:48px;border:1px solid rgba(255,215,0,.15);}
+.rough-card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:16px;flex:1;}
+.rough-title{font-size:12px;text-transform:uppercase;letter-spacing:2px;color:rgba(255,255,255,.3);margin-bottom:8px;}
+.rough-area{width:100%;min-height:280px;background:#f8f5ec;color:#333;border-radius:10px;padding:14px;font-family:'Courier New',monospace;font-size:14px;line-height:1.8;border:none;outline:none;resize:vertical;}
+/* ─ BREAK OVERLAY ─ */
+.break-overlay{display:none;position:fixed;inset:0;background:#0a0a1a;z-index:500;flex-direction:column;align-items:center;justify-content:center;text-align:center;}
+.break-overlay.show{display:flex;}
+.break-type{font-size:20px;color:rgba(255,255,255,.6);margin-bottom:10px;}
+.break-clock{font-family:'Courier New',monospace;font-size:96px;font-weight:700;color:#ffd700;margin-bottom:30px;}
+.end-break-btn{padding:16px 48px;background:#2ecc71;color:#fff;border:none;border-radius:30px;font-size:20px;font-weight:700;cursor:pointer;font-family:'Nunito',sans-serif;}
+/* ─ COMPLETION MODAL ─ */
+.comp-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:600;align-items:center;justify-content:center;}
+.comp-overlay.show{display:flex;}
+.comp-box{background:linear-gradient(135deg,#0d0d1a,#1a1a2e);border:2px solid #ffd700;border-radius:24px;padding:48px;text-align:center;max-width:500px;width:90%;}
+.comp-icon{font-size:64px;margin-bottom:12px;}
+.comp-title{font-size:28px;font-weight:900;color:#ffd700;margin-bottom:8px;}
+.comp-msg{color:rgba(255,255,255,.7);font-size:15px;line-height:1.6;margin-bottom:20px;}
+.comp-foreign{font-size:22px;color:#4ecdc4;font-style:italic;margin-bottom:24px;}
+.comp-btn{padding:14px 40px;background:linear-gradient(135deg,#ffd700,#f39c12);color:#1a1a2e;border:none;border-radius:24px;font-size:16px;font-weight:900;cursor:pointer;font-family:'Nunito',sans-serif;}
+/* ─ STREAK UNLOCK TOAST ─ */
+@keyframes toastIn{0%{transform:translateX(120%);opacity:0;}20%{transform:translateX(0);opacity:1;}80%{transform:translateX(0);opacity:1;}100%{transform:translateX(120%);opacity:0;}}
+.streak-toast{position:fixed;bottom:30px;right:20px;background:#2ecc71;color:#fff;padding:14px 22px;border-radius:14px;font-weight:900;font-size:15px;z-index:700;animation:toastIn 3.5s ease forwards;pointer-events:none;}
+
+</style>
+</head>
+<body>
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="topbar-left">
+    <button class="tbtn tbtn-back" onclick="backToSyllabus()">← Syllabus</button>
+    <div style="font-family:'Orbitron',sans-serif;font-size:11px;letter-spacing:2px;color:rgba(255,215,0,.6);">✏️ PRACTICE</div>
+  </div>
+  <span class="session-timer" id="sessionTimer">00:00</span>
+  <div class="topbar-right">
+    <div style="position:relative;">
+      <button class="tbtn tbtn-break" onclick="toggleBreakMenu()">⏸ Break ▾</button>
+      <div class="break-menu" id="breakMenu">
+        <div class="break-opt" onclick="startBreak('Water')">💧 Water</div>
+        <div class="break-opt" onclick="startBreak('Washroom')">🚻 Washroom</div>
+        <div class="break-opt" onclick="startBreak('Physical Game')">🏃 Physical Game</div>
+        <div class="break-opt" onclick="startBreak('Play with me')">🎮 Play with me</div>
+      </div>
+    </div>
+    <div class="coins-badge">🪙 <span id="coinCount">0</span></div>
+  </div>
+</div>
+
+<!-- MAIN LAYOUT -->
+<div class="main-layout">
+  <!-- LEFT PANEL -->
+  <div class="left-panel">
+    <div class="lp-chapter">Chapter 3</div>
+    <div class="lp-title">Understanding Quadrilaterals</div>
+    <div class="lp-stat">
+      <div class="lp-stat-label">Question</div>
+      <div class="lp-stat-val"><span id="qNumDisp">1</span><span style="font-size:14px;color:rgba(255,255,255,.3);">/15</span></div>
+    </div>
+    <div class="lp-stat">
+      <div class="lp-stat-label">Correct Streak</div>
+      <div class="lp-stat-val" id="streakNum">0</div>
+      <div class="lp-stat-sub">Need 5 to unlock exam</div>
+    </div>
+    <div class="lp-stat">
+      <div class="lp-stat-label">Correct Total</div>
+      <div class="lp-stat-val" id="totalCorr">0</div>
+    </div>
+    <div class="streak-bar">
+      <div class="streak-label">Streak progress</div>
+      <div class="streak-pips" id="streakPips"></div>
+    </div>
+    <div class="progress-dots" id="progressDots"></div>
+  </div>
+
+  <!-- QUESTION AREA -->
+  <div class="q-area">
+    <div class="q-card tbg-0" id="qCard">
+      <div class="q-card-inner">
+        <div class="q-badge" id="qBadge">Question 1 of 15</div>
+        <div class="q-text" id="qText">Loading...</div>
+        <div class="attempt-info" style="margin-top:8px;">
+          <span id="attemptNum">Attempt: 1</span>
+          <span class="earn-badge" id="earnCoins">5 coins if correct</span>
+        </div>
+      </div>
+      <div class="destination-tag" id="destTag">🌍 Paris, France</div>
+    </div>
+
+    <div class="instruction-box" id="instrBox"></div>
+
+    <div class="answer-wrap">
+      <input type="text" class="answer-input" id="answerInput"
+        placeholder="Type your answer here..."
+        onkeydown="if(event.key==='Enter')submitAnswer();">
+      <button class="submit-btn" id="submitBtn" onclick="submitAnswer()">Submit Answer ▶</button>
+    </div>
+
+    <div class="feedback-box" id="feedbackBox"></div>
+    <button class="next-btn" id="nextBtn" onclick="nextQ()">Next Question ▶</button>
+  </div>
+
+  <!-- RIGHT PANEL -->
+  <div class="right-panel">
+    <div class="rishika-card">
+      <div class="rishika-name-tag">Rishika</div>
+      <div class="rishika-face" id="rishikaFace">👩‍🎓</div>
+      <div class="rishika-bubble" id="rishikaBubble">Getting ready for your practice session! 🎯</div>
+    </div>
+    <div class="rough-card">
+      <div class="rough-title">📝 Rough Work</div>
+      <textarea class="rough-area" placeholder="Do all working here..."></textarea>
+    </div>
+  </div>
+</div>
+
+<!-- BREAK OVERLAY -->
+<div class="break-overlay" id="breakOverlay">
+  <div class="break-type" id="breakType">Break</div>
+  <div class="break-clock" id="breakClock">00:00</div>
+  <button class="end-break-btn" onclick="endBreak()">End Break ▶</button>
+</div>
+
+<!-- COMPLETION MODAL -->
+<div class="comp-overlay" id="compOverlay">
+  <div class="comp-box">
+    <div class="comp-icon" id="compIcon">🏆</div>
+    <div class="comp-title" id="compTitle">Session Complete!</div>
+    <div class="comp-msg" id="compMsg"></div>
+    <div class="comp-foreign" id="compForeign"></div>
+    <button class="comp-btn" onclick="backToSyllabus()">Back to Syllabus</button>
+  </div>
+</div>
+
+<script src="/rishi-core.js"></script>
+<script>
+var CHAP_ID=3;
+var QB=[
+  {q:"Sum of interior angles of a quadrilateral?",qs:"Sum of interior angles of a quadrilateral.",ans:["360", "360 degrees", "360\u00b0"],steps:["(n-2)\u00d7180=(4-2)\u00d7180=360\u00b0"],trick:"(n-2)\u00d7180. n=4: 360\u00b0.",alt:"360\u00b0."},
+  {q:"In parallelogram ABCD, \u2220A=70\u00b0. Find \u2220C.",qs:"Parallelogram angle A is 70. Find angle C.",ans:["70", "70\u00b0"],steps:["Opposite angles equal. \u2220C=70\u00b0"],trick:"Opposite angles in parallelogram are equal.",alt:"70\u00b0."},
+  {q:"In parallelogram PQRS, \u2220P=115\u00b0. Find \u2220Q.",qs:"Parallelogram angle P is 115. Find angle Q.",ans:["65", "65\u00b0"],steps:["Adjacent angles supplementary. 180-115=65\u00b0"],trick:"Adjacent angles in parallelogram: sum=180\u00b0. 180-115=65.",alt:"65\u00b0."},
+  {q:"Rectangle diagonal=17 cm, one side=8 cm. Find other side.",qs:"Rectangle diagonal 17 one side 8. Find other side.",ans:["15", "15 cm"],steps:["d\u00b2=l\u00b2+b\u00b2. 289=64+b\u00b2. b=15"],trick:"Pythagoras: 8,15,17 is a triple.",alt:"15 cm."},
+  {q:"Rhombus diagonals: 24 cm and 10 cm. Find side.",qs:"Rhombus diagonals 24 and 10. Find side.",ans:["13", "13 cm"],steps:["Half-diagonals: 12 and 5. Side=\u221a(144+25)=13"],trick:"5,12,13 Pythagorean triple.",alt:"13 cm."},
+  {q:"A trapezium with equal non-parallel sides is called?",qs:"What is a trapezium with equal non-parallel sides called?",ans:["isosceles trapezium", "isosceles"],steps:["Equal legs \u2192 isosceles trapezium"],trick:"Isosceles = equal legs.",alt:"Isosceles trapezium."},
+  {q:"How many lines of symmetry does a rhombus have?",qs:"Lines of symmetry in a rhombus.",ans:["2", "two"],steps:["2 lines along each diagonal"],trick:"Rhombus: 2 lines of symmetry (diagonals).",alt:"2."},
+  {q:"In quadrilateral ABCD: \u2220A=90\u00b0,\u2220B=80\u00b0,\u2220C=100\u00b0. Find \u2220D.",qs:"Angles A,B,C are 90,80,100. Find D.",ans:["90", "90\u00b0"],steps:["90+80+100+D=360. D=90\u00b0"],trick:"Sum=360. 270+D=360. D=90.",alt:"90\u00b0."},
+  {q:"Each interior angle of regular hexagon?",qs:"Each interior angle of regular hexagon.",ans:["120", "120\u00b0"],steps:["(6-2)\u00d7180/6=720/6=120\u00b0"],trick:"(n-2)\u00d7180/n=4\u00d730=120\u00b0.",alt:"120\u00b0."},
+  {q:"Sum of interior angles of hexagon?",qs:"Sum of interior angles of hexagon.",ans:["720", "720\u00b0"],steps:["(6-2)\u00d7180=720\u00b0"],trick:"(n-2)\u00d7180=4\u00d7180=720.",alt:"720\u00b0."},
+  {q:"All sides equal, all angles 90\u00b0: what quadrilateral?",qs:"Quadrilateral with all sides equal and all angles 90 degrees.",ans:["square"],steps:["Equal sides + right angles = square"],trick:"Square = rhombus + rectangle.",alt:"Square."},
+  {q:"Diagonals of rectangle bisect each other. True or False?",qs:"True or false: diagonals of rectangle bisect each other.",ans:["true", "yes"],steps:["True \u2014 rectangle is a parallelogram; all parallelogram diagonals bisect."],trick:"All parallelograms: diagonals bisect. Rectangle is a parallelogram. TRUE.",alt:"True."},
+  {q:"In parallelogram, \u2220A+\u2220C=140\u00b0. Find \u2220A.",qs:"Parallelogram angle A plus angle C equals 140. Find A.",ans:["70", "70\u00b0"],steps:["\u2220A=\u2220C. 2\u2220A=140. \u2220A=70\u00b0"],trick:"Opposite angles equal. \u2220A=70\u00b0.",alt:"70\u00b0."},
+  {q:"In kite, which pair of angles are equal?",qs:"In a kite, which angles are equal?",ans:["non-vertex angles", "the two angles between unequal sides", "opposite non-vertex"],steps:["Angles between unequal sides (non-vertex angles) are equal"],trick:"Kite: non-vertex angles equal.",alt:"The two 'wing tip' angles."},
+  {q:"<strong>HOTS:</strong> A polyhedron has 8 faces, 12 edges. Find vertices using Euler's formula.",qs:"Polyhedron has 8 faces 12 edges. Find vertices.",ans:["6", "6 vertices"],steps:["V-E+F=2. V-12+8=2. V=6"],trick:"V=E-F+2=12-8+2=6. This is a cube/hexahedron.",alt:"V=6."}
+];
+
+/* ── TTS ── */
+var voices=[],selVoice=null;
+function initVoices(cb){
+  function load(){
+    voices=window.speechSynthesis.getVoices();
+    var pref=['Riya','Heera','Priya','Aditi','Zira','Samantha','Google UK English Female','Microsoft Zira','en-IN','en-GB','en-US'];
+    for(var p of pref){for(var v of voices){if(v.name.includes(p)||v.lang.includes(p)){selVoice=v;break;}}if(selVoice)break;}
+    if(!selVoice&&voices.length)selVoice=voices.find(v=>v.lang.startsWith('en'))||voices[0];
+    if(cb)cb();
+  }
+  if(window.speechSynthesis.getVoices().length>0)load();
+  else{window.speechSynthesis.onvoiceschanged=load;setTimeout(function(){if(!selVoice)load();},1000);}
+}
+function say(txt,rate,pitch){
+  window.speechSynthesis.cancel();
+  var u=new SpeechSynthesisUtterance(txt);
+  if(selVoice)u.voice=selVoice;
+  u.rate=rate||0.88;u.pitch=pitch||1.05;u.lang='en-IN';
+  window.speechSynthesis.speak(u);
+}
+/* ── CORE STATE ── */
+var QB=[];
+var idx=0,attemptNo=0,correctStreak=0,totalCorrect=0,sessionOver=false;
+var coins=parseInt(localStorage.getItem('rishi_coins')||'0');
+var answered=[]; // per Q: null|'correct'|'wrong'
+var breakInterval=null,sessionInterval=null,sessionSecs=0;
+var DESTINATIONS=['Paris, France','Bali, Indonesia','Machu Picchu, Peru','Santorini, Greece','Kyoto, Japan','Grand Canyon, USA','Amalfi Coast, Italy','Swiss Alps','Maldives','Rajasthan, India','Cape Town, S. Africa','New Zealand Fjords','Amazon Rainforest','Iceland Aurora','Dubai City'];
+var PRAISES=[
+  {word:'Magnifique!',lang:'French',mean:'Magnificent!'},
+  {word:'Bravissimo!',lang:'Italian',mean:'Very well done!'},
+  {word:'Wunderbar!',lang:'German',mean:'Wonderful!'},
+  {word:'Shabash!',lang:'Hindi',mean:'Well done!'},
+  {word:'Felicitaciones!',lang:'Spanish',mean:'Congratulations!'},
+  {word:'素晴らしい!',lang:'Japanese',mean:'Subarashii — Splendid!'},
+  {word:'Parabéns!',lang:'Portuguese',mean:'Congratulations!'},
+  {word:'Отлично!',lang:'Russian',mean:'Excellent!'},
+  {word:'Uitstekend!',lang:'Dutch',mean:'Outstanding!'},
+  {word:'Marvellous!',lang:'British English',mean:'Marvellous!'}
+];
+function G(id){return document.getElementById(id);}
+/* ── INIT ── */
+function init(){
+  rishiCheckPlan(CHAP_ID);
+  coins=parseInt(localStorage.getItem('rishi_coins')||'0');
+  updateCoins();
+  answered=new Array(QB.length).fill(null);
+  renderDots();
+  renderStreak();
+  initVoices(function(){loadQ(0);});
+  sessionInterval=setInterval(function(){
+    sessionSecs++;
+    var m=Math.floor(sessionSecs/60).toString().padStart(2,'0');
+    var s=(sessionSecs%60).toString().padStart(2,'0');
+    var el=G('sessionTimer');if(el)el.textContent=m+':'+s;
+  },1000);
+}
+/* ── LOAD QUESTION ── */
+function loadQ(i){
+  if(i>=QB.length){onComplete();return;}
+  idx=i;attemptNo=0;
+  var q=QB[i];
+  // travel bg
+  var card=G('qCard');
+  card.className='q-card tbg-'+(i%15);
+  // content
+  G('qBadge').textContent='Question '+(i+1)+' of '+QB.length;
+  G('qText').innerHTML=q.q;
+  G('destTag').textContent='🌍 '+DESTINATIONS[i%DESTINATIONS.length];
+  G('attemptNum').textContent='Attempt: 1';
+  G('earnCoins').textContent='5 coins if correct';
+  // reset UI
+  G('answerInput').value='';
+  G('answerInput').disabled=false;
+  G('submitBtn').disabled=false;
+  G('feedbackBox').className='feedback-box';
+  G('nextBtn').className='next-btn';
+  // instruction typing
+  typeInstruction('Please do the sum in your copy and put answer in below text box');
+  // Rishika
+  setRishika('neutral','Ready for question '+(i+1)+'? Give it your best shot! 🎯');
+  // speak
+  setTimeout(function(){say(q.qs||q.q.replace(/<[^>]+>/g,''));},600);
+  updateDots();
+}
+/* ── TYPING ANIMATION ── */
+var typeTimer=null;
+function typeInstruction(txt){
+  var el=G('instrBox');el.textContent='';
+  if(typeTimer)clearInterval(typeTimer);
+  var i=0;
+  typeTimer=setInterval(function(){
+    if(i<txt.length){el.textContent+=txt[i];i++;}
+    else clearInterval(typeTimer);
+  },35);
+}
+/* ── ANSWER SUBMIT ── */
+function submitAnswer(){
+  var raw=G('answerInput').value.trim();
+  if(!raw){G('answerInput').focus();return;}
+  var q=QB[idx];
+  attemptNo++;
+  G('attemptNum').textContent='Attempt: '+attemptNo;
+  var userClean=raw.toLowerCase().replace(/\s+/g,'').replace(/×/g,'x').replace(/÷/g,'/');
+  var ok=q.ans.some(function(a){
+    var ac=a.toLowerCase().replace(/\s+/g,'').replace(/×/g,'x').replace(/÷/g,'/');
+    return userClean===ac||userClean.includes(ac)||ac.includes(userClean);
+  });
+  if(ok){handleCorrect(q);}
+  else{handleWrong(q,raw);}
+}
+/* ── CORRECT ── */
+function handleCorrect(q){
+  correctStreak++;totalCorrect++;
+  if(attemptNo===1){
+    coins+=5;localStorage.setItem('rishi_coins',coins);updateCoins();
+    spawnCoin();say('Correct! You earned 5 coins!');
+    G('earnCoins').textContent='✓ +5 coins earned';
+  } else {
+    say('Correct! Well done!');
+    G('earnCoins').textContent='✓ Correct!';
+  }
+  answered[idx]='correct';
+  renderDots();renderStreak();
+  // praise
+  var p=PRAISES[Math.floor(Math.random()*PRAISES.length)];
+  var fb=G('feedbackBox');
+  fb.className='feedback-box correct';
+  fb.innerHTML='<div class="fb-title">✓ Correct!</div>'
+    +'<div class="praise-word">'+p.word+'</div>'
+    +'<div class="praise-meta">'+p.lang+' — "'+p.mean+'"</div>';
+  G('nextBtn').className='next-btn show';
+  setRishika('celebrate','Excellent work! '+p.word+' 🎉');
+  G('answerInput').disabled=true;G('submitBtn').disabled=true;
+  // check streak unlock
+  if(correctStreak>=5 && !rishiIsPracticeDone(CHAP_ID)){
+    localStorage.setItem('rishi_practice_done_'+CHAP_ID,'1');
+    showStreakToast();
+  }
+}
+/* ── WRONG ── */
+function handleWrong(q,userAns){
+  correctStreak=0;
+  answered[idx]='wrong';
+  renderDots();renderStreak();
+  setRishika('disappointed',"Hmm, not quite! Let me show you how. Pay close attention! 💪");
+  say("Not quite right. Let me explain step by step.");
+  G('answerInput').disabled=true;G('submitBtn').disabled=true;
+  G('earnCoins').textContent='Coins: missed this one';
+  var stepsHtml=q.steps.map(function(s){return '<div class="step-item">'+s+'</div>';}).join('');
+  var fb=G('feedbackBox');
+  fb.className='feedback-box wrong';
+  fb.innerHTML='<div class="fb-title">✗ Not quite right</div>'
+    +'<div style="font-size:13px;color:rgba(255,255,255,.6);margin-bottom:8px;">Your answer: <span style="color:#e74c3c;font-weight:700;">'+userAns+'</span></div>'
+    +'<div class="steps-list">'+stepsHtml+'</div>'
+    +'<div class="trick-box"><strong>💡 Rishika\'s Trick:</strong> '+q.trick+'</div>'
+    +'<div class="clear-check"><span>Is it clear now?</span>'
+    +'<button class="btn-yes" onclick="isClear(true)">Yes ✓</button>'
+    +'<button class="btn-no" onclick="isClear(false)">No, explain again</button></div>'
+    +'<button class="try-again-btn" id="tryAgainBtn" onclick="tryAgain()">TRY AGAIN ▶</button>';
+}
+/* ── IS IT CLEAR ── */
+function isClear(yes){
+  if(yes){
+    G('tryAgainBtn').style.display='block';
+    setRishika('thinking',"Great! Now try the question again. You can do it! 🌟");
+    say("Good! Now try the question again.");
+  } else {
+    setRishika('thinking',"No problem! Let me explain with a different approach. Listen carefully!");
+    say("Let me try explaining differently.");
+    var q=QB[idx];
+    var alt=G('feedbackBox');
+    // append alternative explanation
+    var div=document.createElement('div');
+    div.style.cssText='margin-top:12px;padding:12px;background:rgba(78,205,196,.08);border-radius:10px;border:1px solid rgba(78,205,196,.2);font-size:13px;line-height:1.6;';
+    div.innerHTML='<strong style="color:#4ecdc4;">🔄 Alternative approach:</strong><br>'+q.alt;
+    alt.appendChild(div);
+    setTimeout(function(){G('tryAgainBtn').style.display='block';},500);
+  }
+}
+/* ── TRY AGAIN ── */
+function tryAgain(){
+  G('answerInput').value='';
+  G('answerInput').disabled=false;
+  G('submitBtn').disabled=false;
+  G('feedbackBox').className='feedback-box';
+  answered[idx]=null; // reset dot for retry
+  attemptNo++;
+  G('attemptNum').textContent='Attempt: '+attemptNo;
+  G('earnCoins').textContent='Keep trying!';
+  setRishika('neutral',"Take your time! Work it out step by step in the rough space. 📝");
+  G('answerInput').focus();
+}
+/* ── NEXT ── */
+function nextQ(){loadQ(idx+1);}
+/* ── COMPLETE ── */
+function onComplete(){
+  sessionOver=true;
+  clearInterval(sessionInterval);
+  var done=rishiIsPracticeDone(CHAP_ID);
+  var icon=done?'🏆':'📚';
+  var title=done?'Practice Complete! Exam Unlocked!':'Session Complete!';
+  var msg=done
+    ?'You got 5 in a row — the Chapter Exam is now unlocked! Great work, champion! 🎉'
+    :'Good effort! Keep practising to achieve 5 consecutive correct answers and unlock the exam.';
+  var phrases=[
+    'Félicitations! (French) — Congratulations!',
+    'Ausgezeichnet! (German) — Excellent!',
+    'Mazel Tov! (Hebrew) — Congratulations!',
+    'Bravissimo! (Italian) — Very well done!',
+    'Koko yoku dekimashita! (Japanese) — Well done!',
+    'Parabéns! (Portuguese) — Congratulations!'
+  ];
+  var phrase=phrases[Math.floor(Math.random()*phrases.length)];
+  G('compIcon').textContent=icon;
+  G('compTitle').textContent=title;
+  G('compMsg').textContent=msg;
+  G('compForeign').textContent=phrase;
+  G('compOverlay').className='comp-overlay show';
+  setRishika(done?'celebrate':'praise',done?'You did it! Exam unlocked! 🏆':'Great session! Practice more to unlock exam!');
+  say(title+'. '+msg);
+}
+/* ── STREAK TOAST ── */
+function showStreakToast(){
+  var t=document.createElement('div');t.className='streak-toast';
+  t.textContent='🔥 5-in-a-row! Chapter Exam Unlocked!';
+  document.body.appendChild(t);
+  setTimeout(function(){if(t.parentNode)t.parentNode.removeChild(t);},3600);
+}
+/* ── COIN SPAWN ── */
+function spawnCoin(){
+  for(var i=0;i<3;i++){
+    (function(delay){
+      setTimeout(function(){
+        var c=document.createElement('div');c.className='coin-anim';
+        c.textContent='🪙';c.style.right=(60+Math.random()*40)+'px';
+        document.body.appendChild(c);
+        setTimeout(function(){if(c.parentNode)c.parentNode.removeChild(c);},1100);
+      },delay);
+    })(i*200);
+  }
+}
+/* ── RISHIKA ── */
+var RFACES={neutral:'👩‍🎓',celebrate:'🎉',praise:'🌟',disappointed:'😟',thinking:'🤔'};
+function setRishika(expr,txt){
+  var face=G('rishikaFace');
+  if(face){face.textContent=RFACES[expr]||RFACES.neutral;}
+  var bubble=G('rishikaBubble');
+  if(bubble&&txt){bubble.textContent=txt;}
+}
+/* ── COINS ── */
+function updateCoins(){var el=G('coinCount');if(el)el.textContent=coins;}
+/* ── DOTS ── */
+function renderDots(){
+  var c=G('progressDots');if(!c)return;
+  var h='';
+  for(var i=0;i<QB.length;i++){
+    var cls='pdot';
+    if(i===idx)cls+=' active';
+    else if(answered[i]==='correct')cls+=' correct';
+    else if(answered[i]==='wrong')cls+=' wrong';
+    h+='<div class="'+cls+'">'+(i+1)+'</div>';
+  }
+  c.innerHTML=h;
+}
+/* ── STREAK ── */
+function renderStreak(){
+  var c=G('streakPips');if(!c)return;
+  var h='';
+  for(var i=0;i<5;i++){h+='<div class="spip'+(i<correctStreak?' filled':'')+'"></div>';}
+  c.innerHTML=h;
+}
+/* ── BREAK ── */
+function toggleBreakMenu(){var m=G('breakMenu');if(m)m.classList.toggle('show');}
+function startBreak(reason){
+  var el=G('breakType');if(el)el.textContent=reason+' Break';
+  var bs=G('breakOverlay');if(bs)bs.className='break-overlay show';
+  var m=G('breakMenu');if(m)m.classList.remove('show');
+  clearInterval(sessionInterval); // pause session timer
+  var bSecs=0;
+  breakInterval=setInterval(function(){
+    bSecs++;
+    var m2=Math.floor(bSecs/60).toString().padStart(2,'0');
+    var s=(bSecs%60).toString().padStart(2,'0');
+    var el2=G('breakClock');if(el2)el2.textContent=m2+':'+s;
+    if(bSecs>=300){
+      setRishika('disappointed','Aye! Time to get back! Padhai karo! ⏰');
+    }
+  },1000);
+}
+function endBreak(){
+  clearInterval(breakInterval);
+  var bs=G('breakOverlay');if(bs)bs.className='break-overlay';
+  // resume session timer
+  sessionInterval=setInterval(function(){
+    sessionSecs++;
+    var m=Math.floor(sessionSecs/60).toString().padStart(2,'0');
+    var s=(sessionSecs%60).toString().padStart(2,'0');
+    var el=G('sessionTimer');if(el)el.textContent=m+':'+s;
+  },1000);
+}
+/* ── BACK ── */
+function backToSyllabus(){window.location.href='/syllabus.html';}
+/* ── CLOSE BREAK MENU ON OUTSIDE CLICK ── */
+document.addEventListener('click',function(e){
+  if(!e.target.closest('.tbtn-break')){{var m=G('breakMenu');if(m)m.classList.remove('show');}}
+});
+window.onload=function(){init();};
+
+/* update displayed Q number on load */
+var _origLoadQ=loadQ;
+loadQ=function(i){
+  _origLoadQ(i);
+  var e=G('qNumDisp');if(e)e.textContent=i+1;
+  var e2=G('streakNum');if(e2)e2.textContent=correctStreak;
+  var e3=G('totalCorr');if(e3)e3.textContent=totalCorrect;
+};
+var _origHandleCorrect=handleCorrect;
+handleCorrect=function(q){
+  _origHandleCorrect(q);
+  setTimeout(function(){
+    var e2=G('streakNum');if(e2)e2.textContent=correctStreak;
+    var e3=G('totalCorr');if(e3)e3.textContent=totalCorrect;
+  },100);
+};
+var _origHandleWrong=handleWrong;
+handleWrong=function(q,u){
+  _origHandleWrong(q,u);
+  setTimeout(function(){
+    var e2=G('streakNum');if(e2)e2.textContent=correctStreak;
+  },100);
+};
+</script>
+</body>
+</html>
