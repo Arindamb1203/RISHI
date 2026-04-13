@@ -134,10 +134,24 @@ body{font-family:'Nunito',sans-serif;background:#0d0d1a;min-height:100vh;color:#
 @keyframes toastIn{0%{transform:translateX(120%);opacity:0;}20%{transform:translateX(0);opacity:1;}80%{transform:translateX(0);opacity:1;}100%{transform:translateX(120%);opacity:0;}}
 .streak-toast{position:fixed;bottom:30px;right:20px;background:#2ecc71;color:#fff;padding:14px 22px;border-radius:14px;font-weight:900;font-size:15px;z-index:700;animation:toastIn 3.5s ease forwards;pointer-events:none;}
 
+
+.tap-overlay{position:fixed;inset:0;background:rgba(10,10,26,0.92);z-index:999;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;}
+.tap-overlay.hidden{display:none;}
+.tap-circle{width:110px;height:110px;border-radius:50%;background:linear-gradient(135deg,#ffd700,#f39c12);display:flex;align-items:center;justify-content:center;font-size:42px;margin-bottom:20px;box-shadow:0 0 40px rgba(255,215,0,0.5);animation:tapPulse 1.4s ease-in-out infinite;}
+@keyframes tapPulse{0%,100%{transform:scale(1);}50%{transform:scale(1.08);}}
+.tap-text{color:#fff;font-family:'Nunito',sans-serif;font-size:20px;font-weight:800;letter-spacing:2px;}
+.tap-sub{color:rgba(255,255,255,0.5);font-size:13px;margin-top:8px;}
 </style>
 </head>
 <body>
 <!-- TOPBAR -->
+
+<div class="tap-overlay" id="tapOverlay" onclick="startPractice()">
+  <div class="tap-circle">▶</div>
+  <div class="tap-text">TAP TO BEGIN</div>
+  <div class="tap-sub">Sound will be enabled</div>
+</div>
+
 <div class="topbar">
   <div class="topbar-left">
     <button class="tbtn tbtn-back" onclick="backToSyllabus()">← Syllabus</button>
@@ -499,8 +513,8 @@ function loadQ(i){
   typeInstruction('Please do the sum in your copy and put answer in below text box');
   // Rishika
   setRishika('neutral','Ready for question '+(i+1)+'? Give it your best shot! 🎯');
-  // speak
-  setTimeout(function(){say(q.qs||q.q.replace(/<[^>]+>/g,''));},600);
+  // speak — only after user gesture (see startPractice)
+  if(idx > 0) setTimeout(function(){say(q.qs||q.q.replace(/<[^>]+>/g,''));},400);
   renderDots();
 }
 /* ── TYPING ANIMATION ── */
@@ -725,6 +739,19 @@ function backToSyllabus(){window.location.href='/syllabus.html';}
 document.addEventListener('click',function(e){
   if(!e.target.closest('.tbtn-break')){{var m=G('breakMenu');if(m)m.classList.remove('show');}}
 });
+
+
+function startPractice(){
+  var overlay = document.getElementById('tapOverlay');
+  if(overlay) overlay.classList.add('hidden');
+  // Unlock TTS with a real utterance
+  var u = new SpeechSynthesisUtterance('.');
+  u.volume = 0.01;
+  window.speechSynthesis.speak(u);
+  // Now speak the first question
+  var q = QB[idx];
+  if(q) setTimeout(function(){ say(q.qs || q.q.replace(/<[^>]+>/g,'')); }, 300);
+}
 
 window.onload=function(){init();};
 
