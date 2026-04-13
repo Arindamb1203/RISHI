@@ -215,7 +215,7 @@ body{font-family:'Nunito',sans-serif;background:#0d0d1a;min-height:100vh;color:#
   <div class="right-panel">
     <div class="rishika-card">
       <div class="rishika-name-tag">Rishika</div>
-      <div class="rishika-face" id="rishikaFace">👩‍🎓</div>
+      <div id="rishika-avatar"></div>
       <div class="rishika-bubble" id="rishikaBubble">Getting ready for your practice session! 🎯</div>
     </div>
     <div class="rough-card">
@@ -428,7 +428,6 @@ function say(txt,rate,pitch){
   window.speechSynthesis.speak(u);
 }
 /* ── CORE STATE ── */
-var QB=[];
 var idx=0,attemptNo=0,correctStreak=0,totalCorrect=0,sessionOver=false;
 var coins=parseInt(localStorage.getItem('rishi_coins')||'0');
 var answered=[]; // per Q: null|'correct'|'wrong'
@@ -455,7 +454,7 @@ function init(){
   answered=new Array(QB.length).fill(null);
   renderDots();
   renderStreak();
-  initVoices(function(){loadQ(0);});
+  initVoices(function(){loadQ(0);});rInit();
   sessionInterval=setInterval(function(){
     sessionSecs++;
     var m=Math.floor(sessionSecs/60).toString().padStart(2,'0');
@@ -489,7 +488,7 @@ function loadQ(i){
   setRishika('neutral','Ready for question '+(i+1)+'? Give it your best shot! 🎯');
   // speak
   setTimeout(function(){say(q.qs||q.q.replace(/<[^>]+>/g,''));},600);
-  updateDots();
+  renderDots();
 }
 /* ── TYPING ANIMATION ── */
 var typeTimer=null;
@@ -625,7 +624,8 @@ function onComplete(){
   G('compMsg').textContent=msg;
   G('compForeign').textContent=phrase;
   G('compOverlay').className='comp-overlay show';
-  setRishika(done?'celebrate':'praise',done?'You did it! Exam unlocked! 🏆':'Great session! Practice more to unlock exam!');
+  if(done){rCelebrate();}else{rHappy();}
+  var bubble=G('rishikaBubble');if(bubble)bubble.textContent=done?'You did it! Exam unlocked! 🏆':'Great session! Practice more to unlock exam!';
   say(title+'. '+msg);
 }
 /* ── STREAK TOAST ── */
@@ -649,12 +649,11 @@ function spawnCoin(){
   }
 }
 /* ── RISHIKA ── */
-var RFACES={neutral:'👩‍🎓',celebrate:'🎉',praise:'🌟',disappointed:'😟',thinking:'🤔'};
 function setRishika(expr,txt){
-  var face=G('rishikaFace');
-  if(face){face.textContent=RFACES[expr]||RFACES.neutral;}
+  if(expr==='celebrate'||expr==='praise'){rHappy();}
+  else if(expr==='thinking'||expr==='disappointed'){rThink();}
   var bubble=G('rishikaBubble');
-  if(bubble&&txt){bubble.textContent=txt;}
+  if(bubble&&txt){bubble.textContent=txt;rStartTalk(txt.length);}
 }
 /* ── COINS ── */
 function updateCoins(){var el=G('coinCount');if(el)el.textContent=coins;}
@@ -713,6 +712,7 @@ function backToSyllabus(){window.location.href='/syllabus.html';}
 document.addEventListener('click',function(e){
   if(!e.target.closest('.tbtn-break')){{var m=G('breakMenu');if(m)m.classList.remove('show');}}
 });
+
 window.onload=function(){init();};
 
 /* update displayed Q number on load */
@@ -738,6 +738,139 @@ handleWrong=function(q,u){
     var e2=G('streakNum');if(e2)e2.textContent=correctStreak;
   },100);
 };
+</script>
+<script>
+/* ============================================================
+   RISHIKA AVATAR ENGINE — global scope, no IIFE
+   ============================================================ */
+
+var RISHI_SPRITES = {
+  celebrate: {
+    file: '/images/rishika/sprites/celebrate.jpeg',
+    cols:4, rows:3, fw:384, fh:341,
+    seq:[[0,0],[1,0],[2,0],[3,0],[0,1],[1,1],[2,1],[3,1],[0,2],[1,2],[2,2],[3,2],
+         [3,2],[2,2],[3,2],[1,2],[2,2],[1,2],[2,2],[1,2],[0,2],[3,1],[2,1],[1,1],[0,1],[3,0],[2,0],[1,0],[0,0]],
+    fps:8, loop:false, holdMs:3000,
+    glow:'0 0 40px 12px rgba(245,158,11,0.6)', border:'#f59e0b'
+  },
+  praise: {
+    file: '/images/rishika/sprites/praise.jpeg',
+    cols:4, rows:3, fw:384, fh:341,
+    seq:[[0,0],[1,0],[2,0],[3,0],[0,1],[1,1],[2,1],[3,1],
+         [0,2],[1,2],[2,2],[3,2],[2,2],[1,2],[0,2],[1,1],[3,0],[1,0],[0,0]],
+    fps:6, loop:false, holdMs:2000,
+    glow:'0 0 28px 8px rgba(139,92,246,0.5)', border:'#a78bfa'
+  },
+  disappointed: {
+    file: '/images/rishika/sprites/disappointed-s1.jpeg',
+    cols:4, rows:3, fw:384, fh:341,
+    seq:[[0,0],[1,0],[2,0],[0,0],[3,0],[2,0],[0,1],[1,1],[2,1],[1,1],[3,1],[0,2],[1,2],[0,2],[2,2],[3,2],[0,0]],
+    fps:5, loop:false, holdMs:2000,
+    glow:'0 0 25px 6px rgba(225,29,72,0.35)', border:'#f87171'
+  },
+  talking: {
+    file: '/images/rishika/sprites/neutral-talking.png',
+    cols:6, rows:2, fw:256, fh:512,
+    seq:[[0,0],[1,0],[2,0],[3,0],[4,0],[5,0],[5,0],[4,0],[3,0],[2,0],[1,0],[0,0],
+         [0,1],[1,1],[2,1],[3,1],[4,1],[5,1],[4,1],[3,1],[2,1],[1,1],[0,1],[5,0]],
+    fps:10, loop:true, holdMs:0,
+    glow:'0 0 20px rgba(109,40,217,0.3)', border:'#7c3aed'
+  }
+};
+
+var _rCanvas = null, _rCtx = null;
+var _rCurName = null, _rSeqIdx = 0, _rFrameTimer = null;
+var _rImgs = {};
+var _rLoaded = 0, _rTotal = 0;
+var _rDW = 200, _rDH = 220;
+
+function rInit() {
+  var container = document.getElementById('rishika-avatar');
+  if (!container || _rCanvas) return;
+
+  _rCanvas = document.createElement('canvas');
+  _rCanvas.width  = _rDW;
+  _rCanvas.height = _rDH;
+  _rCanvas.style.cssText = 'border-radius:12px;transition:box-shadow .3s;display:block;margin:0 auto;';
+  container.appendChild(_rCanvas);
+  _rCtx = _rCanvas.getContext('2d');
+
+  // Load all images, start animation only after ALL loaded
+  var keys = Object.keys(RISHI_SPRITES);
+  _rTotal = keys.length;
+  _rLoaded = 0;
+
+  keys.forEach(function(k) {
+    var img = new Image();
+    _rImgs[k] = img;
+    img.onload = function() {
+      _rLoaded++;
+      if (_rLoaded === _rTotal) {
+        _rPlay('talking'); // All images ready — start
+      }
+    };
+    img.onerror = function() {
+      _rLoaded++;
+      if (_rLoaded === _rTotal) {
+        _rPlay('talking');
+      }
+    };
+    img.src = RISHI_SPRITES[k].file;
+  });
+}
+
+function _rPlay(name) {
+  _rStop();
+  if (!RISHI_SPRITES[name]) return;
+  _rCurName = name;
+  _rSeqIdx = 0;
+  var s = RISHI_SPRITES[name];
+  if (_rCanvas) {
+    _rCanvas.style.boxShadow = s.glow;
+    _rCanvas.style.border = '2px solid ' + s.border;
+  }
+  _rDrawFrame();
+  var interval = Math.round(1000 / s.fps);
+  _rFrameTimer = setInterval(function() {
+    _rSeqIdx++;
+    if (_rSeqIdx >= s.seq.length) {
+      if (s.loop) {
+        _rSeqIdx = 0;
+      } else {
+        _rStop();
+        if (name !== 'talking') {
+          setTimeout(function() { _rPlay('talking'); }, s.holdMs || 1000);
+        }
+        return;
+      }
+    }
+    _rDrawFrame();
+  }, interval);
+}
+
+function _rDrawFrame() {
+  if (!_rCtx || !_rCurName) return;
+  var s  = RISHI_SPRITES[_rCurName];
+  var img = _rImgs[_rCurName];
+  if (!img || !img.complete || img.naturalWidth === 0) return;
+  var frame = s.seq[_rSeqIdx] || [0,0];
+  var sx = frame[0] * s.fw;
+  var sy = frame[1] * s.fh;
+  _rCtx.clearRect(0, 0, _rDW, _rDH);
+  _rCtx.drawImage(img, sx, sy, s.fw, s.fh, 0, 0, _rDW, _rDH);
+}
+
+function _rStop() {
+  if (_rFrameTimer) { clearInterval(_rFrameTimer); _rFrameTimer = null; }
+}
+
+/* ── PUBLIC FUNCTIONS ── */
+function rHappy()        { _rPlay('praise'); }
+function rCelebrate()    { _rPlay('celebrate'); }
+function rThink()        { /* keep current */ }
+function rStartTalk(len) { _rPlay('talking'); }
+function rStopTalk()     { /* keep talking loop */ }
+
 </script>
 </body>
 </html>
