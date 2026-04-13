@@ -421,12 +421,25 @@ function initVoices(cb){
   else{window.speechSynthesis.onvoiceschanged=load;setTimeout(function(){if(!selVoice)load();},1000);}
 }
 function say(txt,rate,pitch){
+  _unlockTTS();
   window.speechSynthesis.cancel();
   var u=new SpeechSynthesisUtterance(txt);
   if(selVoice)u.voice=selVoice;
   u.rate=rate||0.88;u.pitch=pitch||1.05;u.lang='en-IN';
   window.speechSynthesis.speak(u);
 }
+/* ── TTS UNLOCK on first interaction ── */
+var _ttsUnlocked = false;
+function _unlockTTS(){
+  if(_ttsUnlocked) return;
+  _ttsUnlocked = true;
+  var u = new SpeechSynthesisUtterance('');
+  u.volume = 0;
+  window.speechSynthesis.speak(u);
+}
+document.addEventListener('click', _unlockTTS, {once:true});
+document.addEventListener('keydown', _unlockTTS, {once:true});
+
 /* ── CORE STATE ── */
 var idx=0,attemptNo=0,correctStreak=0,totalCorrect=0,sessionOver=false;
 var coins=parseInt(localStorage.getItem('rishi_coins')||'0');
