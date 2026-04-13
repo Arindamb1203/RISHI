@@ -275,6 +275,7 @@ window.addEventListener("beforeunload",function(){stopAllAudio();});
 window.addEventListener("pagehide",function(){stopAllAudio();});
 
 /* ═══════ REKHA (TURTLE) CHARACTER ═══════ */
+var elAudio=null;
 var mouthTmr=null, blinkTmr=null, mOpen=false;
 function rInit(){
   var c=G("rChar");

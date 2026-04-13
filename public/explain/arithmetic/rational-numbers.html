@@ -188,6 +188,7 @@ function say(text,onEnd){stopAllAudio();rStartTalk(text.length);fetch("/tts",{me
 function sayEl(id){var e=G(id);if(e)say(e.innerText||e.textContent);}
 window.addEventListener("beforeunload",function(){stopAllAudio();});
 window.addEventListener("pagehide",function(){stopAllAudio();});
+var elAudio=null;
 var mouthTmr=null,blinkTmr=null,mOpen=false;
 function rInit(){var c=G("rChar");if(c)c.style.animation="rIn .6s cubic-bezier(.34,1.56,.64,1) forwards";scheduleBlink();}
 function scheduleBlink(){blinkTmr=setTimeout(function(){rBlink();scheduleBlink();},2200+Math.random()*3000);}

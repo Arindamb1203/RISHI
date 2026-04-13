@@ -159,27 +159,28 @@ var TOPICS = [
   {id:'geometry',    name:'Geometry',     icon:'📐', chapters:[3,4,10]     },
   {id:'mensuration', name:'Mensuration',  icon:'📏', chapters:[11,112]     },
   {id:'arithmetic',  name:'Arithmetic',   icon:'🔢', chapters:[1,8,12,13,16]},
-  {id:'datahandling',name:'Data Handling',icon:'📊', chapters:[5]          }
+  {id:'datahandling',name:'Data Handling',icon:'📊', chapters:[5,17]       }
 ];
 
 var CHAPTERS = {
-  1: {name:"Rational Numbers",             built:true,  path:"/explain/arithmetic/rational-numbers.html",           practicePath:"/practice/arithmetic/rational-numbers.html"},
+  1: {name:"Rational Numbers",             built:true,  path:"/explain/arithmetic/rational-numbers.html"},
   2: {name:"Linear Equations",             built:true,  path:"/explain/algebra/linear-equations.html"},
   3: {name:"Understanding Quadrilaterals", built:true,  path:"/explain/geometry/understanding-quadrilaterals.html"},
   4: {name:"Practical Geometry",           built:true,  path:"/explain/geometry/practical-geometry.html"},
-  5: {name:"Data Handling",                built:true,  path:"/explain/data-handling/frequency-distribution.html",  practicePath:"/practice/data-handling/frequency-distribution.html"},
+  5: {name:"Data Handling",                built:true,  path:"/explain/data-handling/frequency-distribution.html"},
   6: {name:"Squares & Square Roots",       built:false, path:""},
   7: {name:"Cubes & Cube Roots",           built:false, path:""},
-  8: {name:"Comparing Quantities",         built:true,  path:"/explain/arithmetic/comparing-quantities.html",        practicePath:"/practice/arithmetic/comparing-quantities.html"},
+  8: {name:"Comparing Quantities",         built:true,  path:"/explain/arithmetic/comparing-quantities.html"},
   9: {name:"Algebraic Expressions",        built:true,  path:"/explain/algebra/algebraic-expressions-identities.html"},
   10:{name:"Visualising Solid Shapes",     built:true,  path:"/explain/geometry/visualising-solid-shapes.html"},
   11:{name:"Area of Plane Figures",         built:true,  path:"/explain/mensuration/area-plane-figures.html"},
   112:{name:"Surface Area & Volume",          built:true,  path:"/explain/mensuration/surface-area-volume.html",  legacyKey:"explain_surface_done"},
-  12:{name:"Exponents and Powers",         built:true,  path:"/explain/arithmetic/powers-exponents.html",           practicePath:"/practice/arithmetic/powers-exponents.html"},
-  13:{name:"Direct & Inverse Proportions", built:true,  path:"/explain/arithmetic/direct-inverse-proportions.html", practicePath:"/practice/arithmetic/direct-inverse-proportions.html"},
-  14:{name:"Factorisation",                built:true,  path:"/explain/algebra/factorisation.html",                 practicePath:"/practice/algebra/factorisation.html"},
+  12:{name:"Exponents and Powers",         built:true,  path:"/explain/arithmetic/powers-exponents.html"},
+  13:{name:"Direct & Inverse Proportions", built:true,  path:"/explain/arithmetic/direct-inverse-proportions.html"},
+  14:{name:"Factorisation",                built:true,  path:"/explain/algebra/factorisation.html"},
   15:{name:"Introduction to Graphs",       built:true,  path:"/explain/algebra/introduction-to-graphs.html"},
-  16:{name:"Playing with Numbers",         built:true,  path:"/explain/arithmetic/playing-with-numbers.html",       practicePath:"/practice/arithmetic/playing-with-numbers.html"}
+  16:{name:"Playing with Numbers",         built:true,  path:"/explain/arithmetic/playing-with-numbers.html"},
+  17:{name:"Chance and Probability",        built:true,  path:"/explain/data-handling/chance-probability.html"}
 };
 
 var CH_COLORS = {
@@ -192,6 +193,25 @@ var LEGACY_KEYS = {
   2:"explain_linear_done",3:"explain_quadrilaterals_done",
   4:"explain_practical_done",9:"explain_algebraic_done",
   11:"explain_area_done",112:"explain_surface_done",15:"explain_graphs_done"
+};
+
+var PRACTICE_PATHS = {
+  1: "/practice/arithmetic/rational-numbers.html",
+  8: "/practice/arithmetic/comparing-quantities.html",
+  12:"/practice/arithmetic/powers-exponents.html",
+  13:"/practice/arithmetic/direct-inverse-proportions.html",
+  16:"/practice/arithmetic/playing-with-numbers.html",
+  2: "/practice/algebra/linear-equations.html",
+  9: "/practice/algebra/algebraic-expressions-identities.html",
+  14:"/practice/algebra/factorisation.html",
+  15:"/practice/algebra/introduction-to-graphs.html",
+  3: "/practice/geometry/understanding-quadrilaterals.html",
+  4: "/practice/geometry/practical-geometry.html",
+  10:"/practice/geometry/visualising-solid-shapes.html",
+  11:"/practice/mensuration/area-plane-figures.html",
+  112:"/practice/mensuration/surface-area-volume.html",
+  5: "/practice/data-handling/frequency-distribution.html",
+  17:"/practice/data-handling/chance-probability.html"
 };
 
 var activeTopic = sessionStorage.getItem("rishi_syllabus_topic")||TOPICS[0].id;
@@ -281,12 +301,13 @@ function buildChapterList(){
       }
 
       /* PRACTICE */
+      var practPath=PRACTICE_PATHS[cid]||'';
       if(!explainDone){
         html+='<span class="abtn locked-btn"><span class="abtn-ico">✏️</span><span class="abtn-name">Practice</span><span class="abtn-sub">🔒 After Explain</span></span>';
       } else if(practiceDone){
-        html+='<span class="abtn done-btn"><span class="abtn-ico">✏️</span><span class="abtn-name">Practice</span><span class="abtn-sub">✓ Completed</span></span>';
-      } else if(ch.practicePath){
-        html+='<a href="'+ch.practicePath+'" class="abtn go"><span class="abtn-ico">✏️</span><span class="abtn-name">Practice</span><span class="abtn-sub">▶ Start Now</span></a>';
+        html+='<a href="'+(practPath||'#')+'" class="abtn done-btn"><span class="abtn-ico">✏️</span><span class="abtn-name">Practice</span><span class="abtn-sub">✓ Done · Retry</span></a>';
+      } else if(practPath){
+        html+='<a href="'+practPath+'" class="abtn go"><span class="abtn-ico">✏️</span><span class="abtn-name">Practice</span><span class="abtn-sub">▶ Start Now</span></a>';
       } else {
         html+='<span class="abtn soon-btn"><span class="abtn-ico">✏️</span><span class="abtn-name">Practice</span><span class="abtn-sub">Coming Soon</span></span>';
       }
@@ -312,6 +333,16 @@ function toggleChapter(cid){
   var body=G('cbody-'+cid),arrow=G('carr-'+cid),card=G('chcard-'+cid);
   if(!body) return;
   var open=body.classList.contains('open');
+  // Close all other chapters first
+  if(!open){
+    var allBodies=document.querySelectorAll('.ch-body.open');
+    allBodies.forEach(function(b){
+      b.classList.remove('open');
+      var id=b.id.replace('cbody-','');
+      var a=G('carr-'+id); if(a) a.classList.remove('open');
+      var c=G('chcard-'+id); if(c) c.classList.remove('expanded');
+    });
+  }
   body.classList.toggle('open',!open);
   if(arrow) arrow.classList.toggle('open',!open);
   if(card)  card.classList.toggle('expanded',!open);
