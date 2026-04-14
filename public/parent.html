@@ -909,10 +909,19 @@ function renderExamGrid() {
 
 function selectExam(examId) {
   selExamId = examId;
-  // Reset chapters and dates when switching exam
   selChIds = [];
   chDates = {};
   calManual = false;
+
+  // Pre-tick all chapters with default mode 'explain'
+  for (var i = 0; i < CHAPTERS.length; i++) {
+    var cid = CHAPTERS[i].id;
+    selChIds.push(cid);
+    chDates[cid] = {start:'', target:'', mode:'explain'};
+  }
+  // AI pre-fill dates sequentially from tomorrow
+  autoSchedule();
+
   renderExamGrid();
   renderChapterList();
   renderDateTable();
