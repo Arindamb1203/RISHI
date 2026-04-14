@@ -446,6 +446,70 @@ button{font-family:'Outfit',sans-serif;}
 .empty{text-align:center;padding:34px 20px;}
 .empty-ico{font-size:38px;margin-bottom:10px;}
 .empty-txt{font-size:13px;color:var(--muted);font-weight:500;}
+
+/* ====== INSTRUCTION SCREEN ====== */
+#instr-screen{
+  min-height:100vh;background:linear-gradient(140deg,#0A1628 0%,#0F2240 55%,#1A3560 100%);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;padding:28px 16px;
+}
+.instr-logo{font-size:26px;font-weight:900;letter-spacing:4px;color:white;margin-bottom:4px;}
+.instr-logo span{color:var(--gold);}
+.instr-sub{font-size:12px;color:rgba(255,255,255,.45);font-weight:600;margin-bottom:28px;letter-spacing:.5px;}
+.instr-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;max-width:900px;width:100%;margin-bottom:24px;}
+.instr-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:18px 20px;}
+.instr-ico{font-size:22px;margin-bottom:10px;}
+.instr-ttl{font-size:13px;font-weight:800;color:white;margin-bottom:6px;}
+.instr-body{font-size:11px;color:rgba(255,255,255,.55);line-height:1.7;}
+.instr-body b{color:rgba(255,255,255,.85);font-weight:700;}
+.instr-btns{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;}
+.btn-instr-skip{
+  padding:11px 22px;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;
+  background:rgba(255,255,255,.08);border:1.5px solid rgba(255,255,255,.18);
+  color:rgba(255,255,255,.65);font-family:'Outfit',sans-serif;transition:all .2s;
+}
+.btn-instr-skip:hover{background:rgba(255,255,255,.14);color:white;}
+.btn-instr-go{
+  padding:11px 28px;border-radius:10px;font-size:13px;font-weight:800;cursor:pointer;
+  background:var(--gold);border:none;color:#0F2240;font-family:'Outfit',sans-serif;transition:all .2s;
+}
+.btn-instr-go:hover{background:var(--gold2);transform:translateY(-1px);}
+
+/* ====== MODE SELECTOR ====== */
+.mode-sel{
+  display:flex;gap:3px;border:1.5px solid var(--border);border-radius:8px;
+  background:var(--light);overflow:hidden;
+}
+.mode-opt{
+  flex:1;padding:6px 4px;font-size:9px;font-weight:800;text-align:center;
+  cursor:pointer;border:none;background:none;font-family:'Outfit',sans-serif;
+  color:var(--muted);transition:all .15s;text-transform:uppercase;letter-spacing:.3px;
+}
+.mode-opt.on{background:var(--navy);color:white;}
+.mode-opt:hover:not(.on){background:var(--border);}
+
+/* ====== PERFORMANCE TAB ====== */
+.perf-sec{margin-bottom:18px;}
+.perf-sec-hdr{
+  font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:1px;
+  color:var(--navy);margin-bottom:12px;display:flex;align-items:center;gap:8px;
+}
+.perf-tbl{width:100%;border-collapse:separate;border-spacing:0 4px;}
+.perf-tbl th{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:var(--muted);padding:0 8px 6px;text-align:left;}
+.perf-tbl td{padding:9px 8px;background:var(--light);border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
+.perf-tbl td:first-child{border-left:1px solid var(--border);border-radius:9px 0 0 9px;padding-left:12px;}
+.perf-tbl td:last-child{border-right:1px solid var(--border);border-radius:0 9px 9px 0;padding-right:12px;}
+.perf-tbl tr:hover td{background:white;}
+.acc-badge{font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;display:inline-block;}
+
+.coin-row{display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--border);}
+.coin-row:last-child{border-bottom:none;}
+.coin-lbl{font-size:13px;font-weight:600;color:var(--text);}
+.coin-val{font-size:18px;font-weight:900;color:var(--navy);}
+
+.break-stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px;}
+.break-stat{background:var(--light);border-radius:12px;padding:14px;text-align:center;}
+.break-stat-n{font-size:22px;font-weight:900;color:var(--navy);}
+.break-stat-l{font-size:9px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;margin-top:3px;}
 </style>
 </head>
 <body>
@@ -469,6 +533,43 @@ button{font-family:'Outfit',sans-serif;}
   </div>
 </div>
 
+<!-- ===== INSTRUCTION SCREEN ===== -->
+<div id="instr-screen" class="hidden">
+  <div class="instr-logo">RISHI<span>.</span></div>
+  <div class="instr-sub">Parent Portal Guide — Read before you begin</div>
+  <div class="instr-grid">
+    <div class="instr-card">
+      <div class="instr-ico">&#128203;</div>
+      <div class="instr-ttl">How to Create a Study Plan</div>
+      <div class="instr-body">Go to the <b>Study Plan</b> tab. Select an exam type (Unit Test, Half Yearly or Annual), choose the chapters you want to assign, and set a <b>Start Date</b> and <b>Target Date</b> for each. Choose the mode (Explain / Practice / Exam) per chapter. Click <b>Lock Study Plan</b> when ready.</div>
+    </div>
+    <div class="instr-card">
+      <div class="instr-ico">&#128274;</div>
+      <div class="instr-ttl">Locking &amp; Activation</div>
+      <div class="instr-body">Until a plan is <b>locked</b>, the student will not see any changes. Once locked, assigned chapters become visible on the student dashboard with a countdown to the target date. You can delete a plan at any time from the Active Plans section.</div>
+    </div>
+    <div class="instr-card">
+      <div class="instr-ico">&#128218;</div>
+      <div class="instr-ttl">Explain → Practice → Exam Flow</div>
+      <div class="instr-body">Each chapter follows a strict order: the student must <b>complete Explain</b> before Practice is unlocked, and <b>complete Practice</b> (5-correct streak) before the Chapter Exam is available. Assigning a mode that hasn't been unlocked yet will show a warning.</div>
+    </div>
+    <div class="instr-card">
+      <div class="instr-ico">&#9000;</div>
+      <div class="instr-ttl">How Students Answer</div>
+      <div class="instr-body">Students type answers using the <b>keyboard</b> — voice input is not used. For fractions, type like <b>3/4</b>. For powers, type <b>2^3</b>. For mixed numbers, type <b>1 1/2</b>. The system auto-normalises common variations so minor formatting differences are accepted.</div>
+    </div>
+    <div class="instr-card">
+      <div class="instr-ico">&#127881;</div>
+      <div class="instr-ttl">Coins &amp; Rewards</div>
+      <div class="instr-body">Students earn <b>coins</b> for correct answers and streaks. These are tracked in the Performance tab. If you physically reward your child (e.g. a real treat), use the <b>Reset Coins</b> button on the Performance tab to zero the balance after redemption.</div>
+    </div>
+  </div>
+  <div class="instr-btns">
+    <button class="btn-instr-skip" onclick="skipInstructions()">Skip — Go to Portal</button>
+    <button class="btn-instr-go" onclick="skipInstructions()">&#10003; Got It — Open Portal</button>
+  </div>
+</div>
+
 <!-- ===== MAIN PORTAL ===== -->
 <div id="main-portal" class="hidden">
 
@@ -478,13 +579,14 @@ button{font-family:'Outfit',sans-serif;}
     <div class="hdr-title">Parent Portal</div>
     <div class="hdr-r">
       <div class="hdr-badge">&#128274; Parent</div>
+      <button class="btn-out-hdr" onclick="showInstructions()">&#10067; Guide</button>
       <button class="btn-out-hdr" onclick="logout()">Sign Out</button>
     </div>
   </div>
 
   <div class="tab-bar">
     <button class="tab-btn on" id="tab-plan" onclick="switchTab('plan')">&#128203; Study Plan</button>
-    <button class="tab-btn" id="tab-prog" onclick="switchTab('prog')">&#128200; Progress</button>
+    <button class="tab-btn" id="tab-perf" onclick="switchTab('perf')">&#128202; Performance</button>
     <button class="tab-btn" id="tab-dash" onclick="switchTab('dash')">&#9889; Analytics</button>
   </div>
 
@@ -547,12 +649,37 @@ button{font-family:'Outfit',sans-serif;}
 
     </div><!-- /view-plan -->
 
-    <!-- ===== PROGRESS TAB ===== -->
-    <div id="view-prog" class="hidden">
-      <div class="card">
-        <div class="card-title">&#128202; Chapter Progress</div>
-        <div id="prog-container"></div>
+    <!-- ===== PERFORMANCE TAB ===== -->
+    <div id="view-perf" class="hidden">
+
+      <!-- Practice Stats -->
+      <div class="card perf-sec">
+        <div class="card-title">&#128221; Practice Statistics — Chapter-wise</div>
+        <div id="perf-practice-con"></div>
       </div>
+
+      <!-- Exam Scores -->
+      <div class="card perf-sec">
+        <div class="card-title">&#127941; Exam Scores</div>
+        <div id="perf-exam-con"></div>
+      </div>
+
+      <!-- Break Stats -->
+      <div class="card perf-sec">
+        <div class="card-title">&#9749; Break Statistics</div>
+        <div class="break-stat-row" id="perf-break-stats"></div>
+        <div id="perf-break-log"></div>
+      </div>
+
+      <!-- Coins -->
+      <div class="card perf-sec">
+        <div class="card-title">&#129689; Coins</div>
+        <div id="perf-coins-con"></div>
+        <div style="margin-top:14px">
+          <button class="btn btn-ghost btn-sm" onclick="resetCoins()">&#128260; Reset Coin Balance (after physical reward)</button>
+        </div>
+      </div>
+
     </div>
 
     <!-- ===== ANALYTICS TAB ===== -->
@@ -699,19 +826,32 @@ function checkAuth() {
 function enterPortal() {
   isAuth = true;
   document.getElementById('login-screen').style.display = 'none';
+  if (!sessionStorage.getItem('rishi_instr_seen')) {
+    document.getElementById('instr-screen').className = '';
+  } else {
+    initMainPortal();
+  }
+}
+
+function skipInstructions() {
+  sessionStorage.setItem('rishi_instr_seen', '1');
+  document.getElementById('instr-screen').className = 'hidden';
+  initMainPortal();
+}
+
+function showInstructions() {
+  document.getElementById('main-portal').className = 'hidden';
+  document.getElementById('instr-screen').className = '';
+}
+
+function initMainPortal() {
   document.getElementById('main-portal').className = '';
   loadPlans();
-  seedDemoDataIfEmpty();
   var now = new Date();
   calYear = now.getFullYear();
   calMonth = now.getMonth();
   renderExamGrid();
   renderActivePlans();
-  renderProgress();
-}
-
-function seedDemoDataIfEmpty() {
-  // Removed — no fake data seeding
 }
 
 // ===========================
@@ -737,12 +877,12 @@ function savePlans() {
 // ===========================
 function switchTab(tab) {
   document.getElementById('tab-plan').className = 'tab-btn' + (tab === 'plan' ? ' on' : '');
-  document.getElementById('tab-prog').className = 'tab-btn' + (tab === 'prog' ? ' on' : '');
+  document.getElementById('tab-perf').className = 'tab-btn' + (tab === 'perf' ? ' on' : '');
   document.getElementById('tab-dash').className = 'tab-btn' + (tab === 'dash' ? ' on' : '');
   document.getElementById('view-plan').className = tab === 'plan' ? '' : 'hidden';
-  document.getElementById('view-prog').className = tab === 'prog' ? '' : 'hidden';
+  document.getElementById('view-perf').className = tab === 'perf' ? '' : 'hidden';
   document.getElementById('view-dash').className = tab === 'dash' ? '' : 'hidden';
-  if (tab === 'prog') renderProgress();
+  if (tab === 'perf') renderPerformance();
   if (tab === 'dash') renderAnalytics();
 }
 
@@ -848,7 +988,7 @@ function toggleCh(chId) {
     delete chDates[chId];
   } else {
     selChIds.push(chId);
-    if (!chDates[chId]) chDates[chId] = {start:'', target:''};
+    if (!chDates[chId]) chDates[chId] = {start:'', target:'', mode:'explain'};
   }
   calManual = false;
   renderChapterList();
@@ -862,7 +1002,7 @@ function selectAll() {
     var cid = CHAPTERS[i].id;
     if (selChIds.indexOf(cid) === -1) {
       selChIds.push(cid);
-      if (!chDates[cid]) chDates[cid] = {start:'', target:''};
+      if (!chDates[cid]) chDates[cid] = {start:'', target:'', mode:'explain'};
     }
   }
   calManual = false;
@@ -894,14 +1034,15 @@ function renderDateTable() {
 
   var sorted = selChIds.slice().sort(function(a,b){return a-b;});
   var html = '<table class="dt-tbl"><thead><tr>';
-  html += '<th>Chapter</th><th>Start Date</th><th>Target Date</th><th style="text-align:center">Study Days</th>';
+  html += '<th>Chapter</th><th>Mode</th><th>Start Date</th><th>Target Date</th><th style="text-align:center">Study Days</th>';
   html += '</tr></thead><tbody>';
 
   for (var i = 0; i < sorted.length; i++) {
     var cid = sorted[i];
     var ch = getCh(cid);
     var color = getChColor(cid);
-    var d = chDates[cid] || {start:'', target:''};
+    var d = chDates[cid] || {start:'', target:'', mode:'explain'};
+    var mode = d.mode || 'explain';
 
     var dHtml = '<span class="dt-days na">—</span>';
     if (d.start && d.target) {
@@ -915,8 +1056,20 @@ function renderDateTable() {
       }
     }
 
+    // Mode warning
+    var explainDone = localStorage.getItem('rishi_explain_done_' + cid);
+    var practiceDone = localStorage.getItem('rishi_practice_done_' + cid);
+    var modeWarn = '';
+    if (mode === 'practice' && !explainDone) modeWarn = ' title="Explain not completed yet"';
+    if (mode === 'exam' && !practiceDone) modeWarn = ' title="Practice not completed yet"';
+
     html += '<tr class="dt-row">';
     html += '<td><div class="dt-ch"><span class="dt-dot" style="background:' + color + '"></span>Ch ' + cid + '. ' + ch.name + '</div></td>';
+    html += '<td><div class="mode-sel"' + modeWarn + '>';
+    html += '<button class="mode-opt' + (mode==='explain'?' on':'') + '" onclick="setMode(' + cid + ',\'explain\')">Explain</button>';
+    html += '<button class="mode-opt' + (mode==='practice'?' on':'') + '" onclick="setMode(' + cid + ',\'practice\')"' + (!explainDone?' style="opacity:.45"':'') + '>Practice</button>';
+    html += '<button class="mode-opt' + (mode==='exam'?' on':'') + '" onclick="setMode(' + cid + ',\'exam\')"' + (!practiceDone?' style="opacity:.45"':'') + '>Exam</button>';
+    html += '</div></td>';
     html += '<td><input class="dt-inp" type="date" value="' + (d.start || '') + '" data-cid="' + cid + '" data-type="start" onchange="onDateChange(this)"></td>';
     html += '<td><input class="dt-inp" type="date" value="' + (d.target || '') + '" data-cid="' + cid + '" data-type="target" onchange="onDateChange(this)"></td>';
     html += '<td>' + dHtml + '</td>';
@@ -930,9 +1083,18 @@ function renderDateTable() {
 function onDateChange(el) {
   var cid = parseInt(el.getAttribute('data-cid'));
   var type = el.getAttribute('data-type');
-  if (!chDates[cid]) chDates[cid] = {start:'', target:''};
-  if (type === 'start') chDates[cid].start = el.value;
-  else chDates[cid].target = el.value;
+  if (!chDates[cid]) chDates[cid] = {start:'', target:'', mode:'explain'};
+  if (type === 'start') {
+    chDates[cid].start = el.value;
+    // Auto-cascade: if target not set, set it to start + 7 days
+    if (!chDates[cid].target && el.value) {
+      var t = new Date(el.value);
+      t.setDate(t.getDate() + 7);
+      chDates[cid].target = toDateStr(t);
+    }
+  } else {
+    chDates[cid].target = el.value;
+  }
   calManual = false;
   renderDateTable();
   renderCalendar();
@@ -944,13 +1106,17 @@ function quickSet(days) {
   var sorted = selChIds.slice().sort(function(a,b){return a-b;});
   var today = new Date();
   today.setHours(0,0,0,0);
+  var cursor = new Date(today);
+  cursor.setDate(cursor.getDate() + 1); // start from tomorrow
   for (var i = 0; i < sorted.length; i++) {
     var cid = sorted[i];
-    var start = new Date(today);
-    start.setDate(start.getDate() + i * (days + 1));
-    var target = new Date(start);
+    var existingMode = (chDates[cid] && chDates[cid].mode) ? chDates[cid].mode : 'explain';
+    var target = new Date(cursor);
     target.setDate(target.getDate() + days);
-    chDates[cid] = {start: toDateStr(start), target: toDateStr(target)};
+    chDates[cid] = {start: toDateStr(cursor), target: toDateStr(target), mode: existingMode};
+    // Next chapter starts day after this one's target
+    cursor = new Date(target);
+    cursor.setDate(cursor.getDate() + 1);
   }
   calManual = false;
   renderDateTable();
@@ -964,6 +1130,12 @@ function allDatesSet() {
     if (!d.start || !d.target) return false;
   }
   return selChIds.length > 0;
+}
+
+function setMode(cid, mode) {
+  if (!chDates[cid]) chDates[cid] = {start:'', target:'', mode:'explain'};
+  chDates[cid].mode = mode;
+  renderDateTable();
 }
 
 // ===========================
@@ -1261,7 +1433,8 @@ function confirmLock() {
       topic: ch.topic,
       color: getChColor(cid),
       startDate: d.start,
-      targetDate: d.target
+      targetDate: d.target,
+      mode: d.mode || 'explain'
     });
   }
 
@@ -1392,76 +1565,175 @@ function renderActivePlans() {
 }
 
 // ===========================
-// PROGRESS
+// PERFORMANCE
 // ===========================
-function renderProgress() {
-  var con = document.getElementById('prog-container');
+function renderPerformance() {
+  renderPracticeStats();
+  renderPerfExamScores();
+  renderBreakStats();
+  renderCoins();
+}
 
+function renderPracticeStats() {
+  var con = document.getElementById('perf-practice-con');
   var progress = {};
-  try {
-    var raw = localStorage.getItem('rishi_chapter_progress');
-    if (raw) progress = JSON.parse(raw);
-  } catch(e) {}
+  try { progress = JSON.parse(localStorage.getItem('rishi_chapter_progress') || '{}'); } catch(e) {}
 
-  // Get unique scheduled chapters
-  var scheduled = {};
+  // Collect all chapters that have any progress OR are in a plan
+  var chIds = [];
+  var inPlan = {};
   for (var p = 0; p < plans.length; p++) {
     for (var k = 0; k < plans[p].chapters.length; k++) {
-      var pch = plans[p].chapters[k];
-      if (!scheduled[pch.id]) {
-        scheduled[pch.id] = {
-          name: pch.name,
-          color: pch.color,
-          startDate: pch.startDate,
-          targetDate: pch.targetDate,
-          examName: plans[p].examName
-        };
-      }
+      var pid = plans[p].chapters[k].id;
+      inPlan[pid] = true;
+      if (chIds.indexOf(pid) === -1) chIds.push(pid);
     }
   }
+  for (var cid in progress) {
+    if (chIds.indexOf(parseInt(cid)) === -1) chIds.push(parseInt(cid));
+  }
+  chIds.sort(function(a,b){return a-b;});
 
-  var ids = [];
-  for (var cid in scheduled) ids.push(parseInt(cid));
-  ids.sort(function(a,b){return a-b;});
-
-  if (ids.length === 0) {
-    con.innerHTML = '<div class="empty"><div class="empty-ico">&#128202;</div><div class="empty-txt">No study plans yet. Create a plan to track progress here.</div></div>';
+  if (chIds.length === 0) {
+    con.innerHTML = '<div class="empty"><div class="empty-ico">&#128202;</div><div class="empty-txt">No practice data yet.</div></div>';
     return;
   }
 
-  var today = toDateStr(new Date());
-  var html = '';
+  var html = '<div style="overflow-x:auto"><table class="perf-tbl"><thead><tr>';
+  html += '<th>Chapter</th><th>Explain</th><th>Practice</th><th>Questions</th><th>Accuracy</th><th>Sessions</th><th>Streak</th><th>Last Active</th>';
+  html += '</tr></thead><tbody>';
 
-  for (var i = 0; i < ids.length; i++) {
-    var cid2 = ids[i];
-    var info = scheduled[cid2];
-    var prog = progress[cid2] || {completed:0, total:15};
-    var pct = Math.min(100, Math.round((prog.completed / (prog.total || 15)) * 100));
-    var dLeft = daysBetween(today, info.targetDate);
-    var dlText, dlCls;
-    if (pct >= 100) { dlText = '&#10003; Done'; dlCls = 'dl-done'; }
-    else if (dLeft < 0) { dlText = 'Past due'; dlCls = 'dl-hot'; }
-    else if (dLeft === 0) { dlText = 'Due today!'; dlCls = 'dl-hot'; }
-    else if (dLeft <= 3) { dlText = dLeft + 'd left'; dlCls = 'dl-hot'; }
-    else if (dLeft <= 7) { dlText = dLeft + 'd left'; dlCls = 'dl-warn'; }
-    else { dlText = dLeft + 'd left'; dlCls = 'dl-good'; }
+  for (var i = 0; i < chIds.length; i++) {
+    var cid2 = chIds[i];
+    var ch = getCh(cid2);
+    if (!ch) continue;
+    var pr = progress[cid2] || {};
+    var color = getChColor(cid2);
 
-    html += '<div class="prog-row">';
-    html += '<div class="prog-top">';
-    html += '<div class="prog-name"><span class="ch-chip" style="background:' + info.color + ';color:white">Ch ' + cid2 + '</span>' + info.name + '</div>';
-    html += '<div class="prog-right"><span class="prog-pct">' + pct + '%</span><span class="dl-badge ' + dlCls + '">' + dlText + '</span></div>';
-    html += '</div>';
-    html += '<div class="prog-bg"><div class="prog-fill" style="width:' + pct + '%;background:' + info.color + '"></div></div>';
-    html += '</div>';
+    var explainDone = localStorage.getItem('rishi_explain_done_' + cid2) ? '&#9989;' : '&#9899;';
+    var practiceDone = localStorage.getItem('rishi_practice_done_' + cid2) ? '&#9989;' : '&#9899;';
+    var completed = parseInt(pr.completed || 0);
+    var total = parseInt(pr.total || 15);
+    var accuracy = parseFloat(pr.accuracy || 0);
+    var sessions = parseInt(pr.sessions || 0);
+    var streak = parseInt(pr.streak || 0);
+    var lastActive = pr.lastActive ? pr.lastActive : '—';
+
+    var accCls = accuracy >= 75 ? 'background:#ECFDF5;color:#065F46' : accuracy >= 50 ? 'background:#FFFBEB;color:#92400E' : accuracy > 0 ? 'background:#FEF2F2;color:#991B1B' : 'background:var(--light);color:var(--muted)';
+
+    html += '<tr>';
+    html += '<td><div style="display:flex;align-items:center;gap:6px"><span style="width:8px;height:8px;border-radius:50%;background:' + color + ';display:inline-block;flex-shrink:0"></span><span style="font-size:12px;font-weight:600">Ch ' + cid2 + '. ' + ch.name + '</span></div></td>';
+    html += '<td style="text-align:center;font-size:14px">' + explainDone + '</td>';
+    html += '<td style="text-align:center;font-size:14px">' + practiceDone + '</td>';
+    html += '<td style="font-size:12px;font-weight:700;text-align:center">' + completed + '/' + total + '</td>';
+    html += '<td><span class="acc-badge" style="' + accCls + '">' + (accuracy > 0 ? accuracy + '%' : '—') + '</span></td>';
+    html += '<td style="font-size:12px;font-weight:700;text-align:center">' + (sessions || '—') + '</td>';
+    html += '<td style="font-size:12px;font-weight:700;text-align:center">' + (streak > 0 ? '&#128293; ' + streak : '—') + '</td>';
+    html += '<td style="font-size:11px;color:var(--muted)">' + lastActive + '</td>';
+    html += '</tr>';
   }
-
-  html += '<div style="font-size:11px;color:var(--muted);margin-top:14px;font-weight:500;">Progress is recorded automatically when the student completes practice sessions.</div>';
+  html += '</tbody></table></div>';
   con.innerHTML = html;
 }
 
-// ===========================
-// ANALYTICS
-// ===========================
+function renderPerfExamScores() {
+  var con = document.getElementById('perf-exam-con');
+  var examScores = [];
+  try { examScores = JSON.parse(localStorage.getItem('rishi_exam_scores') || '[]'); } catch(e) {}
+
+  if (examScores.length === 0) {
+    con.innerHTML = '<div class="empty"><div class="empty-ico">&#127941;</div><div class="empty-txt">No exam scores recorded yet.</div></div>';
+    return;
+  }
+
+  var html = '<div style="overflow-x:auto"><table class="perf-tbl"><thead><tr>';
+  html += '<th>Chapter / Exam</th><th>Score</th><th>Max</th><th>%</th><th>Attempts</th><th>Date</th>';
+  html += '</tr></thead><tbody>';
+
+  // Group by chapter/examId
+  var grouped = {};
+  for (var i = 0; i < examScores.length; i++) {
+    var s = examScores[i];
+    var key = s.examId || ('ch_' + s.chapterId);
+    if (!grouped[key]) grouped[key] = [];
+    grouped[key].push(s);
+  }
+
+  for (var key2 in grouped) {
+    var scores = grouped[key2];
+    var best = scores[scores.length - 1]; // most recent
+    var pct = Math.round((best.score / (best.maxScore || 100)) * 100);
+    var accCls2 = pct >= 75 ? 'background:#ECFDF5;color:#065F46' : pct >= 50 ? 'background:#FFFBEB;color:#92400E' : 'background:#FEF2F2;color:#991B1B';
+    var label = best.chapterName || best.examName || key2;
+    html += '<tr>';
+    html += '<td style="font-size:12px;font-weight:600">' + label + '</td>';
+    html += '<td style="font-size:13px;font-weight:800;text-align:center">' + best.score + '</td>';
+    html += '<td style="font-size:12px;color:var(--muted);text-align:center">' + (best.maxScore || 100) + '</td>';
+    html += '<td><span class="acc-badge" style="' + accCls2 + '">' + pct + '%</span></td>';
+    html += '<td style="font-size:12px;font-weight:700;text-align:center">' + scores.length + '</td>';
+    html += '<td style="font-size:11px;color:var(--muted)">' + (best.date || '—') + '</td>';
+    html += '</tr>';
+  }
+  html += '</tbody></table></div>';
+  con.innerHTML = html;
+}
+
+function renderBreakStats() {
+  var breakLog = [];
+  try { breakLog = JSON.parse(localStorage.getItem('rishi_break_log') || '[]'); } catch(e) {}
+
+  var totalBreaks = breakLog.length;
+  var totalMins = 0;
+  for (var i = 0; i < breakLog.length; i++) totalMins += parseInt(breakLog[i].duration || 0);
+  var avgMins = totalBreaks > 0 ? Math.round(totalMins / totalBreaks) : 0;
+
+  document.getElementById('perf-break-stats').innerHTML =
+    '<div class="break-stat"><div class="break-stat-n">' + totalBreaks + '</div><div class="break-stat-l">Total Breaks</div></div>' +
+    '<div class="break-stat"><div class="break-stat-n">' + totalMins + '</div><div class="break-stat-l">Total Minutes</div></div>' +
+    '<div class="break-stat"><div class="break-stat-n">' + avgMins + '</div><div class="break-stat-l">Avg per Break</div></div>';
+
+  if (breakLog.length === 0) {
+    document.getElementById('perf-break-log').innerHTML = '<div style="font-size:12px;color:var(--muted);padding-top:4px">No break history recorded yet.</div>';
+    return;
+  }
+
+  var html = '<div style="overflow-x:auto;margin-top:4px"><table class="perf-tbl"><thead><tr>';
+  html += '<th>#</th><th>Chapter</th><th>Duration (min)</th><th>Time</th>';
+  html += '</tr></thead><tbody>';
+  var recentBreaks = breakLog.slice(-20).reverse();
+  for (var j = 0; j < recentBreaks.length; j++) {
+    var b = recentBreaks[j];
+    html += '<tr><td style="font-size:11px;color:var(--muted)">' + (breakLog.length - j) + '</td>';
+    html += '<td style="font-size:12px;font-weight:600">' + (b.chapter || '—') + '</td>';
+    html += '<td style="font-size:12px;font-weight:700;text-align:center">' + (b.duration || '—') + '</td>';
+    html += '<td style="font-size:11px;color:var(--muted)">' + (b.time || '—') + '</td></tr>';
+  }
+  html += '</tbody></table></div>';
+  document.getElementById('perf-break-log').innerHTML = html;
+}
+
+function renderCoins() {
+  var coins = parseInt(localStorage.getItem('rishi_coins') || '0');
+  var earned = parseInt(localStorage.getItem('rishi_coins_earned_total') || '0');
+  var redeemed = parseInt(localStorage.getItem('rishi_coins_redeemed_total') || '0');
+
+  document.getElementById('perf-coins-con').innerHTML =
+    '<div class="coin-row"><div class="coin-lbl">&#129689; Current Balance</div><div class="coin-val">' + coins + ' coins</div></div>' +
+    '<div class="coin-row"><div class="coin-lbl">&#127942; Total Earned</div><div class="coin-val" style="color:var(--green)">' + earned + ' coins</div></div>' +
+    '<div class="coin-row"><div class="coin-lbl">&#127873; Total Redeemed</div><div class="coin-val" style="color:var(--amber)">' + redeemed + ' coins</div></div>';
+}
+
+function resetCoins() {
+  if (!confirm('Reset coin balance to 0? This marks them as redeemed. The student will start earning fresh from now.')) return;
+  var current = parseInt(localStorage.getItem('rishi_coins') || '0');
+  var prevRedeemed = parseInt(localStorage.getItem('rishi_coins_redeemed_total') || '0');
+  localStorage.setItem('rishi_coins_redeemed_total', String(prevRedeemed + current));
+  localStorage.setItem('rishi_coins', '0');
+  renderCoins();
+  alert('Done! Coin balance reset to 0.');
+}
+
+
 
 // Which chapters have built explain pages
 var EXPLAIN_BUILT = {1:1, 2:1, 3:1, 4:1, 8:1, 12:1, 13:1};
