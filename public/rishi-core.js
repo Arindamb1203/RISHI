@@ -19,6 +19,8 @@ var RISHI_LEGACY_KEYS = {
    If chapter not in parent's plan → redirect to syllabus.
    ─────────────────────────────────────────── */
 function rishiCheckPlan(chId) {
+  if (localStorage.getItem('rishi_admin_bypass') === '1') return; /* Admin bypass */
+
   var active = {};
   try { active = JSON.parse(localStorage.getItem("rishi_active_chapters") || "{}"); } catch(e) {}
 
@@ -61,6 +63,8 @@ function rishiMarkExplainDone(chId) {
 
 /* ── READ HELPERS ───────────────────────────*/
 function rishiIsExplainDone(chId) {
+  if (localStorage.getItem('rishi_admin_bypass') === '1') return true; /* Admin bypass */
+
   if (localStorage.getItem("rishi_explain_done_" + chId) === "1") return true;
   /* Check legacy key too */
   var legKey = RISHI_LEGACY_KEYS[chId];
@@ -82,6 +86,7 @@ function rishiMarkPracticeDone(chId) {
 }
 
 function rishiIsPracticeDone(chId) {
+  if (localStorage.getItem('rishi_admin_bypass') === '1') return true; /* Admin bypass */
   return localStorage.getItem("rishi_practice_done_" + chId) === "1";
 }
 
