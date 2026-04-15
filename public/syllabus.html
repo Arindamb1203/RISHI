@@ -102,6 +102,26 @@ body::after{content:'RISHI';position:fixed;bottom:-40px;right:-30px;font-family:
 .abtn.locked-btn{background:var(--gold-pale);color:var(--soft);cursor:not-allowed;}
 .abtn.soon-btn{background:#f5f5f5;color:#bbb;cursor:not-allowed;border:1.5px solid #eee;}
 
+/* ── DATE BADGE ── */
+.ch-date-badge{display:flex;align-items:center;gap:6px;padding:7px 14px;font-size:12px;font-weight:700;line-height:1.3;border-top:1.5px solid var(--gold-pale);}
+.ch-date-badge.scheduled{background:var(--amber-pale);color:var(--amber);border:1.5px solid var(--amber-border);}
+.ch-date-badge.overdue{background:var(--red-pale);color:var(--red);border:1.5px solid var(--red-border);}
+.ch-date-badge.complete{background:var(--green-pale);color:var(--green);border:1.5px solid var(--green-border);}
+/* ── NOT IN PLAN ── */
+.ch-card.not-in-plan{opacity:.45;}
+.ch-card.not-in-plan .ch-head{cursor:default;}
+.ch-card.not-in-plan .ch-head:hover{background:transparent;}
+.no-plan-banner{background:var(--amber-pale);border:1.5px solid var(--amber-border);border-radius:11px;padding:12px 15px;margin-bottom:14px;font-size:13px;font-weight:700;color:var(--amber);text-align:center;line-height:1.6;}
+/* ── TOPIC DATE ── */
+.t-date{font-size:9px;font-weight:700;color:var(--soft);line-height:1.2;text-align:center;}
+.topic-btn.active .t-date{color:var(--gold-pale);}
+.t-date.t-overdue{color:var(--rust);}
+.topic-btn.active .t-date.t-overdue{color:#ff9977;}
+.t-date.t-complete{color:var(--green);}
+.topic-btn.active .t-date.t-complete{color:#88dd88;}
+.t-date.t-notinplan{color:#bbb;}
+@media(max-width:560px){.t-date{display:none;}}
+
 /* ── SAMPURNA ── */
 .sampurna-wrap{position:relative;z-index:10;padding:14px 18px;border-top:2px solid var(--border-dark);background:var(--warm-white);}
 .sampurna-box{border-radius:13px;padding:18px;text-align:center;}
@@ -229,10 +249,64 @@ function isExplainDone(cid){
 }
 function isPracticeDone(cid){return localStorage.getItem("rishi_practice_done_"+cid)==="1";}
 function isChapExamDone(cid){return localStorage.getItem("rishi_chapexam_done_"+cid)==="1";}
+/* ── Plan & Date Helpers ── */
+function getPlanActive(){
+  try{
+    var st=JSON.parse(localStorage.getItem('rishi_current_student')||'{}');
+    var plans=JSON.parse(localStorage.getItem('rishi_plans')||'{}');
+    var sid=st.studentId||st.id||null;
+    var plan=sid?(plans[sid]||plans['default']||plans):(plans['default']||plans);
+    return plan.active||{};
+  }catch(e){return {};}
+}
+function fmtDateRange(s,e){
+  var M=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  var sa=s.split('-'),ea=e.split('-');
+  var sd=parseInt(sa[2]),ed=parseInt(ea[2]),sm=parseInt(sa[1])-1,em=parseInt(ea[1])-1;
+  if(sm===em) return sd+'-'+ed+' '+M[sm];
+  return sd+' '+M[sm]+' - '+ed+' '+M[em];
+}
+function daysFromToday(dateStr){
+  var t=new Date();t.setHours(0,0,0,0);
+  var d=new Date(dateStr);d.setHours(0,0,0,0);
+  return Math.round((d-t)/86400000);
+}
+function chDateStatus(cid,active,chapDone){
+  var ac=active[cid]||active[String(cid)];
+  if(!ac) return null;
+  var td=ac.targetDate||ac.target;var sd=ac.startDate||ac.start;
+  if(!td) return null;
+  if(chapDone) return {type:'complete',label:'Complete'};
+  var diff=daysFromToday(td);
+  if(diff<0) return {type:'overdue',label:Math.abs(diff)+' day'+(Math.abs(diff)!==1?'s':'')+' overdue'};
+  return {type:'scheduled',label:fmtDateRange(sd,td)};
+}
+function topicDateStatus(chapterIds,active,hasPlan){
+  var inPlan=chapterIds.filter(function(cid){
+    var ac=active[cid]||active[String(cid)];
+    return ac&&(ac.targetDate||ac.target);
+  });
+  if(!inPlan.length) return hasPlan?{type:'notinplan',label:'Not in plan'}:null;
+  var allDone=true,maxOver=0,minStart=null,maxTarget=null;
+  for(var i=0;i<inPlan.length;i++){
+    var cid=inPlan[i];var ac=active[cid]||active[String(cid)];
+    var td=ac.targetDate||ac.target;var sd=ac.startDate||ac.start;
+    if(!isChapExamDone(cid)) allDone=false;
+    var diff=daysFromToday(td);
+    if(diff<0) maxOver=Math.max(maxOver,Math.abs(diff));
+    if(!minStart||sd<minStart) minStart=sd;
+    if(!maxTarget||td>maxTarget) maxTarget=td;
+  }
+  if(allDone) return {type:'complete',label:'Done'};
+  if(maxOver>0) return {type:'overdue',label:maxOver+'d overdue'};
+  return {type:'scheduled',label:fmtDateRange(minStart,maxTarget)};
+}
 
 /* ── Topic Rail ── */
 function buildTopicRail(){
   var html='';
+  var planActive=getPlanActive();
+  var hasPlan=Object.keys(planActive).length>0;
   for(var i=0;i<TOPICS.length;i++){
     var t=TOPICS[i];
     var done=0;
@@ -241,7 +315,10 @@ function buildTopicRail(){
     html+='<button class="topic-btn'+(isAct?' active':'')+'" id="tbtn-'+t.id+'" onclick="selectTopic(\''+t.id+'\')">';
     html+='<span class="t-icon">'+t.icon+'</span>';
     html+='<span class="t-name">'+t.name+'</span>';
+    var tSt=topicDateStatus(t.chapters,planActive,hasPlan);
+    var dateCls=tSt?(tSt.type==='overdue'?'t-overdue':tSt.type==='complete'?'t-complete':tSt.type==='notinplan'?'t-notinplan':''):'';
     html+='<span class="t-count">'+done+'/'+t.chapters.length+'</span>';
+    if(tSt) html+='<span class="t-date '+dateCls+'">'+tSt.label+'</span>';
     html+='</button>';
   }
   G('topicRail').innerHTML=html;
@@ -264,18 +341,35 @@ function buildChapterList(){
   for(var i=0;i<TOPICS.length;i++){if(TOPICS[i].id===activeTopic){topic=TOPICS[i];break;}}
   if(!topic) return;
 
+  var planActive=getPlanActive();
+  var hasPlan=Object.keys(planActive).length>0;
   var html='<div class="cp-header"><span class="cp-icon">'+topic.icon+'</span>'+topic.name+'</div>';
+
+  if(!hasPlan){
+    html+='<div class="no-plan-banner">No study plan set yet. Ask your parent to create a plan in the Parent Portal.</div>';
+  }
 
   for(var j=0;j<topic.chapters.length;j++){
     var cid=topic.chapters[j];
     var ch=CHAPTERS[cid];
     var color=CH_COLORS[cid];
+    var inPlan=hasPlan?(planActive[cid]||planActive[String(cid)]):true;
     var explainDone=isExplainDone(cid);
     var practiceDone=isPracticeDone(cid);
     var chapExamDone=isChapExamDone(cid);
 
+    if(hasPlan&&!inPlan){
+      html+='<div class="ch-card not-in-plan" id="chcard-'+cid+'">';
+      html+='<div class="ch-head">';
+      html+='<div class="ch-num" style="background:#bbb">'+cid+'</div>';
+      html+='<div class="ch-title" style="color:var(--soft)">'+ch.name+'</div>';
+      html+='<span class="ch-pill pill-soon">Not in plan</span>';
+      html+='</div></div>';
+      continue;
+    }
+
     var pillCls,pillTxt;
-    if(chapExamDone){pillCls='pill-done';pillTxt='✓ All Done';}
+    if(chapExamDone){pillCls='pill-done';pillTxt='All Done';}
     else if(practiceDone){pillCls='pill-active';pillTxt='Practised';}
     else if(explainDone){pillCls='pill-active';pillTxt='Explained';}
     else if(!ch.built){pillCls='pill-soon';pillTxt='Coming Soon';}
@@ -286,49 +380,49 @@ function buildChapterList(){
     html+='<div class="ch-num" style="background:'+color+'">'+cid+'</div>';
     html+='<div class="ch-title">'+ch.name+'</div>';
     html+='<span class="ch-pill '+pillCls+'">'+pillTxt+'</span>';
-    if(ch.built) html+='<div class="ch-arrow" id="carr-'+cid+'">▾</div>';
+    if(ch.built) html+='<div class="ch-arrow" id="carr-'+cid+'">&#9662;</div>';
     html+='</div>';
+
+    var dSt=chDateStatus(cid,planActive,chapExamDone);
+    if(dSt) html+='<div class="ch-date-badge '+dSt.type+'">'+dSt.label+'</div>';
 
     if(ch.built){
       html+='<div class="ch-body" id="cbody-'+cid+'">';
       html+='<div class="three-btns">';
 
-      /* EXPLAIN */
       if(explainDone){
-        html+='<a href="'+ch.path+'" class="abtn done-btn"><span class="abtn-ico">📖</span><span class="abtn-name">Explain</span><span class="abtn-sub">✓ Done · Re-watch</span></a>';
+        html+='<a href="'+ch.path+'" class="abtn done-btn"><span class="abtn-ico">&#128214;</span><span class="abtn-name">Explain</span><span class="abtn-sub">Done &middot; Re-watch</span></a>';
       } else {
-        html+='<a href="'+ch.path+'" class="abtn go"><span class="abtn-ico">📖</span><span class="abtn-name">Explain</span><span class="abtn-sub">▶ Watch Now</span></a>';
+        html+='<a href="'+ch.path+'" class="abtn go"><span class="abtn-ico">&#128214;</span><span class="abtn-name">Explain</span><span class="abtn-sub">Watch Now</span></a>';
       }
 
-      /* PRACTICE */
       var practPath=PRACTICE_PATHS[cid]||'';
       if(!explainDone){
-        html+='<span class="abtn locked-btn"><span class="abtn-ico">✏️</span><span class="abtn-name">Practice</span><span class="abtn-sub">🔒 After Explain</span></span>';
+        html+='<span class="abtn locked-btn"><span class="abtn-ico">&#9999;</span><span class="abtn-name">Practice</span><span class="abtn-sub">After Explain</span></span>';
       } else if(practiceDone){
-        html+='<a href="'+(practPath||'#')+'" class="abtn done-btn"><span class="abtn-ico">✏️</span><span class="abtn-name">Practice</span><span class="abtn-sub">✓ Done · Retry</span></a>';
+        html+='<a href="'+(practPath||'#')+'" class="abtn done-btn"><span class="abtn-ico">&#9999;</span><span class="abtn-name">Practice</span><span class="abtn-sub">Done &middot; Retry</span></a>';
       } else if(practPath){
-        html+='<a href="'+practPath+'" class="abtn go"><span class="abtn-ico">✏️</span><span class="abtn-name">Practice</span><span class="abtn-sub">▶ Start Now</span></a>';
+        html+='<a href="'+practPath+'" class="abtn go"><span class="abtn-ico">&#9999;</span><span class="abtn-name">Practice</span><span class="abtn-sub">Start Now</span></a>';
       } else {
-        html+='<span class="abtn soon-btn"><span class="abtn-ico">✏️</span><span class="abtn-name">Practice</span><span class="abtn-sub">Coming Soon</span></span>';
+        html+='<span class="abtn soon-btn"><span class="abtn-ico">&#9999;</span><span class="abtn-name">Practice</span><span class="abtn-sub">Coming Soon</span></span>';
       }
 
-      /* EXAM */
       if(!practiceDone){
-        html+='<span class="abtn locked-btn"><span class="abtn-ico">📝</span><span class="abtn-name">Exam</span><span class="abtn-sub">🔒 After Practice</span></span>';
+        html+='<span class="abtn locked-btn"><span class="abtn-ico">&#128221;</span><span class="abtn-name">Exam</span><span class="abtn-sub">After Practice</span></span>';
       } else if(chapExamDone){
-        html+='<span class="abtn done-btn"><span class="abtn-ico">📝</span><span class="abtn-name">Exam</span><span class="abtn-sub">✓ Completed</span></span>';
+        html+='<span class="abtn done-btn"><span class="abtn-ico">&#128221;</span><span class="abtn-name">Exam</span><span class="abtn-sub">Completed</span></span>';
       } else {
-        html+='<span class="abtn soon-btn"><span class="abtn-ico">📝</span><span class="abtn-name">Exam</span><span class="abtn-sub">Coming Soon</span></span>';
+        html+='<span class="abtn soon-btn"><span class="abtn-ico">&#128221;</span><span class="abtn-name">Exam</span><span class="abtn-sub">Coming Soon</span></span>';
       }
 
-      html+='</div></div>';
+      html+='</div>';
+      html+='</div>';
     }
     html+='</div>';
   }
 
   G('chapterList').innerHTML=html;
 }
-
 function toggleChapter(cid){
   var body=G('cbody-'+cid),arrow=G('carr-'+cid),card=G('chcard-'+cid);
   if(!body) return;
