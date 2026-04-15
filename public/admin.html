@@ -659,7 +659,7 @@ function buildPageRow(label, url, built, done, sessions, cid) {
   if (sessions > 0) html += '<span class="row-sessions">' + sessions + 'x</span>';
 
   if (url && built) {
-    html += '<button class="row-open" onclick="openPage(' + JSON.stringify(url) + ')">↗ Open</button>';
+    html += '<button class="row-open" onclick="openPage(\'' + url + '\')">↗ Open</button>';
   } else {
     html += '<button class="row-open" disabled>' + (label === 'Exam' ? '— Soon' : '— N/A') + '</button>';
   }
