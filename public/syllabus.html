@@ -255,27 +255,25 @@ function getPlanActive(){
     var raw=localStorage.getItem('rishi_plans');
     if(!raw) return {};
     var plans=JSON.parse(raw);
-    /* Format 1: array of chapter objects [{id,startDate,targetDate,mode},...] */
-    if(Array.isArray(plans)){
+    /* Unwrap any array found at any key */
+    var arr=null;
+    if(Array.isArray(plans)) arr=plans;
+    else {
+      var keys=Object.keys(plans);
+      for(var k=0;k<keys.length;k++){
+        if(Array.isArray(plans[keys[k]])){arr=plans[keys[k]];break;}
+      }
+      if(!arr&&plans.active) return plans.active;
+    }
+    if(arr){
       var active={};
-      for(var i=0;i<plans.length;i++){
-        var ch=plans[i];
+      for(var i=0;i<arr.length;i++){
+        var ch=arr[i];
         if(ch.id!==undefined) active[ch.id]={startDate:ch.startDate,targetDate:ch.targetDate,mode:ch.mode};
       }
       return active;
     }
-    /* Format 2: {active:{cid:{startDate,targetDate}}} */
-    if(plans.active) return plans.active;
-    /* Format 3: keyed by studentId */
-    var st=JSON.parse(localStorage.getItem('rishi_current_student')||'{}');
-    var sid=st.studentId||st.id||null;
-    var plan=sid?(plans[sid]||plans['default']||plans):(plans['default']||plans);
-    if(Array.isArray(plan)){
-      var active={};
-      for(var i=0;i<plan.length;i++){var ch=plan[i];if(ch.id!==undefined) active[ch.id]={startDate:ch.startDate,targetDate:ch.targetDate,mode:ch.mode};}
-      return active;
-    }
-    return plan.active||{};
+    return {};
   }catch(e){return {};}
 }
 function fmtDateRange(s,e){
