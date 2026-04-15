@@ -252,10 +252,29 @@ function isChapExamDone(cid){return localStorage.getItem("rishi_chapexam_done_"+
 /* ── Plan & Date Helpers ── */
 function getPlanActive(){
   try{
+    var raw=localStorage.getItem('rishi_plans');
+    if(!raw) return {};
+    var plans=JSON.parse(raw);
+    /* Format 1: array of chapter objects [{id,startDate,targetDate,mode},...] */
+    if(Array.isArray(plans)){
+      var active={};
+      for(var i=0;i<plans.length;i++){
+        var ch=plans[i];
+        if(ch.id!==undefined) active[ch.id]={startDate:ch.startDate,targetDate:ch.targetDate,mode:ch.mode};
+      }
+      return active;
+    }
+    /* Format 2: {active:{cid:{startDate,targetDate}}} */
+    if(plans.active) return plans.active;
+    /* Format 3: keyed by studentId */
     var st=JSON.parse(localStorage.getItem('rishi_current_student')||'{}');
-    var plans=JSON.parse(localStorage.getItem('rishi_plans')||'{}');
     var sid=st.studentId||st.id||null;
     var plan=sid?(plans[sid]||plans['default']||plans):(plans['default']||plans);
+    if(Array.isArray(plan)){
+      var active={};
+      for(var i=0;i<plan.length;i++){var ch=plan[i];if(ch.id!==undefined) active[ch.id]={startDate:ch.startDate,targetDate:ch.targetDate,mode:ch.mode};}
+      return active;
+    }
     return plan.active||{};
   }catch(e){return {};}
 }
