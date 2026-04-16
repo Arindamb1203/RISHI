@@ -460,7 +460,7 @@ function toggleChapter(cid){
 
 /* ── Sampurna ── */
 function renderSampurna(){
-  var done=0,all=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16];
+  var done=0,all=[1,2,3,4,5,8,9,10,11,112,12,13,14,15,16,17];
   for(var i=0;i<all.length;i++){if(isChapExamDone(all[i]))done++;}
   var pct=Math.round(done/16*100);
   var html=done===16
@@ -472,7 +472,7 @@ function renderSampurna(){
 
 /* ── Stats Bar ── */
 function renderStats(){
-  var allBuilt=[2,3,4,5,8,9,10,11,112,12,13,14,15,16,1];
+  var allBuilt=[1,2,3,4,5,8,9,10,11,112,12,13,14,15,16,17];
   var explained=0,practiced=0,examDone=0;
   for(var i=0;i<allBuilt.length;i++){
     var cid=allBuilt[i];
