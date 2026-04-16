@@ -84,6 +84,9 @@ body::after{content:'RISHI';position:fixed;bottom:-40px;right:-30px;font-family:
 .pill-done{background:var(--green-pale);color:var(--green);}
 .pill-active{background:var(--amber-pale);color:var(--amber);}
 .pill-soon{background:#f0f0f0;color:#bbb;}
+.pill-ongoing{background:#e8f4ff;color:#1a6fc4;}
+.pill-pending{background:#f0eeff;color:#6c4bc4;}
+.pill-notassigned{background:#f5f5f5;color:#aaa;}
 .ch-arrow{font-size:14px;color:var(--soft);transition:transform .22s;flex-shrink:0;margin-left:2px;}
 .ch-arrow.open{transform:rotate(180deg);}
 
@@ -251,30 +254,13 @@ function isPracticeDone(cid){return localStorage.getItem("rishi_practice_done_"+
 function isChapExamDone(cid){return localStorage.getItem("rishi_chapexam_done_"+cid)==="1";}
 /* ── Plan & Date Helpers ── */
 function getPlanActive(){
-  try{
-    var raw=localStorage.getItem('rishi_plans');
-    if(!raw) return {};
-    var plans=JSON.parse(raw);
-    /* Unwrap any array found at any key */
-    var arr=null;
-    if(Array.isArray(plans)) arr=plans;
-    else {
-      var keys=Object.keys(plans);
-      for(var k=0;k<keys.length;k++){
-        if(Array.isArray(plans[keys[k]])){arr=plans[keys[k]];break;}
-      }
-      if(!arr&&plans.active) return plans.active;
-    }
-    if(arr){
-      var active={};
-      for(var i=0;i<arr.length;i++){
-        var ch=arr[i];
-        if(ch.id!==undefined) active[ch.id]={startDate:ch.startDate,targetDate:ch.targetDate,mode:ch.mode};
-      }
-      return active;
-    }
-    return {};
-  }catch(e){return {};}
+  var st = {};
+  try { st = JSON.parse(localStorage.getItem('rishi_current_student')||'{}'); } catch(e){}
+  var sid = st.studentId || null;
+  var raw = null;
+  if(sid) raw = localStorage.getItem('rishi_active_chapters_' + sid);
+  if(!raw) raw = localStorage.getItem('rishi_active_chapters'); // fallback
+  try { return raw ? JSON.parse(raw) : {}; } catch(e){ return {}; }
 }
 function fmtDateRange(s,e){
   var M=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
@@ -374,34 +360,47 @@ function buildChapterList(){
     var explainDone=isExplainDone(cid);
     var practiceDone=isPracticeDone(cid);
     var chapExamDone=isChapExamDone(cid);
+    var ac=inPlan?(planActive[cid]||planActive[String(cid)]):null;
 
+    /* ── Status pill ── */
+    var pillCls,pillTxt;
     if(hasPlan&&!inPlan){
-      html+='<div class="ch-card not-in-plan" id="chcard-'+cid+'">';
-      html+='<div class="ch-head">';
-      html+='<div class="ch-num" style="background:#bbb">'+cid+'</div>';
-      html+='<div class="ch-title" style="color:var(--soft)">'+ch.name+'</div>';
-      html+='<span class="ch-pill pill-soon">Not in plan</span>';
-      html+='</div></div>';
-      continue;
+      pillCls='pill-notassigned'; pillTxt='Not Assigned';
+    } else if(chapExamDone){
+      pillCls='pill-done'; pillTxt='Completed';
+    } else if(!hasPlan||!ac){
+      pillCls=ch.built?'pill-soon':'pill-soon';
+      pillTxt=ch.built?'Not Started':'Coming Soon';
+    } else {
+      var today=new Date(); today.setHours(0,0,0,0);
+      var sdDate=ac.startDate?new Date(ac.startDate):null;
+      if(sdDate) sdDate.setHours(0,0,0,0);
+      if(sdDate&&today>=sdDate){ pillCls='pill-ongoing'; pillTxt='Ongoing'; }
+      else { pillCls='pill-pending'; pillTxt='Pending'; }
     }
 
-    var pillCls,pillTxt;
-    if(chapExamDone){pillCls='pill-done';pillTxt='All Done';}
-    else if(practiceDone){pillCls='pill-active';pillTxt='Practised';}
-    else if(explainDone){pillCls='pill-active';pillTxt='Explained';}
-    else if(!ch.built){pillCls='pill-soon';pillTxt='Coming Soon';}
-    else{pillCls='pill-soon';pillTxt='Not Started';}
-
-    html+='<div class="ch-card'+(ch.built?'':' not-built')+'" id="chcard-'+cid+'">';
-    html+='<div class="ch-head"'+(ch.built?' onclick="toggleChapter('+cid+')"':'')+' >';
-    html+='<div class="ch-num" style="background:'+color+'">'+cid+'</div>';
-    html+='<div class="ch-title">'+ch.name+'</div>';
+    html+='<div class="ch-card'+(ch.built?'':' not-built')+(hasPlan&&!inPlan?' not-in-plan':'')+'" id="chcard-'+cid+'">';
+    html+='<div class="ch-head"'+(ch.built&&(!hasPlan||inPlan)?' onclick="toggleChapter('+cid+')"':'')+' >';
+    html+='<div class="ch-num" style="background:'+(hasPlan&&!inPlan?'#ccc':color)+'">'+cid+'</div>';
+    html+='<div class="ch-title"'+(hasPlan&&!inPlan?' style="color:var(--soft)"':'')+'>'+ch.name+'</div>';
     html+='<span class="ch-pill '+pillCls+'">'+pillTxt+'</span>';
-    if(ch.built) html+='<div class="ch-arrow" id="carr-'+cid+'">&#9662;</div>';
+    if(ch.built&&(!hasPlan||inPlan)) html+='<div class="ch-arrow" id="carr-'+cid+'">&#9662;</div>';
     html+='</div>';
 
     var dSt=chDateStatus(cid,planActive,chapExamDone);
     if(dSt) html+='<div class="ch-date-badge '+dSt.type+'">'+dSt.label+'</div>';
+
+    if(hasPlan&&!inPlan){
+      /* Not Assigned — show all 3 buttons deactivated */
+      html+='<div style="display:block;border-top:1.5px solid var(--gold-pale);padding:13px 14px 15px;">';
+      html+='<div class="three-btns">';
+      html+='<span class="abtn locked-btn"><span class="abtn-ico">&#128214;</span><span class="abtn-name">Explain</span><span class="abtn-sub">&#128274; Not Assigned</span></span>';
+      html+='<span class="abtn locked-btn"><span class="abtn-ico">&#9999;</span><span class="abtn-name">Practice</span><span class="abtn-sub">&#128274; Not Assigned</span></span>';
+      html+='<span class="abtn locked-btn"><span class="abtn-ico">&#128221;</span><span class="abtn-name">Exam</span><span class="abtn-sub">&#128274; Not Assigned</span></span>';
+      html+='</div></div>';
+      html+='</div>';
+      continue;
+    }
 
     if(ch.built){
       html+='<div class="ch-body" id="cbody-'+cid+'">';

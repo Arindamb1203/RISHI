@@ -861,13 +861,35 @@ const requiredFields = [
 ];
 
 // ============================================================
-// TEST ACCOUNTS — 3 BOARDS
+// SHARED PASSWORDS (same for every student / every parent)
 // ============================================================
-const testAccounts = {
-  CBSE:  { username: 'RISHI-CBSE-001',  password: 'Password' },
-  ICSE:  { username: 'RISHI-ICSE-001',  password: 'Password' },
-  WBBSE: { username: 'RISHI-WBBSE-001', password: 'Password' }
-};
+var STUDENT_PASS = 'Study@Rishi1';
+var PARENT_PASS  = 'Parent@Rishi1';
+
+// ============================================================
+// UNIQUE ID GENERATION
+// ============================================================
+function generateStudentUsername(studentName) {
+  var first = studentName.trim().split(/\s+/)[0].toUpperCase().replace(/[^A-Z]/g,'').substring(0,8);
+  var regs = [];
+  try { regs = JSON.parse(localStorage.getItem('rishi_registrations') || '[]'); } catch(e){}
+  var count = 1;
+  for(var i=0;i<regs.length;i++){
+    if(regs[i].studentUsername && regs[i].studentUsername.indexOf('RISHI-'+first+'-') === 0) count++;
+  }
+  return 'RISHI-' + first + '-' + String(count).padStart(3,'0');
+}
+
+function generateParentUsername(parentName) {
+  var first = parentName.trim().split(/\s+/)[0].toUpperCase().replace(/[^A-Z]/g,'').substring(0,8);
+  var regs = [];
+  try { regs = JSON.parse(localStorage.getItem('rishi_registrations') || '[]'); } catch(e){}
+  var count = 1;
+  for(var i=0;i<regs.length;i++){
+    if(regs[i].parentUsername && regs[i].parentUsername.indexOf('PARENT-'+first+'-') === 0) count++;
+  }
+  return 'PARENT-' + first + '-' + String(count).padStart(3,'0');
+}
 
 // ============================================================
 // PROGRESS TRACKER
@@ -988,28 +1010,42 @@ function validateAll() {
 // SAVE TO LOCALSTORAGE
 // ============================================================
 function saveToLocalStorage(type) {
+  var sName = document.getElementById('studentName').value.trim();
+  var pName = document.getElementById('parentName').value.trim();
+  var sUser = generateStudentUsername(sName);
+  var pUser = generateParentUsername(pName);
   const data = {
-    studentName: document.getElementById('studentName').value.trim(),
+    studentName: sName,
+    parentName: pName,
+    studentUsername: sUser,
+    parentUsername: pUser,
     board: document.getElementById('board').value,
     class: document.getElementById('class').value,
     schoolName: document.getElementById('schoolName').value.trim(),
     lastExam: document.getElementById('lastExam').value,
     scored: document.getElementById('scored').value,
     outOf: document.getElementById('outOf').value,
-    parentName: document.getElementById('parentName').value.trim(),
     primaryMobile: document.getElementById('primaryMobile').value,
     altMobile: document.getElementById('altMobile').value,
     parentEmail: document.getElementById('parentEmail').value.trim(),
-    registrationType: type,  // 'trial' or 'paid'
+    registrationType: type,
     registeredAt: new Date().toISOString()
   };
   const existing = JSON.parse(localStorage.getItem('rishi_registrations') || '[]');
   existing.push(data);
   localStorage.setItem('rishi_registrations', JSON.stringify(existing));
-  localStorage.setItem('rishi_current_student', JSON.stringify(data));
-
-  // 🔒 INACTIVE: Google Sheet / backend save
-  // When activated, call: sendToGoogleSheet(data);
+  localStorage.setItem('rishi_current_student', JSON.stringify({
+    studentName: data.studentName,
+    parentName: data.parentName,
+    studentUsername: sUser,
+    parentUsername: pUser,
+    studentId: sUser,
+    board: data.board,
+    class: data.class,
+    role: 'student'
+  }));
+  window._regStudentUser = sUser;
+  window._regParentUser  = pUser;
 }
 
 // ============================================================
@@ -1028,24 +1064,20 @@ function saveToLocalStorage(type) {
 // GENERATE USERNAME & SHOW MODAL
 // ============================================================
 function generateAndShow(isPaid) {
-  var board = document.getElementById('board').value;
+  var sUser = window._regStudentUser;
+  var pUser = window._regParentUser;
   var studentName = document.getElementById('studentName').value.trim();
-  var cls = document.getElementById('class').value;
-
-  var account = testAccounts[board] || testAccounts['CBSE'];
-  var parentUsername = account.username.replace('RISHI-', 'PARENT-');
-  var parentPassword = 'ParentPass';
 
   var base = window.location.origin;
-  var studentUrl = base + '/login.html?user=' + encodeURIComponent(account.username) + '&pass=' + encodeURIComponent(account.password) + '&role=student';
-  var parentUrl  = base + '/login.html?user=' + encodeURIComponent(parentUsername) + '&pass=' + encodeURIComponent(parentPassword) + '&role=parent';
+  var studentUrl = base + '/login.html?user=' + encodeURIComponent(sUser) + '&pass=' + encodeURIComponent(STUDENT_PASS) + '&role=student';
+  var parentUrl  = base + '/login.html?user=' + encodeURIComponent(pUser)  + '&pass=' + encodeURIComponent(PARENT_PASS)  + '&role=parent';
 
   document.getElementById('modalSub').textContent =
     'Hello ' + studentName.split(' ')[0] + '! Rishika is ready to sit beside you. 🌟';
-  document.getElementById('modalUser').textContent = account.username;
-  document.getElementById('modalPass').textContent = account.password;
-  document.getElementById('modalParentUser').textContent = parentUsername;
-  document.getElementById('modalParentPass').textContent = parentPassword;
+  document.getElementById('modalUser').textContent = sUser;
+  document.getElementById('modalPass').textContent = STUDENT_PASS;
+  document.getElementById('modalParentUser').textContent = pUser;
+  document.getElementById('modalParentPass').textContent = PARENT_PASS;
 
   var sLink = document.getElementById('studentLink');
   sLink.textContent = studentUrl;
@@ -1060,10 +1092,8 @@ function generateAndShow(isPaid) {
 
 function closeModal() {
   document.getElementById('successModal').classList.remove('show');
-  var board = document.getElementById('board').value;
-  var cls = document.getElementById('class').value;
-  var account = testAccounts[board] || testAccounts['CBSE'];
-  window.location.href = '/login.html?user=' + encodeURIComponent(account.username) + '&pass=' + encodeURIComponent(account.password) + '&role=student';
+  var sUser = window._regStudentUser;
+  window.location.href = '/login.html?user=' + encodeURIComponent(sUser) + '&pass=' + encodeURIComponent(STUDENT_PASS) + '&role=student';
 }
 
 // ============================================================

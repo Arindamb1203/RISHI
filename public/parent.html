@@ -578,7 +578,7 @@ button{font-family:'Outfit',sans-serif;}
     <div class="hdr-sep"></div>
     <div class="hdr-title">Parent Portal</div>
     <div class="hdr-r">
-      <div class="hdr-badge">&#128274; Parent</div>
+      <div class="hdr-badge" id="student-name-badge">&#128274; Parent</div>
       <button class="btn-out-hdr" onclick="showInstructions()">&#10067; Guide</button>
       <button class="btn-out-hdr" onclick="logout()">Sign Out</button>
     </div>
@@ -792,12 +792,29 @@ var calManual = false;
 // ===========================
 // AUTH
 // ===========================
+var PARENT_PASS = 'Parent@Rishi1';
+
 function tryLogin() {
   var user = document.getElementById('login-user').value.trim();
   var pass = document.getElementById('login-pass').value;
-  var stored = localStorage.getItem('rishi_parent_pass') || 'rishi2024';
-  if (user === 'parent' && pass === stored) {
-    sessionStorage.setItem('rishi_parent_auth', '1');
+
+  var overrides = {};
+  try { overrides = JSON.parse(localStorage.getItem('rishi_pw_overrides') || '{}'); } catch(e){}
+  var regs = [];
+  try { regs = JSON.parse(localStorage.getItem('rishi_registrations') || '[]'); } catch(e){}
+
+  var found = null;
+  for(var i=0;i<regs.length;i++){
+    if(regs[i].parentUsername === user){
+      var pw = overrides[user] || PARENT_PASS;
+      if(pw === pass){ found = regs[i]; break; }
+    }
+  }
+
+  if(found){
+    sessionStorage.setItem('rishi_parent_auth','1');
+    sessionStorage.setItem('rishi_parent_student_id', found.studentUsername);
+    sessionStorage.setItem('rishi_parent_student_name', found.studentName || 'Student');
     enterPortal();
   } else {
     var e = document.getElementById('login-err');
@@ -813,12 +830,21 @@ function logout() {
 }
 
 function checkAuth() {
-  if (sessionStorage.getItem('rishi_parent_auth') === '1') {
-    enterPortal();
+  // Try to resolve student context from rishi_current_student (set by login.html)
+  if(!sessionStorage.getItem('rishi_parent_student_id')){
+    var cs = {};
+    try { cs = JSON.parse(localStorage.getItem('rishi_current_student')||'{}'); } catch(e){}
+    if(cs.role === 'parent' && cs.studentId){
+      sessionStorage.setItem('rishi_parent_auth','1');
+      sessionStorage.setItem('rishi_parent_student_id', cs.studentId);
+      sessionStorage.setItem('rishi_parent_student_name', cs.studentName || 'Student');
+    }
   }
-  // check auto login param
-  if (window.location.search.indexOf('auto=1') > -1) {
-    sessionStorage.setItem('rishi_parent_auth', '1');
+  if(sessionStorage.getItem('rishi_parent_auth') === '1'){
+    enterPortal(); return;
+  }
+  if(window.location.search.indexOf('auto=1') > -1){
+    sessionStorage.setItem('rishi_parent_auth','1');
     enterPortal();
   }
 }
@@ -844,8 +870,16 @@ function showInstructions() {
   document.getElementById('instr-screen').className = '';
 }
 
+function getStudentId(){
+  return sessionStorage.getItem('rishi_parent_student_id') || 'default';
+}
+
 function initMainPortal() {
   document.getElementById('main-portal').className = '';
+  var sName = sessionStorage.getItem('rishi_parent_student_name') || 'Student';
+  var sId   = getStudentId();
+  var badge = document.getElementById('student-name-badge');
+  if(badge) badge.textContent = '🎓 ' + sName + '  ·  ' + sId;
   loadPlans();
   var now = new Date();
   calYear = now.getFullYear();
@@ -863,13 +897,15 @@ window.onload = function() {
 
 function loadPlans() {
   try {
-    var raw = localStorage.getItem('rishi_plans');
+    var key = 'rishi_plans_' + getStudentId();
+    var raw = localStorage.getItem(key);
+    if(!raw) raw = localStorage.getItem('rishi_plans'); // backward compat
     plans = raw ? JSON.parse(raw) : [];
   } catch(e) { plans = []; }
 }
 
 function savePlans() {
-  localStorage.setItem('rishi_plans', JSON.stringify(plans));
+  localStorage.setItem('rishi_plans_' + getStudentId(), JSON.stringify(plans));
 }
 
 // ===========================
@@ -1550,7 +1586,6 @@ function updateStudentActivation() {
   for (var p = 0; p < plans.length; p++) {
     for (var k = 0; k < plans[p].chapters.length; k++) {
       var pch = plans[p].chapters[k];
-      // Keep whichever plan has the soonest upcoming target
       if (!active[pch.id] || pch.targetDate < active[pch.id].targetDate) {
         active[pch.id] = {
           startDate: pch.startDate,
@@ -1562,6 +1597,9 @@ function updateStudentActivation() {
       }
     }
   }
+  var key = 'rishi_active_chapters_' + getStudentId();
+  localStorage.setItem(key, JSON.stringify(active));
+  // Also write legacy key for backward compat
   localStorage.setItem('rishi_active_chapters', JSON.stringify(active));
 }
 
