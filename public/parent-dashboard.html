@@ -40,6 +40,15 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);min-hei
   cursor:pointer;transition:all .2s;text-decoration:none;
 }
 .hdr-back:hover{border-color:var(--gold);color:var(--gold);}
+.student-sel{display:flex;align-items:center;gap:7px;}
+.student-sel-lbl{font-size:9px;font-weight:700;color:var(--muted);letter-spacing:.8px;text-transform:uppercase;}
+.student-sel input{
+  background:var(--panel2);border:1px solid var(--border);border-radius:6px;
+  color:var(--text);font-size:11px;padding:4px 9px;width:96px;outline:none;
+  font-family:var(--font-mono);transition:border-color .15s;
+}
+.student-sel input:focus{border-color:var(--gold);}
+.student-sel input.synced{border-color:var(--green);}
 
 /* ── GRID LAYOUT ── */
 .main{max-width:1200px;margin:0 auto;padding:20px 16px 60px;}
@@ -340,6 +349,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);min-hei
 .break-dur{font-family:var(--font-mono);color:var(--gold);text-align:right;font-size:11px;}
 .no-breaks{text-align:center;padding:28px;color:var(--muted);font-size:12px;background:var(--panel2);border:1px dashed var(--border);border-radius:12px;}
 </style>
+<script src="/rishi-sync.js"></script>
 </head>
 <body>
 
@@ -348,6 +358,12 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);min-hei
   <div class="hdr-div"></div>
   <div class="hdr-tag">Analytics Dashboard</div>
   <div class="hdr-r">
+    <div class="student-sel">
+      <span class="student-sel-lbl">Student</span>
+      <input id="student-input" type="text" placeholder="e.g. riyon" autocomplete="off"
+        oninput="onStudentInput(this.value)" title="Enter student name to load their data from cloud">
+    </div>
+    <div class="hdr-div"></div>
     <div class="pulse-dot"></div>
     <div class="live-lbl">Live</div>
     <div class="ts-lbl" id="ts-lbl"></div>
@@ -1165,10 +1181,48 @@ function toggleBreakDate(date) {
 
 window.onload = function() {
   seedDemo();
-  renderAll();
-  // Auto-refresh every 60s
-  setInterval(renderTimestamp, 60000);
+  renderTimestamp();
+
+  /* Restore previously selected student */
+  var saved = localStorage.getItem('rishi_selected_student');
+  var input = document.getElementById('student-input');
+
+  if (saved) {
+    input.value = saved;
+    input.classList.add('synced');
+    /* Pull from cloud, then render */
+    if (window.rishiSync) {
+      rishiSync.selectStudent(saved, function() { renderAll(); });
+    } else {
+      renderAll();
+    }
+  } else {
+    renderAll();
+  }
+
+  /* Auto-refresh every 60s: pull from cloud then re-render */
+  setInterval(function() {
+    renderTimestamp();
+    if (window.rishiSync) {
+      rishiSync.pull(function() { renderAll(); });
+    }
+  }, 60000);
 };
+
+function onStudentInput(val) {
+  clearTimeout(window._stuTimer);
+  var input = document.getElementById('student-input');
+  input.classList.remove('synced');
+  if (!val || val.trim().length < 2) return;
+  window._stuTimer = setTimeout(function() {
+    if (window.rishiSync) {
+      rishiSync.selectStudent(val.trim(), function() {
+        input.classList.add('synced');
+        renderAll();
+      });
+    }
+  }, 700);
+}
 </script>
 </body>
 </html>
