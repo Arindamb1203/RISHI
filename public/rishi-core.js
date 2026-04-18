@@ -134,6 +134,7 @@ window.addEventListener('load', function() {
     window.startBreak = function(r) {
       _rishiBreakType = r;
       _rishiBreakStart = Math.floor(Date.now() / 1000);
+      rishiResetIdleTimer(); // user triggered break — reset idle
       _origStart(r);
     };
   }
@@ -146,6 +147,65 @@ window.addEventListener('load', function() {
       _rishiBreakType = '';
       _rishiBreakStart = 0;
       _origEnd();
+      rishiResetIdleTimer(); // break ended — restart idle timer
     };
   }
+
+  // ── IDLE BREAK DETECTOR ──────────────────────
+  var IDLE_LIMIT = 5 * 60 * 1000; // 5 minutes
+  var _idleTimer = null;
+  var _idleOverlay = null;
+  var _idleBreakStart = 0;
+
+  window.rishiResetIdleTimer = function() {
+    clearTimeout(_idleTimer);
+    if (_rishiBreakType) return; // break already active
+    _idleTimer = setTimeout(_rishiTriggerIdleBreak, IDLE_LIMIT);
+  };
+
+  function _rishiTriggerIdleBreak() {
+    if (_rishiBreakType) return; // already in a break
+    _idleBreakStart = Math.floor(Date.now() / 1000);
+    _rishiBreakType = 'Idle';
+    _rishiBreakStart = _idleBreakStart;
+
+    _idleOverlay = document.createElement('div');
+    _idleOverlay.id = 'rishi-idle-overlay';
+    _idleOverlay.style.cssText = 'position:fixed;inset:0;z-index:99999;background:rgba(10,18,40,0.96);display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:Nunito,sans-serif;text-align:center;padding:24px';
+    _idleOverlay.innerHTML = '<div style="font-size:56px;margin-bottom:16px">☕</div>'
+      + '<div style="font-size:22px;font-weight:900;color:#F5A623;margin-bottom:8px">Taking a break?</div>'
+      + '<div style="font-size:14px;color:rgba(255,255,255,0.7);margin-bottom:6px">You've been away for 5 minutes.</div>'
+      + '<div style="font-size:13px;color:rgba(255,255,255,0.5);margin-bottom:24px">This break is being recorded.</div>'
+      + '<div id="rishi-idle-timer" style="font-size:36px;font-weight:900;color:#fff;font-family:monospace;margin-bottom:28px">0:00</div>'
+      + '<button onclick="rishiEndIdleBreak()" style="font-family:Nunito,sans-serif;font-size:16px;font-weight:800;padding:14px 36px;border-radius:14px;border:none;cursor:pointer;background:linear-gradient(135deg,#F5A623,#22C97D);color:#000;box-shadow:0 6px 24px rgba(245,166,35,.4)">✅ I'm Back — End Break</button>';
+    document.body.appendChild(_idleOverlay);
+
+    var _dispTimer = setInterval(function() {
+      var el = document.getElementById('rishi-idle-timer');
+      if (!el) { clearInterval(_dispTimer); return; }
+      var elapsed = Math.floor(Date.now() / 1000) - _idleBreakStart;
+      var m = Math.floor(elapsed / 60), s = elapsed % 60;
+      el.textContent = m + ':' + (s < 10 ? '0' : '') + s;
+    }, 1000);
+    _idleOverlay._dispTimer = _dispTimer;
+  }
+
+  window.rishiEndIdleBreak = function() {
+    if (!_idleOverlay) return;
+    clearInterval(_idleOverlay._dispTimer);
+    var secs = Math.floor(Date.now() / 1000) - _idleBreakStart;
+    rishiLogBreak('Idle', secs);
+    _rishiBreakType = '';
+    _rishiBreakStart = 0;
+    document.body.removeChild(_idleOverlay);
+    _idleOverlay = null;
+    rishiResetIdleTimer();
+  };
+
+  // Activity listeners
+  ['mousemove','mousedown','keydown','touchstart','scroll','click'].forEach(function(ev) {
+    document.addEventListener(ev, rishiResetIdleTimer, { passive: true });
+  });
+
+  rishiResetIdleTimer(); // start on load
 });
