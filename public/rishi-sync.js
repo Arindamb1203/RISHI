@@ -60,7 +60,7 @@
     if (raw) {
       try {
         var obj = JSON.parse(raw);
-        var name = ((obj.name || obj.id || '')).trim();
+        var name = ((obj.studentId || obj.studentName || obj.name || obj.id || '')).trim();
         if (name) return name.toLowerCase();
       } catch (e) {}
     }
