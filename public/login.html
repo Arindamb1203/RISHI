@@ -269,7 +269,7 @@ function goToSyllabus(){
 }
 
 // ── LOGIN ─────────────────────────────────────────────────────────────────────
-function handleLogin(){
+async function handleLogin(){
   var u = document.getElementById('username').value.trim();
   var p = document.getElementById('password').value.trim();
   var valid = true;
@@ -278,7 +278,48 @@ function handleLogin(){
   if(!p){ setErr('password','Please enter your password'); valid=false; } else clearErr('password');
   if(!valid) return;
 
+  var btn = document.querySelector('.btn-login');
+  btn.textContent = '⏳ Checking…';
+  btn.disabled = true;
+
+  /* Step 1 — check localStorage */
   var account = findAccount(u, p);
+
+  /* Step 2 — not found locally, check D1 cloud */
+  if(!account){
+    try {
+      var res = await fetch('/functions/d1-sync', {
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({action:'find-account', username: u})
+      });
+      var json = await res.json();
+      if(json.ok && json.found){
+        /* Merge registration into localStorage so future logins are instant */
+        var d = json.data;
+        var existing = [];
+        try { existing = JSON.parse(localStorage.getItem('rishi_registrations')||'[]'); } catch(e){}
+        var alreadyThere = existing.find(function(r){ return r.studentUsername===d.studentUsername; });
+        if(!alreadyThere){
+          existing.push(d);
+          localStorage.setItem('rishi_registrations', JSON.stringify(existing));
+        }
+        /* If cloud has a pw override, sync it locally */
+        if(json.pw_override){
+          var ov = {};
+          try { ov = JSON.parse(localStorage.getItem('rishi_pw_overrides')||'{}'); } catch(e){}
+          ov[u.toLowerCase()] = json.pw_override;
+          localStorage.setItem('rishi_pw_overrides', JSON.stringify(ov));
+        }
+        /* Now try again */
+        account = findAccount(u, p);
+      }
+    } catch(e){}
+  }
+
+  btn.textContent = '✦ Login — Enter RISHI';
+  btn.disabled = false;
+
   if(!account){
     setErr('username','Username or password is incorrect');
     document.getElementById('username').classList.add('err');
@@ -303,7 +344,7 @@ function handleLogin(){
 }
 
 // ── FORGOT CREDENTIALS ────────────────────────────────────────────────────────
-function handleForgot(){
+async function handleForgot(){
   const mob = document.getElementById('forgotMobile').value.trim();
   if(mob.length < 10){
     document.getElementById('err-forgotMobile').classList.add('show');
@@ -311,16 +352,33 @@ function handleForgot(){
   }
   document.getElementById('err-forgotMobile').classList.remove('show');
 
+  let sUser = '—', sPass = '—', pUser = '—', pPass = '—';
+
+  /* Check localStorage first */
   const regs = JSON.parse(localStorage.getItem('rishi_registrations') || '[]');
   const overrides = JSON.parse(localStorage.getItem('rishi_pw_overrides') || '{}');
   const match = regs.find(r => r.primaryMobile === mob);
 
-  let sUser = '—', sPass = '—', pUser = '—', pPass = '—';
   if(match){
-    sUser  = match.studentUsername || '—';
-    pUser  = match.parentUsername  || '—';
-    sPass  = overrides[sUser] || STUDENT_PASS;
-    pPass  = overrides[pUser] || PARENT_PASS;
+    sUser = match.studentUsername || '—';
+    pUser = match.parentUsername  || '—';
+    sPass = overrides[sUser] || STUDENT_PASS;
+    pPass = overrides[pUser] || PARENT_PASS;
+  } else {
+    /* Check D1 cloud */
+    try {
+      const res = await fetch('/functions/d1-sync', {
+        method:'POST', headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({action:'find-by-mobile', mobile: mob})
+      });
+      const json = await res.json();
+      if(json.ok && json.found){
+        sUser = json.studentUsername || '—';
+        pUser = json.parentUsername  || '—';
+        sPass = json.studentPwOverride || STUDENT_PASS;
+        pPass = json.parentPwOverride  || PARENT_PASS;
+      }
+    } catch(e){}
   }
 
   document.getElementById('forgotUser').textContent = sUser + ' / ' + pUser;
@@ -347,10 +405,12 @@ function handleChangePassword(){
     return;
   }
 
-  // Save override
+  // Save override locally
   const overrides = JSON.parse(localStorage.getItem('rishi_pw_overrides') || '{}');
   overrides[user] = new1;
   localStorage.setItem('rishi_pw_overrides', JSON.stringify(overrides));
+  // Save override to D1 cloud
+  fetch('/functions/d1-sync',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'save-pw',username:user,pw:new1})}).catch(function(){});
 
   document.getElementById('changeResultUser').textContent = user;
   document.getElementById('changeResultPass').textContent = new1;
