@@ -1600,6 +1600,15 @@ function updateStudentActivation() {
   localStorage.setItem(key, JSON.stringify(active));
   // Also write legacy key for backward compat
   localStorage.setItem('rishi_active_chapters', JSON.stringify(active));
+  // Push to D1 so Riyon's device gets it automatically
+  var sid = getStudentId();
+  if (sid && sid !== 'default') {
+    fetch('/d1-sync', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({action: 'set', studentId: sid, key: 'rishi_active_chapters', value: JSON.stringify(active)})
+    }).catch(function(){});
+  }
 }
 
 function deletePlan(planId) {
