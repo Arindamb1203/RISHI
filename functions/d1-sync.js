@@ -29,26 +29,12 @@ export async function onRequest(context) {
   const { action } = body;
 
   /* ── ENSURE TABLES EXIST ── */
-  await env.DB.exec(`
-    CREATE TABLE IF NOT EXISTS rishi_sync (
-      student_id TEXT NOT NULL,
-      key        TEXT NOT NULL,
-      value      TEXT NOT NULL,
-      updated_at INTEGER NOT NULL,
-      PRIMARY KEY (student_id, key)
-    )
-  `);
-
-  await env.DB.exec(`
-    CREATE TABLE IF NOT EXISTS rishi_accounts (
-      username    TEXT PRIMARY KEY,
-      role        TEXT NOT NULL,
-      mobile      TEXT NOT NULL,
-      data        TEXT NOT NULL,
-      pw_override TEXT,
-      updated_at  INTEGER NOT NULL
-    )
-  `);
+  try {
+    await env.DB.exec("CREATE TABLE IF NOT EXISTS rishi_sync (student_id TEXT NOT NULL, key TEXT NOT NULL, value TEXT NOT NULL, updated_at INTEGER NOT NULL, PRIMARY KEY (student_id, key))");
+    await env.DB.exec("CREATE TABLE IF NOT EXISTS rishi_accounts (username TEXT PRIMARY KEY, role TEXT NOT NULL, mobile TEXT NOT NULL, data TEXT NOT NULL, pw_override TEXT, updated_at INTEGER NOT NULL)");
+  } catch(e) {
+    return new Response(JSON.stringify({ error: "Table init failed", detail: String(e) }), { status: 500, headers });
+  }
 
   /* ════════════════════════════════
      PROGRESS SYNC — set / get
