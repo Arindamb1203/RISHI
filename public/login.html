@@ -152,9 +152,10 @@
         <div class="val-msg" id="err-changeUser">Enter your username</div>
       </div>
       <div class="field">
-        <label>Current Password</label>
-        <input type="password" id="changeOld" placeholder="Current password" oninput="this.classList.add('filled')">
-        <div class="val-msg" id="err-changeOld">Enter your current password</div>
+        <label>Registered Mobile Number</label>
+        <input type="tel" id="changeOld" placeholder="10-digit mobile number" maxlength="10"
+          oninput="this.value=this.value.replace(/\D/g,''); this.classList.add('filled')">
+        <div class="val-msg" id="err-changeOld">Enter your registered mobile number</div>
       </div>
       <div class="field">
         <label>New Password</label>
@@ -191,17 +192,19 @@ function findAccount(username, password){
   var regs = [];
   try { regs = JSON.parse(localStorage.getItem('rishi_registrations') || '[]'); } catch(e){}
 
+  var uLower = username.trim().toLowerCase();
+
   for(var i=0;i<regs.length;i++){
     var r = regs[i];
-    // Student login
-    if(r.studentUsername === username){
-      var pw = overrides[username] || STUDENT_PASS;
-      if(pw === password) return {username:username, role:'student', board:r.board, class:r.class, studentId:r.studentUsername, studentName:r.studentName, parentName:r.parentName, parentUsername:r.parentUsername};
+    // Student login — case insensitive
+    if(r.studentUsername && r.studentUsername.toLowerCase() === uLower){
+      var pw = overrides[r.studentUsername] || overrides[uLower] || STUDENT_PASS;
+      if(pw === password) return {username:r.studentUsername, role:'student', board:r.board, class:r.class, studentId:r.studentUsername, studentName:r.studentName, parentName:r.parentName, parentUsername:r.parentUsername};
     }
-    // Parent login
-    if(r.parentUsername === username){
-      var pw = overrides[username] || PARENT_PASS;
-      if(pw === password) return {username:username, role:'parent', board:r.board, class:r.class, studentId:r.studentUsername, studentName:r.studentName, parentName:r.parentName, parentUsername:r.parentUsername};
+    // Parent login — case insensitive
+    if(r.parentUsername && r.parentUsername.toLowerCase() === uLower){
+      var pw = overrides[r.parentUsername] || overrides[uLower] || PARENT_PASS;
+      if(pw === password) return {username:r.parentUsername, role:'parent', board:r.board, class:r.class, studentId:r.studentUsername, studentName:r.studentName, parentName:r.parentName, parentUsername:r.parentUsername};
     }
   }
   return null;
@@ -387,21 +390,43 @@ async function handleForgot(){
 }
 
 // ── CHANGE PASSWORD ────────────────────────────────────────────────────────────
-function handleChangePassword(){
-  const user = document.getElementById('changeUser').value.trim();
-  const old  = document.getElementById('changeOld').value.trim();
-  const new1 = document.getElementById('changeNew1').value.trim();
-  const new2 = document.getElementById('changeNew2').value.trim();
-  let valid  = true;
+async function handleChangePassword(){
+  const user  = document.getElementById('changeUser').value.trim();
+  const mob   = document.getElementById('changeOld').value.trim();
+  const new1  = document.getElementById('changeNew1').value.trim();
+  const new2  = document.getElementById('changeNew2').value.trim();
+  let valid   = true;
 
   if(!user) { setExpandErr('changeUser','Enter your username'); valid=false; } else clearExpandErr('changeUser');
-  if(!old)  { setExpandErr('changeOld','Enter your current password'); valid=false; } else clearExpandErr('changeOld');
+  if(mob.length < 10) { setExpandErr('changeOld','Enter your 10-digit registered mobile'); valid=false; } else clearExpandErr('changeOld');
   if(!new1) { setExpandErr('changeNew1','Enter new password'); valid=false; } else clearExpandErr('changeNew1');
   if(new1!==new2){ setExpandErr('changeNew2','Passwords do not match'); valid=false; } else clearExpandErr('changeNew2');
   if(!valid) return;
 
-  if(!findAccount(user, old)){
-    setExpandErr('changeOld','Username or current password is incorrect');
+  // Verify mobile matches this username — check localStorage first
+  var regs = [];
+  try { regs = JSON.parse(localStorage.getItem('rishi_registrations')||'[]'); } catch(e){}
+  var uLower = user.toLowerCase();
+  var matched = regs.find(function(r){
+    return (r.studentUsername||'').toLowerCase()===uLower || (r.parentUsername||'').toLowerCase()===uLower;
+  });
+
+  // If not found locally, check D1
+  if (!matched) {
+    try {
+      var res = await fetch('/d1-sync',{method:'POST',headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({action:'find-by-mobile',mobile:mob})});
+      var json = await res.json();
+      if (json.ok && json.found) {
+        var sLower = (json.studentUsername||'').toLowerCase();
+        var pLower = (json.parentUsername||'').toLowerCase();
+        if (sLower===uLower || pLower===uLower) matched = {primaryMobile: mob};
+      }
+    } catch(e){}
+  }
+
+  if (!matched || (matched.primaryMobile||'').replace(/\s/g,'') !== mob.replace(/\s/g,'')) {
+    setExpandErr('changeOld','Mobile number does not match this username');
     return;
   }
 
@@ -409,14 +434,14 @@ function handleChangePassword(){
   const overrides = JSON.parse(localStorage.getItem('rishi_pw_overrides') || '{}');
   overrides[user] = new1;
   localStorage.setItem('rishi_pw_overrides', JSON.stringify(overrides));
-  // Save override to D1 cloud
-  fetch('/functions/d1-sync',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'save-pw',username:user,pw:new1})}).catch(function(){});
+
+  // Save to D1 cloud
+  fetch('/d1-sync',{method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({action:'save-pw',username:user,pw:new1})}).catch(function(){});
 
   document.getElementById('changeResultUser').textContent = user;
   document.getElementById('changeResultPass').textContent = new1;
   document.getElementById('changeResult').classList.add('show');
-
-  // 🔒 INACTIVE: sendSMS(mobile, 'RISHI: Password changed. Username: ' + user + ' New Password: ' + new1);
 }
 
 // ── TOGGLE SECTIONS ───────────────────────────────────────────────────────────
