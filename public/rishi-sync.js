@@ -16,7 +16,7 @@
 (function () {
   'use strict';
 
-  var ENDPOINT = '/functions/d1-sync';
+  var ENDPOINT = '/d1-sync';
 
   /* ── Keys that sync to/from cloud ── */
   var SYNC_EXACT = [

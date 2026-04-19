@@ -291,7 +291,7 @@ async function handleLogin(){
   /* Step 2 — not found locally, check D1 cloud */
   if(!account){
     try {
-      var res = await fetch('/functions/d1-sync', {
+      var res = await fetch('/d1-sync', {
         method: 'POST',
         headers: {'Content-Type':'application/json'},
         body: JSON.stringify({action:'find-account', username: u})
@@ -370,7 +370,7 @@ async function handleForgot(){
   } else {
     /* Check D1 cloud */
     try {
-      const res = await fetch('/functions/d1-sync', {
+      const res = await fetch('/d1-sync', {
         method:'POST', headers:{'Content-Type':'application/json'},
         body: JSON.stringify({action:'find-by-mobile', mobile: mob})
       });
