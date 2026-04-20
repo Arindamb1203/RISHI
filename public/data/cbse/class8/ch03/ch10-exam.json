@@ -44,7 +44,11 @@
           "correct": "b",
           "difficulty": "easy",
           "source": "ncert",
-          "explanation": "A cube has 6 square faces, 12 edges and 8 vertices. Euler check: 6+8=14=12+2 ✓."
+          "explanation": "A cube has 6 square faces, 12 edges and 8 vertices. Euler check: 6+8=14=12+2 ✓.",
+          "diagram": {
+            "type": "cube_3d",
+            "params": {}
+          }
         },
         {
           "id": "cbse_8_ch10_A_003",
@@ -58,7 +62,13 @@
           "correct": "c",
           "difficulty": "easy",
           "source": "ncert",
-          "explanation": "When a cone is viewed from the top, the circular base is visible with a point (apex) at the centre — the overall outline is a circle."
+          "explanation": "When a cone is viewed from the top, the circular base is visible with a point (apex) at the centre — the overall outline is a circle.",
+          "diagram": {
+            "type": "cone_3d",
+            "params": {
+              "apex_label": "apex"
+            }
+          }
         },
         {
           "id": "cbse_8_ch10_A_004",
@@ -100,7 +110,16 @@
           "correct": "c",
           "difficulty": "easy",
           "source": "ncert",
-          "explanation": "Looking at an upright cylinder from the front, you see a rectangle (height × diameter)."
+          "explanation": "Looking at an upright cylinder from the front, you see a rectangle (height × diameter).",
+          "diagram": {
+            "type": "cylinder_3d",
+            "params": {
+              "measurements": {
+                "h": "h",
+                "r": "r"
+              }
+            }
+          }
         },
         {
           "id": "cbse_8_ch10_A_007",
@@ -170,7 +189,17 @@
           "correct": "c",
           "difficulty": "easy",
           "source": "ncert",
-          "explanation": "The top view of a cuboid (viewed from directly above) is a rectangle — the outline of the top face."
+          "explanation": "The top view of a cuboid (viewed from directly above) is a rectangle — the outline of the top face.",
+          "diagram": {
+            "type": "cuboid_3d",
+            "params": {
+              "measurements": {
+                "l": "l",
+                "b": "b",
+                "h": "h"
+              }
+            }
+          }
         },
         {
           "id": "cbse_8_ch10_A_012",
@@ -184,7 +213,11 @@
           "correct": "a",
           "difficulty": "easy",
           "source": "ncert",
-          "explanation": "The net of a cylinder: 2 circular faces (top and bottom) + 1 curved surface (rectangle when unrolled)."
+          "explanation": "The net of a cylinder: 2 circular faces (top and bottom) + 1 curved surface (rectangle when unrolled).",
+          "diagram": {
+            "type": "cylinder_3d",
+            "params": {}
+          }
         },
         {
           "id": "cbse_8_ch10_A_013",
@@ -226,7 +259,11 @@
           "correct": "b",
           "difficulty": "easy",
           "source": "ncert",
-          "explanation": "The side view of a cone is an isosceles triangle — the apex at top, base as the base of the triangle."
+          "explanation": "The side view of a cone is an isosceles triangle — the apex at top, base as the base of the triangle.",
+          "diagram": {
+            "type": "cone_3d",
+            "params": {}
+          }
         },
         {
           "id": "cbse_8_ch10_A_016",
@@ -240,7 +277,11 @@
           "correct": "c",
           "difficulty": "easy",
           "source": "ncert",
-          "explanation": "A plane parallel to the base of a cube cuts it to produce a square cross-section (same shape as the base)."
+          "explanation": "A plane parallel to the base of a cube cuts it to produce a square cross-section (same shape as the base).",
+          "diagram": {
+            "type": "cube_3d",
+            "params": {}
+          }
         },
         {
           "id": "cbse_8_ch10_A_017",
@@ -254,7 +295,15 @@
           "correct": "b",
           "difficulty": "easy",
           "source": "ncert",
-          "explanation": "A front view showing a rectangle (walls) with a triangle on top (roof) represents a cuboid with a triangular prism (the sloped roof)."
+          "explanation": "A front view showing a rectangle (walls) with a triangle on top (roof) represents a cuboid with a triangular prism (the sloped roof).",
+          "diagram": {
+            "type": "cuboid_3d",
+            "params": {
+              "measurements": {
+                "h": "walls"
+              }
+            }
+          }
         },
         {
           "id": "cbse_8_ch10_A_018",
@@ -332,7 +381,11 @@
           "correct": "c",
           "difficulty": "medium",
           "source": "ncert",
-          "explanation": "The front view: cube appears as a square/rectangle, pyramid above appears as a triangle. Combined front view = rectangle with triangle on top."
+          "explanation": "The front view: cube appears as a square/rectangle, pyramid above appears as a triangle. Combined front view = rectangle with triangle on top.",
+          "diagram": {
+            "type": "cube_3d",
+            "params": {}
+          }
         },
         {
           "id": "cbse_8_ch10_B_003",
@@ -360,7 +413,30 @@
           "correct": "b",
           "difficulty": "medium",
           "source": "ncert",
-          "explanation": "Three unit cubes in a row: front view is 3 cm wide and 1 cm tall = a 1×3 rectangle."
+          "explanation": "Three unit cubes in a row: front view is 3 cm wide and 1 cm tall = a 1×3 rectangle.",
+          "diagram": {
+            "type": "unit_cubes",
+            "params": {
+              "grid": [
+                [
+                  [
+                    true
+                  ]
+                ],
+                [
+                  [
+                    true
+                  ]
+                ],
+                [
+                  [
+                    true
+                  ]
+                ]
+              ],
+              "label": "3 cubes in a row"
+            }
+          }
         },
         {
           "id": "cbse_8_ch10_B_005",
@@ -388,7 +464,11 @@
           "correct": "c",
           "difficulty": "medium",
           "source": "ncert",
-          "explanation": "From the top, the cylinder's circular base is visible within the square top face of the cube. View = circle inside a square."
+          "explanation": "From the top, the cylinder's circular base is visible within the square top face of the cube. View = circle inside a square.",
+          "diagram": {
+            "type": "cylinder_3d",
+            "params": {}
+          }
         },
         {
           "id": "cbse_8_ch10_B_007",
@@ -416,7 +496,13 @@
           "correct": "b",
           "difficulty": "medium",
           "source": "ncert",
-          "explanation": "With apex pointing down, the front view of the cone is an inverted triangle — wide at the top (base) and pointed at the bottom (apex)."
+          "explanation": "With apex pointing down, the front view of the cone is an inverted triangle — wide at the top (base) and pointed at the bottom (apex).",
+          "diagram": {
+            "type": "cone_3d",
+            "params": {
+              "inverted": true
+            }
+          }
         },
         {
           "id": "cbse_8_ch10_B_009",
@@ -430,7 +516,17 @@
           "correct": "b",
           "difficulty": "medium",
           "source": "ncert",
-          "explanation": "A cuboid always has 6 rectangular faces (3 pairs of opposite faces). Edges=12, Vertices=8. Euler: 6+8=14=12+2 ✓."
+          "explanation": "A cuboid always has 6 rectangular faces (3 pairs of opposite faces). Edges=12, Vertices=8. Euler: 6+8=14=12+2 ✓.",
+          "diagram": {
+            "type": "cuboid_3d",
+            "params": {
+              "measurements": {
+                "l": "6 cm",
+                "b": "4 cm",
+                "h": "3 cm"
+              }
+            }
+          }
         },
         {
           "id": "cbse_8_ch10_B_010",
@@ -444,7 +540,39 @@
           "correct": "c",
           "difficulty": "medium",
           "source": "ncert",
-          "explanation": "3 cubes in a row (1 unit tall each) + 1 cube on top of the leftmost (making 2 units tall on left). Front view: 2 units tall on left, 1 unit tall for the other 2 = an L-shape."
+          "explanation": "3 cubes in a row (1 unit tall each) + 1 cube on top of the leftmost (making 2 units tall on left). Front view: 2 units tall on left, 1 unit tall for the other 2 = an L-shape.",
+          "diagram": {
+            "type": "unit_cubes",
+            "params": {
+              "grid": [
+                [
+                  [
+                    true
+                  ],
+                  [
+                    true
+                  ]
+                ],
+                [
+                  [
+                    true
+                  ],
+                  [
+                    false
+                  ]
+                ],
+                [
+                  [
+                    true
+                  ],
+                  [
+                    false
+                  ]
+                ]
+              ],
+              "label": "L-shape: 4 unit cubes"
+            }
+          }
         }
       ]
     },
@@ -480,7 +608,37 @@
           "correct": "b",
           "difficulty": "hard",
           "source": "ncert",
-          "explanation": "The side view (from the right) shows only what is visible from the right side. The rightmost column visible is 2 cubes tall (base + one directly above). Side view = 1×2 rectangle (2 units tall, 1 unit wide)."
+          "explanation": "The side view (from the right) shows only what is visible from the right side. The rightmost column visible is 2 cubes tall (base + one directly above). Side view = 1×2 rectangle (2 units tall, 1 unit wide).",
+          "diagram": {
+            "type": "unit_cubes",
+            "params": {
+              "grid": [
+                [
+                  [
+                    true
+                  ],
+                  [
+                    true
+                  ],
+                  [
+                    true
+                  ]
+                ],
+                [
+                  [
+                    false
+                  ],
+                  [
+                    true
+                  ],
+                  [
+                    false
+                  ]
+                ]
+              ],
+              "label": "4 unit cubes — staircase"
+            }
+          }
         },
         {
           "id": "cbse_8_ch10_C_003",
@@ -494,7 +652,17 @@
           "correct": "b",
           "difficulty": "hard",
           "source": "kv_paper",
-          "explanation": "A plane parallel to the 3×2 face gives a cross-section identical to that face: area = 3×2 = 6 cm²."
+          "explanation": "A plane parallel to the 3×2 face gives a cross-section identical to that face: area = 3×2 = 6 cm².",
+          "diagram": {
+            "type": "cuboid_3d",
+            "params": {
+              "measurements": {
+                "l": "3 cm",
+                "b": "2 cm",
+                "h": "4 cm"
+              }
+            }
+          }
         },
         {
           "id": "cbse_8_ch10_C_004",
@@ -522,7 +690,11 @@
           "correct": "b",
           "difficulty": "hard",
           "source": "ncert_exemplar",
-          "explanation": "Unit cubes with exactly 2 painted faces are the edge cubes (not corner). A 3×3×3 cube has 12 edges, each contributing 1 such cube (the middle of each edge). Total = 12."
+          "explanation": "Unit cubes with exactly 2 painted faces are the edge cubes (not corner). A 3×3×3 cube has 12 edges, each contributing 1 such cube (the middle of each edge). Total = 12.",
+          "diagram": {
+            "type": "cube_3d",
+            "params": {}
+          }
         },
         {
           "id": "cbse_8_ch10_C_006",
@@ -536,7 +708,66 @@
           "correct": "a",
           "difficulty": "hard",
           "source": "ncert",
-          "explanation": "East 3 cm, North 4 cm → right triangle. AB = √(3²+4²) = √(9+16) = √25 = 5 cm on map = 5 km actual."
+          "explanation": "East 3 cm, North 4 cm → right triangle. AB = √(3²+4²) = √(9+16) = √25 = 5 cm on map = 5 km actual.",
+          "diagram": {
+            "type": "coordinate_plane",
+            "params": {
+              "x_range": [
+                -1,
+                5
+              ],
+              "y_range": [
+                -1,
+                6
+              ],
+              "grid": true,
+              "show_quadrants": false,
+              "points": [
+                {
+                  "x": 0,
+                  "y": 0,
+                  "label": "A"
+                },
+                {
+                  "x": 3,
+                  "y": 0,
+                  "label": ""
+                },
+                {
+                  "x": 3,
+                  "y": 4,
+                  "label": "B"
+                }
+              ],
+              "lines": [
+                {
+                  "x1": 0,
+                  "y1": 0,
+                  "x2": 3,
+                  "y2": 0,
+                  "color": "#22d3ee",
+                  "dashed": false
+                },
+                {
+                  "x1": 3,
+                  "y1": 0,
+                  "x2": 3,
+                  "y2": 4,
+                  "color": "#22d3ee",
+                  "dashed": false
+                },
+                {
+                  "x1": 0,
+                  "y1": 0,
+                  "x2": 3,
+                  "y2": 4,
+                  "color": "#ffd700",
+                  "dashed": true,
+                  "label": "AB=5km"
+                }
+              ]
+            }
+          }
         }
       ]
     },
@@ -587,7 +818,35 @@
           "correct": "a",
           "difficulty": "medium",
           "source": "ncert",
-          "explanation": "In a 2×2×2 arrangement, all 8 unit cubes are on the outer surface — every cube can be seen from at least one direction. None are completely hidden."
+          "explanation": "In a 2×2×2 arrangement, all 8 unit cubes are on the outer surface — every cube can be seen from at least one direction. None are completely hidden.",
+          "diagram": {
+            "type": "unit_cubes",
+            "params": {
+              "grid": [
+                [
+                  [
+                    true,
+                    true
+                  ],
+                  [
+                    true,
+                    true
+                  ]
+                ],
+                [
+                  [
+                    true,
+                    true
+                  ],
+                  [
+                    true,
+                    true
+                  ]
+                ]
+              ],
+              "label": "2×2×2 cube"
+            }
+          }
         },
         {
           "id": "cbse_8_ch10_D_004",
@@ -615,7 +874,15 @@
           "correct": "d",
           "difficulty": "medium",
           "source": "ncert",
-          "explanation": "Number of smaller cubes = (4÷1)³ = 4³ = 64 unit cubes."
+          "explanation": "Number of smaller cubes = (4÷1)³ = 4³ = 64 unit cubes.",
+          "diagram": {
+            "type": "cube_3d",
+            "params": {
+              "measurements": {
+                "side": "4 cm"
+              }
+            }
+          }
         },
         {
           "id": "cbse_8_ch10_D_006",
@@ -629,7 +896,11 @@
           "correct": "c",
           "difficulty": "medium",
           "source": "ncert_exemplar",
-          "explanation": "Corner cubes have 3 painted faces. A 3×3×3 cube has 8 corners. So 8 unit cubes have exactly 3 faces painted."
+          "explanation": "Corner cubes have 3 painted faces. A 3×3×3 cube has 8 corners. So 8 unit cubes have exactly 3 faces painted.",
+          "diagram": {
+            "type": "cube_3d",
+            "params": {}
+          }
         },
         {
           "id": "cbse_8_ch10_D_007",
@@ -643,7 +914,11 @@
           "correct": "b",
           "difficulty": "medium",
           "source": "ncert_exemplar",
-          "explanation": "The innermost cube(s): in a 3×3×3, the centre cube is completely surrounded — 1 unit cube has 0 faces painted."
+          "explanation": "The innermost cube(s): in a 3×3×3, the centre cube is completely surrounded — 1 unit cube has 0 faces painted.",
+          "diagram": {
+            "type": "cube_3d",
+            "params": {}
+          }
         },
         {
           "id": "cbse_8_ch10_D_008",
@@ -671,7 +946,15 @@
           "correct": "d",
           "difficulty": "medium",
           "source": "ncert",
-          "explanation": "Surface area of cube = 6 × side² = 6 × 3² = 6 × 9 = 54 cm²."
+          "explanation": "Surface area of cube = 6 × side² = 6 × 3² = 6 × 9 = 54 cm².",
+          "diagram": {
+            "type": "cube_3d",
+            "params": {
+              "measurements": {
+                "side": "3 cm"
+              }
+            }
+          }
         },
         {
           "id": "cbse_8_ch10_D_010",
@@ -685,7 +968,17 @@
           "correct": "b",
           "difficulty": "hard",
           "source": "ncert",
-          "explanation": "Front view 3×2 → length=3, height=2. Side view 2×2 → width=2, height=2. Top view 3×2 → length=3, width=2. Solid = cuboid 3×2×2."
+          "explanation": "Front view 3×2 → length=3, height=2. Side view 2×2 → width=2, height=2. Top view 3×2 → length=3, width=2. Solid = cuboid 3×2×2.",
+          "diagram": {
+            "type": "cuboid_3d",
+            "params": {
+              "measurements": {
+                "l": "3 cm",
+                "b": "2 cm",
+                "h": "2 cm"
+              }
+            }
+          }
         }
       ]
     },
@@ -712,7 +1005,16 @@
               },
               "correct": "a",
               "marks": 2,
-              "explanation": "Looking at a cylinder from the end (front of tunnel opening), you see the circular base — a circle."
+              "explanation": "Looking at a cylinder from the end (front of tunnel opening), you see the circular base — a circle.",
+              "diagram": {
+                "type": "cylinder_3d",
+                "params": {
+                  "measurements": {
+                    "r": "1 m",
+                    "h": "3 m"
+                  }
+                }
+              }
             },
             {
               "id": "cbse_8_ch10_E_case1_q2",
@@ -726,7 +1028,11 @@
               },
               "correct": "b",
               "marks": 2,
-              "explanation": "The top view of a square pyramid: the square base is visible, and the 4 edges from base corners to apex project as diagonals. View = a square with diagonals."
+              "explanation": "The top view of a square pyramid: the square base is visible, and the 4 edges from base corners to apex project as diagonals. View = a square with diagonals.",
+              "diagram": {
+                "type": "cube_3d",
+                "params": {}
+              }
             },
             {
               "id": "cbse_8_ch10_E_case1_q3",
@@ -760,7 +1066,11 @@
               },
               "correct": "b",
               "marks": 2,
-              "explanation": "Face cubes (centre of each face): a 3×3×3 cube has 6 faces, each with 1 central unit cube (not on any edge). Total = 6 unit cubes with exactly 1 face painted."
+              "explanation": "Face cubes (centre of each face): a 3×3×3 cube has 6 faces, each with 1 central unit cube (not on any edge). Total = 6 unit cubes with exactly 1 face painted.",
+              "diagram": {
+                "type": "cube_3d",
+                "params": {}
+              }
             },
             {
               "id": "cbse_8_ch10_E_case2_q2",
@@ -774,7 +1084,11 @@
               },
               "correct": "c",
               "marks": 2,
-              "explanation": "Edge cubes (middle of each edge of the large cube): a cube has 12 edges, each edge of the 3×3×3 has 1 middle unit cube. Total = 12 unit cubes with exactly 2 faces painted."
+              "explanation": "Edge cubes (middle of each edge of the large cube): a cube has 12 edges, each edge of the 3×3×3 has 1 middle unit cube. Total = 12 unit cubes with exactly 2 faces painted.",
+              "diagram": {
+                "type": "cube_3d",
+                "params": {}
+              }
             },
             {
               "id": "cbse_8_ch10_E_case2_q3",
@@ -788,7 +1102,11 @@
               },
               "correct": "d",
               "marks": 2,
-              "explanation": "8+12+6+1 = 27 unit cubes in total. This accounts for all 27 cubes in the 3×3×3 arrangement ✓."
+              "explanation": "8+12+6+1 = 27 unit cubes in total. This accounts for all 27 cubes in the 3×3×3 arrangement ✓.",
+              "diagram": {
+                "type": "cube_3d",
+                "params": {}
+              }
             }
           ]
         }

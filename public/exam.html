@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chapter Exam | RISHI</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<script src="/rishi-core.js"></script>
+<script src="/rishi-diagram.js"></script>
+<style>
+/* ─────────────────────────────────────────────
+   RISHI — Universal Chapter Exam Page
+   Usage: /exam.html?ch=02  (any chapter id)
+───────────────────────────────────────────── */
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Nunito',sans-serif;background:#0d0d1a;min-height:100vh;color:#fff;overflow-x:hidden;}
+
+/* ─ TOPBAR ─ */
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:10px 20px;background:rgba(0,0,0,.5);border-bottom:1px solid rgba(255,215,0,.2);position:sticky;top:0;z-index:200;gap:10px;flex-wrap:wrap;}
+.topbar-left{display:flex;gap:8px;align-items:center;flex-wrap:wrap;}
+.topbar-right{display:flex;gap:8px;align-items:center;}
+.tbtn{padding:8px 16px;border-radius:20px;border:none;cursor:pointer;font-family:'Nunito',sans-serif;font-weight:700;font-size:13px;}
+.tbtn-back{background:rgba(255,215,0,.15);border:1px solid #ffd700;color:#ffd700;}
+.exam-label{font-size:11px;text-transform:uppercase;letter-spacing:2px;color:rgba(255,255,255,.4);background:rgba(255,255,255,.06);padding:5px 12px;border-radius:12px;}
+.chapter-pill{font-size:12px;font-weight:700;color:rgba(255,255,255,.55);max-width:260px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.exam-timer{font-family:'Courier New',monospace;font-size:15px;font-weight:700;background:rgba(0,0,0,.4);padding:6px 14px;border-radius:12px;color:#fff;border:1px solid rgba(255,255,255,.15);min-width:70px;text-align:center;}
+.exam-timer.warn{color:#f39c12;border-color:#f39c12;}
+.exam-timer.danger{color:#e74c3c;border-color:#e74c3c;animation:pulse .8s infinite alternate;}
+@keyframes pulse{from{opacity:1;}to{opacity:.5;}}
+.coins-badge{background:linear-gradient(135deg,#ffd700,#ffed4e);color:#1a1a2e;padding:6px 14px;border-radius:20px;font-weight:900;font-size:14px;display:flex;align-items:center;gap:5px;}
+
+/* ─ LAYOUT ─ */
+.main-layout{display:grid;grid-template-columns:220px 1fr 280px;gap:16px;padding:16px;max-width:1400px;margin:0 auto;}
+@media(max-width:1100px){.main-layout{grid-template-columns:1fr;}}
+@media(max-width:1100px){.right-panel{display:none;}}
+
+/* ─ LEFT PANEL ─ */
+.left-panel{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:16px;height:fit-content;position:sticky;top:70px;}
+.lp-chapter{font-size:11px;text-transform:uppercase;letter-spacing:2px;color:rgba(255,255,255,.4);margin-bottom:4px;}
+.lp-title{font-size:14px;font-weight:800;color:#ffd700;margin-bottom:14px;line-height:1.4;}
+.lp-stat{margin-bottom:12px;}
+.lp-stat-label{font-size:11px;color:rgba(255,255,255,.4);margin-bottom:3px;}
+.lp-stat-val{font-size:22px;font-weight:900;color:#fff;}
+.prog-wrap{margin-top:4px;}
+.pb-label{font-size:11px;color:rgba(255,255,255,.4);margin-bottom:5px;}
+.pb-track{background:rgba(255,255,255,.1);border-radius:6px;height:6px;overflow:hidden;}
+.pb-fill{height:100%;background:linear-gradient(90deg,#ffd700,#2ecc71);border-radius:6px;transition:width .4s;}
+.section-list{margin-top:12px;}
+.sec-item{display:flex;justify-content:space-between;align-items:center;padding:7px 10px;border-radius:8px;margin-bottom:4px;font-size:12px;font-weight:700;background:rgba(255,255,255,.04);color:rgba(255,255,255,.35);}
+.sec-item.active{background:rgba(255,215,0,.12);color:#ffd700;border:1px solid rgba(255,215,0,.25);}
+.sec-item.done{background:rgba(46,204,113,.08);color:#2ecc71;}
+.sec-marks{font-size:10px;opacity:.7;}
+.score-box{margin-top:12px;background:rgba(255,215,0,.06);border-radius:12px;padding:10px;text-align:center;border:1px solid rgba(255,215,0,.15);}
+.score-big{font-size:28px;font-weight:900;color:#ffd700;font-family:'Orbitron',sans-serif;}
+.score-of-txt{font-size:11px;color:rgba(255,255,255,.4);margin-top:2px;}
+
+/* ─ QUESTION AREA ─ */
+.q-area{display:flex;flex-direction:column;gap:12px;}
+
+/* Section header */
+.sec-header{background:rgba(255,215,0,.06);border:1px solid rgba(255,215,0,.2);border-radius:12px;padding:12px 18px;}
+.sh-tag{font-size:11px;text-transform:uppercase;letter-spacing:2px;color:rgba(255,255,255,.45);}
+.sh-name{font-size:17px;font-weight:800;color:#ffd700;margin:3px 0;}
+.sh-meta{font-size:12px;color:rgba(255,255,255,.4);}
+
+/* Case study text box */
+.case-box{background:rgba(255,255,255,.04);border-left:3px solid #ffd700;border-radius:0 10px 10px 0;padding:14px 16px;font-size:14px;line-height:1.75;color:rgba(255,255,255,.82);display:none;}
+
+/* Question card */
+.q-card{border-radius:18px;padding:24px 28px;position:relative;overflow:hidden;border:1px solid rgba(255,255,255,.1);}
+.q-card-inner{position:relative;z-index:2;}
+.q-badge{font-size:10px;text-transform:uppercase;letter-spacing:2px;color:rgba(255,255,255,.45);margin-bottom:8px;}
+/* Diagram slot */
+.diagram-slot{margin:10px 0 14px;background:rgba(0,0,0,.25);border-radius:12px;padding:10px;display:none;border:1px solid rgba(255,215,0,.12);}
+.diagram-slot.show{display:block;}
+.q-text{font-size:18px;font-weight:700;line-height:1.6;margin-bottom:4px;}
+.dest-tag{position:absolute;bottom:10px;right:14px;font-size:10px;color:rgba(255,255,255,.22);font-style:italic;}
+
+/* Travel backgrounds */
+.tbg-0{background:linear-gradient(135deg,#0a2a4a,#1a5276);}
+.tbg-1{background:linear-gradient(135deg,#1b2838,#2d6a4f);}
+.tbg-2{background:linear-gradient(135deg,#2c1810,#922b21);}
+.tbg-3{background:linear-gradient(135deg,#0d1b2a,#1f3a5c);}
+.tbg-4{background:linear-gradient(135deg,#1a0a2e,#4a235a);}
+.tbg-5{background:linear-gradient(135deg,#1c2237,#0e4d5c);}
+.tbg-6{background:linear-gradient(135deg,#2a1e00,#7d6608);}
+.tbg-7{background:linear-gradient(135deg,#0a1628,#154360);}
+.tbg-8{background:linear-gradient(135deg,#1a2c1a,#1d5e35);}
+.tbg-9{background:linear-gradient(135deg,#2c0a0a,#7b241c);}
+.tbg-10{background:linear-gradient(135deg,#0d0d2e,#283593);}
+.tbg-11{background:linear-gradient(135deg,#0a2010,#145a32);}
+.tbg-12{background:linear-gradient(135deg,#1a0d00,#784212);}
+.tbg-13{background:linear-gradient(135deg,#00141a,#0e6655);}
+.tbg-14{background:linear-gradient(135deg,#1a0028,#6c3483);}
+
+/* ─ MCQ OPTIONS ─ */
+.options-wrap{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+@media(max-width:600px){.options-wrap{grid-template-columns:1fr;}}
+.opt-btn{display:flex;align-items:flex-start;gap:12px;padding:14px 16px;background:rgba(255,255,255,.05);border:2px solid rgba(255,255,255,.12);border-radius:14px;cursor:pointer;font-family:'Nunito',sans-serif;font-size:14px;font-weight:700;color:#fff;text-align:left;transition:.15s;width:100%;line-height:1.4;}
+.opt-btn:hover:not(:disabled){background:rgba(255,215,0,.1);border-color:rgba(255,215,0,.4);}
+.opt-btn.selected{background:rgba(255,215,0,.15);border-color:#ffd700;color:#ffd700;}
+.opt-btn.correct{background:rgba(46,204,113,.15);border-color:#2ecc71;color:#2ecc71;}
+.opt-btn.wrong{background:rgba(231,76,60,.12);border-color:#e74c3c;color:#e74c3c;}
+.opt-btn.reveal-correct{background:rgba(46,204,113,.08);border-color:rgba(46,204,113,.35);color:#2ecc71;}
+.opt-btn:disabled{cursor:not-allowed;}
+.opt-key{display:flex;align-items:center;justify-content:center;min-width:28px;height:28px;border-radius:8px;background:rgba(255,255,255,.1);font-size:13px;font-weight:900;flex-shrink:0;margin-top:1px;}
+.opt-btn.selected .opt-key{background:rgba(255,215,0,.3);}
+.opt-btn.correct .opt-key{background:rgba(46,204,113,.3);}
+.opt-btn.wrong .opt-key{background:rgba(231,76,60,.3);}
+.confirm-btn{width:100%;padding:13px;background:linear-gradient(135deg,#ffd700,#f39c12);color:#1a1a2e;border:none;border-radius:30px;font-size:15px;font-weight:900;cursor:pointer;font-family:'Nunito',sans-serif;display:none;margin-top:4px;}
+.confirm-btn.show{display:block;}
+.confirm-btn:disabled{opacity:.4;cursor:not-allowed;}
+
+/* ─ DIRECT INPUT ─ */
+.direct-wrap{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:18px;display:none;}
+.ans-input{width:100%;padding:14px 18px;background:rgba(0,0,0,.4);border:2px solid rgba(255,215,0,.3);border-radius:30px;color:#fff;font-size:17px;font-family:'Nunito',sans-serif;outline:none;transition:.2s;}
+.ans-input:focus{border-color:#ffd700;}
+.submit-btn{width:100%;margin-top:10px;padding:13px;background:linear-gradient(135deg,#ffd700,#f39c12);color:#1a1a2e;border:none;border-radius:30px;font-size:16px;font-weight:900;cursor:pointer;font-family:'Nunito',sans-serif;transition:.15s;}
+.submit-btn:hover:not(:disabled){opacity:.9;transform:translateY(-1px);}
+.submit-btn:disabled{opacity:.4;cursor:not-allowed;transform:none;}
+
+/* ─ FEEDBACK ─ */
+.feedback-box{border-radius:16px;padding:16px;display:none;}
+.feedback-box.correct{display:block;background:rgba(46,204,113,.1);border:1px solid rgba(46,204,113,.4);}
+.feedback-box.wrong{display:block;background:rgba(231,76,60,.08);border:1px solid rgba(231,76,60,.3);}
+.fb-title{font-size:16px;font-weight:800;margin-bottom:6px;}
+.feedback-box.correct .fb-title{color:#2ecc71;}
+.feedback-box.wrong .fb-title{color:#e74c3c;}
+.fb-expl{font-size:13px;line-height:1.65;color:rgba(255,255,255,.75);background:rgba(0,0,0,.3);border-radius:8px;padding:10px 14px;margin-top:6px;}
+.next-btn{width:100%;padding:13px;background:rgba(255,215,0,.12);border:1px solid #ffd700;color:#ffd700;border-radius:14px;font-size:15px;font-weight:900;cursor:pointer;font-family:'Nunito',sans-serif;display:none;transition:.15s;}
+.next-btn.show{display:block;}
+.next-btn:hover{background:rgba(255,215,0,.2);}
+
+/* Coin pop */
+@keyframes coinPop{0%{transform:translateY(-50px) scale(1.3);opacity:1;}100%{transform:translateY(10px) scale(.4);opacity:0;}}
+.coin-pop{position:fixed;top:54px;right:90px;font-size:26px;z-index:999;animation:coinPop .9s ease-in forwards;pointer-events:none;}
+
+/* ─ RIGHT PANEL ─ */
+.right-panel{display:flex;flex-direction:column;gap:14px;}
+.rishika-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:14px;text-align:center;}
+.rishika-name{font-size:11px;letter-spacing:2px;color:rgba(255,215,0,.7);text-transform:uppercase;margin-bottom:6px;}
+.rishika-bubble{background:rgba(255,215,0,.08);border-radius:12px;padding:10px 14px;font-size:12px;line-height:1.55;min-height:44px;border:1px solid rgba(255,215,0,.15);margin-top:8px;}
+.score-card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:14px;}
+.sc-title{font-size:11px;text-transform:uppercase;letter-spacing:2px;color:rgba(255,255,255,.3);margin-bottom:8px;}
+.sc-row{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid rgba(255,255,255,.05);font-size:12px;}
+.sc-row:last-child{border-bottom:none;}
+.sc-sec{color:rgba(255,255,255,.55);}
+.sc-val{font-weight:800;color:#fff;}
+
+/* ─ LOADING / GATE ─ */
+.overlay-screen{position:fixed;inset:0;background:#0d0d1a;z-index:900;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;text-align:center;padding:24px;}
+.overlay-screen.hidden{display:none;}
+.spin{width:44px;height:44px;border:4px solid rgba(255,215,0,.2);border-top-color:#ffd700;border-radius:50%;animation:spin .8s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.gate-icon{font-size:68px;margin-bottom:4px;}
+.gate-title{font-size:22px;font-weight:900;color:#ffd700;}
+.gate-msg{color:rgba(255,255,255,.55);font-size:15px;max-width:380px;line-height:1.6;}
+.gate-btn{margin-top:16px;padding:13px 36px;background:linear-gradient(135deg,#ffd700,#f39c12);color:#1a1a2e;border:none;border-radius:24px;font-size:16px;font-weight:900;cursor:pointer;font-family:'Nunito',sans-serif;}
+.load-txt{color:rgba(255,255,255,.4);font-size:13px;}
+
+/* ─ BREAK OVERLAY ─ */
+.break-overlay{display:none;position:fixed;inset:0;background:#08080f;z-index:500;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:16px;}
+.break-overlay.show{display:flex;}
+.break-lbl{font-size:18px;color:rgba(255,255,255,.55);}
+.break-clock{font-family:'Courier New',monospace;font-size:88px;font-weight:700;color:#ffd700;line-height:1;}
+.break-warn{font-size:13px;color:rgba(231,76,60,.85);background:rgba(231,76,60,.08);padding:6px 16px;border-radius:10px;border:1px solid rgba(231,76,60,.2);}
+.resume-btn{padding:16px 48px;background:#2ecc71;color:#fff;border:none;border-radius:30px;font-size:19px;font-weight:800;cursor:pointer;font-family:'Nunito',sans-serif;margin-top:8px;}
+
+/* ─ COMPLETION MODAL ─ */
+.comp-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:700;align-items:center;justify-content:center;padding:16px;}
+.comp-overlay.show{display:flex;}
+.comp-box{background:linear-gradient(135deg,#0d0d1a,#1a1a2e);border:2px solid #ffd700;border-radius:24px;padding:36px;text-align:center;max-width:520px;width:100%;max-height:90vh;overflow-y:auto;}
+.comp-ico{font-size:60px;margin-bottom:6px;}
+.comp-grade{font-size:12px;text-transform:uppercase;letter-spacing:3px;color:rgba(255,215,0,.55);margin-bottom:4px;}
+.comp-score{font-size:54px;font-weight:900;color:#ffd700;font-family:'Orbitron',sans-serif;line-height:1;}
+.comp-of{font-size:16px;color:rgba(255,255,255,.35);margin-bottom:6px;}
+.comp-badge{font-size:19px;font-weight:900;color:#fff;margin-bottom:14px;}
+.comp-coins-row{display:flex;align-items:center;justify-content:center;gap:10px;background:rgba(255,215,0,.08);border-radius:12px;padding:12px 18px;margin:12px 0;border:1px solid rgba(255,215,0,.2);}
+.comp-coins-n{font-size:26px;font-weight:900;color:#ffd700;font-family:'Orbitron',sans-serif;}
+.comp-breakdown{font-size:11px;color:rgba(255,255,255,.38);margin-bottom:8px;line-height:1.7;}
+.comp-hi{font-size:12px;color:rgba(255,255,255,.4);margin-bottom:18px;}
+.comp-btns{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;}
+.btn-primary{padding:12px 30px;background:linear-gradient(135deg,#ffd700,#f39c12);color:#1a1a2e;border:none;border-radius:22px;font-size:15px;font-weight:900;cursor:pointer;font-family:'Nunito',sans-serif;}
+.btn-sec{padding:12px 22px;background:rgba(255,255,255,.07);color:rgba(255,255,255,.75);border:1px solid rgba(255,255,255,.14);border-radius:22px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Nunito',sans-serif;}
+</style>
+</head>
+<body>
+
+<!-- ─ LOADING ─ -->
+<div class="overlay-screen" id="loading-screen">
+  <div class="spin"></div>
+  <div class="load-txt">Loading exam questions…</div>
+</div>
+
+<!-- ─ GATE (practice not done) ─ -->
+<div class="overlay-screen hidden" id="gate-screen">
+  <div class="gate-icon">🔒</div>
+  <div class="gate-title">Practice First</div>
+  <div class="gate-msg" id="gate-msg">Complete the Practice session for this chapter before taking the exam.</div>
+  <button class="gate-btn" onclick="window.location.href='/syllabus.html'">Go to Syllabus</button>
+</div>
+
+<!-- ─ TOPBAR ─ -->
+<div class="topbar" id="topbar" style="display:none;">
+  <div class="topbar-left">
+    <button class="tbtn tbtn-back" onclick="confirmLeave()">← Back</button>
+    <span class="exam-label">📝 EXAM</span>
+    <span class="chapter-pill" id="topbar-chapter"></span>
+  </div>
+  <div class="topbar-right">
+    <div class="exam-timer" id="exam-timer">90:00</div>
+    <div class="coins-badge">🪙 <span id="coins-display">0</span></div>
+  </div>
+</div>
+
+<!-- ─ MAIN LAYOUT ─ -->
+<div class="main-layout" id="main-layout" style="display:none;">
+
+  <!-- LEFT PANEL -->
+  <div class="left-panel">
+    <div class="lp-chapter">CBSE · Class 8</div>
+    <div class="lp-title" id="lp-title">Chapter Exam</div>
+
+    <div class="lp-stat">
+      <div class="lp-stat-label">Question</div>
+      <div class="lp-stat-val"><span id="q-current">1</span><span style="font-size:13px;color:rgba(255,255,255,.3);">/52</span></div>
+    </div>
+
+    <div class="prog-wrap">
+      <div class="pb-label">Progress</div>
+      <div class="pb-track"><div class="pb-fill" id="pb-fill" style="width:2%;"></div></div>
+    </div>
+
+    <div class="section-list">
+      <div class="sec-item active" id="sec-tab-A"><span>A · Conceptual</span><span class="sec-marks">×1 mark</span></div>
+      <div class="sec-item" id="sec-tab-B"><span>B · Application</span><span class="sec-marks">×2 marks</span></div>
+      <div class="sec-item" id="sec-tab-C"><span>C · Higher Order</span><span class="sec-marks">×3 marks</span></div>
+      <div class="sec-item" id="sec-tab-D"><span>D · Numerical</span><span class="sec-marks">×3 marks</span></div>
+      <div class="sec-item" id="sec-tab-E"><span>E · Case Study</span><span class="sec-marks">×2 marks</span></div>
+    </div>
+
+    <div class="score-box">
+      <div class="score-big" id="score-display">0</div>
+      <div class="score-of-txt">marks earned</div>
+    </div>
+  </div>
+
+  <!-- CENTER QUESTION AREA -->
+  <div class="q-area">
+
+    <!-- Section header -->
+    <div class="sec-header">
+      <div class="sh-tag" id="sh-tag">SECTION A</div>
+      <div class="sh-name" id="sh-name">Conceptual Questions</div>
+      <div class="sh-meta" id="sh-meta">20 questions · 1 mark each</div>
+    </div>
+
+    <!-- Case study text -->
+    <div class="case-box" id="case-box"></div>
+
+    <!-- Question card -->
+    <div class="q-card tbg-0" id="q-card">
+      <div class="q-card-inner">
+        <div class="q-badge" id="q-badge">Q1 · Section A · 1 mark</div>
+        <!-- Diagram slot — shown only when question has a diagram -->
+        <div class="diagram-slot" id="diagram-slot"></div>
+        <div class="q-text" id="q-text">Loading…</div>
+      </div>
+      <div class="dest-tag" id="dest-tag"></div>
+    </div>
+
+    <!-- MCQ options -->
+    <div class="options-wrap" id="options-wrap">
+      <button class="opt-btn" id="opt-a" onclick="selectOpt('a')"><span class="opt-key">A</span><span id="opt-txt-a"></span></button>
+      <button class="opt-btn" id="opt-b" onclick="selectOpt('b')"><span class="opt-key">B</span><span id="opt-txt-b"></span></button>
+      <button class="opt-btn" id="opt-c" onclick="selectOpt('c')"><span class="opt-key">C</span><span id="opt-txt-c"></span></button>
+      <button class="opt-btn" id="opt-d" onclick="selectOpt('d')"><span class="opt-key">D</span><span id="opt-txt-d"></span></button>
+    </div>
+    <button class="confirm-btn" id="confirm-btn" onclick="confirmMCQ()">✓ Confirm Answer</button>
+
+    <!-- Direct input -->
+    <div class="direct-wrap" id="direct-wrap">
+      <input class="ans-input" id="ans-input" type="text" placeholder="Type your answer here…" autocomplete="off" />
+      <button class="submit-btn" id="submit-btn" onclick="submitDirect()">Submit Answer</button>
+    </div>
+
+    <!-- Feedback -->
+    <div class="feedback-box" id="feedback-box">
+      <div class="fb-title" id="fb-title"></div>
+      <div class="fb-expl" id="fb-expl"></div>
+    </div>
+
+    <!-- Next -->
+    <button class="next-btn" id="next-btn" onclick="nextQuestion()">Next Question →</button>
+
+  </div>
+
+  <!-- RIGHT PANEL -->
+  <div class="right-panel">
+    <div class="rishika-card">
+      <div class="rishika-name">Rishika</div>
+      <div id="rishika-avatar"></div>
+      <div class="rishika-bubble" id="rishika-bubble">Take your time — read each question carefully! 🌟</div>
+    </div>
+    <div class="score-card">
+      <div class="sc-title">Section Scores</div>
+      <div class="sc-row"><span class="sc-sec">A (×1)</span><span class="sc-val" id="sc-A">0 / 20</span></div>
+      <div class="sc-row"><span class="sc-sec">B (×2)</span><span class="sc-val" id="sc-B">0 / 20</span></div>
+      <div class="sc-row"><span class="sc-sec">C (×3)</span><span class="sc-val" id="sc-C">0 / 18</span></div>
+      <div class="sc-row"><span class="sc-sec">D (×3)</span><span class="sc-val" id="sc-D">0 / 30</span></div>
+      <div class="sc-row"><span class="sc-sec">E (×2)</span><span class="sc-val" id="sc-E">0 / 12</span></div>
+    </div>
+  </div>
+
+</div><!-- /.main-layout -->
+
+<!-- ─ BREAK OVERLAY ─ -->
+<div class="break-overlay" id="break-overlay">
+  <div class="break-lbl">☕ Break Time</div>
+  <div class="break-clock" id="break-clock">0:00</div>
+  <div class="break-warn">⚠ Exam timer keeps running during breaks</div>
+  <button class="resume-btn" onclick="endBreak()">I'm Back — Continue Exam</button>
+</div>
+
+<!-- ─ COMPLETION MODAL ─ -->
+<div class="comp-overlay" id="comp-overlay">
+  <div class="comp-box">
+    <div class="comp-ico" id="comp-ico">🎉</div>
+    <div class="comp-grade" id="comp-grade">GRADE</div>
+    <div class="comp-score" id="comp-score">0</div>
+    <div class="comp-of">/ 100 marks</div>
+    <div class="comp-badge" id="comp-badge">⭐ Chapter Topper</div>
+    <div class="comp-coins-row">
+      <span style="font-size:24px;">🪙</span>
+      <div>
+        <div class="comp-coins-n" id="comp-coins-n">+0</div>
+        <div style="font-size:12px;color:rgba(255,255,255,.5);">coins earned</div>
+      </div>
+    </div>
+    <div class="comp-breakdown" id="comp-breakdown"></div>
+    <div class="comp-hi" id="comp-hi"></div>
+    <div class="comp-btns">
+      <button class="btn-primary" onclick="goSyllabus()">← Back to Syllabus</button>
+      <button class="btn-sec" onclick="retryExam()">🔁 Try Again</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     EXAM ENGINE
+══════════════════════════════════════════════════════ -->
+<script>
+'use strict';
+
+/* ─ CHAPTER MAP ───────────────────────────────────────────
+   All 16 chapters. intId used for rishiCheckPlan().
+   CH_ID_STR used for all localStorage keys.
+─────────────────────────────────────────────────────── */
+var CHAPTER_MAP = {
+  '01':  { intId: 1,   name: 'Rational Numbers',                  topic: 'Arithmetic'    },
+  '02':  { intId: 2,   name: 'Linear Equations in One Variable',  topic: 'Algebra'       },
+  '03':  { intId: 3,   name: 'Understanding Quadrilaterals',       topic: 'Geometry'      },
+  '04':  { intId: 4,   name: 'Practical Geometry',                 topic: 'Geometry'      },
+  '05':  { intId: 5,   name: 'Data Handling',                      topic: 'Data Handling' },
+  '08':  { intId: 8,   name: 'Comparing Quantities',               topic: 'Arithmetic'    },
+  '09':  { intId: 9,   name: 'Algebraic Expressions & Identities', topic: 'Algebra'       },
+  '10':  { intId: 10,  name: 'Visualising Solid Shapes',           topic: 'Geometry'      },
+  '11a': { intId: 11,  name: 'Mensuration — Area of Plane Figures',topic: 'Mensuration'   },
+  '11b': { intId: 11,  name: 'Mensuration — Surface Area & Volume',topic: 'Mensuration'   },
+  '12':  { intId: 12,  name: 'Exponents and Powers',               topic: 'Arithmetic'    },
+  '13':  { intId: 13,  name: 'Direct & Inverse Proportions',       topic: 'Arithmetic'    },
+  '14':  { intId: 14,  name: 'Factorisation',                      topic: 'Algebra'       },
+  '15':  { intId: 15,  name: 'Playing with Numbers',               topic: 'Algebra'       },
+  '16':  { intId: 16,  name: 'Introduction to Graphs',             topic: 'Data Handling' }
+};
+
+var SECTION_INFO = {
+  A: { label: 'Conceptual Questions',  count: 20, marks: 1, maxScore: 20 },
+  B: { label: 'Application Questions', count: 10, marks: 2, maxScore: 20 },
+  C: { label: 'Higher Order Thinking', count: 6,  marks: 3, maxScore: 18 },
+  D: { label: 'Numerical Problems',    count: 10, marks: 3, maxScore: 30 },
+  E: { label: 'Case Study',            count: 6,  marks: 2, maxScore: 12 }
+};
+
+var DESTINATIONS = [
+  'Tokyo, Japan','Paris, France','Cape Town, S.Africa',
+  'Machu Picchu, Peru','Sydney, Australia','Reykjavik, Iceland',
+  'Serengeti, Tanzania','Montreal, Canada','Kyoto, Japan',
+  'Istanbul, Turkey','Maldives','Swiss Alps'
+];
+
+var RISHIKA_THOUGHTS = [
+  'Take your time — no rush! 🎯',
+  'Think it through carefully. 💡',
+  'You know this! Trust yourself. 🌟',
+  'Read the question twice. 📖',
+  'Every mark counts! 🔥',
+  'Focus — you\'re doing great! ⚡',
+  'Almost there — keep going! 💪'
+];
+
+/* ─ Runtime state ─ */
+var CH_ID_STR = '';
+var CH_INFO   = null;
+var allQ      = [];        /* flattened question list */
+var currentIdx = 0;
+var selectedOpt = null;
+var answered   = false;
+var sectionScores  = { A:0, B:0, C:0, D:0, E:0 };
+var wrongAttempts  = 0;
+var sectionACorrect = 0;
+var timerSecs  = 90 * 60;  /* 90 minutes */
+var timerInt   = null;
+var examDone   = false;
+var breakActive = false;
+var breakTimer  = null;
+var breakSecs   = 0;
+
+/* ─ INIT ──────────────────────────────────────────────── */
+window.addEventListener('load', function () {
+
+  /* Read URL param ?ch=02 */
+  var params = new URLSearchParams(window.location.search);
+  CH_ID_STR  = (params.get('ch') || '02').toLowerCase();
+  CH_INFO    = CHAPTER_MAP[CH_ID_STR];
+
+  if (!CH_INFO) {
+    /* Unknown chapter — redirect to syllabus */
+    window.location.href = '/syllabus.html';
+    return;
+  }
+
+  /* Set page title */
+  document.title = 'Exam – ' + CH_INFO.name + ' | RISHI';
+
+  /* Plan gate */
+  rishiCheckPlan(CH_INFO.intId);
+
+  /* Practice gate */
+  if (!rishiIsPracticeDone(CH_ID_STR)) {
+    document.getElementById('loading-screen').classList.add('hidden');
+    var gate = document.getElementById('gate-screen');
+    document.getElementById('gate-msg').textContent =
+      'Complete the Practice session for "' + CH_INFO.name + '" before taking the exam.';
+    gate.classList.remove('hidden');
+    return;
+  }
+
+  /* Fill chapter info */
+  document.getElementById('topbar-chapter').textContent = CH_INFO.name;
+  document.getElementById('lp-title').textContent = CH_INFO.name;
+  document.getElementById('coins-display').textContent = rishiGetCoins();
+
+  /* Load questions */
+  loadQuestions();
+});
+
+/* ─ LOAD QUESTIONS ────────────────────────────────────── */
+async function loadQuestions() {
+  try {
+    var url = '/api/questions?board=cbse&class=8&ch=' + CH_ID_STR + '&type=exam';
+    var res = await fetch(url);
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    var data = await res.json();
+    if (data.error) throw new Error(data.error);
+    buildFlatList(data);
+    startExam();
+  } catch (e) {
+    document.getElementById('loading-screen').innerHTML =
+      '<div style="text-align:center;padding:32px;">' +
+      '<div style="font-size:44px;margin-bottom:12px;">⚠</div>' +
+      '<div style="font-weight:800;font-size:18px;color:#e74c3c;margin-bottom:8px;">Could not load questions</div>' +
+      '<div style="font-size:13px;color:rgba(255,255,255,.45);margin-bottom:20px;">' + e.message + '</div>' +
+      '<button onclick="loadQuestions()" style="padding:12px 28px;background:#ffd700;color:#1a1a2e;border:none;border-radius:20px;font-weight:900;cursor:pointer;font-family:Nunito,sans-serif;font-size:14px;">Retry</button>' +
+      '</div>';
+  }
+}
+
+function buildFlatList(data) {
+  allQ = [];
+  ['A','B','C','D','E'].forEach(function (sec) {
+    var s = data.sections[sec];
+    if (!s) return;
+    if (sec === 'E') {
+      (s.cases || []).forEach(function (c) {
+        (c.subparts || []).forEach(function (sub) {
+          allQ.push(Object.assign({}, sub, {
+            section:   'E',
+            marks:     2,
+            case_text: c.case_text,
+            case_id:   c.id
+          }));
+        });
+      });
+    } else {
+      (s.questions || []).forEach(function (q) {
+        allQ.push(Object.assign({}, q, {
+          section: sec,
+          marks:   s.marks_per_q || 1
+        }));
+      });
+    }
+  });
+}
+
+/* ─ START ─────────────────────────────────────────────── */
+function startExam() {
+  document.getElementById('loading-screen').classList.add('hidden');
+  document.getElementById('topbar').style.display = 'flex';
+  document.getElementById('main-layout').style.display = 'grid';
+  rInit();
+  rishiResetIdleTimer && rishiResetIdleTimer();
+  startTimer();
+  showQuestion(0);
+}
+
+/* ─ TIMER ─────────────────────────────────────────────── */
+function startTimer() {
+  timerInt = setInterval(function () {
+    if (breakActive) return;
+    timerSecs--;
+    renderTimer();
+    if (timerSecs <= 0) { clearInterval(timerInt); autoSubmit(); }
+  }, 1000);
+}
+
+function renderTimer() {
+  var m = Math.floor(timerSecs / 60);
+  var s = timerSecs % 60;
+  var el = document.getElementById('exam-timer');
+  el.textContent = m + ':' + (s < 10 ? '0' : '') + s;
+  el.className = 'exam-timer' +
+    (timerSecs <= 300 ? ' warn' : '') +
+    (timerSecs <= 60  ? ' danger' : '');
+}
+
+/* ─ SHOW QUESTION ─────────────────────────────────────── */
+function showQuestion(idx) {
+  if (idx >= allQ.length) { submitExam(); return; }
+  currentIdx = idx;
+  answered   = false;
+  selectedOpt = null;
+
+  var q   = allQ[idx];
+  var sec = q.section;
+  var si  = SECTION_INFO[sec];
+  var bg  = 'tbg-' + (idx % 15);
+  var dest = DESTINATIONS[idx % DESTINATIONS.length];
+
+  /* Left panel */
+  document.getElementById('q-current').textContent = idx + 1;
+  document.getElementById('pb-fill').style.width = Math.round((idx + 1) / 52 * 100) + '%';
+  updateSectionTabs(sec);
+
+  /* Section header */
+  document.getElementById('sh-tag').textContent  = 'SECTION ' + sec;
+  document.getElementById('sh-name').textContent = si.label;
+  document.getElementById('sh-meta').textContent = si.count + ' questions · ' + si.marks + ' mark' + (si.marks > 1 ? 's' : '') + ' each';
+
+  /* Case text */
+  var caseEl = document.getElementById('case-box');
+  if (sec === 'E' && q.case_text) {
+    caseEl.textContent = q.case_text;
+    caseEl.style.display = 'block';
+  } else {
+    caseEl.style.display = 'none';
+  }
+
+  /* Question card */
+  document.getElementById('q-card').className = 'q-card ' + bg;
+  document.getElementById('q-badge').textContent =
+    'Q' + (idx + 1) + ' · Section ' + sec + ' · ' + q.marks + ' mark' + (q.marks > 1 ? 's' : '');
+  document.getElementById('q-text').textContent = q.text;
+  document.getElementById('dest-tag').textContent = '🌍 ' + dest;
+
+  /* Diagram */
+  var diagSlot = document.getElementById('diagram-slot');
+  if (q.diagram && typeof RishiDiagram !== 'undefined') {
+    diagSlot.classList.add('show');
+    RishiDiagram.render(diagSlot, q.diagram);
+  } else {
+    diagSlot.classList.remove('show');
+    diagSlot.innerHTML = '';
+  }
+
+  /* Hide feedback + next */
+  document.getElementById('feedback-box').className = 'feedback-box';
+  document.getElementById('next-btn').className = 'next-btn';
+
+  /* Input type */
+  var isMCQ = (q.type === 'mcq') || (q.options && !q.answer_type);
+  if (isMCQ) {
+    showMCQ(q);
+  } else {
+    showDirect();
+  }
+
+  /* Rishika */
+  document.getElementById('rishika-bubble').textContent =
+    RISHIKA_THOUGHTS[idx % RISHIKA_THOUGHTS.length];
+}
+
+function showMCQ(q) {
+  document.getElementById('options-wrap').style.display = 'grid';
+  document.getElementById('direct-wrap').style.display  = 'none';
+  document.getElementById('confirm-btn').className = 'confirm-btn';
+
+  ['a','b','c','d'].forEach(function (k) {
+    var btn = document.getElementById('opt-' + k);
+    btn.className = 'opt-btn';
+    btn.disabled  = false;
+    document.getElementById('opt-txt-' + k).textContent = q.options ? (q.options[k] || '') : '';
+  });
+}
+
+function showDirect() {
+  document.getElementById('options-wrap').style.display = 'none';
+  document.getElementById('direct-wrap').style.display  = 'block';
+  document.getElementById('confirm-btn').className = 'confirm-btn';
+  var inp = document.getElementById('ans-input');
+  inp.value = '';
+  inp.disabled = false;
+  document.getElementById('submit-btn').disabled = false;
+  setTimeout(function () { inp.focus(); }, 60);
+}
+
+/* ─ MCQ INTERACTION ───────────────────────────────────── */
+function selectOpt(key) {
+  if (answered) return;
+  selectedOpt = key;
+  ['a','b','c','d'].forEach(function (k) {
+    document.getElementById('opt-' + k).className = 'opt-btn' + (k === key ? ' selected' : '');
+  });
+  document.getElementById('confirm-btn').className = 'confirm-btn show';
+}
+
+function confirmMCQ() {
+  if (!selectedOpt || answered) return;
+  answered = true;
+  var q = allQ[currentIdx];
+  var ok = (selectedOpt === q.correct);
+  /* Reveal */
+  ['a','b','c','d'].forEach(function (k) {
+    var btn = document.getElementById('opt-' + k);
+    btn.disabled = true;
+    if (k === q.correct)          btn.className = 'opt-btn correct';
+    else if (k === selectedOpt)   btn.className = 'opt-btn wrong';
+    else                          btn.className = 'opt-btn';
+  });
+  document.getElementById('confirm-btn').className = 'confirm-btn';
+  handleResult(q, ok);
+}
+
+/* ─ DIRECT INPUT ──────────────────────────────────────── */
+function submitDirect() {
+  var val = document.getElementById('ans-input').value.trim();
+  if (!val) return;
+  answered = true;
+  document.getElementById('ans-input').disabled = true;
+  document.getElementById('submit-btn').disabled = true;
+
+  var q = allQ[currentIdx];
+  var accepted = (q.accepted_forms || [String(q.correct_answer)])
+    .map(function (f) { return String(f).trim().toLowerCase(); });
+  var ok = accepted.indexOf(val.toLowerCase()) > -1;
+  handleResult(q, ok);
+}
+
+/* Enter key submits direct input */
+document.addEventListener('keydown', function (e) {
+  if (e.key !== 'Enter' || answered) return;
+  var dw = document.getElementById('direct-wrap');
+  if (dw.style.display !== 'none') submitDirect();
+});
+
+/* ─ RESULT HANDLER ────────────────────────────────────── */
+function handleResult(q, ok) {
+  var sec = q.section;
+  if (ok) {
+    sectionScores[sec] += q.marks;
+    if (sec === 'A') sectionACorrect++;
+    showFeedback(true, q.explanation || '');
+    spawnCoin();
+    rHappy();
+  } else {
+    wrongAttempts++;
+    showFeedback(false, q.explanation || '');
+    rDisappointed();
+  }
+
+  /* Update score */
+  var total = Object.keys(sectionScores).reduce(function (a, k) { return a + sectionScores[k]; }, 0);
+  document.getElementById('score-display').textContent  = total;
+  document.getElementById('sc-' + sec).textContent =
+    sectionScores[sec] + ' / ' + SECTION_INFO[sec].maxScore;
+  document.getElementById('coins-display').textContent = rishiGetCoins();
+
+  /* Next button */
+  var isLast = (currentIdx === allQ.length - 1);
+  var nb = document.getElementById('next-btn');
+  nb.className = 'next-btn show';
+  nb.textContent = isLast ? '✓ Submit Exam' : 'Next Question →';
+}
+
+function showFeedback(ok, explanation) {
+  var fb = document.getElementById('feedback-box');
+  fb.className = 'feedback-box ' + (ok ? 'correct' : 'wrong');
+  document.getElementById('fb-title').textContent = ok ? '✓ Correct!' : '✗ Incorrect';
+  document.getElementById('fb-expl').textContent  = explanation || '';
+}
+
+/* ─ NAVIGATION ────────────────────────────────────────── */
+function nextQuestion() {
+  currentIdx >= allQ.length - 1 ? submitExam() : showQuestion(currentIdx + 1);
+}
+
+/* ─ SECTION TABS ──────────────────────────────────────── */
+function updateSectionTabs(active) {
+  var order = ['A','B','C','D','E'];
+  var ai = order.indexOf(active);
+  order.forEach(function (s, i) {
+    var el = document.getElementById('sec-tab-' + s);
+    el.className = 'sec-item' + (i < ai ? ' done' : i === ai ? ' active' : '');
+  });
+}
+
+/* ─ COIN ANIMATION ────────────────────────────────────── */
+function spawnCoin() {
+  var el = document.createElement('div');
+  el.className = 'coin-pop';
+  el.textContent = '🪙';
+  document.body.appendChild(el);
+  setTimeout(function () { el.remove(); }, 900);
+}
+
+/* ─ SUBMIT EXAM ───────────────────────────────────────── */
+function autoSubmit() {
+  if (!examDone) {
+    document.getElementById('rishika-bubble').textContent = '⏰ Time\'s up! Submitting your exam…';
+    setTimeout(submitExam, 1200);
+  }
+}
+
+function submitExam() {
+  if (examDone) return;
+  examDone = true;
+  clearInterval(timerInt);
+
+  var score = Object.keys(sectionScores).reduce(function (a, k) { return a + sectionScores[k]; }, 0);
+  var attempts = rishiExamAttemptCount(CH_ID_STR);  /* count BEFORE this attempt */
+  var prevHigh = rishiSaveExamScore(CH_ID_STR, score);
+  rishiMarkChapExamDone(CH_ID_STR);
+
+  var coinResult = rishiExamCoins(
+    score, prevHigh, attempts,
+    sectionACorrect === 20,
+    wrongAttempts === 0
+  );
+  var newTotal = rishiAddCoins(coinResult.total);
+
+  showModal(score, coinResult, prevHigh, newTotal);
+}
+
+function showModal(score, cr, prevHigh, totalCoins) {
+  var icons = { Outstanding:'🏆', Excellent:'🌟', Good:'🎯', Pass:'✅', Retry:'🔁' };
+  document.getElementById('comp-ico').textContent    = icons[cr.grade] || '🎉';
+  document.getElementById('comp-grade').textContent  = cr.grade.toUpperCase();
+  document.getElementById('comp-score').textContent  = score;
+  document.getElementById('comp-badge').textContent  = cr.badge;
+  document.getElementById('comp-coins-n').textContent = '+' + cr.total;
+
+  var parts = [];
+  if (cr.base)  parts.push('Base: 🪙 ' + cr.base);
+  if (cr.bonus) parts.push('Bonus: 🪙 +' + cr.bonus);
+  parts.push('Your total: 🪙 ' + totalCoins);
+  document.getElementById('comp-breakdown').textContent = parts.join('  ·  ');
+
+  var hiTxt = prevHigh > 0
+    ? (score > prevHigh ? '📈 New personal best! Previous: ' + prevHigh + '/100' : 'Your best: ' + prevHigh + '/100')
+    : 'First attempt!';
+  document.getElementById('comp-hi').textContent = hiTxt;
+
+  if (score >= 75) rCelebrate();
+
+  document.getElementById('comp-overlay').className = 'comp-overlay show';
+}
+
+function goSyllabus() { window.location.href = '/syllabus.html'; }
+function retryExam()  { window.location.reload(); }
+
+function confirmLeave() {
+  if (examDone) { goSyllabus(); return; }
+  if (confirm('Leave the exam? All progress will be lost.')) goSyllabus();
+}
+
+/* ─ BREAK ─────────────────────────────────────────────── */
+function startBreak() {
+  breakActive = true;
+  breakSecs   = 0;
+  document.getElementById('break-overlay').classList.add('show');
+  breakTimer = setInterval(function () {
+    breakSecs++;
+    var m = Math.floor(breakSecs / 60), s = breakSecs % 60;
+    document.getElementById('break-clock').textContent = m + ':' + (s < 10 ? '0' : '') + s;
+  }, 1000);
+}
+
+function endBreak() {
+  breakActive = false;
+  clearInterval(breakTimer);
+  document.getElementById('break-overlay').classList.remove('show');
+}
+</script>
+
+<!-- ─ RISHIKA AVATAR ENGINE (identical to practice pages) ─ -->
+<script>
+var RISHI_SPRITES = {
+  celebrate: {
+    file:'/images/rishika/sprites/celebrate.jpeg',
+    cols:4,rows:3,fw:384,fh:341,
+    seq:[[0,0],[1,0],[2,0],[3,0],[0,1],[1,1],[2,1],[3,1],[0,2],[1,2],[2,2],[3,2],
+         [3,2],[2,2],[3,2],[1,2],[2,2],[1,2],[2,2],[1,2],[0,2],[3,1],[2,1],[1,1],[0,1],[3,0],[2,0],[1,0],[0,0]],
+    fps:8,loop:false,holdMs:3000,
+    glow:'0 0 40px 12px rgba(245,158,11,.6)',border:'#f59e0b'
+  },
+  praise: {
+    file:'/images/rishika/sprites/praise.jpeg',
+    cols:4,rows:3,fw:384,fh:341,
+    seq:[[0,0],[1,0],[2,0],[3,0],[0,1],[1,1],[2,1],[3,1],[0,2],[1,2],[2,2],[3,2],[2,2],[1,2],[0,2],[1,1],[3,0],[1,0],[0,0]],
+    fps:6,loop:false,holdMs:2000,
+    glow:'0 0 28px 8px rgba(139,92,246,.5)',border:'#a78bfa'
+  },
+  disappointed: {
+    file:'/images/rishika/sprites/disappointed-s1.jpeg',
+    cols:4,rows:3,fw:384,fh:341,
+    seq:[[0,0],[1,0],[2,0],[0,0],[3,0],[2,0],[0,1],[1,1],[2,1],[1,1],[3,1],[0,2],[1,2],[0,2],[2,2],[3,2],[0,0]],
+    fps:5,loop:false,holdMs:2000,
+    glow:'0 0 25px 6px rgba(225,29,72,.35)',border:'#f87171'
+  },
+  talking: {
+    file:'/images/rishika/sprites/neutral-talking.png',
+    cols:6,rows:2,fw:256,fh:512,
+    seq:[[0,0],[1,0],[2,0],[3,0],[4,0],[5,0],[5,0],[4,0],[3,0],[2,0],[1,0],[0,0],
+         [0,1],[1,1],[2,1],[3,1],[4,1],[5,1],[4,1],[3,1],[2,1],[1,1],[0,1],[5,0]],
+    fps:10,loop:true,holdMs:0,
+    glow:'0 0 20px rgba(109,40,217,.3)',border:'#7c3aed'
+  }
+};
+var _rCanvas=null,_rCtx=null,_rCurName=null,_rSeqIdx=0,_rFrameTimer=null;
+var _rImgs={},_rLoaded=0,_rTotal=0,_rDW=200,_rDH=220;
+function rInit(){
+  var c=document.getElementById('rishika-avatar');
+  if(!c||_rCanvas)return;
+  _rCanvas=document.createElement('canvas');
+  _rCanvas.width=_rDW;_rCanvas.height=_rDH;
+  _rCanvas.style.cssText='border-radius:12px;transition:box-shadow .3s,border .3s;display:block;margin:0 auto;';
+  c.appendChild(_rCanvas);
+  _rCtx=_rCanvas.getContext('2d');
+  var keys=Object.keys(RISHI_SPRITES);
+  _rTotal=keys.length;_rLoaded=0;
+  keys.forEach(function(k){
+    var img=new Image();_rImgs[k]=img;
+    img.onload=img.onerror=function(){if(++_rLoaded===_rTotal)_rPlay('talking');};
+    img.src=RISHI_SPRITES[k].file;
+  });
+}
+function _rPlay(name){
+  _rStop();if(!RISHI_SPRITES[name])return;
+  _rCurName=name;_rSeqIdx=0;
+  var s=RISHI_SPRITES[name];
+  if(_rCanvas){_rCanvas.style.boxShadow=s.glow;_rCanvas.style.border='2px solid '+s.border;}
+  _rDrawFrame();
+  _rFrameTimer=setInterval(function(){
+    _rSeqIdx++;
+    if(_rSeqIdx>=s.seq.length){
+      if(s.loop)_rSeqIdx=0;
+      else{_rStop();if(name!=='talking')setTimeout(function(){_rPlay('talking');},s.holdMs||1000);}
+      return;
+    }
+    _rDrawFrame();
+  },Math.round(1000/s.fps));
+}
+function _rStop(){if(_rFrameTimer){clearInterval(_rFrameTimer);_rFrameTimer=null;}}
+function _rDrawFrame(){
+  if(!_rCtx||!_rCurName)return;
+  var s=RISHI_SPRITES[_rCurName],img=_rImgs[_rCurName];
+  if(!img||!img.complete||img.naturalWidth===0)return;
+  var f=s.seq[_rSeqIdx]||[0,0];
+  _rCtx.clearRect(0,0,_rDW,_rDH);
+  _rCtx.drawImage(img,f[0]*s.fw,f[1]*s.fh,s.fw,s.fh,0,0,_rDW,_rDH);
+}
+function rHappy()        { _rPlay('praise'); }
+function rCelebrate()    { _rPlay('celebrate'); }
+function rDisappointed() { _rPlay('disappointed'); }
+function rStartTalk()    { _rPlay('talking'); }
+function rStopTalk()     {}
+</script>
+</body>
+</html>

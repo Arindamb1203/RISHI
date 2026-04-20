@@ -1,0 +1,2723 @@
+{
+  "meta": {
+    "board": "cbse",
+    "class": 8,
+    "chapter_id": "ch15",
+    "chapter_name": "Introduction to Graphs",
+    "topic_group": "algebra",
+    "total_marks": 100,
+    "total_questions": 52,
+    "version": 1,
+    "generated": "2026-04"
+  },
+  "sections": {
+    "A": {
+      "type": "mcq",
+      "label": "Conceptual",
+      "marks_per_q": 1,
+      "count": 20,
+      "questions": [
+        {
+          "id": "cbse_8_ch16_A_001",
+          "text": "The horizontal axis on a coordinate plane is called the:",
+          "options": {
+            "a": "y-axis",
+            "b": "x-axis",
+            "c": "origin",
+            "d": "ordinate"
+          },
+          "correct": "b",
+          "difficulty": "easy",
+          "source": "ncert",
+          "explanation": "The horizontal axis is called the x-axis. The vertical axis is the y-axis.",
+          "diagram": {
+            "type": "coordinate_plane",
+            "params": {
+              "x_range": [
+                -4,
+                5
+              ],
+              "y_range": [
+                -4,
+                5
+              ],
+              "show_quadrants": true,
+              "grid": true
+            }
+          }
+        },
+        {
+          "id": "cbse_8_ch16_A_002",
+          "text": "The point where the x-axis and y-axis meet is called the:",
+          "options": {
+            "a": "Quadrant",
+            "b": "Abscissa",
+            "c": "Origin",
+            "d": "Ordinate"
+          },
+          "correct": "c",
+          "difficulty": "easy",
+          "source": "ncert",
+          "explanation": "The point of intersection of the x-axis and y-axis is called the origin, denoted as O(0, 0).",
+          "diagram": {
+            "type": "coordinate_plane",
+            "params": {
+              "x_range": [
+                -3,
+                4
+              ],
+              "y_range": [
+                -3,
+                4
+              ],
+              "show_quadrants": true,
+              "grid": true,
+              "points": [
+                {
+                  "x": 0,
+                  "y": 0,
+                  "label": "O(0,0)",
+                  "label_offset_x": 12,
+                  "label_offset_y": -14
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "cbse_8_ch16_A_003",
+          "text": "The coordinates of the origin are:",
+          "options": {
+            "a": "(1, 1)",
+            "b": "(0, 1)",
+            "c": "(1, 0)",
+            "d": "(0, 0)"
+          },
+          "correct": "d",
+          "difficulty": "easy",
+          "source": "ncert",
+          "explanation": "The origin is the point where both axes intersect. Its coordinates are (0, 0).",
+          "diagram": {
+            "type": "coordinate_plane",
+            "params": {
+              "x_range": [
+                -3,
+                4
+              ],
+              "y_range": [
+                -3,
+                4
+              ],
+              "show_quadrants": true,
+              "grid": true,
+              "points": [
+                {
+                  "x": 0,
+                  "y": 0,
+                  "label": "O",
+                  "label_offset_x": 10,
+                  "label_offset_y": -12
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "cbse_8_ch16_A_004",
+          "text": "In the ordered pair (3, 5), the value 3 is called the:",
+          "options": {
+            "a": "Ordinate",
+            "b": "y-coordinate",
+            "c": "Abscissa (x-coordinate)",
+            "d": "Origin"
+          },
+          "correct": "c",
+          "difficulty": "easy",
+          "source": "ncert",
+          "explanation": "In an ordered pair (x, y), the first value is the abscissa (x-coordinate) and the second is the ordinate (y-coordinate).",
+          "diagram": {
+            "type": "coordinate_plane",
+            "params": {
+              "x_range": [
+                -1,
+                5
+              ],
+              "y_range": [
+                -1,
+                7
+              ],
+              "show_quadrants": false,
+              "grid": true,
+              "points": [
+                {
+                  "x": 3,
+                  "y": 5,
+                  "label": "(3, 5)",
+                  "label_offset_x": 8,
+                  "label_offset_y": -14
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "cbse_8_ch16_A_005",
+          "text": "The point (0, 5) lies on which axis?",
+          "options": {
+            "a": "x-axis",
+            "b": "y-axis",
+            "c": "Both axes",
+            "d": "Neither axis"
+          },
+          "correct": "b",
+          "difficulty": "easy",
+          "source": "ncert",
+          "explanation": "Any point with x-coordinate = 0 lies on the y-axis. (0, 5) has x = 0, so it lies on the y-axis.",
+          "diagram": {
+            "type": "coordinate_plane",
+            "params": {
+              "x_range": [
+                -3,
+                4
+              ],
+              "y_range": [
+                -1,
+                7
+              ],
+              "show_quadrants": false,
+              "grid": true,
+              "points": [
+                {
+                  "x": 0,
+                  "y": 5,
+                  "label": "(0, 5)",
+                  "label_offset_x": 10,
+                  "label_offset_y": -12
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "cbse_8_ch16_A_006",
+          "text": "The point (4, 0) lies on which axis?",
+          "options": {
+            "a": "y-axis",
+            "b": "x-axis",
+            "c": "Both axes",
+            "d": "Neither axis"
+          },
+          "correct": "b",
+          "difficulty": "easy",
+          "source": "ncert",
+          "explanation": "Any point with y-coordinate = 0 lies on the x-axis. (4, 0) has y = 0, so it lies on the x-axis.",
+          "diagram": {
+            "type": "coordinate_plane",
+            "params": {
+              "x_range": [
+                -1,
+                7
+              ],
+              "y_range": [
+                -3,
+                4
+              ],
+              "show_quadrants": false,
+              "grid": true,
+              "points": [
+                {
+                  "x": 4,
+                  "y": 0,
+                  "label": "(4, 0)",
+                  "label_offset_x": 4,
+                  "label_offset_y": -16
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "cbse_8_ch16_A_007",
+          "text": "Which of the following points lies in the second quadrant?",
+          "options": {
+            "a": "(3, 4)",
+            "b": "(-3, 4)",
+            "c": "(-3, -4)",
+            "d": "(3, -4)"
+          },
+          "correct": "b",
+          "difficulty": "easy",
+          "source": "ncert",
+          "explanation": "Second quadrant: x is negative, y is positive. (-3, 4) has x < 0 and y > 0 → second quadrant.",
+          "diagram": {
+            "type": "coordinate_plane",
+            "params": {
+              "x_range": [
+                -5,
+                5
+              ],
+              "y_range": [
+                -5,
+                5
+              ],
+              "show_quadrants": true,
+              "grid": true,
+              "points": [
+                {
+                  "x": -3,
+                  "y": 4,
+                  "label": "(-3, 4)",
+                  "label_offset_x": -55,
+                  "label_offset_y": -12
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "cbse_8_ch16_A_008",
+          "text": "A linear graph shows the relationship between two quantities. If it is a straight line passing through the origin, it means:",
+          "options": {
+            "a": "No relationship",
+            "b": "The quantities are in direct proportion",
+            "c": "The quantities are in inverse proportion",
+            "d": "One quantity is always greater"
+          },
+          "correct": "b",
+          "difficulty": "easy",
+          "source": "ncert",
+          "explanation": "A straight line through the origin means y = kx (direct proportion). As x increases, y increases proportionally.",
+          "diagram": {
+            "type": "coordinate_plane",
+            "params": {
+              "x_range": [
+                -1,
+                5
+              ],
+              "y_range": [
+                -1,
+                6
+              ],
+              "show_quadrants": false,
+              "grid": true,
+              "lines": [
+                {
+                  "x1": 0,
+                  "y1": 0,
+                  "x2": 4,
+                  "y2": 4,
+                  "color": "#22d3ee",
+                  "label": "y = kx"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "cbse_8_ch16_A_009",
+          "text": "On a graph, the distance between two points (2, 0) and (8, 0) is:",
+          "options": {
+            "a": "2",
+            "b": "6",
+            "c": "8",
+            "d": "10"
+          },
+          "correct": "b",
+          "difficulty": "easy",
+          "source": "ncert",
+          "explanation": "Both points lie on the x-axis. Distance = 8 − 2 = 6 units.",
+          "diagram": {
+            "type": "coordinate_plane",
+            "params": {
+              "x_range": [
+                -1,
+                10
+              ],
+              "y_range": [
+                -2,
+                3
+              ],
+              "show_quadrants": false,
+              "grid": true,
+              "points": [
+                {
+                  "x": 2,
+                  "y": 0,
+                  "label": "(2,0)",
+                  "label_offset_x": 4,
+                  "label_offset_y": -18
+                },
+                {
+                  "x": 8,
+                  "y": 0,
+                  "label": "(8,0)",
+                  "label_offset_x": 4,
+                  "label_offset_y": -18
+                }
+              ],
+              "lines": [
+                {
+                  "x1": 2,
+                  "y1": 0,
+                  "x2": 8,
+                  "y2": 0,
+                  "color": "#ffd700",
+                  "dashed": false
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "cbse_8_ch16_A_010",
+          "text": "In the third quadrant, the signs of coordinates are:",
+          "options": {
+            "a": "(+, +)",
+            "b": "(+, −)",
+            "c": "(−, +)",
+            "d": "(−, −)"
+          },
+          "correct": "d",
+          "difficulty": "easy",
+          "source": "ncert",
+          "explanation": "Third quadrant: both x and y are negative. Signs: (−, −).",
+          "diagram": {
+            "type": "coordinate_plane",
+            "params": {
+              "x_range": [
+                -5,
+                3
+              ],
+              "y_range": [
+                -5,
+                3
+              ],
+              "show_quadrants": true,
+              "grid": true,
+              "points": [
+                {
+                  "x": -3,
+                  "y": -3,
+                  "label": "(−,−)",
+                  "label_offset_x": -32,
+                  "label_offset_y": -14
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "cbse_8_ch16_A_011",
+          "text": "A car travels at a constant speed. The graph of distance vs time will be:",
+          "options": {
+            "a": "A curved line",
+            "b": "A straight line through the origin",
+            "c": "A horizontal line",
+            "d": "A vertical line"
+          },
+          "correct": "b",
+          "difficulty": "easy",
+          "source": "ncert",
+          "explanation": "At constant speed, distance = speed × time. This is direct proportion (y = kx), giving a straight line through the origin.",
+          "diagram": {
+            "type": "line_graph",
+            "params": {
+              "points": [
+                {
+                  "x": 0,
+                  "y": 0
+                },
+                {
+                  "x": 1,
+                  "y": 60
+                },
+                {
+                  "x": 2,
+                  "y": 120
+                },
+                {
+                  "x": 3,
+                  "y": 180
+                }
+              ],
+              "x_values": [
+                "0",
+                "1",
+                "2",
+                "3"
+              ],
+              "y_values": [
+                "0",
+                "60",
+                "120",
+                "180"
+              ],
+              "x_label": "Time (h)",
+              "y_label": "Distance (km)"
+            }
+          }
+        },
+        {
+          "id": "cbse_8_ch16_A_012",
+          "text": "The point (-4, -7) is in which quadrant?",
+          "options": {
+            "a": "First",
+            "b": "Second",
+            "c": "Third",
+            "d": "Fourth"
+          },
+          "correct": "c",
+          "difficulty": "easy",
+          "source": "ncert",
+          "explanation": "(-4, -7): x is negative, y is negative → third quadrant.",
+          "diagram": {
+            "type": "coordinate_plane",
+            "params": {
+              "x_range": [
+                -6,
+                3
+              ],
+              "y_range": [
+                -5,
+                3
+              ],
+              "show_quadrants": true,
+              "grid": true,
+              "points": [
+                {
+                  "x": -4,
+                  "y": -4,
+                  "label": "(-4,-7)",
+                  "label_offset_x": -52,
+                  "label_offset_y": -14
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "cbse_8_ch16_A_013",
+          "text": "Which point does NOT satisfy the equation y = 2x?",
+          "options": {
+            "a": "(0, 0)",
+            "b": "(1, 2)",
+            "c": "(3, 5)",
+            "d": "(2, 4)"
+          },
+          "correct": "c",
+          "difficulty": "easy",
+          "source": "ncert",
+          "explanation": "Check (3, 5): y = 2 × 3 = 6 ≠ 5. So (3, 5) does not lie on y = 2x.",
+          "diagram": {
+            "type": "coordinate_plane",
+            "params": {
+              "x_range": [
+                -1,
+                5
+              ],
+              "y_range": [
+                -1,
+                7
+              ],
+              "show_quadrants": false,
+              "grid": true,
+              "lines": [
+                {
+                  "x1": 0,
+                  "y1": 0,
+                  "x2": 3,
+                  "y2": 6,
+                  "color": "#22d3ee",
+                  "label": "y=2x"
+                }
+              ],
+              "points": [
+                {
+                  "x": 0,
+                  "y": 0,
+                  "label": ""
+                },
+                {
+                  "x": 1,
+                  "y": 2,
+                  "label": "(1,2)",
+                  "label_offset_x": 8,
+                  "label_offset_y": -14
+                },
+                {
+                  "x": 3,
+                  "y": 5,
+                  "label": "(3,5)?",
+                  "label_offset_x": 8,
+                  "label_offset_y": -14
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "cbse_8_ch16_A_014",
+          "text": "A graph showing the temperature of a city over 7 days is best displayed as a:",
+          "options": {
+            "a": "Bar graph",
+            "b": "Pie chart",
+            "c": "Line graph",
+            "d": "Histogram"
+          },
+          "correct": "c",
+          "difficulty": "easy",
+          "source": "ncert",
+          "explanation": "A line graph is best for showing how a quantity changes over time (like temperature over days)."
+        },
+        {
+          "id": "cbse_8_ch16_A_015",
+          "text": "If y = 3x, when x = 4, y = ?",
+          "options": {
+            "a": "7",
+            "b": "10",
+            "c": "12",
+            "d": "16"
+          },
+          "correct": "c",
+          "difficulty": "easy",
+          "source": "ncert",
+          "explanation": "y = 3 × 4 = 12.",
+          "diagram": {
+            "type": "coordinate_plane",
+            "params": {
+              "x_range": [
+                -1,
+                5
+              ],
+              "y_range": [
+                -1,
+                13
+              ],
+              "show_quadrants": false,
+              "grid": true,
+              "lines": [
+                {
+                  "x1": 0,
+                  "y1": 0,
+                  "x2": 4,
+                  "y2": 12,
+                  "color": "#22d3ee",
+                  "label": "y=3x"
+                }
+              ],
+              "points": [
+                {
+                  "x": 0,
+                  "y": 0,
+                  "label": ""
+                },
+                {
+                  "x": 1,
+                  "y": 3,
+                  "label": "(1,3)",
+                  "label_offset_x": 8,
+                  "label_offset_y": -14
+                },
+                {
+                  "x": 4,
+                  "y": 12,
+                  "label": "(4,12)",
+                  "label_offset_x": 8,
+                  "label_offset_y": -14
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "cbse_8_ch16_A_016",
+          "text": "The number of quadrants in the coordinate plane is:",
+          "options": {
+            "a": "2",
+            "b": "3",
+            "c": "4",
+            "d": "8"
+          },
+          "correct": "c",
+          "difficulty": "easy",
+          "source": "ncert",
+          "explanation": "The x-axis and y-axis divide the plane into 4 quadrants: I, II, III, IV.",
+          "diagram": {
+            "type": "coordinate_plane",
+            "params": {
+              "x_range": [
+                -5,
+                5
+              ],
+              "y_range": [
+                -5,
+                5
+              ],
+              "show_quadrants": true,
+              "grid": true
+            }
+          }
+        },
+        {
+          "id": "cbse_8_ch16_A_017",
+          "text": "The x-coordinate of any point on the y-axis is always:",
+          "options": {
+            "a": "1",
+            "b": "Positive",
+            "c": "Negative",
+            "d": "0"
+          },
+          "correct": "d",
+          "difficulty": "easy",
+          "source": "ncert",
+          "explanation": "All points on the y-axis have x-coordinate = 0.",
+          "diagram": {
+            "type": "coordinate_plane",
+            "params": {
+              "x_range": [
+                -3,
+                4
+              ],
+              "y_range": [
+                -1,
+                5
+              ],
+              "show_quadrants": false,
+              "grid": true,
+              "points": [
+                {
+                  "x": 0,
+                  "y": 3,
+                  "label": "(0, y)",
+                  "label_offset_x": 10,
+                  "label_offset_y": -12
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "cbse_8_ch16_A_018",
+          "text": "A graph showing profit of a company from 2018 to 2024 uses the x-axis for years and y-axis for profit. The years are plotted on the:",
+          "options": {
+            "a": "y-axis",
+            "b": "x-axis",
+            "c": "Origin",
+            "d": "Neither axis"
+          },
+          "correct": "b",
+          "difficulty": "easy",
+          "source": "ncert",
+          "explanation": "The independent variable (years) is conventionally plotted on the x-axis (horizontal axis)."
+        },
+        {
+          "id": "cbse_8_ch16_A_019",
+          "text": "Which of the following lies in the fourth quadrant?",
+          "options": {
+            "a": "(5, 3)",
+            "b": "(-5, 3)",
+            "c": "(5, -3)",
+            "d": "(-5, -3)"
+          },
+          "correct": "c",
+          "difficulty": "easy",
+          "source": "ncert",
+          "explanation": "Fourth quadrant: x is positive, y is negative. (5, -3) has x > 0 and y < 0 → fourth quadrant.",
+          "diagram": {
+            "type": "coordinate_plane",
+            "params": {
+              "x_range": [
+                -4,
+                6
+              ],
+              "y_range": [
+                -5,
+                4
+              ],
+              "show_quadrants": true,
+              "grid": true,
+              "points": [
+                {
+                  "x": 5,
+                  "y": -3,
+                  "label": "(5,-3)",
+                  "label_offset_x": 8,
+                  "label_offset_y": 14
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "cbse_8_ch16_A_020",
+          "text": "If the graph of x versus y is a straight line NOT passing through the origin, the relationship is:",
+          "options": {
+            "a": "Direct proportion",
+            "b": "Inverse proportion",
+            "c": "Linear but NOT direct proportion",
+            "d": "No relationship"
+          },
+          "correct": "c",
+          "difficulty": "easy",
+          "source": "ncert",
+          "explanation": "A straight line not through the origin means y = mx + c (c ≠ 0). This is a linear relationship but NOT direct proportion (which requires the line to pass through origin).",
+          "diagram": {
+            "type": "coordinate_plane",
+            "params": {
+              "x_range": [
+                -1,
+                6
+              ],
+              "y_range": [
+                -1,
+                8
+              ],
+              "show_quadrants": false,
+              "grid": true,
+              "lines": [
+                {
+                  "x1": 0,
+                  "y1": 2,
+                  "x2": 5,
+                  "y2": 7,
+                  "color": "#22d3ee",
+                  "label": "y=x+2"
+                }
+              ],
+              "points": [
+                {
+                  "x": 0,
+                  "y": 2,
+                  "label": "(0,2)",
+                  "label_offset_x": -32,
+                  "label_offset_y": -12
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "B": {
+      "type": "mcq",
+      "label": "Application",
+      "marks_per_q": 2,
+      "count": 10,
+      "questions": [
+        {
+          "id": "cbse_8_ch16_B_001",
+          "text": "A car travels at 60 km/h. Using the linear graph of distance vs time, the distance covered in 2.5 hours is:",
+          "options": {
+            "a": "120 km",
+            "b": "130 km",
+            "c": "150 km",
+            "d": "180 km"
+          },
+          "correct": "c",
+          "difficulty": "medium",
+          "source": "ncert",
+          "explanation": "Distance = speed × time = 60 × 2.5 = 150 km.",
+          "diagram": {
+            "type": "line_graph",
+            "params": {
+              "points": [
+                {
+                  "x": 0,
+                  "y": 0
+                },
+                {
+                  "x": 1,
+                  "y": 60
+                },
+                {
+                  "x": 2,
+                  "y": 120
+                },
+                {
+                  "x": 2.5,
+                  "y": 150
+                }
+              ],
+              "x_values": [
+                "0",
+                "1",
+                "2",
+                "2.5 h"
+              ],
+              "y_values": [
+                "0",
+                "60",
+                "120",
+                "150"
+              ],
+              "x_label": "Time (h)",
+              "y_label": "Distance (km)"
+            }
+          }
+        },
+        {
+          "id": "cbse_8_ch16_B_002",
+          "text": "In the figure, a line graph shows Riya's savings: Jan=500, Feb=800, Mar=1100, Apr=1400. The pattern suggests savings increase by ₹___ each month. In May, savings will be:",
+          "options": {
+            "a": "₹1600",
+            "b": "₹1700",
+            "c": "₹1800",
+            "d": "₹2000"
+          },
+          "correct": "b",
+          "difficulty": "medium",
+          "source": "ncert",
+          "explanation": "Each month savings increase by 300. May = 1400 + 300 = ₹1700.",
+          "diagram": {
+            "type": "line_graph",
+            "params": {
+              "points": [
+                {
+                  "x": 0,
+                  "y": 500
+                },
+                {
+                  "x": 1,
+                  "y": 800
+                },
+                {
+                  "x": 2,
+                  "y": 1100
+                },
+                {
+                  "x": 3,
+                  "y": 1400
+                }
+              ],
+              "x_values": [
+                "Jan",
+                "Feb",
+                "Mar",
+                "Apr"
+              ],
+              "y_values": [
+                "500",
+                "800",
+                "1100",
+                "1400"
+              ],
+              "x_label": "Month",
+              "y_label": "Savings (Rs)"
+            }
+          }
+        },
+        {
+          "id": "cbse_8_ch16_B_003",
+          "text": "Three vertices of a rectangle are at (1, 2), (5, 2) and (5, 6). The fourth vertex is at:",
+          "options": {
+            "a": "(1, 5)",
+            "b": "(1, 6)",
+            "c": "(6, 2)",
+            "d": "(5, 1)"
+          },
+          "correct": "b",
+          "difficulty": "medium",
+          "source": "ncert",
+          "explanation": "The given points form three corners. The rectangle has sides parallel to axes. The fourth vertex must be at (1, 6) to complete the rectangle.",
+          "diagram": {
+            "type": "coordinate_plane",
+            "params": {
+              "x_range": [
+                -1,
+                8
+              ],
+              "y_range": [
+                -1,
+                8
+              ],
+              "show_quadrants": false,
+              "grid": true,
+              "points": [
+                {
+                  "x": 1,
+                  "y": 2,
+                  "label": "(1,2)",
+                  "label_offset_x": -38,
+                  "label_offset_y": -12
+                },
+                {
+                  "x": 5,
+                  "y": 2,
+                  "label": "(5,2)",
+                  "label_offset_x": 8,
+                  "label_offset_y": -12
+                },
+                {
+                  "x": 5,
+                  "y": 6,
+                  "label": "(5,6)",
+                  "label_offset_x": 8,
+                  "label_offset_y": -12
+                },
+                {
+                  "x": 1,
+                  "y": 6,
+                  "label": "(1,6)?",
+                  "label_offset_x": -44,
+                  "label_offset_y": -12
+                }
+              ],
+              "lines": [
+                {
+                  "x1": 1,
+                  "y1": 2,
+                  "x2": 5,
+                  "y2": 2,
+                  "color": "#22d3ee"
+                },
+                {
+                  "x1": 5,
+                  "y1": 2,
+                  "x2": 5,
+                  "y2": 6,
+                  "color": "#22d3ee"
+                },
+                {
+                  "x1": 1,
+                  "y1": 2,
+                  "x2": 1,
+                  "y2": 6,
+                  "color": "rgba(255,215,0,.4)",
+                  "dashed": true
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "cbse_8_ch16_B_004",
+          "text": "The graph of y = x + 3 passes through which of the following points?",
+          "options": {
+            "a": "(0, 0)",
+            "b": "(2, 4)",
+            "c": "(3, 6)",
+            "d": "(1, 5)"
+          },
+          "correct": "c",
+          "difficulty": "medium",
+          "source": "ncert",
+          "explanation": "Check each: (0,0): 0+3=3≠0. (2,4): 2+3=5≠4. (3,6): 3+3=6 ✓. (1,5): 1+3=4≠5. Answer: (3,6).",
+          "diagram": {
+            "type": "coordinate_plane",
+            "params": {
+              "x_range": [
+                -1,
+                6
+              ],
+              "y_range": [
+                -1,
+                9
+              ],
+              "show_quadrants": false,
+              "grid": true,
+              "lines": [
+                {
+                  "x1": 0,
+                  "y1": 3,
+                  "x2": 5,
+                  "y2": 8,
+                  "color": "#22d3ee",
+                  "label": "y=x+3"
+                }
+              ],
+              "points": [
+                {
+                  "x": 3,
+                  "y": 6,
+                  "label": "(3,6)✓",
+                  "label_offset_x": 8,
+                  "label_offset_y": -14
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "cbse_8_ch16_B_005",
+          "text": "The following table gives time vs distance for a cyclist: Time(h): 1, 2, 3, 4. Distance(km): 15, 30, 45, 60. What type of graph does this produce?",
+          "options": {
+            "a": "A curve not through origin",
+            "b": "A straight line through origin",
+            "c": "A horizontal line",
+            "d": "A zigzag line"
+          },
+          "correct": "b",
+          "difficulty": "medium",
+          "source": "ncert",
+          "explanation": "Distance = 15 × time. This is direct proportion (y = 15x), giving a straight line through the origin.",
+          "diagram": {
+            "type": "line_graph",
+            "params": {
+              "points": [
+                {
+                  "x": 0,
+                  "y": 0
+                },
+                {
+                  "x": 1,
+                  "y": 15
+                },
+                {
+                  "x": 2,
+                  "y": 30
+                },
+                {
+                  "x": 3,
+                  "y": 45
+                },
+                {
+                  "x": 4,
+                  "y": 60
+                }
+              ],
+              "x_values": [
+                "0",
+                "1",
+                "2",
+                "3",
+                "4"
+              ],
+              "y_values": [
+                "0",
+                "15",
+                "30",
+                "45",
+                "60"
+              ],
+              "x_label": "Time (h)",
+              "y_label": "Distance (km)"
+            }
+          }
+        },
+        {
+          "id": "cbse_8_ch16_B_006",
+          "text": "Points A(2, 3), B(2, 7) are plotted. The distance AB is:",
+          "options": {
+            "a": "2 units",
+            "b": "3 units",
+            "c": "4 units",
+            "d": "5 units"
+          },
+          "correct": "c",
+          "difficulty": "medium",
+          "source": "ncert",
+          "explanation": "Both points have x = 2 (vertical line). Distance = difference in y = 7 − 3 = 4 units.",
+          "diagram": {
+            "type": "coordinate_plane",
+            "params": {
+              "x_range": [
+                -1,
+                6
+              ],
+              "y_range": [
+                -1,
+                9
+              ],
+              "show_quadrants": false,
+              "grid": true,
+              "points": [
+                {
+                  "x": 2,
+                  "y": 3,
+                  "label": "A(2,3)",
+                  "label_offset_x": 10,
+                  "label_offset_y": -12
+                },
+                {
+                  "x": 2,
+                  "y": 7,
+                  "label": "B(2,7)",
+                  "label_offset_x": 10,
+                  "label_offset_y": -12
+                }
+              ],
+              "lines": [
+                {
+                  "x1": 2,
+                  "y1": 3,
+                  "x2": 2,
+                  "y2": 7,
+                  "color": "#ffd700"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "cbse_8_ch16_B_007",
+          "text": "A line graph shows a patient's temperature: 8am=38°C, 10am=39°C, 12pm=40°C, 2pm=39°C, 4pm=37°C. Between which times did temperature fall the most?",
+          "options": {
+            "a": "8am to 10am",
+            "b": "10am to 12pm",
+            "c": "12pm to 2pm",
+            "d": "2pm to 4pm"
+          },
+          "correct": "d",
+          "difficulty": "medium",
+          "source": "ncert",
+          "explanation": "Temperature changes: 8-10: +1, 10-12: +1, 12-2: −1, 2-4: −2. Greatest fall = 2pm to 4pm (−2°C).",
+          "diagram": {
+            "type": "line_graph",
+            "params": {
+              "points": [
+                {
+                  "x": 0,
+                  "y": 38
+                },
+                {
+                  "x": 1,
+                  "y": 39
+                },
+                {
+                  "x": 2,
+                  "y": 40
+                },
+                {
+                  "x": 3,
+                  "y": 39
+                },
+                {
+                  "x": 4,
+                  "y": 37
+                }
+              ],
+              "x_values": [
+                "8am",
+                "10am",
+                "12pm",
+                "2pm",
+                "4pm"
+              ],
+              "y_values": [
+                "37",
+                "38",
+                "39",
+                "40"
+              ],
+              "x_label": "Time",
+              "y_label": "Temp (°C)"
+            }
+          }
+        },
+        {
+          "id": "cbse_8_ch16_B_008",
+          "text": "If y = 5x and the graph passes through (a, 20), find a.",
+          "options": {
+            "a": "2",
+            "b": "3",
+            "c": "4",
+            "d": "5"
+          },
+          "correct": "c",
+          "difficulty": "medium",
+          "source": "ncert",
+          "explanation": "y = 5x. 20 = 5a → a = 4.",
+          "diagram": {
+            "type": "coordinate_plane",
+            "params": {
+              "x_range": [
+                -1,
+                6
+              ],
+              "y_range": [
+                -1,
+                22
+              ],
+              "show_quadrants": false,
+              "grid": true,
+              "lines": [
+                {
+                  "x1": 0,
+                  "y1": 0,
+                  "x2": 4,
+                  "y2": 20,
+                  "color": "#22d3ee",
+                  "label": "y=5x"
+                }
+              ],
+              "points": [
+                {
+                  "x": 4,
+                  "y": 20,
+                  "label": "(a,20)",
+                  "label_offset_x": 8,
+                  "label_offset_y": -14
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "cbse_8_ch16_B_009",
+          "text": "In a graph, the x-axis represents number of items sold and y-axis represents total cost. If the line passes through (0, 50) and (5, 200), the cost per item is:",
+          "options": {
+            "a": "₹20",
+            "b": "₹25",
+            "c": "₹30",
+            "d": "₹50"
+          },
+          "correct": "c",
+          "difficulty": "medium",
+          "source": "kv_paper",
+          "explanation": "From (0,50) to (5,200): change in cost = 200−50 = 150 for 5 items. Cost per item = 150/5 = ₹30.",
+          "diagram": {
+            "type": "coordinate_plane",
+            "params": {
+              "x_range": [
+                -1,
+                8
+              ],
+              "y_range": [
+                -1,
+                220
+              ],
+              "show_quadrants": false,
+              "grid": false,
+              "lines": [
+                {
+                  "x1": 0,
+                  "y1": 50,
+                  "x2": 5,
+                  "y2": 200,
+                  "color": "#22d3ee",
+                  "label": "cost"
+                }
+              ],
+              "points": [
+                {
+                  "x": 0,
+                  "y": 50,
+                  "label": "(0,50)",
+                  "label_offset_x": -44,
+                  "label_offset_y": -12
+                },
+                {
+                  "x": 5,
+                  "y": 200,
+                  "label": "(5,200)",
+                  "label_offset_x": 8,
+                  "label_offset_y": -12
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "cbse_8_ch16_B_010",
+          "text": "In the figure, four points are plotted: P(3, 4), Q(-3, 4), R(-3, -4), S(3, -4). What shape do these four points form?",
+          "options": {
+            "a": "Parallelogram",
+            "b": "Trapezium",
+            "c": "Rectangle",
+            "d": "Rhombus"
+          },
+          "correct": "c",
+          "difficulty": "medium",
+          "source": "ncert",
+          "explanation": "Width = 6 (3 to -3 in x). Height = 8 (4 to -4 in y). Sides parallel to axes → rectangle.",
+          "diagram": {
+            "type": "coordinate_plane",
+            "params": {
+              "x_range": [
+                -5,
+                5
+              ],
+              "y_range": [
+                -6,
+                6
+              ],
+              "show_quadrants": false,
+              "grid": true,
+              "points": [
+                {
+                  "x": 3,
+                  "y": 4,
+                  "label": "P(3,4)",
+                  "label_offset_x": 8,
+                  "label_offset_y": -12
+                },
+                {
+                  "x": -3,
+                  "y": 4,
+                  "label": "Q(-3,4)",
+                  "label_offset_x": -54,
+                  "label_offset_y": -12
+                },
+                {
+                  "x": -3,
+                  "y": -4,
+                  "label": "R(-3,-4)",
+                  "label_offset_x": -58,
+                  "label_offset_y": 14
+                },
+                {
+                  "x": 3,
+                  "y": -4,
+                  "label": "S(3,-4)",
+                  "label_offset_x": 8,
+                  "label_offset_y": 14
+                }
+              ],
+              "lines": [
+                {
+                  "x1": 3,
+                  "y1": 4,
+                  "x2": -3,
+                  "y2": 4,
+                  "color": "#22d3ee"
+                },
+                {
+                  "x1": -3,
+                  "y1": 4,
+                  "x2": -3,
+                  "y2": -4,
+                  "color": "#22d3ee"
+                },
+                {
+                  "x1": -3,
+                  "y1": -4,
+                  "x2": 3,
+                  "y2": -4,
+                  "color": "#22d3ee"
+                },
+                {
+                  "x1": 3,
+                  "y1": -4,
+                  "x2": 3,
+                  "y2": 4,
+                  "color": "#22d3ee"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "C": {
+      "type": "mcq",
+      "label": "Higher Order",
+      "marks_per_q": 3,
+      "count": 6,
+      "questions": [
+        {
+          "id": "cbse_8_ch16_C_001",
+          "text": "A line graph shows population (in lakhs): 2018=12, 2019=14, 2020=16, 2021=18, 2022=20. If the trend continues, in which year will population first exceed 25 lakhs?",
+          "options": {
+            "a": "2023",
+            "b": "2024",
+            "c": "2025",
+            "d": "2026"
+          },
+          "correct": "c",
+          "difficulty": "hard",
+          "source": "ncert",
+          "explanation": "Population increases by 2 lakhs/year. 2022=20, 2023=22, 2024=24, 2025=26 > 25. First year exceeding 25 lakhs = 2025.",
+          "diagram": {
+            "type": "line_graph",
+            "params": {
+              "points": [
+                {
+                  "x": 0,
+                  "y": 12
+                },
+                {
+                  "x": 1,
+                  "y": 14
+                },
+                {
+                  "x": 2,
+                  "y": 16
+                },
+                {
+                  "x": 3,
+                  "y": 18
+                },
+                {
+                  "x": 4,
+                  "y": 20
+                }
+              ],
+              "x_values": [
+                "2018",
+                "2019",
+                "2020",
+                "2021",
+                "2022"
+              ],
+              "y_values": [
+                "12",
+                "14",
+                "16",
+                "18",
+                "20"
+              ],
+              "x_label": "Year",
+              "y_label": "Population (lakhs)"
+            }
+          }
+        },
+        {
+          "id": "cbse_8_ch16_C_002",
+          "text": "In the figure, a line graph shows a car's journey: from 0-1h it covers 60 km, then stops for 30 min, then covers 60 km in 1h. The average speed for the entire journey (150 min total) is:",
+          "options": {
+            "a": "48 km/h",
+            "b": "54 km/h",
+            "c": "60 km/h",
+            "d": "72 km/h"
+          },
+          "correct": "a",
+          "difficulty": "hard",
+          "source": "ncert",
+          "explanation": "Total distance = 120 km. Total time = 150 min = 2.5 h. Average speed = 120/2.5 = 48 km/h.",
+          "diagram": {
+            "type": "line_graph",
+            "params": {
+              "points": [
+                {
+                  "x": 0,
+                  "y": 0
+                },
+                {
+                  "x": 1,
+                  "y": 60
+                },
+                {
+                  "x": 1.5,
+                  "y": 60
+                },
+                {
+                  "x": 2.5,
+                  "y": 120
+                }
+              ],
+              "x_values": [
+                "0",
+                "1 h",
+                "1.5 h",
+                "2.5 h"
+              ],
+              "y_values": [
+                "0",
+                "60",
+                "120"
+              ],
+              "x_label": "Time (h)",
+              "y_label": "Distance (km)"
+            }
+          }
+        },
+        {
+          "id": "cbse_8_ch16_C_003",
+          "text": "A graph of cost vs number of items shows: 10 items cost ₹450, 20 items cost ₹900, 30 items cost ₹1350. This line, when extended, passes through the origin. The cost of 45 items is:",
+          "options": {
+            "a": "₹1800",
+            "b": "₹2000",
+            "c": "₹2025",
+            "d": "₹2250"
+          },
+          "correct": "c",
+          "difficulty": "hard",
+          "source": "ncert",
+          "explanation": "Cost per item = 450/10 = ₹45. Cost of 45 items = 45 × 45 = ₹2025.",
+          "diagram": {
+            "type": "line_graph",
+            "params": {
+              "points": [
+                {
+                  "x": 0,
+                  "y": 0
+                },
+                {
+                  "x": 10,
+                  "y": 450
+                },
+                {
+                  "x": 20,
+                  "y": 900
+                },
+                {
+                  "x": 30,
+                  "y": 1350
+                }
+              ],
+              "x_values": [
+                "0",
+                "10",
+                "20",
+                "30"
+              ],
+              "y_values": [
+                "0",
+                "450",
+                "900",
+                "1350"
+              ],
+              "x_label": "Items",
+              "y_label": "Cost (Rs)"
+            }
+          }
+        },
+        {
+          "id": "cbse_8_ch16_C_004",
+          "text": "In the figure, a distance-time graph shows: segment A (horizontal) means the object is at rest, segment B (steep rise) means the object is moving fast, segment C (gentle rise) means the object is moving slowly. Which order shows the correct interpretation of a graph showing: rest → slow → fast?",
+          "options": {
+            "a": "Steep line → horizontal → gentle line",
+            "b": "Horizontal → gentle line → steep line",
+            "c": "Horizontal → steep line → gentle line",
+            "d": "Gentle line → steep line → horizontal"
+          },
+          "correct": "b",
+          "difficulty": "hard",
+          "source": "ncert",
+          "explanation": "Rest = horizontal (no distance change). Slow = gentle slope (small distance per unit time). Fast = steep slope (large distance per unit time). Order: horizontal → gentle → steep.",
+          "diagram": {
+            "type": "line_graph",
+            "params": {
+              "points": [
+                {
+                  "x": 0,
+                  "y": 0,
+                  "label": "start"
+                },
+                {
+                  "x": 2,
+                  "y": 0,
+                  "label": "rest"
+                },
+                {
+                  "x": 4,
+                  "y": 40,
+                  "label": "slow"
+                },
+                {
+                  "x": 6,
+                  "y": 160,
+                  "label": "fast"
+                }
+              ],
+              "x_values": [
+                "0",
+                "2",
+                "4",
+                "6"
+              ],
+              "y_values": [
+                "0",
+                "40",
+                "80",
+                "120",
+                "160"
+              ],
+              "x_label": "Time",
+              "y_label": "Distance"
+            }
+          }
+        },
+        {
+          "id": "cbse_8_ch16_C_005",
+          "text": "A line graph shows a company's sales (₹ in thousands): Jan=40, Feb=50, Mar=45, Apr=60, May=55, Jun=70. The months showing an increase over the previous month are:",
+          "options": {
+            "a": "Feb, Apr, Jun only",
+            "b": "Feb, Mar, Apr only",
+            "c": "Jan, Mar, May only",
+            "d": "All months"
+          },
+          "correct": "a",
+          "difficulty": "hard",
+          "source": "ncert",
+          "explanation": "Feb(50>40)↑, Mar(45<50)↓, Apr(60>45)↑, May(55<60)↓, Jun(70>55)↑. Increases: Feb, Apr, Jun.",
+          "diagram": {
+            "type": "line_graph",
+            "params": {
+              "points": [
+                {
+                  "x": 0,
+                  "y": 40
+                },
+                {
+                  "x": 1,
+                  "y": 50
+                },
+                {
+                  "x": 2,
+                  "y": 45
+                },
+                {
+                  "x": 3,
+                  "y": 60
+                },
+                {
+                  "x": 4,
+                  "y": 55
+                },
+                {
+                  "x": 5,
+                  "y": 70
+                }
+              ],
+              "x_values": [
+                "Jan",
+                "Feb",
+                "Mar",
+                "Apr",
+                "May",
+                "Jun"
+              ],
+              "y_values": [
+                "40",
+                "50",
+                "60",
+                "70"
+              ],
+              "x_label": "Month",
+              "y_label": "Sales (Rs 000)"
+            }
+          }
+        },
+        {
+          "id": "cbse_8_ch16_C_006",
+          "text": "In the figure, two lines are drawn on the same graph. Line 1: y = 2x. Line 2: y = x + 4. These two lines intersect at the point:",
+          "options": {
+            "a": "(2, 4)",
+            "b": "(4, 8)",
+            "c": "(4, 5)",
+            "d": "(3, 7)"
+          },
+          "correct": "b",
+          "difficulty": "hard",
+          "source": "ncert_exemplar",
+          "explanation": "At intersection: 2x = x + 4 → x = 4. y = 2 × 4 = 8. Point = (4, 8). Verify on line 2: y = 4+4 = 8 ✓.",
+          "diagram": {
+            "type": "coordinate_plane",
+            "params": {
+              "x_range": [
+                -1,
+                7
+              ],
+              "y_range": [
+                -1,
+                12
+              ],
+              "show_quadrants": false,
+              "grid": true,
+              "lines": [
+                {
+                  "x1": 0,
+                  "y1": 0,
+                  "x2": 5,
+                  "y2": 10,
+                  "color": "#22d3ee",
+                  "label": "y=2x"
+                },
+                {
+                  "x1": 0,
+                  "y1": 4,
+                  "x2": 6,
+                  "y2": 10,
+                  "color": "#f59e0b",
+                  "label": "y=x+4"
+                }
+              ],
+              "points": [
+                {
+                  "x": 4,
+                  "y": 8,
+                  "label": "(4,8)",
+                  "label_offset_x": 8,
+                  "label_offset_y": -14
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "D": {
+      "type": "direct_input",
+      "label": "Numerical",
+      "marks_per_q": 3,
+      "count": 10,
+      "questions": [
+        {
+          "id": "cbse_8_ch16_D_001",
+          "text": "Using graph of y = 4x, find y when x = 7.",
+          "correct_answer": "28",
+          "answer_type": "integer",
+          "accepted_forms": [
+            "28"
+          ],
+          "difficulty": "easy",
+          "source": "ncert",
+          "explanation": "y = 4 × 7 = 28.",
+          "diagram": {
+            "type": "coordinate_plane",
+            "params": {
+              "x_range": [
+                -1,
+                8
+              ],
+              "y_range": [
+                -1,
+                30
+              ],
+              "show_quadrants": false,
+              "grid": true,
+              "lines": [
+                {
+                  "x1": 0,
+                  "y1": 0,
+                  "x2": 7,
+                  "y2": 28,
+                  "color": "#22d3ee",
+                  "label": "y=4x"
+                }
+              ],
+              "points": [
+                {
+                  "x": 7,
+                  "y": 28,
+                  "label": "(7,?)",
+                  "label_offset_x": 8,
+                  "label_offset_y": -14
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "cbse_8_ch16_D_002",
+          "text": "A line passes through (0, 0) and (3, 12). What is the y-value when x = 5?",
+          "correct_answer": "20",
+          "answer_type": "integer",
+          "accepted_forms": [
+            "20"
+          ],
+          "difficulty": "medium",
+          "source": "ncert",
+          "explanation": "Slope = 12/3 = 4. Equation: y = 4x. When x = 5: y = 20.",
+          "diagram": {
+            "type": "coordinate_plane",
+            "params": {
+              "x_range": [
+                -1,
+                6
+              ],
+              "y_range": [
+                -1,
+                22
+              ],
+              "show_quadrants": false,
+              "grid": true,
+              "lines": [
+                {
+                  "x1": 0,
+                  "y1": 0,
+                  "x2": 5,
+                  "y2": 20,
+                  "color": "#22d3ee"
+                }
+              ],
+              "points": [
+                {
+                  "x": 0,
+                  "y": 0,
+                  "label": "(0,0)",
+                  "label_offset_x": -32,
+                  "label_offset_y": -12
+                },
+                {
+                  "x": 3,
+                  "y": 12,
+                  "label": "(3,12)",
+                  "label_offset_x": 8,
+                  "label_offset_y": -14
+                },
+                {
+                  "x": 5,
+                  "y": 20,
+                  "label": "(5,?)",
+                  "label_offset_x": 8,
+                  "label_offset_y": -14
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "cbse_8_ch16_D_003",
+          "text": "Plot the points (2, 3) and (6, 3) on a graph. What is the distance between them?",
+          "correct_answer": "4",
+          "answer_type": "integer",
+          "accepted_forms": [
+            "4"
+          ],
+          "difficulty": "easy",
+          "source": "ncert",
+          "explanation": "Both have y = 3 (horizontal line). Distance = 6 − 2 = 4 units.",
+          "diagram": {
+            "type": "coordinate_plane",
+            "params": {
+              "x_range": [
+                -1,
+                8
+              ],
+              "y_range": [
+                -1,
+                5
+              ],
+              "show_quadrants": false,
+              "grid": true,
+              "points": [
+                {
+                  "x": 2,
+                  "y": 3,
+                  "label": "(2,3)",
+                  "label_offset_x": 4,
+                  "label_offset_y": -16
+                },
+                {
+                  "x": 6,
+                  "y": 3,
+                  "label": "(6,3)",
+                  "label_offset_x": 4,
+                  "label_offset_y": -16
+                }
+              ],
+              "lines": [
+                {
+                  "x1": 2,
+                  "y1": 3,
+                  "x2": 6,
+                  "y2": 3,
+                  "color": "#ffd700"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "cbse_8_ch16_D_004",
+          "text": "A taxi charges ₹20 fixed + ₹15 per km. Write the equation and find the cost for 8 km.",
+          "correct_answer": "140",
+          "answer_type": "integer",
+          "accepted_forms": [
+            "140",
+            "₹140"
+          ],
+          "difficulty": "medium",
+          "source": "ncert",
+          "explanation": "Cost = 15x + 20. For x = 8: Cost = 120 + 20 = ₹140.",
+          "diagram": {
+            "type": "coordinate_plane",
+            "params": {
+              "x_range": [
+                -1,
+                10
+              ],
+              "y_range": [
+                -1,
+                170
+              ],
+              "show_quadrants": false,
+              "grid": false,
+              "lines": [
+                {
+                  "x1": 0,
+                  "y1": 20,
+                  "x2": 9,
+                  "y2": 155,
+                  "color": "#22d3ee",
+                  "label": "Cost=15x+20"
+                }
+              ],
+              "points": [
+                {
+                  "x": 0,
+                  "y": 20,
+                  "label": "(0,20)",
+                  "label_offset_x": -44,
+                  "label_offset_y": -12
+                },
+                {
+                  "x": 8,
+                  "y": 140,
+                  "label": "(8,140)",
+                  "label_offset_x": 8,
+                  "label_offset_y": -14
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "cbse_8_ch16_D_005",
+          "text": "The graph of a linear equation passes through (1, 5) and (3, 11). Find the value of y when x = 0.",
+          "correct_answer": "2",
+          "answer_type": "integer",
+          "accepted_forms": [
+            "2"
+          ],
+          "difficulty": "hard",
+          "source": "ncert_exemplar",
+          "explanation": "Slope = (11−5)/(3−1) = 6/2 = 3. Equation: y − 5 = 3(x − 1) → y = 3x + 2. When x = 0: y = 2.",
+          "diagram": {
+            "type": "coordinate_plane",
+            "params": {
+              "x_range": [
+                -1,
+                5
+              ],
+              "y_range": [
+                -1,
+                13
+              ],
+              "show_quadrants": false,
+              "grid": true,
+              "lines": [
+                {
+                  "x1": 0,
+                  "y1": 2,
+                  "x2": 4,
+                  "y2": 14,
+                  "color": "#22d3ee",
+                  "label": "y=3x+2"
+                }
+              ],
+              "points": [
+                {
+                  "x": 1,
+                  "y": 5,
+                  "label": "(1,5)",
+                  "label_offset_x": 8,
+                  "label_offset_y": -14
+                },
+                {
+                  "x": 3,
+                  "y": 11,
+                  "label": "(3,11)",
+                  "label_offset_x": 8,
+                  "label_offset_y": -14
+                },
+                {
+                  "x": 0,
+                  "y": 2,
+                  "label": "(0,?)",
+                  "label_offset_x": -34,
+                  "label_offset_y": -12
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "cbse_8_ch16_D_006",
+          "text": "The vertices of a triangle are at (1, 1), (4, 1) and (4, 5). What is the area of the triangle? (in sq units)",
+          "correct_answer": "6",
+          "answer_type": "integer",
+          "accepted_forms": [
+            "6"
+          ],
+          "difficulty": "medium",
+          "source": "ncert",
+          "explanation": "Base = 4−1 = 3 units (horizontal, from (1,1) to (4,1)). Height = 5−1 = 4 units (vertical, from (4,1) to (4,5)). Area = ½ × 3 × 4 = 6 sq units.",
+          "diagram": {
+            "type": "coordinate_plane",
+            "params": {
+              "x_range": [
+                -1,
+                6
+              ],
+              "y_range": [
+                -1,
+                6
+              ],
+              "show_quadrants": false,
+              "grid": true,
+              "points": [
+                {
+                  "x": 1,
+                  "y": 1,
+                  "label": "(1,1)",
+                  "label_offset_x": -38,
+                  "label_offset_y": -12
+                },
+                {
+                  "x": 4,
+                  "y": 1,
+                  "label": "(4,1)",
+                  "label_offset_x": 8,
+                  "label_offset_y": -12
+                },
+                {
+                  "x": 4,
+                  "y": 5,
+                  "label": "(4,5)",
+                  "label_offset_x": 8,
+                  "label_offset_y": -12
+                }
+              ],
+              "lines": [
+                {
+                  "x1": 1,
+                  "y1": 1,
+                  "x2": 4,
+                  "y2": 1,
+                  "color": "#22d3ee"
+                },
+                {
+                  "x1": 4,
+                  "y1": 1,
+                  "x2": 4,
+                  "y2": 5,
+                  "color": "#22d3ee"
+                },
+                {
+                  "x1": 1,
+                  "y1": 1,
+                  "x2": 4,
+                  "y2": 5,
+                  "color": "rgba(255,215,0,.6)"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "cbse_8_ch16_D_007",
+          "text": "In a line graph showing temperature over 5 days: Mon=22°C, Tue=25°C, Wed=20°C, Thu=28°C, Fri=24°C. What is the mean temperature over these 5 days?",
+          "correct_answer": "23.8",
+          "answer_type": "decimal",
+          "accepted_forms": [
+            "23.8",
+            "119/5"
+          ],
+          "difficulty": "medium",
+          "source": "ncert",
+          "explanation": "Mean = (22+25+20+28+24)/5 = 119/5 = 23.8°C.",
+          "diagram": {
+            "type": "line_graph",
+            "params": {
+              "points": [
+                {
+                  "x": 0,
+                  "y": 22
+                },
+                {
+                  "x": 1,
+                  "y": 25
+                },
+                {
+                  "x": 2,
+                  "y": 20
+                },
+                {
+                  "x": 3,
+                  "y": 28
+                },
+                {
+                  "x": 4,
+                  "y": 24
+                }
+              ],
+              "x_values": [
+                "Mon",
+                "Tue",
+                "Wed",
+                "Thu",
+                "Fri"
+              ],
+              "y_values": [
+                "20",
+                "22",
+                "24",
+                "26",
+                "28"
+              ],
+              "x_label": "Day",
+              "y_label": "Temp (°C)"
+            }
+          }
+        },
+        {
+          "id": "cbse_8_ch16_D_008",
+          "text": "A graph of principal vs simple interest (at 10% for 1 year) passes through origin. If principal = ₹3500, what is the SI? (in ₹)",
+          "correct_answer": "350",
+          "answer_type": "integer",
+          "accepted_forms": [
+            "350",
+            "₹350"
+          ],
+          "difficulty": "medium",
+          "source": "ncert",
+          "explanation": "SI = P × R × T / 100 = 3500 × 10 × 1 / 100 = ₹350.",
+          "diagram": {
+            "type": "coordinate_plane",
+            "params": {
+              "x_range": [
+                -1,
+                5000
+              ],
+              "y_range": [
+                -1,
+                500
+              ],
+              "show_quadrants": false,
+              "grid": false,
+              "lines": [
+                {
+                  "x1": 0,
+                  "y1": 0,
+                  "x2": 4000,
+                  "y2": 400,
+                  "color": "#22d3ee",
+                  "label": "SI = 0.1P"
+                }
+              ],
+              "points": [
+                {
+                  "x": 3500,
+                  "y": 350,
+                  "label": "(3500,350)",
+                  "label_offset_x": 8,
+                  "label_offset_y": -14
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "cbse_8_ch16_D_009",
+          "text": "Two lines y = 3x and y = x + 8 intersect. Find the x-coordinate of the intersection point.",
+          "correct_answer": "4",
+          "answer_type": "integer",
+          "accepted_forms": [
+            "4"
+          ],
+          "difficulty": "hard",
+          "source": "ncert_exemplar",
+          "explanation": "3x = x + 8 → 2x = 8 → x = 4. Verify: y = 12 on both lines: 3(4)=12 ✓, 4+8=12 ✓.",
+          "diagram": {
+            "type": "coordinate_plane",
+            "params": {
+              "x_range": [
+                -1,
+                7
+              ],
+              "y_range": [
+                -1,
+                14
+              ],
+              "show_quadrants": false,
+              "grid": true,
+              "lines": [
+                {
+                  "x1": 0,
+                  "y1": 0,
+                  "x2": 4,
+                  "y2": 12,
+                  "color": "#22d3ee",
+                  "label": "y=3x"
+                },
+                {
+                  "x1": 0,
+                  "y1": 8,
+                  "x2": 4,
+                  "y2": 12,
+                  "color": "#f59e0b",
+                  "label": "y=x+8"
+                }
+              ],
+              "points": [
+                {
+                  "x": 4,
+                  "y": 12,
+                  "label": "(4,12)",
+                  "label_offset_x": 8,
+                  "label_offset_y": -14
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "cbse_8_ch16_D_010",
+          "text": "A rectangle has vertices at A(0,0), B(5,0), C(5,3) and D(0,3). Find the area of the rectangle. (in sq units)",
+          "correct_answer": "15",
+          "answer_type": "integer",
+          "accepted_forms": [
+            "15"
+          ],
+          "difficulty": "easy",
+          "source": "ncert",
+          "explanation": "Length = 5 units (along x-axis). Breadth = 3 units (along y-axis). Area = 5 × 3 = 15 sq units.",
+          "diagram": {
+            "type": "coordinate_plane",
+            "params": {
+              "x_range": [
+                -1,
+                7
+              ],
+              "y_range": [
+                -1,
+                5
+              ],
+              "show_quadrants": false,
+              "grid": true,
+              "points": [
+                {
+                  "x": 0,
+                  "y": 0,
+                  "label": "A(0,0)",
+                  "label_offset_x": -44,
+                  "label_offset_y": -12
+                },
+                {
+                  "x": 5,
+                  "y": 0,
+                  "label": "B(5,0)",
+                  "label_offset_x": 8,
+                  "label_offset_y": -12
+                },
+                {
+                  "x": 5,
+                  "y": 3,
+                  "label": "C(5,3)",
+                  "label_offset_x": 8,
+                  "label_offset_y": -12
+                },
+                {
+                  "x": 0,
+                  "y": 3,
+                  "label": "D(0,3)",
+                  "label_offset_x": -44,
+                  "label_offset_y": -12
+                }
+              ],
+              "lines": [
+                {
+                  "x1": 0,
+                  "y1": 0,
+                  "x2": 5,
+                  "y2": 0,
+                  "color": "#22d3ee"
+                },
+                {
+                  "x1": 5,
+                  "y1": 0,
+                  "x2": 5,
+                  "y2": 3,
+                  "color": "#22d3ee"
+                },
+                {
+                  "x1": 5,
+                  "y1": 3,
+                  "x2": 0,
+                  "y2": 3,
+                  "color": "#22d3ee"
+                },
+                {
+                  "x1": 0,
+                  "y1": 3,
+                  "x2": 0,
+                  "y2": 0,
+                  "color": "#22d3ee"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "E": {
+      "type": "case_study",
+      "label": "Case Study",
+      "marks_per_q": 2,
+      "count": 2,
+      "cases": [
+        {
+          "id": "cbse_8_ch16_E_case1",
+          "case_text": "Arjun cycles to school every day. The distance-time graph of his journey shows: at t=0 min, d=0 km; at t=10 min, d=2 km; at t=20 min, d=4 km; at t=30 min, d=4 km (stationary); at t=40 min, d=6 km.",
+          "subparts": [
+            {
+              "id": "cbse_8_ch16_E_case1_q1",
+              "text": "During which time period was Arjun stationary?",
+              "type": "mcq",
+              "options": {
+                "a": "0 to 10 min",
+                "b": "10 to 20 min",
+                "c": "20 to 30 min",
+                "d": "30 to 40 min"
+              },
+              "correct": "c",
+              "marks": 2,
+              "explanation": "From t=20 to t=30, distance stayed at 4 km (no change). Arjun was stationary during 20 to 30 min.",
+              "diagram": {
+                "type": "line_graph",
+                "params": {
+                  "points": [
+                    {
+                      "x": 0,
+                      "y": 0
+                    },
+                    {
+                      "x": 10,
+                      "y": 2
+                    },
+                    {
+                      "x": 20,
+                      "y": 4
+                    },
+                    {
+                      "x": 30,
+                      "y": 4,
+                      "label": "(stationary)"
+                    },
+                    {
+                      "x": 40,
+                      "y": 6
+                    }
+                  ],
+                  "x_values": [
+                    "0",
+                    "10",
+                    "20",
+                    "30",
+                    "40"
+                  ],
+                  "y_values": [
+                    "0",
+                    "2",
+                    "4",
+                    "6"
+                  ],
+                  "x_label": "Time (min)",
+                  "y_label": "Distance (km)"
+                }
+              }
+            },
+            {
+              "id": "cbse_8_ch16_E_case1_q2",
+              "text": "What was Arjun's speed (in km/min) during the first 20 minutes?",
+              "type": "mcq",
+              "options": {
+                "a": "0.1 km/min",
+                "b": "0.2 km/min",
+                "c": "0.3 km/min",
+                "d": "0.4 km/min"
+              },
+              "correct": "b",
+              "marks": 2,
+              "explanation": "Distance in first 20 min = 4 km. Speed = 4/20 = 0.2 km/min.",
+              "diagram": {
+                "type": "line_graph",
+                "params": {
+                  "points": [
+                    {
+                      "x": 0,
+                      "y": 0
+                    },
+                    {
+                      "x": 10,
+                      "y": 2
+                    },
+                    {
+                      "x": 20,
+                      "y": 4
+                    },
+                    {
+                      "x": 30,
+                      "y": 4,
+                      "label": "(stationary)"
+                    },
+                    {
+                      "x": 40,
+                      "y": 6
+                    }
+                  ],
+                  "x_values": [
+                    "0",
+                    "10",
+                    "20",
+                    "30",
+                    "40"
+                  ],
+                  "y_values": [
+                    "0",
+                    "2",
+                    "4",
+                    "6"
+                  ],
+                  "x_label": "Time (min)",
+                  "y_label": "Distance (km)"
+                }
+              }
+            },
+            {
+              "id": "cbse_8_ch16_E_case1_q3",
+              "text": "Total distance covered in 40 minutes is 6 km. What is average speed in km/h?",
+              "type": "direct_input",
+              "correct_answer": "9",
+              "accepted_forms": [
+                "9"
+              ],
+              "marks": 2,
+              "explanation": "40 min = 2/3 hour. Average speed = 6 ÷ (2/3) = 6 × 3/2 = 9 km/h.",
+              "diagram": {
+                "type": "line_graph",
+                "params": {
+                  "points": [
+                    {
+                      "x": 0,
+                      "y": 0
+                    },
+                    {
+                      "x": 10,
+                      "y": 2
+                    },
+                    {
+                      "x": 20,
+                      "y": 4
+                    },
+                    {
+                      "x": 30,
+                      "y": 4,
+                      "label": "(stationary)"
+                    },
+                    {
+                      "x": 40,
+                      "y": 6
+                    }
+                  ],
+                  "x_values": [
+                    "0",
+                    "10",
+                    "20",
+                    "30",
+                    "40"
+                  ],
+                  "y_values": [
+                    "0",
+                    "2",
+                    "4",
+                    "6"
+                  ],
+                  "x_label": "Time (min)",
+                  "y_label": "Distance (km)"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "id": "cbse_8_ch16_E_case2",
+          "case_text": "A shopkeeper records his daily sales for a week on a line graph. Sales (in ₹): Mon=1200, Tue=1500, Wed=1800, Thu=1400, Fri=2000, Sat=2400, Sun=2000. He wants to analyse trends.",
+          "subparts": [
+            {
+              "id": "cbse_8_ch16_E_case2_q1",
+              "text": "On which day did sales decrease compared to the previous day?",
+              "type": "mcq",
+              "options": {
+                "a": "Tuesday",
+                "b": "Wednesday",
+                "c": "Thursday",
+                "d": "Friday"
+              },
+              "correct": "c",
+              "marks": 2,
+              "explanation": "Thu=1400 < Wed=1800 → decrease on Thursday. Also Sun=2000 < Sat=2400 (decrease on Sunday).",
+              "diagram": {
+                "type": "line_graph",
+                "params": {
+                  "points": [
+                    {
+                      "x": 0,
+                      "y": 1200
+                    },
+                    {
+                      "x": 1,
+                      "y": 1500
+                    },
+                    {
+                      "x": 2,
+                      "y": 1800
+                    },
+                    {
+                      "x": 3,
+                      "y": 1400
+                    },
+                    {
+                      "x": 4,
+                      "y": 2000
+                    },
+                    {
+                      "x": 5,
+                      "y": 2400
+                    },
+                    {
+                      "x": 6,
+                      "y": 2000
+                    }
+                  ],
+                  "x_values": [
+                    "Mon",
+                    "Tue",
+                    "Wed",
+                    "Thu",
+                    "Fri",
+                    "Sat",
+                    "Sun"
+                  ],
+                  "y_values": [
+                    "1200",
+                    "1500",
+                    "1800",
+                    "2100",
+                    "2400"
+                  ],
+                  "x_label": "Day",
+                  "y_label": "Sales (Rs)"
+                }
+              }
+            },
+            {
+              "id": "cbse_8_ch16_E_case2_q2",
+              "text": "What was the total sales for the week? (in ₹)",
+              "type": "direct_input",
+              "correct_answer": "12300",
+              "accepted_forms": [
+                "12300"
+              ],
+              "marks": 2,
+              "explanation": "1200+1500+1800+1400+2000+2400+2000 = 12300.",
+              "diagram": {
+                "type": "line_graph",
+                "params": {
+                  "points": [
+                    {
+                      "x": 0,
+                      "y": 1200
+                    },
+                    {
+                      "x": 1,
+                      "y": 1500
+                    },
+                    {
+                      "x": 2,
+                      "y": 1800
+                    },
+                    {
+                      "x": 3,
+                      "y": 1400
+                    },
+                    {
+                      "x": 4,
+                      "y": 2000
+                    },
+                    {
+                      "x": 5,
+                      "y": 2400
+                    },
+                    {
+                      "x": 6,
+                      "y": 2000
+                    }
+                  ],
+                  "x_values": [
+                    "Mon",
+                    "Tue",
+                    "Wed",
+                    "Thu",
+                    "Fri",
+                    "Sat",
+                    "Sun"
+                  ],
+                  "y_values": [
+                    "1200",
+                    "1500",
+                    "1800",
+                    "2100",
+                    "2400"
+                  ],
+                  "x_label": "Day",
+                  "y_label": "Sales (Rs)"
+                }
+              }
+            },
+            {
+              "id": "cbse_8_ch16_E_case2_q3",
+              "text": "The mean daily sales for the week is: (in ₹)",
+              "type": "mcq",
+              "options": {
+                "a": "₹1600",
+                "b": "₹1700",
+                "c": "₹1757",
+                "d": "₹1800"
+              },
+              "correct": "c",
+              "marks": 2,
+              "explanation": "Mean = 12300/7 = 1757.14 ≈ ₹1757.",
+              "diagram": {
+                "type": "line_graph",
+                "params": {
+                  "points": [
+                    {
+                      "x": 0,
+                      "y": 1200
+                    },
+                    {
+                      "x": 1,
+                      "y": 1500
+                    },
+                    {
+                      "x": 2,
+                      "y": 1800
+                    },
+                    {
+                      "x": 3,
+                      "y": 1400
+                    },
+                    {
+                      "x": 4,
+                      "y": 2000
+                    },
+                    {
+                      "x": 5,
+                      "y": 2400
+                    },
+                    {
+                      "x": 6,
+                      "y": 2000
+                    }
+                  ],
+                  "x_values": [
+                    "Mon",
+                    "Tue",
+                    "Wed",
+                    "Thu",
+                    "Fri",
+                    "Sat",
+                    "Sun"
+                  ],
+                  "y_values": [
+                    "1200",
+                    "1500",
+                    "1800",
+                    "2100",
+                    "2400"
+                  ],
+                  "x_label": "Day",
+                  "y_label": "Sales (Rs)"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

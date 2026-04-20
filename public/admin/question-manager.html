@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RISHI — Question Bank Manager</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --surface: #1e293b;
+      --surface2: #334155;
+      --accent: #6366f1;
+      --accent2: #22d3ee;
+      --success: #22c55e;
+      --danger: #ef4444;
+      --warn: #f59e0b;
+      --text: #f1f5f9;
+      --muted: #94a3b8;
+      --border: #334155;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      min-height: 100vh;
+      padding: 24px;
+    }
+    header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 32px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 20px;
+    }
+    header h1 { font-size: 1.6rem; color: var(--accent2); }
+    header span { color: var(--muted); font-size: 0.9rem; }
+
+    /* Auth gate */
+    #auth-gate {
+      max-width: 420px;
+      margin: 80px auto;
+      background: var(--surface);
+      border-radius: 16px;
+      padding: 40px;
+      text-align: center;
+    }
+    #auth-gate h2 { margin-bottom: 24px; color: var(--accent2); }
+    #auth-gate input {
+      width: 100%;
+      padding: 12px 16px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 1rem;
+      margin-bottom: 16px;
+    }
+    #auth-gate button {
+      width: 100%;
+      padding: 12px;
+      background: var(--accent);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    /* Main UI */
+    #main { display: none; }
+    .section-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--accent2);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .card {
+      background: var(--surface);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 24px;
+      border: 1px solid var(--border);
+    }
+
+    /* Seed All button */
+    .btn-seed-all {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--accent);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      padding: 14px 28px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: opacity 0.2s;
+      margin-bottom: 12px;
+    }
+    .btn-seed-all:disabled { opacity: 0.5; cursor: not-allowed; }
+    .btn-seed-all:hover:not(:disabled) { opacity: 0.85; }
+
+    /* Chapter grid */
+    .chapter-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 12px;
+    }
+    .ch-card {
+      background: var(--surface2);
+      border-radius: 10px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      border: 1px solid transparent;
+      transition: border-color 0.2s;
+    }
+    .ch-card.seeded { border-color: var(--success); }
+    .ch-card.error  { border-color: var(--danger); }
+
+    .ch-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+    .ch-id { font-size: 0.75rem; color: var(--muted); font-weight: 600; }
+    .ch-name { font-size: 0.9rem; font-weight: 600; }
+    .ch-topic { font-size: 0.75rem; color: var(--muted); margin-top: 2px; }
+
+    .status-badge {
+      font-size: 0.7rem;
+      padding: 3px 8px;
+      border-radius: 20px;
+      font-weight: 600;
+    }
+    .status-pending  { background: rgba(245,158,11,0.2); color: var(--warn); }
+    .status-seeded   { background: rgba(34,197,94,0.2); color: var(--success); }
+    .status-seeding  { background: rgba(99,102,241,0.2); color: var(--accent); }
+    .status-error    { background: rgba(239,68,68,0.2); color: var(--danger); }
+
+    .ch-actions { display: flex; gap: 8px; }
+    .btn-sm {
+      flex: 1;
+      padding: 8px 0;
+      border: none;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .btn-sm:disabled { opacity: 0.5; cursor: not-allowed; }
+    .btn-seed   { background: rgba(99,102,241,0.3); color: #a5b4fc; }
+    .btn-delete { background: rgba(239,68,68,0.2); color: #fca5a5; }
+    .btn-seed:hover:not(:disabled)   { background: rgba(99,102,241,0.5); }
+    .btn-delete:hover:not(:disabled) { background: rgba(239,68,68,0.4); }
+
+    /* Log */
+    #log {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px;
+      font-family: monospace;
+      font-size: 0.8rem;
+      max-height: 240px;
+      overflow-y: auto;
+      color: var(--muted);
+    }
+    .log-ok   { color: var(--success); }
+    .log-err  { color: var(--danger); }
+    .log-info { color: var(--accent2); }
+
+    /* KV key list */
+    #kv-list { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+    .kv-key {
+      background: var(--surface2);
+      border-radius: 6px;
+      padding: 4px 10px;
+      font-size: 0.75rem;
+      color: var(--muted);
+      font-family: monospace;
+    }
+
+    .divider { height: 1px; background: var(--border); margin: 8px 0; }
+  </style>
+</head>
+<body>
+
+<!-- AUTH GATE -->
+<div id="auth-gate">
+  <h2>🔐 Admin Access</h2>
+  <p style="color:var(--muted);margin-bottom:24px;font-size:0.9rem;">
+    Enter your admin token to manage question banks
+  </p>
+  <input type="password" id="token-input" placeholder="Admin token" />
+  <button onclick="doLogin()">Enter Admin Panel</button>
+  <p id="auth-error" style="color:var(--danger);margin-top:12px;font-size:0.85rem;display:none;">
+    Invalid token. Try again.
+  </p>
+</div>
+
+<!-- MAIN PANEL -->
+<div id="main">
+  <header>
+    <div>
+      <h1>⚙️ RISHI Question Bank Manager</h1>
+      <span>CBSE Class 8 · Cloudflare KV · 16 chapters</span>
+    </div>
+    <button onclick="doLogout()" style="margin-left:auto;background:var(--surface2);color:var(--muted);border:1px solid var(--border);padding:8px 16px;border-radius:8px;cursor:pointer;font-size:0.85rem;">
+      Logout
+    </button>
+  </header>
+
+  <!-- SEED ALL -->
+  <div class="card">
+    <div class="section-title">🚀 Bulk Operations</div>
+    <button class="btn-seed-all" id="btn-seed-all" onclick="seedAll()">
+      ⬆ Seed All 16 Chapters to KV
+    </button>
+    <p style="color:var(--muted);font-size:0.82rem;">
+      Loads all chapter exam.json files from the repo into Cloudflare KV. Run this once after deployment, then annually when you refresh questions.
+    </p>
+    <div class="divider"></div>
+    <div style="display:flex;gap:10px;margin-top:8px;">
+      <button onclick="listKeys()" style="background:var(--surface2);color:var(--text);border:1px solid var(--border);padding:8px 16px;border-radius:8px;cursor:pointer;font-size:0.85rem;">
+        📋 List KV Keys
+      </button>
+      <button onclick="clearLog()" style="background:var(--surface2);color:var(--muted);border:1px solid var(--border);padding:8px 16px;border-radius:8px;cursor:pointer;font-size:0.85rem;">
+        🗑 Clear Log
+      </button>
+    </div>
+    <div id="kv-list"></div>
+  </div>
+
+  <!-- CHAPTER CARDS -->
+  <div class="card">
+    <div class="section-title">📚 Chapter-wise Management</div>
+    <div class="chapter-grid" id="chapter-grid"></div>
+  </div>
+
+  <!-- ACTIVITY LOG -->
+  <div class="card">
+    <div class="section-title">📝 Activity Log</div>
+    <div id="log"><span class="log-info">— Ready —</span></div>
+  </div>
+</div>
+
+<script>
+// ── Chapter data ─────────────────────────────────────────
+const CHAPTERS = [
+  { id: "01", name: "Rational Numbers",                 topic: "Arithmetic"    },
+  { id: "02", name: "Linear Equations",                 topic: "Algebra"       },
+  { id: "03", name: "Understanding Quadrilaterals",     topic: "Geometry"      },
+  { id: "04", name: "Practical Geometry",               topic: "Geometry"      },
+  { id: "05", name: "Data Handling",                    topic: "Data Handling" },
+  { id: "08", name: "Comparing Quantities",             topic: "Arithmetic"    },
+  { id: "09", name: "Algebraic Expressions",            topic: "Algebra"       },
+  { id: "10", name: "Visualising Solid Shapes",         topic: "Geometry"      },
+  { id: "11a", name: "Mensuration — Area",              topic: "Mensuration"   },
+  { id: "11b", name: "Mensuration — Volume",            topic: "Mensuration"   },
+  { id: "12", name: "Exponents and Powers",             topic: "Arithmetic"    },
+  { id: "13", name: "Direct & Inverse Proportion",      topic: "Arithmetic"    },
+  { id: "14", name: "Factorisation",                    topic: "Algebra"       },
+  { id: "15", name: "Playing with Numbers",             topic: "Algebra"       },
+  { id: "16", name: "Introduction to Graphs",           topic: "Data Handling" },
+];
+
+let adminToken = "";
+
+// ── Auth ──────────────────────────────────────────────────
+function doLogin() {
+  const t = document.getElementById("token-input").value.trim();
+  if (!t) return;
+  // Store token and show main (actual validation happens on first API call)
+  adminToken = t;
+  sessionStorage.setItem("rishi_admin_token", t);
+  document.getElementById("auth-gate").style.display = "none";
+  document.getElementById("main").style.display = "block";
+  buildGrid();
+  log("Logged in. Token set.", "info");
+}
+
+function doLogout() {
+  adminToken = "";
+  sessionStorage.removeItem("rishi_admin_token");
+  document.getElementById("main").style.display = "none";
+  document.getElementById("auth-gate").style.display = "block";
+  document.getElementById("token-input").value = "";
+}
+
+// Auto-restore session
+window.addEventListener("load", () => {
+  const saved = sessionStorage.getItem("rishi_admin_token");
+  if (saved) {
+    adminToken = saved;
+    document.getElementById("auth-gate").style.display = "none";
+    document.getElementById("main").style.display = "block";
+    buildGrid();
+    log("Session restored.", "info");
+  }
+});
+
+// ── Build chapter grid ────────────────────────────────────
+function buildGrid() {
+  const grid = document.getElementById("chapter-grid");
+  grid.innerHTML = "";
+  CHAPTERS.forEach(ch => {
+    const card = document.createElement("div");
+    card.className = "ch-card";
+    card.id = `card-${ch.id}`;
+    card.innerHTML = `
+      <div class="ch-header">
+        <div>
+          <div class="ch-id">Ch ${ch.id}</div>
+          <div class="ch-name">${ch.name}</div>
+          <div class="ch-topic">${ch.topic}</div>
+        </div>
+        <span class="status-badge status-pending" id="status-${ch.id}">Pending</span>
+      </div>
+      <div class="ch-actions">
+        <button class="btn-sm btn-seed" id="seed-btn-${ch.id}" onclick="seedChapter('${ch.id}')">
+          ⬆ Seed to KV
+        </button>
+        <button class="btn-sm btn-delete" id="del-btn-${ch.id}" onclick="deleteChapter('${ch.id}')">
+          🗑 Delete
+        </button>
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+// ── API call helper ───────────────────────────────────────
+async function adminAPI(body) {
+  const res = await fetch("/api/admin", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${adminToken}`,
+    },
+    body: JSON.stringify(body),
+  });
+  const data = await res.json();
+  if (res.status === 401) {
+    document.getElementById("auth-error") && (document.getElementById("auth-error").style.display = "block");
+    throw new Error("Unauthorised — token may be invalid");
+  }
+  return data;
+}
+
+// ── Seed single chapter ───────────────────────────────────
+async function seedChapter(chId) {
+  setStatus(chId, "seeding", "Seeding…");
+  setButtonsDisabled(chId, true);
+  log(`Seeding ch${chId}…`, "info");
+
+  try {
+    const data = await adminAPI({ action: "seed", board: "cbse", class: "8", ch: chId, type: "exam" });
+    if (data.error) throw new Error(data.error);
+    setStatus(chId, "seeded", "✓ In KV");
+    document.getElementById(`card-${chId}`).classList.add("seeded");
+    log(`✓ ch${chId}: ${data.message}`, "ok");
+  } catch (err) {
+    setStatus(chId, "error", "Error");
+    document.getElementById(`card-${chId}`).classList.add("error");
+    log(`✗ ch${chId}: ${err.message}`, "err");
+  }
+  setButtonsDisabled(chId, false);
+}
+
+// ── Delete single chapter ─────────────────────────────────
+async function deleteChapter(chId) {
+  if (!confirm(`Delete KV key for ch${chId}? This will remove it from the live database.`)) return;
+  log(`Deleting ch${chId}…`, "info");
+  try {
+    const data = await adminAPI({ action: "delete", board: "cbse", class: "8", ch: chId, type: "exam" });
+    setStatus(chId, "pending", "Pending");
+    document.getElementById(`card-${chId}`).classList.remove("seeded", "error");
+    log(`✓ ${data.message}`, "ok");
+  } catch (err) {
+    log(`✗ Delete ch${chId}: ${err.message}`, "err");
+  }
+}
+
+// ── Seed all ──────────────────────────────────────────────
+async function seedAll() {
+  const btn = document.getElementById("btn-seed-all");
+  btn.disabled = true;
+  btn.textContent = "⏳ Seeding all chapters…";
+  log("=== Starting seed_all ===", "info");
+
+  try {
+    const data = await adminAPI({ action: "seed_all", board: "cbse", class: "8", type: "exam" });
+    (data.results || []).forEach(r => {
+      if (r.error) {
+        setStatus(r.ch, "error", "Error");
+        document.getElementById(`card-${r.ch}`)?.classList.add("error");
+        log(`✗ ch${r.ch}: ${r.error}`, "err");
+      } else {
+        setStatus(r.ch, "seeded", "✓ In KV");
+        document.getElementById(`card-${r.ch}`)?.classList.add("seeded");
+        log(`✓ ch${r.ch}: ${r.message}`, "ok");
+      }
+    });
+    log(`=== Done: ${data.message} ===`, "info");
+  } catch (err) {
+    log(`✗ seed_all failed: ${err.message}`, "err");
+  }
+
+  btn.disabled = false;
+  btn.innerHTML = "⬆ Seed All 16 Chapters to KV";
+}
+
+// ── List KV keys ──────────────────────────────────────────
+async function listKeys() {
+  log("Listing KV keys…", "info");
+  try {
+    const data = await adminAPI({ action: "list" });
+    const container = document.getElementById("kv-list");
+    container.innerHTML = "";
+    if (!data.keys || !data.keys.length) {
+      container.innerHTML = "<span style='color:var(--muted);font-size:0.8rem;'>No keys found in KV</span>";
+      log("KV is empty", "info");
+      return;
+    }
+    data.keys.forEach(k => {
+      const span = document.createElement("span");
+      span.className = "kv-key";
+      span.textContent = k;
+      container.appendChild(span);
+
+      // Mark corresponding card as seeded
+      const match = k.match(/ch(\w+)_exam/);
+      if (match) {
+        setStatus(match[1], "seeded", "✓ In KV");
+        document.getElementById(`card-${match[1]}`)?.classList.add("seeded");
+      }
+    });
+    log(`Found ${data.keys.length} keys in KV`, "ok");
+  } catch (err) {
+    log(`✗ List failed: ${err.message}`, "err");
+  }
+}
+
+// ── UI helpers ────────────────────────────────────────────
+function setStatus(chId, statusClass, text) {
+  const badge = document.getElementById(`status-${chId}`);
+  if (!badge) return;
+  badge.className = `status-badge status-${statusClass}`;
+  badge.textContent = text;
+}
+
+function setButtonsDisabled(chId, disabled) {
+  const s = document.getElementById(`seed-btn-${chId}`);
+  const d = document.getElementById(`del-btn-${chId}`);
+  if (s) s.disabled = disabled;
+  if (d) d.disabled = disabled;
+}
+
+function log(msg, type = "info") {
+  const el = document.getElementById("log");
+  const line = document.createElement("div");
+  line.className = `log-${type}`;
+  const time = new Date().toLocaleTimeString();
+  line.textContent = `[${time}] ${msg}`;
+  el.appendChild(line);
+  el.scrollTop = el.scrollHeight;
+}
+
+function clearLog() {
+  document.getElementById("log").innerHTML = "";
+}
+
+// Enter key on token input
+document.addEventListener("keydown", e => {
+  if (e.key === "Enter" && document.getElementById("auth-gate").style.display !== "none") {
+    doLogin();
+  }
+});
+</script>
+</body>
+</html>

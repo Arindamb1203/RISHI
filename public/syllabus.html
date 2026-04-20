@@ -238,6 +238,38 @@ var PRACTICE_PATHS = {
   17:"/practice/class8/data-handling/chance-probability.html"
 };
 
+/* ── EXAM PATHS ─────────────────────────────────────────────
+   Maps chapter cid (integer) → exam page URL.
+   Chapters without an exam yet are absent — shows "Coming Soon".
+   cid 11  → ch11a (Area),  cid 112 → ch11b (Surface Area & Vol)
+─────────────────────────────────────────────────────────── */
+var EXAM_PATHS = {
+  1: "/exam.html?ch=01",
+  2: "/exam.html?ch=02",
+  3: "/exam.html?ch=03",
+  4: "/exam.html?ch=04",
+  5: "/exam.html?ch=05",
+  8: "/exam.html?ch=08",
+  9: "/exam.html?ch=09",
+  10:"/exam.html?ch=10",
+  11:"/exam.html?ch=11a",
+  112:"/exam.html?ch=11b",
+  12:"/exam.html?ch=12",
+  13:"/exam.html?ch=13",
+  14:"/exam.html?ch=14",
+  15:"/exam.html?ch=15",
+  16:"/exam.html?ch=16"
+};
+
+/* Maps cid (integer) → localStorage key suffix used by exam.html.
+   Zero-padded to match what exam.html writes via rishiMarkChapExamDone(). */
+var EXAM_DONE_KEYS = {
+  1:"01", 2:"02", 3:"03", 4:"04", 5:"05",
+  8:"08", 9:"09", 10:"10",
+  11:"11a", 112:"11b",
+  12:"12", 13:"13", 14:"14", 15:"15", 16:"16"
+};
+
 var activeTopic = sessionStorage.getItem("rishi_syllabus_topic")||TOPICS[0].id;
 
 function G(id){return document.getElementById(id);}
@@ -252,7 +284,11 @@ function isExplainDone(cid){
   return false;
 }
 function isPracticeDone(cid){return localStorage.getItem("rishi_practice_done_"+cid)==="1";}
-function isChapExamDone(cid){return localStorage.getItem("rishi_chapexam_done_"+cid)==="1";}
+function isChapExamDone(cid){
+  /* Use the padded key that exam.html actually writes (e.g. "02", "11a") */
+  var key=EXAM_DONE_KEYS[cid]||String(cid);
+  return localStorage.getItem("rishi_chapexam_done_"+key)==="1";
+}
 /* ── Plan & Date Helpers ── */
 function getPlanActive(){
   var st = {};
@@ -424,10 +460,13 @@ function buildChapterList(){
         html+='<span class="abtn soon-btn"><span class="abtn-ico">&#9999;</span><span class="abtn-name">Practice</span><span class="abtn-sub">Coming Soon</span></span>';
       }
 
+      var examPath=EXAM_PATHS[cid]||'';
       if(!practiceDone){
         html+='<span class="abtn locked-btn"><span class="abtn-ico">&#128221;</span><span class="abtn-name">Exam</span><span class="abtn-sub">After Practice</span></span>';
       } else if(chapExamDone){
-        html+='<span class="abtn done-btn"><span class="abtn-ico">&#128221;</span><span class="abtn-name">Exam</span><span class="abtn-sub">Completed</span></span>';
+        html+='<a href="'+(examPath||'#')+'" class="abtn done-btn"><span class="abtn-ico">&#128221;</span><span class="abtn-name">Exam</span><span class="abtn-sub">&#10003; Done &middot; Retry</span></a>';
+      } else if(examPath){
+        html+='<a href="'+examPath+'" class="abtn go"><span class="abtn-ico">&#128221;</span><span class="abtn-name">Exam</span><span class="abtn-sub">Start Exam</span></a>';
       } else {
         html+='<span class="abtn soon-btn"><span class="abtn-ico">&#128221;</span><span class="abtn-name">Exam</span><span class="abtn-sub">Coming Soon</span></span>';
       }
@@ -437,6 +476,26 @@ function buildChapterList(){
     }
     html+='</div>';
   }
+
+  /* ── Topic Exam unlock indicator ── */
+  var topicChapsDone=0;
+  for(var k=0;k<topic.chapters.length;k++){if(isChapExamDone(topic.chapters[k]))topicChapsDone++;}
+  var topicExamUnlocked=(topicChapsDone===topic.chapters.length);
+  var topicExamPct=Math.round(topicChapsDone/topic.chapters.length*100);
+  html+='<div style="margin-top:6px;border-radius:13px;border:2px solid '+(topicExamUnlocked?'var(--green-border)':'var(--gold-pale)')+';background:'+(topicExamUnlocked?'var(--green-pale)':'var(--warm-white)')+';padding:14px 16px;text-align:center;">';
+  html+='<div style="font-size:22px;margin-bottom:5px;">'+(topicExamUnlocked?'🏅':'🔒')+'</div>';
+  html+='<div style="font-family:Orbitron,sans-serif;font-size:11px;font-weight:900;letter-spacing:2px;color:'+(topicExamUnlocked?'var(--green)':'var(--amber)')+';margin-bottom:4px;">TOPIC EXAM</div>';
+  if(topicExamUnlocked){
+    html+='<div style="font-size:13px;font-weight:700;color:var(--green);margin-bottom:10px;">All '+topic.chapters.length+' chapters complete — Topic Exam unlocked!</div>';
+    html+='<span style="display:inline-block;padding:10px 24px;background:var(--green);color:white;border-radius:10px;font-weight:900;font-size:13px;cursor:default;opacity:.7;">Coming Soon</span>';
+  } else {
+    html+='<div style="font-size:12px;font-weight:700;color:var(--soft);margin-bottom:8px;">Complete all '+topic.chapters.length+' chapter exams to unlock</div>';
+    html+='<div style="height:5px;background:var(--gold-pale);border-radius:3px;overflow:hidden;max-width:200px;margin:0 auto;">';
+    html+='<div style="height:100%;width:'+topicExamPct+'%;background:linear-gradient(90deg,var(--amber),var(--gold-light));border-radius:3px;transition:width .8s;"></div>';
+    html+='</div>';
+    html+='<div style="font-size:11px;color:var(--soft);margin-top:5px;">'+topicChapsDone+' / '+topic.chapters.length+' done</div>';
+  }
+  html+='</div>';
 
   G('chapterList').innerHTML=html;
 }
