@@ -174,10 +174,10 @@ window.addEventListener('load', function() {
     _idleOverlay.style.cssText = 'position:fixed;inset:0;z-index:99999;background:rgba(10,18,40,0.96);display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:Nunito,sans-serif;text-align:center;padding:24px';
     _idleOverlay.innerHTML = '<div style="font-size:56px;margin-bottom:16px">☕</div>'
       + '<div style="font-size:22px;font-weight:900;color:#F5A623;margin-bottom:8px">Taking a break?</div>'
-      + '<div style="font-size:14px;color:rgba(255,255,255,0.7);margin-bottom:6px">You've been away for 5 minutes.</div>'
+      + '<div style="font-size:14px;color:rgba(255,255,255,0.7);margin-bottom:6px">You&#39;ve been away for 5 minutes.</div>'
       + '<div style="font-size:13px;color:rgba(255,255,255,0.5);margin-bottom:24px">This break is being recorded.</div>'
       + '<div id="rishi-idle-timer" style="font-size:36px;font-weight:900;color:#fff;font-family:monospace;margin-bottom:28px">0:00</div>'
-      + '<button onclick="rishiEndIdleBreak()" style="font-family:Nunito,sans-serif;font-size:16px;font-weight:800;padding:14px 36px;border-radius:14px;border:none;cursor:pointer;background:linear-gradient(135deg,#F5A623,#22C97D);color:#000;box-shadow:0 6px 24px rgba(245,166,35,.4)">✅ I'm Back — End Break</button>';
+      + '<button onclick="rishiEndIdleBreak()" style="font-family:Nunito,sans-serif;font-size:16px;font-weight:800;padding:14px 36px;border-radius:14px;border:none;cursor:pointer;background:linear-gradient(135deg,#F5A623,#22C97D);color:#000;box-shadow:0 6px 24px rgba(245,166,35,.4)">✅ I&#39;m Back — End Break</button>';
     document.body.appendChild(_idleOverlay);
 
     var _dispTimer = setInterval(function() {
