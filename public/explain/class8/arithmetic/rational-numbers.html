@@ -387,7 +387,7 @@ function at(ms,fn){atTimers.push(setTimeout(fn,ms));}
 function fade(id,v){var e=G(id);if(e){e.style.transition="opacity .5s";e.style.opacity=v;}}
 function setStatus(t){var e=G("animStatus");if(e)e.textContent=t;}
 
-function startLesson(){var btn=G('startBtn');if(btn){btn.disabled=true;btn.textContent='▶ Starting...';}say(G('introText').innerText,function(){setTimeout(showQ,600);});}
+function startLesson(){var btn=G('startBtn');if(btn){btn.disabled=true;btn.textContent='▶ Starting...';}var done=false;function proceed(){if(!done){done=true;setTimeout(showQ,600);}}say(G('introText').innerText,proceed);setTimeout(proceed,8000);}
 function init(){
   rishiCheckPlan(1);
   var st=JSON.parse(localStorage.getItem("rishi_current_student")||"{}");

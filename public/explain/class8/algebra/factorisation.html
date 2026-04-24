@@ -518,7 +518,7 @@ function rishiSyncFactorisationPlanAlias(){
   }catch(e){}
 }
 
-function startLesson(){var btn=G('startBtn');if(btn){btn.disabled=true;btn.textContent='▶ Starting...';}say(G('introText').innerText,function(){setTimeout(showQ,600);});}
+function startLesson(){var btn=G('startBtn');if(btn){btn.disabled=true;btn.textContent='▶ Starting...';}var done=false;function proceed(){if(!done){done=true;setTimeout(showQ,600);}}say(G('introText').innerText,proceed);setTimeout(proceed,8000);}
 function init(){
   rishiSyncFactorisationPlanAlias();
   rishiCheckPlan(14); /* Chapter 14 — Factorisation */

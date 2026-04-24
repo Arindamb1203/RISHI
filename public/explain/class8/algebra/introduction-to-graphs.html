@@ -1043,7 +1043,7 @@ function getAnimPlay(type){
 var session=[],idx=0,stepIdx=0,nudgeCount=0,completed=false;
 var breakSecs=0,breakTmr=null;
 var PER_SESSION=10;
-function startLesson(){var btn=G('startBtn');if(btn){btn.disabled=true;btn.textContent='▶ Starting...';}say(G('introText').innerText,function(){setTimeout(showQ,600);});}
+function startLesson(){var btn=G('startBtn');if(btn){btn.disabled=true;btn.textContent='▶ Starting...';}var done=false;function proceed(){if(!done){done=true;setTimeout(showQ,600);}}say(G('introText').innerText,proceed);setTimeout(proceed,8000);}
 function init(){
   rishiCheckPlan(15); /* Chapter 15 — Introduction to Graphs */
   var st=JSON.parse(localStorage.getItem("rishi_current_student")||"{}");

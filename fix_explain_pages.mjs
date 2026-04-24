@@ -7,9 +7,19 @@ const START_LESSON_FN =
   "function startLesson(){" +
   "var btn=G('startBtn');" +
   "if(btn){btn.disabled=true;btn.textContent='\u25b6 Starting...';}" +
-  "say(G('introText').innerText,function(){setTimeout(showQ,600);});}\n";
+  "var done=false;" +
+  "function proceed(){if(!done){done=true;setTimeout(showQ,600);}}" +
+  "say(G('introText').innerText,proceed);" +
+  "setTimeout(proceed,8000);" +
+  "}\n";
 
 function fix(src) {
+  // Remove old startLesson if already injected by previous run
+  src = src.replace(
+    /function startLesson\(\)\{[^\n]+\n/g,
+    ''
+  );
+
   src = src.replace(
     'initVoices(function(){say(G("introText").innerText);setTimeout(showQ,2200);});',
     'initVoices(function(){});'
@@ -22,17 +32,32 @@ function fix(src) {
     /onclick="say\(G\('introText'\)\.innerText\)">&#128266; Hear[^<]+<\/button>/g,
     'onclick="startLesson()" id="startBtn">\u25b6 Start Lesson</button>'
   );
-  src = src.split('G("qArea").appendChild(ap);').join('G("qArea").appendChild(ap);setTimeout(startAnim,800);');
-  src = src.replace(
-    /if\(pb\)pb\.style\.display="none";(\s*\}\);)/g,
-    'if(pb)pb.style.display="none";setTimeout(beginSteps,600);$1'
-  );
-  src = src.split('setTimeout(function(){say(s.s);},280);').join(
-    'setTimeout(function(){say(s.s,function(){setTimeout(nextStep,400);});},280);'
-  );
+
+  // Fix showQ — only add startAnim if not already there
+  if (!src.includes('G("qArea").appendChild(ap);setTimeout(startAnim,800);')) {
+    src = src.split('G("qArea").appendChild(ap);').join('G("qArea").appendChild(ap);setTimeout(startAnim,800);');
+  }
+
+  // Fix startAnim — only add beginSteps if not already there
+  if (!src.includes('setTimeout(beginSteps,600)')) {
+    src = src.replace(
+      /if\(pb\)pb\.style\.display="none";(\s*\}\);)/g,
+      'if(pb)pb.style.display="none";setTimeout(beginSteps,600);$1'
+    );
+  }
+
+  // Fix nextStep — only add auto-advance if not already there
+  if (!src.includes('setTimeout(nextStep,400)')) {
+    src = src.split('setTimeout(function(){say(s.s);},280);').join(
+      'setTimeout(function(){say(s.s,function(){setTimeout(nextStep,400);});},280);'
+    );
+  }
+
+  // Always re-inject startLesson fresh
   if (!src.includes('function startLesson')) {
     src = src.replace('function init(){', START_LESSON_FN + 'function init(){');
   }
+
   return src;
 }
 
