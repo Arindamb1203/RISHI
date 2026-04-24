@@ -278,6 +278,9 @@ button{font-family:'Outfit',sans-serif;cursor:pointer;}
         <div class="card-ttl" style="margin-bottom:10px;">⚡ Quick Actions</div>
         <div style="display:flex;gap:8px;flex-wrap:wrap;">
           <button class="btn btn-ghost" onclick="switchTab('tree')">→ Open Chapter Tree</button>
+          <button class="btn btn-ghost" onclick="window.open('/syllabus.html','_blank')">📚 Syllabus</button>
+          <button class="btn btn-ghost" onclick="window.open('/parent.html','_blank')">👨‍👩‍👧 Parent Portal</button>
+          <button class="btn btn-ghost" onclick="window.open('/login.html','_blank')">🔐 Student Login</button>
           <button class="btn btn-danger" onclick="resetAllProgress()">🗑 Reset All Student Progress</button>
           <button class="btn btn-danger" onclick="clearAllPlans()">🗑 Clear All Study Plans</button>
         </div>
@@ -350,56 +353,56 @@ var ADMIN_PASS = 'rishi2025';
 var CH = {
   1: {n:'Rational Numbers',              topic:'Arithmetic',   color:'#6C63FF', built:true,
       ex:'/explain/class8/arithmetic/rational-numbers.html',
-      pr:'/practice/class8/arithmetic/rational-numbers.html',            exam:null},
+      pr:'/practice/class8/arithmetic/rational-numbers.html',            exam:'/exam.html?ch=01'},
   2: {n:'Linear Equations',              topic:'Algebra',      color:'#2563EB', built:true,
       ex:'/explain/class8/algebra/linear-equations.html',
-      pr:'/practice/class8/algebra/linear-equations.html',               exam:null},
+      pr:'/practice/class8/algebra/linear-equations.html',               exam:'/exam.html?ch=02'},
   3: {n:'Understanding Quadrilaterals',  topic:'Geometry',     color:'#059669', built:true,
       ex:'/explain/class8/geometry/understanding-quadrilaterals.html',
-      pr:'/practice/class8/geometry/understanding-quadrilaterals.html',  exam:null},
+      pr:'/practice/class8/geometry/understanding-quadrilaterals.html',  exam:'/exam.html?ch=03'},
   4: {n:'Practical Geometry',            topic:'Geometry',     color:'#0D9488', built:true,
       ex:'/explain/class8/geometry/practical-geometry.html',
-      pr:'/practice/class8/geometry/practical-geometry.html',            exam:null},
+      pr:'/practice/class8/geometry/practical-geometry.html',            exam:'/exam.html?ch=04'},
   5: {n:'Data Handling',                 topic:'Data Handling',color:'#D97706', built:true,
       ex:'/explain/class8/data-handling/frequency-distribution.html',
-      pr:'/practice/class8/data-handling/frequency-distribution.html',   exam:null},
+      pr:'/practice/class8/data-handling/frequency-distribution.html',   exam:'/exam.html?ch=05'},
   6: {n:'Squares & Square Roots',        topic:'Excluded',     color:'#888',    built:false,
       ex:null, pr:null, exam:null},
   7: {n:'Cubes & Cube Roots',            topic:'Excluded',     color:'#777',    built:false,
       ex:null, pr:null, exam:null},
   8: {n:'Comparing Quantities',          topic:'Arithmetic',   color:'#7C3AED', built:true,
       ex:'/explain/class8/arithmetic/comparing-quantities.html',
-      pr:'/practice/class8/arithmetic/comparing-quantities.html',        exam:null},
+      pr:'/practice/class8/arithmetic/comparing-quantities.html',        exam:'/exam.html?ch=08'},
   9: {n:'Algebraic Expressions',         topic:'Algebra',      color:'#0891B2', built:true,
       ex:'/explain/class8/algebra/algebraic-expressions-identities.html',
-      pr:'/practice/class8/algebra/algebraic-expressions-identities.html',exam:null},
+      pr:'/practice/class8/algebra/algebraic-expressions-identities.html',exam:'/exam.html?ch=09'},
   10:{n:'Visualising Solid Shapes',      topic:'Geometry',     color:'#16A34A', built:true,
       ex:'/explain/class8/geometry/visualising-solid-shapes.html',
-      pr:'/practice/class8/geometry/visualising-solid-shapes.html',      exam:null},
+      pr:'/practice/class8/geometry/visualising-solid-shapes.html',      exam:'/exam.html?ch=10'},
   11:{n:'Area of Plane Figures',         topic:'Mensuration',  color:'#B45309', built:true,
       ex:'/explain/class8/mensuration/area-plane-figures.html',
-      pr:'/practice/class8/mensuration/area-plane-figures.html',         exam:null},
+      pr:'/practice/class8/mensuration/area-plane-figures.html',         exam:'/exam.html?ch=11a'},
   112:{n:'Surface Area & Volume',        topic:'Mensuration',  color:'#92400e', built:true,
       ex:'/explain/class8/mensuration/surface-area-volume.html',
-      pr:'/practice/class8/mensuration/surface-area-volume.html',        exam:null},
+      pr:'/practice/class8/mensuration/surface-area-volume.html',        exam:'/exam.html?ch=11b'},
   12:{n:'Exponents and Powers',          topic:'Arithmetic',   color:'#4338CA', built:true,
       ex:'/explain/class8/arithmetic/powers-exponents.html',
-      pr:'/practice/class8/arithmetic/powers-exponents.html',            exam:null},
+      pr:'/practice/class8/arithmetic/powers-exponents.html',            exam:'/exam.html?ch=12'},
   13:{n:'Direct & Inverse Proportions',  topic:'Arithmetic',   color:'#DB2777', built:true,
       ex:'/explain/class8/arithmetic/direct-inverse-proportions.html',
-      pr:'/practice/class8/arithmetic/direct-inverse-proportions.html',  exam:null},
+      pr:'/practice/class8/arithmetic/direct-inverse-proportions.html',  exam:'/exam.html?ch=13'},
   14:{n:'Factorisation',                 topic:'Algebra',      color:'#65A30D', built:true,
       ex:'/explain/class8/algebra/factorisation.html',
-      pr:'/practice/class8/algebra/factorisation.html',                  exam:null},
+      pr:'/practice/class8/algebra/factorisation.html',                  exam:'/exam.html?ch=14'},
   15:{n:'Introduction to Graphs',        topic:'Algebra',      color:'#0284C7', built:true,
       ex:'/explain/class8/algebra/introduction-to-graphs.html',
-      pr:'/practice/class8/algebra/introduction-to-graphs.html',         exam:null},
+      pr:'/practice/class8/algebra/introduction-to-graphs.html',         exam:'/exam.html?ch=15'},
   16:{n:'Playing with Numbers',          topic:'Arithmetic',   color:'#7E22CE', built:true,
       ex:'/explain/class8/arithmetic/playing-with-numbers.html',
-      pr:'/practice/class8/arithmetic/playing-with-numbers.html',        exam:null},
+      pr:'/practice/class8/arithmetic/playing-with-numbers.html',        exam:'/exam.html?ch=16'},
   17:{n:'Chance & Probability',          topic:'Data Handling',color:'#0369A1', built:true,
       ex:'/explain/class8/data-handling/chance-probability.html',
-      pr:'/practice/class8/data-handling/chance-probability.html',       exam:null}
+      pr:'/practice/class8/data-handling/chance-probability.html',       exam:'/exam.html?ch=17'}
 };
 
 var TOPICS = [
@@ -668,7 +671,7 @@ function buildPageRow(label, url, built, done, sessions, cid) {
 }
 
 function openPage(url) {
-  location.href = url;
+  window.open(url, "_blank");
 }
 
 function resetChapter(cid) {
