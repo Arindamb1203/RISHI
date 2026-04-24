@@ -126,7 +126,7 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
     <div class="rishika-bubble">
       <div class="rishika-name">Rekha</div>
       <div class="rishika-text" id="introText">Hi <span class="hl" id="sName">there</span>! &#128522; Today we conquer <span class="hl">Exponents and Powers</span> — laws of exponents, negative powers and standard form! &#9889;</div>
-      <button class="btn-speak" onclick="say(G('introText').innerText)">&#128266; Hear Rekha</button>
+      <button class="btn-speak" onclick="startLesson()" id="startBtn">▶ Start Lesson</button>
     </div>
   </div>
   <div id="qArea"></div>
@@ -371,6 +371,7 @@ function at(ms,fn){atTimers.push(setTimeout(fn,ms));}
 function fade(id,v){var e=G(id);if(e){e.style.transition="opacity .5s";e.style.opacity=v;}}
 function setStatus(t){var e=G("animStatus");if(e)e.textContent=t;}
 
+function startLesson(){var btn=G('startBtn');if(btn){btn.disabled=true;btn.textContent='▶ Starting...';}say(G('introText').innerText,function(){setTimeout(showQ,600);});}
 function init(){
   rishiCheckPlan(12);
   var st=JSON.parse(localStorage.getItem("rishi_current_student")||"{}");
@@ -378,7 +379,7 @@ function init(){
   var prog=JSON.parse(localStorage.getItem("rishi_progress")||"{}");
   if(localStorage.getItem("rishi_explain_done_12")==="1"||prog["explain_powers_done"]){completed=true;G("doneBanner").classList.add("show");unlockNav();}
   buildSession();rInit();
-  initVoices(function(){say(G("introText").innerText);setTimeout(showQ,2200);});
+  initVoices(function(){});
 }
 function buildSession(){session=QB.slice().sort(function(){return Math.random()-.5;}).slice(0,PER_SESSION);}
 function showQ(){
@@ -393,12 +394,12 @@ function showQ(){
     +'<div class="anim-status" id="animStatus">Tap Play to watch with narration!</div>'
     +'<button class="anim-play-btn" id="animPlayBtn" onclick="startAnim()">&#9654; Play Animation</button>'
     +'<button class="steps-btn" id="stepsBtn" onclick="beginSteps()">&#128214; See Step-by-Step</button>';
-  G("qArea").appendChild(ap);
+  G("qArea").appendChild(ap);setTimeout(startAnim,800);
 }
-function startAnim(){var q=session[idx];var pb=G("animPlayBtn");if(pb){pb.disabled=true;pb.textContent="&#9654; Playing...";}getAnimPlay(q.anim)(function(){var sb=G("stepsBtn");if(sb)sb.style.display="block";var rb=G("animReplay");if(rb)rb.style.display="block";if(pb)pb.style.display="none";});}
+function startAnim(){var q=session[idx];var pb=G("animPlayBtn");if(pb){pb.disabled=true;pb.textContent="&#9654; Playing...";}getAnimPlay(q.anim)(function(){var sb=G("stepsBtn");if(sb)sb.style.display="block";var rb=G("animReplay");if(rb)rb.style.display="block";if(pb)pb.style.display="none";setTimeout(beginSteps,600);});}
 function replayAnim(){clearAt();window.speechSynthesis&&window.speechSynthesis.cancel();rStopTalk();var q=session[idx];var canvas=G("animCanvas");if(canvas)canvas.innerHTML=getAnimSVG(q.anim);G("animReplay").style.display="none";G("stepsBtn").style.display="none";var pb=G("animPlayBtn");if(pb){pb.style.display="block";pb.disabled=false;pb.textContent="&#9654; Play Animation";}setStatus("Tap Play to watch with narration!");}
 function beginSteps(){var q=session[idx];var sc=document.createElement("div");sc.className="q-card";sc.innerHTML='<div class="q-label">&#128214; Step-by-Step</div><div id="stepsWrap"></div><button class="btn-speak" id="nxtStepBtn" onclick="nextStep()" style="margin-top:10px;">&#9654; Next Step</button>';G("qArea").appendChild(sc);sc.scrollIntoView({behavior:"smooth",block:"start"});G("stepsBtn").style.display="none";setTimeout(nextStep,350);}
-function nextStep(){var q=session[idx];if(stepIdx>=q.steps.length){G("nxtStepBtn").style.display="none";showConfirm();return;}var s=q.steps[stepIdx];var wrap=G("stepsWrap");var d=document.createElement("div");d.className="step";d.innerHTML='<div class="step-num">'+(stepIdx+1)+'</div><div class="step-body">'+s.t+'</div>';wrap.appendChild(d);setTimeout(function(){d.classList.add("vis");},40);setTimeout(function(){say(s.s);},280);stepIdx++;}
+function nextStep(){var q=session[idx];if(stepIdx>=q.steps.length){G("nxtStepBtn").style.display="none";showConfirm();return;}var s=q.steps[stepIdx];var wrap=G("stepsWrap");var d=document.createElement("div");d.className="step";d.innerHTML='<div class="step-num">'+(stepIdx+1)+'</div><div class="step-body">'+s.t+'</div>';wrap.appendChild(d);setTimeout(function(){d.classList.add("vis");},40);setTimeout(function(){say(s.s,function(){setTimeout(nextStep,400);});},280);stepIdx++;}
 function showConfirm(){
   var q=session[idx];var c=document.createElement("div");c.className="confirm-wrap";
   c.innerHTML='<div class="confirm-title">&#127917; Rekha asks!</div>'

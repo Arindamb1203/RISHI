@@ -518,6 +518,7 @@ function rishiSyncFactorisationPlanAlias(){
   }catch(e){}
 }
 
+function startLesson(){var btn=G('startBtn');if(btn){btn.disabled=true;btn.textContent='▶ Starting...';}say(G('introText').innerText,function(){setTimeout(showQ,600);});}
 function init(){
   rishiSyncFactorisationPlanAlias();
   rishiCheckPlan(14); /* Chapter 14 — Factorisation */
@@ -571,7 +572,7 @@ function showQ(){
     +'<div class="anim-status" id="animStatus">Tap Play to watch with narration!</div>'
     +'<button class="anim-play-btn" id="animPlayBtn" onclick="startAnim()">&#9654; Play Animation</button>'
     +'<button class="steps-btn" id="stepsBtn" onclick="beginSteps()">&#128214; See Step-by-Step</button>';
-  G("qArea").appendChild(ap);
+  G("qArea").appendChild(ap);setTimeout(startAnim,800);
   /* Auto-speak question after brief delay */
   setTimeout(function(){say(q.qs);},400);
 }
@@ -581,7 +582,7 @@ function startAnim(){
     var sb=G("stepsBtn");if(sb)sb.style.display="block";
     var rb=G("animReplay");if(rb)rb.style.display="block";
     var sk=G("btnSkipAnim");if(sk)sk.style.display=factorHasSeen()?"inline-block":"none";
-    if(pb)pb.style.display="none";
+    if(pb)pb.style.display="none";setTimeout(beginSteps,600);
   });
 }
 function replayAnim(){
@@ -626,7 +627,7 @@ function nextStep(){
   wrap.appendChild(d);setTimeout(function(){d.classList.add("vis");},40);
   var seen=factorHasSeen();
   if(seen){
-    setTimeout(function(){say(s.s);},280);
+    setTimeout(function(){say(s.s,function(){setTimeout(nextStep,400);});},280);
     stepIdx++;
   }else{
     setTimeout(function(){
