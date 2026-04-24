@@ -389,7 +389,7 @@ function init(){
   var prog=JSON.parse(localStorage.getItem("rishi_progress")||"{}");
   if(localStorage.getItem("rishi_explain_done_8")==="1"||prog["explain_comparing_done"]){completed=true;G("doneBanner").classList.add("show");unlockNav();}
   buildSession();rInit();
-  initVoices(function(){});
+  initVoices(function(){startLesson();});
 }
 function buildSession(){session=QB.slice().sort(function(){return Math.random()-.5;}).slice(0,PER_SESSION);}
 function showQ(){

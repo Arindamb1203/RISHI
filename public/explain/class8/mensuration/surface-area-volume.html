@@ -808,7 +808,7 @@ function init(){
   var prog=JSON.parse(localStorage.getItem("rishi_progress")||"{}");
   if(prog["explain_surface_done"]){completed=true;G("doneBanner").classList.add("show");unlockNav();}
   buildSession();rInit();
-  initVoices(function(){});
+  initVoices(function(){startLesson();});
 }
 function buildSession(){
   var first=QB[0];var rest=QB.slice(1).sort(function(){return Math.random()-.5;});

@@ -761,7 +761,7 @@ function init(){
   buildSession();
   rInit();
   /* Wait for voices THEN speak intro */
-  initVoices(function(){});
+  initVoices(function(){startLesson();});
 }
 
 function buildSession(){
