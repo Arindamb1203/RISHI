@@ -31,6 +31,17 @@ const ALL_CHAPTERS = [
   "12","13","14","15","16"
 ];
 
+// Maps chId → actual folder in repo (JSONs grouped by topic, not one folder per chapter)
+const FOLDER_MAP = {
+  "01": "ch01", "08": "ch01", "12": "ch01", "13": "ch01",
+  "02": "ch02", "09": "ch02", "14": "ch02",
+  "03": "ch03", "04": "ch03", "10": "ch03",
+  "05": "ch05",
+  "11a": "ch11", "11b": "ch11",
+  "15": "ch15",
+  "16": "ch16",
+};
+
 export async function onRequestPost(context) {
   const { request, env } = context;
 
@@ -116,7 +127,8 @@ async function seedChapter(env, request, board, cls, ch, type) {
   const chId   = normaliseChId(ch);
   const kvKey  = `${board}_${cls}_ch${chId}_${type}`;
   const fname  = type === "exam" ? `ch${chId}-exam.json` : `ch${chId}-practice.json`;
-  const path   = `/data/${board}/class${cls}/ch${chId}/${fname}`;
+  const folder = FOLDER_MAP[chId] || `ch${chId}`;
+  const path   = `/data/${board}/class${cls}/${folder}/${fname}`;
   const fileUrl = new URL(path, request.url);
 
   try {
