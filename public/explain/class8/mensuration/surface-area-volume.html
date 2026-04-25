@@ -473,9 +473,9 @@ function svgCuboidTsa(){
 }
 function playCuboidTsa(done){
   setStatus("TSA = sum of all 6 faces...");
-  say("Total Surface Area means the total area of ALL faces of the cuboid. A cuboid has 6 faces: front and back, left and right, top and bottom. Each pair is equal!");
-  at(2500,function(){fade("ctFaces",1);setStatus("3 pairs of faces: lb, bh, and lh...");say("Front and back pair has area l times b each. Right and left pair has area b times h. Top and bottom pair has area l times h. Total is 2 times all three!");});
-  at(6500,function(){fade("ctFormula",1);setStatus("2(40+15+24) = 2 x 79 = 158!");say("2 times 40 plus 15 plus 24 equals 2 times 79 equals 158 square centimetres!");at(1500,done);});
+  
+  at(2500,function(){fade("ctFaces",1);setStatus("3 pairs of faces: lb, bh, and lh...");});
+  at(6500,function(){fade("ctFormula",1);setStatus("2(40+15+24) = 2 x 79 = 158!");at(1500,done);});
 }
 
 /* CUBOID VOLUME */
@@ -496,12 +496,12 @@ function svgCuboidVol(){
 }
 function playCuboidVol(done){
   setStatus("Volume fills up inside the cuboid...");
-  say("Volume is the space inside a 3D shape. Watch water fill up the cuboid! Volume equals length times breadth times height.");
+  
   at(1500,function(){
     var w=G("cvWater");
     if(w){var s=0,t=setInterval(function(){s++;w.setAttribute("y",String(170-s*1.1));w.setAttribute("height",String(s*1.1));if(s>=100){clearInterval(t);fade("cvAns",1);}},30);atTimers.push(t);}
     setStatus("Water filling up... l x b x h!");
-    say("10 times 6 times 4 equals 240 cubic centimetres. That is how much water it holds!");
+    
   });
   at(6000,function(){setStatus("Volume = 240 cubic centimetres!");at(1500,done);});
 }
@@ -534,10 +534,10 @@ function svgCubeBoth(){
 }
 function playCubeBoth(done){
   setStatus("Cube: all sides equal to a = 6 cm...");
-  say("A cube has all sides equal. Here a equals 6 centimetres. Let me calculate both TSA and volume!");
-  at(2200,function(){fade("cbTSA",1);setStatus("TSA = 6 x a squared = 6 x 36 = 216!");say("TSA equals 6 a squared equals 6 times 36 equals 216 square centimetres. 6 faces, each a square!");});
-  at(5500,function(){fade("cbVol",1);setStatus("Volume = a cubed = 216 cubic centimetres!");say("Volume equals a cubed equals 6 times 6 times 6 equals 216 cubic centimetres.");});
-  at(8500,function(){fade("cbNote",1);setStatus("Both TSA and Volume equal 216! Special cube!");say("Both equal 216! This is a special coincidence that only happens when a equals 6. Very interesting!");at(1500,done);});
+  
+  at(2200,function(){fade("cbTSA",1);setStatus("TSA = 6 x a squared = 6 x 36 = 216!");});
+  at(5500,function(){fade("cbVol",1);setStatus("Volume = a cubed = 216 cubic centimetres!");});
+  at(8500,function(){fade("cbNote",1);setStatus("Both TSA and Volume equal 216! Special cube!");at(1500,done);});
 }
 
 /* CYLINDER CSA */
@@ -572,13 +572,13 @@ function svgCylCsa(){
 }
 function playCylCsa(done){
   setStatus("CSA = curved surface only, not the circular ends...");
-  say("The Curved Surface Area of a cylinder is just the curved outer shell, not the circular tops and bottoms. Imagine unrolling it! It becomes a rectangle with width 2 pi r and height h.");
+  
   at(3000,function(){
     fade("cylUnroll",1);
     var f=G("cylCsaFill");
     if(f){var s=0,t=setInterval(function(){s++;f.setAttribute("y",String(155-s*0.75));f.setAttribute("height",String(s*0.75));if(s>=140)clearInterval(t);},25);atTimers.push(t);}
     setStatus("Unrolling the curved surface...");
-    say("2 pi r h equals 2 times 22 over 7 times 7 times 10. The 7s cancel. Equals 2 times 22 times 10 equals 440!");
+    
   });
   at(7000,function(){fade("cylAns",1);setStatus("CSA = 440 square centimetres!");at(1500,done);});
 }
@@ -608,12 +608,12 @@ function svgCylVol(){
 }
 function playCylVol(done){
   setStatus("Volume = pi r squared h...");
-  say("Volume of a cylinder equals pi r squared times h. Think of it as the area of the circular base times the height. Watch water fill the cylinder!");
+  
   at(1500,function(){
     var w=G("cylWater");
     if(w){var s=0,t=setInterval(function(){s++;w.setAttribute("y",String(165-s*0.83));w.setAttribute("height",String(s*0.83));if(s>=125){clearInterval(t);var lb=G("waterLbl");if(lb){lb.style.transition="opacity .5s";lb.style.opacity="1";}}},25);atTimers.push(t);}
     setStatus("Water filling the cylinder...");
-    say("Pi r squared h equals 22 over 7 times 49 times 15. 49 divided by 7 equals 7. So 22 times 7 times 15 equals 2310 cubic centimetres!");
+    
   });
   at(6000,function(){fade("cylVAns",1);setStatus("Volume = 2310 cubic centimetres!");at(1500,done);});
 }
@@ -645,10 +645,10 @@ function svgCylTsa(){
 }
 function playCylTsa(done){
   setStatus("TSA = CSA + 2 circular ends...");
-  say("Total Surface Area of a cylinder has 3 parts: the curved surface area, plus the top circle, plus the bottom circle. That is 2 pi r h plus 2 pi r squared equals 2 pi r times r plus h.");
-  at(2500,function(){fade("cylCsaH",1);var l=G("csaLbl");if(l){l.style.transition="opacity .5s";l.style.opacity="1";}setStatus("Curved surface area 2 pi r h...");say("The curved surface is shown in green.");});
-  at(5500,function(){var t=G("topLbl"),b=G("botLbl");if(t){t.style.transition="opacity .5s";t.style.opacity="1";}if(b){b.style.transition="opacity .5s";b.style.opacity="1";}setStatus("Plus two circles: top and bottom!");say("Plus two circular ends, each with area pi r squared.");});
-  at(8500,function(){fade("cylTsaAns",1);setStatus("TSA = 2 pi r(r+h) = 297!");say("2 pi r times r plus h. For r equals 3.5 and h equals 10, answer is 297 square centimetres!");at(1500,done);});
+  
+  at(2500,function(){fade("cylCsaH",1);var l=G("csaLbl");if(l){l.style.transition="opacity .5s";l.style.opacity="1";}setStatus("Curved surface area 2 pi r h...");});
+  at(5500,function(){var t=G("topLbl"),b=G("botLbl");if(t){t.style.transition="opacity .5s";t.style.opacity="1";}if(b){b.style.transition="opacity .5s";b.style.opacity="1";}setStatus("Plus two circles: top and bottom!");});
+  at(8500,function(){fade("cylTsaAns",1);setStatus("TSA = 2 pi r(r+h) = 297!");at(1500,done);});
 }
 
 /* WATER POUR */
@@ -674,12 +674,12 @@ function svgWaterPour(){
 }
 function playWaterPour(done){
   setStatus("Filling the water tank...");
-  say("This water tank is 3 metres by 2 metres by 1.5 metres. Volume equals 3 times 2 times 1.5 equals 9 cubic metres. Watch it fill with water!");
+  
   at(1500,function(){
     var w=G("tankWater"),wl=G("waterLine");
     if(w){var s=0,t=setInterval(function(){s++;var h=s*0.72;w.setAttribute("y",String(175-h));w.setAttribute("height",String(h));if(wl){wl.setAttribute("y1",String(175-h));wl.setAttribute("y2",String(175-h));wl.style.opacity="0.8";}if(s>=140){clearInterval(t);var ll=G("wpLitres");if(ll){ll.style.transition="opacity .5s";ll.style.opacity="1";}fade("wpAns",1);}},22);atTimers.push(t);}
     setStatus("Water rising... 9 cubic metres = 9000 litres!");
-    say("The tank fills up! 9 cubic metres times 1000 equals 9000 litres. That is the capacity of this tank!");
+    
   });
   at(7000,function(){setStatus("Tank capacity = 9000 litres!");at(1500,done);});
 }
@@ -706,8 +706,8 @@ function svgCubeRev(){
 }
 function playCubeRev(done){
   setStatus("TSA given, find the side...");
-  say("This time we know the TSA equals 96 square centimetres and we need to find the side length. I rearrange the formula!");
-  at(2500,function(){fade("crSteps",1);setStatus("6a squared = 96, so a squared = 16, a = 4!");say("6 a squared equals 96. Divide both sides by 6. a squared equals 16. Square root of 16 equals 4. The side is 4 centimetres!");});
+  
+  at(2500,function(){fade("crSteps",1);setStatus("6a squared = 96, so a squared = 16, a = 4!");});
   at(7000,function(){var e=G("crAns");if(e){e.style.transition="opacity .6s";e.style.opacity="1";}setStatus("Side a = 4 centimetres!");at(1500,done);});
 }
 
@@ -735,8 +735,8 @@ function svgCylRev(){
 }
 function playCylRev(done){
   setStatus("CSA given, height given, find radius...");
-  say("CSA equals 176 and height equals 14. I substitute into 2 pi r h equals 176 and solve for r!");
-  at(2500,function(){fade("cyrSteps",1);setStatus("88r = 176, so r = 2 cm!");say("2 times 22 over 7 times r times 14 equals 176. 2 times 22 times 2 equals 88. So 88 r equals 176. Divide both sides by 88. r equals 2 centimetres!");at(2000,done);});
+  
+  at(2500,function(){fade("cyrSteps",1);setStatus("88r = 176, so r = 2 cm!");at(2000,done);});
 }
 
 /* CUBOID REVERSE */
@@ -764,8 +764,8 @@ function svgCuboidRev(){
 }
 function playCuboidRev(done){
   setStatus("TSA given, l and b known, find h...");
-  say("TSA equals 148, l equals 5, b equals 4. I substitute into the formula and solve for h step by step!");
-  at(2500,function(){fade("cbrSteps",1);setStatus("74 = 20 + 9h, so h = 6 cm!");say("Dividing 148 by 2 gives 74. lb equals 20. Then 74 minus 20 equals 54. 54 divided by 9 equals 6. Height is 6 centimetres!");at(2000,done);});
+  
+  at(2500,function(){fade("cbrSteps",1);setStatus("74 = 20 + 9h, so h = 6 cm!");at(2000,done);});
 }
 
 /* Routers */
@@ -860,7 +860,7 @@ function beginSteps(){
 }
 function nextStep(){
   var q=session[idx];
-  if(stepIdx>=q.steps.length){G("nxtStepBtn").style.display="none";showConfirm();return;}
+  if(stepIdx>=q.steps.length){G("nxtStepBtn").style.display="none";var ib=document.createElement("button");ib.className="btn-speak";ib.innerHTML="&#9989; I Understand!";ib.style.cssText="margin-top:16px;width:100%;";ib.onclick=function(){ib.remove();showConfirm();};G("stepsWrap").appendChild(ib);ib.scrollIntoView({behavior:"smooth",block:"center"});return;}
   var s=q.steps[stepIdx];var wrap=G("stepsWrap");
   var d=document.createElement("div");d.className="step";
   d.innerHTML='<div class="step-num">'+(stepIdx+1)+'</div><div class="step-body">'+s.t+'</div>';
@@ -947,7 +947,7 @@ function handleAnswer(text){
     rb.className="result-box ok";rb.textContent="&#10003; Correct! Excellent!";
     G("nudgeBox").classList.remove("show");
     var nb=G("btnNext");if(nb)nb.classList.add("show");
-    say("Correct! Excellent!");rHappy();
+    rHappy();
   } else {
     nudgeCount++;rb.className="result-box no";rb.textContent="&#10006; Not quite. Listen to my hint!";
     var nudge=q.nudges[Math.min(nudgeCount-1,q.nudges.length-1)];

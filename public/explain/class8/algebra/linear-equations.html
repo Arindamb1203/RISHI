@@ -503,14 +503,14 @@ function svgBalance(){
 }
 function playBalance(done){
   setStatus("Setting up the balance scale...");
-  say("Watch! I use a balance scale to solve 2x plus 7 equals 15. An equation is like a scale. Both sides must stay equal!");
-  at(3200,function(){fade("b2x",1);fade("b7",1);var b=G("beam");if(b)b.style.transform="rotate(-9deg)";setStatus("Left pan: 2x+7. Scale tips!");say("I place 2x and 7 on the left. The scale tips! Left is heavier!");});
-  at(6800,function(){fade("b15",1);var b=G("beam");if(b)b.style.transform="rotate(-2deg)";setStatus("Right pan: 15. Nearly balanced!");say("Now 15 on the right. Almost balanced. I need to isolate x!");});
-  at(10000,function(){var o=G("bOpTxt");if(o)o.textContent="minus 7 from BOTH sides";fade("bOp",1);say("Golden rule: whatever I do to one side, I do to the other! Subtracting 7 from both sides.");});
-  at(12500,function(){fade("bOp",0);fade("b7",0);fade("b15",0);setTimeout(function(){fade("b8",1);},500);var b=G("beam");if(b)b.style.transform="rotate(0deg)";setStatus("2x = 8. Balanced!");say("Left has just 2x. Right has 8. Perfectly balanced! 2x equals 8.");});
-  at(16000,function(){var o=G("bOpTxt");if(o)o.textContent="divide BOTH sides by 2";fade("bOp",1);say("Now divide BOTH sides by 2.");});
-  at(18500,function(){fade("bOp",0);fade("b2x",0);fade("b8",0);setTimeout(function(){fade("bx",1);fade("b4",1);},500);setStatus("x = 4. PERFECTLY BALANCED!");say("One x balances with 4! Scale is balanced. x equals 4!");});
-  at(22000,function(){fade("bWin",1);setStatus("Solved! x = 4");say("x equals 4!");at(1500,done);});
+  
+  at(3200,function(){fade("b2x",1);fade("b7",1);var b=G("beam");if(b)b.style.transform="rotate(-9deg)";setStatus("Left pan: 2x+7. Scale tips!");});
+  at(6800,function(){fade("b15",1);var b=G("beam");if(b)b.style.transform="rotate(-2deg)";setStatus("Right pan: 15. Nearly balanced!");});
+  at(10000,function(){var o=G("bOpTxt");if(o)o.textContent="minus 7 from BOTH sides";fade("bOp",1);});
+  at(12500,function(){fade("bOp",0);fade("b7",0);fade("b15",0);setTimeout(function(){fade("b8",1);},500);var b=G("beam");if(b)b.style.transform="rotate(0deg)";setStatus("2x = 8. Balanced!");});
+  at(16000,function(){var o=G("bOpTxt");if(o)o.textContent="divide BOTH sides by 2";fade("bOp",1);});
+  at(18500,function(){fade("bOp",0);fade("b2x",0);fade("b8",0);setTimeout(function(){fade("bx",1);fade("b4",1);},500);setStatus("x = 4. PERFECTLY BALANCED!");});
+  at(22000,function(){fade("bWin",1);setStatus("Solved! x = 4");at(1500,done);});
 }
 
 /* TRANSPOSITION */
@@ -531,11 +531,11 @@ function svgTranspose(){
 }
 function playTranspose(done){
   setStatus("Watch terms jump across the equals sign...");
-  say("Transposition! When a term crosses the equals sign, its sign flips. Minus becomes plus. Plus becomes minus. Watch!");
-  at(2800,function(){fade("tr1",1);setStatus("Minus 3 crosses to right, becomes plus 3!");say("Minus 3 moves from left to right. Sign flips! Minus 3 becomes plus 3.");});
-  at(5800,function(){fade("tr2",1);setStatus("3x crosses to left, becomes minus 3x!");say("3x moves from right to left. Sign flips! 3x becomes minus 3x.");});
-  at(9000,function(){fade("tr1",0);fade("tr2",0);fade("trRes",1);setStatus("Left: 5x minus 3x = 2x. Right: 9+3 = 12");say("Left side: 5x minus 3x equals 2x. Right side: 9 plus 3 equals 12. So 2x equals 12!");});
-  at(13000,function(){var e=G("trFin");if(e){e.style.transition="opacity .5s";e.style.opacity="1";}setStatus("x = 6");say("Divide by 2. x equals 6!");at(1500,done);});
+  
+  at(2800,function(){fade("tr1",1);setStatus("Minus 3 crosses to right, becomes plus 3!");});
+  at(5800,function(){fade("tr2",1);setStatus("3x crosses to left, becomes minus 3x!");});
+  at(9000,function(){fade("tr1",0);fade("tr2",0);fade("trRes",1);setStatus("Left: 5x minus 3x = 2x. Right: 9+3 = 12");});
+  at(13000,function(){var e=G("trFin");if(e){e.style.transition="opacity .5s";e.style.opacity="1";}setStatus("x = 6");at(1500,done);});
 }
 
 /* LCM FRACTIONS */
@@ -557,10 +557,10 @@ function svgLcm(){
 }
 function playLcm(done){
   setStatus("Fractions? Find the LCM!");
-  say("Fractions look scary! But multiply the whole equation by the LCM of the denominators and fractions disappear!");
-  at(3000,function(){fade("lcmB",1);setStatus("LCM of 3 and 4 = 12. Multiplying by 12...");say("Denominators are 3 and 4. Their LCM is 12. I multiply every single term by 12. Watch the fractions vanish!");});
-  at(7000,function(){fade("lcmM",1);setStatus("12 x (x/3) = 4x and 12 x (x/4) = 3x");say("12 divided by 3 is 4. So 4x. 12 divided by 4 is 3. So 3x. Fractions gone!");});
-  at(11500,function(){fade("lcmF",1);setStatus("7x = 84, x = 12");say("4x plus 3x equals 7x. 12 times 7 equals 84. So 7x equals 84. x equals 12!");at(1500,done);});
+  
+  at(3000,function(){fade("lcmB",1);setStatus("LCM of 3 and 4 = 12. Multiplying by 12...");});
+  at(7000,function(){fade("lcmM",1);setStatus("12 x (x/3) = 4x and 12 x (x/4) = 3x");});
+  at(11500,function(){fade("lcmF",1);setStatus("7x = 84, x = 12");at(1500,done);});
 }
 
 /* MYSTERY BOX */
@@ -580,11 +580,11 @@ function svgMystery(){
 }
 function playMystery(done){
   setStatus("A mystery number hides in the box...");
-  say("There is a mystery number hiding in this box! Let us call it x. The problem says double it, add 9, and you get 35.");
-  at(3200,function(){fade("mb2",1);var p=G("mPlus");if(p){p.style.transition="opacity .5s";p.style.opacity="1";}setStatus("Doubled = two boxes = 2x");say("Doubled means two boxes, or 2x!");});
-  at(6200,function(){fade("mdots",1);setStatus("Adding 9 dots...");say("Now I add 9. See the 9 green dots appear!");});
-  at(9200,function(){fade("meq",1);setStatus("2x + 9 = 35. Now solve!");say("Total equals 35. So 2x plus 9 equals 35.");});
-  at(12500,function(){fade("msolve",1);setStatus("x = 13!");say("Subtract 9: 2x equals 26. Divide by 2: x equals 13. The mystery number is 13!");at(1500,done);});
+  
+  at(3200,function(){fade("mb2",1);var p=G("mPlus");if(p){p.style.transition="opacity .5s";p.style.opacity="1";}setStatus("Doubled = two boxes = 2x");});
+  at(6200,function(){fade("mdots",1);setStatus("Adding 9 dots...");});
+  at(9200,function(){fade("meq",1);setStatus("2x + 9 = 35. Now solve!");});
+  at(12500,function(){fade("msolve",1);setStatus("x = 13!");at(1500,done);});
 }
 
 /* CROSS MULTIPLICATION */
@@ -605,10 +605,10 @@ function svgCross(){
 }
 function playCross(done){
   setStatus("Cross-multiply: multiply diagonally!");
-  say("Cross multiplication works when there is one fraction on each side. I multiply diagonally. Left numerator times right denominator, and right numerator times left denominator.");
-  at(3000,function(){fade("ca1",1);setStatus("Left numerator x right denominator 2");say("First arrow: 2x plus 1 multiplied by 2.");});
-  at(6000,function(){fade("ca2",1);setStatus("Right numerator x left denominator 3");say("Second arrow: x plus 2 multiplied by 3. These two are equal!");});
-  at(9500,function(){fade("cres",1);setStatus("Expand and solve: x = 4");say("Expanding: 4x plus 2 equals 3x plus 6. So x equals 4!");at(1500,done);});
+  
+  at(3000,function(){fade("ca1",1);setStatus("Left numerator x right denominator 2");});
+  at(6000,function(){fade("ca2",1);setStatus("Right numerator x left denominator 3");});
+  at(9500,function(){fade("cres",1);setStatus("Expand and solve: x = 4");at(1500,done);});
 }
 
 /* CONSECUTIVE INTEGERS */
@@ -623,10 +623,10 @@ function svgConsec(){
 }
 function playConsec(done){
   setStatus("Consecutive integers are neighbours!");
-  say("Consecutive integers come one after another, like 5 and 6, or 10 and 11. If the first is n, the next is always n plus 1!");
-  at(3000,function(){fade("cn1",1);setStatus("n and n+1 are consecutive");say("See! n and n plus 1 are neighbours on the number line.");});
-  at(6000,function(){fade("carc",1);setStatus("Sum = 53: n + (n+1) = 53");say("They sum to 53. So n plus n plus 1 equals 53. Our equation!");});
-  at(9500,function(){fade("csoln",1);setStatus("n = 26. Integers: 26 and 27");say("2n plus 1 equals 53. n equals 26. The integers are 26 and 27!");at(1500,done);});
+  
+  at(3000,function(){fade("cn1",1);setStatus("n and n+1 are consecutive");});
+  at(6000,function(){fade("carc",1);setStatus("Sum = 53: n + (n+1) = 53");});
+  at(9500,function(){fade("csoln",1);setStatus("n = 26. Integers: 26 and 27");at(1500,done);});
 }
 
 /* MONEY BAGS */
@@ -647,12 +647,12 @@ function svgBags(){
 }
 function playBags(done){
   setStatus("Suresh has x rupees. Ramesh has more...");
-  say("Let Suresh have x rupees. Ramesh has 40 more than TWICE Suresh. So Ramesh has 2x plus 40.");
-  at(3000,function(){fade("rb1",1);setStatus("First bag: Ramesh has x...");say("Twice Suresh means two bags of x rupees. First bag!");});
-  at(5500,function(){fade("rb2",1);setStatus("Two bags = 2x");say("Second bag! Two bags equals 2x rupees.");});
-  at(8000,function(){fade("rp40",1);setStatus("Plus 40 rupees extra");say("Plus 40 rupees on top!");});
-  at(10500,function(){fade("req",1);setStatus("Total 560. So 2x + 40 = 560");say("Total is 560 rupees. So 2x plus 40 equals 560!");});
-  at(13500,function(){fade("rsolv",1);setStatus("x = 260. Suresh has 260 rupees!");say("Subtract 40: 2x equals 520. Divide by 2: x equals 260. Suresh has 260 rupees!");at(1500,done);});
+  
+  at(3000,function(){fade("rb1",1);setStatus("First bag: Ramesh has x...");});
+  at(5500,function(){fade("rb2",1);setStatus("Two bags = 2x");});
+  at(8000,function(){fade("rp40",1);setStatus("Plus 40 rupees extra");});
+  at(10500,function(){fade("req",1);setStatus("Total 560. So 2x + 40 = 560");});
+  at(13500,function(){fade("rsolv",1);setStatus("x = 260. Suresh has 260 rupees!");at(1500,done);});
 }
 
 /* CONSECUTIVE ODD */
@@ -669,11 +669,11 @@ function svgOddnums(){
 }
 function playOddnums(done){
   setStatus("Consecutive odd numbers differ by 2!");
-  say("Consecutive odd numbers always differ by 2. Like 3, 5, 7. If the first is x, the next is x plus 2, then x plus 4!");
-  at(2800,function(){fade("ob2",1);fade("ogap",1);setStatus("x+2 is the 2nd odd number");say("Second is x plus 2. See the gap of 2!");});
-  at(5400,function(){fade("ob3",1);setStatus("x+4 is the 3rd odd number");say("Third is x plus 4. Three consecutive odd numbers!");});
-  at(8000,function(){fade("osum",1);setStatus("Sum = 51: x + x+2 + x+4 = 51");say("They sum to 51. x plus x plus 2 plus x plus 4 equals 51.");});
-  at(11500,function(){fade("osolv",1);setStatus("x = 15. Numbers: 15, 17, 19");say("3x plus 6 equals 51. x equals 15. The numbers are 15, 17, and 19!");at(1500,done);});
+  
+  at(2800,function(){fade("ob2",1);fade("ogap",1);setStatus("x+2 is the 2nd odd number");});
+  at(5400,function(){fade("ob3",1);setStatus("x+4 is the 3rd odd number");});
+  at(8000,function(){fade("osum",1);setStatus("Sum = 51: x + x+2 + x+4 = 51");});
+  at(11500,function(){fade("osolv",1);setStatus("x = 15. Numbers: 15, 17, 19");at(1500,done);});
 }
 
 /* DECIMAL SHIFT */
@@ -692,9 +692,9 @@ function svgDecimal(){
 }
 function playDecimal(done){
   setStatus("Decimals? Multiply to remove them!");
-  say("Decimal equations look scary! Trick: multiply every single term by 100 and decimals disappear. The decimal point shifts two places right!");
-  at(3500,function(){fade("dbadge",1);fade("darrow",1);setStatus("Multiplying everything by 100...");say("Multiply every term by 100!");});
-  at(7000,function(){fade("dclean",1);setStatus("0.25x becomes 25x. No more decimals!");say("0.25x becomes 25x. 0.5 becomes 50. 1.25 becomes 125. No more decimals! 25x equals 75. x equals 3!");at(2000,done);});
+  
+  at(3500,function(){fade("dbadge",1);fade("darrow",1);setStatus("Multiplying everything by 100...");});
+  at(7000,function(){fade("dclean",1);setStatus("0.25x becomes 25x. No more decimals!");at(2000,done);});
 }
 
 /* AGE PROBLEM */
@@ -711,9 +711,9 @@ function svgAges(){
 }
 function playAges(done){
   setStatus("Father is 3 times son now...");
-  say("Let the son be x years old. Father is 3 times the son, so father is 3x. Notice the father is much taller!");
-  at(3500,function(){fade("acal",1);setStatus("Fast forward 12 years!");say("The clock moves forward 12 years! Son becomes x plus 12, father becomes 3x plus 12.");});
-  at(7000,function(){fade("aeq",1);setStatus("In 12 years: father = twice son. x = 12");say("In 12 years father equals twice son. So 3x plus 12 equals 2 times x plus 12. Solving: x equals 12. Son is 12, father is 36!");at(2000,done);});
+  
+  at(3500,function(){fade("acal",1);setStatus("Fast forward 12 years!");});
+  at(7000,function(){fade("aeq",1);setStatus("In 12 years: father = twice son. x = 12");at(2000,done);});
 }
 
 /* SVG router */
@@ -955,7 +955,7 @@ function handleAnswer(text){
     rb.className="result-box ok";rb.textContent="&#10003; Correct! Excellent!";
     G("nudgeBox").classList.remove("show");
     var nb=G("btnNext");if(nb)nb.classList.add("show");
-    say("Correct! Excellent!");
+    
     rHappy();
   } else {
     nudgeCount++;

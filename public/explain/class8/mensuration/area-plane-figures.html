@@ -466,17 +466,17 @@ function svgTrap(){
 }
 function playTrap(done){
   setStatus("Area fills up inside the trapezium...");
-  say("Watch! I am going to fill the trapezium with colour to show its area. The formula is half times a plus b times height.");
+  
   at(1000,function(){
     var h=G("trapH");
     if(h){var s=0,t=setInterval(function(){s++;h.setAttribute("y2",String(55+(s/14)*100));if(s>=14){clearInterval(t);fade("trapRA",1);}},35);atTimers.push(t);}
     setStatus("Height drops from top to base...");
-    say("First the height drops down perpendicularly from the top parallel side to the bottom.");
+    
   });
   at(3500,function(){
     fillGrid("","trapFillW",220,25,50,function(){fade("trapAns",1);});
     setStatus("Filling the area... half times 20 times 5 = 50!");
-    say("Now the area fills in! Half times 12 plus 8 times 5 equals half times 20 times 5 equals 50 square centimetres!");
+    
   });
   at(7000,function(){setStatus("Area = 50 square centimetres!");at(1500,done);});
 }
@@ -502,19 +502,19 @@ function svgRhom(){
 }
 function playRhom(done){
   setStatus("Rhombus diagonals are perpendicular...");
-  say("In a rhombus, the two diagonals cross at exactly 90 degrees. The area equals half times d1 times d2.");
+  
   at(1000,function(){
     var d1=G("rhD1"),d2=G("rhD2");
     if(d1){var s=0,t=setInterval(function(){s++;d1.setAttribute("x2",String(50+(s/18)*320));if(s>=18){clearInterval(t);}},35);atTimers.push(t);}
     at(600,function(){if(d2){var s=0,t=setInterval(function(){s++;d2.setAttribute("y2",String(15+(s/16)*148));if(s>=16){clearInterval(t);fade("rhRA",1);}},35);atTimers.push(t);}});
     setStatus("Drawing diagonals...");
-    say("Diagonal d1 is 10 centimetres. Diagonal d2 is 6 centimetres.");
+    
   });
   at(4500,function(){
     fade("rhLabels",1);
     fillGrid("","rhomFillW",320,24,50,function(){fade("rhAns",1);});
     setStatus("Area filling... half x 10 x 6 = 30!");
-    say("Now area fills in. Half times 10 times 6 equals 30 square centimetres!");
+    
   });
   at(8000,function(){setStatus("Area = 30 square centimetres!");at(1500,done);});
 }
@@ -541,7 +541,7 @@ function svgQuadDiag(){
 }
 function playQuadDiag(done){
   setStatus("Drawing diagonal AC of quadrilateral...");
-  say("For a general quadrilateral, I draw a diagonal. Then I drop perpendiculars from B and D to this diagonal. The area equals half times diagonal times the sum of the two perpendiculars.");
+  
   at(1000,function(){
     var d=G("qdDiag");
     if(d){var s=0,t=setInterval(function(){s++;d.setAttribute("x2",String(80+(s/20)*260));d.setAttribute("y2",String(150-(s/20)*90));if(s>=20)clearInterval(t);},40);atTimers.push(t);}
@@ -550,7 +550,7 @@ function playQuadDiag(done){
   at(4000,function(){
     fade("qdPerps",1);
     setStatus("Perpendiculars h1=5 from B, h2=3 from D...");
-    say("Perpendicular from B is 5 centimetres. Perpendicular from D is 3 centimetres. Half times 10 times 8 equals 40!");
+    
   });
   at(7500,function(){fade("qdAns",1);setStatus("Area = 40 square centimetres!");at(1500,done);});
 }
@@ -578,17 +578,17 @@ function svgCircle(){
 }
 function playCircle(done){
   setStatus("Circle with radius 7 cm...");
-  say("The area of a circle equals pi r squared. Pi equals 22 over 7. Watch the squares fill inside the circle to show the area.");
+  
   at(1000,function(){
     var r=G("circR");
     if(r){var s=0,t=setInterval(function(){s++;r.setAttribute("x2",String(210+(s/12)*75));if(s>=12){clearInterval(t);var l=G("circRLbl");if(l){l.style.transition="opacity .4s";l.style.opacity="1";}}},40);atTimers.push(t);}
     setStatus("Radius = 7 cm...");
-    say("The radius is 7 centimetres.");
+    
   });
   at(3500,function(){
     fillGrid("","circFill",150,28,55,function(){fade("circAns",1);});
     setStatus("Squares filling the circle... count them!");
-    say("See the grid squares filling the circle. Pi r squared equals 22 over 7 times 49 equals 154 square centimetres!");
+    
   });
   at(8500,function(){setStatus("Area = 154 square centimetres!");at(1500,done);});
 }
@@ -617,7 +617,7 @@ function svgTriangle(){
 }
 function playTriangle(done){
   setStatus("Triangle: half base times height...");
-  say("A triangle is exactly half of a rectangle. The area equals half times base times height. Watch the height drop and the squares fill in!");
+  
   at(1000,function(){
     var h=G("triH");
     if(h){var s=0,t=setInterval(function(){s++;h.setAttribute("y2",String(55+(s/14)*100));if(s>=14){clearInterval(t);fade("triRA",1);var l=G("triHLbl");if(l){l.style.transition="opacity .4s";l.style.opacity="1";}}},35);atTimers.push(t);}
@@ -626,7 +626,7 @@ function playTriangle(done){
   at(3500,function(){
     fillGrid("","triFill",240,24,50,function(){fade("triAns",1);});
     setStatus("Squares fill inside triangle... half base times height!");
-    say("Half times 10 times 6 equals 30 square centimetres. The triangle is exactly half the rectangle with the same base and height!");
+    
   });
   at(7500,function(){setStatus("Area = 30 square centimetres!");at(1500,done);});
 }
@@ -656,18 +656,18 @@ function svgPath(){
 }
 function playPath(done){
   setStatus("Outer park = 60 x 40 = 2400 square metres...");
-  say("The park is 60 by 40 metres. Outer area is 2400 square metres. Now there is a path 2 metres wide running inside all around. I subtract 2 from each side twice.");
+  
   at(2800,function(){
     fade("innerRect",1);fade("pathLabels",1);
     setStatus("Inner lawn = 56 x 36 = 2016 square metres...");
-    say("The inner lawn becomes 56 by 36 metres. That is 2016 square metres. The path fills the rest!");
+    
   });
   at(6500,function(){
     var pf=G("pathFill");
     if(pf){pf.style.fillOpacity="0";pf.style.transition="fill-opacity .1s";
       var s=0,t=setInterval(function(){s++;pf.setAttribute("width",String(s*340/20));pf.style.fillOpacity=String(0.3);if(s>=20)clearInterval(t);},60);atTimers.push(t);}
     setStatus("Path area = 2400 - 2016 = 384 square metres!");
-    say("Outer minus inner equals 2400 minus 2016 equals 384 square metres. That is the path area!");
+    
   });
   at(10000,function(){fade("pathAns",1);setStatus("Path = 384 square metres!");at(1500,done);});
 }
@@ -693,9 +693,9 @@ function svgRhomRev(){
 }
 function playRhomRev(done){
   setStatus("Area = 120. d1 = 20. Find d2...");
-  say("We know the area is 120 square centimetres and one diagonal d1 equals 20 centimetres. We need to find d2. I rearrange the formula!");
-  at(2500,function(){fade("rrvArea",1);setStatus("120 = half times 20 times d2...");say("Area equals half times d1 times d2. So 120 equals half times 20 times d2. Half times 20 is 10. So 10 times d2 equals 120.");});
-  at(6000,function(){fade("rrvSteps",1);setStatus("d2 = 120 divided by 10 = 12 cm!");say("d2 equals 120 divided by 10 equals 12 centimetres!");at(1500,done);});
+  
+  at(2500,function(){fade("rrvArea",1);setStatus("120 = half times 20 times d2...");});
+  at(6000,function(){fade("rrvSteps",1);setStatus("d2 = 120 divided by 10 = 12 cm!");at(1500,done);});
 }
 
 /* ── PARALLELOGRAM ── */
@@ -720,17 +720,17 @@ function svgPgram(){
 }
 function playPgram(done){
   setStatus("Parallelogram: base times height...");
-  say("A parallelogram is like a slanted rectangle. The area equals base times height. Note: height is always the perpendicular height, not the slant side!");
+  
   at(1200,function(){
     var h=G("pgH");
     if(h){var s=0,t=setInterval(function(){s++;h.setAttribute("y2",String(55+(s/14)*100));if(s>=14){clearInterval(t);fade("pgRA",1);var l=G("pgHLbl");if(l){l.style.transition="opacity .4s";l.style.opacity="1";}}},35);atTimers.push(t);}
     setStatus("Height = 5 cm (perpendicular)...");
-    say("The perpendicular height is 5 centimetres, not the slanted side.");
+    
   });
   at(4000,function(){
     fillGrid("","pgramFill",280,24,50,function(){fade("pgAns",1);});
     setStatus("Filling area... 9 x 5 = 45!");
-    say("Base times height equals 9 times 5 equals 45 square centimetres!");
+    
   });
   at(8000,function(){setStatus("Area = 45 square centimetres!");at(1500,done);});
 }
@@ -757,9 +757,9 @@ function svgTrapRev(){
 }
 function playTrapRev(done){
   setStatus("Area = 105. Find the height...");
-  say("This time the area is given as 105 and we need to find the height. I put the known values into the formula and solve for h.");
-  at(2500,function(){fade("trvArea",1);setStatus("105 = half times (10+11) times h...");say("105 equals half times 10 plus 11 times h. Half times 21 is 10.5. So 10.5 times h equals 105.");});
-  at(6000,function(){fade("trvSolve",1);setStatus("h = 105 divided by 10.5 = 10 cm!");say("h equals 105 divided by 10.5 equals 10 centimetres!");at(1500,done);});
+  
+  at(2500,function(){fade("trvArea",1);setStatus("105 = half times (10+11) times h...");});
+  at(6000,function(){fade("trvSolve",1);setStatus("h = 105 divided by 10.5 = 10 cm!");at(1500,done);});
 }
 
 /* ── HEXAGON AREA ── */
@@ -791,7 +791,7 @@ function svgHexArea(){
 }
 function playHexArea(done){
   setStatus("Hexagon = 6 equilateral triangles...");
-  say("A regular hexagon can be split into 6 equal equilateral triangles from the centre. Watch them appear one by one!");
+  
   at(800,function(){fade("hexLines",1);setStatus("Lines from centre to vertices...");});
   at(2500,function(){
     for(var i=0;i<6;i++){
@@ -803,9 +803,9 @@ function playHexArea(done){
       })(i);
     }
     setStatus("6 equal triangles appearing...");
-    say("6 equal equilateral triangles! Each has side 6 centimetres. Area of each is root 3 over 4 times 36. Total hexagon area is approximately 93.5 square centimetres.");
+    
   });
-  at(6500,function(){fade("hexAns",1);setStatus("Area approximately 93.5 square centimetres!");say("6 triangles together give approximately 93.5 square centimetres!");at(1500,done);});
+  at(6500,function(){fade("hexAns",1);setStatus("Area approximately 93.5 square centimetres!");at(1500,done);});
 }
 
 /* routers */
@@ -900,7 +900,7 @@ function beginSteps(){
 }
 function nextStep(){
   var q=session[idx];
-  if(stepIdx>=q.steps.length){G("nxtStepBtn").style.display="none";showConfirm();return;}
+  if(stepIdx>=q.steps.length){G("nxtStepBtn").style.display="none";var ib=document.createElement("button");ib.className="btn-speak";ib.innerHTML="&#9989; I Understand!";ib.style.cssText="margin-top:16px;width:100%;";ib.onclick=function(){ib.remove();showConfirm();};G("stepsWrap").appendChild(ib);ib.scrollIntoView({behavior:"smooth",block:"center"});return;}
   var s=q.steps[stepIdx];var wrap=G("stepsWrap");
   var d=document.createElement("div");d.className="step";
   d.innerHTML='<div class="step-num">'+(stepIdx+1)+'</div><div class="step-body">'+s.t+'</div>';
@@ -987,7 +987,7 @@ function handleAnswer(text){
     rb.className="result-box ok";rb.textContent="&#10003; Correct! Excellent!";
     G("nudgeBox").classList.remove("show");
     var nb=G("btnNext");if(nb)nb.classList.add("show");
-    say("Correct! Excellent!");rHappy();
+    rHappy();
   } else {
     nudgeCount++;rb.className="result-box no";rb.textContent="&#10006; Not quite. Listen to my hint!";
     var nudge=q.nudges[Math.min(nudgeCount-1,q.nudges.length-1)];

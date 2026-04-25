@@ -492,20 +492,20 @@ function svgAngleSum(){
 }
 function playAngleSum(done){
   setStatus("Building the quadrilateral...");
-  say("A quadrilateral has 4 sides and 4 angles. Watch! I draw a diagonal inside it to split it into 2 triangles.");
+  
   at(800,function(){fade("qpoly",1);fade("qangles",1);});
   at(2500,function(){
     animLine("qdiag",80,160,340,50,20,40,null);
     setStatus("Diagonal splits into 2 triangles...");
-    say("The diagonal divides the quadrilateral into 2 triangles. Each triangle has angle sum 180 degrees.");
+    
   });
   at(5000,function(){fade("qtri1",1);});
   at(6500,function(){
     fade("qtri2",1);
     setStatus("Triangle 1 = 180 degrees. Triangle 2 = 180 degrees.");
-    say("Triangle 1 gives 180 degrees. Triangle 2 gives another 180 degrees. Total equals 360 degrees!");
+    
   });
-  at(9500,function(){fade("qsum",1);setStatus("Total = 360 degrees always!");say("So the angle sum of any quadrilateral is always 360 degrees!");at(1500,done);});
+  at(9500,function(){fade("qsum",1);setStatus("Total = 360 degrees always!");at(1500,done);});
 }
 
 /* PARALLELOGRAM */
@@ -540,20 +540,20 @@ function svgParallelogram(){
 }
 function playParallelogram(done){
   setStatus("Parallelogram: opposite sides parallel and equal...");
-  say("A parallelogram has two pairs of opposite sides that are parallel and equal. Watch the arrows showing the parallel sides!");
-  at(2500,function(){fade("parArrows",1);setStatus("Arrows show parallel sides.");say("The arrows show which sides are parallel. Opposite angles are also equal, marked with the same symbol.");});
+  
+  at(2500,function(){fade("parArrows",1);setStatus("Arrows show parallel sides.");});
   at(5500,function(){fade("pangles",1);setStatus("Opposite angles are equal.");});
   at(7500,function(){
     animLine("pd1",80,165,360,50,18,40,null);
     animLine("pd2",300,165,140,50,18,40,null);
     setStatus("Drawing diagonals...");
-    say("Now I draw the diagonals. They cross each other at the midpoint! This is what bisect means.");
+    
   });
   at(10500,function(){
     fade("pmid",1);fade("pmidLbl",1);
     fade("pDone",1);
     setStatus("Diagonals bisect each other at midpoint!");
-    say("The midpoint is where they cross. Each diagonal is cut into two equal halves. That is bisection!");
+    
     at(1500,done);
   });
 }
@@ -577,7 +577,7 @@ function svgRhombusArea(){
 }
 function playRhombusArea(done){
   setStatus("Rhombus diagonals are perpendicular...");
-  say("In a rhombus, the diagonals always cross each other at 90 degrees. This is a key property! And it helps us find the area easily.");
+  
   at(2500,function(){
     animLine("rd1",50,90,370,90,20,40,null);
     setStatus("Drawing diagonal d1 = 10 cm...");
@@ -585,12 +585,12 @@ function playRhombusArea(done){
   at(4000,function(){
     animLine("rd2",210,15,210,165,16,40,function(){fade("rRA",1);});
     setStatus("Drawing diagonal d2 = 6 cm... They meet at 90 degrees!");
-    say("Diagonal 1 is 10 centimetres. Diagonal 2 is 6 centimetres. They cross at exactly 90 degrees!");
+    
   });
   at(7500,function(){
     fade("rdLabels",1);
     setStatus("Area = half times d1 times d2...");
-    say("Area of rhombus equals half times d1 times d2. That is half times 10 times 6 equals 30 square centimetres!");
+    
   });
   at(10500,function(){fade("rdFormula",1);setStatus("Area = 30 square centimetres!");at(1500,done);});
 }
@@ -622,18 +622,18 @@ function svgRectangleProps(){
 }
 function playRectangleProps(done){
   setStatus("Rectangle has all parallelogram properties plus two extras...");
-  say("A rectangle has all parallelogram properties. But it has two extra special properties. First: all four angles are exactly 90 degrees!");
+  
   at(2500,function(){fade("recAngles",1);setStatus("All angles = 90 degrees.");});
   at(4500,function(){
     animLine("rec_d1",70,162,350,40,18,40,null);
     animLine("rec_d2",350,162,70,40,18,40,null);
     setStatus("Drawing diagonals PR and SQ...");
-    say("Second extra property: the diagonals of a rectangle are equal in length! Watch both diagonals. They are the same size!");
+    
   });
   at(7500,function(){
     fade("recMid",1);fade("recEqLbl",1);
     setStatus("PR = SQ. Diagonals are equal!");
-    say("Diagonal PR equals diagonal SQ. This is what makes a rectangle special compared to a plain parallelogram!");
+    
     at(1500,done);
   });
 }
@@ -664,12 +664,12 @@ function svgSquareProps(){
 }
 function playSquareProps(done){
   setStatus("Square: all sides equal, all angles 90 degrees!");
-  say("A square is the most special parallelogram! All 4 sides are equal at 7 centimetres. All 4 angles are 90 degrees.");
+  
   at(2500,function(){
     animLine("sq_d1",110,170,250,30,16,40,null);
     animLine("sq_d2",250,170,110,30,16,40,null);
     setStatus("Square diagonals: equal AND perpendicular!");
-    say("The square has two extra diagonal properties: they are equal in length AND they cross at 90 degrees. Perimeter equals 28 centimetres. Area equals 49 square centimetres!");
+    
   });
   at(6000,function(){fade("sqDiagRA",1);fade("sqInfo",1);setStatus("P=28 cm, Area=49 cm squared!");at(1500,done);});
 }
@@ -705,10 +705,10 @@ function svgExteriorAngles(){
 }
 function playExteriorAngles(done){
   setStatus("One full trip around any polygon...");
-  say("Imagine walking around this pentagon. Every time you turn at a corner, you turn by the exterior angle. By the time you get back to where you started, you have turned exactly once all the way around!");
-  at(3000,function(){fade("extArcs",1);setStatus("Exterior angles at each corner...");say("Each corner has an exterior angle. There are 5 of them for the pentagon.");});
-  at(6000,function(){fade("extArrow",1);setStatus("One complete trip = one full turn.");say("Walking all the way around = one full turn = 360 degrees. This is true for ANY polygon!");});
-  at(9500,function(){fade("extTotal",1);setStatus("Sum of exterior angles = 360 degrees ALWAYS!");say("So the sum of exterior angles equals 360 degrees for every polygon. Always!");at(1500,done);});
+  
+  at(3000,function(){fade("extArcs",1);setStatus("Exterior angles at each corner...");});
+  at(6000,function(){fade("extArrow",1);setStatus("One complete trip = one full turn.");});
+  at(9500,function(){fade("extTotal",1);setStatus("Sum of exterior angles = 360 degrees ALWAYS!");at(1500,done);});
 }
 
 /* HEXAGON ANGLES */
@@ -737,9 +737,9 @@ function svgHexagonAngles(){
 }
 function playHexagonAngles(done){
   setStatus("Regular hexagon: 6 equal sides and 6 equal angles...");
-  say("A regular hexagon has 6 equal sides and 6 equal angles. To find each angle, I use the formula: n minus 2 times 180 degrees.");
-  at(3000,function(){fade("hexFormula",1);setStatus("Sum = (6-2) x 180 = 720 degrees.");say("n equals 6. So 6 minus 2 equals 4. Times 180 equals 720 degrees total. Divide by 6 angles. Each angle is 120 degrees!");});
-  at(7000,function(){fade("hexAngles",1);setStatus("Each angle = 120 degrees!");say("Every single angle in the hexagon is 120 degrees. Beautiful symmetry!");at(1500,done);});
+  
+  at(3000,function(){fade("hexFormula",1);setStatus("Sum = (6-2) x 180 = 720 degrees.");});
+  at(7000,function(){fade("hexAngles",1);setStatus("Each angle = 120 degrees!");at(1500,done);});
 }
 
 /* TRAPEZIUM AREA */
@@ -766,11 +766,11 @@ function svgTrapeziumArea(){
 }
 function playTrapeziumArea(done){
   setStatus("Trapezium: one pair of parallel sides...");
-  say("A trapezium has one pair of parallel sides called a and b. The perpendicular distance between them is the height h. Area equals half times a plus b times h.");
+  
   at(2500,function(){
     animLine("trapH",125,55,125,155,14,35,function(){fade("trapRA",1);});
     setStatus("Height drops perpendicular to base...");
-    say("The height h equals 4 centimetres. Parallel sides a equals 8 and b equals 5. Half times 13 times 4 equals 26 square centimetres!");
+    
   });
   at(6000,function(){fade("trapFormula",1);setStatus("Area = 26 square centimetres!");at(1500,done);});
 }
@@ -800,13 +800,13 @@ function svgKiteProps(){
 }
 function playKiteProps(done){
   setStatus("Kite: two pairs of consecutive equal sides...");
-  say("A kite looks like a flying kite! It has two pairs of consecutive equal sides. The top two sides AB and AD are equal, and the bottom two sides BC and DC are equal.");
-  at(2500,function(){fade("kiteMarkers",1);setStatus("AB = AD (top pair). BC = DC (bottom pair).");say("See the tick marks showing equal sides. Now watch the diagonals!");});
+  
+  at(2500,function(){fade("kiteMarkers",1);setStatus("AB = AD (top pair). BC = DC (bottom pair).");});
   at(5500,function(){
     animLine("kd1",210,15,210,175,16,40,null);
     animLine("kd2",90,100,330,100,16,40,null);
     setStatus("Kite diagonals...");
-    say("The diagonals of a kite are perpendicular! They cross at 90 degrees. Also one diagonal bisects the other.");
+    
   });
   at(9000,function(){fade("kRA",1);fade("kiteDone",1);setStatus("Diagonals meet at 90 degrees!");at(1500,done);});
 }
@@ -844,18 +844,18 @@ function svgSidesFromAngle(){
 }
 function playSidesFromAngle(done){
   setStatus("Each exterior angle = 45 degrees. How many sides?");
-  say("We know the sum of all exterior angles is always 360 degrees. If each exterior angle is 45 degrees, I divide to find the number of sides.");
+  
   at(2500,function(){
     var e=G("sfa1");if(e){e.style.transition="opacity .5s";e.style.opacity="1";}
     setStatus("360 divided by 45 equals 8 sides!");
-    say("360 divided by 45 equals 8. So there are 8 sides! A polygon with 8 sides is called an octagon.");
+    
   });
   at(5500,function(){
     var e=G("sfa2");if(e){e.style.transition="opacity .5s";e.style.opacity="1";}
     fade("octagon",1);
     setStatus("Drawing the octagon...");
   });
-  at(8000,function(){fade("octFormula",1);setStatus("8-sided octagon with 45 degree exterior angles!");say("There it is! An octagon with 8 equal exterior angles of 45 degrees each!");at(1500,done);});
+  at(8000,function(){fade("octFormula",1);setStatus("8-sided octagon with 45 degree exterior angles!");at(1500,done);});
 }
 
 /* SVG and play routers */
@@ -964,7 +964,7 @@ function beginSteps(){
 }
 function nextStep(){
   var q=session[idx];
-  if(stepIdx>=q.steps.length){G("nxtStepBtn").style.display="none";showConfirm();return;}
+  if(stepIdx>=q.steps.length){G("nxtStepBtn").style.display="none";var ib=document.createElement("button");ib.className="btn-speak";ib.innerHTML="&#9989; I Understand!";ib.style.cssText="margin-top:16px;width:100%;";ib.onclick=function(){ib.remove();showConfirm();};G("stepsWrap").appendChild(ib);ib.scrollIntoView({behavior:"smooth",block:"center"});return;}
   var s=q.steps[stepIdx];
   var wrap=G("stepsWrap");
   var d=document.createElement("div");
@@ -1058,7 +1058,7 @@ function handleAnswer(text){
     rb.className="result-box ok";rb.textContent="&#10003; Correct! Excellent!";
     G("nudgeBox").classList.remove("show");
     var nb=G("btnNext");if(nb)nb.classList.add("show");
-    say("Correct! Excellent!");rHappy();
+    rHappy();
   } else {
     nudgeCount++;
     rb.className="result-box no";rb.textContent="&#10006; Not quite. Listen to my hint!";

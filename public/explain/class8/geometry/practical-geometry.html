@@ -507,16 +507,16 @@ function svgQuadmeas(){
 }
 function playQuadmeas(done){
   setStatus("A quadrilateral has 4 sides...");
-  say("A quadrilateral has 4 sides. But just 4 sides are not enough to fix its shape! Watch what happens when I add a diagonal.");
+  
   at(3000,function(){
     var d=G("qdiag");
     if(d) animateLine(d,80,160,320,60,20,35,null);
     setStatus("Adding diagonal...");
-    say("When I draw a diagonal, it divides the quadrilateral into 2 triangles. Each triangle can be constructed using SSS, needing 3 sides each. But the diagonal is shared, so total is 5!");
+    
   });
   at(4500,function(){fade("qlbls",1);});
   at(6500,function(){fade("qtri",1);setStatus("2 triangles formed. Each needs SSS.");});
-  at(10000,function(){fade("qans",1);setStatus("Minimum = 5 measurements!");say("So minimum 5 measurements are needed. 4 sides and 1 diagonal!");at(1500,done);});
+  at(10000,function(){fade("qans",1);setStatus("Minimum = 5 measurements!");at(1500,done);});
 }
 
 /* RULER LINE */
@@ -554,7 +554,7 @@ function svgRulerLine(){
 }
 function playRulerLine(done){
   setStatus("Placing ruler on paper...");
-  say("I place the ruler flat on the paper. Now I mark point P at the zero mark. Then, without moving the ruler, I mark Q at the 6 centimetre mark. Watch the line being drawn!");
+  
   at(2000,function(){
     fade("ptP",1);fade("lblP",1);
     setStatus("Point P marked at 0 cm");
@@ -569,7 +569,7 @@ function playRulerLine(done){
     if(ln) animateLine(ln,30,52,390,52,30,40,function(){
       fade("lblPQ",1);
       setStatus("PQ = 6 cm. Line segment complete!");
-      say("The line is drawn! PQ equals 6 centimetres. This is how we use a ruler to construct a line segment.");
+      
       at(1500,done);
     });
   });
@@ -607,28 +607,28 @@ function svgPerpBisector(){
 }
 function playPerpBisector(done){
   setStatus("Draw AB = 8 cm first...");
-  say("Here is line segment AB. To draw its perpendicular bisector, I open my compass to more than half the length, that is more than 4 centimetres.");
+  
   at(2800,function(){
     fade("arcA",1);
     setStatus("Arc from A (radius > 4 cm)...");
-    say("From point A, I draw two arcs, one above and one below the line.");
+    
   });
   at(5500,function(){
     fade("arcB",1);
     setStatus("Arc from B (same radius)...");
-    say("Without changing the compass opening, I now draw two arcs from point B. They cross the arcs from A!");
+    
   });
   at(8000,function(){
     fade("intTop",1);fade("intBot",1);
     setStatus("Arcs intersect! Two crossing points found.");
-    say("The arcs intersect at two points, one above and one below. I now join these two points.");
+    
   });
   at(10500,function(){
     var bl=G("bisLine");
     if(bl) animateLine(bl,210,30,210,185,20,35,function(){
       fade("raBox",1);fade("bisLbl",1);fade("bisLbl2",1);
       setStatus("Perpendicular bisector drawn! 90 degrees at midpoint.");
-      say("The line passes through the midpoint of AB at exactly 90 degrees. This is the perpendicular bisector!");
+      
       at(1500,done);
     });
   });
@@ -664,7 +664,7 @@ function svgSssTriangle(){
 }
 function playSssTriangle(done){
   setStatus("Drawing base BC = 6 cm...");
-  say("I start by drawing the base BC equal to 6 centimetres using my ruler.");
+  
   at(500,function(){
     fade("ptB",1);fade("lblB",1);
     var bc=G("tBC");
@@ -675,24 +675,24 @@ function playSssTriangle(done){
   at(3500,function(){
     fade("arcFromB",1);
     setStatus("Arc from B, radius 5 cm (= AB)...");
-    say("Now I open my compass to 5 centimetres and draw an arc from B. Point A must be somewhere on this arc.");
+    
   });
   at(6500,function(){
     fade("arcFromC",1);
     setStatus("Arc from C, radius 4 cm (= CA)...");
-    say("I change the compass to 4 centimetres and draw an arc from C. Where the two arcs cross is point A!");
+    
   });
   at(9500,function(){
     fade("ptA",1);fade("lblA",1);
     setStatus("Arcs cross at A!");
-    say("The arcs intersect. That intersection point is A. Now I join A to B and A to C.");
+    
     at(1000,function(){
       var ab=G("tAB"),ac=G("tAC");
       if(ab) animateLine(ab,80,160,210,50,18,35,null);
       if(ac) animateLine(ac,340,160,210,50,18,35,function(){
         fade("triDone",1);
         setStatus("SSS Triangle ABC complete!");
-        say("Triangle ABC is complete using the SSS method. All 3 sides given, all 3 sides drawn!");
+        
         at(1500,done);
       });
     });
@@ -729,13 +729,13 @@ function svgSquareBuild(){
 }
 function playSquareBuild(done){
   setStatus("Drawing AB = 4 cm...");
-  say("I start by drawing the base AB equal to 4 centimetres with my ruler.");
+  
   at(500,function(){
     var ab=G("sqAB");
     if(ab) animateLine(ab,80,160,280,160,20,40,function(){
       fade("raA",1);fade("raB",1);
       setStatus("Right angles at A and B...");
-      say("At point A and point B, I construct right angles of 90 degrees. Then I draw the sides AD and BC upward, each 4 centimetres long.");
+      
     });
   });
   at(4000,function(){
@@ -752,12 +752,12 @@ function playSquareBuild(done){
       var sf=G("sqFill");
       if(sf){sf.style.transition="fill-opacity .8s";sf.style.fillOpacity="0.1";}
       setStatus("Square ABCD complete! 4 right angles.");
-      say("The square is complete! ABCD has 4 right angles, one at each corner, and all sides are equal at 4 centimetres.");
+      
     });
   });
   at(9000,function(){
     fade("sqDone",1);
-    say("4 right angles!");
+    
     at(1500,done);
   });
 }
@@ -796,7 +796,7 @@ function svgRhombusBuild(){
 }
 function playRhombusBuild(done){
   setStatus("Drawing diagonal AC = 7 cm...");
-  say("In a rhombus, all 4 sides are equal. I am given side 5 cm and diagonal AC equals 7 cm. I start by drawing the diagonal.");
+  
   at(800,function(){
     fade("rhA",1);fade("rhLblA",1);
     var d=G("rhDiag");
@@ -807,17 +807,17 @@ function playRhombusBuild(done){
   at(4000,function(){
     fade("rhArcA",1);
     setStatus("Arcs from A (radius = 5 cm)...");
-    say("From A, I draw arcs of radius 5 centimetres above and below.");
+    
   });
   at(6500,function(){
     fade("rhArcC",1);
     setStatus("Arcs from C (radius = 5 cm)...");
-    say("From C, same radius 5 centimetres. The arcs from A and C cross at B and D!");
+    
   });
   at(9000,function(){
     fade("rhB",1);fade("rhLblB",1);fade("rhD",1);fade("rhLblD",1);
     setStatus("B and D found! Joining all vertices...");
-    say("B is above and D is below. Now I join all four vertices.");
+    
     at(800,function(){
       var ab=G("rhAB"),bc=G("rhBC"),cd=G("rhCD"),da=G("rhDA");
       if(ab) animateLine(ab,80,95,210,15,14,35,null);
@@ -826,7 +826,7 @@ function playRhombusBuild(done){
       if(da) animateLine(da,210,175,80,95,14,35,function(){
         fade("rhDone",1);
         setStatus("Rhombus ABCD complete!");
-        say("Rhombus ABCD is complete. All 4 sides equal 5 centimetres!");
+        
         at(1500,done);
       });
     });
@@ -856,7 +856,7 @@ function svgRectBuild(){
 }
 function playRectBuild(done){
   setStatus("Drawing PQ = 5 cm...");
-  say("I draw the base PQ equals 5 centimetres. Then at Q, I draw QR equals 3 centimetres at a right angle. Same at P for PS.");
+  
   at(800,function(){
     var pq=G("recPQ");
     if(pq) animateLine(pq,80,150,330,150,22,40,function(){
@@ -876,7 +876,7 @@ function playRectBuild(done){
       var rf=G("recFill");
       if(rf){rf.style.transition="fill-opacity .8s";rf.style.fillOpacity="0.08";}
       setStatus("Rectangle PQRS complete!");
-      say("Rectangle PQRS is complete! Opposite sides are equal: PQ equals RS equals 5 cm, and QR equals PS equals 3 cm.");
+      
     });
   });
   at(9500,function(){fade("recDone",1);at(1500,done);});
@@ -914,7 +914,7 @@ function svgAsaTriangle(){
 }
 function playAsaTriangle(done){
   setStatus("ASA: 2 angles + included side...");
-  say("ASA means 2 angles and the included side between them. I know angle A is 45 degrees, angle B is 60 degrees, and side AB is 6 centimetres.");
+  
   at(800,function(){
     fade("asaPtA",1);fade("asaLblA",1);
     var ab=G("asaAB");
@@ -929,12 +929,12 @@ function playAsaTriangle(done){
     if(aa) animateLine(aa,80,155,190,50,18,40,null);
     if(ab2) animateLine(ab2,340,155,190,50,18,40,null);
     setStatus("Drawing 45 degrees at A and 60 degrees at B...");
-    say("At A I draw a 45 degree angle. At B I draw a 60 degree angle. Where the two arms meet is point C!");
+    
   });
   at(7000,function(){
     fade("asaPtC",1);fade("asaLblC",1);
     setStatus("Arms meet at C! Angle C = 75 degrees.");
-    say("The arms meet at C. Angle C equals 180 minus 45 minus 60 equals 75 degrees. Triangle complete by ASA!");
+    
   });
   at(9500,function(){
     var ac=G("asaAC"),bc=G("asaBC");
@@ -979,16 +979,16 @@ function svgAngleBisector(){
 }
 function playAngleBisector(done){
   setStatus("An angle bisector splits an angle equally...");
-  say("An angle bisector divides any angle into 2 equal parts. I will construct it step by step using only a compass!");
+  
   at(2500,function(){
     fade("abArc1",1);
     setStatus("Step 1: Arc from vertex O cuts both arms at P and Q.");
-    say("Step 1. From the vertex O, I draw an arc that cuts both arms of the angle. The two cut points are called P and Q.");
+    
   });
   at(6000,function(){
     fade("abArc2",1);
     setStatus("Step 2: Equal arcs from P and Q intersect at R.");
-    say("Step 2. With the same compass opening, I draw arcs from P and from Q. They intersect at a point R inside the angle.");
+    
   });
   at(9500,function(){
     fade("abInt",1);fade("abIntLbl",1);
@@ -997,7 +997,7 @@ function playAngleBisector(done){
     if(bl) animateLine(bl,60,150,200,80,18,40,function(){
       fade("abLabels",1);
       setStatus("Angle bisector OR divides angle into 2 equal parts!");
-      say("Joining O to R gives the angle bisector. The angle is now divided into 2 perfectly equal halves!");
+      
       at(1500,done);
     });
   });
@@ -1035,21 +1035,21 @@ function svgPythagorasCheck(){
 }
 function playPythagorasCheck(done){
   setStatus("Checking Pythagoras theorem...");
-  say("The sides are 5, 12, and 13 centimetres. To check if it is a right triangle, I use the Pythagoras theorem: a squared plus b squared must equal c squared.");
+  
   at(3000,function(){
     fade("pyCheck",1);
     setStatus("5 squared + 12 squared = 25 + 144 = 169");
-    say("5 squared is 25. 12 squared is 144. Adding: 25 plus 144 equals 169.");
+    
   });
   at(6500,function(){
     fade("pySquares",1);
     setStatus("Squares on each side...");
-    say("See the squares drawn on each side. The square on 5 has area 25, the square on 12 has area 144.");
+    
   });
   at(9500,function(){
     fade("pyResult",1);
     setStatus("169 = 13 squared. YES - it is a right triangle!");
-    say("And 13 squared equals 169. They match! So 5, 12, 13 is a right triangle. The right angle is at the corner between sides 5 and 12.");
+    
     at(1500,done);
   });
 }
@@ -1172,7 +1172,7 @@ function beginSteps(){
 
 function nextStep(){
   var q=session[idx];
-  if(stepIdx>=q.steps.length){G("nxtStepBtn").style.display="none";showConfirm();return;}
+  if(stepIdx>=q.steps.length){G("nxtStepBtn").style.display="none";var ib=document.createElement("button");ib.className="btn-speak";ib.innerHTML="&#9989; I Understand!";ib.style.cssText="margin-top:16px;width:100%;";ib.onclick=function(){ib.remove();showConfirm();};G("stepsWrap").appendChild(ib);ib.scrollIntoView({behavior:"smooth",block:"center"});return;}
   var s=q.steps[stepIdx];
   var wrap=G("stepsWrap");
   var d=document.createElement("div");
@@ -1278,7 +1278,7 @@ function handleAnswer(text){
     rb.className="result-box ok";rb.textContent="&#10003; Correct! Excellent!";
     G("nudgeBox").classList.remove("show");
     var nb=G("btnNext");if(nb)nb.classList.add("show");
-    say("Correct! Excellent!");
+    
     rHappy();
   } else {
     nudgeCount++;

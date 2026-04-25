@@ -491,7 +491,7 @@ function svgQuadrants(){
 }
 function playQuadrants(done){
   setStatus("Drawing the x and y axes...");
-  say("The Cartesian plane has two axes. The horizontal one is the x-axis and the vertical one is the y-axis. They cross at the origin!");
+  
   at(800,function(){
     var xa=G("xAxis"),ya=G("yAxis");
     if(xa){xa.style.opacity="1";animLine("xAxis",210-120,98,210+120,98,20,35,null);}
@@ -504,12 +504,12 @@ function playQuadrants(done){
     if(yl){yl.style.transition="opacity .4s";yl.style.opacity="1";}
     fade("qLabels",1);
     setStatus("4 quadrants appear!");
-    say("The axes divide the plane into 4 quadrants. Q1 is top right with positive x and y. Q2 is top left with negative x and positive y. Q3 is bottom left both negative. Q4 is bottom right with positive x and negative y.");
+    
   });
   at(8500,function(){
     fade("ptQ2",1);fade("ptQ2Lbl",1);
     setStatus("Point (-3,4) is in Q2: negative x, positive y.");
-    say("The point minus 3 comma 4 has negative x and positive y. So it is in Quadrant 2!");
+    
     at(1500,done);
   });
 }
@@ -548,7 +548,7 @@ function svgPlotPoints(){
 }
 function playPlotPoints(done){
   setStatus("Drawing axes first...");
-  say("To plot a point, always start from the origin. Move along x first, then go up or down for y. Watch each point appear!");
+  
   at(800,function(){
     var xa=G("xAxis"),ya=G("yAxis");
     if(xa){xa.style.opacity="1";animLine("xAxis",210-120,98,210+120,98,16,35,null);}
@@ -564,9 +564,9 @@ function playPlotPoints(done){
       })(i);
     }
     setStatus("Plotting points one by one...");
-    say("Dashed lines show how we arrive at each point. Across first on x, then up or down on y!");
+    
   });
-  at(9000,function(){setStatus("All 4 points plotted!");say("All 4 points are plotted. Each one in its correct quadrant!");at(1500,done);});
+  at(9000,function(){setStatus("All 4 points plotted!");at(1500,done);});
 }
 
 /* LINEAR GRAPH */
@@ -600,7 +600,7 @@ function svgLinearGraph(){
 }
 function playLinearGraph(done){
   setStatus("Building table of values for y = 2x...");
-  say("To plot y equals 2x, I first make a table of values. When x is 0, y is 0. When x is 1, y is 2. When x is 2, y is 4. Watch the points appear and the line draw through them!");
+  
   at(1000,function(){
     var xa=G("xAxis"),ya=G("yAxis");
     if(xa){xa.style.opacity="1";animLine("xAxis",210-112,98,210+112,98,14,30,null);}
@@ -609,7 +609,7 @@ function playLinearGraph(done){
   at(3000,function(){
     for(var i=0;i<4;i++){(function(idx){at(idx*600,function(){fade("lgpt"+idx,1);});})(i);}
     setStatus("Points (0,0), (1,2), (2,4), (-1,-2) plotted...");
-    say("Points appear: 0 comma 0 at origin, 1 comma 2, 2 comma 4, minus 1 comma minus 2.");
+    
   });
   at(6500,function(){
     var ln=G("linY2x");
@@ -630,7 +630,7 @@ function playLinearGraph(done){
     }
     fade("lgLabel",1);
     setStatus("Straight line y = 2x through origin!");
-    say("All points lie on a straight line through the origin. This is the graph of y equals 2x. A linear equation always gives a straight line!");
+    
     at(2000,done);
   });
 }
@@ -672,14 +672,14 @@ function svgBarVsHist(){
 }
 function playBarVsHist(done){
   setStatus("Bar graph: gaps between bars...");
-  say("See two graphs side by side. The bar graph on the left has gaps between bars. It is used for separate categories like subjects or cities. Each bar stands alone.");
+  
   at(2500,function(){fade("barBars",1);setStatus("Bar graph uses gaps for discrete data.");});
   at(5000,function(){
     fade("histBars",1);
     setStatus("Histogram: no gaps at all!");
-    say("The histogram on the right has NO gaps! The bars touch each other. It is used for continuous data with class intervals, like marks ranges or height groups.");
+    
   });
-  at(8500,function(){fade("bhLabels",1);setStatus("No gaps = histogram. Gaps = bar graph!");say("Remember: if there are gaps, it is a bar graph. If there are no gaps, it is a histogram. That is the key difference!");at(1500,done);});
+  at(8500,function(){fade("bhLabels",1);setStatus("No gaps = histogram. Gaps = bar graph!");at(1500,done);});
 }
 
 /* PIE CHART */
@@ -710,7 +710,7 @@ function svgPieChart(){
 }
 function playPieChart(done){
   setStatus("Pie chart: each slice is a fraction of 360 degrees...");
-  say("In a pie chart, the full circle represents the total. Each slice or sector represents a part. The angle of each sector equals value divided by total, times 360 degrees.");
+  
   at(2500,function(){
     animLine("pieR1",150,95,150,15,12,35,function(){
       animLine("pieR2",150,95,217,58,12,35,function(){
@@ -718,9 +718,9 @@ function playPieChart(done){
       });
     });
     setStatus("Drawing sector for English marks...");
-    say("English has 80 out of 500 marks. Fraction equals 80 divided by 500. Multiply by 360 degrees gives 57.6 degrees. Watch the sector appear!");
+    
   });
-  at(7500,function(){fade("pieFormula",1);setStatus("Sector angle = (80/500) x 360 = 57.6 degrees!");say("The sector angle is 57.6 degrees. The bigger the value, the larger the slice!");at(1500,done);});
+  at(7500,function(){fade("pieFormula",1);setStatus("Sector angle = (80/500) x 360 = 57.6 degrees!");at(1500,done);});
 }
 
 /* PROPORTION GRAPH */
@@ -751,7 +751,7 @@ function svgProportionGraph(){
 }
 function playProportionGraph(done){
   setStatus("Checking y/x for each pair...");
-  say("Let me check if y divided by x is always the same. 3 divided by 1 is 3. 6 divided by 2 is 3. 9 divided by 3 is 3. 12 divided by 4 is 3. Constant ratio! This is direct proportion!");
+  
   at(1000,function(){
     var xa=G("xAxis"),ya=G("yAxis");
     if(xa){xa.style.opacity="1";animLine("xAxis",210-112,115,210+112,115,14,30,null);}
@@ -760,7 +760,7 @@ function playProportionGraph(done){
   at(3500,function(){
     for(var i=0;i<4;i++){(function(idx){at(idx*500,function(){fade("proppt"+idx,1);fade("proplbl"+idx,1);});})(i);}
     setStatus("Points appear: (1,3), (2,6), (3,9), (4,12)...");
-    say("Points appear: 1 comma 3, 2 comma 6, 3 comma 9, 4 comma 12.");
+    
   });
   at(6500,function(){
     var ln=G("propLine");
@@ -777,7 +777,7 @@ function playProportionGraph(done){
     }
     fade("propLabel",1);
     setStatus("Straight line y = 3x through origin!");
-    say("All points lie on a straight line through the origin. The equation is y equals 3x!");
+    
     at(2000,done);
   });
 }
@@ -817,7 +817,7 @@ function svgLineGraph(){
 }
 function playLineGraph(done){
   setStatus("Line graph shows change over time...");
-  say("A line graph shows how a value changes over time. Watch the points appear one by one and the line connect them. A rising line means the value is increasing!");
+  
   at(1000,function(){
     for(var i=0;i<4;i++){
       (function(idx){
@@ -842,8 +842,8 @@ function playLineGraph(done){
       })(i);
     }
   });
-  at(5500,function(){fade("lgUp",1);setStatus("Rising sections show increase...");say("The line goes up from January to April. That means the value increased!");});
-  at(7500,function(){fade("lgDown",1);setStatus("Falling section shows decrease...");say("Then it falls from April to July. That shows a decrease. Then rises again to October!");at(1500,done);});
+  at(5500,function(){fade("lgUp",1);setStatus("Rising sections show increase...");});
+  at(7500,function(){fade("lgDown",1);setStatus("Falling section shows decrease...");at(1500,done);});
 }
 
 /* ABSCISSA / ORDINATE */
@@ -876,7 +876,7 @@ function svgAbscissaOrd(){
 }
 function playAbscissaOrd(done){
   setStatus("Abscissa = x coordinate. Ordinate = y coordinate.");
-  say("Abscissa is just a fancy word for x-coordinate. Ordinate is the fancy word for y-coordinate. Watch the dashed lines show each one clearly!");
+  
   at(1000,function(){
     var xa=G("xAxis"),ya=G("yAxis");
     if(xa){xa.style.opacity="1";animLine("xAxis",210-90,98,210+90,98,14,30,null);}
@@ -886,12 +886,12 @@ function playAbscissaOrd(done){
     fade("abPt",1);fade("abPtLbl",1);
     animLine("abVLine",210+2*28,98,210+2*28,98-3*28,12,35,null);
     setStatus("Orange dashed line = abscissa (x = 4)...");
-    say("The orange dashed line drops down to the x-axis. It meets the x-axis at 4. That is the abscissa!");
+    
   });
   at(5500,function(){
     animLine("abHLine",210,98-3*28,210+2*28,98-3*28,12,35,function(){fade("abLabels",1);});
     setStatus("Green dashed line = ordinate (y = 7)...");
-    say("The green dashed line goes across to the y-axis. It meets at 7. That is the ordinate!");
+    
   });
   at(9000,function(){setStatus("Abscissa = 4 (x), Ordinate = 7 (y)!");at(1500,done);});
 }
@@ -932,7 +932,7 @@ function svgTempGraph(){
 }
 function playTempGraph(done){
   setStatus("Temperature line graph over the day...");
-  say("A temperature line graph shows how temperature changes at different times. Watch the points and lines appear. Compare the rise and fall!");
+  
   at(1000,function(){
     for(var i=0;i<3;i++){
       (function(idx){
@@ -958,8 +958,8 @@ function playTempGraph(done){
     }
     setStatus("Plotting 8am=20, 12pm=32, 4pm=28...");
   });
-  at(5000,function(){fade("tempRise",1);setStatus("8am to 12pm: rose by 12 degrees!");say("From 8am to 12pm, temperature rose from 20 to 32 degrees. That is a rise of 12 degrees. The highest rise!");});
-  at(7500,function(){fade("tempFall",1);setStatus("12pm to 4pm: fell by 4 degrees.");say("From 12pm to 4pm, it fell from 32 to 28. A drop of 4 degrees. So 8am to 12pm had the highest rise!");at(1500,done);});
+  at(5000,function(){fade("tempRise",1);setStatus("8am to 12pm: rose by 12 degrees!");});
+  at(7500,function(){fade("tempFall",1);setStatus("12pm to 4pm: fell by 4 degrees.");at(1500,done);});
 }
 
 /* POINT IN Q4 */
@@ -990,7 +990,7 @@ function svgPointQ4(){
 }
 function playPointQ4(done){
   setStatus("Drawing axes and identifying Q4...");
-  say("Let me find which quadrant the point 4 comma minus 7 belongs to. x equals 4 is positive. y equals minus 7 is negative. Positive x and negative y is the bottom-right corner of the plane.");
+  
   at(800,function(){
     var xa=G("xAxis"),ya=G("yAxis");
     if(xa){xa.style.opacity="1";animLine("xAxis",210-120,98,210+120,98,16,30,null);}
@@ -1000,13 +1000,13 @@ function playPointQ4(done){
     var r=G("q4Rect");if(r){r.style.fillOpacity="0.12";}
     fade("q4Lbl",1);
     setStatus("Q4 is bottom-right: positive x, negative y.");
-    say("Quadrant 4 is highlighted in the bottom-right. This is where x is positive and y is negative.");
+    
   });
   at(6500,function(){
     animLine("q4VL",210+4*28,98,210+4*28,98+3*28,10,35,null);
     animLine("q4HL",210,98+3*28,210+4*28,98+3*28,10,35,function(){fade("q4Pt",1);fade("q4PtLbl",1);});
     setStatus("Point (4,-7) lands in Q4!");
-    say("Moving 4 right on x and 7 down on y, the point 4 comma minus 7 lands squarely in Quadrant 4!");
+    
     at(2500,done);
   });
 }
@@ -1103,7 +1103,7 @@ function beginSteps(){
 }
 function nextStep(){
   var q=session[idx];
-  if(stepIdx>=q.steps.length){G("nxtStepBtn").style.display="none";showConfirm();return;}
+  if(stepIdx>=q.steps.length){G("nxtStepBtn").style.display="none";var ib=document.createElement("button");ib.className="btn-speak";ib.innerHTML="&#9989; I Understand!";ib.style.cssText="margin-top:16px;width:100%;";ib.onclick=function(){ib.remove();showConfirm();};G("stepsWrap").appendChild(ib);ib.scrollIntoView({behavior:"smooth",block:"center"});return;}
   var s=q.steps[stepIdx];var wrap=G("stepsWrap");
   var d=document.createElement("div");d.className="step";
   d.innerHTML='<div class="step-num">'+(stepIdx+1)+'</div><div class="step-body">'+s.t+'</div>';
@@ -1199,7 +1199,7 @@ function handleAnswer(text){
     rb.className="result-box ok";rb.textContent="&#10003; Correct! Excellent!";
     G("nudgeBox").classList.remove("show");
     var nb=G("btnNext");if(nb)nb.classList.add("show");
-    say("Correct! Excellent!");rHappy();
+    rHappy();
   } else {
     nudgeCount++;rb.className="result-box no";rb.textContent="&#10006; Not quite. Listen to my hint!";
     var nudge=q.nudges[Math.min(nudgeCount-1,q.nudges.length-1)];

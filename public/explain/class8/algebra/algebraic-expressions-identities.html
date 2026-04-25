@@ -478,11 +478,11 @@ function svgTermsDemo(){
 }
 function playTermsDemo(done){
   setStatus("Breaking expression into terms...");
-  say("An algebraic expression is made of terms. Terms are separated by plus and minus signs. Let me break this expression apart and show each term!");
-  at(2000,function(){fade("term1",1);setStatus("First term: 5x squared y. Coefficient is 5.");say("First term: 5x squared y. The number in front is called the coefficient. Here it is 5.");});
-  at(5000,function(){fade("termSigns",1);fade("term2",1);setStatus("Second term: minus 3xy squared. Coefficient is minus 3.");say("Second term: minus 3xy squared. The coefficient is minus 3. Negative!");});
-  at(8000,function(){fade("term3",1);setStatus("Third term: 7. This is the constant term.");say("Third term: just 7. No variable at all! This is called the constant term.");});
-  at(11000,function(){fade("termInfo",1);setStatus("3 terms total!");say("So this expression has 3 terms, 2 different variables x and y, and 1 constant.");at(1500,done);});
+  
+  at(2000,function(){fade("term1",1);setStatus("First term: 5x squared y. Coefficient is 5.");});
+  at(5000,function(){fade("termSigns",1);fade("term2",1);setStatus("Second term: minus 3xy squared. Coefficient is minus 3.");});
+  at(8000,function(){fade("term3",1);setStatus("Third term: 7. This is the constant term.");});
+  at(11000,function(){fade("termInfo",1);setStatus("3 terms total!");at(1500,done);});
 }
 
 /* LIKE TERMS */
@@ -527,14 +527,14 @@ function svgLikeTerms(){
 }
 function playLikeTerms(done){
   setStatus("Like terms have same variable and power...");
-  say("When adding expressions, we can only combine LIKE terms. Like terms have the same variable raised to the same power. Watch me group and combine them!");
+  
   at(1500,function(){fade("ex1",1);setStatus("First expression: 3x squared + 4x - 5");});
-  at(3500,function(){fade("ex2",1);setStatus("Second expression: x squared - 2x + 7");say("Now I group like terms together. x squared with x squared, x with x, and constants with constants!");});
+  at(3500,function(){fade("ex2",1);setStatus("Second expression: x squared - 2x + 7");});
   at(6000,function(){fade("groupArrows",1);setStatus("Grouping like terms with arrows...");});
   at(9000,function(){
     fade("ltResult",1);
     setStatus("3x squared + x squared = 4x squared. 4x - 2x = 2x. -5+7 = 2");
-    say("3x squared plus x squared equals 4x squared. 4x minus 2x equals 2x. Minus 5 plus 7 equals 2. Answer: 4x squared plus 2x plus 2!");
+    
     at(1500,done);
   });
 }
@@ -588,12 +588,12 @@ function svgIdentityAab(){
 }
 function playIdentityAab(done){
   setStatus("Area model proves (x+4) squared...");
-  say("I will prove the identity using an area model! Imagine a square with side x plus 4. Its total area equals x plus 4 whole squared. Let me split it into 4 smaller rectangles!");
-  at(2000,function(){fade("id1",1);setStatus("Top-left: x times x = x squared");say("Top left rectangle: x times x equals x squared.");});
-  at(4000,function(){fade("id2",1);setStatus("Top-right: x times 4 = 4x");say("Top right: x times 4 equals 4x.");});
-  at(6000,function(){fade("id3",1);setStatus("Bottom-left: 4 times x = 4x");say("Bottom left: 4 times x equals another 4x.");});
-  at(8000,function(){fade("id4",1);setStatus("Bottom-right: 4 times 4 = 16");say("Bottom right: 4 times 4 equals 16. Now add all four!");});
-  at(10500,function(){fade("idEq",1);setStatus("x squared + 4x + 4x + 16 = x squared + 8x + 16!");say("x squared plus 4x plus 4x plus 16 equals x squared plus 8x plus 16. The identity is proved visually!");at(1500,done);});
+  
+  at(2000,function(){fade("id1",1);setStatus("Top-left: x times x = x squared");});
+  at(4000,function(){fade("id2",1);setStatus("Top-right: x times 4 = 4x");});
+  at(6000,function(){fade("id3",1);setStatus("Bottom-left: 4 times x = 4x");});
+  at(8000,function(){fade("id4",1);setStatus("Bottom-right: 4 times 4 = 16");});
+  at(10500,function(){fade("idEq",1);setStatus("x squared + 4x + 4x + 16 = x squared + 8x + 16!");at(1500,done);});
 }
 
 /* IDENTITY (a-b)^2 */
@@ -630,13 +630,13 @@ function svgIdentityAmb(){
 }
 function playIdentityAmb(done){
   setStatus("(a-b) squared = a squared - 2ab + b squared...");
-  say("The second identity: a minus b whole squared equals a squared minus 2ab plus b squared. Let me apply it with a equals 3x and b equals 2.");
-  at(2000,function(){fade("ambA",1);setStatus("a = 3x");say("a equals 3x.");});
-  at(4000,function(){fade("ambB",1);setStatus("b = 2");say("b equals 2.");});
-  at(6000,function(){fade("ambA2",1);setStatus("a squared = 9x squared");say("a squared equals 3x squared equals 9x squared.");});
-  at(8000,function(){fade("amb2ab",1);setStatus("Minus 2ab = minus 2 times 3x times 2 = minus 12x");say("Minus 2ab equals minus 2 times 3x times 2 equals minus 12x.");});
-  at(10000,function(){fade("ambB2",1);setStatus("b squared = 4");say("b squared equals 2 squared equals 4.");});
-  at(12000,function(){fade("ambAns",1);setStatus("Result: 9x squared minus 12x plus 4!");say("So 3x minus 2 whole squared equals 9x squared minus 12x plus 4!");at(1500,done);});
+  
+  at(2000,function(){fade("ambA",1);setStatus("a = 3x");});
+  at(4000,function(){fade("ambB",1);setStatus("b = 2");});
+  at(6000,function(){fade("ambA2",1);setStatus("a squared = 9x squared");});
+  at(8000,function(){fade("amb2ab",1);setStatus("Minus 2ab = minus 2 times 3x times 2 = minus 12x");});
+  at(10000,function(){fade("ambB2",1);setStatus("b squared = 4");});
+  at(12000,function(){fade("ambAns",1);setStatus("Result: 9x squared minus 12x plus 4!");at(1500,done);});
 }
 
 /* DIFFERENCE OF SQUARES */
@@ -661,10 +661,10 @@ function svgDiffSquares(){
 }
 function playDiffSquares(done){
   setStatus("Spotting the pattern in 105 times 95...");
-  say("105 times 95 looks hard to multiply directly. But look! 105 is 100 plus 5 and 95 is 100 minus 5. That matches the identity a plus b times a minus b equals a squared minus b squared!");
-  at(2500,function(){fade("ds1",1);setStatus("105 = 100+5 and 95 = 100-5. Pattern spotted!");say("We identified a equals 100 and b equals 5.");});
-  at(5500,function(){fade("ds2",1);setStatus("Apply identity: (a+b)(a-b) = a squared - b squared");say("Applying the difference of squares identity!");});
-  at(8500,function(){fade("ds3",1);setStatus("100 squared minus 5 squared = 10000 - 25 = 9975!");say("100 squared is 10000. 5 squared is 25. 10000 minus 25 equals 9975. Mental maths made easy!");at(1500,done);});
+  
+  at(2500,function(){fade("ds1",1);setStatus("105 = 100+5 and 95 = 100-5. Pattern spotted!");});
+  at(5500,function(){fade("ds2",1);setStatus("Apply identity: (a+b)(a-b) = a squared - b squared");});
+  at(8500,function(){fade("ds3",1);setStatus("100 squared minus 5 squared = 10000 - 25 = 9975!");at(1500,done);});
 }
 
 /* (x+a)(x+b) IDENTITY */
@@ -688,10 +688,10 @@ function svgXabIdentity(){
 }
 function playXabIdentity(done){
   setStatus("Identity: (x+a)(x+b) = x squared + (a+b)x + ab");
-  say("This identity is a shortcut for expanding two brackets when both start with x. The middle term uses a plus b and the last term uses a times b.");
+  
   at(2500,function(){fade("xab1",1);setStatus("Formula: x squared + (a+b)x + ab");});
-  at(5000,function(){fade("xab2",1);setStatus("a=3, b=7. a+b=10, ab=21");say("Here a is 3 and b is 7. a plus b equals 10. a times b equals 21.");});
-  at(8500,function(){fade("xab3",1);setStatus("Answer: x squared + 10x + 21!");say("So x plus 3 times x plus 7 equals x squared plus 10x plus 21!");at(1500,done);});
+  at(5000,function(){fade("xab2",1);setStatus("a=3, b=7. a+b=10, ab=21");});
+  at(8500,function(){fade("xab3",1);setStatus("Answer: x squared + 10x + 21!");at(1500,done);});
 }
 
 /* SQUARE TRICK */
@@ -718,11 +718,11 @@ function svgSquareTrick(){
 }
 function playSquareTrick(done){
   setStatus("102 squared — use the identity shortcut!");
-  say("Squaring 102 directly is hard. But 102 is just 100 plus 2. Using the a plus b squared identity makes it easy!");
-  at(2000,function(){fade("st1",1);setStatus("102 = 100 + 2. a=100, b=2");say("a equals 100 and b equals 2.");});
-  at(4500,function(){fade("st2",1);setStatus("a squared + 2ab + b squared = 10000 + 400 + 4");say("a squared is 10000. 2ab is 2 times 100 times 2 equals 400. b squared is 4.");});
+  
+  at(2000,function(){fade("st1",1);setStatus("102 = 100 + 2. a=100, b=2");});
+  at(4500,function(){fade("st2",1);setStatus("a squared + 2ab + b squared = 10000 + 400 + 4");});
   at(7500,function(){fade("st3",1);setStatus("10000 + 400 + 4...");});
-  at(9500,function(){var e=G("stAns");if(e){e.style.transition="opacity .5s";e.style.opacity="1";}setStatus("= 10404!");say("10000 plus 400 plus 4 equals 10404. No calculator needed!");at(1500,done);});
+  at(9500,function(){var e=G("stAns");if(e){e.style.transition="opacity .5s";e.style.opacity="1";}setStatus("= 10404!");at(1500,done);});
 }
 
 /* FOIL METHOD */
@@ -758,12 +758,12 @@ function svgFoilMethod(){
 }
 function playFoilMethod(done){
   setStatus("FOIL: First Outer Inner Last...");
-  say("FOIL is a method to multiply two brackets. F for First, O for Outer, I for Inner, L for Last. Each letter tells you which terms to multiply together!");
-  at(2000,function(){fade("foilF",1);setStatus("First: 2x times x = 2x squared");say("F: First terms. 2x times x equals 2x squared.");});
-  at(4500,function(){fade("foilO",1);setStatus("Outer: 2x times -5 = -10x");say("O: Outer terms. 2x times minus 5 equals minus 10x.");});
-  at(7000,function(){fade("foilI",1);setStatus("Inner: 3 times x = 3x");say("I: Inner terms. 3 times x equals 3x.");});
-  at(9500,function(){fade("foilL",1);setStatus("Last: 3 times -5 = -15");say("L: Last terms. 3 times minus 5 equals minus 15.");});
-  at(12000,function(){fade("foilAns",1);setStatus("Sum: 2x squared - 7x - 15!");say("Adding all four: 2x squared minus 10x plus 3x minus 15 equals 2x squared minus 7x minus 15!");at(1500,done);});
+  
+  at(2000,function(){fade("foilF",1);setStatus("First: 2x times x = 2x squared");});
+  at(4500,function(){fade("foilO",1);setStatus("Outer: 2x times -5 = -10x");});
+  at(7000,function(){fade("foilI",1);setStatus("Inner: 3 times x = 3x");});
+  at(9500,function(){fade("foilL",1);setStatus("Last: 3 times -5 = -15");});
+  at(12000,function(){fade("foilAns",1);setStatus("Sum: 2x squared - 7x - 15!");at(1500,done);});
 }
 
 /* SUBTRACTION DEMO */
@@ -791,11 +791,11 @@ function svgSubtractionDemo(){
 }
 function playSubtractionDemo(done){
   setStatus("Subtraction of expressions: flip signs first!");
-  say("To subtract one expression from another, change the sign of every term in the expression being subtracted. Minus becomes plus and plus becomes minus. Then just add!");
+  
   at(2000,function(){fade("sub1",1);setStatus("First expression: 7x squared + 3x - 2");});
-  at(4000,function(){fade("sub2",1);setStatus("Subtracting: 5x squared - 4x + 8");say("We are subtracting 5x squared minus 4x plus 8.");});
-  at(6500,function(){fade("sub3",1);setStatus("Flip ALL signs: becomes -5x squared + 4x - 8");say("Flip every sign! Minus 5x squared plus 4x minus 8.");});
-  at(9500,function(){fade("sub4",1);setStatus("Add: 2x squared + 7x - 10!");say("Now add: 7x squared minus 5x squared equals 2x squared. 3x plus 4x equals 7x. Minus 2 minus 8 equals minus 10. Answer: 2x squared plus 7x minus 10!");at(1500,done);});
+  at(4000,function(){fade("sub2",1);setStatus("Subtracting: 5x squared - 4x + 8");});
+  at(6500,function(){fade("sub3",1);setStatus("Flip ALL signs: becomes -5x squared + 4x - 8");});
+  at(9500,function(){fade("sub4",1);setStatus("Add: 2x squared + 7x - 10!");at(1500,done);});
 }
 
 /* SQUARE TRICK 2 (98 squared) */
@@ -822,11 +822,11 @@ function svgSquareTrick2(){
 }
 function playSquareTrick2(done){
   setStatus("98 squared — use (a-b) squared identity!");
-  say("98 is 100 minus 2. Using the a minus b squared identity: a squared minus 2ab plus b squared.");
-  at(2000,function(){fade("st21",1);setStatus("98 = 100 - 2. a=100, b=2");say("a equals 100 and b equals 2.");});
-  at(4500,function(){fade("st22",1);setStatus("100 squared - 2(100)(2) + 2 squared");say("100 squared minus 2 times 100 times 2 plus 2 squared.");});
+  
+  at(2000,function(){fade("st21",1);setStatus("98 = 100 - 2. a=100, b=2");});
+  at(4500,function(){fade("st22",1);setStatus("100 squared - 2(100)(2) + 2 squared");});
   at(7500,function(){fade("st23",1);setStatus("10000 - 400 + 4...");});
-  at(9500,function(){var e=G("st2Ans");if(e){e.style.transition="opacity .5s";e.style.opacity="1";}setStatus("= 9604!");say("10000 minus 400 plus 4 equals 9604. Identity makes squaring any number near 100 super easy!");at(1500,done);});
+  at(9500,function(){var e=G("st2Ans");if(e){e.style.transition="opacity .5s";e.style.opacity="1";}setStatus("= 9604!");at(1500,done);});
 }
 
 /* Routers */
@@ -921,7 +921,7 @@ function beginSteps(){
 }
 function nextStep(){
   var q=session[idx];
-  if(stepIdx>=q.steps.length){G("nxtStepBtn").style.display="none";showConfirm();return;}
+  if(stepIdx>=q.steps.length){G("nxtStepBtn").style.display="none";var ib=document.createElement("button");ib.className="btn-speak";ib.innerHTML="&#9989; I Understand!";ib.style.cssText="margin-top:16px;width:100%;";ib.onclick=function(){ib.remove();showConfirm();};G("stepsWrap").appendChild(ib);ib.scrollIntoView({behavior:"smooth",block:"center"});return;}
   var s=q.steps[stepIdx];var wrap=G("stepsWrap");
   var d=document.createElement("div");d.className="step";
   d.innerHTML='<div class="step-num">'+(stepIdx+1)+'</div><div class="step-body">'+s.t+'</div>';
@@ -1008,7 +1008,7 @@ function handleAnswer(text){
     rb.className="result-box ok";rb.textContent="&#10003; Correct! Excellent!";
     G("nudgeBox").classList.remove("show");
     var nb=G("btnNext");if(nb)nb.classList.add("show");
-    say("Correct! Excellent!");rHappy();
+    rHappy();
   } else {
     nudgeCount++;rb.className="result-box no";rb.textContent="&#10006; Not quite. Listen to my hint!";
     var nudge=q.nudges[Math.min(nudgeCount-1,q.nudges.length-1)];
