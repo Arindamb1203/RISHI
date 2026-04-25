@@ -972,7 +972,7 @@ function nextStep(){
   d.innerHTML='<div class="step-num">'+(stepIdx+1)+'</div><div class="step-body">'+s.t+'</div>';
   wrap.appendChild(d);
   setTimeout(function(){d.classList.add("vis");},40);
-  setTimeout(function(){say(s.s,function(){setTimeout(nextStep,400);});},280);
+  setTimeout(nextStep,3500);
   stepIdx++;
 }
 function showConfirm(){

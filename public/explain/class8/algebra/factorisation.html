@@ -627,7 +627,7 @@ function nextStep(){
   wrap.appendChild(d);setTimeout(function(){d.classList.add("vis");},40);
   var seen=factorHasSeen();
   if(seen){
-    setTimeout(function(){say(s.s,function(){setTimeout(nextStep,400);});},280);
+    setTimeout(nextStep,3500);
     stepIdx++;
   }else{
     setTimeout(function(){
