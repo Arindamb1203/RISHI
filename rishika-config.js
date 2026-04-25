@@ -2,7 +2,7 @@
 ═══════════════════════════════════════════════════════════════
   RISHIKA CONFIG — Paste this entire file at the start of
   every new Claude session to restore full project context.
-  Last updated: 25 April 2026
+  Last updated: 25 April 2026 — evening (KV seeded, exam system live)
 ═══════════════════════════════════════════════════════════════
 
 ▌ OWNER
@@ -246,8 +246,9 @@
 
 ▌ ADMIN PANEL
   /admin/question-manager.html — password gated, not linked from student UI
-  Cloudflare env vars: RISHI_ADMIN_TOKEN, ELEVENLABS_API_KEY, ELEVENLABS_VOICE_ID
-  KV namespace: RISHI_QUESTIONS (bind in Cloudflare Pages dashboard)
+  Cloudflare env vars: RISHI_ADMIN_TOKEN (set), ELEVENLABS_API_KEY (set), ELEVENLABS_VOICE_ID (set)
+  KV namespace: RISHI_QUESTIONS — created, bound, ALL 16 CHAPTERS SEEDED ✅
+  admin.js and questions.js both have FOLDER_MAP for correct JSON path resolution
 
 ▌ LOCALSTORAGE KEYS
   rishi_explain_done_{chId}      → "1"  (integer e.g. 2)
@@ -269,14 +270,14 @@
 
 ▌ REMAINING WORK (as of 25 Apr 2026)
   - Delete public\functions\tts.js (stale duplicate)
-  - Sampurna Pariksha page (final grand exam, unlocks after all 16 chapter exams)
+  - Sampurna Pariksha page (final grand exam, unlocks after all 16 chapter exams) ← NEXT
   - Topic exam pages (/topic-exam.html?topic=algebra) — Option A sampling
   - Explanation quality rewrite — 15 chapters remaining
   - Practice pages — not tested since Apr 24 fixes (verify flow + voice + avatar)
   - OTP SMS reset — blocked on TRAI DLT registration
   - Ch06, Ch07 (Squares, Cubes) — excluded from current build
   - Ch17 exam JSON — not yet built (explain + practice done)
-  - Seed KV — run seed_all in admin panel after Cloudflare KV setup
+  - Add question-manager section inside admin.html (currently separate page)
 
 ▌ CRITICAL RULES FOR CLAUDE
   1. NEVER guess at file contents — always read actual file first
