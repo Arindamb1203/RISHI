@@ -488,7 +488,12 @@ function buildChapterList(){
   html+='<div style="font-family:Orbitron,sans-serif;font-size:11px;font-weight:900;letter-spacing:2px;color:'+(topicExamUnlocked?'var(--green)':'var(--amber)')+';margin-bottom:4px;">TOPIC EXAM</div>';
   if(topicExamUnlocked){
     html+='<div style="font-size:13px;font-weight:700;color:var(--green);margin-bottom:10px;">All '+topic.chapters.length+' chapters complete — Topic Exam unlocked!</div>';
-    html+='<span style="display:inline-block;padding:10px 24px;background:var(--green);color:white;border-radius:10px;font-weight:900;font-size:13px;cursor:default;opacity:.7;">Coming Soon</span>';
+    var topicDone=rishiIsTopicExamDone(topic.id);
+    if(topicDone){
+      html+='<a href="/topic-exam.html?topic='+topic.id+'" style="display:inline-block;padding:10px 24px;background:var(--green-pale);color:var(--green);border:1.5px solid var(--green-border);border-radius:10px;font-weight:900;font-size:13px;text-decoration:none;">&#10003; Done &middot; Retry</a>';
+    } else {
+      html+='<a href="/topic-exam.html?topic='+topic.id+'" style="display:inline-block;padding:10px 24px;background:var(--green);color:white;border-radius:10px;font-weight:900;font-size:13px;text-decoration:none;">Start Topic Exam &#8594;</a>';
+    }
   } else {
     html+='<div style="font-size:12px;font-weight:700;color:var(--soft);margin-bottom:8px;">Complete all '+topic.chapters.length+' chapter exams to unlock</div>';
     html+='<div style="height:5px;background:var(--gold-pale);border-radius:3px;overflow:hidden;max-width:200px;margin:0 auto;">';

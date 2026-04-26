@@ -35,6 +35,89 @@ function rishiCheckPlan(chId) {
   }
 }
 
+/* ── CHAPTER EXAM TRACKING ─────────────────────────────────
+   These functions manage chapter exam scores, attempts, coins.
+   ─────────────────────────────────────────────────────────── */
+function rishiMarkChapExamDone(chIdStr) {
+  localStorage.setItem('rishi_chapexam_done_' + chIdStr, '1');
+  var n = parseInt(localStorage.getItem('rishi_exam_attempts_' + chIdStr) || '0') + 1;
+  localStorage.setItem('rishi_exam_attempts_' + chIdStr, String(n));
+}
+function rishiExamAttemptCount(chIdStr) {
+  return parseInt(localStorage.getItem('rishi_exam_attempts_' + chIdStr) || '0');
+}
+function rishiSaveExamScore(chIdStr, score) {
+  var prev = parseInt(localStorage.getItem('rishi_exam_score_' + chIdStr) || '0');
+  if (score > prev) localStorage.setItem('rishi_exam_score_' + chIdStr, String(score));
+  return prev;
+}
+function rishiGetExamHighScore(chIdStr) {
+  return parseInt(localStorage.getItem('rishi_exam_score_' + chIdStr) || '0');
+}
+function rishiAddCoins(n) {
+  var cur = parseInt(localStorage.getItem('rishi_coins') || '0');
+  var tot = cur + n;
+  localStorage.setItem('rishi_coins', String(tot));
+  return tot;
+}
+function rishiGetCoins() {
+  return parseInt(localStorage.getItem('rishi_coins') || '0');
+}
+function rishiExamCoins(score, prevHigh, attemptNum, sectionAAllCorrect, zeroWrong) {
+  var base, grade, badge;
+  if (score >= 90)      { base=500; grade='Outstanding'; badge='&#11088; Chapter Topper'; }
+  else if (score >= 75) { base=300; grade='Excellent';   badge='&#129352; Chapter Star';  }
+  else if (score >= 60) { base=175; grade='Good';        badge='&#129353; Chapter Pass';  }
+  else if (score >= 40) { base=75;  grade='Pass';        badge='&#10003; Cleared';        }
+  else                  { base=20;  grade='Retry';       badge='&#128257; Try Again';     }
+  var bonus = 0;
+  if (score >= 40) {
+    if (attemptNum === 0) bonus += 50;
+    if (score > prevHigh && prevHigh > 0) bonus += 75;
+    if (sectionAAllCorrect) bonus += 100;
+    if (zeroWrong) bonus += 150;
+  }
+  return { base:base, bonus:bonus, total:base+bonus, grade:grade, badge:badge };
+}
+
+/* ── TOPIC EXAM TRACKING ────────────────────────────────────
+   Functions for topic-level exams.
+   topic = string e.g. 'algebra', 'geometry'
+   ─────────────────────────────────────────────────────────── */
+function rishiMarkTopicExamDone(topic) {
+  localStorage.setItem('rishi_topicexam_done_' + topic, '1');
+  var n = parseInt(localStorage.getItem('rishi_topicexam_attempts_' + topic) || '0') + 1;
+  localStorage.setItem('rishi_topicexam_attempts_' + topic, String(n));
+}
+function rishiIsTopicExamDone(topic) {
+  return localStorage.getItem('rishi_topicexam_done_' + topic) === '1';
+}
+function rishiTopicExamAttemptCount(topic) {
+  return parseInt(localStorage.getItem('rishi_topicexam_attempts_' + topic) || '0');
+}
+function rishiSaveTopicExamScore(topic, score) {
+  var prev = parseInt(localStorage.getItem('rishi_topicexam_score_' + topic) || '0');
+  if (score > prev) localStorage.setItem('rishi_topicexam_score_' + topic, String(score));
+  return prev;
+}
+function rishiGetTopicExamHighScore(topic) {
+  return parseInt(localStorage.getItem('rishi_topicexam_score_' + topic) || '0');
+}
+function rishiTopicExamCoins(pct, prevHighPct, attemptNum) {
+  /* pct = Math.round(score/60*100) */
+  var base, grade, badge;
+  if (pct >= 90)      { base=750; grade='Topic Master'; badge='&#127942; Topic Master';  }
+  else if (pct >= 75) { base=450; grade='Topic Star';   badge='&#11088; Topic Star';     }
+  else if (pct >= 60) { base=250; grade='Topic Pass';   badge='&#129353; Topic Pass';    }
+  else                { base=50;  grade='Try Again';    badge='&#128257; Try Again';     }
+  var bonus = 0;
+  if (pct >= 60) {
+    if (attemptNum === 0) bonus += 100;
+    if (pct > prevHighPct && prevHighPct > 0) bonus += 100;
+  }
+  return { base:base, bonus:bonus, total:base+bonus, grade:grade, badge:badge };
+}
+
 /* ── MARK EXPLAIN COMPLETE ──────────────────
    Call inside onComplete() of every explain page.
    Writes standardised key + legacy key.
