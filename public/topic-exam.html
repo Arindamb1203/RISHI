@@ -597,7 +597,7 @@ function handleResult(q, ok, studentAnswer) {
   if (ok) {
     sectionScores[sec] += q.marks;
     currentScore += q.marks;
-    showFeedback(true, q.explanation || '');
+    showFeedback(true);
     spawnCoin();
   } else {
     /* Store wrong answer for results screen */
@@ -610,7 +610,7 @@ function handleResult(q, ok, studentAnswer) {
       studentAnswer: studentAnswer,
       explanation:   q.explanation || ''
     });
-    showFeedback(false, q.explanation || '');
+    showFeedback(false);
   }
 
   document.getElementById('ps-score').textContent = currentScore;
@@ -622,11 +622,11 @@ function handleResult(q, ok, studentAnswer) {
   nb.textContent = isLast ? '\u2713 Submit Exam' : 'Next Question \u2192';
 }
 
-function showFeedback(ok, explanation) {
+function showFeedback(ok) {
   var fb = document.getElementById('feedback-box');
   fb.className = 'feedback-box ' + (ok ? 'correct' : 'wrong');
-  document.getElementById('fb-title').textContent = ok ? '\u2713 Correct!' : '\u2717 Incorrect';
-  document.getElementById('fb-expl').textContent  = explanation || '';
+  document.getElementById('fb-title').textContent = ok ? '\u2713 Correct!' : '\u2717 Incorrect \u2014 Review after exam';
+  document.getElementById('fb-expl').textContent  = '';
 }
 
 /* ── NAVIGATION ──────────────────────────────────────────── */
