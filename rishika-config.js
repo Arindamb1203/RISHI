@@ -2,7 +2,7 @@
 ═══════════════════════════════════════════════════════════════
   RISHIKA CONFIG — Paste this entire file at the start of
   every new Claude session to restore full project context.
-  Last updated: 25 April 2026 — evening (KV seeded, exam system live)
+  Last updated: 26 April 2026 — night (topic exam live, admin rebuilt)
 ═══════════════════════════════════════════════════════════════
 
 ▌ OWNER
@@ -22,18 +22,25 @@
   Works on low-end devices and budget Android phones
   No backend server — Cloudflare Pages Functions for API only
 
-▌ FILE TREE (actual repo as of 25 Apr 2026)
+▌ FILE TREE (actual repo as of 26 Apr 2026)
   D:\rishi\
   |
   +---functions\                        ROOT level — NOT inside public
   |   |   tts.js                        ElevenLabs TTS proxy
   |   \---api\
-  |           admin.js                  POST seed/delete/list KV
+  |           admin.js                  POST seed/delete/list KV — ALL 17 chapters
   |           questions.js              GET exam questions (KV then static fallback)
+  |           explain.js                POST Gemini Flash proxy for wrong-answer explanations
   |
   +---public\
-  |   |   admin.html                    Admin panel (password gated)
+  |   |   admin.html                    Admin panel — light cream theme, 6 tabs:
+  |   |                                   Dashboard / Chapters / Topic Exams /
+  |   |                                   Questions (KV seed) / Student / Logs
   |   |   exam.html                     Universal exam page (?ch=01 to ?ch=17)
+  |   |   topic-exam.html               Universal topic exam (?topic=algebra etc)
+  |   |                                   32 questions / 60 marks / 45 min
+  |   |                                   Wrong answers: Explain button (Gemini AI)
+  |   |                                   No avatar. Explanation shown AFTER submit only.
   |   |   login.html
   |   |   parent.html
   |   |   parent-dashboard.html
@@ -41,7 +48,7 @@
   |   |   rishi-core.js                 Shared functions — include on EVERY page
   |   |   rishi-diagram.js              SVG diagram renderer (18 shape types)
   |   |   rishi-sync.js                 Cross-page sync utilities
-  |   |   syllabus.html                 Student hub (topic rail + chapter cards)
+  |   |   syllabus.html                 Student hub — topic exam buttons now live
   |   |   manifest.json
   |   |   sw.js
   |   |   favicon.svg
@@ -49,7 +56,7 @@
   |   |   coming-soon.html
   |   |
   |   +---admin\
-  |   |       question-manager.html     Full KV admin/seed panel
+  |   |       question-manager.html     OLD — now integrated into admin.html Questions tab
   |   |
   |   +---data\
   |   |   +---class8\                   Practice question JSON banks (flat folder)
@@ -91,8 +98,10 @@
   |   |       |       ch11b-exam.json   Surface Area & Volume
   |   |       +---ch15\
   |   |       |       ch15-exam.json    Introduction to Graphs
-  |   |       \---ch16\
-  |   |               ch16-exam.json    Playing with Numbers
+  |   |       +---ch16\
+  |   |       |       ch16-exam.json    Playing with Numbers
+  |   |       \---ch17\                 NEW — Chance & Probability (seeded to KV ✅)
+  |   |               ch17-exam.json
   |   |
   |   +---explain\class8\
   |   |   +---algebra\
@@ -131,18 +140,16 @@
   |   |       neutral-talking.png
   |   |       praise.jpeg
   |   |
-  |   +---icons\
-  |   |       icon-192.png
-  |   |       icon-512.png
-  |   |
-  |   \---functions\
-  |           tts.js                   STALE DUPLICATE — delete this file
+  |   \---icons\
+  |           icon-192.png
+  |           icon-512.png
+  |
+  NOTE: public\functions\tts.js was a stale duplicate — DELETED from repo ✅
 
 ▌ CHARACTERS
   Rekha the Turtle  — explain pages. Sprite-sheet animation (PNG canvas).
-  Rishika           — practice + exam pages. FaceTime-style UI. Sprite-sheet canvas.
-  Rishika states: talking (loops), praise (correct), celebrate (high score),
-                  disappointed (wrong)
+  Rishika           — practice pages only. FaceTime-style UI. Sprite-sheet canvas.
+  NO avatar on exam.html or topic-exam.html (by design decision Apr 26)
 
 ▌ ELEVENLABS TTS
   Proxy:    /tts (POST) via functions/tts.js at repo root
@@ -150,6 +157,15 @@
             Priyanka BpjGufoPiobT79j2vtj4 = paid voice — DO NOT USE on free plan
   Fallback: Browser TTS (sayBrowser) if ElevenLabs fails
   Cloudflare env vars: ELEVENLABS_API_KEY, ELEVENLABS_VOICE_ID (both Plaintext)
+
+▌ GEMINI API (wrong-answer explanations)
+  Proxy:    /api/explain (POST) via functions/api/explain.js
+  Model:    gemini-2.0-flash (free tier — 1500 req/day, no credit card)
+  Cloudflare env var: GEMINI_API_KEY (Plaintext, set ✅)
+  Used in:  topic-exam.html ONLY — shows step-by-step after full exam submission
+  Request:  { question, correct_answer, options?, student_answer }
+  Response: { steps: ["Step 1: ...", "Step 2: ...", "Answer: ..."] }
+  Future:   Will also be used in "Explain Differently" button on explain pages
 
 ▌ EXPLAIN PAGE FLOW (all 16 pages — fixed Apr 24)
   1. Page loads → initVoices(function(){startLesson();})
@@ -186,10 +202,28 @@
   rishiExamCoins(score, prevHigh, attemptNum, sectionAAllCorrect, zeroWrong)
                                    — returns {base, bonus, total, badge, grade}
   rishiLogBreak(type, secs)        — logs break to localStorage
+  rishiMarkTopicExamDone(topic)    — marks topic exam done
+  rishiIsTopicExamDone(topic)      — checks topic exam done
+  rishiSaveTopicExamScore(topic,n) — saves topic exam high score
+  rishiTopicExamAttemptCount(topic)— returns topic exam attempt count
+  rishiTopicExamCoins(pct,prevPct,attemptNum) — returns {base,bonus,total,grade,badge}
   Idle break detector              — 5 min idle → overlay with timer
   NOTE: Smart apostrophes in idle overlay strings caused syntax crash (fixed Apr 24)
 
-▌ CHAPTER MAP (16 active, ch06+ch07 excluded)
+▌ TOPIC EXAM SYSTEM (built Apr 26)
+  Universal page: /topic-exam.html?topic=algebra (or geometry/mensuration/arithmetic/datahandling)
+  32 questions / 60 marks / 45 minutes / no avatar
+  Sections: A(14×1) + B(8×2) + C(4×3) + D(6×3) = 60 marks
+  Sampling: pools ALL questions from all chapters in topic, shuffles, samples
+  Gate: all chapter exams in topic must be done (or admin bypass)
+  Post-exam: wrong answers shown with Gemini "Explain" button (collapses after read)
+  Explanation shown AFTER full submission only — not during exam
+  Grade: Topic Master(≥90%) / Topic Star(≥75%) / Topic Pass(≥60%) / Try Again(<60%)
+  Coins: 750 / 450 / 250 / 50 + bonuses
+  localStorage: rishi_topicexam_done_{topic}, rishi_topicexam_score_{topic},
+                rishi_topicexam_attempts_{topic}
+
+▌ CHAPTER MAP (17 active, ch06+ch07 excluded)
   Ch01  Rational Numbers              → arithmetic
   Ch02  Linear Equations              → algebra
   Ch03  Understanding Quadrilaterals  → geometry
@@ -205,10 +239,10 @@
   Ch14  Factorisation                 → algebra
   Ch15  Introduction to Graphs        → algebra
   Ch16  Playing with Numbers          → arithmetic
-  Ch17  Chance & Probability          → data-handling
+  Ch17  Chance & Probability          → data-handling (exam JSON built + KV seeded ✅)
 
 ▌ EXAM SYSTEM
-  Universal page: /exam.html?ch=01 (zero-padded, 11a, 11b for mensuration)
+  Universal page: /exam.html?ch=01 (zero-padded, 11a, 11b for mensuration, 17 for ch17)
   52 questions / 100 marks / 90 minutes
   Section A: 20 MCQ × 1 mark  | Section B: 10 MCQ × 2 marks
   Section C:  6 MCQ × 3 marks | Section D: 10 Direct input × 3 marks
@@ -229,13 +263,13 @@
            +100 all Section A correct | +150 zero wrong
 
 ▌ SYLLABUS PAGE
-  EXAM_PATHS map: chId (integer) → /exam.html?ch=XX
-  EXAM_DONE_KEYS map: chId → padded string (2→"02", 11→"11a", 112→"11b")
+  EXAM_PATHS map: chId (integer) → /exam.html?ch=XX (ch17 now wired ✅)
+  EXAM_DONE_KEYS map: chId → padded string (2→"02", 11→"11a", 112→"11b", 17→"17")
   isChapExamDone() uses EXAM_DONE_KEYS to match what exam.html writes
   Exam button states: locked (After Practice) / Start Exam (link) / Done·Retry (link)
-  Topic Exam unlock: progress bar → medal when all chapter exams in topic done
+  Topic Exam: shows Start Topic Exam link when all chapters done, Done·Retry when taken
 
-▌ QUESTIONS.JS FOLDER MAP
+▌ QUESTIONS.JS FOLDER MAP (updated Apr 26)
   "01"→ch01  "08"→ch01  "12"→ch01  "13"→ch01
   "02"→ch02  "09"→ch02  "14"→ch02
   "03"→ch03  "04"→ch03  "10"→ch03
@@ -243,41 +277,80 @@
   "11a"→ch11  "11b"→ch11
   "15"→ch15
   "16"→ch16
+  "17"→ch17  ← NEW
 
-▌ ADMIN PANEL
-  /admin/question-manager.html — password gated, not linked from student UI
-  Cloudflare env vars: RISHI_ADMIN_TOKEN (set), ELEVENLABS_API_KEY (set), ELEVENLABS_VOICE_ID (set)
-  KV namespace: RISHI_QUESTIONS — created, bound, ALL 16 CHAPTERS SEEDED ✅
-  admin.js and questions.js both have FOLDER_MAP for correct JSON path resolution
+▌ ADMIN PANEL (rebuilt Apr 26)
+  URL: /admin.html — password: rishi2025
+  Theme: warm cream/white, bold dark text, amber accents (no black, no blue)
+  6 tabs: Dashboard / Chapters / Topic Exams / Questions / Student / Logs
+  Bypass toggle: top-right button, sets rishi_admin_bypass=1 in localStorage
+  Topic Exams tab: open/reset each of 5 topic exams directly
+  Questions tab: Seed ALL 17 chapters, seed individual, list KV keys
+  Token for API: uses the password typed at login
+  KV namespace: RISHI_QUESTIONS — ALL 17 CHAPTERS SEEDED ✅
+  Cloudflare env vars: RISHI_ADMIN_TOKEN, ELEVENLABS_API_KEY,
+                       ELEVENLABS_VOICE_ID, GEMINI_API_KEY (all set ✅)
 
 ▌ LOCALSTORAGE KEYS
-  rishi_explain_done_{chId}      → "1"  (integer e.g. 2)
-  rishi_practice_done_{chId}     → "1"  (integer e.g. 2)
-  rishi_chapexam_done_{chIdStr}  → "1"  (padded e.g. "02", "11a")
-  rishi_exam_score_{chIdStr}     → score number
-  rishi_exam_attempts_{chIdStr}  → attempt count
-  rishi_coins                    → running total
-  rishi_break_log                → JSON array of breaks
-  rishi_active_chapters          → JSON {chId: {startDate, targetDate}}
-  rishi_current_student          → JSON {studentName, class, board, studentId}
-  rishi_admin_bypass             → "1" skips all gates
-  rishi_explain_sessions         → JSON {chId: count}
-  rishi_practice_sessions        → JSON {chId: count}
+  rishi_explain_done_{chId}           → "1"  (integer e.g. 2)
+  rishi_practice_done_{chId}          → "1"  (integer e.g. 2)
+  rishi_chapexam_done_{chIdStr}       → "1"  (padded e.g. "02", "11a", "17")
+  rishi_exam_score_{chIdStr}          → score number
+  rishi_exam_attempts_{chIdStr}       → attempt count
+  rishi_topicexam_done_{topic}        → "1"  (e.g. "algebra")
+  rishi_topicexam_score_{topic}       → score out of 60
+  rishi_topicexam_attempts_{topic}    → attempt count
+  rishi_coins                         → running total
+  rishi_break_log                     → JSON array of breaks
+  rishi_active_chapters               → JSON {chId: {startDate, targetDate}}
+  rishi_current_student               → JSON {studentName, class, board, studentId}
+  rishi_admin_bypass                  → "1" skips all gates
+  rishi_explain_sessions              → JSON {chId: count}
+  rishi_practice_sessions             → JSON {chId: count}
 
 ▌ EXPLANATION QUALITY STATUS
-  DONE:    rational-numbers (Apr 24)
-  PENDING: all other 15 chapters — do one by one as Dabeet progresses
+  DONE:    rational-numbers (Apr 24) — gold standard template
+  PENDING: all other 15 chapters — rewrite one per session as Dabeet progresses
+  NEXT SESSION PLAN (explain rewrite):
+    Step 1 — Build explain-helper.js (shared "Explain Differently" engine using Gemini)
+              Single file, injected into all 16 explain pages at once
+              Button: "I didn't understand → Explain Differently"
+              Gemini re-explains using a different approach (story/analogy/visual steps)
+    Step 2 — Rewrite one chapter explain page per session, starting with
+              whichever chapter Dabeet is currently studying
+    Quality standard: match rational-numbers.html — clear steps, real examples,
+              proper Indian student language, not textbook dry
 
-▌ REMAINING WORK (as of 25 Apr 2026)
-  - Delete public\functions\tts.js (stale duplicate)
-  - Sampurna Pariksha page (final grand exam, unlocks after all 16 chapter exams) ← NEXT
-  - Topic exam pages (/topic-exam.html?topic=algebra) — Option A sampling
-  - Explanation quality rewrite — 15 chapters remaining
-  - Practice pages — not tested since Apr 24 fixes (verify flow + voice + avatar)
-  - OTP SMS reset — blocked on TRAI DLT registration
-  - Ch06, Ch07 (Squares, Cubes) — excluded from current build
-  - Ch17 exam JSON — not yet built (explain + practice done)
-  - Add question-manager section inside admin.html (currently separate page)
+▌ REMAINING WORK (as of 26 Apr 2026 night) — IN PRIORITY ORDER
+  [NEXT SESSION]
+  1. Build explain-helper.js — "Explain Differently" Gemini button for all explain pages
+  2. Explain quality rewrite — Ch02 Linear Equations (or whichever Dabeet is on)
+
+  [SOON]
+  3. Sampurna Pariksha — grand final exam, unlocks after all 16 chapter exams done
+                         Similar to topic-exam.html but samples from ALL chapters
+  4. Embed curated YouTube videos in explain pages — Arindam picks 1 video per chapter,
+     Claude wires it in as an optional "Watch Video" button (no API, just embed)
+
+  [FUTURE]
+  5. Vedic Maths / Calculation Shortcuts mini-module — fun standalone page,
+     schedulable as a separate class, pop-up triggered on heavy calculation questions
+  6. Explanation pages — Arindam's wish: multiple explanation styles (like Khan Academy)
+     Already partially solved by "Explain Differently" Gemini button (Step 1 above)
+  7. Practice pages — not tested since Apr 24 fixes (verify flow + voice + avatar)
+  8. OTP SMS reset — blocked on TRAI DLT registration
+  9. Ch06, Ch07 (Squares, Cubes) — excluded from current build
+
+  [DONE — no longer pending]
+  ✅ Ch17 exam JSON built and KV seeded
+  ✅ topic-exam.html built (all 5 topics)
+  ✅ explain.js Gemini proxy built
+  ✅ rishi-core.js missing functions added
+  ✅ admin.html rebuilt — new theme + Topic Exams + Questions tabs
+  ✅ syllabus.html — topic exam buttons live
+  ✅ exam.html — ch17 added to CHAPTER_MAP
+  ✅ questions.js + admin.js — ch17 wired
+  ✅ public\functions\tts.js stale duplicate deleted
 
 ▌ CRITICAL RULES FOR CLAUDE
   1. NEVER guess at file contents — always read actual file first
@@ -290,4 +363,6 @@
   8. Smart apostrophes (') inside JS single-quoted strings = syntax crash. Use \' or &#39;
   9. tts.js lives at repo ROOT functions\tts.js — NOT inside public\
   10. Exam JSONs are grouped by topic folder — questions.js uses FOLDER_MAP to resolve paths
+  11. Do things the simple, straight way — never overcomplicate
+  12. topic-exam.html explanation: shown AFTER full submission only, not during exam
 */
