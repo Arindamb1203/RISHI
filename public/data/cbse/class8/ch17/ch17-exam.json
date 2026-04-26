@@ -1,0 +1,777 @@
+{
+  "meta": {
+    "board": "cbse",
+    "class": 8,
+    "chapter_id": "ch17",
+    "chapter_name": "Chance and Probability",
+    "topic_group": "data_handling",
+    "total_marks": 100,
+    "total_questions": 52,
+    "version": 1,
+    "generated": "2026-04"
+  },
+  "sections": {
+    "A": {
+      "type": "mcq",
+      "label": "Conceptual",
+      "marks_per_q": 1,
+      "count": 20,
+      "questions": [
+        {
+          "id": "cbse_8_ch17_A_001",
+          "text": "The probability of any event always lies between:",
+          "options": {
+            "a": "-1 and 1",
+            "b": "0 and 1",
+            "c": "0 and 10",
+            "d": "1 and 2"
+          },
+          "correct": "b",
+          "difficulty": "easy",
+          "source": "ncert",
+          "explanation": "Probability P(E) satisfies 0 <= P(E) <= 1 for any event E."
+        },
+        {
+          "id": "cbse_8_ch17_A_002",
+          "text": "The probability of a certain (sure) event is:",
+          "options": {
+            "a": "0",
+            "b": "0.5",
+            "c": "1",
+            "d": "Greater than 1"
+          },
+          "correct": "c",
+          "difficulty": "easy",
+          "source": "ncert",
+          "explanation": "A certain event always occurs. Its probability = 1."
+        },
+        {
+          "id": "cbse_8_ch17_A_003",
+          "text": "The probability of an impossible event is:",
+          "options": {
+            "a": "0",
+            "b": "0.5",
+            "c": "1",
+            "d": "Undefined"
+          },
+          "correct": "a",
+          "difficulty": "easy",
+          "source": "ncert",
+          "explanation": "An impossible event can never occur. Its probability = 0."
+        },
+        {
+          "id": "cbse_8_ch17_A_004",
+          "text": "A fair coin is tossed once. The probability of getting a tail is:",
+          "options": {
+            "a": "0",
+            "b": "1/4",
+            "c": "1/2",
+            "d": "1"
+          },
+          "correct": "c",
+          "difficulty": "easy",
+          "source": "ncert",
+          "explanation": "A coin has 2 equally likely outcomes (H, T). P(Tail) = 1/2."
+        },
+        {
+          "id": "cbse_8_ch17_A_005",
+          "text": "When a standard die is rolled once, the total number of possible outcomes is:",
+          "options": {
+            "a": "2",
+            "b": "4",
+            "c": "6",
+            "d": "12"
+          },
+          "correct": "c",
+          "difficulty": "easy",
+          "source": "ncert",
+          "explanation": "A standard die has faces numbered 1 to 6. Total outcomes = 6."
+        },
+        {
+          "id": "cbse_8_ch17_A_006",
+          "text": "A die is rolled once. The probability of getting the number 4 is:",
+          "options": {
+            "a": "1/2",
+            "b": "1/4",
+            "c": "1/6",
+            "d": "4/6"
+          },
+          "correct": "c",
+          "difficulty": "easy",
+          "source": "ncert",
+          "explanation": "Only one face shows 4. P(4) = 1/6."
+        },
+        {
+          "id": "cbse_8_ch17_A_007",
+          "text": "A die is rolled. The probability of getting an even number is:",
+          "options": {
+            "a": "1/6",
+            "b": "1/3",
+            "c": "1/2",
+            "d": "2/3"
+          },
+          "correct": "c",
+          "difficulty": "easy",
+          "source": "ncert",
+          "explanation": "Even numbers on a die: {2, 4, 6} = 3 outcomes. P(even) = 3/6 = 1/2."
+        },
+        {
+          "id": "cbse_8_ch17_A_008",
+          "text": "If P(E) = 0.3, then P(not E) is:",
+          "options": {
+            "a": "0.3",
+            "b": "0.6",
+            "c": "0.7",
+            "d": "1.3"
+          },
+          "correct": "c",
+          "difficulty": "easy",
+          "source": "ncert",
+          "explanation": "P(E) + P(not E) = 1. P(not E) = 1 - 0.3 = 0.7."
+        },
+        {
+          "id": "cbse_8_ch17_A_009",
+          "text": "The sample space when a coin is tossed twice has how many outcomes?",
+          "options": {
+            "a": "2",
+            "b": "3",
+            "c": "4",
+            "d": "8"
+          },
+          "correct": "c",
+          "difficulty": "easy",
+          "source": "ncert",
+          "explanation": "Sample space = {HH, HT, TH, TT} = 4 outcomes."
+        },
+        {
+          "id": "cbse_8_ch17_A_010",
+          "text": "A bag has 5 red, 3 blue and 2 green balls. The probability of drawing a green ball is:",
+          "options": {
+            "a": "1/10",
+            "b": "1/5",
+            "c": "1/3",
+            "d": "2/5"
+          },
+          "correct": "b",
+          "difficulty": "easy",
+          "source": "ncert",
+          "explanation": "Total = 10. Green = 2. P(green) = 2/10 = 1/5."
+        },
+        {
+          "id": "cbse_8_ch17_A_011",
+          "text": "The probability of drawing a red card from a well-shuffled deck of 52 cards is:",
+          "options": {
+            "a": "1/4",
+            "b": "1/3",
+            "c": "1/2",
+            "d": "2/3"
+          },
+          "correct": "c",
+          "difficulty": "easy",
+          "source": "ncert",
+          "explanation": "Red cards = 26 (Hearts + Diamonds). P(red) = 26/52 = 1/2."
+        },
+        {
+          "id": "cbse_8_ch17_A_012",
+          "text": "A die is rolled. The probability of getting a number less than 4 is:",
+          "options": {
+            "a": "1/6",
+            "b": "1/3",
+            "c": "1/2",
+            "d": "2/3"
+          },
+          "correct": "c",
+          "difficulty": "easy",
+          "source": "ncert",
+          "explanation": "Numbers less than 4: {1, 2, 3} = 3 outcomes. P = 3/6 = 1/2."
+        },
+        {
+          "id": "cbse_8_ch17_A_013",
+          "text": "A die is rolled. The probability of getting a prime number is:",
+          "options": {
+            "a": "1/6",
+            "b": "1/3",
+            "c": "1/2",
+            "d": "2/3"
+          },
+          "correct": "c",
+          "difficulty": "easy",
+          "source": "ncert",
+          "explanation": "Prime numbers on a die: {2, 3, 5} = 3. P(prime) = 3/6 = 1/2."
+        },
+        {
+          "id": "cbse_8_ch17_A_014",
+          "text": "A bag has 4 white and 6 black balls. The probability of drawing a white ball is:",
+          "options": {
+            "a": "1/5",
+            "b": "2/5",
+            "c": "3/5",
+            "d": "1/2"
+          },
+          "correct": "b",
+          "difficulty": "easy",
+          "source": "ncert",
+          "explanation": "Total = 10. White = 4. P(white) = 4/10 = 2/5."
+        },
+        {
+          "id": "cbse_8_ch17_A_015",
+          "text": "The probability of drawing an ace from a standard deck of 52 cards is:",
+          "options": {
+            "a": "1/52",
+            "b": "1/26",
+            "c": "1/13",
+            "d": "4/13"
+          },
+          "correct": "c",
+          "difficulty": "easy",
+          "source": "ncert",
+          "explanation": "4 aces in 52 cards. P(ace) = 4/52 = 1/13."
+        },
+        {
+          "id": "cbse_8_ch17_A_016",
+          "text": "A die is rolled. The probability of getting a number greater than 4 is:",
+          "options": {
+            "a": "1/6",
+            "b": "1/3",
+            "c": "1/2",
+            "d": "2/3"
+          },
+          "correct": "b",
+          "difficulty": "easy",
+          "source": "ncert",
+          "explanation": "Numbers greater than 4 on a die: {5, 6} = 2. P = 2/6 = 1/3."
+        },
+        {
+          "id": "cbse_8_ch17_A_017",
+          "text": "Which of the following CANNOT be the probability of an event?",
+          "options": {
+            "a": "0",
+            "b": "0.99",
+            "c": "1/3",
+            "d": "5/4"
+          },
+          "correct": "d",
+          "difficulty": "easy",
+          "source": "ncert",
+          "explanation": "Probability must lie between 0 and 1. 5/4 = 1.25, which is greater than 1 and is not a valid probability."
+        },
+        {
+          "id": "cbse_8_ch17_A_018",
+          "text": "A coin is tossed 3 times. The total number of outcomes in the sample space is:",
+          "options": {
+            "a": "3",
+            "b": "6",
+            "c": "8",
+            "d": "9"
+          },
+          "correct": "c",
+          "difficulty": "easy",
+          "source": "ncert",
+          "explanation": "Each toss has 2 outcomes. Total = 2 x 2 x 2 = 2^3 = 8."
+        },
+        {
+          "id": "cbse_8_ch17_A_019",
+          "text": "If E and F are complementary events, then P(E) + P(F) equals:",
+          "options": {
+            "a": "0",
+            "b": "0.5",
+            "c": "1",
+            "d": "2"
+          },
+          "correct": "c",
+          "difficulty": "easy",
+          "source": "ncert",
+          "explanation": "Complementary events together cover all outcomes. P(E) + P(F) = 1."
+        },
+        {
+          "id": "cbse_8_ch17_A_020",
+          "text": "A standard die is rolled. The probability of getting the number 7 is:",
+          "options": {
+            "a": "1/6",
+            "b": "1/7",
+            "c": "7/6",
+            "d": "0"
+          },
+          "correct": "d",
+          "difficulty": "easy",
+          "source": "ncert",
+          "explanation": "A standard die has faces 1 to 6. Getting 7 is impossible. P = 0."
+        }
+      ]
+    },
+    "B": {
+      "type": "mcq",
+      "label": "Application",
+      "marks_per_q": 2,
+      "count": 10,
+      "questions": [
+        {
+          "id": "cbse_8_ch17_B_001",
+          "text": "Two coins are tossed simultaneously. The probability of getting at least one head is:",
+          "options": {
+            "a": "1/4",
+            "b": "1/2",
+            "c": "3/4",
+            "d": "1"
+          },
+          "correct": "c",
+          "difficulty": "medium",
+          "source": "ncert",
+          "explanation": "Sample space = {HH, HT, TH, TT} = 4. At least one head: {HH, HT, TH} = 3. P = 3/4."
+        },
+        {
+          "id": "cbse_8_ch17_B_002",
+          "text": "A bag contains 4 red, 3 blue and 3 green balls. A ball is drawn at random. The probability of NOT drawing a red ball is:",
+          "options": {
+            "a": "2/5",
+            "b": "3/5",
+            "c": "3/10",
+            "d": "7/10"
+          },
+          "correct": "b",
+          "difficulty": "medium",
+          "source": "ncert",
+          "explanation": "Total = 10. Not red = 3 + 3 = 6. P(not red) = 6/10 = 3/5."
+        },
+        {
+          "id": "cbse_8_ch17_B_003",
+          "text": "A die is rolled once. The probability of getting a number divisible by 2 or 3 is:",
+          "options": {
+            "a": "1/3",
+            "b": "1/2",
+            "c": "2/3",
+            "d": "5/6"
+          },
+          "correct": "c",
+          "difficulty": "medium",
+          "source": "ncert",
+          "explanation": "Divisible by 2: {2,4,6}. Divisible by 3: {3,6}. Union: {2,3,4,6} = 4 outcomes. P = 4/6 = 2/3."
+        },
+        {
+          "id": "cbse_8_ch17_B_004",
+          "text": "From a deck of 52 cards, a card is drawn at random. The probability that it is a face card (J, Q, K) is:",
+          "options": {
+            "a": "3/52",
+            "b": "1/13",
+            "c": "3/13",
+            "d": "4/13"
+          },
+          "correct": "c",
+          "difficulty": "medium",
+          "source": "ncert",
+          "explanation": "Face cards = 4 Jacks + 4 Queens + 4 Kings = 12. P = 12/52 = 3/13."
+        },
+        {
+          "id": "cbse_8_ch17_B_005",
+          "text": "Two dice are rolled simultaneously. The probability of getting a sum of 8 is:",
+          "options": {
+            "a": "3/36",
+            "b": "4/36",
+            "c": "5/36",
+            "d": "6/36"
+          },
+          "correct": "c",
+          "difficulty": "medium",
+          "source": "ncert",
+          "explanation": "Pairs giving sum 8: (2,6),(3,5),(4,4),(5,3),(6,2) = 5. P = 5/36."
+        },
+        {
+          "id": "cbse_8_ch17_B_006",
+          "text": "A bag has 2 red, 3 blue and 5 green balls. The probability of drawing a blue or green ball is:",
+          "options": {
+            "a": "1/2",
+            "b": "3/5",
+            "c": "4/5",
+            "d": "7/10"
+          },
+          "correct": "c",
+          "difficulty": "medium",
+          "source": "ncert",
+          "explanation": "Total = 10. Blue + green = 3 + 5 = 8. P = 8/10 = 4/5."
+        },
+        {
+          "id": "cbse_8_ch17_B_007",
+          "text": "Three coins are tossed simultaneously. The probability of getting all heads is:",
+          "options": {
+            "a": "1/4",
+            "b": "1/6",
+            "c": "1/8",
+            "d": "3/8"
+          },
+          "correct": "c",
+          "difficulty": "medium",
+          "source": "ncert",
+          "explanation": "Sample space = 2^3 = 8. All heads: {HHH} = 1 outcome. P = 1/8."
+        },
+        {
+          "id": "cbse_8_ch17_B_008",
+          "text": "A die is rolled. The probability of getting an odd number that is less than 4 is:",
+          "options": {
+            "a": "1/6",
+            "b": "1/3",
+            "c": "1/2",
+            "d": "2/3"
+          },
+          "correct": "b",
+          "difficulty": "medium",
+          "source": "ncert",
+          "explanation": "Odd numbers less than 4 on a die: {1, 3} = 2 outcomes. P = 2/6 = 1/3."
+        },
+        {
+          "id": "cbse_8_ch17_B_009",
+          "text": "A card is drawn at random from a deck of 52 cards. The probability that it is a Jack or a Queen is:",
+          "options": {
+            "a": "1/13",
+            "b": "2/13",
+            "c": "3/13",
+            "d": "4/13"
+          },
+          "correct": "b",
+          "difficulty": "medium",
+          "source": "ncert",
+          "explanation": "Jacks = 4, Queens = 4. Total = 8 cards. P = 8/52 = 2/13."
+        },
+        {
+          "id": "cbse_8_ch17_B_010",
+          "text": "A number is selected at random from 1 to 20. The probability that it is a multiple of 4 is:",
+          "options": {
+            "a": "1/4",
+            "b": "1/5",
+            "c": "3/20",
+            "d": "1/20"
+          },
+          "correct": "a",
+          "difficulty": "medium",
+          "source": "ncert",
+          "explanation": "Multiples of 4 in 1 to 20: {4, 8, 12, 16, 20} = 5 numbers. P = 5/20 = 1/4."
+        }
+      ]
+    },
+    "C": {
+      "type": "mcq",
+      "label": "Higher Order",
+      "marks_per_q": 3,
+      "count": 6,
+      "questions": [
+        {
+          "id": "cbse_8_ch17_C_001",
+          "text": "Two dice are rolled simultaneously. The probability of getting a sum of 10 is:",
+          "options": {
+            "a": "1/12",
+            "b": "5/36",
+            "c": "1/6",
+            "d": "7/36"
+          },
+          "correct": "a",
+          "difficulty": "hard",
+          "source": "ncert_exemplar",
+          "explanation": "Pairs giving sum 10: (4,6),(5,5),(6,4) = 3 pairs. P = 3/36 = 1/12."
+        },
+        {
+          "id": "cbse_8_ch17_C_002",
+          "text": "Three coins are tossed simultaneously. The probability of getting at least 2 tails is:",
+          "options": {
+            "a": "3/8",
+            "b": "1/2",
+            "c": "5/8",
+            "d": "3/4"
+          },
+          "correct": "b",
+          "difficulty": "hard",
+          "source": "ncert",
+          "explanation": "Sample space = 8. Exactly 2 tails: {HTT, THT, TTH} = 3. Exactly 3 tails: {TTT} = 1. Total favorable = 4. P = 4/8 = 1/2."
+        },
+        {
+          "id": "cbse_8_ch17_C_003",
+          "text": "From a deck of 52 cards, a card is drawn at random. The probability of drawing neither a king nor a queen is:",
+          "options": {
+            "a": "8/52",
+            "b": "10/13",
+            "c": "11/13",
+            "d": "12/13"
+          },
+          "correct": "c",
+          "difficulty": "hard",
+          "source": "ncert_exemplar",
+          "explanation": "Kings = 4, Queens = 4. Total kings or queens = 8. Neither = 52 - 8 = 44. P = 44/52 = 11/13."
+        },
+        {
+          "id": "cbse_8_ch17_C_004",
+          "text": "A die and a coin are tossed together. The probability of getting an even number on the die AND a head on the coin is:",
+          "options": {
+            "a": "1/6",
+            "b": "1/4",
+            "c": "1/3",
+            "d": "1/2"
+          },
+          "correct": "b",
+          "difficulty": "hard",
+          "source": "ncert",
+          "explanation": "Total outcomes = 6 x 2 = 12. Even on die: {2,4,6} = 3. Head on coin: 1. Favorable = 3 x 1 = 3. P = 3/12 = 1/4."
+        },
+        {
+          "id": "cbse_8_ch17_C_005",
+          "text": "A number is selected at random from 1 to 25. The probability that it is a prime number is:",
+          "options": {
+            "a": "7/25",
+            "b": "8/25",
+            "c": "9/25",
+            "d": "10/25"
+          },
+          "correct": "c",
+          "difficulty": "hard",
+          "source": "ncert_exemplar",
+          "explanation": "Primes from 1 to 25: 2,3,5,7,11,13,17,19,23 = 9 prime numbers. P = 9/25."
+        },
+        {
+          "id": "cbse_8_ch17_C_006",
+          "text": "Two dice are thrown simultaneously. The probability that the sum is greater than 9 is:",
+          "options": {
+            "a": "1/12",
+            "b": "1/6",
+            "c": "1/4",
+            "d": "5/18"
+          },
+          "correct": "b",
+          "difficulty": "hard",
+          "source": "ncert_exemplar",
+          "explanation": "Sum > 9: sum = 10 gives (4,6),(5,5),(6,4) = 3; sum = 11 gives (5,6),(6,5) = 2; sum = 12 gives (6,6) = 1. Total = 6. P = 6/36 = 1/6."
+        }
+      ]
+    },
+    "D": {
+      "type": "direct_input",
+      "label": "Numerical",
+      "marks_per_q": 3,
+      "count": 10,
+      "questions": [
+        {
+          "id": "cbse_8_ch17_D_001",
+          "text": "A fair coin is tossed once. Find the probability of getting a head. (Express as a fraction)",
+          "correct_answer": "1/2",
+          "answer_type": "fraction",
+          "accepted_forms": [
+            "1/2"
+          ],
+          "difficulty": "easy",
+          "source": "ncert",
+          "explanation": "2 equally likely outcomes: H and T. Favorable = 1. P(head) = 1/2."
+        },
+        {
+          "id": "cbse_8_ch17_D_002",
+          "text": "A die is rolled once. Find the probability of getting the number 5. (Express as a fraction)",
+          "correct_answer": "1/6",
+          "answer_type": "fraction",
+          "accepted_forms": [
+            "1/6"
+          ],
+          "difficulty": "easy",
+          "source": "ncert",
+          "explanation": "Only one face shows 5. Total outcomes = 6. P(5) = 1/6."
+        },
+        {
+          "id": "cbse_8_ch17_D_003",
+          "text": "A bag contains 6 red and 4 blue balls. A ball is drawn at random. Find the probability of drawing a blue ball. (Express as a fraction in simplest form)",
+          "correct_answer": "2/5",
+          "answer_type": "fraction",
+          "accepted_forms": [
+            "2/5",
+            "4/10"
+          ],
+          "difficulty": "easy",
+          "source": "ncert",
+          "explanation": "Total = 10. Blue = 4. P(blue) = 4/10 = 2/5."
+        },
+        {
+          "id": "cbse_8_ch17_D_004",
+          "text": "The probability of an event E is 0.4. Find the probability of the event 'not E'.",
+          "correct_answer": "0.6",
+          "answer_type": "decimal",
+          "accepted_forms": [
+            "0.6",
+            "3/5"
+          ],
+          "difficulty": "easy",
+          "source": "ncert",
+          "explanation": "P(not E) = 1 - P(E) = 1 - 0.4 = 0.6."
+        },
+        {
+          "id": "cbse_8_ch17_D_005",
+          "text": "A card is drawn at random from a deck of 52 cards. Find the probability that it is a spade. (Express as a fraction in simplest form)",
+          "correct_answer": "1/4",
+          "answer_type": "fraction",
+          "accepted_forms": [
+            "1/4",
+            "13/52"
+          ],
+          "difficulty": "easy",
+          "source": "ncert",
+          "explanation": "There are 13 spades in 52 cards. P(spade) = 13/52 = 1/4."
+        },
+        {
+          "id": "cbse_8_ch17_D_006",
+          "text": "Two dice are thrown simultaneously. Find the probability of getting a doublet (same number on both dice). (Express as a fraction in simplest form)",
+          "correct_answer": "1/6",
+          "answer_type": "fraction",
+          "accepted_forms": [
+            "1/6",
+            "6/36"
+          ],
+          "difficulty": "medium",
+          "source": "ncert",
+          "explanation": "Doublets: (1,1),(2,2),(3,3),(4,4),(5,5),(6,6) = 6 outcomes. Total = 36. P = 6/36 = 1/6."
+        },
+        {
+          "id": "cbse_8_ch17_D_007",
+          "text": "A bag contains 3 yellow, 5 purple and 2 orange balls. Find the probability of NOT drawing a yellow ball. (Express as a fraction)",
+          "correct_answer": "7/10",
+          "answer_type": "fraction",
+          "accepted_forms": [
+            "7/10"
+          ],
+          "difficulty": "medium",
+          "source": "ncert",
+          "explanation": "Total = 10. Not yellow = 5 + 2 = 7. P(not yellow) = 7/10."
+        },
+        {
+          "id": "cbse_8_ch17_D_008",
+          "text": "A number is selected at random from 1 to 25. Find the probability that it is a multiple of 5. (Express as a fraction in simplest form)",
+          "correct_answer": "1/5",
+          "answer_type": "fraction",
+          "accepted_forms": [
+            "1/5",
+            "5/25"
+          ],
+          "difficulty": "medium",
+          "source": "ncert",
+          "explanation": "Multiples of 5 in 1 to 25: {5, 10, 15, 20, 25} = 5 numbers. P = 5/25 = 1/5."
+        },
+        {
+          "id": "cbse_8_ch17_D_009",
+          "text": "Three fair coins are tossed simultaneously. Find the probability of getting exactly one head. (Express as a fraction)",
+          "correct_answer": "3/8",
+          "answer_type": "fraction",
+          "accepted_forms": [
+            "3/8"
+          ],
+          "difficulty": "medium",
+          "source": "ncert",
+          "explanation": "Sample space = 8. Exactly one head: {HTT, THT, TTH} = 3 outcomes. P = 3/8."
+        },
+        {
+          "id": "cbse_8_ch17_D_010",
+          "text": "A number is selected at random from 1 to 30. Find the probability that it is divisible by both 4 and 6. (Express as a fraction in simplest form)",
+          "correct_answer": "1/15",
+          "answer_type": "fraction",
+          "accepted_forms": [
+            "1/15",
+            "2/30"
+          ],
+          "difficulty": "hard",
+          "source": "ncert_exemplar",
+          "explanation": "Divisible by both 4 and 6 means divisible by LCM(4,6) = 12. Multiples of 12 in 1-30: {12, 24} = 2. P = 2/30 = 1/15."
+        }
+      ]
+    },
+    "E": {
+      "type": "case_study",
+      "label": "Case Study",
+      "marks_per_q": 2,
+      "count": 2,
+      "cases": [
+        {
+          "id": "cbse_8_ch17_E_case1",
+          "case_text": "Cards numbered 1 to 20 are placed in a box and shuffled thoroughly. Priya draws one card at random from the box.",
+          "subparts": [
+            {
+              "id": "cbse_8_ch17_E_case1_q1",
+              "text": "The probability that Priya draws an even-numbered card is:",
+              "type": "mcq",
+              "options": {
+                "a": "1/4",
+                "b": "3/8",
+                "c": "1/2",
+                "d": "3/5"
+              },
+              "correct": "c",
+              "marks": 2,
+              "explanation": "Even numbers from 1 to 20: {2,4,6,8,10,12,14,16,18,20} = 10 numbers. P = 10/20 = 1/2."
+            },
+            {
+              "id": "cbse_8_ch17_E_case1_q2",
+              "text": "The probability that Priya draws a card showing a prime number is:",
+              "type": "mcq",
+              "options": {
+                "a": "2/5",
+                "b": "7/20",
+                "c": "9/20",
+                "d": "1/2"
+              },
+              "correct": "a",
+              "marks": 2,
+              "explanation": "Primes from 1 to 20: 2,3,5,7,11,13,17,19 = 8 numbers. P = 8/20 = 2/5."
+            },
+            {
+              "id": "cbse_8_ch17_E_case1_q3",
+              "text": "Find the probability that Priya draws a card showing a multiple of 3. (Express as a fraction in simplest form)",
+              "type": "direct_input",
+              "correct_answer": "3/10",
+              "accepted_forms": [
+                "3/10",
+                "6/20"
+              ],
+              "marks": 2,
+              "explanation": "Multiples of 3 in 1 to 20: {3,6,9,12,15,18} = 6 numbers. P = 6/20 = 3/10."
+            }
+          ]
+        },
+        {
+          "id": "cbse_8_ch17_E_case2",
+          "case_text": "A spinner is divided into 8 equal sectors numbered 1 to 8. Rohan spins it once in a game.",
+          "subparts": [
+            {
+              "id": "cbse_8_ch17_E_case2_q1",
+              "text": "The probability that the spinner stops at the number 7 is:",
+              "type": "mcq",
+              "options": {
+                "a": "1/8",
+                "b": "1/7",
+                "c": "7/8",
+                "d": "0"
+              },
+              "correct": "a",
+              "marks": 2,
+              "explanation": "8 equal sectors numbered 1 to 8. Only one sector shows 7. P(7) = 1/8."
+            },
+            {
+              "id": "cbse_8_ch17_E_case2_q2",
+              "text": "The probability that the spinner shows an odd number is:",
+              "type": "mcq",
+              "options": {
+                "a": "3/8",
+                "b": "1/2",
+                "c": "5/8",
+                "d": "3/4"
+              },
+              "correct": "b",
+              "marks": 2,
+              "explanation": "Odd numbers in 1 to 8: {1,3,5,7} = 4 numbers. P = 4/8 = 1/2."
+            },
+            {
+              "id": "cbse_8_ch17_E_case2_q3",
+              "text": "Find the probability that the spinner shows a number less than 5. (Express as a fraction in simplest form)",
+              "type": "direct_input",
+              "correct_answer": "1/2",
+              "accepted_forms": [
+                "1/2",
+                "4/8"
+              ],
+              "marks": 2,
+              "explanation": "Numbers less than 5 in 1 to 8: {1,2,3,4} = 4 numbers. P = 4/8 = 1/2."
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

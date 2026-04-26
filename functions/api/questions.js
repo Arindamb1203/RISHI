@@ -36,6 +36,7 @@ const FOLDER_MAP = {
   "11b": "ch11",
   "15":  "ch15",
   "16":  "ch16",
+  "17":  "ch17",
 };
 
 export async function onRequestGet(context) {

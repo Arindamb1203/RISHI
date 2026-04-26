@@ -28,7 +28,7 @@
 const ALL_CHAPTERS = [
   "01","02","03","04","05",
   "08","09","10","11a","11b",
-  "12","13","14","15","16"
+  "12","13","14","15","16","17"
 ];
 
 // Maps chId → actual folder in repo (JSONs grouped by topic, not one folder per chapter)
@@ -40,6 +40,7 @@ const FOLDER_MAP = {
   "11a": "ch11", "11b": "ch11",
   "15": "ch15",
   "16": "ch16",
+  "17": "ch17",
 };
 
 export async function onRequestPost(context) {
