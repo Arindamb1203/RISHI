@@ -985,10 +985,7 @@ async function kvList() {
     });
     var data = await res.json();
     if (data.keys) {
-      kvLog(data.keys.length + ' keys found:
-
-' + data.keys.join('
-'));
+      kvLog(data.keys.length + ' keys found. ' + data.keys.join(' | '));
     } else {
       kvLog(JSON.stringify(data, null, 2));
     }
