@@ -910,12 +910,16 @@ function buildTopics() {
     if (done) html += ' &nbsp;&middot;&nbsp; Best: ' + score + '/60 &nbsp;&middot;&nbsp; Attempts: ' + attempts;
     html += '</div>';
     html += '<div style="display:flex;gap:8px;flex-wrap:wrap;">';
-    html += '<button class="btn btn-gold" onclick="window.open('/topic-exam.html?topic=' + t.id + '','_blank')">&#128203; Open Topic Exam</button>';
-    if (done) html += '<button class="btn btn-danger" onclick="resetTopicExam('' + t.id + '')">&#8635; Reset</button>';
+    html += '<button class="btn btn-gold" onclick="openTopicExam(\'' + t.id + '\')">&#128203; Open Topic Exam</button>';
+    if (done) html += '<button class="btn btn-danger" onclick="resetTopicExam(\'' + t.id + '\')">&#8635; Reset</button>';
     html += '</div>';
     html += '</div>';
   }
   document.getElementById('topics-grid').innerHTML = html;
+}
+
+function openTopicExam(tid) {
+  window.open('/topic-exam.html?topic=' + tid, '_blank');
 }
 
 function resetTopicExam(tid) {
