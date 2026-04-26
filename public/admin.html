@@ -245,10 +245,12 @@ button{font-family:'Outfit',sans-serif;cursor:pointer;}
 
   <!-- Tabs -->
   <div class="tabs">
-    <button class="tab on" id="tab-dash"    onclick="switchTab('dash')">📊 Dashboard</button>
-    <button class="tab"    id="tab-tree"    onclick="switchTab('tree')">📂 Chapters</button>
-    <button class="tab"    id="tab-student" onclick="switchTab('student')">👤 Student</button>
-    <button class="tab"    id="tab-logs"    onclick="switchTab('logs')">📋 Logs</button>
+    <button class="tab on" id="tab-dash"      onclick="switchTab('dash')">📊 Dashboard</button>
+    <button class="tab"    id="tab-tree"      onclick="switchTab('tree')">📂 Chapters</button>
+    <button class="tab"    id="tab-topics"    onclick="switchTab('topics')">🏅 Topic Exams</button>
+    <button class="tab"    id="tab-questions" onclick="switchTab('questions')">📚 Questions</button>
+    <button class="tab"    id="tab-student"   onclick="switchTab('student')">👤 Student</button>
+    <button class="tab"    id="tab-logs"      onclick="switchTab('logs')">📋 Logs</button>
   </div>
 
   <div class="wrap">
@@ -338,6 +340,49 @@ button{font-family:'Outfit',sans-serif;cursor:pointer;}
       </div>
     </div>
 
+
+    <!-- TOPIC EXAMS TAB -->
+    <div id="view-topics" class="hidden">
+      <div class="section-note">Open any topic exam directly. Reset clears topic exam score and done flag from localStorage.</div>
+      <div id="topics-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;margin-top:12px;"></div>
+    </div>
+
+    <!-- QUESTIONS TAB -->
+    <div id="view-questions" class="hidden">
+      <div class="card">
+        <div class="card-ttl">&#128218; KV Question Bank — Seed &amp; Manage</div>
+        <div class="section-note">Token = same as admin password. Seeding pushes JSON from repo into Cloudflare KV so questions load fast.</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;margin-bottom:16px;">
+          <button class="btn btn-gold" onclick="kvSeedAll()">&#9889; Seed ALL 17 Chapters</button>
+          <button class="btn btn-ghost" onclick="kvList()">&#128269; List All KV Keys</button>
+        </div>
+        <div style="margin-bottom:10px;">
+          <label style="font-size:15px;font-weight:700;color:var(--muted);display:block;margin-bottom:6px;">Seed individual chapter:</label>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;">
+            <select id="kv-ch-sel" style="padding:8px 12px;background:var(--s2);border:1px solid var(--border2);border-radius:8px;color:var(--text);font-family:Outfit,sans-serif;font-size:15px;">
+              <option value="01">01 Rational Numbers</option>
+              <option value="02">02 Linear Equations</option>
+              <option value="03">03 Understanding Quadrilaterals</option>
+              <option value="04">04 Practical Geometry</option>
+              <option value="05">05 Data Handling</option>
+              <option value="08">08 Comparing Quantities</option>
+              <option value="09">09 Algebraic Expressions</option>
+              <option value="10">10 Visualising Solid Shapes</option>
+              <option value="11a">11a Area of Plane Figures</option>
+              <option value="11b">11b Surface Area &amp; Volume</option>
+              <option value="12">12 Exponents and Powers</option>
+              <option value="13">13 Direct &amp; Inverse Proportions</option>
+              <option value="14">14 Factorisation</option>
+              <option value="15">15 Introduction to Graphs</option>
+              <option value="16">16 Playing with Numbers</option>
+              <option value="17">17 Chance &amp; Probability</option>
+            </select>
+            <button class="btn btn-ghost" onclick="kvSeedOne()">Seed Selected</button>
+          </div>
+        </div>
+        <div id="kv-result" style="background:var(--s2);border:1px solid var(--border);border-radius:10px;padding:14px;font-family:Share Tech Mono,monospace;font-size:14px;color:var(--green);min-height:60px;white-space:pre-wrap;word-break:break-all;">Ready. Click an action above.</div>
+      </div>
+    </div>
   </div><!-- /wrap -->
 </div><!-- /admin -->
 
@@ -348,6 +393,7 @@ button{font-family:'Outfit',sans-serif;cursor:pointer;}
    ══════════════════════════════════════════════════════════ */
 
 var ADMIN_PASS = 'rishi2025';
+var adminToken = '';
 
 /* ── CHAPTER DATA ──────────────────────────────────────── */
 var CH = {
@@ -426,6 +472,7 @@ function tryLogin() {
   var p = document.getElementById('l-pass').value;
   var stored = localStorage.getItem('rishi_admin_pass') || ADMIN_PASS;
   if (p === stored) {
+    adminToken = p;
     sessionStorage.setItem('rishi_admin_auth', '1');
     showAdmin();
   } else {
@@ -455,7 +502,7 @@ function showAdmin() {
 var activeTab = 'dash';
 function switchTab(t) {
   activeTab = t;
-  ['dash','tree','student','logs'].forEach(function(id) {
+  ['dash','tree','topics','questions','student','logs'].forEach(function(id) {
     document.getElementById('tab-' + id).classList.toggle('on', id === t);
     document.getElementById('view-' + id).classList.toggle('hidden', id !== t);
   });
@@ -531,7 +578,9 @@ function refresh() {
   if      (activeTab === 'dash')    { buildDashboard(); }
   else if (activeTab === 'tree')    { buildTree(); }
   else if (activeTab === 'student') { buildStudent(); }
-  else if (activeTab === 'logs')    { buildLogs(); }
+  else if (activeTab === 'topics')    { buildTopics(); }
+  else if (activeTab === 'questions') { buildQuestionsTab(); }
+  else if (activeTab === 'logs')      { buildLogs(); }
 }
 
 /* ── DASHBOARD ──────────────────────────────────────────── */
@@ -834,6 +883,116 @@ function clearAllPlans() {
 }
 
 /* ── UTILS ───────────────────────────────────────────────── */
+
+/* -- TOPIC EXAMS TAB ----------------------------------------------- */
+var TOPIC_EXAM_LIST = [
+  {id:'algebra',     name:'Algebra',       icon:'x+y', chs:[2,9,14,15]},
+  {id:'geometry',    name:'Geometry',      icon:'geo', chs:[3,4,10]},
+  {id:'mensuration', name:'Mensuration',   icon:'pi',  chs:[11,112]},
+  {id:'arithmetic',  name:'Arithmetic',    icon:'123', chs:[1,8,12,13,16]},
+  {id:'datahandling',name:'Data Handling', icon:'bar', chs:[5,17]}
+];
+
+function isTopicExamDone(tid) {
+  return localStorage.getItem('rishi_topicexam_done_' + tid) === '1';
+}
+
+function buildTopics() {
+  var html = '';
+  for (var i = 0; i < TOPIC_EXAM_LIST.length; i++) {
+    var t = TOPIC_EXAM_LIST[i];
+    var done = isTopicExamDone(t.id);
+    var score = localStorage.getItem('rishi_topicexam_score_' + t.id) || '—';
+    var attempts = localStorage.getItem('rishi_topicexam_attempts_' + t.id) || '0';
+    html += '<div class="card" style="margin-bottom:0;">';
+    html += '<div class="card-ttl">' + t.name + '</div>';
+    html += '<div style="font-size:15px;color:var(--muted);margin-bottom:10px;">' + t.chs.length + ' chapters &nbsp;&middot;&nbsp; Status: <span style="color:' + (done ? 'var(--green)' : 'var(--amber)') + ';font-weight:700;">' + (done ? '&#10003; Done' : 'Not taken') + '</span>';
+    if (done) html += ' &nbsp;&middot;&nbsp; Best: ' + score + '/60 &nbsp;&middot;&nbsp; Attempts: ' + attempts;
+    html += '</div>';
+    html += '<div style="display:flex;gap:8px;flex-wrap:wrap;">';
+    html += '<button class="btn btn-gold" onclick="window.open('/topic-exam.html?topic=' + t.id + '','_blank')">&#128203; Open Topic Exam</button>';
+    if (done) html += '<button class="btn btn-danger" onclick="resetTopicExam('' + t.id + '')">&#8635; Reset</button>';
+    html += '</div>';
+    html += '</div>';
+  }
+  document.getElementById('topics-grid').innerHTML = html;
+}
+
+function resetTopicExam(tid) {
+  if (!confirm('Reset topic exam for ' + tid + '? Clears done flag, score and attempts.')) return;
+  localStorage.removeItem('rishi_topicexam_done_'     + tid);
+  localStorage.removeItem('rishi_topicexam_score_'    + tid);
+  localStorage.removeItem('rishi_topicexam_attempts_' + tid);
+  buildTopics();
+  showToast('Topic exam ' + tid + ' reset.');
+}
+
+/* -- QUESTIONS / KV TAB -------------------------------------------- */
+function buildQuestionsTab() { /* static UI, nothing to build dynamically */ }
+
+function getToken() {
+  /* Use the token stored at login, or fall back to stored admin pass */
+  return adminToken || localStorage.getItem('rishi_admin_pass') || ADMIN_PASS;
+}
+
+function kvLog(msg) {
+  var el = document.getElementById('kv-result');
+  if (el) el.textContent = msg;
+}
+
+async function kvSeedAll() {
+  kvLog('Seeding all 17 chapters... please wait.');
+  try {
+    var res = await fetch('/api/admin', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json','Authorization':'Bearer ' + getToken()},
+      body: JSON.stringify({action:'seed_all',board:'cbse',class:'8',type:'exam'})
+    });
+    var data = await res.json();
+    kvLog(data.message || JSON.stringify(data, null, 2));
+  } catch(e) {
+    kvLog('Error: ' + e.message);
+  }
+}
+
+async function kvSeedOne() {
+  var ch = document.getElementById('kv-ch-sel').value;
+  kvLog('Seeding ch' + ch + '...');
+  try {
+    var res = await fetch('/api/admin', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json','Authorization':'Bearer ' + getToken()},
+      body: JSON.stringify({action:'seed',board:'cbse',class:'8',ch:ch,type:'exam'})
+    });
+    var data = await res.json();
+    kvLog(data.message || data.error || JSON.stringify(data));
+  } catch(e) {
+    kvLog('Error: ' + e.message);
+  }
+}
+
+async function kvList() {
+  kvLog('Fetching KV keys...');
+  try {
+    var res = await fetch('/api/admin', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json','Authorization':'Bearer ' + getToken()},
+      body: JSON.stringify({action:'list'})
+    });
+    var data = await res.json();
+    if (data.keys) {
+      kvLog(data.keys.length + ' keys found:
+
+' + data.keys.join('
+'));
+    } else {
+      kvLog(JSON.stringify(data, null, 2));
+    }
+  } catch(e) {
+    kvLog('Error: ' + e.message);
+  }
+}
+
 function esc(s) {
   return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
