@@ -547,7 +547,15 @@ function isExplainDone(cid) {
   return false;
 }
 function isPracticeDone(cid) { return lsStr('rishi_practice_done_' + cid) === '1'; }
-function isExamDone(cid)     { return lsStr('rishi_chapexam_done_'  + cid) === '1'; }
+function isExamDone(cid) {
+  /* exam.html writes padded keys: 01,02..09,10,11,11a,11b,12..17 */
+  var padded;
+  if (cid === 11)  padded = '11a';
+  else if (cid === 112) padded = '11b';
+  else padded = String(cid).padStart(2,'0');
+  return lsStr('rishi_chapexam_done_' + padded) === '1'
+      || lsStr('rishi_chapexam_done_' + cid) === '1'; /* fallback */
+}
 
 function getExplainSessions(cid) {
   var s = lsGet('rishi_explain_sessions', {});
@@ -687,7 +695,7 @@ function buildChCard(cid, ch) {
   html += '<div class="ch-rows">';
   html += buildPageRow('Explain', ch.ex,  ch.built, exDone,  exSess,  cid);
   html += buildPageRow('Practice',ch.pr,  ch.built, prDone,  prSess,  cid);
-  html += buildPageRow('Exam',    ch.exam, false,    exaDone, 0,       cid);
+  html += buildPageRow('Exam',    ch.exam, !!ch.exam, exaDone, 0,      cid);
   html += '</div>';
 
   /* Footer */
