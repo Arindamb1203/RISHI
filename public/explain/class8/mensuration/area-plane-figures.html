@@ -7,6 +7,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Nunito:wght@400;600;700;800;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script src="/rishi-core.js"></script>
 <style>
 :root{--cream:#fdf6ec;--warm-white:#fffdf8;--gold:#c8922a;--gold-light:#e8b84b;--gold-pale:#f5e6c8;--amber:#d4870a;--sage:#7a8c6e;--sage-light:#a8b89a;--rust:#b85c2a;--charcoal:#2a2218;--mid:#5a4a30;--soft:#8a7a5a;--inactive:#c8b89a;--border-dark:#6b4c2a;}
 *{box-sizing:border-box;margin:0;padding:0;}
@@ -119,7 +120,6 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 .cel-meta{font-size:0.75rem;font-weight:700;opacity:0.8;letter-spacing:0.5px;}
 </style>
 <script src="/rishi-sync.js"></script>
-<script src="/rishi-core.js"></script>
 </head>
 <body>
 <div class="topbar">
@@ -203,7 +203,7 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
   <ellipse id="rBlush1" cx="36" cy="30" rx="7" ry="4" fill="#ff9999" opacity="0"/>
   <ellipse id="rBlush2" cx="64" cy="30" rx="7" ry="4" fill="#ff9999" opacity="0"/>
   <rect x="28" y="90" width="44" height="13" fill="#d4870a" rx="4"/>
-  <text x="50" y="100" text-anchor="middle" font-family="Nunito" font-size="7" font-weight="900" fill="white">REKHA</text>
+  <text x="50" y="100" text-anchor="middle" font-family="Nunito" font-size="7" font-weight="900" fill="white">RISHIKA</text>
 </svg>
 </div>
 <script>
@@ -260,7 +260,7 @@ function sayEl(id){var e=G(id);if(e)say(e.innerText||e.textContent);}
 window.addEventListener("beforeunload",function(){stopAllAudio();});
 window.addEventListener("pagehide",function(){stopAllAudio();});
 
-/* ═══════ REKHA (TURTLE) CHARACTER ═══════ */
+/* ═══════ RISHIKA CHARACTER ═══════ */
 var mouthTmr=null, blinkTmr=null, mOpen=false;
 function rInit(){
   var c=G("rChar");
@@ -310,8 +310,8 @@ var QB=[
   {t:"Area of trapezium = &#189;(a + b) &#215; h",s:"Area equals half times a plus b times h."},
   {t:"= &#189; &#215; (12 + 8) &#215; 5 = &#189; &#215; 100 = <span class='ans-tag'>50 cm&#178;</span>",s:"Half times 20 times 5 equals 50 square centimetres."}
  ],
- cq:"Area of this trapezium?",cqs:"Area?",
- ans:["50","50 cm squared","fifty"],
+ cq:"Find area of trapezium with parallel sides 9 cm and 5 cm, height 4 cm.",cqs:"Trapezium sides 9 and 5, height 4. Area?",
+ ans:["28","28 cm squared","twenty eight"],
  nudges:["Half times sum of parallel sides times height!","Half times 20 times 5 equals?","50! Say 50!"]},
 
 {id:"ar1",
@@ -322,8 +322,8 @@ var QB=[
   {t:"Area of rhombus = &#189; &#215; d&#8321; &#215; d&#8322;",s:"Area equals half times d1 times d2."},
   {t:"= &#189; &#215; 10 &#215; 6 = <span class='ans-tag'>30 cm&#178;</span>",s:"Half times 10 times 6 equals 30 square centimetres."}
  ],
- cq:"Area?",cqs:"Area of rhombus?",
- ans:["30","30 cm squared","thirty"],
+ cq:"Find area of rhombus with diagonals 16 cm and 9 cm.",cqs:"Rhombus diagonals 16 and 9. Area?",
+ ans:["72","72 cm squared","seventy two"],
  nudges:["Half times d1 times d2!","Half times 10 times 6 equals?","30! Say 30!"]},
 
 {id:"ar2",
@@ -334,8 +334,8 @@ var QB=[
   {t:"Area = &#189; &#215; d &#215; (h&#8321; + h&#8322;)",s:"Area equals half times diagonal times h1 plus h2."},
   {t:"= &#189; &#215; 10 &#215; (5 + 3) = &#189; &#215; 80 = <span class='ans-tag'>40 cm&#178;</span>",s:"Half times 10 times 8 equals 40 square centimetres."}
  ],
- cq:"Area?",cqs:"Area?",
- ans:["40","40 cm squared","forty"],
+ cq:"Quadrilateral diagonal = 12 cm, perpendiculars = 4 cm and 6 cm. Area?",cqs:"Diagonal 12, perpendiculars 4 and 6. Area?",
+ ans:["60","60 cm squared","sixty"],
  nudges:["Half times diagonal times sum of perpendiculars!","Half times 10 times 8 equals?","40! Say 40!"]},
 
 {id:"ar3",
@@ -346,8 +346,8 @@ var QB=[
   {t:"Area = &#960;r&#178;",s:"Area equals pi r squared."},
   {t:"= (22/7) &#215; 7 &#215; 7 = 22 &#215; 7 = <span class='ans-tag'>154 cm&#178;</span>",s:"22 over 7 times 49 equals 154 square centimetres."}
  ],
- cq:"Area of this circle?",cqs:"Area?",
- ans:["154","154 cm squared","one fifty four"],
+ cq:"Find area of a circle with radius 14 cm. (π=22/7)",cqs:"Circle radius 14. Area?",
+ ans:["616","616 cm squared","six sixteen"],
  nudges:["Pi r squared. Pi equals 22 over 7!","22 over 7 times 49 equals?","154! Say 154!"]},
 
 {id:"ar4",
@@ -358,8 +358,8 @@ var QB=[
   {t:"Area of triangle = &#189; &#215; base &#215; height",s:"Area equals half times base times height."},
   {t:"= &#189; &#215; 10 &#215; 6 = <span class='ans-tag'>30 cm&#178;</span>",s:"Half times 10 times 6 equals 30 square centimetres."}
  ],
- cq:"Area of this triangle?",cqs:"Area?",
- ans:["30","30 cm squared","thirty"],
+ cq:"Triangle base = 14 cm, height = 8 cm. Find area.",cqs:"Triangle base 14, height 8. Area?",
+ ans:["56","56 cm squared","fifty six"],
  nudges:["Half base times height!","Half times 10 times 6 equals?","30! Say 30!"]},
 
 {id:"ar5",
@@ -371,8 +371,8 @@ var QB=[
   {t:"Inner dimensions: (60&#8722;4) &#215; (40&#8722;4) = 56 &#215; 36 = 2016 m&#178;",s:"Inner area equals 56 times 36 equals 2016."},
   {t:"Path area = 2400 &#8722; 2016 = <span class='ans-tag'>384 m&#178;</span>",s:"Path area equals 384 square metres."}
  ],
- cq:"Area of the path?",cqs:"Path area?",
- ans:["384","384 m squared","three hundred eighty four"],
+ cq:"Rectangular park 80m × 50m has a 2m wide path inside. Find path area.",cqs:"Park 80 by 50, path 2m wide inside. Area of path?",
+ ans:["504","504 m squared","five hundred four"],
  nudges:["Outer area minus inner area!","2400 minus 2016 equals?","384! Say 384!"]},
 
 {id:"ar6",
@@ -384,7 +384,7 @@ var QB=[
   {t:"120 = 10 &#215; d&#8322;",s:"120 equals 10 times d2."},
   {t:"d&#8322; = 12 cm. <span class='ans-tag'>12 cm</span>",s:"d2 equals 12 centimetres."}
  ],
- cq:"Other diagonal?",cqs:"Other diagonal?",
+ cq:"Rhombus area = 90 cm², one diagonal = 15 cm. Find the other diagonal.",cqs:"Rhombus area 90, one diagonal 15. Other diagonal?",
  ans:["12","12 cm","twelve"],
  nudges:["10 times d2 equals 120. d2 equals?","Divide 120 by 10!","12! Say 12!"]},
 
@@ -395,8 +395,8 @@ var QB=[
  steps:[
   {t:"Area = base &#215; height = 9 &#215; 5 = <span class='ans-tag'>45 cm&#178;</span>",s:"Area equals base times height equals 45 square centimetres."}
  ],
- cq:"Area?",cqs:"Area?",
- ans:["45","45 cm squared","forty five"],
+ cq:"Parallelogram with base 12 cm and height 7 cm. Find area.",cqs:"Parallelogram base 12, height 7. Area?",
+ ans:["84","84 cm squared","eighty four"],
  nudges:["Base times height!","9 times 5 equals?","45! Say 45!"]},
 
 {id:"ar8",
@@ -408,8 +408,8 @@ var QB=[
   {t:"105 = 10.5 &#215; h",s:"105 equals 10.5 times h."},
   {t:"h = 105 &#247; 10.5 = <span class='ans-tag'>10 cm</span>",s:"h equals 10 centimetres."}
  ],
- cq:"Height?",cqs:"Height?",
- ans:["10","10 cm","ten"],
+ cq:"Trapezium area = 84 cm², parallel sides = 8 cm and 6 cm. Find height.",cqs:"Trapezium area 84, sides 8 and 6. Height?",
+ ans:["12","12 cm","twelve"],
  nudges:["Half times 21 times h equals 105. So 10.5h equals 105.","105 divided by 10.5 equals?","10! Say 10!"]},
 
 {id:"ar9",
@@ -421,8 +421,8 @@ var QB=[
   {t:"= (3 &#215; 1.732/2) &#215; 36 = 2.598 &#215; 36",s:"3 times 1.732 divided by 2 times 36."},
   {t:"&#8776; <span class='ans-tag'>93.5 cm&#178;</span>",s:"Approximately 93.5 square centimetres."}
  ],
- cq:"A hexagon is made of how many equilateral triangles?",cqs:"How many triangles in a hexagon?",
- ans:["6","six"],
+ cq:"A regular hexagon has side 4 cm. How many equilateral triangles is it divided into?",cqs:"Hexagon with side 4 cm. How many equilateral triangles?",
+ ans:["6","six","6 triangles"],
  nudges:["Draw lines from center to each vertex!","6 equal triangles!","6! Say 6!"]}
 ];
 
@@ -1117,6 +1117,7 @@ function mathUpdate(){
 }
 
 </script>
+<script src="/explain-helper.js"></script>
 <script src="/explain-helper.js"></script>
 </body>
 </html>
