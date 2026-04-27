@@ -321,31 +321,49 @@
     Quality standard: match rational-numbers.html — clear steps, real examples,
               proper Indian student language, not textbook dry
 
-▌ REMAINING WORK (updated 27 Apr 2026) — IN PRIORITY ORDER
+▌ REMAINING WORK (updated 27 Apr 2026 night) — IN PRIORITY ORDER
   [DONE THIS SESSION — 27 Apr 2026]
   ✅ explain-helper.js — "I Don't Understand" button, method cycling, double-btn fix
   ✅ explain-differently.js — Gemini endpoint for re-teaching
   ✅ All 16 explain pages — RISHIKA everywhere, fresh confirm questions (different numbers),
      explain-helper.js injected, rishi-core.js in head (mensuration fix)
   ✅ Gemini model fixed to gemini-2.5-flash (v1beta)
+  ✅ Sampurna Pariksha — sampurna-pariksha.html + syllabus.html wired
+     50Q / 100 marks / 90 min / all 17 chapters / shuffle every attempt
+     Gate: all 16 chapter exams done / coins 1000-50 / Gemini explain wrong answers
 
-  [NEXT — P3]
-  1. Sampurna Pariksha — grand final exam, unlocks after all 16 chapter exams done
-                         Samples from ALL chapters, similar to topic-exam.html
-                         50 questions / 100 marks / 90 minutes
+  [NEXT — P1]
+  1. Presence & Resume System — rishi-presence.js (single injection, all 48 pages)
 
-  [SOON]
+     FEATURES:
+     a) TIMING SLOTS — parent sets allowed slots (9am-12pm etc.) in parent.html
+        Student locked out outside slot. Active slot → green, else locked overlay.
+     b) ONLINE/OFFLINE — heartbeat to localStorage every 30s.
+        visibilitychange + beforeunload → offline immediately with timestamp.
+        Parent dashboard: green dot (online) / grey + "X min ago" (offline).
+     c) SESSION RESUME — on any page load, check if student was mid-session.
+        Explain/Practice: resumes at last question index (already in localStorage).
+        Exam: timer remaining seconds saved every 10s → restored on re-entry.
+     d) REAL-TIME PARENT VIEW — parent-dashboard.html polls localStorage every 10s.
+        Shows: current page, online/offline, active break, time in slot, full log.
+        All events → rishi_presence_log JSON array (capped 200 entries).
+
+     IMPLEMENTATION (localStorage only — no new server/DB/Cloudflare functions):
+     - rishi-presence.js patches startTimer() on exam pages after load
+     - Inject via extended inject-explain-helper.mjs into all 48 pages
+     - parent-dashboard.html gets a new Presence panel
+
+  [SOON — P2]
   2. YouTube video embed — Arindam picks 1 video per chapter,
-     Claude wires as optional "Watch Video" button (no API, just embed)
-  3. Online/Offline presence tracking — single injection script (rishi-presence.js)
-     Heartbeat ping + visibilitychange + beforeunload across all 48 pages
-     Parent dashboard shows online/offline + duration
-  4. Practice pages — unverified since Apr 24, needs flow + voice + avatar check
+     Claude wires "Watch Video" button in explain pages (no API, embed only)
+
+  [SOON — P3]
+  3. Practice pages — unverified since Apr 24, needs flow + voice + avatar check
 
   [FUTURE]
-  5. Vedic Maths / Calculation Shortcuts mini-module
-  6. OTP SMS reset — blocked on TRAI DLT registration
-  7. Ch06, Ch07 (Squares, Cubes) — excluded from current build
+  4. Vedic Maths / Calculation Shortcuts mini-module
+  5. OTP SMS reset — blocked on TRAI DLT registration
+  6. Ch06, Ch07 (Squares, Cubes) — excluded from current build
 
 ▌ CRITICAL RULES FOR CLAUDE
   1. NEVER guess at file contents — always read actual file first
