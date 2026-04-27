@@ -461,5 +461,6 @@ function mathUpdate(){var ra=G("rawAnswer");if(!ra)return;var v=ra.value.trim();
 function buildSuggChips(list){var el=G("suggChips");if(!el)return;var ra=G("rawAnswer");el.innerHTML="";list.forEach(function(c){var btn=document.createElement("button");btn.className="schip "+(c.type||"shortcut");btn.textContent=c.label;btn.type="button";btn.addEventListener("click",function(){if(c.ins&&ra){var s=ra.selectionStart,e=ra.selectionEnd;ra.value=ra.value.slice(0,s)+c.ins+ra.value.slice(e);ra.focus();mathUpdate();}});el.appendChild(btn);});}
 window.onload=init;
 </script>
+<script src="/explain-helper.js"></script>
 </body>
 </html>
