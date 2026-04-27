@@ -262,4 +262,63 @@
     setTimeout(function () { div.remove(); }, 4000);
   }
 
+  /* ── Override makeChips — no answer chips in confirm ────── */
+  /* The original makeChips() exposes q.ans as clickable chips,
+     letting students just tap the answer without thinking.
+     We replace it with an empty array so the student must type. */
+  window.makeChips = function () { return []; };
+
+  /* ── Override handleAnswer — never reveal answer ─────────── */
+  /* Original nudge[2] says "The answer is X!" — a full giveaway.
+     After 3 wrong attempts we encourage the student to re-read
+     the steps and try once more, then show Next Question.       */
+  window.handleAnswer = function (text) {
+    var q = window.session[window.idx];
+    if (!q) return;
+
+    var ok = q.ans.some(function (a) {
+      var at = String(a).toLowerCase().trim();
+      var tt = String(text).toLowerCase().trim();
+      return tt.includes(at) || at.includes(tt);
+    });
+
+    var rb = document.getElementById('rbox');
+    if (!rb) return;
+
+    if (ok) {
+      /* Correct — use page's own celebrate() */
+      if (typeof window.celebrate === 'function') window.celebrate();
+      return;
+    }
+
+    /* Wrong answer */
+    window.nudgeCount = (window.nudgeCount || 0) + 1;
+    rb.className = 'result-box no';
+    rb.textContent = '\u2716 Not quite. Read my hint!';
+
+    var nudgeEl = document.getElementById('nudgeBox');
+    var nudgeMsg;
+
+    if (window.nudgeCount <= 2) {
+      /* Show nudge[0] or nudge[1] — these are real hints, not answers */
+      nudgeMsg = q.nudges[window.nudgeCount - 1] || q.nudges[0];
+    } else {
+      /* 3rd+ wrong: encourage, never reveal */
+      nudgeMsg = '\ud83d\udcda Scroll up and re-read the steps carefully. The answer is in there — you can do it!';
+      /* Show Next Question button */
+      var nb = document.getElementById('btnNext');
+      if (nb) {
+        nb.classList.add('show');
+        nb.textContent = 'Move On \u25b6';
+      }
+    }
+
+    if (nudgeEl) {
+      nudgeEl.textContent = nudgeMsg;
+      nudgeEl.classList.add('show');
+    }
+    if (typeof window.say === 'function') window.say(nudgeMsg);
+    if (typeof window.rThink === 'function') window.rThink();
+  };
+
 })();
