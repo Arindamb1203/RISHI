@@ -1,24 +1,34 @@
 /**
- * explain-helper.js — RISHI "Explain Differently" engine
- * Include on all 16 explain pages with: <script src="/explain-helper.js"></script>
+ * explain-helper.js — RISHI "I Don't Understand" engine v2
+ * Include on all 16 explain pages: <script src="/explain-helper.js"></script>
  *
  * What it does:
- *   After Rekha finishes all steps and shows "✅ I Understand!", a
- *   "🤔 Explain Differently" button appears below it.
- *   Clicking it calls /api/explain-differently (Gemini) and re-teaches
- *   the same concept using a fresh story, analogy, or worked example.
+ *   After all steps finish and "✅ I Understand!" appears, a second button
+ *   "🤔 I Don't Understand" appears beside it. Clicking it fetches a fresh
+ *   explanation (story / analogy / worked example) from /api/explain-differently.
+ *   Student can keep pressing it — cycles Method 2, Method 3, then recycles.
+ *
+ * Double-button bug fix:
+ *   If page code creates two "I Understand!" buttons (happens when student clicks
+ *   "Next Step" before the auto-timeout fires), the second one is removed silently.
  *
  * Assumptions (true for all 16 explain pages):
- *   - window.session[window.idx] has .q (question text) and .steps (array of {t:...})
- *   - #qArea is the main content div
- *   - .topbar-center has the chapter name text
- *   - .step / .step-num / .step-body CSS classes already exist on the page
+ *   - window.session[window.idx] has .q and .steps[]
+ *   - #qArea is the main scrollable content div
+ *   - #stepsWrap is the container the buttons are appended to
+ *   - .topbar-center has the chapter name
+ *   - .step / .step-num / .step-body CSS classes exist
+ *   - window.say(text, callback) is available
  */
 
-(function() {
+(function () {
   'use strict';
 
-  /* ── Wait for DOM ──────────────────────────────────────── */
+  var methodCount = 0;   // how many alternate methods fetched so far
+  var injected    = false; // guard against double injection
+  var prevSteps   = [];  // accumulates all previous step texts for the API
+
+  /* ── Boot ─────────────────────────────────────────────── */
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', boot);
   } else {
@@ -26,186 +36,212 @@
   }
 
   function boot() {
-    /* Watch #qArea for the "I Understand!" button being added */
     var qArea = document.getElementById('qArea');
-    if (!qArea) {
-      /* qArea may not exist yet at DOMContentLoaded — retry */
-      setTimeout(boot, 400);
-      return;
-    }
-    var obs = new MutationObserver(function(mutations) {
+    if (!qArea) { setTimeout(boot, 400); return; }
+
+    /* Reset state whenever qArea is wiped (new question) */
+    var lastLen = qArea.innerHTML.length;
+    var resetObs = new MutationObserver(function () {
+      var nowLen = qArea.innerHTML.length;
+      if (nowLen < 200 && nowLen < lastLen) {
+        methodCount = 0;
+        injected    = false;
+        prevSteps   = [];
+      }
+      lastLen = nowLen;
+    });
+    resetObs.observe(qArea, { childList: true });
+
+    /* Watch for "I Understand!" being added */
+    var obs = new MutationObserver(function (mutations) {
       for (var i = 0; i < mutations.length; i++) {
-        var added = mutations[i].addedNodes;
-        for (var j = 0; j < added.length; j++) {
-          checkForUnderstandBtn(added[j]);
+        var nodes = mutations[i].addedNodes;
+        for (var j = 0; j < nodes.length; j++) {
+          scanNode(nodes[j]);
         }
       }
     });
     obs.observe(qArea, { childList: true, subtree: true });
   }
 
-  /* ── Detect "I Understand!" button ────────────────────── */
-  function checkForUnderstandBtn(node) {
+  /* ── Scan a newly added node for "I Understand!" ───────── */
+  function scanNode(node) {
     if (node.nodeType !== 1) return;
-    /* Direct match */
-    if (isUnderstandBtn(node)) { injectDifferentlyBtn(node); return; }
-    /* Search descendants */
+    if (isUnderstandBtn(node)) { handleUnderstandBtn(node); return; }
     var btns = node.querySelectorAll ? node.querySelectorAll('button') : [];
     for (var i = 0; i < btns.length; i++) {
-      if (isUnderstandBtn(btns[i])) { injectDifferentlyBtn(btns[i]); return; }
+      if (isUnderstandBtn(btns[i])) { handleUnderstandBtn(btns[i]); return; }
     }
   }
 
   function isUnderstandBtn(el) {
-    return el.tagName === 'BUTTON' && el.innerHTML && el.innerHTML.indexOf('I Understand') !== -1;
+    return el && el.tagName === 'BUTTON' &&
+           el.innerHTML && el.innerHTML.indexOf('I Understand') !== -1 &&
+           el.className.indexOf('btn-dont') === -1;
   }
 
-  /* ── Inject the "Explain Differently" button ───────────── */
-  function injectDifferentlyBtn(understandBtn) {
-    /* Avoid double-injection */
-    var parent = understandBtn.parentNode;
-    if (!parent || parent.querySelector('.btn-explain-differently')) return;
+  /* ── Handle "I Understand!" found ─────────────────────── */
+  function handleUnderstandBtn(btn) {
+    var parent = btn.parentNode;
+    if (!parent) return;
 
-    var btn = document.createElement('button');
-    btn.className = 'btn-speak btn-explain-differently';
-    btn.innerHTML = '&#129300; Explain Differently';
-    btn.style.cssText = 'margin-top:10px;width:100%;background:linear-gradient(135deg,#7a4aaa,#a06aee);color:#fff;border-color:#7a4aaa;';
-    btn.onclick = function() { handleExplainDifferently(btn); };
-    parent.appendChild(btn);
-
-    /* Scroll so button is visible */
-    setTimeout(function() {
-      btn.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }, 200);
-  }
-
-  /* ── Main handler ──────────────────────────────────────── */
-  function handleExplainDifferently(triggerBtn) {
-    /* Disable to prevent double-click */
-    triggerBtn.disabled = true;
-    triggerBtn.innerHTML = '&#8987; Thinking differently...';
-
-    /* Gather context from page globals */
-    var concept  = '';
-    var origSteps = [];
-    try {
-      var q = window.session[window.idx];
-      concept    = q.q  || q.question || '';
-      origSteps  = q.steps || [];
-    } catch(e) {}
-
-    /* Chapter name from topbar */
-    var chapter = 'Mathematics';
-    var tc = document.querySelector('.topbar-center');
-    if (tc) {
-      chapter = tc.textContent.trim().replace(/^[^\w]+/, '').trim() || chapter;
+    /* Fix double-button bug: remove duplicate "I Understand" buttons */
+    var allBtns = parent.querySelectorAll('button');
+    var iuSeen = false;
+    for (var k = 0; k < allBtns.length; k++) {
+      if (isUnderstandBtn(allBtns[k])) {
+        if (iuSeen) { allBtns[k].remove(); }
+        else { iuSeen = true; }
+      }
     }
 
-    /* Call API */
+    /* Avoid double injection */
+    if (injected || parent.querySelector('.btn-dont')) return;
+    injected = true;
+
+    /* Capture original steps for the API */
+    try {
+      var q = window.session[window.idx];
+      prevSteps = (q.steps || []).map(function (s) {
+        return typeof s === 'object' ? (s.t || s.text || '') : String(s);
+      });
+    } catch (e) {}
+
+    /* Shrink "I Understand" to half-width */
+    btn.style.width = '48%';
+    btn.style.display = 'inline-block';
+    btn.style.verticalAlign = 'top';
+    btn.style.marginTop = '16px';
+
+    /* Build "I Don't Understand" button */
+    var dontBtn = document.createElement('button');
+    dontBtn.className = 'btn-speak btn-dont';
+    dontBtn.innerHTML = '&#129300; I Don\'t Understand';
+    dontBtn.style.cssText =
+      'margin-top:16px;width:48%;display:inline-block;vertical-align:top;' +
+      'margin-left:4%;background:linear-gradient(135deg,#7a4aaa,#a06aee);' +
+      'color:#fff;border-color:#7a4aaa;font-family:Nunito,sans-serif;' +
+      'font-size:11px;font-weight:900;padding:5px 11px;border-radius:20px;' +
+      'border:2px solid #7a4aaa;cursor:pointer;';
+    dontBtn.onclick = function () { fetchNewMethod(dontBtn, btn); };
+
+    parent.appendChild(dontBtn);
+
+    setTimeout(function () {
+      dontBtn.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, 250);
+  }
+
+  /* ── Fetch a new method from Gemini ───────────────────── */
+  function fetchNewMethod(dontBtn, understandBtn) {
+    dontBtn.disabled = true;
+    dontBtn.innerHTML = '&#8987; Finding another way...';
+
+    var concept = '';
+    var chapter = 'Mathematics';
+
+    try {
+      var q = window.session[window.idx];
+      concept = q.q || q.question || '';
+    } catch (e) {}
+
+    var tc = document.querySelector('.topbar-center');
+    if (tc) chapter = tc.textContent.trim().replace(/^[^\w\u0900-\u097F]+/, '').trim() || chapter;
+
     fetch('/api/explain-differently', {
-      method:  'POST',
+      method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         concept:  concept,
         chapter:  chapter,
-        steps:    origSteps
+        steps:    prevSteps,
+        attempt:  methodCount + 1
       })
     })
-    .then(function(res) {
+    .then(function (res) {
       if (!res.ok) throw new Error('HTTP ' + res.status);
       return res.json();
     })
-    .then(function(data) {
-      if (!data.steps || !data.steps.length) throw new Error('No steps returned');
-      triggerBtn.style.display = 'none';
-      renderFreshExplanation(data.steps, triggerBtn.parentNode);
+    .then(function (data) {
+      if (!data.steps || !data.steps.length) throw new Error('Empty');
+      methodCount++;
+
+      /* Add new steps to prevSteps so next call knows what was shown */
+      var newTexts = data.steps.map(function (s) {
+        return typeof s === 'object' ? (s.t || s.text || '') : String(s);
+      });
+      prevSteps = prevSteps.concat(newTexts);
+
+      /* Restore button label */
+      dontBtn.disabled = false;
+      dontBtn.innerHTML = '&#129300; Try Another Way';
+
+      renderMethod(data.steps, methodCount, understandBtn);
     })
-    .catch(function(err) {
-      triggerBtn.disabled = false;
-      triggerBtn.innerHTML = '&#129300; Explain Differently';
-      showInlineError(triggerBtn.parentNode, 'Couldn\'t reach Gemini. Try again in a moment.');
+    .catch(function () {
+      dontBtn.disabled = false;
+      dontBtn.innerHTML = '&#129300; I Don\'t Understand';
+      showErr(dontBtn.parentNode, 'Couldn\'t reach server. Try again!');
     });
   }
 
-  /* ── Render the new explanation ────────────────────────── */
-  function renderFreshExplanation(steps, container) {
-    /* Find or create the qArea to append to */
+  /* ── Render a fresh method card ───────────────────────── */
+  function renderMethod(steps, num, understandBtn) {
     var qArea = document.getElementById('qArea');
-    if (!qArea) qArea = container;
+    if (!qArea) return;
+
+    var labels = ['', 'Another Way to Think About It',
+                      'Yet Another Approach', 'One More Way'];
+    var label  = labels[num] || ('Method ' + (num + 1));
 
     var card = document.createElement('div');
-    card.className = 'q-card';
-    card.style.cssText = 'border-color:#7a4aaa;';
+    card.className = 'q-card eh-method-card';
+    card.style.cssText = 'border-color:#7a4aaa;margin-top:10px;';
     card.innerHTML =
-      '<div class="q-label" style="color:#7a4aaa;">' +
-        '&#129760; A Different Way to Think About It' +
-      '</div>' +
-      '<div id="diffStepsWrap"></div>';
+      '<div class="q-label" style="color:#7a4aaa;">&#129760; ' + escHtml(label) + '</div>' +
+      '<div class="eh-steps-wrap"></div>';
     qArea.appendChild(card);
     card.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
-    var wrap = card.querySelector('#diffStepsWrap');
+    var wrap  = card.querySelector('.eh-steps-wrap');
     var delay = 300;
 
     for (var i = 0; i < steps.length; i++) {
-      (function(stepText, stepNum, d) {
-        /* Determine display number and style */
-        var isAnswer = /^Answer:/i.test(stepText);
-        var label    = isAnswer ? '&#10003;' : String(stepNum);
-        var numStyle = isAnswer
-          ? 'background:linear-gradient(135deg,#5a8a60,#7ab87a);'
-          : 'background:linear-gradient(135deg,#7a4aaa,#a06aee);';
+      (function (text, stepNum, d) {
+        var isAns  = /^Answer:/i.test(text);
+        var lbl    = isAns ? '&#10003;' : String(stepNum);
+        var numBg  = isAns
+          ? 'background:linear-gradient(135deg,#5a8a60,#7ab87a);border-color:#3a6a40;'
+          : 'background:linear-gradient(135deg,#7a4aaa,#a06aee);border-color:#4a2a7a;';
 
         var div = document.createElement('div');
         div.className = 'step';
         div.innerHTML =
-          '<div class="step-num" style="' + numStyle + 'border:2px solid #4a2a7a;">' + label + '</div>' +
-          '<div class="step-body">' + escHtml(stepText) + '</div>';
+          '<div class="step-num" style="' + numBg + '">' + lbl + '</div>' +
+          '<div class="step-body">' + escHtml(text) + '</div>';
         wrap.appendChild(div);
 
-        setTimeout(function() {
+        setTimeout(function () {
           div.classList.add('vis');
-          /* Speak each step if say() is available */
           if (typeof window.say === 'function') {
-            var plain = stepText.replace(/^Step\s*\d+:\s*/i, '').replace(/^Answer:\s*/i, '');
+            var plain = text.replace(/^Step\s*\d+:\s*/i, '').replace(/^Answer:\s*/i, '');
             window.say(plain);
           }
         }, d);
       })(steps[i], i + 1, delay);
 
-      delay += isAnswerStep(steps[i]) ? 400 : 3200;
+      delay += /^Answer:/i.test(steps[i]) ? 400 : 3200;
     }
 
-    /* After all steps: show "Got it!" button */
-    setTimeout(function() {
-      var gotit = document.createElement('button');
-      gotit.className = 'btn-speak';
-      gotit.innerHTML = '&#9989; Got it now!';
-      gotit.style.cssText = 'margin-top:14px;width:100%;';
-      gotit.onclick = function() {
-        gotit.remove();
-        /* Restore "I Understand!" button behaviour — find and click it */
-        var iu = findUnderstandBtn();
-        if (iu && !iu.disabled) { iu.click(); }
-      };
-      wrap.appendChild(gotit);
-      gotit.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }, delay + 400);
+    /* After all steps, scroll "I Understand" back into view */
+    setTimeout(function () {
+      if (understandBtn) {
+        understandBtn.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }, delay + 600);
   }
 
   /* ── Helpers ───────────────────────────────────────────── */
-  function isAnswerStep(text) {
-    return /^Answer:/i.test(text);
-  }
-
-  function findUnderstandBtn() {
-    var btns = document.querySelectorAll('#qArea button');
-    for (var i = 0; i < btns.length; i++) {
-      if (isUnderstandBtn(btns[i])) return btns[i];
-    }
-    return null;
-  }
-
   function escHtml(str) {
     return String(str)
       .replace(/&/g, '&amp;')
@@ -214,7 +250,8 @@
       .replace(/"/g, '&quot;');
   }
 
-  function showInlineError(container, msg) {
+  function showErr(container, msg) {
+    if (!container) return;
     var old = container.querySelector('.eh-error');
     if (old) old.remove();
     var div = document.createElement('div');
@@ -222,7 +259,7 @@
     div.style.cssText = 'font-size:12px;font-weight:700;color:#b85c2a;margin-top:6px;';
     div.textContent = msg;
     container.appendChild(div);
-    setTimeout(function() { div.remove(); }, 4000);
+    setTimeout(function () { div.remove(); }, 4000);
   }
 
 })();
