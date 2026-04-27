@@ -365,6 +365,44 @@
   5. OTP SMS reset — blocked on TRAI DLT registration
   6. Ch06, Ch07 (Squares, Cubes) — excluded from current build
 
+▌ MULTI-CLASS / MULTI-BOARD EXPANSION PLAN (do after Class 8 CBSE complete)
+
+  FOLDER ARCHITECTURE (target):
+  public/
+  ├── rishi-core.js, rishi-sync.js, rishi-presence.js, explain-helper.js, rishi-diagram.js
+  ├── login.html, parent.html, parent-dashboard.html  (shared, board-agnostic)
+  ├── cbse/
+  │   ├── class6/  explain/ practice/ data/
+  │   ├── class7/  explain/ practice/ data/
+  │   └── class8/  (current content moves here)
+  ├── icse/
+  │   └── class8/  explain/ practice/ data/
+  └── wbse/
+      └── class8/  explain/ practice/ data/
+
+  PARAMETERISATION (one-time, do before first clone):
+  Add to every explain/practice/exam page:
+    meta name rishi-board content cbse
+    meta name rishi-class content 8
+  All shared JS reads these at runtime. Zero rewrites when cloning.
+
+  CLONE SCRIPT (clone-class.mjs):
+  node clone-class.mjs --from cbse/class8 --to cbse/class7
+  Does: copies all HTML, replaces chapter IDs/titles, clears QB steps/answers,
+  updates meta tags, generates empty JSON bank files, outputs content checklist.
+
+  EFFORT PER NEW CLASS:
+  Architecture + clone script: 2 sessions (one-time only)
+  Content (QB JSON + explain steps) per class: 8-10 sessions
+  UI / engine / parent portal / coins: 100% reused, zero extra work
+
+  BOARD DIFFERENCES (ICSE/WBSE):
+  Same engine, different board flag, different chapter sequence.
+  Only question JSON and chapter order differ. Everything else identical.
+
+  RULE: Do NOT start expansion until Class 8 CBSE fully complete
+  (Presence system + YouTube + Practice verification all done first).
+
 ▌ CRITICAL RULES FOR CLAUDE
   1. NEVER guess at file contents — always read actual file first
   2. NEVER deliver code without checking for probable errors
