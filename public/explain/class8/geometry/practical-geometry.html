@@ -203,7 +203,7 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
   <ellipse id="rBlush1" cx="36" cy="30" rx="7" ry="4" fill="#ff9999" opacity="0"/>
   <ellipse id="rBlush2" cx="64" cy="30" rx="7" ry="4" fill="#ff9999" opacity="0"/>
   <rect x="28" y="90" width="44" height="13" fill="#d4870a" rx="4"/>
-  <text x="50" y="100" text-anchor="middle" font-family="Nunito" font-size="7" font-weight="900" fill="white">REKHA</text>
+  <text x="50" y="100" text-anchor="middle" font-family="Nunito" font-size="7" font-weight="900" fill="white">RISHIKA</text>
 </svg>
 </div>
 <script>
@@ -275,7 +275,7 @@ function sayEl(id){var e=G(id);if(e)say(e.innerText||e.textContent);}
 window.addEventListener("beforeunload",function(){stopAllAudio();});
 window.addEventListener("pagehide",function(){stopAllAudio();});
 
-/* ═══════ REKHA (TURTLE) CHARACTER ═══════ */
+/* ═══════ RISHIKA CHARACTER ═══════ */
 var elAudio=null;
 var mouthTmr=null, blinkTmr=null, mOpen=false;
 function rInit(){
@@ -329,8 +329,8 @@ var QB=[
   {t:"Minimum needed = <span class='ans-tag'>5 measurements</span> (e.g. 4 sides + 1 diagonal).",s:"But minimum needed is 5 measurements, for example 4 sides and 1 diagonal."},
   {t:"The diagonal divides it into 2 triangles. Each triangle needs 3 sides (SSS). Together = 5.",s:"The diagonal divides the quadrilateral into 2 triangles, each constructed by SSS."}
  ],
- cq:"Minimum measurements to construct a unique quadrilateral?",cqs:"Minimum measurements?",
- ans:["5","five"],
+ cq:"What is the minimum number of measurements needed to construct a unique triangle?",cqs:"Minimum measurements for a unique triangle?",
+ ans:["3","three"],
  nudges:["Think: 4 sides plus something to fix the shape!","The diagonal splits it into 2 triangles!","5 measurements! Say 5!"]},
 
 {id:"pg1",
@@ -342,8 +342,8 @@ var QB=[
   {t:"Without moving ruler, mark point Q at the 6 cm mark.",s:"Without moving the ruler, mark Q at the 6 centimetre mark."},
   {t:"Draw a line from P to Q along the ruler edge. <span class='ans-tag'>PQ = 6 cm</span>",s:"Draw the line from P to Q along the ruler edge. Line segment PQ is 6 centimetres."}
  ],
- cq:"Which tool is used to draw a line segment?",cqs:"Tool for line segment?",
- ans:["ruler","scale","the ruler"],
+ cq:"Which tool is used to draw arcs and circles in construction?",cqs:"Tool for drawing arcs and circles?",
+ ans:["compass","a compass","the compass"],
  nudges:["It has centimetre markings on it!","Ruler! Say ruler!","A ruler! Say ruler!"]},
 
 {id:"pg2",
@@ -355,8 +355,8 @@ var QB=[
   {t:"From A, draw arcs above and below AB. From B, draw arcs above and below AB.",s:"Draw arcs from A and then arcs from B with the same radius."},
   {t:"Join the two intersection points. This line is the <span class='ans-tag'>perpendicular bisector</span>.",s:"Join the two intersection points. That line is the perpendicular bisector."}
  ],
- cq:"Why must the compass radius be more than half of AB?",cqs:"Why more than half?",
- ans:["to intersect","arcs must cross","they must meet","need two points","intersect above and below"],
+ cq:"How many intersection points are needed to draw a perpendicular bisector?",cqs:"How many intersection points needed?",
+ ans:["2","two","two points"],
  nudges:["If radius equals exactly half, arcs only touch at midpoint - just 1 point!","You need 2 intersection points to draw a line!","Arcs must intersect above and below! Say to intersect!"]},
 
 {id:"pg3",
@@ -369,8 +369,8 @@ var QB=[
   {t:"Step 3: With compass, draw arc of radius 4 cm from C. Mark intersection as A.",s:"Open compass to 4 centimetres. Draw arc from C. The intersection is point A."},
   {t:"Join AB and AC. <span class='ans-tag'>Triangle ABC complete!</span>",s:"Join A to B and A to C. Triangle ABC is complete."}
  ],
- cq:"Which congruence case is used when all 3 sides are given?",cqs:"Which congruence case?",
- ans:["sss","side side side","s s s"],
+ cq:"Which congruence case uses two sides and the included angle?",cqs:"Two sides and included angle — which case?",
+ ans:["sas","side angle side","s a s"],
  nudges:["3 sides given - which case?","When all 3 sides are known it is S S S!","Say SSS!"]},
 
 {id:"pg4",
@@ -383,8 +383,8 @@ var QB=[
   {t:"Step 3: At B, construct a 90° angle. Mark BC = 4 cm.",s:"At point B, draw a right angle. Mark BC equals 4 centimetres."},
   {t:"Step 4: Join CD. ABCD is a square with <span class='ans-tag'>4 right angles</span>.",s:"Join C to D. ABCD is a square with 4 right angles."}
  ],
- cq:"How many right angles does a square have?",cqs:"Right angles in a square?",
- ans:["4","four"],
+ cq:"How many equal sides does a square have?",cqs:"Equal sides in a square?",
+ ans:["4","four","all 4","all four"],
  nudges:["Count the corners of a square!","Every corner is 90 degrees!","4 right angles! Say 4!"]},
 
 {id:"pg5",
@@ -396,8 +396,8 @@ var QB=[
   {t:"Draw diagonal AC = 7 cm. From A and C, draw arcs of radius 5 cm.",s:"Draw diagonal AC equals 7. From A draw arc of 5 cm. From C draw arc of 5 cm."},
   {t:"Intersection above = B, intersection below = D. Join to get <span class='ans-tag'>rhombus ABCD</span>.",s:"The arcs intersect at B above and D below. Join all vertices."}
  ],
- cq:"All sides of a rhombus are?",cqs:"All sides of rhombus?",
- ans:["equal","same","all equal","same length"],
+ cq:"At what angle do the diagonals of a rhombus bisect each other?",cqs:"Angle between diagonals of a rhombus?",
+ ans:["90","90 degrees","right angle","ninety"],
  nudges:["Rhombus is a special parallelogram!","All 4 sides are the same length!","Equal! Say equal!"]},
 
 {id:"pg6",
@@ -409,8 +409,8 @@ var QB=[
   {t:"At P, draw PS = 3 cm perpendicular to PQ.",s:"At P, draw PS equals 3 at a right angle."},
   {t:"Join RS = 5 cm. <span class='ans-tag'>Rectangle PQRS complete!</span>",s:"Join R to S. Rectangle PQRS is complete."}
  ],
- cq:"In a rectangle, opposite sides are?",cqs:"Opposite sides of rectangle?",
- ans:["equal","same","parallel and equal","equal and parallel"],
+ cq:"In a rectangle with length 8 cm and breadth 5 cm, what is the perimeter?",cqs:"Rectangle length 8, breadth 5. What is the perimeter?",
+ ans:["26","26 cm","twenty six"],
  nudges:["Compare PQ with RS, and QR with PS!","They are the same length!","Equal! Say equal!"]},
 
 {id:"pg7",
@@ -422,8 +422,8 @@ var QB=[
   {t:"Angle C = 180 - 45 - 60 = 75°",s:"Angle C equals 180 minus 45 minus 60 equals 75 degrees."},
   {t:"Draw AB = 6 cm. At A draw 45° angle. At B draw 60° angle. Intersection = C.",s:"Draw AB. At A draw 45 degrees. At B draw 60 degrees. Where they meet is C."}
  ],
- cq:"What is the third angle C?",cqs:"Angle C equals?",
- ans:["75","75 degrees","seventy five"],
+ cq:"In a triangle, angle A = 55&#176; and angle B = 70&#176;. What is angle C?",cqs:"Angle A is 55, angle B is 70. What is angle C?",
+ ans:["55","55 degrees","fifty five"],
  nudges:["Angles in a triangle sum to 180!","180 minus 45 minus 60 equals?","75 degrees! Say 75!"]},
 
 {id:"pg8",
@@ -436,8 +436,8 @@ var QB=[
   {t:"Step 2: From those two points, draw equal arcs that intersect.",s:"From the two cut points, draw equal arcs that meet inside the angle."},
   {t:"Join vertex to intersection point. <span class='ans-tag'>Angle bisector drawn!</span>",s:"Join the vertex to the intersection. That is the angle bisector."}
  ],
- cq:"Angle bisector divides an angle into how many equal parts?",cqs:"Equal parts?",
- ans:["2","two","two equal parts","2 equal"],
+ cq:"If the angle bisector bisects a 90&#176; angle, what is each resulting angle?",cqs:"Bisect 90 degrees. Each part equals?",
+ ans:["45","45 degrees","forty five"],
  nudges:["Bisect means to cut in half!","It makes 2 equal angles!","2 equal parts! Say 2!"]},
 
 {id:"pg9",
@@ -449,8 +449,8 @@ var QB=[
   {t:"5² + 12² = 25 + 144 = 169 = 13²",s:"5 squared plus 12 squared equals 25 plus 144 equals 169. And 13 squared is also 169."},
   {t:"<span class='ans-tag'>Yes! It is a right triangle.</span> The right angle is opposite the longest side (13 cm).",s:"Yes! It is a right triangle. The right angle is opposite the 13 centimetre side."}
  ],
- cq:"What is 5 squared plus 12 squared?",cqs:"5 squared plus 12 squared?",
- ans:["169","one sixty nine","13 squared","169 equals 13 squared"],
+ cq:"What is 8&#178; + 15&#178;? Is 8, 15, 17 a right triangle?",cqs:"8 squared plus 15 squared equals?",
+ ans:["289","289 equals 17 squared","17 squared","yes right triangle"],
  nudges:["25 plus 144 equals?","Add 25 and 144!","169! Say 169!"]}
 ];
 
@@ -1418,6 +1418,7 @@ function mathUpdate(){
 }
 
 </script>
+<script src="/explain-helper.js"></script>
 <script src="/explain-helper.js"></script>
 </body>
 </html>

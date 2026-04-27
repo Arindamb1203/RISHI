@@ -201,7 +201,7 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
   <ellipse id="rBlush1" cx="36" cy="30" rx="7" ry="4" fill="#ff9999" opacity="0"/>
   <ellipse id="rBlush2" cx="64" cy="30" rx="7" ry="4" fill="#ff9999" opacity="0"/>
   <rect x="28" y="90" width="44" height="13" fill="#d4870a" rx="4"/>
-  <text x="50" y="100" text-anchor="middle" font-family="Nunito" font-size="7" font-weight="900" fill="white">REKHA</text>
+  <text x="50" y="100" text-anchor="middle" font-family="Nunito" font-size="7" font-weight="900" fill="white">RISHIKA</text>
 </svg>
 </div>
 <script>
@@ -245,7 +245,7 @@ function sayEl(id){var e=G(id);if(e)say(e.innerText||e.textContent);}
 window.addEventListener("beforeunload",function(){stopAllAudio();});
 window.addEventListener("pagehide",function(){stopAllAudio();});
 var mouthTmr=null,mOpen=false;
-/* ═══════ REKHA (TURTLE) CHARACTER ═══════ */
+/* ═══════ RISHIKA CHARACTER ═══════ */
 var mouthTmr=null, blinkTmr=null, mOpen=false;
 function rInit(){
   var c=G("rChar");
@@ -290,70 +290,70 @@ var QB=[
  steps:[{t:"A cube has 6 square faces (top, bottom and 4 sides).",s:"A cube has 6 square faces."},
         {t:"A cube has 12 edges.",s:"A cube has 12 edges."},
         {t:"A cube has 8 vertices. <span class='ans-tag'>F=6, E=12, V=8</span>",s:"A cube has 8 vertices. F equals 6, E equals 12, V equals 8."}],
- cq:"How many faces does a cube have?",cqs:"Faces of a cube?",
- ans:["6","six","6 faces"],nudges:["Think of a dice! Top, bottom and 4 sides!","A cube has 6 faces!","Say 6!"]},
+ cq:"How many vertices does a cube have?",cqs:"Vertices of a cube?",
+ ans:["8","eight","8 vertices"],nudges:["Think of a dice! Top, bottom and 4 sides!","A cube has 6 faces!","Say 6!"]},
 
 {id:"v1",q:"State <span class='hl'>Euler's formula</span> and verify for a cube.",qs:"Euler's formula for polyhedra?",anim:"euler1",
  steps:[{t:"Euler's formula: <span class='ans-tag'>V &minus; E + F = 2</span>",s:"Euler's formula: Vertices minus Edges plus Faces equals 2."},
         {t:"V = vertices, E = edges, F = faces.",s:"V is vertices, E is edges, F is faces."},
         {t:"Cube: 8 &minus; 12 + 6 = <span class='ans-tag'>2 &#10003;</span>",s:"For a cube: 8 minus 12 plus 6 equals 2. Verified!"}],
- cq:"V minus E plus F equals?",cqs:"Euler's formula result?",
+ cq:"Verify Euler's formula for a tetrahedron: V=4, E=6, F=4. What does V-E+F equal?",cqs:"V minus E plus F for tetrahedron with V=4, E=6, F=4?",
  ans:["2","two","equals 2"],nudges:["It connects V, E and F of any polyhedron!","V minus E plus F equals?","Say 2!"]},
 
 {id:"v2",q:"Tetrahedron: V=4, F=4. Find <span class='hl'>edges</span> using Euler's formula.",qs:"Tetrahedron V=4, F=4. Find edges.",anim:"euler2",
  steps:[{t:"Apply V &minus; E + F = 2",s:"Apply Euler's formula."},
         {t:"4 &minus; E + 4 = 2 &rarr; 8 &minus; E = 2",s:"4 minus E plus 4 equals 2. So 8 minus E equals 2."},
         {t:"E = <span class='ans-tag'>6 edges</span>",s:"E equals 6 edges."}],
- cq:"How many edges does a tetrahedron have?",cqs:"Edges of a tetrahedron?",
- ans:["6","six","6 edges"],nudges:["V-E+F=2. V=4, F=4!","4-E+4=2, so 8-E=2!","E equals 6!"]},
+ cq:"A cuboid has V=8, F=6. Use Euler's formula to find edges.",cqs:"Cuboid V=8, F=6. How many edges?",
+ ans:["12","twelve","12 edges"],nudges:["V-E+F=2. V=4, F=4!","4-E+4=2, so 8-E=2!","E equals 6!"]},
 
 {id:"v3",q:"Octahedron: V=6, E=12. Find <span class='hl'>faces</span> using Euler's formula.",qs:"Octahedron V=6, E=12. Find faces.",anim:"euler3",
  steps:[{t:"Apply V &minus; E + F = 2",s:"Apply Euler's formula."},
         {t:"6 &minus; 12 + F = 2 &rarr; &minus;6 + F = 2",s:"6 minus 12 plus F equals 2. Minus 6 plus F equals 2."},
         {t:"F = <span class='ans-tag'>8 faces</span>",s:"F equals 8 faces."}],
- cq:"How many faces does an octahedron have?",cqs:"Faces of an octahedron?",
- ans:["8","eight","8 faces"],nudges:["6-12+F=2!","Minus 6 plus F equals 2!","F equals 8!"]},
+ cq:"A solid has V=5, E=8. Use Euler's formula to find faces.",cqs:"Solid V=5, E=8. How many faces?",
+ ans:["5","five","5 faces"],nudges:["6-12+F=2!","Minus 6 plus F equals 2!","F equals 8!"]},
 
 {id:"v4",q:"The top view of a <span class='hl'>cone</span> placed on its base is?",qs:"Top view of a cone?",anim:"conetop",
  steps:[{t:"A cone has a circular base and an apex.",s:"A cone has a circular base at the bottom and a pointed apex at the top."},
         {t:"Looking from directly above, you see the circular base.",s:"From directly above, you see the circular base with the apex as a dot at the centre."},
         {t:"Top view = <span class='ans-tag'>Circle</span>",s:"The top view of a cone is a circle."}],
- cq:"What is the top view of a cone?",cqs:"Top view of a cone?",
- ans:["circle","circular","a circle"],nudges:["Look from directly above!","You see the circular base!","Say Circle!"]},
+ cq:"What is the side view (front view) of a cone?",cqs:"Side view of a cone?",
+ ans:["triangle","a triangle","triangular"],nudges:["Look from directly above!","You see the circular base!","Say Circle!"]},
 
 {id:"v5",q:"The front view of an upright <span class='hl'>cylinder</span> is?",qs:"Front view of an upright cylinder?",anim:"cylfront",
  steps:[{t:"An upright cylinder has two circular bases and a curved surface.",s:"An upright cylinder has two circular bases."},
         {t:"From the front you see two vertical and two horizontal lines.",s:"From the front you see a rectangle shape."},
         {t:"Front view = <span class='ans-tag'>Rectangle</span>",s:"The front view of an upright cylinder is a rectangle."}],
- cq:"Front view of an upright cylinder?",cqs:"Front view of a cylinder?",
- ans:["rectangle","rectangular","a rectangle"],nudges:["Look at it from the side!","You see vertical and horizontal lines!","Say Rectangle!"]},
+ cq:"What is the top view of an upright cylinder?",cqs:"Top view of a cylinder?",
+ ans:["circle","a circle","circular"],nudges:["Look at it from the side!","You see vertical and horizontal lines!","Say Rectangle!"]},
 
 {id:"v6",q:"A solid has V=6, F=5. Find <span class='hl'>edges</span> using Euler's formula.",qs:"Solid V=6, F=5. Find edges.",anim:"euler4",
  steps:[{t:"Apply V &minus; E + F = 2",s:"Apply Euler's formula."},
         {t:"6 &minus; E + 5 = 2 &rarr; 11 &minus; E = 2",s:"6 minus E plus 5 equals 2. 11 minus E equals 2."},
         {t:"E = <span class='ans-tag'>9 edges</span> (Triangular prism!)",s:"E equals 9 edges. This is a triangular prism!"}],
- cq:"How many edges does this solid have?",cqs:"Number of edges?",
- ans:["9","nine","9 edges"],nudges:["V-E+F=2. V=6, F=5!","11-E=2!","E equals 9!"]},
+ cq:"A solid has V=7, F=7. How many edges does it have?",cqs:"Solid V=7, F=7. How many edges?",
+ ans:["12","twelve","12 edges"],nudges:["V-E+F=2. V=6, F=5!","11-E=2!","E equals 9!"]},
 
 {id:"v7",q:"Net of a <span class='hl'>cube</span> consists of how many squares?",qs:"How many squares in the net of a cube?",anim:"netcube",
  steps:[{t:"A cube has 6 square faces.",s:"A cube has 6 faces, all of which are squares."},
         {t:"Unfolding gives a cross-shaped net of 6 squares.",s:"Unfolding a cube flat gives 6 squares in a cross or T shape."},
         {t:"Net of cube = <span class='ans-tag'>6 squares</span>",s:"The net of a cube consists of exactly 6 squares."}],
- cq:"How many squares in the net of a cube?",cqs:"Squares in the net of a cube?",
- ans:["6","six","6 squares"],nudges:["Unfold a cube like a cardboard box!","A cube has 6 faces, all squares!","Say 6!"]},
+ cq:"The net of a tetrahedron consists of how many triangles?",cqs:"Triangles in net of a tetrahedron?",
+ ans:["4","four","4 triangles"],nudges:["Unfold a cube like a cardboard box!","A cube has 6 faces, all squares!","Say 6!"]},
 
 {id:"v8",q:"Which is <span class='hl'>NOT</span> a polyhedron: Cube, Sphere, Prism, Tetrahedron?",qs:"Which is not a polyhedron?",anim:"poly1",
  steps:[{t:"A polyhedron must have only flat polygon faces.",s:"A polyhedron must have only flat polygon faces."},
         {t:"Cube, prism and tetrahedron all have flat faces only.",s:"Cube, prism and tetrahedron all have flat faces."},
         {t:"Sphere has a curved surface. <span class='ans-tag'>Sphere is NOT a polyhedron.</span>",s:"A sphere has a curved surface, so it is not a polyhedron."}],
- cq:"Which shape is NOT a polyhedron?",cqs:"Which is not a polyhedron?",
- ans:["sphere","a sphere"],nudges:["A polyhedron needs only flat faces!","Which shape has a curved surface?","Say Sphere!"]},
+ cq:"Which of these IS a polyhedron: Cylinder, Cone, Triangular Prism, Sphere?",cqs:"Which one is a polyhedron?",
+ ans:["triangular prism","prism","a prism"],nudges:["A polyhedron needs only flat faces!","Which shape has a curved surface?","Say Sphere!"]},
 
 {id:"v9",q:"Dodecahedron: V=20, F=12. Find <span class='hl'>edges</span> using Euler's formula.",qs:"Dodecahedron V=20, F=12. Find edges.",anim:"euler5",
  steps:[{t:"Apply V &minus; E + F = 2",s:"Apply Euler's formula."},
         {t:"20 &minus; E + 12 = 2 &rarr; 32 &minus; E = 2",s:"20 minus E plus 12 equals 2. 32 minus E equals 2."},
         {t:"E = <span class='ans-tag'>30 edges</span>",s:"E equals 30 edges."}],
- cq:"How many edges does a dodecahedron have?",cqs:"Edges of a dodecahedron?",
+ cq:"An icosahedron has V=12, F=20. Use Euler's formula to find edges.",cqs:"Icosahedron V=12, F=20. How many edges?",
  ans:["30","thirty","30 edges"],nudges:["V-E+F=2. V=20, F=12!","32-E=2!","E equals 30!"]},
 ];
 
@@ -585,6 +585,7 @@ function mathUpdate(){
 }
 
 </script>
+<script src="/explain-helper.js"></script>
 <script src="/explain-helper.js"></script>
 </body>
 </html>

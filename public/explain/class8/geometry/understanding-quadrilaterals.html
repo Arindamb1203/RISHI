@@ -203,7 +203,7 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
   <ellipse id="rBlush1" cx="36" cy="30" rx="7" ry="4" fill="#ff9999" opacity="0"/>
   <ellipse id="rBlush2" cx="64" cy="30" rx="7" ry="4" fill="#ff9999" opacity="0"/>
   <rect x="28" y="90" width="44" height="13" fill="#d4870a" rx="4"/>
-  <text x="50" y="100" text-anchor="middle" font-family="Nunito" font-size="7" font-weight="900" fill="white">REKHA</text>
+  <text x="50" y="100" text-anchor="middle" font-family="Nunito" font-size="7" font-weight="900" fill="white">RISHIKA</text>
 </svg>
 </div>
 <script>
@@ -275,7 +275,7 @@ function sayEl(id){var e=G(id);if(e)say(e.innerText||e.textContent);}
 window.addEventListener("beforeunload",function(){stopAllAudio();});
 window.addEventListener("pagehide",function(){stopAllAudio();});
 
-/* ═══════ REKHA (TURTLE) CHARACTER ═══════ */
+/* ═══════ RISHIKA CHARACTER ═══════ */
 var mouthTmr=null, blinkTmr=null, mOpen=false;
 function rInit(){
   var c=G("rChar");
@@ -328,8 +328,8 @@ var QB=[
   {t:"90 + 85 + 95 = 270&#176;",s:"90 plus 85 plus 95 equals 270 degrees."},
   {t:"Missing angle = 360 &#8722; 270 = <span class='ans-tag'>90&#176;</span>",s:"Missing angle equals 360 minus 270 equals 90 degrees."}
  ],
- cq:"Sum of all angles in any quadrilateral?",cqs:"Angle sum of quadrilateral?",
- ans:["360","360 degrees","three sixty"],
+ cq:"Three angles of a quadrilateral are 70&#176;, 110&#176; and 80&#176;. Find the fourth angle.",cqs:"Angles 70, 110, 80. What is the fourth angle?",
+ ans:["100","100 degrees","one hundred"],
  nudges:["Split it into 2 triangles. Each has 180 degrees!","2 times 180 equals?","360 degrees! Say 360!"]},
 
 {id:"qd1",
@@ -342,8 +342,8 @@ var QB=[
   {t:"3. Consecutive angles are <b>supplementary</b> (sum = 180&#176;).",s:"Property 3: Consecutive angles add up to 180 degrees."},
   {t:"4. Diagonals <b>bisect each other</b>.",s:"Property 4: Diagonals bisect each other at the midpoint."}
  ],
- cq:"Do diagonals of a parallelogram bisect each other?",cqs:"Diagonals bisect each other?",
- ans:["yes","yes they do","they bisect"],
+ cq:"Do the diagonals of a parallelogram bisect each other at 90&#176;?",cqs:"Parallelogram diagonals bisect at 90 degrees?",
+ ans:["no","not necessarily","no they dont"],
  nudges:["The diagonals cross at the midpoint of each other!","Yes, they bisect each other!","Say Yes!"]},
 
 {id:"qd2",
@@ -354,8 +354,8 @@ var QB=[
   {t:"Diagonals of a rhombus bisect each other at <b>90&#176;</b>.",s:"Diagonals of a rhombus are perpendicular, meeting at 90 degrees."},
   {t:"Area = &#189; &#215; d&#8321; &#215; d&#8322; = &#189; &#215; 10 &#215; 6 = <span class='ans-tag'>30 cm&#178;</span>",s:"Area equals half times 10 times 6 equals 30 square centimetres."}
  ],
- cq:"Area of rhombus with diagonals 10 and 6?",cqs:"Area?",
- ans:["30","30 cm squared","thirty"],
+ cq:"Find the area of a rhombus with diagonals 14 cm and 8 cm.",cqs:"Rhombus diagonals 14 and 8. Area?",
+ ans:["56","56 cm squared","fifty six"],
  nudges:["Half times d1 times d2!","Half times 10 times 6 equals?","30 square cm! Say 30!"]},
 
 {id:"qd3",
@@ -367,8 +367,8 @@ var QB=[
   {t:"All angles = <b>90&#176;</b>",s:"All four angles are 90 degrees."},
   {t:"Diagonals are <b>equal in length</b>. <span class='ans-tag'>Equal diagonals + 90&#176; angles</span>",s:"And the diagonals are equal in length. These are the two extra properties."}
  ],
- cq:"Are the diagonals of a rectangle equal?",cqs:"Rectangle diagonals equal?",
- ans:["yes","equal","yes equal","yes they are equal"],
+ cq:"Are the diagonals of a parallelogram equal in length?",cqs:"Parallelogram diagonals equal?",
+ ans:["no","not necessarily","not always","no not equal"],
  nudges:["Unlike a parallelogram, rectangle diagonals are the same length!","Yes, they are equal!","Say Yes!"]},
 
 {id:"qd4",
@@ -379,8 +379,8 @@ var QB=[
   {t:"Perimeter = 4 &#215; side = 4 &#215; 7 = <span class='ans-tag'>28 cm</span>",s:"Perimeter equals 4 times 7 equals 28 centimetres."},
   {t:"Area = side&#178; = 7&#178; = <span class='ans-tag'>49 cm&#178;</span>",s:"Area equals 7 squared equals 49 square centimetres."}
  ],
- cq:"Area of this square?",cqs:"Area?",
- ans:["49","49 cm squared","forty nine"],
+ cq:"A square has a side of 9 cm. What is its area?",cqs:"Square side 9 cm. What is the area?",
+ ans:["81","81 cm squared","eighty one"],
  nudges:["Area = side squared = 7 times 7!","7 squared equals?","49! Say 49!"]},
 
 {id:"qd5",
@@ -392,8 +392,8 @@ var QB=[
   {t:"One full turn = <span class='ans-tag'>360&#176;</span>",s:"One full turn is 360 degrees."},
   {t:"This is true for ALL polygons regardless of number of sides.",s:"This is true for all polygons, whether triangle, square, or any other shape."}
  ],
- cq:"Sum of exterior angles of any polygon?",cqs:"Exterior angle sum?",
- ans:["360","360 degrees","three sixty"],
+ cq:"A regular polygon has 12 sides. What is each exterior angle?",cqs:"Regular 12-sided polygon. Each exterior angle?",
+ ans:["30","30 degrees","thirty"],
  nudges:["One complete trip around any shape is one full turn!","Always 360 degrees!","Say 360!"]},
 
 {id:"qd6",
@@ -404,8 +404,8 @@ var QB=[
   {t:"Sum of interior angles = (n&#8722;2) &#215; 180&#176; = 4 &#215; 180&#176; = 720&#176;",s:"Sum equals n minus 2 times 180. For hexagon n equals 6. So 4 times 180 equals 720 degrees."},
   {t:"Each angle = 720&#176; &#247; 6 = <span class='ans-tag'>120&#176;</span>",s:"Each angle equals 720 divided by 6 equals 120 degrees."}
  ],
- cq:"Each interior angle of regular hexagon?",cqs:"Each angle?",
- ans:["120","120 degrees","one twenty"],
+ cq:"What is each interior angle of a regular pentagon?",cqs:"Each interior angle of a regular pentagon?",
+ ans:["108","108 degrees","one hundred eight"],
  nudges:["720 degrees total divided by 6 sides!","720 divided by 6 equals?","120 degrees! Say 120!"]},
 
 {id:"qd7",
@@ -416,8 +416,8 @@ var QB=[
   {t:"Area = &#189;(a + b) &#215; h",s:"Area of trapezium equals half times a plus b times h."},
   {t:"= &#189; &#215; (8 + 5) &#215; 4 = &#189; &#215; 52 = <span class='ans-tag'>26 cm&#178;</span>",s:"Half times 13 times 4 equals 26 square centimetres."}
  ],
- cq:"Area of this trapezium?",cqs:"Area?",
- ans:["26","26 cm squared","twenty six"],
+ cq:"Find the area of a trapezium with parallel sides 10 cm and 6 cm, height 5 cm.",cqs:"Trapezium parallel sides 10 and 6, height 5. Area?",
+ ans:["40","40 cm squared","forty"],
  nudges:["Half times sum of parallel sides times height!","Half times 13 times 4 equals?","26! Say 26!"]},
 
 {id:"qd8",
@@ -430,8 +430,8 @@ var QB=[
   {t:"3. One diagonal <b>bisects</b> the other.",s:"Property 3: One diagonal is bisected by the other."},
   {t:"4. One pair of opposite angles are <b>equal</b>.",s:"Property 4: One pair of opposite angles are equal."}
  ],
- cq:"Are kite diagonals perpendicular?",cqs:"Kite diagonals perpendicular?",
- ans:["yes","perpendicular","yes perpendicular","yes they are"],
+ cq:"In a kite, does each diagonal bisect the other?",cqs:"Do kite diagonals bisect each other?",
+ ans:["no","only one","one bisects the other","not both"],
  nudges:["Kite diagonals cross at 90 degrees!","Yes, they are perpendicular!","Say Yes!"]},
 
 {id:"qd9",
@@ -442,8 +442,8 @@ var QB=[
   {t:"Number of sides = 360&#176; &#247; each exterior angle",s:"Number of sides equals 360 divided by each exterior angle."},
   {t:"= 360 &#247; 45 = <span class='ans-tag'>8 sides</span> (Octagon)",s:"360 divided by 45 equals 8 sides. It is an octagon."}
  ],
- cq:"How many sides?",cqs:"Number of sides?",
- ans:["8","eight","8 sides","octagon"],
+ cq:"A regular polygon has each exterior angle = 60&#176;. How many sides does it have?",cqs:"Each exterior angle 60 degrees. How many sides?",
+ ans:["6","six","6 sides","hexagon"],
  nudges:["360 divided by the exterior angle gives the number of sides!","360 divided by 45 equals?","8 sides! Say 8!"]}
 ];
 
@@ -1195,6 +1195,7 @@ function mathUpdate(){
 }
 
 </script>
+<script src="/explain-helper.js"></script>
 <script src="/explain-helper.js"></script>
 </body>
 </html>
