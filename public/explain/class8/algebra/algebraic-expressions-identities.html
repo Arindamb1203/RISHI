@@ -203,7 +203,7 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
   <ellipse id="rBlush1" cx="36" cy="30" rx="7" ry="4" fill="#ff9999" opacity="0"/>
   <ellipse id="rBlush2" cx="64" cy="30" rx="7" ry="4" fill="#ff9999" opacity="0"/>
   <rect x="28" y="90" width="44" height="13" fill="#d4870a" rx="4"/>
-  <text x="50" y="100" text-anchor="middle" font-family="Nunito" font-size="7" font-weight="900" fill="white">REKHA</text>
+  <text x="50" y="100" text-anchor="middle" font-family="Nunito" font-size="7" font-weight="900" fill="white">RISHIKA</text>
 </svg>
 </div>
 <script>
@@ -260,7 +260,7 @@ function sayEl(id){var e=G(id);if(e)say(e.innerText||e.textContent);}
 window.addEventListener("beforeunload",function(){stopAllAudio();});
 window.addEventListener("pagehide",function(){stopAllAudio();});
 
-/* ═══════ REKHA (TURTLE) CHARACTER ═══════ */
+/* ═══════ RISHIKA CHARACTER ═══════ */
 var mouthTmr=null, blinkTmr=null, mOpen=false;
 function rInit(){
   var c=G("rChar");
@@ -319,8 +319,8 @@ var QB=[
   {t:"Coefficient of x&#178;y = <span class='ans-tag'>5</span>. Coefficient of xy&#178; = <span class='ans-tag'>&minus;3</span>.",s:"Coefficient of x squared y is 5. Coefficient of xy squared is minus 3."},
   {t:"<span class='fm'>7</span> is the <b>constant term</b> (no variable).",s:"7 is the constant term because it has no variable."}
  ],
- cq:"How many terms are in 5x&#178;y &minus; 3xy&#178; + 7?",cqs:"How many terms?",
- ans:["3","three"],
+ cq:"How many terms are in 4ab &minus; 2a + 6b &minus; 1?",cqs:"How many terms in 4ab minus 2a plus 6b minus 1?",
+ ans:["4","four"],
  nudges:["Count parts separated by plus and minus!","There are 3 parts!","3 terms! Say 3!"]},
 
 {id:"ae1",
@@ -332,9 +332,9 @@ var QB=[
   {t:"x terms: 4x &minus; 2x = 2x. Constants: &minus;5 + 7 = 2",s:"x terms: 4x minus 2x equals 2x. Constants: minus 5 plus 7 equals 2."},
   {t:"Answer: <span class='ans-tag'>4x&#178; + 2x + 2</span>",s:"The answer is 4x squared plus 2x plus 2."}
  ],
- cq:"What is the x&#178; term in the sum?",cqs:"x squared term?",
- ans:["4x squared","4x2","4 x squared"],
- nudges:["3x squared plus x squared equals?","4x squared!","Say 4x squared!"]},
+ cq:"Add 2x&sup2; + 3x &minus; 1 and x&sup2; &minus; x + 4. What is the coefficient of x?",cqs:"Add 2x squared plus 3x minus 1 and x squared minus x plus 4. What is the coefficient of x?",
+ ans:["2","two"],
+ nudges:["Add x terms: 3x + (−x) = ?","3x minus x equals 2x. Coefficient is 2!","The answer is 2!"]},
 
 {id:"ae2",
  q:"Expand using identity: <span class='fm'>(x + 4)&#178;</span>",
@@ -345,9 +345,9 @@ var QB=[
   {t:"Here a = x, b = 4.",s:"Here a equals x and b equals 4."},
   {t:"= x&#178; + 2(x)(4) + 4&#178; = <span class='ans-tag'>x&#178; + 8x + 16</span>",s:"x squared plus 8x plus 16."}
  ],
- cq:"Middle term of (x + 4)&#178;?",cqs:"Middle term?",
- ans:["8x","8 x"],
- nudges:["2ab = 2 times x times 4 equals?","8x!","Say 8x!"]},
+ cq:"What is the middle term when you expand (x + 5)&#178;?",cqs:"Middle term of x plus 5 whole squared?",
+ ans:["10x","10 x","ten x"],
+ nudges:["Middle term = 2ab. Here a=x, b=5. 2×x×5 = ?","2 times x times 5 equals 10x!","The answer is 10x!"]},
 
 {id:"ae3",
  q:"Expand: <span class='fm'>(3x &minus; 2)&#178;</span>",
@@ -358,8 +358,8 @@ var QB=[
   {t:"a = 3x, b = 2.",s:"a equals 3x and b equals 2."},
   {t:"= 9x&#178; &minus; 12x + 4. <span class='ans-tag'>(3x&minus;2)&#178; = 9x&#178;&minus;12x+4</span>",s:"9x squared minus 12x plus 4."}
  ],
- cq:"Constant term in (3x &minus; 2)&#178;?",cqs:"Constant term?",
- ans:["4","four"],
+ cq:"What is the constant term in (5x &minus; 3)&#178;?",cqs:"Constant term in 5x minus 3 whole squared?",
+ ans:["9","nine"],
  nudges:["b squared = 2 squared equals?","4!","Say 4!"]},
 
 {id:"ae4",
@@ -371,8 +371,8 @@ var QB=[
   {t:"(a+b)(a&minus;b) = a&#178; &minus; b&#178;",s:"Using the identity: a plus b times a minus b equals a squared minus b squared."},
   {t:"= 100&#178; &minus; 5&#178; = 10000 &minus; 25 = <span class='ans-tag'>9975</span>",s:"100 squared minus 5 squared equals 9975."}
  ],
- cq:"105 times 95 equals?",cqs:"105 times 95?",
- ans:["9975","nine thousand nine hundred seventy five"],
+ cq:"Use an identity to find 103 &times; 97.",cqs:"103 times 97 using identity?",
+ ans:["9991"],
  nudges:["Use (100+5)(100-5) = 100 squared minus 5 squared!","10000 minus 25 equals?","9975! Say 9975!"]},
 
 {id:"ae5",
@@ -384,8 +384,8 @@ var QB=[
   {t:"a = 3, b = 7. a+b = 10, ab = 21.",s:"a is 3 and b is 7. a plus b is 10 and ab is 21."},
   {t:"= <span class='ans-tag'>x&#178; + 10x + 21</span>",s:"x squared plus 10x plus 21."}
  ],
- cq:"Constant term in (x+3)(x+7)?",cqs:"Constant term?",
- ans:["21","twenty one"],
+ cq:"What is the constant term in (x + 4)(x + 6)?",cqs:"Constant term in x plus 4 times x plus 6?",
+ ans:["24","twenty four"],
  nudges:["ab = 3 times 7 equals?","21!","Say 21!"]},
 
 {id:"ae6",
@@ -397,8 +397,8 @@ var QB=[
   {t:"= 100&#178; + 2(100)(2) + 2&#178; = 10000 + 400 + 4",s:"100 squared plus 400 plus 4."},
   {t:"= <span class='ans-tag'>10404</span>",s:"10404."}
  ],
- cq:"102 squared equals?",cqs:"102 squared?",
- ans:["10404"],
+ cq:"Use the identity to evaluate 103&#178;.",cqs:"103 squared using identity?",
+ ans:["10609"],
  nudges:["10000 plus 400 plus 4 equals?","10404!","Say 10404!"]},
 
 {id:"ae7",
@@ -411,8 +411,8 @@ var QB=[
   {t:"Inner: 3&#215;x = 3x. Last: 3&#215;(&minus;5) = &minus;15.",s:"Inner gives 3x. Last gives minus 15."},
   {t:"Sum: <span class='ans-tag'>2x&#178; &minus; 7x &minus; 15</span>",s:"Adding all: 2x squared minus 7x minus 15."}
  ],
- cq:"Constant term in (2x+3)(x-5)?",cqs:"Constant term?",
- ans:["-15","minus 15","negative 15"],
+ cq:"What is the constant term in (3x + 2)(x &minus; 4)?",cqs:"Constant term in 3x plus 2 times x minus 4?",
+ ans:["-8","minus 8","negative 8"],
  nudges:["Last term: 3 times minus 5 equals?","Minus 15!","Say minus 15!"]},
 
 {id:"ae8",
@@ -424,8 +424,8 @@ var QB=[
   {t:"Add: (7x&#178;+3x&minus;2) + (&minus;5x&#178;+4x&minus;8)",s:"Now add the two expressions."},
   {t:"= <span class='ans-tag'>2x&#178; + 7x &minus; 10</span>",s:"2x squared plus 7x minus 10."}
  ],
- cq:"Coefficient of x in the answer?",cqs:"Coefficient of x?",
- ans:["7","seven"],
+ cq:"Subtract 2x&#178; &minus; 3x + 5 from 5x&#178; + x &minus; 2. What is the coefficient of x?",cqs:"Subtract 2x squared minus 3x plus 5 from 5x squared plus x minus 2. Coefficient of x?",
+ ans:["4","four"],
  nudges:["3x plus 4x equals?","7x. Coefficient is 7!","Say 7!"]},
 
 {id:"ae9",
@@ -437,8 +437,8 @@ var QB=[
   {t:"= 100&#178; &minus; 2(100)(2) + 2&#178; = 10000 &minus; 400 + 4",s:"10000 minus 400 plus 4."},
   {t:"= <span class='ans-tag'>9604</span>",s:"9604."}
  ],
- cq:"98 squared equals?",cqs:"98 squared?",
- ans:["9604"],
+ cq:"Use the identity to evaluate 97&#178;.",cqs:"97 squared using identity?",
+ ans:["9409"],
  nudges:["10000 minus 400 plus 4 equals?","9604!","Say 9604!"]}
 ];
 
@@ -1138,6 +1138,7 @@ function mathUpdate(){
 }
 
 </script>
+<script src="/explain-helper.js"></script>
 <script src="/explain-helper.js"></script>
 </body>
 </html>

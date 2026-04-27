@@ -198,7 +198,7 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
   <ellipse id="rBlush1" cx="36" cy="30" rx="7" ry="4" fill="#ff9999" opacity="0"/>
   <ellipse id="rBlush2" cx="64" cy="30" rx="7" ry="4" fill="#ff9999" opacity="0"/>
   <rect x="28" y="90" width="44" height="13" fill="#d4870a" rx="4"/>
-  <text x="50" y="100" text-anchor="middle" font-family="Nunito" font-size="7" font-weight="900" fill="white">REKHA</text>
+  <text x="50" y="100" text-anchor="middle" font-family="Nunito" font-size="7" font-weight="900" fill="white">RISHIKA</text>
 </svg>
 </div>
 <script>
@@ -270,7 +270,7 @@ var AV={
 var speakAltTmr=null,speakAltFlip=true;
 function factorHasSeen(){return localStorage.getItem("rishi_explain_seen_factorisation")==="true";}
 function setAvatarImgs(src){var h=G("rAvatarHeader"),ch=G("rCharImg");if(h)h.src=src;if(ch)ch.src=src;}
-/* ═══════ REKHA (TURTLE) CHARACTER ═══════ */
+/* ═══════ RISHIKA CHARACTER ═══════ */
 var mouthTmr=null, blinkTmr=null, mOpen=false;
 function rInit(){
   var c=G("rChar");
@@ -315,80 +315,80 @@ var QB=[
  steps:[{t:"Find HCF of 4 and 8. HCF = <span class='ans-tag'>4</span>",s:"Find the HCF of 4 and 8. The HCF is 4."},
         {t:"Divide each term: 4x &divide; 4 = x, &nbsp; 8 &divide; 4 = 2",s:"Divide each term by 4. 4x over 4 is x. 8 over 4 is 2."},
         {t:"Answer: <span class='ans-tag'>4(x + 2)</span>",s:"So the factorised form is 4 times x plus 2."}],
- cq:"What is 4x + 8 factorised?",cqs:"Factorise 4x plus 8?",
- ans:["4(x+2)","4 x plus 2","four x plus 2"],
+ cq:"Factorise: 6x + 9",cqs:"Factorise 6x plus 9.",
+ ans:["3(2x+3)","3 times 2x plus 3"],
  nudges:["HCF of 4 and 8 is 4! Take it outside the bracket.","4 times what gives 4x? And 4 times what gives 8?","Say 4 bracket x plus 2!"]},
 
 {id:"f1",q:"Factorise: <span class='hl'>6a&sup2; + 3a</span>",qs:"Factorise 6a squared plus 3a.",anim:"hcf2",
  steps:[{t:"HCF of 6 and 3 = 3. Variables: a&sup2; and a &rarr; lowest power = a",s:"HCF of 6 and 3 is 3. For variables, lowest power of a in both terms is a to the 1."},
         {t:"So HCF = <span class='ans-tag'>3a</span>",s:"So the HCF is 3a."},
         {t:"Answer: <span class='ans-tag'>3a(2a + 1)</span>",s:"The factorised form is 3a times 2a plus 1."}],
- cq:"HCF of 6a squared and 3a?",cqs:"What is the HCF?",
- ans:["3a","three a"],
+ cq:"What is the HCF of 10b&#178; and 5b?",cqs:"HCF of 10b squared and 5b?",
+ ans:["5b","five b"],
  nudges:["HCF of coefficients 6 and 3 is 3. Lowest power of a is a!","HCF is 3 times a!","Say 3a!"]},
 
 {id:"f2",q:"Factorise: <span class='hl'>x&sup2; &minus; 9</span>",qs:"Factorise x squared minus 9.",anim:"diffsq1",
  steps:[{t:"Identity: a&sup2; &minus; b&sup2; = (a + b)(a &minus; b)",s:"Use the difference of squares identity. a squared minus b squared equals a plus b times a minus b."},
         {t:"Here a = x, b = 3 (since 3&sup2; = 9).",s:"Here a equals x and b equals 3 because 3 squared is 9."},
         {t:"Answer: <span class='ans-tag'>(x + 3)(x &minus; 3)</span>",s:"So the answer is x plus 3 times x minus 3."}],
- cq:"Factorise x squared minus 9?",cqs:"Factorise x squared minus 9.",
- ans:["(x+3)(x-3)","x plus 3 x minus 3"],
+ cq:"Factorise: x&#178; &minus; 16",cqs:"Factorise x squared minus 16.",
+ ans:["(x+4)(x-4)","x plus 4 x minus 4"],
  nudges:["This is difference of squares! a squared minus b squared!","a is x, b is 3. Apply the identity!","x plus 3 times x minus 3!"]},
 
 {id:"f3",q:"Factorise: <span class='hl'>x&sup2; + 6x + 9</span>",qs:"Factorise x squared plus 6x plus 9.",anim:"persq1",
  steps:[{t:"Check: a&sup2; + 2ab + b&sup2; = (a+b)&sup2;",s:"Check the perfect square identity. a squared plus 2ab plus b squared equals a plus b whole squared."},
         {t:"a = x, b = 3. Check: 2&times;x&times;3 = 6x &#10003;",s:"a is x, b is 3. Check middle term: 2 times x times 3 equals 6x. It matches!"},
         {t:"Answer: <span class='ans-tag'>(x + 3)&sup2;</span>",s:"It is a perfect square. Answer is x plus 3 whole squared."}],
- cq:"Is x squared + 6x + 9 a perfect square?",cqs:"Factorise x squared plus 6x plus 9.",
- ans:["yes","(x+3)^2","x plus 3 squared","perfect square"],
+ cq:"Factorise: x&#178; + 10x + 25",cqs:"Factorise x squared plus 10x plus 25.",
+ ans:["(x+5)^2","(x+5)2","x plus 5 squared"],
  nudges:["Last term is 3 squared = 9. Middle term is 2 times x times 3 = 6x. All checks pass!","Yes it is a perfect square!","x plus 3 whole squared!"]},
 
 {id:"f4",q:"Factorise by splitting middle term: <span class='hl'>x&sup2; + 5x + 6</span>",qs:"Factorise x squared plus 5x plus 6.",anim:"split1",
  steps:[{t:"Find m, n: m &times; n = 6, m + n = 5 &rarr; <span class='ans-tag'>m=2, n=3</span>",s:"Find two numbers whose product is 6 and sum is 5. Those are 2 and 3."},
         {t:"x&sup2; + 2x + 3x + 6 = x(x+2) + 3(x+2)",s:"Split 5x into 2x plus 3x. Group and factorise."},
         {t:"Answer: <span class='ans-tag'>(x + 2)(x + 3)</span>",s:"Both groups share x plus 2. Answer is x plus 2 times x plus 3."}],
- cq:"Factorise x squared + 5x + 6?",cqs:"Factorised form of x squared plus 5x plus 6?",
- ans:["(x+2)(x+3)","x plus 2 x plus 3"],
+ cq:"Factorise: x&#178; + 7x + 10",cqs:"Factorise x squared plus 7x plus 10.",
+ ans:["(x+2)(x+5)","x plus 2 x plus 5"],
  nudges:["Two numbers: product 6, sum 5. That's 2 and 3!","Split 5x into 2x and 3x, then group!","x plus 2 times x plus 3!"]},
 
 {id:"f5",q:"Factorise: <span class='hl'>x&sup2; &minus; 7x + 12</span>",qs:"Factorise x squared minus 7x plus 12.",anim:"split2",
  steps:[{t:"m &times; n = 12, m + n = &minus;7 &rarr; <span class='ans-tag'>m=&minus;3, n=&minus;4</span>",s:"Product is 12 and sum is minus 7. Both numbers negative: minus 3 and minus 4."},
         {t:"x&sup2; &minus;3x &minus;4x + 12 = x(x&minus;3) &minus;4(x&minus;3)",s:"Split and group."},
         {t:"Answer: <span class='ans-tag'>(x &minus; 3)(x &minus; 4)</span>",s:"Answer is x minus 3 times x minus 4."}],
- cq:"Factorise x squared minus 7x plus 12?",cqs:"Factorise x squared minus 7x plus 12.",
- ans:["(x-3)(x-4)","x minus 3 x minus 4"],
+ cq:"Factorise: x&#178; &minus; 9x + 20",cqs:"Factorise x squared minus 9x plus 20.",
+ ans:["(x-4)(x-5)","x minus 4 x minus 5"],
  nudges:["Both numbers are negative since product is positive but sum is negative!","Minus 3 and minus 4. Split, group, factorise!","x minus 3 times x minus 4!"]},
 
 {id:"f6",q:"Factorise by grouping: <span class='hl'>ax + ay + bx + by</span>",qs:"Factorise ax plus ay plus bx plus by.",anim:"group1",
  steps:[{t:"Group: (ax + ay) + (bx + by)",s:"Group the first two and last two terms."},
         {t:"Take common: a(x+y) + b(x+y)",s:"Take a common from the first group, b from the second."},
         {t:"Answer: <span class='ans-tag'>(x + y)(a + b)</span>",s:"Both share x plus y. Answer is x plus y times a plus b."}],
- cq:"Factorise ax + ay + bx + by?",cqs:"Factorise ax plus ay plus bx plus by.",
- ans:["(x+y)(a+b)","x plus y a plus b"],
+ cq:"Factorise by grouping: px + py + qx + qy",cqs:"Factorise px plus py plus qx plus qy.",
+ ans:["(p+q)(x+y)","p plus q times x plus y"],
  nudges:["Group first two and last two terms, then take common from each!","Both groups share the factor x plus y!","x plus y times a plus b!"]},
 
 {id:"f7",q:"Factorise: <span class='hl'>4x&sup2; &minus; 25</span>",qs:"Factorise 4x squared minus 25.",anim:"diffsq2",
  steps:[{t:"4x&sup2; = (2x)&sup2;, &nbsp; 25 = 5&sup2; &rarr; difference of squares form",s:"4x squared equals 2x whole squared. 25 equals 5 squared. This is difference of squares."},
         {t:"a = 2x, b = 5",s:"So a is 2x and b is 5."},
         {t:"Answer: <span class='ans-tag'>(2x + 5)(2x &minus; 5)</span>",s:"Answer is 2x plus 5 times 2x minus 5."}],
- cq:"Factorise 4x squared minus 25?",cqs:"Factorise 4x squared minus 25.",
- ans:["(2x+5)(2x-5)","2x plus 5 2x minus 5"],
+ cq:"Factorise: 9x&#178; &minus; 4",cqs:"Factorise 9x squared minus 4.",
+ ans:["(3x+2)(3x-2)","3x plus 2 3x minus 2"],
  nudges:["Both are perfect squares! 4x squared is 2x squared, and 25 is 5 squared!","Apply difference of squares with a equals 2x and b equals 5!","2x plus 5 times 2x minus 5!"]},
 
 {id:"f8",q:"Factorise completely: <span class='hl'>x&sup3; &minus; x</span>",qs:"Factorise completely x cubed minus x.",anim:"cubic1",
  steps:[{t:"Step 1: Take x common &rarr; x(x&sup2; &minus; 1)",s:"Take x common. We get x times x squared minus 1."},
         {t:"Step 2: x&sup2; &minus; 1 is difference of squares",s:"x squared minus 1 is difference of squares with a equals x and b equals 1."},
         {t:"Answer: <span class='ans-tag'>x(x + 1)(x &minus; 1)</span>",s:"Complete factorisation: x times x plus 1 times x minus 1."}],
- cq:"Completely factorise x cubed minus x?",cqs:"Completely factorise x cubed minus x.",
- ans:["x(x+1)(x-1)","x x plus 1 x minus 1"],
+ cq:"Completely factorise: y&#179; &minus; 4y",cqs:"Completely factorise y cubed minus 4y.",
+ ans:["y(y+2)(y-2)","y times y plus 2 times y minus 2"],
  nudges:["First take x common to get x times x squared minus 1!","Then x squared minus 1 is difference of squares!","x times x plus 1 times x minus 1!"]},
 
 {id:"f9",q:"Factorise: <span class='hl'>2x&sup2; + 7x + 3</span>",qs:"Factorise 2x squared plus 7x plus 3.",anim:"split3",
  steps:[{t:"a&times;c = 2&times;3 = 6. Factors of 6 adding to 7: <span class='ans-tag'>1 and 6</span>",s:"Multiply a times c: 2 times 3 equals 6. Factors of 6 that add to 7 are 1 and 6."},
         {t:"2x&sup2; + x + 6x + 3 = x(2x+1) + 3(2x+1)",s:"Split and group."},
         {t:"Answer: <span class='ans-tag'>(2x + 1)(x + 3)</span>",s:"Answer is 2x plus 1 times x plus 3."}],
- cq:"Factorise 2x squared + 7x + 3?",cqs:"Factorise 2x squared plus 7x plus 3.",
- ans:["(2x+1)(x+3)","2x plus 1 x plus 3"],
+ cq:"Factorise: 3x&#178; + 8x + 4",cqs:"Factorise 3x squared plus 8x plus 4.",
+ ans:["(3x+2)(x+2)","3x plus 2 x plus 2"],
  nudges:["Multiply a and c: 2 times 3 equals 6. Find factors of 6 adding to 7!","1 and 6. Split 7x into x plus 6x, then group!","2x plus 1 times x plus 3!"]}
 ];
 
@@ -929,6 +929,7 @@ function mathUpdate(){
 }
 </script>
 
+<script src="/explain-helper.js"></script>
 <script src="/explain-helper.js"></script>
 </body>
 </html>

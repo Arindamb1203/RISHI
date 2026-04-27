@@ -208,7 +208,7 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
   <ellipse id="rBlush1" cx="36" cy="30" rx="7" ry="4" fill="#ff9999" opacity="0"/>
   <ellipse id="rBlush2" cx="64" cy="30" rx="7" ry="4" fill="#ff9999" opacity="0"/>
   <rect x="28" y="90" width="44" height="13" fill="#d4870a" rx="4"/>
-  <text x="50" y="100" text-anchor="middle" font-family="Nunito" font-size="7" font-weight="900" fill="white">REKHA</text>
+  <text x="50" y="100" text-anchor="middle" font-family="Nunito" font-size="7" font-weight="900" fill="white">RISHIKA</text>
 </svg>
 </div>
 <script>
@@ -302,7 +302,7 @@ function sayEl(id){ var e=G(id); if(e) say(e.innerText||e.textContent); }
 window.addEventListener("beforeunload",function(){stopAllAudio();});
 window.addEventListener("pagehide",function(){stopAllAudio();});
 
-/* ═══════ REKHA (TURTLE) CHARACTER ═══════ */
+/* ═══════ RISHIKA CHARACTER ═══════ */
 var elAudio=null;
 var mouthTmr=null, blinkTmr=null, mOpen=false;
 function rInit(){
@@ -356,7 +356,7 @@ var QB=[
   {t:"Divide both sides by 2: <span class='fm'>x = 4</span>",s:"Divide both sides by 2. x equals 4."},
   {t:"Check: 2(4)+7 = 15 &#10003; <span class='ans-tag'>x = 4</span>",s:"Check: correct! x equals 4."}
  ],
- cq:"What is x?",cqs:"What is x?",
+ cq:"Solve: 3x + 5 = 17. What is x?",cqs:"3x plus 5 equals 17. What is x?",
  ans:["4","four","x is 4"],
  nudges:["2x equals 8. Divide both sides by 2!","Half of 8 is?","x equals 4! Say 4!"]},
 {id:"le1",
@@ -368,8 +368,8 @@ var QB=[
   {t:"<span class='fm'>2x = 12</span>",s:"2x equals 12."},
   {t:"<span class='fm'>x = 6</span> <span class='ans-tag'>x = 6</span>",s:"x equals 6."}
  ],
- cq:"What is x?",cqs:"What is x?",
- ans:["6","six"],
+ cq:"Solve by transposition: 7x &minus; 4 = 4x + 8. What is x?",cqs:"7x minus 4 equals 4x plus 8. What is x?",
+ ans:["4","four","x is 4"],
  nudges:["Bring 3x to left and minus 3 to right!","5x minus 3x is 2x and 9 plus 3 is 12.","x equals 6! Say 6!"]},
 {id:"le2",
  q:"Solve: <span class='fm'><span class='frac'><span class='num'>x</span><span class='den'>3</span></span> + <span class='frac'><span class='num'>x</span><span class='den'>4</span></span> = 7</span>",
@@ -380,8 +380,8 @@ var QB=[
   {t:"<span class='fm'>4x + 3x = 84</span>",s:"4x plus 3x equals 84."},
   {t:"<span class='fm'>7x = 84, x = 12</span> <span class='ans-tag'>x = 12</span>",s:"x equals 12."}
  ],
- cq:"What is x?",cqs:"x equals?",
- ans:["12","twelve"],
+ cq:"Solve: x &divide; 2 + x &divide; 5 = 7. What is x?",cqs:"x over 2 plus x over 5 equals 7. What is x?",
+ ans:["10","ten","x is 10"],
  nudges:["Multiply by LCM 12 to clear fractions!","12 times x over 3 gives 4x. 12 times x over 4 gives 3x.","x equals 12! Say 12!"]},
 {id:"le3",
  q:"A number doubled and added to 9 gives 35. Find it.",
@@ -392,8 +392,8 @@ var QB=[
   {t:"<span class='fm'>2x = 26, x = 13</span>",s:"2x equals 26. x equals 13."},
   {t:"<span class='ans-tag'>x = 13</span>",s:"The number is 13."}
  ],
- cq:"What is the number?",cqs:"The number?",
- ans:["13","thirteen"],
+ cq:"A number tripled and reduced by 4 gives 23. What is the number?",cqs:"Triple a number minus 4 equals 23. What is the number?",
+ ans:["9","nine"],
  nudges:["2x plus 9 equals 35. Subtract 9 first!","2x equals 26. Divide by 2.","x equals 13! Say 13!"]},
 {id:"le4",
  q:"Solve: <span class='fm'><span class='frac'><span class='num'>2x+1</span><span class='den'>3</span></span> = <span class='frac'><span class='num'>x+2</span><span class='den'>2</span></span></span>",
@@ -404,8 +404,8 @@ var QB=[
   {t:"<span class='fm'>4x + 2 = 3x + 6</span>",s:"4x plus 2 equals 3x plus 6."},
   {t:"<span class='fm'>x = 4</span> <span class='ans-tag'>x = 4</span>",s:"x equals 4."}
  ],
- cq:"What is x?",cqs:"x equals?",
- ans:["4","four"],
+ cq:"Cross multiply and solve: (x + 1) &divide; 2 = (x + 3) &divide; 4. What is x?",cqs:"x plus 1 over 2 equals x plus 3 over 4. What is x?",
+ ans:["1","one","x is 1"],
  nudges:["Multiply numerator left by denominator right!","4x plus 2 equals 3x plus 6. So x equals?","x equals 4! Say 4!"]},
 {id:"le5",
  q:"Two consecutive integers sum to 53. Find them.",
@@ -416,8 +416,8 @@ var QB=[
   {t:"<span class='fm'>2n + 1 = 53, n = 26</span>",s:"2n plus 1 equals 53. n equals 26."},
   {t:"<span class='ans-tag'>26 and 27</span>",s:"The integers are 26 and 27."}
  ],
- cq:"What are the two integers?",cqs:"The two integers?",
- ans:["26 and 27","26,27","twenty six and twenty seven"],
+ cq:"Two consecutive integers sum to 99. What are they?",cqs:"Two consecutive integers sum to 99. What are they?",
+ ans:["49 and 50","49,50","49 50"],
  nudges:["n plus n plus 1 equals 53. So 2n plus 1 equals 53.","2n equals 52. n equals 26.","26 and 27! Say it!"]},
 {id:"le6",
  q:"Ramesh has &#8377;560 = &#8377;40 more than twice Suresh. Find Suresh.",
@@ -428,8 +428,8 @@ var QB=[
   {t:"<span class='fm'>2x = 520, x = 260</span>",s:"x equals 260."},
   {t:"<span class='ans-tag'>Suresh has &#8377;260</span>",s:"Suresh has 260 rupees."}
  ],
- cq:"Suresh has how much?",cqs:"Suresh amount?",
- ans:["260","rs 260","rupees 260","two hundred sixty"],
+ cq:"Meena has Rs 480, which is Rs 60 more than 3 times Priya's amount. How much does Priya have?",cqs:"Meena has 60 more than 3 times Priya. How much does Priya have?",
+ ans:["140","rs 140","rupees 140"],
  nudges:["2x plus 40 equals 560. Subtract 40!","2x equals 520. Divide by 2.","260 rupees! Say 260!"]},
 {id:"le7",
  q:"Three consecutive odd numbers sum to 51. Find them.",
@@ -440,8 +440,8 @@ var QB=[
   {t:"<span class='fm'>x = 15</span>",s:"x equals 15."},
   {t:"Numbers: <span class='ans-tag'>15, 17, 19</span>",s:"15, 17, and 19."}
  ],
- cq:"What are the three numbers?",cqs:"Three numbers?",
- ans:["15 17 19","15,17,19","fifteen seventeen nineteen"],
+ cq:"Three consecutive odd numbers sum to 63. What are they?",cqs:"Three consecutive odd numbers sum to 63. What are they?",
+ ans:["19 21 23","19,21,23","19 and 21 and 23"],
  nudges:["x plus x+2 plus x+4 equals 51. That is 3x+6=51.","3x equals 45. x equals 15.","15, 17, 19! Say it!"]},
 {id:"le8",
  q:"Solve: <span class='fm'>0.25x + 0.5 = 1.25</span>",
@@ -451,8 +451,8 @@ var QB=[
   {t:"Multiply by 100: <span class='fm'>25x + 50 = 125</span>",s:"Multiply by 100. 25x plus 50 equals 125."},
   {t:"<span class='fm'>x = 3</span> <span class='ans-tag'>x = 3</span>",s:"x equals 3."}
  ],
- cq:"What is x?",cqs:"x equals?",
- ans:["3","three"],
+ cq:"Solve: 0.5x + 1 = 3.5. What is x?",cqs:"0.5x plus 1 equals 3.5. What is x?",
+ ans:["5","five","x is 5"],
  nudges:["Multiply by 100 to remove decimals!","25x equals 75. x equals?","x equals 3! Say 3!"]},
 {id:"le9",
  q:"Father is 3x son's age. In 12 years, father = twice son. Find current ages.",
@@ -463,8 +463,8 @@ var QB=[
   {t:"<span class='fm'>x = 12</span>",s:"x equals 12."},
   {t:"Son: <span class='ans-tag'>12 yrs</span>, Father: <span class='ans-tag'>36 yrs</span>",s:"Son is 12 and father is 36."}
  ],
- cq:"How old is the son?",cqs:"Son age?",
- ans:["12","twelve","son is 12"],
+ cq:"A father is 4 times his son's age. In 8 years, he'll be twice as old. How old is the son now?",cqs:"Father is 4 times son. In 8 years twice as old. Son's current age?",
+ ans:["8","eight","son is 8"],
  nudges:["3x plus 12 equals 2 times x plus 12.","3x plus 12 equals 2x plus 24. So x equals 12.","Son is 12! Say 12!"]}
 ];
 
@@ -1097,6 +1097,7 @@ function mathUpdate(){
 }
 
 </script>
+<script src="/explain-helper.js"></script>
 <script src="/explain-helper.js"></script>
 </body>
 </html>

@@ -204,7 +204,7 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
   <ellipse id="rBlush1" cx="36" cy="30" rx="7" ry="4" fill="#ff9999" opacity="0"/>
   <ellipse id="rBlush2" cx="64" cy="30" rx="7" ry="4" fill="#ff9999" opacity="0"/>
   <rect x="28" y="90" width="44" height="13" fill="#d4870a" rx="4"/>
-  <text x="50" y="100" text-anchor="middle" font-family="Nunito" font-size="7" font-weight="900" fill="white">REKHA</text>
+  <text x="50" y="100" text-anchor="middle" font-family="Nunito" font-size="7" font-weight="900" fill="white">RISHIKA</text>
 </svg>
 </div>
 <script>
@@ -261,7 +261,7 @@ window.addEventListener("pagehide",function(){stopAllAudio();});
 
 /* ═══════ DRISHTI CHARACTER ═══════ */
 var mouthTmr=null,blinkTmr=null,mOpen=false;
-/* ═══════ REKHA (TURTLE) CHARACTER ═══════ */
+/* ═══════ RISHIKA CHARACTER ═══════ */
 var mouthTmr=null, blinkTmr=null, mOpen=false;
 function rInit(){
   var c=G("rChar");
@@ -344,8 +344,8 @@ var QB=[
   {t:"Q1(+,+) top-right. Q2(&minus;,+) top-left. Q3(&minus;,&minus;) bottom-left. Q4(+,&minus;) bottom-right.",s:"Q1 top right, Q2 top left, Q3 bottom left, Q4 bottom right."},
   {t:"(&minus;3,4): x negative, y positive &rarr; <span class='ans-tag'>Quadrant II</span>",s:"Minus 3 comma 4 has negative x and positive y. That is Quadrant 2."}
  ],
- cq:"Which quadrant has both x and y positive?",cqs:"Both coordinates positive?",
- ans:["quadrant 1","q1","first","quadrant i","one","q 1"],
+ cq:"In which quadrant does the point (&minus;3, 4) lie?",cqs:"Point minus 3 comma 4 is in which quadrant?",
+ ans:["quadrant 2","q2","second","quadrant ii"],
  nudges:["Positive x AND positive y is top-right corner!","That is Quadrant 1!","Say Quadrant 1!"]},
 
 {id:"gr1",
@@ -357,8 +357,8 @@ var QB=[
   {t:"(2,3): 2 right, 3 up. (&minus;1,4): 1 left, 4 up.",s:"2 comma 3: go 2 right and 3 up. Minus 1 comma 4: go 1 left and 4 up."},
   {t:"(&minus;2,&minus;2): 2 left, 2 down. (3,&minus;1): 3 right, 1 down.",s:"Minus 2 comma minus 2: go 2 left and 2 down. 3 comma minus 1: go 3 right and 1 down."}
  ],
- cq:"Coordinates of the origin?",cqs:"Origin coordinates?",
- ans:["0,0","0 0","zero zero","(0,0)"],
+ cq:"What is the ordinate of the point (5, 8)?",cqs:"Ordinate of 5 comma 8?",
+ ans:["8","eight","ordinate is 8"],
  nudges:["The origin is where the two axes cross!","It is at x equals 0 and y equals 0!","Say 0 comma 0!"]},
 
 {id:"gr2",
@@ -370,8 +370,8 @@ var QB=[
   {t:"Plot these points and join them.",s:"Plot the points and join them with a line."},
   {t:"<span class='ans-tag'>Yes, it is a straight line</span> through the origin.",s:"Yes it is a straight line passing through the origin."}
  ],
- cq:"Does y = 2x pass through the origin?",cqs:"Passes through origin?",
- ans:["yes","yes it does","yes passes through"],
+ cq:"Does the graph of y = x + 1 pass through the origin?",cqs:"Does y equals x plus 1 pass through origin?",
+ ans:["no","no it does not","does not"],
  nudges:["When x equals 0, y equals 2 times 0 equals 0. That is the origin!","Yes, it passes through the origin!","Say Yes!"]},
 
 {id:"gr3",
@@ -383,8 +383,8 @@ var QB=[
   {t:"Histogram: NO gaps between bars. Shows continuous data with class intervals.",s:"Histogram has no gaps and shows continuous data with class intervals."},
   {t:"<span class='ans-tag'>No gaps = histogram</span>",s:"The key difference is that a histogram has no gaps between bars."}
  ],
- cq:"Which graph has no gaps between bars?",cqs:"No gaps between bars?",
- ans:["histogram","a histogram"],
+ cq:"What type of data does a histogram represent?",cqs:"What type of data does a histogram show?",
+ ans:["continuous","continuous data"],
  nudges:["Continuous data with class intervals has no gaps!","Histogram! Say histogram!","Say histogram!"]},
 
 {id:"gr4",
@@ -395,8 +395,8 @@ var QB=[
   {t:"Sector angle = (Value &divide; Total) &times; 360&deg;",s:"Sector angle equals value divided by total times 360 degrees."},
   {t:"= (80 &divide; 500) &times; 360 = 0.16 &times; 360 = <span class='ans-tag'>57.6&deg;</span>",s:"80 divided by 500 times 360 equals 57.6 degrees."}
  ],
- cq:"Formula for sector angle in a pie chart?",cqs:"Sector angle formula?",
- ans:["value divided by total times 360","fraction times 360","57.6","value by total times 360"],
+ cq:"In a pie chart with total 720, Science scored 180. What is the sector angle?",cqs:"Pie chart total 720, Science 180. Sector angle?",
+ ans:["90","90 degrees","ninety"],
  nudges:["Value divided by total, then multiply by 360!","The fraction of the whole times 360 degrees!","Value divided by total times 360!"]},
 
 {id:"gr5",
@@ -408,8 +408,8 @@ var QB=[
   {t:"Direct proportion &rarr; straight line through origin.",s:"Direct proportion gives a straight line through the origin."},
   {t:"Equation: <span class='ans-tag'>y = 3x</span>",s:"The equation is y equals 3x."}
  ],
- cq:"What is the equation of this graph?",cqs:"Equation?",
- ans:["y=3x","y equals 3x","3x"],
+ cq:"x: 1, 2, 3 and y: 4, 8, 12. What is the equation of the graph?",cqs:"x is 1 2 3 and y is 4 8 12. What is the equation?",
+ ans:["y=4x","y equals 4x","4x"],
  nudges:["y divided by x is always 3. So y equals how many times x?","y equals 3 times x!","Say y equals 3x!"]},
 
 {id:"gr6",
@@ -421,8 +421,8 @@ var QB=[
   {t:"Rising line &rarr; quantity is <b>increasing</b>.",s:"A rising line means the quantity is increasing."},
   {t:"Falling line &rarr; quantity is <b>decreasing</b>. <span class='ans-tag'>Rising = increasing</span>",s:"A falling line means the quantity is decreasing."}
  ],
- cq:"What does a falling line in a line graph indicate?",cqs:"Falling line indicates?",
- ans:["decreasing","falling","going down","decrease"],
+ cq:"What does a horizontal (flat) line in a line graph indicate?",cqs:"Horizontal flat line in a line graph means?",
+ ans:["no change","constant","steady","unchanged"],
  nudges:["The opposite of rising is...?","Falling means the value is going down!","Decreasing! Say decreasing!"]},
 
 {id:"gr7",
@@ -434,8 +434,8 @@ var QB=[
   {t:"Ordinate = y-coordinate = vertical distance from x-axis.",s:"Ordinate is the y coordinate."},
   {t:"For (4,7): abscissa = <span class='ans-tag'>4</span>, ordinate = <span class='ans-tag'>7</span>",s:"For 4 comma 7, abscissa is 4 and ordinate is 7."}
  ],
- cq:"What is the abscissa of (4,7)?",cqs:"Abscissa of 4 comma 7?",
- ans:["4","four","the abscissa is 4"],
+ cq:"What is the abscissa of the point (&minus;3, 5)?",cqs:"Abscissa of minus 3 comma 5?",
+ ans:["-3","minus 3","negative 3"],
  nudges:["Abscissa is the x-coordinate, the first number!","x-coordinate of (4,7) is 4!","Say 4!"]},
 
 {id:"gr8",
@@ -447,8 +447,8 @@ var QB=[
   {t:"12pm to 4pm: 28 &minus; 32 = &minus;4&deg;C (fall, not rise).",s:"12pm to 4pm fell by 4 degrees. Not a rise."},
   {t:"<span class='ans-tag'>8am to 12pm</span> had the highest rise of 12&deg;C.",s:"8am to 12pm had the highest rise of 12 degrees."}
  ],
- cq:"Which period had the highest temperature rise?",cqs:"Highest rise?",
- ans:["8am to 12pm","8 to 12","morning","8am 12pm","first period"],
+ cq:"Temperatures: 6am=15&deg;C, 10am=27&deg;C, 2pm=22&deg;C. Which period had the highest rise?",cqs:"6am 15 degrees, 10am 27, 2pm 22. Highest rise period?",
+ ans:["6am to 10am","6 to 10","first period","morning"],
  nudges:["Compare 12 degree rise vs 4 degree fall. Which is bigger?","8am to 12pm rose the most!","Say 8am to 12pm!"]},
 
 {id:"gr9",
@@ -460,8 +460,8 @@ var QB=[
   {t:"Q4 has positive x and negative y (bottom-right).",s:"Quadrant 4 is bottom right with positive x and negative y."},
   {t:"<span class='ans-tag'>Quadrant IV</span>",s:"The point is in Quadrant 4."}
  ],
- cq:"Which quadrant for (4, &minus;7)?",cqs:"Which quadrant?",
- ans:["quadrant 4","q4","fourth","quadrant iv"],
+ cq:"In which quadrant does the point (&minus;5, &minus;3) lie?",cqs:"Point minus 5 comma minus 3. Which quadrant?",
+ ans:["quadrant 3","q3","third","quadrant iii"],
  nudges:["x is positive, y is negative. That is bottom-right!","Quadrant 4! Say Quadrant 4!","Say Quadrant 4!"]}
 ];
 
@@ -1329,6 +1329,7 @@ function mathUpdate(){
 }
 
 </script>
+<script src="/explain-helper.js"></script>
 <script src="/explain-helper.js"></script>
 </body>
 </html>
