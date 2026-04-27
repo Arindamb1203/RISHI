@@ -199,7 +199,7 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
   <ellipse id="rBlush1" cx="36" cy="30" rx="7" ry="4" fill="#ff9999" opacity="0"/>
   <ellipse id="rBlush2" cx="64" cy="30" rx="7" ry="4" fill="#ff9999" opacity="0"/>
   <rect x="28" y="90" width="44" height="13" fill="#d4870a" rx="4"/>
-  <text x="50" y="100" text-anchor="middle" font-family="Nunito" font-size="7" font-weight="900" fill="white">REKHA</text>
+  <text x="50" y="100" text-anchor="middle" font-family="Nunito" font-size="7" font-weight="900" fill="white">RISHIKA</text>
 </svg>
 </div>
 <script src="/rishi-sync.js"></script>
@@ -245,7 +245,7 @@ function sayEl(id){var e=G(id);if(e)say(e.innerText||e.textContent);}
 window.addEventListener("beforeunload",function(){stopAllAudio();});
 window.addEventListener("pagehide",function(){stopAllAudio();});
 var mouthTmr=null,mOpen=false;
-/* ═══════ REKHA (TURTLE) CHARACTER ═══════ */
+/* ═══════ RISHIKA CHARACTER ═══════ */
 var mouthTmr=null, blinkTmr=null, mOpen=false;
 function rInit(){
   var c=G("rChar");
@@ -290,71 +290,71 @@ var QB=[
  steps:[{t:"Tens digit a is in the tens place &rarr; contributes 10a.",s:"The digit a in the tens place contributes 10 times a."},
         {t:"Units digit b is in the units place &rarr; contributes b.",s:"The digit b contributes just b."},
         {t:"General form = <span class='ans-tag'>10a + b</span>. Example: 53 = 10&times;5+3.",s:"General form is 10a plus b. For example 53 equals 10 times 5 plus 3."}],
- cq:"General form of 2-digit number with tens digit a and units digit b?",cqs:"General form?",
- ans:["10a+b","10a plus b","ten a plus b"],nudges:["Tens digit is multiplied by 10!","a is in the tens place so it is 10a!","Say 10a plus b!"]},
+ cq:"What is the general form expansion of the number 73?",cqs:"What is the general form expansion of 73?",
+ ans:["70+3","10x7+3","7x10+3"],nudges:["Tens digit is multiplied by 10!","a is in the tens place so it is 10a!","Say 10a plus b!"]},
 
 {id:"p1",q:"Divisibility rule for <span class='hl'>2</span>: when is a number divisible by 2?",qs:"Divisibility rule for 2?",anim:"div2",
  steps:[{t:"Check only the UNITS DIGIT.",s:"For divisibility by 2, only the last digit matters."},
         {t:"Units digit must be 0, 2, 4, 6 or 8.",s:"If the units digit is 0, 2, 4, 6 or 8, the number is divisible by 2."},
         {t:"346 ends in 6 (even) &rarr; <span class='ans-tag'>Divisible by 2 &#10003;</span>",s:"346 ends in 6 which is even, so 346 is divisible by 2."}],
- cq:"Is 346 divisible by 2?",cqs:"Is 346 divisible by 2?",
+ cq:"Is 258 divisible by 2?",cqs:"Is 258 divisible by 2?",
  ans:["yes","yes it is","divisible"],nudges:["Check only the last digit!","346 ends in 6. Is 6 even?","Say Yes!"]},
 
 {id:"p2",q:"Divisibility rule for <span class='hl'>3</span>: when is a number divisible by 3?",qs:"Divisibility rule for 3?",anim:"div3",
  steps:[{t:"Add ALL the digits of the number.",s:"Add all the digits together."},
         {t:"If digit sum is divisible by 3, so is the number.",s:"If that sum is divisible by 3, the number is divisible by 3."},
         {t:"348: 3+4+8=15. 15&divide;3=5. <span class='ans-tag'>Divisible by 3 &#10003;</span>",s:"3 plus 4 plus 8 equals 15. 15 divided by 3 is 5. So 348 is divisible by 3."}],
- cq:"Is 348 divisible by 3?",cqs:"Is 348 divisible by 3?",
+ cq:"Is 453 divisible by 3?",cqs:"Is 453 divisible by 3?",
  ans:["yes","yes 348","divisible"],nudges:["Add all digits: 3+4+8=?","3+4+8=15. Is 15 divisible by 3?","Say Yes!"]},
 
 {id:"p3",q:"Divisibility rule for <span class='hl'>9</span>: when is a number divisible by 9?",qs:"Divisibility rule for 9?",anim:"div9",
  steps:[{t:"Add ALL the digits of the number.",s:"Add all the digits together."},
         {t:"If digit sum is divisible by 9, so is the number.",s:"If the sum is divisible by 9, the number is divisible by 9."},
         {t:"729: 7+2+9=18. 18&divide;9=2. <span class='ans-tag'>Divisible by 9 &#10003;</span>",s:"7 plus 2 plus 9 equals 18. 18 divided by 9 is 2. So 729 is divisible by 9."}],
- cq:"Is 729 divisible by 9?",cqs:"Is 729 divisible by 9?",
+ cq:"Is 621 divisible by 9?",cqs:"Is 621 divisible by 9?",
  ans:["yes","yes 729","divisible"],nudges:["Add digits: 7+2+9=?","7+2+9=18. Is 18 divisible by 9?","Say Yes!"]},
 
 {id:"p4",q:"Divisibility rule for <span class='hl'>5</span>: when is a number divisible by 5?",qs:"Divisibility rule for 5?",anim:"div5",
  steps:[{t:"Check only the UNITS DIGIT.",s:"Only the last digit matters for divisibility by 5."},
         {t:"Units digit must be 0 or 5.",s:"If the units digit is 0 or 5, the number is divisible by 5."},
         {t:"5765 ends in 5 &rarr; <span class='ans-tag'>Divisible by 5 &#10003;</span>",s:"5765 ends in 5, so it is divisible by 5."}],
- cq:"Is 5765 divisible by 5?",cqs:"Is 5765 divisible by 5?",
+ cq:"Is 4830 divisible by 5?",cqs:"Is 4830 divisible by 5?",
  ans:["yes","yes it is","divisible"],nudges:["Check only the last digit!","5765 ends in 5. Is that 0 or 5?","Say Yes!"]},
 
 {id:"p5",q:"Divisibility rule for <span class='hl'>11</span>: alternating digit sums.",qs:"Divisibility rule for 11?",anim:"div11",
  steps:[{t:"Sum of odd-position digits MINUS sum of even-position digits.",s:"Subtract sum of even-position digits from sum of odd-position digits."},
         {t:"If difference = 0 or divisible by 11 &rarr; number is divisible by 11.",s:"If that difference is 0 or a multiple of 11, the number is divisible by 11."},
         {t:"1001: odd(1+0)=1, even(0+1)=1. Diff=0. <span class='ans-tag'>Divisible by 11 &#10003;</span>",s:"For 1001: odd positions give 1, even positions give 1. Difference is 0. Divisible by 11."}],
- cq:"Is 1001 divisible by 11?",cqs:"Is 1001 divisible by 11?",
+ cq:"Is 2728 divisible by 11?",cqs:"Is 2728 divisible by 11?",
  ans:["yes","yes 1001","divisible"],nudges:["Alternating digit sum difference!","Odd sum is 1, even sum is 1, difference is 0!","Say Yes!"]},
 
 {id:"p6",q:"The sum of a 2-digit number <span class='hl'>ab</span> and its reverse <span class='hl'>ba</span> is always divisible by?",qs:"Sum of a 2-digit number and its reverse is always divisible by?",anim:"sum11",
  steps:[{t:"ab = 10a+b &nbsp; ba = 10b+a",s:"Write both in general form."},
         {t:"Sum = 11a + 11b = <span class='ans-tag'>11(a+b)</span>",s:"Adding them gives 11a plus 11b which equals 11 times a plus b."},
         {t:"Always divisible by <span class='ans-tag'>11</span>. Check: 47+74=121=11&times;11 &#10003;",s:"Always divisible by 11. Check: 47 plus 74 equals 121 equals 11 times 11."}],
- cq:"Sum of ab and ba is always divisible by?",cqs:"Sum of 2-digit number and its reverse?",
+ cq:"What is 35 + 53, and is it divisible by 11?",cqs:"What is 35 plus 53? Is the sum divisible by 11?",
  ans:["11","eleven","divisible by 11"],nudges:["Write ab as 10a+b and ba as 10b+a, then add!","You get 11a+11b = 11(a+b)!","Say 11!"]},
 
 {id:"p7",q:"The difference of a 2-digit number <span class='hl'>ab</span> and its reverse <span class='hl'>ba</span> is always divisible by?",qs:"Difference of a 2-digit number and its reverse always divisible by?",anim:"diff9",
  steps:[{t:"ab &minus; ba = (10a+b) &minus; (10b+a)",s:"Subtract the reverse from the original."},
         {t:"= 9a &minus; 9b = <span class='ans-tag'>9(a&minus;b)</span>",s:"This equals 9a minus 9b which equals 9 times a minus b."},
         {t:"Always divisible by <span class='ans-tag'>9</span>. Check: 73&minus;37=36=9&times;4 &#10003;",s:"Always divisible by 9. Check: 73 minus 37 equals 36 equals 9 times 4."}],
- cq:"Difference of ab and ba is always divisible by?",cqs:"Difference of 2-digit number and its reverse?",
+ cq:"What is 73 − 37, and what is it divisible by?",cqs:"What is 73 minus 37? What is it divisible by?",
  ans:["9","nine","divisible by 9"],nudges:["Subtract using general form!","You get 9a-9b = 9(a-b)!","Say 9!"]},
 
 {id:"p8",q:"Find <span class='hl'>A</span> if 5A7 is divisible by 9.",qs:"Find A if 5A7 is divisible by 9.",anim:"findA",
  steps:[{t:"Digit sum must be divisible by 9.",s:"For divisibility by 9, digit sum must be divisible by 9."},
         {t:"5 + A + 7 = 12 + A",s:"Digit sum is 5 plus A plus 7 equals 12 plus A."},
         {t:"12 + A = 18 &rarr; <span class='ans-tag'>A = 6</span>. Check: 567&divide;9=63 &#10003;",s:"12 plus A must equal 18. So A equals 6. Check: 567 divided by 9 equals 63."}],
- cq:"What is A if 5A7 is divisible by 9?",cqs:"Value of A?",
+ cq:"What is B if 3B6 is divisible by 9?",cqs:"What digit B makes 3B6 divisible by 9?",
  ans:["6","six","a equals 6","a is 6"],nudges:["Digit sum must be divisible by 9!","5+A+7 = 12+A. When is 12+A divisible by 9?","12+6=18, so A=6!"]},
 
 {id:"p9",q:"A 3-digit number has digits <span class='hl'>a</span> (hundreds), <span class='hl'>b</span> (tens), <span class='hl'>c</span> (units). General form?",qs:"General form of a 3-digit number with digits a, b, c?",anim:"genform3",
  steps:[{t:"Hundreds digit a &rarr; 100a. Tens digit b &rarr; 10b.",s:"The hundreds digit a contributes 100a. The tens digit b contributes 10b."},
         {t:"Units digit c &rarr; c.",s:"The units digit c contributes just c."},
         {t:"General form = <span class='ans-tag'>100a + 10b + c</span>",s:"General form is 100a plus 10b plus c. Example: 437 equals 400 plus 30 plus 7."}],
- cq:"General form of 3-digit number with digits a, b, c?",cqs:"General form?",
- ans:["100a+10b+c","100a plus 10b plus c"],nudges:["Hundreds digit gets 100, tens digit gets 10!","100a plus 10b plus c!","Say 100a plus 10b plus c!"]},
+ cq:"Expand 452 using the general form of a 3-digit number.",cqs:"Expand 452 using general form.",
+ ans:["400+50+2","4x100+5x10+2","100x4+10x5+2"],nudges:["Hundreds digit gets 100, tens digit gets 10!","100a plus 10b plus c!","Say 100a plus 10b plus c!"]},
 ];
 
 var atTimers=[];
@@ -603,6 +603,5 @@ function mathUpdate(){
 }
 
 </script>
-<script src="/explain-helper.js"></script>
 </body>
 </html>
