@@ -147,8 +147,8 @@
   NOTE: public\functions\tts.js was a stale duplicate — DELETED from repo ✅
 
 ▌ CHARACTERS
-  Rekha the Turtle  — explain pages. Sprite-sheet animation (PNG canvas).
-  Rishika           — practice pages only. FaceTime-style UI. Sprite-sheet canvas.
+  Rishika           — ALL pages (explain + practice). Turtle SVG bottom-left + speaking bubble.
+                      Rekha the Turtle is RETIRED — do not reference anywhere.
   NO avatar on exam.html or topic-exam.html (by design decision Apr 26)
 
 ▌ ELEVENLABS TTS
@@ -160,7 +160,7 @@
 
 ▌ GEMINI API (wrong-answer explanations)
   Proxy:    /api/explain (POST) via functions/api/explain.js
-  Model:    gemini-2.0-flash (free tier — 1500 req/day, no credit card)
+  Model:    gemini-2.5-flash (working model as of Apr 2026 — v1beta endpoint)
   Cloudflare env var: GEMINI_API_KEY (Plaintext, set ✅)
   Used in:  topic-exam.html ONLY — shows step-by-step after full exam submission
   Request:  { question, correct_answer, options?, student_answer }
@@ -321,36 +321,31 @@
     Quality standard: match rational-numbers.html — clear steps, real examples,
               proper Indian student language, not textbook dry
 
-▌ REMAINING WORK (as of 26 Apr 2026 night) — IN PRIORITY ORDER
-  [NEXT SESSION]
-  1. Build explain-helper.js — "Explain Differently" Gemini button for all explain pages
-  2. Explain quality rewrite — Ch02 Linear Equations (or whichever Dabeet is on)
+▌ REMAINING WORK (updated 27 Apr 2026) — IN PRIORITY ORDER
+  [DONE THIS SESSION — 27 Apr 2026]
+  ✅ explain-helper.js — "I Don't Understand" button, method cycling, double-btn fix
+  ✅ explain-differently.js — Gemini endpoint for re-teaching
+  ✅ All 16 explain pages — RISHIKA everywhere, fresh confirm questions (different numbers),
+     explain-helper.js injected, rishi-core.js in head (mensuration fix)
+  ✅ Gemini model fixed to gemini-2.5-flash (v1beta)
+
+  [NEXT — P3]
+  1. Sampurna Pariksha — grand final exam, unlocks after all 16 chapter exams done
+                         Samples from ALL chapters, similar to topic-exam.html
+                         50 questions / 100 marks / 90 minutes
 
   [SOON]
-  3. Sampurna Pariksha — grand final exam, unlocks after all 16 chapter exams done
-                         Similar to topic-exam.html but samples from ALL chapters
-  4. Embed curated YouTube videos in explain pages — Arindam picks 1 video per chapter,
-     Claude wires it in as an optional "Watch Video" button (no API, just embed)
+  2. YouTube video embed — Arindam picks 1 video per chapter,
+     Claude wires as optional "Watch Video" button (no API, just embed)
+  3. Online/Offline presence tracking — single injection script (rishi-presence.js)
+     Heartbeat ping + visibilitychange + beforeunload across all 48 pages
+     Parent dashboard shows online/offline + duration
+  4. Practice pages — unverified since Apr 24, needs flow + voice + avatar check
 
   [FUTURE]
-  5. Vedic Maths / Calculation Shortcuts mini-module — fun standalone page,
-     schedulable as a separate class, pop-up triggered on heavy calculation questions
-  6. Explanation pages — Arindam's wish: multiple explanation styles (like Khan Academy)
-     Already partially solved by "Explain Differently" Gemini button (Step 1 above)
-  7. Practice pages — not tested since Apr 24 fixes (verify flow + voice + avatar)
-  8. OTP SMS reset — blocked on TRAI DLT registration
-  9. Ch06, Ch07 (Squares, Cubes) — excluded from current build
-
-  [DONE — no longer pending]
-  ✅ Ch17 exam JSON built and KV seeded
-  ✅ topic-exam.html built (all 5 topics)
-  ✅ explain.js Gemini proxy built
-  ✅ rishi-core.js missing functions added
-  ✅ admin.html rebuilt — new theme + Topic Exams + Questions tabs
-  ✅ syllabus.html — topic exam buttons live
-  ✅ exam.html — ch17 added to CHAPTER_MAP
-  ✅ questions.js + admin.js — ch17 wired
-  ✅ public\functions\tts.js stale duplicate deleted
+  5. Vedic Maths / Calculation Shortcuts mini-module
+  6. OTP SMS reset — blocked on TRAI DLT registration
+  7. Ch06, Ch07 (Squares, Cubes) — excluded from current build
 
 ▌ CRITICAL RULES FOR CLAUDE
   1. NEVER guess at file contents — always read actual file first
