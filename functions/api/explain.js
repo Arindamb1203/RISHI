@@ -20,8 +20,8 @@
  * { "steps": ["Step 1: ...", "Step 2: ...", "Answer: ..."] }
  */
 
-const GEMINI_MODEL = "gemini-2.0-flash";
-const GEMINI_URL   = "https://generativelanguage.googleapis.com/v1beta/models/"
+const GEMINI_MODEL = "gemini-1.5-flash";
+const GEMINI_URL   = "https://generativelanguage.googleapis.com/v1/models/"
                    + GEMINI_MODEL + ":generateContent";
 
 export async function onRequestPost(context) {
