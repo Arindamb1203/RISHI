@@ -201,7 +201,7 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
   <ellipse id="rBlush1" cx="36" cy="30" rx="7" ry="4" fill="#ff9999" opacity="0"/>
   <ellipse id="rBlush2" cx="64" cy="30" rx="7" ry="4" fill="#ff9999" opacity="0"/>
   <rect x="28" y="90" width="44" height="13" fill="#d4870a" rx="4"/>
-  <text x="50" y="100" text-anchor="middle" font-family="Nunito" font-size="7" font-weight="900" fill="white">REKHA</text>
+  <text x="50" y="100" text-anchor="middle" font-family="Nunito" font-size="7" font-weight="900" fill="white">RISHIKA</text>
 </svg>
 </div>
 <script>
@@ -245,7 +245,7 @@ function sayEl(id){var e=G(id);if(e)say(e.innerText||e.textContent);}
 window.addEventListener("beforeunload",function(){stopAllAudio();});
 window.addEventListener("pagehide",function(){stopAllAudio();});
 var mouthTmr=null,mOpen=false;
-/* ═══════ REKHA (TURTLE) CHARACTER ═══════ */
+/* ═══════ RISHIKA CHARACTER ═══════ */
 var mouthTmr=null, blinkTmr=null, mOpen=false;
 function rInit(){
   var c=G("rChar");
@@ -290,71 +290,71 @@ var QB=[
  steps:[{t:"Frequency = number of times a value appears in a dataset.",s:"Frequency means how many times a particular value appears in a dataset."},
         {t:"Data: 5,7,7,8,5,9,7,8,5,7",s:"For this data: 5, 7, 7, 8, 5, 9, 7, 8, 5, 7."},
         {t:"Frequency of 7 = <span class='ans-tag'>4</span> (appears 4 times)",s:"The value 7 appears 4 times. So frequency of 7 is 4."}],
- cq:"What is the frequency of 7 in: 5,7,7,8,5,9,7,8,5,7?",cqs:"Frequency of 7 in the data?",
- ans:["4","four","frequency 4","frequency is 4"],nudges:["Count how many times 7 appears in the list!","7 appears at positions 2, 3, 7 and 10!","Say 4!"]},
+ cq:"What is the frequency of 5 in the data: 5,7,7,8,5,9,7,8,5,7?",cqs:"Frequency of 5 in 5,7,7,8,5,9,7,8,5,7?",
+ ans:["3","three","frequency 3","frequency is 3"],nudges:["Count how many times 7 appears in the list!","7 appears at positions 2, 3, 7 and 10!","Say 4!"]},
 
 {id:"fd1",q:"In a grouped frequency table, the class <span class='hl'>10–20</span> has frequency 8. This means?",qs:"Class 10 to 20 has frequency 8. What does this mean?",anim:"gft",
  steps:[{t:"A grouped frequency table organises data into class intervals.",s:"A grouped frequency table groups data into ranges called class intervals."},
         {t:"Frequency 8 in class 10–20 means 8 data values fall between 10 and 20.",s:"Frequency 8 in class 10 to 20 means exactly 8 data values fall within that range."},
         {t:"Class width = upper limit &minus; lower limit = <span class='ans-tag'>10</span>",s:"The class width is upper limit minus lower limit. 20 minus 10 equals 10."}],
- cq:"How many values fall in the class 10 to 20?",cqs:"How many values in class 10 to 20?",
- ans:["8","eight","8 values"],nudges:["The frequency tells you how many values fall in that class interval!","Frequency 8 means 8 data values are in that range!","Say 8!"]},
+ cq:"What is the class width of the interval 20 to 30?",cqs:"Class width of 20 to 30?",
+ ans:["10","ten"],nudges:["The frequency tells you how many values fall in that class interval!","Frequency 8 means 8 data values are in that range!","Say 8!"]},
 
 {id:"fd2",q:"The class mark (mid-point) of the interval <span class='hl'>30–40</span> is?",qs:"Class mark of the interval 30 to 40?",anim:"classMark",
  steps:[{t:"Class mark = (lower limit + upper limit) &divide; 2",s:"Class mark equals lower limit plus upper limit divided by 2."},
         {t:"= (30 + 40) &divide; 2 = 70 &divide; 2",s:"30 plus 40 equals 70. 70 divided by 2."},
         {t:"Class mark = <span class='ans-tag'>35</span>",s:"The class mark is 35. It represents the middle value of the class."}],
- cq:"Class mark of interval 30 to 40?",cqs:"Class mark of 30 to 40?",
- ans:["35","thirty five"],nudges:["Add lower and upper limits then divide by 2!","30 plus 40 equals 70. 70 divided by 2 equals?","Say 35!"]},
+ cq:"What is the class mark of the interval 50 to 60?",cqs:"Class mark of 50 to 60?",
+ ans:["55","fifty five"],nudges:["Add lower and upper limits then divide by 2!","30 plus 40 equals 70. 70 divided by 2 equals?","Say 35!"]},
 
 {id:"fd3",q:"Find the <span class='hl'>mean</span> of: 4, 7, 13, 2, 4",qs:"Mean of 4, 7, 13, 2, 4?",anim:"mean1",
  steps:[{t:"Mean = Sum of all values &divide; Number of values",s:"Mean equals the sum of all values divided by the number of values."},
         {t:"Sum = 4+7+13+2+4 = <span class='ans-tag'>30</span>",s:"Add all values: 4 plus 7 plus 13 plus 2 plus 4 equals 30."},
         {t:"Mean = 30 &divide; 5 = <span class='ans-tag'>6</span>",s:"Mean equals 30 divided by 5 equals 6."}],
- cq:"What is the mean of 4, 7, 13, 2, 4?",cqs:"Mean of 4, 7, 13, 2, 4?",
- ans:["6","six","mean is 6","mean equals 6"],nudges:["Add all values and divide by how many there are!","4+7+13+2+4 = 30. Then divide by 5!","Mean is 6!"]},
+ cq:"Find the mean of: 3, 8, 5, 10, 4",cqs:"Mean of 3, 8, 5, 10, 4?",
+ ans:["6","six","mean is 6"],nudges:["Add all values and divide by how many there are!","4+7+13+2+4 = 30. Then divide by 5!","Mean is 6!"]},
 
 {id:"fd4",q:"Find the <span class='hl'>median</span> of: 3, 7, 2, 9, 5",qs:"Median of 3, 7, 2, 9, 5?",anim:"median1",
  steps:[{t:"Sort in ascending order first: 2, 3, 5, 7, 9",s:"First sort the data: 2, 3, 5, 7, 9."},
         {t:"5 values. Middle value is the 3rd value.",s:"There are 5 values. The middle value is at position 3."},
         {t:"Median = <span class='ans-tag'>5</span>",s:"The 3rd value is 5. So the median is 5."}],
- cq:"Median of 3, 7, 2, 9, 5?",cqs:"Median of 3, 7, 2, 9, 5?",
- ans:["5","five","median is 5","median equals 5"],nudges:["Sort the data first: 2, 3, 5, 7, 9!","5 values, so middle is the 3rd one!","Say 5!"]},
+ cq:"Find the median of: 4, 1, 7, 3, 9",cqs:"Median of 4, 1, 7, 3, 9?",
+ ans:["4","four","median is 4"],nudges:["Sort the data first: 2, 3, 5, 7, 9!","5 values, so middle is the 3rd one!","Say 5!"]},
 
 {id:"fd5",q:"Find the <span class='hl'>mode</span> of: 2, 3, 3, 4, 5, 3, 2, 3",qs:"Mode of 2, 3, 3, 4, 5, 3, 2, 3?",anim:"mode1",
  steps:[{t:"Mode = value that appears most often.",s:"The mode is the value that appears most frequently in the data."},
         {t:"Count: 2 appears 2 times, 3 appears <b>4 times</b>, 4 once, 5 once.",s:"Count: 2 appears twice, 3 appears 4 times, 4 and 5 appear once each."},
         {t:"Mode = <span class='ans-tag'>3</span> (appears most)",s:"3 appears most often. So the mode is 3."}],
- cq:"Mode of 2, 3, 3, 4, 5, 3, 2, 3?",cqs:"Mode of the data?",
- ans:["3","three","mode is 3","mode equals 3"],nudges:["Find which value appears the most times!","3 appears 4 times — more than any other value!","Say 3!"]},
+ cq:"Find the mode of: 5, 2, 5, 3, 1, 5, 2",cqs:"Mode of 5, 2, 5, 3, 1, 5, 2?",
+ ans:["5","five","mode is 5"],nudges:["Find which value appears the most times!","3 appears 4 times — more than any other value!","Say 3!"]},
 
 {id:"fd6",q:"Missing frequency: Total=50, classes: 0–10(f=8), 10–20(?), 20–30(f=14), 30–40(f=12)",qs:"Find the missing frequency if total equals 50.",anim:"missingF",
  steps:[{t:"Sum of all frequencies = Total = 50",s:"The sum of all frequencies equals the total number of observations, which is 50."},
         {t:"Known sum = 8 + 14 + 12 = 34",s:"Add the known frequencies: 8 plus 14 plus 12 equals 34."},
         {t:"Missing frequency = 50 &minus; 34 = <span class='ans-tag'>16</span>",s:"Missing frequency equals 50 minus 34 equals 16."}],
- cq:"What is the missing frequency?",cqs:"Missing frequency?",
- ans:["16","sixteen","frequency is 16"],nudges:["Sum of all frequencies equals 50!","Known sum is 8+14+12 = 34. What is 50 minus 34?","Say 16!"]},
+ cq:"Total frequency=60. Known classes: f=12, f=18, f=10. What is the missing frequency?",cqs:"Total 60, known 12, 18, 10. Missing frequency?",
+ ans:["20","twenty"],nudges:["Sum of all frequencies equals 50!","Known sum is 8+14+12 = 34. What is 50 minus 34?","Say 16!"]},
 
 {id:"fd7",q:"In a histogram, what is shown on the <span class='hl'>horizontal axis</span>?",qs:"What is on the horizontal axis of a histogram?",anim:"histogram",
  steps:[{t:"A histogram is like a bar graph but for continuous data.",s:"A histogram displays continuous data. The bars touch each other."},
         {t:"Horizontal axis (x-axis): shows the <b>class intervals</b>.",s:"The horizontal axis shows the class intervals."},
         {t:"Vertical axis (y-axis): shows the <b>frequencies</b>.",s:"The vertical axis shows the frequencies. No gaps between bars."}],
- cq:"What is shown on the horizontal axis of a histogram?",cqs:"Horizontal axis of histogram shows?",
- ans:["class intervals","class","intervals","classes"],nudges:["Think about what goes along the bottom of a histogram!","The bottom shows the ranges of data — the class intervals!","Say class intervals!"]},
+ cq:"What is shown on the vertical axis of a histogram?",cqs:"Vertical axis of histogram shows?",
+ ans:["frequency","frequencies","the frequency"],nudges:["Think about what goes along the bottom of a histogram!","The bottom shows the ranges of data — the class intervals!","Say class intervals!"]},
 
 {id:"fd8",q:"Mean of a dataset is 25 and there are 8 observations. Find the <span class='hl'>sum</span>.",qs:"Mean is 25 and 8 observations. Find the sum.",anim:"sumMean",
  steps:[{t:"Mean = Sum &divide; n &nbsp; so &nbsp; Sum = Mean &times; n",s:"Mean equals Sum divided by n. Rearranging: Sum equals Mean times n."},
         {t:"Sum = 25 &times; 8",s:"Sum equals 25 times 8."},
         {t:"Sum = <span class='ans-tag'>200</span>",s:"Sum equals 200."}],
- cq:"Sum of all observations if mean is 25 and n is 8?",cqs:"What is the sum?",
- ans:["200","two hundred","sum is 200"],nudges:["Sum equals Mean times n!","25 times 8 equals?","Say 200!"]},
+ cq:"Mean of a dataset is 30 and there are 6 observations. What is the sum?",cqs:"Mean=30, n=6. What is the sum?",
+ ans:["180","one hundred eighty","sum is 180"],nudges:["Sum equals Mean times n!","25 times 8 equals?","Say 200!"]},
 
 {id:"fd9",q:"The <span class='hl'>range</span> of data is defined as?",qs:"What is the range of data?",anim:"range1",
  steps:[{t:"Range = Highest value &minus; Lowest value",s:"Range equals the highest value minus the lowest value."},
         {t:"It measures the spread of data.",s:"The range measures how spread out the data is."},
         {t:"Example: scores 45 to 95. Range = 95&minus;45 = <span class='ans-tag'>50</span>",s:"If scores go from 45 to 95, the range is 95 minus 45 equals 50."}],
- cq:"What is the range if scores go from 45 to 95?",cqs:"Range of scores from 45 to 95?",
- ans:["50","fifty","range is 50","range equals 50"],nudges:["Range = Highest minus Lowest!","95 minus 45 equals?","Say 50!"]},
+ cq:"What is the range of data that goes from 23 to 78?",cqs:"Range of data from 23 to 78?",
+ ans:["55","fifty five","range is 55"],nudges:["Range = Highest minus Lowest!","95 minus 45 equals?","Say 50!"]},
 ];
 
 var atTimers=[];
@@ -605,6 +605,7 @@ function mathUpdate(){
 }
 
 </script>
+<script src="/explain-helper.js"></script>
 <script src="/explain-helper.js"></script>
 </body>
 </html>

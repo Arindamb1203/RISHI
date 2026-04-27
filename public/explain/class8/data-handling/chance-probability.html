@@ -201,7 +201,7 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
   <ellipse id="rBlush1" cx="36" cy="30" rx="7" ry="4" fill="#ff9999" opacity="0"/>
   <ellipse id="rBlush2" cx="64" cy="30" rx="7" ry="4" fill="#ff9999" opacity="0"/>
   <rect x="28" y="90" width="44" height="13" fill="#d4870a" rx="4"/>
-  <text x="50" y="100" text-anchor="middle" font-family="Nunito" font-size="7" font-weight="900" fill="white">REKHA</text>
+  <text x="50" y="100" text-anchor="middle" font-family="Nunito" font-size="7" font-weight="900" fill="white">RISHIKA</text>
 </svg>
 </div>
 <script>
@@ -245,7 +245,7 @@ function sayEl(id){var e=G(id);if(e)say(e.innerText||e.textContent);}
 window.addEventListener("beforeunload",function(){stopAllAudio();});
 window.addEventListener("pagehide",function(){stopAllAudio();});
 var mouthTmr=null,mOpen=false;
-/* ═══════ REKHA (TURTLE) CHARACTER ═══════ */
+/* ═══════ RISHIKA CHARACTER ═══════ */
 var mouthTmr=null, blinkTmr=null, mOpen=false;
 function rInit(){
   var c=G("rChar");
@@ -290,71 +290,71 @@ var QB=[
  steps:[{t:"Probability measures how likely an event is to happen.",s:"Probability is a number that measures how likely an event is to happen."},
         {t:"Probability is always between 0 and 1.",s:"Probability is always between 0 and 1. Never less than 0 and never more than 1."},
         {t:"P = 0 means impossible. P = 1 means certain.",s:"A probability of 0 means the event is impossible. A probability of 1 means it is certain to happen."}],
- cq:"What is the range of probability values?",cqs:"Range of probability?",
- ans:["0 to 1","0 and 1","between 0 and 1","zero to one"],nudges:["Probability is never negative and never more than 1!","It is always between 0 and 1!","Say 0 to 1!"]},
+ cq:"What is the probability of a certain (sure) event?",cqs:"P of a certain event?",
+ ans:["1","one","probability 1","p equals 1"],nudges:["Probability is never negative and never more than 1!","It is always between 0 and 1!","Say 0 to 1!"]},
 
 {id:"pr1",q:"State the <span class='hl'>probability formula</span>.",qs:"State the probability formula.",anim:"prob2",
  steps:[{t:"P(Event) = Favourable Outcomes &divide; Total Outcomes",s:"Probability of an event equals number of favourable outcomes divided by total number of equally likely outcomes."},
         {t:"Favourable = outcomes we want. Total = all possible outcomes.",s:"Favourable outcomes are the ones we are interested in. Total outcomes are all possible outcomes."},
         {t:"Always: 0 &le; P(E) &le; 1",s:"Probability always lies between 0 and 1 inclusive."}],
- cq:"State the probability formula.",cqs:"Probability formula?",
- ans:["favourable over total","favourable divided by total","p equals favourable over total"],nudges:["It's a fraction — part over whole!","Favourable outcomes divided by total outcomes!","Say favourable divided by total!"]},
+ cq:"Using the probability formula, find P of getting 3 when a die is rolled.",cqs:"P of getting 3 on a die?",
+ ans:["1/6","one sixth","one over six"],nudges:["It's a fraction — part over whole!","Favourable outcomes divided by total outcomes!","Say favourable divided by total!"]},
 
 {id:"pr2",q:"A fair coin is tossed. What is <span class='hl'>P(Head)</span>?",qs:"A fair coin is tossed. What is P of Head?",anim:"coin1",
  steps:[{t:"Sample space = {Head, Tail}. Total outcomes = 2.",s:"When a coin is tossed, the sample space is Head and Tail. Total outcomes equals 2."},
         {t:"Favourable outcomes for Head = 1.",s:"There is 1 favourable outcome for getting a Head."},
         {t:"P(Head) = 1 &divide; 2 = <span class='ans-tag'>1/2</span>",s:"P of Head equals 1 divided by 2 equals one-half."}],
- cq:"P of Head when a fair coin is tossed?",cqs:"P of Head?",
+ cq:"What is P(Tail) when a fair coin is tossed?",cqs:"P of Tail on a fair coin?",
  ans:["1/2","one half","half","0.5"],nudges:["Total outcomes are 2: Head or Tail!","Favourable is 1 (Head). Total is 2!","Say 1 over 2!"]},
 
 {id:"pr3",q:"A fair die is rolled. What is <span class='hl'>P(getting 4)</span>?",qs:"A fair die is rolled. What is P of getting 4?",anim:"die1",
  steps:[{t:"A die has 6 faces: 1, 2, 3, 4, 5, 6. Total outcomes = 6.",s:"A fair die has 6 equally likely outcomes: 1, 2, 3, 4, 5 and 6."},
         {t:"Favourable outcomes for 4 = 1 (only one face shows 4).",s:"There is only 1 face showing 4. So favourable outcomes equals 1."},
         {t:"P(4) = 1 &divide; 6 = <span class='ans-tag'>1/6</span>",s:"P of 4 equals 1 divided by 6."}],
- cq:"P of getting 4 when a die is rolled?",cqs:"P of getting 4?",
- ans:["1/6","one sixth","one over six"],nudges:["A die has 6 faces. Only one shows 4!","Favourable is 1. Total is 6!","Say 1 over 6!"]},
+ cq:"What is P of getting a number greater than 4 when a die is rolled?",cqs:"P of getting greater than 4 on a die?",
+ ans:["2/6","1/3","one third","two sixths"],nudges:["A die has 6 faces. Only one shows 4!","Favourable is 1. Total is 6!","Say 1 over 6!"]},
 
 {id:"pr4",q:"A bag has 3 red and 5 blue balls. What is <span class='hl'>P(red ball)</span>?",qs:"Bag has 3 red and 5 blue balls. P of red?",anim:"bag1",
  steps:[{t:"Total balls = 3 + 5 = 8.",s:"Total number of balls equals 3 plus 5 equals 8."},
         {t:"Favourable outcomes (red) = 3.",s:"There are 3 red balls. So favourable outcomes equals 3."},
         {t:"P(red) = 3 &divide; 8 = <span class='ans-tag'>3/8</span>",s:"P of red equals 3 divided by 8."}],
- cq:"P of picking a red ball from this bag?",cqs:"P of red ball?",
- ans:["3/8","three over eight","three eighths"],nudges:["Total balls is 3 plus 5 equals 8!","3 red balls out of 8 total!","Say 3 over 8!"]},
+ cq:"A bag has 3 red and 5 blue balls. What is P(blue ball)?",cqs:"P of picking a blue ball?",
+ ans:["5/8","five over eight","five eighths"],nudges:["Total balls is 3 plus 5 equals 8!","3 red balls out of 8 total!","Say 3 over 8!"]},
 
 {id:"pr5",q:"P(impossible event) = ? &nbsp; P(certain event) = ?",qs:"P of impossible event? P of certain event?",anim:"certain1",
  steps:[{t:"Impossible event: can never happen. Favourable = 0.",s:"An impossible event has 0 favourable outcomes."},
         {t:"P(impossible) = 0 &divide; total = <span class='ans-tag'>0</span>",s:"So probability of an impossible event is 0."},
         {t:"P(certain) = total &divide; total = <span class='ans-tag'>1</span>",s:"A certain event always happens. All outcomes are favourable. So its probability is 1."}],
- cq:"What is P of an impossible event?",cqs:"P of an impossible event?",
- ans:["0","zero","probability 0","p equals 0"],nudges:["An impossible event can never happen!","Favourable outcomes are 0. So probability is 0!","Say 0!"]},
+ cq:"What is the probability of rolling a number less than 7 on a fair die?",cqs:"P of getting less than 7 on a die?",
+ ans:["1","one","certain","probability 1"],nudges:["An impossible event can never happen!","Favourable outcomes are 0. So probability is 0!","Say 0!"]},
 
 {id:"pr6",q:"The <span class='hl'>complementary rule</span>: P(A) + P(not A) = ?",qs:"P of A plus P of not A equals?",anim:"comp1",
  steps:[{t:"P(A) + P(not A) = 1",s:"The probability of an event plus the probability of it not happening always equals 1."},
         {t:"So P(not A) = 1 &minus; P(A)",s:"Therefore P of not A equals 1 minus P of A. Very useful!"},
         {t:"Example: P(rain) = 0.3. P(no rain) = 1&minus;0.3 = <span class='ans-tag'>0.7</span>",s:"Example: if P of rain is 0.3, then P of no rain equals 1 minus 0.3 equals 0.7."}],
- cq:"P of A plus P of not A equals?",cqs:"P of A plus P of not A?",
- ans:["1","one","equals 1"],nudges:["Either it happens or it doesn't — together they make certainty!","P of A plus P of not A equals?","Say 1!"]},
+ cq:"If P(A) = 0.3, what is P(not A)?",cqs:"P of A is 0.3. What is P of not A?",
+ ans:["0.7","zero point seven","seven tenths"],nudges:["Either it happens or it doesn't — together they make certainty!","P of A plus P of not A equals?","Say 1!"]},
 
 {id:"pr7",q:"A die is rolled. Find <span class='hl'>P(even number)</span>.",qs:"A die is rolled. P of even number?",anim:"die2",
  steps:[{t:"Even numbers on a die: 2, 4, 6. Favourable = 3.",s:"Even numbers on a die are 2, 4 and 6. That is 3 favourable outcomes."},
         {t:"Total outcomes = 6.",s:"Total outcomes equals 6."},
         {t:"P(even) = 3 &divide; 6 = <span class='ans-tag'>1/2</span>",s:"P of even equals 3 divided by 6 equals 1 over 2."}],
- cq:"P of getting an even number when a die is rolled?",cqs:"P of even number on a die?",
+ cq:"What is P of getting an odd number when a die is rolled?",cqs:"P of odd number on a die?",
  ans:["1/2","one half","half","3/6"],nudges:["Even numbers on a die are 2, 4 and 6 — that's 3 out of 6!","3 favourable out of 6 total!","Say 1 over 2!"]},
 
 {id:"pr8",q:"Cards 1 to 10 are shuffled. Find <span class='hl'>P(prime number)</span>.",qs:"Cards 1 to 10. P of prime number?",anim:"cards1",
  steps:[{t:"Prime numbers between 1 and 10: 2, 3, 5, 7. (Note: 1 is NOT prime)",s:"Prime numbers from 1 to 10 are 2, 3, 5 and 7. Remember, 1 is not prime."},
         {t:"Favourable = 4. Total = 10.",s:"There are 4 prime numbers out of 10 cards."},
         {t:"P(prime) = 4 &divide; 10 = <span class='ans-tag'>2/5</span>",s:"P of prime equals 4 divided by 10 equals 2 over 5."}],
- cq:"P of picking a prime from cards 1 to 10?",cqs:"P of prime number?",
- ans:["2/5","4/10","two fifths","four tenths"],nudges:["List primes from 1 to 10: 2, 3, 5, 7. That is 4!","4 favourable out of 10 total!","Say 2 over 5!"]},
+ cq:"Cards 1 to 10. What is P of picking a multiple of 3?",cqs:"P of multiple of 3 from cards 1 to 10?",
+ ans:["3/10","three tenths","three over ten"],nudges:["List primes from 1 to 10: 2, 3, 5, 7. That is 4!","4 favourable out of 10 total!","Say 2 over 5!"]},
 
 {id:"pr9",q:"Two coins are tossed. Find <span class='hl'>P(at least one Head)</span>.",qs:"Two coins are tossed. P of at least one Head?",anim:"twocoins",
  steps:[{t:"Sample space: {HH, HT, TH, TT}. Total = 4.",s:"When two coins are tossed, the sample space is H H, H T, T H, T T. Total is 4."},
         {t:"At least one Head: HH, HT, TH = 3 outcomes.",s:"At least one head includes H H, H T and T H. That is 3 outcomes."},
         {t:"P(at least one Head) = 3 &divide; 4 = <span class='ans-tag'>3/4</span>",s:"P of at least one Head equals 3 divided by 4."}],
- cq:"P of at least one Head when two coins are tossed?",cqs:"P of at least one Head?",
- ans:["3/4","three quarters","three over four","three fourths"],nudges:["List all outcomes: HH, HT, TH, TT. Which have at least one Head?","HH, HT, TH all have at least one Head. That is 3 out of 4!","Say 3 over 4!"]},
+ cq:"Two coins are tossed. What is P(both Tails)?",cqs:"P of both Tails when two coins are tossed?",
+ ans:["1/4","one quarter","one over four","one fourth"],nudges:["List all outcomes: HH, HT, TH, TT. Which have at least one Head?","HH, HT, TH all have at least one Head. That is 3 out of 4!","Say 3 over 4!"]},
 ];
 
 var atTimers=[];
@@ -599,6 +599,7 @@ function mathUpdate(){
 }
 
 </script>
+<script src="/explain-helper.js"></script>
 <script src="/explain-helper.js"></script>
 </body>
 </html>
