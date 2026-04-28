@@ -595,6 +595,7 @@ button{font-family:'Outfit',sans-serif;}
     <button class="tab-btn on" id="tab-plan" onclick="switchTab('plan')">&#128203; Study Plan</button>
     <button class="tab-btn" id="tab-perf" onclick="switchTab('perf')">&#128202; Performance</button>
     <button class="tab-btn" id="tab-dash" onclick="switchTab('dash')">&#9889; Analytics</button>
+    <button class="tab-btn" id="tab-slots" onclick="switchTab('slots')">&#9201; Study Slots</button>
   </div>
 
   <div class="wrap">
@@ -732,6 +733,39 @@ button{font-family:'Outfit',sans-serif;}
       <div id="exam-dash-con"></div>
 
     </div><!-- /view-dash -->
+
+    <!-- ===== SLOTS TAB ===== -->
+    <div id="view-slots" class="hidden">
+      <div class="card">
+        <div class="card-title">&#9201; Allowed Study Time Slots</div>
+        <div style="font-size:15px;color:var(--muted);margin-bottom:20px;line-height:1.6;">
+          Set the hours when the student is allowed to study. Outside these hours, RISHI will show a lock screen.
+          Leave empty to allow study at any time.
+        </div>
+
+        <!-- Add slot form -->
+        <div style="display:flex;gap:12px;align-items:flex-end;flex-wrap:wrap;margin-bottom:24px;">
+          <div>
+            <label class="login-lbl" style="font-size:13px;">From</label>
+            <input type="time" id="slot-start" class="login-inp" style="width:130px;padding:10px 12px;" value="09:00">
+          </div>
+          <div>
+            <label class="login-lbl" style="font-size:13px;">To</label>
+            <input type="time" id="slot-end" class="login-inp" style="width:130px;padding:10px 12px;" value="12:00">
+          </div>
+          <button class="btn btn-pri btn-sm" onclick="addSlot()" style="padding:10px 22px;font-size:14px;">&#43; Add Slot</button>
+        </div>
+
+        <div id="slots-err" style="color:var(--red);font-size:14px;font-weight:600;display:none;margin-bottom:12px;"></div>
+
+        <!-- Slots list -->
+        <div id="slots-list"></div>
+
+        <div id="slots-empty" style="text-align:center;padding:24px;color:var(--muted);font-size:14px;display:none;">
+          No slots set — student can study at any time.
+        </div>
+      </div>
+    </div><!-- /view-slots -->
 
   </div><!-- /wrap -->
 </div><!-- /main-portal -->
@@ -920,11 +954,71 @@ function switchTab(tab) {
   document.getElementById('tab-plan').className = 'tab-btn' + (tab === 'plan' ? ' on' : '');
   document.getElementById('tab-perf').className = 'tab-btn' + (tab === 'perf' ? ' on' : '');
   document.getElementById('tab-dash').className = 'tab-btn' + (tab === 'dash' ? ' on' : '');
+  document.getElementById('tab-slots').className = 'tab-btn' + (tab === 'slots' ? ' on' : '');
   document.getElementById('view-plan').className = tab === 'plan' ? '' : 'hidden';
   document.getElementById('view-perf').className = tab === 'perf' ? '' : 'hidden';
   document.getElementById('view-dash').className = tab === 'dash' ? '' : 'hidden';
-  if (tab === 'perf') renderPerformance();
-  if (tab === 'dash') renderAnalytics();
+  document.getElementById('view-slots').className = tab === 'slots' ? '' : 'hidden';
+  if (tab === 'perf')  renderPerformance();
+  if (tab === 'dash')  renderAnalytics();
+  if (tab === 'slots') renderSlots();
+}
+
+// ===========================
+// STUDY SLOTS
+// ===========================
+function loadSlots() {
+  try { return JSON.parse(localStorage.getItem('rishi_slots') || '[]'); } catch(e) { return []; }
+}
+function saveSlots(slots) {
+  localStorage.setItem('rishi_slots', JSON.stringify(slots));
+}
+function addSlot() {
+  var start = document.getElementById('slot-start').value;
+  var end   = document.getElementById('slot-end').value;
+  var errEl = document.getElementById('slots-err');
+  errEl.style.display = 'none';
+  if (!start || !end) { errEl.textContent = 'Please select both From and To times.'; errEl.style.display = 'block'; return; }
+  if (start >= end) { errEl.textContent = 'From time must be before To time.'; errEl.style.display = 'block'; return; }
+  var slots = loadSlots();
+  /* Prevent duplicates */
+  if (slots.some(function(s) { return s.start === start && s.end === end; })) {
+    errEl.textContent = 'This slot already exists.'; errEl.style.display = 'block'; return;
+  }
+  slots.push({ start: start, end: end });
+  slots.sort(function(a,b) { return a.start < b.start ? -1 : 1; });
+  saveSlots(slots);
+  renderSlots();
+}
+function removeSlot(idx) {
+  var slots = loadSlots();
+  slots.splice(idx, 1);
+  saveSlots(slots);
+  renderSlots();
+}
+function renderSlots() {
+  var slots = loadSlots();
+  var list  = document.getElementById('slots-list');
+  var empty = document.getElementById('slots-empty');
+  if (!slots.length) {
+    list.innerHTML = '';
+    empty.style.display = 'block';
+    return;
+  }
+  empty.style.display = 'none';
+  var html = '<table style="width:100%;border-collapse:collapse;">';
+  html += '<tr><th style="text-align:left;padding:8px 12px;font-size:12px;color:var(--muted);font-weight:600;border-bottom:1px solid var(--border);">FROM</th>'
+        + '<th style="text-align:left;padding:8px 12px;font-size:12px;color:var(--muted);font-weight:600;border-bottom:1px solid var(--border);">TO</th>'
+        + '<th style="border-bottom:1px solid var(--border);"></th></tr>';
+  slots.forEach(function(s, i) {
+    html += '<tr>'
+      + '<td style="padding:12px;font-size:16px;font-weight:700;color:var(--text);">' + s.start + '</td>'
+      + '<td style="padding:12px;font-size:16px;font-weight:700;color:var(--text);">' + s.end + '</td>'
+      + '<td style="padding:12px;text-align:right;"><button onclick="removeSlot(' + i + ')" style="background:var(--red);color:#fff;border:none;border-radius:8px;padding:6px 14px;cursor:pointer;font-family:Outfit,sans-serif;font-weight:700;font-size:13px;">Remove</button></td>'
+      + '</tr>';
+  });
+  html += '</table>';
+  list.innerHTML = html;
 }
 
 // ===========================

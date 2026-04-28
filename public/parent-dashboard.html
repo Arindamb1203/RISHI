@@ -415,6 +415,21 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);min-hei
   <!-- ── QUICK STATS ── -->
   <div class="row row-4" id="stats-row"></div>
 
+  <!-- ── PRESENCE PANEL ── -->
+  <div class="panel" id="presence-panel" style="margin-bottom:20px;">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+      <span style="font-size:16px;font-weight:800;color:var(--text);">&#128241; Student Status</span>
+      <span id="presence-dot" style="width:10px;height:10px;border-radius:50%;background:var(--border);display:inline-block;flex-shrink:0;"></span>
+      <span id="presence-status-lbl" style="font-size:13px;font-weight:700;color:var(--muted);">—</span>
+      <button onclick="renderPresence()" style="margin-left:auto;background:none;border:1px solid var(--border);border-radius:6px;padding:4px 10px;font-size:12px;cursor:pointer;color:var(--muted);font-family:Outfit,sans-serif;">↻ Refresh</button>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:16px;" id="presence-stats"></div>
+    <div id="presence-log-wrap">
+      <div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;">Recent Activity</div>
+      <div id="presence-log" style="font-size:12px;color:var(--muted);line-height:1.8;"></div>
+    </div>
+  </div>
+
   <!-- ── CHAPTER INTELLIGENCE ── -->
   <div class="sec">
     <div class="sec-hdr">
@@ -631,6 +646,7 @@ function renderAll() {
 
   renderHero(preds, d);
   renderStats(preds, d);
+  renderPresence();
   renderChGrid(preds, d);
   renderTopics(preds);
   renderHeatmap(d.heatmap);
@@ -640,6 +656,84 @@ function renderAll() {
   renderPredBreakdown(preds, d);
   renderBreakDash();
   renderTimestamp();
+}
+
+// ══ PRESENCE PANEL ══
+function renderPresence() {
+  var onlineTs  = parseInt(localStorage.getItem('rishi_presence_online') || '0', 10);
+  var offlineTs = parseInt(localStorage.getItem('rishi_presence_offline') || '0', 10);
+  var page      = localStorage.getItem('rishi_presence_page') || '';
+  var slots     = [];
+  try { slots = JSON.parse(localStorage.getItem('rishi_slots') || '[]'); } catch(e) {}
+  var log = [];
+  try { log = JSON.parse(localStorage.getItem('rishi_presence_log') || '[]'); } catch(e) {}
+
+  var now = Date.now();
+  var ONLINE_THRESHOLD = 60000; /* 60s — heartbeat is every 30s */
+
+  /* Online / offline determination */
+  var isOnline = onlineTs > 0 && (now - onlineTs) < ONLINE_THRESHOLD;
+  if (offlineTs > onlineTs) isOnline = false;
+
+  /* Dot + label */
+  var dot = document.getElementById('presence-dot');
+  var lbl = document.getElementById('presence-status-lbl');
+  if (onlineTs === 0) {
+    dot.style.background = 'var(--border)';
+    lbl.textContent = 'No data yet';
+    lbl.style.color = 'var(--muted)';
+  } else if (isOnline) {
+    dot.style.background = '#22c55e';
+    lbl.textContent = 'Online now';
+    lbl.style.color = '#22c55e';
+  } else {
+    var minsAgo = Math.round((now - Math.max(onlineTs, offlineTs)) / 60000);
+    dot.style.background = 'var(--muted)';
+    lbl.textContent = minsAgo < 1 ? 'Just now' : minsAgo + ' min ago';
+    lbl.style.color = 'var(--muted)';
+  }
+
+  /* Stats grid */
+  var pageName = page ? page.replace(/^\//, '').replace(/\?.*/, '') || 'Home' : '—';
+  var slotText = slots.length
+    ? slots.map(function(s) { return s.start + '\u2013' + s.end; }).join(', ')
+    : 'Any time';
+
+  var statsEl = document.getElementById('presence-stats');
+  statsEl.innerHTML = [
+    presStatCell('&#128196; Last Page', pageName),
+    presStatCell('&#9201; Study Slots', slotText),
+    presStatCell('&#128337; Last Seen', onlineTs ? fmtAgo(now - Math.max(onlineTs, offlineTs)) : '—')
+  ].join('');
+
+  /* Log (last 12 entries, newest first) */
+  var logEl = document.getElementById('presence-log');
+  if (!log.length) {
+    logEl.textContent = 'No activity recorded yet.';
+  } else {
+    var recent = log.slice(-12).reverse();
+    logEl.innerHTML = recent.map(function(e) {
+      var t = new Date(e.ts).toLocaleTimeString('en-IN', {hour:'2-digit', minute:'2-digit'});
+      var icons = { load:'&#128196;', unload:'&#128682;', offline:'&#9898;', online:'&#128994;', slot_locked:'&#128274;', slot_unlocked:'&#128275;' };
+      var ico = icons[e.type] || '&#9679;';
+      var pg  = e.page ? (' &middot; ' + e.page.replace(/^\//, '').replace(/\?.*/, '') || 'Home') : '';
+      return '<div>' + ico + ' <b>' + t + '</b> &mdash; ' + e.type + pg + '</div>';
+    }).join('');
+  }
+}
+
+function presStatCell(label, val) {
+  return '<div style="background:var(--panel2);border:1px solid var(--border);border-radius:10px;padding:12px;">'
+    + '<div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px;">' + label + '</div>'
+    + '<div style="font-size:14px;font-weight:800;color:var(--text);word-break:break-all;">' + val + '</div>'
+    + '</div>';
+}
+
+function fmtAgo(ms) {
+  if (ms < 60000) return 'Just now';
+  var m = Math.round(ms / 60000);
+  if (m < 60) return m + ' min ago';
+  return Math.round(m / 60) + ' hr ago';
 }
 
 function renderHero(preds, d) {
@@ -1207,6 +1301,9 @@ window.onload = function() {
       rishiSync.pull(function() { renderAll(); });
     }
   }, 60000);
+
+  /* Presence panel: poll every 10s */
+  setInterval(renderPresence, 10000);
 };
 
 function onStudentInput(val) {

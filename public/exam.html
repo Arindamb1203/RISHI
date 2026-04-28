@@ -6,6 +6,7 @@
 <title>Chapter Exam | RISHI</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <script src="/rishi-core.js"></script>
+<script src="/rishi-presence.js"></script>
 <script src="/rishi-diagram.js"></script>
 <style>
 /* ─────────────────────────────────────────────
@@ -511,8 +512,11 @@ function startExam() {
   document.getElementById('main-layout').style.display = 'grid';
   rInit();
   rishiResetIdleTimer && rishiResetIdleTimer();
+  /* Resume: restore timer + question if student left mid-exam */
+  var _resume = window.rishiGetExamResume ? window.rishiGetExamResume(CH_ID_STR) : null;
+  if (_resume) { timerSecs = _resume.timerSecs; }
   startTimer();
-  showQuestion(0);
+  showQuestion(_resume ? _resume.currentIdx : 0);
 }
 
 /* ─ TIMER ─────────────────────────────────────────────── */
@@ -521,6 +525,9 @@ function startTimer() {
     if (breakActive) return;
     timerSecs--;
     renderTimer();
+    if (timerSecs % 10 === 0 && timerSecs > 0) {
+      window.rishiSaveExamState && window.rishiSaveExamState(CH_ID_STR, timerSecs, currentIdx);
+    }
     if (timerSecs <= 0) { clearInterval(timerInt); autoSubmit(); }
   }, 1000);
 }
@@ -746,6 +753,7 @@ function submitExam() {
   if (examDone) return;
   examDone = true;
   clearInterval(timerInt);
+  window.rishiClearExamResume && window.rishiClearExamResume(CH_ID_STR);
 
   var score = Object.keys(sectionScores).reduce(function (a, k) { return a + sectionScores[k]; }, 0);
   var attempts = rishiExamAttemptCount(CH_ID_STR);  /* count BEFORE this attempt */
