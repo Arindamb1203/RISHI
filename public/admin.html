@@ -279,7 +279,11 @@ button{font-family:'Outfit',sans-serif;cursor:pointer;}
 
       <!-- Students -->
       <div class="card">
-        <div class="card-ttl">👤 Registered Students</div>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap;">
+          <div class="card-ttl" style="margin-bottom:0;">👤 Registered Students</div>
+          <button onclick="loadTestData()" style="margin-left:auto;font-size:12px;padding:6px 14px;background:#7c3aed;color:#fff;border:none;border-radius:8px;cursor:pointer;font-family:Outfit,sans-serif;font-weight:700;">🧪 Load Test Data</button>
+          <button onclick="clearTestData()" style="font-size:12px;padding:6px 14px;background:var(--card2);color:var(--muted);border:1px solid var(--border);border-radius:8px;cursor:pointer;font-family:Outfit,sans-serif;font-weight:700;">🗑 Clear Test Data</button>
+        </div>
         <input type="text" id="student-search" placeholder="🔍 Search by name, ID or mobile..."
           oninput="filterStudents(this.value)"
           style="width:100%;padding:10px 14px;border:1px solid var(--border);border-radius:10px;font-family:Outfit,sans-serif;font-size:14px;background:var(--card2);color:var(--text);margin-bottom:14px;box-sizing:border-box;">
@@ -622,15 +626,16 @@ function buildDashboard() {
 }
 
 function buildStudentList() {
-  window._allRegs = lsGet('rishi_registrations', []);
-  var cur = lsGet('rishi_current_student', {});
-  if(!window._allRegs.length && cur.studentName) {
-    window._allRegs = [{ studentName: cur.studentName,
+  var saved = lsGet('rishi_registrations', []);
+  var cur   = lsGet('rishi_current_student', {});
+  if(!saved.length && cur.studentName) {
+    saved = [{ studentName: cur.studentName,
       studentUsername: cur.studentId || cur.studentUsername || '—',
       parentName: cur.parentName || '—',
       parentUsername: cur.parentUsername || '—',
       primaryMobile: '—', board: cur.board || 'CBSE', class: cur.class || '8' }];
   }
+  window._allRegs = saved;
   renderStudentRows(window._allRegs);
 }
 
@@ -654,7 +659,9 @@ function renderStudentRows(regs) {
     return;
   }
   var allRegs = window._allRegs || regs;
-  var html = '<div style="display:flex;flex-direction:column;gap:10px;">';
+  var today   = new Date(); today.setHours(0,0,0,0);
+
+  var html = '<div style="display:flex;flex-direction:column;gap:12px;">';
   regs.forEach(function(r) {
     var idx    = allRegs.indexOf(r);
     var sName  = r.studentName || 'Student';
@@ -662,19 +669,102 @@ function renderStudentRows(regs) {
     var pName  = r.parentName || '—';
     var pId    = r.parentUsername || r.parentId || '—';
     var mobile = r.primaryMobile || '—';
-    html += '<div style="display:flex;align-items:center;gap:12px;padding:14px 16px;background:var(--card2);border:1px solid var(--border);border-radius:14px;flex-wrap:wrap;">';
-    html += '<div style="font-size:26px;">🎓</div>';
-    html += '<div style="flex:1;min-width:160px;">';
+
+    /* Subscription */
+    var status  = r.subscriptionStatus || 'trial';
+    var expiry  = r.subscriptionExpiry ? new Date(r.subscriptionExpiry) : null;
+    var discDate = r.discontinuedDate || null;
+    var rejDate  = r.rejoinedDate || null;
+    var daysLeft = expiry ? Math.ceil((expiry - today) / 86400000) : null;
+
+    var statusColor = {trial:'#f59e0b', subscribed:'#22c55e', discontinued:'#ef4444'}[status] || '#94a3b8';
+    var statusLabel = {trial:'Trial', subscribed:'Subscribed', discontinued:'Discontinued'}[status] || status;
+    var expiryStr   = expiry ? expiry.toLocaleDateString('en-IN') : '—';
+    var daysStr     = daysLeft !== null ? (daysLeft < 0 ? 'Expired' : daysLeft + 'd left') : '—';
+
+    html += '<div style="background:var(--card2);border:1px solid var(--border);border-radius:14px;padding:14px 16px;">';
+
+    /* Row 1: name + buttons */
+    html += '<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px;">';
+    html += '<div style="font-size:22px;">🎓</div>';
+    html += '<div style="flex:1;min-width:140px;">';
     html +=   '<div style="font-weight:800;font-size:15px;color:var(--text);">' + esc(sName) + '</div>';
-    html +=   '<div style="font-size:12px;color:var(--dim);margin-top:3px;">Student: <b>' + esc(sId) + '</b> &nbsp;|&nbsp; Parent: <b>' + esc(pId) + '</b></div>';
+    html +=   '<div style="font-size:12px;color:var(--dim);margin-top:2px;">Student: <b>' + esc(sId) + '</b> &nbsp;|&nbsp; Parent: <b>' + esc(pId) + '</b></div>';
     html +=   '<div style="font-size:12px;color:var(--dim);margin-top:2px;">📞 ' + esc(mobile) + ' &nbsp;|&nbsp; ' + esc(pName) + '</div>';
     html += '</div>';
-    html += '<button class="btn btn-ghost" style="font-size:13px;white-space:nowrap;" onclick="goStudent(' + idx + ')">📚 Student</button>';
-    html += '<button class="btn btn-ghost" style="font-size:13px;white-space:nowrap;" onclick="goParent(' + idx + ')">👨‍👩‍👧 Parent</button>';
+    html += '<button class="btn btn-ghost" style="font-size:12px;" onclick="goStudent(' + idx + ')">📚 Student</button>';
+    html += '<button class="btn btn-ghost" style="font-size:12px;" onclick="goParent(' + idx + ')">👨‍👩‍👧 Parent</button>';
+    html += '</div>';
+
+    /* Row 2: subscription strip */
+    html += '<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:8px 10px;background:var(--card);border:1px solid var(--border);border-radius:10px;">';
+    html += '<span style="font-size:12px;font-weight:800;padding:3px 10px;border-radius:20px;background:' + statusColor + ';color:#fff;">' + statusLabel + '</span>';
+    html += '<span style="font-size:12px;color:var(--muted);">Expires: <b>' + expiryStr + '</b></span>';
+    html += '<span style="font-size:12px;color:' + (daysLeft !== null && daysLeft <= 3 ? '#ef4444' : 'var(--muted)') + ';font-weight:700;">' + daysStr + '</span>';
+    if(discDate) html += '<span style="font-size:11px;color:var(--muted);">Discontinued: ' + discDate + '</span>';
+    if(rejDate)  html += '<span style="font-size:11px;color:var(--muted);">Rejoined: ' + rejDate + '</span>';
+    html += '<button onclick="showSubEdit(' + idx + ')" style="margin-left:auto;font-size:11px;padding:4px 10px;border:1px solid var(--border);border-radius:6px;background:none;cursor:pointer;color:var(--muted);font-family:Outfit,sans-serif;font-weight:700;">✏ Edit</button>';
+    html += '</div>';
+
     html += '</div>';
   });
   html += '</div>';
   con.innerHTML = html;
+}
+
+/* ── SUBSCRIPTION EDITOR ────────────────────────────────── */
+function showSubEdit(idx) {
+  var r = (window._allRegs || [])[idx];
+  if(!r) return;
+  var expiry = r.subscriptionExpiry || '';
+  var status = r.subscriptionStatus || 'trial';
+  var disc   = r.discontinuedDate   || '';
+  var rejoin = r.rejoinedDate        || '';
+
+  var el = document.getElementById('sub-edit-panel');
+  if(el) el.remove();
+
+  var panel = document.createElement('div');
+  panel.id = 'sub-edit-panel';
+  panel.style.cssText = 'position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,0.6);display:flex;align-items:center;justify-content:center;';
+  panel.innerHTML = '<div style="background:var(--card);border-radius:18px;padding:24px;width:90%;max-width:420px;font-family:Outfit,sans-serif;">'
+    + '<div style="font-size:16px;font-weight:900;color:var(--text);margin-bottom:18px;">✏ Edit Subscription — ' + esc(r.studentName||'Student') + '</div>'
+    + '<div style="margin-bottom:12px;"><label style="font-size:12px;font-weight:700;color:var(--muted);display:block;margin-bottom:4px;">Status</label>'
+    + '<select id="se-status" style="width:100%;padding:8px;border:1px solid var(--border);border-radius:8px;font-family:Outfit,sans-serif;font-size:14px;background:var(--card2);color:var(--text);">'
+    + '<option value="trial"' + (status==='trial'?' selected':'') + '>Trial</option>'
+    + '<option value="subscribed"' + (status==='subscribed'?' selected':'') + '>Subscribed</option>'
+    + '<option value="discontinued"' + (status==='discontinued'?' selected':'') + '>Discontinued</option>'
+    + '</select></div>'
+    + '<div style="margin-bottom:12px;"><label style="font-size:12px;font-weight:700;color:var(--muted);display:block;margin-bottom:4px;">Expiry Date</label>'
+    + '<input type="date" id="se-expiry" value="' + expiry + '" style="width:100%;padding:8px;border:1px solid var(--border);border-radius:8px;font-family:Outfit,sans-serif;font-size:14px;background:var(--card2);color:var(--text);box-sizing:border-box;"></div>'
+    + '<div style="margin-bottom:12px;"><label style="font-size:12px;font-weight:700;color:var(--muted);display:block;margin-bottom:4px;">Discontinued Date (if applicable)</label>'
+    + '<input type="date" id="se-disc" value="' + disc + '" style="width:100%;padding:8px;border:1px solid var(--border);border-radius:8px;font-family:Outfit,sans-serif;font-size:14px;background:var(--card2);color:var(--text);box-sizing:border-box;"></div>'
+    + '<div style="margin-bottom:18px;"><label style="font-size:12px;font-weight:700;color:var(--muted);display:block;margin-bottom:4px;">Rejoined Date (if applicable)</label>'
+    + '<input type="date" id="se-rejoin" value="' + rejoin + '" style="width:100%;padding:8px;border:1px solid var(--border);border-radius:8px;font-family:Outfit,sans-serif;font-size:14px;background:var(--card2);color:var(--text);box-sizing:border-box;"></div>'
+    + '<div style="display:flex;gap:10px;">'
+    + '<button onclick="saveSubEdit(' + idx + ')" style="flex:1;padding:10px;background:linear-gradient(135deg,#22c97d,#1aac68);color:#fff;border:none;border-radius:10px;font-family:Outfit,sans-serif;font-weight:800;font-size:14px;cursor:pointer;">✅ Save</button>'
+    + '<button onclick="document.getElementById(\'sub-edit-panel\').remove()" style="flex:1;padding:10px;background:var(--card2);color:var(--muted);border:1px solid var(--border);border-radius:10px;font-family:Outfit,sans-serif;font-weight:800;font-size:14px;cursor:pointer;">Cancel</button>'
+    + '</div>'
+    + '</div>';
+  document.body.appendChild(panel);
+}
+
+function saveSubEdit(idx) {
+  var regs = lsGet('rishi_registrations', []);
+  /* Find original reg by index in _allRegs */
+  var orig = (window._allRegs || [])[idx];
+  var ri   = regs.findIndex(function(r){ return r.studentUsername === (orig||{}).studentUsername; });
+  if(ri === -1 && orig) { regs.push(orig); ri = regs.length - 1; }
+  if(ri === -1) return;
+
+  regs[ri].subscriptionStatus  = document.getElementById('se-status').value;
+  regs[ri].subscriptionExpiry  = document.getElementById('se-expiry').value;
+  regs[ri].discontinuedDate    = document.getElementById('se-disc').value   || null;
+  regs[ri].rejoinedDate        = document.getElementById('se-rejoin').value || null;
+  localStorage.setItem('rishi_registrations', JSON.stringify(regs));
+  window._allRegs[idx] = regs[ri];
+  document.getElementById('sub-edit-panel').remove();
+  renderStudentRows(window._allRegs);
 }
 
 /* ── DIRECT BYPASS NAVIGATION ─────────────────────────────── */
@@ -716,8 +806,35 @@ function goParent(idx) {
   window.open('/parent.html', '_blank');
 }
 
-function closeStudentModal() {
-  document.getElementById('student-modal').style.display = 'none';
+function loadTestData() {
+  if(!confirm('This will add 6 fictitious test students. You can remove them with "Clear Test Data". Continue?')) return;
+  var today = new Date();
+  function addDays(d, n) { var x = new Date(d); x.setDate(x.getDate()+n); return x.toISOString().slice(0,10); }
+
+  var testRegs = [
+    { studentName:'Aarav Sharma',   studentUsername:'aarav8491',   parentName:'Suresh Sharma',   parentUsername:'suresh91234',   primaryMobile:'9830091234', board:'CBSE', class:'8', subscriptionStatus:'trial',        subscriptionExpiry: addDays(today, 25), _isTest:true },
+    { studentName:'Priya Ghosh',    studentUsername:'priya8567',   parentName:'Anita Ghosh',     parentUsername:'anita56789',    primaryMobile:'9831056789', board:'CBSE', class:'8', subscriptionStatus:'trial',        subscriptionExpiry: addDays(today, 2),  _isTest:true },
+    { studentName:'Rohan Das',      studentUsername:'rohan8112',   parentName:'Bikash Das',      parentUsername:'bikash11223',   primaryMobile:'9832011223', board:'CBSE', class:'8', subscriptionStatus:'subscribed',   subscriptionExpiry: addDays(today, 90), _isTest:true },
+    { studentName:'Sana Patel',     studentUsername:'sana8345',    parentName:'Rekha Patel',     parentUsername:'rekha34567',    primaryMobile:'9833034567', board:'CBSE', class:'8', subscriptionStatus:'trial',        subscriptionExpiry: addDays(today, -5), _isTest:true },
+    { studentName:'Kiran Mehta',    studentUsername:'kiran8789',   parentName:'Deepak Mehta',    parentUsername:'deepak78901',   primaryMobile:'9834078901', board:'CBSE', class:'8', subscriptionStatus:'discontinued', subscriptionExpiry: addDays(today,-30), discontinuedDate: addDays(today,-30), _isTest:true },
+    { studentName:'Tania Roy',      studentUsername:'tania8234',   parentName:'Soma Roy',        parentUsername:'soma23456',     primaryMobile:'9835023456', board:'CBSE', class:'8', subscriptionStatus:'subscribed',   subscriptionExpiry: addDays(today, 3),  discontinuedDate: addDays(today,-60), rejoinedDate: addDays(today,-10), _isTest:true }
+  ];
+
+  var existing = lsGet('rishi_registrations', []);
+  /* Remove old test data first */
+  existing = existing.filter(function(r){ return !r._isTest; });
+  existing = existing.concat(testRegs);
+  localStorage.setItem('rishi_registrations', JSON.stringify(existing));
+  buildStudentList();
+  document.getElementById('student-search').value = '';
+  alert('✅ 6 test students loaded. Use "Clear Test Data" to remove them later.');
+}
+
+function clearTestData() {
+  if(!confirm('Remove all test students?')) return;
+  var regs = lsGet('rishi_registrations', []).filter(function(r){ return !r._isTest; });
+  localStorage.setItem('rishi_registrations', JSON.stringify(regs));
+  buildStudentList();
 }
 
 function buildPlansSection() {

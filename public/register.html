@@ -1010,6 +1010,8 @@ function saveToLocalStorage(type) {
     parentUsername: pUser,
     firstLoginStudent: true,
     firstLoginParent:  true,
+    subscriptionStatus: 'trial',
+    subscriptionExpiry: (function(){ var d = new Date(); d.setDate(d.getDate()+30); return d.toISOString().slice(0,10); })(),
     board: document.getElementById('board').value,
     class: document.getElementById('class').value,
     schoolName: document.getElementById('schoolName').value.trim(),
