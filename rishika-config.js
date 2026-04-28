@@ -337,7 +337,25 @@
   rishi_exam_resume_{chIdStr}         → JSON {timerSecs, currentIdx, ts}
   rishi_expiry_warned                 → ISO date string (today) — prevents repeat warning
 
-▌ REMAINING WORK — PRIORITY ORDER (updated 28 Apr 2026)
+▌ REMAINING WORK — PRIORITY ORDER (updated 28 Apr 2026 — evening)
+
+  [P3 — DONE ✅ 28 Apr 2026]
+  Practice pages — all 16 pages verified and patched
+  ISSUES FOUND AND FIXED:
+    ✅ rishi-presence.js injected via patch scripts (rishi-core.js is inlined in practice
+       pages — inject-presence.mjs missed them. Patch scripts added tag after rishi-sync.js)
+    ✅ rishiIsExplainDone(CHAP_ID) gate added to init() on all 16 pages
+    ✅ Admin bypass respected in explain gate
+    ✅ CHAP_ID bug fixed: chance-probability.html had CHAP_ID=5 (wrong) → fixed to 17
+    ✅ All other wiring confirmed correct: rishiCheckPlan, 5-streak gate,
+       rishiMarkPracticeDone, Rishika avatar, coins (+5 per correct first attempt),
+       Rishika's Trick on wrong answer, Try Again, Alternative explanation
+  PATCH SCRIPTS (all in repo root D:\rishi\):
+    patch-arithmetic-practice.mjs  — 5 files (ch01,08,12,13,16)
+    patch-algebra-practice.mjs     — 4 files (ch02,09,14,15)
+    patch-geometry-practice.mjs    — 3 files (ch03,04,10)
+    patch-mensuration-practice.mjs — 2 files (ch11a,11b)
+    patch-data-handling-practice.mjs — 2 files (ch05,ch17) + CHAP_ID fix
 
   [P2 — NEXT]
   YouTube video embed
@@ -345,27 +363,6 @@
   - Claude adds "▶ Watch Video" button to each explain page
   - Simple embed — no API, just iframe or youtube.com/embed link
   - Button appears before or after the explain lesson
-
-  [P3 — SOON]
-  Practice pages verification (16 pages — built Apr 24, unverified)
-  SMART APPROACH:
-  - Upload ONE practice page (e.g. rational-numbers)
-  - Claude reads it, identifies all structural issues in one pass
-  - Build a CHECKLIST of what needs fixing across all pages
-  - Fix the one page as gold standard
-  - Run a batch script to patch all 15 remaining pages automatically
-  - Manually verify 2-3 random pages after batch
-  THINGS TO VERIFY:
-    ✓ rishi-presence.js injected (inject script already ran)
-    ✓ rishi-core.js in head
-    ✓ rishiCheckPlan(chId) called on init
-    ✓ 5-consecutive-correct gate working
-    ✓ rishiMarkPracticeDone(chId) called on completion
-    ✓ Rishika avatar present (not Rekha)
-    ✓ Voice/TTS working with ElevenLabs fallback
-    ✓ Coins awarded on correct answers
-    ✓ "Wrong answer" explanation (Rishika's Trick)
-    ✓ Session resume (last question index in localStorage)
 
   [P4 — FUTURE]
   Vedic Maths / Calculation Shortcuts mini-module
@@ -377,7 +374,11 @@
   Ch06 Squares & Square Roots + Ch07 Cubes & Cube Roots
   (deliberately excluded from current build)
 
-  [P7 — AFTER CLASS 8 COMPLETE]
+  [P7 — FUTURE]
+  Leaderboard cross-device — currently per-device localStorage only
+  Needs D1 cloud sync to show real rankings across all students
+
+  [P8 — AFTER CLASS 8 COMPLETE]
   Multi-class / multi-board expansion
   Architecture: public/cbse/class8/, public/icse/class8/, public/wbse/class8/
   Clone script: node clone-class.mjs --from cbse/class8 --to cbse/class7
