@@ -143,6 +143,7 @@ body{font-family:'Nunito',sans-serif;background:#0d0d1a;min-height:100vh;color:#
 .tap-sub{color:rgba(255,255,255,0.5);font-size:13px;margin-top:8px;}
 </style>
 <script src="/rishi-sync.js"></script>
+<script src="/rishi-presence.js"></script>
 </head>
 <body>
 <!-- TOPBAR -->
@@ -403,7 +404,7 @@ window.addEventListener('load', function() {
 
 </script>
 <script>
-var CHAP_ID=5;
+var CHAP_ID=17;
 var QB=[
   {q:"Fair coin tossed. P(Head)?",qs:"Find probability of head on fair coin toss.",ans:["1/2", "0.5"],steps:["S={H,T}. P(H)=1/2"],trick:"Coin: P(H)=P(T)=1/2.",alt:"1/2."},
   {q:"Die rolled. P(multiple of 3)?",qs:"Die rolled. Find probability of multiple of 3.",ans:["1/3", "2/6"],steps:["Multiples of 3: {3,6}. P=2/6=1/3"],trick:"3 and 6: 2 out of 6 = 1/3.",alt:"1/3."},
@@ -477,6 +478,7 @@ function G(id){return document.getElementById(id);}
 /* ── INIT ── */
 function init(){
   rishiCheckPlan(CHAP_ID);
+  if(localStorage.getItem('rishi_admin_bypass')!=='1' && !rishiIsExplainDone(CHAP_ID)){window.location.href='/syllabus.html';return;}
   coins=parseInt(localStorage.getItem('rishi_coins')||'0');
   updateCoins();
   answered=new Array(QB.length).fill(null);
