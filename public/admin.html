@@ -778,31 +778,33 @@ function getRegs() {
 }
 
 function goStudent(idx) {
-  var regs = getRegs();
+  var regs = window._allRegs || [];
   var r    = regs[idx];
   if (!r) return;
-  /* Set rishi_current_student so syllabus loads correctly */
   var st = {
     studentName: r.studentName || 'Student',
-    studentId:   r.studentId   || r.studentUsername || 'RISHI-001',
-    board:       r.board       || 'CBSE',
-    class:       r.class       || '8',
-    role:        'student'
+    studentId:   r.studentUsername || r.studentId || '—',
+    studentUsername: r.studentUsername || r.studentId || '—',
+    parentUsername: r.parentUsername || '—',
+    board: r.board || 'CBSE',
+    class: r.class || '8',
+    role: 'student'
   };
   localStorage.setItem('rishi_current_student', JSON.stringify(st));
+  localStorage.setItem('rishi_admin_bypass', '1'); /* skip all locks */
   window.open('/syllabus.html', '_blank');
 }
 
 function goParent(idx) {
-  var regs = getRegs();
+  var regs = window._allRegs || [];
   var r    = regs[idx];
   if (!r) return;
   var sName = r.studentName || 'Student';
-  var sId   = r.studentId   || r.studentUsername || 'RISHI-001';
-  /* Set parent session so parent.html auto-enters */
-  sessionStorage.setItem('rishi_parent_auth',         '1');
-  sessionStorage.setItem('rishi_parent_student_name', sName);
-  sessionStorage.setItem('rishi_parent_student_id',   sId);
+  var sId   = r.studentUsername || r.studentId || '—';
+  /* Use localStorage short-lived token — sessionStorage not shared across tabs */
+  localStorage.setItem('rishi_parent_bypass', JSON.stringify({
+    auth: '1', studentName: sName, studentId: sId, ts: Date.now()
+  }));
   window.open('/parent.html', '_blank');
 }
 

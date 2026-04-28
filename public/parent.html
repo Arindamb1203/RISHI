@@ -891,7 +891,24 @@ function logout() {
 }
 
 function checkAuth() {
-  // Try to resolve student context from rishi_current_student (set by login.html)
+  /* ── Admin bypass via localStorage token (set by admin goParent) ── */
+  var bypassRaw = localStorage.getItem('rishi_parent_bypass');
+  if (bypassRaw) {
+    try {
+      var bypass = JSON.parse(bypassRaw);
+      /* Token valid for 30 seconds */
+      if (bypass.auth === '1' && (Date.now() - bypass.ts) < 30000) {
+        localStorage.removeItem('rishi_parent_bypass'); /* consume immediately */
+        sessionStorage.setItem('rishi_parent_auth',         '1');
+        sessionStorage.setItem('rishi_parent_student_id',   bypass.studentId   || 'default');
+        sessionStorage.setItem('rishi_parent_student_name', bypass.studentName || 'Student');
+        enterPortal(); return;
+      }
+    } catch(e) {}
+    localStorage.removeItem('rishi_parent_bypass');
+  }
+
+  /* ── Already authenticated in this tab ── */
   if(!sessionStorage.getItem('rishi_parent_student_id')){
     var cs = {};
     try { cs = JSON.parse(localStorage.getItem('rishi_current_student')||'{}'); } catch(e){}
@@ -904,12 +921,12 @@ function checkAuth() {
   if(sessionStorage.getItem('rishi_parent_auth') === '1'){
     enterPortal(); return;
   }
-  /* Admin bypass — if admin is logged in, auto-enter parent portal */
+  /* Admin bypass flag fallback */
   if(localStorage.getItem('rishi_admin_bypass') === '1'){
     sessionStorage.setItem('rishi_parent_auth','1');
     var cs2 = {};
     try { cs2 = JSON.parse(localStorage.getItem('rishi_current_student')||'{}'); } catch(e){}
-    sessionStorage.setItem('rishi_parent_student_id', cs2.studentId || 'default');
+    sessionStorage.setItem('rishi_parent_student_id',   cs2.studentId   || 'default');
     sessionStorage.setItem('rishi_parent_student_name', cs2.studentName || 'Student');
     enterPortal(); return;
   }

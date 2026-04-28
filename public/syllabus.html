@@ -137,7 +137,6 @@ body::after{content:'RISHI';position:fixed;bottom:-40px;right:-30px;font-family:
 .sampurna-fill{height:100%;background:linear-gradient(90deg,var(--sage),var(--gold));border-radius:3px;transition:width .8s ease;}
 </style>
 <script src="/rishi-sync.js"></script>
-<script src="/rishi-presence.js"></script>
 </head>
 <body>
 
@@ -293,6 +292,8 @@ function isChapExamDone(cid){
 }
 /* ── Plan & Date Helpers ── */
 function getPlanActive(){
+  /* Admin bypass — all chapters open */
+  if(localStorage.getItem('rishi_admin_bypass') === '1') return '__all__';
   var st = {};
   try { st = JSON.parse(localStorage.getItem('rishi_current_student')||'{}'); } catch(e){}
   var sid = st.studentId || null;
@@ -384,7 +385,8 @@ function buildChapterList(){
   if(!topic) return;
 
   var planActive=getPlanActive();
-  var hasPlan=Object.keys(planActive).length>0;
+  var isAdminBypass=(planActive==='__all__');
+  var hasPlan=isAdminBypass||Object.keys(planActive).length>0;
   var html='<div class="cp-header"><span class="cp-icon">'+topic.icon+'</span>'+topic.name+'</div>';
 
   if(!hasPlan){
@@ -395,7 +397,7 @@ function buildChapterList(){
     var cid=topic.chapters[j];
     var ch=CHAPTERS[cid];
     var color=CH_COLORS[cid];
-    var inPlan=hasPlan?(planActive[cid]||planActive[String(cid)]):true;
+    var inPlan=isAdminBypass?true:(hasPlan?(planActive[cid]||planActive[String(cid)]):true);
     var explainDone=isExplainDone(cid);
     var practiceDone=isPracticeDone(cid);
     var chapExamDone=isChapExamDone(cid);

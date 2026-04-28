@@ -158,6 +158,14 @@
   /* ── MAIN INIT ───────────────────────────────────────── */
   window.addEventListener('load', function () {
 
+    /* Admin bypass — skip all restrictions */
+    if (localStorage.getItem('rishi_admin_bypass') === '1') {
+      heartbeat();
+      setInterval(heartbeat, HEARTBEAT_MS);
+      presLog('load');
+      return;
+    }
+
     /* Slot check for student pages only */
     if (isStudentPage()) {
       if (!isInSlot()) {
