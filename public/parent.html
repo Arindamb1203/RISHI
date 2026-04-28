@@ -596,6 +596,7 @@ button{font-family:'Outfit',sans-serif;}
     <button class="tab-btn" id="tab-perf" onclick="switchTab('perf')">&#128202; Performance</button>
     <button class="tab-btn" id="tab-dash" onclick="switchTab('dash')">&#9889; Analytics</button>
     <button class="tab-btn" id="tab-slots" onclick="switchTab('slots')">&#9201; Study Slots</button>
+    <button class="tab-btn" id="tab-live" onclick="switchTab('live')">&#128241; Live Status</button>
   </div>
 
   <div class="wrap">
@@ -767,6 +768,27 @@ button{font-family:'Outfit',sans-serif;}
       </div>
     </div><!-- /view-slots -->
 
+    <!-- ===== LIVE STATUS TAB ===== -->
+    <div id="view-live" class="hidden">
+      <div class="card">
+        <div class="card-title">&#128241; Student Live Status</div>
+
+        <!-- Online/offline row -->
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;">
+          <span id="live-dot" style="width:14px;height:14px;border-radius:50%;background:#ccc;display:inline-block;flex-shrink:0;"></span>
+          <span id="live-status-lbl" style="font-size:17px;font-weight:800;color:var(--text);">—</span>
+          <button onclick="renderLive()" style="margin-left:auto;background:none;border:1px solid var(--border);border-radius:8px;padding:6px 14px;font-size:13px;cursor:pointer;color:var(--muted);font-family:Outfit,sans-serif;font-weight:600;">↻ Refresh</button>
+        </div>
+
+        <!-- 3 stat boxes -->
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:24px;" id="live-stats"></div>
+
+        <!-- Activity log -->
+        <div style="font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;">Recent Activity</div>
+        <div id="live-log" style="font-size:14px;color:var(--muted);line-height:2;"></div>
+      </div>
+    </div><!-- /view-live -->
+
   </div><!-- /wrap -->
 </div><!-- /main-portal -->
 
@@ -882,6 +904,15 @@ function checkAuth() {
   if(sessionStorage.getItem('rishi_parent_auth') === '1'){
     enterPortal(); return;
   }
+  /* Admin bypass — if admin is logged in, auto-enter parent portal */
+  if(localStorage.getItem('rishi_admin_bypass') === '1'){
+    sessionStorage.setItem('rishi_parent_auth','1');
+    var cs2 = {};
+    try { cs2 = JSON.parse(localStorage.getItem('rishi_current_student')||'{}'); } catch(e){}
+    sessionStorage.setItem('rishi_parent_student_id', cs2.studentId || 'default');
+    sessionStorage.setItem('rishi_parent_student_name', cs2.studentName || 'Student');
+    enterPortal(); return;
+  }
   if(window.location.search.indexOf('auto=1') > -1){
     sessionStorage.setItem('rishi_parent_auth','1');
     enterPortal();
@@ -925,6 +956,11 @@ function initMainPortal() {
   calMonth = now.getMonth();
   renderExamGrid();
   renderActivePlans();
+  /* Poll live status every 10s */
+  setInterval(function() {
+    var liveView = document.getElementById('view-live');
+    if (liveView && !liveView.classList.contains('hidden')) renderLive();
+  }, 10000);
 }
 
 // ===========================
@@ -955,13 +991,16 @@ function switchTab(tab) {
   document.getElementById('tab-perf').className = 'tab-btn' + (tab === 'perf' ? ' on' : '');
   document.getElementById('tab-dash').className = 'tab-btn' + (tab === 'dash' ? ' on' : '');
   document.getElementById('tab-slots').className = 'tab-btn' + (tab === 'slots' ? ' on' : '');
-  document.getElementById('view-plan').className = tab === 'plan' ? '' : 'hidden';
-  document.getElementById('view-perf').className = tab === 'perf' ? '' : 'hidden';
-  document.getElementById('view-dash').className = tab === 'dash' ? '' : 'hidden';
+  document.getElementById('tab-live').className  = 'tab-btn' + (tab === 'live'  ? ' on' : '');
+  document.getElementById('view-plan').className  = tab === 'plan'  ? '' : 'hidden';
+  document.getElementById('view-perf').className  = tab === 'perf'  ? '' : 'hidden';
+  document.getElementById('view-dash').className  = tab === 'dash'  ? '' : 'hidden';
   document.getElementById('view-slots').className = tab === 'slots' ? '' : 'hidden';
+  document.getElementById('view-live').className  = tab === 'live'  ? '' : 'hidden';
   if (tab === 'perf')  renderPerformance();
   if (tab === 'dash')  renderAnalytics();
   if (tab === 'slots') renderSlots();
+  if (tab === 'live')  renderLive();
 }
 
 // ===========================
@@ -1022,8 +1061,79 @@ function renderSlots() {
 }
 
 // ===========================
-// EXAM GRID
+// LIVE STATUS
 // ===========================
+function renderLive() {
+  var onlineTs  = parseInt(localStorage.getItem('rishi_presence_online')  || '0', 10);
+  var offlineTs = parseInt(localStorage.getItem('rishi_presence_offline') || '0', 10);
+  var page      = localStorage.getItem('rishi_presence_page') || '';
+  var slots     = [];
+  try { slots = JSON.parse(localStorage.getItem('rishi_slots') || '[]'); } catch(e) {}
+  var log = [];
+  try { log = JSON.parse(localStorage.getItem('rishi_presence_log') || '[]'); } catch(e) {}
+
+  var now = Date.now();
+  var isOnline = onlineTs > 0 && (now - onlineTs) < 60000;
+  if (offlineTs > onlineTs) isOnline = false;
+
+  /* Dot + label */
+  var dot = document.getElementById('live-dot');
+  var lbl = document.getElementById('live-status-lbl');
+  if (onlineTs === 0) {
+    dot.style.background = '#ccc';
+    lbl.textContent = 'No data yet — student hasn\'t opened RISHI';
+    lbl.style.color = 'var(--muted)';
+  } else if (isOnline) {
+    dot.style.background = '#22c55e';
+    lbl.textContent = '🟢 Online now';
+    lbl.style.color = '#059669';
+  } else {
+    var ago = Math.round((now - Math.max(onlineTs, offlineTs)) / 60000);
+    dot.style.background = '#94a3b8';
+    lbl.textContent = '⚫ Last seen ' + (ago < 1 ? 'just now' : ago + ' min ago');
+    lbl.style.color = 'var(--muted)';
+  }
+
+  /* 3 info boxes */
+  var pageName = page ? (page.replace(/^\//, '').replace(/\?.*/, '') || 'Home') : '—';
+  var slotText = slots.length ? slots.map(function(s){ return s.start + '–' + s.end; }).join(', ') : 'Any time';
+  var lastSeen = onlineTs ? liveAgo(now - Math.max(onlineTs, offlineTs)) : '—';
+
+  document.getElementById('live-stats').innerHTML = [
+    liveStatBox('📄 Last Page',    pageName),
+    liveStatBox('⏰ Study Slots',  slotText),
+    liveStatBox('🕐 Last Seen',    lastSeen)
+  ].join('');
+
+  /* Activity log */
+  var logEl = document.getElementById('live-log');
+  if (!log.length) {
+    logEl.textContent = 'No activity recorded yet.';
+  } else {
+    var icons = { load:'📄', unload:'🚪', offline:'⚫', online:'🟢', slot_locked:'🔒', slot_unlocked:'🔓' };
+    logEl.innerHTML = log.slice(-15).reverse().map(function(e) {
+      var t   = new Date(e.ts).toLocaleTimeString('en-IN', { hour:'2-digit', minute:'2-digit' });
+      var ico = icons[e.type] || '•';
+      var pg  = e.page ? ' · ' + (e.page.replace(/^\//, '').replace(/\?.*/, '') || 'Home') : '';
+      return '<div style="padding:4px 0;border-bottom:1px solid var(--border);">'
+        + ico + ' <b>' + t + '</b> &mdash; ' + e.type + pg + '</div>';
+    }).join('');
+  }
+}
+
+function liveStatBox(label, val) {
+  return '<div style="background:var(--light);border:1px solid var(--border);border-radius:10px;padding:14px;">'
+    + '<div style="font-size:12px;font-weight:700;color:var(--muted);margin-bottom:4px;">' + label + '</div>'
+    + '<div style="font-size:15px;font-weight:800;color:var(--text);word-break:break-all;">' + val + '</div>'
+    + '</div>';
+}
+
+function liveAgo(ms) {
+  if (ms < 60000)  return 'Just now';
+  var m = Math.round(ms / 60000);
+  if (m < 60) return m + ' min ago';
+  return Math.round(m / 60) + ' hr ago';
+}
 function renderExamGrid() {
   var html = '';
   for (var i = 0; i < EXAM_TYPES.length; i++) {
