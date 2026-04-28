@@ -799,13 +799,9 @@ function goParent(idx) {
   var regs = window._allRegs || [];
   var r    = regs[idx];
   if (!r) return;
-  var sName = r.studentName || 'Student';
-  var sId   = r.studentUsername || r.studentId || '—';
-  /* Use localStorage short-lived token — sessionStorage not shared across tabs */
-  localStorage.setItem('rishi_parent_bypass', JSON.stringify({
-    auth: '1', studentName: sName, studentId: sId, ts: Date.now()
-  }));
-  window.open('/parent.html', '_blank');
+  var sName = encodeURIComponent(r.studentName || 'Student');
+  var sId   = encodeURIComponent(r.studentUsername || r.studentId || '—');
+  window.open('/parent.html?bypass=1&sName=' + sName + '&sId=' + sId, '_blank');
 }
 
 function loadTestData() {
