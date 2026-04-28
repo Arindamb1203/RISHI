@@ -144,6 +144,7 @@ body::after{content:'RISHI';position:fixed;bottom:-40px;right:-30px;font-family:
   <div class="hdr-logo">RISHI</div>
   <div class="hdr-right">
     <div class="hdr-name" id="hdrName"></div>
+    <button class="btn-logout" onclick="showLeaderboard()" style="margin-right:4px;">🏆 Leaderboard</button>
     <button class="btn-logout" onclick="logout()">← Logout</button>
   </div>
 </header>
@@ -593,6 +594,47 @@ window.onload=function(){
   renderSampurna();
   renderStats();
 };
+</script>
+<!-- LEADERBOARD MODAL -->
+<div id="lb-modal" style="display:none;position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,0.55);align-items:center;justify-content:center;">
+  <div style="background:#fff;border-radius:20px;padding:28px;width:90%;max-width:460px;max-height:85vh;overflow-y:auto;font-family:'Nunito',sans-serif;">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;">
+      <div style="font-size:20px;font-weight:900;color:#1c1c1c;">🏆 Leaderboard</div>
+      <button onclick="document.getElementById('lb-modal').style.display='none'" style="background:none;border:none;font-size:22px;cursor:pointer;color:#999;">✕</button>
+    </div>
+    <div id="lb-list"></div>
+  </div>
+</div>
+<script>
+function showLeaderboard() {
+  var regs = [];
+  try { regs = JSON.parse(localStorage.getItem('rishi_registrations') || '[]'); } catch(e) {}
+  var cur = {};
+  try { cur = JSON.parse(localStorage.getItem('rishi_current_student') || '{}'); } catch(e) {}
+  var myCoins = parseInt(localStorage.getItem('rishi_coins') || '0');
+  var entries = regs.map(function(r) {
+    return { name: r.studentName || 'Student', id: r.studentUsername || '—', coins: myCoins };
+  });
+  if (!entries.find(function(e){ return e.id === (cur.studentUsername||cur.studentId); })) {
+    entries.push({ name: cur.studentName || 'You', id: cur.studentUsername||cur.studentId||'—', coins: myCoins });
+  }
+  entries.sort(function(a,b){ return b.coins - a.coins; });
+  var medals = ['🥇','🥈','🥉'];
+  var myId = (cur.studentUsername || cur.studentId || '').toLowerCase();
+  var html = '';
+  entries.forEach(function(e, i) {
+    var isMe = (e.id||'').toLowerCase() === myId;
+    var medal = medals[i] || ((i+1) + '.');
+    html += '<div style="display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:12px;margin-bottom:8px;background:' + (isMe ? '#f0fdf4' : (i<3?'#fffbf0':'#f9fafb')) + ';border:1px solid ' + (isMe ? '#86efac' : (i<3?'#fcd34d':'#e5e7eb')) + ';">';
+    html += '<div style="font-size:22px;width:32px;text-align:center;">' + medal + '</div>';
+    html += '<div style="flex:1;"><div style="font-weight:800;font-size:15px;color:#1c1c1c;">' + e.name + (isMe?' <span style="font-size:11px;background:#86efac;padding:2px 6px;border-radius:6px;color:#166534;">You</span>':'') + '</div><div style="font-size:12px;color:#999;">' + e.id + '</div></div>';
+    html += '<div style="font-size:16px;font-weight:900;color:#d97706;">🪙 ' + e.coins + '</div>';
+    html += '</div>';
+  });
+  if(!html) html = '<div style="text-align:center;padding:24px;color:#999;">No data yet. Start earning coins!</div>';
+  document.getElementById('lb-list').innerHTML = html;
+  document.getElementById('lb-modal').style.display = 'flex';
+}
 </script>
 </body>
 </html>

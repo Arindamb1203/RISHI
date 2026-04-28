@@ -455,30 +455,41 @@ button{font-family:'Outfit',sans-serif;}
 
 /* ====== INSTRUCTION SCREEN ====== */
 #instr-screen{
-  min-height:100vh;background:linear-gradient(140deg,#0A1628 0%,#0F2240 55%,#1A3560 100%);
-  display:flex;flex-direction:column;align-items:center;justify-content:center;padding:28px 16px;
+  min-height:100vh;background:#fdf8f2;
+  display:flex;flex-direction:column;align-items:center;padding:36px 20px 48px;
+  font-family:'Outfit',sans-serif;
 }
-.instr-logo{font-size:26px;font-weight:900;letter-spacing:4px;color:white;margin-bottom:4px;}
-.instr-logo span{color:var(--gold);}
-.instr-sub{font-size:15px;color:rgba(255,255,255,.45);font-weight:600;margin-bottom:28px;letter-spacing:.5px;}
-.instr-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;max-width:900px;width:100%;margin-bottom:24px;}
-.instr-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:18px 20px;}
-.instr-ico{font-size:22px;margin-bottom:10px;}
-.instr-ttl{font-size:16px;font-weight:800;color:white;margin-bottom:6px;}
-.instr-body{font-size:16px;color:rgba(255,255,255,.55);line-height:1.7;}
-.instr-body b{color:rgba(255,255,255,.85);font-weight:700;}
-.instr-btns{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;}
-.btn-instr-skip{
-  padding:11px 22px;border-radius:10px;font-size:16px;font-weight:700;cursor:pointer;
-  background:rgba(255,255,255,.08);border:1.5px solid rgba(255,255,255,.18);
-  color:rgba(255,255,255,.65);font-family:'Outfit',sans-serif;transition:all .2s;
+.instr-welcome{text-align:center;margin-bottom:36px;}
+.instr-welcome-tag{display:inline-block;background:#fff3e0;color:#d97706;font-size:13px;font-weight:800;padding:6px 16px;border-radius:20px;letter-spacing:.5px;margin-bottom:14px;border:1px solid #fbbf24;}
+.instr-welcome h1{font-size:32px;font-weight:900;color:#1c1c1c;margin:0 0 8px;}
+.instr-welcome p{font-size:16px;color:#666;font-weight:500;max-width:520px;margin:0 auto;}
+.instr-cols{display:grid;grid-template-columns:1fr 1fr;gap:24px;max-width:1000px;width:100%;margin-bottom:36px;}
+@media(max-width:700px){.instr-cols{grid-template-columns:1fr;}}
+.instr-col-head{font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:16px;padding:8px 14px;border-radius:8px;}
+.instr-col-head.parent{background:#fff3e0;color:#d97706;}
+.instr-col-head.student{background:#ecfdf5;color:#059669;}
+.instr-slab{
+  background:#fff;border-radius:14px;padding:14px 16px;margin-bottom:10px;
+  border-left:4px solid #fbbf24;box-shadow:0 2px 8px rgba(0,0,0,.06);
+  opacity:0;transform:translateY(18px);
+  transition:opacity .4s ease, transform .4s ease;
 }
-.btn-instr-skip:hover{background:rgba(255,255,255,.14);color:white;}
+.instr-slab.student-slab{border-left-color:#34d399;}
+.instr-slab.visible{opacity:1;transform:translateY(0);}
+.instr-slab-num{font-size:11px;font-weight:800;color:#d97706;margin-bottom:4px;}
+.instr-slab.student-slab .instr-slab-num{color:#059669;}
+.instr-slab-txt{font-size:15px;font-weight:600;color:#1c1c1c;line-height:1.6;}
+.instr-slab-txt b{color:#d97706;font-weight:800;}
+.instr-slab.student-slab .instr-slab-txt b{color:#059669;}
+.instr-companion{background:linear-gradient(135deg,#fff8ed,#fffbf5);border:2px solid #fbbf24;border-radius:16px;padding:16px 20px;max-width:1000px;width:100%;text-align:center;margin-bottom:28px;font-size:15px;color:#92400e;font-weight:700;line-height:1.7;}
+.instr-companion span{font-size:22px;margin-right:8px;}
 .btn-instr-go{
-  padding:11px 28px;border-radius:10px;font-size:16px;font-weight:800;cursor:pointer;
-  background:var(--gold);border:none;color:#0F2240;font-family:'Outfit',sans-serif;transition:all .2s;
+  padding:16px 48px;border-radius:14px;font-size:18px;font-weight:900;cursor:pointer;
+  background:linear-gradient(135deg,#f59e0b,#d97706);border:none;color:#fff;
+  font-family:'Outfit',sans-serif;transition:all .2s;box-shadow:0 6px 20px rgba(245,158,11,.35);
+  letter-spacing:.3px;
 }
-.btn-instr-go:hover{background:var(--gold2);transform:translateY(-1px);}
+.btn-instr-go:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(245,158,11,.45);}
 
 /* ====== MODE SELECTOR ====== */
 .mode-sel{
@@ -542,39 +553,75 @@ button{font-family:'Outfit',sans-serif;}
 
 <!-- ===== INSTRUCTION SCREEN ===== -->
 <div id="instr-screen" class="hidden">
-  <div class="instr-logo">RISHI<span>.</span></div>
-  <div class="instr-sub">Parent Portal Guide — Read before you begin</div>
-  <div class="instr-grid">
-    <div class="instr-card">
-      <div class="instr-ico">&#128203;</div>
-      <div class="instr-ttl">How to Create a Study Plan</div>
-      <div class="instr-body">Go to the <b>Study Plan</b> tab. Select an exam type (Unit Test, Half Yearly or Annual), choose the chapters you want to assign, and set a <b>Start Date</b> and <b>Target Date</b> for each. Choose the mode (Explain / Practice / Exam) per chapter. Click <b>Lock Study Plan</b> when ready.</div>
+
+  <!-- Welcome -->
+  <div class="instr-welcome">
+    <div class="instr-welcome-tag">✨ Welcome to RISHI Parent Portal</div>
+    <h1>Hello, and welcome aboard! 🙏</h1>
+    <p>RISHI is not just a tutorial app — it's a warm companion that sits beside your child, just like a trusted family member. Here's everything you and your child need to know.</p>
+  </div>
+
+  <!-- Two columns -->
+  <div class="instr-cols">
+
+    <!-- LEFT: Parent To-Do -->
+    <div>
+      <div class="instr-col-head parent">📋 Your To-Do as a Parent</div>
+
+      <div class="instr-slab"><div class="instr-slab-num">STEP 1</div><div class="instr-slab-txt"><b>Create a Study Plan</b> — Go to Study Plan tab. Pick one or more chapters from any topic you want your child to focus on.</div></div>
+
+      <div class="instr-slab"><div class="instr-slab-num">STEP 2</div><div class="instr-slab-txt"><b>Set the Date Range</b> — RISHI will suggest ideal timelines. You can change them, but it won't allow less than the minimum time needed per chapter.</div></div>
+
+      <div class="instr-slab"><div class="instr-slab-num">STEP 3</div><div class="instr-slab-txt"><b>Set Study Time Slots</b> — Go to the Study Slots tab. Change the predefined times to suit your child's schedule. Times are in <b>24-hour format</b>.</div></div>
+
+      <div class="instr-slab"><div class="instr-slab-num">STEP 4</div><div class="instr-slab-txt"><b>Watch the Dashboard</b> — It shows your child's activity, scores, chapter completion, and progress trends — all in one place.</div></div>
+
+      <div class="instr-slab"><div class="instr-slab-num">STEP 5</div><div class="instr-slab-txt"><b>Monitor Breaks</b> — You'll see how many breaks your child took, how long each lasted, and what type — water, washroom, or just idle.</div></div>
+
+      <div class="instr-slab"><div class="instr-slab-num">STEP 6</div><div class="instr-slab-txt">If the screen is <b>inactive for 5 minutes</b>, RISHI automatically marks it as a break and starts recording time — your child can't hide idle time.</div></div>
+
+      <div class="instr-slab"><div class="instr-slab-num">STEP 7</div><div class="instr-slab-txt">The <b>Live Status tab</b> shows you in real time whether your child is online or offline — even if they close the browser, shut down the machine, or go incognito.</div></div>
+
+      <div class="instr-slab"><div class="instr-slab-num">STEP 8</div><div class="instr-slab-txt"><b>Lock the Plan</b> — Once you're satisfied, lock it. The student portal updates in real time the moment you lock. Unlock anytime to revise.</div></div>
+
+      <div class="instr-slab"><div class="instr-slab-num">STEP 9</div><div class="instr-slab-txt">After locking, <b>brief your child</b> on what they need to know — what chapters, what time, and what the rules are. Informed students perform better.</div></div>
+
+      <div class="instr-slab"><div class="instr-slab-num">STEP 10</div><div class="instr-slab-txt">Check the <b>Leaderboard</b> to see how your child ranks against others — coins earned through correct answers and streaks drive the ranking.</div></div>
     </div>
-    <div class="instr-card">
-      <div class="instr-ico">&#128274;</div>
-      <div class="instr-ttl">Locking &amp; Activation</div>
-      <div class="instr-body">Until a plan is <b>locked</b>, the student will not see any changes. Once locked, assigned chapters become visible on the student dashboard with a countdown to the target date. You can delete a plan at any time from the Active Plans section.</div>
-    </div>
-    <div class="instr-card">
-      <div class="instr-ico">&#128218;</div>
-      <div class="instr-ttl">Explain → Practice → Exam Flow</div>
-      <div class="instr-body">Each chapter follows a strict order: the student must <b>complete Explain</b> before Practice is unlocked, and <b>complete Practice</b> (5-correct streak) before the Chapter Exam is available. Assigning a mode that hasn't been unlocked yet will show a warning.</div>
-    </div>
-    <div class="instr-card">
-      <div class="instr-ico">&#9000;</div>
-      <div class="instr-ttl">How Students Answer</div>
-      <div class="instr-body">Students type answers using the <b>keyboard</b> — voice input is not used. For fractions, type like <b>3/4</b>. For powers, type <b>2^3</b>. For mixed numbers, type <b>1 1/2</b>. The system auto-normalises common variations so minor formatting differences are accepted.</div>
-    </div>
-    <div class="instr-card">
-      <div class="instr-ico">&#127881;</div>
-      <div class="instr-ttl">Coins &amp; Rewards</div>
-      <div class="instr-body">Students earn <b>coins</b> for correct answers and streaks. These are tracked in the Performance tab. If you physically reward your child (e.g. a real treat), use the <b>Reset Coins</b> button on the Performance tab to zero the balance after redemption.</div>
+
+    <!-- RIGHT: Student Must Know -->
+    <div>
+      <div class="instr-col-head student">🎓 Please Inform Your Child</div>
+
+      <div class="instr-slab student-slab"><div class="instr-slab-num">KNOW 1</div><div class="instr-slab-txt">You can <b>only access the chapters assigned to you</b>, and only within the time slots your parent has set. Outside that — RISHI stays locked.</div></div>
+
+      <div class="instr-slab student-slab"><div class="instr-slab-num">KNOW 2</div><div class="instr-slab-txt">Every correct answer and every streak earns you <b>coins</b>. These can be redeemed for real rewards — your parent can cash them out for you!</div></div>
+
+      <div class="instr-slab student-slab"><div class="instr-slab-num">KNOW 3</div><div class="instr-slab-txt">Every chapter follows a strict order: <b>Explain → Practice → Exam</b>. You cannot skip ahead. Each step unlocks the next.</div></div>
+
+      <div class="instr-slab student-slab"><div class="instr-slab-num">KNOW 4</div><div class="instr-slab-txt">Explain must be completed before Practice opens. Practice requires <b>5 correct answers in a row</b> before the Chapter Exam becomes available.</div></div>
+
+      <div class="instr-slab student-slab"><div class="instr-slab-num">KNOW 5</div><div class="instr-slab-txt">Every chapter has its own exam. <b>Complete all chapter exams in a topic</b> to unlock the Topic Exam.</div></div>
+
+      <div class="instr-slab student-slab"><div class="instr-slab-num">KNOW 6</div><div class="instr-slab-txt">Pass all Topic Exams and the grand <b>Sampurna Pariksha</b> unlocks — the ultimate test of everything you've learned.</div></div>
+
+      <div class="instr-slab student-slab"><div class="instr-slab-num">KNOW 7</div><div class="instr-slab-txt">Check the <b>Leaderboard</b> to see your rank among peers. Mental boosting games are coming soon to keep your brain sharp between chapters.</div></div>
+
+      <div class="instr-slab student-slab"><div class="instr-slab-num">KNOW 8</div><div class="instr-slab-txt">Questions are sourced from <b>RD Sharma, RS Aggarwal, NCERT Exemplar, CBSE past papers, and Olympiad material</b> — shuffled fresh every time.</div></div>
+
+      <div class="instr-slab student-slab"><div class="instr-slab-num">KNOW 9</div><div class="instr-slab-txt">Every break you take is recorded. Screen idle for 5 minutes = automatic break. <b>Your parent can see everything.</b> Study honestly!</div></div>
+
+      <div class="instr-slab student-slab"><div class="instr-slab-num">KNOW 10</div><div class="instr-slab-txt">Beyond your set time, RISHI won't open. If something feels wrong, <b>refresh 2–3 times with a 30-second gap</b>. Still broken? Screenshot + WhatsApp your ID and registered number to your admin.</div></div>
     </div>
   </div>
-  <div class="instr-btns">
-    <button class="btn-instr-skip" onclick="skipInstructions()">Skip — Go to Portal</button>
-    <button class="btn-instr-go" onclick="skipInstructions()">&#10003; Got It — Open Portal</button>
+
+  <!-- Companion note -->
+  <div class="instr-companion">
+    <span>🤝</span>Remember — RISHI is not just a tutorial app. It is a <strong>companion</strong> that sits beside your child like a warm, knowledgeable family member — guiding, encouraging, and holding them accountable every step of the way.
   </div>
+
+  <button class="btn-instr-go" onclick="skipInstructions()">✅ Got It — Take Me to the Dashboard</button>
+
 </div>
 
 <!-- ===== MAIN PORTAL ===== -->
@@ -586,6 +633,7 @@ button{font-family:'Outfit',sans-serif;}
     <div class="hdr-title">Parent Portal</div>
     <div class="hdr-r">
       <div class="hdr-badge" id="student-name-badge">&#128274; Parent</div>
+      <button class="btn-out-hdr" onclick="showLeaderboard()">🏆 Leaderboard</button>
       <button class="btn-out-hdr" onclick="showInstructions()">&#10067; Guide</button>
       <button class="btn-out-hdr" onclick="logout()">Sign Out</button>
     </div>
@@ -937,6 +985,7 @@ function enterPortal() {
   document.getElementById('login-screen').style.display = 'none';
   if (!sessionStorage.getItem('rishi_instr_seen')) {
     document.getElementById('instr-screen').className = '';
+    setTimeout(animateSlabs, 100);
   } else {
     initMainPortal();
   }
@@ -951,7 +1000,25 @@ function skipInstructions() {
 function showInstructions() {
   document.getElementById('main-portal').className = 'hidden';
   document.getElementById('instr-screen').className = '';
+  animateSlabs();
 }
+
+function animateSlabs() {
+  var slabs = document.querySelectorAll('.instr-slab');
+  slabs.forEach(function(s) { s.classList.remove('visible'); });
+  slabs.forEach(function(s, i) {
+    setTimeout(function() { s.classList.add('visible'); }, i * 120);
+  });
+}
+
+/* Trigger animation when guide first shown */
+(function() {
+  var orig = window.addEventListener;
+  window.addEventListener('load', function() {
+    var instrEl = document.getElementById('instr-screen');
+    if (instrEl && !instrEl.classList.contains('hidden')) animateSlabs();
+  });
+})();
 
 function getStudentId(){
   return sessionStorage.getItem('rishi_parent_student_id') || 'default';
@@ -2521,5 +2588,52 @@ if ('serviceWorker' in navigator) {
   });
 }
 </script>
+<!-- LEADERBOARD MODAL -->
+<div id="lb-modal" style="display:none;position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,0.55);align-items:center;justify-content:center;">
+  <div style="background:#fff;border-radius:20px;padding:28px;width:90%;max-width:460px;max-height:85vh;overflow-y:auto;font-family:'Outfit',sans-serif;">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;">
+      <div style="font-size:20px;font-weight:900;color:#1c1c1c;">🏆 Leaderboard</div>
+      <button onclick="document.getElementById('lb-modal').style.display='none'" style="background:none;border:none;font-size:22px;cursor:pointer;color:#999;">✕</button>
+    </div>
+    <div id="lb-list"></div>
+  </div>
+</div>
+
+<script>
+function showLeaderboard() {
+  var regs = [];
+  try { regs = JSON.parse(localStorage.getItem('rishi_registrations') || '[]'); } catch(e) {}
+  /* Build ranked list from rishi_coins (shared localStorage) */
+  var entries = regs.map(function(r) {
+    return {
+      name:   r.studentName || 'Student',
+      id:     r.studentUsername || r.studentId || '—',
+      coins:  parseInt(localStorage.getItem('rishi_coins') || '0') /* TODO: per-student coins when cloud sync ready */
+    };
+  });
+  /* Also add current student if not in regs */
+  var cur = {};
+  try { cur = JSON.parse(localStorage.getItem('rishi_current_student') || '{}'); } catch(e) {}
+  if (cur.studentName && !entries.find(function(e){ return e.id === (cur.studentUsername||cur.studentId); })) {
+    entries.push({ name: cur.studentName, id: cur.studentUsername||cur.studentId||'—', coins: parseInt(localStorage.getItem('rishi_coins')||'0') });
+  }
+  entries.sort(function(a,b){ return b.coins - a.coins; });
+
+  var medals = ['🥇','🥈','🥉'];
+  var html = entries.length ? '' : '<div style="text-align:center;padding:24px;color:#999;font-size:14px;">No students registered yet.</div>';
+  entries.forEach(function(e, i) {
+    var medal = medals[i] || ('  ' + (i+1) + '.');
+    var isTop = i < 3;
+    html += '<div style="display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:12px;margin-bottom:8px;background:' + (isTop ? '#fffbf0' : '#f9fafb') + ';border:1px solid ' + (isTop ? '#fcd34d' : '#e5e7eb') + ';">';
+    html += '<div style="font-size:22px;width:32px;text-align:center;">' + medal + '</div>';
+    html += '<div style="flex:1;"><div style="font-weight:800;font-size:15px;color:#1c1c1c;">' + e.name + '</div><div style="font-size:12px;color:#999;">' + e.id + '</div></div>';
+    html += '<div style="font-size:16px;font-weight:900;color:#d97706;">🪙 ' + e.coins + '</div>';
+    html += '</div>';
+  });
+  document.getElementById('lb-list').innerHTML = html;
+  document.getElementById('lb-modal').style.display = 'flex';
+}
+</script>
+
 </body>
 </html>
