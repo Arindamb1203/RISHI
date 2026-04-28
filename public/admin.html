@@ -280,6 +280,9 @@ button{font-family:'Outfit',sans-serif;cursor:pointer;}
       <!-- Students -->
       <div class="card">
         <div class="card-ttl">👤 Registered Students</div>
+        <input type="text" id="student-search" placeholder="🔍 Search by name, ID or mobile..."
+          oninput="filterStudents(this.value)"
+          style="width:100%;padding:10px 14px;border:1px solid var(--border);border-radius:10px;font-family:Outfit,sans-serif;font-size:14px;background:var(--card2);color:var(--text);margin-bottom:14px;box-sizing:border-box;">
         <div id="dash-students"></div>
       </div>
 
@@ -288,7 +291,6 @@ button{font-family:'Outfit',sans-serif;cursor:pointer;}
         <div class="card-ttl" style="margin-bottom:10px;">⚡ Quick Actions</div>
         <div style="display:flex;gap:8px;flex-wrap:wrap;">
           <button class="btn btn-ghost" onclick="switchTab('tree')">→ Open Chapter Tree</button>
-          <button class="btn btn-ghost" onclick="window.open('/syllabus.html','_blank')">📚 Syllabus</button>
           <button class="btn btn-ghost" onclick="window.open('/login.html','_blank')">🔐 Student Login</button>
           <button class="btn btn-danger" onclick="resetAllProgress()">🗑 Reset All Student Progress</button>
           <button class="btn btn-danger" onclick="clearAllPlans()">🗑 Clear All Study Plans</button>
@@ -620,34 +622,102 @@ function buildDashboard() {
 }
 
 function buildStudentList() {
-  var regs = lsGet('rishi_registrations', []);
-  var cur  = lsGet('rishi_current_student', {});
-  var con  = document.getElementById('dash-students');
-  if (!regs.length) {
-    /* Also try current student as fallback */
-    if (cur.studentId) {
-      regs = [{ studentName: cur.studentName || 'Student', studentUsername: cur.studentId, parentUsername: cur.parentId || '—' }];
-    } else {
-      con.innerHTML = '<div class="empty"><div class="empty-ico">👤</div>No registered students found.</div>';
-      return;
-    }
+  window._allRegs = lsGet('rishi_registrations', []);
+  var cur = lsGet('rishi_current_student', {});
+  if(!window._allRegs.length && cur.studentName) {
+    window._allRegs = [{ studentName: cur.studentName,
+      studentUsername: cur.studentId || cur.studentUsername || '—',
+      parentName: cur.parentName || '—',
+      parentUsername: cur.parentUsername || '—',
+      primaryMobile: '—', board: cur.board || 'CBSE', class: cur.class || '8' }];
   }
+  renderStudentRows(window._allRegs);
+}
+
+function filterStudents(q) {
+  var regs = window._allRegs || [];
+  if(!q.trim()) { renderStudentRows(regs); return; }
+  var ql = q.toLowerCase();
+  renderStudentRows(regs.filter(function(r) {
+    return (r.studentName||'').toLowerCase().indexOf(ql)    > -1
+        || (r.studentUsername||'').toLowerCase().indexOf(ql) > -1
+        || (r.primaryMobile||'').indexOf(ql)                > -1
+        || (r.parentName||'').toLowerCase().indexOf(ql)     > -1
+        || (r.parentUsername||'').toLowerCase().indexOf(ql) > -1;
+  }));
+}
+
+function renderStudentRows(regs) {
+  var con = document.getElementById('dash-students');
+  if(!regs || !regs.length) {
+    con.innerHTML = '<div class="empty"><div class="empty-ico">👤</div>No students found.</div>';
+    return;
+  }
+  var allRegs = window._allRegs || regs;
   var html = '<div style="display:flex;flex-direction:column;gap:10px;">';
   regs.forEach(function(r) {
-    var sName = r.studentName || r.studentUsername || 'Student';
-    var sId   = r.studentUsername || '—';
-    html += '<div style="display:flex;align-items:center;gap:12px;padding:12px 16px;background:var(--card2);border:1px solid var(--border);border-radius:12px;">';
-    html += '<div style="font-size:28px;">🎓</div>';
-    html += '<div style="flex:1;">';
-    html +=   '<div style="font-weight:800;font-size:16px;color:var(--text);">' + esc(sName) + '</div>';
-    html +=   '<div style="font-size:13px;color:var(--dim);margin-top:2px;">ID: ' + esc(sId) + '</div>';
+    var idx    = allRegs.indexOf(r);
+    var sName  = r.studentName || 'Student';
+    var sId    = r.studentUsername || r.studentId || '—';
+    var pName  = r.parentName || '—';
+    var pId    = r.parentUsername || r.parentId || '—';
+    var mobile = r.primaryMobile || '—';
+    html += '<div style="display:flex;align-items:center;gap:12px;padding:14px 16px;background:var(--card2);border:1px solid var(--border);border-radius:14px;flex-wrap:wrap;">';
+    html += '<div style="font-size:26px;">🎓</div>';
+    html += '<div style="flex:1;min-width:160px;">';
+    html +=   '<div style="font-weight:800;font-size:15px;color:var(--text);">' + esc(sName) + '</div>';
+    html +=   '<div style="font-size:12px;color:var(--dim);margin-top:3px;">Student: <b>' + esc(sId) + '</b> &nbsp;|&nbsp; Parent: <b>' + esc(pId) + '</b></div>';
+    html +=   '<div style="font-size:12px;color:var(--dim);margin-top:2px;">📞 ' + esc(mobile) + ' &nbsp;|&nbsp; ' + esc(pName) + '</div>';
     html += '</div>';
-    html += '<button class="btn btn-ghost" style="font-size:13px;" onclick="window.open(\'/syllabus.html\',\'_blank\')">📚 Student View</button>';
-    html += '<button class="btn btn-ghost" style="font-size:13px;" onclick="window.open(\'/parent.html?auto=1\',\'_blank\')">👨‍👩‍👧 Parent Portal</button>';
+    html += '<button class="btn btn-ghost" style="font-size:13px;white-space:nowrap;" onclick="goStudent(' + idx + ')">📚 Student</button>';
+    html += '<button class="btn btn-ghost" style="font-size:13px;white-space:nowrap;" onclick="goParent(' + idx + ')">👨‍👩‍👧 Parent</button>';
     html += '</div>';
   });
   html += '</div>';
   con.innerHTML = html;
+}
+
+/* ── DIRECT BYPASS NAVIGATION ─────────────────────────────── */
+function getRegs() {
+  var regs = lsGet('rishi_registrations', []);
+  if (!regs.length) {
+    var cur = lsGet('rishi_current_student', {});
+    if (cur.studentName) regs = [cur];
+  }
+  return regs;
+}
+
+function goStudent(idx) {
+  var regs = getRegs();
+  var r    = regs[idx];
+  if (!r) return;
+  /* Set rishi_current_student so syllabus loads correctly */
+  var st = {
+    studentName: r.studentName || 'Student',
+    studentId:   r.studentId   || r.studentUsername || 'RISHI-001',
+    board:       r.board       || 'CBSE',
+    class:       r.class       || '8',
+    role:        'student'
+  };
+  localStorage.setItem('rishi_current_student', JSON.stringify(st));
+  window.open('/syllabus.html', '_blank');
+}
+
+function goParent(idx) {
+  var regs = getRegs();
+  var r    = regs[idx];
+  if (!r) return;
+  var sName = r.studentName || 'Student';
+  var sId   = r.studentId   || r.studentUsername || 'RISHI-001';
+  /* Set parent session so parent.html auto-enters */
+  sessionStorage.setItem('rishi_parent_auth',         '1');
+  sessionStorage.setItem('rishi_parent_student_name', sName);
+  sessionStorage.setItem('rishi_parent_student_id',   sId);
+  window.open('/parent.html', '_blank');
+}
+
+function closeStudentModal() {
+  document.getElementById('student-modal').style.display = 'none';
 }
 
 function buildPlansSection() {
@@ -1070,5 +1140,16 @@ setInterval(function() { if (sessionStorage.getItem('rishi_admin_auth') === '1')
 /* ── INIT ────────────────────────────────────────────────── */
 window.onload = function() { checkAuth(); };
 </script>
+<!-- ── STUDENT PICKER MODAL ── -->
+<div id="student-modal" style="display:none;position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,0.6);align-items:center;justify-content:center;">
+  <div style="background:var(--card);border-radius:20px;padding:28px;min-width:360px;max-width:520px;width:90%;box-shadow:0 24px 64px rgba(0,0,0,0.4);">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;">
+      <div style="font-size:18px;font-weight:900;color:var(--text);" id="modal-title">Select Student</div>
+      <button onclick="closeStudentModal()" style="background:none;border:none;font-size:22px;cursor:pointer;color:var(--muted);line-height:1;">✕</button>
+    </div>
+    <div id="modal-student-list" style="display:flex;flex-direction:column;gap:10px;"></div>
+  </div>
+</div>
+
 </body>
 </html>

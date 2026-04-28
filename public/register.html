@@ -805,10 +805,6 @@
         <span class="cred-key">🎓 Student Username</span>
         <span class="cred-val" id="modalUser">—</span>
       </div>
-      <div class="cred-row">
-        <span class="cred-key">Student Password</span>
-        <span class="cred-val" id="modalPass">—</span>
-      </div>
     </div>
 
     <div class="cred-box" style="margin-top:10px; background:#eef2eb; border-color:var(--sage-light);">
@@ -816,14 +812,14 @@
         <span class="cred-key">👨‍👩‍👦 Parent Username</span>
         <span class="cred-val" id="modalParentUser">—</span>
       </div>
-      <div class="cred-row">
-        <span class="cred-key">Parent Password</span>
-        <span class="cred-val" id="modalParentPass">—</span>
-      </div>
+    </div>
+
+    <div style="background:#fff8e1;border:1px solid #f5a623;border-radius:10px;padding:12px 14px;font-size:13px;font-weight:700;color:#b45309;margin-top:14px;text-align:left;">
+      🔐 No password yet — on first login, you will be asked to set your own password. Keep your username safe!
     </div>
 
     <div style="font-size:13px; font-weight:800; color:var(--rust); margin-bottom:14px; text-align:left; margin-top:14px;">
-      📌 Please save these credentials. Click the links below to open and bookmark them.
+      📌 Please save these usernames. Click the links below to open and bookmark them.
     </div>
 
     <div class="link-box">
@@ -869,26 +865,17 @@ var PARENT_PASS  = 'Parent@Rishi1';
 // ============================================================
 // UNIQUE ID GENERATION
 // ============================================================
-function generateStudentUsername(studentName) {
-  var first = studentName.trim().split(/\s+/)[0].toUpperCase().replace(/[^A-Z]/g,'').substring(0,8);
-  var regs = [];
-  try { regs = JSON.parse(localStorage.getItem('rishi_registrations') || '[]'); } catch(e){}
-  var count = 1;
-  for(var i=0;i<regs.length;i++){
-    if(regs[i].studentUsername && regs[i].studentUsername.indexOf('RISHI-'+first+'-') === 0) count++;
-  }
-  return 'RISHI-' + first + '-' + String(count).padStart(3,'0');
+function generateStudentUsername(studentName, mobile, cls) {
+  var first = studentName.trim().split(/\s+/)[0].toLowerCase().replace(/[^a-z]/g,'').substring(0,8);
+  var mob3  = (mobile || '').replace(/\D/g,'').slice(-3);
+  var grade = String(cls || '8');
+  return first + grade + mob3;
 }
 
-function generateParentUsername(parentName) {
-  var first = parentName.trim().split(/\s+/)[0].toUpperCase().replace(/[^A-Z]/g,'').substring(0,8);
-  var regs = [];
-  try { regs = JSON.parse(localStorage.getItem('rishi_registrations') || '[]'); } catch(e){}
-  var count = 1;
-  for(var i=0;i<regs.length;i++){
-    if(regs[i].parentUsername && regs[i].parentUsername.indexOf('PARENT-'+first+'-') === 0) count++;
-  }
-  return 'PARENT-' + first + '-' + String(count).padStart(3,'0');
+function generateParentUsername(parentName, mobile) {
+  var first = parentName.trim().split(/\s+/)[0].toLowerCase().replace(/[^a-z]/g,'').substring(0,8);
+  var mob5  = (mobile || '').replace(/\D/g,'').slice(-5);
+  return first + mob5;
 }
 
 // ============================================================
@@ -1011,14 +998,18 @@ function validateAll() {
 // ============================================================
 function saveToLocalStorage(type) {
   var sName = document.getElementById('studentName').value.trim();
-  var pName = document.getElementById('parentName').value.trim();
-  var sUser = generateStudentUsername(sName);
-  var pUser = generateParentUsername(pName);
+  var pName  = document.getElementById('parentName').value.trim();
+  var mobile = document.getElementById('primaryMobile').value.trim();
+  var cls    = document.getElementById('class').value;
+  var sUser  = generateStudentUsername(sName, mobile, cls);
+  var pUser  = generateParentUsername(pName, mobile);
   const data = {
     studentName: sName,
     parentName: pName,
     studentUsername: sUser,
     parentUsername: pUser,
+    firstLoginStudent: true,
+    firstLoginParent:  true,
     board: document.getElementById('board').value,
     class: document.getElementById('class').value,
     schoolName: document.getElementById('schoolName').value.trim(),
@@ -1071,15 +1062,13 @@ function generateAndShow(isPaid) {
   var studentName = document.getElementById('studentName').value.trim();
 
   var base = window.location.origin;
-  var studentUrl = base + '/login.html?user=' + encodeURIComponent(sUser) + '&pass=' + encodeURIComponent(STUDENT_PASS) + '&role=student';
-  var parentUrl  = base + '/login.html?user=' + encodeURIComponent(pUser)  + '&pass=' + encodeURIComponent(PARENT_PASS)  + '&role=parent';
+  var studentUrl = base + '/login.html?user=' + encodeURIComponent(sUser) + '&role=student&first=1';
+  var parentUrl  = base + '/login.html?user=' + encodeURIComponent(pUser)  + '&role=parent&first=1';
 
   document.getElementById('modalSub').textContent =
     'Hello ' + studentName.split(' ')[0] + '! Rishika is ready to sit beside you. 🌟';
   document.getElementById('modalUser').textContent = sUser;
-  document.getElementById('modalPass').textContent = STUDENT_PASS;
   document.getElementById('modalParentUser').textContent = pUser;
-  document.getElementById('modalParentPass').textContent = PARENT_PASS;
 
   var sLink = document.getElementById('studentLink');
   sLink.textContent = studentUrl;
@@ -1095,7 +1084,7 @@ function generateAndShow(isPaid) {
 function closeModal() {
   document.getElementById('successModal').classList.remove('show');
   var sUser = window._regStudentUser;
-  window.location.href = '/login.html?user=' + encodeURIComponent(sUser) + '&pass=' + encodeURIComponent(STUDENT_PASS) + '&role=student';
+  window.location.href = '/login.html?user=' + encodeURIComponent(sUser) + '&role=student&first=1';
 }
 
 // ============================================================

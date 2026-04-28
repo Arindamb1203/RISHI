@@ -777,7 +777,7 @@ button{font-family:'Outfit',sans-serif;}
         <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;">
           <span id="live-dot" style="width:14px;height:14px;border-radius:50%;background:#ccc;display:inline-block;flex-shrink:0;"></span>
           <span id="live-status-lbl" style="font-size:17px;font-weight:800;color:var(--text);">—</span>
-          <button onclick="renderLive()" style="margin-left:auto;background:none;border:1px solid var(--border);border-radius:8px;padding:6px 14px;font-size:13px;cursor:pointer;color:var(--muted);font-family:Outfit,sans-serif;font-weight:600;">↻ Refresh</button>
+          <button onclick="refreshLive(this)" style="margin-left:auto;background:none;border:1px solid var(--border);border-radius:8px;padding:6px 14px;font-size:13px;cursor:pointer;color:var(--muted);font-family:Outfit,sans-serif;font-weight:600;">↻ Refresh</button>
         </div>
 
         <!-- 3 stat boxes -->
@@ -1121,7 +1121,12 @@ function renderLive() {
   }
 }
 
-function liveStatBox(label, val) {
+function refreshLive() {
+  var btn = document.querySelector('#view-live button');
+  if (btn) { btn.style.transform = 'rotate(360deg)'; btn.style.transition = 'transform 0.5s ease'; }
+  setTimeout(function() { if (btn) { btn.style.transform = ''; btn.style.transition = ''; } }, 600);
+  renderLive();
+}
   return '<div style="background:var(--light);border:1px solid var(--border);border-radius:10px;padding:14px;">'
     + '<div style="font-size:12px;font-weight:700;color:var(--muted);margin-bottom:4px;">' + label + '</div>'
     + '<div style="font-size:15px;font-weight:800;color:var(--text);word-break:break-all;">' + val + '</div>'

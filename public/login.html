@@ -98,6 +98,24 @@
     <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
   </div>
 
+  <!-- FIRST LOGIN — SET PASSWORD -->
+  <div id="firstLoginPanel" style="display:none;">
+    <div style="background:#fff8e1;border:1px solid #f5a623;border-radius:12px;padding:14px 16px;margin-bottom:18px;font-size:14px;font-weight:700;color:#b45309;">
+      👋 Welcome! Since this is your first login, please set your password.
+    </div>
+    <div class="field">
+      <label>New Password</label>
+      <input type="password" id="firstPw1" placeholder="Choose a password" oninput="this.classList.add('filled')">
+      <div class="val-msg" id="err-firstPw1">Please enter a password</div>
+    </div>
+    <div class="field">
+      <label>Confirm Password</label>
+      <input type="password" id="firstPw2" placeholder="Re-enter password" oninput="this.classList.add('filled')">
+      <div class="val-msg" id="err-firstPw2">Passwords do not match</div>
+    </div>
+    <button class="btn-login" onclick="handleSetFirstPassword()">✦ Set Password &amp; Enter RISHI</button>
+  </div>
+
   <!-- LOGIN FIELDS -->
   <div class="field">
     <label>Username</label>
@@ -215,25 +233,29 @@ let countdown = 5;
 let countdownTimer = null;
 
 window.onload = function(){
-  // Read URL params → prefill
   var params = new URLSearchParams(window.location.search);
-  var pUser = params.get('user');
-  var pPass = params.get('pass');
-  var pRole = params.get('role') || 'student';
+  var pUser  = params.get('user');
+  var pPass  = params.get('pass');
+  var pRole  = params.get('role') || 'student';
+  var pFirst = params.get('first') === '1';
 
   if(pUser){
-    var uEl = document.getElementById('username');
-    var pEl = document.getElementById('password');
-    uEl.value = pUser;
-    uEl.classList.add('filled');
-    if(pPass){ pEl.value = pPass; pEl.classList.add('filled'); }
-    // Store role for redirect
+    document.getElementById('username').value = pUser;
+    document.getElementById('username').classList.add('filled');
     window._loginRole = pRole;
-    // Don't auto-redirect — user should see prefilled form
+    window._loginUser = pUser.toLowerCase();
+
+    /* First login — hide normal login fields, show set-password panel */
+    if(pFirst && isFirstLogin(pUser)){
+      document.querySelector('.field:has(#username)') && (document.querySelector('.field:has(#username)').style.display = 'none');
+      document.querySelector('.field:has(#password)') && (document.querySelector('.field:has(#password)').style.display = 'none');
+      document.querySelector('.btn-login:not(#firstLoginPanel .btn-login)').style.display = 'none';
+      document.querySelector('.links-row').style.display = 'none';
+      document.getElementById('firstLoginPanel').style.display = 'block';
+    }
     document.getElementById('redirectBanner').style.display = 'none';
     return;
   }
-
   // Auto-redirect removed
 };
 
@@ -242,6 +264,63 @@ function stopCountdown(){
     clearInterval(countdownTimer);
     countdownTimer = null;
     document.getElementById('redirectBanner').style.display = 'none';
+  }
+}
+
+function isFirstLogin(username) {
+  var u = (username || '').toLowerCase();
+  var regs = [];
+  try { regs = JSON.parse(localStorage.getItem('rishi_registrations') || '[]'); } catch(e){}
+  for(var i=0;i<regs.length;i++){
+    var r = regs[i];
+    if((r.studentUsername||'').toLowerCase() === u) return !!r.firstLoginStudent;
+    if((r.parentUsername||'').toLowerCase()  === u) return !!r.firstLoginParent;
+  }
+  return false;
+}
+
+function handleSetFirstPassword() {
+  var pw1 = document.getElementById('firstPw1').value.trim();
+  var pw2 = document.getElementById('firstPw2').value.trim();
+  var valid = true;
+  if(!pw1 || pw1.length < 6) {
+    document.getElementById('err-firstPw1').textContent = 'Password must be at least 6 characters';
+    document.getElementById('err-firstPw1').classList.add('show');
+    valid = false;
+  } else { document.getElementById('err-firstPw1').classList.remove('show'); }
+  if(pw1 !== pw2) {
+    document.getElementById('err-firstPw2').classList.add('show');
+    valid = false;
+  } else { document.getElementById('err-firstPw2').classList.remove('show'); }
+  if(!valid) return;
+
+  var u = (window._loginUser || '').toLowerCase();
+  var ov = {};
+  try { ov = JSON.parse(localStorage.getItem('rishi_pw_overrides') || '{}'); } catch(e){}
+  ov[u] = pw1;
+  localStorage.setItem('rishi_pw_overrides', JSON.stringify(ov));
+
+  /* Clear firstLogin flag */
+  var regs = [];
+  try { regs = JSON.parse(localStorage.getItem('rishi_registrations') || '[]'); } catch(e){}
+  for(var i=0;i<regs.length;i++){
+    if((regs[i].studentUsername||'').toLowerCase() === u) regs[i].firstLoginStudent = false;
+    if((regs[i].parentUsername||'').toLowerCase()  === u) regs[i].firstLoginParent  = false;
+  }
+  localStorage.setItem('rishi_registrations', JSON.stringify(regs));
+  fetch('/d1-sync',{method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({action:'save-pw', username:u, pw:pw1})}).catch(function(){});
+
+  var account = findAccount(u, pw1);
+  if(account){
+    localStorage.setItem('rishi_current_student', JSON.stringify({
+      board: account.board, class: account.class,
+      role: account.role === 'parent' ? 'parent' : 'student',
+      studentId: account.studentId, studentName: account.studentName,
+      parentName: account.parentName, parentUsername: account.parentUsername,
+      username: account.username
+    }));
+    goToDestination(account);
   }
 }
 
