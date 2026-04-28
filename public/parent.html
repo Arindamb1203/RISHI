@@ -1140,6 +1140,8 @@ function refreshLive() {
   setTimeout(function() { if (btn) { btn.style.transform = ''; btn.style.transition = ''; } }, 600);
   renderLive();
 }
+
+function liveStatBox(label, val) {
   return '<div style="background:var(--light);border:1px solid var(--border);border-radius:10px;padding:14px;">'
     + '<div style="font-size:12px;font-weight:700;color:var(--muted);margin-bottom:4px;">' + label + '</div>'
     + '<div style="font-size:15px;font-weight:800;color:var(--text);word-break:break-all;">' + val + '</div>'
