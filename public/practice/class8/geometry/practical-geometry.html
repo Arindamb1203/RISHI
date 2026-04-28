@@ -143,6 +143,7 @@ body{font-family:'Nunito',sans-serif;background:#0d0d1a;min-height:100vh;color:#
 .tap-sub{color:rgba(255,255,255,0.5);font-size:13px;margin-top:8px;}
 </style>
 <script src="/rishi-sync.js"></script>
+<script src="/rishi-presence.js"></script>
 </head>
 <body>
 <!-- TOPBAR -->
@@ -477,6 +478,7 @@ function G(id){return document.getElementById(id);}
 /* ── INIT ── */
 function init(){
   rishiCheckPlan(CHAP_ID);
+  if(localStorage.getItem('rishi_admin_bypass')!=='1' && !rishiIsExplainDone(CHAP_ID)){window.location.href='/syllabus.html';return;}
   coins=parseInt(localStorage.getItem('rishi_coins')||'0');
   updateCoins();
   answered=new Array(QB.length).fill(null);
