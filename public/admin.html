@@ -277,13 +277,18 @@ button{font-family:'Outfit',sans-serif;cursor:pointer;}
         <div id="dash-plans"></div>
       </div>
 
+      <!-- Students -->
+      <div class="card">
+        <div class="card-ttl">👤 Registered Students</div>
+        <div id="dash-students"></div>
+      </div>
+
       <!-- Quick Actions -->
       <div class="card">
         <div class="card-ttl" style="margin-bottom:10px;">⚡ Quick Actions</div>
         <div style="display:flex;gap:8px;flex-wrap:wrap;">
           <button class="btn btn-ghost" onclick="switchTab('tree')">→ Open Chapter Tree</button>
           <button class="btn btn-ghost" onclick="window.open('/syllabus.html','_blank')">📚 Syllabus</button>
-          <button class="btn btn-ghost" onclick="window.open('/parent.html','_blank')">👨‍👩‍👧 Parent Portal</button>
           <button class="btn btn-ghost" onclick="window.open('/login.html','_blank')">🔐 Student Login</button>
           <button class="btn btn-danger" onclick="resetAllProgress()">🗑 Reset All Student Progress</button>
           <button class="btn btn-danger" onclick="clearAllPlans()">🗑 Clear All Study Plans</button>
@@ -611,6 +616,38 @@ function buildDashboard() {
   }
   document.getElementById('dash-stats').innerHTML = html;
   buildPlansSection();
+  buildStudentList();
+}
+
+function buildStudentList() {
+  var regs = lsGet('rishi_registrations', []);
+  var cur  = lsGet('rishi_current_student', {});
+  var con  = document.getElementById('dash-students');
+  if (!regs.length) {
+    /* Also try current student as fallback */
+    if (cur.studentId) {
+      regs = [{ studentName: cur.studentName || 'Student', studentUsername: cur.studentId, parentUsername: cur.parentId || '—' }];
+    } else {
+      con.innerHTML = '<div class="empty"><div class="empty-ico">👤</div>No registered students found.</div>';
+      return;
+    }
+  }
+  var html = '<div style="display:flex;flex-direction:column;gap:10px;">';
+  regs.forEach(function(r) {
+    var sName = r.studentName || r.studentUsername || 'Student';
+    var sId   = r.studentUsername || '—';
+    html += '<div style="display:flex;align-items:center;gap:12px;padding:12px 16px;background:var(--card2);border:1px solid var(--border);border-radius:12px;">';
+    html += '<div style="font-size:28px;">🎓</div>';
+    html += '<div style="flex:1;">';
+    html +=   '<div style="font-weight:800;font-size:16px;color:var(--text);">' + esc(sName) + '</div>';
+    html +=   '<div style="font-size:13px;color:var(--dim);margin-top:2px;">ID: ' + esc(sId) + '</div>';
+    html += '</div>';
+    html += '<button class="btn btn-ghost" style="font-size:13px;" onclick="window.open(\'/syllabus.html\',\'_blank\')">📚 Student View</button>';
+    html += '<button class="btn btn-ghost" style="font-size:13px;" onclick="window.open(\'/parent.html?auto=1\',\'_blank\')">👨‍👩‍👧 Parent Portal</button>';
+    html += '</div>';
+  });
+  html += '</div>';
+  con.innerHTML = html;
 }
 
 function buildPlansSection() {
