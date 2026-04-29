@@ -40,35 +40,16 @@ export async function onRequestPost(context) {
   if (!concept) return jsonResponse({ error: "Missing: concept" }, 400);
 
   /* ── Build prompt ─────────────────────────────────────── */
-  var stepsBlock = "";
-  if (steps.length) {
-    stepsBlock = "THE EXPLANATION THE STUDENT ALREADY SAW (but did not understand):\n";
-    for (var i = 0; i < steps.length; i++) {
-      var s = steps[i];
-      stepsBlock += (i + 1) + ". " + (typeof s === "object" ? (s.t || s.text || "") : String(s)) + "\n";
-    }
-    stepsBlock += "\n";
-  }
+  /* Keep only last 2 steps to reduce token count */
+  var recentSteps = steps.slice(-2).map(function(s){
+    return typeof s === "object" ? (s.t || s.text || "") : String(s);
+  }).join(" | ");
 
   var prompt =
-    "You are a Class 8 CBSE Mathematics tutor.\n" +
-    "A student just saw a step-by-step explanation but still did NOT understand it.\n" +
-    "Re-explain using a COMPLETELY DIFFERENT approach than the original.\n\n" +
-    "CHAPTER: " + chapter + "\n" +
-    "CONCEPT: " + concept + "\n\n" +
-    stepsBlock +
-    "Choose the ONE approach that will work best for this specific concept:\n" +
-    "  STORY    — Use a real-life Indian scenario (shop, kitchen, cricket, train journey)\n" +
-    "  ANALOGY  — Compare the math idea to something a 13-year-old already knows well\n" +
-    "  VISUAL   — Break into tiny concrete steps with a worked example using very simple numbers\n\n" +
-    "Rules:\n" +
-    "- Simple, warm language for a 13-year-old Indian student\n" +
-    "- 3 to 5 steps maximum\n" +
-    "- Each step MUST start with Step N: (e.g. Step 1:)\n" +
-    "- End with one line starting with Answer: stating the key takeaway\n" +
-    "- Do NOT repeat the original explanation — make it fresh and different\n" +
-    "- No preamble, no greeting, no closing line\n" +
-    "- Output ONLY the steps, nothing else";
+    "CBSE Maths tutor. Student didn't understand: " + concept + " (Chapter: " + chapter + ").\n" +
+    (recentSteps ? "Already tried: " + recentSteps + "\n" : "") +
+    "Re-explain using a story OR analogy OR simple worked example — completely different from above.\n" +
+    "Rules: 3-4 steps only. Each starts with Step N:. Last line starts with Answer:. Simple English. Output steps only.";
 
   /* ── Call Gemini ──────────────────────────────────────── */
   var geminiRes;
@@ -78,7 +59,7 @@ export async function onRequestPost(context) {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         contents: [{ parts: [{ text: prompt }] }],
-        generationConfig: { maxOutputTokens: 700, temperature: 0.75 }
+        generationConfig: { maxOutputTokens: 200, temperature: 0.75 }
       })
     });
   } catch(err) {
