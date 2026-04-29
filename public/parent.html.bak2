@@ -1991,12 +1991,6 @@ function updateStudentActivation() {
   }
 }
 
-function renderProgress() {
-  /* Refreshes progress indicators on the study plan tab after any plan change */
-  renderActivePlans();
-  renderExamGrid();
-}
-
 function deletePlan(planId) {
   if (!confirm('Delete this study plan? The student will lose access to these chapter goals.')) return;
   plans = plans.filter(function(p) { return p.id !== planId; });
