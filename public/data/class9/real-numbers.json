@@ -1,7 +1,661 @@
 {
-  "_note": "STUB \u2014 fill in questions before unlocking Class 9",
-  "chapter": "real-numbers",
-  "class": 9,
-  "board": "cbse",
-  "questions": []
+  "_meta": {
+    "class": "9",
+    "board": "cbse",
+    "topic": "arithmetic",
+    "chapter": "real-numbers",
+    "chapter_display": "Real Numbers (Number Systems)",
+    "version": "1.0",
+    "created": "2026-04-29",
+    "total_questions": 15,
+    "source_codes": "ADMIN ONLY — NCT=NCERT, RDS=RD Sharma style, RSA=RS Aggarwal style, EXM=NCERT Exemplar, CBP=CBSE Past Paper, OLY=Olympiad pattern, ORI=Original",
+    "subtopics": [
+      "rational-irrational-classification",
+      "decimal-expansions",
+      "irrational-numbers",
+      "operations-on-real-numbers",
+      "laws-of-exponents",
+      "number-line-representation"
+    ]
+  },
+
+  "questions": [
+
+    {
+      "id": "Q-C9-RNS-001",
+      "chapter": "real-numbers",
+      "topic": "rational-irrational-classification",
+      "type": "MCQ",
+      "difficulty": "easy",
+      "marks": 1,
+      "question_text": "Which of the following is an irrational number?",
+      "diagram_needed": false,
+      "diagram_description": null,
+      "options": ["A: √9", "B: √12", "C: √25", "D: √49"],
+      "correct_answer": "B",
+      "answer_tolerance": 0,
+      "solution_steps": [
+        {
+          "step_number": 1,
+          "instruction": "Check each option",
+          "working": "√9 = 3, √25 = 5, √49 = 7 — all perfect squares, hence rational",
+          "result": "√12 = 2√3 — not a perfect square",
+          "voice_text": "A number is irrational if it cannot be written as p divided by q. Check each square root."
+        },
+        {
+          "step_number": 2,
+          "instruction": "Confirm √12",
+          "working": "√12 = √(4×3) = 2√3 ≈ 3.464...",
+          "result": "Non-terminating, non-repeating → Irrational",
+          "voice_text": "Root 12 equals 2 root 3, which is non-terminating and non-repeating. So it is irrational."
+        }
+      ],
+      "trick_id": null,
+      "source": "NCT",
+      "cbse_pattern": true,
+      "exam_exclusive": false,
+      "verified": true,
+      "year_last_used": null,
+      "rested": false,
+      "times_served": 0,
+      "times_correct": 0,
+      "times_wrong": 0
+    },
+
+    {
+      "id": "Q-C9-RNS-002",
+      "chapter": "real-numbers",
+      "topic": "rational-irrational-classification",
+      "type": "MCQ",
+      "difficulty": "easy",
+      "marks": 1,
+      "question_text": "Is zero a rational number?",
+      "diagram_needed": false,
+      "diagram_description": null,
+      "options": ["A: No, zero has no form", "B: Yes, it can be written as 0/1", "C: Yes, but only as 0/0", "D: No, it is irrational"],
+      "correct_answer": "B",
+      "answer_tolerance": 0,
+      "solution_steps": [
+        {
+          "step_number": 1,
+          "instruction": "Recall the definition of rational number",
+          "working": "A rational number is any number that can be written as p/q where p, q are integers and q ≠ 0",
+          "result": "0 = 0/1 = 0/2 = 0/3 etc.",
+          "voice_text": "Zero can be written as 0 over 1, 0 over 2, and so on. So zero is a rational number."
+        }
+      ],
+      "trick_id": null,
+      "source": "NCT",
+      "cbse_pattern": true,
+      "exam_exclusive": false,
+      "verified": true,
+      "year_last_used": null,
+      "rested": false,
+      "times_served": 0,
+      "times_correct": 0,
+      "times_wrong": 0
+    },
+
+    {
+      "id": "Q-C9-RNS-003",
+      "chapter": "real-numbers",
+      "topic": "rational-irrational-classification",
+      "type": "FILLIN",
+      "difficulty": "easy",
+      "marks": 1,
+      "question_text": "Every integer is a ______ number. (rational / irrational)",
+      "diagram_needed": false,
+      "diagram_description": null,
+      "options": null,
+      "correct_answer": "rational",
+      "answer_tolerance": 0,
+      "solution_steps": [
+        {
+          "step_number": 1,
+          "instruction": "Check if integers fit the p/q form",
+          "working": "Any integer n = n/1, which is in p/q form with q ≠ 0",
+          "result": "Every integer is rational",
+          "voice_text": "Any integer, say 5, can be written as 5 over 1. So every integer is a rational number."
+        }
+      ],
+      "trick_id": null,
+      "source": "NCT",
+      "cbse_pattern": true,
+      "exam_exclusive": false,
+      "verified": true,
+      "year_last_used": null,
+      "rested": false,
+      "times_served": 0,
+      "times_correct": 0,
+      "times_wrong": 0
+    },
+
+    {
+      "id": "Q-C9-RNS-004",
+      "chapter": "real-numbers",
+      "topic": "decimal-expansions",
+      "type": "MCQ",
+      "difficulty": "easy",
+      "marks": 1,
+      "question_text": "The decimal expansion of 7/8 is:",
+      "diagram_needed": false,
+      "diagram_description": null,
+      "options": ["A: 0.875 (terminating)", "B: 0.8̄7̄5̄ (non-terminating repeating)", "C: 0.8750000... (non-terminating non-repeating)", "D: Cannot be determined"],
+      "correct_answer": "A",
+      "answer_tolerance": 0,
+      "solution_steps": [
+        {
+          "step_number": 1,
+          "instruction": "Check denominator in lowest terms",
+          "working": "8 = 2³. Denominator has only factor 2 → terminating decimal",
+          "result": "7/8 will terminate",
+          "voice_text": "If the denominator in lowest terms has only 2s and 5s as factors, the decimal terminates."
+        },
+        {
+          "step_number": 2,
+          "instruction": "Divide 7 by 8",
+          "working": "7 ÷ 8 = 0.875",
+          "result": "0.875 — terminates after 3 decimal places",
+          "voice_text": "7 divided by 8 equals 0.875. It terminates."
+        }
+      ],
+      "trick_id": null,
+      "source": "NCT",
+      "cbse_pattern": true,
+      "exam_exclusive": false,
+      "verified": true,
+      "year_last_used": null,
+      "rested": false,
+      "times_served": 0,
+      "times_correct": 0,
+      "times_wrong": 0
+    },
+
+    {
+      "id": "Q-C9-RNS-005",
+      "chapter": "real-numbers",
+      "topic": "decimal-expansions",
+      "type": "SHORT",
+      "difficulty": "medium",
+      "marks": 2,
+      "question_text": "Without performing long division, state whether 64/455 has a terminating or non-terminating repeating decimal expansion.",
+      "diagram_needed": false,
+      "diagram_description": null,
+      "options": null,
+      "correct_answer": "non-terminating repeating",
+      "answer_tolerance": 0,
+      "solution_steps": [
+        {
+          "step_number": 1,
+          "instruction": "Factorise the denominator 455",
+          "working": "455 = 5 × 91 = 5 × 7 × 13",
+          "result": "Denominator has factors 7 and 13 (other than 2 and 5)",
+          "voice_text": "Factorise 455. It equals 5 times 7 times 13."
+        },
+        {
+          "step_number": 2,
+          "instruction": "Apply the rule",
+          "working": "Since denominator has prime factors other than 2 and 5 (has 7 and 13)",
+          "result": "64/455 has non-terminating repeating decimal expansion",
+          "voice_text": "Because the denominator has 7 and 13 as factors, the decimal will be non-terminating repeating."
+        }
+      ],
+      "trick_id": null,
+      "source": "EXM",
+      "cbse_pattern": true,
+      "exam_exclusive": false,
+      "verified": true,
+      "year_last_used": null,
+      "rested": false,
+      "times_served": 0,
+      "times_correct": 0,
+      "times_wrong": 0
+    },
+
+    {
+      "id": "Q-C9-RNS-006",
+      "chapter": "real-numbers",
+      "topic": "irrational-numbers",
+      "type": "SHORT",
+      "difficulty": "medium",
+      "marks": 2,
+      "question_text": "Prove that √2 is irrational.",
+      "diagram_needed": false,
+      "diagram_description": null,
+      "options": null,
+      "correct_answer": "Proof by contradiction",
+      "answer_tolerance": 0,
+      "solution_steps": [
+        {
+          "step_number": 1,
+          "instruction": "Assume the opposite",
+          "working": "Assume √2 is rational → √2 = p/q where p, q are integers, q ≠ 0, and HCF(p,q) = 1",
+          "result": "Starting assumption set",
+          "voice_text": "To prove by contradiction, we first assume that root 2 IS rational."
+        },
+        {
+          "step_number": 2,
+          "instruction": "Square both sides",
+          "working": "2 = p²/q² → p² = 2q²",
+          "result": "p² is even → p is even",
+          "voice_text": "Squaring both sides gives p squared equals 2q squared. So p squared is even, which means p itself is even."
+        },
+        {
+          "step_number": 3,
+          "instruction": "Let p = 2m",
+          "working": "(2m)² = 2q² → 4m² = 2q² → q² = 2m²",
+          "result": "q² is even → q is even",
+          "voice_text": "Since p is even, write p as 2m. Substituting gives q squared equals 2m squared. So q is also even."
+        },
+        {
+          "step_number": 4,
+          "instruction": "Reach contradiction",
+          "working": "Both p and q are even → HCF(p,q) ≥ 2 → contradicts HCF(p,q) = 1",
+          "result": "Contradiction! Our assumption was wrong.",
+          "voice_text": "Both p and q are even, so they share factor 2. But we said HCF is 1. Contradiction! So root 2 is irrational."
+        }
+      ],
+      "trick_id": null,
+      "source": "NCT",
+      "cbse_pattern": true,
+      "exam_exclusive": false,
+      "verified": true,
+      "year_last_used": null,
+      "rested": false,
+      "times_served": 0,
+      "times_correct": 0,
+      "times_wrong": 0
+    },
+
+    {
+      "id": "Q-C9-RNS-007",
+      "chapter": "real-numbers",
+      "topic": "irrational-numbers",
+      "type": "MCQ",
+      "difficulty": "medium",
+      "marks": 1,
+      "question_text": "Which of the following is rational?",
+      "diagram_needed": false,
+      "diagram_description": null,
+      "options": ["A: (3+√23) − √23", "B: 2√7/7√7", "C: Both A and B", "D: Neither A nor B"],
+      "correct_answer": "C",
+      "answer_tolerance": 0,
+      "solution_steps": [
+        {
+          "step_number": 1,
+          "instruction": "Simplify option A",
+          "working": "(3+√23) − √23 = 3",
+          "result": "3 is rational",
+          "voice_text": "In option A, root 23 cancels out. We get 3, which is rational."
+        },
+        {
+          "step_number": 2,
+          "instruction": "Simplify option B",
+          "working": "2√7 / 7√7 = 2/7",
+          "result": "2/7 is rational",
+          "voice_text": "In option B, root 7 cancels. We get 2 over 7, which is rational."
+        }
+      ],
+      "trick_id": null,
+      "source": "NCT",
+      "cbse_pattern": true,
+      "exam_exclusive": false,
+      "verified": true,
+      "year_last_used": null,
+      "rested": false,
+      "times_served": 0,
+      "times_correct": 0,
+      "times_wrong": 0
+    },
+
+    {
+      "id": "Q-C9-RNS-008",
+      "chapter": "real-numbers",
+      "topic": "operations-on-real-numbers",
+      "type": "SHORT",
+      "difficulty": "medium",
+      "marks": 2,
+      "question_text": "Simplify: (√5 + √2)²",
+      "diagram_needed": false,
+      "diagram_description": null,
+      "options": null,
+      "correct_answer": "7 + 2√10",
+      "answer_tolerance": 0,
+      "solution_steps": [
+        {
+          "step_number": 1,
+          "instruction": "Apply (a+b)² = a² + 2ab + b²",
+          "working": "(√5)² + 2(√5)(√2) + (√2)²",
+          "result": "5 + 2√10 + 2",
+          "voice_text": "Use the identity: a plus b whole square equals a squared plus 2ab plus b squared."
+        },
+        {
+          "step_number": 2,
+          "instruction": "Simplify",
+          "working": "5 + 2 + 2√10 = 7 + 2√10",
+          "result": "7 + 2√10",
+          "voice_text": "5 plus 2 is 7. The answer is 7 plus 2 root 10."
+        }
+      ],
+      "trick_id": null,
+      "source": "RDS",
+      "cbse_pattern": true,
+      "exam_exclusive": false,
+      "verified": true,
+      "year_last_used": null,
+      "rested": false,
+      "times_served": 0,
+      "times_correct": 0,
+      "times_wrong": 0
+    },
+
+    {
+      "id": "Q-C9-RNS-009",
+      "chapter": "real-numbers",
+      "topic": "operations-on-real-numbers",
+      "type": "SHORT",
+      "difficulty": "medium",
+      "marks": 2,
+      "question_text": "Rationalise the denominator: 1/(√7 − √6)",
+      "diagram_needed": false,
+      "diagram_description": null,
+      "options": null,
+      "correct_answer": "√7 + √6",
+      "answer_tolerance": 0,
+      "solution_steps": [
+        {
+          "step_number": 1,
+          "instruction": "Multiply numerator and denominator by the conjugate",
+          "working": "[1 × (√7 + √6)] / [(√7 − √6)(√7 + √6)]",
+          "result": "(√7 + √6) / (7 − 6)",
+          "voice_text": "Multiply top and bottom by root 7 plus root 6, which is the conjugate of the denominator."
+        },
+        {
+          "step_number": 2,
+          "instruction": "Simplify denominator using (a−b)(a+b) = a²−b²",
+          "working": "(√7)² − (√6)² = 7 − 6 = 1",
+          "result": "(√7 + √6) / 1 = √7 + √6",
+          "voice_text": "The denominator becomes 7 minus 6 which is 1. So the answer is root 7 plus root 6."
+        }
+      ],
+      "trick_id": null,
+      "source": "RSA",
+      "cbse_pattern": true,
+      "exam_exclusive": false,
+      "verified": true,
+      "year_last_used": null,
+      "rested": false,
+      "times_served": 0,
+      "times_correct": 0,
+      "times_wrong": 0
+    },
+
+    {
+      "id": "Q-C9-RNS-010",
+      "chapter": "real-numbers",
+      "topic": "laws-of-exponents",
+      "type": "FILLIN",
+      "difficulty": "easy",
+      "marks": 1,
+      "question_text": "Simplify: 2^(2/3) × 2^(1/5) = 2^(____)",
+      "diagram_needed": false,
+      "diagram_description": null,
+      "options": null,
+      "correct_answer": "13/15",
+      "answer_tolerance": 0,
+      "solution_steps": [
+        {
+          "step_number": 1,
+          "instruction": "Apply law: aᵐ × aⁿ = aᵐ⁺ⁿ",
+          "working": "2^(2/3) × 2^(1/5) = 2^(2/3 + 1/5)",
+          "result": "Add the exponents",
+          "voice_text": "When multiplying same bases, add the exponents."
+        },
+        {
+          "step_number": 2,
+          "instruction": "Add 2/3 + 1/5",
+          "working": "LCM of 3 and 5 is 15. (2/3 + 1/5) = 10/15 + 3/15 = 13/15",
+          "result": "2^(13/15)",
+          "voice_text": "LCM of 3 and 5 is 15. 2 over 3 is 10 over 15. 1 over 5 is 3 over 15. Sum is 13 over 15."
+        }
+      ],
+      "trick_id": null,
+      "source": "NCT",
+      "cbse_pattern": true,
+      "exam_exclusive": false,
+      "verified": true,
+      "year_last_used": null,
+      "rested": false,
+      "times_served": 0,
+      "times_correct": 0,
+      "times_wrong": 0
+    },
+
+    {
+      "id": "Q-C9-RNS-011",
+      "chapter": "real-numbers",
+      "topic": "laws-of-exponents",
+      "type": "SHORT",
+      "difficulty": "medium",
+      "marks": 2,
+      "question_text": "Simplify: (32)^(1/5) × (32)^(4/5)",
+      "diagram_needed": false,
+      "diagram_description": null,
+      "options": null,
+      "correct_answer": "32",
+      "answer_tolerance": 0,
+      "solution_steps": [
+        {
+          "step_number": 1,
+          "instruction": "Add the exponents",
+          "working": "(32)^(1/5 + 4/5) = (32)^(5/5) = (32)^1",
+          "result": "32",
+          "voice_text": "Add 1 over 5 and 4 over 5. You get 5 over 5, which is 1. So the answer is 32 to the power 1, which is 32."
+        }
+      ],
+      "trick_id": null,
+      "source": "NCT",
+      "cbse_pattern": true,
+      "exam_exclusive": false,
+      "verified": true,
+      "year_last_used": null,
+      "rested": false,
+      "times_served": 0,
+      "times_correct": 0,
+      "times_wrong": 0
+    },
+
+    {
+      "id": "Q-C9-RNS-012",
+      "chapter": "real-numbers",
+      "topic": "laws-of-exponents",
+      "type": "LONG",
+      "difficulty": "hard",
+      "marks": 3,
+      "question_text": "If a = 2 + √3, find the value of a − 1/a.",
+      "diagram_needed": false,
+      "diagram_description": null,
+      "options": null,
+      "correct_answer": "2√3",
+      "answer_tolerance": 0,
+      "solution_steps": [
+        {
+          "step_number": 1,
+          "instruction": "Find 1/a",
+          "working": "1/a = 1/(2+√3). Rationalise: multiply by (2−√3)/(2−√3)",
+          "result": "(2−√3)/(4−3) = 2−√3",
+          "voice_text": "To find 1 over a, rationalise by multiplying by the conjugate 2 minus root 3."
+        },
+        {
+          "step_number": 2,
+          "instruction": "Find a − 1/a",
+          "working": "(2+√3) − (2−√3) = 2+√3 − 2+√3",
+          "result": "2√3",
+          "voice_text": "Subtract. 2 minus 2 is 0. Root 3 plus root 3 is 2 root 3."
+        }
+      ],
+      "trick_id": null,
+      "source": "RDS",
+      "cbse_pattern": true,
+      "exam_exclusive": false,
+      "verified": true,
+      "year_last_used": null,
+      "rested": false,
+      "times_served": 0,
+      "times_correct": 0,
+      "times_wrong": 0
+    },
+
+    {
+      "id": "Q-C9-RNS-013",
+      "chapter": "real-numbers",
+      "topic": "decimal-expansions",
+      "type": "SHORT",
+      "difficulty": "hard",
+      "marks": 3,
+      "question_text": "Express 0.4̄7̄ (0.474747...) as a fraction in the form p/q.",
+      "diagram_needed": false,
+      "diagram_description": null,
+      "options": null,
+      "correct_answer": "47/99",
+      "answer_tolerance": 0,
+      "solution_steps": [
+        {
+          "step_number": 1,
+          "instruction": "Let x = 0.474747...",
+          "working": "x = 0.474747...",
+          "result": "Equation set",
+          "voice_text": "Let x equal 0.474747 repeating."
+        },
+        {
+          "step_number": 2,
+          "instruction": "Since 2 digits repeat, multiply by 100",
+          "working": "100x = 47.474747...",
+          "result": "100x = 47.4747...",
+          "voice_text": "Two digits repeat, so multiply by 100."
+        },
+        {
+          "step_number": 3,
+          "instruction": "Subtract original equation",
+          "working": "100x − x = 47.4747... − 0.4747...",
+          "result": "99x = 47",
+          "voice_text": "Subtract. The repeating part cancels. 99x equals 47."
+        },
+        {
+          "step_number": 4,
+          "instruction": "Solve",
+          "working": "x = 47/99",
+          "result": "47/99",
+          "voice_text": "x equals 47 over 99. Check that HCF of 47 and 99 is 1 — it is, so this is in lowest terms."
+        }
+      ],
+      "trick_id": null,
+      "source": "CBP",
+      "cbse_pattern": true,
+      "exam_exclusive": false,
+      "verified": true,
+      "year_last_used": null,
+      "rested": false,
+      "times_served": 0,
+      "times_correct": 0,
+      "times_wrong": 0
+    },
+
+    {
+      "id": "Q-C9-RNS-014",
+      "chapter": "real-numbers",
+      "topic": "operations-on-real-numbers",
+      "type": "LONG",
+      "difficulty": "hard",
+      "marks": 4,
+      "question_text": "If x = 3 − 2√2, find √x + 1/√x.",
+      "diagram_needed": false,
+      "diagram_description": null,
+      "options": null,
+      "correct_answer": "2√2",
+      "answer_tolerance": 0,
+      "solution_steps": [
+        {
+          "step_number": 1,
+          "instruction": "Rewrite x as a perfect square",
+          "working": "3 − 2√2 = 2 − 2√2 + 1 = (√2 − 1)²",
+          "result": "x = (√2 − 1)²",
+          "voice_text": "Notice that 3 minus 2 root 2 equals root 2 minus 1, all squared."
+        },
+        {
+          "step_number": 2,
+          "instruction": "Find √x",
+          "working": "√x = √2 − 1",
+          "result": "√x = √2 − 1",
+          "voice_text": "So root x equals root 2 minus 1."
+        },
+        {
+          "step_number": 3,
+          "instruction": "Find 1/√x",
+          "working": "1/(√2−1) × (√2+1)/(√2+1) = (√2+1)/(2−1) = √2+1",
+          "result": "1/√x = √2 + 1",
+          "voice_text": "Rationalise 1 over root x. Multiply by conjugate. Get root 2 plus 1."
+        },
+        {
+          "step_number": 4,
+          "instruction": "Add",
+          "working": "(√2 − 1) + (√2 + 1) = 2√2",
+          "result": "2√2",
+          "voice_text": "Adding gives 2 root 2. The negative 1 and positive 1 cancel."
+        }
+      ],
+      "trick_id": null,
+      "source": "OLY",
+      "cbse_pattern": false,
+      "exam_exclusive": true,
+      "verified": true,
+      "year_last_used": null,
+      "rested": false,
+      "times_served": 0,
+      "times_correct": 0,
+      "times_wrong": 0
+    },
+
+    {
+      "id": "Q-C9-RNS-015",
+      "chapter": "real-numbers",
+      "topic": "rational-irrational-classification",
+      "type": "SHORT",
+      "difficulty": "hard",
+      "marks": 3,
+      "question_text": "Find two irrational numbers between 2 and 3.",
+      "diagram_needed": false,
+      "diagram_description": null,
+      "options": null,
+      "correct_answer": "√5 and √6 (or any valid irrational between 2 and 3)",
+      "answer_tolerance": 0,
+      "solution_steps": [
+        {
+          "step_number": 1,
+          "instruction": "Note that 2 = √4 and 3 = √9",
+          "working": "Any √n where 4 < n < 9 and n is not a perfect square will be irrational and lie between 2 and 3",
+          "result": "n can be 5, 6, 7, or 8",
+          "voice_text": "Since 2 equals root 4 and 3 equals root 9, we need irrational square roots between root 4 and root 9."
+        },
+        {
+          "step_number": 2,
+          "instruction": "Choose two values",
+          "working": "√5 ≈ 2.236 and √6 ≈ 2.449",
+          "result": "√5 and √6 are irrational numbers between 2 and 3",
+          "voice_text": "Root 5 is approximately 2.236 and root 6 is approximately 2.449. Both lie between 2 and 3 and are irrational."
+        }
+      ],
+      "trick_id": null,
+      "source": "EXM",
+      "cbse_pattern": true,
+      "exam_exclusive": false,
+      "verified": true,
+      "year_last_used": null,
+      "rested": false,
+      "times_served": 0,
+      "times_correct": 0,
+      "times_wrong": 0
+    }
+
+  ]
 }

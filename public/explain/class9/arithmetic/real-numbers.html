@@ -6,11 +6,352 @@
 <meta name="rishi-board" content="cbse">
 <meta name="rishi-class" content="9">
 <title>RISHI — Real Numbers</title>
-<!-- SHELL: Content to be built chapter by chapter -->
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Nunito:wght@400;600;700;800;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<style>
+:root{--cream:#fdf6ec;--warm-white:#fffdf8;--gold:#c8922a;--gold-light:#e8b84b;--gold-pale:#f5e6c8;--amber:#d4870a;--sage:#7a8c6e;--sage-light:#a8b89a;--rust:#b85c2a;--charcoal:#2a2218;--mid:#5a4a30;--soft:#8a7a5a;--inactive:#c8b89a;--border-dark:#6b4c2a;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--cream);font-family:Nunito,sans-serif;min-height:100vh;color:var(--charcoal);}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(var(--gold-pale) 1px,transparent 1px),linear-gradient(90deg,var(--gold-pale) 1px,transparent 1px);background-size:40px 40px;opacity:.3;z-index:0;pointer-events:none;}
+.topbar{position:sticky;top:0;z-index:100;background:rgba(253,246,236,.97);border-bottom:2px solid var(--border-dark);backdrop-filter:blur(8px);padding:10px 18px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;}
+.logo-sm{font-family:'Orbitron',sans-serif;font-size:17px;font-weight:900;letter-spacing:4px;background:linear-gradient(135deg,var(--amber),var(--gold-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.topbar-center{font-family:'Orbitron',sans-serif;font-size:10px;letter-spacing:2px;color:var(--amber);text-transform:uppercase;}
+.topbar-right{display:flex;gap:8px;}
+.btn-topbar{font-family:Nunito,sans-serif;font-size:12px;font-weight:900;padding:6px 14px;border-radius:20px;border:2px solid var(--border-dark);background:var(--warm-white);color:var(--mid);cursor:pointer;}
+.btn-topbar.back{background:var(--gold-pale);}
+.prog-wrap{position:relative;z-index:10;padding:8px 18px;background:rgba(255,253,248,.9);border-bottom:1.5px solid var(--gold-pale);}
+.prog-info{display:flex;justify-content:space-between;font-size:11px;font-weight:800;color:var(--mid);margin-bottom:5px;}
+.prog-bar{height:6px;background:var(--gold-pale);border-radius:4px;overflow:hidden;}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--sage),var(--gold));border-radius:4px;transition:width .5s ease;}
+.main{position:relative;z-index:10;max-width:820px;margin:0 auto;padding:14px 14px 120px;}
+.rishika-wrap{display:flex;align-items:flex-start;gap:12px;margin-bottom:14px;}
+.rishika-avatar{width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,var(--sage),var(--sage-light));border:2px solid var(--border-dark);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;}
+.rishika-bubble{background:rgba(255,253,248,.97);border:2px solid var(--border-dark);border-radius:0 16px 16px 16px;padding:12px 16px;flex:1;box-shadow:0 4px 20px rgba(107,76,42,.1);}
+.rishika-name{font-size:10px;font-weight:900;color:var(--sage);letter-spacing:2px;text-transform:uppercase;margin-bottom:5px;}
+.rishika-text{font-size:14px;font-weight:700;color:var(--charcoal);line-height:1.6;}
+.hl{color:var(--amber);font-weight:900;}
+.btn-speak{display:inline-flex;align-items:center;gap:6px;font-family:Nunito,sans-serif;font-size:11px;font-weight:900;padding:5px 11px;border-radius:20px;border:2px solid var(--sage);background:#eef2eb;color:var(--sage);cursor:pointer;margin-top:8px;}
+.q-card{background:rgba(255,253,248,.97);border:2px solid var(--border-dark);border-radius:16px;padding:16px 18px;margin-bottom:12px;box-shadow:0 4px 20px rgba(107,76,42,.1);}
+.q-label{font-family:'Orbitron',sans-serif;font-size:10px;letter-spacing:3px;color:var(--amber);text-transform:uppercase;margin-bottom:8px;}
+.q-text{font-size:15px;font-weight:800;color:var(--charcoal);line-height:1.6;margin-bottom:10px;}
+.step{display:flex;gap:10px;margin-bottom:12px;opacity:0;transform:translateY(6px);transition:all .4s ease;}
+.step.vis{opacity:1;transform:translateY(0);}
+.step-num{width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;font-size:11px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:2px solid var(--border-dark);}
+.step-body{flex:1;font-size:13px;font-weight:700;color:var(--mid);line-height:1.6;padding-top:2px;}
+.anim-panel{background:#fffdf8;border:2px solid var(--border-dark);border-radius:14px;margin-bottom:12px;overflow:hidden;box-shadow:0 4px 16px rgba(107,76,42,.1);}
+.anim-header{background:linear-gradient(135deg,var(--charcoal),#3d2e1a);padding:7px 14px;display:flex;align-items:center;justify-content:space-between;}
+.anim-header-lbl{font-family:'Orbitron',sans-serif;font-size:9px;letter-spacing:2px;color:var(--gold-light);text-transform:uppercase;}
+.anim-replay{font-size:10px;font-weight:900;color:var(--gold-pale);background:none;border:1px solid var(--gold-pale);border-radius:20px;padding:2px 9px;cursor:pointer;display:none;}
+.anim-canvas{width:100%;max-height:195px;overflow:hidden;display:flex;align-items:center;justify-content:center;background:#fffdf8;}
+.anim-canvas svg{width:100%;max-height:195px;}
+.anim-status{padding:6px 14px;font-family:Nunito,sans-serif;font-size:12px;font-weight:800;color:var(--mid);text-align:center;min-height:26px;border-top:1px solid var(--gold-pale);}
+.anim-play-btn{width:100%;padding:10px;font-family:Nunito,sans-serif;font-size:14px;font-weight:900;background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;border:none;cursor:pointer;}
+.anim-play-btn:disabled{background:var(--gold-pale);color:var(--inactive);cursor:not-allowed;}
+.steps-btn{width:100%;padding:10px;font-family:Nunito,sans-serif;font-size:14px;font-weight:900;background:linear-gradient(135deg,var(--sage),var(--sage-light));color:#fff;border:none;cursor:pointer;display:none;border-top:1px solid var(--gold-pale);}
+.confirm-wrap{margin-top:12px;background:linear-gradient(135deg,#eef2eb,#f5fbf2);border:2px solid var(--border-dark);border-radius:14px;padding:16px 18px;}
+.confirm-title{font-size:11px;font-weight:900;color:var(--sage);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;}
+.confirm-q{font-size:14px;font-weight:800;color:var(--charcoal);margin-bottom:12px;line-height:1.5;}
+.result-box{font-size:12px;font-weight:800;padding:9px 13px;border-radius:9px;display:none;line-height:1.4;}
+.result-box.ok{background:#eef2eb;border:2px solid var(--sage);color:var(--sage);display:block;}
+.result-box.no{background:#fff5f0;border:2px solid var(--rust);color:var(--rust);display:block;}
+.nudge{font-size:12px;font-weight:700;color:var(--mid);margin-top:7px;font-style:italic;display:none;}
+.nudge.show{display:block;}
+.btn-next{font-family:Nunito,sans-serif;font-size:14px;font-weight:900;padding:11px 22px;border-radius:12px;border:none;background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;cursor:pointer;display:none;margin-top:10px;width:100%;}
+.btn-next.show{display:block;}
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;z-index:100;background:rgba(253,246,236,.97);border-top:2px solid var(--border-dark);padding:10px 18px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap;align-items:center;}
+.btn-nav{font-family:Nunito,sans-serif;font-size:13px;font-weight:900;padding:10px 20px;border-radius:12px;border:2px solid var(--border-dark);cursor:pointer;}
+.btn-nav.practice{background:linear-gradient(135deg,var(--sage),var(--sage-light));color:#fff;border-color:var(--sage);}
+.btn-nav.exam{background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;border-color:var(--amber);}
+.btn-nav.locked{background:var(--gold-pale);color:var(--inactive);cursor:not-allowed;border-color:var(--inactive);}
+.lock-tip{font-size:10px;font-weight:700;color:var(--rust);width:100%;text-align:center;}
+.overlay{display:none;position:fixed;inset:0;background:rgba(42,34,24,.92);z-index:1000;flex-direction:column;align-items:center;justify-content:center;backdrop-filter:blur(6px);}
+.overlay.show{display:flex;}
+.break-box{background:var(--warm-white);border:2px solid var(--border-dark);border-radius:22px;padding:28px 32px;max-width:380px;width:90%;text-align:center;}
+.break-title{font-family:'Orbitron',sans-serif;font-size:14px;font-weight:900;color:var(--amber);letter-spacing:3px;margin-bottom:5px;}
+.break-sub{font-size:12px;font-weight:700;color:var(--soft);margin-bottom:16px;}
+.break-opts{display:flex;flex-direction:column;gap:8px;margin-bottom:12px;}
+.break-opt{font-family:Nunito,sans-serif;font-size:14px;font-weight:800;padding:11px;border-radius:11px;border:2px solid var(--border-dark);background:var(--warm-white);color:var(--mid);cursor:pointer;}
+.timer-screen{display:none;position:fixed;inset:0;background:#1a1208;z-index:1001;flex-direction:column;align-items:center;justify-content:center;}
+.timer-screen.show{display:flex;}
+.timer-reason{font-family:'Orbitron',sans-serif;font-size:12px;letter-spacing:4px;color:var(--gold-light);margin-bottom:16px;text-transform:uppercase;}
+.timer-num{font-family:'Orbitron',sans-serif;font-size:68px;font-weight:900;color:var(--gold-light);letter-spacing:6px;margin-bottom:30px;}
+.btn-end{font-family:Nunito,sans-serif;font-size:16px;font-weight:900;padding:13px 32px;border-radius:13px;border:2px solid var(--gold-light);background:transparent;color:var(--gold-light);cursor:pointer;}
+.done-banner{background:linear-gradient(135deg,#eef2eb,#f5fbf2);border:2px solid var(--border-dark);border-radius:14px;padding:14px 18px;text-align:center;margin-bottom:14px;display:none;}
+.done-banner.show{display:block;}
+.done-banner .dt{font-family:'Orbitron',sans-serif;font-size:12px;letter-spacing:2px;color:var(--sage);margin-bottom:4px;}
+.done-banner .ds{font-size:13px;font-weight:700;color:var(--mid);}
+.math-input-wrap{margin-bottom:10px;}
+.math-raw{width:100%;padding:10px 13px;border-radius:10px;border:2px solid var(--border-dark);background:var(--warm-white);color:var(--charcoal);font-size:1rem;font-family:'Share Tech Mono',monospace;resize:none;outline:none;min-height:48px;line-height:1.6;transition:border-color .2s;}
+.math-raw:focus{border-color:var(--amber);box-shadow:0 0 0 3px rgba(212,135,10,.12);}
+.math-raw::placeholder{color:var(--inactive);font-family:Nunito,sans-serif;}
+.math-preview-label{font-size:0.68rem;text-transform:uppercase;letter-spacing:2px;color:var(--soft);margin:.5rem 0 .25rem;}
+.math-preview{min-height:44px;padding:.6rem 1rem;background:#f9f4ec;border-radius:8px;border:1.5px solid var(--gold-pale);font-size:1.1rem;color:var(--charcoal);overflow-x:auto;display:flex;align-items:center;justify-content:center;margin-bottom:10px;}
+.math-preview .mph{color:var(--inactive);font-style:italic;font-size:.85rem;}
+.sugg-strip{margin-bottom:10px;}
+.sugg-strip-head{font-size:.68rem;text-transform:uppercase;letter-spacing:1.5px;color:var(--soft);margin-bottom:.4rem;}
+.sugg-chips{display:flex;flex-wrap:wrap;gap:.35rem;}
+.schip{border:1.5px solid;border-radius:20px;padding:.25rem .75rem;font-size:.78rem;cursor:pointer;background:transparent;font-family:Nunito,sans-serif;font-weight:700;transition:all .15s;}
+.schip.shortcut{border-color:#7a4aaa;color:#6a3a9a;background:#f5f0ff;}
+.schip.confirm{border-color:#1a6aaa;color:#0a5a9a;background:#eef6ff;font-weight:800;}
+.cel-word{font-size:1.5rem;font-weight:900;letter-spacing:1px;line-height:1.2;margin-bottom:3px;}
+.cel-meta{font-size:0.75rem;font-weight:700;opacity:0.8;}
+#rWrap{position:fixed;bottom:68px;left:10px;z-index:200;width:82px;pointer-events:none;}
+#rChar{width:82px;filter:drop-shadow(0 4px 10px rgba(107,76,42,.3));}
+@keyframes rIn{from{transform:translateY(50px);opacity:0}to{transform:translateY(0);opacity:1}}
+@keyframes rBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+@media(max-width:600px){.main{padding:10px 10px 120px;}.topbar,.prog-wrap{padding-left:10px;padding-right:10px;}.timer-num{font-size:48px;}}
+</style>
+<script src="/rishi-sync.js"></script>
 <script src="/rishi-core.js"></script>
+<script src="/rishi-presence.js"></script>
 </head>
 <body>
-<!-- Real Numbers | Class 9 | CBSE | Explain Page -->
-<!-- TODO: Build full explain page content here -->
+<div class="topbar">
+  <div class="logo-sm">RISHI</div>
+  <div class="topbar-center">🔢 Real Numbers</div>
+  <div class="topbar-right">
+    <button class="btn-topbar" onclick="openBreak()">&#9749; Break</button>
+    <button class="btn-topbar back" onclick="location.href='/syllabus.html'">&#8592; Syllabus</button>
+  </div>
+</div>
+<div class="prog-wrap">
+  <div class="prog-info"><span id="progLabel">Question 1 of 10</span><span id="progPct">0%</span></div>
+  <div class="prog-bar"><div class="prog-fill" id="progFill" style="width:0%"></div></div>
+</div>
+<div class="main">
+  <div class="done-banner" id="doneBanner">
+    <div class="dt">&#10003; Explanation Completed!</div>
+    <div class="ds">Practice and Exam now unlocked.</div>
+  </div>
+  <div class="rishika-wrap">
+    <div class="rishika-avatar">&#128105;&#8205;&#127979;</div>
+    <div class="rishika-bubble">
+      <div class="rishika-name">Rishika</div>
+      <div class="rishika-text" id="introText">Hi <span class="hl" id="sName">there</span>! &#128522; Welcome to Class 9! Today we explore <span class="hl">Real Numbers</span> — the complete number system including rationals, irrationals and their amazing properties! &#128162;</div>
+      <button class="btn-speak" onclick="startLesson()" id="startBtn">▶ Start Lesson</button>
+    </div>
+  </div>
+  <div id="qArea"></div>
+</div>
+<div class="bottom-nav">
+  <div class="lock-tip" id="lockTip">&#9757; Complete explanations to unlock Practice and Exam</div>
+  <button class="btn-nav practice locked" id="btnPractice" onclick="goPractice()">&#9999;&#65039; Practice</button>
+  <button class="btn-nav exam locked" id="btnExam" onclick="goExam()">&#128221; Exam</button>
+</div>
+<div class="overlay" id="breakOv">
+  <div class="break-box">
+    <div class="break-title">Break</div>
+    <div class="break-sub">Choose &mdash; timer starts</div>
+    <div class="break-opts">
+      <button class="break-opt" onclick="startBreak('Water')">&#128167; Water</button>
+      <button class="break-opt" onclick="startBreak('Washroom')">&#128701; Washroom</button>
+      <button class="break-opt" onclick="startBreak('Physical')">&#127939; Physical</button>
+    </div>
+    <button class="break-opt" style="color:var(--soft)" onclick="closeBreak()">Cancel</button>
+  </div>
+</div>
+<div class="timer-screen" id="timerScreen">
+  <div class="timer-reason" id="timerLbl">Break</div>
+  <div class="timer-num" id="timerNum">00:00</div>
+  <button class="btn-end" onclick="endBreak()">&#10003; End Break</button>
+</div>
+<div id="rWrap">
+<svg id="rChar" viewBox="0 0 100 110" xmlns="http://www.w3.org/2000/svg">
+  <ellipse cx="50" cy="68" rx="36" ry="28" fill="#5a8a60" stroke="#3d6b42" stroke-width="2"/>
+  <ellipse cx="50" cy="66" rx="22" ry="16" fill="#7ab87a" stroke="#5a8a60" stroke-width="1.5"/>
+  <line x1="50" y1="50" x2="50" y2="82" stroke="#5a8a60" stroke-width="1.5"/>
+  <line x1="28" y1="66" x2="72" y2="66" stroke="#5a8a60" stroke-width="1.5"/>
+  <line x1="32" y1="55" x2="68" y2="77" stroke="#5a8a60" stroke-width="1"/>
+  <line x1="68" y1="55" x2="32" y2="77" stroke="#5a8a60" stroke-width="1"/>
+  <ellipse cx="20" cy="82" rx="10" ry="7" fill="#7ab87a" stroke="#5a8a60" stroke-width="1.5" transform="rotate(-20,20,82)"/>
+  <ellipse cx="80" cy="82" rx="10" ry="7" fill="#7ab87a" stroke="#5a8a60" stroke-width="1.5" transform="rotate(20,80,82)"/>
+  <ellipse cx="22" cy="58" rx="9" ry="6" fill="#7ab87a" stroke="#5a8a60" stroke-width="1.5" transform="rotate(20,22,58)"/>
+  <ellipse cx="78" cy="58" rx="9" ry="6" fill="#7ab87a" stroke="#5a8a60" stroke-width="1.5" transform="rotate(-20,78,58)"/>
+  <ellipse cx="50" cy="42" rx="10" ry="14" fill="#8fba6a" stroke="#5a8a60" stroke-width="1.5"/>
+  <ellipse cx="50" cy="28" rx="18" ry="16" fill="#8fba6a" stroke="#5a8a60" stroke-width="2"/>
+  <ellipse cx="43" cy="24" rx="5" ry="5.5" fill="white"/><ellipse cx="57" cy="24" rx="5" ry="5.5" fill="white"/>
+  <ellipse cx="43" cy="25" rx="3" ry="3.5" fill="#1a3a1a"/><ellipse cx="57" cy="25" rx="3" ry="3.5" fill="#1a3a1a"/>
+  <circle cx="44" cy="23" r="1.2" fill="white"/><circle cx="58" cy="23" r="1.2" fill="white"/>
+  <ellipse id="rLid1" cx="43" cy="24" rx="5" ry="1" fill="#8fba6a" opacity="0"/>
+  <ellipse id="rLid2" cx="57" cy="24" rx="5" ry="1" fill="#8fba6a" opacity="0"/>
+  <path id="rMouth" d="M44,33 Q50,38 56,33" fill="none" stroke="#3d6b42" stroke-width="2" stroke-linecap="round"/>
+  <ellipse id="rBlush1" cx="36" cy="30" rx="7" ry="4" fill="#ff9999" opacity="0"/>
+  <ellipse id="rBlush2" cx="64" cy="30" rx="7" ry="4" fill="#ff9999" opacity="0"/>
+  <rect x="28" y="90" width="44" height="13" fill="#d4870a" rx="4"/>
+  <text x="50" y="100" text-anchor="middle" font-family="Nunito" font-size="7" font-weight="900" fill="white">RISHIKA</text>
+</svg>
+</div>
+<script>
+var voicesReady=false,selectedVoice=null,elAudio=null;
+function pickVoice(){var vs=window.speechSynthesis.getVoices();if(!vs||vs.length===0)return false;var fk=["heera","veena","priya","raveena","female","woman","zira","samantha","victoria","karen","moira","tessa","fiona"];for(var i=0;i<vs.length;i++){if(vs[i].lang.toLowerCase().indexOf("en-in")===0){var n=vs[i].name.toLowerCase();for(var k=0;k<fk.length;k++){if(n.indexOf(fk[k])>=0){selectedVoice=vs[i];return true;}}}}for(var i=0;i<vs.length;i++){if(vs[i].lang.toLowerCase().indexOf("en")===0){var n=vs[i].name.toLowerCase();for(var k=0;k<fk.length;k++){if(n.indexOf(fk[k])>=0){selectedVoice=vs[i];return true;}}}}return false;}
+function initVoices(cb){if(pickVoice()){voicesReady=true;cb();return;}window.speechSynthesis.onvoiceschanged=function(){window.speechSynthesis.onvoiceschanged=null;pickVoice();voicesReady=true;cb();};setTimeout(function(){if(!voicesReady){pickVoice();voicesReady=true;cb();}},2000);}
+function stopAllAudio(){if(elAudio){try{elAudio.pause();elAudio.src="";}catch(x){}elAudio=null;}if(window.speechSynthesis)window.speechSynthesis.cancel();}
+function sayBrowser(text,onEnd){if(!window.speechSynthesis)return;window.speechSynthesis.cancel();rStartTalk(text.length);var u=new SpeechSynthesisUtterance(text);u.lang="en-IN";u.rate=0.88;u.pitch=1.15;if(selectedVoice)u.voice=selectedVoice;u.onend=function(){rStopTalk();if(onEnd)onEnd();};u.onerror=function(){rStopTalk();if(onEnd)onEnd();};window.speechSynthesis.speak(u);}
+function say(text,onEnd){stopAllAudio();rStartTalk(text.length);fetch("/tts",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({text:text})}).then(function(res){if(!res.ok)throw new Error("TTS "+res.status);return res.blob();}).then(function(blob){var url=URL.createObjectURL(blob);elAudio=new Audio(url);elAudio.onended=function(){URL.revokeObjectURL(url);elAudio=null;rStopTalk();if(onEnd)onEnd();};elAudio.onerror=function(){URL.revokeObjectURL(url);elAudio=null;rStopTalk();if(onEnd)onEnd();};var p=elAudio.play();if(p&&p.catch){p.catch(function(){URL.revokeObjectURL(url);elAudio=null;sayBrowser(text,onEnd);});}}).catch(function(err){sayBrowser(text,onEnd);});}
+function sayEl(id){var e=G(id);if(e)say(e.innerText||e.textContent);}
+window.addEventListener("beforeunload",function(){stopAllAudio();});
+window.addEventListener("pagehide",function(){stopAllAudio();});
+var mouthTmr=null,blinkTmr=null,mOpen=false;
+function rInit(){var c=G("rChar");if(c)c.style.animation="rIn .6s cubic-bezier(.34,1.56,.64,1) forwards";scheduleBlink();}
+function scheduleBlink(){blinkTmr=setTimeout(function(){rBlink();scheduleBlink();},2200+Math.random()*3000);}
+function rBlink(){var l=G("rLid1"),r=G("rLid2");if(!l||!r)return;l.setAttribute("ry","5.5");r.setAttribute("ry","5.5");setTimeout(function(){l.setAttribute("ry","1");r.setAttribute("ry","1");},120);}
+function rStartTalk(len){rStopTalk();G("rBlush1").style.opacity="0.7";G("rBlush2").style.opacity="0.7";mOpen=false;mouthTmr=setInterval(function(){mOpen=!mOpen;var m=G("rMouth");if(!m)return;if(mOpen){m.setAttribute("d","M42,33 Q50,42 58,33");m.setAttribute("fill","#1a3a1a");}else{m.setAttribute("d","M44,33 Q50,38 56,33");m.setAttribute("fill","none");}},160);setTimeout(rStopTalk,Math.max(1800,(len||20)*58));}
+function rStopTalk(){clearInterval(mouthTmr);mOpen=false;var m=G("rMouth");if(m){m.setAttribute("d","M44,33 Q50,38 56,33");m.setAttribute("fill","none");}G("rBlush1").style.opacity="0";G("rBlush2").style.opacity="0";}
+function rHappy(){var c=G("rChar");if(c)c.style.animation="rBounce .35s ease-in-out 5";G("rBlush1").style.opacity="1";G("rBlush2").style.opacity="1";setTimeout(function(){rStopTalk();var c=G("rChar");if(c)c.style.animation="none";},2500);}
+function rThink(){setTimeout(rStopTalk,1800);}
+
+var QB=[
+{id:"rn1",q:"What is a Real Number? How are all numbers connected?",qs:"What is a Real Number? How are all numbers connected?",anim:"rn1",steps:[{t:"Think of numbers as a big family! Natural numbers (1,2,3...) are the oldest members. Then come Whole numbers (0,1,2,3...) — natural numbers plus zero.",s:"Natural numbers are 1, 2, 3 and so on. Whole numbers add zero to this family."},{t:"Integers add the negatives (...-2,-1,0,1,2...). Then Rational numbers include all fractions p/q where q is not zero — like 3/4 or -5/7.",s:"Integers include negative numbers. Rational numbers include all fractions."},{t:"Irrational numbers CANNOT be written as p/q — like root 2, root 3, or pi. Together, Rational + Irrational = Real Numbers! The entire number line is covered by Real Numbers.",s:"Root 2 and pi are irrational. Rational plus irrational equals all real numbers."}],cq:"Is pi a rational or irrational number? Type rational or irrational.",cqs:"Is pi a rational or irrational number?",ans:["irrational"],nudges:["Pi cannot be written exactly as a fraction p over q","Pi = 3.14159... — it never terminates and never repeats","The answer is irrational!"]},
+
+{id:"rn2",q:"How do you identify if a decimal is rational or irrational?",qs:"How do you identify if a decimal is rational or irrational?",anim:"rn2",steps:[{t:"Rational numbers have decimal expansions that either TERMINATE (like 1/4 = 0.25) or are NON-TERMINATING REPEATING (like 1/3 = 0.333...)",s:"Rational decimals either terminate or have a repeating pattern."},{t:"Irrational numbers have decimal expansions that are NON-TERMINATING and NON-REPEATING — they go on forever with no pattern! Like root 2 = 1.41421356...",s:"Irrational decimals go on forever with no repeating pattern."},{t:"Key test: Does it terminate? Rational. Does it repeat? Rational. Goes on forever randomly? Irrational! Simple as that!",s:"Terminating or repeating means rational. Non-terminating non-repeating means irrational."}],cq:"Is 0.101001000100001... rational or irrational?",cqs:"Is 0.101001000100001 rational or irrational?",ans:["irrational"],nudges:["Look at the pattern: 0.101001000100001...","The pattern is NOT repeating — each group has one more zero","The answer is irrational!"]},
+
+{id:"rn3",q:"How to check if a fraction p/q has a terminating decimal?",qs:"How to check if a fraction p over q has a terminating decimal?",anim:"rn3",steps:[{t:"Write p/q in its lowest terms — reduce fully. Then check the denominator q.",s:"First reduce the fraction to its lowest terms."},{t:"If q has ONLY 2s and 5s as prime factors, the decimal terminates! For example: 7/8 — denominator 8 = 2³. Only 2s! So 7/8 = 0.875 terminates.",s:"If the denominator only has factors of 2 and 5, the decimal terminates."},{t:"If q has any other prime factor (3, 7, 11...), the decimal is non-terminating repeating. Example: 1/3 — denominator 3 has factor 3. So 0.333... never terminates.",s:"Any prime factor other than 2 or 5 in the denominator means non-terminating repeating."}],cq:"Does 13/125 have a terminating decimal? Type yes or no.",cqs:"Does 13 over 125 have a terminating decimal?",ans:["yes"],nudges:["Check denominator: 125 = 5³","Only 5s as prime factors — which means it terminates!","Yes! 13/125 = 0.104"]},
+
+{id:"rn4",q:"Prove that root 2 is irrational.",qs:"Prove that root 2 is irrational.",anim:"rn4",steps:[{t:"We use PROOF BY CONTRADICTION — assume root 2 IS rational, then show this leads to a contradiction!",s:"We assume root 2 is rational and show this causes a contradiction."},{t:"If rational: root 2 = p/q where HCF(p,q) = 1. Squaring: 2 = p²/q², so p² = 2q². This means p² is even, so p is even. Let p = 2m.",s:"If root 2 equals p over q with HCF 1, then p squared equals 2q squared, making p even."},{t:"Substituting: (2m)² = 2q² → 4m² = 2q² → q² = 2m². So q is also even! But if both p and q are even, their HCF ≥ 2 — contradiction! So root 2 must be irrational.",s:"Both p and q end up being even, contradicting HCF equals 1. So root 2 is irrational."}],cq:"In the proof, what contradiction do we reach?",cqs:"In the proof that root 2 is irrational, what contradiction do we reach?",ans:["both p and q are even","hcf is not 1","p and q share factor 2","hcf greater than 1"],nudges:["We assumed HCF(p,q) = 1 — meaning p and q share no common factors","But we proved both p AND q are even — they share factor 2!","Contradiction: HCF cannot be both 1 and ≥ 2 at the same time"]},
+
+{id:"rn5",q:"What are the operations on Real Numbers — especially with surds?",qs:"What are the operations on Real Numbers, especially with surds?",anim:"rn5",steps:[{t:"Surds are irrational numbers with square roots like root 2, root 3. Adding surds: only like surds can be combined! root 2 + root 3 CANNOT be simplified — they're unlike surds.",s:"Like surds can be added. Root 2 and root 3 are unlike surds — they cannot be combined."},{t:"Multiplication is straightforward: root a × root b = root(ab). So root 2 × root 8 = root 16 = 4. Always simplify after multiplying!",s:"Root a times root b equals root ab. Root 2 times root 8 equals root 16 equals 4."},{t:"The key identity for surds: (root a + root b)(root a - root b) = a - b. This makes the irrational parts disappear! Used in rationalisation.",s:"Root a plus root b times root a minus root b equals a minus b. This removes irrationals."}],cq:"Simplify: root 3 × root 12",cqs:"Simplify: root 3 times root 12.",ans:["6","root 36"],nudges:["root 3 × root 12 = root(3×12) = root 36","root 36 = ?","The answer is 6!"]},
+
+{id:"rn6",q:"What is rationalisation of the denominator?",qs:"What is rationalisation of the denominator?",anim:"rn6",steps:[{t:"Rationalisation means removing irrational numbers from the DENOMINATOR of a fraction. We make the denominator rational without changing the value!",s:"Rationalisation removes irrational numbers from the denominator."},{t:"For 1/root 2: multiply both top and bottom by root 2. Result: root 2/2. The irrational is gone from the bottom!",s:"Multiply 1 over root 2 by root 2 over root 2 to get root 2 over 2."},{t:"For 1/(root 3 + root 2): multiply by conjugate (root 3 - root 2). Bottom becomes (root 3)² - (root 2)² = 3 - 2 = 1. Top becomes root 3 - root 2. Clean result!",s:"Multiply by the conjugate. The bottom becomes 3 minus 2 equals 1, giving root 3 minus root 2."}],cq:"Rationalise: 1/(root 7 + root 6). What is the answer?",cqs:"Rationalise 1 over root 7 plus root 6. What is the answer?",ans:["root 7 - root 6","root7-root6","√7-√6"],nudges:["Multiply by conjugate: (root 7 - root 6)/(root 7 - root 6)","Denominator: 7 - 6 = 1","Answer: root 7 - root 6"]},
+
+{id:"rn7",q:"What are the Laws of Exponents for Real Numbers?",qs:"What are the Laws of Exponents for Real Numbers?",anim:"rn7",steps:[{t:"Law 1: aᵐ × aⁿ = aᵐ⁺ⁿ — same base, add exponents! Example: 2^(1/3) × 2^(1/5) = 2^(8/15).",s:"Same base multiplication: add the exponents."},{t:"Law 2: aᵐ ÷ aⁿ = aᵐ⁻ⁿ — same base, subtract exponents! And (aᵐ)ⁿ = aᵐⁿ — power of a power, multiply exponents.",s:"Same base division: subtract exponents. Power of a power: multiply exponents."},{t:"Fractional exponents: a^(1/n) = nth root of a. So 8^(1/3) = cube root of 8 = 2. And a^(m/n) = nth root of aᵐ. These connect roots and powers beautifully!",s:"Fractional exponent 1 over n means nth root. 8 to the power 1 over 3 is cube root of 8 equals 2."}],cq:"Simplify: (32)^(1/5). What is the answer?",cqs:"Simplify 32 to the power 1 over 5. What is the answer?",ans:["2"],nudges:["32 = 2^5, so 32^(1/5) = (2^5)^(1/5)","(2^5)^(1/5) = 2^(5/5) = 2^1","The answer is 2!"]},
+
+{id:"rn8",q:"How do you find irrational numbers between two given numbers?",qs:"How do you find irrational numbers between two given numbers?",anim:"rn8",steps:[{t:"To find irrational numbers between 2 and 3: first write them as square roots! 2 = root 4 and 3 = root 9.",s:"Write 2 as root 4 and 3 as root 9."},{t:"Any root(n) where 4 < n < 9 and n is NOT a perfect square will be irrational and lie between 2 and 3. So root 5, root 6, root 7, root 8 all work!",s:"Root 5, root 6, root 7, and root 8 all lie between 2 and 3 and are irrational."},{t:"There are INFINITELY many irrational numbers between any two numbers. The number line is packed with them! Similarly for rationals — infinite between any two.",s:"There are infinitely many irrational numbers between any two numbers."}],cq:"Name one irrational number between 1 and 2.",cqs:"Name one irrational number between 1 and 2.",ans:["root 2","√2","sqrt 2","root2","√3","root 3"],nudges:["1 = root 1 and 2 = root 4","Any root(n) where 1 < n < 4 and not a perfect square works","Root 2 ≈ 1.414 and root 3 ≈ 1.732 — both lie between 1 and 2!"]},
+
+{id:"rn9",q:"How do you convert a repeating decimal to a fraction?",qs:"How do you convert a repeating decimal to a fraction?",anim:"rn9",steps:[{t:"Let's convert 0.474747... to a fraction. Step 1: Let x = 0.474747...",s:"Let x equal 0.474747 repeating."},{t:"Step 2: Since 2 digits repeat, multiply by 100: 100x = 47.4747... Subtract original: 99x = 47.",s:"Multiply by 100 to get 100x equals 47.4747. Subtracting gives 99x equals 47."},{t:"Step 3: x = 47/99. This is the fraction! The key: multiply by 10^(number of repeating digits), subtract, solve. Works for any repeating decimal!",s:"x equals 47 over 99. Multiply by the right power of 10, subtract, and solve."}],cq:"Convert 0.333... to a fraction. What is the answer?",cqs:"Convert 0.333 repeating to a fraction.",ans:["1/3","one third"],nudges:["Let x = 0.333... Multiply by 10: 10x = 3.333...","Subtract: 9x = 3, so x = 3/9","Simplify: 3/9 = 1/3!"]},
+
+{id:"rn10",q:"What is the importance of Real Numbers in mathematics?",qs:"What is the importance of Real Numbers in mathematics?",anim:"rn10",steps:[{t:"Every point on the number line represents exactly ONE real number. And every real number corresponds to exactly ONE point. The number line IS the real numbers!",s:"Every point on the number line is a real number, and every real number is a point."},{t:"Without irrational numbers, we couldn't measure the diagonal of a unit square (root 2) or the circumference of a circle (involves pi). Real numbers make geometry work!",s:"Without irrationals, we couldn't measure the diagonal of a square or a circle's circumference."},{t:"Real numbers are the foundation of all advanced mathematics — calculus, statistics, engineering. Class 9 Real Numbers is your entry point to this beautiful world!",s:"Real numbers form the foundation of advanced mathematics and science."}],cq:"Root 2 represents the diagonal of a square with side __ units. Fill in the blank.",cqs:"Root 2 represents the diagonal of a square with side how many units?",ans:["1","one","1 unit"],nudges:["A unit square has sides of length 1","By Pythagoras: diagonal = root(1² + 1²) = root 2","The answer is 1 unit!"]}
+];
+
+function getAnimSVG(t){
+  var base='<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Nunito,sans-serif;background:#fffdf8"><rect width="420" height="178" fill="#fffdf8"/>';
+  var m={
+    "rn1":base+'<g id="rn1s0" opacity="0"><rect x="10" y="10" width="390" height="36" rx="8" fill="#eef2eb"/><text x="210" y="32" text-anchor="middle" font-size="13" font-weight="800" fill="#5a4a30">Natural ⊂ Whole ⊂ Integer ⊂ Rational ⊂ Real</text></g><g id="rn1s1" opacity="0"><rect x="10" y="54" width="390" height="36" rx="8" fill="#f5e6c8"/><text x="210" y="76" text-anchor="middle" font-size="13" font-weight="800" fill="#d4870a">Irrational: √2, √3, π — cannot be written as p/q</text></g><g id="rn1s2" opacity="0"><rect x="10" y="98" width="390" height="36" rx="8" fill="#eef2eb"/><text x="210" y="120" text-anchor="middle" font-size="13" font-weight="800" fill="#5a4a30">Rational + Irrational = Real Numbers (entire number line)</text></g><g id="rn1ans" opacity="0"><rect x="40" y="148" width="320" height="24" rx="7" fill="#eef2eb" stroke="#6b4c2a" stroke-width="1.5"/><text x="210" y="163" text-anchor="middle" font-family="Share Tech Mono" font-size="12" font-weight="bold" fill="#7a8c6e">π, √2 → Irrational | 3/4, 0.5 → Rational</text></g></svg>',
+    "rn2":base+'<g id="rn2s0" opacity="0"><rect x="10" y="10" width="185" height="60" rx="8" fill="#eef2eb"/><text x="102" y="34" text-anchor="middle" font-size="11" font-weight="800" fill="#5a4a30">RATIONAL</text><text x="102" y="52" text-anchor="middle" font-size="10" fill="#7a8c6e">Terminates: 0.25</text><text x="102" y="66" text-anchor="middle" font-size="10" fill="#7a8c6e">Repeats: 0.333...</text></g><g id="rn2s1" opacity="0"><rect x="215" y="10" width="195" height="60" rx="8" fill="#fff5f0"/><text x="312" y="34" text-anchor="middle" font-size="11" font-weight="800" fill="#b85c2a">IRRATIONAL</text><text x="312" y="52" text-anchor="middle" font-size="10" fill="#b85c2a">Non-term non-repeat:</text><text x="312" y="66" text-anchor="middle" font-size="10" fill="#b85c2a">√2 = 1.41421356...</text></g><g id="rn2s2" opacity="0"><rect x="10" y="82" width="390" height="30" rx="8" fill="#f5e6c8"/><text x="210" y="101" text-anchor="middle" font-size="12" font-weight="800" fill="#d4870a">0.101001000100001... → Non-repeating → IRRATIONAL</text></g><g id="rn2ans" opacity="0"><rect x="40" y="126" width="320" height="24" rx="7" fill="#eef2eb" stroke="#6b4c2a" stroke-width="1.5"/><text x="210" y="141" text-anchor="middle" font-family="Share Tech Mono" font-size="12" font-weight="bold" fill="#7a8c6e">No repeat pattern → Irrational</text></g></svg>',
+    "rn3":base+'<g id="rn3s0" opacity="0"><text x="22" y="34" font-size="12" font-weight="800" fill="#5a4a30">Check denominator in lowest terms</text></g><g id="rn3s1" opacity="0"><rect x="10" y="44" width="185" height="50" rx="8" fill="#eef2eb"/><text x="102" y="64" text-anchor="middle" font-size="11" font-weight="800" fill="#5a4a30">7/8 → 8 = 2³</text><text x="102" y="82" text-anchor="middle" font-size="10" fill="#7a8c6e">Only 2s → TERMINATES</text></g><g id="rn3s2" opacity="0"><rect x="215" y="44" width="195" height="50" rx="8" fill="#fff5f0"/><text x="312" y="64" text-anchor="middle" font-size="11" font-weight="800" fill="#b85c2a">1/3 → 3 = 3¹</text><text x="312" y="82" text-anchor="middle" font-size="10" fill="#b85c2a">Has 3 → NON-TERM</text></g><g id="rn3ans" opacity="0"><rect x="40" y="110" width="320" height="24" rx="7" fill="#eef2eb" stroke="#6b4c2a" stroke-width="1.5"/><text x="210" y="125" text-anchor="middle" font-family="Share Tech Mono" font-size="12" font-weight="bold" fill="#7a8c6e">125 = 5³ → only 5s → TERMINATES</text></g></svg>',
+    "rn4":base+'<g id="rn4s0" opacity="0"><text x="22" y="30" font-size="12" font-weight="800" fill="#5a4a30">Assume √2 = p/q, HCF(p,q)=1</text></g><g id="rn4s1" opacity="0"><text x="22" y="60" font-size="12" font-weight="800" fill="#5a4a30">2 = p²/q² → p² = 2q² → p is even → p = 2m</text></g><g id="rn4s2" opacity="0"><text x="22" y="90" font-size="12" font-weight="800" fill="#5a4a30">(2m)² = 2q² → q² = 2m² → q is even</text></g><g id="rn4ans" opacity="0"><rect x="10" y="108" width="390" height="38" rx="8" fill="#fff5f0" stroke="#b85c2a" stroke-width="1.5"/><text x="210" y="126" text-anchor="middle" font-size="11" font-weight="800" fill="#b85c2a">CONTRADICTION: Both p,q even → HCF≥2</text><text x="210" y="141" text-anchor="middle" font-size="11" font-weight="800" fill="#b85c2a">But we assumed HCF=1 → √2 is IRRATIONAL</text></g></svg>',
+    "rn5":base+'<g id="rn5s0" opacity="0"><text x="22" y="34" font-size="12" font-weight="800" fill="#5a4a30">√a × √b = √(ab) — multiply under the root</text></g><g id="rn5s1" opacity="0"><text x="22" y="74" font-size="12" font-weight="800" fill="#5a4a30">√3 × √12 = √36 = 6</text></g><g id="rn5s2" opacity="0"><text x="22" y="114" font-size="12" font-weight="800" fill="#5a4a30">(√a+√b)(√a−√b) = a−b → irrationals cancel!</text></g><g id="rn5ans" opacity="0"><rect x="40" y="150" width="320" height="24" rx="7" fill="#eef2eb" stroke="#6b4c2a" stroke-width="1.5"/><text x="210" y="165" text-anchor="middle" font-family="Share Tech Mono" font-size="14" font-weight="bold" fill="#7a8c6e">√3 × √12 = √36 = 6</text></g></svg>',
+    "rn6":base+'<g id="rn6s0" opacity="0"><text x="22" y="34" font-size="12" font-weight="800" fill="#5a4a30">Rationalise: remove irrationals from denominator</text></g><g id="rn6s1" opacity="0"><text x="22" y="74" font-size="12" font-weight="800" fill="#5a4a30">1/√2 × √2/√2 = √2/2</text></g><g id="rn6s2" opacity="0"><text x="22" y="114" font-size="12" font-weight="800" fill="#5a4a30">1/(√7+√6) × (√7−√6)/(√7−√6) = (√7−√6)/1</text></g><g id="rn6ans" opacity="0"><rect x="40" y="150" width="320" height="24" rx="7" fill="#eef2eb" stroke="#6b4c2a" stroke-width="1.5"/><text x="210" y="165" text-anchor="middle" font-family="Share Tech Mono" font-size="14" font-weight="bold" fill="#7a8c6e">Answer: √7 − √6</text></g></svg>',
+    "rn7":base+'<g id="rn7s0" opacity="0"><text x="22" y="34" font-size="12" font-weight="800" fill="#5a4a30">aᵐ × aⁿ = aᵐ⁺ⁿ | aᵐ ÷ aⁿ = aᵐ⁻ⁿ | (aᵐ)ⁿ = aᵐⁿ</text></g><g id="rn7s1" opacity="0"><text x="22" y="74" font-size="12" font-weight="800" fill="#5a4a30">a^(1/n) = ⁿ√a | 8^(1/3) = ∛8 = 2</text></g><g id="rn7s2" opacity="0"><text x="22" y="114" font-size="12" font-weight="800" fill="#5a4a30">32^(1/5) = (2⁵)^(1/5) = 2^(5×1/5) = 2¹ = 2</text></g><g id="rn7ans" opacity="0"><rect x="40" y="150" width="320" height="24" rx="7" fill="#eef2eb" stroke="#6b4c2a" stroke-width="1.5"/><text x="210" y="165" text-anchor="middle" font-family="Share Tech Mono" font-size="14" font-weight="bold" fill="#7a8c6e">32^(1/5) = 2</text></g></svg>',
+    "rn8":base+'<g id="rn8s0" opacity="0"><text x="22" y="34" font-size="12" font-weight="800" fill="#5a4a30">Find irrationals between 2 and 3: write as √4 and √9</text></g><g id="rn8s1" opacity="0"><text x="22" y="74" font-size="12" font-weight="800" fill="#5a4a30">√5, √6, √7, √8 all lie between √4=2 and √9=3</text></g><g id="rn8s2" opacity="0"><text x="22" y="114" font-size="12" font-weight="800" fill="#5a4a30">Infinitely many irrationals exist between any two numbers</text></g><g id="rn8ans" opacity="0"><rect x="40" y="150" width="320" height="24" rx="7" fill="#eef2eb" stroke="#6b4c2a" stroke-width="1.5"/><text x="210" y="165" text-anchor="middle" font-family="Share Tech Mono" font-size="14" font-weight="bold" fill="#7a8c6e">√2 ≈ 1.414, √3 ≈ 1.732 — both between 1 and 2</text></g></svg>',
+    "rn9":base+'<g id="rn9s0" opacity="0"><text x="22" y="34" font-size="12" font-weight="800" fill="#5a4a30">Let x = 0.4747... (2 digits repeat)</text></g><g id="rn9s1" opacity="0"><text x="22" y="74" font-size="12" font-weight="800" fill="#5a4a30">100x = 47.4747... → 100x − x = 47 → 99x = 47</text></g><g id="rn9s2" opacity="0"><text x="22" y="114" font-size="12" font-weight="800" fill="#5a4a30">x = 47/99</text></g><g id="rn9ans" opacity="0"><rect x="40" y="150" width="320" height="24" rx="7" fill="#eef2eb" stroke="#6b4c2a" stroke-width="1.5"/><text x="210" y="165" text-anchor="middle" font-family="Share Tech Mono" font-size="14" font-weight="bold" fill="#7a8c6e">0.333... → 9x=3 → x=1/3</text></g></svg>',
+    "rn10":base+'<g id="rn10s0" opacity="0"><text x="22" y="34" font-size="12" font-weight="800" fill="#5a4a30">Every point on the number line = one real number</text></g><g id="rn10s1" opacity="0"><text x="22" y="74" font-size="12" font-weight="800" fill="#5a4a30">√2 = diagonal of unit square (by Pythagoras)</text></g><g id="rn10s2" opacity="0"><text x="22" y="114" font-size="12" font-weight="800" fill="#5a4a30">Real numbers are the foundation of all mathematics!</text></g><g id="rn10ans" opacity="0"><rect x="40" y="150" width="320" height="24" rx="7" fill="#eef2eb" stroke="#6b4c2a" stroke-width="1.5"/><text x="210" y="165" text-anchor="middle" font-family="Share Tech Mono" font-size="14" font-weight="bold" fill="#7a8c6e">Side = 1 unit → diagonal = √(1²+1²) = √2</text></g></svg>'
+  };
+  return m[t]||'<svg viewBox="0 0 420 178"><text x="210" y="89" text-anchor="middle" font-family="Nunito" font-size="14" fill="#5a4a30">Loading...</text></svg>';
+}
+
+function makeAnimPlay(id,steps,ansLabel){
+  return function(done){
+    setStatus("Solving step by step...");
+    var delay=600;
+    steps.forEach(function(_,i){
+      var d=delay+i*2800;
+      (function(ii,dd){at(dd,function(){fade(id+"s"+ii,1);});})(i,d);
+    });
+    at(delay+steps.length*2800,function(){
+      fade(id+"ans",1);
+      setStatus("Answer: "+ansLabel);
+      at(2000,done);
+    });
+  };
+}
+
+var ANIM_PLAYS={};
+QB.forEach(function(q){
+  ANIM_PLAYS[q.id]=makeAnimPlay(q.id,q.steps,q.ans[0]);
+});
+function getAnimPlay(t){return ANIM_PLAYS[t]||function(done){done();};}
+
+var atTimers=[],session=[],idx=0,stepIdx=0,nudgeCount=0,completed=false,breakSecs=0,breakTmr=null,PER_SESSION=10;
+function G(id){return document.getElementById(id);}
+function clearAt(){for(var i=0;i<atTimers.length;i++)clearTimeout(atTimers[i]);atTimers=[];}
+function at(ms,fn){atTimers.push(setTimeout(fn,ms));}
+function fade(id,v){var e=G(id);if(e){e.style.transition="opacity .5s";e.style.opacity=v;}}
+function setStatus(t){var e=G("animStatus");if(e)e.textContent=t;}
+
+function startLesson(){var btn=G('startBtn');if(btn){btn.disabled=true;btn.textContent='▶ Starting...';}var done=false;function proceed(){if(!done){done=true;setTimeout(showQ,600);}}say(G('introText').innerText,proceed);setTimeout(proceed,8000);}
+function init(){
+  rishiCheckPlan(1);
+  var st=JSON.parse(localStorage.getItem("rishi_current_student")||"{}");
+  G("sName").textContent=st.studentName?st.studentName.split(" ")[0]:"there";
+  if(localStorage.getItem("rishi_explain_done_1")==="1"&&(st.class||"8")==="9"){completed=true;G("doneBanner").classList.add("show");unlockNav();}
+  buildSession();rInit();
+  initVoices(function(){startLesson();});
+}
+function buildSession(){session=QB.slice().sort(function(){return Math.random()-.5;}).slice(0,PER_SESSION);}
+function showQ(){
+  if(idx>=session.length){onComplete();return;}
+  var q=session[idx];stepIdx=0;nudgeCount=0;updateProg();G("qArea").innerHTML="";clearAt();
+  var qc=document.createElement("div");qc.className="q-card";
+  qc.innerHTML='<div class="q-label">Question '+(idx+1)+' of '+PER_SESSION+'</div><div class="q-text">'+q.q+'</div><button class="btn-speak" onclick="say(session[idx].qs)">&#128266; Hear</button>';
+  G("qArea").appendChild(qc);
+  var ap=document.createElement("div");ap.className="anim-panel";
+  ap.innerHTML='<div class="anim-header"><span class="anim-header-lbl">&#127909; Live Animation</span><button class="anim-replay" id="animReplay" onclick="replayAnim()">&#8635; Replay</button></div>'
+    +'<div class="anim-canvas" id="animCanvas">'+getAnimSVG(q.anim)+'</div>'
+    +'<div class="anim-status" id="animStatus">Tap Play to watch with narration!</div>'
+    +'<button class="anim-play-btn" id="animPlayBtn" onclick="startAnim()">&#9654; Play Animation</button>'
+    +'<button class="steps-btn" id="stepsBtn" onclick="beginSteps()">&#128214; See Step-by-Step</button>';
+  G("qArea").appendChild(ap);setTimeout(startAnim,800);
+}
+function startAnim(){var q=session[idx];var pb=G("animPlayBtn");if(pb){pb.disabled=true;pb.textContent="&#9654; Playing...";}getAnimPlay(q.anim)(function(){var sb=G("stepsBtn");if(sb)sb.style.display="block";var rb=G("animReplay");if(rb)rb.style.display="block";if(pb)pb.style.display="none";setTimeout(beginSteps,600);});}
+function replayAnim(){clearAt();window.speechSynthesis&&window.speechSynthesis.cancel();rStopTalk();var q=session[idx];var canvas=G("animCanvas");if(canvas)canvas.innerHTML=getAnimSVG(q.anim);G("animReplay").style.display="none";G("stepsBtn").style.display="none";var pb=G("animPlayBtn");if(pb){pb.style.display="block";pb.disabled=false;pb.textContent="&#9654; Play Animation";}setStatus("Tap Play to watch with narration!");}
+function beginSteps(){var q=session[idx];var sc=document.createElement("div");sc.className="q-card";sc.innerHTML='<div class="q-label">&#128214; Step-by-Step</div><div id="stepsWrap"></div><button class="btn-speak" id="nxtStepBtn" onclick="nextStep()" style="margin-top:10px;">&#9654; Next Step</button>';G("qArea").appendChild(sc);sc.scrollIntoView({behavior:"smooth",block:"start"});G("stepsBtn").style.display="none";setTimeout(nextStep,350);}
+function nextStep(){var q=session[idx];if(stepIdx>=q.steps.length){G("nxtStepBtn").style.display="none";var ib=document.createElement("button");ib.className="btn-speak";ib.innerHTML="&#9989; I Understand!";ib.style.cssText="margin-top:16px;width:100%;";ib.onclick=function(){ib.remove();showConfirm();};G("stepsWrap").appendChild(ib);ib.scrollIntoView({behavior:"smooth",block:"center"});return;}var s=q.steps[stepIdx];var wrap=G("stepsWrap");var d=document.createElement("div");d.className="step";d.innerHTML='<div class="step-num">'+(stepIdx+1)+'</div><div class="step-body">'+s.t+'</div>';wrap.appendChild(d);setTimeout(function(){d.classList.add("vis");},40);setTimeout(nextStep,3500);stepIdx++;}
+function showConfirm(){
+  var q=session[idx];var c=document.createElement("div");c.className="confirm-wrap";
+  c.innerHTML='<div class="confirm-title">&#127917; Rishika asks!</div>'
+    +'<div class="confirm-q">'+q.cq+'</div>'
+    +'<div class="math-input-wrap"><textarea id="rawAnswer" class="math-raw" rows="2" autocomplete="off" placeholder="Type your answer here..."></textarea></div>'
+    +'<div class="math-preview-label">Preview</div>'
+    +'<div class="math-preview" id="mathPreview"><span class="mph">your answer will appear here...</span></div>'
+    +'<div class="sugg-strip"><div class="sugg-strip-head">Quick chips</div><div class="sugg-chips" id="suggChips"></div></div>'
+    +'<button type="button" onclick="submitTyped()" style="width:100%;font-family:Nunito,sans-serif;font-size:14px;font-weight:900;padding:11px;border-radius:12px;border:none;background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;cursor:pointer;margin-bottom:8px;">Submit Answer</button>'
+    +'<div class="result-box" id="rbox"></div>'
+    +'<div class="nudge" id="nudgeBox"></div>'
+    +'<button type="button" class="btn-next" id="btnNext" onclick="goNext()">Next Question &#9654;</button>';
+  G("qArea").appendChild(c);c.scrollIntoView({behavior:"smooth",block:"center"});
+  var ra=G("rawAnswer");
+  if(ra){ra.addEventListener("input",mathUpdate);ra.addEventListener("keydown",function(ev){if(ev.key==="Enter"&&!ev.shiftKey){ev.preventDefault();submitTyped();}});setTimeout(function(){ra.focus();},300);}
+  buildSuggChips(makeChips(q));say(q.cqs);
+}
+function makeChips(q){var chips=[];(q.ans||[]).forEach(function(a){chips.push({label:a,ins:a,type:"confirm"});});return chips;}
+function submitTyped(){var ra=G("rawAnswer");if(!ra)return;var val=String(ra.value||"").trim();if(!val){ra.focus();return;}handleAnswer(val.toLowerCase());}
+function goNext(){idx++;G("qArea").innerHTML="";showQ();window.scrollTo({top:0,behavior:"smooth"});}
+function updateProg(){var pct=Math.round((idx/PER_SESSION)*100);G("progFill").style.width=pct+"%";G("progLabel").textContent="Question "+(idx+1)+" of "+PER_SESSION;G("progPct").textContent=pct+"%";}
+function unlockNav(){G("btnPractice").classList.remove("locked");G("btnExam").classList.remove("locked");G("lockTip").style.display="none";}
+function onComplete(){
+  rishiMarkExplainDone(1);
+  completed=true;G("doneBanner").classList.add("show");unlockNav();
+  var st=JSON.parse(localStorage.getItem("rishi_current_student")||"{}");
+  var nm=st.studentName?st.studentName.split(" ")[0]:"champion";
+  var cel=document.createElement("div");cel.className="rishika-wrap";
+  cel.innerHTML='<div class="rishika-avatar">&#128105;&#8205;&#127979;</div>'
+    +'<div class="rishika-bubble"><div class="rishika-name">Rishika</div>'
+    +'<div class="rishika-text" id="celText">&#127881; <span class="hl">'+nm+'</span>, excellent work! You have mastered <span class="hl">Real Numbers</span>! Welcome to Class 9 Mathematics! &#128170;</div>'
+    +'<button class="btn-speak" onclick="sayEl(&apos;celText&apos;)">&#128266; Hear</button></div>';
+  G("qArea").appendChild(cel);setTimeout(function(){sayEl("celText");rHappy();},400);
+}
+function goPractice(){if(!completed){alert("Complete explanations first!");return;}location.href="/practice/class9/arithmetic/real-numbers.html";}
+function goExam(){if(!completed){alert("Complete explanations first!");return;}location.href="/exam.html?ch=c9-01";}
+var CELEBRATIONS=[
+  {word:"Magnifique !",lang:"French",meaning:"Magnificent!",speak:"Magnifique"},
+  {word:"Brillante!",lang:"Spanish",meaning:"Brilliant!",speak:"Brillante"},
+  {word:"Wunderbar!",lang:"German",meaning:"Wonderful!",speak:"Wunderbar"},
+  {word:"Bravissimo!",lang:"Italian",meaning:"Very well done!",speak:"Bravissimo"},
+  {word:"Shabash!",lang:"Hindi",meaning:"Well done!",speak:"Shabash"},
+];
+var lastCelIdx=-1;
+function celebrate(){var i;do{i=Math.floor(Math.random()*CELEBRATIONS.length);}while(i===lastCelIdx&&CELEBRATIONS.length>1);lastCelIdx=i;var c=CELEBRATIONS[i];var rb=G("rbox");rb.className="result-box ok";rb.innerHTML='<div class="cel-word">'+c.word+'</div><div class="cel-meta">'+c.lang+' &middot; <em>'+c.meaning+'</em></div>';G("nudgeBox").classList.remove("show");var nb=G("btnNext");if(nb)nb.classList.add("show");say(c.speak);rHappy();}
+function handleAnswer(text){var q=session[idx];var ok=q.ans.some(function(a){return text.includes(a.toLowerCase())||a.toLowerCase().includes(text);});var rb=G("rbox");if(ok){celebrate();}else{nudgeCount++;rb.className="result-box no";rb.textContent="&#10006; Not quite. Listen to my hint!";var nudge=q.nudges[Math.min(nudgeCount-1,q.nudges.length-1)];showNudge(nudge);say(nudge);rThink();if(nudgeCount>=3){var nb2=G("btnNext");if(nb2){nb2.classList.add("show");nb2.textContent="I Understand &#9654;";}}}}
+function showNudge(msg){var n=G("nudgeBox");if(n){n.textContent=msg;n.classList.add("show");}}
+function openBreak(){G("breakOv").classList.add("show");}
+function closeBreak(){G("breakOv").classList.remove("show");}
+function startBreak(r){closeBreak();breakSecs=0;G("timerLbl").textContent=r;G("timerNum").textContent="00:00";G("timerScreen").classList.add("show");breakTmr=setInterval(function(){breakSecs++;var m=String(Math.floor(breakSecs/60)).padStart(2,"0");var s=String(breakSecs%60).padStart(2,"0");G("timerNum").textContent=m+":"+s;},1000);}
+function endBreak(){clearInterval(breakTmr);G("timerScreen").classList.remove("show");}
+function mathUpdate(){var ra=G("rawAnswer");if(!ra)return;var v=ra.value.trim();var el=G("mathPreview");if(el)el.textContent=v||"";}
+function buildSuggChips(list){var el=G("suggChips");if(!el)return;var ra=G("rawAnswer");el.innerHTML="";list.forEach(function(c){var btn=document.createElement("button");btn.className="schip "+(c.type||"shortcut");btn.textContent=c.label;btn.type="button";btn.addEventListener("click",function(){if(c.ins&&ra){var s=ra.selectionStart,e=ra.selectionEnd;ra.value=ra.value.slice(0,s)+c.ins+ra.value.slice(e);ra.focus();mathUpdate();}});el.appendChild(btn);});}
+window.onload=init;
+</script>
+<script src="/explain-helper.js"></script>
 </body>
 </html>
