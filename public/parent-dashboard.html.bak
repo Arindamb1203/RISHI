@@ -512,106 +512,26 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);min-hei
 
 <script>
 // ══ DATA ══
+var CHAPTERS = [
+  {id:1,  name:"Rational Numbers",                     topic:"Algebra",       color:"#6C63FF"},
+  {id:2,  name:"Linear Equations",                     topic:"Algebra",       color:"#4A9EFF"},
+  {id:3,  name:"Understanding Quadrilaterals",          topic:"Geometry",      color:"#22C97D"},
+  {id:4,  name:"Practical Geometry",                   topic:"Geometry",      color:"#34D399"},
+  {id:5,  name:"Data Handling",                        topic:"Statistics",    color:"#F59E0B"},
+  {id:6,  name:"Squares and Square Roots",             topic:"Number System", color:"#F24C6A"},
+  {id:7,  name:"Cubes and Cube Roots",                 topic:"Number System", color:"#FB923C"},
+  {id:8,  name:"Comparing Quantities",                 topic:"Arithmetic",    color:"#A78BFA"},
+  {id:9,  name:"Algebraic Expressions",                topic:"Algebra",       color:"#38BDF8"},
+  {id:10, name:"Visualising Solid Shapes",             topic:"Geometry",      color:"#2DD4BF"},
+  {id:11, name:"Mensuration",                          topic:"Geometry",      color:"#86EFAC"},
+  {id:12, name:"Exponents and Powers",                 topic:"Number System", color:"#FCD34D"},
+  {id:13, name:"Direct & Inverse Proportions",         topic:"Arithmetic",    color:"#C084FC"},
+  {id:14, name:"Factorisation",                        topic:"Algebra",       color:"#60A5FA"},
+  {id:15, name:"Introduction to Graphs",               topic:"Statistics",    color:"#F472B6"},
+  {id:16, name:"Playing with Numbers",                 topic:"Number System", color:"#FB7185"}
+];
 
-/* ══════════════════════════════════════════════════════════
-   RISHI — ALL CLASS CHAPTERS (class-aware)
-   ══════════════════════════════════════════════════════════ */
-var ALL_CLASS_CHAPTERS = {
-  8: {
-    chapters: [
-      {id:1,  name:"Rational Numbers",              topic:"Arithmetic"},
-      {id:2,  name:"Linear Equations",              topic:"Algebra"},
-      {id:3,  name:"Understanding Quadrilaterals",  topic:"Geometry"},
-      {id:4,  name:"Practical Geometry",            topic:"Geometry"},
-      {id:5,  name:"Data Handling",                 topic:"Data Handling"},
-      {id:6,  name:"Squares & Square Roots",        topic:"Arithmetic"},
-      {id:7,  name:"Cubes & Cube Roots",            topic:"Arithmetic"},
-      {id:8,  name:"Comparing Quantities",          topic:"Arithmetic"},
-      {id:9,  name:"Algebraic Expressions",         topic:"Algebra"},
-      {id:10, name:"Visualising Solid Shapes",      topic:"Geometry"},
-      {id:11, name:"Mensuration (Area)",             topic:"Mensuration"},
-      {id:112,name:"Mensuration (Surface & Vol)",   topic:"Mensuration"},
-      {id:12, name:"Exponents and Powers",          topic:"Arithmetic"},
-      {id:13, name:"Direct & Inverse Proportions",  topic:"Arithmetic"},
-      {id:14, name:"Factorisation",                 topic:"Algebra"},
-      {id:15, name:"Introduction to Graphs",        topic:"Algebra"},
-      {id:16, name:"Playing with Numbers",          topic:"Arithmetic"},
-      {id:17, name:"Chance and Probability",        topic:"Data Handling"}
-    ],
-    explainBuilt: {1:1,2:1,3:1,4:1,5:1,8:1,9:1,10:1,11:1,112:1,12:1,13:1,14:1,15:1,16:1,17:1}
-  },
-  9: {
-    chapters: [
-      {id:1,  name:"Real Numbers",                       topic:"Arithmetic"},
-      {id:2,  name:"Polynomials",                        topic:"Algebra"},
-      {id:3,  name:"Linear Equations in Two Variables",  topic:"Algebra"},
-      {id:4,  name:"Coordinate Geometry",                topic:"Coordinate Geometry"},
-      {id:5,  name:"Euclid's Geometry",                  topic:"Geometry"},
-      {id:6,  name:"Lines and Angles",                   topic:"Geometry"},
-      {id:7,  name:"Triangles",                          topic:"Geometry"},
-      {id:8,  name:"Quadrilaterals",                     topic:"Geometry"},
-      {id:9,  name:"Circles",                            topic:"Geometry"},
-      {id:10, name:"Heron's Formula",                    topic:"Mensuration"},
-      {id:11, name:"Surface Areas and Volumes",          topic:"Mensuration"},
-      {id:12, name:"Statistics",                         topic:"Data Handling"}
-    ],
-    explainBuilt: {}
-  },
-  7: {
-    chapters: [
-      {id:1, name:"Large Numbers Around Us",             topic:"Arithmetic"},
-      {id:2, name:"Arithmetic Expressions",              topic:"Arithmetic"},
-      {id:3, name:"A Peek Beyond the Point",             topic:"Arithmetic"},
-      {id:4, name:"Expressions using Letter-Numbers",    topic:"Algebra"},
-      {id:5, name:"Parallel and Intersecting Lines",     topic:"Geometry"},
-      {id:6, name:"Number Play",                         topic:"Arithmetic"},
-      {id:7, name:"A Tale of Three Intersecting Lines",  topic:"Geometry"},
-      {id:8, name:"Working with Fractions",              topic:"Arithmetic"}
-    ],
-    explainBuilt: {}
-  },
-  6: {
-    chapters: [
-      {id:1,  name:"Patterns in Mathematics",            topic:"Arithmetic"},
-      {id:2,  name:"Lines and Angles",                   topic:"Geometry"},
-      {id:3,  name:"Number Play",                        topic:"Arithmetic"},
-      {id:4,  name:"Data Handling and Presentation",     topic:"Data Handling"},
-      {id:5,  name:"Prime Time",                         topic:"Arithmetic"},
-      {id:6,  name:"Perimeter and Area",                 topic:"Mensuration"},
-      {id:7,  name:"Fractions",                          topic:"Arithmetic"},
-      {id:8,  name:"Playing with Constructions",         topic:"Geometry"},
-      {id:9,  name:"Symmetry",                           topic:"Geometry"},
-      {id:10, name:"The Other Side of Zero",             topic:"Arithmetic"}
-    ],
-    explainBuilt: {}
-  }
-};
-
-/* Active class data — set by loadParentClassData() */
-var CHAPTERS = [];
-var EXPLAIN_BUILT = {};
-
-function getStudentClass() {
-  var sid = sessionStorage.getItem('rishi_parent_student_id') || '';
-  if (!sid) return 8;
-  var regs = [];
-  try { regs = JSON.parse(localStorage.getItem('rishi_registrations') || '[]'); } catch(e) {}
-  for (var i = 0; i < regs.length; i++) {
-    if (regs[i].studentUsername === sid) return parseInt(regs[i].class || 8);
-  }
-  return 8;
-}
-
-function loadParentClassData() {
-  var classNum = getStudentClass();
-  var cd = ALL_CLASS_CHAPTERS[classNum] || ALL_CLASS_CHAPTERS[8];
-  CHAPTERS     = cd.chapters;
-  EXPLAIN_BUILT = cd.explainBuilt;
-}
-
-
-
-/* EXPLAIN_BUILT now loaded dynamically via loadParentClassData() */
+var EXPLAIN_BUILT = {1:1, 2:1, 3:1, 4:1, 8:1, 12:1, 13:1};
 
 var EXAM_TYPES = [
   {id:"ut1",    name:"Unit Test 1",  color:"#6C63FF"},
@@ -1354,7 +1274,6 @@ function toggleBreakDate(date) {
 }
 
 window.onload = function() {
-  loadParentClassData();
   seedDemo();
   renderTimestamp();
 
