@@ -427,7 +427,7 @@ function isChapExamDone(cid){
 /* ── Plan & Date Helpers ── */
 function getPlanActive(){
   /* Admin bypass — all chapters open */
-  if(sessionStorage.getItem('rishi_admin_bypass') === '1') return '__all__';
+  if(localStorage.getItem('rishi_admin_bypass') === '1') return '__all__';
   var st = {};
   try { st = JSON.parse(localStorage.getItem('rishi_current_student')||'{}'); } catch(e){}
   var sid = st.studentId || null;

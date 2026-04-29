@@ -1048,7 +1048,7 @@ function checkAuth() {
     enterPortal(); return;
   }
   /* Admin bypass flag fallback */
-  if(sessionStorage.getItem('rishi_admin_bypass') === '1'){
+  if(localStorage.getItem('rishi_admin_bypass') === '1'){
     sessionStorage.setItem('rishi_parent_auth','1');
     var cs2 = {};
     try { cs2 = JSON.parse(localStorage.getItem('rishi_current_student')||'{}'); } catch(e){}

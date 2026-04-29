@@ -651,7 +651,7 @@ function tryLogin() {
 
 function doLogout() {
   sessionStorage.removeItem('rishi_admin_auth');
-  sessionStorage.removeItem('rishi_admin_bypass');
+  localStorage.removeItem('rishi_admin_bypass');
   location.reload();
 }
 
@@ -678,17 +678,17 @@ function switchTab(t) {
 
 /* ── BYPASS ─────────────────────────────────────────────── */
 function toggleBypass() {
-  var on = sessionStorage.getItem('rishi_admin_bypass') === '1';
+  var on = localStorage.getItem('rishi_admin_bypass') === '1';
   if (on) {
-    sessionStorage.removeItem('rishi_admin_bypass');
+    localStorage.removeItem('rishi_admin_bypass');
   } else {
-    sessionStorage.setItem('rishi_admin_bypass', '1');
+    localStorage.setItem('rishi_admin_bypass', '1');
   }
   updateBypassUI();
 }
 
 function updateBypassUI() {
-  var on = sessionStorage.getItem('rishi_admin_bypass') === '1';
+  var on = localStorage.getItem('rishi_admin_bypass') === '1';
   document.getElementById('bypass-btn').classList.toggle('on', on);
   document.getElementById('bypass-txt').textContent = on ? 'BYPASS ON' : 'BYPASS OFF';
   var bar = document.getElementById('bypass-bar');
@@ -945,7 +945,7 @@ function goStudent(idx) {
     role: 'student'
   };
   localStorage.setItem('rishi_current_student', JSON.stringify(st));
-  sessionStorage.setItem('rishi_admin_bypass', '1'); /* skip all locks */
+  localStorage.setItem('rishi_admin_bypass', '1'); /* skip all locks */
   loadAdminClassData(parseInt(r.class || 8));
   window.open('/syllabus.html', '_blank');
 }
