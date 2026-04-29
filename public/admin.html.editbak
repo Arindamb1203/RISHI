@@ -881,7 +881,7 @@ function showSubEdit(idx) {
   var panel = document.createElement('div');
   panel.id = 'sub-edit-panel';
   panel.style.cssText = 'position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,0.6);display:flex;align-items:center;justify-content:center;';
-  panel.innerHTML = '<div style="background:#ffffff;border-radius:18px;padding:24px;width:90%;max-width:480px;font-family:Outfit,sans-serif;box-shadow:0 8px 40px rgba(0,0,0,0.4);">'
+  panel.innerHTML = '<div style="background:var(--card);border-radius:18px;padding:24px;width:90%;max-width:420px;font-family:Outfit,sans-serif;">'
     + '<div style="font-size:16px;font-weight:900;color:var(--text);margin-bottom:18px;">✏ Edit Subscription — ' + esc(r.studentName||'Student') + '</div>'
     + '<div style="margin-bottom:12px;"><label style="font-size:12px;font-weight:700;color:var(--muted);display:block;margin-bottom:4px;">Status</label>'
     + '<select id="se-status" style="width:100%;padding:8px;border:1px solid var(--border);border-radius:8px;font-family:Outfit,sans-serif;font-size:14px;background:var(--card2);color:var(--text);">'
@@ -895,7 +895,6 @@ function showSubEdit(idx) {
     + '<input type="date" id="se-disc" value="' + disc + '" style="width:100%;padding:8px;border:1px solid var(--border);border-radius:8px;font-family:Outfit,sans-serif;font-size:14px;background:var(--card2);color:var(--text);box-sizing:border-box;"></div>'
     + '<div style="margin-bottom:18px;"><label style="font-size:12px;font-weight:700;color:var(--muted);display:block;margin-bottom:4px;">Rejoined Date (if applicable)</label>'
     + '<input type="date" id="se-rejoin" value="' + rejoin + '" style="width:100%;padding:8px;border:1px solid var(--border);border-radius:8px;font-family:Outfit,sans-serif;font-size:14px;background:var(--card2);color:var(--text);box-sizing:border-box;"></div>'
-    + '<div style="display:flex;gap:10px;margin-bottom:12px;">'    + '<div style="flex:1;"><label style="font-size:12px;font-weight:700;color:#6b5a3e;display:block;margin-bottom:4px;">Class</label>'    + '<select id="se-class" style="width:100%;padding:8px;border:1px solid #e8d9c4;border-radius:8px;font-size:14px;background:#fff;color:#1a1208;">'    + '<option value="6"' + (r.class==="6"?' selected':'') + '>Class 6</option>'    + '<option value="7"' + (r.class==="7"?' selected':'') + '>Class 7</option>'    + '<option value="8"' + (r.class==="8"||!r.class?' selected':'') + '>Class 8</option>'    + '<option value="9"' + (r.class==="9"?' selected':'') + '>Class 9</option>'    + '</select></div>'    + '<div style="flex:1;"><label style="font-size:12px;font-weight:700;color:#6b5a3e;display:block;margin-bottom:4px;">Board</label>'    + '<select id="se-board" style="width:100%;padding:8px;border:1px solid #e8d9c4;border-radius:8px;font-size:14px;background:#fff;color:#1a1208;">'    + '<option value="CBSE"' + (r.board==="CBSE"||!r.board?' selected':'') + '>CBSE</option>'    + '<option value="ICSE"' + (r.board==="ICSE"?' selected':'') + '>ICSE</option>'    + '<option value="WBBSE"' + (r.board==="WBBSE"?' selected':'') + '>WBBSE</option>'    + '</select></div>'    + '</div>'
     + '<div style="display:flex;gap:10px;">'
     + '<button onclick="saveSubEdit(' + idx + ')" style="flex:1;padding:10px;background:linear-gradient(135deg,#22c97d,#1aac68);color:#fff;border:none;border-radius:10px;font-family:Outfit,sans-serif;font-weight:800;font-size:14px;cursor:pointer;">✅ Save</button>'
     + '<button onclick="document.getElementById(\'sub-edit-panel\').remove()" style="flex:1;padding:10px;background:var(--card2);color:var(--muted);border:1px solid var(--border);border-radius:10px;font-family:Outfit,sans-serif;font-weight:800;font-size:14px;cursor:pointer;">Cancel</button>'
@@ -916,10 +915,6 @@ function saveSubEdit(idx) {
   regs[ri].subscriptionExpiry  = document.getElementById('se-expiry').value;
   regs[ri].discontinuedDate    = document.getElementById('se-disc').value   || null;
   regs[ri].rejoinedDate        = document.getElementById('se-rejoin').value || null;
-  var seClass = document.getElementById('se-class');
-  var seBoard = document.getElementById('se-board');
-  if(seClass) regs[ri].class = seClass.value;
-  if(seBoard) regs[ri].board = seBoard.value;
   localStorage.setItem('rishi_registrations', JSON.stringify(regs));
   window._allRegs[idx] = regs[ri];
   document.getElementById('sub-edit-panel').remove();
