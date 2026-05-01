@@ -9,9 +9,10 @@ jobs:
       - name: Check pages
         run: |
           for url in \
-            "https://rishi-ewh.pages.dev" \
             "https://rishi-ewh.pages.dev/syllabus.html" \
-            "https://rishi-ewh.pages.dev/parent.html"; do
+            "https://rishi-ewh.pages.dev/parent.html" \
+            "https://rishi-ewh.pages.dev/explain/class8/algebra/rational-numbers.html" \
+            "https://rishi-ewh.pages.dev/practice/class8/ch1-practice.html"; do
             status=$(curl -o /dev/null -s -w "%{http_code}" "$url")
             echo "$status $url"
             [ "$status" != "200" ] && exit 1
