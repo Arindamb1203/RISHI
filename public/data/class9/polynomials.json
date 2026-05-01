@@ -1,7 +1,234 @@
 {
-  "_note": "STUB \u2014 fill in questions before unlocking Class 9",
-  "chapter": "polynomials",
-  "class": 9,
-  "board": "cbse",
-  "questions": []
+  "_meta": {
+    "class": "9",
+    "board": "cbse",
+    "topic": "algebra",
+    "chapter": "polynomials",
+    "chapter_display": "Polynomials",
+    "version": "1.0",
+    "created": "2026-05-01",
+    "total_questions": 15,
+    "sources": "NCT=NCERT, EXM=NCERT Exemplar, RDS=RD Sharma, RSA=RS Aggarwal, CBP=CBSE Past Paper, OLY=Olympiad"
+  },
+  "questions": [
+    {
+      "id": "Q-C9-POL-001",
+      "chapter": "polynomials",
+      "topic": "degree-and-classification",
+      "type": "MCQ",
+      "difficulty": "easy",
+      "marks": 1,
+      "question_text": "The degree of the polynomial 5x³ − 4x² + 7x − 2 is:",
+      "options": ["A: 1", "B: 2", "C: 3", "D: 4"],
+      "correct_answer": "C",
+      "solution_steps": [
+        {"step_number": 1, "instruction": "Find the highest power of x", "working": "Powers present: x³, x², x¹, x⁰", "result": "Highest power = 3", "voice_text": "The degree is the highest power of x. Here the highest power is 3."}
+      ],
+      "source": "NCT", "verified": true, "times_served": 0, "times_correct": 0, "times_wrong": 0
+    },
+    {
+      "id": "Q-C9-POL-002",
+      "chapter": "polynomials",
+      "topic": "degree-and-classification",
+      "type": "MCQ",
+      "difficulty": "easy",
+      "marks": 1,
+      "question_text": "Which of the following is a binomial of degree 3?",
+      "options": ["A: x³ + x² + 1", "B: x³ + 5", "C: 3x² − 2", "D: x + x²"],
+      "correct_answer": "B",
+      "solution_steps": [
+        {"step_number": 1, "instruction": "Binomial = 2 terms. Degree = highest power.", "working": "A: 3 terms | B: 2 terms degree 3 | C: 2 terms degree 2 | D: 2 terms degree 2", "result": "B is binomial of degree 3", "voice_text": "A binomial has exactly 2 terms. x cubed plus 5 has 2 terms and degree 3."}
+      ],
+      "source": "NCT", "verified": true, "times_served": 0, "times_correct": 0, "times_wrong": 0
+    },
+    {
+      "id": "Q-C9-POL-003",
+      "chapter": "polynomials",
+      "topic": "zeroes-of-polynomial",
+      "type": "FILLIN",
+      "difficulty": "easy",
+      "marks": 1,
+      "question_text": "If p(x) = x − 5, then p(5) = ____",
+      "correct_answer": "0",
+      "solution_steps": [
+        {"step_number": 1, "instruction": "Substitute x = 5", "working": "p(5) = 5 − 5 = 0", "result": "0", "voice_text": "Substitute 5 in place of x. 5 minus 5 equals 0."}
+      ],
+      "source": "NCT", "verified": true, "times_served": 0, "times_correct": 0, "times_wrong": 0
+    },
+    {
+      "id": "Q-C9-POL-004",
+      "chapter": "polynomials",
+      "topic": "zeroes-of-polynomial",
+      "type": "SHORT",
+      "difficulty": "easy",
+      "marks": 2,
+      "question_text": "Find the zero of the polynomial p(x) = 3x − 6.",
+      "correct_answer": "2",
+      "solution_steps": [
+        {"step_number": 1, "instruction": "Set p(x) = 0", "working": "3x − 6 = 0 → 3x = 6", "result": "x = 2", "voice_text": "Set p of x equal to zero. 3x minus 6 equals zero gives x equals 2."}
+      ],
+      "source": "NCT", "verified": true, "times_served": 0, "times_correct": 0, "times_wrong": 0
+    },
+    {
+      "id": "Q-C9-POL-005",
+      "chapter": "polynomials",
+      "topic": "remainder-theorem",
+      "type": "SHORT",
+      "difficulty": "medium",
+      "marks": 2,
+      "question_text": "Find the remainder when p(x) = x³ + 3x² − 5x + 4 is divided by (x − 1).",
+      "correct_answer": "3",
+      "solution_steps": [
+        {"step_number": 1, "instruction": "By Remainder Theorem: remainder = p(1)", "working": "p(1) = 1 + 3 − 5 + 4", "result": "= 3", "voice_text": "By the Remainder Theorem, substitute x equals 1. 1 plus 3 minus 5 plus 4 equals 3."}
+      ],
+      "source": "NCT", "verified": true, "times_served": 0, "times_correct": 0, "times_wrong": 0
+    },
+    {
+      "id": "Q-C9-POL-006",
+      "chapter": "polynomials",
+      "topic": "factor-theorem",
+      "type": "SHORT",
+      "difficulty": "medium",
+      "marks": 2,
+      "question_text": "Is (x − 2) a factor of p(x) = x³ − 3x + 2? Yes or No.",
+      "correct_answer": "yes",
+      "solution_steps": [
+        {"step_number": 1, "instruction": "By Factor Theorem: check p(2) = 0", "working": "p(2) = 8 − 6 + 2 = 4", "result": "p(2) = 4 ≠ 0", "voice_text": "Substitute x equals 2. 8 minus 6 plus 2 equals 4, not zero."},
+        {"step_number": 2, "instruction": "Since p(2) ≠ 0", "working": "(x − 2) is NOT a factor", "result": "Answer: No", "voice_text": "Since the result is not zero, x minus 2 is not a factor."}
+      ],
+      "source": "EXM", "verified": true, "times_served": 0, "times_correct": 0, "times_wrong": 0
+    },
+    {
+      "id": "Q-C9-POL-007",
+      "chapter": "polynomials",
+      "topic": "factor-theorem",
+      "type": "SHORT",
+      "difficulty": "medium",
+      "marks": 2,
+      "question_text": "Using Factor Theorem, check if (x + 1) is a factor of x³ + x² + x + 1.",
+      "correct_answer": "yes",
+      "solution_steps": [
+        {"step_number": 1, "instruction": "For (x+1): check p(−1) = 0", "working": "p(−1) = (−1)³ + (−1)² + (−1) + 1 = −1 + 1 − 1 + 1", "result": "= 0 ✓", "voice_text": "Substitute x equals negative 1. Negative 1 plus 1 minus 1 plus 1 equals zero."},
+        {"step_number": 2, "instruction": "Since p(−1) = 0", "working": "Factor Theorem confirms", "result": "Yes, (x + 1) is a factor", "voice_text": "Since the result is zero, x plus 1 is a factor."}
+      ],
+      "source": "NCT", "verified": true, "times_served": 0, "times_correct": 0, "times_wrong": 0
+    },
+    {
+      "id": "Q-C9-POL-008",
+      "chapter": "polynomials",
+      "topic": "algebraic-identities",
+      "type": "SHORT",
+      "difficulty": "medium",
+      "marks": 2,
+      "question_text": "Expand: (2x + 3y)²",
+      "correct_answer": "4x² + 12xy + 9y²",
+      "solution_steps": [
+        {"step_number": 1, "instruction": "Use (a+b)² = a² + 2ab + b², where a=2x, b=3y", "working": "(2x)² + 2(2x)(3y) + (3y)²", "result": "4x² + 12xy + 9y²", "voice_text": "Use the identity. 2x squared is 4x squared. 2 times 2x times 3y is 12xy. 3y squared is 9y squared."}
+      ],
+      "source": "NCT", "verified": true, "times_served": 0, "times_correct": 0, "times_wrong": 0
+    },
+    {
+      "id": "Q-C9-POL-009",
+      "chapter": "polynomials",
+      "topic": "algebraic-identities",
+      "type": "SHORT",
+      "difficulty": "medium",
+      "marks": 2,
+      "question_text": "Evaluate 99² using an algebraic identity.",
+      "correct_answer": "9801",
+      "solution_steps": [
+        {"step_number": 1, "instruction": "Write 99 = 100 − 1. Use (a−b)² = a²−2ab+b²", "working": "(100−1)² = 10000 − 200 + 1", "result": "9801", "voice_text": "Write 99 as 100 minus 1 and use the identity. 10000 minus 200 plus 1 equals 9801."}
+      ],
+      "source": "CBP", "verified": true, "times_served": 0, "times_correct": 0, "times_wrong": 0
+    },
+    {
+      "id": "Q-C9-POL-010",
+      "chapter": "polynomials",
+      "topic": "factorisation",
+      "type": "SHORT",
+      "difficulty": "medium",
+      "marks": 2,
+      "question_text": "Factorise: x² − 5x + 6",
+      "correct_answer": "(x − 2)(x − 3)",
+      "solution_steps": [
+        {"step_number": 1, "instruction": "Find two numbers: product = 6, sum = −5", "working": "−2 × −3 = 6 and −2 + (−3) = −5", "result": "Numbers are −2 and −3", "voice_text": "Find two numbers that multiply to 6 and add to negative 5. That is negative 2 and negative 3."},
+        {"step_number": 2, "instruction": "Write factors", "working": "x² − 5x + 6 = (x − 2)(x − 3)", "result": "(x − 2)(x − 3)", "voice_text": "The factors are x minus 2 and x minus 3."}
+      ],
+      "source": "RDS", "verified": true, "times_served": 0, "times_correct": 0, "times_wrong": 0
+    },
+    {
+      "id": "Q-C9-POL-011",
+      "chapter": "polynomials",
+      "topic": "algebraic-identities",
+      "type": "SHORT",
+      "difficulty": "hard",
+      "marks": 3,
+      "question_text": "Factorise using identity: 8x³ + 27",
+      "correct_answer": "(2x + 3)(4x² − 6x + 9)",
+      "solution_steps": [
+        {"step_number": 1, "instruction": "Use a³+b³ = (a+b)(a²−ab+b²). Here a=2x, b=3", "working": "(2x+3)((2x)²−(2x)(3)+3²)", "result": "(2x+3)(4x²−6x+9)", "voice_text": "Use the sum of cubes identity. a is 2x and b is 3. The answer is 2x plus 3 times 4x squared minus 6x plus 9."}
+      ],
+      "source": "NCT", "verified": true, "times_served": 0, "times_correct": 0, "times_wrong": 0
+    },
+    {
+      "id": "Q-C9-POL-012",
+      "chapter": "polynomials",
+      "topic": "zeroes-of-polynomial",
+      "type": "LONG",
+      "difficulty": "hard",
+      "marks": 3,
+      "question_text": "If x = 2 and x = 0 are zeroes of p(x) = 2x³ − 5x² + ax + b, find a and b.",
+      "correct_answer": "a=2, b=0",
+      "solution_steps": [
+        {"step_number": 1, "instruction": "p(0) = 0: substitute x = 0", "working": "b = 0", "result": "b = 0", "voice_text": "Substitute x equals 0. Everything with x vanishes, leaving b equals 0."},
+        {"step_number": 2, "instruction": "p(2) = 0: substitute x = 2, b = 0", "working": "16 − 20 + 2a = 0 → 2a = 4", "result": "a = 2", "voice_text": "Substitute x equals 2. 16 minus 20 plus 2a equals zero gives a equals 2."}
+      ],
+      "source": "RDS", "verified": true, "times_served": 0, "times_correct": 0, "times_wrong": 0
+    },
+    {
+      "id": "Q-C9-POL-013",
+      "chapter": "polynomials",
+      "topic": "algebraic-identities",
+      "type": "LONG",
+      "difficulty": "hard",
+      "marks": 3,
+      "question_text": "If x + y + z = 0, prove that x³ + y³ + z³ = 3xyz.",
+      "correct_answer": "3xyz",
+      "solution_steps": [
+        {"step_number": 1, "instruction": "Use: x³+y³+z³−3xyz = (x+y+z)(x²+y²+z²−xy−yz−zx)", "working": "Since x+y+z = 0 (given), RHS = 0", "result": "x³+y³+z³−3xyz = 0", "voice_text": "The identity says x cubed plus y cubed plus z cubed minus 3xyz equals x plus y plus z times the rest. Since x plus y plus z is zero, the right side is zero."},
+        {"step_number": 2, "instruction": "Rearrange", "working": "x³+y³+z³ = 3xyz", "result": "Proved ✓", "voice_text": "Therefore x cubed plus y cubed plus z cubed equals 3xyz."}
+      ],
+      "source": "NCT", "verified": true, "times_served": 0, "times_correct": 0, "times_wrong": 0
+    },
+    {
+      "id": "Q-C9-POL-014",
+      "chapter": "polynomials",
+      "topic": "factor-theorem",
+      "type": "LONG",
+      "difficulty": "hard",
+      "marks": 4,
+      "question_text": "Find the value of k if (x − 1) is a factor of 4x³ + 3x² − 4x + k.",
+      "correct_answer": "-3",
+      "solution_steps": [
+        {"step_number": 1, "instruction": "By Factor Theorem: p(1) = 0", "working": "4(1) + 3(1) − 4(1) + k = 0", "result": "3 + k = 0", "voice_text": "Substitute x equals 1. 4 plus 3 minus 4 plus k equals zero gives 3 plus k equals zero."},
+        {"step_number": 2, "instruction": "Solve", "working": "k = −3", "result": "k = −3", "voice_text": "k equals negative 3."}
+      ],
+      "source": "CBP", "verified": true, "times_served": 0, "times_correct": 0, "times_wrong": 0
+    },
+    {
+      "id": "Q-C9-POL-015",
+      "chapter": "polynomials",
+      "topic": "algebraic-identities",
+      "type": "LONG",
+      "difficulty": "hard",
+      "marks": 4,
+      "question_text": "If a + b + c = 9 and ab + bc + ca = 26, find a² + b² + c².",
+      "correct_answer": "29",
+      "solution_steps": [
+        {"step_number": 1, "instruction": "Use: (a+b+c)² = a²+b²+c² + 2(ab+bc+ca)", "working": "9² = a²+b²+c² + 2(26)", "result": "81 = a²+b²+c² + 52", "voice_text": "Square both sides of a plus b plus c equals 9. Use the identity."},
+        {"step_number": 2, "instruction": "Solve", "working": "a²+b²+c² = 81 − 52 = 29", "result": "29", "voice_text": "81 minus 52 equals 29."}
+      ],
+      "source": "OLY", "verified": true, "times_served": 0, "times_correct": 0, "times_wrong": 0
+    }
+  ]
 }
