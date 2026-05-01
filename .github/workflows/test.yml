@@ -12,8 +12,9 @@ jobs:
             "https://rishi-ewh.pages.dev/syllabus.html" \
             "https://rishi-ewh.pages.dev/parent.html" \
             "https://rishi-ewh.pages.dev/explain/class8/arithmetic/rational-numbers.html" \
-            "https://rishi-ewh.pages.dev/practice/class8/arithmetic/rational-numbers.html"; do; do
+            "https://rishi-ewh.pages.dev/practice/class8/arithmetic/rational-numbers.html"
+          do
             status=$(curl -L -o /dev/null -s -w "%{http_code}" "$url")
             echo "$status $url"
             [ "$status" != "200" ] && exit 1
-          donegit add .
+          done
