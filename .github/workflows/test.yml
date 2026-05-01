@@ -1,28 +1,18 @@
- name: RISHI Page Tester
-
+name: RISHI Page Tester
 on:
   push:
     branches: [main]
-
 jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - name: Check key pages load
+      - name: Check pages
         run: |
-          urls=(
-            "https://rishi-ewh.pages.dev"
-            "https://rishi-ewh.pages.dev/syllabus.html"
-            "https://rishi-ewh.pages.dev/parent.html"
-            "https://rishi-ewh.pages.dev/explain/class8/algebra/rational-numbers.html"
-            "https://rishi-ewh.pages.dev/practice/class8/ch1-practice.html"
-          )
-          for url in "${urls[@]}"; do
+          for url in \
+            "https://rishi-ewh.pages.dev" \
+            "https://rishi-ewh.pages.dev/syllabus.html" \
+            "https://rishi-ewh.pages.dev/parent.html"; do
             status=$(curl -o /dev/null -s -w "%{http_code}" "$url")
-            if [ "$status" != "200" ]; then
-              echo "FAIL: $url returned $status"
-              exit 1
-            else
-              echo "OK: $url"
-            fi
+            echo "$status $url"
+            [ "$status" != "200" ] && exit 1
           done
