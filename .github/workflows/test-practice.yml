@@ -1,0 +1,33 @@
+name: Test Practice Pages
+on:
+  push:
+    branches: [main]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check all practice pages
+        run: |
+          for url in \
+            "https://rishi-ewh.pages.dev/practice/class8/algebra/algebraic-expressions-identities.html" \
+            "https://rishi-ewh.pages.dev/practice/class8/algebra/factorisation.html" \
+            "https://rishi-ewh.pages.dev/practice/class8/algebra/introduction-to-graphs.html" \
+            "https://rishi-ewh.pages.dev/practice/class8/algebra/linear-equations.html" \
+            "https://rishi-ewh.pages.dev/practice/class8/arithmetic/comparing-quantities.html" \
+            "https://rishi-ewh.pages.dev/practice/class8/arithmetic/direct-inverse-proportions.html" \
+            "https://rishi-ewh.pages.dev/practice/class8/arithmetic/playing-with-numbers.html" \
+            "https://rishi-ewh.pages.dev/practice/class8/arithmetic/powers-exponents.html" \
+            "https://rishi-ewh.pages.dev/practice/class8/arithmetic/rational-numbers.html" \
+            "https://rishi-ewh.pages.dev/practice/class8/data-handling/chance-probability.html" \
+            "https://rishi-ewh.pages.dev/practice/class8/data-handling/frequency-distribution.html" \
+            "https://rishi-ewh.pages.dev/practice/class8/geometry/practical-geometry.html" \
+            "https://rishi-ewh.pages.dev/practice/class8/geometry/understanding-quadrilaterals.html" \
+            "https://rishi-ewh.pages.dev/practice/class8/geometry/visualising-solid-shapes.html" \
+            "https://rishi-ewh.pages.dev/practice/class8/mensuration/area-plane-figures.html" \
+            "https://rishi-ewh.pages.dev/practice/class8/mensuration/surface-area-volume.html"
+          do
+            status=$(curl -L -o /dev/null -s -w "%{http_code}" "$url")
+            echo "$status $url"
+            [ "$status" != "200" ] && exit 1
+          done
+          exit 0

@@ -1,0 +1,19 @@
+name: Test Admin Pages
+on:
+  push:
+    branches: [main]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check all admin pages
+        run: |
+          for url in \
+            "https://rishi-ewh.pages.dev/admin.html" \
+            "https://rishi-ewh.pages.dev/admin/question-manager.html"
+          do
+            status=$(curl -L -o /dev/null -s -w "%{http_code}" "$url")
+            echo "$status $url"
+            [ "$status" != "200" ] && exit 1
+          done
+          exit 0

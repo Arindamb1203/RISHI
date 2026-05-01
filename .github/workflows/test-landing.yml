@@ -1,0 +1,21 @@
+name: Test Landing and Auth Pages
+on:
+  push:
+    branches: [main]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check landing and auth pages
+        run: |
+          for url in \
+            "https://rishi-ewh.pages.dev/landing.html" \
+            "https://rishi-ewh.pages.dev/login.html" \
+            "https://rishi-ewh.pages.dev/register.html" \
+            "https://rishi-ewh.pages.dev/coming-soon.html"
+          do
+            status=$(curl -L -o /dev/null -s -w "%{http_code}" "$url")
+            echo "$status $url"
+            [ "$status" != "200" ] && exit 1
+          done
+          exit 0
