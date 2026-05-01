@@ -1,0 +1,53 @@
+{
+  "_instructions": "This is the content file for generate.py. Fill in your chapter content here. Run: python generate.py chapters/class9/chapter-name.json",
+
+  "chapter_slug":   "linear-equations-two-variables",
+  "chapter_name":   "Linear Equations in Two Variables",
+  "chapter_emoji":  "📐",
+  "class_num":      9,
+  "board":          "cbse",
+  "topic":          "algebra",
+  "chap_id":        3,
+  "exam_key":       "c9-03",
+
+  "intro_text": "Hi <span class=\"hl\" id=\"sName\">there</span>! &#128522; Today we explore <span class=\"hl\">Linear Equations in Two Variables</span> — equations like 2x + 3y = 6 that create a straight line! Every point on that line is a solution. Let&#39;s discover this! &#127919;",
+
+  "complete_message": "You have mastered Linear Equations in Two Variables! Every line tells a story &#128170;",
+
+  "explain_questions": [
+    {
+      "id": "leq1",
+      "question": "What is a linear equation in two variables?",
+      "question_spoken": "What is a linear equation in two variables?",
+      "steps": [
+        {"t": "A linear equation in two variables is of the form ax + by + c = 0, where a, b, c are real numbers and a and b are not both zero. The solution is a pair of values (x, y).", "s": "ax plus by plus c equals zero is the standard form."},
+        {"t": "Example: 2x + 3y = 6. This has infinitely many solutions — any (x,y) pair on this line works! Like (0,2), (3,0), (1, 4/3) etc.", "s": "2x plus 3y equals 6 has infinitely many solutions forming a straight line."},
+        {"t": "Geometrically, every linear equation in two variables represents a STRAIGHT LINE on the Cartesian plane. Every point on that line is a solution!", "s": "Every solution is a point on the straight line graph of the equation."}
+      ],
+      "confirm_question": "How many solutions does a linear equation in two variables have?",
+      "confirm_question_spoken": "How many solutions does a linear equation in two variables have?",
+      "answers": ["infinitely many", "infinite", "infinitely"],
+      "nudges": [
+        "Think about how many points are on a straight line",
+        "A line extends infinitely in both directions",
+        "Answer: Infinitely many solutions!"
+      ],
+      "anim_svg": "<g id=\"leq1s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">ax + by + c = 0 — Standard form of linear equation</text></g><g id=\"leq1s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">2x + 3y = 6: solutions include (0,2), (3,0), (1, 4/3)...</text></g><g id=\"leq1s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Every solution is a point on the straight line graph</text></g><g id=\"leq1ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Infinitely many solutions</text></g>"
+    }
+  ],
+
+  "practice_questions": [
+    {
+      "question": "How many solutions does the equation 2x + 3y = 12 have?",
+      "question_spoken": "How many solutions does the equation 2x plus 3y equals 12 have?",
+      "answers": ["infinitely many", "infinite", "infinitely"],
+      "steps": [
+        "A linear equation in two variables represents a straight line",
+        "A line has infinitely many points — each point is a solution",
+        "Answer: Infinitely many solutions"
+      ],
+      "trick": "Every linear equation in two variables = a straight line = infinite solutions. This is always true!",
+      "alt": "Try substituting: x=0 gives y=4. x=6 gives y=0. x=3 gives y=2. You can keep finding solutions forever!"
+    }
+  ]
+}
