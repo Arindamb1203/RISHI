@@ -18,3 +18,4 @@ jobs:
             echo "$status $url"
             [ "$status" != "200" ] && exit 1
           done
+           exit 0
