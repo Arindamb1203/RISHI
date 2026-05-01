@@ -253,6 +253,7 @@ button{font-family:'Outfit',sans-serif;cursor:pointer;}
     <button class="tab"    id="tab-questions" onclick="switchTab('questions')">📚 Questions</button>
     <button class="tab"    id="tab-student"   onclick="switchTab('student')">👤 Student</button>
     <button class="tab"    id="tab-logs"      onclick="switchTab('logs')">📋 Logs</button>
+    <button class="tab"    id="tab-deploy"    onclick="switchTab('deploy')">🚀 Deploy</button>
   </div>
 
   <div class="wrap">
@@ -327,6 +328,32 @@ button{font-family:'Outfit',sans-serif;cursor:pointer;}
       </div>
       <div id="tree-filters" class="topic-filters"></div>
       <div id="ch-grid" class="ch-grid"></div>
+    </div>
+
+    <!-- ══ DEPLOY TAB ══ -->
+    <div id="view-deploy" class="hidden">
+      <div class="card">
+        <div class="card-ttl">🚀 Deploy to Live Site</div>
+        <div class="section-note" style="margin-bottom:18px;">
+          This will trigger a fresh deployment of RISHI to <strong>rishi-ewh.pages.dev</strong>.<br>
+          Use this after pushing updates. Deployment takes about 1–2 minutes.
+        </div>
+        <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;">
+          <button class="btn btn-gold" id="deploy-btn" onclick="triggerDeploy()" style="font-size:17px;padding:13px 28px;">
+            🚀 Deploy Now
+          </button>
+          <div id="deploy-status" style="font-size:15px;font-weight:700;color:var(--muted);"></div>
+        </div>
+        <div id="deploy-log" style="margin-top:18px;font-family:'Share Tech Mono',monospace;font-size:14px;color:var(--muted);line-height:1.8;"></div>
+      </div>
+      <div class="card">
+        <div class="card-ttl">🧪 Tester Status</div>
+        <div class="section-note" style="margin-bottom:14px;">Check live test results on GitHub Actions.</div>
+        <a href="https://github.com/Arindamb1203/RISHI/actions" target="_blank"
+          class="btn btn-ghost" style="display:inline-block;text-decoration:none;font-size:15px;padding:10px 20px;">
+          📊 View Test Results on GitHub →
+        </a>
+      </div>
     </div>
 
     <!-- ══ STUDENT TAB ══ -->
@@ -669,7 +696,7 @@ function showAdmin() {
 var activeTab = 'dash';
 function switchTab(t) {
   activeTab = t;
-  ['dash','tree','topics','questions','student','logs'].forEach(function(id) {
+  ['dash','tree','topics','questions','student','logs','deploy'].forEach(function(id) {
     document.getElementById('tab-' + id).classList.toggle('on', id === t);
     document.getElementById('view-' + id).classList.toggle('hidden', id !== t);
   });
@@ -1407,6 +1434,35 @@ function showToast(msg) {
   t.style.opacity = '1';
   if (toastTimer) clearTimeout(toastTimer);
   toastTimer = setTimeout(function() { t.style.opacity = '0'; }, 2500);
+}
+
+/* ── DEPLOY ────────────────────────────────────────────── */
+const DEPLOY_HOOK = 'https://api.cloudflare.com/client/v4/pages/webhooks/deploy_hooks/1ab15965-e25b-4d76-9f2d-1693fb1abdd5';
+
+async function triggerDeploy() {
+  var btn = document.getElementById('deploy-btn');
+  var status = document.getElementById('deploy-status');
+  var log = document.getElementById('deploy-log');
+  btn.disabled = true;
+  btn.textContent = '⏳ Deploying...';
+  status.style.color = 'var(--amber)';
+  status.textContent = 'Sending deploy request...';
+  log.textContent = '';
+  try {
+    var res = await fetch(DEPLOY_HOOK, { method: 'POST' });
+    if (res.ok) {
+      status.style.color = 'var(--green)';
+      status.textContent = '✅ Deploy triggered!';
+      log.textContent = 'Deployment started. Visit rishi-ewh.pages.dev in 1–2 minutes to see the update.\nCheck GitHub Actions for test results.';
+    } else {
+      throw new Error('HTTP ' + res.status);
+    }
+  } catch(e) {
+    status.style.color = 'var(--red)';
+    status.textContent = '❌ Failed: ' + e.message;
+  }
+  btn.disabled = false;
+  btn.textContent = '🚀 Deploy Now';
 }
 
 /* ── AUTO-REFRESH ────────────────────────────────────────── */
