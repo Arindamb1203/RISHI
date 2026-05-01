@@ -2,8 +2,8 @@
 ═══════════════════════════════════════════════════════════════
   RISHIKA CONFIG — Paste this entire file at the start of
   every new Claude session to restore full project context.
-  Last updated: 29 April 2026 — evening
-  (multi-class expansion, Class 9 Real Numbers, bug fixes)
+  Last updated: 1 May 2026 — evening
+  (automated testing pipeline + admin deploy button)
 ═══════════════════════════════════════════════════════════════
 
 ▌ OWNER
@@ -30,6 +30,15 @@
 ▌ FILE TREE (actual repo as of 29 Apr 2026)
   D:\rishi\
   |
+  +---.github\workflows\                 AUTOMATED TESTING PIPELINE (runs on every git push)
+  |       test.yml                       Heartbeat — 4 key pages
+  |       test-explain.yml              All 16 Class 8 explain pages
+  |       test-practice.yml             All 16 Class 8 practice pages
+  |       test-exam.yml                 exam.html, topic-exam.html, sampurna-pariksha.html
+  |       test-admin.yml                admin.html, admin/question-manager.html
+  |       test-parent.yml               parent.html, parent-dashboard.html
+  |       test-landing.yml              landing.html, login.html, register.html, coming-soon.html
+  |
   +---functions\                        ROOT level — NOT inside public
   |   |   tts.js                        ElevenLabs TTS proxy
   |   \---api\
@@ -38,11 +47,16 @@
   |           explain.js                POST Gemini Flash proxy for wrong-answer explanations
   |           explain-differently.js    POST Gemini re-explanation (I Don't Understand button)
   |                                     maxOutputTokens: 200, prompt ~50 tokens (fits 250 TPM free tier)
+  |           deploy.js                 POST proxy → Cloudflare Pages deploy hook
+  |                                     Called by admin Deploy tab button (/api/deploy)
   |
   +---public\
-  |   |   admin.html                    Admin panel — warm cream theme, 6 tabs:
+  |   |   admin.html                    Admin panel — warm cream theme, 7 tabs:
   |   |                                   Dashboard / Chapters / Topic Exams /
-  |   |                                   Questions (KV seed) / Student / Logs
+  |   |                                   Questions (KV seed) / Student / Logs / Deploy
+  |   |                                   Deploy tab: one-click deploy to rishi-ewh.pages.dev
+  |   |                                     via Cloudflare Pages deploy hook (proxied through /api/deploy)
+  |   |                                   Deploy tab: "View Test Results on GitHub" link
   |   |                                   Students: search, subscription edit (class+board+status)
   |   |                                   Edit modal: white background, Class 6/7/8/9 + Board dropdown
   |   |   exam.html                     Universal exam page (?ch=01 to ?ch=17)
@@ -383,4 +397,6 @@
       and deliver the full corrected syllabus.html — never ask Arindam to edit code
   12. NEVER ask Arindam to edit any code manually — always deliver complete files
   13. Build order per chapter: Question Bank JSON → Explain HTML → Practice HTML → mark built:true in syllabus
+  14. Cloudflare Pages deploy hook URL stored in functions/api/deploy.js (do not expose in frontend)
+      Hook ID: 1ab15965-e25b-4d76-9f2d-1693fb1abdd5
 */
