@@ -5,12 +5,418 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="rishi-board" content="cbse">
 <meta name="rishi-class" content="9">
-<title>RISHI — Herons Formula</title>
-<!-- SHELL: Content to be built chapter by chapter -->
+<title>RISHI — Heron's Formula</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Nunito:wght@400;600;700;800;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<style>
+:root{--cream:#fdf6ec;--warm-white:#fffdf8;--gold:#c8922a;--gold-light:#e8b84b;--gold-pale:#f5e6c8;--amber:#d4870a;--sage:#7a8c6e;--sage-light:#a8b89a;--rust:#b85c2a;--charcoal:#2a2218;--mid:#5a4a30;--soft:#8a7a5a;--inactive:#c8b89a;--border-dark:#6b4c2a;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--cream);font-family:Nunito,sans-serif;min-height:100vh;color:var(--charcoal);}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(var(--gold-pale) 1px,transparent 1px),linear-gradient(90deg,var(--gold-pale) 1px,transparent 1px);background-size:40px 40px;opacity:.3;z-index:0;pointer-events:none;}
+.topbar{position:sticky;top:0;z-index:100;background:rgba(253,246,236,.97);border-bottom:2px solid var(--border-dark);backdrop-filter:blur(8px);padding:10px 18px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;}
+.logo-sm{font-family:'Orbitron',sans-serif;font-size:17px;font-weight:900;letter-spacing:4px;background:linear-gradient(135deg,var(--amber),var(--gold-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.topbar-center{font-family:'Orbitron',sans-serif;font-size:10px;letter-spacing:2px;color:var(--amber);text-transform:uppercase;}
+.topbar-right{display:flex;gap:8px;}
+.btn-topbar{font-family:Nunito,sans-serif;font-size:12px;font-weight:900;padding:6px 14px;border-radius:20px;border:2px solid var(--border-dark);background:var(--warm-white);color:var(--mid);cursor:pointer;}
+.btn-topbar.back{background:var(--gold-pale);}
+.prog-wrap{position:relative;z-index:10;padding:8px 18px;background:rgba(255,253,248,.9);border-bottom:1.5px solid var(--gold-pale);}
+.prog-info{display:flex;justify-content:space-between;font-size:11px;font-weight:800;color:var(--mid);margin-bottom:5px;}
+.prog-bar{height:6px;background:var(--gold-pale);border-radius:4px;overflow:hidden;}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--sage),var(--gold));border-radius:4px;transition:width .5s ease;}
+.main{position:relative;z-index:10;max-width:820px;margin:0 auto;padding:14px 14px 120px;}
+.rishika-wrap{display:flex;align-items:flex-start;gap:12px;margin-bottom:14px;}
+.rishika-avatar{width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,var(--sage),var(--sage-light));border:2px solid var(--border-dark);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;}
+.rishika-bubble{background:rgba(255,253,248,.97);border:2px solid var(--border-dark);border-radius:0 16px 16px 16px;padding:12px 16px;flex:1;box-shadow:0 4px 20px rgba(107,76,42,.1);}
+.rishika-name{font-size:10px;font-weight:900;color:var(--sage);letter-spacing:2px;text-transform:uppercase;margin-bottom:5px;}
+.rishika-text{font-size:14px;font-weight:700;color:var(--charcoal);line-height:1.6;}
+.hl{color:var(--amber);font-weight:900;}
+.btn-speak{display:inline-flex;align-items:center;gap:6px;font-family:Nunito,sans-serif;font-size:11px;font-weight:900;padding:5px 11px;border-radius:20px;border:2px solid var(--sage);background:#eef2eb;color:var(--sage);cursor:pointer;margin-top:8px;}
+.q-card{background:rgba(255,253,248,.97);border:2px solid var(--border-dark);border-radius:16px;padding:16px 18px;margin-bottom:12px;box-shadow:0 4px 20px rgba(107,76,42,.1);}
+.q-label{font-family:'Orbitron',sans-serif;font-size:10px;letter-spacing:3px;color:var(--amber);text-transform:uppercase;margin-bottom:8px;}
+.q-text{font-size:15px;font-weight:800;color:var(--charcoal);line-height:1.6;margin-bottom:10px;}
+.step{display:flex;gap:10px;margin-bottom:12px;opacity:0;transform:translateY(6px);transition:all .4s ease;}
+.step.vis{opacity:1;transform:translateY(0);}
+.step-num{width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;font-size:11px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:2px solid var(--border-dark);}
+.step-body{flex:1;font-size:13px;font-weight:700;color:var(--mid);line-height:1.6;padding-top:2px;}
+.anim-panel{background:#fffdf8;border:2px solid var(--border-dark);border-radius:14px;margin-bottom:12px;overflow:hidden;}
+.anim-header{background:linear-gradient(135deg,var(--charcoal),#3d2e1a);padding:7px 14px;display:flex;align-items:center;justify-content:space-between;}
+.anim-header-lbl{font-family:'Orbitron',sans-serif;font-size:9px;letter-spacing:2px;color:var(--gold-light);text-transform:uppercase;}
+.anim-replay{font-size:10px;font-weight:900;color:var(--gold-pale);background:none;border:1px solid var(--gold-pale);border-radius:20px;padding:2px 9px;cursor:pointer;display:none;}
+.anim-canvas{width:100%;max-height:195px;overflow:hidden;display:flex;align-items:center;justify-content:center;background:#fffdf8;}
+.anim-canvas svg{width:100%;max-height:195px;}
+.anim-status{padding:6px 14px;font-size:12px;font-weight:800;color:var(--mid);text-align:center;min-height:26px;border-top:1px solid var(--gold-pale);}
+.anim-play-btn{width:100%;padding:10px;font-family:Nunito,sans-serif;font-size:14px;font-weight:900;background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;border:none;cursor:pointer;}
+.anim-play-btn:disabled{background:var(--gold-pale);color:var(--inactive);cursor:not-allowed;}
+.steps-btn{width:100%;padding:10px;font-family:Nunito,sans-serif;font-size:14px;font-weight:900;background:linear-gradient(135deg,var(--sage),var(--sage-light));color:#fff;border:none;cursor:pointer;display:none;border-top:1px solid var(--gold-pale);}
+.confirm-wrap{margin-top:12px;background:linear-gradient(135deg,#eef2eb,#f5fbf2);border:2px solid var(--border-dark);border-radius:14px;padding:16px 18px;}
+.confirm-title{font-size:11px;font-weight:900;color:var(--sage);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;}
+.confirm-q{font-size:14px;font-weight:800;color:var(--charcoal);margin-bottom:12px;line-height:1.5;}
+.result-box{font-size:12px;font-weight:800;padding:9px 13px;border-radius:9px;display:none;line-height:1.4;}
+.result-box.ok{background:#eef2eb;border:2px solid var(--sage);color:var(--sage);display:block;}
+.result-box.no{background:#fff5f0;border:2px solid var(--rust);color:var(--rust);display:block;}
+.nudge{font-size:12px;font-weight:700;color:var(--mid);margin-top:7px;font-style:italic;display:none;}
+.nudge.show{display:block;}
+.btn-next{font-family:Nunito,sans-serif;font-size:14px;font-weight:900;padding:11px 22px;border-radius:12px;border:none;background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;cursor:pointer;display:none;margin-top:10px;width:100%;}
+.btn-next.show{display:block;}
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;z-index:100;background:rgba(253,246,236,.97);border-top:2px solid var(--border-dark);padding:10px 18px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap;align-items:center;}
+.btn-nav{font-family:Nunito,sans-serif;font-size:13px;font-weight:900;padding:10px 20px;border-radius:12px;border:2px solid var(--border-dark);cursor:pointer;}
+.btn-nav.practice{background:linear-gradient(135deg,var(--sage),var(--sage-light));color:#fff;border-color:var(--sage);}
+.btn-nav.exam{background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;border-color:var(--amber);}
+.btn-nav.locked{background:var(--gold-pale);color:var(--inactive);cursor:not-allowed;border-color:var(--inactive);}
+.lock-tip{font-size:10px;font-weight:700;color:var(--rust);width:100%;text-align:center;}
+.overlay{display:none;position:fixed;inset:0;background:rgba(42,34,24,.92);z-index:1000;flex-direction:column;align-items:center;justify-content:center;backdrop-filter:blur(6px);}
+.overlay.show{display:flex;}
+.break-box{background:var(--warm-white);border:2px solid var(--border-dark);border-radius:22px;padding:28px 32px;max-width:380px;width:90%;text-align:center;}
+.break-title{font-family:'Orbitron',sans-serif;font-size:14px;font-weight:900;color:var(--amber);letter-spacing:3px;margin-bottom:5px;}
+.break-sub{font-size:12px;font-weight:700;color:var(--soft);margin-bottom:16px;}
+.break-opts{display:flex;flex-direction:column;gap:8px;margin-bottom:12px;}
+.break-opt{font-family:Nunito,sans-serif;font-size:14px;font-weight:800;padding:11px;border-radius:11px;border:2px solid var(--border-dark);background:var(--warm-white);color:var(--mid);cursor:pointer;}
+.timer-screen{display:none;position:fixed;inset:0;background:#1a1208;z-index:1001;flex-direction:column;align-items:center;justify-content:center;}
+.timer-screen.show{display:flex;}
+.timer-reason{font-family:'Orbitron',sans-serif;font-size:12px;letter-spacing:4px;color:var(--gold-light);margin-bottom:16px;text-transform:uppercase;}
+.timer-num{font-family:'Orbitron',sans-serif;font-size:68px;font-weight:900;color:var(--gold-light);letter-spacing:6px;margin-bottom:30px;}
+.btn-end{font-family:Nunito,sans-serif;font-size:16px;font-weight:900;padding:13px 32px;border-radius:13px;border:2px solid var(--gold-light);background:transparent;color:var(--gold-light);cursor:pointer;}
+.done-banner{background:linear-gradient(135deg,#eef2eb,#f5fbf2);border:2px solid var(--border-dark);border-radius:14px;padding:14px 18px;text-align:center;margin-bottom:14px;display:none;}
+.done-banner.show{display:block;}
+.done-banner .dt{font-family:'Orbitron',sans-serif;font-size:12px;letter-spacing:2px;color:var(--sage);margin-bottom:4px;}
+.done-banner .ds{font-size:13px;font-weight:700;color:var(--mid);}
+.math-raw{width:100%;padding:10px 13px;border-radius:10px;border:2px solid var(--border-dark);background:var(--warm-white);color:var(--charcoal);font-size:1rem;font-family:'Share Tech Mono',monospace;resize:none;outline:none;min-height:48px;line-height:1.6;transition:border-color .2s;}
+.math-raw:focus{border-color:var(--amber);}
+.math-raw::placeholder{color:var(--inactive);font-family:Nunito,sans-serif;}
+.math-preview-label{font-size:0.68rem;text-transform:uppercase;letter-spacing:2px;color:var(--soft);margin:.5rem 0 .25rem;}
+.math-preview{min-height:44px;padding:.6rem 1rem;background:#f9f4ec;border-radius:8px;border:1.5px solid var(--gold-pale);font-size:1.1rem;color:var(--charcoal);overflow-x:auto;display:flex;align-items:center;justify-content:center;margin-bottom:10px;}
+.sugg-chips{display:flex;flex-wrap:wrap;gap:.35rem;margin-bottom:10px;}
+.schip{border:1.5px solid #1a6aaa;border-radius:20px;padding:.25rem .75rem;font-size:.78rem;cursor:pointer;background:#eef6ff;color:#0a5a9a;font-family:Nunito,sans-serif;font-weight:800;}
+#rWrap{position:fixed;bottom:68px;left:10px;z-index:200;width:82px;pointer-events:none;}
+#rChar{width:82px;filter:drop-shadow(0 4px 10px rgba(107,76,42,.3));}
+@keyframes rIn{from{transform:translateY(50px);opacity:0}to{transform:translateY(0);opacity:1}}
+@keyframes rBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+@media(max-width:600px){.main{padding:10px 10px 120px;}}
+</style>
+<script src="/rishi-sync.js"></script>
 <script src="/rishi-core.js"></script>
+<script src="/rishi-presence.js"></script>
 </head>
 <body>
-<!-- Herons Formula | Class 9 | CBSE | Explain Page -->
-<!-- TODO: Build full explain page content here -->
+<div class="topbar">
+  <div class="logo-sm">RISHI</div>
+  <div class="topbar-center">📐 Heron's Formula</div>
+  <div class="topbar-right">
+    <button class="btn-topbar" onclick="openBreak()">&#9749; Break</button>
+    <button class="btn-topbar back" onclick="location.href='/syllabus.html'">&#8592; Syllabus</button>
+  </div>
+</div>
+<div class="prog-wrap">
+  <div class="prog-info"><span id="progLabel">Question 1 of 10</span><span id="progPct">0%</span></div>
+  <div class="prog-bar"><div class="prog-fill" id="progFill" style="width:0%"></div></div>
+</div>
+<div class="main">
+  <div class="done-banner" id="doneBanner">
+    <div class="dt">&#10003; Explanation Completed!</div>
+    <div class="ds">Practice and Exam now unlocked.</div>
+  </div>
+  <div class="rishika-wrap">
+    <div class="rishika-avatar">&#128105;&#8205;&#127979;</div>
+    <div class="rishika-bubble">
+      <div class="rishika-name">Rishika</div>
+      <div class="rishika-text" id="introText">Hi <span class="hl" id="sName">there</span>! &#128522; Today we master <span class="hl">Heron&#39;s Formula</span> — the ancient trick to find the area of ANY triangle when all three sides are known, without needing the height! Named after the Greek mathematician Hero of Alexandria! &#127919;</div>
+      <button class="btn-speak" onclick="startLesson()" id="startBtn">&#9654; Start Lesson</button>
+    </div>
+  </div>
+  <div id="qArea"></div>
+</div>
+<div class="bottom-nav">
+  <div class="lock-tip" id="lockTip">&#9757; Complete explanations to unlock Practice and Exam</div>
+  <button class="btn-nav practice locked" id="btnPractice" onclick="goPractice()">&#9999;&#65039; Practice</button>
+  <button class="btn-nav exam locked" id="btnExam" onclick="goExam()">&#128221; Exam</button>
+</div>
+<div class="overlay" id="breakOv">
+  <div class="break-box">
+    <div class="break-title">Break</div>
+    <div class="break-sub">Choose &mdash; timer starts</div>
+    <div class="break-opts">
+      <button class="break-opt" onclick="startBreak('Water')">&#128167; Water</button>
+      <button class="break-opt" onclick="startBreak('Washroom')">&#128701; Washroom</button>
+      <button class="break-opt" onclick="startBreak('Physical')">&#127939; Physical</button>
+    </div>
+    <button class="break-opt" style="color:var(--soft)" onclick="closeBreak()">Cancel</button>
+  </div>
+</div>
+<div class="timer-screen" id="timerScreen">
+  <div class="timer-reason" id="timerLbl">Break</div>
+  <div class="timer-num" id="timerNum">00:00</div>
+  <button class="btn-end" onclick="endBreak()">&#10003; End Break</button>
+</div>
+<div id="rWrap">
+<svg id="rChar" viewBox="0 0 100 110" xmlns="http://www.w3.org/2000/svg">
+  <ellipse cx="50" cy="68" rx="36" ry="28" fill="#5a8a60" stroke="#3d6b42" stroke-width="2"/>
+  <ellipse cx="50" cy="66" rx="22" ry="16" fill="#7ab87a" stroke="#5a8a60" stroke-width="1.5"/>
+  <line x1="50" y1="50" x2="50" y2="82" stroke="#5a8a60" stroke-width="1.5"/>
+  <line x1="28" y1="66" x2="72" y2="66" stroke="#5a8a60" stroke-width="1.5"/>
+  <ellipse cx="20" cy="82" rx="10" ry="7" fill="#7ab87a" stroke="#5a8a60" stroke-width="1.5" transform="rotate(-20,20,82)"/>
+  <ellipse cx="80" cy="82" rx="10" ry="7" fill="#7ab87a" stroke="#5a8a60" stroke-width="1.5" transform="rotate(20,80,82)"/>
+  <ellipse cx="22" cy="58" rx="9" ry="6" fill="#7ab87a" stroke="#5a8a60" stroke-width="1.5" transform="rotate(20,22,58)"/>
+  <ellipse cx="78" cy="58" rx="9" ry="6" fill="#7ab87a" stroke="#5a8a60" stroke-width="1.5" transform="rotate(-20,78,58)"/>
+  <ellipse cx="50" cy="42" rx="10" ry="14" fill="#8fba6a" stroke="#5a8a60" stroke-width="1.5"/>
+  <ellipse cx="50" cy="28" rx="18" ry="16" fill="#8fba6a" stroke="#5a8a60" stroke-width="2"/>
+  <ellipse cx="43" cy="24" rx="5" ry="5.5" fill="white"/><ellipse cx="57" cy="24" rx="5" ry="5.5" fill="white"/>
+  <ellipse cx="43" cy="25" rx="3" ry="3.5" fill="#1a3a1a"/><ellipse cx="57" cy="25" rx="3" ry="3.5" fill="#1a3a1a"/>
+  <circle cx="44" cy="23" r="1.2" fill="white"/><circle cx="58" cy="23" r="1.2" fill="white"/>
+  <ellipse id="rLid1" cx="43" cy="24" rx="5" ry="1" fill="#8fba6a" opacity="0"/>
+  <ellipse id="rLid2" cx="57" cy="24" rx="5" ry="1" fill="#8fba6a" opacity="0"/>
+  <path id="rMouth" d="M44,33 Q50,38 56,33" fill="none" stroke="#3d6b42" stroke-width="2" stroke-linecap="round"/>
+  <ellipse id="rBlush1" cx="36" cy="30" rx="7" ry="4" fill="#ff9999" opacity="0"/>
+  <ellipse id="rBlush2" cx="64" cy="30" rx="7" ry="4" fill="#ff9999" opacity="0"/>
+  <rect x="28" y="90" width="44" height="13" fill="#d4870a" rx="4"/>
+  <text x="50" y="100" text-anchor="middle" font-family="Nunito" font-size="7" font-weight="900" fill="white">RISHIKA</text>
+</svg>
+</div>
+<script>
+var voicesReady=false,selectedVoice=null,elAudio=null;
+function pickVoice(){var vs=window.speechSynthesis.getVoices();if(!vs||vs.length===0)return false;var fk=["heera","veena","priya","raveena","female","woman","zira","samantha","victoria","karen"];for(var i=0;i<vs.length;i++){if(vs[i].lang.toLowerCase().indexOf("en-in")===0){var n=vs[i].name.toLowerCase();for(var k=0;k<fk.length;k++){if(n.indexOf(fk[k])>=0){selectedVoice=vs[i];return true;}}}}for(var i=0;i<vs.length;i++){if(vs[i].lang.toLowerCase().indexOf("en")===0){var n=vs[i].name.toLowerCase();for(var k=0;k<fk.length;k++){if(n.indexOf(fk[k])>=0){selectedVoice=vs[i];return true;}}}}return false;}
+function initVoices(cb){if(pickVoice()){voicesReady=true;cb();return;}window.speechSynthesis.onvoiceschanged=function(){window.speechSynthesis.onvoiceschanged=null;pickVoice();voicesReady=true;cb();};setTimeout(function(){if(!voicesReady){pickVoice();voicesReady=true;cb();}},2000);}
+function stopAllAudio(){if(elAudio){try{elAudio.pause();elAudio.src="";}catch(x){}elAudio=null;}if(window.speechSynthesis)window.speechSynthesis.cancel();}
+function sayBrowser(text,onEnd){if(!window.speechSynthesis)return;window.speechSynthesis.cancel();rStartTalk(text.length);var u=new SpeechSynthesisUtterance(text);u.lang="en-IN";u.rate=0.88;u.pitch=1.15;if(selectedVoice)u.voice=selectedVoice;u.onend=function(){rStopTalk();if(onEnd)onEnd();};u.onerror=function(){rStopTalk();if(onEnd)onEnd();};window.speechSynthesis.speak(u);}
+function say(text,onEnd){stopAllAudio();rStartTalk(text.length);fetch("/tts",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({text:text})}).then(function(res){if(!res.ok)throw new Error("TTS "+res.status);return res.blob();}).then(function(blob){var url=URL.createObjectURL(blob);elAudio=new Audio(url);elAudio.onended=function(){URL.revokeObjectURL(url);elAudio=null;rStopTalk();if(onEnd)onEnd();};elAudio.onerror=function(){URL.revokeObjectURL(url);elAudio=null;rStopTalk();if(onEnd)onEnd();};var p=elAudio.play();if(p&&p.catch){p.catch(function(){URL.revokeObjectURL(url);elAudio=null;sayBrowser(text,onEnd);});}}).catch(function(err){sayBrowser(text,onEnd);});}
+function sayEl(id){var e=G(id);if(e)say(e.innerText||e.textContent);}
+window.addEventListener("beforeunload",function(){stopAllAudio();});
+var mouthTmr=null,blinkTmr=null,mOpen=false;
+function rInit(){var c=G("rChar");if(c)c.style.animation="rIn .6s cubic-bezier(.34,1.56,.64,1) forwards";scheduleBlink();}
+function scheduleBlink(){blinkTmr=setTimeout(function(){rBlink();scheduleBlink();},2200+Math.random()*3000);}
+function rBlink(){var l=G("rLid1"),r=G("rLid2");if(!l||!r)return;l.setAttribute("ry","5.5");r.setAttribute("ry","5.5");setTimeout(function(){l.setAttribute("ry","1");r.setAttribute("ry","1");},120);}
+function rStartTalk(len){rStopTalk();G("rBlush1").style.opacity="0.7";G("rBlush2").style.opacity="0.7";mOpen=false;mouthTmr=setInterval(function(){mOpen=!mOpen;var m=G("rMouth");if(!m)return;if(mOpen){m.setAttribute("d","M42,33 Q50,42 58,33");m.setAttribute("fill","#1a3a1a");}else{m.setAttribute("d","M44,33 Q50,38 56,33");m.setAttribute("fill","none");}},160);setTimeout(rStopTalk,Math.max(1800,(len||20)*58));}
+function rStopTalk(){clearInterval(mouthTmr);mOpen=false;var m=G("rMouth");if(m){m.setAttribute("d","M44,33 Q50,38 56,33");m.setAttribute("fill","none");}G("rBlush1").style.opacity="0";G("rBlush2").style.opacity="0";}
+function rHappy(){var c=G("rChar");if(c)c.style.animation="rBounce .35s ease-in-out 5";G("rBlush1").style.opacity="1";G("rBlush2").style.opacity="1";setTimeout(function(){rStopTalk();var c=G("rChar");if(c)c.style.animation="none";},2500);}
+function rThink(){setTimeout(rStopTalk,1800);}
+
+var QB=[
+{
+id:"hf1",
+q:"What is Heron's Formula and when do we use it?",
+qs:"What is Heron's Formula and when do we use it?",
+anim:"hf1",
+steps:[{"t": "Normal area formula: Area = ½ × base × height. Problem: what if we don't know the height? HERON'S FORMULA solves this! When all THREE SIDES of a triangle are known, we can find the area directly.", "s": "Normal area formula needs height. Heron's Formula finds area using only the three sides — no height needed."}, {"t": "Heron's Formula: First find s = (a + b + c) / 2, called the SEMI-PERIMETER (half the perimeter). Then Area = √[s(s-a)(s-b)(s-c)]. That's it! s is the magical middle step.", "s": "Step 1: find s, the semi-perimeter, which is a plus b plus c divided by 2. Step 2: Area equals square root of s times s minus a times s minus b times s minus c."}, {"t": "Named after Hero (Heron) of Alexandria, a Greek mathematician from around 60 AD. This formula works for ALL types of triangles — equilateral, isosceles, scalene, right-angled — any triangle!", "s": "Named after Heron of Alexandria. Works for all types of triangles regardless of their shape."}],
+cq:"In Heron's Formula, what is 's' called?",
+cqs:"In Heron's Formula, what is s called?",
+ans:["semi-perimeter", "semiperimeter", "half perimeter", "half the perimeter"],
+nudges:["s = (a + b + c) / 2", "It is half of the total perimeter of the triangle", "Answer: Semi-perimeter"],
+anim_svg:"<g id=\"hf1s0\" opacity=\"0\"><rect x=\"10\" y=\"8\" width=\"390\" height=\"30\" rx=\"7\" fill=\"#f5e6c8\"/><text x=\"210\" y=\"28\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"800\" fill=\"#d4870a\">Heron's Formula: Area = √[s(s-a)(s-b)(s-c)]</text></g><g id=\"hf1s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">s = (a+b+c)/2 → Semi-perimeter (half perimeter)</text></g><g id=\"hf1s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Works for ALL triangles — no height needed!</text></g><g id=\"hf1ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">s = semi-perimeter = (a+b+c)/2</text></g>"
+},
+{
+id:"hf2",
+q:"How do you apply Heron's Formula step by step?",
+qs:"How do you apply Heron's Formula step by step?",
+anim:"hf2",
+steps:[{"t": "Example: Triangle with sides a=5, b=6, c=7 cm. Step 1: Find s. s = (5+6+7)/2 = 18/2 = 9 cm.", "s": "Step 1: Add all three sides and divide by 2. 5 plus 6 plus 7 equals 18. Divide by 2 gives s equals 9."}, {"t": "Step 2: Calculate (s−a), (s−b), (s−c). s−a = 9−5 = 4. s−b = 9−6 = 3. s−c = 9−7 = 2. Step 3: Multiply: s(s−a)(s−b)(s−c) = 9×4×3×2 = 216.", "s": "Step 2: find s minus each side. 9 minus 5 is 4, 9 minus 6 is 3, 9 minus 7 is 2. Step 3: multiply 9 times 4 times 3 times 2 equals 216."}, {"t": "Step 4: Area = √216 = √(36 × 6) = 6√6 cm². Always simplify the square root! Check: is your answer reasonable? For a triangle with sides 5,6,7 — area around 14.7 cm² makes sense.", "s": "Step 4: take the square root of 216. Simplify: root 216 equals 6 root 6 square centimetres."}],
+cq:"For a triangle with sides 3, 4, 5 cm, what is the semi-perimeter s?",
+cqs:"For a triangle with sides 3, 4 and 5 cm, what is the semi-perimeter s?",
+ans:["6", "6 cm"],
+nudges:["s = (a + b + c) / 2", "s = (3 + 4 + 5) / 2 = 12 / 2", "Answer: s = 6 cm"],
+anim_svg:"<g id=\"hf2s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Sides: a=5, b=6, c=7 | Step 1: s=(5+6+7)/2=9</text></g><g id=\"hf2s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Step 2: s-a=4, s-b=3, s-c=2 | Step 3: 9×4×3×2=216</text></g><g id=\"hf2s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Step 4: Area=√216=6√6 cm²</text></g><g id=\"hf2ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">s = (3+4+5)/2 = 6 cm</text></g>"
+},
+{
+id:"hf3",
+q:"How do you find area of a 3-4-5 right triangle using Heron's Formula?",
+qs:"How do you find the area of a 3-4-5 right triangle using Heron's Formula?",
+anim:"hf3",
+steps:[{"t": "Triangle sides: a=3, b=4, c=5. First verify: 3²+4²=9+16=25=5². So it IS a right triangle (Pythagoras). Normal formula: Area = ½×3×4 = 6 cm². Now let's verify with Heron's Formula.", "s": "Sides 3, 4, 5 form a right triangle. Normal formula gives area equals 6 square cm. Verify using Heron's Formula."}, {"t": "s = (3+4+5)/2 = 6. s−a = 3, s−b = 2, s−c = 1. Product: 6×3×2×1 = 36. Area = √36 = 6 cm². Both methods give 6 cm² — Heron's Formula verified!", "s": "Semi-perimeter is 6. The product is 6 times 3 times 2 times 1 equals 36. Square root of 36 is 6. Both methods agree."}, {"t": "This verification trick is useful in exams: for a right triangle, you can check your Heron's Formula answer using ½×base×height. If they match, your calculation is correct!", "s": "Always verify Heron's Formula answer using the normal formula when possible. This catches calculation errors."}],
+cq:"Area of triangle with sides 3, 4, 5 cm using Heron's Formula is ____.",
+cqs:"The area of a triangle with sides 3, 4 and 5 cm using Heron's Formula is blank.",
+ans:["6 cm²", "6", "6 sq cm"],
+nudges:["s = 6. Product = 6×3×2×1 = 36", "Area = √36 = ?", "Answer: 6 cm²"],
+anim_svg:"<g id=\"hf3s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">3-4-5: right triangle | Normal: ½×3×4=6 cm²</text></g><g id=\"hf3s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">s=6 | s-a=3, s-b=2, s-c=1 | product=36 | √36=6 ✓</text></g><g id=\"hf3s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Both methods: 6 cm² — Heron verified!</text></g><g id=\"hf3ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Area = √36 = 6 cm²</text></g>"
+},
+{
+id:"hf4",
+q:"How do you find the area of an equilateral triangle using Heron's Formula?",
+qs:"How do you find the area of an equilateral triangle using Heron's Formula?",
+anim:"hf4",
+steps:[{"t": "Equilateral triangle with all sides = a. s = (a+a+a)/2 = 3a/2. Then s−a = 3a/2−a = a/2. (All three terms s−a, s−b, s−c are equal to a/2!)", "s": "For equilateral triangle with side a, semi-perimeter is 3a over 2. Each of s minus a, s minus b, s minus c equals a over 2."}, {"t": "Area = √[s(s−a)(s−b)(s−c)] = √[(3a/2)(a/2)(a/2)(a/2)] = √[3a⁴/16] = (√3/4)a². This is the STANDARD formula for equilateral triangle area!", "s": "Substituting gives area equals root 3 over 4 times a squared. This is the standard formula."}, {"t": "Example: Equilateral triangle with side 6 cm. Area = (√3/4) × 36 = 9√3 ≈ 15.6 cm². Remember this formula — it is used very frequently in mensuration problems!", "s": "For side 6 cm: area equals root 3 over 4 times 36 equals 9 root 3 square cm."}],
+cq:"Area of equilateral triangle with side 4 cm is ____.",
+cqs:"The area of an equilateral triangle with side 4 cm is blank.",
+ans:["4√3", "4root3", "4√3 cm²", "4 root 3"],
+nudges:["Formula: (√3/4) × a² for equilateral triangle", "(√3/4) × 4² = (√3/4) × 16", "Answer: 4√3 cm²"],
+anim_svg:"<g id=\"hf4s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Equilateral side=a: s=3a/2, s-a=s-b=s-c=a/2</text></g><g id=\"hf4s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Area=√[(3a/2)(a/2)³]=√(3a⁴/16)=(√3/4)a²</text></g><g id=\"hf4s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Side=6: Area=(√3/4)×36=9√3 cm²</text></g><g id=\"hf4ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">(√3/4)×16 = 4√3 cm²</text></g>"
+},
+{
+id:"hf5",
+q:"How do you find area of a quadrilateral using Heron's Formula?",
+qs:"How do you find the area of a quadrilateral using Heron's Formula?",
+anim:"hf5",
+steps:[{"t": "Heron's Formula applies to triangles — but we can use it for quadrilaterals too! Method: draw a diagonal to divide the quadrilateral into TWO triangles. Find area of each triangle using Heron's Formula and add them!", "s": "Divide the quadrilateral into two triangles using a diagonal. Find each triangle's area with Heron's Formula and add."}, {"t": "Example: Quadrilateral ABCD with AB=3, BC=4, CD=4, DA=5 and diagonal AC=5. Triangle ABC: sides 3,4,5 — area=6 cm². Triangle ACD: sides 5,4,5 — calculate separately.", "s": "Triangle ABC with sides 3, 4, 5 has area 6 square cm. Now calculate triangle ACD with sides 5, 4, 5 separately."}, {"t": "For triangle ACD: sides a=5, b=4, c=5. s=(5+4+5)/2=7. s-a=2, s-b=3, s-c=2. Area=√(7×2×3×2)=√84=2√21 cm². Total area = 6 + 2√21 cm².", "s": "Triangle ACD: s equals 7. Product is 7 times 2 times 3 times 2 equals 84. Area equals 2 root 21. Total is 6 plus 2 root 21."}],
+cq:"To find area of a quadrilateral using triangles, how do you divide it?",
+cqs:"To find area of a quadrilateral using Heron's Formula, how do you divide it?",
+ans:["by drawing a diagonal", "diagonal", "draw a diagonal"],
+nudges:["A quadrilateral can be split into triangles", "What single line segment divides a quadrilateral into 2 triangles?", "Answer: By drawing a diagonal"],
+anim_svg:"<g id=\"hf5s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Quad → 2 triangles via diagonal → apply Heron's twice</text></g><g id=\"hf5s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">△ABC(3,4,5): area=6 | △ACD(5,4,5): area=2√21</text></g><g id=\"hf5s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Total area = 6 + 2√21 cm²</text></g><g id=\"hf5ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Draw a diagonal → divide into 2 triangles</text></g>"
+},
+{
+id:"hf6",
+q:"How do you find the area of an isosceles triangle using Heron's Formula?",
+qs:"How do you find the area of an isosceles triangle using Heron's Formula?",
+anim:"hf6",
+steps:[{"t": "Isosceles triangle: two equal sides. Example: sides a=5, b=5, c=6 cm. Step 1: s = (5+5+6)/2 = 8 cm.", "s": "Isosceles triangle with sides 5, 5 and 6. Semi-perimeter s equals 5 plus 5 plus 6 divided by 2 equals 8."}, {"t": "Step 2: s−a = 3, s−b = 3, s−c = 2. Step 3: Product = 8×3×3×2 = 144. Step 4: Area = √144 = 12 cm².", "s": "s minus 5 is 3, s minus 5 is 3, s minus 6 is 2. Product is 8 times 3 times 3 times 2 equals 144. Square root of 144 is 12."}, {"t": "Alternate check: For isosceles triangle with equal sides b and base a, height = √(b² − (a/2)²). Height = √(25−9) = √16 = 4. Area = ½×6×4 = 12 cm². Both methods match!", "s": "Alternative: height equals root of 25 minus 9 equals 4. Area equals half times 6 times 4 equals 12. Both methods confirm 12 square cm."}],
+cq:"For isosceles triangle with sides 5, 5, 6: what is s?",
+cqs:"For an isosceles triangle with sides 5, 5 and 6, what is s?",
+ans:["8", "8 cm"],
+nudges:["s = (a+b+c)/2", "s = (5+5+6)/2 = 16/2", "Answer: s = 8 cm"],
+anim_svg:"<g id=\"hf6s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Isosceles (5,5,6): s=(5+5+6)/2=8</text></g><g id=\"hf6s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">s-a=3, s-b=3, s-c=2 | 8×3×3×2=144 | √144=12</text></g><g id=\"hf6s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Check: h=√(25-9)=4 | ½×6×4=12 ✓ Both agree!</text></g><g id=\"hf6ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">s = (5+5+6)/2 = 8 cm</text></g>"
+},
+{
+id:"hf7",
+q:"What is the area of an equilateral triangle with side 'a'?",
+qs:"What is the formula for the area of an equilateral triangle with side a?",
+anim:"hf7",
+steps:[{"t": "We derived this using Heron's Formula: Area of equilateral triangle = (√3/4) × a². This is the MOST USED mensuration formula after the basic triangle area formula.", "s": "Area of equilateral triangle equals root 3 over 4 times a squared. This is derived from Heron's Formula."}, {"t": "Memorise this formula! Common values: side=1: area=√3/4. Side=2: area=√3. Side=4: area=4√3. Side=6: area=9√3. Side=√3: area=3√3/4.", "s": "Memorise: side 2 gives root 3. Side 4 gives 4 root 3. Side 6 gives 9 root 3."}, {"t": "Application: A triangular park has all sides equal to 50 m. Area = (√3/4) × 50² = (√3/4) × 2500 = 625√3 m². At Rs 200 per m², cost = 625√3 × 200 = 125000√3 rupees. Real-life application!", "s": "For side 50 metres: area equals 625 root 3 square metres. Multiply by rate to get cost."}],
+cq:"Area of equilateral triangle with side 2 cm is ____.",
+cqs:"Area of equilateral triangle with side 2 cm is blank.",
+ans:["√3", "root 3", "√3 cm²", "root 3 cm²"],
+nudges:["Formula: (√3/4) × a²", "(√3/4) × 4 = ?", "Answer: √3 cm²"],
+anim_svg:"<g id=\"hf7s0\" opacity=\"0\"><rect x=\"10\" y=\"8\" width=\"390\" height=\"30\" rx=\"7\" fill=\"#f5e6c8\"/><text x=\"210\" y=\"28\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"800\" fill=\"#d4870a\">Area of equilateral △ = (√3/4)a²</text></g><g id=\"hf7s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">a=2→√3 | a=4→4√3 | a=6→9√3 | a=8→16√3</text></g><g id=\"hf7s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Park: side=50m → area=625√3m² → cost=125000√3</text></g><g id=\"hf7ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">(√3/4)×4 = √3 cm²</text></g>"
+},
+{
+id:"hf8",
+q:"How do you find the area when the perimeter is given?",
+qs:"How do you find the area of a triangle when its perimeter is given?",
+anim:"hf8",
+steps:[{"t": "Given perimeter = 2s. So s = perimeter/2. Example: Perimeter = 24 cm, sides in ratio 3:4:5. Sum of ratio = 12. Each part = 24/12 = 2 cm. Sides: 6, 8, 10 cm.", "s": "From perimeter, find s by dividing by 2. For ratio problems, find each part from the perimeter."}, {"t": "s = 24/2 = 12 cm. s-a = 6, s-b = 4, s-c = 2. Product = 12×6×4×2 = 576. Area = √576 = 24 cm².", "s": "s equals 12. s minus 6 is 6, s minus 8 is 4, s minus 10 is 2. Product is 12 times 6 times 4 times 2 equals 576. Root 576 equals 24."}, {"t": "Check: 6-8-10 is a right triangle (ratio 3:4:5 doubled). Area = ½×6×8 = 24 cm² ✓. Also note: √576 = √(576) = 24 (perfect square — nice! In exams, the answer is usually a whole number!)", "s": "Verify: 6-8-10 is a right triangle. Half times 6 times 8 equals 24. Both methods confirm 24 square cm."}],
+cq:"For a triangle with perimeter 36 cm and equal sides, what is s?",
+cqs:"For an equilateral triangle with perimeter 36 cm, what is s?",
+ans:["18", "18 cm"],
+nudges:["s = perimeter / 2", "s = 36 / 2", "Answer: s = 18 cm"],
+anim_svg:"<g id=\"hf8s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Perimeter=24, ratio 3:4:5 → sides 6,8,10</text></g><g id=\"hf8s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">s=12 | s-a=6, s-b=4, s-c=2 | 12×6×4×2=576</text></g><g id=\"hf8s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Area=√576=24 | Check: ½×6×8=24 ✓</text></g><g id=\"hf8ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">s = 36/2 = 18 cm</text></g>"
+},
+{
+id:"hf9",
+q:"How do you apply Heron's Formula to real-life problems?",
+qs:"How do you apply Heron's Formula to real-life problems?",
+anim:"hf9",
+steps:[{"t": "Real-life problem: A triangular wall has sides 120 m, 80 m and 50 m. Cost of painting = Rs 1.50 per m². Find total cost. Step 1: Find area using Heron's Formula.", "s": "Triangular wall with sides 120, 80, 50 metres. Find area using Heron's Formula, then multiply by rate."}, {"t": "s = (120+80+50)/2 = 125. s-a=5, s-b=45, s-c=75. Product = 125×5×45×75 = 125×5×3375 = 2109375. Area = √2109375 ≈ 1452 m² (exact: 375√15/2).", "s": "s equals 125. The product gives area approximately 1452 square metres."}, {"t": "Cost = Area × Rate = 1452 × 1.50 = Rs 2178. In real-life problems: (1) Find area with Heron's Formula. (2) Multiply by rate/price. Simple two-step approach!", "s": "Cost equals area times rate. 1452 times 1.50 equals approximately 2178 rupees."}],
+cq:"A triangular park has sides 40m, 24m and 32m. What is s?",
+cqs:"A triangular park has sides 40 m, 24 m and 32 m. What is s?",
+ans:["48", "48 m"],
+nudges:["s = (a+b+c)/2", "s = (40+24+32)/2 = 96/2", "Answer: s = 48 m"],
+anim_svg:"<g id=\"hf9s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Wall: sides 120,80,50m | Cost: Rs 1.50/m²</text></g><g id=\"hf9s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">s=125 → area≈1452 m²</text></g><g id=\"hf9s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Cost = 1452 × 1.50 = Rs 2178</text></g><g id=\"hf9ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">s = (40+24+32)/2 = 48 m</text></g>"
+},
+{
+id:"hf10",
+q:"How do you find area of a trapezium using triangles?",
+qs:"How do you find the area of a trapezium using Heron's Formula?",
+anim:"hf10",
+steps:[{"t": "Trapezium ABCD with parallel sides AB=25m, CD=10m and non-parallel sides BC=14m, AD=13m. Draw CE perpendicular to AB and CF parallel to DA. This creates triangle BCF and rectangle AECD.", "s": "Draw a perpendicular and parallel to split the trapezium into a triangle and a rectangle."}, {"t": "In triangle BCF: BF = AB − AF = 25 − 10 = 15m (since AF=CD=10m in rectangle AFCD). Sides: BF=15, BC=14, CF=13. s=(15+14+13)/2=21. s−a=6, s−b=7, s−c=8.", "s": "Triangle BCF has sides 15, 14 and 13. Semi-perimeter is 21."}, {"t": "Area of △BCF = √(21×6×7×8) = √7056 = 84 m². Height of trapezium = 84×2/15? No — use base 15: h = 2×84/15? Actually h = √(BC²−BF²... ) Wait! Height = Area×2/base? Let's use: h² = BC²−BF²... better: √(21×6×7×8)=84, height from △BCF = 2×84/15 = 11.2m? Simpler: s=21,area=84, height of trapezium h = 2×84/15... Actually area of trapezium = ½×(AB+CD)×h where h=height of trapezium. From △BCF using Heron's: area=84m². This IS the area of the triangle only!", "s": "The triangle area is 84 square metres. The height of the trapezium equals 2 times 84 divided by 15 equals 11.2 m. Area of trapezium equals half times sum of parallel sides times height."}],
+cq:"Area of trapezium = \u00bd \u00d7 (sum of parallel sides) \u00d7 ______",
+cqs:"Area of trapezium equals half times sum of parallel sides times blank.",
+ans:["height", "h", "the height"],
+nudges:["The trapezium area formula needs the distance between the parallel sides", "This distance is perpendicular to both parallel sides", "Answer: Height (perpendicular distance between parallel sides)"],
+anim_svg:"<g id=\"hf10s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Trapezium: parallel sides 25,10 | non-par: 14,13</text></g><g id=\"hf10s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">△BCF: sides 15,14,13 | s=21 | area=√(21×6×7×8)=84</text></g><g id=\"hf10s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">h from △: 2×84/15=11.2 | Trap area=½×(25+10)×11.2=196m²</text></g><g id=\"hf10ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Area of trapezium = ½×(sum of || sides)×height</text></g>"
+}
+];
+
+function getAnimSVG(t){
+var base='<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Nunito,sans-serif;background:#fffdf8"><rect width="420" height="178" fill="#fffdf8"/>';
+var svgs={
+"hf1":base+"<g id=\"hf1s0\" opacity=\"0\"><rect x=\"10\" y=\"8\" width=\"390\" height=\"30\" rx=\"7\" fill=\"#f5e6c8\"/><text x=\"210\" y=\"28\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"800\" fill=\"#d4870a\">Heron's Formula: Area = \u221a[s(s-a)(s-b)(s-c)]</text></g><g id=\"hf1s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">s = (a+b+c)/2 \u2192 Semi-perimeter (half perimeter)</text></g><g id=\"hf1s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Works for ALL triangles \u2014 no height needed!</text></g><g id=\"hf1ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">s = semi-perimeter = (a+b+c)/2</text></g>",
+"hf2":base+"<g id=\"hf2s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Sides: a=5, b=6, c=7 | Step 1: s=(5+6+7)/2=9</text></g><g id=\"hf2s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Step 2: s-a=4, s-b=3, s-c=2 | Step 3: 9\u00d74\u00d73\u00d72=216</text></g><g id=\"hf2s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Step 4: Area=\u221a216=6\u221a6 cm\u00b2</text></g><g id=\"hf2ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">s = (3+4+5)/2 = 6 cm</text></g>",
+"hf3":base+"<g id=\"hf3s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">3-4-5: right triangle | Normal: \u00bd\u00d73\u00d74=6 cm\u00b2</text></g><g id=\"hf3s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">s=6 | s-a=3, s-b=2, s-c=1 | product=36 | \u221a36=6 \u2713</text></g><g id=\"hf3s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Both methods: 6 cm\u00b2 \u2014 Heron verified!</text></g><g id=\"hf3ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Area = \u221a36 = 6 cm\u00b2</text></g>",
+"hf4":base+"<g id=\"hf4s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Equilateral side=a: s=3a/2, s-a=s-b=s-c=a/2</text></g><g id=\"hf4s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Area=\u221a[(3a/2)(a/2)\u00b3]=\u221a(3a\u2074/16)=(\u221a3/4)a\u00b2</text></g><g id=\"hf4s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Side=6: Area=(\u221a3/4)\u00d736=9\u221a3 cm\u00b2</text></g><g id=\"hf4ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">(\u221a3/4)\u00d716 = 4\u221a3 cm\u00b2</text></g>",
+"hf5":base+"<g id=\"hf5s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Quad \u2192 2 triangles via diagonal \u2192 apply Heron's twice</text></g><g id=\"hf5s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">\u25b3ABC(3,4,5): area=6 | \u25b3ACD(5,4,5): area=2\u221a21</text></g><g id=\"hf5s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Total area = 6 + 2\u221a21 cm\u00b2</text></g><g id=\"hf5ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Draw a diagonal \u2192 divide into 2 triangles</text></g>",
+"hf6":base+"<g id=\"hf6s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Isosceles (5,5,6): s=(5+5+6)/2=8</text></g><g id=\"hf6s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">s-a=3, s-b=3, s-c=2 | 8\u00d73\u00d73\u00d72=144 | \u221a144=12</text></g><g id=\"hf6s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Check: h=\u221a(25-9)=4 | \u00bd\u00d76\u00d74=12 \u2713 Both agree!</text></g><g id=\"hf6ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">s = (5+5+6)/2 = 8 cm</text></g>",
+"hf7":base+"<g id=\"hf7s0\" opacity=\"0\"><rect x=\"10\" y=\"8\" width=\"390\" height=\"30\" rx=\"7\" fill=\"#f5e6c8\"/><text x=\"210\" y=\"28\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"800\" fill=\"#d4870a\">Area of equilateral \u25b3 = (\u221a3/4)a\u00b2</text></g><g id=\"hf7s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">a=2\u2192\u221a3 | a=4\u21924\u221a3 | a=6\u21929\u221a3 | a=8\u219216\u221a3</text></g><g id=\"hf7s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Park: side=50m \u2192 area=625\u221a3m\u00b2 \u2192 cost=125000\u221a3</text></g><g id=\"hf7ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">(\u221a3/4)\u00d74 = \u221a3 cm\u00b2</text></g>",
+"hf8":base+"<g id=\"hf8s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Perimeter=24, ratio 3:4:5 \u2192 sides 6,8,10</text></g><g id=\"hf8s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">s=12 | s-a=6, s-b=4, s-c=2 | 12\u00d76\u00d74\u00d72=576</text></g><g id=\"hf8s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Area=\u221a576=24 | Check: \u00bd\u00d76\u00d78=24 \u2713</text></g><g id=\"hf8ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">s = 36/2 = 18 cm</text></g>",
+"hf9":base+"<g id=\"hf9s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Wall: sides 120,80,50m | Cost: Rs 1.50/m\u00b2</text></g><g id=\"hf9s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">s=125 \u2192 area\u22481452 m\u00b2</text></g><g id=\"hf9s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Cost = 1452 \u00d7 1.50 = Rs 2178</text></g><g id=\"hf9ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">s = (40+24+32)/2 = 48 m</text></g>",
+"hf10":base+"<g id=\"hf10s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Trapezium: parallel sides 25,10 | non-par: 14,13</text></g><g id=\"hf10s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">\u25b3BCF: sides 15,14,13 | s=21 | area=\u221a(21\u00d76\u00d77\u00d78)=84</text></g><g id=\"hf10s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">h from \u25b3: 2\u00d784/15=11.2 | Trap area=\u00bd\u00d7(25+10)\u00d711.2=196m\u00b2</text></g><g id=\"hf10ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Area of trapezium = \u00bd\u00d7(sum of || sides)\u00d7height</text></g>"
+};
+return svgs[t]||'<svg viewBox="0 0 420 178"><text x="210" y="89" text-anchor="middle" font-family="Nunito" font-size="14" fill="#5a4a30">Loading...</text></svg>';
+}
+
+function makeAnimPlay(id,steps,ansLabel){return function(done){setStatus("Solving step by step...");var delay=600;steps.forEach(function(_,i){var d=delay+i*2800;(function(ii,dd){at(dd,function(){fade(id+"s"+ii,1);});})( i,d);});at(delay+steps.length*2800,function(){fade(id+"ans",1);setStatus("Answer: "+ansLabel);at(2000,done);});}; }
+var ANIM_PLAYS={};
+QB.forEach(function(q){ANIM_PLAYS[q.id]=makeAnimPlay(q.id,q.steps,q.ans[0]);});
+function getAnimPlay(t){return ANIM_PLAYS[t]||function(done){done();};}
+
+var atTimers=[],session=[],idx=0,stepIdx=0,nudgeCount=0,completed=false,breakSecs=0,breakTmr=null,PER_SESSION=10;
+function G(id){return document.getElementById(id);}
+function clearAt(){for(var i=0;i<atTimers.length;i++)clearTimeout(atTimers[i]);atTimers=[];}
+function at(ms,fn){atTimers.push(setTimeout(fn,ms));}
+function fade(id,v){var e=G(id);if(e){e.style.transition="opacity .5s";e.style.opacity=v;}}
+function setStatus(t){var e=G("animStatus");if(e)e.textContent=t;}
+function startLesson(){var btn=G('startBtn');if(btn){btn.disabled=true;btn.textContent='▶ Starting...';}var done=false;function proceed(){if(!done){done=true;setTimeout(showQ,600);}}say(G('introText').innerText,proceed);setTimeout(proceed,8000);}
+function init(){
+  rishiCheckPlan(10);
+  var st=JSON.parse(localStorage.getItem("rishi_current_student")||"{}");
+  G("sName")&&(G("sName").textContent=st.studentName?st.studentName.split(" ")[0]:"there");
+  if(rishiIsExplainDone(10)){completed=true;G("doneBanner").classList.add("show");unlockNav();}
+  buildSession();rInit();
+  initVoices(function(){startLesson();});
+}
+function buildSession(){session=QB.slice().sort(function(){return Math.random()-.5;}).slice(0,PER_SESSION);}
+function showQ(){
+  if(idx>=session.length){onComplete();return;}
+  var q=session[idx];stepIdx=0;nudgeCount=0;updateProg();G("qArea").innerHTML="";clearAt();
+  var qc=document.createElement("div");qc.className="q-card";
+  qc.innerHTML='<div class="q-label">Question '+(idx+1)+' of '+PER_SESSION+'</div><div class="q-text">'+q.q+'</div><button class="btn-speak" onclick="say(session[idx].qs)">&#128266; Hear</button>';
+  G("qArea").appendChild(qc);
+  var ap=document.createElement("div");ap.className="anim-panel";
+  ap.innerHTML='<div class="anim-header"><span class="anim-header-lbl">&#127909; Live Animation</span><button class="anim-replay" id="animReplay" onclick="replayAnim()">&#8635; Replay</button></div>'
+    +'<div class="anim-canvas" id="animCanvas">'+getAnimSVG(q.anim)+'</div>'
+    +'<div class="anim-status" id="animStatus">Tap Play to watch with narration!</div>'
+    +'<button class="anim-play-btn" id="animPlayBtn" onclick="startAnim()">&#9654; Play Animation</button>'
+    +'<button class="steps-btn" id="stepsBtn" onclick="beginSteps()">&#128214; See Step-by-Step</button>';
+  G("qArea").appendChild(ap);setTimeout(startAnim,800);
+}
+function startAnim(){var q=session[idx];var pb=G("animPlayBtn");if(pb){pb.disabled=true;pb.textContent="&#9654; Playing...";}getAnimPlay(q.anim)(function(){var sb=G("stepsBtn");if(sb)sb.style.display="block";var rb=G("animReplay");if(rb)rb.style.display="block";if(pb)pb.style.display="none";setTimeout(beginSteps,600);});}
+function replayAnim(){clearAt();window.speechSynthesis&&window.speechSynthesis.cancel();rStopTalk();var q=session[idx];G("animCanvas").innerHTML=getAnimSVG(q.anim);G("animReplay").style.display="none";G("stepsBtn").style.display="none";var pb=G("animPlayBtn");if(pb){pb.style.display="block";pb.disabled=false;pb.textContent="&#9654; Play Animation";}setStatus("Tap Play to watch with narration!");}
+function beginSteps(){var q=session[idx];var sc=document.createElement("div");sc.className="q-card";sc.innerHTML='<div class="q-label">&#128214; Step-by-Step</div><div id="stepsWrap"></div><button class="btn-speak" id="nxtStepBtn" onclick="nextStep()" style="margin-top:10px;">&#9654; Next Step</button>';G("qArea").appendChild(sc);sc.scrollIntoView({behavior:"smooth",block:"start"});G("stepsBtn").style.display="none";setTimeout(nextStep,350);}
+function nextStep(){var q=session[idx];if(stepIdx>=q.steps.length){G("nxtStepBtn").style.display="none";var ib=document.createElement("button");ib.className="btn-speak";ib.innerHTML="&#9989; I Understand!";ib.style.cssText="margin-top:16px;width:100%;";ib.onclick=function(){ib.remove();showConfirm();};G("stepsWrap").appendChild(ib);ib.scrollIntoView({behavior:"smooth",block:"center"});return;}var s=q.steps[stepIdx];var wrap=G("stepsWrap");var d=document.createElement("div");d.className="step";d.innerHTML='<div class="step-num">'+(stepIdx+1)+'</div><div class="step-body">'+s.t+'</div>';wrap.appendChild(d);setTimeout(function(){d.classList.add("vis");},40);setTimeout(nextStep,3500);stepIdx++;}
+function showConfirm(){
+  var q=session[idx];var c=document.createElement("div");c.className="confirm-wrap";
+  c.innerHTML='<div class="confirm-title">&#127917; Rishika asks!</div>'
+    +'<div class="confirm-q">'+q.cq+'</div>'
+    +'<textarea id="rawAnswer" class="math-raw" rows="2" placeholder="Type your answer here..."></textarea>'
+    +'<div class="math-preview-label">Preview</div>'
+    +'<div class="math-preview" id="mathPreview"></div>'
+    +'<div class="sugg-chips" id="suggChips"></div>'
+    +'<button type="button" onclick="submitTyped()" style="width:100%;font-family:Nunito,sans-serif;font-size:14px;font-weight:900;padding:11px;border-radius:12px;border:none;background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;cursor:pointer;margin-bottom:8px;">Submit Answer</button>'
+    +'<div class="result-box" id="rbox"></div>'
+    +'<div class="nudge" id="nudgeBox"></div>'
+    +'<button type="button" class="btn-next" id="btnNext" onclick="goNext()">Next Question &#9654;</button>';
+  G("qArea").appendChild(c);c.scrollIntoView({behavior:"smooth",block:"center"});
+  var ra=G("rawAnswer");
+  if(ra){ra.addEventListener("input",mathUpdate);ra.addEventListener("keydown",function(ev){if(ev.key==="Enter"&&!ev.shiftKey){ev.preventDefault();submitTyped();}});setTimeout(function(){ra.focus();},300);}
+  buildSuggChips(q.ans);say(q.cqs);
+}
+function submitTyped(){var ra=G("rawAnswer");if(!ra)return;var val=String(ra.value||"").trim();if(!val){ra.focus();return;}handleAnswer(val.toLowerCase());}
+function goNext(){idx++;G("qArea").innerHTML="";showQ();window.scrollTo({top:0,behavior:"smooth"});}
+function updateProg(){var pct=Math.round((idx/PER_SESSION)*100);G("progFill").style.width=pct+"%";G("progLabel").textContent="Question "+(idx+1)+" of "+PER_SESSION;G("progPct").textContent=pct+"%";}
+function unlockNav(){G("btnPractice").classList.remove("locked");G("btnExam").classList.remove("locked");G("lockTip").style.display="none";}
+function onComplete(){
+  rishiMarkExplainDone(10);
+  completed=true;G("doneBanner").classList.add("show");unlockNav();
+  var st=JSON.parse(localStorage.getItem("rishi_current_student")||"{}");
+  var nm=st.studentName?st.studentName.split(" ")[0]:"champion";
+  var cel=document.createElement("div");cel.className="rishika-wrap";
+  cel.innerHTML='<div class="rishika-avatar">&#128105;&#8205;&#127979;</div>'
+    +'<div class="rishika-bubble"><div class="rishika-name">Rishika</div>'
+    +'<div class="rishika-text" id="celText">&#127881; <span class="hl">'+nm+'</span>, You have mastered Heron's Formula! You can now find area of any triangle and quadrilateral &#128170;</div>'
+    +'<button class="btn-speak" onclick="sayEl(\'celText\')">&#128266; Hear</button></div>';
+  G("qArea").appendChild(cel);setTimeout(function(){sayEl("celText");rHappy();},400);
+}
+function goPractice(){if(!completed){alert("Complete explanations first!");return;}location.href="/practice/class9/mensuration/herons-formula.html";}
+function goExam(){if(!completed){alert("Complete explanations first!");return;}location.href="/exam.html?ch=c9-10";}
+var CELEBRATIONS=[{word:"Magnifique!",lang:"French",meaning:"Magnificent!",speak:"Magnifique"},{word:"Bravissimo!",lang:"Italian",meaning:"Very well done!",speak:"Bravissimo"},{word:"Wunderbar!",lang:"German",meaning:"Wonderful!",speak:"Wunderbar"},{word:"Shabash!",lang:"Hindi",meaning:"Well done!",speak:"Shabash"},{word:"Felicitaciones!",lang:"Spanish",meaning:"Congratulations!",speak:"Felicitaciones"}];
+var lastCelIdx=-1;
+function celebrate(){var i;do{i=Math.floor(Math.random()*CELEBRATIONS.length);}while(i===lastCelIdx&&CELEBRATIONS.length>1);lastCelIdx=i;var c=CELEBRATIONS[i];var rb=G("rbox");rb.className="result-box ok";rb.innerHTML='<div style="font-size:18px;font-weight:900;">'+c.word+'</div><div style="font-size:11px;">'+c.lang+' &middot; <em>'+c.meaning+'</em></div>';G("nudgeBox").classList.remove("show");var nb=G("btnNext");if(nb)nb.classList.add("show");say(c.speak);rHappy();}
+function handleAnswer(text){var q=session[idx];var ok=q.ans.some(function(a){return text.includes(a.toLowerCase())||a.toLowerCase().includes(text);});var rb=G("rbox");if(ok){celebrate();}else{nudgeCount++;rb.className="result-box no";rb.textContent="\u2716 Not quite. Listen to my hint!";var nudge=q.nudges[Math.min(nudgeCount-1,q.nudges.length-1)];showNudge(nudge);say(nudge);rThink();if(nudgeCount>=3){var nb2=G("btnNext");if(nb2){nb2.classList.add("show");nb2.textContent="I Understand \u25b6";}}}}
+function showNudge(msg){var n=G("nudgeBox");if(n){n.textContent=msg;n.classList.add("show");}}
+function openBreak(){G("breakOv").classList.add("show");}
+function closeBreak(){G("breakOv").classList.remove("show");}
+function startBreak(r){closeBreak();breakSecs=0;G("timerLbl").textContent=r;G("timerNum").textContent="00:00";G("timerScreen").classList.add("show");breakTmr=setInterval(function(){breakSecs++;var m=String(Math.floor(breakSecs/60)).padStart(2,"0");var s=String(breakSecs%60).padStart(2,"0");G("timerNum").textContent=m+":"+s;},1000);}
+function endBreak(){clearInterval(breakTmr);G("timerScreen").classList.remove("show");}
+function mathUpdate(){var ra=G("rawAnswer");if(!ra)return;var v=ra.value.trim();var el=G("mathPreview");if(el)el.textContent=v||"";}
+function buildSuggChips(ans){var el=G("suggChips");if(!el)return;el.innerHTML="";(ans||[]).forEach(function(a){var btn=document.createElement("button");btn.className="schip";btn.textContent=a;btn.type="button";btn.addEventListener("click",function(){var ra=G("rawAnswer");if(ra){ra.value=a;mathUpdate();ra.focus();}});el.appendChild(btn);});}
+window.onload=init;
+</script>
+<script src="/explain-helper.js"></script>
 </body>
 </html>

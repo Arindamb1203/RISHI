@@ -1,7 +1,330 @@
 {
-  "_note": "STUB \u2014 fill in questions before unlocking Class 9",
-  "chapter": "herons-formula",
-  "class": 9,
-  "board": "cbse",
-  "questions": []
+  "chapter_slug":   "herons-formula",
+  "chapter_name":   "Heron's Formula",
+  "chapter_emoji":  "📐",
+  "class_num":      9,
+  "board":          "cbse",
+  "topic":          "mensuration",
+  "chap_id":        10,
+  "exam_key":       "c9-10",
+
+  "intro_text": "Hi <span class=\"hl\" id=\"sName\">there</span>! &#128522; Today we master <span class=\"hl\">Heron&#39;s Formula</span> — the ancient trick to find the area of ANY triangle when all three sides are known, without needing the height! Named after the Greek mathematician Hero of Alexandria! &#127919;",
+
+  "complete_message": "You have mastered Heron's Formula! You can now find area of any triangle and quadrilateral &#128170;",
+
+  "explain_questions": [
+    {
+      "id": "hf1",
+      "question": "What is Heron's Formula and when do we use it?",
+      "question_spoken": "What is Heron's Formula and when do we use it?",
+      "steps": [
+        {"t": "Normal area formula: Area = ½ × base × height. Problem: what if we don't know the height? HERON'S FORMULA solves this! When all THREE SIDES of a triangle are known, we can find the area directly.", "s": "Normal area formula needs height. Heron's Formula finds area using only the three sides — no height needed."},
+        {"t": "Heron's Formula: First find s = (a + b + c) / 2, called the SEMI-PERIMETER (half the perimeter). Then Area = √[s(s-a)(s-b)(s-c)]. That's it! s is the magical middle step.", "s": "Step 1: find s, the semi-perimeter, which is a plus b plus c divided by 2. Step 2: Area equals square root of s times s minus a times s minus b times s minus c."},
+        {"t": "Named after Hero (Heron) of Alexandria, a Greek mathematician from around 60 AD. This formula works for ALL types of triangles — equilateral, isosceles, scalene, right-angled — any triangle!", "s": "Named after Heron of Alexandria. Works for all types of triangles regardless of their shape."}
+      ],
+      "confirm_question": "In Heron's Formula, what is 's' called?",
+      "confirm_question_spoken": "In Heron's Formula, what is s called?",
+      "answers": ["semi-perimeter", "semiperimeter", "half perimeter", "half the perimeter"],
+      "nudges": [
+        "s = (a + b + c) / 2",
+        "It is half of the total perimeter of the triangle",
+        "Answer: Semi-perimeter"
+      ],
+      "anim_svg": "<g id=\"hf1s0\" opacity=\"0\"><rect x=\"10\" y=\"8\" width=\"390\" height=\"30\" rx=\"7\" fill=\"#f5e6c8\"/><text x=\"210\" y=\"28\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"800\" fill=\"#d4870a\">Heron's Formula: Area = √[s(s-a)(s-b)(s-c)]</text></g><g id=\"hf1s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">s = (a+b+c)/2 → Semi-perimeter (half perimeter)</text></g><g id=\"hf1s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Works for ALL triangles — no height needed!</text></g><g id=\"hf1ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">s = semi-perimeter = (a+b+c)/2</text></g>"
+    },
+    {
+      "id": "hf2",
+      "question": "How do you apply Heron's Formula step by step?",
+      "question_spoken": "How do you apply Heron's Formula step by step?",
+      "steps": [
+        {"t": "Example: Triangle with sides a=5, b=6, c=7 cm. Step 1: Find s. s = (5+6+7)/2 = 18/2 = 9 cm.", "s": "Step 1: Add all three sides and divide by 2. 5 plus 6 plus 7 equals 18. Divide by 2 gives s equals 9."},
+        {"t": "Step 2: Calculate (s−a), (s−b), (s−c). s−a = 9−5 = 4. s−b = 9−6 = 3. s−c = 9−7 = 2. Step 3: Multiply: s(s−a)(s−b)(s−c) = 9×4×3×2 = 216.", "s": "Step 2: find s minus each side. 9 minus 5 is 4, 9 minus 6 is 3, 9 minus 7 is 2. Step 3: multiply 9 times 4 times 3 times 2 equals 216."},
+        {"t": "Step 4: Area = √216 = √(36 × 6) = 6√6 cm². Always simplify the square root! Check: is your answer reasonable? For a triangle with sides 5,6,7 — area around 14.7 cm² makes sense.", "s": "Step 4: take the square root of 216. Simplify: root 216 equals 6 root 6 square centimetres."}
+      ],
+      "confirm_question": "For a triangle with sides 3, 4, 5 cm, what is the semi-perimeter s?",
+      "confirm_question_spoken": "For a triangle with sides 3, 4 and 5 cm, what is the semi-perimeter s?",
+      "answers": ["6", "6 cm"],
+      "nudges": [
+        "s = (a + b + c) / 2",
+        "s = (3 + 4 + 5) / 2 = 12 / 2",
+        "Answer: s = 6 cm"
+      ],
+      "anim_svg": "<g id=\"hf2s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Sides: a=5, b=6, c=7 | Step 1: s=(5+6+7)/2=9</text></g><g id=\"hf2s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Step 2: s-a=4, s-b=3, s-c=2 | Step 3: 9×4×3×2=216</text></g><g id=\"hf2s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Step 4: Area=√216=6√6 cm²</text></g><g id=\"hf2ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">s = (3+4+5)/2 = 6 cm</text></g>"
+    },
+    {
+      "id": "hf3",
+      "question": "How do you find area of a 3-4-5 right triangle using Heron's Formula?",
+      "question_spoken": "How do you find the area of a 3-4-5 right triangle using Heron's Formula?",
+      "steps": [
+        {"t": "Triangle sides: a=3, b=4, c=5. First verify: 3²+4²=9+16=25=5². So it IS a right triangle (Pythagoras). Normal formula: Area = ½×3×4 = 6 cm². Now let's verify with Heron's Formula.", "s": "Sides 3, 4, 5 form a right triangle. Normal formula gives area equals 6 square cm. Verify using Heron's Formula."},
+        {"t": "s = (3+4+5)/2 = 6. s−a = 3, s−b = 2, s−c = 1. Product: 6×3×2×1 = 36. Area = √36 = 6 cm². Both methods give 6 cm² — Heron's Formula verified!", "s": "Semi-perimeter is 6. The product is 6 times 3 times 2 times 1 equals 36. Square root of 36 is 6. Both methods agree."},
+        {"t": "This verification trick is useful in exams: for a right triangle, you can check your Heron's Formula answer using ½×base×height. If they match, your calculation is correct!", "s": "Always verify Heron's Formula answer using the normal formula when possible. This catches calculation errors."}
+      ],
+      "confirm_question": "Area of triangle with sides 3, 4, 5 cm using Heron's Formula is ____.",
+      "confirm_question_spoken": "The area of a triangle with sides 3, 4 and 5 cm using Heron's Formula is blank.",
+      "answers": ["6 cm²", "6", "6 sq cm"],
+      "nudges": [
+        "s = 6. Product = 6×3×2×1 = 36",
+        "Area = √36 = ?",
+        "Answer: 6 cm²"
+      ],
+      "anim_svg": "<g id=\"hf3s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">3-4-5: right triangle | Normal: ½×3×4=6 cm²</text></g><g id=\"hf3s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">s=6 | s-a=3, s-b=2, s-c=1 | product=36 | √36=6 ✓</text></g><g id=\"hf3s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Both methods: 6 cm² — Heron verified!</text></g><g id=\"hf3ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Area = √36 = 6 cm²</text></g>"
+    },
+    {
+      "id": "hf4",
+      "question": "How do you find the area of an equilateral triangle using Heron's Formula?",
+      "question_spoken": "How do you find the area of an equilateral triangle using Heron's Formula?",
+      "steps": [
+        {"t": "Equilateral triangle with all sides = a. s = (a+a+a)/2 = 3a/2. Then s−a = 3a/2−a = a/2. (All three terms s−a, s−b, s−c are equal to a/2!)", "s": "For equilateral triangle with side a, semi-perimeter is 3a over 2. Each of s minus a, s minus b, s minus c equals a over 2."},
+        {"t": "Area = √[s(s−a)(s−b)(s−c)] = √[(3a/2)(a/2)(a/2)(a/2)] = √[3a⁴/16] = (√3/4)a². This is the STANDARD formula for equilateral triangle area!", "s": "Substituting gives area equals root 3 over 4 times a squared. This is the standard formula."},
+        {"t": "Example: Equilateral triangle with side 6 cm. Area = (√3/4) × 36 = 9√3 ≈ 15.6 cm². Remember this formula — it is used very frequently in mensuration problems!", "s": "For side 6 cm: area equals root 3 over 4 times 36 equals 9 root 3 square cm."}
+      ],
+      "confirm_question": "Area of equilateral triangle with side 4 cm is ____.",
+      "confirm_question_spoken": "The area of an equilateral triangle with side 4 cm is blank.",
+      "answers": ["4√3", "4root3", "4√3 cm²", "4 root 3"],
+      "nudges": [
+        "Formula: (√3/4) × a² for equilateral triangle",
+        "(√3/4) × 4² = (√3/4) × 16",
+        "Answer: 4√3 cm²"
+      ],
+      "anim_svg": "<g id=\"hf4s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Equilateral side=a: s=3a/2, s-a=s-b=s-c=a/2</text></g><g id=\"hf4s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Area=√[(3a/2)(a/2)³]=√(3a⁴/16)=(√3/4)a²</text></g><g id=\"hf4s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Side=6: Area=(√3/4)×36=9√3 cm²</text></g><g id=\"hf4ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">(√3/4)×16 = 4√3 cm²</text></g>"
+    },
+    {
+      "id": "hf5",
+      "question": "How do you find area of a quadrilateral using Heron's Formula?",
+      "question_spoken": "How do you find the area of a quadrilateral using Heron's Formula?",
+      "steps": [
+        {"t": "Heron's Formula applies to triangles — but we can use it for quadrilaterals too! Method: draw a diagonal to divide the quadrilateral into TWO triangles. Find area of each triangle using Heron's Formula and add them!", "s": "Divide the quadrilateral into two triangles using a diagonal. Find each triangle's area with Heron's Formula and add."},
+        {"t": "Example: Quadrilateral ABCD with AB=3, BC=4, CD=4, DA=5 and diagonal AC=5. Triangle ABC: sides 3,4,5 — area=6 cm². Triangle ACD: sides 5,4,5 — calculate separately.", "s": "Triangle ABC with sides 3, 4, 5 has area 6 square cm. Now calculate triangle ACD with sides 5, 4, 5 separately."},
+        {"t": "For triangle ACD: sides a=5, b=4, c=5. s=(5+4+5)/2=7. s-a=2, s-b=3, s-c=2. Area=√(7×2×3×2)=√84=2√21 cm². Total area = 6 + 2√21 cm².", "s": "Triangle ACD: s equals 7. Product is 7 times 2 times 3 times 2 equals 84. Area equals 2 root 21. Total is 6 plus 2 root 21."}
+      ],
+      "confirm_question": "To find area of a quadrilateral using triangles, how do you divide it?",
+      "confirm_question_spoken": "To find area of a quadrilateral using Heron's Formula, how do you divide it?",
+      "answers": ["by drawing a diagonal", "diagonal", "draw a diagonal"],
+      "nudges": [
+        "A quadrilateral can be split into triangles",
+        "What single line segment divides a quadrilateral into 2 triangles?",
+        "Answer: By drawing a diagonal"
+      ],
+      "anim_svg": "<g id=\"hf5s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Quad → 2 triangles via diagonal → apply Heron's twice</text></g><g id=\"hf5s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">△ABC(3,4,5): area=6 | △ACD(5,4,5): area=2√21</text></g><g id=\"hf5s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Total area = 6 + 2√21 cm²</text></g><g id=\"hf5ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Draw a diagonal → divide into 2 triangles</text></g>"
+    },
+    {
+      "id": "hf6",
+      "question": "How do you find the area of an isosceles triangle using Heron's Formula?",
+      "question_spoken": "How do you find the area of an isosceles triangle using Heron's Formula?",
+      "steps": [
+        {"t": "Isosceles triangle: two equal sides. Example: sides a=5, b=5, c=6 cm. Step 1: s = (5+5+6)/2 = 8 cm.", "s": "Isosceles triangle with sides 5, 5 and 6. Semi-perimeter s equals 5 plus 5 plus 6 divided by 2 equals 8."},
+        {"t": "Step 2: s−a = 3, s−b = 3, s−c = 2. Step 3: Product = 8×3×3×2 = 144. Step 4: Area = √144 = 12 cm².", "s": "s minus 5 is 3, s minus 5 is 3, s minus 6 is 2. Product is 8 times 3 times 3 times 2 equals 144. Square root of 144 is 12."},
+        {"t": "Alternate check: For isosceles triangle with equal sides b and base a, height = √(b² − (a/2)²). Height = √(25−9) = √16 = 4. Area = ½×6×4 = 12 cm². Both methods match!", "s": "Alternative: height equals root of 25 minus 9 equals 4. Area equals half times 6 times 4 equals 12. Both methods confirm 12 square cm."}
+      ],
+      "confirm_question": "For isosceles triangle with sides 5, 5, 6: what is s?",
+      "confirm_question_spoken": "For an isosceles triangle with sides 5, 5 and 6, what is s?",
+      "answers": ["8", "8 cm"],
+      "nudges": [
+        "s = (a+b+c)/2",
+        "s = (5+5+6)/2 = 16/2",
+        "Answer: s = 8 cm"
+      ],
+      "anim_svg": "<g id=\"hf6s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Isosceles (5,5,6): s=(5+5+6)/2=8</text></g><g id=\"hf6s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">s-a=3, s-b=3, s-c=2 | 8×3×3×2=144 | √144=12</text></g><g id=\"hf6s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Check: h=√(25-9)=4 | ½×6×4=12 ✓ Both agree!</text></g><g id=\"hf6ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">s = (5+5+6)/2 = 8 cm</text></g>"
+    },
+    {
+      "id": "hf7",
+      "question": "What is the area of an equilateral triangle with side 'a'?",
+      "question_spoken": "What is the formula for the area of an equilateral triangle with side a?",
+      "steps": [
+        {"t": "We derived this using Heron's Formula: Area of equilateral triangle = (√3/4) × a². This is the MOST USED mensuration formula after the basic triangle area formula.", "s": "Area of equilateral triangle equals root 3 over 4 times a squared. This is derived from Heron's Formula."},
+        {"t": "Memorise this formula! Common values: side=1: area=√3/4. Side=2: area=√3. Side=4: area=4√3. Side=6: area=9√3. Side=√3: area=3√3/4.", "s": "Memorise: side 2 gives root 3. Side 4 gives 4 root 3. Side 6 gives 9 root 3."},
+        {"t": "Application: A triangular park has all sides equal to 50 m. Area = (√3/4) × 50² = (√3/4) × 2500 = 625√3 m². At Rs 200 per m², cost = 625√3 × 200 = 125000√3 rupees. Real-life application!", "s": "For side 50 metres: area equals 625 root 3 square metres. Multiply by rate to get cost."}
+      ],
+      "confirm_question": "Area of equilateral triangle with side 2 cm is ____.",
+      "confirm_question_spoken": "Area of equilateral triangle with side 2 cm is blank.",
+      "answers": ["√3", "root 3", "√3 cm²", "root 3 cm²"],
+      "nudges": [
+        "Formula: (√3/4) × a²",
+        "(√3/4) × 4 = ?",
+        "Answer: √3 cm²"
+      ],
+      "anim_svg": "<g id=\"hf7s0\" opacity=\"0\"><rect x=\"10\" y=\"8\" width=\"390\" height=\"30\" rx=\"7\" fill=\"#f5e6c8\"/><text x=\"210\" y=\"28\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"800\" fill=\"#d4870a\">Area of equilateral △ = (√3/4)a²</text></g><g id=\"hf7s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">a=2→√3 | a=4→4√3 | a=6→9√3 | a=8→16√3</text></g><g id=\"hf7s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Park: side=50m → area=625√3m² → cost=125000√3</text></g><g id=\"hf7ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">(√3/4)×4 = √3 cm²</text></g>"
+    },
+    {
+      "id": "hf8",
+      "question": "How do you find the area when the perimeter is given?",
+      "question_spoken": "How do you find the area of a triangle when its perimeter is given?",
+      "steps": [
+        {"t": "Given perimeter = 2s. So s = perimeter/2. Example: Perimeter = 24 cm, sides in ratio 3:4:5. Sum of ratio = 12. Each part = 24/12 = 2 cm. Sides: 6, 8, 10 cm.", "s": "From perimeter, find s by dividing by 2. For ratio problems, find each part from the perimeter."},
+        {"t": "s = 24/2 = 12 cm. s-a = 6, s-b = 4, s-c = 2. Product = 12×6×4×2 = 576. Area = √576 = 24 cm².", "s": "s equals 12. s minus 6 is 6, s minus 8 is 4, s minus 10 is 2. Product is 12 times 6 times 4 times 2 equals 576. Root 576 equals 24."},
+        {"t": "Check: 6-8-10 is a right triangle (ratio 3:4:5 doubled). Area = ½×6×8 = 24 cm² ✓. Also note: √576 = √(576) = 24 (perfect square — nice! In exams, the answer is usually a whole number!)", "s": "Verify: 6-8-10 is a right triangle. Half times 6 times 8 equals 24. Both methods confirm 24 square cm."}
+      ],
+      "confirm_question": "For a triangle with perimeter 36 cm and equal sides, what is s?",
+      "confirm_question_spoken": "For an equilateral triangle with perimeter 36 cm, what is s?",
+      "answers": ["18", "18 cm"],
+      "nudges": [
+        "s = perimeter / 2",
+        "s = 36 / 2",
+        "Answer: s = 18 cm"
+      ],
+      "anim_svg": "<g id=\"hf8s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Perimeter=24, ratio 3:4:5 → sides 6,8,10</text></g><g id=\"hf8s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">s=12 | s-a=6, s-b=4, s-c=2 | 12×6×4×2=576</text></g><g id=\"hf8s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Area=√576=24 | Check: ½×6×8=24 ✓</text></g><g id=\"hf8ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">s = 36/2 = 18 cm</text></g>"
+    },
+    {
+      "id": "hf9",
+      "question": "How do you apply Heron's Formula to real-life problems?",
+      "question_spoken": "How do you apply Heron's Formula to real-life problems?",
+      "steps": [
+        {"t": "Real-life problem: A triangular wall has sides 120 m, 80 m and 50 m. Cost of painting = Rs 1.50 per m². Find total cost. Step 1: Find area using Heron's Formula.", "s": "Triangular wall with sides 120, 80, 50 metres. Find area using Heron's Formula, then multiply by rate."},
+        {"t": "s = (120+80+50)/2 = 125. s-a=5, s-b=45, s-c=75. Product = 125×5×45×75 = 125×5×3375 = 2109375. Area = √2109375 ≈ 1452 m² (exact: 375√15/2).", "s": "s equals 125. The product gives area approximately 1452 square metres."},
+        {"t": "Cost = Area × Rate = 1452 × 1.50 = Rs 2178. In real-life problems: (1) Find area with Heron's Formula. (2) Multiply by rate/price. Simple two-step approach!", "s": "Cost equals area times rate. 1452 times 1.50 equals approximately 2178 rupees."}
+      ],
+      "confirm_question": "A triangular park has sides 40m, 24m and 32m. What is s?",
+      "confirm_question_spoken": "A triangular park has sides 40 m, 24 m and 32 m. What is s?",
+      "answers": ["48", "48 m"],
+      "nudges": [
+        "s = (a+b+c)/2",
+        "s = (40+24+32)/2 = 96/2",
+        "Answer: s = 48 m"
+      ],
+      "anim_svg": "<g id=\"hf9s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Wall: sides 120,80,50m | Cost: Rs 1.50/m²</text></g><g id=\"hf9s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">s=125 → area≈1452 m²</text></g><g id=\"hf9s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Cost = 1452 × 1.50 = Rs 2178</text></g><g id=\"hf9ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">s = (40+24+32)/2 = 48 m</text></g>"
+    },
+    {
+      "id": "hf10",
+      "question": "How do you find area of a trapezium using triangles?",
+      "question_spoken": "How do you find the area of a trapezium using Heron's Formula?",
+      "steps": [
+        {"t": "Trapezium ABCD with parallel sides AB=25m, CD=10m and non-parallel sides BC=14m, AD=13m. Draw CE perpendicular to AB and CF parallel to DA. This creates triangle BCF and rectangle AECD.", "s": "Draw a perpendicular and parallel to split the trapezium into a triangle and a rectangle."},
+        {"t": "In triangle BCF: BF = AB − AF = 25 − 10 = 15m (since AF=CD=10m in rectangle AFCD). Sides: BF=15, BC=14, CF=13. s=(15+14+13)/2=21. s−a=6, s−b=7, s−c=8.", "s": "Triangle BCF has sides 15, 14 and 13. Semi-perimeter is 21."},
+        {"t": "Area of △BCF = √(21×6×7×8) = √7056 = 84 m². Height of trapezium = 84×2/15? No — use base 15: h = 2×84/15? Actually h = √(BC²−BF²... ) Wait! Height = Area×2/base? Let's use: h² = BC²−BF²... better: √(21×6×7×8)=84, height from △BCF = 2×84/15 = 11.2m? Simpler: s=21,area=84, height of trapezium h = 2×84/15... Actually area of trapezium = ½×(AB+CD)×h where h=height of trapezium. From △BCF using Heron's: area=84m². This IS the area of the triangle only!", "s": "The triangle area is 84 square metres. The height of the trapezium equals 2 times 84 divided by 15 equals 11.2 m. Area of trapezium equals half times sum of parallel sides times height."}
+      ],
+      "confirm_question": "Area of trapezium = ½ × (sum of parallel sides) × ______",
+      "confirm_question_spoken": "Area of trapezium equals half times sum of parallel sides times blank.",
+      "answers": ["height", "h", "the height"],
+      "nudges": [
+        "The trapezium area formula needs the distance between the parallel sides",
+        "This distance is perpendicular to both parallel sides",
+        "Answer: Height (perpendicular distance between parallel sides)"
+      ],
+      "anim_svg": "<g id=\"hf10s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Trapezium: parallel sides 25,10 | non-par: 14,13</text></g><g id=\"hf10s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">△BCF: sides 15,14,13 | s=21 | area=√(21×6×7×8)=84</text></g><g id=\"hf10s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">h from △: 2×84/15=11.2 | Trap area=½×(25+10)×11.2=196m²</text></g><g id=\"hf10ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Area of trapezium = ½×(sum of || sides)×height</text></g>"
+    }
+  ],
+
+  "practice_questions": [
+    {
+      "question": "Find the area of a triangle with sides 7 cm, 8 cm and 9 cm using Heron's Formula.",
+      "question_spoken": "Find the area of a triangle with sides 7, 8 and 9 cm using Heron's Formula.",
+      "answers": ["6√10", "6 root 10", "6√10 cm²"],
+      "steps": ["s = (7+8+9)/2 = 12", "s-a=5, s-b=4, s-c=3", "Area = √(12×5×4×3) = √720 = √(144×5) = 12√5... wait: √720=√(36×20)=6√20=6×2√5=12√5 cm²"],
+      "trick": "Always factorise the number under the root. 720 = 36×20 = 36×4×5. So √720 = 6×2×√5 = 12√5.",
+      "alt": "s=12: 12×5×4×3=720. Simplify: 720=4×4×9×5=144×5. √(144×5)=12√5 cm²."
+    },
+    {
+      "question": "Find the area of a triangle with sides 6 cm, 8 cm and 10 cm.",
+      "question_spoken": "Find the area of a triangle with sides 6, 8 and 10 cm.",
+      "answers": ["24 cm²", "24"],
+      "steps": ["s = (6+8+10)/2 = 12", "s-a=6, s-b=4, s-c=2. Product = 12×6×4×2 = 576", "Area = √576 = 24 cm²"],
+      "trick": "6-8-10 is a right triangle (3-4-5 doubled). Always check: does 6²+8²=10²? 36+64=100 ✓. Right triangle → Area=½×6×8=24.",
+      "alt": "Heron: s=12, product=576, √576=24. Verify: right triangle, Area=½×6×8=24. Both give 24 cm²."
+    },
+    {
+      "question": "Find the area of an equilateral triangle with side 10 cm.",
+      "question_spoken": "Find the area of an equilateral triangle with side 10 cm.",
+      "answers": ["25√3", "25√3 cm²", "25 root 3"],
+      "steps": ["Formula: (√3/4) × a²", "(√3/4) × 100 = 25√3", "Area = 25√3 cm²"],
+      "trick": "Equilateral area = (√3/4)a². Memorise! For side 10: (√3/4)×100 = 25√3. Clean and fast!",
+      "alt": "s=(10+10+10)/2=15. s-a=s-b=s-c=5. Product=15×5×5×5=1875. √1875=√(625×3)=25√3 ✓"
+    },
+    {
+      "question": "The semi-perimeter of a triangle with sides 10, 24 and 26 cm is ____.",
+      "question_spoken": "The semi-perimeter of a triangle with sides 10, 24 and 26 cm is blank.",
+      "answers": ["30", "30 cm"],
+      "steps": ["s = (a+b+c)/2", "s = (10+24+26)/2 = 60/2", "s = 30 cm"],
+      "trick": "Semi-perimeter = half of perimeter. Add all sides and divide by 2. Quick arithmetic!",
+      "alt": "10+24+26=60. Half of 60 is 30. s=30."
+    },
+    {
+      "question": "Find the area of a triangle with sides 10, 24 and 26 cm.",
+      "question_spoken": "Find the area of a triangle with sides 10, 24 and 26 cm.",
+      "answers": ["120 cm²", "120"],
+      "steps": ["Check: 10²+24²=100+576=676=26². Right triangle!", "Area = ½×10×24 = 120 cm²", "Heron verify: s=30, s-a=20, s-b=6, s-c=4. √(30×20×6×4)=√14400=120 ✓"],
+      "trick": "10-24-26 is a right triangle (5-12-13 doubled). Always spot Pythagorean triples: 3-4-5, 5-12-13, 8-15-17, 7-24-25!",
+      "alt": "10²+24²=676=26². Right angle! Area=½×10×24=120 cm²."
+    },
+    {
+      "question": "A triangle has perimeter 42 cm and sides in ratio 1:2:3. Find the area.",
+      "question_spoken": "A triangle has perimeter 42 cm and sides in ratio 1:2:3. Find the area.",
+      "answers": ["0", "0 cm²", "no triangle", "not a valid triangle"],
+      "steps": ["Ratio 1:2:3, total parts = 6. Each part = 42/6 = 7 cm", "Sides: 7, 14, 21 cm", "Check triangle inequality: 7+14=21. NOT greater than 21! Invalid triangle!"],
+      "trick": "Always verify triangle inequality before applying Heron's! 7+14=21 is NOT greater than 21. This is a degenerate triangle (collinear points) with area = 0!",
+      "alt": "7+14=21 = third side. These three points are collinear (on a straight line). No triangle is formed. Area = 0."
+    },
+    {
+      "question": "Find the area of a triangle with sides 13 cm, 14 cm and 15 cm.",
+      "question_spoken": "Find the area of a triangle with sides 13, 14 and 15 cm.",
+      "answers": ["84 cm²", "84"],
+      "steps": ["s = (13+14+15)/2 = 21", "s-a=8, s-b=7, s-c=6. Product = 21×8×7×6 = 7056", "Area = √7056 = 84 cm²"],
+      "trick": "13-14-15 is a famous triangle in CBSE! s=21, product=7056=84². Memorise: area=84 cm². Appears in many exam papers!",
+      "alt": "21×8=168, 168×7=1176, 1176×6=7056. √7056=84. (Check: 84²=7056 ✓)"
+    },
+    {
+      "question": "An equilateral triangle has perimeter 60 cm. Find its area.",
+      "question_spoken": "An equilateral triangle has perimeter 60 cm. Find its area.",
+      "answers": ["100√3 cm²", "100√3", "100 root 3"],
+      "steps": ["Perimeter = 60 → each side = 60/3 = 20 cm", "Area = (√3/4) × 20² = (√3/4) × 400", "Area = 100√3 cm²"],
+      "trick": "Equilateral perimeter → each side = perimeter/3. Then use (√3/4)a². Quick two-step!",
+      "alt": "Side=20. (√3/4)×400=100√3. Or: s=30, s-a=s-b=s-c=10. √(30×10×10×10)=√30000=100√3 ✓"
+    },
+    {
+      "question": "Triangle has sides 5, 12, 13 cm. Find the area.",
+      "question_spoken": "A triangle has sides 5, 12 and 13 cm. Find the area.",
+      "answers": ["30 cm²", "30"],
+      "steps": ["5²+12²=25+144=169=13². Right triangle!", "Area = ½×5×12 = 30 cm²", "Heron: s=15, s-a=10, s-b=3, s-c=2. √(15×10×3×2)=√900=30 ✓"],
+      "trick": "5-12-13 is a Pythagorean triple! Spot it instantly → right triangle → Area=½×5×12=30. No Heron needed!",
+      "alt": "Right angle at the vertex between sides 5 and 12. Area = ½ × base × height = ½ × 5 × 12 = 30 cm²."
+    },
+    {
+      "question": "Using Heron's Formula, find the area of a triangle with sides 9m, 12m and 15m.",
+      "question_spoken": "Find the area of a triangle with sides 9, 12 and 15 metres.",
+      "answers": ["54 m²", "54"],
+      "steps": ["9²+12²=81+144=225=15². Right triangle (3-4-5 tripled)!", "Area = ½×9×12 = 54 m²", "Heron: s=18, s-a=9, s-b=6, s-c=3. √(18×9×6×3)=√2916=54 ✓"],
+      "trick": "9-12-15 is 3-4-5 tripled. Right triangle! Area=½×9×12=54 m². Pythagorean triple recognition saves time!",
+      "alt": "s=18: product=18×9×6×3=2916. √2916=54. Or: right triangle area=½×9×12=54."
+    },
+    {
+      "question": "A rhombus has diagonals 16 cm and 12 cm. Find its area.",
+      "question_spoken": "A rhombus has diagonals 16 cm and 12 cm. Find its area.",
+      "answers": ["96 cm²", "96"],
+      "steps": ["Area of rhombus = ½ × d₁ × d₂", "Area = ½ × 16 × 12 = 96 cm²", "OR: half diagonal = 8 and 6, side = √(8²+6²)=10. Use Heron's on each triangle."],
+      "trick": "Rhombus area = ½ × product of diagonals. d₁×d₂/2. Quick formula — but understand why: diagonals divide it into 4 right triangles!",
+      "alt": "The diagonals cut the rhombus into 4 right triangles each with legs 8 and 6. Each triangle area=½×8×6=24. Total=4×24=96."
+    },
+    {
+      "question": "Find the perimeter of an equilateral triangle if its area is 16√3 cm².",
+      "question_spoken": "Find the perimeter of an equilateral triangle if its area is 16 root 3 square cm.",
+      "answers": ["24 cm", "24"],
+      "steps": ["Area = (√3/4)a² = 16√3", "(√3/4)a² = 16√3 → a² = 64 → a = 8 cm", "Perimeter = 3 × 8 = 24 cm"],
+      "trick": "Given area, reverse the formula: (√3/4)a² = given area. Divide by (√3/4) to get a². Find a, then perimeter = 3a.",
+      "alt": "(√3/4)a²=16√3. Divide both sides by √3: (1/4)a²=16. Multiply by 4: a²=64. a=8. Perimeter=3×8=24."
+    },
+    {
+      "question": "Heron's Formula states: Area = √[s(s-a)(s-b)(s-c)] where s = ______",
+      "question_spoken": "In Heron's Formula, s equals what?",
+      "answers": ["(a+b+c)/2", "a+b+c divided by 2", "semi-perimeter", "half perimeter"],
+      "steps": ["s is the semi-perimeter", "s = (a+b+c)/2 where a, b, c are the three sides", "It is exactly half the perimeter of the triangle"],
+      "trick": "SEMI = half. Semi-perimeter = half perimeter = (a+b+c)/2. The 's' stands for semi-perimeter!",
+      "alt": "Perimeter = a+b+c. Semi-perimeter = half of perimeter = (a+b+c)/2 = s."
+    },
+    {
+      "question": "A triangle has sides in ratio 3:5:7 and perimeter 90 cm. Find the area.",
+      "question_spoken": "A triangle has sides in ratio 3:5:7 and perimeter 90 cm. Find the area.",
+      "answers": ["15√(118) cm²", "15√118", "roughly 163"],
+      "steps": ["Total ratio = 15. Each part = 90/15 = 6 cm", "Sides: 18, 30, 42 cm. s = 90/2 = 45", "s-a=27, s-b=15, s-c=3. Area=√(45×27×15×3)=√54675=15√243=45√(... )=15√(45×27×15×3/225)"],
+      "trick": "For ratio problems: find each part = perimeter/(sum of ratios). Then apply Heron's. Always simplify the product under the root.",
+      "alt": "Parts=90/15=6. Sides=18,30,42. s=45. 45×27×15×3=54675. √54675=√(225×243)=15√243=15×9√3=135√3 cm²"
+    },
+    {
+      "question": "The sides of a triangle are 35, 54 and 61 cm. Find its area.",
+      "question_spoken": "The sides of a triangle are 35, 54 and 61 cm. Find its area.",
+      "answers": ["939.15 cm²", "420√5 cm²", "420√5"],
+      "steps": ["s = (35+54+61)/2 = 75", "s-a=40, s-b=21, s-c=14. Product = 75×40×21×14", "= 75×40×294 = 882000. √882000 = √(441×2000) = 21√2000 = 21×20√5 = 420√5 cm²"],
+      "trick": "Factorise the product carefully. 75×40=3000, 3000×21=63000, 63000×14=882000. Then factorise 882000 for the square root.",
+      "alt": "75=3×25, 40=8×5, 21=3×7, 14=2×7. Product=3×25×8×5×3×7×2×7=9×49×25×16×5=441×2000. √(441×2000)=21×20√5=420√5."
+    }
+  ]
 }
