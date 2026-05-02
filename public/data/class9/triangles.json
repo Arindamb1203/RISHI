@@ -1,7 +1,330 @@
 {
-  "_note": "STUB \u2014 fill in questions before unlocking Class 9",
-  "chapter": "triangles",
-  "class": 9,
-  "board": "cbse",
-  "questions": []
+  "chapter_slug":   "triangles",
+  "chapter_name":   "Triangles",
+  "chapter_emoji":  "🔺",
+  "class_num":      9,
+  "board":          "cbse",
+  "topic":          "geometry",
+  "chap_id":        7,
+  "exam_key":       "c9-07",
+
+  "intro_text": "Hi <span class=\"hl\" id=\"sName\">there</span>! &#128522; Today we master <span class=\"hl\">Triangles</span> — the strongest shape in geometry! We&#39;ll learn the powerful congruence rules (SAS, ASA, SSS, RHS, AAS) and discover the beautiful properties of isosceles and equilateral triangles! &#127919;",
+
+  "complete_message": "You have mastered Triangles! Congruence is now your superpower &#128170;",
+
+  "explain_questions": [
+    {
+      "id": "tr1",
+      "question": "What does it mean for two triangles to be congruent?",
+      "question_spoken": "What does it mean for two triangles to be congruent?",
+      "steps": [
+        {"t": "Two triangles are CONGRUENT if they are exactly equal in shape and size. When one is placed over the other (superimposed), they coincide completely. Symbol: triangle ABC ≅ triangle DEF.", "s": "Congruent triangles are identical in shape and size. They coincide perfectly when placed on each other."},
+        {"t": "For triangle ABC ≅ triangle DEF: corresponding sides are equal (AB=DE, BC=EF, CA=FD) AND corresponding angles are equal (angle A = angle D, angle B = angle E, angle C = angle F). ALL SIX parts match!", "s": "All three sides and all three angles are equal between congruent triangles. Six parts total."},
+        {"t": "CPCT = Corresponding Parts of Congruent Triangles. Once you prove two triangles are congruent, you can say any corresponding part is equal using CPCT. This is one of the most used tools in geometry!", "s": "CPCT means corresponding parts of congruent triangles are equal. Use this after proving congruence."}
+      ],
+      "confirm_question": "What does CPCT stand for?",
+      "confirm_question_spoken": "What does CPCT stand for?",
+      "answers": ["corresponding parts of congruent triangles", "cpct", "corresponding parts"],
+      "nudges": [
+        "CPCT is a rule used AFTER proving triangles are congruent",
+        "It tells us that any matching parts must be equal",
+        "Answer: Corresponding Parts of Congruent Triangles"
+      ],
+      "anim_svg": "<g id=\"tr1s0\" opacity=\"0\"><rect x=\"10\" y=\"8\" width=\"390\" height=\"30\" rx=\"7\" fill=\"#f5e6c8\"/><text x=\"210\" y=\"28\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"800\" fill=\"#d4870a\">Congruent: same shape + same size → coincide exactly</text></g><g id=\"tr1s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">△ABC≅△DEF: AB=DE, BC=EF, CA=FD, ∠A=∠D, ∠B=∠E, ∠C=∠F</text></g><g id=\"tr1s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">CPCT: after proving congruence → any corresponding part = equal</text></g><g id=\"tr1ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"11\" font-weight=\"bold\" fill=\"#7a8c6e\">CPCT = Corresponding Parts of Congruent Triangles</text></g>"
+    },
+    {
+      "id": "tr2",
+      "question": "What is the SAS Congruence Rule?",
+      "question_spoken": "What is the SAS congruence rule?",
+      "steps": [
+        {"t": "SAS = Side-Angle-Side. If two sides and the INCLUDED angle of one triangle are equal to two sides and the included angle of another triangle, the triangles are congruent.", "s": "SAS: two sides and the included angle between them must be equal for congruence."},
+        {"t": "The INCLUDED angle is the angle BETWEEN the two given sides. Example: In triangles ABC and DEF, if AB=DE, angle B = angle E, and BC=EF → triangle ABC ≅ triangle DEF by SAS!", "s": "The included angle must be between the two equal sides. Not just any angle — the one sandwiched between them."},
+        {"t": "WARNING: SSA (two sides and a non-included angle) does NOT guarantee congruence! The angle MUST be included (between the two sides). This is a common exam trap!", "s": "SSA does not work for congruence. The angle must be included between the two sides, not outside them."}
+      ],
+      "confirm_question": "In SAS, the angle must be ______ the two sides.",
+      "confirm_question_spoken": "In SAS congruence, the angle must be blank the two sides.",
+      "answers": ["between", "included between", "the included angle"],
+      "nudges": [
+        "SAS = Side-ANGLE-Side. Look at the position of the angle",
+        "The angle is sandwiched between the two given sides",
+        "Answer: between (included between the two sides)"
+      ],
+      "anim_svg": "<g id=\"tr2s0\" opacity=\"0\"><rect x=\"10\" y=\"8\" width=\"390\" height=\"30\" rx=\"7\" fill=\"#f5e6c8\"/><text x=\"210\" y=\"28\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"800\" fill=\"#d4870a\">SAS: Side-Angle-Side (angle must be INCLUDED)</text></g><g id=\"tr2s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">AB=DE, ∠B=∠E, BC=EF → △ABC≅△DEF (SAS)</text></g><g id=\"tr2s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">WARNING: SSA does NOT work! Angle must be INCLUDED!</text></g><g id=\"tr2ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Angle must be BETWEEN (included) the two sides</text></g>"
+    },
+    {
+      "id": "tr3",
+      "question": "What is the ASA Congruence Rule?",
+      "question_spoken": "What is the ASA congruence rule?",
+      "steps": [
+        {"t": "ASA = Angle-Side-Angle. If two angles and the INCLUDED side of one triangle are equal to two angles and the included side of another triangle, the triangles are congruent.", "s": "ASA: two angles and the side between them must be equal for congruence."},
+        {"t": "The included side is the side BETWEEN the two given angles. Example: In triangles ABC and DEF, if angle A = angle D, AB = DE, angle B = angle E → triangle ABC ≅ triangle DEF by ASA.", "s": "The included side must be between the two equal angles. Example: angle A equal angle D, side AB equal side DE, angle B equal angle E."},
+        {"t": "AAS is a related rule: Angle-Angle-Side (any side, not necessarily included). AAS works because if two angles are equal, the third is automatically equal too (angle sum = 180°). So AAS = ASA in effect!", "s": "AAS also works because if two angles are equal, the third must be equal by the angle sum property."}
+      ],
+      "confirm_question": "In ASA, the side must be ______ the two angles.",
+      "confirm_question_spoken": "In ASA congruence, the side must be blank the two angles.",
+      "answers": ["between", "included between", "the included side"],
+      "nudges": [
+        "ASA = Angle-SIDE-Angle. The side is in the middle",
+        "The side connects the two angles — it is between them",
+        "Answer: between (included between the two angles)"
+      ],
+      "anim_svg": "<g id=\"tr3s0\" opacity=\"0\"><rect x=\"10\" y=\"8\" width=\"390\" height=\"30\" rx=\"7\" fill=\"#eef2eb\"/><text x=\"210\" y=\"28\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">ASA: Angle-Side-Angle (side must be INCLUDED)</text></g><g id=\"tr3s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">∠A=∠D, AB=DE, ∠B=∠E → △ABC≅△DEF (ASA)</text></g><g id=\"tr3s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">AAS: 2 angles + any side = works (3rd angle is forced!)</text></g><g id=\"tr3ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Side must be BETWEEN (included) the two angles</text></g>"
+    },
+    {
+      "id": "tr4",
+      "question": "What is the SSS Congruence Rule?",
+      "question_spoken": "What is the SSS congruence rule?",
+      "steps": [
+        {"t": "SSS = Side-Side-Side. If all THREE sides of one triangle are equal to all three sides of another triangle, the triangles are congruent. No need to check angles — the angles are automatically fixed by the sides!", "s": "SSS: all three sides equal. If all sides match, the triangles must be congruent. Angles are automatically determined."},
+        {"t": "Example: Triangle ABC with AB=5, BC=7, CA=6 and triangle DEF with DE=5, EF=7, FD=6. All three sides match → triangle ABC ≅ triangle DEF by SSS.", "s": "If all three corresponding sides are equal, SSS guarantees the triangles are congruent."},
+        {"t": "SSS is the simplest congruence rule — just check all three sides. It works because a triangle with given three side lengths has a UNIQUE shape (only one triangle possible for any set of three sides).", "s": "Given three side lengths, only one unique triangle is possible. This is why SSS guarantees congruence."}
+      ],
+      "confirm_question": "How many sides must be equal for SSS congruence?",
+      "confirm_question_spoken": "How many sides must be equal for SSS congruence?",
+      "answers": ["3", "three", "all three", "all 3"],
+      "nudges": [
+        "SSS = Side Side Side — count the S letters",
+        "All three sides of one triangle equal all three of the other",
+        "Answer: 3 (all three sides)"
+      ],
+      "anim_svg": "<g id=\"tr4s0\" opacity=\"0\"><rect x=\"10\" y=\"8\" width=\"390\" height=\"30\" rx=\"7\" fill=\"#eef2eb\"/><text x=\"210\" y=\"28\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">SSS: Side-Side-Side (all 3 sides equal)</text></g><g id=\"tr4s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">AB=DE, BC=EF, CA=FD → △ABC≅△DEF (SSS)</text></g><g id=\"tr4s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">3 sides fix unique triangle → angles automatically equal!</text></g><g id=\"tr4ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">All THREE sides must be equal</text></g>"
+    },
+    {
+      "id": "tr5",
+      "question": "What is the RHS Congruence Rule?",
+      "question_spoken": "What is the RHS congruence rule?",
+      "steps": [
+        {"t": "RHS = Right angle-Hypotenuse-Side. This rule applies ONLY to RIGHT-ANGLED triangles. If the hypotenuse and one side of a right-angled triangle are equal to the hypotenuse and one side of another right-angled triangle, they are congruent.", "s": "RHS works only for right-angled triangles. Equal hypotenuse and one side, plus the right angle, guarantees congruence."},
+        {"t": "Example: Triangles ABC and DEF are right-angled at B and E respectively. If AB=DE (sides) and AC=DF (hypotenuses) → triangle ABC ≅ triangle DEF by RHS.", "s": "Right angle at B and E. Side AB equals DE. Hypotenuse AC equals DF. Therefore RHS gives congruence."},
+        {"t": "Why RHS works: Pythagoras theorem! If hypotenuse and one side are fixed, the third side is determined (third side = sqrt(H² - S²)). So the triangle is completely fixed!", "s": "By Pythagoras theorem, if hypotenuse and one side are known, the third side is fixed. So the triangle is uniquely determined."}
+      ],
+      "confirm_question": "RHS congruence applies only to ______ triangles.",
+      "confirm_question_spoken": "RHS congruence applies only to blank triangles.",
+      "answers": ["right-angled", "right angled", "right"],
+      "nudges": [
+        "RHS stands for Right angle-Hypotenuse-Side",
+        "The R in RHS tells you it needs a right angle!",
+        "Answer: Right-angled triangles"
+      ],
+      "anim_svg": "<g id=\"tr5s0\" opacity=\"0\"><rect x=\"10\" y=\"8\" width=\"390\" height=\"30\" rx=\"7\" fill=\"#f5e6c8\"/><text x=\"210\" y=\"28\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"800\" fill=\"#d4870a\">RHS: Right angle + Hypotenuse + Side (right △ only!)</text></g><g id=\"tr5s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">∠B=∠E=90°, AC=DF (hyp), AB=DE → △ABC≅△DEF (RHS)</text></g><g id=\"tr5s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Pythagoras: H and 1 side fix all → triangle fully determined</text></g><g id=\"tr5ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">RHS applies to RIGHT-ANGLED triangles only</text></g>"
+    },
+    {
+      "id": "tr6",
+      "question": "What is the Isosceles Triangle theorem?",
+      "question_spoken": "What is the Isosceles Triangle theorem?",
+      "steps": [
+        {"t": "Theorem: If two sides of a triangle are equal, then the angles opposite to those sides are also equal. In triangle ABC, if AB = AC, then angle ABC = angle ACB (base angles are equal!).", "s": "If two sides are equal, the angles opposite to them are equal. This is the isosceles triangle property."},
+        {"t": "Converse: If two angles of a triangle are equal, then the sides opposite to them are also equal. So: angle B = angle C → AB = AC. The converse is equally important for proofs!", "s": "Converse: if two angles are equal, the sides opposite them are equal. Both the theorem and its converse are important."},
+        {"t": "Equilateral triangle: all 3 sides equal → all 3 angles equal → each angle = 60°! (180° ÷ 3 = 60°). An equilateral triangle is the most symmetric triangle — it is also equiangular!", "s": "Equilateral triangle has all sides equal and all angles 60 degrees. It is both equilateral and equiangular."}
+      ],
+      "confirm_question": "In triangle ABC, if AB = AC, then what can you say about angles B and C?",
+      "confirm_question_spoken": "In triangle ABC, if AB equals AC, what can you say about angles B and C?",
+      "answers": ["angle B = angle C", "they are equal", "equal", "∠B = ∠C"],
+      "nudges": [
+        "The sides AB and AC are equal",
+        "The angles OPPOSITE to equal sides are equal",
+        "Answer: Angle B = Angle C (they are equal)"
+      ],
+      "anim_svg": "<g id=\"tr6s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Isosceles: AB=AC → ∠ABC = ∠ACB (base angles equal)</text></g><g id=\"tr6s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Converse: ∠B=∠C → AB=AC (sides opp. equal angles are equal)</text></g><g id=\"tr6s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Equilateral: all sides equal → all angles = 60°</text></g><g id=\"tr6ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">AB=AC → ∠B = ∠C (angles are equal)</text></g>"
+    },
+    {
+      "id": "tr7",
+      "question": "What are the inequalities in a triangle?",
+      "question_spoken": "What are the inequalities in a triangle?",
+      "steps": [
+        {"t": "Theorem 1: In a triangle, if two sides are unequal, the angle opposite the LONGER side is GREATER. AB > AC → angle C > angle B. (Bigger side faces bigger angle!)", "s": "The longer side faces the larger angle. If AB is greater than AC, then angle C is greater than angle B."},
+        {"t": "Theorem 2 (Triangle Inequality): The sum of any two sides of a triangle is GREATER than the third side. AB + BC > CA. This determines whether a triangle is possible!", "s": "Sum of any two sides is greater than the third side. This is the triangle inequality theorem."},
+        {"t": "To check if sides a, b, c can form a triangle: check all three: a+b>c, b+c>a, a+c>b. If ALL three hold, the triangle is possible! If any one fails, no triangle.", "s": "Check all three combinations. All must be greater for a valid triangle. If any fails, the triangle is impossible."}
+      ],
+      "confirm_question": "Can sides 3 cm, 4 cm and 8 cm form a triangle?",
+      "confirm_question_spoken": "Can sides 3 cm, 4 cm and 8 cm form a triangle?",
+      "answers": ["no"],
+      "nudges": [
+        "Check: 3 + 4 = 7. Is 7 > 8?",
+        "7 is NOT greater than 8!",
+        "Answer: No — triangle inequality is violated (3+4 = 7 < 8)"
+      ],
+      "anim_svg": "<g id=\"tr7s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Bigger side → bigger opposite angle</text></g><g id=\"tr7s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Triangle Inequality: sum of any 2 sides > third side</text></g><g id=\"tr7s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">3+4=7 &lt; 8 → FAILS → No triangle possible!</text></g><g id=\"tr7ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">3+4=7 &lt; 8 → NOT a valid triangle</text></g>"
+    },
+    {
+      "id": "tr8",
+      "question": "How do you write a congruence proof step by step?",
+      "question_spoken": "How do you write a congruence proof step by step?",
+      "steps": [
+        {"t": "Step 1: Write 'In triangles ABC and DEF' (state which two triangles). Step 2: List each equal part with reason in brackets: AB = DE (given), angle A = angle D (given), AC = DF (given).", "s": "Start with: In triangles ABC and DEF. Then list equal parts with their reasons."},
+        {"t": "Step 3: Write the conclusion: 'Therefore, triangle ABC ≅ triangle DEF (by SAS/ASA/SSS/RHS)'. Always name the congruence rule! Step 4: If needed, use CPCT to find other equal parts.", "s": "Write the conclusion naming the congruence rule used. Then apply CPCT to find other equal parts if needed."},
+        {"t": "The ORDER of letters matters! If triangle ABC ≅ triangle DEF, then A↔D, B↔E, C↔F. Always match the vertices in the SAME order. Wrong order = wrong CPCT conclusions!", "s": "The order of vertices matters. A corresponds to D, B to E, C to F in the congruence statement."}
+      ],
+      "confirm_question": "After proving triangle ABC ≅ triangle PQR, by CPCT what can you say about AB and PQ?",
+      "confirm_question_spoken": "After proving triangle ABC is congruent to triangle PQR, by CPCT what can you say about AB and PQ?",
+      "answers": ["AB = PQ", "they are equal", "equal"],
+      "nudges": [
+        "CPCT: Corresponding Parts of Congruent Triangles are equal",
+        "A corresponds to P, B corresponds to Q",
+        "Answer: AB = PQ (by CPCT)"
+      ],
+      "anim_svg": "<g id=\"tr8s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Step 1: 'In triangles ABC and DEF'</text></g><g id=\"tr8s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Step 2: List equal parts with reasons | Step 3: State rule</text></g><g id=\"tr8s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Step 4: CPCT for other equal parts | ORDER MATTERS!</text></g><g id=\"tr8ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">△ABC≅△PQR → AB=PQ by CPCT</text></g>"
+    },
+    {
+      "id": "tr9",
+      "question": "What is an equilateral triangle and its properties?",
+      "question_spoken": "What is an equilateral triangle and its properties?",
+      "steps": [
+        {"t": "An equilateral triangle has ALL THREE SIDES EQUAL. By the isosceles triangle theorem, all three angles must also be equal. Since angles sum to 180°, each angle = 180° ÷ 3 = 60°!", "s": "Equilateral triangle: all sides equal, all angles equal 60 degrees each."},
+        {"t": "The altitude (height), median, angle bisector, and perpendicular bisector from any vertex are ALL THE SAME LINE in an equilateral triangle. This is because of its perfect symmetry!", "s": "In an equilateral triangle, the altitude, median, and angle bisector from any vertex all coincide."},
+        {"t": "Equilateral triangle is also equiangular (all angles equal). An equiangular triangle is always equilateral. These two properties are equivalent — one implies the other!", "s": "Equilateral implies equiangular and equiangular implies equilateral. The two properties are equivalent."}
+      ],
+      "confirm_question": "What is each angle of an equilateral triangle?",
+      "confirm_question_spoken": "What is each angle of an equilateral triangle?",
+      "answers": ["60", "60°", "60 degrees"],
+      "nudges": [
+        "All three angles are equal in an equilateral triangle",
+        "They must add up to 180°",
+        "180 ÷ 3 = 60° each"
+      ],
+      "anim_svg": "<g id=\"tr9s0\" opacity=\"0\"><rect x=\"10\" y=\"8\" width=\"390\" height=\"30\" rx=\"7\" fill=\"#f5e6c8\"/><text x=\"210\" y=\"28\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"800\" fill=\"#d4870a\">Equilateral: all sides equal → all angles = 60°</text></g><g id=\"tr9s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Altitude = Median = Angle bisector = Perp. bisector</text></g><g id=\"tr9s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Equilateral ↔ Equiangular (each implies the other)</text></g><g id=\"tr9ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Each angle = 60°</text></g>"
+    },
+    {
+      "id": "tr10",
+      "question": "Which congruence rule to use when — the decision guide",
+      "question_spoken": "Which congruence rule to use when?",
+      "steps": [
+        {"t": "Decision guide: Have 3 sides? → Use SSS. Have 2 sides and the INCLUDED angle? → Use SAS. Have 2 angles and the INCLUDED side? → Use ASA. Have 2 angles and any side? → Use AAS.", "s": "Three sides means SSS. Two sides and included angle means SAS. Two angles and included side means ASA. Two angles and any side means AAS."},
+        {"t": "Is it a right triangle with hypotenuse and one side? → Use RHS. If you have SSA (2 sides and non-included angle) — STOP! SSA does NOT prove congruence. This is the most common mistake!", "s": "Right triangle with hypotenuse and one side means RHS. SSA does not work. Never use SSA for congruence."},
+        {"t": "Memory trick: SAS SAnd ASA AAS SSS RHS. Practice identifying the given information FIRST, then match to the rule. Always draw the triangles and mark what is given before deciding!", "s": "Identify what is given first, then match to the rule. Draw and mark before deciding."}
+      ],
+      "confirm_question": "In a right triangle, hypotenuse = 13 and one side = 5. Which rule to use for congruence?",
+      "confirm_question_spoken": "In a right triangle, hypotenuse equals 13 and one side equals 5. Which congruence rule applies?",
+      "answers": ["RHS", "rhs"],
+      "nudges": [
+        "We have a right angle, a hypotenuse, and one side",
+        "Right angle + Hypotenuse + Side = ?",
+        "Answer: RHS (Right angle-Hypotenuse-Side)"
+      ],
+      "anim_svg": "<g id=\"tr10s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">3 sides→SSS | 2 sides+incl. angle→SAS | 2 angles+incl. side→ASA</text></g><g id=\"tr10s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">2 angles+any side→AAS | Right+hyp+side→RHS</text></g><g id=\"tr10s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">SSA = NOT valid! Draw → mark → then decide rule!</text></g><g id=\"tr10ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Right angle + hypotenuse + side → RHS</text></g>"
+    }
+  ],
+
+  "practice_questions": [
+    {
+      "question": "Two triangles are said to be congruent if they are equal in ______ and ______.",
+      "question_spoken": "Two triangles are said to be congruent if they are equal in blank and blank.",
+      "answers": ["shape and size", "size and shape"],
+      "steps": ["Congruent = identical in every way", "Equal in shape (same angles) AND size (same sides)", "They coincide exactly when superimposed"],
+      "trick": "Congruent = same shape + same size. Two rupee coins are congruent. Two different sized circles are NOT congruent even if same shape.",
+      "alt": "Think of photocopies. A perfect photocopy is congruent to the original — same shape and same size. A zoom copy is NOT congruent."
+    },
+    {
+      "question": "In triangle ABC, AB = AC and angle B = 65°. Find angle C and angle A.",
+      "question_spoken": "In triangle ABC, AB equals AC and angle B equals 65 degrees. Find angle C and angle A.",
+      "answers": ["angle C = 65°, angle A = 50°", "65 and 50"],
+      "steps": ["AB = AC → triangle is isosceles → base angles equal", "Angle C = Angle B = 65° (angles opposite equal sides)", "Angle A = 180° − 65° − 65° = 50°"],
+      "trick": "Isosceles triangle: equal sides → equal base angles. Find the base angles first, then use angle sum for the apex angle.",
+      "alt": "AB=AC means B and C are the base vertices. Their angles are equal: both 65°. Third angle = 180−65−65=50°."
+    },
+    {
+      "question": "Which congruence rule applies when two sides and the included angle are equal?",
+      "question_spoken": "Which congruence rule applies when two sides and the included angle are equal?",
+      "answers": ["SAS", "sas", "side angle side"],
+      "steps": ["Two sides and the INCLUDED angle (between them)", "This is the SAS rule", "S-A-S: Side-Angle-Side"],
+      "trick": "SAS = Side BETWEEN angle BETWEEN side. The angle is sandwiched between the two sides!",
+      "alt": "Think of two sticks (sides) with an angle clamp between them. Fix both sticks and the clamp angle → unique triangle → SAS!"
+    },
+    {
+      "question": "Can sides 5 cm, 7 cm and 13 cm form a triangle?",
+      "question_spoken": "Can sides 5 cm, 7 cm and 13 cm form a triangle?",
+      "answers": ["no"],
+      "steps": ["Check: 5 + 7 = 12. Is 12 > 13?", "12 is NOT greater than 13!", "Triangle inequality violated → No triangle possible"],
+      "trick": "Always add the two SMALLER sides and check if they exceed the LARGEST side. 5+7=12 < 13. Failed!",
+      "alt": "5+7=12. The two shorter sides together are only 12 cm, but the third side is 13 cm. They can't reach each other to form a triangle."
+    },
+    {
+      "question": "In an equilateral triangle, each angle measures ____°.",
+      "question_spoken": "In an equilateral triangle, each angle measures blank degrees.",
+      "answers": ["60", "60°"],
+      "steps": ["Equilateral: all 3 sides equal → all 3 angles equal", "Sum of angles = 180°", "Each angle = 180 ÷ 3 = 60°"],
+      "trick": "Equilateral triangle is the most perfect triangle. Three equal angles sharing 180° equally gives 60° each. Divide and conquer!",
+      "alt": "All three angles share 180° equally. 180 ÷ 3 = 60. Each angle is exactly 60°."
+    },
+    {
+      "question": "RHS congruence applies to which type of triangles?",
+      "question_spoken": "RHS congruence applies to which type of triangles?",
+      "answers": ["right-angled", "right angled", "right"],
+      "steps": ["RHS = Right angle-Hypotenuse-Side", "The R stands for Right angle!", "It only works for right-angled triangles"],
+      "trick": "RHS has R for Right angle. Without a right angle, you cannot use RHS. It is exclusively for right triangles!",
+      "alt": "The hypotenuse only exists in right-angled triangles (it's the side opposite the 90° angle). So RHS can only apply to right triangles."
+    },
+    {
+      "question": "In triangle ABC, angle B = angle C = 70°. Which sides are equal?",
+      "question_spoken": "In triangle ABC, angle B equals angle C equals 70 degrees. Which sides are equal?",
+      "answers": ["AB = AC", "AB=AC"],
+      "steps": ["Converse of isosceles theorem: equal angles → opposite sides equal", "Angle B and angle C are equal", "Sides opposite to B and C are AC and AB respectively → AB = AC"],
+      "trick": "Equal angles → equal opposite sides. Angle B is opposite side AC. Angle C is opposite side AB. If ∠B=∠C, then AC=AB!",
+      "alt": "The side opposite angle B is AC. The side opposite angle C is AB. Equal angles means equal opposite sides: AB = AC."
+    },
+    {
+      "question": "What does CPCT stand for and when is it used?",
+      "question_spoken": "What does CPCT stand for and when is it used?",
+      "answers": ["corresponding parts of congruent triangles", "cpct"],
+      "steps": ["CPCT = Corresponding Parts of Congruent Triangles", "Used AFTER proving two triangles are congruent", "Allows you to conclude any matching parts are equal"],
+      "trick": "CPCT is the conclusion tool. First PROVE congruence (using SAS/ASA/SSS/RHS/AAS), THEN use CPCT to get equal sides or angles.",
+      "alt": "Think of CPCT as permission: once you prove the triangles match completely, you have permission to say any corresponding part is equal."
+    },
+    {
+      "question": "Two angles and a non-included side are equal. Which rule applies?",
+      "question_spoken": "Two angles and a non-included side are equal. Which congruence rule applies?",
+      "answers": ["AAS", "aas", "angle angle side"],
+      "steps": ["Two Angles + any Side (not necessarily included)", "This is AAS = Angle-Angle-Side", "AAS works because the 3rd angle is forced by angle sum property"],
+      "trick": "AAS: the side can be ANY side, not just between the angles. Works because 2 angles → 3rd angle fixed → then SSS kicks in!",
+      "alt": "If two angles match, the third must match too (angle sum = 180). So AAS effectively gives you all three angles plus one side, which determines the triangle."
+    },
+    {
+      "question": "In the triangle with sides 6, 8 and 10 cm, check if it is a right triangle.",
+      "question_spoken": "In a triangle with sides 6, 8 and 10 cm, check if it is a right triangle.",
+      "answers": ["yes", "yes it is"],
+      "steps": ["Check Pythagoras: does 6² + 8² = 10²?", "36 + 64 = 100 = 10² ✓", "Yes, it is a right triangle (right angle opposite to side 10 cm)"],
+      "trick": "6-8-10 is the famous Pythagorean triple (double of 3-4-5). Memorise: 3-4-5 and its multiples are always right triangles!",
+      "alt": "Pythagoras: smallest² + middle² = largest²? 36+64=100=10². Yes! This is the classic 3-4-5 triple doubled."
+    },
+    {
+      "question": "If triangle ABC ≅ triangle DEF by SAS with AB=DE=5, ∠A=∠D=60°, AC=DF=7, what is EF?",
+      "question_spoken": "If triangle ABC is congruent to triangle DEF by SAS with AB equals DE equals 5, angle A equals angle D equals 60 degrees, AC equals DF equals 7, what is EF?",
+      "answers": ["EF = BC", "same as BC", "equal to BC"],
+      "steps": ["Triangle ABC ≅ Triangle DEF means B↔E, C↔F", "BC and EF are corresponding sides", "By CPCT: EF = BC"],
+      "trick": "In congruent triangles, use CPCT. BC corresponds to EF (since B↔E and C↔F). So EF = BC by CPCT.",
+      "alt": "The vertices match: A↔D, B↔E, C↔F. So side BC (from B to C) corresponds to side EF (from E to F). By CPCT, EF = BC."
+    },
+    {
+      "question": "In a triangle, which side is the longest if angle A = 80°, angle B = 60°, angle C = 40°?",
+      "question_spoken": "In a triangle with angle A equals 80, angle B equals 60, angle C equals 40 degrees, which side is the longest?",
+      "answers": ["BC", "side BC", "side a"],
+      "steps": ["The longest side is opposite the largest angle", "Largest angle = 80° = angle A", "Side opposite to angle A = BC → BC is the longest side"],
+      "trick": "Bigger angle → bigger opposite side. Largest angle is A (80°). The side opposite A is BC. So BC is longest!",
+      "alt": "Rank the angles: A>B>C (80>60>40). So rank the opposite sides: BC>AC>AB. BC is opposite to A and is the longest."
+    },
+    {
+      "question": "Which is NOT a valid congruence criterion? A: SSS  B: SAS  C: SSA  D: ASA",
+      "question_spoken": "Which is NOT a valid congruence criterion? A: SSS. B: SAS. C: SSA. D: ASA.",
+      "answers": ["C", "SSA", "c: SSA"],
+      "steps": ["SSS → valid ✓ | SAS → valid ✓ | ASA → valid ✓", "SSA = Two sides and a NON-included angle", "SSA does NOT guarantee congruence — it is invalid!"],
+      "trick": "SSA fails because the angle is not between the two sides. The triangle is not uniquely determined — two different triangles can satisfy SSA!",
+      "alt": "Test: two sticks of lengths 5 and 7 with a 30° angle NOT between them — you can make two different triangles! SSA is ambiguous."
+    },
+    {
+      "question": "The sum of any two sides of a triangle is ______ than the third side.",
+      "question_spoken": "The sum of any two sides of a triangle is blank than the third side.",
+      "answers": ["greater", "more", "larger"],
+      "steps": ["This is the Triangle Inequality Theorem", "For any triangle with sides a, b, c:", "a+b > c, b+c > a, a+c > b (all three must hold)"],
+      "trick": "The shortest path between two points is a straight line. The two sides of a triangle always form a longer path than the direct third side.",
+      "alt": "Imagine walking from A to C. Going directly is shorter than going A→B→C. So AB+BC > AC always."
+    },
+    {
+      "question": "Sides of a triangle are 5 cm, 12 cm and 13 cm. What type of triangle is it?",
+      "question_spoken": "Sides of a triangle are 5 cm, 12 cm and 13 cm. What type of triangle is it?",
+      "answers": ["right-angled", "right angled", "right triangle"],
+      "steps": ["Check: 5² + 12² = 25 + 144 = 169 = 13²", "Pythagoras holds! So it is a right-angled triangle", "Right angle is opposite the longest side (13 cm)"],
+      "trick": "5-12-13 is a Pythagorean triple. Memorise it! 5²+12²=25+144=169=13². Right-angled with hypotenuse 13.",
+      "alt": "Check 5² + 12² = 169 = 13². Since the square of the largest equals the sum of squares of the other two, it's a right triangle."
+    }
+  ]
 }
