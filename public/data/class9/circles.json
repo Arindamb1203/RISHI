@@ -1,7 +1,330 @@
 {
-  "_note": "STUB \u2014 fill in questions before unlocking Class 9",
-  "chapter": "circles",
-  "class": 9,
-  "board": "cbse",
-  "questions": []
+  "chapter_slug":   "circles",
+  "chapter_name":   "Circles",
+  "chapter_emoji":  "⭕",
+  "class_num":      9,
+  "board":          "cbse",
+  "topic":          "geometry",
+  "chap_id":        9,
+  "exam_key":       "c9-09",
+
+  "intro_text": "Hi <span class=\"hl\" id=\"sName\">there</span>! &#128522; Today we explore <span class=\"hl\">Circles</span> — one of the most beautiful shapes in mathematics! From chords to arcs, from angles to cyclic quadrilaterals — every theorem in this chapter is elegant and powerful! &#127919;",
+
+  "complete_message": "You have mastered Circles! Every point, chord and arc now makes perfect sense to you &#128170;",
+
+  "explain_questions": [
+    {
+      "id": "ci1",
+      "question": "What are the basic terms related to a circle?",
+      "question_spoken": "What are the basic terms related to a circle?",
+      "steps": [
+        {"t": "A CIRCLE is the collection of all points in a plane equidistant from a fixed point called the CENTRE. The fixed distance is the RADIUS. DIAMETER = 2 × Radius (longest chord, passes through centre).", "s": "A circle is all points at equal distance from the centre. Radius is that distance. Diameter is twice the radius."},
+        {"t": "CHORD: a line segment joining any two points on the circle. DIAMETER is the longest chord. ARC: a piece of the circle between two points — MINOR ARC (smaller) and MAJOR ARC (larger). SEMICIRCLE: half the circle.", "s": "A chord joins two points on the circle. An arc is a piece of the circle. Minor arc is smaller, major arc is larger."},
+        {"t": "SECTOR: region between two radii and an arc (like a pizza slice!). SEGMENT: region between a chord and an arc — MINOR SEGMENT and MAJOR SEGMENT. SECANT: a line that cuts the circle at two points. TANGENT: touches at exactly one point.", "s": "Sector is like a pizza slice between two radii. Segment is between a chord and an arc. Tangent touches the circle at one point only."}
+      ],
+      "confirm_question": "What is the longest chord of a circle called?",
+      "confirm_question_spoken": "What is the longest chord of a circle called?",
+      "answers": ["diameter", "the diameter"],
+      "nudges": [
+        "This chord passes through the centre of the circle",
+        "It is equal to twice the radius",
+        "Answer: Diameter"
+      ],
+      "anim_svg": "<g id=\"ci1s0\" opacity=\"0\"><rect x=\"10\" y=\"8\" width=\"390\" height=\"30\" rx=\"7\" fill=\"#f5e6c8\"/><text x=\"210\" y=\"28\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"800\" fill=\"#d4870a\">Circle: all points equidistant from centre | Radius=distance</text></g><g id=\"ci1s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Chord: 2 pts on circle | Diameter=longest chord=2r</text></g><g id=\"ci1s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Sector=pizza slice | Segment=chord+arc | Tangent=1 touch pt</text></g><g id=\"ci1ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Diameter = longest chord</text></g>"
+    },
+    {
+      "id": "ci2",
+      "question": "What does it mean for a chord to subtend an angle?",
+      "question_spoken": "What does it mean for a chord to subtend an angle?",
+      "steps": [
+        {"t": "When a chord PQ is drawn in a circle with centre O, it forms angle POQ at the centre — this is the angle SUBTENDED by chord PQ at the centre O. The word 'subtend' means 'to be opposite to'.", "s": "A chord subtends an angle at the centre by joining its endpoints to the centre. The angle POQ is subtended by chord PQ at centre O."},
+        {"t": "Theorem 9.1: Equal chords of a circle subtend EQUAL angles at the centre. If AB = CD (both chords), then angle AOB = angle COD. Proof: triangles AOB and COD are congruent by SSS (all radii equal, AB=CD).", "s": "Equal chords make equal angles at the centre. Proved using SSS congruence since all radii are equal."},
+        {"t": "Converse (Theorem 9.2): If angles subtended by chords at the centre are equal, then the chords are equal. Bigger chord → bigger angle at centre. Smaller chord → smaller angle. They go hand in hand!", "s": "If angles at centre are equal, the chords are equal. Bigger chord means bigger angle. They are directly related."}
+      ],
+      "confirm_question": "Equal chords of a circle subtend ______ angles at the centre.",
+      "confirm_question_spoken": "Equal chords of a circle subtend blank angles at the centre.",
+      "answers": ["equal", "equal angles"],
+      "nudges": [
+        "This is Theorem 9.1 — a fundamental circle theorem",
+        "If AB=CD (chords), then angle AOB = angle COD",
+        "Answer: Equal angles"
+      ],
+      "anim_svg": "<g id=\"ci2s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Chord PQ subtends ∠POQ at centre O</text></g><g id=\"ci2s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Theorem 9.1: AB=CD → ∠AOB=∠COD (by SSS)</text></g><g id=\"ci2s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Converse: ∠AOB=∠COD → AB=CD</text></g><g id=\"ci2ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Equal chords → Equal angles at centre</text></g>"
+    },
+    {
+      "id": "ci3",
+      "question": "What is the perpendicular from centre to a chord theorem?",
+      "question_spoken": "What is the perpendicular from the centre to a chord theorem?",
+      "steps": [
+        {"t": "Theorem 9.3: The perpendicular from the centre of a circle to a chord BISECTS the chord. If OM is perpendicular to chord AB, then AM = MB. The perpendicular drops exactly at the midpoint of the chord!", "s": "Perpendicular from centre to chord bisects the chord. OM perpendicular to AB means AM equals MB."},
+        {"t": "Proof: Join OA and OB (both radii, so OA=OB). Triangles OAM and OBM are congruent by RHS (right angle, same hypotenuse OA=OB, common side OM). So AM = MB by CPCT.", "s": "Join radii OA and OB. The two triangles are congruent by RHS. Therefore AM equals MB by CPCT."},
+        {"t": "Converse: The line joining the centre to the midpoint of a chord is PERPENDICULAR to the chord. So if M is the midpoint of chord AB, then OM is perpendicular to AB. Both theorem and converse are used in CBSE proofs!", "s": "Converse: the line from centre to midpoint of chord is perpendicular to the chord. Both directions are important."}
+      ],
+      "confirm_question": "If OM is perpendicular to chord AB and AM = 5 cm, what is AB?",
+      "confirm_question_spoken": "If OM is perpendicular to chord AB and AM equals 5 cm, what is AB?",
+      "answers": ["10 cm", "10"],
+      "nudges": [
+        "Perpendicular from centre bisects the chord",
+        "So MB = AM = 5 cm",
+        "AB = AM + MB = 5 + 5 = 10 cm"
+      ],
+      "anim_svg": "<g id=\"ci3s0\" opacity=\"0\"><rect x=\"10\" y=\"8\" width=\"390\" height=\"30\" rx=\"7\" fill=\"#f5e6c8\"/><text x=\"210\" y=\"28\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"800\" fill=\"#d4870a\">Theorem 9.3: OM ⊥ AB → AM = MB (bisects chord)</text></g><g id=\"ci3s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Proof: OA=OB (radii), OM common → RHS → CPCT: AM=MB</text></g><g id=\"ci3s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Converse: M is midpoint of AB → OM ⊥ AB</text></g><g id=\"ci3ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">MB = AM = 5 → AB = 10 cm</text></g>"
+    },
+    {
+      "id": "ci4",
+      "question": "What is the unique circle through three non-collinear points?",
+      "question_spoken": "What is the unique circle theorem for three non-collinear points?",
+      "steps": [
+        {"t": "Theorem: There is ONE and ONLY ONE circle passing through three given non-collinear points. Through 1 point: infinite circles possible. Through 2 points: infinite circles. Through 3 non-collinear points: EXACTLY ONE circle!", "s": "One point allows infinite circles. Two points allow infinite circles. Three non-collinear points give exactly one unique circle."},
+        {"t": "If the three points are COLLINEAR (on the same line), NO circle can pass through all three — a straight line is not part of any circle! This is why we need 'non-collinear' for the theorem to work.", "s": "If the three points are collinear, no circle passes through all three. The points must be non-collinear."},
+        {"t": "Method to find the circle: draw perpendicular bisectors of the line segments joining consecutive points. They all meet at the CIRCUMCENTER — the centre of the unique circle through the three points!", "s": "The circumcenter is where the perpendicular bisectors of the sides of the triangle formed meet. That is the centre of the circle."}
+      ],
+      "confirm_question": "How many circles can pass through three non-collinear points?",
+      "confirm_question_spoken": "How many circles can pass through three non-collinear points?",
+      "answers": ["one", "only one", "exactly one", "1"],
+      "nudges": [
+        "Three non-collinear points form a unique triangle",
+        "Every triangle has exactly one circumscribed circle",
+        "Answer: Exactly ONE circle"
+      ],
+      "anim_svg": "<g id=\"ci4s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">1 point → ∞ circles | 2 points → ∞ circles</text></g><g id=\"ci4s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">3 non-collinear points → EXACTLY 1 circle!</text></g><g id=\"ci4s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">3 collinear points → NO circle possible</text></g><g id=\"ci4ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Exactly ONE circle through 3 non-collinear points</text></g>"
+    },
+    {
+      "id": "ci5",
+      "question": "What is the equal chords and distance from centre theorem?",
+      "question_spoken": "What is the equal chords and distance from centre theorem?",
+      "steps": [
+        {"t": "Distance of a chord from the centre = length of the perpendicular from centre to chord. Theorem 9.6: Equal chords of a circle are EQUIDISTANT from the centre. If AB = CD, then their perpendicular distances from centre O are equal.", "s": "Equal chords are at equal distances from the centre. Distance means the perpendicular from the centre to the chord."},
+        {"t": "Converse: Chords equidistant from the centre are equal in length. So if OM = ON (perpendicular distances), then chord AB = chord CD. The theorem and its converse are both important!", "s": "Converse: chords at equal distances from centre are equal in length."},
+        {"t": "Key insight: The CLOSER a chord is to the centre, the LONGER it is! The diameter (passing through centre, distance=0) is the longest chord. As a chord moves away from the centre, it gets shorter.", "s": "Closer to centre means longer chord. Diameter has distance zero and is the longest. Chords farther from centre are shorter."}
+      ],
+      "confirm_question": "Equal chords of a circle are ______ from the centre.",
+      "confirm_question_spoken": "Equal chords of a circle are blank from the centre.",
+      "answers": ["equidistant", "at equal distance", "equally distant"],
+      "nudges": [
+        "This is Theorem 9.6",
+        "If AB = CD (equal chords), their perpendicular distances from O are...",
+        "Answer: Equidistant (at equal distances)"
+      ],
+      "anim_svg": "<g id=\"ci5s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Distance = perpendicular from centre to chord</text></g><g id=\"ci5s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Theorem 9.6: AB=CD → OM=ON (equidistant)</text></g><g id=\"ci5s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Closer to centre → LONGER chord | Diameter = closest (dist=0)</text></g><g id=\"ci5ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Equal chords are equidistant from centre</text></g>"
+    },
+    {
+      "id": "ci6",
+      "question": "What is the angle subtended by an arc at the centre theorem?",
+      "question_spoken": "What is the angle subtended by an arc at the centre theorem?",
+      "steps": [
+        {"t": "Theorem 9.8 (Most important circle theorem!): The angle subtended by an arc at the CENTRE is DOUBLE the angle subtended by the same arc at any point on the remaining part of the circle.", "s": "The central angle is double the inscribed angle subtended by the same arc. This is the most important theorem."},
+        {"t": "Example: Arc PQ subtends angle POQ = 100° at centre O. Then at any point R on the major arc, angle PRQ = 50° (half of 100°). The inscribed angle is always HALF the central angle!", "s": "If central angle is 100 degrees, inscribed angle is 50 degrees. The inscribed angle is always half the central angle."},
+        {"t": "Special case: If the arc is a SEMICIRCLE (diameter), central angle = 180°. So inscribed angle = 90°! Theorem: Angle in a semicircle is always a RIGHT ANGLE. This is used very frequently!", "s": "Angle in a semicircle is 90 degrees. If the arc is a semicircle, the inscribed angle is always 90 degrees."}
+      ],
+      "confirm_question": "If the angle subtended by an arc at the centre is 80°, what is the angle at the circumference?",
+      "confirm_question_spoken": "If the central angle is 80 degrees, what is the inscribed angle at the circumference?",
+      "answers": ["40", "40°", "40 degrees"],
+      "nudges": [
+        "Theorem 9.8: central angle = 2 × inscribed angle",
+        "So inscribed angle = central angle ÷ 2",
+        "Answer: 80 ÷ 2 = 40°"
+      ],
+      "anim_svg": "<g id=\"ci6s0\" opacity=\"0\"><rect x=\"10\" y=\"8\" width=\"390\" height=\"30\" rx=\"7\" fill=\"#f5e6c8\"/><text x=\"210\" y=\"28\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"800\" fill=\"#d4870a\">Theorem 9.8: Central angle = 2 × Inscribed angle</text></g><g id=\"ci6s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">∠POQ=100° at centre → ∠PRQ=50° at circumference</text></g><g id=\"ci6s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Semicircle: central=180° → inscribed=90° (right angle!)</text></g><g id=\"ci6ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">80 ÷ 2 = 40°</text></g>"
+    },
+    {
+      "id": "ci7",
+      "question": "What are angles in the same segment theorem?",
+      "question_spoken": "What are angles in the same segment theorem?",
+      "steps": [
+        {"t": "Theorem 9.9: Angles in the SAME SEGMENT of a circle are EQUAL. If P and Q are two points on the major arc of chord AB, then angle APB = angle AQB. All inscribed angles in the same segment are equal!", "s": "All angles inscribed in the same segment of a circle are equal. Angle APB equals angle AQB when P and Q are on the same arc."},
+        {"t": "This means: any number of points on the major arc — the angle subtended by chord AB at ALL of them is exactly the same! This is a beautiful result — no matter where you stand on the arc, the view angle is constant.", "s": "No matter where on the same arc you stand, the angle you see the chord at is always the same."},
+        {"t": "Converse (Theorem 9.10): If a line segment AB subtends equal angles at two points P and Q on the same side of AB, then A, B, P, Q are concyclic (they lie on a common circle). Four concyclic points!", "s": "Converse: if equal angles are subtended at two points on the same side, the four points lie on a circle."}
+      ],
+      "confirm_question": "If angles in the same segment are always equal, and angle APB = 55°, what is angle AQB?",
+      "confirm_question_spoken": "Angles APB and AQB are in the same segment. Angle APB is 55 degrees. What is angle AQB?",
+      "answers": ["55", "55°", "55 degrees"],
+      "nudges": [
+        "Theorem 9.9: angles in same segment are equal",
+        "P and Q are both on the same arc",
+        "Answer: 55° (equal to angle APB)"
+      ],
+      "anim_svg": "<g id=\"ci7s0\" opacity=\"0\"><rect x=\"10\" y=\"8\" width=\"390\" height=\"30\" rx=\"7\" fill=\"#eef2eb\"/><text x=\"210\" y=\"28\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Theorem 9.9: Angles in same segment are EQUAL</text></g><g id=\"ci7s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">∠APB = ∠AQB (both on major arc of chord AB)</text></g><g id=\"ci7s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Converse: equal angles on same side → 4 concyclic points</text></g><g id=\"ci7ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">∠AQB = ∠APB = 55°</text></g>"
+    },
+    {
+      "id": "ci8",
+      "question": "What is a cyclic quadrilateral and what are its properties?",
+      "question_spoken": "What is a cyclic quadrilateral and what are its properties?",
+      "steps": [
+        {"t": "A CYCLIC QUADRILATERAL is a quadrilateral whose ALL FOUR VERTICES lie on a circle (the circumscribed circle). Examples: rectangle, square, isosceles trapezium — all can be cyclic!", "s": "A cyclic quadrilateral has all four vertices on a circle. Rectangle, square, and isosceles trapezium are cyclic."},
+        {"t": "Theorem 9.11: The sum of EITHER PAIR of opposite angles of a cyclic quadrilateral is 180° (supplementary)! In cyclic quadrilateral ABCD: angle A + angle C = 180° AND angle B + angle D = 180°.", "s": "In a cyclic quadrilateral, opposite angles are supplementary — they add up to 180 degrees."},
+        {"t": "Converse (Theorem 9.12): If the sum of a pair of opposite angles of a quadrilateral is 180°, then the quadrilateral is cyclic. So to prove a quad is cyclic, just show one pair of opposite angles sums to 180°!", "s": "Converse: if one pair of opposite angles sums to 180 degrees, the quadrilateral is cyclic."}
+      ],
+      "confirm_question": "In cyclic quadrilateral ABCD, angle A = 110°. Find angle C.",
+      "confirm_question_spoken": "In cyclic quadrilateral ABCD, angle A equals 110 degrees. Find angle C.",
+      "answers": ["70", "70°", "70 degrees"],
+      "nudges": [
+        "Opposite angles of cyclic quadrilateral add to 180°",
+        "Angle A + Angle C = 180°",
+        "Angle C = 180° − 110° = 70°"
+      ],
+      "anim_svg": "<g id=\"ci8s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Cyclic quad: all 4 vertices on a circle</text></g><g id=\"ci8s1\" opacity=\"0\"><rect x=\"10\" y=\"46\" width=\"390\" height=\"30\" rx=\"7\" fill=\"#f5e6c8\"/><text x=\"210\" y=\"66\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"800\" fill=\"#d4870a\">Theorem 9.11: ∠A+∠C = 180° and ∠B+∠D = 180°</text></g><g id=\"ci8s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Converse: opp. angles sum 180° → cyclic quad</text></g><g id=\"ci8ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">∠C = 180° − 110° = 70°</text></g>"
+    },
+    {
+      "id": "ci9",
+      "question": "What is the angle in a semicircle?",
+      "question_spoken": "What is the angle in a semicircle?",
+      "steps": [
+        {"t": "THEOREM: The angle subtended by a diameter at any point on the circle is always 90° (a right angle). In other words, the angle in a semicircle is always a right angle!", "s": "Angle in a semicircle is 90 degrees. A diameter subtends a right angle at any point on the circle."},
+        {"t": "Why? The diameter creates a central angle of 180°. By Theorem 9.8, the inscribed angle = 180° ÷ 2 = 90°. Clean and elegant! This result is also called Thales' Theorem.", "s": "Diameter creates 180 degree central angle. Half of 180 is 90. So inscribed angle is always 90 degrees. This is Thales Theorem."},
+        {"t": "Application: If AB is a diameter and C is any point on the circle (not A or B), then angle ACB = 90°. This is how we prove right angles in circle problems — look for a diameter!", "s": "If AB is a diameter and C is on the circle, angle ACB is 90 degrees. Look for diameters to identify right angles."}
+      ],
+      "confirm_question": "AB is a diameter of a circle. C is any point on the circle. What is angle ACB?",
+      "confirm_question_spoken": "AB is a diameter and C is any point on the circle. What is angle ACB?",
+      "answers": ["90", "90°", "right angle"],
+      "nudges": [
+        "This is Thales' Theorem — angle in a semicircle",
+        "The diameter subtends a right angle at the circumference",
+        "Answer: 90° (always)"
+      ],
+      "anim_svg": "<g id=\"ci9s0\" opacity=\"0\"><rect x=\"10\" y=\"8\" width=\"390\" height=\"30\" rx=\"7\" fill=\"#f5e6c8\"/><text x=\"210\" y=\"28\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"800\" fill=\"#d4870a\">Angle in semicircle = 90° (Thales Theorem)</text></g><g id=\"ci9s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Diameter: central=180° → inscribed = 90° (half)</text></g><g id=\"ci9s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">∠ACB = 90° for ANY point C on circle (AB=diameter)</text></g><g id=\"ci9ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">∠ACB = 90° always</text></g>"
+    },
+    {
+      "id": "ci10",
+      "question": "How do you solve angle problems in circles step by step?",
+      "question_spoken": "How do you solve angle problems in circles step by step?",
+      "steps": [
+        {"t": "Step 1: Identify what is given — central angle, inscribed angle, chord, arc, diameter, or cyclic quadrilateral. Step 2: Select the right theorem. Central angle = 2 × inscribed? Same segment? Semicircle? Cyclic quad?", "s": "Identify what is given. Then select the correct theorem to apply."},
+        {"t": "Example: In a circle, central angle AOB = 120°. Point C on major arc. Find angle ACB. Solution: By Theorem 9.8, angle ACB = ½ × 120° = 60°.", "s": "Central angle 120 degrees. Inscribed angle equals half, so 60 degrees. Direct application of Theorem 9.8."},
+        {"t": "Common exam types: (1) Find inscribed angle given central angle. (2) Find missing angle in cyclic quadrilateral. (3) Prove angle = 90° using diameter. (4) Use equal chords/arcs. Practice all four types!", "s": "Four common exam types: inscribed angle from central, cyclic quad angles, right angle using diameter, equal chords and arcs."}
+      ],
+      "confirm_question": "If angle BOC = 70° (centre angle) and A is on major arc, find angle BAC.",
+      "confirm_question_spoken": "If the central angle BOC is 70 degrees and A is on the major arc, find angle BAC.",
+      "answers": ["35", "35°", "35 degrees"],
+      "nudges": [
+        "Central angle = 2 × inscribed angle (Theorem 9.8)",
+        "Inscribed angle BAC = central angle BOC ÷ 2",
+        "Answer: 70 ÷ 2 = 35°"
+      ],
+      "anim_svg": "<g id=\"ci10s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Step 1: Identify given | Step 2: Pick theorem</text></g><g id=\"ci10s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">∠AOB=120° → ∠ACB=60° (inscribed = half central)</text></g><g id=\"ci10s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">4 types: inscribed, cyclic quad, semicircle, equal chords</text></g><g id=\"ci10ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">∠BAC = 70 ÷ 2 = 35°</text></g>"
+    }
+  ],
+
+  "practice_questions": [
+    {
+      "question": "The longest chord of a circle is called the ______.",
+      "question_spoken": "The longest chord of a circle is called the blank.",
+      "answers": ["diameter", "the diameter"],
+      "steps": ["A chord is a line segment joining two points on the circle", "The longest possible chord must pass through the centre", "This chord is the diameter = 2 × radius"],
+      "trick": "Diameter passes through the CENTRE. Any other chord is shorter. Diameter = longest chord, always!",
+      "alt": "The farther apart two points on a circle can be, the longer the chord. The maximum distance is across the centre — that is the diameter."
+    },
+    {
+      "question": "Equal chords of a circle subtend ______ angles at the centre.",
+      "question_spoken": "Equal chords of a circle subtend blank angles at the centre.",
+      "answers": ["equal", "equal angles"],
+      "steps": ["This is Theorem 9.1", "If AB = CD (equal chords), then ∠AOB = ∠COD", "Equal chords → equal central angles"],
+      "trick": "Equal chords, equal angles. Bigger chord, bigger angle. Direct relationship between chord length and central angle!",
+      "alt": "Join chord endpoints to centre forming triangles. If chords are equal and radii are equal (SSS), the triangles are congruent, so central angles are equal."
+    },
+    {
+      "question": "The perpendicular from the centre of a circle to a chord ______ the chord.",
+      "question_spoken": "The perpendicular from the centre of a circle to a chord blank the chord.",
+      "answers": ["bisects", "bisects the chord"],
+      "steps": ["This is Theorem 9.3", "OM ⊥ AB → AM = MB", "The perpendicular from centre BISECTS the chord"],
+      "trick": "Centre-to-chord perpendicular = bisector. This is the shortest path from centre to chord, and it always hits the midpoint!",
+      "alt": "Join radii to chord endpoints. Two right triangles formed are congruent by RHS. So the two halves of the chord are equal — the chord is bisected."
+    },
+    {
+      "question": "If OM ⊥ AB (chord) and OM = 6 cm, OA = 10 cm, find AB.",
+      "question_spoken": "OM is perpendicular to chord AB, OM equals 6 cm, and OA equals 10 cm. Find AB.",
+      "answers": ["16 cm", "16"],
+      "steps": ["OA = 10 cm (radius), OM = 6 cm (perpendicular)", "By Pythagoras in right triangle OAM: AM² = OA² − OM² = 100 − 36 = 64", "AM = 8 cm. Since OM bisects AB: AB = 2 × AM = 16 cm"],
+      "trick": "Use Pythagoras: AM² = OA² − OM². Then double AM to get AB (since perpendicular from centre bisects chord).",
+      "alt": "Right triangle OAM: hypotenuse OA=10, one leg OM=6. Other leg AM = √(10²−6²) = √(100−36) = √64 = 8. AB = 2×8 = 16."
+    },
+    {
+      "question": "The angle subtended by an arc at the centre is ______ the angle subtended at any point on the remaining circle.",
+      "question_spoken": "The angle subtended by an arc at the centre is blank the angle at any point on the remaining circle.",
+      "answers": ["double", "twice", "two times"],
+      "steps": ["This is Theorem 9.8 — the most important circle theorem", "Central angle = 2 × inscribed angle", "So central angle is DOUBLE the inscribed angle"],
+      "trick": "Centre angle = DOUBLE circumference angle. Half it to get inscribed. Double it to get central. This theorem appears in every exam!",
+      "alt": "Think of it as: the centre has the 'full view' — it sees the arc at twice the angle that any point on the circle sees it."
+    },
+    {
+      "question": "If central angle AOB = 140°, find the inscribed angle ACB where C is on the major arc.",
+      "question_spoken": "Central angle AOB is 140 degrees. Find inscribed angle ACB where C is on the major arc.",
+      "answers": ["70", "70°", "70 degrees"],
+      "steps": ["By Theorem 9.8: central angle = 2 × inscribed angle", "140° = 2 × ∠ACB", "∠ACB = 70°"],
+      "trick": "Inscribed angle = central angle ÷ 2. Always halve the central angle to get the inscribed angle!",
+      "alt": "Central is double the inscribed. So inscribed is half the central. 140 ÷ 2 = 70°."
+    },
+    {
+      "question": "Angle in a semicircle is always ____°.",
+      "question_spoken": "Angle in a semicircle is always blank degrees.",
+      "answers": ["90", "90°"],
+      "steps": ["Diameter creates central angle of 180°", "By Theorem 9.8: inscribed angle = 180 ÷ 2 = 90°", "Angle in a semicircle is ALWAYS 90° (right angle)"],
+      "trick": "Semicircle → right angle. This is Thales' Theorem. If you see a diameter with a point on the circle, the angle is 90°. No calculation needed!",
+      "alt": "The arc is a semicircle (180°). The inscribed angle subtends this arc. It must be 180÷2 = 90°."
+    },
+    {
+      "question": "Angles in the same segment of a circle are ______.",
+      "question_spoken": "Angles in the same segment of a circle are blank.",
+      "answers": ["equal", "equal to each other"],
+      "steps": ["This is Theorem 9.9", "All inscribed angles subtending the same arc are equal", "No matter where on the same segment you are, the angle is the same"],
+      "trick": "Same segment = same angle. All points on the major arc see chord AB at exactly the same angle. Beautiful theorem!",
+      "alt": "Both angles subtend the same arc. By Theorem 9.8, both equal half the central angle for that arc. Same half → same angle."
+    },
+    {
+      "question": "In a cyclic quadrilateral ABCD, angle A = 85° and angle C = ?",
+      "question_spoken": "In a cyclic quadrilateral ABCD, angle A equals 85 degrees. Find angle C.",
+      "answers": ["95", "95°", "95 degrees"],
+      "steps": ["Theorem 9.11: opposite angles of cyclic quadrilateral sum to 180°", "∠A + ∠C = 180°", "∠C = 180° − 85° = 95°"],
+      "trick": "Cyclic quad: opposite angles are supplementary (add to 180°). One given, subtract from 180 to get the other. Simple!",
+      "alt": "Opposite means across the quadrilateral. Angle A and C are opposite. They must add to 180°. 180−85=95°."
+    },
+    {
+      "question": "In cyclic quadrilateral PQRS, angle P = 70° and angle Q = 110°. Find angles R and S.",
+      "question_spoken": "In cyclic quadrilateral PQRS, angle P is 70 and angle Q is 110 degrees. Find angles R and S.",
+      "answers": ["R=110°, S=70°", "R=110, S=70"],
+      "steps": ["Opposite angles: ∠P + ∠R = 180° → ∠R = 180 − 70 = 110°", "Opposite angles: ∠Q + ∠S = 180° → ∠S = 180 − 110 = 70°", "Check: 70+110+110+70 = 360° ✓"],
+      "trick": "Find opposite pairs. Subtract each from 180. Check that all four sum to 360°. Systematic approach!",
+      "alt": "P and R are opposite: R = 180−70 = 110. Q and S are opposite: S = 180−110 = 70. Verify: 70+110+110+70=360 ✓"
+    },
+    {
+      "question": "How many circles can be drawn through three collinear points?",
+      "question_spoken": "How many circles can be drawn through three collinear points?",
+      "answers": ["none", "zero", "no circle", "0"],
+      "steps": ["Three collinear points lie on a straight line", "A circle is curved — no straight section can be part of a circle", "Therefore NO circle can pass through three collinear points"],
+      "trick": "Collinear points → straight line → cannot be on a circle. For a circle, the three points MUST be non-collinear (form a triangle).",
+      "alt": "A circle is curved everywhere. Three collinear points form a line segment. No circle can contain a straight line section."
+    },
+    {
+      "question": "AB and CD are two equal chords of a circle. Which statement is true?",
+      "question_spoken": "AB and CD are two equal chords of a circle. Which statement is true about their distances from the centre?",
+      "answers": ["they are equidistant", "equal distance from centre", "equidistant from centre"],
+      "steps": ["Equal chords equidistant theorem (Theorem 9.6)", "AB = CD → perpendicular distances from centre are equal", "Equal chords are always equidistant from the centre"],
+      "trick": "Equal chords ↔ equal distances from centre. This goes both ways. Same length chord = same distance from centre. Always!",
+      "alt": "The perpendicular from centre to each chord has the same length, because equal chords subtend equal angles and are formed by equal triangles."
+    },
+    {
+      "question": "A, B, C, D are four points on a circle. Angle ABD = 50°. Find angle ACD.",
+      "question_spoken": "A, B, C, D are on a circle. Angle ABD is 50 degrees. Find angle ACD.",
+      "answers": ["50", "50°", "50 degrees"],
+      "steps": ["Angles ABD and ACD are in the same segment (both subtend arc AD)", "By Theorem 9.9: angles in same segment are equal", "∠ACD = ∠ABD = 50°"],
+      "trick": "Both angles subtend the same arc AD from the same side. Same segment → same angle. No calculation needed!",
+      "alt": "B and C are both on the same arc. Both see chord AD. By the same-segment theorem, they see it at the same angle: 50°."
+    },
+    {
+      "question": "Prove: a cyclic parallelogram is a rectangle. What is the key step?",
+      "question_spoken": "To prove a cyclic parallelogram is a rectangle, what is the key step?",
+      "answers": ["opposite angles equal 90", "each angle is 90", "angles are 90 degrees"],
+      "steps": ["Parallelogram: opposite angles equal → ∠A = ∠C", "Cyclic quad: opposite angles supplementary → ∠A + ∠C = 180°", "From both: ∠A + ∠A = 180° → ∠A = 90°. All angles = 90° → rectangle!"],
+      "trick": "Parallelogram gives equal opposite angles. Cyclic gives supplementary opposite angles. Combine: each angle must be 90°!",
+      "alt": "∠A = ∠C (parallelogram). ∠A + ∠C = 180° (cyclic). So 2∠A = 180° → ∠A = 90°. Same for ∠B and ∠D. All 90° = rectangle."
+    },
+    {
+      "question": "If arc AB subtends angle AOB = 100° at centre O, what angle does the same arc subtend at point C on the circle?",
+      "question_spoken": "Arc AB subtends central angle AOB equals 100 degrees. What angle does it subtend at point C on the remaining circle?",
+      "answers": ["50", "50°", "50 degrees"],
+      "steps": ["Theorem 9.8: central angle = 2 × inscribed angle", "100° = 2 × ∠ACB", "∠ACB = 50°"],
+      "trick": "Central is always double inscribed. Inscribed is always half central. Divide by 2 every time!",
+      "alt": "The angle at the centre (100°) is double the angle at any point on the remaining circle. So the inscribed angle = 100÷2 = 50°."
+    }
+  ]
 }
