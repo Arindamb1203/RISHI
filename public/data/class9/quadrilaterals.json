@@ -1,7 +1,330 @@
 {
-  "_note": "STUB \u2014 fill in questions before unlocking Class 9",
-  "chapter": "quadrilaterals",
-  "class": 9,
-  "board": "cbse",
-  "questions": []
+  "chapter_slug":   "quadrilaterals",
+  "chapter_name":   "Quadrilaterals",
+  "chapter_emoji":  "⬡",
+  "class_num":      9,
+  "board":          "cbse",
+  "topic":          "geometry",
+  "chap_id":        8,
+  "exam_key":       "c9-08",
+
+  "intro_text": "Hi <span class=\"hl\" id=\"sName\">there</span>! &#128522; Today we explore <span class=\"hl\">Quadrilaterals</span> — four-sided figures with amazing properties! From parallelograms to rhombuses, rectangles to squares — we&#39;ll master them all and discover the elegant Mid-Point Theorem! &#127919;",
+
+  "complete_message": "You have mastered Quadrilaterals! You can now identify and prove properties of any four-sided figure &#128170;",
+
+  "explain_questions": [
+    {
+      "id": "qu1",
+      "question": "What is a quadrilateral and what is the angle sum property?",
+      "question_spoken": "What is a quadrilateral and what is the angle sum property?",
+      "steps": [
+        {"t": "A QUADRILATERAL is a polygon with 4 sides, 4 vertices, and 4 angles. Examples from daily life: books, mobile screens, windows, doors, tiles — all quadrilaterals!", "s": "A quadrilateral has 4 sides, 4 vertices, and 4 angles. Books and windows are quadrilaterals."},
+        {"t": "ANGLE SUM PROPERTY: The sum of all four interior angles of any quadrilateral is always 360°! angle A + angle B + angle C + angle D = 360°. This works for all quadrilaterals — regular or irregular.", "s": "The sum of interior angles of any quadrilateral is always 360 degrees."},
+        {"t": "Proof: A diagonal divides the quadrilateral into 2 triangles. Each triangle has angles summing to 180°. So total = 2 × 180° = 360°! Remember: 360° = 4 × 90° — like four right angles!", "s": "A diagonal splits the quadrilateral into two triangles. Each triangle gives 180 degrees. Total is 360 degrees."}
+      ],
+      "confirm_question": "The sum of angles of a quadrilateral is ____°.",
+      "confirm_question_spoken": "The sum of angles of a quadrilateral is blank degrees.",
+      "answers": ["360", "360°"],
+      "nudges": [
+        "A quadrilateral can be split into 2 triangles",
+        "Each triangle has angles summing to 180°",
+        "Answer: 360° (2 × 180°)"
+      ],
+      "anim_svg": "<g id=\"qu1s0\" opacity=\"0\"><rect x=\"10\" y=\"8\" width=\"390\" height=\"30\" rx=\"7\" fill=\"#f5e6c8\"/><text x=\"210\" y=\"28\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"800\" fill=\"#d4870a\">Quadrilateral: 4 sides, 4 vertices, 4 angles</text></g><g id=\"qu1s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Angle sum = 360° for ALL quadrilaterals</text></g><g id=\"qu1s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Proof: diagonal → 2 triangles → 2×180° = 360°</text></g><g id=\"qu1ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Sum of angles = 360°</text></g>"
+    },
+    {
+      "id": "qu2",
+      "question": "What are the different types of quadrilaterals?",
+      "question_spoken": "What are the different types of quadrilaterals?",
+      "steps": [
+        {"t": "TRAPEZIUM: exactly one pair of parallel sides. PARALLELOGRAM: both pairs of opposite sides are parallel. RECTANGLE: parallelogram with all angles = 90°. RHOMBUS: parallelogram with all sides equal.", "s": "Trapezium has one pair of parallel sides. Parallelogram has both pairs parallel. Rectangle has all 90 degree angles. Rhombus has all sides equal."},
+        {"t": "SQUARE: both a rectangle and a rhombus (all sides equal AND all angles 90°). KITE: two pairs of adjacent sides are equal. The most special quadrilateral is the square!", "s": "Square has all sides equal and all angles 90 degrees. Kite has two pairs of adjacent equal sides."},
+        {"t": "Hierarchy: Square ⊂ Rectangle ⊂ Parallelogram. And Square ⊂ Rhombus ⊂ Parallelogram. Every square is a rectangle. Every rectangle is a parallelogram. But NOT vice versa!", "s": "Every square is a rectangle is a parallelogram. Going the other way is not always true."}
+      ],
+      "confirm_question": "A quadrilateral with exactly one pair of parallel sides is called a ______.",
+      "confirm_question_spoken": "A quadrilateral with exactly one pair of parallel sides is called a blank.",
+      "answers": ["trapezium", "trapezoid"],
+      "nudges": [
+        "Only ONE pair of sides is parallel",
+        "Not both pairs — just one",
+        "Answer: Trapezium"
+      ],
+      "anim_svg": "<g id=\"qu2s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Trapezium: 1 pair || | Parallelogram: 2 pairs ||</text></g><g id=\"qu2s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Rectangle: ∠=90° | Rhombus: all sides= | Square: both!</text></g><g id=\"qu2s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Square⊂Rectangle⊂Parallelogram (hierarchy)</text></g><g id=\"qu2ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">One pair of parallel sides → Trapezium</text></g>"
+    },
+    {
+      "id": "qu3",
+      "question": "What are the properties of a Parallelogram?",
+      "question_spoken": "What are the properties of a parallelogram?",
+      "steps": [
+        {"t": "A PARALLELOGRAM has: (1) Opposite sides are PARALLEL and EQUAL. (2) Opposite angles are EQUAL. (3) Adjacent angles are SUPPLEMENTARY (add to 180°). (4) Diagonals BISECT each other (cut each other at midpoints).", "s": "Parallelogram: opposite sides parallel and equal, opposite angles equal, adjacent angles supplementary, diagonals bisect each other."},
+        {"t": "Theorem: A diagonal of a parallelogram divides it into TWO CONGRUENT triangles. In parallelogram ABCD, diagonal AC divides it into triangle ABC and triangle CDA, which are congruent by ASA.", "s": "A diagonal splits a parallelogram into two congruent triangles."},
+        {"t": "Conditions to prove a quadrilateral IS a parallelogram: (1) Both pairs of opposite sides equal. OR (2) Both pairs of opposite sides parallel. OR (3) Diagonals bisect each other. OR (4) One pair of opposite sides both parallel AND equal!", "s": "To prove parallelogram: equal opposite sides, or parallel opposite sides, or bisecting diagonals, or one pair both parallel and equal."}
+      ],
+      "confirm_question": "In a parallelogram, the diagonals ______ each other.",
+      "confirm_question_spoken": "In a parallelogram, the diagonals blank each other.",
+      "answers": ["bisect", "bisect each other"],
+      "nudges": [
+        "The diagonals meet at a point in the middle",
+        "Each diagonal cuts the other into two equal halves",
+        "Answer: bisect (the diagonals bisect each other)"
+      ],
+      "anim_svg": "<g id=\"qu3s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Opp. sides ||&amp;= | Opp. angles = | Adj. angles supp.</text></g><g id=\"qu3s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Diagonal → 2 congruent triangles (ASA)</text></g><g id=\"qu3s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Prove parallelogram: opp=, ||, diag bisect, or 1 pair ||&amp;=</text></g><g id=\"qu3ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Diagonals BISECT each other</text></g>"
+    },
+    {
+      "id": "qu4",
+      "question": "What are the special properties of Rectangle, Rhombus and Square?",
+      "question_spoken": "What are the special properties of rectangle, rhombus and square?",
+      "steps": [
+        {"t": "RECTANGLE: All properties of parallelogram PLUS all angles = 90° PLUS diagonals are EQUAL in length. If the diagonals of a parallelogram are equal, it is a rectangle!", "s": "Rectangle has all parallelogram properties plus equal diagonals and all right angles."},
+        {"t": "RHOMBUS: All properties of parallelogram PLUS all four sides are equal PLUS diagonals bisect each other at RIGHT ANGLES (90°) PLUS diagonals bisect the vertex angles.", "s": "Rhombus has all parallelogram properties plus all sides equal and diagonals perpendicular to each other."},
+        {"t": "SQUARE: Has ALL properties of both rectangle AND rhombus! Equal sides, equal diagonals, perpendicular diagonals, right angles — it is the 'perfect' quadrilateral. Diagonals of square are equal AND perpendicular!", "s": "Square has all properties of both rectangle and rhombus. Its diagonals are equal, perpendicular, and bisect each other."}
+      ],
+      "confirm_question": "In a rhombus, the diagonals bisect each other at what angle?",
+      "confirm_question_spoken": "In a rhombus, the diagonals bisect each other at what angle?",
+      "answers": ["90", "90°", "right angles", "right angle"],
+      "nudges": [
+        "Rhombus diagonals are perpendicular to each other",
+        "Perpendicular means they meet at what angle?",
+        "Answer: 90° (right angles)"
+      ],
+      "anim_svg": "<g id=\"qu4s0\" opacity=\"0\"><rect x=\"10\" y=\"8\" width=\"185\" height=\"50\" rx=\"7\" fill=\"#eef2eb\"/><text x=\"102\" y=\"26\" text-anchor=\"middle\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Rectangle</text><text x=\"102\" y=\"44\" text-anchor=\"middle\" font-size=\"10\" fill=\"#7a8c6e\">All angles 90° | Diag equal</text></g><g id=\"qu4s1\" opacity=\"0\"><rect x=\"215\" y=\"8\" width=\"185\" height=\"50\" rx=\"7\" fill=\"#f5e6c8\"/><text x=\"312\" y=\"26\" text-anchor=\"middle\" font-size=\"11\" font-weight=\"800\" fill=\"#d4870a\">Rhombus</text><text x=\"312\" y=\"44\" text-anchor=\"middle\" font-size=\"10\" fill=\"#b85c2a\">All sides= | Diag ⊥</text></g><g id=\"qu4s2\" opacity=\"0\"><rect x=\"100\" y=\"70\" width=\"200\" height=\"40\" rx=\"7\" fill=\"#c8f0c8\"/><text x=\"200\" y=\"90\" text-anchor=\"middle\" font-size=\"11\" font-weight=\"800\" fill=\"#2a6a2a\">Square = Rectangle + Rhombus</text></g><g id=\"qu4ans\" opacity=\"0\"><rect x=\"40\" y=\"128\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"143\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Rhombus diagonals → 90° (perpendicular)</text></g>"
+    },
+    {
+      "id": "qu5",
+      "question": "What is the Mid-Point Theorem?",
+      "question_spoken": "What is the Mid-Point Theorem?",
+      "steps": [
+        {"t": "MID-POINT THEOREM: The line segment joining the midpoints of two sides of a triangle is PARALLEL to the third side AND equal to HALF of it! If P and Q are midpoints of AB and AC, then PQ || BC and PQ = ½ BC.", "s": "Mid-Point Theorem: the line joining midpoints of two sides is parallel to the third side and half its length."},
+        {"t": "CONVERSE: If a line is drawn through the midpoint of one side of a triangle, parallel to another side, it bisects the third side. Both the theorem and its converse are in the CBSE syllabus!", "s": "Converse: a line through the midpoint of one side, parallel to another, bisects the third side."},
+        {"t": "Application: If P, Q, R, S are midpoints of the four sides of quadrilateral ABCD, then PQRS is always a PARALLELOGRAM! (By applying mid-point theorem to the two triangles formed by a diagonal.)", "s": "Midpoints of sides of any quadrilateral always form a parallelogram when joined."}
+      ],
+      "confirm_question": "In a triangle with a side BC = 12 cm, the line joining midpoints of the other two sides has length ____.",
+      "confirm_question_spoken": "In a triangle with base BC equals 12 cm, the line joining midpoints of the other two sides has what length?",
+      "answers": ["6 cm", "6", "6 cm"],
+      "nudges": [
+        "Mid-Point Theorem: the line = half of the third side",
+        "Third side BC = 12 cm",
+        "Answer: 6 cm (half of 12)"
+      ],
+      "anim_svg": "<g id=\"qu5s0\" opacity=\"0\"><rect x=\"10\" y=\"8\" width=\"390\" height=\"30\" rx=\"7\" fill=\"#f5e6c8\"/><text x=\"210\" y=\"28\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"800\" fill=\"#d4870a\">Mid-Point Theorem: PQ || BC and PQ = ½ BC</text></g><g id=\"qu5s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Converse: midpoint + parallel → bisects third side</text></g><g id=\"qu5s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Midpoints of quad. sides → PARALLELOGRAM always!</text></g><g id=\"qu5ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">PQ = ½ × 12 = 6 cm</text></g>"
+    },
+    {
+      "id": "qu6",
+      "question": "How do you find missing angles in a quadrilateral?",
+      "question_spoken": "How do you find missing angles in a quadrilateral?",
+      "steps": [
+        {"t": "Step 1: Remember angle sum = 360°. Step 2: Add all given angles. Step 3: Subtract from 360° to find the missing angle. Example: Angles 80°, 90°, 110° and x°. x = 360 − 80 − 90 − 110 = 80°.", "s": "Subtract all known angles from 360 to find the missing angle."},
+        {"t": "For angles in ratio: Example — angles in ratio 3:5:9:13. Let angles be 3k, 5k, 9k, 13k. Sum = 30k = 360°. k = 12. Angles: 36°, 60°, 108°, 156°. Always add ratio numbers first!", "s": "For ratio problems, let each part be k. Sum of ratio numbers times k equals 360. Solve for k then multiply."},
+        {"t": "Parallelogram shortcut: opposite angles are equal, adjacent angles are supplementary. So if one angle is 70°, the adjacent is 180°−70°=110°, and the other two are 70° and 110° respectively.", "s": "Parallelogram shortcut: if one angle is known, opposite equals it and adjacent equals 180 minus it."}
+      ],
+      "confirm_question": "Three angles of a quadrilateral are 90°, 85° and 95°. Find the fourth angle.",
+      "confirm_question_spoken": "Three angles of a quadrilateral are 90, 85 and 95 degrees. Find the fourth angle.",
+      "answers": ["90", "90°", "90 degrees"],
+      "nudges": [
+        "Sum of all four angles = 360°",
+        "Fourth angle = 360° − 90° − 85° − 95°",
+        "360 − 270 = 90°"
+      ],
+      "anim_svg": "<g id=\"qu6s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Missing angle = 360° − sum of other angles</text></g><g id=\"qu6s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Ratio: sum of parts × k = 360 → k=12 → multiply each</text></g><g id=\"qu6s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Parallelogram: opp.=opp. | adj.+adj.=180°</text></g><g id=\"qu6ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">360 − 90 − 85 − 95 = 90°</text></g>"
+    },
+    {
+      "id": "qu7",
+      "question": "What conditions are sufficient to prove a quadrilateral is a parallelogram?",
+      "question_spoken": "What conditions are sufficient to prove a quadrilateral is a parallelogram?",
+      "steps": [
+        {"t": "Condition 1: Both pairs of opposite sides are PARALLEL. Condition 2: Both pairs of opposite sides are EQUAL. Either one is sufficient to prove it is a parallelogram!", "s": "Opposite sides parallel, or opposite sides equal — either condition proves parallelogram."},
+        {"t": "Condition 3: Both pairs of opposite angles are EQUAL. Condition 4: Diagonals BISECT each other. Condition 5: One pair of opposite sides is BOTH parallel AND equal simultaneously.", "s": "Equal opposite angles, or bisecting diagonals, or one pair both parallel and equal — all prove parallelogram."},
+        {"t": "Memory trick: 5 conditions to prove parallelogram. The most elegant is Condition 5 (one pair both || and =) — it only needs ONE pair checked! Very useful in proofs.", "s": "The fifth condition needs only one pair of sides to be both parallel and equal. Most efficient for proofs."}
+      ],
+      "confirm_question": "If diagonals of a quadrilateral bisect each other, it is a ______.",
+      "confirm_question_spoken": "If the diagonals of a quadrilateral bisect each other, it is a blank.",
+      "answers": ["parallelogram"],
+      "nudges": [
+        "Bisecting diagonals is one of the 5 conditions",
+        "This is a sufficient condition to prove the shape",
+        "Answer: Parallelogram"
+      ],
+      "anim_svg": "<g id=\"qu7s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">C1: Both pairs opp. sides || | C2: Both pairs opp. sides =</text></g><g id=\"qu7s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">C3: Opp. angles = | C4: Diagonals bisect each other</text></g><g id=\"qu7s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">C5: ONE pair both || AND = (most elegant!)</text></g><g id=\"qu7ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Diagonals bisect → Parallelogram</text></g>"
+    },
+    {
+      "id": "qu8",
+      "question": "What are the properties of a Kite?",
+      "question_spoken": "What are the properties of a kite?",
+      "steps": [
+        {"t": "A KITE has two pairs of ADJACENT sides that are equal. Example: ABCD where AB=AD and CB=CD (adjacent pairs). It looks like the flying kite shape!", "s": "A kite has two pairs of adjacent equal sides. AB equals AD and CB equals CD."},
+        {"t": "Properties of kite: (1) One diagonal bisects the other at right angles. (2) One pair of opposite angles are equal (the angles between unequal sides). (3) One diagonal is the axis of symmetry.", "s": "In a kite, one diagonal bisects the other perpendicularly. One pair of opposite angles are equal."},
+        {"t": "Kite is NOT a parallelogram (sides are adjacent-equal, not opposite-equal). The longer diagonal of a kite is called the 'main diagonal' and it bisects the angles at both vertices it connects.", "s": "A kite is not a parallelogram. The main diagonal bisects the angles at its two vertices."}
+      ],
+      "confirm_question": "In a kite, which sides are equal — adjacent sides or opposite sides?",
+      "confirm_question_spoken": "In a kite, which sides are equal — adjacent sides or opposite sides?",
+      "answers": ["adjacent", "adjacent sides"],
+      "nudges": [
+        "A kite looks like the flying toy kite",
+        "The equal sides are next to each other, not across from each other",
+        "Answer: Adjacent sides (two pairs of adjacent equal sides)"
+      ],
+      "anim_svg": "<g id=\"qu8s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Kite: AB=AD and CB=CD (adjacent pairs equal)</text></g><g id=\"qu8s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">One diag bisects other at 90° | 1 pair opp. angles =</text></g><g id=\"qu8s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Kite ≠ Parallelogram | Main diagonal = axis of symmetry</text></g><g id=\"qu8ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Kite: ADJACENT sides are equal</text></g>"
+    },
+    {
+      "id": "qu9",
+      "question": "What is the relationship between different quadrilaterals?",
+      "question_spoken": "What is the relationship between different quadrilaterals?",
+      "steps": [
+        {"t": "The hierarchy: QUADRILATERAL → PARALLELOGRAM → RECTANGLE → SQUARE (also RHOMBUS → SQUARE). Every square is a rectangle is a parallelogram is a quadrilateral. But not vice versa!", "s": "Quadrilateral contains parallelogram contains rectangle contains square. Also rhombus contains square."},
+        {"t": "Think of it like this: Parallelogram is a special quadrilateral (both pairs of opposite sides parallel). Rectangle is a special parallelogram (all angles 90°). Rhombus is a special parallelogram (all sides equal). Square is special rectangle AND special rhombus!", "s": "Each shape is a more restricted version of the previous. Square has the most restrictions."},
+        {"t": "Trapezium is NOT a parallelogram (only one pair of sides parallel). A parallelogram has BOTH pairs parallel. Isosceles trapezium: non-parallel sides are equal — it has one line of symmetry.", "s": "Trapezium has only one pair of parallel sides, not both. It is not a parallelogram."}
+      ],
+      "confirm_question": "Is every rectangle a parallelogram? Yes or No.",
+      "confirm_question_spoken": "Is every rectangle a parallelogram? Yes or No.",
+      "answers": ["yes"],
+      "nudges": [
+        "Rectangle has both pairs of opposite sides parallel (by definition)",
+        "Parallelogram requires both pairs of opposite sides parallel",
+        "Answer: Yes — every rectangle is a parallelogram"
+      ],
+      "anim_svg": "<g id=\"qu9s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Quadrilateral ⊃ Parallelogram ⊃ Rectangle ⊃ Square</text></g><g id=\"qu9s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Parallelogram ⊃ Rhombus ⊃ Square</text></g><g id=\"qu9s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Trapezium: 1 pair || only → NOT a parallelogram</text></g><g id=\"qu9ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Yes — rectangle is a special parallelogram</text></g>"
+    },
+    {
+      "id": "qu10",
+      "question": "How do you apply the Mid-Point Theorem in proofs?",
+      "question_spoken": "How do you apply the Mid-Point Theorem in proofs?",
+      "steps": [
+        {"t": "Standard proof setup: Given P and Q are midpoints of AB and AC in triangle ABC. To prove PQ || BC and PQ = ½ BC. By Mid-Point Theorem directly: stated as given that P,Q are midpoints → PQ || BC and PQ = ½ BC. Done!", "s": "If two midpoints are given, apply the theorem directly. State P and Q are midpoints, therefore PQ is parallel to BC and PQ equals half BC."},
+        {"t": "Converse use: Line through midpoint P of AB, parallel to BC, meets AC at Q. To prove Q is midpoint of AC. By Converse of Mid-Point Theorem: P is midpoint, line parallel to BC → Q is midpoint of AC.", "s": "Converse: midpoint of one side, parallel to another side, meets the third side at its midpoint."},
+        {"t": "Classic application: If ABCD is a quadrilateral and P,Q,R,S are midpoints of AB,BC,CD,DA respectively, draw diagonal AC. Apply Mid-Point Theorem in triangles ABC and ACD to show PQRS is a parallelogram!", "s": "Draw a diagonal in the quadrilateral. Apply the theorem to each triangle formed to prove the midpoint figure is a parallelogram."}
+      ],
+      "confirm_question": "P and Q are midpoints of AB and AC in triangle ABC with BC = 10 cm. Find PQ.",
+      "confirm_question_spoken": "P and Q are midpoints of AB and AC in triangle ABC with BC equals 10 cm. Find PQ.",
+      "answers": ["5 cm", "5", "5cm"],
+      "nudges": [
+        "P and Q are midpoints — Mid-Point Theorem applies",
+        "PQ = ½ × BC = ½ × 10",
+        "Answer: PQ = 5 cm"
+      ],
+      "anim_svg": "<g id=\"qu10s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">P,Q midpoints → PQ || BC and PQ = ½BC (theorem)</text></g><g id=\"qu10s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Converse: midpoint + || → bisects 3rd side</text></g><g id=\"qu10s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Quad midpoints → draw diagonal → 2 triangles → PQRS is ||gm</text></g><g id=\"qu10ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">PQ = ½ × 10 = 5 cm</text></g>"
+    }
+  ],
+
+  "practice_questions": [
+    {
+      "question": "The sum of interior angles of a quadrilateral is ____°.",
+      "question_spoken": "The sum of interior angles of a quadrilateral is blank degrees.",
+      "answers": ["360", "360°"],
+      "steps": ["A quadrilateral can be divided into 2 triangles by a diagonal", "Each triangle has angle sum 180°", "Total = 2 × 180° = 360°"],
+      "trick": "360° = 4 right angles. Think of a full rotation (360°). Four angles of any quadrilateral together make one full turn!",
+      "alt": "Draw any quadrilateral. Draw a diagonal. You get 2 triangles. Each has 180°. Together: 360°."
+    },
+    {
+      "question": "The angles of a quadrilateral are in the ratio 3:5:9:13. Find all four angles.",
+      "question_spoken": "The angles of a quadrilateral are in ratio 3:5:9:13. Find all four angles.",
+      "answers": ["36°, 60°, 108°, 156°", "36, 60, 108, 156"],
+      "steps": ["Sum of ratio parts = 3+5+9+13 = 30", "Each part = 360° ÷ 30 = 12°", "Angles: 3×12=36°, 5×12=60°, 9×12=108°, 13×12=156°"],
+      "trick": "Ratio → add all parts → each part = 360÷total. Then multiply each ratio by one part. Quick and clean!",
+      "alt": "Total ratio = 30. Divide 360 by 30: each unit = 12. Multiply: 3×12=36, 5×12=60, 9×12=108, 13×12=156."
+    },
+    {
+      "question": "In a parallelogram ABCD, angle A = 70°. Find all other angles.",
+      "question_spoken": "In a parallelogram ABCD, angle A equals 70 degrees. Find all other angles.",
+      "answers": ["∠B=110°, ∠C=70°, ∠D=110°", "B=110 C=70 D=110"],
+      "steps": ["Opposite angles equal: ∠C = ∠A = 70°", "Adjacent angles supplementary: ∠B = 180° − 70° = 110°", "Opposite angles: ∠D = ∠B = 110°"],
+      "trick": "Parallelogram: opposite = opposite, adjacent = 180 total. Once you know one angle, all four are determined!",
+      "alt": "∠A=70, ∠C=70 (opposite). ∠B=180−70=110 (adjacent). ∠D=110 (opposite to B). Check: 70+110+70+110=360 ✓"
+    },
+    {
+      "question": "In a rhombus, the diagonals bisect each other at ____°.",
+      "question_spoken": "In a rhombus, the diagonals bisect each other at blank degrees.",
+      "answers": ["90", "90°", "right angles"],
+      "steps": ["Rhombus has all sides equal", "Its diagonals are perpendicular to each other", "They bisect each other at 90°"],
+      "trick": "Rhombus diagonals are PERPENDICULAR (90°). Square also has perpendicular diagonals. Rectangle does NOT (just equal diagonals).",
+      "alt": "In a rhombus, the diagonals are the axes of symmetry. They cross at right angles — 90 degrees."
+    },
+    {
+      "question": "P and Q are midpoints of sides AB and AC of triangle ABC. If BC = 16 cm, find PQ.",
+      "question_spoken": "P and Q are midpoints of AB and AC. If BC equals 16 cm, find PQ.",
+      "answers": ["8 cm", "8"],
+      "steps": ["P is midpoint of AB, Q is midpoint of AC", "By Mid-Point Theorem: PQ || BC and PQ = ½BC", "PQ = ½ × 16 = 8 cm"],
+      "trick": "Mid-Point Theorem: line joining midpoints = half the third side. Simple halving!",
+      "alt": "The segment joining two midpoints is always half the parallel side. Half of 16 is 8."
+    },
+    {
+      "question": "Is a square a rhombus? Yes or No.",
+      "question_spoken": "Is a square a rhombus? Yes or No.",
+      "answers": ["yes"],
+      "steps": ["A rhombus has all 4 sides equal", "A square also has all 4 sides equal", "Plus square has all angles 90° — so square is a special rhombus!"],
+      "trick": "Every square is a rhombus (all sides equal). But not every rhombus is a square (rhombus doesn't need 90° angles).",
+      "alt": "Rhombus only needs: all sides equal. Square has all sides equal AND all angles 90°. Square satisfies rhombus conditions, so yes!"
+    },
+    {
+      "question": "In a rectangle ABCD, diagonal AC = 10 cm. Find diagonal BD.",
+      "question_spoken": "In a rectangle ABCD, diagonal AC equals 10 cm. Find diagonal BD.",
+      "answers": ["10 cm", "10"],
+      "steps": ["Property of rectangle: diagonals are EQUAL", "AC = BD (both diagonals equal in rectangle)", "BD = AC = 10 cm"],
+      "trick": "Rectangle diagonals are always EQUAL. This is what distinguishes rectangle from other parallelograms. Equal and bisecting each other!",
+      "alt": "In any rectangle, both diagonals have the same length. So BD = AC = 10 cm."
+    },
+    {
+      "question": "If the diagonals of a quadrilateral bisect each other, the quadrilateral is a ______.",
+      "question_spoken": "If the diagonals of a quadrilateral bisect each other, the quadrilateral is a blank.",
+      "answers": ["parallelogram"],
+      "steps": ["This is one of the 5 conditions to prove a parallelogram", "Diagonals bisecting each other → sufficient condition", "The quadrilateral must be a parallelogram"],
+      "trick": "Bisecting diagonals → parallelogram. This is theorem 8.7 in NCERT. Memorise all 5 conditions!",
+      "alt": "If the diagonals cut each other into equal halves, the four triangles formed are congruent, forcing both pairs of opposite sides to be equal — so it's a parallelogram."
+    },
+    {
+      "question": "Three angles of a quadrilateral are 60°, 110° and 130°. Find the fourth angle.",
+      "question_spoken": "Three angles of a quadrilateral are 60, 110 and 130 degrees. Find the fourth angle.",
+      "answers": ["60", "60°"],
+      "steps": ["Sum of all four angles = 360°", "Fourth angle = 360° − 60° − 110° − 130°", "= 360° − 300° = 60°"],
+      "trick": "Always: sum = 360, subtract all known angles. Clean arithmetic!",
+      "alt": "60+110+130 = 300. Fourth angle = 360−300 = 60°."
+    },
+    {
+      "question": "What type of quadrilateral has only one pair of parallel sides?",
+      "question_spoken": "What type of quadrilateral has only one pair of parallel sides?",
+      "answers": ["trapezium", "trapezoid"],
+      "steps": ["Parallelogram: both pairs of opposite sides parallel", "Trapezium: only ONE pair of sides parallel", "The non-parallel sides are called legs"],
+      "trick": "TRAP in trapezium → TRAP one pair! Only one pair is trapped (parallel). The other pair is free (not parallel).",
+      "alt": "Think of a trapezoid shape: one pair of sides runs parallel (the top and bottom), while the other two sides are slanted and not parallel."
+    },
+    {
+      "question": "In a parallelogram ABCD, AB = 8 cm and BC = 5 cm. Find CD and AD.",
+      "question_spoken": "In a parallelogram ABCD with AB equals 8 cm and BC equals 5 cm. Find CD and AD.",
+      "answers": ["CD=8, AD=5", "CD=8 cm, AD=5 cm"],
+      "steps": ["In a parallelogram, opposite sides are equal", "CD = AB = 8 cm (opposite sides)", "AD = BC = 5 cm (opposite sides)"],
+      "trick": "Opposite sides of parallelogram are always equal. Just copy the opposite side's length!",
+      "alt": "AB is opposite to DC, and BC is opposite to AD. Equal opposites: DC=8, AD=5."
+    },
+    {
+      "question": "The diagonals of which quadrilateral are equal AND perpendicular to each other?",
+      "question_spoken": "The diagonals of which quadrilateral are equal AND perpendicular to each other?",
+      "answers": ["square", "a square"],
+      "steps": ["Rectangle: diagonals equal but NOT perpendicular", "Rhombus: diagonals perpendicular but NOT equal", "Square: diagonals BOTH equal AND perpendicular ✓"],
+      "trick": "Rectangle = equal diagonals. Rhombus = perpendicular diagonals. Square = BOTH (rectangle + rhombus = square)!",
+      "alt": "Equal diagonals → rectangle. Perpendicular diagonals → rhombus. Both → only the square has both properties!"
+    },
+    {
+      "question": "In triangle ABC, D is mid-point of AB and DE is parallel to BC. What can you say about E?",
+      "question_spoken": "In triangle ABC, D is the midpoint of AB and DE is parallel to BC. What can you say about E on AC?",
+      "answers": ["E is midpoint of AC", "E is the midpoint"],
+      "steps": ["D is midpoint of AB (given)", "DE is parallel to BC (given)", "By Converse of Mid-Point Theorem: E is the midpoint of AC"],
+      "trick": "Converse of Mid-Point Theorem: midpoint of one side + parallel to another side → bisects the third side. Direct application!",
+      "alt": "The converse says: if you go through a midpoint of one side, parallel to another, you'll hit the midpoint of the third. So E is the midpoint of AC."
+    },
+    {
+      "question": "A quadrilateral with all sides equal and all angles equal is called a ______.",
+      "question_spoken": "A quadrilateral with all sides equal and all angles equal is called a blank.",
+      "answers": ["square", "a square"],
+      "steps": ["All sides equal → rhombus", "All angles equal → each = 90° (since sum = 360° and 4 angles equal)", "Both conditions: all sides equal AND all angles 90° → Square"],
+      "trick": "All sides equal + all angles equal = most perfect quadrilateral = SQUARE. No other quadrilateral satisfies both!",
+      "alt": "All angles equal means each is 360÷4 = 90°. All sides equal means it's a rhombus. Rhombus with 90° angles = Square."
+    },
+    {
+      "question": "In a parallelogram, adjacent angles are ______ (what relationship)?",
+      "question_spoken": "In a parallelogram, adjacent angles are blank.",
+      "answers": ["supplementary", "supplementary to each other", "add to 180"],
+      "steps": ["Two parallel sides with a transversal → co-interior angles", "Co-interior angles are supplementary (sum = 180°)", "Adjacent angles of parallelogram are supplementary (add to 180°)"],
+      "trick": "Adjacent angles in parallelogram are co-interior angles with respect to the parallel sides. Co-interior = supplementary = 180°!",
+      "alt": "In a parallelogram, the two sides are parallel. The other two sides act as transversals. Co-interior angles of parallel lines add to 180°."
+    }
+  ]
 }
