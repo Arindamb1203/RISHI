@@ -1,7 +1,330 @@
 {
-  "_note": "STUB \u2014 fill in questions before unlocking Class 9",
-  "chapter": "euclids-geometry",
-  "class": 9,
-  "board": "cbse",
-  "questions": []
+  "chapter_slug":   "euclids-geometry",
+  "chapter_name":   "Introduction to Euclid's Geometry",
+  "chapter_emoji":  "📜",
+  "class_num":      9,
+  "board":          "cbse",
+  "topic":          "geometry",
+  "chap_id":        5,
+  "exam_key":       "c9-05",
+
+  "intro_text": "Hi <span class=\"hl\" id=\"sName\">there</span>! &#128522; Today we meet <span class=\"hl\">Euclid</span> — the Father of Geometry! Over 2000 years ago, he wrote a book called Elements that changed mathematics forever. His 5 postulates and 7 axioms are the foundation of all geometry! &#127919;",
+
+  "complete_message": "You have mastered Euclid's Geometry! You now think like the Father of Geometry himself &#128170;",
+
+  "explain_questions": [
+    {
+      "id": "eg1",
+      "question": "Who was Euclid and what is his famous book?",
+      "question_spoken": "Who was Euclid and what is his famous book?",
+      "steps": [
+        {"t": "Euclid was a Greek mathematician who lived around 300 BC in Alexandria, Egypt. He wrote a book called 'Elements' — one of the most influential books in the history of mathematics!", "s": "Euclid was a Greek mathematician who lived around 300 BC. He wrote the famous book called Elements."},
+        {"t": "In Elements, Euclid collected all known geometry and organised it logically. He started with just a few assumptions (axioms and postulates) and proved everything else from them. This was revolutionary!", "s": "In Elements, Euclid started with basic assumptions and proved all other geometric facts from them."},
+        {"t": "The word 'geometry' comes from Greek: 'geo' = earth and 'metrein' = to measure. Geometry literally means 'measuring the earth'! It began as a practical tool for measuring land in ancient civilisations.", "s": "Geometry means measuring the earth. It comes from Greek words geo meaning earth and metrein meaning to measure."}
+      ],
+      "confirm_question": "What is the name of Euclid's famous book?",
+      "confirm_question_spoken": "What is the name of Euclid's famous book?",
+      "answers": ["elements", "Elements"],
+      "nudges": [
+        "Euclid organised all geometry into one book",
+        "It became one of the most influential books in history",
+        "Answer: Elements"
+      ],
+      "anim_svg": "<g id=\"eg1s0\" opacity=\"0\"><rect x=\"10\" y=\"8\" width=\"390\" height=\"30\" rx=\"7\" fill=\"#f5e6c8\"/><text x=\"210\" y=\"28\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"800\" fill=\"#d4870a\">Euclid (300 BC) → Book: Elements → Foundation of Geometry</text></g><g id=\"eg1s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Axioms + Postulates → proved everything else logically</text></g><g id=\"eg1s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Geometry = geo(earth) + metrein(measure) = measuring earth</text></g><g id=\"eg1ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Euclid's famous book = Elements</text></g>"
+    },
+    {
+      "id": "eg2",
+      "question": "What are Euclid's basic definitions of point, line and surface?",
+      "question_spoken": "What are Euclid's basic definitions of point, line and surface?",
+      "steps": [
+        {"t": "Euclid's Definition 1: A POINT is that which has no part. It has no length, no breadth, no thickness. It is just a position in space. We represent it as a dot, but the actual point has no size at all!", "s": "A point has no part. It has no length, breadth, or thickness. It is just a location."},
+        {"t": "Euclid's Definition 2: A LINE is a breadthless length. It has only length — no width, no thickness. A line extends infinitely in both directions. A line segment is a part of a line with two endpoints.", "s": "A line has length but no breadth or thickness. It extends infinitely in both directions."},
+        {"t": "Euclid's Definition 3: A SURFACE has length and breadth only — no thickness. Think of a sheet of paper (ideally with zero thickness). A PLANE is a flat surface that extends infinitely in all directions.", "s": "A surface has length and breadth but no thickness. A plane is a flat surface extending infinitely."}
+      ],
+      "confirm_question": "According to Euclid, a point is that which has ______.",
+      "confirm_question_spoken": "According to Euclid, a point is that which has blank.",
+      "answers": ["no part", "no parts"],
+      "nudges": [
+        "Euclid's definition of a point is very specific",
+        "It has no length, no breadth, no thickness",
+        "Answer: no part"
+      ],
+      "anim_svg": "<g id=\"eg2s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Point: no part — no length, breadth or thickness</text></g><g id=\"eg2s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Line: breadthless length — extends infinitely both ways</text></g><g id=\"eg2s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Surface: length + breadth only — no thickness</text></g><g id=\"eg2ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Point = that which has no part</text></g>"
+    },
+    {
+      "id": "eg3",
+      "question": "What is the difference between an Axiom and a Postulate?",
+      "question_spoken": "What is the difference between an Axiom and a Postulate?",
+      "steps": [
+        {"t": "AXIOMS are general universal truths — they apply to ALL of mathematics, not just geometry. They are accepted as true without proof. Example: 'Things equal to the same thing are equal to one another' (Axiom 1).", "s": "Axioms are universal truths for all of mathematics, accepted without proof."},
+        {"t": "POSTULATES are geometric assumptions — they apply specifically to geometry and are accepted without proof. Example: 'A straight line may be drawn from any one point to any other point' (Postulate 1).", "s": "Postulates are assumptions specific to geometry, also accepted without proof."},
+        {"t": "Key difference: Axioms = universal (all maths). Postulates = geometry-specific. Both are accepted without proof. Both serve as the foundation from which theorems are proved. THEOREMS are proved using axioms and postulates.", "s": "Axioms apply to all mathematics. Postulates apply only to geometry. Theorems are proved using both."}
+      ],
+      "confirm_question": "Are axioms proved or accepted without proof?",
+      "confirm_question_spoken": "Are axioms proved or accepted without proof?",
+      "answers": ["accepted without proof", "without proof", "not proved"],
+      "nudges": [
+        "Axioms are self-evident truths",
+        "We don't prove them — we start from them",
+        "Answer: Accepted without proof"
+      ],
+      "anim_svg": "<g id=\"eg3s0\" opacity=\"0\"><rect x=\"10\" y=\"8\" width=\"185\" height=\"50\" rx=\"7\" fill=\"#eef2eb\"/><text x=\"102\" y=\"28\" text-anchor=\"middle\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">AXIOMS</text><text x=\"102\" y=\"46\" text-anchor=\"middle\" font-size=\"10\" fill=\"#7a8c6e\">Universal — all maths</text></g><g id=\"eg3s1\" opacity=\"0\"><rect x=\"215\" y=\"8\" width=\"185\" height=\"50\" rx=\"7\" fill=\"#f5e6c8\"/><text x=\"312\" y=\"28\" text-anchor=\"middle\" font-size=\"11\" font-weight=\"800\" fill=\"#d4870a\">POSTULATES</text><text x=\"312\" y=\"46\" text-anchor=\"middle\" font-size=\"10\" fill=\"#b85c2a\">Geometry-specific</text></g><g id=\"eg3s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Both accepted WITHOUT proof → theorems are proved from them</text></g><g id=\"eg3ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Accepted without proof</text></g>"
+    },
+    {
+      "id": "eg4",
+      "question": "What are Euclid's 7 Axioms (Common Notions)?",
+      "question_spoken": "What are Euclid's 7 axioms or common notions?",
+      "steps": [
+        {"t": "Axiom 1: Things equal to the same thing are equal to one another. If AB=PQ and PQ=XY, then AB=XY. Axiom 2: If equals are added to equals, wholes are equal. If a=b, then a+c=b+c.", "s": "Axiom 1: equals of the same are equal. Axiom 2: adding equals gives equals."},
+        {"t": "Axiom 3: If equals are subtracted from equals, remainders are equal. If a=b, then a−c=b−c. Axiom 4: Things that coincide with one another are equal. (Superposition axiom — congruence).", "s": "Axiom 3: subtracting equals gives equals. Axiom 4: coinciding things are equal."},
+        {"t": "Axiom 5: THE WHOLE IS GREATER THAN THE PART. This is a universal truth — a whole cake is bigger than a slice! This axiom is considered a 'universal truth' because it applies to everything in the universe.", "s": "Axiom 5: the whole is always greater than the part. This is a universal truth applying to everything."}
+      ],
+      "confirm_question": "State Euclid's Axiom 1 in your own words.",
+      "confirm_question_spoken": "State Euclid's Axiom 1 in your own words.",
+      "answers": ["things equal to same are equal", "equal to same thing are equal", "equals of same are equal", "axiom 1"],
+      "nudges": [
+        "If A=B and B=C, what can you say about A and C?",
+        "They must be equal to each other!",
+        "Things equal to the same thing are equal to one another"
+      ],
+      "anim_svg": "<g id=\"eg4s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">A1: AB=PQ, PQ=XY → AB=XY (equals of same)</text></g><g id=\"eg4s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">A2: a=b → a+c=b+c | A3: a=b → a−c=b−c</text></g><g id=\"eg4s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">A5: Whole > Part (universal truth for everything!)</text></g><g id=\"eg4ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"11\" font-weight=\"bold\" fill=\"#7a8c6e\">Things equal to same thing are equal to one another</text></g>"
+    },
+    {
+      "id": "eg5",
+      "question": "What are Euclid's 5 Postulates?",
+      "question_spoken": "What are Euclid's 5 Postulates?",
+      "steps": [
+        {"t": "Postulate 1: A straight line may be drawn from any one point to any other point. (Through any two distinct points, exactly ONE line can be drawn.) Postulate 2: A terminated (finite) line can be produced indefinitely in both directions.", "s": "Postulate 1: a unique straight line passes through any two points. Postulate 2: any line can be extended indefinitely."},
+        {"t": "Postulate 3: A circle can be drawn with any centre and any radius. Postulate 4: All right angles are equal to one another. (Every right angle = 90°, everywhere, always!)", "s": "Postulate 3: any circle can be drawn with given centre and radius. Postulate 4: all right angles are equal."},
+        {"t": "Postulate 5 (The Parallel Postulate): If a straight line falls on two other straight lines making interior angles less than 180° on one side, those two lines meet on that side. This gave rise to non-Euclidean geometry!", "s": "Postulate 5: the famous parallel postulate. Lines meet on the side where angles sum to less than 180 degrees."}
+      ],
+      "confirm_question": "How many distinct lines can pass through two given distinct points?",
+      "confirm_question_spoken": "How many distinct lines can pass through two given distinct points?",
+      "answers": ["one", "only one", "1", "exactly one"],
+      "nudges": [
+        "This comes directly from Euclid's first postulate",
+        "Through any two distinct points, exactly how many lines?",
+        "Answer: Exactly one (only one unique line)"
+      ],
+      "anim_svg": "<g id=\"eg5s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">P1: Unique line thru 2 points | P2: Line extends infinitely</text></g><g id=\"eg5s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">P3: Any circle possible | P4: All right angles = 90°</text></g><g id=\"eg5s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">P5: Parallel Postulate — gave rise to non-Euclidean geometry!</text></g><g id=\"eg5ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Exactly ONE line through two distinct points</text></g>"
+    },
+    {
+      "id": "eg6",
+      "question": "What is a theorem and how does it differ from a postulate?",
+      "question_spoken": "What is a theorem and how does it differ from a postulate?",
+      "steps": [
+        {"t": "A THEOREM is a mathematical statement that can be PROVED using axioms, postulates, and previously proved theorems. Unlike postulates (which we assume), theorems must be proved step by step.", "s": "A theorem must be proved. A postulate is assumed. This is the key difference."},
+        {"t": "Example Theorem: 'Two distinct lines cannot have more than one point in common.' Proof: Assume two lines l and m meet at two points A and B. But by Postulate 1, only one line can pass through two points — contradiction! So two lines can meet at most once.", "s": "Example: two distinct lines cannot have more than one common point. This is proved using Postulate 1 by contradiction."},
+        {"t": "The logical structure: Definitions + Axioms + Postulates → PROVE Theorems → Use theorems to prove more theorems. This is the beauty of Euclid's system! Everything flows logically from a few basic assumptions.", "s": "Definitions, axioms and postulates are the foundation. Theorems are built on top using logical proof."}
+      ],
+      "confirm_question": "Can theorems be proved? Yes or No.",
+      "confirm_question_spoken": "Can theorems be proved? Yes or No.",
+      "answers": ["yes"],
+      "nudges": [
+        "Unlike axioms and postulates which are assumed...",
+        "Theorems must be logically demonstrated using proof",
+        "Answer: Yes! Theorems are always proved."
+      ],
+      "anim_svg": "<g id=\"eg6s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Theorem: a statement that CAN BE PROVED</text></g><g id=\"eg6s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">2 lines, 2 common pts? Contradicts P1 → impossible!</text></g><g id=\"eg6s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Defns+Axioms+Postulates → Proved Theorems → More Theorems</text></g><g id=\"eg6ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Yes — theorems are always proved</text></g>"
+    },
+    {
+      "id": "eg7",
+      "question": "How do you use Euclid's axioms to prove basic geometric facts?",
+      "question_spoken": "How do you use Euclid's axioms to prove basic geometric facts?",
+      "steps": [
+        {"t": "Example: If C lies between A and B with AC = BC, prove that AC = ½ AB. Given: AC = BC. Since C is between A and B: AC + BC = AB (Axiom 2 — equals added to equals).", "s": "If C is between A and B and AC equals BC, then adding: AC plus BC equals AB."},
+        {"t": "Since AC = BC, substitute: AC + AC = AB → 2AC = AB. Dividing both sides: AC = AB/2 = ½ AB. This is the definition of a MIDPOINT!", "s": "Since AC equals BC, we get 2 times AC equals AB. So AC equals half of AB. C is the midpoint."},
+        {"t": "This logical style of proof — stating each step and citing which axiom or postulate justifies it — is called Euclidean proof. Every statement in a geometric proof must be justified!", "s": "Every step in a Euclidean proof must be justified by an axiom, postulate or previously proved result."}
+      ],
+      "confirm_question": "If C is the midpoint of AB, then AC = ?",
+      "confirm_question_spoken": "If C is the midpoint of AB, then AC equals what?",
+      "answers": ["1/2 AB", "AB/2", "half of AB", "½ AB"],
+      "nudges": [
+        "Midpoint divides the line segment into two equal halves",
+        "If AC = BC, and AC + BC = AB...",
+        "Answer: AC = ½ AB"
+      ],
+      "anim_svg": "<g id=\"eg7s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">AC = BC (given) | AC + BC = AB (C between A,B)</text></g><g id=\"eg7s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">AC + AC = AB → 2AC = AB → AC = ½ AB ✓</text></g><g id=\"eg7s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Each step must be justified by an axiom/postulate!</text></g><g id=\"eg7ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">C is midpoint → AC = ½ AB</text></g>"
+    },
+    {
+      "id": "eg8",
+      "question": "What does Euclid's 5th Postulate say in simple terms?",
+      "question_spoken": "What does Euclid's 5th postulate say in simple terms?",
+      "steps": [
+        {"t": "Euclid's 5th Postulate (Parallel Postulate): If a line crosses two other lines, and the interior angles on one side add up to less than 180°, then those two lines will meet on that side if extended.", "s": "If a line crosses two other lines and interior angles on one side sum to less than 180 degrees, those two lines will eventually meet on that side."},
+        {"t": "Simple version: Through a point NOT on a given line, there is EXACTLY ONE line parallel to the given line. This is Playfair's version of the 5th postulate — simpler to understand!", "s": "Simpler form: through a point not on a line, exactly one parallel line can be drawn through that point."},
+        {"t": "The 5th postulate is famous because mathematicians tried for 2000 years to prove it from the other 4 postulates — and failed! This led to non-Euclidean geometries (curved spaces, used in GPS and Einstein's theory!)", "s": "Mathematicians tried for 2000 years to prove the 5th postulate. Failing to do so led to non-Euclidean geometry."}
+      ],
+      "confirm_question": "Through a point not on a given line, how many parallel lines can be drawn?",
+      "confirm_question_spoken": "Through a point not on a given line, how many parallel lines can be drawn?",
+      "answers": ["one", "only one", "1", "exactly one"],
+      "nudges": [
+        "This is Playfair's version of the 5th postulate",
+        "Not zero, not infinite — a specific number",
+        "Answer: Exactly one parallel line"
+      ],
+      "anim_svg": "<g id=\"eg8s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">P5: Interior angles &lt; 180° → lines meet on that side</text></g><g id=\"eg8s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Playfair: Exactly 1 parallel thru point not on line</text></g><g id=\"eg8s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">2000 years of attempts → Non-Euclidean geometry!</text></g><g id=\"eg8ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Exactly ONE parallel line</text></g>"
+    },
+    {
+      "id": "eg9",
+      "question": "Why is Axiom 5 (the whole is greater than the part) called a universal truth?",
+      "question_spoken": "Why is Axiom 5 — the whole is greater than the part — called a universal truth?",
+      "steps": [
+        {"t": "Euclid's Axiom 5: The whole is greater than the part. Example: A full pizza is bigger than any slice of it. A full glass of water holds more than a half glass. This seems obvious!", "s": "Axiom 5 says the whole is always greater than any of its parts."},
+        {"t": "It is called a 'universal truth' because it holds true for EVERYTHING in the universe — not just geometry! Water, food, money, time — the whole is always more than any part. This is why it is an axiom (not just a postulate).", "s": "It applies to everything in the universe, not just geometry. That is why it is called a universal truth."},
+        {"t": "In geometry: if B is between A and C, then AC (the whole) is greater than AB or BC (the parts). We use this constantly in geometric proofs without even thinking about it!", "s": "In geometry, a full line segment is greater than any of its parts. We use this in proofs constantly."}
+      ],
+      "confirm_question": "Axiom 5 says: the whole is ______ than the part.",
+      "confirm_question_spoken": "Axiom 5 says: the whole is blank than the part.",
+      "answers": ["greater", "bigger", "larger", "greater than"],
+      "nudges": [
+        "Think of a pizza: the full pizza vs any one slice",
+        "Which is bigger — the full pizza or the slice?",
+        "Answer: greater — the whole is GREATER than the part"
+      ],
+      "anim_svg": "<g id=\"eg9s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Axiom 5: Whole > Part</text></g><g id=\"eg9s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Pizza, water, money, time — always true universally!</text></g><g id=\"eg9s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">In geometry: AC > AB or BC when B between A and C</text></g><g id=\"eg9ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Whole is GREATER than the part</text></g>"
+    },
+    {
+      "id": "eg10",
+      "question": "What is the key theorem proved in this chapter?",
+      "question_spoken": "What is the key theorem proved in this chapter?",
+      "steps": [
+        {"t": "Theorem 5.1: Two distinct lines cannot have more than one point in common. Proof by contradiction: Assume lines l and m meet at TWO points A and B.", "s": "Theorem: two distinct lines cannot have more than one common point. Assume for contradiction they meet at two points A and B."},
+        {"t": "But by Postulate 1, only ONE unique line can pass through any two distinct points A and B. So how can two DIFFERENT lines both pass through A and B? This is a contradiction!", "s": "But Postulate 1 says exactly one line passes through two points. Two different lines cannot both pass through the same two points."},
+        {"t": "The contradiction means our assumption (that l and m meet at two points) is WRONG. Therefore, two distinct lines can have AT MOST one point in common — proved! This method (proof by contradiction) is called reductio ad absurdum.", "s": "The assumption is false. So two distinct lines can share at most one point. This proof method is called reductio ad absurdum."}
+      ],
+      "confirm_question": "Two distinct lines can have at most ______ point(s) in common.",
+      "confirm_question_spoken": "Two distinct lines can have at most blank point or points in common.",
+      "answers": ["one", "1", "one point"],
+      "nudges": [
+        "This is Theorem 5.1 from the chapter",
+        "If two lines met at two points, it would contradict Postulate 1",
+        "Answer: At most ONE point in common"
+      ],
+      "anim_svg": "<g id=\"eg10s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Theorem: 2 distinct lines → at most 1 common point</text></g><g id=\"eg10s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Assume meet at A and B → contradicts Postulate 1!</text></g><g id=\"eg10s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Contradiction → assumption false → proved!</text></g><g id=\"eg10ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">At most ONE point in common</text></g>"
+    }
+  ],
+
+  "practice_questions": [
+    {
+      "question": "What does the word 'geometry' literally mean?",
+      "question_spoken": "What does the word geometry literally mean?",
+      "answers": ["measuring the earth", "earth measurement", "measure of earth"],
+      "steps": ["Geometry comes from two Greek words", "'Geo' means earth", "'Metrein' means to measure → Geometry = measuring the earth"],
+      "trick": "Geo = Earth (like Geography = writing about earth). Metrein = Measure (like Metre). Put them together: measuring the earth!",
+      "alt": "Think of geography — study of earth. Geometry shares the 'geo' root. The 'metry' part means measurement. So geometry = earth measurement."
+    },
+    {
+      "question": "According to Euclid, a line is a ______ length.",
+      "question_spoken": "According to Euclid, a line is a blank length.",
+      "answers": ["breadthless", "breadth-less"],
+      "steps": ["Euclid's exact definition of a line", "A line is that which has length but NO breadth", "So: a line is a breadthless length"],
+      "trick": "Euclid's exact words: breadthless length. Line has only 1 dimension (length). No width, no thickness. Memorise this exact phrase!",
+      "alt": "A line is like a thread that has been stretched infinitely with zero thickness. It has length but absolutely no width."
+    },
+    {
+      "question": "How many lines can pass through a single point?",
+      "question_spoken": "How many lines can pass through a single point?",
+      "answers": ["infinitely many", "infinite", "infinitely"],
+      "steps": ["Postulate 1: through TWO distinct points, exactly ONE line", "But through ONE point alone — rotate a pencil on that point", "You can draw infinitely many lines through a single point!"],
+      "trick": "One point = infinite lines. Two points = exactly one line. The number of given points makes all the difference!",
+      "alt": "Put your pencil tip on a dot. Rotate it around that point. Every angle gives a different line. That is infinitely many lines through one point."
+    },
+    {
+      "question": "How many lines can pass through two distinct points?",
+      "question_spoken": "How many lines can pass through two distinct points?",
+      "answers": ["one", "only one", "1", "exactly one"],
+      "steps": ["This is Euclid's Postulate 1", "A straight line may be drawn from any one point to any other point", "Through two distinct points: exactly ONE unique line"],
+      "trick": "Two points fix a unique line — like two nails in a wall. You can stretch exactly one string between them. Always one, never more!",
+      "alt": "Try it with two dots. Can you draw more than one straight line through both? No. There is only one possible straight line."
+    },
+    {
+      "question": "State Euclid's Axiom 1.",
+      "question_spoken": "State Euclid's Axiom 1.",
+      "answers": ["things equal to same thing are equal", "equals of same are equal", "equal to same are equal to each other"],
+      "steps": ["Axiom 1 is the fundamental equality axiom", "If A = C and B = C, then A = B", "Things which are equal to the same thing are equal to one another"],
+      "trick": "Think of money: if your bag has the same rupees as Ram's, and Shyam's has the same as Ram's, then your bag = Shyam's. Same amount, same worth!",
+      "alt": "If AB = XY and PQ = XY, then AB = PQ. Both equal to XY, so they equal each other."
+    },
+    {
+      "question": "If AB = CD and EF = CD, what can you conclude?",
+      "question_spoken": "If AB equals CD and EF equals CD, what can you conclude?",
+      "answers": ["AB=EF", "AB = EF", "AB equals EF"],
+      "steps": ["AB = CD (given)", "EF = CD (given)", "By Axiom 1 (things equal to same are equal): AB = EF"],
+      "trick": "Both AB and EF are equal to the same thing (CD). By Axiom 1, they must equal each other. Apply the axiom directly!",
+      "alt": "CD is the common reference. AB matches CD. EF matches CD. So AB must match EF. Classic application of Axiom 1."
+    },
+    {
+      "question": "What is the difference between a theorem and a postulate?",
+      "question_spoken": "What is the difference between a theorem and a postulate?",
+      "answers": ["postulate assumed without proof, theorem is proved", "theorem is proved, postulate is not", "theorem needs proof, postulate does not"],
+      "steps": ["Postulate: accepted as true WITHOUT proof — it is an assumption", "Theorem: a statement that MUST be proved logically", "Difference: postulates are starting points; theorems are proved conclusions"],
+      "trick": "POST = starting post (you start there without proof). THEOREM = needs to be theoretically proved. Post=start, Theorem=prove!",
+      "alt": "Postulate is like a rule in a game — you just accept it. Theorem is like winning — you have to prove you deserve it step by step."
+    },
+    {
+      "question": "If C is the midpoint of AB and AB = 10 cm, what is AC?",
+      "question_spoken": "If C is the midpoint of AB and AB equals 10 cm, what is AC?",
+      "answers": ["5 cm", "5", "5 cm"],
+      "steps": ["Midpoint C divides AB into two equal halves", "AC = BC, and AC + BC = AB = 10", "AC + AC = 10 → 2AC = 10 → AC = 5 cm"],
+      "trick": "Midpoint always halves the segment. AC = ½ × AB = ½ × 10 = 5 cm. This follows from Axiom 2 (equals added to equals).",
+      "alt": "C is the midpoint, so it divides AB equally. Half of 10 is 5. So AC = 5 cm."
+    },
+    {
+      "question": "How many postulates did Euclid give?",
+      "question_spoken": "How many postulates did Euclid give?",
+      "answers": ["5", "five"],
+      "steps": ["Euclid's postulates are specific to geometry", "He gave exactly 5 postulates", "The 5th (Parallel Postulate) is the most famous"],
+      "trick": "Five postulates, seven axioms. 5+7=12 total fundamental assumptions in Euclid's system. Remember: 5 postulates!",
+      "alt": "Count on one hand: P1 (line from 2 points), P2 (extend line), P3 (draw circle), P4 (right angles equal), P5 (parallel postulate). Five!"
+    },
+    {
+      "question": "Two distinct lines cannot have more than ______ point in common.",
+      "question_spoken": "Two distinct lines cannot have more than blank point in common.",
+      "answers": ["one", "1", "one point"],
+      "steps": ["This is Theorem 5.1 — proved in the chapter", "If two lines met at two points, Postulate 1 would be violated", "By contradiction: two distinct lines share at most ONE common point"],
+      "trick": "Two DIFFERENT lines can cross once at most. Lines that share two points would be the SAME line — contradiction!",
+      "alt": "Imagine two straight roads. They can cross at one junction. But if they shared two points, they would overlap completely and be the same road."
+    },
+    {
+      "question": "Which postulate states that a circle can be drawn with any centre and radius?",
+      "question_spoken": "Which postulate states that a circle can be drawn with any centre and any radius?",
+      "answers": ["postulate 3", "third postulate", "3", "P3"],
+      "steps": ["Go through the postulates:", "P1: line through 2 points | P2: extend line", "P3: A circle can be drawn with any centre and any radius ✓"],
+      "trick": "Postulate 3 is the circle postulate. Think: 3 letters in 'arc', circles are all about arcs. P3 = circles!",
+      "alt": "Postulate 3 gives freedom to draw any circle — any center, any radius. Without this, geometry would be very limited."
+    },
+    {
+      "question": "Axiom 5 of Euclid states that the whole is ______ than the part.",
+      "question_spoken": "Axiom 5 of Euclid states that the whole is blank than the part.",
+      "answers": ["greater", "bigger", "larger"],
+      "steps": ["Euclid's Axiom 5 is a universal truth", "A full pizza is bigger than any slice", "The whole is always GREATER than the part"],
+      "trick": "Think of your full tiffin box vs just the rice portion. The whole box (with everything) is greater than just one part. Obvious but important!",
+      "alt": "Take any example: full year vs one month, full rupee vs one paisa, whole line vs a segment. Whole is always greater."
+    },
+    {
+      "question": "If equals are added to equals, the ______ are equal. (State the axiom)",
+      "question_spoken": "If equals are added to equals, the blank are equal. State the axiom.",
+      "answers": ["wholes", "sums", "results", "totals"],
+      "steps": ["This is Euclid's Axiom 2", "If a = b and c = d, then a+c = b+d", "If equals are added to equals, the WHOLES are equal"],
+      "trick": "Axiom 2: Equals + Equals = Equal wholes. Like if two people have the same salary and get the same bonus, their totals are equal!",
+      "alt": "If you add the same amount to equal quantities, the results stay equal. a=b means a+5=b+5. The wholes (sums) are equal."
+    },
+    {
+      "question": "Euclid's fifth postulate gives rise to what important concept in geometry?",
+      "question_spoken": "Euclid's fifth postulate gives rise to what important concept in geometry?",
+      "answers": ["parallel lines", "parallels", "concept of parallel lines"],
+      "steps": ["The 5th postulate deals with lines meeting or not meeting", "Lines that never meet are parallel lines", "Through any point not on a line, exactly one parallel line exists"],
+      "trick": "Postulate 5 = Parallel Postulate. The whole concept of parallel lines in geometry comes from this one postulate!",
+      "alt": "If two lines make 180° interior angles with a transversal, they never meet — they are parallel. Postulate 5 defines this."
+    },
+    {
+      "question": "In Euclid's system, what are axioms? Accepted without proof or proved?",
+      "question_spoken": "In Euclid's system, what are axioms? Are they accepted without proof or proved?",
+      "answers": ["accepted without proof", "without proof", "not proved", "assumed"],
+      "steps": ["Axioms are the starting points of Euclid's system", "They are self-evident universal truths", "They are ACCEPTED WITHOUT PROOF — we don't prove them, we start from them"],
+      "trick": "AXIom = AXIomatically true (accepted). If we had to prove axioms, we would need more basic statements — and then prove those too — it would never end! So we just accept them.",
+      "alt": "You can't prove everything. You have to start somewhere. Axioms are the things we start from. They are accepted as obviously true."
+    }
+  ]
 }
