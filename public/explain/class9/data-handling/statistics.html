@@ -6,11 +6,417 @@
 <meta name="rishi-board" content="cbse">
 <meta name="rishi-class" content="9">
 <title>RISHI — Statistics</title>
-<!-- SHELL: Content to be built chapter by chapter -->
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Nunito:wght@400;600;700;800;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<style>
+:root{--cream:#fdf6ec;--warm-white:#fffdf8;--gold:#c8922a;--gold-light:#e8b84b;--gold-pale:#f5e6c8;--amber:#d4870a;--sage:#7a8c6e;--sage-light:#a8b89a;--rust:#b85c2a;--charcoal:#2a2218;--mid:#5a4a30;--soft:#8a7a5a;--inactive:#c8b89a;--border-dark:#6b4c2a;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--cream);font-family:Nunito,sans-serif;min-height:100vh;color:var(--charcoal);}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(var(--gold-pale) 1px,transparent 1px),linear-gradient(90deg,var(--gold-pale) 1px,transparent 1px);background-size:40px 40px;opacity:.3;z-index:0;pointer-events:none;}
+.topbar{position:sticky;top:0;z-index:100;background:rgba(253,246,236,.97);border-bottom:2px solid var(--border-dark);backdrop-filter:blur(8px);padding:10px 18px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;}
+.logo-sm{font-family:'Orbitron',sans-serif;font-size:17px;font-weight:900;letter-spacing:4px;background:linear-gradient(135deg,var(--amber),var(--gold-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.topbar-center{font-family:'Orbitron',sans-serif;font-size:10px;letter-spacing:2px;color:var(--amber);text-transform:uppercase;}
+.topbar-right{display:flex;gap:8px;}
+.btn-topbar{font-family:Nunito,sans-serif;font-size:12px;font-weight:900;padding:6px 14px;border-radius:20px;border:2px solid var(--border-dark);background:var(--warm-white);color:var(--mid);cursor:pointer;}
+.btn-topbar.back{background:var(--gold-pale);}
+.prog-wrap{position:relative;z-index:10;padding:8px 18px;background:rgba(255,253,248,.9);border-bottom:1.5px solid var(--gold-pale);}
+.prog-info{display:flex;justify-content:space-between;font-size:11px;font-weight:800;color:var(--mid);margin-bottom:5px;}
+.prog-bar{height:6px;background:var(--gold-pale);border-radius:4px;overflow:hidden;}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--sage),var(--gold));border-radius:4px;transition:width .5s ease;}
+.main{position:relative;z-index:10;max-width:820px;margin:0 auto;padding:14px 14px 120px;}
+.rishika-wrap{display:flex;align-items:flex-start;gap:12px;margin-bottom:14px;}
+.rishika-avatar{width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,var(--sage),var(--sage-light));border:2px solid var(--border-dark);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;}
+.rishika-bubble{background:rgba(255,253,248,.97);border:2px solid var(--border-dark);border-radius:0 16px 16px 16px;padding:12px 16px;flex:1;box-shadow:0 4px 20px rgba(107,76,42,.1);}
+.rishika-name{font-size:10px;font-weight:900;color:var(--sage);letter-spacing:2px;text-transform:uppercase;margin-bottom:5px;}
+.rishika-text{font-size:14px;font-weight:700;color:var(--charcoal);line-height:1.6;}
+.hl{color:var(--amber);font-weight:900;}
+.btn-speak{display:inline-flex;align-items:center;gap:6px;font-family:Nunito,sans-serif;font-size:11px;font-weight:900;padding:5px 11px;border-radius:20px;border:2px solid var(--sage);background:#eef2eb;color:var(--sage);cursor:pointer;margin-top:8px;}
+.q-card{background:rgba(255,253,248,.97);border:2px solid var(--border-dark);border-radius:16px;padding:16px 18px;margin-bottom:12px;box-shadow:0 4px 20px rgba(107,76,42,.1);}
+.q-label{font-family:'Orbitron',sans-serif;font-size:10px;letter-spacing:3px;color:var(--amber);text-transform:uppercase;margin-bottom:8px;}
+.q-text{font-size:15px;font-weight:800;color:var(--charcoal);line-height:1.6;margin-bottom:10px;}
+.step{display:flex;gap:10px;margin-bottom:12px;opacity:0;transform:translateY(6px);transition:all .4s ease;}
+.step.vis{opacity:1;transform:translateY(0);}
+.step-num{width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;font-size:11px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:2px solid var(--border-dark);}
+.step-body{flex:1;font-size:13px;font-weight:700;color:var(--mid);line-height:1.6;padding-top:2px;}
+.anim-panel{background:#fffdf8;border:2px solid var(--border-dark);border-radius:14px;margin-bottom:12px;overflow:hidden;}
+.anim-header{background:linear-gradient(135deg,var(--charcoal),#3d2e1a);padding:7px 14px;display:flex;align-items:center;justify-content:space-between;}
+.anim-header-lbl{font-family:'Orbitron',sans-serif;font-size:9px;letter-spacing:2px;color:var(--gold-light);text-transform:uppercase;}
+.anim-replay{font-size:10px;font-weight:900;color:var(--gold-pale);background:none;border:1px solid var(--gold-pale);border-radius:20px;padding:2px 9px;cursor:pointer;display:none;}
+.anim-canvas{width:100%;max-height:195px;overflow:hidden;display:flex;align-items:center;justify-content:center;background:#fffdf8;}
+.anim-canvas svg{width:100%;max-height:195px;}
+.anim-status{padding:6px 14px;font-size:12px;font-weight:800;color:var(--mid);text-align:center;min-height:26px;border-top:1px solid var(--gold-pale);}
+.anim-play-btn{width:100%;padding:10px;font-family:Nunito,sans-serif;font-size:14px;font-weight:900;background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;border:none;cursor:pointer;}
+.anim-play-btn:disabled{background:var(--gold-pale);color:var(--inactive);cursor:not-allowed;}
+.steps-btn{width:100%;padding:10px;font-family:Nunito,sans-serif;font-size:14px;font-weight:900;background:linear-gradient(135deg,var(--sage),var(--sage-light));color:#fff;border:none;cursor:pointer;display:none;border-top:1px solid var(--gold-pale);}
+.confirm-wrap{margin-top:12px;background:linear-gradient(135deg,#eef2eb,#f5fbf2);border:2px solid var(--border-dark);border-radius:14px;padding:16px 18px;}
+.confirm-title{font-size:11px;font-weight:900;color:var(--sage);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;}
+.confirm-q{font-size:14px;font-weight:800;color:var(--charcoal);margin-bottom:12px;line-height:1.5;}
+.result-box{font-size:12px;font-weight:800;padding:9px 13px;border-radius:9px;display:none;line-height:1.4;}
+.result-box.ok{background:#eef2eb;border:2px solid var(--sage);color:var(--sage);display:block;}
+.result-box.no{background:#fff5f0;border:2px solid var(--rust);color:var(--rust);display:block;}
+.nudge{font-size:12px;font-weight:700;color:var(--mid);margin-top:7px;font-style:italic;display:none;}
+.nudge.show{display:block;}
+.btn-next{font-family:Nunito,sans-serif;font-size:14px;font-weight:900;padding:11px 22px;border-radius:12px;border:none;background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;cursor:pointer;display:none;margin-top:10px;width:100%;}
+.btn-next.show{display:block;}
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;z-index:100;background:rgba(253,246,236,.97);border-top:2px solid var(--border-dark);padding:10px 18px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap;align-items:center;}
+.btn-nav{font-family:Nunito,sans-serif;font-size:13px;font-weight:900;padding:10px 20px;border-radius:12px;border:2px solid var(--border-dark);cursor:pointer;}
+.btn-nav.practice{background:linear-gradient(135deg,var(--sage),var(--sage-light));color:#fff;border-color:var(--sage);}
+.btn-nav.exam{background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;border-color:var(--amber);}
+.btn-nav.locked{background:var(--gold-pale);color:var(--inactive);cursor:not-allowed;border-color:var(--inactive);}
+.lock-tip{font-size:10px;font-weight:700;color:var(--rust);width:100%;text-align:center;}
+.overlay{display:none;position:fixed;inset:0;background:rgba(42,34,24,.92);z-index:1000;flex-direction:column;align-items:center;justify-content:center;backdrop-filter:blur(6px);}
+.overlay.show{display:flex;}
+.break-box{background:var(--warm-white);border:2px solid var(--border-dark);border-radius:22px;padding:28px 32px;max-width:380px;width:90%;text-align:center;}
+.break-title{font-family:'Orbitron',sans-serif;font-size:14px;font-weight:900;color:var(--amber);letter-spacing:3px;margin-bottom:5px;}
+.break-sub{font-size:12px;font-weight:700;color:var(--soft);margin-bottom:16px;}
+.break-opts{display:flex;flex-direction:column;gap:8px;margin-bottom:12px;}
+.break-opt{font-family:Nunito,sans-serif;font-size:14px;font-weight:800;padding:11px;border-radius:11px;border:2px solid var(--border-dark);background:var(--warm-white);color:var(--mid);cursor:pointer;}
+.timer-screen{display:none;position:fixed;inset:0;background:#1a1208;z-index:1001;flex-direction:column;align-items:center;justify-content:center;}
+.timer-screen.show{display:flex;}
+.timer-reason{font-family:'Orbitron',sans-serif;font-size:12px;letter-spacing:4px;color:var(--gold-light);margin-bottom:16px;text-transform:uppercase;}
+.timer-num{font-family:'Orbitron',sans-serif;font-size:68px;font-weight:900;color:var(--gold-light);letter-spacing:6px;margin-bottom:30px;}
+.btn-end{font-family:Nunito,sans-serif;font-size:16px;font-weight:900;padding:13px 32px;border-radius:13px;border:2px solid var(--gold-light);background:transparent;color:var(--gold-light);cursor:pointer;}
+.done-banner{background:linear-gradient(135deg,#eef2eb,#f5fbf2);border:2px solid var(--border-dark);border-radius:14px;padding:14px 18px;text-align:center;margin-bottom:14px;display:none;}
+.done-banner.show{display:block;}
+.done-banner .dt{font-family:'Orbitron',sans-serif;font-size:12px;letter-spacing:2px;color:var(--sage);margin-bottom:4px;}
+.done-banner .ds{font-size:13px;font-weight:700;color:var(--mid);}
+.math-raw{width:100%;padding:10px 13px;border-radius:10px;border:2px solid var(--border-dark);background:var(--warm-white);color:var(--charcoal);font-size:1rem;font-family:'Share Tech Mono',monospace;resize:none;outline:none;min-height:48px;line-height:1.6;transition:border-color .2s;}
+.math-raw:focus{border-color:var(--amber);}
+.math-raw::placeholder{color:var(--inactive);font-family:Nunito,sans-serif;}
+.math-preview-label{font-size:0.68rem;text-transform:uppercase;letter-spacing:2px;color:var(--soft);margin:.5rem 0 .25rem;}
+.math-preview{min-height:44px;padding:.6rem 1rem;background:#f9f4ec;border-radius:8px;border:1.5px solid var(--gold-pale);font-size:1.1rem;color:var(--charcoal);overflow-x:auto;display:flex;align-items:center;justify-content:center;margin-bottom:10px;}
+.sugg-chips{display:flex;flex-wrap:wrap;gap:.35rem;margin-bottom:10px;}
+.schip{border:1.5px solid #1a6aaa;border-radius:20px;padding:.25rem .75rem;font-size:.78rem;cursor:pointer;background:#eef6ff;color:#0a5a9a;font-family:Nunito,sans-serif;font-weight:800;}
+#rWrap{position:fixed;bottom:68px;left:10px;z-index:200;width:82px;pointer-events:none;}
+#rChar{width:82px;filter:drop-shadow(0 4px 10px rgba(107,76,42,.3));}
+@keyframes rIn{from{transform:translateY(50px);opacity:0}to{transform:translateY(0);opacity:1}}
+@keyframes rBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+@media(max-width:600px){.main{padding:10px 10px 120px;}}
+</style>
+<script src="/rishi-sync.js"></script>
 <script src="/rishi-core.js"></script>
+<script src="/rishi-presence.js"></script>
 </head>
 <body>
-<!-- Statistics | Class 9 | CBSE | Explain Page -->
-<!-- TODO: Build full explain page content here -->
+<div class="topbar">
+  <div class="logo-sm">RISHI</div>
+  <div class="topbar-center">📊 Statistics</div>
+  <div class="topbar-right">
+    <button class="btn-topbar" onclick="openBreak()">&#9749; Break</button>
+    <button class="btn-topbar back" onclick="location.href='/syllabus.html'">&#8592; Syllabus</button>
+  </div>
+</div>
+<div class="prog-wrap">
+  <div class="prog-info"><span id="progLabel">Question 1 of 10</span><span id="progPct">0%</span></div>
+  <div class="prog-bar"><div class="prog-fill" id="progFill" style="width:0%"></div></div>
+</div>
+<div class="main">
+  <div class="done-banner" id="doneBanner">
+    <div class="dt">&#10003; Explanation Completed!</div>
+    <div class="ds">Practice and Exam now unlocked.</div>
+  </div>
+  <div class="rishika-wrap">
+    <div class="rishika-avatar">&#128105;&#8205;&#127979;</div>
+    <div class="rishika-bubble">
+      <div class="rishika-name">Rishika</div>
+      <div class="rishika-text" id="introText">Hi <span class="hl" id="sName">there</span>! &#128522; Today we master <span class="hl">Statistics</span> — the science of collecting, organising and interpreting data! From frequency tables to histograms to mean, median and mode — these tools help us make sense of the world! &#127919;</div>
+      <button class="btn-speak" onclick="startLesson()" id="startBtn">&#9654; Start Lesson</button>
+    </div>
+  </div>
+  <div id="qArea"></div>
+</div>
+<div class="bottom-nav">
+  <div class="lock-tip" id="lockTip">&#9757; Complete explanations to unlock Practice and Exam</div>
+  <button class="btn-nav practice locked" id="btnPractice" onclick="goPractice()">&#9999;&#65039; Practice</button>
+  <button class="btn-nav exam locked" id="btnExam" onclick="goExam()">&#128221; Exam</button>
+</div>
+<div class="overlay" id="breakOv">
+  <div class="break-box">
+    <div class="break-title">Break</div>
+    <div class="break-sub">Choose &mdash; timer starts</div>
+    <div class="break-opts">
+      <button class="break-opt" onclick="startBreak('Water')">&#128167; Water</button>
+      <button class="break-opt" onclick="startBreak('Washroom')">&#128701; Washroom</button>
+      <button class="break-opt" onclick="startBreak('Physical')">&#127939; Physical</button>
+    </div>
+    <button class="break-opt" style="color:var(--soft)" onclick="closeBreak()">Cancel</button>
+  </div>
+</div>
+<div class="timer-screen" id="timerScreen">
+  <div class="timer-reason" id="timerLbl">Break</div>
+  <div class="timer-num" id="timerNum">00:00</div>
+  <button class="btn-end" onclick="endBreak()">&#10003; End Break</button>
+</div>
+<div id="rWrap">
+<svg id="rChar" viewBox="0 0 100 110" xmlns="http://www.w3.org/2000/svg">
+  <ellipse cx="50" cy="68" rx="36" ry="28" fill="#5a8a60" stroke="#3d6b42" stroke-width="2"/>
+  <ellipse cx="50" cy="66" rx="22" ry="16" fill="#7ab87a" stroke="#5a8a60" stroke-width="1.5"/>
+  <line x1="50" y1="50" x2="50" y2="82" stroke="#5a8a60" stroke-width="1.5"/>
+  <line x1="28" y1="66" x2="72" y2="66" stroke="#5a8a60" stroke-width="1.5"/>
+  <ellipse cx="20" cy="82" rx="10" ry="7" fill="#7ab87a" stroke="#5a8a60" stroke-width="1.5" transform="rotate(-20,20,82)"/>
+  <ellipse cx="80" cy="82" rx="10" ry="7" fill="#7ab87a" stroke="#5a8a60" stroke-width="1.5" transform="rotate(20,80,82)"/>
+  <ellipse cx="22" cy="58" rx="9" ry="6" fill="#7ab87a" stroke="#5a8a60" stroke-width="1.5" transform="rotate(20,22,58)"/>
+  <ellipse cx="78" cy="58" rx="9" ry="6" fill="#7ab87a" stroke="#5a8a60" stroke-width="1.5" transform="rotate(-20,78,58)"/>
+  <ellipse cx="50" cy="42" rx="10" ry="14" fill="#8fba6a" stroke="#5a8a60" stroke-width="1.5"/>
+  <ellipse cx="50" cy="28" rx="18" ry="16" fill="#8fba6a" stroke="#5a8a60" stroke-width="2"/>
+  <ellipse cx="43" cy="24" rx="5" ry="5.5" fill="white"/><ellipse cx="57" cy="24" rx="5" ry="5.5" fill="white"/>
+  <ellipse cx="43" cy="25" rx="3" ry="3.5" fill="#1a3a1a"/><ellipse cx="57" cy="25" rx="3" ry="3.5" fill="#1a3a1a"/>
+  <circle cx="44" cy="23" r="1.2" fill="white"/><circle cx="58" cy="23" r="1.2" fill="white"/>
+  <ellipse id="rLid1" cx="43" cy="24" rx="5" ry="1" fill="#8fba6a" opacity="0"/>
+  <ellipse id="rLid2" cx="57" cy="24" rx="5" ry="1" fill="#8fba6a" opacity="0"/>
+  <path id="rMouth" d="M44,33 Q50,38 56,33" fill="none" stroke="#3d6b42" stroke-width="2" stroke-linecap="round"/>
+  <ellipse id="rBlush1" cx="36" cy="30" rx="7" ry="4" fill="#ff9999" opacity="0"/>
+  <ellipse id="rBlush2" cx="64" cy="30" rx="7" ry="4" fill="#ff9999" opacity="0"/>
+  <rect x="28" y="90" width="44" height="13" fill="#d4870a" rx="4"/>
+  <text x="50" y="100" text-anchor="middle" font-family="Nunito" font-size="7" font-weight="900" fill="white">RISHIKA</text>
+</svg>
+</div>
+<script>
+var voicesReady=false,selectedVoice=null,elAudio=null;
+function pickVoice(){var vs=window.speechSynthesis.getVoices();if(!vs||vs.length===0)return false;var fk=["heera","veena","priya","raveena","female","woman","zira","samantha","victoria","karen"];for(var i=0;i<vs.length;i++){if(vs[i].lang.toLowerCase().indexOf("en-in")===0){var n=vs[i].name.toLowerCase();for(var k=0;k<fk.length;k++){if(n.indexOf(fk[k])>=0){selectedVoice=vs[i];return true;}}}}for(var i=0;i<vs.length;i++){if(vs[i].lang.toLowerCase().indexOf("en")===0){var n=vs[i].name.toLowerCase();for(var k=0;k<fk.length;k++){if(n.indexOf(fk[k])>=0){selectedVoice=vs[i];return true;}}}}return false;}
+function initVoices(cb){if(pickVoice()){voicesReady=true;cb();return;}window.speechSynthesis.onvoiceschanged=function(){window.speechSynthesis.onvoiceschanged=null;pickVoice();voicesReady=true;cb();};setTimeout(function(){if(!voicesReady){pickVoice();voicesReady=true;cb();}},2000);}
+function stopAllAudio(){if(elAudio){try{elAudio.pause();elAudio.src="";}catch(x){}elAudio=null;}if(window.speechSynthesis)window.speechSynthesis.cancel();}
+function sayBrowser(text,onEnd){if(!window.speechSynthesis)return;window.speechSynthesis.cancel();rStartTalk(text.length);var u=new SpeechSynthesisUtterance(text);u.lang="en-IN";u.rate=0.88;u.pitch=1.15;if(selectedVoice)u.voice=selectedVoice;u.onend=function(){rStopTalk();if(onEnd)onEnd();};u.onerror=function(){rStopTalk();if(onEnd)onEnd();};window.speechSynthesis.speak(u);}
+function say(text,onEnd){stopAllAudio();rStartTalk(text.length);fetch("/tts",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({text:text})}).then(function(res){if(!res.ok)throw new Error("TTS "+res.status);return res.blob();}).then(function(blob){var url=URL.createObjectURL(blob);elAudio=new Audio(url);elAudio.onended=function(){URL.revokeObjectURL(url);elAudio=null;rStopTalk();if(onEnd)onEnd();};elAudio.onerror=function(){URL.revokeObjectURL(url);elAudio=null;rStopTalk();if(onEnd)onEnd();};var p=elAudio.play();if(p&&p.catch){p.catch(function(){URL.revokeObjectURL(url);elAudio=null;sayBrowser(text,onEnd);});}}).catch(function(err){sayBrowser(text,onEnd);});}
+function sayEl(id){var e=G(id);if(e)say(e.innerText||e.textContent);}
+window.addEventListener("beforeunload",function(){stopAllAudio();});
+var mouthTmr=null,blinkTmr=null,mOpen=false;
+function rInit(){var c=G("rChar");if(c)c.style.animation="rIn .6s cubic-bezier(.34,1.56,.64,1) forwards";scheduleBlink();}
+function scheduleBlink(){blinkTmr=setTimeout(function(){rBlink();scheduleBlink();},2200+Math.random()*3000);}
+function rBlink(){var l=G("rLid1"),r=G("rLid2");if(!l||!r)return;l.setAttribute("ry","5.5");r.setAttribute("ry","5.5");setTimeout(function(){l.setAttribute("ry","1");r.setAttribute("ry","1");},120);}
+function rStartTalk(len){rStopTalk();G("rBlush1").style.opacity="0.7";G("rBlush2").style.opacity="0.7";mOpen=false;mouthTmr=setInterval(function(){mOpen=!mOpen;var m=G("rMouth");if(!m)return;if(mOpen){m.setAttribute("d","M42,33 Q50,42 58,33");m.setAttribute("fill","#1a3a1a");}else{m.setAttribute("d","M44,33 Q50,38 56,33");m.setAttribute("fill","none");}},160);setTimeout(rStopTalk,Math.max(1800,(len||20)*58));}
+function rStopTalk(){clearInterval(mouthTmr);mOpen=false;var m=G("rMouth");if(m){m.setAttribute("d","M44,33 Q50,38 56,33");m.setAttribute("fill","none");}G("rBlush1").style.opacity="0";G("rBlush2").style.opacity="0";}
+function rHappy(){var c=G("rChar");if(c)c.style.animation="rBounce .35s ease-in-out 5";G("rBlush1").style.opacity="1";G("rBlush2").style.opacity="1";setTimeout(function(){rStopTalk();var c=G("rChar");if(c)c.style.animation="none";},2500);}
+function rThink(){setTimeout(rStopTalk,1800);}
+
+var QB=[
+{
+id:"st1",
+q:"What is Statistics and what are the key terms?",
+qs:"What is Statistics and what are the key terms?",
+anim:"st1",
+steps:[{"t": "STATISTICS is the science of collecting, organising, presenting, analysing and interpreting numerical data to draw conclusions. DATA = collection of numbers/facts gathered for analysis.", "s": "Statistics is the science of collecting, organising and interpreting data. Data is the collection of numbers gathered for analysis."}, {"t": "Key terms: PRIMARY DATA = collected directly by the investigator (surveys, experiments). SECONDARY DATA = collected by someone else (newspapers, government records). RAW DATA = data in original unorganised form.", "s": "Primary data is collected directly. Secondary data is collected by others. Raw data is unorganised original data."}, {"t": "POPULATION = the entire group being studied. SAMPLE = a smaller group chosen from the population. VARIABLE = the characteristic being measured. OBSERVATION = each value in the data. FREQUENCY = how many times a value occurs.", "s": "Population is the whole group. Sample is a part of it. Frequency is how many times a value occurs."}],
+cq:"Data collected by the investigator directly is called ______ data.",
+cqs:"Data collected by the investigator directly is called blank data.",
+ans:["primary", "primary data"],
+nudges:["There are two types: primary and secondary", "If YOU collect the data yourself through surveys or experiments...", "Answer: Primary data"],
+anim_svg:"<g id=\"st1s0\" opacity=\"0\"><rect x=\"10\" y=\"8\" width=\"390\" height=\"30\" rx=\"7\" fill=\"#f5e6c8\"/><text x=\"210\" y=\"28\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"800\" fill=\"#d4870a\">Statistics: Collect→Organise→Present→Analyse→Interpret</text></g><g id=\"st1s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Primary: collected directly | Secondary: from others</text></g><g id=\"st1s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Population: whole group | Sample: part | Frequency: count</text></g><g id=\"st1ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Collected directly = Primary data</text></g>"
+},
+{
+id:"st2",
+q:"What is a Frequency Distribution Table?",
+qs:"What is a Frequency Distribution Table?",
+anim:"st2",
+steps:[{"t": "A FREQUENCY DISTRIBUTION TABLE organises raw data into classes (groups) and shows how many observations fall in each class. It makes large data easy to understand at a glance!", "s": "A frequency distribution table groups data into classes and shows the count in each group."}, {"t": "Terms: CLASS INTERVAL = the range of each group (e.g. 0-10, 10-20). CLASS WIDTH = upper limit − lower limit (=10 in this case). CLASS MARK = midpoint of class = (upper+lower)/2. FREQUENCY = count in that class.", "s": "Class interval is the range. Class width is upper minus lower limit. Class mark is the midpoint. Frequency is the count."}, {"t": "CUMULATIVE FREQUENCY = running total of frequencies. RELATIVE FREQUENCY = frequency/total × 100%. Exclusive class intervals (10-20, 20-30): 20 goes in 20-30 NOT 10-20. Upper limit is excluded!", "s": "Cumulative frequency is the running total. In exclusive intervals, the upper limit belongs to the next class."}],
+cq:"Class mark of the interval 20-30 is ____.",
+cqs:"The class mark of the interval 20 to 30 is blank.",
+ans:["25", "25.0"],
+nudges:["Class mark = (upper limit + lower limit) / 2", "= (20 + 30) / 2", "Answer: 25"],
+anim_svg:"<g id=\"st2s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Frequency Distribution: group data into classes</text></g><g id=\"st2s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Class width=upper-lower | Class mark=(u+l)/2</text></g><g id=\"st2s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Exclusive: upper limit→next class | Cum.freq=running total</text></g><g id=\"st2ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Class mark = (20+30)/2 = 25</text></g>"
+},
+{
+id:"st3",
+q:"What is a Histogram and how do you draw one?",
+qs:"What is a Histogram and how do you draw one?",
+anim:"st3",
+steps:[{"t": "A HISTOGRAM is a bar graph for continuous data (grouped frequency distribution). Key difference from bar graph: NO GAPS between bars! Bars touch each other because data is continuous.", "s": "A histogram has no gaps between bars. It is used for continuous grouped data. This is the key difference from a bar graph."}, {"t": "How to draw: X-axis = class intervals (plotted on a continuous scale). Y-axis = frequency. Draw bars with width = class width and height = frequency. Label both axes. Title the graph.", "s": "X-axis shows class intervals. Y-axis shows frequency. Bars have width equal to class width and height equal to frequency."}, {"t": "If class widths are UNEQUAL, use frequency density on Y-axis: Frequency Density = Frequency / Class Width. This ensures fair comparison between classes of different widths. Equal widths: frequency density = frequency!", "s": "For unequal class widths, use frequency density equals frequency divided by class width on the y-axis."}],
+cq:"In a histogram, the bars touch each other because data is ______.",
+cqs:"In a histogram, the bars touch each other because data is blank.",
+ans:["continuous", "continuous data"],
+nudges:["Bar graphs have gaps for discrete data", "Histograms have no gaps for what type of data?", "Answer: Continuous (no gaps between continuous values)"],
+anim_svg:"<g id=\"st3s0\" opacity=\"0\"><rect x=\"10\" y=\"8\" width=\"390\" height=\"30\" rx=\"7\" fill=\"#f5e6c8\"/><text x=\"210\" y=\"28\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"800\" fill=\"#d4870a\">Histogram: bars TOUCH (continuous data, no gaps!)</text></g><g id=\"st3s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">X: class intervals | Y: frequency | width=class width</text></g><g id=\"st3s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Unequal widths: use freq. density=freq/class width</text></g><g id=\"st3ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">No gaps → Continuous data</text></g>"
+},
+{
+id:"st4",
+q:"What is the Mean and how do you calculate it?",
+qs:"What is the Mean and how do you calculate it?",
+anim:"st4",
+steps:[{"t": "MEAN (Arithmetic Mean) = Sum of all observations / Number of observations = Σx / n. It is the 'average' — the balance point of the data. Symbol: x̄ (x-bar).", "s": "Mean equals sum of all values divided by number of values. It is the balance point of the data. Symbol is x bar."}, {"t": "For UNGROUPED data: Mean = (x₁+x₂+...+xₙ)/n. Example: data 4,7,2,9,3. Mean = (4+7+2+9+3)/5 = 25/5 = 5. For GROUPED data (frequency table): Mean = Σ(fᵢxᵢ)/Σfᵢ where xᵢ is class mark.", "s": "For ungrouped data, add all values and divide by count. For grouped data, multiply each class mark by its frequency, add, then divide by total frequency."}, {"t": "ASSUMED MEAN METHOD: Choose a convenient assumed mean 'a'. Let dᵢ = xᵢ - a. Then Mean = a + (Σfᵢdᵢ/Σfᵢ). This reduces calculation! Used when class marks are large numbers.", "s": "Assumed mean method: subtract assumed mean from each class mark, multiply by frequency, sum up, divide by total frequency, add assumed mean."}],
+cq:"Find the mean of: 5, 8, 3, 7, 2",
+cqs:"Find the mean of 5, 8, 3, 7 and 2.",
+ans:["5", "5.0"],
+nudges:["Mean = sum / count", "Sum = 5+8+3+7+2 = 25. Count = 5", "Mean = 25/5 = 5"],
+anim_svg:"<g id=\"st4s0\" opacity=\"0\"><rect x=\"10\" y=\"8\" width=\"390\" height=\"30\" rx=\"7\" fill=\"#eef2eb\"/><text x=\"210\" y=\"28\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Mean = Σx/n (ungrouped) | Σfᵢxᵢ/Σfᵢ (grouped)</text></g><g id=\"st4s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">4,7,2,9,3: sum=25, n=5 → Mean=5</text></g><g id=\"st4s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Assumed mean: Mean=a+Σfᵢdᵢ/Σfᵢ where dᵢ=xᵢ-a</text></g><g id=\"st4ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Mean = (5+8+3+7+2)/5 = 25/5 = 5</text></g>"
+},
+{
+id:"st5",
+q:"What is the Median and how do you find it?",
+qs:"What is the Median and how do you find it?",
+anim:"st5",
+steps:[{"t": "MEDIAN = the middle value when data is arranged in ASCENDING ORDER. It divides the data into two equal halves. Not affected by extreme values (unlike mean)!", "s": "Median is the middle value after arranging data in ascending order. It is not affected by extreme values."}, {"t": "For ODD number of observations (n): Median = value at position (n+1)/2. Example: 2,3,5,7,9 (n=5). Position = (5+1)/2 = 3rd value = 5. For EVEN n: Median = average of (n/2)th and (n/2+1)th values.", "s": "For odd n: median is the middle value at position n plus 1 over 2. For even n: average the two middle values."}, {"t": "Example (even n): 2,4,5,7,8,9 (n=6). Middle positions: 3rd=5 and 4th=7. Median = (5+7)/2 = 6. Always SORT first! Many students forget to sort — always the first step.", "s": "Even n: positions n over 2 and n over 2 plus 1. Average those two values. Always sort data first before finding median."}],
+cq:"Find the median of: 3, 1, 7, 5, 9",
+cqs:"Find the median of 3, 1, 7, 5 and 9.",
+ans:["5"],
+nudges:["First arrange in order: 1, 3, 5, 7, 9", "n=5 (odd). Position = (5+1)/2 = 3rd value", "3rd value = 5. Median = 5"],
+anim_svg:"<g id=\"st5s0\" opacity=\"0\"><rect x=\"10\" y=\"8\" width=\"390\" height=\"30\" rx=\"7\" fill=\"#f5e6c8\"/><text x=\"210\" y=\"28\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"800\" fill=\"#d4870a\">Median = middle value (SORT FIRST!)</text></g><g id=\"st5s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Odd n: pos=(n+1)/2 | Even n: avg of n/2 and (n/2+1)</text></g><g id=\"st5s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Even example: 2,4,5,7,8,9 → (5+7)/2=6</text></g><g id=\"st5ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">1,3,5,7,9 → 3rd value = 5</text></g>"
+},
+{
+id:"st6",
+q:"What is the Mode and how do you find it?",
+qs:"What is the Mode and how do you find it?",
+anim:"st6",
+steps:[{"t": "MODE = the value that occurs MOST FREQUENTLY in the data. The most popular value! A data set can have: No mode (all values different), One mode (unimodal), Two modes (bimodal), Multiple modes.", "s": "Mode is the value that appears most often. Data can have no mode, one mode, or multiple modes."}, {"t": "Example: 4, 5, 3, 4, 7, 4, 2, 6. Count: 4 appears 3 times (most). Mode = 4. Example: 2, 3, 3, 4, 4, 5. Both 3 and 4 appear twice. Two modes: 3 and 4 (bimodal).", "s": "The value appearing most is the mode. If two values tie, both are modes — the data is bimodal."}, {"t": "Mode is most useful for: finding the most popular item (best-selling product, most common shoe size, most frequent score). Unlike mean and median, mode can be used for NON-NUMERICAL data too (most popular colour)!", "s": "Mode is best for finding the most popular item. It works for non-numerical data too, unlike mean and median."}],
+cq:"Find the mode of: 2, 3, 4, 3, 5, 3, 2, 4",
+cqs:"Find the mode of 2, 3, 4, 3, 5, 3, 2 and 4.",
+ans:["3"],
+nudges:["Count frequency of each value", "2 appears 2 times, 3 appears 3 times, 4 appears 2 times, 5 appears 1 time", "3 appears most often → Mode = 3"],
+anim_svg:"<g id=\"st6s0\" opacity=\"0\"><rect x=\"10\" y=\"8\" width=\"390\" height=\"30\" rx=\"7\" fill=\"#eef2eb\"/><text x=\"210\" y=\"28\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Mode = most frequent value</text></g><g id=\"st6s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">4,5,3,4,7,4,2,6 → 4 appears 3 times → Mode=4</text></g><g id=\"st6s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Bimodal: 2 modes | Works for non-numerical data too!</text></g><g id=\"st6ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">3 appears 3 times → Mode = 3</text></g>"
+},
+{
+id:"st7",
+q:"What is a Frequency Polygon and how is it drawn?",
+qs:"What is a Frequency Polygon and how is it drawn?",
+anim:"st7",
+steps:[{"t": "A FREQUENCY POLYGON is a line graph that shows the distribution of data. It is drawn by joining the midpoints (class marks) of the tops of histogram bars with straight lines. It is smoother than a histogram!", "s": "A frequency polygon joins the midpoints of histogram bar tops with straight lines. It shows data distribution as a smooth shape."}, {"t": "To draw WITHOUT histogram: Plot points (class mark, frequency) for each class. Add two extra points at zero frequency: one class before the first and one after the last. Join all points with straight lines.", "s": "Plot each class mark against its frequency. Add zero-frequency points at each end. Join all points with straight lines."}, {"t": "The polygon should be CLOSED — it starts and ends at the x-axis (zero frequency). The area under the frequency polygon equals the area of the histogram. Frequency polygons are useful to COMPARE two distributions on the same graph!", "s": "The polygon closes at the x-axis. Its area equals the histogram area. Frequency polygons allow comparison of two datasets on the same graph."}],
+cq:"A frequency polygon is drawn by joining midpoints of ______ of histogram bars.",
+cqs:"A frequency polygon is drawn by joining the midpoints of blank of histogram bars.",
+ans:["tops", "the tops", "top sides", "upper sides"],
+nudges:["Think about which part of each histogram bar is used", "The highest point of each bar is...", "Answer: Tops (the top edges of the bars)"],
+anim_svg:"<g id=\"st7s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Frequency Polygon: join midpoints of tops of bars</text></g><g id=\"st7s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Without histogram: plot (class mark, freq), add 0-freq ends</text></g><g id=\"st7s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Closed polygon | Same area as histogram | Compare 2 datasets</text></g><g id=\"st7ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Join midpoints of TOPS of histogram bars</text></g>"
+},
+{
+id:"st8",
+q:"How do you compare Mean, Median and Mode?",
+qs:"How do you compare mean, median and mode?",
+anim:"st8",
+steps:[{"t": "MEAN: Best when data is symmetric (no outliers). Uses ALL values. Affected by extreme values. Most mathematically useful. Example: average marks in class.", "s": "Mean uses all values and is best for symmetric data. It is affected by outliers like a very high or very low value."}, {"t": "MEDIAN: Best when data has outliers (extreme values). Divides data into two equal halves. Not affected by extremes. Example: median salary in a company (few very high salaries don't distort it).", "s": "Median is best when there are outliers. It is not affected by extreme values. Best for salary or income data."}, {"t": "MODE: Best for most popular item. Can be used for qualitative data. May not exist or may be multiple. Example: most common dress size, most popular product. Relationship: In symmetric distribution, Mean = Median = Mode!", "s": "Mode is best for most popular item. In symmetric data, all three measures are equal. Mode works for non-numerical data."}],
+cq:"Which measure of central tendency is NOT affected by extreme values?",
+cqs:"Which measure of central tendency is not affected by extreme values?",
+ans:["median", "the median"],
+nudges:["Mean uses all values — so extreme values change it", "Mode just finds the most frequent — but a single extreme value won't have high frequency", "Median only cares about the middle position — extreme values don't change it"],
+anim_svg:"<g id=\"st8s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Mean: uses all | best for symmetric | affected by outliers</text></g><g id=\"st8s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Median: middle | NOT affected by outliers | best for salary</text></g><g id=\"st8s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Mode: most popular | works for qualitative data</text></g><g id=\"st8ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">MEDIAN is not affected by extreme values</text></g>"
+},
+{
+id:"st9",
+q:"How do you calculate Mean from a frequency distribution table?",
+qs:"How do you calculate mean from a frequency distribution table?",
+anim:"st9",
+steps:[{"t": "For grouped data: Mean = Σ(fᵢ × xᵢ) / Σfᵢ. Where xᵢ = class mark of each class, fᵢ = frequency of each class. Step 1: Find class marks. Step 2: Multiply each class mark by frequency. Step 3: Sum all fᵢxᵢ. Step 4: Divide by Σfᵢ.", "s": "Mean from frequency table: multiply each class mark by its frequency, sum all those products, divide by total frequency."}, {"t": "Example: Classes 0-10, 10-20, 20-30 with frequencies 5, 8, 7. Class marks: 5, 15, 25. fᵢxᵢ: 25, 120, 175. Σfᵢxᵢ = 320. Σfᵢ = 20. Mean = 320/20 = 16.", "s": "Classes 0-10, 10-20, 20-30 with frequencies 5, 8, 7. Class marks 5, 15, 25. Products: 25, 120, 175. Sum 320 divided by 20 equals mean 16."}, {"t": "STEP DEVIATION METHOD: dᵢ = (xᵢ − a)/h where a = assumed mean, h = class width. Mean = a + h × (Σfᵢdᵢ/Σfᵢ). This is fastest when class width is constant. Very useful for CBSE board questions!", "s": "Step deviation method: dᵢ equals class mark minus assumed mean divided by class width. Mean equals assumed mean plus class width times sum of f d over total frequency."}],
+cq:"For classes 0-10, 10-20, 20-30 with frequencies 4, 6, 5 \u2014 what is \u03a3f\u1d62?",
+cqs:"For classes 0-10, 10-20 and 20-30 with frequencies 4, 6 and 5 \u2014 what is the total frequency?",
+ans:["15", "15 observations"],
+nudges:["Σfᵢ means sum of all frequencies", "4 + 6 + 5 = ?", "Answer: Σfᵢ = 15"],
+anim_svg:"<g id=\"st9s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Grouped Mean = Σ(fᵢxᵢ)/Σfᵢ</text></g><g id=\"st9s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Classes:0-10,10-20,20-30 | f:5,8,7 | xᵢ:5,15,25</text></g><g id=\"st9s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Σfx=25+120+175=320 | Σf=20 | Mean=320/20=16</text></g><g id=\"st9ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Σfᵢ = 4+6+5 = 15</text></g>"
+},
+{
+id:"st10",
+q:"What are the different types of graphical representations of data?",
+qs:"What are the different types of graphical representations of data?",
+anim:"st10",
+steps:[{"t": "BAR GRAPH: for discrete data, bars have gaps. HISTOGRAM: for continuous grouped data, no gaps. FREQUENCY POLYGON: line graph connecting class mark vs frequency. PIE CHART: for parts of a whole (uses angles, 360° total).", "s": "Bar graph for discrete data. Histogram for continuous data. Frequency polygon is a line version of histogram. Pie chart shows proportions."}, {"t": "STEM-AND-LEAF PLOT: shows actual data values while grouped. Good for small datasets. Example: scores 34,36,45,47,52 → Stem 3: 4,6 | Stem 4: 5,7 | Stem 5: 2. Both stem and leaf are visible!", "s": "Stem and leaf plot shows actual values grouped by first digits. Stem is tens digit, leaf is units digit."}, {"t": "OGIVE (Cumulative Frequency Curve): graph of cumulative frequency vs upper class boundary. Shaped like an S-curve. Used to find median graphically (at 50th percentile). Less than ogive uses upper limits!", "s": "Ogive is the cumulative frequency curve. It has an S-shape. The median can be read from the ogive at the 50th percentile."}],
+cq:"Which graph is used for continuous grouped data with NO gaps between bars?",
+cqs:"Which graph is used for continuous grouped data with no gaps between bars?",
+ans:["histogram", "a histogram"],
+nudges:["Bar graph has gaps. This one does NOT have gaps.", "It is used for continuous grouped data", "Answer: Histogram"],
+anim_svg:"<g id=\"st10s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Bar:gaps,discrete | Histogram:no gaps,continuous</text></g><g id=\"st10s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Freq. Polygon: line | Pie: proportions | Stem-Leaf: actual vals</text></g><g id=\"st10s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Ogive: cumulative freq curve (S-shape) → find median!</text></g><g id=\"st10ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Histogram — no gaps, continuous data</text></g>"
+}
+];
+
+function getAnimSVG(t){
+var base='<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Nunito,sans-serif;background:#fffdf8"><rect width="420" height="178" fill="#fffdf8"/>';
+var svgs={
+"st1":base+"<g id=\"st1s0\" opacity=\"0\"><rect x=\"10\" y=\"8\" width=\"390\" height=\"30\" rx=\"7\" fill=\"#f5e6c8\"/><text x=\"210\" y=\"28\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"800\" fill=\"#d4870a\">Statistics: Collect\u2192Organise\u2192Present\u2192Analyse\u2192Interpret</text></g><g id=\"st1s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Primary: collected directly | Secondary: from others</text></g><g id=\"st1s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Population: whole group | Sample: part | Frequency: count</text></g><g id=\"st1ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Collected directly = Primary data</text></g>",
+"st2":base+"<g id=\"st2s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Frequency Distribution: group data into classes</text></g><g id=\"st2s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Class width=upper-lower | Class mark=(u+l)/2</text></g><g id=\"st2s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Exclusive: upper limit\u2192next class | Cum.freq=running total</text></g><g id=\"st2ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Class mark = (20+30)/2 = 25</text></g>",
+"st3":base+"<g id=\"st3s0\" opacity=\"0\"><rect x=\"10\" y=\"8\" width=\"390\" height=\"30\" rx=\"7\" fill=\"#f5e6c8\"/><text x=\"210\" y=\"28\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"800\" fill=\"#d4870a\">Histogram: bars TOUCH (continuous data, no gaps!)</text></g><g id=\"st3s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">X: class intervals | Y: frequency | width=class width</text></g><g id=\"st3s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Unequal widths: use freq. density=freq/class width</text></g><g id=\"st3ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">No gaps \u2192 Continuous data</text></g>",
+"st4":base+"<g id=\"st4s0\" opacity=\"0\"><rect x=\"10\" y=\"8\" width=\"390\" height=\"30\" rx=\"7\" fill=\"#eef2eb\"/><text x=\"210\" y=\"28\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Mean = \u03a3x/n (ungrouped) | \u03a3f\u1d62x\u1d62/\u03a3f\u1d62 (grouped)</text></g><g id=\"st4s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">4,7,2,9,3: sum=25, n=5 \u2192 Mean=5</text></g><g id=\"st4s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Assumed mean: Mean=a+\u03a3f\u1d62d\u1d62/\u03a3f\u1d62 where d\u1d62=x\u1d62-a</text></g><g id=\"st4ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Mean = (5+8+3+7+2)/5 = 25/5 = 5</text></g>",
+"st5":base+"<g id=\"st5s0\" opacity=\"0\"><rect x=\"10\" y=\"8\" width=\"390\" height=\"30\" rx=\"7\" fill=\"#f5e6c8\"/><text x=\"210\" y=\"28\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"800\" fill=\"#d4870a\">Median = middle value (SORT FIRST!)</text></g><g id=\"st5s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Odd n: pos=(n+1)/2 | Even n: avg of n/2 and (n/2+1)</text></g><g id=\"st5s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Even example: 2,4,5,7,8,9 \u2192 (5+7)/2=6</text></g><g id=\"st5ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">1,3,5,7,9 \u2192 3rd value = 5</text></g>",
+"st6":base+"<g id=\"st6s0\" opacity=\"0\"><rect x=\"10\" y=\"8\" width=\"390\" height=\"30\" rx=\"7\" fill=\"#eef2eb\"/><text x=\"210\" y=\"28\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Mode = most frequent value</text></g><g id=\"st6s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">4,5,3,4,7,4,2,6 \u2192 4 appears 3 times \u2192 Mode=4</text></g><g id=\"st6s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Bimodal: 2 modes | Works for non-numerical data too!</text></g><g id=\"st6ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">3 appears 3 times \u2192 Mode = 3</text></g>",
+"st7":base+"<g id=\"st7s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Frequency Polygon: join midpoints of tops of bars</text></g><g id=\"st7s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Without histogram: plot (class mark, freq), add 0-freq ends</text></g><g id=\"st7s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Closed polygon | Same area as histogram | Compare 2 datasets</text></g><g id=\"st7ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Join midpoints of TOPS of histogram bars</text></g>",
+"st8":base+"<g id=\"st8s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Mean: uses all | best for symmetric | affected by outliers</text></g><g id=\"st8s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Median: middle | NOT affected by outliers | best for salary</text></g><g id=\"st8s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Mode: most popular | works for qualitative data</text></g><g id=\"st8ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">MEDIAN is not affected by extreme values</text></g>",
+"st9":base+"<g id=\"st9s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Grouped Mean = \u03a3(f\u1d62x\u1d62)/\u03a3f\u1d62</text></g><g id=\"st9s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Classes:0-10,10-20,20-30 | f:5,8,7 | x\u1d62:5,15,25</text></g><g id=\"st9s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">\u03a3fx=25+120+175=320 | \u03a3f=20 | Mean=320/20=16</text></g><g id=\"st9ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">\u03a3f\u1d62 = 4+6+5 = 15</text></g>",
+"st10":base+"<g id=\"st10s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Bar:gaps,discrete | Histogram:no gaps,continuous</text></g><g id=\"st10s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Freq. Polygon: line | Pie: proportions | Stem-Leaf: actual vals</text></g><g id=\"st10s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Ogive: cumulative freq curve (S-shape) \u2192 find median!</text></g><g id=\"st10ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Histogram \u2014 no gaps, continuous data</text></g>"
+};
+return svgs[t]||'<svg viewBox="0 0 420 178"><text x="210" y="89" text-anchor="middle" font-family="Nunito" font-size="14" fill="#5a4a30">Loading...</text></svg>';
+}
+
+function makeAnimPlay(id,steps,ansLabel){return function(done){setStatus("Solving step by step...");var delay=600;steps.forEach(function(_,i){var d=delay+i*2800;(function(ii,dd){at(dd,function(){fade(id+"s"+ii,1);});})( i,d);});at(delay+steps.length*2800,function(){fade(id+"ans",1);setStatus("Answer: "+ansLabel);at(2000,done);});}; }
+var ANIM_PLAYS={};
+QB.forEach(function(q){ANIM_PLAYS[q.id]=makeAnimPlay(q.id,q.steps,q.ans[0]);});
+function getAnimPlay(t){return ANIM_PLAYS[t]||function(done){done();};}
+
+var atTimers=[],session=[],idx=0,stepIdx=0,nudgeCount=0,completed=false,breakSecs=0,breakTmr=null,PER_SESSION=10;
+function G(id){return document.getElementById(id);}
+function clearAt(){for(var i=0;i<atTimers.length;i++)clearTimeout(atTimers[i]);atTimers=[];}
+function at(ms,fn){atTimers.push(setTimeout(fn,ms));}
+function fade(id,v){var e=G(id);if(e){e.style.transition="opacity .5s";e.style.opacity=v;}}
+function setStatus(t){var e=G("animStatus");if(e)e.textContent=t;}
+function startLesson(){var btn=G('startBtn');if(btn){btn.disabled=true;btn.textContent='▶ Starting...';}var done=false;function proceed(){if(!done){done=true;setTimeout(showQ,600);}}say(G('introText').innerText,proceed);setTimeout(proceed,8000);}
+function init(){
+  rishiCheckPlan(12);
+  var st=JSON.parse(localStorage.getItem("rishi_current_student")||"{}");
+  G("sName")&&(G("sName").textContent=st.studentName?st.studentName.split(" ")[0]:"there");
+  if(rishiIsExplainDone(12)){completed=true;G("doneBanner").classList.add("show");unlockNav();}
+  buildSession();rInit();
+  initVoices(function(){startLesson();});
+}
+function buildSession(){session=QB.slice().sort(function(){return Math.random()-.5;}).slice(0,PER_SESSION);}
+function showQ(){
+  if(idx>=session.length){onComplete();return;}
+  var q=session[idx];stepIdx=0;nudgeCount=0;updateProg();G("qArea").innerHTML="";clearAt();
+  var qc=document.createElement("div");qc.className="q-card";
+  qc.innerHTML='<div class="q-label">Question '+(idx+1)+' of '+PER_SESSION+'</div><div class="q-text">'+q.q+'</div><button class="btn-speak" onclick="say(session[idx].qs)">&#128266; Hear</button>';
+  G("qArea").appendChild(qc);
+  var ap=document.createElement("div");ap.className="anim-panel";
+  ap.innerHTML='<div class="anim-header"><span class="anim-header-lbl">&#127909; Live Animation</span><button class="anim-replay" id="animReplay" onclick="replayAnim()">&#8635; Replay</button></div>'
+    +'<div class="anim-canvas" id="animCanvas">'+getAnimSVG(q.anim)+'</div>'
+    +'<div class="anim-status" id="animStatus">Tap Play to watch with narration!</div>'
+    +'<button class="anim-play-btn" id="animPlayBtn" onclick="startAnim()">&#9654; Play Animation</button>'
+    +'<button class="steps-btn" id="stepsBtn" onclick="beginSteps()">&#128214; See Step-by-Step</button>';
+  G("qArea").appendChild(ap);setTimeout(startAnim,800);
+}
+function startAnim(){var q=session[idx];var pb=G("animPlayBtn");if(pb){pb.disabled=true;pb.textContent="&#9654; Playing...";}getAnimPlay(q.anim)(function(){var sb=G("stepsBtn");if(sb)sb.style.display="block";var rb=G("animReplay");if(rb)rb.style.display="block";if(pb)pb.style.display="none";setTimeout(beginSteps,600);});}
+function replayAnim(){clearAt();window.speechSynthesis&&window.speechSynthesis.cancel();rStopTalk();var q=session[idx];G("animCanvas").innerHTML=getAnimSVG(q.anim);G("animReplay").style.display="none";G("stepsBtn").style.display="none";var pb=G("animPlayBtn");if(pb){pb.style.display="block";pb.disabled=false;pb.textContent="&#9654; Play Animation";}setStatus("Tap Play to watch with narration!");}
+function beginSteps(){var q=session[idx];var sc=document.createElement("div");sc.className="q-card";sc.innerHTML='<div class="q-label">&#128214; Step-by-Step</div><div id="stepsWrap"></div><button class="btn-speak" id="nxtStepBtn" onclick="nextStep()" style="margin-top:10px;">&#9654; Next Step</button>';G("qArea").appendChild(sc);sc.scrollIntoView({behavior:"smooth",block:"start"});G("stepsBtn").style.display="none";setTimeout(nextStep,350);}
+function nextStep(){var q=session[idx];if(stepIdx>=q.steps.length){G("nxtStepBtn").style.display="none";var ib=document.createElement("button");ib.className="btn-speak";ib.innerHTML="&#9989; I Understand!";ib.style.cssText="margin-top:16px;width:100%;";ib.onclick=function(){ib.remove();showConfirm();};G("stepsWrap").appendChild(ib);ib.scrollIntoView({behavior:"smooth",block:"center"});return;}var s=q.steps[stepIdx];var wrap=G("stepsWrap");var d=document.createElement("div");d.className="step";d.innerHTML='<div class="step-num">'+(stepIdx+1)+'</div><div class="step-body">'+s.t+'</div>';wrap.appendChild(d);setTimeout(function(){d.classList.add("vis");},40);setTimeout(nextStep,3500);stepIdx++;}
+function showConfirm(){
+  var q=session[idx];var c=document.createElement("div");c.className="confirm-wrap";
+  c.innerHTML='<div class="confirm-title">&#127917; Rishika asks!</div>'
+    +'<div class="confirm-q">'+q.cq+'</div>'
+    +'<textarea id="rawAnswer" class="math-raw" rows="2" placeholder="Type your answer here..."></textarea>'
+    +'<div class="math-preview-label">Preview</div>'
+    +'<div class="math-preview" id="mathPreview"></div>'
+    +'<div class="sugg-chips" id="suggChips"></div>'
+    +'<button type="button" onclick="submitTyped()" style="width:100%;font-family:Nunito,sans-serif;font-size:14px;font-weight:900;padding:11px;border-radius:12px;border:none;background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;cursor:pointer;margin-bottom:8px;">Submit Answer</button>'
+    +'<div class="result-box" id="rbox"></div>'
+    +'<div class="nudge" id="nudgeBox"></div>'
+    +'<button type="button" class="btn-next" id="btnNext" onclick="goNext()">Next Question &#9654;</button>';
+  G("qArea").appendChild(c);c.scrollIntoView({behavior:"smooth",block:"center"});
+  var ra=G("rawAnswer");
+  if(ra){ra.addEventListener("input",mathUpdate);ra.addEventListener("keydown",function(ev){if(ev.key==="Enter"&&!ev.shiftKey){ev.preventDefault();submitTyped();}});setTimeout(function(){ra.focus();},300);}
+  buildSuggChips(q.ans);say(q.cqs);
+}
+function submitTyped(){var ra=G("rawAnswer");if(!ra)return;var val=String(ra.value||"").trim();if(!val){ra.focus();return;}handleAnswer(val.toLowerCase());}
+function goNext(){idx++;G("qArea").innerHTML="";showQ();window.scrollTo({top:0,behavior:"smooth"});}
+function updateProg(){var pct=Math.round((idx/PER_SESSION)*100);G("progFill").style.width=pct+"%";G("progLabel").textContent="Question "+(idx+1)+" of "+PER_SESSION;G("progPct").textContent=pct+"%";}
+function unlockNav(){G("btnPractice").classList.remove("locked");G("btnExam").classList.remove("locked");G("lockTip").style.display="none";}
+function onComplete(){
+  rishiMarkExplainDone(12);
+  completed=true;G("doneBanner").classList.add("show");unlockNav();
+  var st=JSON.parse(localStorage.getItem("rishi_current_student")||"{}");
+  var nm=st.studentName?st.studentName.split(" ")[0]:"champion";
+  var cel=document.createElement("div");cel.className="rishika-wrap";
+  cel.innerHTML='<div class="rishika-avatar">&#128105;&#8205;&#127979;</div>'
+    +'<div class="rishika-bubble"><div class="rishika-name">Rishika</div>'
+    +'<div class="rishika-text" id="celText">&#127881; <span class="hl">'+nm+'</span>, You have completed ALL 12 chapters of Class 9 Mathematics! Statistics is now yours &#128170;</div>'
+    +'<button class="btn-speak" onclick="sayEl(\'celText\')">&#128266; Hear</button></div>';
+  G("qArea").appendChild(cel);setTimeout(function(){sayEl("celText");rHappy();},400);
+}
+function goPractice(){if(!completed){alert("Complete explanations first!");return;}location.href="/practice/class9/data-handling/statistics.html";}
+function goExam(){if(!completed){alert("Complete explanations first!");return;}location.href="/exam.html?ch=c9-12";}
+var CELEBRATIONS=[{word:"Magnifique!",lang:"French",meaning:"Magnificent!",speak:"Magnifique"},{word:"Bravissimo!",lang:"Italian",meaning:"Very well done!",speak:"Bravissimo"},{word:"Wunderbar!",lang:"German",meaning:"Wonderful!",speak:"Wunderbar"},{word:"Shabash!",lang:"Hindi",meaning:"Well done!",speak:"Shabash"},{word:"Felicitaciones!",lang:"Spanish",meaning:"Congratulations!",speak:"Felicitaciones"}];
+var lastCelIdx=-1;
+function celebrate(){var i;do{i=Math.floor(Math.random()*CELEBRATIONS.length);}while(i===lastCelIdx&&CELEBRATIONS.length>1);lastCelIdx=i;var c=CELEBRATIONS[i];var rb=G("rbox");rb.className="result-box ok";rb.innerHTML='<div style="font-size:18px;font-weight:900;">'+c.word+'</div><div style="font-size:11px;">'+c.lang+' &middot; <em>'+c.meaning+'</em></div>';G("nudgeBox").classList.remove("show");var nb=G("btnNext");if(nb)nb.classList.add("show");say(c.speak);rHappy();}
+function handleAnswer(text){var q=session[idx];var ok=q.ans.some(function(a){return text.includes(a.toLowerCase())||a.toLowerCase().includes(text);});var rb=G("rbox");if(ok){celebrate();}else{nudgeCount++;rb.className="result-box no";rb.textContent="\u2716 Not quite. Listen to my hint!";var nudge=q.nudges[Math.min(nudgeCount-1,q.nudges.length-1)];showNudge(nudge);say(nudge);rThink();if(nudgeCount>=3){var nb2=G("btnNext");if(nb2){nb2.classList.add("show");nb2.textContent="I Understand \u25b6";}}}}
+function showNudge(msg){var n=G("nudgeBox");if(n){n.textContent=msg;n.classList.add("show");}}
+function openBreak(){G("breakOv").classList.add("show");}
+function closeBreak(){G("breakOv").classList.remove("show");}
+function startBreak(r){closeBreak();breakSecs=0;G("timerLbl").textContent=r;G("timerNum").textContent="00:00";G("timerScreen").classList.add("show");breakTmr=setInterval(function(){breakSecs++;var m=String(Math.floor(breakSecs/60)).padStart(2,"0");var s=String(breakSecs%60).padStart(2,"0");G("timerNum").textContent=m+":"+s;},1000);}
+function endBreak(){clearInterval(breakTmr);G("timerScreen").classList.remove("show");}
+function mathUpdate(){var ra=G("rawAnswer");if(!ra)return;var v=ra.value.trim();var el=G("mathPreview");if(el)el.textContent=v||"";}
+function buildSuggChips(ans){var el=G("suggChips");if(!el)return;el.innerHTML="";(ans||[]).forEach(function(a){var btn=document.createElement("button");btn.className="schip";btn.textContent=a;btn.type="button";btn.addEventListener("click",function(){var ra=G("rawAnswer");if(ra){ra.value=a;mathUpdate();ra.focus();}});el.appendChild(btn);});}
+window.onload=init;
+</script>
+<script src="/explain-helper.js"></script>
 </body>
 </html>

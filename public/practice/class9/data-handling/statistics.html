@@ -6,11 +6,306 @@
 <meta name="rishi-board" content="cbse">
 <meta name="rishi-class" content="9">
 <title>Practice — Statistics | RISHI</title>
-<!-- SHELL: Content to be built chapter by chapter -->
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Nunito',sans-serif;background:#0d0d1a;min-height:100vh;color:#fff;overflow-x:hidden;}
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:10px 20px;background:rgba(0,0,0,.5);border-bottom:1px solid rgba(255,215,0,.2);position:sticky;top:0;z-index:200;gap:10px;flex-wrap:wrap;}
+.tbtn{padding:8px 16px;border-radius:20px;border:none;cursor:pointer;font-family:'Nunito',sans-serif;font-weight:700;font-size:13px;}
+.tbtn-back{background:rgba(255,215,0,.15);border:1px solid #ffd700;color:#ffd700;}
+.tbtn-break{background:rgba(255,107,107,.2);border:1px solid #ff6b6b;color:#ff6b6b;position:relative;}
+.break-menu{display:none;position:absolute;top:40px;right:0;background:#1a1a2e;border:1px solid rgba(255,255,255,.15);border-radius:10px;min-width:160px;z-index:300;}
+.break-menu.show{display:block;}
+.break-opt{padding:10px 16px;cursor:pointer;font-size:13px;border-bottom:1px solid rgba(255,255,255,.05);}
+.break-opt:hover{background:rgba(255,215,0,.1);}
+.session-timer{font-family:'Courier New',monospace;font-size:14px;color:#aaa;background:rgba(0,0,0,.3);padding:6px 12px;border-radius:12px;}
+.coins-badge{background:linear-gradient(135deg,#ffd700,#ffed4e);color:#1a1a2e;padding:6px 14px;border-radius:20px;font-weight:900;font-size:14px;display:flex;align-items:center;gap:5px;}
+.main-layout{display:grid;grid-template-columns:220px 1fr 300px;gap:16px;padding:16px;max-width:1400px;margin:0 auto;}
+@media(max-width:1100px){.main-layout{grid-template-columns:1fr;}}
+.left-panel{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:16px;height:fit-content;position:sticky;top:70px;}
+.lp-chapter{font-size:11px;text-transform:uppercase;letter-spacing:2px;color:rgba(255,255,255,.4);margin-bottom:6px;}
+.lp-title{font-size:15px;font-weight:800;color:#ffd700;margin-bottom:16px;line-height:1.3;}
+.lp-stat{margin-bottom:12px;}
+.lp-stat-label{font-size:11px;color:rgba(255,255,255,.4);margin-bottom:4px;}
+.lp-stat-val{font-size:22px;font-weight:900;color:#fff;}
+.lp-stat-sub{font-size:11px;color:rgba(255,255,255,.4);}
+.progress-dots{display:flex;flex-wrap:wrap;gap:5px;margin-top:12px;}
+.pdot{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.4);}
+.pdot.active{background:#ffd700;color:#1a1a2e;border-color:#ffd700;}
+.pdot.correct{background:#2ecc71;color:#fff;border-color:#2ecc71;}
+.pdot.wrong{background:#e74c3c;color:#fff;border-color:#e74c3c;}
+.streak-bar{margin-top:14px;}
+.streak-label{font-size:11px;color:rgba(255,255,255,.4);margin-bottom:6px;}
+.streak-pips{display:flex;gap:4px;}
+.spip{width:28px;height:8px;border-radius:4px;background:rgba(255,255,255,.1);}
+.spip.filled{background:#2ecc71;}
+.q-area{display:flex;flex-direction:column;gap:14px;}
+.q-card{border-radius:18px;padding:28px;position:relative;overflow:hidden;min-height:160px;border:1px solid rgba(255,255,255,.1);background:linear-gradient(135deg,#0a2a4a,#1a5276);}
+.q-badge{font-size:10px;text-transform:uppercase;letter-spacing:2px;color:rgba(255,255,255,.5);margin-bottom:8px;}
+.q-text{font-size:20px;font-weight:700;line-height:1.5;margin-bottom:6px;}
+.attempt-info{display:flex;gap:12px;font-size:12px;color:rgba(255,255,255,.5);}
+.attempt-info span{background:rgba(255,255,255,.08);padding:3px 10px;border-radius:10px;}
+.earn-badge{background:rgba(255,215,0,.15);color:#ffd700;border:1px solid rgba(255,215,0,.3);}
+.destination-tag{position:absolute;bottom:12px;right:16px;font-size:10px;color:rgba(255,255,255,.3);font-style:italic;}
+.instruction-box{background:rgba(255,215,0,.06);border:1px solid rgba(255,215,0,.2);border-radius:12px;padding:14px 18px;font-size:13px;font-weight:700;color:#ffd700;min-height:40px;}
+.answer-wrap{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:20px;}
+.answer-input{width:100%;padding:14px 18px;background:rgba(0,0,0,.4);border:2px solid rgba(255,215,0,.3);border-radius:30px;color:#fff;font-size:17px;font-family:'Nunito',sans-serif;outline:none;transition:.2s;}
+.answer-input:focus{border-color:#ffd700;}
+.submit-btn{width:100%;margin-top:10px;padding:13px;background:linear-gradient(135deg,#ffd700,#f39c12);color:#1a1a2e;border:none;border-radius:30px;font-size:16px;font-weight:900;cursor:pointer;font-family:'Nunito',sans-serif;}
+.submit-btn:disabled{opacity:.4;cursor:not-allowed;}
+.feedback-box{border-radius:16px;padding:20px;display:none;}
+.feedback-box.correct{display:block;background:rgba(46,204,113,.1);border:1px solid rgba(46,204,113,.4);}
+.feedback-box.wrong{display:block;background:rgba(231,76,60,.08);border:1px solid rgba(231,76,60,.3);}
+.fb-title{font-size:18px;font-weight:800;margin-bottom:12px;}
+.feedback-box.correct .fb-title{color:#2ecc71;}
+.feedback-box.wrong .fb-title{color:#e74c3c;}
+.steps-list{background:rgba(0,0,0,.3);border-radius:10px;padding:14px;margin:10px 0;}
+.step-item{padding:6px 0 6px 22px;position:relative;font-size:14px;line-height:1.5;border-bottom:1px solid rgba(255,255,255,.05);}
+.step-item:last-child{border-bottom:none;}
+.step-item::before{content:"→";position:absolute;left:0;color:#ffd700;}
+.trick-box{background:rgba(255,215,0,.08);border:1px solid rgba(255,215,0,.2);border-radius:8px;padding:10px 14px;margin-top:10px;font-size:13px;}
+.trick-box strong{color:#ffd700;}
+.clear-check{margin-top:16px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+.clear-check span{font-size:14px;font-weight:700;flex:1;}
+.btn-yes{padding:10px 22px;background:#2ecc71;color:#fff;border:none;border-radius:20px;cursor:pointer;font-weight:700;font-size:14px;font-family:'Nunito',sans-serif;}
+.btn-no{padding:10px 22px;background:#e74c3c;color:#fff;border:none;border-radius:20px;cursor:pointer;font-weight:700;font-size:14px;font-family:'Nunito',sans-serif;}
+.try-again-btn{display:none;width:100%;margin-top:12px;padding:14px;background:#c0392b;color:#ffd700;border:2px solid rgba(255,215,0,.3);border-radius:14px;font-size:17px;font-weight:900;cursor:pointer;font-family:'Nunito',sans-serif;}
+.praise-word{font-size:28px;color:#ffd700;font-weight:900;font-style:italic;}
+.praise-meta{font-size:12px;color:rgba(255,255,255,.5);margin-top:4px;}
+.next-btn{width:100%;margin-top:12px;padding:13px;background:rgba(255,215,0,.15);border:1px solid #ffd700;color:#ffd700;border-radius:14px;font-size:15px;font-weight:900;cursor:pointer;font-family:'Nunito',sans-serif;display:none;}
+.next-btn.show{display:block;}
+.right-panel{display:flex;flex-direction:column;gap:14px;}
+.rishika-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:16px;text-align:center;}
+.rishika-name-tag{font-size:11px;letter-spacing:2px;color:rgba(255,215,0,.7);text-transform:uppercase;margin-bottom:6px;}
+.rishika-bubble{background:rgba(255,215,0,.08);border-radius:12px;padding:10px 14px;font-size:13px;line-height:1.5;min-height:48px;border:1px solid rgba(255,215,0,.15);}
+.rough-card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:16px;flex:1;}
+.rough-title{font-size:12px;text-transform:uppercase;letter-spacing:2px;color:rgba(255,255,255,.3);margin-bottom:8px;}
+.rough-area{width:100%;min-height:280px;background:#f8f5ec;color:#333;border-radius:10px;padding:14px;font-family:'Courier New',monospace;font-size:14px;line-height:1.8;border:none;outline:none;resize:vertical;}
+.break-overlay{display:none;position:fixed;inset:0;background:#0a0a1a;z-index:500;flex-direction:column;align-items:center;justify-content:center;text-align:center;}
+.break-overlay.show{display:flex;}
+.break-clock{font-family:'Courier New',monospace;font-size:96px;font-weight:700;color:#ffd700;margin-bottom:30px;}
+.end-break-btn{padding:16px 48px;background:#2ecc71;color:#fff;border:none;border-radius:30px;font-size:20px;font-weight:700;cursor:pointer;font-family:'Nunito',sans-serif;}
+.comp-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:600;align-items:center;justify-content:center;}
+.comp-overlay.show{display:flex;}
+.comp-box{background:linear-gradient(135deg,#0d0d1a,#1a1a2e);border:2px solid #ffd700;border-radius:24px;padding:48px;text-align:center;max-width:500px;width:90%;}
+.comp-icon{font-size:64px;margin-bottom:12px;}
+.comp-title{font-size:28px;font-weight:900;color:#ffd700;margin-bottom:8px;}
+.comp-msg{color:rgba(255,255,255,.7);font-size:15px;line-height:1.6;margin-bottom:24px;}
+.comp-btn{padding:14px 40px;background:linear-gradient(135deg,#ffd700,#f39c12);color:#1a1a2e;border:none;border-radius:24px;font-size:16px;font-weight:900;cursor:pointer;font-family:'Nunito',sans-serif;}
+.tap-overlay{position:fixed;inset:0;background:rgba(10,10,26,0.92);z-index:999;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;}
+.tap-overlay.hidden{display:none;}
+.tap-circle{width:110px;height:110px;border-radius:50%;background:linear-gradient(135deg,#ffd700,#f39c12);display:flex;align-items:center;justify-content:center;font-size:42px;margin-bottom:20px;box-shadow:0 0 40px rgba(255,215,0,0.5);}
+.tap-text{color:#fff;font-size:20px;font-weight:800;letter-spacing:2px;}
+.tap-sub{color:rgba(255,255,255,0.5);font-size:13px;margin-top:8px;}
+@keyframes coinFall{0%{transform:translateY(-60px) scale(1.2);opacity:1;}100%{transform:translateY(0) scale(0.5);opacity:0;}}
+.coin-anim{position:fixed;top:50px;right:80px;font-size:28px;z-index:1000;animation:coinFall 1s ease-in forwards;pointer-events:none;}
+@keyframes streakToast{0%{transform:translateX(120%);opacity:0;}20%{transform:translateX(0);opacity:1;}80%{transform:translateX(0);opacity:1;}100%{transform:translateX(120%);opacity:0;}}
+.streak-toast{position:fixed;bottom:30px;right:20px;background:#2ecc71;color:#fff;padding:14px 22px;border-radius:14px;font-weight:900;font-size:15px;z-index:700;animation:streakToast 3.5s ease forwards;pointer-events:none;}
+</style>
+<script src="/rishi-sync.js"></script>
 <script src="/rishi-core.js"></script>
+<script src="/rishi-presence.js"></script>
 </head>
 <body>
-<!-- Statistics | Class 9 | CBSE | Practice Page -->
-<!-- TODO: Build full practice page content here -->
+<div class="tap-overlay" id="tapOverlay" onclick="startPractice()">
+  <div class="tap-circle">&#9654;</div>
+  <div class="tap-text">TAP TO BEGIN</div>
+  <div class="tap-sub">Sound will be enabled</div>
+</div>
+<div class="topbar">
+  <div style="display:flex;gap:8px;align-items:center;">
+    <button class="tbtn tbtn-back" onclick="location.href='/syllabus.html'">&#8592; Syllabus</button>
+    <div style="font-family:'Orbitron',sans-serif;font-size:11px;letter-spacing:2px;color:rgba(255,215,0,.6);">&#9999;&#65039; PRACTICE</div>
+  </div>
+  <span class="session-timer" id="sessionTimer">00:00</span>
+  <div style="display:flex;gap:8px;align-items:center;">
+    <div style="position:relative;">
+      <button class="tbtn tbtn-break" onclick="toggleBreakMenu()">&#9208; Break &#9662;</button>
+      <div class="break-menu" id="breakMenu">
+        <div class="break-opt" onclick="startBreak('Water')">&#128167; Water</div>
+        <div class="break-opt" onclick="startBreak('Washroom')">&#128701; Washroom</div>
+        <div class="break-opt" onclick="startBreak('Physical')">&#127939; Physical</div>
+      </div>
+    </div>
+    <div class="coins-badge">&#129689; <span id="coinCount">0</span></div>
+  </div>
+</div>
+<div class="main-layout">
+  <div class="left-panel">
+    <div class="lp-chapter">Class 9 &middot; Statistics</div>
+    <div class="lp-title">Statistics</div>
+    <div class="lp-stat"><div class="lp-stat-label">Question</div><div class="lp-stat-val"><span id="qNumDisp">1</span><span style="font-size:14px;color:rgba(255,255,255,.3);">/15</span></div></div>
+    <div class="lp-stat"><div class="lp-stat-label">Correct Streak</div><div class="lp-stat-val" id="streakNum">0</div><div class="lp-stat-sub">Need 5 to unlock exam</div></div>
+    <div class="lp-stat"><div class="lp-stat-label">Correct Total</div><div class="lp-stat-val" id="totalCorr">0</div></div>
+    <div class="streak-bar"><div class="streak-label">Streak progress</div><div class="streak-pips" id="streakPips"></div></div>
+    <div class="progress-dots" id="progressDots"></div>
+  </div>
+  <div class="q-area">
+    <div class="q-card" id="qCard">
+      <div class="q-badge" id="qBadge">Question 1 of 15</div>
+      <div class="q-text" id="qText">Loading...</div>
+      <div class="attempt-info" style="margin-top:8px;">
+        <span id="attemptNum">Attempt: 1</span>
+        <span class="earn-badge" id="earnCoins">5 coins if correct</span>
+      </div>
+      <div class="destination-tag" id="destTag">&#127757; Loading...</div>
+    </div>
+    <div class="instruction-box" id="instrBox">Work it out, then type your answer below.</div>
+    <div class="answer-wrap">
+      <input type="text" class="answer-input" id="answerInput" placeholder="Type your answer here..." onkeydown="if(event.key==='Enter')submitAnswer();">
+      <button class="submit-btn" id="submitBtn" onclick="submitAnswer()">Submit Answer &#9654;</button>
+    </div>
+    <div class="feedback-box" id="feedbackBox"></div>
+    <button class="next-btn" id="nextBtn" onclick="nextQ()">Next Question &#9654;</button>
+  </div>
+  <div class="right-panel">
+    <div class="rishika-card">
+      <div class="rishika-name-tag">Rishika</div>
+      <div id="rishika-avatar"></div>
+      <div class="rishika-bubble" id="rishikaBubble">Ready for practice! &#127919;</div>
+    </div>
+    <div class="rough-card">
+      <div class="rough-title">&#128221; Rough Work</div>
+      <textarea class="rough-area" placeholder="Do all working here..."></textarea>
+    </div>
+  </div>
+</div>
+<div class="break-overlay" id="breakOverlay">
+  <div style="font-size:20px;color:rgba(255,255,255,.6);margin-bottom:10px;" id="breakType">Break</div>
+  <div class="break-clock" id="breakClock">00:00</div>
+  <button class="end-break-btn" onclick="endBreak()">End Break &#9654;</button>
+</div>
+<div class="comp-overlay" id="compOverlay">
+  <div class="comp-box">
+    <div class="comp-icon" id="compIcon">&#127942;</div>
+    <div class="comp-title" id="compTitle">Session Complete!</div>
+    <div class="comp-msg" id="compMsg"></div>
+    <button class="comp-btn" onclick="location.href='/syllabus.html'">Back to Syllabus</button>
+  </div>
+</div>
+<script>
+var CHAP_ID=12;
+var QB=[
+{q:"Find the mean of: 12, 18, 15, 20, 25, 10",qs:"Find the mean of 12, 18, 15, 20, 25 and 10.",ans:["16.67", "100/6", "50/3", "16⅔"],steps:["Sum = 12+18+15+20+25+10 = 100", "n = 6", "Mean = 100/6 = 16.67 (or 50/3)"],trick:"Mean = sum/count. Add all values, divide by how many. Always count carefully!",alt:"12+18=30, 30+15=45, 45+20=65, 65+25=90, 90+10=100. Divide by 6: 100/6≈16.67."},
+{q:"Find the median of: 7, 3, 11, 5, 9, 1, 13",qs:"Find the median of 7, 3, 11, 5, 9, 1 and 13.",ans:["7"],steps:["Sort: 1, 3, 5, 7, 9, 11, 13", "n = 7 (odd). Position = (7+1)/2 = 4th value", "4th value = 7. Median = 7"],trick:"SORT FIRST! Then for odd n, find the middle position (n+1)/2. Here 4th value is 7.",alt:"Arranged: 1,3,5,7,9,11,13. Middle (4th) value is 7."},
+{q:"Find the mode of: 4, 7, 4, 9, 3, 7, 4, 7, 3",qs:"Find the mode of 4, 7, 4, 9, 3, 7, 4, 7, 3.",ans:["4 and 7", "both 4 and 7", "4, 7"],steps:["Count: 4 appears 3 times, 7 appears 3 times, 3 appears 2 times, 9 appears 1 time", "Both 4 and 7 appear equally most often (3 times each)", "Mode = 4 and 7 (bimodal)"],trick:"Count frequencies carefully! When two values tie for most frequent, both are modes. This is called bimodal data.",alt:"Tally: 4 three times, 7 three times. Tie! Both 4 and 7 are modes."},
+{q:"Class mark of the interval 30-40 is ____.",qs:"The class mark of the interval 30 to 40 is blank.",ans:["35", "35.0"],steps:["Class mark = (lower limit + upper limit) / 2", "= (30 + 40) / 2 = 70/2", "= 35"],trick:"Class mark = midpoint = (lower+upper)/2. Always the average of the two class boundaries!",alt:"Midpoint of 30 and 40 is (30+40)/2 = 70/2 = 35."},
+{q:"Find the median of: 15, 22, 8, 17, 31, 11, 25, 20",qs:"Find the median of 15, 22, 8, 17, 31, 11, 25 and 20.",ans:["18.5", "18½"],steps:["Sort: 8, 11, 15, 17, 20, 22, 25, 31", "n=8 (even). Positions: 4th=17 and 5th=20", "Median = (17+20)/2 = 37/2 = 18.5"],trick:"Even n: average of (n/2)th and (n/2+1)th. Here n=8: 4th and 5th values. (17+20)/2=18.5.",alt:"Sorted: 8,11,15,17,20,22,25,31. Middle two: 17 and 20. Average: (17+20)/2=18.5."},
+{q:"In a histogram, the class width is 10 and frequency is 15. What is the frequency density?",qs:"In a histogram, class width is 10 and frequency is 15. What is the frequency density?",ans:["1.5", "1.5 per unit"],steps:["Frequency density = Frequency / Class Width", "= 15 / 10", "= 1.5"],trick:"Frequency density = frequency/class width. Used when class widths are unequal for fair comparison.",alt:"Divide frequency by class width: 15/10=1.5. This normalises for class width differences."},
+{q:"The mean of 5 numbers is 18. If one number is removed and the mean becomes 16, what was the removed number?",qs:"The mean of 5 numbers is 18. If one number is removed and the mean becomes 16, what was the removed number?",ans:["26"],steps:["Sum of 5 numbers = 5 × 18 = 90", "Sum of remaining 4 = 4 × 16 = 64", "Removed number = 90 − 64 = 26"],trick:"Sum = mean × count. Find original sum, find new sum, subtract to get the removed value. Classic CBSE type!",alt:"Original total=90. After removal, 4 numbers with mean 16: total=64. Removed=90-64=26."},
+{q:"Which of the following is NOT a measure of central tendency? A: Mean  B: Range  C: Median  D: Mode",qs:"Which is NOT a measure of central tendency? A: Mean. B: Range. C: Median. D: Mode.",ans:["B", "range", "b: range"],steps:["Mean, Median and Mode are the three measures of central tendency", "Range = Maximum − Minimum → measures SPREAD not centre", "Range is a measure of dispersion, not central tendency"],trick:"Central tendency = centre of data (Mean, Median, Mode). Range = spread = max minus min. Range is about how spread out data is!",alt:"Range tells how wide the data is. Mean, median, mode tell where the data is centred. Range is a measure of spread."},
+{q:"Find the mean of data: values 10, 20, 30 with frequencies 4, 5, 6 respectively.",qs:"Find the mean of data with values 10, 20, 30 having frequencies 4, 5 and 6.",ans:["21.33", "64/3", "21⅓"],steps:["Σfᵢxᵢ = 4×10 + 5×20 + 6×30 = 40+100+180 = 320", "Σfᵢ = 4+5+6 = 15", "Mean = 320/15 = 64/3 ≈ 21.33"],trick:"Grouped mean = Σfx/Σf. Multiply each value by its frequency, sum up, divide by total frequency.",alt:"Products: 40+100+180=320. Total freq=15. Mean=320/15=21.33."},
+{q:"If the mean of 6, 8, x, 14, 16 is 11, find x.",qs:"If the mean of 6, 8, x, 14 and 16 is 11, find x.",ans:["11", "x=11"],steps:["Mean = sum/count → 11 = (6+8+x+14+16)/5", "55 = 44 + x", "x = 55 − 44 = 11"],trick:"Mean × count = sum. So sum = 11×5=55. Known values sum = 6+8+14+16=44. x=55-44=11.",alt:"11×5=55=6+8+x+14+16=44+x. x=55-44=11."},
+{q:"How many total observations are there if frequencies are 8, 12, 15, 10, 5?",qs:"How many total observations are there if frequencies are 8, 12, 15, 10 and 5?",ans:["50"],steps:["Total observations = sum of all frequencies", "= 8+12+15+10+5", "= 50"],trick:"Total observations = Σf = sum of all frequencies. Simple addition!",alt:"8+12=20, 20+15=35, 35+10=45, 45+5=50."},
+{q:"The median of 2, 5, 7, 9, 11 is ____.",qs:"The median of 2, 5, 7, 9 and 11 is blank.",ans:["7"],steps:["Data already sorted: 2, 5, 7, 9, 11", "n=5 (odd). Position = (5+1)/2 = 3rd value", "3rd value = 7. Median = 7"],trick:"Data is already sorted here! n=5 odd, position=(5+1)/2=3. Third value is 7.",alt:"Middle value of 5 items is the 3rd one: 2,5,7→ median=7."},
+{q:"In a class, scores are: 85, 92, 78, 92, 88, 75, 92, 80. Find the mode.",qs:"Scores are 85, 92, 78, 92, 88, 75, 92 and 80. Find the mode.",ans:["92"],steps:["Count each: 92 appears 3 times (most frequent)", "All others appear only once", "Mode = 92"],trick:"Mode = most frequent. Here 92 appears 3 times while all others appear once. Easy!",alt:"Tally: 92 occurs at positions 2, 4, 7 — three times. Most frequent = mode = 92."},
+{q:"The class width of the interval 25-35 is ____.",qs:"The class width of the interval 25 to 35 is blank.",ans:["10"],steps:["Class width = upper limit − lower limit", "= 35 − 25", "= 10"],trick:"Class width = difference between upper and lower class limits. Simple subtraction!",alt:"35 minus 25 equals 10. The interval spans 10 units."},
+{q:"Mean marks of 30 students is 60. 10 more students with mean 40 join. Find new mean.",qs:"Mean marks of 30 students is 60. 10 more students with mean 40 join. Find the new mean.",ans:["55", "55 marks"],steps:["Sum of first 30 = 30×60 = 1800", "Sum of next 10 = 10×40 = 400", "New mean = (1800+400)/(30+10) = 2200/40 = 55"],trick:"Combined mean: total sum / total count. Don't average the means directly — that would be wrong! Always use actual sums.",alt:"Total sum=1800+400=2200. Total count=40. New mean=2200/40=55."}
+];
+var DESTINATIONS=["Paris, France", "Bali, Indonesia", "Machu Picchu, Peru", "Santorini, Greece", "Kyoto, Japan", "Grand Canyon, USA", "Amalfi Coast, Italy", "Swiss Alps", "Maldives", "Rajasthan, India", "Cape Town, S. Africa", "New Zealand Fjords", "Amazon Rainforest", "Iceland Aurora", "Dubai City"];
+var PRAISES=[{word:'Magnifique!',lang:'French',mean:'Magnificent!'},{word:'Bravissimo!',lang:'Italian',mean:'Very well done!'},{word:'Wunderbar!',lang:'German',mean:'Wonderful!'},{word:'Shabash!',lang:'Hindi',mean:'Well done!'},{word:'Felicitaciones!',lang:'Spanish',mean:'Congratulations!'},{word:'Parabens!',lang:'Portuguese',mean:'Congratulations!'},{word:'Ottimo!',lang:'Italian',mean:'Excellent!'},{word:'Harika!',lang:'Turkish',mean:'Wonderful!'}];
+var voices=[],selVoice=null;
+function initVoices(cb){function load(){voices=window.speechSynthesis.getVoices();var pref=['Heera','Priya','Zira','Samantha','en-IN','en-GB','en-US'];for(var p of pref){for(var v of voices){if(v.name.includes(p)||v.lang.includes(p)){selVoice=v;break;}}if(selVoice)break;}if(!selVoice&&voices.length)selVoice=voices[0];if(cb)cb();}if(window.speechSynthesis.getVoices().length>0)load();else{window.speechSynthesis.onvoiceschanged=load;setTimeout(function(){if(!selVoice)load();},1000);}}
+function say(txt){window.speechSynthesis.cancel();var u=new SpeechSynthesisUtterance(txt);if(selVoice)u.voice=selVoice;u.rate=0.88;u.pitch=1.05;u.lang='en-IN';window.speechSynthesis.speak(u);}
+var idx=0,attemptNo=0,correctStreak=0,totalCorrect=0,answered=[];
+var coins=parseInt(localStorage.getItem('rishi_coins')||'0');
+var breakInterval=null,sessionInterval=null,sessionSecs=0;
+function G(id){return document.getElementById(id);}
+function init(){
+  rishiCheckPlan(CHAP_ID);
+  if(!rishiIsExplainDone(CHAP_ID)){window.location.href='/explain/class9/data-handling/statistics.html';return;}
+  coins=parseInt(localStorage.getItem('rishi_coins')||'0');
+  G('coinCount').textContent=coins;
+  answered=new Array(QB.length).fill(null);
+  renderDots();renderStreak();
+  initVoices(function(){loadQ(0);});rInit();
+  sessionInterval=setInterval(function(){sessionSecs++;var m=Math.floor(sessionSecs/60).toString().padStart(2,'0');var s=(sessionSecs%60).toString().padStart(2,'0');G('sessionTimer').textContent=m+':'+s;},1000);
+}
+function loadQ(i){
+  if(i>=QB.length){onComplete();return;}
+  idx=i;attemptNo=0;
+  var q=QB[i];
+  G('qBadge').textContent='Question '+(i+1)+' of '+QB.length;
+  G('qText').innerHTML=q.q;
+  G('qNumDisp').textContent=i+1;
+  G('destTag').textContent='&#127757; '+DESTINATIONS[i%DESTINATIONS.length];
+  G('attemptNum').textContent='Attempt: 1';
+  G('earnCoins').textContent='5 coins if correct';
+  G('answerInput').value='';G('answerInput').disabled=false;
+  G('submitBtn').disabled=false;
+  G('feedbackBox').className='feedback-box';
+  G('nextBtn').className='next-btn';
+  G('rishikaBubble').textContent='Ready for question '+(i+1)+'! &#127919;';
+  if(i>0)setTimeout(function(){say(q.qs||q.q.replace(/<[^>]+>/g,''));},400);
+  renderDots();
+}
+function submitAnswer(){
+  var raw=G('answerInput').value.trim();if(!raw){G('answerInput').focus();return;}
+  var q=QB[idx];attemptNo++;G('attemptNum').textContent='Attempt: '+attemptNo;
+  var userClean=raw.toLowerCase().replace(/\s+/g,'');
+  var ok=q.ans.some(function(a){var ac=a.toLowerCase().replace(/\s+/g,'');return userClean===ac||userClean.includes(ac)||ac.includes(userClean);});
+  if(ok){handleCorrect(q);}else{handleWrong(q,raw);}
+}
+function handleCorrect(q){
+  correctStreak++;totalCorrect++;G('streakNum').textContent=correctStreak;G('totalCorr').textContent=totalCorrect;
+  if(attemptNo===1){coins+=5;localStorage.setItem('rishi_coins',coins);G('coinCount').textContent=coins;spawnCoin();G('earnCoins').textContent='✓ +5 coins earned';}
+  answered[idx]='correct';renderDots();renderStreak();
+  var p=PRAISES[Math.floor(Math.random()*PRAISES.length)];
+  var fb=G('feedbackBox');fb.className='feedback-box correct';
+  fb.innerHTML='<div class="fb-title">&#10003; Correct!</div><div class="praise-word">'+p.word+'</div><div class="praise-meta">'+p.lang+' — "'+p.mean+'"</div>';
+  G('nextBtn').className='next-btn show';
+  G('rishikaBubble').textContent='Excellent! '+p.word+' &#127881;';
+  G('answerInput').disabled=true;G('submitBtn').disabled=true;
+  if(correctStreak>=5&&!rishiIsPracticeDone(CHAP_ID)){rishiMarkPracticeDone(CHAP_ID);showStreakToast();}
+}
+function handleWrong(q,userAns){
+  correctStreak=0;G('streakNum').textContent=correctStreak;
+  answered[idx]='wrong';renderDots();renderStreak();
+  G('answerInput').disabled=true;G('submitBtn').disabled=true;G('earnCoins').textContent='Missed this one';
+  var stepsHtml=q.steps.map(function(s){return '<div class="step-item">'+s+'</div>';}).join('');
+  var fb=G('feedbackBox');fb.className='feedback-box wrong';
+  fb.innerHTML='<div class="fb-title">&#10007; Not quite</div>'
+    +'<div style="font-size:13px;color:rgba(255,255,255,.6);margin-bottom:8px;">Your answer: <span style="color:#e74c3c;font-weight:700;">'+userAns+'</span></div>'
+    +'<div class="steps-list">'+stepsHtml+'</div>'
+    +'<div class="trick-box"><strong>&#128161; Rishika's Trick:</strong> '+q.trick+'</div>'
+    +'<div class="clear-check"><span>Is it clear now?</span>'
+    +'<button class="btn-yes" onclick="isClear(true)">Yes &#10003;</button>'
+    +'<button class="btn-no" onclick="isClear(false)">No, show more</button></div>'
+    +'<button class="try-again-btn" id="tryAgainBtn" onclick="tryAgain()">TRY AGAIN &#9654;</button>';
+  G('rishikaBubble').textContent='Not quite! Let me explain step by step. &#128218;';
+}
+function isClear(yes){
+  if(yes){G('tryAgainBtn').style.display='block';G('rishikaBubble').textContent='Great! Now try again! &#127775;';}
+  else{var q=QB[idx];var fb=G('feedbackBox');var div=document.createElement('div');div.style.cssText='margin-top:12px;padding:12px;background:rgba(78,205,196,.08);border-radius:10px;border:1px solid rgba(78,205,196,.2);font-size:13px;';div.innerHTML='<strong style="color:#4ecdc4;">&#128260; Alternative approach:</strong><br>'+q.alt;fb.appendChild(div);setTimeout(function(){G('tryAgainBtn').style.display='block';},400);}
+}
+function tryAgain(){G('answerInput').value='';G('answerInput').disabled=false;G('submitBtn').disabled=false;G('feedbackBox').className='feedback-box';G('earnCoins').textContent='Keep trying!';G('answerInput').focus();}
+function nextQ(){loadQ(idx+1);}
+function onComplete(){
+  var done=rishiIsPracticeDone(CHAP_ID);
+  G('compIcon').textContent=done?'&#127942;':'&#128218;';
+  G('compTitle').textContent=done?'Practice Complete! Exam Unlocked!':'Session Complete!';
+  G('compMsg').textContent=done?'You got 5 in a row — the Chapter Exam is now unlocked! &#127881;':'Keep practising to get 5 in a row and unlock the exam!';
+  G('compOverlay').className='comp-overlay show';
+}
+function showStreakToast(){var t=document.createElement('div');t.className='streak-toast';t.textContent='&#128293; 5 in a row! Exam Unlocked!';document.body.appendChild(t);setTimeout(function(){if(t.parentNode)t.parentNode.removeChild(t);},3600);}
+function spawnCoin(){var c=document.createElement('div');c.className='coin-anim';c.textContent='&#129689;';document.body.appendChild(c);setTimeout(function(){if(c.parentNode)c.parentNode.removeChild(c);},1100);}
+function renderDots(){var c=G('progressDots');if(!c)return;var h='';for(var i=0;i<QB.length;i++){var cls='pdot';if(i===idx)cls+=' active';else if(answered[i]==='correct')cls+=' correct';else if(answered[i]==='wrong')cls+=' wrong';h+='<div class="'+cls+'">'+(i+1)+'</div>';}c.innerHTML=h;}
+function renderStreak(){var c=G('streakPips');if(!c)return;var h='';for(var i=0;i<5;i++){h+='<div class="spip'+(i<correctStreak?' filled':'')+'" ></div>';}c.innerHTML=h;}
+function toggleBreakMenu(){G('breakMenu').classList.toggle('show');}
+function startBreak(reason){G('breakType').textContent=reason+' Break';G('breakOverlay').className='break-overlay show';G('breakMenu').classList.remove('show');clearInterval(sessionInterval);var bSecs=0;breakInterval=setInterval(function(){bSecs++;var m=Math.floor(bSecs/60).toString().padStart(2,'0');var s=(bSecs%60).toString().padStart(2,'0');G('breakClock').textContent=m+':'+s;},1000);}
+function endBreak(){clearInterval(breakInterval);G('breakOverlay').className='break-overlay';sessionInterval=setInterval(function(){sessionSecs++;var m=Math.floor(sessionSecs/60).toString().padStart(2,'0');var s=(sessionSecs%60).toString().padStart(2,'0');G('sessionTimer').textContent=m+':'+s;},1000);}
+function startPractice(){G('tapOverlay').classList.add('hidden');var q=QB[idx];if(q)setTimeout(function(){say(q.qs||q.q.replace(/<[^>]+>/g,''));},300);}
+document.addEventListener('click',function(e){if(!e.target.closest('.tbtn-break'))G('breakMenu').classList.remove('show');});
+window.onload=function(){init();};
+</script>
+<script>
+var RISHI_SPRITES={celebrate:{file:'/images/rishika/sprites/celebrate.jpeg',cols:4,rows:3,fw:384,fh:341,seq:[[0,0],[1,0],[2,0],[3,0],[0,1],[1,1],[2,1],[3,1],[0,2],[1,2],[2,2],[3,2]],fps:8,loop:false,holdMs:3000,glow:'0 0 40px 12px rgba(245,158,11,0.6)',border:'#f59e0b'},praise:{file:'/images/rishika/sprites/praise.jpeg',cols:4,rows:3,fw:384,fh:341,seq:[[0,0],[1,0],[2,0],[3,0],[0,1],[1,1],[2,1],[3,1],[0,2],[1,2],[2,2],[3,2]],fps:6,loop:false,holdMs:2000,glow:'0 0 28px 8px rgba(139,92,246,0.5)',border:'#a78bfa'},disappointed:{file:'/images/rishika/sprites/disappointed-s1.jpeg',cols:4,rows:3,fw:384,fh:341,seq:[[0,0],[1,0],[2,0],[3,0],[0,1],[1,1],[2,1],[3,1]],fps:5,loop:false,holdMs:2000,glow:'0 0 25px 6px rgba(225,29,72,0.35)',border:'#f87171'},talking:{file:'/images/rishika/sprites/neutral-talking.png',cols:6,rows:2,fw:256,fh:512,seq:[[0,0],[1,0],[2,0],[3,0],[4,0],[5,0],[0,1],[1,1],[2,1],[3,1],[4,1],[5,1]],fps:10,loop:true,holdMs:0,glow:'0 0 20px rgba(109,40,217,0.3)',border:'#7c3aed'}};
+var _rCanvas=null,_rCtx=null,_rCurName=null,_rSeqIdx=0,_rFrameTimer=null,_rImgs={},_rLoaded=0,_rTotal=0,_rDW=200,_rDH=220;
+function rInit(){var container=document.getElementById('rishika-avatar');if(!container||_rCanvas)return;_rCanvas=document.createElement('canvas');_rCanvas.width=_rDW;_rCanvas.height=_rDH;_rCanvas.style.cssText='border-radius:12px;transition:box-shadow .3s;display:block;margin:0 auto;';container.appendChild(_rCanvas);_rCtx=_rCanvas.getContext('2d');var keys=Object.keys(RISHI_SPRITES);_rTotal=keys.length;_rLoaded=0;keys.forEach(function(k){var img=new Image();_rImgs[k]=img;img.onload=function(){_rLoaded++;if(_rLoaded===_rTotal)_rPlay('talking');};img.onerror=function(){_rLoaded++;if(_rLoaded===_rTotal)_rPlay('talking');};img.src=RISHI_SPRITES[k].file;});}
+function _rPlay(name){_rStop();if(!RISHI_SPRITES[name])return;_rCurName=name;_rSeqIdx=0;var s=RISHI_SPRITES[name];if(_rCanvas){_rCanvas.style.boxShadow=s.glow;_rCanvas.style.border='2px solid '+s.border;}_rDrawFrame();var interval=Math.round(1000/s.fps);_rFrameTimer=setInterval(function(){_rSeqIdx++;if(_rSeqIdx>=s.seq.length){if(s.loop){_rSeqIdx=0;}else{_rStop();if(name!=='talking')setTimeout(function(){_rPlay('talking');},s.holdMs||1000);return;}}_rDrawFrame();},interval);}
+function _rDrawFrame(){if(!_rCtx||!_rCurName)return;var s=RISHI_SPRITES[_rCurName];var img=_rImgs[_rCurName];if(!img||!img.complete||img.naturalWidth===0)return;var frame=s.seq[_rSeqIdx]||[0,0];_rCtx.clearRect(0,0,_rDW,_rDH);_rCtx.drawImage(img,frame[0]*s.fw,frame[1]*s.fh,s.fw,s.fh,0,0,_rDW,_rDH);}
+function _rStop(){if(_rFrameTimer){clearInterval(_rFrameTimer);_rFrameTimer=null;}}
+function rHappy(){_rPlay('praise');}function rCelebrate(){_rPlay('celebrate');}function rThink(){_rPlay('disappointed');}function rStartTalk(){_rPlay('talking');}function rStopTalk(){}
+</script>
 </body>
 </html>
