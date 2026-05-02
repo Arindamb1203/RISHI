@@ -1,7 +1,330 @@
 {
-  "_note": "STUB \u2014 fill in questions before unlocking Class 9",
-  "chapter": "coordinate-geometry",
-  "class": 9,
-  "board": "cbse",
-  "questions": []
+  "chapter_slug":   "coordinate-geometry",
+  "chapter_name":   "Coordinate Geometry",
+  "chapter_emoji":  "📍",
+  "class_num":      9,
+  "board":          "cbse",
+  "topic":          "coordinate-geometry",
+  "chap_id":        4,
+  "exam_key":       "c9-04",
+
+  "intro_text": "Hi <span class=\"hl\" id=\"sName\">there</span>! &#128522; Today we explore <span class=\"hl\">Coordinate Geometry</span> — the beautiful bridge between algebra and geometry! Every point in a plane has an address — and we&#39;ll learn to read and write those addresses perfectly! &#127919;",
+
+  "complete_message": "You have mastered Coordinate Geometry! You can now locate any point in the universe using just two numbers &#128170;",
+
+  "explain_questions": [
+    {
+      "id": "cg1",
+      "question": "What is the Cartesian Plane and how was it invented?",
+      "question_spoken": "What is the Cartesian Plane and how was it invented?",
+      "steps": [
+        {"t": "The Cartesian Plane was invented by the French mathematician René Descartes. He noticed a fly on his ceiling and realised he could describe its exact position using two numbers — its distances from two walls!", "s": "René Descartes invented coordinate geometry by observing a fly on his ceiling and describing its position using two distances."},
+        {"t": "Two perpendicular lines are drawn: the horizontal line is called the X-axis, and the vertical line is called the Y-axis. They meet at a point called the Origin, denoted by O. The coordinates of the origin are (0, 0).", "s": "The horizontal line is the x-axis. The vertical line is the y-axis. They meet at the origin with coordinates 0, 0."},
+        {"t": "The plane is divided into 4 regions called Quadrants, numbered I, II, III, IV going anticlockwise. Quadrant I: x>0, y>0. Quadrant II: x<0, y>0. Quadrant III: x<0, y<0. Quadrant IV: x>0, y<0.", "s": "The four quadrants go anticlockwise. Quadrant 1 is top-right with both positive. Quadrant 2 is top-left with x negative."}
+      ],
+      "confirm_question": "What are the coordinates of the origin?",
+      "confirm_question_spoken": "What are the coordinates of the origin?",
+      "answers": ["(0,0)", "0,0", "0 0"],
+      "nudges": [
+        "The origin is where the x-axis and y-axis meet",
+        "At that point, the distance from both axes is zero",
+        "Answer: (0, 0)"
+      ],
+      "anim_svg": "<g id=\"cg1s0\" opacity=\"0\"><rect x=\"10\" y=\"8\" width=\"390\" height=\"30\" rx=\"7\" fill=\"#f5e6c8\"/><text x=\"210\" y=\"28\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"800\" fill=\"#d4870a\">Descartes: fly on ceiling → describe position with 2 numbers</text></g><g id=\"cg1s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">X-axis (horizontal) | Y-axis (vertical) | Origin O(0,0)</text></g><g id=\"cg1s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Q1:+,+ | Q2:−,+ | Q3:−,− | Q4:+,− (anticlockwise)</text></g><g id=\"cg1ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Origin = (0, 0)</text></g>"
+    },
+    {
+      "id": "cg2",
+      "question": "What are coordinates of a point and what is abscissa and ordinate?",
+      "question_spoken": "What are coordinates of a point and what is abscissa and ordinate?",
+      "steps": [
+        {"t": "Every point in the Cartesian plane is represented by an ordered pair (x, y). The first number x is the distance from the Y-axis (horizontal distance). The second number y is the distance from the X-axis (vertical distance).", "s": "A point is written as ordered pair x comma y. x is horizontal distance from y-axis. y is vertical distance from x-axis."},
+        {"t": "The x-coordinate is called the ABSCISSA. The y-coordinate is called the ORDINATE. Together they are the COORDINATES of the point. For point P(3, 5): abscissa = 3, ordinate = 5.", "s": "The x-coordinate is called abscissa. The y-coordinate is called ordinate."},
+        {"t": "Important: Order matters! (3, 5) and (5, 3) are DIFFERENT points. (3,5) means move 3 right then 5 up. (5,3) means move 5 right then 3 up. Always write x first, then y!", "s": "The order matters. 3 comma 5 and 5 comma 3 are different points. Always write x first."}
+      ],
+      "confirm_question": "For point P(4, −3), what is the abscissa and what is the ordinate?",
+      "confirm_question_spoken": "For the point P 4 comma negative 3, what is the abscissa and what is the ordinate?",
+      "answers": ["abscissa=4, ordinate=-3", "4 and -3", "abscissa 4 ordinate -3"],
+      "nudges": [
+        "Abscissa = x-coordinate = first number",
+        "Ordinate = y-coordinate = second number",
+        "Abscissa = 4, Ordinate = −3"
+      ],
+      "anim_svg": "<g id=\"cg2s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Point (x,y): x = dist from Y-axis, y = dist from X-axis</text></g><g id=\"cg2s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Abscissa = x-coord | Ordinate = y-coord</text></g><g id=\"cg2s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">(3,5) ≠ (5,3) — ORDER MATTERS!</text></g><g id=\"cg2ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Abscissa=4, Ordinate=−3</text></g>"
+    },
+    {
+      "id": "cg3",
+      "question": "How do you plot a point on the Cartesian plane?",
+      "question_spoken": "How do you plot a point on the Cartesian plane?",
+      "steps": [
+        {"t": "To plot point P(3, 4): Start at origin O(0,0). Move 3 units to the RIGHT along the X-axis (positive x means right). Then move 4 units UP (positive y means up). Mark the point — that is P(3, 4) in Quadrant I!", "s": "Start at origin. Move 3 right. Then 4 up. That is P 3 comma 4 in Quadrant 1."},
+        {"t": "To plot Q(−2, 3): Start at O. Move 2 units to the LEFT (negative x). Then 3 units UP (positive y). Q(−2,3) lies in Quadrant II.", "s": "Negative x means move left. Positive y means move up. Q negative 2 comma 3 is in Quadrant 2."},
+        {"t": "To plot R(−1, −4): Move 1 LEFT and 4 DOWN. Quadrant III. To plot S(2, −3): Move 2 RIGHT and 3 DOWN. Quadrant IV. Memory trick: Think of a compass — right=east, left=west, up=north, down=south!", "s": "Negative y means move down. Use compass directions to remember. Right is east, up is north, left is west, down is south."}
+      ],
+      "confirm_question": "In which quadrant does the point (−3, 5) lie?",
+      "confirm_question_spoken": "In which quadrant does the point negative 3 comma 5 lie?",
+      "answers": ["quadrant 2", "second quadrant", "II", "quadrant II", "2"],
+      "nudges": [
+        "x = −3 (negative) means the point is to the LEFT of y-axis",
+        "y = 5 (positive) means the point is ABOVE the x-axis",
+        "Left and above = Quadrant II"
+      ],
+      "anim_svg": "<g id=\"cg3s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">P(3,4): right 3, up 4 → Quadrant I</text></g><g id=\"cg3s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Q(−2,3): left 2, up 3 → Quadrant II</text></g><g id=\"cg3s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">R(−1,−4): left,down=QIII | S(2,−3): right,down=QIV</text></g><g id=\"cg3ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">(−3,5): x negative, y positive → Quadrant II</text></g>"
+    },
+    {
+      "id": "cg4",
+      "question": "What are the signs of coordinates in each quadrant?",
+      "question_spoken": "What are the signs of coordinates in each quadrant?",
+      "steps": [
+        {"t": "Quadrant I (top-right): x positive, y positive → (+, +). Example: (3, 4), (1, 7). This is where both distances are measured in positive directions.", "s": "Quadrant 1 is top-right. Both x and y are positive."},
+        {"t": "Quadrant II (top-left): x negative, y positive → (−, +). Example: (−2, 5), (−4, 1). Quadrant III (bottom-left): x negative, y negative → (−, −). Example: (−3, −2).", "s": "Quadrant 2 top-left: x negative y positive. Quadrant 3 bottom-left: both negative."},
+        {"t": "Quadrant IV (bottom-right): x positive, y negative → (+, −). Example: (4, −3). Memory trick: 'All Schools Teach Children' — All positive in Q1, Sine positive in Q2, Tan positive in Q3, Cos positive in Q4!", "s": "Quadrant 4 bottom-right: x positive y negative. Remember All Schools Teach Children for the signs."}
+      ],
+      "confirm_question": "A point has x > 0 and y < 0. In which quadrant does it lie?",
+      "confirm_question_spoken": "A point has x greater than 0 and y less than 0. In which quadrant does it lie?",
+      "answers": ["quadrant 4", "fourth quadrant", "IV", "quadrant IV", "4"],
+      "nudges": [
+        "x > 0 means positive x → right side of y-axis",
+        "y < 0 means negative y → below x-axis",
+        "Right and below = Quadrant IV"
+      ],
+      "anim_svg": "<g id=\"cg4s0\" opacity=\"0\"><rect x=\"10\" y=\"8\" width=\"185\" height=\"50\" rx=\"7\" fill=\"#eef2eb\"/><text x=\"102\" y=\"28\" text-anchor=\"middle\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Q II: (−,+)</text><text x=\"102\" y=\"46\" text-anchor=\"middle\" font-size=\"11\" fill=\"#7a8c6e\">top-left</text></g><g id=\"cg4s0b\" opacity=\"0\"><rect x=\"215\" y=\"8\" width=\"185\" height=\"50\" rx=\"7\" fill=\"#f5e6c8\"/><text x=\"312\" y=\"28\" text-anchor=\"middle\" font-size=\"11\" font-weight=\"800\" fill=\"#d4870a\">Q I: (+,+)</text><text x=\"312\" y=\"46\" text-anchor=\"middle\" font-size=\"11\" fill=\"#b85c2a\">top-right</text></g><g id=\"cg4s1\" opacity=\"0\"><rect x=\"10\" y=\"66\" width=\"185\" height=\"50\" rx=\"7\" fill=\"#fff5f0\"/><text x=\"102\" y=\"86\" text-anchor=\"middle\" font-size=\"11\" font-weight=\"800\" fill=\"#b85c2a\">Q III: (−,−)</text><text x=\"102\" y=\"104\" text-anchor=\"middle\" font-size=\"11\" fill=\"#b85c2a\">bottom-left</text></g><g id=\"cg4s2\" opacity=\"0\"><rect x=\"215\" y=\"66\" width=\"185\" height=\"50\" rx=\"7\" fill=\"#eef2eb\"/><text x=\"312\" y=\"86\" text-anchor=\"middle\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Q IV: (+,−)</text><text x=\"312\" y=\"104\" text-anchor=\"middle\" font-size=\"11\" fill=\"#7a8c6e\">bottom-right</text></g><g id=\"cg4ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">x>0, y&lt;0 → Quadrant IV (+,−)</text></g>"
+    },
+    {
+      "id": "cg5",
+      "question": "Where do points lie when they are on the axes?",
+      "question_spoken": "Where do points lie when they are on the axes?",
+      "steps": [
+        {"t": "Points ON the X-axis have y-coordinate = 0. Example: (3, 0), (−2, 0), (5, 0) all lie on the X-axis. They are NOT in any quadrant — they are ON the axis.", "s": "Points on the x-axis have y equals zero. They are not in any quadrant."},
+        {"t": "Points ON the Y-axis have x-coordinate = 0. Example: (0, 4), (0, −3), (0, 7) all lie on the Y-axis. The origin O(0,0) lies on BOTH axes simultaneously.", "s": "Points on the y-axis have x equals zero. The origin lies on both axes."},
+        {"t": "Key rule: if x=0 and y≠0 → Y-axis. If y=0 and x≠0 → X-axis. If x=0 and y=0 → Origin. If neither is zero → in one of the 4 quadrants. This is a very common exam question!", "s": "If x is zero, the point is on the y-axis. If y is zero, the point is on the x-axis. If both are zero, it is the origin."}
+      ],
+      "confirm_question": "Where does the point (0, −5) lie?",
+      "confirm_question_spoken": "Where does the point 0 comma negative 5 lie?",
+      "answers": ["y-axis", "on the y-axis", "negative y-axis"],
+      "nudges": [
+        "The x-coordinate is 0",
+        "When x=0, the point lies on the Y-axis",
+        "Answer: On the Y-axis (negative side, since y=−5)"
+      ],
+      "anim_svg": "<g id=\"cg5s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">On X-axis → y=0: (3,0),(−2,0),(5,0)</text></g><g id=\"cg5s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">On Y-axis → x=0: (0,4),(0,−3),(0,7)</text></g><g id=\"cg5s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">x=0→Y-axis | y=0→X-axis | x=y=0→Origin</text></g><g id=\"cg5ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">(0,−5): x=0 → lies on Y-axis</text></g>"
+    },
+    {
+      "id": "cg6",
+      "question": "How do you read the coordinates of a plotted point?",
+      "question_spoken": "How do you read the coordinates of a plotted point?",
+      "steps": [
+        {"t": "To read coordinates of a plotted point: first draw a perpendicular from the point to the X-axis. Where it meets the X-axis gives the x-coordinate (abscissa).", "s": "Drop a perpendicular to the x-axis. Where it meets gives the x-coordinate."},
+        {"t": "Then draw a perpendicular from the point to the Y-axis. Where it meets the Y-axis gives the y-coordinate (ordinate). Together they form the ordered pair (x, y).", "s": "Drop a perpendicular to the y-axis. Where it meets gives the y-coordinate."},
+        {"t": "Example: A point lies 4 units right of Y-axis and 3 units above X-axis → coordinates (4, 3). A point 2 units left and 5 units below → coordinates (−2, −5). Always check the sign!", "s": "Right is positive x, left is negative x, up is positive y, down is negative y. Always check the sign."}
+      ],
+      "confirm_question": "A point is 5 units to the left of Y-axis and 2 units above X-axis. What are its coordinates?",
+      "confirm_question_spoken": "A point is 5 units to the left of the y-axis and 2 units above the x-axis. What are its coordinates?",
+      "answers": ["(-5,2)", "(−5,2)", "-5,2"],
+      "nudges": [
+        "Left of Y-axis → x is negative → x = −5",
+        "Above X-axis → y is positive → y = 2",
+        "Answer: (−5, 2)"
+      ],
+      "anim_svg": "<g id=\"cg6s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Drop perpendicular to X-axis → get x-coordinate</text></g><g id=\"cg6s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Drop perpendicular to Y-axis → get y-coordinate</text></g><g id=\"cg6s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">4 right, 3 up → (4,3) | 2 left, 5 down → (−2,−5)</text></g><g id=\"cg6ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">5 left, 2 up → (−5, 2)</text></g>"
+    },
+    {
+      "id": "cg7",
+      "question": "What are the properties of the axes and quadrants?",
+      "question_spoken": "What are the properties of the axes and quadrants?",
+      "steps": [
+        {"t": "The X-axis and Y-axis are perpendicular to each other (at 90°). They divide the plane into 4 quadrants. The positive X-axis points RIGHT and the negative X-axis points LEFT.", "s": "The x-axis and y-axis are perpendicular. Positive x-axis is to the right. Negative x-axis is to the left."},
+        {"t": "The positive Y-axis points UP and the negative Y-axis points DOWN. Any point in the plane can be uniquely identified by its coordinates (x, y). No two different points have the same coordinates!", "s": "Positive y-axis is upward. Negative y-axis is downward. Every point has a unique address."},
+        {"t": "The axes themselves are NOT part of any quadrant. Points on the axes belong to the axes, not to quadrants. This distinction is important in CBSE exams — axes and quadrants are separate!", "s": "The axes are not part of any quadrant. Points on axes belong to the axes, not to quadrants."}
+      ],
+      "confirm_question": "Do the axes belong to any quadrant? Yes or No.",
+      "confirm_question_spoken": "Do the axes belong to any quadrant? Yes or No.",
+      "answers": ["no"],
+      "nudges": [
+        "The axes divide the plane into quadrants",
+        "But the axes themselves are separate from the quadrants",
+        "Answer: No, axes do not belong to any quadrant"
+      ],
+      "anim_svg": "<g id=\"cg7s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">X and Y axes are perpendicular (90°)</text></g><g id=\"cg7s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Every point has UNIQUE coordinates</text></g><g id=\"cg7s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Axes are NOT part of any quadrant!</text></g><g id=\"cg7ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">No — axes belong to neither quadrant</text></g>"
+    },
+    {
+      "id": "cg8",
+      "question": "How does a street plan use coordinate geometry?",
+      "question_spoken": "How does a street plan use coordinate geometry?",
+      "steps": [
+        {"t": "Real-life use: A city has two main roads crossing at centre — one North-South and one East-West. These are like Y-axis and X-axis. Other streets run parallel, 200m apart.", "s": "Two perpendicular main roads form natural axes. Parallel streets create a grid."},
+        {"t": "Like a Cartesian plane, every intersection has an address! Cross street (3, 4) means 3rd street from Y-axis direction and 4th from X-axis direction. This is exactly coordinate geometry!", "s": "Every street intersection has a coordinate address just like points on the Cartesian plane."},
+        {"t": "This is why Descartes invented coordinate geometry! Real maps, GPS, computer screens — all use the same principle of two perpendicular reference lines. Coordinate geometry is all around us!", "s": "GPS systems, digital maps and computer screens all use coordinate geometry with two perpendicular references."}
+      ],
+      "confirm_question": "In a street plan, the two main roads form what in coordinate geometry?",
+      "confirm_question_spoken": "In a street plan, the two main roads form what in coordinate geometry?",
+      "answers": ["axes", "coordinate axes", "x-axis and y-axis", "the axes"],
+      "nudges": [
+        "The two perpendicular main roads are like the X and Y axes",
+        "They create a grid exactly like the Cartesian plane",
+        "Answer: The coordinate axes (x-axis and y-axis)"
+      ],
+      "anim_svg": "<g id=\"cg8s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">N-S road = Y-axis | E-W road = X-axis</text></g><g id=\"cg8s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Cross street (3,4) = 3 right, 4 up from centre</text></g><g id=\"cg8s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">GPS, maps, screens — all use coordinate geometry!</text></g><g id=\"cg8ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">The two roads form the coordinate axes</text></g>"
+    },
+    {
+      "id": "cg9",
+      "question": "How do you describe the position of a point in words?",
+      "question_spoken": "How do you describe the position of a point in words?",
+      "steps": [
+        {"t": "To describe P(3, 4): 'P is 3 units to the right of Y-axis and 4 units above X-axis' OR 'abscissa is 3, ordinate is 4'. P lies in Quadrant I.", "s": "Describe each coordinate as a distance from an axis. State the quadrant."},
+        {"t": "To describe Q(−2, 5): 'Q is 2 units to the LEFT of Y-axis and 5 units above X-axis. Abscissa = −2, ordinate = 5. Q lies in Quadrant II.'", "s": "Negative x means to the left. Positive y means above. This point is in Quadrant 2."},
+        {"t": "To describe R(4, 0): 'R lies on the X-axis, 4 units to the right of origin.' When ordinate = 0, point is on X-axis. When abscissa = 0, point is on Y-axis. State this clearly!", "s": "When ordinate is zero, state the point lies on the x-axis. When abscissa is zero, state it lies on the y-axis."}
+      ],
+      "confirm_question": "Describe the position of point (0, 7) in words.",
+      "confirm_question_spoken": "Describe the position of the point 0 comma 7 in words.",
+      "answers": ["on y-axis", "y-axis", "on the y-axis", "7 units above origin on y-axis"],
+      "nudges": [
+        "x-coordinate = 0 means the point is on the Y-axis",
+        "y-coordinate = 7 means 7 units above the origin",
+        "Answer: On the Y-axis, 7 units above the origin"
+      ],
+      "anim_svg": "<g id=\"cg9s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">P(3,4): 3 right of Y-axis, 4 above X-axis → Q1</text></g><g id=\"cg9s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Q(−2,5): 2 left, 5 above → Q2</text></g><g id=\"cg9s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">R(4,0): ON X-axis, 4 right of origin</text></g><g id=\"cg9ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">(0,7): ON Y-axis, 7 units above origin</text></g>"
+    },
+    {
+      "id": "cg10",
+      "question": "How do signs of coordinates tell you the quadrant?",
+      "question_spoken": "How do signs of coordinates tell you the quadrant?",
+      "steps": [
+        {"t": "The signs of (x, y) tell you the quadrant instantly: (+,+)=Q1, (−,+)=Q2, (−,−)=Q3, (+,−)=Q4. This is one of the fastest tricks in coordinate geometry!", "s": "Plus plus is Quadrant 1. Minus plus is Quadrant 2. Minus minus is Quadrant 3. Plus minus is Quadrant 4."},
+        {"t": "Example: If a point has x = −4 and y = −7, it's in Quadrant III (both negative). If x = 5 and y = −2, it's in Quadrant IV (x positive, y negative). No plotting needed!", "s": "Just check the signs. Both negative means Quadrant 3. Positive x and negative y means Quadrant 4."},
+        {"t": "Special: if xy > 0 (same sign), point is in Q1 or Q3. If xy < 0 (opposite signs), point is in Q2 or Q4. If x or y = 0, point is on an axis. These are olympiad-level tricks!", "s": "If x times y is positive, the point is in Quadrant 1 or 3. If negative, it is in Quadrant 2 or 4."}
+      ],
+      "confirm_question": "In which quadrant does a point with x < 0 and y < 0 lie?",
+      "confirm_question_spoken": "In which quadrant does a point with x less than 0 and y less than 0 lie?",
+      "answers": ["quadrant 3", "third quadrant", "III", "quadrant III", "3"],
+      "nudges": [
+        "x < 0 means left of y-axis (negative x)",
+        "y < 0 means below x-axis (negative y)",
+        "Both negative → Quadrant III"
+      ],
+      "anim_svg": "<g id=\"cg10s0\" opacity=\"0\"><rect x=\"10\" y=\"8\" width=\"390\" height=\"30\" rx=\"7\" fill=\"#f5e6c8\"/><text x=\"210\" y=\"28\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"800\" fill=\"#d4870a\">(+,+)=Q1 | (−,+)=Q2 | (−,−)=Q3 | (+,−)=Q4</text></g><g id=\"cg10s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">(−4,−7)→Q3 | (5,−2)→Q4 — no plotting needed!</text></g><g id=\"cg10s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">xy>0 → Q1 or Q3 | xy&lt;0 → Q2 or Q4</text></g><g id=\"cg10ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">x&lt;0, y&lt;0 → Quadrant III</text></g>"
+    }
+  ],
+
+  "practice_questions": [
+    {
+      "question": "What are the coordinates of the origin?",
+      "question_spoken": "What are the coordinates of the origin?",
+      "answers": ["(0,0)", "0,0", "0 and 0"],
+      "steps": ["The origin is where the x-axis and y-axis intersect", "At this point, the distance from both axes is zero", "Coordinates: (0, 0)"],
+      "trick": "Origin = O = (0,0). It's the starting point of the entire coordinate system. Both coordinates are zero!",
+      "alt": "The word 'origin' means beginning. It is where everything starts — at distance zero from both axes. So (0,0)."
+    },
+    {
+      "question": "In which quadrant does the point (−4, 3) lie?",
+      "question_spoken": "In which quadrant does the point negative 4 comma 3 lie?",
+      "answers": ["quadrant 2", "II", "second quadrant", "quadrant II"],
+      "steps": ["x = −4 (negative) → left of y-axis", "y = 3 (positive) → above x-axis", "Left and above → Quadrant II"],
+      "trick": "Check signs: (−,+) is always Quadrant II. Left+Up=QII. Remember: All Schools Teach Children!",
+      "alt": "Draw the axes. Go 4 left, then 3 up. You land in the top-left region — that is Quadrant II."
+    },
+    {
+      "question": "What is the abscissa of the point (7, −3)?",
+      "question_spoken": "What is the abscissa of the point 7 comma negative 3?",
+      "answers": ["7", "abscissa=7", "abscissa is 7"],
+      "steps": ["Abscissa = x-coordinate = the first number in the ordered pair", "For (7, −3), the first number is 7", "Abscissa = 7"],
+      "trick": "Abscissa = x-coordinate = FIRST number. Ordinate = y-coordinate = SECOND number. Never mix them up!",
+      "alt": "Think: ABscissa = comes Before ordinate. A comes before O in the alphabet. x comes before y. Abscissa = x = first number."
+    },
+    {
+      "question": "Point (5, 0) lies on which axis?",
+      "question_spoken": "The point 5 comma 0 lies on which axis?",
+      "answers": ["x-axis", "the x-axis", "X-axis"],
+      "steps": ["The point is (5, 0). y-coordinate = 0", "When y=0, the point lies on the X-axis", "(5, 0) is on the X-axis, 5 units to the right of origin"],
+      "trick": "y=0 → X-axis. x=0 → Y-axis. The zero coordinate tells you which axis the point is on!",
+      "alt": "The x-axis is the horizontal line where y=0 everywhere. Since this point has y=0, it must be on the x-axis."
+    },
+    {
+      "question": "What are the signs of coordinates in Quadrant III?",
+      "question_spoken": "What are the signs of coordinates in Quadrant III?",
+      "answers": ["both negative", "negative negative", "(−,−)", "negative x negative y"],
+      "steps": ["Quadrant III is the bottom-left region", "Bottom means y is negative", "Left means x is negative", "So both x and y are negative: (−,−)"],
+      "trick": "Q1(+,+) Q2(−,+) Q3(−,−) Q4(+,−). Going anticlockwise, the pattern changes systematically!",
+      "alt": "In the bottom-left of the plane, you have gone left (negative x) and down (negative y). So both coordinates are negative."
+    },
+    {
+      "question": "Which of these points lies in Quadrant IV? A:(−3,−2)  B:(4,−5)  C:(−1,6)  D:(3,4)",
+      "question_spoken": "Which of these points lies in Quadrant IV? A: negative 3 comma negative 2. B: 4 comma negative 5. C: negative 1 comma 6. D: 3 comma 4.",
+      "answers": ["b", "(4,-5)", "4,-5", "b: (4,-5)"],
+      "steps": ["A: (−3,−2) both negative → Q3", "B: (4,−5) x positive, y negative → Q4 ✓", "C: (−1,6) x negative, y positive → Q2", "D: (3,4) both positive → Q1"],
+      "trick": "Quadrant IV has the sign pattern (+,−). Check each option for positive x and negative y!",
+      "alt": "Q4 is bottom-right. Only option B has positive x (right) and negative y (below). So B is in Q4."
+    },
+    {
+      "question": "A point is 3 units above the x-axis and on the y-axis. What are its coordinates?",
+      "question_spoken": "A point is 3 units above the x-axis and on the y-axis. What are its coordinates?",
+      "answers": ["(0,3)", "0,3"],
+      "steps": ["On the y-axis means x = 0", "3 units above x-axis means y = 3", "Coordinates: (0, 3)"],
+      "trick": "On y-axis → x=0 always. Then the y-coordinate is just the given distance (positive if above, negative if below).",
+      "alt": "The y-axis is where x=0. The point is 3 above the x-axis so y=3. Therefore coordinates are (0,3)."
+    },
+    {
+      "question": "If a point has x-coordinate 0 and y-coordinate −6, where does it lie?",
+      "question_spoken": "If a point has x-coordinate 0 and y-coordinate negative 6, where does it lie?",
+      "answers": ["y-axis", "on the y-axis", "negative y-axis"],
+      "steps": ["x = 0 → point lies on the Y-axis", "y = −6 → 6 units below the origin", "Point (0, −6) is on the negative Y-axis"],
+      "trick": "x=0 always means Y-axis. The sign of y tells you which side — positive y is above origin, negative y is below.",
+      "alt": "Draw it: go 0 left/right (stay on y-axis), go 6 down. You're at (0,−6) on the negative part of the y-axis."
+    },
+    {
+      "question": "In which quadrant does xy > 0? Give both possible quadrants.",
+      "question_spoken": "In which quadrant is xy greater than 0? Give both possible quadrants.",
+      "answers": ["Q1 and Q3", "quadrant 1 and 3", "I and III", "Quadrant I and Quadrant III"],
+      "steps": ["xy > 0 means x and y have the SAME sign", "Both positive (+,+) → Quadrant I", "Both negative (−,−) → Quadrant III", "So xy > 0 in Q1 and Q3"],
+      "trick": "xy > 0 means same sign → Q1 or Q3. xy < 0 means opposite signs → Q2 or Q4. This is an olympiad-level thinking trick!",
+      "alt": "If xy is positive, either both are positive (Q1) or both are negative (Q3). In Q2 and Q4, x and y have opposite signs making xy negative."
+    },
+    {
+      "question": "What are the coordinates of a point 4 units to the right of Y-axis and 6 units below X-axis?",
+      "question_spoken": "What are the coordinates of a point 4 units to the right of the y-axis and 6 units below the x-axis?",
+      "answers": ["(4,-6)", "(4,−6)", "4,-6"],
+      "steps": ["4 units to the right of Y-axis → x = +4", "6 units below X-axis → y = −6", "Coordinates: (4, −6) in Quadrant IV"],
+      "trick": "Right = positive x. Left = negative x. Above = positive y. Below = negative y. Apply this to convert words to coordinates!",
+      "alt": "Right of y-axis means positive x direction: x=4. Below x-axis means negative y direction: y=−6. So (4,−6)."
+    },
+    {
+      "question": "The point (−2, 7) lies in which quadrant?",
+      "question_spoken": "The point negative 2 comma 7 lies in which quadrant?",
+      "answers": ["quadrant 2", "II", "second quadrant", "quadrant II"],
+      "steps": ["x = −2 (negative) → left of y-axis", "y = 7 (positive) → above x-axis", "(−,+) → Quadrant II"],
+      "trick": "(−,+) is always Q2. Signs tell quadrant instantly — no need to draw or plot!",
+      "alt": "Negative x, positive y. Left and up. That is the top-left region of the Cartesian plane — Quadrant II."
+    },
+    {
+      "question": "What is the ordinate of the point (−8, 15)?",
+      "question_spoken": "What is the ordinate of the point negative 8 comma 15?",
+      "answers": ["15", "ordinate=15", "ordinate is 15"],
+      "steps": ["Ordinate = y-coordinate = the second number in the ordered pair", "For (−8, 15), the second number is 15", "Ordinate = 15"],
+      "trick": "Ordinate = y-coordinate = SECOND number. Always the second one in the brackets!",
+      "alt": "Ordinate comes after abscissa (x). So ordinate = y = the second number. Here second number = 15."
+    },
+    {
+      "question": "Name the quadrant in which both coordinates are positive.",
+      "question_spoken": "Name the quadrant in which both coordinates are positive.",
+      "answers": ["quadrant 1", "I", "first quadrant", "quadrant I"],
+      "steps": ["Both x and y positive means (+,+)", "This is the top-right region of the Cartesian plane", "That is Quadrant I"],
+      "trick": "Q1 = (+,+) = top-right. This is the simplest quadrant rule and appears in almost every exam!",
+      "alt": "Positive x means right, positive y means up. Right and up together = top-right = Quadrant I."
+    },
+    {
+      "question": "How many quadrants are there in the Cartesian plane?",
+      "question_spoken": "How many quadrants are there in the Cartesian plane?",
+      "answers": ["4", "four"],
+      "steps": ["The x-axis and y-axis divide the plane", "Each axis divides the plane into 2 halves", "Two perpendicular lines create 4 regions — the 4 quadrants"],
+      "trick": "Two lines crossing always create 4 angles/regions. The x and y axes are those two lines. Always 4 quadrants!",
+      "alt": "Think of a plus sign (+). It divides space into 4 parts. The x and y axes form exactly such a plus sign."
+    },
+    {
+      "question": "In which quadrant does a point lie if its x-coordinate and y-coordinate have opposite signs?",
+      "question_spoken": "In which quadrant does a point lie if its x-coordinate and y-coordinate have opposite signs?",
+      "answers": ["Q2 or Q4", "quadrant 2 or 4", "II or IV", "Quadrant II or IV"],
+      "steps": ["Opposite signs means one positive, one negative", "(−,+) → Quadrant II", "(+,−) → Quadrant IV", "So: Quadrant II or Quadrant IV"],
+      "trick": "Same signs → Q1 or Q3. Opposite signs → Q2 or Q4. This is the key pattern to remember!",
+      "alt": "If xy < 0 (opposite signs), you're in Q2 or Q4. These are the two quadrants where x and y don't match in sign."
+    }
+  ]
 }
