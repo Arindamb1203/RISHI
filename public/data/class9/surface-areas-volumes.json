@@ -1,7 +1,330 @@
 {
-  "_note": "STUB \u2014 fill in questions before unlocking Class 9",
-  "chapter": "surface-areas-volumes",
-  "class": 9,
-  "board": "cbse",
-  "questions": []
+  "chapter_slug":   "surface-areas-volumes",
+  "chapter_name":   "Surface Areas and Volumes",
+  "chapter_emoji":  "📦",
+  "class_num":      9,
+  "board":          "cbse",
+  "topic":          "mensuration",
+  "chap_id":        11,
+  "exam_key":       "c9-11",
+
+  "intro_text": "Hi <span class=\"hl\" id=\"sName\">there</span>! &#128522; Today we calculate <span class=\"hl\">Surface Areas and Volumes</span> of 3D shapes — cuboids, cylinders, cones, spheres! These formulas are used in engineering, architecture, cooking and packaging. Let&#39;s master them! &#127919;",
+
+  "complete_message": "You have mastered Surface Areas and Volumes! You can now calculate any 3D shape in the real world &#128170;",
+
+  "explain_questions": [
+    {
+      "id": "sv1",
+      "question": "What are Surface Area and Volume? What is the difference?",
+      "question_spoken": "What are Surface Area and Volume? What is the difference?",
+      "steps": [
+        {"t": "SURFACE AREA is the total area of ALL the outer faces of a 3D shape — like the amount of wrapping paper needed to cover a gift box. Measured in cm² or m².", "s": "Surface area is the total outer area of a 3D shape. Think of wrapping paper. Measured in square units."},
+        {"t": "VOLUME is the amount of space inside a 3D shape — like how much water a bottle can hold. Measured in cm³ or m³ (cubic units). Volume = capacity!", "s": "Volume is the space inside. Think of how much water fills it. Measured in cubic units."},
+        {"t": "Two types of Surface Area: LATERAL (or Curved) Surface Area = only the sides (not top/bottom). TOTAL Surface Area = all faces including top and bottom. CSA + top + bottom = TSA!", "s": "Lateral or curved surface area is sides only. Total surface area includes all faces including top and bottom."}
+      ],
+      "confirm_question": "What is the unit of Volume?",
+      "confirm_question_spoken": "What is the unit of Volume?",
+      "answers": ["cubic units", "cm³", "m³", "cubic cm", "cubic metres"],
+      "nudges": [
+        "Surface area uses square units (cm²)",
+        "Volume is 3-dimensional — it uses cubic units",
+        "Answer: Cubic units (cm³ or m³)"
+      ],
+      "anim_svg": "<g id=\"sv1s0\" opacity=\"0\"><rect x=\"10\" y=\"8\" width=\"390\" height=\"30\" rx=\"7\" fill=\"#f5e6c8\"/><text x=\"210\" y=\"28\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"800\" fill=\"#d4870a\">Surface Area = outer area (cm²) | Volume = inner space (cm³)</text></g><g id=\"sv1s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">SA: wrapping paper | V: water capacity</text></g><g id=\"sv1s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">LSA/CSA = sides only | TSA = CSA + top + bottom</text></g><g id=\"sv1ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Volume unit = cubic units (cm³ or m³)</text></g>"
+    },
+    {
+      "id": "sv2",
+      "question": "What are the formulas for a Cuboid?",
+      "question_spoken": "What are the formulas for a cuboid?",
+      "steps": [
+        {"t": "A CUBOID has length l, breadth b, height h. It has 6 rectangular faces. LATERAL Surface Area = 2h(l+b) — only the 4 side faces. TOTAL Surface Area = 2(lb+bh+hl) — all 6 faces.", "s": "Cuboid: length l, breadth b, height h. Lateral SA equals 2h times l plus b. Total SA equals 2 times lb plus bh plus hl."},
+        {"t": "VOLUME of cuboid = l × b × h. Diagonal of cuboid = √(l²+b²+h²). Example: l=3, b=4, h=5. TSA = 2(12+20+15) = 2(47) = 94 cm². Volume = 60 cm³. Diagonal = √50 = 5√2 cm.", "s": "Volume equals l times b times h. For 3, 4 and 5: total SA is 94, volume is 60, diagonal is 5 root 2."},
+        {"t": "CUBE: special cuboid with l=b=h=a. TSA = 6a². LSA = 4a². Volume = a³. Diagonal = a√3. Memory trick: Total has 6 faces so 6a². Side has 4 faces so 4a²!", "s": "Cube with side a: total SA equals 6a squared. Lateral SA equals 4a squared. Volume equals a cubed. Diagonal equals a root 3."}
+      ],
+      "confirm_question": "Total Surface Area of a cube with side 5 cm is ____.",
+      "confirm_question_spoken": "Total Surface Area of a cube with side 5 cm is blank.",
+      "answers": ["150 cm²", "150"],
+      "nudges": [
+        "TSA of cube = 6a²",
+        "6 × 5² = 6 × 25",
+        "Answer: 150 cm²"
+      ],
+      "anim_svg": "<g id=\"sv2s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Cuboid: LSA=2h(l+b) | TSA=2(lb+bh+hl) | V=lbh</text></g><g id=\"sv2s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">l=3,b=4,h=5: TSA=94 | V=60 | diag=5√2</text></g><g id=\"sv2s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Cube side a: TSA=6a² | LSA=4a² | V=a³ | diag=a√3</text></g><g id=\"sv2ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">TSA = 6×25 = 150 cm²</text></g>"
+    },
+    {
+      "id": "sv3",
+      "question": "What are the formulas for a Right Circular Cylinder?",
+      "question_spoken": "What are the formulas for a right circular cylinder?",
+      "steps": [
+        {"t": "A CYLINDER has radius r and height h. CURVED Surface Area (CSA) = 2πrh — just the curved side (like a tin can without top and bottom). TOTAL Surface Area (TSA) = 2πr(r+h) = CSA + 2πr² (two circular ends).", "s": "Cylinder: radius r and height h. CSA equals 2 pi r h. TSA equals 2 pi r times r plus h."},
+        {"t": "VOLUME of cylinder = πr²h — (area of base circle × height). Think: stack infinitely thin circles of area πr² up to height h! Example: r=7, h=10. CSA=2×22/7×7×10=440 cm². V=π×49×10=1540 cm³.", "s": "Volume equals pi r squared h. For r equals 7 and h equals 10: CSA equals 440 and volume equals 1540 cubic cm."},
+        {"t": "Value of π: use 22/7 when radius is a multiple of 7, or 3.14 otherwise. The CBSE exam always specifies which to use! Hollow cylinder has an inner and outer radius — find difference of TSAs.", "s": "Use 22 over 7 when radius is multiple of 7. Use 3.14 otherwise. The exam specifies which to use."}
+      ],
+      "confirm_question": "CSA of a cylinder with radius 7 cm and height 5 cm is ____ (use π = 22/7).",
+      "confirm_question_spoken": "CSA of a cylinder with radius 7 cm and height 5 cm, using pi equals 22 over 7.",
+      "answers": ["220 cm²", "220"],
+      "nudges": [
+        "CSA = 2πrh",
+        "2 × (22/7) × 7 × 5 = 2 × 22 × 5",
+        "Answer: 220 cm²"
+      ],
+      "anim_svg": "<g id=\"sv3s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Cylinder: CSA=2πrh | TSA=2πr(r+h) | V=πr²h</text></g><g id=\"sv3s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">r=7,h=10: CSA=440 | TSA=748 | V=1540 cm³</text></g><g id=\"sv3s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Use π=22/7 (r=multiple of 7) or π=3.14 (others)</text></g><g id=\"sv3ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">CSA = 2×(22/7)×7×5 = 220 cm²</text></g>"
+    },
+    {
+      "id": "sv4",
+      "question": "What are the formulas for a Right Circular Cone?",
+      "question_spoken": "What are the formulas for a right circular cone?",
+      "steps": [
+        {"t": "A CONE has radius r, height h, and SLANT HEIGHT l = √(h²+r²). This is the key difference from cylinder — the cone has a slant height! CSA = πrl (just the curved surface). TSA = πr(r+l) = πrl + πr².", "s": "Cone: radius r, height h, slant height l equals root of h squared plus r squared. CSA equals pi r l. TSA equals pi r times r plus l."},
+        {"t": "VOLUME of cone = (1/3)πr²h. Exactly ONE-THIRD the volume of a cylinder with same radius and height! Beautiful relationship: 3 cones = 1 cylinder (same r and h).", "s": "Volume of cone equals one third pi r squared h. Three cones equal one cylinder of same radius and height."},
+        {"t": "Always find l first! Example: r=6, h=8. l=√(64+36)=√100=10 cm. CSA=π×6×10=60π≈188.4 cm². V=1/3×π×36×8=96π≈301.4 cm³. REMEMBER: find slant height before any cone formula!", "s": "Always calculate slant height first. For r equals 6 and h equals 8: l equals 10. CSA equals 60 pi. Volume equals 96 pi."}
+      ],
+      "confirm_question": "Find the slant height of a cone with radius 5 cm and height 12 cm.",
+      "confirm_question_spoken": "Find the slant height of a cone with radius 5 cm and height 12 cm.",
+      "answers": ["13 cm", "13"],
+      "nudges": [
+        "l = √(h² + r²)",
+        "l = √(144 + 25) = √169",
+        "Answer: l = 13 cm"
+      ],
+      "anim_svg": "<g id=\"sv4s0\" opacity=\"0\"><rect x=\"10\" y=\"8\" width=\"390\" height=\"30\" rx=\"7\" fill=\"#f5e6c8\"/><text x=\"210\" y=\"28\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"800\" fill=\"#d4870a\">Cone: l=√(h²+r²) | CSA=πrl | TSA=πr(r+l) | V=⅓πr²h</text></g><g id=\"sv4s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">r=6, h=8: l=10 | CSA=60π | V=96π</text></g><g id=\"sv4s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">3 cones = 1 cylinder (same r,h) | Find l FIRST!</text></g><g id=\"sv4ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">l = √(12²+5²) = √169 = 13 cm</text></g>"
+    },
+    {
+      "id": "sv5",
+      "question": "What are the formulas for a Sphere and Hemisphere?",
+      "question_spoken": "What are the formulas for a sphere and hemisphere?",
+      "steps": [
+        {"t": "SPHERE (like a ball): radius r. Surface Area = 4πr² (only one surface — no flat faces!). Volume = (4/3)πr³. A sphere has NO flat face — only a curved surface, so SA = TSA = CSA = 4πr².", "s": "Sphere with radius r: surface area equals 4 pi r squared. Volume equals 4 over 3 pi r cubed."},
+        {"t": "HEMISPHERE (half sphere): Curved SA = 2πr². Total SA = 2πr² + πr² = 3πr² (add the flat circular base!). Volume = (2/3)πr³ (half of sphere volume).", "s": "Hemisphere: curved SA equals 2 pi r squared. Total SA equals 3 pi r squared (add the flat base). Volume equals 2 over 3 pi r cubed."},
+        {"t": "Memory trick: Sphere SA = 4πr² (4 circles worth of area). Volume = (4/3)πr³. Hemisphere: halve the volume → (2/3)πr³. Add circular base to get TSA: 3πr². The number 4, 3, 2 pattern helps!", "s": "Pattern: sphere SA has coefficient 4. Volume has 4 over 3. Hemisphere volume has 2 over 3. TSA has coefficient 3."}
+      ],
+      "confirm_question": "Surface area of a sphere with radius 7 cm is ____ (use π = 22/7).",
+      "confirm_question_spoken": "Surface area of a sphere with radius 7 cm, using pi equals 22 over 7.",
+      "answers": ["616 cm²", "616"],
+      "nudges": [
+        "SA of sphere = 4πr²",
+        "4 × (22/7) × 7² = 4 × 22 × 7",
+        "Answer: 616 cm²"
+      ],
+      "anim_svg": "<g id=\"sv5s0\" opacity=\"0\"><rect x=\"10\" y=\"8\" width=\"190\" height=\"56\" rx=\"7\" fill=\"#eef2eb\"/><text x=\"105\" y=\"28\" text-anchor=\"middle\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Sphere</text><text x=\"105\" y=\"46\" text-anchor=\"middle\" font-size=\"10\" fill=\"#7a8c6e\">SA=4πr² | V=4πr³/3</text></g><g id=\"sv5s1\" opacity=\"0\"><rect x=\"210\" y=\"8\" width=\"190\" height=\"56\" rx=\"7\" fill=\"#f5e6c8\"/><text x=\"305\" y=\"28\" text-anchor=\"middle\" font-size=\"11\" font-weight=\"800\" fill=\"#d4870a\">Hemisphere</text><text x=\"305\" y=\"46\" text-anchor=\"middle\" font-size=\"10\" fill=\"#b85c2a\">TSA=3πr² | V=2πr³/3</text></g><g id=\"sv5s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Pattern: 4πr² → 3πr² | 4/3πr³ → 2/3πr³</text></g><g id=\"sv5ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">4×(22/7)×49 = 616 cm²</text></g>"
+    },
+    {
+      "id": "sv6",
+      "question": "How do you convert between units of volume?",
+      "question_spoken": "How do you convert between units of volume?",
+      "steps": [
+        {"t": "Key conversions: 1 cm³ = 1 mL (millilitre). 1 L = 1000 cm³ = 1000 mL. 1 m³ = 1,000,000 cm³ = 10,00,000 cm³ = 1000 litres. These appear in every CBSE problem!", "s": "1 cubic cm equals 1 millilitre. 1 litre equals 1000 cubic cm. 1 cubic metre equals 10 lakh cubic cm equals 1000 litres."},
+        {"t": "Length: 1 m = 100 cm. Area: 1 m² = 10000 cm². Volume: 1 m³ = 10000×100 = 1000000 cm³. Each dimension is multiplied separately! Don't forget to cube the conversion factor for volume.", "s": "1 metre is 100 cm. 1 square metre is 10000 square cm. 1 cubic metre is 10 lakh cubic cm. Cube the factor for volume."},
+        {"t": "Practical: A tank is 2m×3m×1.5m. Volume = 9 m³ = 9000 litres = 9,000,000 mL = 9,000,000 cm³. Always check: does the answer make physical sense? 9000 litres is about 9 large water drums!", "s": "Tank 2 by 3 by 1.5 metres: volume is 9 cubic metres equals 9000 litres. Always check if answer is reasonable."}
+      ],
+      "confirm_question": "1 litre = ____ cm³",
+      "confirm_question_spoken": "1 litre equals blank cubic centimetres.",
+      "answers": ["1000", "1000 cm³"],
+      "nudges": [
+        "1 cm³ = 1 mL",
+        "1 litre = 1000 mL",
+        "Answer: 1000 cm³"
+      ],
+      "anim_svg": "<g id=\"sv6s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">1 cm³=1 mL | 1 L=1000 cm³ | 1 m³=10⁶ cm³=1000 L</text></g><g id=\"sv6s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Length×100 | Area×10000 | Volume×1000000</text></g><g id=\"sv6s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Tank 2×3×1.5m=9m³=9000L — check sense!</text></g><g id=\"sv6ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">1 litre = 1000 cm³</text></g>"
+    },
+    {
+      "id": "sv7",
+      "question": "How do you find the number of objects formed by melting a shape?",
+      "question_spoken": "How do you find the number of objects formed by melting one shape?",
+      "steps": [
+        {"t": "Key principle: when a shape is MELTED and recast into smaller shapes, the VOLUME is conserved (stays the same). Volume of original = Number of new objects × Volume of each new object.", "s": "When melting and recasting, volume is conserved. Volume of original equals number of pieces times volume of each piece."},
+        {"t": "Example: A sphere of radius 6 cm is melted and recast into small spheres of radius 1 cm. Number = Volume of big sphere / Volume of small sphere = (4/3)π(6³) / (4/3)π(1³) = 216/1 = 216 small spheres!", "s": "Sphere radius 6 melted into spheres radius 1. Number equals 6 cubed divided by 1 cubed equals 216."},
+        {"t": "The π and (4/3) cancel out! So it simplifies to just (6/1)³ = 216. In general: N = (R/r)³ for spheres. For cylinders: N = (R²H)/(r²h). Always set up: volume of big = N × volume of small.", "s": "The common factors cancel. For spheres: N equals R over r, all cubed. Set up the equation and solve."}
+      ],
+      "confirm_question": "A sphere of radius 3 cm is melted into spheres of radius 1 cm. How many small spheres are formed?",
+      "confirm_question_spoken": "A sphere of radius 3 cm is melted into spheres of radius 1 cm. How many spheres are formed?",
+      "answers": ["27"],
+      "nudges": [
+        "N = (R/r)³ for spheres being melted",
+        "N = (3/1)³ = 3³",
+        "Answer: 27 small spheres"
+      ],
+      "anim_svg": "<g id=\"sv7s0\" opacity=\"0\"><rect x=\"10\" y=\"8\" width=\"390\" height=\"30\" rx=\"7\" fill=\"#f5e6c8\"/><text x=\"210\" y=\"28\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"800\" fill=\"#d4870a\">Volume conserved: V_big = N × V_small</text></g><g id=\"sv7s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Sphere R=6 → spheres r=1: N=(4/3)π216/(4/3)π=216</text></g><g id=\"sv7s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Simplify: N=(R/r)³=(6/1)³=216 ✓</text></g><g id=\"sv7ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">N = (3/1)³ = 27 small spheres</text></g>"
+    },
+    {
+      "id": "sv8",
+      "question": "How do you solve problems involving water flowing through pipes?",
+      "question_spoken": "How do you solve problems involving water flowing through pipes?",
+      "steps": [
+        {"t": "Key idea: Volume of water flowing = Cross-section area of pipe × Length of water column. For a cylindrical pipe with radius r and water flowing at speed v m/s: Volume per second = πr²v.", "s": "Water flowing through a pipe: volume per second equals cross section area times speed."},
+        {"t": "Example: Pipe diameter = 14 cm (radius=7 cm). Water speed = 2 m/s = 200 cm/s. Volume per second = π × 49 × 200 = 9800π cm³/s ≈ 30,772 cm³/s ≈ 30.77 litres/s.", "s": "Pipe radius 7 cm, speed 200 cm per second. Volume per second equals pi times 49 times 200 equals 9800 pi cubic cm per second."},
+        {"t": "Time to fill a tank: Time = Volume of tank / Volume per second. Always convert units consistently (all in cm or all in m). Speed in m/s must match tank dimensions in m!", "s": "Time to fill tank equals tank volume divided by flow rate. Always use consistent units throughout the calculation."}
+      ],
+      "confirm_question": "A cylindrical pipe has radius 1 cm and water speed 100 cm/s. Volume flowing per second = ____.",
+      "confirm_question_spoken": "A cylindrical pipe has radius 1 cm and water flows at 100 cm per second. Volume per second is blank.",
+      "answers": ["100π cm³", "100π", "314 cm³", "314"],
+      "nudges": [
+        "Volume/second = πr² × speed",
+        "= π × 1² × 100",
+        "Answer: 100π cm³/s ≈ 314 cm³/s"
+      ],
+      "anim_svg": "<g id=\"sv8s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Pipe flow: V/sec = πr² × speed</text></g><g id=\"sv8s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">r=7,speed=200: 9800π≈30.77 litres/s</text></g><g id=\"sv8s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Time = Tank volume / Flow rate | Use consistent units!</text></g><g id=\"sv8ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">V = π×1²×100 = 100π cm³/s</text></g>"
+    },
+    {
+      "id": "sv9",
+      "question": "What is the relationship between Cone, Cylinder and Sphere volumes?",
+      "question_spoken": "What is the relationship between cone, cylinder and sphere volumes?",
+      "steps": [
+        {"t": "For the SAME radius r and height h=2r (sphere diameter = cylinder height): Cone volume = (1/3)πr²(2r) = (2/3)πr³. Cylinder volume = πr²(2r) = 2πr³. Sphere volume = (4/3)πr³.", "s": "For same radius and height equals 2r: cone volume is 2 over 3 pi r cubed, cylinder is 2 pi r cubed, sphere is 4 over 3 pi r cubed."},
+        {"t": "Ratio: Cone : Sphere : Cylinder = (2/3)πr³ : (4/3)πr³ : 2πr³ = 1 : 2 : 3! Beautiful! One cone, one sphere, one cylinder (same r, h=2r) are in ratio 1:2:3.", "s": "The ratio of cone to sphere to cylinder volumes is 1 to 2 to 3. This is a famous result by Archimedes."},
+        {"t": "This amazing result was discovered by Archimedes! He was so proud that he asked for a diagram of a cylinder with an inscribed sphere to be carved on his tombstone. Archimedes' most favourite theorem!", "s": "Archimedes discovered this 1 to 2 to 3 ratio and it was his proudest achievement. He wanted it on his tombstone."}
+      ],
+      "confirm_question": "Cone : Sphere : Cylinder volumes (same r, h=2r) are in ratio ____.",
+      "confirm_question_spoken": "What is the ratio of cone to sphere to cylinder volumes with same radius and height equals 2r?",
+      "answers": ["1:2:3", "1 : 2 : 3"],
+      "nudges": [
+        "Cone = (1/3)πr²h, Sphere = (4/3)πr³, Cylinder = πr²h",
+        "With h=2r: Cone=(2/3)πr³, Sphere=(4/3)πr³, Cylinder=2πr³",
+        "Divide by (2/3)πr³: Ratio = 1 : 2 : 3"
+      ],
+      "anim_svg": "<g id=\"sv9s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Same r, h=2r: Cone=2πr³/3 | Sphere=4πr³/3 | Cyl=2πr³</text></g><g id=\"sv9s1\" opacity=\"0\"><rect x=\"10\" y=\"46\" width=\"390\" height=\"30\" rx=\"7\" fill=\"#f5e6c8\"/><text x=\"210\" y=\"66\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"800\" fill=\"#d4870a\">Cone : Sphere : Cylinder = 1 : 2 : 3</text></g><g id=\"sv9s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Archimedes loved this result so much → on his tombstone!</text></g><g id=\"sv9ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Cone : Sphere : Cylinder = 1 : 2 : 3</text></g>"
+    },
+    {
+      "id": "sv10",
+      "question": "How do you remember all the formulas?",
+      "question_spoken": "How do you remember all the surface area and volume formulas?",
+      "steps": [
+        {"t": "CUBOID: Think of a box. TSA=2(lb+bh+hl) — three pairs of faces. V=lbh. CUBE: all sides a. TSA=6a² (6 faces). V=a³. CYLINDER: CSA=2πrh (roll of paper), TSA=add two circles=2πr(r+h). V=πr²h.", "s": "Box: TSA is 2 times lb plus bh plus hl. Cube: 6a squared and a cubed. Cylinder: roll it open to get CSA."},
+        {"t": "CONE: l=√(h²+r²) first! CSA=πrl. TSA=πr(r+l). V=(1/3)πr²h. SPHERE: TSA=4πr². V=(4/3)πr³. HEMISPHERE: CSA=2πr², TSA=3πr². V=(2/3)πr³.", "s": "Cone: always find slant height first. CSA equals pi rl. Sphere: 4 pi r squared and 4 over 3 pi r cubed. Hemisphere: halve the sphere."},
+        {"t": "Quick memory table: Shape | CSA | TSA | Volume. Cube: 4a²,6a²,a³. Cylinder: 2πrh,2πr(r+h),πr²h. Cone: πrl,πr(r+l),(1/3)πr²h. Sphere: 4πr²,4πr²,(4/3)πr³. Hemisphere: 2πr²,3πr²,(2/3)πr³.", "s": "Memorise the table. Practice each formula. The patterns make it easier: sphere is simpler than cylinder."}
+      ],
+      "confirm_question": "Volume of a cone is ____ × volume of cylinder with same radius and height.",
+      "confirm_question_spoken": "Volume of a cone is blank times the volume of a cylinder with same radius and height.",
+      "answers": ["1/3", "one third", "⅓"],
+      "nudges": [
+        "Cylinder V = πr²h. Cone V = (1/3)πr²h",
+        "Cone/Cylinder = (1/3)πr²h / πr²h = ?",
+        "Answer: 1/3 (cone = one-third of cylinder)"
+      ],
+      "anim_svg": "<g id=\"sv10s0\" opacity=\"0\"><text x=\"22\" y=\"24\" font-size=\"10\" font-weight=\"800\" fill=\"#5a4a30\">Cuboid:2(lb+bh+hl),lbh | Cube:6a²,a³ | Cyl:2πr(r+h),πr²h</text></g><g id=\"sv10s1\" opacity=\"0\"><text x=\"22\" y=\"64\" font-size=\"10\" font-weight=\"800\" fill=\"#5a4a30\">Cone:πr(r+l),πr²h/3 (find l first!) | Sphere:4πr²,4πr³/3</text></g><g id=\"sv10s2\" opacity=\"0\"><text x=\"22\" y=\"104\" font-size=\"10\" font-weight=\"800\" fill=\"#5a4a30\">Hemisphere:3πr²,2πr³/3 | Cone=⅓Cylinder (same r,h)</text></g><g id=\"sv10ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Cone = 1/3 × Cylinder volume</text></g>"
+    }
+  ],
+
+  "practice_questions": [
+    {
+      "question": "Find the Total Surface Area of a cuboid with l=8cm, b=5cm, h=3cm.",
+      "question_spoken": "Find the Total Surface Area of a cuboid with length 8, breadth 5 and height 3 cm.",
+      "answers": ["158 cm²", "158"],
+      "steps": ["TSA = 2(lb+bh+hl)", "= 2(40+15+24) = 2(79)", "= 158 cm²"],
+      "trick": "TSA of cuboid = 2(lb+bh+hl). Calculate each product: 8×5=40, 5×3=15, 3×8=24. Add: 79. Double: 158.",
+      "alt": "Three pairs of faces: top+bottom=2×40=80, front+back=2×15=30, left+right=2×24=48. Total=80+30+48=158."
+    },
+    {
+      "question": "Find the volume of a cube with side 6 cm.",
+      "question_spoken": "Find the volume of a cube with side 6 cm.",
+      "answers": ["216 cm³", "216"],
+      "steps": ["Volume of cube = a³", "= 6³ = 6×6×6", "= 216 cm³"],
+      "trick": "Cube volume = side³. Just cube the side length! 6³=216. No formula needed beyond this!",
+      "alt": "A cube is l×b×h but all sides are equal. So volume = 6×6×6 = 216 cm³."
+    },
+    {
+      "question": "Find the CSA of a cylinder with radius 14cm and height 10cm. (π=22/7)",
+      "question_spoken": "Find the curved surface area of a cylinder with radius 14 cm and height 10 cm, using pi equals 22 over 7.",
+      "answers": ["880 cm²", "880"],
+      "steps": ["CSA = 2πrh", "= 2 × (22/7) × 14 × 10", "= 2 × 22 × 2 × 10 = 880 cm²"],
+      "trick": "CSA=2πrh. With π=22/7 and r=14: the 7 cancels with 14 giving 2. So 2×22×2×10=880. Always look for cancellations!",
+      "alt": "2×(22/7)×14×10 = 2×22×(14/7)×10 = 2×22×2×10 = 880 cm²."
+    },
+    {
+      "question": "Find the slant height of a cone with radius 9cm and height 12cm.",
+      "question_spoken": "Find the slant height of a cone with radius 9 cm and height 12 cm.",
+      "answers": ["15 cm", "15"],
+      "steps": ["l = √(h²+r²)", "= √(144+81) = √225", "= 15 cm"],
+      "trick": "Always find l first for cone problems! 9-12-15 is a Pythagorean triple (3-4-5 tripled). Spot these: 5-12-13, 8-15-17, 9-12-15.",
+      "alt": "l²=h²+r²=144+81=225. √225=15. Recognise 9-12-15 as 3×(3-4-5)."
+    },
+    {
+      "question": "Find the volume of a cone with radius 7cm and height 6cm. (π=22/7)",
+      "question_spoken": "Find the volume of a cone with radius 7 cm and height 6 cm using pi equals 22 over 7.",
+      "answers": ["308 cm³", "308"],
+      "steps": ["V = (1/3)πr²h", "= (1/3) × (22/7) × 49 × 6", "= (1/3) × 22 × 7 × 6 = 22 × 14 = 308 cm³"],
+      "trick": "(1/3)×(22/7)×49×6. The 7 and 49=7² cancel to give 7. The 3 and 6 cancel to give 2. So 22×7×2=308.",
+      "alt": "(1/3)×(22/7)×49×6 = (22×49×6)/(3×7) = (22×49×2)/7 = 22×7×2 = 308."
+    },
+    {
+      "question": "Find the Surface Area of a sphere with radius 3.5cm. (π=22/7)",
+      "question_spoken": "Find the surface area of a sphere with radius 3.5 cm, using pi equals 22 over 7.",
+      "answers": ["154 cm²", "154"],
+      "steps": ["SA = 4πr²", "= 4 × (22/7) × (3.5)²", "= 4 × (22/7) × 12.25 = 4×22×1.75 = 154 cm²"],
+      "trick": "4πr²: 3.5=7/2, so r²=49/4. 4×(22/7)×(49/4)=22×7=154. The 4 and 49/4 cancel nicely!",
+      "alt": "r=7/2: 4×(22/7)×(7/2)²=4×(22/7)×(49/4)=22×49/7=22×7=154 cm²."
+    },
+    {
+      "question": "Volume of a hemisphere with radius 7cm is ____ (π=22/7).",
+      "question_spoken": "Find the volume of a hemisphere with radius 7 cm, using pi equals 22 over 7.",
+      "answers": ["718.67 cm³", "2156/3 cm³", "718⅔ cm³"],
+      "steps": ["V = (2/3)πr³", "= (2/3) × (22/7) × 343", "= (2/3) × 22 × 49 = 2156/3 ≈ 718.67 cm³"],
+      "trick": "(2/3)×(22/7)×7³=(2/3)×(22/7)×343=(2/3)×22×49=2156/3. Keep as fraction unless asked for decimal.",
+      "alt": "(2/3)×(22/7)×343. The 7 in denominator and 343=7³ cancel to give 7²=49. (2/3)×22×49=2156/3."
+    },
+    {
+      "question": "A sphere of radius 4cm is melted to form small spheres of radius 1cm. How many small spheres?",
+      "question_spoken": "A sphere of radius 4 cm is melted to form small spheres of radius 1 cm. How many small spheres are formed?",
+      "answers": ["64"],
+      "steps": ["Volume conserved: N = V_big / V_small", "= (4/3)π(4³) / (4/3)π(1³)", "= 64/1 = 64 spheres"],
+      "trick": "N = (R/r)³ = (4/1)³ = 64. The π and (4/3) cancel! Just cube the ratio of radii.",
+      "alt": "Big volume = (4/3)π×64. Small volume = (4/3)π×1. Divide: 64/1 = 64."
+    },
+    {
+      "question": "TSA of a hemisphere with radius 10cm is ____ (π=3.14).",
+      "question_spoken": "Total surface area of a hemisphere with radius 10 cm, using pi equals 3.14.",
+      "answers": ["942 cm²", "942"],
+      "steps": ["TSA of hemisphere = 3πr²", "= 3 × 3.14 × 100", "= 942 cm²"],
+      "trick": "Hemisphere TSA = 3πr². Curved part (2πr²) + flat circular base (πr²) = 3πr². Remember 3!",
+      "alt": "Curved SA = 2×3.14×100=628. Flat base = 3.14×100=314. Total = 628+314 = 942 cm²."
+    },
+    {
+      "question": "A cylinder has volume 1540 cm³ and radius 7cm. Find its height. (π=22/7)",
+      "question_spoken": "A cylinder has volume 1540 cubic cm and radius 7 cm. Find its height.",
+      "answers": ["10 cm", "10"],
+      "steps": ["V = πr²h", "1540 = (22/7) × 49 × h = 22 × 7 × h = 154h", "h = 1540/154 = 10 cm"],
+      "trick": "Volume given, find height: h = V/(πr²). Substitute and solve. (22/7)×49=22×7=154. Then 1540/154=10.",
+      "alt": "πr²=22/7×49=154. h=1540/154=10 cm."
+    },
+    {
+      "question": "Find the volume of a cuboid with dimensions 12cm × 8cm × 5cm.",
+      "question_spoken": "Find the volume of a cuboid with dimensions 12 cm by 8 cm by 5 cm.",
+      "answers": ["480 cm³", "480"],
+      "steps": ["V = l × b × h", "= 12 × 8 × 5", "= 480 cm³"],
+      "trick": "Volume of cuboid = l×b×h. Just multiply all three dimensions. 12×8=96, 96×5=480.",
+      "alt": "Volume = length × breadth × height = 12×8×5 = 480 cubic cm."
+    },
+    {
+      "question": "The radius of a sphere is doubled. How many times does its volume increase?",
+      "question_spoken": "If the radius of a sphere is doubled, how many times does its volume increase?",
+      "answers": ["8 times", "8"],
+      "steps": ["V = (4/3)πr³", "New V = (4/3)π(2r)³ = (4/3)π × 8r³", "New V = 8 × old V → Volume increases 8 times!"],
+      "trick": "Volume ∝ r³. Double r → volume multiplies by 2³=8. Triple r → 3³=27 times. The cube makes huge differences!",
+      "alt": "Old V=(4/3)πr³. New V=(4/3)π(2r)³=(4/3)π×8r³=8×oldV. Eight times larger."
+    },
+    {
+      "question": "If the volume of a cube is 216 cm³, find its total surface area.",
+      "question_spoken": "If the volume of a cube is 216 cubic cm, find its total surface area.",
+      "answers": ["216 cm²", "216"],
+      "steps": ["V = a³ = 216 → a = ∛216 = 6 cm", "TSA = 6a² = 6 × 36", "= 216 cm²"],
+      "trick": "Find side from volume: a=∛V. Then TSA=6a². For cube with V=216: a=6, TSA=6×36=216. Nice coincidence!",
+      "alt": "a³=216 → a=6. TSA=6×6²=6×36=216 cm²."
+    },
+    {
+      "question": "Ratio of volumes of a cone and cylinder with same radius and height is ____.",
+      "question_spoken": "The ratio of volumes of a cone and cylinder with same radius and height is blank.",
+      "answers": ["1:3", "1 : 3"],
+      "steps": ["Cone volume = (1/3)πr²h", "Cylinder volume = πr²h", "Ratio = (1/3)πr²h : πr²h = 1 : 3"],
+      "trick": "Cone = (1/3) × Cylinder. So Cone:Cylinder = 1:3. Three cones exactly fill one cylinder!",
+      "alt": "Divide both by πr²h: Cone=(1/3), Cylinder=1. Ratio=1/3:1=1:3."
+    },
+    {
+      "question": "Find the TSA of a cone with radius 6cm and slant height 10cm. (π=3.14)",
+      "question_spoken": "Find the total surface area of a cone with radius 6 cm and slant height 10 cm, using pi equals 3.14.",
+      "answers": ["301.44 cm²", "301.44"],
+      "steps": ["TSA = πr(r+l)", "= 3.14 × 6 × (6+10)", "= 3.14 × 6 × 16 = 3.14 × 96 = 301.44 cm²"],
+      "trick": "TSA of cone = πr(r+l). Note: slant height l is already GIVEN here — no need to calculate it!",
+      "alt": "πrl + πr² = 3.14×6×10 + 3.14×36 = 188.4 + 113.04 = 301.44 cm²."
+    }
+  ]
 }

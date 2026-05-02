@@ -5,12 +5,418 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="rishi-board" content="cbse">
 <meta name="rishi-class" content="9">
-<title>RISHI — Surface Areas Volumes</title>
-<!-- SHELL: Content to be built chapter by chapter -->
+<title>RISHI — Surface Areas and Volumes</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Nunito:wght@400;600;700;800;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<style>
+:root{--cream:#fdf6ec;--warm-white:#fffdf8;--gold:#c8922a;--gold-light:#e8b84b;--gold-pale:#f5e6c8;--amber:#d4870a;--sage:#7a8c6e;--sage-light:#a8b89a;--rust:#b85c2a;--charcoal:#2a2218;--mid:#5a4a30;--soft:#8a7a5a;--inactive:#c8b89a;--border-dark:#6b4c2a;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--cream);font-family:Nunito,sans-serif;min-height:100vh;color:var(--charcoal);}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(var(--gold-pale) 1px,transparent 1px),linear-gradient(90deg,var(--gold-pale) 1px,transparent 1px);background-size:40px 40px;opacity:.3;z-index:0;pointer-events:none;}
+.topbar{position:sticky;top:0;z-index:100;background:rgba(253,246,236,.97);border-bottom:2px solid var(--border-dark);backdrop-filter:blur(8px);padding:10px 18px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;}
+.logo-sm{font-family:'Orbitron',sans-serif;font-size:17px;font-weight:900;letter-spacing:4px;background:linear-gradient(135deg,var(--amber),var(--gold-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.topbar-center{font-family:'Orbitron',sans-serif;font-size:10px;letter-spacing:2px;color:var(--amber);text-transform:uppercase;}
+.topbar-right{display:flex;gap:8px;}
+.btn-topbar{font-family:Nunito,sans-serif;font-size:12px;font-weight:900;padding:6px 14px;border-radius:20px;border:2px solid var(--border-dark);background:var(--warm-white);color:var(--mid);cursor:pointer;}
+.btn-topbar.back{background:var(--gold-pale);}
+.prog-wrap{position:relative;z-index:10;padding:8px 18px;background:rgba(255,253,248,.9);border-bottom:1.5px solid var(--gold-pale);}
+.prog-info{display:flex;justify-content:space-between;font-size:11px;font-weight:800;color:var(--mid);margin-bottom:5px;}
+.prog-bar{height:6px;background:var(--gold-pale);border-radius:4px;overflow:hidden;}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--sage),var(--gold));border-radius:4px;transition:width .5s ease;}
+.main{position:relative;z-index:10;max-width:820px;margin:0 auto;padding:14px 14px 120px;}
+.rishika-wrap{display:flex;align-items:flex-start;gap:12px;margin-bottom:14px;}
+.rishika-avatar{width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,var(--sage),var(--sage-light));border:2px solid var(--border-dark);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;}
+.rishika-bubble{background:rgba(255,253,248,.97);border:2px solid var(--border-dark);border-radius:0 16px 16px 16px;padding:12px 16px;flex:1;box-shadow:0 4px 20px rgba(107,76,42,.1);}
+.rishika-name{font-size:10px;font-weight:900;color:var(--sage);letter-spacing:2px;text-transform:uppercase;margin-bottom:5px;}
+.rishika-text{font-size:14px;font-weight:700;color:var(--charcoal);line-height:1.6;}
+.hl{color:var(--amber);font-weight:900;}
+.btn-speak{display:inline-flex;align-items:center;gap:6px;font-family:Nunito,sans-serif;font-size:11px;font-weight:900;padding:5px 11px;border-radius:20px;border:2px solid var(--sage);background:#eef2eb;color:var(--sage);cursor:pointer;margin-top:8px;}
+.q-card{background:rgba(255,253,248,.97);border:2px solid var(--border-dark);border-radius:16px;padding:16px 18px;margin-bottom:12px;box-shadow:0 4px 20px rgba(107,76,42,.1);}
+.q-label{font-family:'Orbitron',sans-serif;font-size:10px;letter-spacing:3px;color:var(--amber);text-transform:uppercase;margin-bottom:8px;}
+.q-text{font-size:15px;font-weight:800;color:var(--charcoal);line-height:1.6;margin-bottom:10px;}
+.step{display:flex;gap:10px;margin-bottom:12px;opacity:0;transform:translateY(6px);transition:all .4s ease;}
+.step.vis{opacity:1;transform:translateY(0);}
+.step-num{width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;font-size:11px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:2px solid var(--border-dark);}
+.step-body{flex:1;font-size:13px;font-weight:700;color:var(--mid);line-height:1.6;padding-top:2px;}
+.anim-panel{background:#fffdf8;border:2px solid var(--border-dark);border-radius:14px;margin-bottom:12px;overflow:hidden;}
+.anim-header{background:linear-gradient(135deg,var(--charcoal),#3d2e1a);padding:7px 14px;display:flex;align-items:center;justify-content:space-between;}
+.anim-header-lbl{font-family:'Orbitron',sans-serif;font-size:9px;letter-spacing:2px;color:var(--gold-light);text-transform:uppercase;}
+.anim-replay{font-size:10px;font-weight:900;color:var(--gold-pale);background:none;border:1px solid var(--gold-pale);border-radius:20px;padding:2px 9px;cursor:pointer;display:none;}
+.anim-canvas{width:100%;max-height:195px;overflow:hidden;display:flex;align-items:center;justify-content:center;background:#fffdf8;}
+.anim-canvas svg{width:100%;max-height:195px;}
+.anim-status{padding:6px 14px;font-size:12px;font-weight:800;color:var(--mid);text-align:center;min-height:26px;border-top:1px solid var(--gold-pale);}
+.anim-play-btn{width:100%;padding:10px;font-family:Nunito,sans-serif;font-size:14px;font-weight:900;background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;border:none;cursor:pointer;}
+.anim-play-btn:disabled{background:var(--gold-pale);color:var(--inactive);cursor:not-allowed;}
+.steps-btn{width:100%;padding:10px;font-family:Nunito,sans-serif;font-size:14px;font-weight:900;background:linear-gradient(135deg,var(--sage),var(--sage-light));color:#fff;border:none;cursor:pointer;display:none;border-top:1px solid var(--gold-pale);}
+.confirm-wrap{margin-top:12px;background:linear-gradient(135deg,#eef2eb,#f5fbf2);border:2px solid var(--border-dark);border-radius:14px;padding:16px 18px;}
+.confirm-title{font-size:11px;font-weight:900;color:var(--sage);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;}
+.confirm-q{font-size:14px;font-weight:800;color:var(--charcoal);margin-bottom:12px;line-height:1.5;}
+.result-box{font-size:12px;font-weight:800;padding:9px 13px;border-radius:9px;display:none;line-height:1.4;}
+.result-box.ok{background:#eef2eb;border:2px solid var(--sage);color:var(--sage);display:block;}
+.result-box.no{background:#fff5f0;border:2px solid var(--rust);color:var(--rust);display:block;}
+.nudge{font-size:12px;font-weight:700;color:var(--mid);margin-top:7px;font-style:italic;display:none;}
+.nudge.show{display:block;}
+.btn-next{font-family:Nunito,sans-serif;font-size:14px;font-weight:900;padding:11px 22px;border-radius:12px;border:none;background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;cursor:pointer;display:none;margin-top:10px;width:100%;}
+.btn-next.show{display:block;}
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;z-index:100;background:rgba(253,246,236,.97);border-top:2px solid var(--border-dark);padding:10px 18px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap;align-items:center;}
+.btn-nav{font-family:Nunito,sans-serif;font-size:13px;font-weight:900;padding:10px 20px;border-radius:12px;border:2px solid var(--border-dark);cursor:pointer;}
+.btn-nav.practice{background:linear-gradient(135deg,var(--sage),var(--sage-light));color:#fff;border-color:var(--sage);}
+.btn-nav.exam{background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;border-color:var(--amber);}
+.btn-nav.locked{background:var(--gold-pale);color:var(--inactive);cursor:not-allowed;border-color:var(--inactive);}
+.lock-tip{font-size:10px;font-weight:700;color:var(--rust);width:100%;text-align:center;}
+.overlay{display:none;position:fixed;inset:0;background:rgba(42,34,24,.92);z-index:1000;flex-direction:column;align-items:center;justify-content:center;backdrop-filter:blur(6px);}
+.overlay.show{display:flex;}
+.break-box{background:var(--warm-white);border:2px solid var(--border-dark);border-radius:22px;padding:28px 32px;max-width:380px;width:90%;text-align:center;}
+.break-title{font-family:'Orbitron',sans-serif;font-size:14px;font-weight:900;color:var(--amber);letter-spacing:3px;margin-bottom:5px;}
+.break-sub{font-size:12px;font-weight:700;color:var(--soft);margin-bottom:16px;}
+.break-opts{display:flex;flex-direction:column;gap:8px;margin-bottom:12px;}
+.break-opt{font-family:Nunito,sans-serif;font-size:14px;font-weight:800;padding:11px;border-radius:11px;border:2px solid var(--border-dark);background:var(--warm-white);color:var(--mid);cursor:pointer;}
+.timer-screen{display:none;position:fixed;inset:0;background:#1a1208;z-index:1001;flex-direction:column;align-items:center;justify-content:center;}
+.timer-screen.show{display:flex;}
+.timer-reason{font-family:'Orbitron',sans-serif;font-size:12px;letter-spacing:4px;color:var(--gold-light);margin-bottom:16px;text-transform:uppercase;}
+.timer-num{font-family:'Orbitron',sans-serif;font-size:68px;font-weight:900;color:var(--gold-light);letter-spacing:6px;margin-bottom:30px;}
+.btn-end{font-family:Nunito,sans-serif;font-size:16px;font-weight:900;padding:13px 32px;border-radius:13px;border:2px solid var(--gold-light);background:transparent;color:var(--gold-light);cursor:pointer;}
+.done-banner{background:linear-gradient(135deg,#eef2eb,#f5fbf2);border:2px solid var(--border-dark);border-radius:14px;padding:14px 18px;text-align:center;margin-bottom:14px;display:none;}
+.done-banner.show{display:block;}
+.done-banner .dt{font-family:'Orbitron',sans-serif;font-size:12px;letter-spacing:2px;color:var(--sage);margin-bottom:4px;}
+.done-banner .ds{font-size:13px;font-weight:700;color:var(--mid);}
+.math-raw{width:100%;padding:10px 13px;border-radius:10px;border:2px solid var(--border-dark);background:var(--warm-white);color:var(--charcoal);font-size:1rem;font-family:'Share Tech Mono',monospace;resize:none;outline:none;min-height:48px;line-height:1.6;transition:border-color .2s;}
+.math-raw:focus{border-color:var(--amber);}
+.math-raw::placeholder{color:var(--inactive);font-family:Nunito,sans-serif;}
+.math-preview-label{font-size:0.68rem;text-transform:uppercase;letter-spacing:2px;color:var(--soft);margin:.5rem 0 .25rem;}
+.math-preview{min-height:44px;padding:.6rem 1rem;background:#f9f4ec;border-radius:8px;border:1.5px solid var(--gold-pale);font-size:1.1rem;color:var(--charcoal);overflow-x:auto;display:flex;align-items:center;justify-content:center;margin-bottom:10px;}
+.sugg-chips{display:flex;flex-wrap:wrap;gap:.35rem;margin-bottom:10px;}
+.schip{border:1.5px solid #1a6aaa;border-radius:20px;padding:.25rem .75rem;font-size:.78rem;cursor:pointer;background:#eef6ff;color:#0a5a9a;font-family:Nunito,sans-serif;font-weight:800;}
+#rWrap{position:fixed;bottom:68px;left:10px;z-index:200;width:82px;pointer-events:none;}
+#rChar{width:82px;filter:drop-shadow(0 4px 10px rgba(107,76,42,.3));}
+@keyframes rIn{from{transform:translateY(50px);opacity:0}to{transform:translateY(0);opacity:1}}
+@keyframes rBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+@media(max-width:600px){.main{padding:10px 10px 120px;}}
+</style>
+<script src="/rishi-sync.js"></script>
 <script src="/rishi-core.js"></script>
+<script src="/rishi-presence.js"></script>
 </head>
 <body>
-<!-- Surface Areas Volumes | Class 9 | CBSE | Explain Page -->
-<!-- TODO: Build full explain page content here -->
+<div class="topbar">
+  <div class="logo-sm">RISHI</div>
+  <div class="topbar-center">📦 Surface Areas and Volumes</div>
+  <div class="topbar-right">
+    <button class="btn-topbar" onclick="openBreak()">&#9749; Break</button>
+    <button class="btn-topbar back" onclick="location.href='/syllabus.html'">&#8592; Syllabus</button>
+  </div>
+</div>
+<div class="prog-wrap">
+  <div class="prog-info"><span id="progLabel">Question 1 of 10</span><span id="progPct">0%</span></div>
+  <div class="prog-bar"><div class="prog-fill" id="progFill" style="width:0%"></div></div>
+</div>
+<div class="main">
+  <div class="done-banner" id="doneBanner">
+    <div class="dt">&#10003; Explanation Completed!</div>
+    <div class="ds">Practice and Exam now unlocked.</div>
+  </div>
+  <div class="rishika-wrap">
+    <div class="rishika-avatar">&#128105;&#8205;&#127979;</div>
+    <div class="rishika-bubble">
+      <div class="rishika-name">Rishika</div>
+      <div class="rishika-text" id="introText">Hi <span class="hl" id="sName">there</span>! &#128522; Today we calculate <span class="hl">Surface Areas and Volumes</span> of 3D shapes — cuboids, cylinders, cones, spheres! These formulas are used in engineering, architecture, cooking and packaging. Let&#39;s master them! &#127919;</div>
+      <button class="btn-speak" onclick="startLesson()" id="startBtn">&#9654; Start Lesson</button>
+    </div>
+  </div>
+  <div id="qArea"></div>
+</div>
+<div class="bottom-nav">
+  <div class="lock-tip" id="lockTip">&#9757; Complete explanations to unlock Practice and Exam</div>
+  <button class="btn-nav practice locked" id="btnPractice" onclick="goPractice()">&#9999;&#65039; Practice</button>
+  <button class="btn-nav exam locked" id="btnExam" onclick="goExam()">&#128221; Exam</button>
+</div>
+<div class="overlay" id="breakOv">
+  <div class="break-box">
+    <div class="break-title">Break</div>
+    <div class="break-sub">Choose &mdash; timer starts</div>
+    <div class="break-opts">
+      <button class="break-opt" onclick="startBreak('Water')">&#128167; Water</button>
+      <button class="break-opt" onclick="startBreak('Washroom')">&#128701; Washroom</button>
+      <button class="break-opt" onclick="startBreak('Physical')">&#127939; Physical</button>
+    </div>
+    <button class="break-opt" style="color:var(--soft)" onclick="closeBreak()">Cancel</button>
+  </div>
+</div>
+<div class="timer-screen" id="timerScreen">
+  <div class="timer-reason" id="timerLbl">Break</div>
+  <div class="timer-num" id="timerNum">00:00</div>
+  <button class="btn-end" onclick="endBreak()">&#10003; End Break</button>
+</div>
+<div id="rWrap">
+<svg id="rChar" viewBox="0 0 100 110" xmlns="http://www.w3.org/2000/svg">
+  <ellipse cx="50" cy="68" rx="36" ry="28" fill="#5a8a60" stroke="#3d6b42" stroke-width="2"/>
+  <ellipse cx="50" cy="66" rx="22" ry="16" fill="#7ab87a" stroke="#5a8a60" stroke-width="1.5"/>
+  <line x1="50" y1="50" x2="50" y2="82" stroke="#5a8a60" stroke-width="1.5"/>
+  <line x1="28" y1="66" x2="72" y2="66" stroke="#5a8a60" stroke-width="1.5"/>
+  <ellipse cx="20" cy="82" rx="10" ry="7" fill="#7ab87a" stroke="#5a8a60" stroke-width="1.5" transform="rotate(-20,20,82)"/>
+  <ellipse cx="80" cy="82" rx="10" ry="7" fill="#7ab87a" stroke="#5a8a60" stroke-width="1.5" transform="rotate(20,80,82)"/>
+  <ellipse cx="22" cy="58" rx="9" ry="6" fill="#7ab87a" stroke="#5a8a60" stroke-width="1.5" transform="rotate(20,22,58)"/>
+  <ellipse cx="78" cy="58" rx="9" ry="6" fill="#7ab87a" stroke="#5a8a60" stroke-width="1.5" transform="rotate(-20,78,58)"/>
+  <ellipse cx="50" cy="42" rx="10" ry="14" fill="#8fba6a" stroke="#5a8a60" stroke-width="1.5"/>
+  <ellipse cx="50" cy="28" rx="18" ry="16" fill="#8fba6a" stroke="#5a8a60" stroke-width="2"/>
+  <ellipse cx="43" cy="24" rx="5" ry="5.5" fill="white"/><ellipse cx="57" cy="24" rx="5" ry="5.5" fill="white"/>
+  <ellipse cx="43" cy="25" rx="3" ry="3.5" fill="#1a3a1a"/><ellipse cx="57" cy="25" rx="3" ry="3.5" fill="#1a3a1a"/>
+  <circle cx="44" cy="23" r="1.2" fill="white"/><circle cx="58" cy="23" r="1.2" fill="white"/>
+  <ellipse id="rLid1" cx="43" cy="24" rx="5" ry="1" fill="#8fba6a" opacity="0"/>
+  <ellipse id="rLid2" cx="57" cy="24" rx="5" ry="1" fill="#8fba6a" opacity="0"/>
+  <path id="rMouth" d="M44,33 Q50,38 56,33" fill="none" stroke="#3d6b42" stroke-width="2" stroke-linecap="round"/>
+  <ellipse id="rBlush1" cx="36" cy="30" rx="7" ry="4" fill="#ff9999" opacity="0"/>
+  <ellipse id="rBlush2" cx="64" cy="30" rx="7" ry="4" fill="#ff9999" opacity="0"/>
+  <rect x="28" y="90" width="44" height="13" fill="#d4870a" rx="4"/>
+  <text x="50" y="100" text-anchor="middle" font-family="Nunito" font-size="7" font-weight="900" fill="white">RISHIKA</text>
+</svg>
+</div>
+<script>
+var voicesReady=false,selectedVoice=null,elAudio=null;
+function pickVoice(){var vs=window.speechSynthesis.getVoices();if(!vs||vs.length===0)return false;var fk=["heera","veena","priya","raveena","female","woman","zira","samantha","victoria","karen"];for(var i=0;i<vs.length;i++){if(vs[i].lang.toLowerCase().indexOf("en-in")===0){var n=vs[i].name.toLowerCase();for(var k=0;k<fk.length;k++){if(n.indexOf(fk[k])>=0){selectedVoice=vs[i];return true;}}}}for(var i=0;i<vs.length;i++){if(vs[i].lang.toLowerCase().indexOf("en")===0){var n=vs[i].name.toLowerCase();for(var k=0;k<fk.length;k++){if(n.indexOf(fk[k])>=0){selectedVoice=vs[i];return true;}}}}return false;}
+function initVoices(cb){if(pickVoice()){voicesReady=true;cb();return;}window.speechSynthesis.onvoiceschanged=function(){window.speechSynthesis.onvoiceschanged=null;pickVoice();voicesReady=true;cb();};setTimeout(function(){if(!voicesReady){pickVoice();voicesReady=true;cb();}},2000);}
+function stopAllAudio(){if(elAudio){try{elAudio.pause();elAudio.src="";}catch(x){}elAudio=null;}if(window.speechSynthesis)window.speechSynthesis.cancel();}
+function sayBrowser(text,onEnd){if(!window.speechSynthesis)return;window.speechSynthesis.cancel();rStartTalk(text.length);var u=new SpeechSynthesisUtterance(text);u.lang="en-IN";u.rate=0.88;u.pitch=1.15;if(selectedVoice)u.voice=selectedVoice;u.onend=function(){rStopTalk();if(onEnd)onEnd();};u.onerror=function(){rStopTalk();if(onEnd)onEnd();};window.speechSynthesis.speak(u);}
+function say(text,onEnd){stopAllAudio();rStartTalk(text.length);fetch("/tts",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({text:text})}).then(function(res){if(!res.ok)throw new Error("TTS "+res.status);return res.blob();}).then(function(blob){var url=URL.createObjectURL(blob);elAudio=new Audio(url);elAudio.onended=function(){URL.revokeObjectURL(url);elAudio=null;rStopTalk();if(onEnd)onEnd();};elAudio.onerror=function(){URL.revokeObjectURL(url);elAudio=null;rStopTalk();if(onEnd)onEnd();};var p=elAudio.play();if(p&&p.catch){p.catch(function(){URL.revokeObjectURL(url);elAudio=null;sayBrowser(text,onEnd);});}}).catch(function(err){sayBrowser(text,onEnd);});}
+function sayEl(id){var e=G(id);if(e)say(e.innerText||e.textContent);}
+window.addEventListener("beforeunload",function(){stopAllAudio();});
+var mouthTmr=null,blinkTmr=null,mOpen=false;
+function rInit(){var c=G("rChar");if(c)c.style.animation="rIn .6s cubic-bezier(.34,1.56,.64,1) forwards";scheduleBlink();}
+function scheduleBlink(){blinkTmr=setTimeout(function(){rBlink();scheduleBlink();},2200+Math.random()*3000);}
+function rBlink(){var l=G("rLid1"),r=G("rLid2");if(!l||!r)return;l.setAttribute("ry","5.5");r.setAttribute("ry","5.5");setTimeout(function(){l.setAttribute("ry","1");r.setAttribute("ry","1");},120);}
+function rStartTalk(len){rStopTalk();G("rBlush1").style.opacity="0.7";G("rBlush2").style.opacity="0.7";mOpen=false;mouthTmr=setInterval(function(){mOpen=!mOpen;var m=G("rMouth");if(!m)return;if(mOpen){m.setAttribute("d","M42,33 Q50,42 58,33");m.setAttribute("fill","#1a3a1a");}else{m.setAttribute("d","M44,33 Q50,38 56,33");m.setAttribute("fill","none");}},160);setTimeout(rStopTalk,Math.max(1800,(len||20)*58));}
+function rStopTalk(){clearInterval(mouthTmr);mOpen=false;var m=G("rMouth");if(m){m.setAttribute("d","M44,33 Q50,38 56,33");m.setAttribute("fill","none");}G("rBlush1").style.opacity="0";G("rBlush2").style.opacity="0";}
+function rHappy(){var c=G("rChar");if(c)c.style.animation="rBounce .35s ease-in-out 5";G("rBlush1").style.opacity="1";G("rBlush2").style.opacity="1";setTimeout(function(){rStopTalk();var c=G("rChar");if(c)c.style.animation="none";},2500);}
+function rThink(){setTimeout(rStopTalk,1800);}
+
+var QB=[
+{
+id:"sv1",
+q:"What are Surface Area and Volume? What is the difference?",
+qs:"What are Surface Area and Volume? What is the difference?",
+anim:"sv1",
+steps:[{"t": "SURFACE AREA is the total area of ALL the outer faces of a 3D shape — like the amount of wrapping paper needed to cover a gift box. Measured in cm² or m².", "s": "Surface area is the total outer area of a 3D shape. Think of wrapping paper. Measured in square units."}, {"t": "VOLUME is the amount of space inside a 3D shape — like how much water a bottle can hold. Measured in cm³ or m³ (cubic units). Volume = capacity!", "s": "Volume is the space inside. Think of how much water fills it. Measured in cubic units."}, {"t": "Two types of Surface Area: LATERAL (or Curved) Surface Area = only the sides (not top/bottom). TOTAL Surface Area = all faces including top and bottom. CSA + top + bottom = TSA!", "s": "Lateral or curved surface area is sides only. Total surface area includes all faces including top and bottom."}],
+cq:"What is the unit of Volume?",
+cqs:"What is the unit of Volume?",
+ans:["cubic units", "cm³", "m³", "cubic cm", "cubic metres"],
+nudges:["Surface area uses square units (cm²)", "Volume is 3-dimensional — it uses cubic units", "Answer: Cubic units (cm³ or m³)"],
+anim_svg:"<g id=\"sv1s0\" opacity=\"0\"><rect x=\"10\" y=\"8\" width=\"390\" height=\"30\" rx=\"7\" fill=\"#f5e6c8\"/><text x=\"210\" y=\"28\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"800\" fill=\"#d4870a\">Surface Area = outer area (cm²) | Volume = inner space (cm³)</text></g><g id=\"sv1s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">SA: wrapping paper | V: water capacity</text></g><g id=\"sv1s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">LSA/CSA = sides only | TSA = CSA + top + bottom</text></g><g id=\"sv1ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Volume unit = cubic units (cm³ or m³)</text></g>"
+},
+{
+id:"sv2",
+q:"What are the formulas for a Cuboid?",
+qs:"What are the formulas for a cuboid?",
+anim:"sv2",
+steps:[{"t": "A CUBOID has length l, breadth b, height h. It has 6 rectangular faces. LATERAL Surface Area = 2h(l+b) — only the 4 side faces. TOTAL Surface Area = 2(lb+bh+hl) — all 6 faces.", "s": "Cuboid: length l, breadth b, height h. Lateral SA equals 2h times l plus b. Total SA equals 2 times lb plus bh plus hl."}, {"t": "VOLUME of cuboid = l × b × h. Diagonal of cuboid = √(l²+b²+h²). Example: l=3, b=4, h=5. TSA = 2(12+20+15) = 2(47) = 94 cm². Volume = 60 cm³. Diagonal = √50 = 5√2 cm.", "s": "Volume equals l times b times h. For 3, 4 and 5: total SA is 94, volume is 60, diagonal is 5 root 2."}, {"t": "CUBE: special cuboid with l=b=h=a. TSA = 6a². LSA = 4a². Volume = a³. Diagonal = a√3. Memory trick: Total has 6 faces so 6a². Side has 4 faces so 4a²!", "s": "Cube with side a: total SA equals 6a squared. Lateral SA equals 4a squared. Volume equals a cubed. Diagonal equals a root 3."}],
+cq:"Total Surface Area of a cube with side 5 cm is ____.",
+cqs:"Total Surface Area of a cube with side 5 cm is blank.",
+ans:["150 cm²", "150"],
+nudges:["TSA of cube = 6a²", "6 × 5² = 6 × 25", "Answer: 150 cm²"],
+anim_svg:"<g id=\"sv2s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Cuboid: LSA=2h(l+b) | TSA=2(lb+bh+hl) | V=lbh</text></g><g id=\"sv2s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">l=3,b=4,h=5: TSA=94 | V=60 | diag=5√2</text></g><g id=\"sv2s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Cube side a: TSA=6a² | LSA=4a² | V=a³ | diag=a√3</text></g><g id=\"sv2ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">TSA = 6×25 = 150 cm²</text></g>"
+},
+{
+id:"sv3",
+q:"What are the formulas for a Right Circular Cylinder?",
+qs:"What are the formulas for a right circular cylinder?",
+anim:"sv3",
+steps:[{"t": "A CYLINDER has radius r and height h. CURVED Surface Area (CSA) = 2πrh — just the curved side (like a tin can without top and bottom). TOTAL Surface Area (TSA) = 2πr(r+h) = CSA + 2πr² (two circular ends).", "s": "Cylinder: radius r and height h. CSA equals 2 pi r h. TSA equals 2 pi r times r plus h."}, {"t": "VOLUME of cylinder = πr²h — (area of base circle × height). Think: stack infinitely thin circles of area πr² up to height h! Example: r=7, h=10. CSA=2×22/7×7×10=440 cm². V=π×49×10=1540 cm³.", "s": "Volume equals pi r squared h. For r equals 7 and h equals 10: CSA equals 440 and volume equals 1540 cubic cm."}, {"t": "Value of π: use 22/7 when radius is a multiple of 7, or 3.14 otherwise. The CBSE exam always specifies which to use! Hollow cylinder has an inner and outer radius — find difference of TSAs.", "s": "Use 22 over 7 when radius is multiple of 7. Use 3.14 otherwise. The exam specifies which to use."}],
+cq:"CSA of a cylinder with radius 7 cm and height 5 cm is ____ (use \u03c0 = 22/7).",
+cqs:"CSA of a cylinder with radius 7 cm and height 5 cm, using pi equals 22 over 7.",
+ans:["220 cm²", "220"],
+nudges:["CSA = 2πrh", "2 × (22/7) × 7 × 5 = 2 × 22 × 5", "Answer: 220 cm²"],
+anim_svg:"<g id=\"sv3s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Cylinder: CSA=2πrh | TSA=2πr(r+h) | V=πr²h</text></g><g id=\"sv3s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">r=7,h=10: CSA=440 | TSA=748 | V=1540 cm³</text></g><g id=\"sv3s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Use π=22/7 (r=multiple of 7) or π=3.14 (others)</text></g><g id=\"sv3ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">CSA = 2×(22/7)×7×5 = 220 cm²</text></g>"
+},
+{
+id:"sv4",
+q:"What are the formulas for a Right Circular Cone?",
+qs:"What are the formulas for a right circular cone?",
+anim:"sv4",
+steps:[{"t": "A CONE has radius r, height h, and SLANT HEIGHT l = √(h²+r²). This is the key difference from cylinder — the cone has a slant height! CSA = πrl (just the curved surface). TSA = πr(r+l) = πrl + πr².", "s": "Cone: radius r, height h, slant height l equals root of h squared plus r squared. CSA equals pi r l. TSA equals pi r times r plus l."}, {"t": "VOLUME of cone = (1/3)πr²h. Exactly ONE-THIRD the volume of a cylinder with same radius and height! Beautiful relationship: 3 cones = 1 cylinder (same r and h).", "s": "Volume of cone equals one third pi r squared h. Three cones equal one cylinder of same radius and height."}, {"t": "Always find l first! Example: r=6, h=8. l=√(64+36)=√100=10 cm. CSA=π×6×10=60π≈188.4 cm². V=1/3×π×36×8=96π≈301.4 cm³. REMEMBER: find slant height before any cone formula!", "s": "Always calculate slant height first. For r equals 6 and h equals 8: l equals 10. CSA equals 60 pi. Volume equals 96 pi."}],
+cq:"Find the slant height of a cone with radius 5 cm and height 12 cm.",
+cqs:"Find the slant height of a cone with radius 5 cm and height 12 cm.",
+ans:["13 cm", "13"],
+nudges:["l = √(h² + r²)", "l = √(144 + 25) = √169", "Answer: l = 13 cm"],
+anim_svg:"<g id=\"sv4s0\" opacity=\"0\"><rect x=\"10\" y=\"8\" width=\"390\" height=\"30\" rx=\"7\" fill=\"#f5e6c8\"/><text x=\"210\" y=\"28\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"800\" fill=\"#d4870a\">Cone: l=√(h²+r²) | CSA=πrl | TSA=πr(r+l) | V=⅓πr²h</text></g><g id=\"sv4s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">r=6, h=8: l=10 | CSA=60π | V=96π</text></g><g id=\"sv4s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">3 cones = 1 cylinder (same r,h) | Find l FIRST!</text></g><g id=\"sv4ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">l = √(12²+5²) = √169 = 13 cm</text></g>"
+},
+{
+id:"sv5",
+q:"What are the formulas for a Sphere and Hemisphere?",
+qs:"What are the formulas for a sphere and hemisphere?",
+anim:"sv5",
+steps:[{"t": "SPHERE (like a ball): radius r. Surface Area = 4πr² (only one surface — no flat faces!). Volume = (4/3)πr³. A sphere has NO flat face — only a curved surface, so SA = TSA = CSA = 4πr².", "s": "Sphere with radius r: surface area equals 4 pi r squared. Volume equals 4 over 3 pi r cubed."}, {"t": "HEMISPHERE (half sphere): Curved SA = 2πr². Total SA = 2πr² + πr² = 3πr² (add the flat circular base!). Volume = (2/3)πr³ (half of sphere volume).", "s": "Hemisphere: curved SA equals 2 pi r squared. Total SA equals 3 pi r squared (add the flat base). Volume equals 2 over 3 pi r cubed."}, {"t": "Memory trick: Sphere SA = 4πr² (4 circles worth of area). Volume = (4/3)πr³. Hemisphere: halve the volume → (2/3)πr³. Add circular base to get TSA: 3πr². The number 4, 3, 2 pattern helps!", "s": "Pattern: sphere SA has coefficient 4. Volume has 4 over 3. Hemisphere volume has 2 over 3. TSA has coefficient 3."}],
+cq:"Surface area of a sphere with radius 7 cm is ____ (use \u03c0 = 22/7).",
+cqs:"Surface area of a sphere with radius 7 cm, using pi equals 22 over 7.",
+ans:["616 cm²", "616"],
+nudges:["SA of sphere = 4πr²", "4 × (22/7) × 7² = 4 × 22 × 7", "Answer: 616 cm²"],
+anim_svg:"<g id=\"sv5s0\" opacity=\"0\"><rect x=\"10\" y=\"8\" width=\"190\" height=\"56\" rx=\"7\" fill=\"#eef2eb\"/><text x=\"105\" y=\"28\" text-anchor=\"middle\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Sphere</text><text x=\"105\" y=\"46\" text-anchor=\"middle\" font-size=\"10\" fill=\"#7a8c6e\">SA=4πr² | V=4πr³/3</text></g><g id=\"sv5s1\" opacity=\"0\"><rect x=\"210\" y=\"8\" width=\"190\" height=\"56\" rx=\"7\" fill=\"#f5e6c8\"/><text x=\"305\" y=\"28\" text-anchor=\"middle\" font-size=\"11\" font-weight=\"800\" fill=\"#d4870a\">Hemisphere</text><text x=\"305\" y=\"46\" text-anchor=\"middle\" font-size=\"10\" fill=\"#b85c2a\">TSA=3πr² | V=2πr³/3</text></g><g id=\"sv5s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Pattern: 4πr² → 3πr² | 4/3πr³ → 2/3πr³</text></g><g id=\"sv5ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">4×(22/7)×49 = 616 cm²</text></g>"
+},
+{
+id:"sv6",
+q:"How do you convert between units of volume?",
+qs:"How do you convert between units of volume?",
+anim:"sv6",
+steps:[{"t": "Key conversions: 1 cm³ = 1 mL (millilitre). 1 L = 1000 cm³ = 1000 mL. 1 m³ = 1,000,000 cm³ = 10,00,000 cm³ = 1000 litres. These appear in every CBSE problem!", "s": "1 cubic cm equals 1 millilitre. 1 litre equals 1000 cubic cm. 1 cubic metre equals 10 lakh cubic cm equals 1000 litres."}, {"t": "Length: 1 m = 100 cm. Area: 1 m² = 10000 cm². Volume: 1 m³ = 10000×100 = 1000000 cm³. Each dimension is multiplied separately! Don't forget to cube the conversion factor for volume.", "s": "1 metre is 100 cm. 1 square metre is 10000 square cm. 1 cubic metre is 10 lakh cubic cm. Cube the factor for volume."}, {"t": "Practical: A tank is 2m×3m×1.5m. Volume = 9 m³ = 9000 litres = 9,000,000 mL = 9,000,000 cm³. Always check: does the answer make physical sense? 9000 litres is about 9 large water drums!", "s": "Tank 2 by 3 by 1.5 metres: volume is 9 cubic metres equals 9000 litres. Always check if answer is reasonable."}],
+cq:"1 litre = ____ cm\u00b3",
+cqs:"1 litre equals blank cubic centimetres.",
+ans:["1000", "1000 cm³"],
+nudges:["1 cm³ = 1 mL", "1 litre = 1000 mL", "Answer: 1000 cm³"],
+anim_svg:"<g id=\"sv6s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">1 cm³=1 mL | 1 L=1000 cm³ | 1 m³=10⁶ cm³=1000 L</text></g><g id=\"sv6s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Length×100 | Area×10000 | Volume×1000000</text></g><g id=\"sv6s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Tank 2×3×1.5m=9m³=9000L — check sense!</text></g><g id=\"sv6ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">1 litre = 1000 cm³</text></g>"
+},
+{
+id:"sv7",
+q:"How do you find the number of objects formed by melting a shape?",
+qs:"How do you find the number of objects formed by melting one shape?",
+anim:"sv7",
+steps:[{"t": "Key principle: when a shape is MELTED and recast into smaller shapes, the VOLUME is conserved (stays the same). Volume of original = Number of new objects × Volume of each new object.", "s": "When melting and recasting, volume is conserved. Volume of original equals number of pieces times volume of each piece."}, {"t": "Example: A sphere of radius 6 cm is melted and recast into small spheres of radius 1 cm. Number = Volume of big sphere / Volume of small sphere = (4/3)π(6³) / (4/3)π(1³) = 216/1 = 216 small spheres!", "s": "Sphere radius 6 melted into spheres radius 1. Number equals 6 cubed divided by 1 cubed equals 216."}, {"t": "The π and (4/3) cancel out! So it simplifies to just (6/1)³ = 216. In general: N = (R/r)³ for spheres. For cylinders: N = (R²H)/(r²h). Always set up: volume of big = N × volume of small.", "s": "The common factors cancel. For spheres: N equals R over r, all cubed. Set up the equation and solve."}],
+cq:"A sphere of radius 3 cm is melted into spheres of radius 1 cm. How many small spheres are formed?",
+cqs:"A sphere of radius 3 cm is melted into spheres of radius 1 cm. How many spheres are formed?",
+ans:["27"],
+nudges:["N = (R/r)³ for spheres being melted", "N = (3/1)³ = 3³", "Answer: 27 small spheres"],
+anim_svg:"<g id=\"sv7s0\" opacity=\"0\"><rect x=\"10\" y=\"8\" width=\"390\" height=\"30\" rx=\"7\" fill=\"#f5e6c8\"/><text x=\"210\" y=\"28\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"800\" fill=\"#d4870a\">Volume conserved: V_big = N × V_small</text></g><g id=\"sv7s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Sphere R=6 → spheres r=1: N=(4/3)π216/(4/3)π=216</text></g><g id=\"sv7s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Simplify: N=(R/r)³=(6/1)³=216 ✓</text></g><g id=\"sv7ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">N = (3/1)³ = 27 small spheres</text></g>"
+},
+{
+id:"sv8",
+q:"How do you solve problems involving water flowing through pipes?",
+qs:"How do you solve problems involving water flowing through pipes?",
+anim:"sv8",
+steps:[{"t": "Key idea: Volume of water flowing = Cross-section area of pipe × Length of water column. For a cylindrical pipe with radius r and water flowing at speed v m/s: Volume per second = πr²v.", "s": "Water flowing through a pipe: volume per second equals cross section area times speed."}, {"t": "Example: Pipe diameter = 14 cm (radius=7 cm). Water speed = 2 m/s = 200 cm/s. Volume per second = π × 49 × 200 = 9800π cm³/s ≈ 30,772 cm³/s ≈ 30.77 litres/s.", "s": "Pipe radius 7 cm, speed 200 cm per second. Volume per second equals pi times 49 times 200 equals 9800 pi cubic cm per second."}, {"t": "Time to fill a tank: Time = Volume of tank / Volume per second. Always convert units consistently (all in cm or all in m). Speed in m/s must match tank dimensions in m!", "s": "Time to fill tank equals tank volume divided by flow rate. Always use consistent units throughout the calculation."}],
+cq:"A cylindrical pipe has radius 1 cm and water speed 100 cm/s. Volume flowing per second = ____.",
+cqs:"A cylindrical pipe has radius 1 cm and water flows at 100 cm per second. Volume per second is blank.",
+ans:["100π cm³", "100π", "314 cm³", "314"],
+nudges:["Volume/second = πr² × speed", "= π × 1² × 100", "Answer: 100π cm³/s ≈ 314 cm³/s"],
+anim_svg:"<g id=\"sv8s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Pipe flow: V/sec = πr² × speed</text></g><g id=\"sv8s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">r=7,speed=200: 9800π≈30.77 litres/s</text></g><g id=\"sv8s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Time = Tank volume / Flow rate | Use consistent units!</text></g><g id=\"sv8ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">V = π×1²×100 = 100π cm³/s</text></g>"
+},
+{
+id:"sv9",
+q:"What is the relationship between Cone, Cylinder and Sphere volumes?",
+qs:"What is the relationship between cone, cylinder and sphere volumes?",
+anim:"sv9",
+steps:[{"t": "For the SAME radius r and height h=2r (sphere diameter = cylinder height): Cone volume = (1/3)πr²(2r) = (2/3)πr³. Cylinder volume = πr²(2r) = 2πr³. Sphere volume = (4/3)πr³.", "s": "For same radius and height equals 2r: cone volume is 2 over 3 pi r cubed, cylinder is 2 pi r cubed, sphere is 4 over 3 pi r cubed."}, {"t": "Ratio: Cone : Sphere : Cylinder = (2/3)πr³ : (4/3)πr³ : 2πr³ = 1 : 2 : 3! Beautiful! One cone, one sphere, one cylinder (same r, h=2r) are in ratio 1:2:3.", "s": "The ratio of cone to sphere to cylinder volumes is 1 to 2 to 3. This is a famous result by Archimedes."}, {"t": "This amazing result was discovered by Archimedes! He was so proud that he asked for a diagram of a cylinder with an inscribed sphere to be carved on his tombstone. Archimedes' most favourite theorem!", "s": "Archimedes discovered this 1 to 2 to 3 ratio and it was his proudest achievement. He wanted it on his tombstone."}],
+cq:"Cone : Sphere : Cylinder volumes (same r, h=2r) are in ratio ____.",
+cqs:"What is the ratio of cone to sphere to cylinder volumes with same radius and height equals 2r?",
+ans:["1:2:3", "1 : 2 : 3"],
+nudges:["Cone = (1/3)πr²h, Sphere = (4/3)πr³, Cylinder = πr²h", "With h=2r: Cone=(2/3)πr³, Sphere=(4/3)πr³, Cylinder=2πr³", "Divide by (2/3)πr³: Ratio = 1 : 2 : 3"],
+anim_svg:"<g id=\"sv9s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Same r, h=2r: Cone=2πr³/3 | Sphere=4πr³/3 | Cyl=2πr³</text></g><g id=\"sv9s1\" opacity=\"0\"><rect x=\"10\" y=\"46\" width=\"390\" height=\"30\" rx=\"7\" fill=\"#f5e6c8\"/><text x=\"210\" y=\"66\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"800\" fill=\"#d4870a\">Cone : Sphere : Cylinder = 1 : 2 : 3</text></g><g id=\"sv9s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Archimedes loved this result so much → on his tombstone!</text></g><g id=\"sv9ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Cone : Sphere : Cylinder = 1 : 2 : 3</text></g>"
+},
+{
+id:"sv10",
+q:"How do you remember all the formulas?",
+qs:"How do you remember all the surface area and volume formulas?",
+anim:"sv10",
+steps:[{"t": "CUBOID: Think of a box. TSA=2(lb+bh+hl) — three pairs of faces. V=lbh. CUBE: all sides a. TSA=6a² (6 faces). V=a³. CYLINDER: CSA=2πrh (roll of paper), TSA=add two circles=2πr(r+h). V=πr²h.", "s": "Box: TSA is 2 times lb plus bh plus hl. Cube: 6a squared and a cubed. Cylinder: roll it open to get CSA."}, {"t": "CONE: l=√(h²+r²) first! CSA=πrl. TSA=πr(r+l). V=(1/3)πr²h. SPHERE: TSA=4πr². V=(4/3)πr³. HEMISPHERE: CSA=2πr², TSA=3πr². V=(2/3)πr³.", "s": "Cone: always find slant height first. CSA equals pi rl. Sphere: 4 pi r squared and 4 over 3 pi r cubed. Hemisphere: halve the sphere."}, {"t": "Quick memory table: Shape | CSA | TSA | Volume. Cube: 4a²,6a²,a³. Cylinder: 2πrh,2πr(r+h),πr²h. Cone: πrl,πr(r+l),(1/3)πr²h. Sphere: 4πr²,4πr²,(4/3)πr³. Hemisphere: 2πr²,3πr²,(2/3)πr³.", "s": "Memorise the table. Practice each formula. The patterns make it easier: sphere is simpler than cylinder."}],
+cq:"Volume of a cone is ____ \u00d7 volume of cylinder with same radius and height.",
+cqs:"Volume of a cone is blank times the volume of a cylinder with same radius and height.",
+ans:["1/3", "one third", "⅓"],
+nudges:["Cylinder V = πr²h. Cone V = (1/3)πr²h", "Cone/Cylinder = (1/3)πr²h / πr²h = ?", "Answer: 1/3 (cone = one-third of cylinder)"],
+anim_svg:"<g id=\"sv10s0\" opacity=\"0\"><text x=\"22\" y=\"24\" font-size=\"10\" font-weight=\"800\" fill=\"#5a4a30\">Cuboid:2(lb+bh+hl),lbh | Cube:6a²,a³ | Cyl:2πr(r+h),πr²h</text></g><g id=\"sv10s1\" opacity=\"0\"><text x=\"22\" y=\"64\" font-size=\"10\" font-weight=\"800\" fill=\"#5a4a30\">Cone:πr(r+l),πr²h/3 (find l first!) | Sphere:4πr²,4πr³/3</text></g><g id=\"sv10s2\" opacity=\"0\"><text x=\"22\" y=\"104\" font-size=\"10\" font-weight=\"800\" fill=\"#5a4a30\">Hemisphere:3πr²,2πr³/3 | Cone=⅓Cylinder (same r,h)</text></g><g id=\"sv10ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Cone = 1/3 × Cylinder volume</text></g>"
+}
+];
+
+function getAnimSVG(t){
+var base='<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Nunito,sans-serif;background:#fffdf8"><rect width="420" height="178" fill="#fffdf8"/>';
+var svgs={
+"sv1":base+"<g id=\"sv1s0\" opacity=\"0\"><rect x=\"10\" y=\"8\" width=\"390\" height=\"30\" rx=\"7\" fill=\"#f5e6c8\"/><text x=\"210\" y=\"28\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"800\" fill=\"#d4870a\">Surface Area = outer area (cm\u00b2) | Volume = inner space (cm\u00b3)</text></g><g id=\"sv1s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">SA: wrapping paper | V: water capacity</text></g><g id=\"sv1s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">LSA/CSA = sides only | TSA = CSA + top + bottom</text></g><g id=\"sv1ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Volume unit = cubic units (cm\u00b3 or m\u00b3)</text></g>",
+"sv2":base+"<g id=\"sv2s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Cuboid: LSA=2h(l+b) | TSA=2(lb+bh+hl) | V=lbh</text></g><g id=\"sv2s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">l=3,b=4,h=5: TSA=94 | V=60 | diag=5\u221a2</text></g><g id=\"sv2s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Cube side a: TSA=6a\u00b2 | LSA=4a\u00b2 | V=a\u00b3 | diag=a\u221a3</text></g><g id=\"sv2ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">TSA = 6\u00d725 = 150 cm\u00b2</text></g>",
+"sv3":base+"<g id=\"sv3s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Cylinder: CSA=2\u03c0rh | TSA=2\u03c0r(r+h) | V=\u03c0r\u00b2h</text></g><g id=\"sv3s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">r=7,h=10: CSA=440 | TSA=748 | V=1540 cm\u00b3</text></g><g id=\"sv3s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Use \u03c0=22/7 (r=multiple of 7) or \u03c0=3.14 (others)</text></g><g id=\"sv3ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">CSA = 2\u00d7(22/7)\u00d77\u00d75 = 220 cm\u00b2</text></g>",
+"sv4":base+"<g id=\"sv4s0\" opacity=\"0\"><rect x=\"10\" y=\"8\" width=\"390\" height=\"30\" rx=\"7\" fill=\"#f5e6c8\"/><text x=\"210\" y=\"28\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"800\" fill=\"#d4870a\">Cone: l=\u221a(h\u00b2+r\u00b2) | CSA=\u03c0rl | TSA=\u03c0r(r+l) | V=\u2153\u03c0r\u00b2h</text></g><g id=\"sv4s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">r=6, h=8: l=10 | CSA=60\u03c0 | V=96\u03c0</text></g><g id=\"sv4s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">3 cones = 1 cylinder (same r,h) | Find l FIRST!</text></g><g id=\"sv4ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">l = \u221a(12\u00b2+5\u00b2) = \u221a169 = 13 cm</text></g>",
+"sv5":base+"<g id=\"sv5s0\" opacity=\"0\"><rect x=\"10\" y=\"8\" width=\"190\" height=\"56\" rx=\"7\" fill=\"#eef2eb\"/><text x=\"105\" y=\"28\" text-anchor=\"middle\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Sphere</text><text x=\"105\" y=\"46\" text-anchor=\"middle\" font-size=\"10\" fill=\"#7a8c6e\">SA=4\u03c0r\u00b2 | V=4\u03c0r\u00b3/3</text></g><g id=\"sv5s1\" opacity=\"0\"><rect x=\"210\" y=\"8\" width=\"190\" height=\"56\" rx=\"7\" fill=\"#f5e6c8\"/><text x=\"305\" y=\"28\" text-anchor=\"middle\" font-size=\"11\" font-weight=\"800\" fill=\"#d4870a\">Hemisphere</text><text x=\"305\" y=\"46\" text-anchor=\"middle\" font-size=\"10\" fill=\"#b85c2a\">TSA=3\u03c0r\u00b2 | V=2\u03c0r\u00b3/3</text></g><g id=\"sv5s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Pattern: 4\u03c0r\u00b2 \u2192 3\u03c0r\u00b2 | 4/3\u03c0r\u00b3 \u2192 2/3\u03c0r\u00b3</text></g><g id=\"sv5ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">4\u00d7(22/7)\u00d749 = 616 cm\u00b2</text></g>",
+"sv6":base+"<g id=\"sv6s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">1 cm\u00b3=1 mL | 1 L=1000 cm\u00b3 | 1 m\u00b3=10\u2076 cm\u00b3=1000 L</text></g><g id=\"sv6s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Length\u00d7100 | Area\u00d710000 | Volume\u00d71000000</text></g><g id=\"sv6s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Tank 2\u00d73\u00d71.5m=9m\u00b3=9000L \u2014 check sense!</text></g><g id=\"sv6ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">1 litre = 1000 cm\u00b3</text></g>",
+"sv7":base+"<g id=\"sv7s0\" opacity=\"0\"><rect x=\"10\" y=\"8\" width=\"390\" height=\"30\" rx=\"7\" fill=\"#f5e6c8\"/><text x=\"210\" y=\"28\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"800\" fill=\"#d4870a\">Volume conserved: V_big = N \u00d7 V_small</text></g><g id=\"sv7s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Sphere R=6 \u2192 spheres r=1: N=(4/3)\u03c0216/(4/3)\u03c0=216</text></g><g id=\"sv7s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Simplify: N=(R/r)\u00b3=(6/1)\u00b3=216 \u2713</text></g><g id=\"sv7ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">N = (3/1)\u00b3 = 27 small spheres</text></g>",
+"sv8":base+"<g id=\"sv8s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Pipe flow: V/sec = \u03c0r\u00b2 \u00d7 speed</text></g><g id=\"sv8s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">r=7,speed=200: 9800\u03c0\u224830.77 litres/s</text></g><g id=\"sv8s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Time = Tank volume / Flow rate | Use consistent units!</text></g><g id=\"sv8ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">V = \u03c0\u00d71\u00b2\u00d7100 = 100\u03c0 cm\u00b3/s</text></g>",
+"sv9":base+"<g id=\"sv9s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Same r, h=2r: Cone=2\u03c0r\u00b3/3 | Sphere=4\u03c0r\u00b3/3 | Cyl=2\u03c0r\u00b3</text></g><g id=\"sv9s1\" opacity=\"0\"><rect x=\"10\" y=\"46\" width=\"390\" height=\"30\" rx=\"7\" fill=\"#f5e6c8\"/><text x=\"210\" y=\"66\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"800\" fill=\"#d4870a\">Cone : Sphere : Cylinder = 1 : 2 : 3</text></g><g id=\"sv9s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Archimedes loved this result so much \u2192 on his tombstone!</text></g><g id=\"sv9ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Cone : Sphere : Cylinder = 1 : 2 : 3</text></g>",
+"sv10":base+"<g id=\"sv10s0\" opacity=\"0\"><text x=\"22\" y=\"24\" font-size=\"10\" font-weight=\"800\" fill=\"#5a4a30\">Cuboid:2(lb+bh+hl),lbh | Cube:6a\u00b2,a\u00b3 | Cyl:2\u03c0r(r+h),\u03c0r\u00b2h</text></g><g id=\"sv10s1\" opacity=\"0\"><text x=\"22\" y=\"64\" font-size=\"10\" font-weight=\"800\" fill=\"#5a4a30\">Cone:\u03c0r(r+l),\u03c0r\u00b2h/3 (find l first!) | Sphere:4\u03c0r\u00b2,4\u03c0r\u00b3/3</text></g><g id=\"sv10s2\" opacity=\"0\"><text x=\"22\" y=\"104\" font-size=\"10\" font-weight=\"800\" fill=\"#5a4a30\">Hemisphere:3\u03c0r\u00b2,2\u03c0r\u00b3/3 | Cone=\u2153Cylinder (same r,h)</text></g><g id=\"sv10ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Cone = 1/3 \u00d7 Cylinder volume</text></g>"
+};
+return svgs[t]||'<svg viewBox="0 0 420 178"><text x="210" y="89" text-anchor="middle" font-family="Nunito" font-size="14" fill="#5a4a30">Loading...</text></svg>';
+}
+
+function makeAnimPlay(id,steps,ansLabel){return function(done){setStatus("Solving step by step...");var delay=600;steps.forEach(function(_,i){var d=delay+i*2800;(function(ii,dd){at(dd,function(){fade(id+"s"+ii,1);});})( i,d);});at(delay+steps.length*2800,function(){fade(id+"ans",1);setStatus("Answer: "+ansLabel);at(2000,done);});}; }
+var ANIM_PLAYS={};
+QB.forEach(function(q){ANIM_PLAYS[q.id]=makeAnimPlay(q.id,q.steps,q.ans[0]);});
+function getAnimPlay(t){return ANIM_PLAYS[t]||function(done){done();};}
+
+var atTimers=[],session=[],idx=0,stepIdx=0,nudgeCount=0,completed=false,breakSecs=0,breakTmr=null,PER_SESSION=10;
+function G(id){return document.getElementById(id);}
+function clearAt(){for(var i=0;i<atTimers.length;i++)clearTimeout(atTimers[i]);atTimers=[];}
+function at(ms,fn){atTimers.push(setTimeout(fn,ms));}
+function fade(id,v){var e=G(id);if(e){e.style.transition="opacity .5s";e.style.opacity=v;}}
+function setStatus(t){var e=G("animStatus");if(e)e.textContent=t;}
+function startLesson(){var btn=G('startBtn');if(btn){btn.disabled=true;btn.textContent='▶ Starting...';}var done=false;function proceed(){if(!done){done=true;setTimeout(showQ,600);}}say(G('introText').innerText,proceed);setTimeout(proceed,8000);}
+function init(){
+  rishiCheckPlan(11);
+  var st=JSON.parse(localStorage.getItem("rishi_current_student")||"{}");
+  G("sName")&&(G("sName").textContent=st.studentName?st.studentName.split(" ")[0]:"there");
+  if(rishiIsExplainDone(11)){completed=true;G("doneBanner").classList.add("show");unlockNav();}
+  buildSession();rInit();
+  initVoices(function(){startLesson();});
+}
+function buildSession(){session=QB.slice().sort(function(){return Math.random()-.5;}).slice(0,PER_SESSION);}
+function showQ(){
+  if(idx>=session.length){onComplete();return;}
+  var q=session[idx];stepIdx=0;nudgeCount=0;updateProg();G("qArea").innerHTML="";clearAt();
+  var qc=document.createElement("div");qc.className="q-card";
+  qc.innerHTML='<div class="q-label">Question '+(idx+1)+' of '+PER_SESSION+'</div><div class="q-text">'+q.q+'</div><button class="btn-speak" onclick="say(session[idx].qs)">&#128266; Hear</button>';
+  G("qArea").appendChild(qc);
+  var ap=document.createElement("div");ap.className="anim-panel";
+  ap.innerHTML='<div class="anim-header"><span class="anim-header-lbl">&#127909; Live Animation</span><button class="anim-replay" id="animReplay" onclick="replayAnim()">&#8635; Replay</button></div>'
+    +'<div class="anim-canvas" id="animCanvas">'+getAnimSVG(q.anim)+'</div>'
+    +'<div class="anim-status" id="animStatus">Tap Play to watch with narration!</div>'
+    +'<button class="anim-play-btn" id="animPlayBtn" onclick="startAnim()">&#9654; Play Animation</button>'
+    +'<button class="steps-btn" id="stepsBtn" onclick="beginSteps()">&#128214; See Step-by-Step</button>';
+  G("qArea").appendChild(ap);setTimeout(startAnim,800);
+}
+function startAnim(){var q=session[idx];var pb=G("animPlayBtn");if(pb){pb.disabled=true;pb.textContent="&#9654; Playing...";}getAnimPlay(q.anim)(function(){var sb=G("stepsBtn");if(sb)sb.style.display="block";var rb=G("animReplay");if(rb)rb.style.display="block";if(pb)pb.style.display="none";setTimeout(beginSteps,600);});}
+function replayAnim(){clearAt();window.speechSynthesis&&window.speechSynthesis.cancel();rStopTalk();var q=session[idx];G("animCanvas").innerHTML=getAnimSVG(q.anim);G("animReplay").style.display="none";G("stepsBtn").style.display="none";var pb=G("animPlayBtn");if(pb){pb.style.display="block";pb.disabled=false;pb.textContent="&#9654; Play Animation";}setStatus("Tap Play to watch with narration!");}
+function beginSteps(){var q=session[idx];var sc=document.createElement("div");sc.className="q-card";sc.innerHTML='<div class="q-label">&#128214; Step-by-Step</div><div id="stepsWrap"></div><button class="btn-speak" id="nxtStepBtn" onclick="nextStep()" style="margin-top:10px;">&#9654; Next Step</button>';G("qArea").appendChild(sc);sc.scrollIntoView({behavior:"smooth",block:"start"});G("stepsBtn").style.display="none";setTimeout(nextStep,350);}
+function nextStep(){var q=session[idx];if(stepIdx>=q.steps.length){G("nxtStepBtn").style.display="none";var ib=document.createElement("button");ib.className="btn-speak";ib.innerHTML="&#9989; I Understand!";ib.style.cssText="margin-top:16px;width:100%;";ib.onclick=function(){ib.remove();showConfirm();};G("stepsWrap").appendChild(ib);ib.scrollIntoView({behavior:"smooth",block:"center"});return;}var s=q.steps[stepIdx];var wrap=G("stepsWrap");var d=document.createElement("div");d.className="step";d.innerHTML='<div class="step-num">'+(stepIdx+1)+'</div><div class="step-body">'+s.t+'</div>';wrap.appendChild(d);setTimeout(function(){d.classList.add("vis");},40);setTimeout(nextStep,3500);stepIdx++;}
+function showConfirm(){
+  var q=session[idx];var c=document.createElement("div");c.className="confirm-wrap";
+  c.innerHTML='<div class="confirm-title">&#127917; Rishika asks!</div>'
+    +'<div class="confirm-q">'+q.cq+'</div>'
+    +'<textarea id="rawAnswer" class="math-raw" rows="2" placeholder="Type your answer here..."></textarea>'
+    +'<div class="math-preview-label">Preview</div>'
+    +'<div class="math-preview" id="mathPreview"></div>'
+    +'<div class="sugg-chips" id="suggChips"></div>'
+    +'<button type="button" onclick="submitTyped()" style="width:100%;font-family:Nunito,sans-serif;font-size:14px;font-weight:900;padding:11px;border-radius:12px;border:none;background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;cursor:pointer;margin-bottom:8px;">Submit Answer</button>'
+    +'<div class="result-box" id="rbox"></div>'
+    +'<div class="nudge" id="nudgeBox"></div>'
+    +'<button type="button" class="btn-next" id="btnNext" onclick="goNext()">Next Question &#9654;</button>';
+  G("qArea").appendChild(c);c.scrollIntoView({behavior:"smooth",block:"center"});
+  var ra=G("rawAnswer");
+  if(ra){ra.addEventListener("input",mathUpdate);ra.addEventListener("keydown",function(ev){if(ev.key==="Enter"&&!ev.shiftKey){ev.preventDefault();submitTyped();}});setTimeout(function(){ra.focus();},300);}
+  buildSuggChips(q.ans);say(q.cqs);
+}
+function submitTyped(){var ra=G("rawAnswer");if(!ra)return;var val=String(ra.value||"").trim();if(!val){ra.focus();return;}handleAnswer(val.toLowerCase());}
+function goNext(){idx++;G("qArea").innerHTML="";showQ();window.scrollTo({top:0,behavior:"smooth"});}
+function updateProg(){var pct=Math.round((idx/PER_SESSION)*100);G("progFill").style.width=pct+"%";G("progLabel").textContent="Question "+(idx+1)+" of "+PER_SESSION;G("progPct").textContent=pct+"%";}
+function unlockNav(){G("btnPractice").classList.remove("locked");G("btnExam").classList.remove("locked");G("lockTip").style.display="none";}
+function onComplete(){
+  rishiMarkExplainDone(11);
+  completed=true;G("doneBanner").classList.add("show");unlockNav();
+  var st=JSON.parse(localStorage.getItem("rishi_current_student")||"{}");
+  var nm=st.studentName?st.studentName.split(" ")[0]:"champion";
+  var cel=document.createElement("div");cel.className="rishika-wrap";
+  cel.innerHTML='<div class="rishika-avatar">&#128105;&#8205;&#127979;</div>'
+    +'<div class="rishika-bubble"><div class="rishika-name">Rishika</div>'
+    +'<div class="rishika-text" id="celText">&#127881; <span class="hl">'+nm+'</span>, You have mastered Surface Areas and Volumes! You can now calculate any 3D shape in the real world &#128170;</div>'
+    +'<button class="btn-speak" onclick="sayEl(\'celText\')">&#128266; Hear</button></div>';
+  G("qArea").appendChild(cel);setTimeout(function(){sayEl("celText");rHappy();},400);
+}
+function goPractice(){if(!completed){alert("Complete explanations first!");return;}location.href="/practice/class9/mensuration/surface-areas-volumes.html";}
+function goExam(){if(!completed){alert("Complete explanations first!");return;}location.href="/exam.html?ch=c9-11";}
+var CELEBRATIONS=[{word:"Magnifique!",lang:"French",meaning:"Magnificent!",speak:"Magnifique"},{word:"Bravissimo!",lang:"Italian",meaning:"Very well done!",speak:"Bravissimo"},{word:"Wunderbar!",lang:"German",meaning:"Wonderful!",speak:"Wunderbar"},{word:"Shabash!",lang:"Hindi",meaning:"Well done!",speak:"Shabash"},{word:"Felicitaciones!",lang:"Spanish",meaning:"Congratulations!",speak:"Felicitaciones"}];
+var lastCelIdx=-1;
+function celebrate(){var i;do{i=Math.floor(Math.random()*CELEBRATIONS.length);}while(i===lastCelIdx&&CELEBRATIONS.length>1);lastCelIdx=i;var c=CELEBRATIONS[i];var rb=G("rbox");rb.className="result-box ok";rb.innerHTML='<div style="font-size:18px;font-weight:900;">'+c.word+'</div><div style="font-size:11px;">'+c.lang+' &middot; <em>'+c.meaning+'</em></div>';G("nudgeBox").classList.remove("show");var nb=G("btnNext");if(nb)nb.classList.add("show");say(c.speak);rHappy();}
+function handleAnswer(text){var q=session[idx];var ok=q.ans.some(function(a){return text.includes(a.toLowerCase())||a.toLowerCase().includes(text);});var rb=G("rbox");if(ok){celebrate();}else{nudgeCount++;rb.className="result-box no";rb.textContent="\u2716 Not quite. Listen to my hint!";var nudge=q.nudges[Math.min(nudgeCount-1,q.nudges.length-1)];showNudge(nudge);say(nudge);rThink();if(nudgeCount>=3){var nb2=G("btnNext");if(nb2){nb2.classList.add("show");nb2.textContent="I Understand \u25b6";}}}}
+function showNudge(msg){var n=G("nudgeBox");if(n){n.textContent=msg;n.classList.add("show");}}
+function openBreak(){G("breakOv").classList.add("show");}
+function closeBreak(){G("breakOv").classList.remove("show");}
+function startBreak(r){closeBreak();breakSecs=0;G("timerLbl").textContent=r;G("timerNum").textContent="00:00";G("timerScreen").classList.add("show");breakTmr=setInterval(function(){breakSecs++;var m=String(Math.floor(breakSecs/60)).padStart(2,"0");var s=String(breakSecs%60).padStart(2,"0");G("timerNum").textContent=m+":"+s;},1000);}
+function endBreak(){clearInterval(breakTmr);G("timerScreen").classList.remove("show");}
+function mathUpdate(){var ra=G("rawAnswer");if(!ra)return;var v=ra.value.trim();var el=G("mathPreview");if(el)el.textContent=v||"";}
+function buildSuggChips(ans){var el=G("suggChips");if(!el)return;el.innerHTML="";(ans||[]).forEach(function(a){var btn=document.createElement("button");btn.className="schip";btn.textContent=a;btn.type="button";btn.addEventListener("click",function(){var ra=G("rawAnswer");if(ra){ra.value=a;mathUpdate();ra.focus();}});el.appendChild(btn);});}
+window.onload=init;
+</script>
+<script src="/explain-helper.js"></script>
 </body>
 </html>
