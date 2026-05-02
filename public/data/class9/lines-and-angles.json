@@ -1,7 +1,330 @@
 {
-  "_note": "STUB \u2014 fill in questions before unlocking Class 9",
-  "chapter": "lines-and-angles",
-  "class": 9,
-  "board": "cbse",
-  "questions": []
+  "chapter_slug":   "lines-and-angles",
+  "chapter_name":   "Lines and Angles",
+  "chapter_emoji":  "📐",
+  "class_num":      9,
+  "board":          "cbse",
+  "topic":          "geometry",
+  "chap_id":        6,
+  "exam_key":       "c9-06",
+
+  "intro_text": "Hi <span class=\"hl\" id=\"sName\">there</span>! &#128522; Today we study <span class=\"hl\">Lines and Angles</span> — the foundation of all geometry! We&#39;ll discover amazing angle relationships, parallel lines, and theorems that unlock the secrets of geometric shapes! &#127919;",
+
+  "complete_message": "You have mastered Lines and Angles! You can now solve any angle problem like a geometry expert &#128170;",
+
+  "explain_questions": [
+    {
+      "id": "la1",
+      "question": "What are the basic types of angles?",
+      "question_spoken": "What are the basic types of angles?",
+      "steps": [
+        {"t": "An angle is formed when two rays meet at a point (vertex). Types by measure: Acute angle: 0° < angle < 90°. Right angle: exactly 90°. Obtuse angle: 90° < angle < 180°.", "s": "Acute is less than 90 degrees. Right is exactly 90 degrees. Obtuse is between 90 and 180 degrees."},
+        {"t": "Straight angle: exactly 180° (a straight line). Reflex angle: 180° < angle < 360°. Complete angle: exactly 360°. Zero angle: 0°. Remember: acute < 90 < right < 180 > obtuse!", "s": "Straight angle is 180 degrees. Reflex angle is between 180 and 360 degrees. Complete angle is 360 degrees."},
+        {"t": "Complementary angles: two angles that ADD UP to 90°. Supplementary angles: two angles that ADD UP to 180°. Memory trick: Complementary = Corner (90°). Supplementary = Straight (180°)!", "s": "Complementary angles add to 90 degrees. Supplementary angles add to 180 degrees."}
+      ],
+      "confirm_question": "Two angles add up to 90°. What type of angles are they?",
+      "confirm_question_spoken": "Two angles add up to 90 degrees. What type of angles are they?",
+      "answers": ["complementary", "complementary angles"],
+      "nudges": [
+        "When two angles sum to 90°, they complete a right angle",
+        "C comes before S in alphabet — Complementary before Supplementary",
+        "Answer: Complementary angles"
+      ],
+      "anim_svg": "<g id=\"la1s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Acute:0-90 | Right:90 | Obtuse:90-180</text></g><g id=\"la1s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Straight:180 | Reflex:180-360 | Complete:360</text></g><g id=\"la1s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Complementary=90° | Supplementary=180°</text></g><g id=\"la1ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Sum = 90° → Complementary angles</text></g>"
+    },
+    {
+      "id": "la2",
+      "question": "What are Linear Pair angles and Vertically Opposite angles?",
+      "question_spoken": "What are Linear Pair angles and Vertically Opposite angles?",
+      "steps": [
+        {"t": "LINEAR PAIR: When two angles form a straight line (their non-common sides form a line), they are called a linear pair. A linear pair always adds up to 180°! If angle AOB and angle BOC form a linear pair, then angle AOB + angle BOC = 180°.", "s": "A linear pair of angles lies on a straight line and always adds up to 180 degrees."},
+        {"t": "VERTICALLY OPPOSITE ANGLES: When two lines intersect, they form 4 angles. The angles across from each other (opposite angles) are called vertically opposite angles — and they are ALWAYS EQUAL!", "s": "Vertically opposite angles are formed when two lines intersect. They are always equal to each other."},
+        {"t": "Example: Lines AB and CD intersect at O. Then angle AOC = angle BOD (vertically opposite). And angle AOD = angle BOC (vertically opposite). Also: angle AOC + angle AOD = 180° (linear pair).", "s": "Angle AOC equals angle BOD. Angle AOD equals angle BOC. Adjacent angles at intersection form linear pairs summing to 180."}
+      ],
+      "confirm_question": "Two lines intersect forming angles of 40° and ?°. What is the vertically opposite angle to 40°?",
+      "confirm_question_spoken": "Two lines intersect. One angle is 40 degrees. What is its vertically opposite angle?",
+      "answers": ["40", "40°", "40 degrees"],
+      "nudges": [
+        "Vertically opposite angles are always equal",
+        "The angle opposite to 40° must equal 40°",
+        "Answer: 40° (vertically opposite angles are equal)"
+      ],
+      "anim_svg": "<g id=\"la2s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Linear Pair: on straight line → sum = 180°</text></g><g id=\"la2s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Vertically Opposite: 2 lines cross → opposite angles EQUAL</text></g><g id=\"la2s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">∠AOC=∠BOD | ∠AOD=∠BOC | adjacent pair=180°</text></g><g id=\"la2ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Vertically opposite → 40° = 40°</text></g>"
+    },
+    {
+      "id": "la3",
+      "question": "What is a transversal and what angles does it form?",
+      "question_spoken": "What is a transversal and what angles does it form?",
+      "steps": [
+        {"t": "A TRANSVERSAL is a line that intersects two or more other lines at distinct points. When a transversal cuts two parallel lines, it creates 8 angles — 4 at each intersection point.", "s": "A transversal cuts two lines at distinct points, creating 8 angles total."},
+        {"t": "The 8 angles are named: Corresponding angles (same position at each intersection), Alternate Interior angles (between the lines, on opposite sides), Alternate Exterior angles (outside the lines, opposite sides), Co-interior angles (same side interior, also called co-interior or consecutive).", "s": "Corresponding angles are at the same position. Alternate interior angles are between the lines on opposite sides."},
+        {"t": "When the lines are PARALLEL: Corresponding angles are EQUAL. Alternate Interior angles are EQUAL. Alternate Exterior angles are EQUAL. Co-interior angles are SUPPLEMENTARY (add to 180°). These are the key theorems!", "s": "For parallel lines: corresponding and alternate angles are equal. Co-interior angles add to 180 degrees."}
+      ],
+      "confirm_question": "When a transversal cuts two parallel lines, corresponding angles are ______.",
+      "confirm_question_spoken": "When a transversal cuts two parallel lines, corresponding angles are blank.",
+      "answers": ["equal", "equal to each other"],
+      "nudges": [
+        "Corresponding angles are in the same position at each intersection",
+        "For parallel lines, these angles have a special relationship",
+        "Answer: Equal (corresponding angles are equal for parallel lines)"
+      ],
+      "anim_svg": "<g id=\"la3s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Transversal cuts 2 lines → 8 angles formed</text></g><g id=\"la3s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Corresponding | Alt. Interior | Alt. Exterior | Co-interior</text></g><g id=\"la3s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Parallel lines: Corr=Equal | Alt=Equal | Co-int=180°</text></g><g id=\"la3ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Corresponding angles = Equal (parallel lines)</text></g>"
+    },
+    {
+      "id": "la4",
+      "question": "What is the Angle Sum Property of a Triangle?",
+      "question_spoken": "What is the Angle Sum Property of a Triangle?",
+      "steps": [
+        {"t": "Theorem: The sum of the three angles of any triangle is always 180°! No matter how big or small the triangle, acute, right or obtuse — angle A + angle B + angle C = 180° always.", "s": "The sum of all three angles in any triangle is always 180 degrees."},
+        {"t": "Proof idea: Draw a line through vertex A parallel to BC. Use alternate interior angle properties with the transversal AB and AC. The three angles rearrange to form a straight line (180°) at vertex A.", "s": "Draw a line parallel to the base through the apex. Alternate angles rearrange to form a straight line at the apex."},
+        {"t": "Application: If two angles of a triangle are 60° and 80°, the third = 180° − 60° − 80° = 40°. If it is a right triangle, the other two angles add to 90°. This property is used in almost every geometry problem!", "s": "Use angle sum to find the missing angle. Third angle equals 180 minus the sum of the other two."}
+      ],
+      "confirm_question": "Two angles of a triangle are 65° and 75°. Find the third angle.",
+      "confirm_question_spoken": "Two angles of a triangle are 65 degrees and 75 degrees. Find the third angle.",
+      "answers": ["40", "40°", "40 degrees"],
+      "nudges": [
+        "Sum of all three angles = 180°",
+        "Third angle = 180° − 65° − 75°",
+        "Answer: 180 − 140 = 40°"
+      ],
+      "anim_svg": "<g id=\"la4s0\" opacity=\"0\"><rect x=\"10\" y=\"8\" width=\"390\" height=\"30\" rx=\"7\" fill=\"#f5e6c8\"/><text x=\"210\" y=\"28\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"800\" fill=\"#d4870a\">Angle Sum Property: ∠A + ∠B + ∠C = 180°</text></g><g id=\"la4s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Proof: draw line || BC thru A → alternate angles → 180°</text></g><g id=\"la4s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">60+80+? = 180 → ? = 40° | Right △: other 2 add to 90°</text></g><g id=\"la4ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">180 − 65 − 75 = 40°</text></g>"
+    },
+    {
+      "id": "la5",
+      "question": "What is an Exterior Angle of a triangle?",
+      "question_spoken": "What is an exterior angle of a triangle?",
+      "steps": [
+        {"t": "When a side of a triangle is extended, the angle formed OUTSIDE the triangle is called an Exterior Angle. In triangle ABC, if BC is extended to D, then angle ACD is an exterior angle.", "s": "An exterior angle is formed when a side of a triangle is extended beyond a vertex."},
+        {"t": "Exterior Angle Theorem: An exterior angle of a triangle equals the SUM of the two NON-ADJACENT interior angles (called remote interior angles). So angle ACD = angle A + angle B.", "s": "The exterior angle equals the sum of the two non-adjacent interior angles. This is the Exterior Angle Theorem."},
+        {"t": "Proof: angle A + angle B + angle ACB = 180° (angle sum). Angle ACB + angle ACD = 180° (linear pair). Subtracting: angle ACD = angle A + angle B. Beautiful and useful!", "s": "From angle sum and linear pair, we get the exterior angle equals the sum of the two remote interior angles."}
+      ],
+      "confirm_question": "In a triangle, two interior angles are 50° and 70°. Find the exterior angle at the third vertex.",
+      "confirm_question_spoken": "In a triangle, two interior angles are 50 and 70 degrees. Find the exterior angle at the third vertex.",
+      "answers": ["120", "120°", "120 degrees"],
+      "nudges": [
+        "Exterior angle = sum of two non-adjacent interior angles",
+        "Exterior angle = 50° + 70°",
+        "Answer: 120°"
+      ],
+      "anim_svg": "<g id=\"la5s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Extend side BC to D → ∠ACD = exterior angle</text></g><g id=\"la5s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Exterior Angle Theorem: ∠ACD = ∠A + ∠B</text></g><g id=\"la5s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Proof: angle sum + linear pair → exterior = sum of remote angles</text></g><g id=\"la5ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Exterior angle = 50 + 70 = 120°</text></g>"
+    },
+    {
+      "id": "la6",
+      "question": "What are Adjacent and Non-adjacent angles?",
+      "question_spoken": "What are adjacent and non-adjacent angles?",
+      "steps": [
+        {"t": "ADJACENT ANGLES: Two angles are adjacent if they share a common vertex AND a common arm (side), and their non-common sides are on opposite sides of the common arm. They have no overlap!", "s": "Adjacent angles share a vertex and a common arm, with non-overlapping interiors."},
+        {"t": "Example: In a clock, the angle from 12 to 2 and the angle from 2 to 5 are adjacent — they share the arm at 2 o'clock. They are next to each other without overlapping.", "s": "Like clock angles that share an arm and lie next to each other without overlapping."},
+        {"t": "Non-adjacent angles do NOT share a common arm. Vertically opposite angles are non-adjacent! A linear pair CAN be adjacent (they must share a common arm to form a straight line). Adjacent + supplementary = Linear Pair!", "s": "Vertically opposite angles are non-adjacent. A linear pair is a special case of adjacent supplementary angles."}
+      ],
+      "confirm_question": "Two adjacent angles that form a straight line are called a ______.",
+      "confirm_question_spoken": "Two adjacent angles that form a straight line are called a blank.",
+      "answers": ["linear pair"],
+      "nudges": [
+        "Adjacent angles on a straight line...",
+        "They add up to 180° and share a common arm",
+        "Answer: Linear pair"
+      ],
+      "anim_svg": "<g id=\"la6s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Adjacent: common vertex + common arm + no overlap</text></g><g id=\"la6s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Like clock: 12-to-2 and 2-to-5 are adjacent</text></g><g id=\"la6s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Adjacent + supplementary + straight line = LINEAR PAIR</text></g><g id=\"la6ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Linear Pair</text></g>"
+    },
+    {
+      "id": "la7",
+      "question": "How do you prove two lines are parallel using angles?",
+      "question_spoken": "How do you prove two lines are parallel using angles?",
+      "steps": [
+        {"t": "Converse theorems let us PROVE lines are parallel. If corresponding angles are equal → lines are parallel! If alternate interior angles are equal → lines are parallel!", "s": "If corresponding angles are equal, the lines are parallel. If alternate interior angles are equal, the lines are parallel."},
+        {"t": "If co-interior angles (same-side interior) add up to 180° → lines are parallel! These are the CONVERSE theorems — they go in the opposite direction from the original.", "s": "If co-interior angles sum to 180 degrees, the lines are parallel. These are the converse theorems."},
+        {"t": "Theorem: Lines parallel to the same line are parallel to each other. If line l is parallel to line m, and line m is parallel to line n, then line l is parallel to line n. Transitivity of parallel lines!", "s": "Lines parallel to the same line are parallel to each other. This is the transitivity of parallel lines."}
+      ],
+      "confirm_question": "If alternate interior angles formed by a transversal with two lines are equal, the lines are ______.",
+      "confirm_question_spoken": "If alternate interior angles formed by a transversal with two lines are equal, the lines are blank.",
+      "answers": ["parallel", "parallel to each other"],
+      "nudges": [
+        "This is the converse of the alternate angles theorem",
+        "Equal alternate angles → what can you say about the lines?",
+        "Answer: The lines are parallel"
+      ],
+      "anim_svg": "<g id=\"la7s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Corresponding angles equal → lines parallel</text></g><g id=\"la7s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Alt. interior equal → parallel | Co-int sum 180° → parallel</text></g><g id=\"la7s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">l||m, m||n → l||n (transitivity of parallel lines)</text></g><g id=\"la7ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Alternate interior angles equal → parallel lines</text></g>"
+    },
+    {
+      "id": "la8",
+      "question": "What is a reflex angle and how do you calculate it?",
+      "question_spoken": "What is a reflex angle and how do you calculate it?",
+      "steps": [
+        {"t": "A reflex angle is greater than 180° but less than 360°. It is the 'going the long way around' angle. If an angle is x°, its reflex angle is 360° − x°. (The two together make a complete revolution!)", "s": "A reflex angle is between 180 and 360 degrees. It is 360 minus the given angle."},
+        {"t": "Example: If angle AOB = 110°, the reflex angle AOB = 360° − 110° = 250°. The reflex angle is the major arc, while the normal angle is the minor arc — like going the long way around a circle.", "s": "If the angle is 110 degrees, the reflex angle is 360 minus 110 which equals 250 degrees."},
+        {"t": "Every angle has a reflex angle. They always add to 360°. In CBSE problems, 'reflex angle COE' means the larger of the two possible angles at COE. Always subtract from 360° to find the reflex!", "s": "Reflex angle plus the original angle always equals 360 degrees. Subtract from 360 to find the reflex."}
+      ],
+      "confirm_question": "If angle AOB = 75°, what is the reflex angle AOB?",
+      "confirm_question_spoken": "If angle AOB equals 75 degrees, what is the reflex angle AOB?",
+      "answers": ["285", "285°", "285 degrees"],
+      "nudges": [
+        "Reflex angle = 360° − original angle",
+        "Reflex angle AOB = 360° − 75°",
+        "Answer: 285°"
+      ],
+      "anim_svg": "<g id=\"la8s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Reflex angle: 180° &lt; reflex &lt; 360°</text></g><g id=\"la8s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Reflex = 360° − original | 110° → reflex = 250°</text></g><g id=\"la8s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">In CBSE: reflex = larger of two possible angles at vertex</text></g><g id=\"la8ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Reflex angle AOB = 360 − 75 = 285°</text></g>"
+    },
+    {
+      "id": "la9",
+      "question": "What are collinear and non-collinear points?",
+      "question_spoken": "What are collinear and non-collinear points?",
+      "steps": [
+        {"t": "COLLINEAR POINTS: Three or more points that lie on the SAME straight line are called collinear. Example: Points A, B, C are collinear if B lies between A and C on the line.", "s": "Collinear points all lie on the same straight line."},
+        {"t": "NON-COLLINEAR POINTS: Points that do NOT all lie on the same line. Three non-collinear points determine a UNIQUE triangle — they cannot all be on one line!", "s": "Non-collinear points do not all lie on one line. Three non-collinear points form a unique triangle."},
+        {"t": "Test for collinearity: Are A, B, C collinear? Check if AB + BC = AC. If yes, B is between A and C → collinear! If AB + BC ≠ AC, they form a triangle → non-collinear.", "s": "If AB plus BC equals AC, the points are collinear. Otherwise they are non-collinear and form a triangle."}
+      ],
+      "confirm_question": "If AB = 3 cm, BC = 4 cm and AC = 7 cm, are A, B, C collinear?",
+      "confirm_question_spoken": "If AB equals 3 cm, BC equals 4 cm and AC equals 7 cm, are A, B, C collinear?",
+      "answers": ["yes"],
+      "nudges": [
+        "Check: AB + BC = 3 + 4 = 7 = AC",
+        "Since AB + BC = AC, B lies between A and C",
+        "Answer: Yes, A, B, C are collinear"
+      ],
+      "anim_svg": "<g id=\"la9s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Collinear: all points on the SAME straight line</text></g><g id=\"la9s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Non-collinear: not all on one line → form triangle</text></g><g id=\"la9s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Test: AB+BC=AC → collinear | AB+BC≠AC → triangle</text></g><g id=\"la9ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">3+4=7=AC → Yes, collinear!</text></g>"
+    },
+    {
+      "id": "la10",
+      "question": "How do you solve angle problems step by step?",
+      "question_spoken": "How do you solve angle problems step by step?",
+      "steps": [
+        {"t": "Step 1: Always draw a diagram and label all known angles. Step 2: Identify which theorem to apply — vertically opposite, linear pair, corresponding angles, alternate angles, or angle sum of triangle.", "s": "Draw a diagram first. Then identify which angle theorem or property applies."},
+        {"t": "Step 3: Write the equation using the theorem. Example: 'x + 50° = 180° (linear pair)'. Step 4: Solve for the unknown. Step 5: Verify by checking all angles in the figure add up correctly.", "s": "Write the equation, solve for the unknown, then verify the answer."},
+        {"t": "Common mistake: confusing supplementary (180°) with complementary (90°). And confusing corresponding angles (equal, parallel lines) with co-interior angles (supplementary, parallel lines). Know them apart!", "s": "Remember: supplementary equals 180, complementary equals 90. Corresponding angles are equal, co-interior angles add to 180."}
+      ],
+      "confirm_question": "In a linear pair, one angle is 65°. What is the other angle?",
+      "confirm_question_spoken": "In a linear pair, one angle is 65 degrees. What is the other angle?",
+      "answers": ["115", "115°", "115 degrees"],
+      "nudges": [
+        "Linear pair always adds up to 180°",
+        "Other angle = 180° − 65°",
+        "Answer: 115°"
+      ],
+      "anim_svg": "<g id=\"la10s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Step 1: Draw diagram | Step 2: Identify theorem</text></g><g id=\"la10s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Step 3: Write equation | Step 4: Solve | Step 5: Verify</text></g><g id=\"la10s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Supp=180 ≠ Comp=90 | Corr=equal ≠ Co-int=180</text></g><g id=\"la10ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Linear pair: 180 − 65 = 115°</text></g>"
+    }
+  ],
+
+  "practice_questions": [
+    {
+      "question": "Two angles are supplementary. One angle is 110°. Find the other.",
+      "question_spoken": "Two angles are supplementary. One angle is 110 degrees. Find the other.",
+      "answers": ["70", "70°", "70 degrees"],
+      "steps": ["Supplementary angles add up to 180°", "Other angle = 180° − 110°", "Other angle = 70°"],
+      "trick": "Supplementary = Straight line = 180°. Always subtract from 180 to find the supplement. Quick and direct!",
+      "alt": "Think of a straight line (180°). One part is 110°. The other part must fill up the rest: 180 − 110 = 70°."
+    },
+    {
+      "question": "Two lines intersect. One of the angles formed is 55°. Find all four angles.",
+      "question_spoken": "Two lines intersect. One of the angles formed is 55 degrees. Find all four angles.",
+      "answers": ["55, 125, 55, 125", "55°, 125°, 55°, 125°", "55 and 125"],
+      "steps": ["Vertically opposite angle = 55° (opposite angles are equal)", "Adjacent angle (linear pair) = 180° − 55° = 125°", "The four angles are: 55°, 125°, 55°, 125°"],
+      "trick": "Two intersecting lines give only 2 distinct angle values: x° and (180−x)°. The opposite angle repeats. Always!",
+      "alt": "One angle is 55°. Its vertically opposite is also 55°. The adjacent angles are 180−55=125°. So we have 55, 125, 55, 125."
+    },
+    {
+      "question": "A transversal cuts two parallel lines. One corresponding angle is 70°. What is the other corresponding angle?",
+      "question_spoken": "A transversal cuts two parallel lines. One corresponding angle is 70 degrees. What is the other corresponding angle?",
+      "answers": ["70", "70°", "70 degrees"],
+      "steps": ["Corresponding angles: same position at each intersection", "For parallel lines: corresponding angles are EQUAL", "Answer: 70°"],
+      "trick": "Corresponding angles are like mirror images at the two intersections. For parallel lines, they are always equal. No calculation needed!",
+      "alt": "Imagine the two parallel roads crossed by a street. The angle the street makes at the first road is the same as at the second road."
+    },
+    {
+      "question": "The angles of a triangle are in the ratio 2:3:4. Find all three angles.",
+      "question_spoken": "The angles of a triangle are in the ratio 2:3:4. Find all three angles.",
+      "answers": ["40°, 60°, 80°", "40, 60, 80"],
+      "steps": ["Let angles be 2x, 3x, 4x", "Sum = 180°: 2x + 3x + 4x = 180 → 9x = 180 → x = 20", "Angles: 2(20)=40°, 3(20)=60°, 4(20)=80°"],
+      "trick": "Ratio questions: let angles be kx where k is ratio number. Sum all parts, set equal to 180, solve for x, then multiply!",
+      "alt": "Total ratio parts = 2+3+4 = 9. Each part = 180÷9 = 20°. So angles are 2×20=40, 3×20=60, 4×20=80."
+    },
+    {
+      "question": "Two angles are complementary. One angle is 35°. Find the other.",
+      "question_spoken": "Two angles are complementary. One angle is 35 degrees. Find the other.",
+      "answers": ["55", "55°", "55 degrees"],
+      "steps": ["Complementary angles add up to 90°", "Other angle = 90° − 35°", "Other angle = 55°"],
+      "trick": "Complementary = Corner = 90°. Always subtract from 90 for complement. Remember: C for Corner, C for Complementary!",
+      "alt": "Two angles together make a right angle (90°). One is 35°. The other fills the rest: 90 − 35 = 55°."
+    },
+    {
+      "question": "In a triangle, one angle is 90° and another is 40°. Find the third angle.",
+      "question_spoken": "In a triangle, one angle is 90 degrees and another is 40 degrees. Find the third angle.",
+      "answers": ["50", "50°", "50 degrees"],
+      "steps": ["Sum of angles in triangle = 180°", "Third angle = 180° − 90° − 40°", "Third angle = 50°"],
+      "trick": "In a right triangle, the other two angles must add to 90° (since 90 is already used). 180 − 90 − 40 = 50.",
+      "alt": "The right angle uses 90°. That leaves 180−90=90° for the other two. 90−40=50°."
+    },
+    {
+      "question": "If two lines are parallel and a transversal makes co-interior angles of (3x + 10)° and (2x + 20)°, find x.",
+      "question_spoken": "If two parallel lines are cut by a transversal making co-interior angles of 3x plus 10 and 2x plus 20 degrees, find x.",
+      "answers": ["30", "x=30"],
+      "steps": ["Co-interior angles (parallel lines) add to 180°", "(3x+10) + (2x+20) = 180", "5x + 30 = 180 → 5x = 150 → x = 30"],
+      "trick": "Co-interior angles = supplementary = 180° for parallel lines. Set up the equation and solve!",
+      "alt": "3x+10 plus 2x+20 equals 180. Combine like terms: 5x+30=180. Subtract 30: 5x=150. Divide by 5: x=30."
+    },
+    {
+      "question": "An exterior angle of a triangle is 120°. One of the non-adjacent interior angles is 50°. Find the other.",
+      "question_spoken": "An exterior angle of a triangle is 120 degrees. One non-adjacent interior angle is 50 degrees. Find the other.",
+      "answers": ["70", "70°", "70 degrees"],
+      "steps": ["Exterior angle = sum of two non-adjacent interior angles", "120° = 50° + other angle", "Other angle = 120° − 50° = 70°"],
+      "trick": "Exterior angle theorem: exterior = sum of two remote interior angles. So remote interior = exterior − the other remote interior!",
+      "alt": "The exterior angle 120 equals the sum of the two inside angles across from it. One is 50. So the other is 120−50=70."
+    },
+    {
+      "question": "Lines AB and CD are parallel. A transversal makes alternate interior angles of (4x − 5)° and (3x + 10)°. Find x.",
+      "question_spoken": "Lines AB and CD are parallel. Alternate interior angles are 4x minus 5 and 3x plus 10 degrees. Find x.",
+      "answers": ["15", "x=15"],
+      "steps": ["Alternate interior angles (parallel lines) are EQUAL", "(4x − 5) = (3x + 10)", "4x − 3x = 10 + 5 → x = 15"],
+      "trick": "Alternate interior angles are equal for parallel lines. Set them equal and solve. No need to add or subtract from 180!",
+      "alt": "Since alternate interior angles are equal: 4x−5 = 3x+10. Subtract 3x: x−5=10. Add 5: x=15."
+    },
+    {
+      "question": "What is the reflex angle corresponding to 130°?",
+      "question_spoken": "What is the reflex angle corresponding to 130 degrees?",
+      "answers": ["230", "230°", "230 degrees"],
+      "steps": ["Reflex angle = 360° − original angle", "Reflex angle = 360° − 130°", "Reflex angle = 230°"],
+      "trick": "Reflex = 360 − original. Always! The original and reflex together make a complete turn (360°).",
+      "alt": "Original 130° + reflex = 360° (full circle). So reflex = 360 − 130 = 230°."
+    },
+    {
+      "question": "In a right triangle, one acute angle is 3 times the other. Find both angles.",
+      "question_spoken": "In a right triangle, one acute angle is 3 times the other. Find both acute angles.",
+      "answers": ["22.5° and 67.5°", "22.5 and 67.5"],
+      "steps": ["The two acute angles add to 90° (right triangle)", "Let them be x and 3x: x + 3x = 90 → 4x = 90 → x = 22.5°", "Angles: 22.5° and 3(22.5) = 67.5°"],
+      "trick": "Right triangle: two acute angles always add to 90°. Set up equation with that sum and solve!",
+      "alt": "Acute angles sum to 90. One is 3 times the other. x + 3x = 4x = 90. So x = 22.5 and 3x = 67.5."
+    },
+    {
+      "question": "A line segment AB is extended to C. If angle ABC = 140°, find angle ABD where D is a point making a linear pair.",
+      "question_spoken": "A line segment AB is extended to C. Angle ABC is 140 degrees. Find the supplement of this angle.",
+      "answers": ["40", "40°", "40 degrees"],
+      "steps": ["Linear pair: angles on a straight line add to 180°", "If angle ABC = 140°", "Supplement = 180° − 140° = 40°"],
+      "trick": "Linear pair = 180°. One angle given, find the other by subtracting from 180. Always!",
+      "alt": "On a straight line, the two angles on either side of a point add to 180. 180 − 140 = 40."
+    },
+    {
+      "question": "If ∠1 and ∠2 are vertically opposite angles, and ∠1 = (2x + 30)°, ∠2 = (3x + 10)°, find x.",
+      "question_spoken": "Angles 1 and 2 are vertically opposite. Angle 1 is 2x plus 30 degrees, angle 2 is 3x plus 10 degrees. Find x.",
+      "answers": ["20", "x=20"],
+      "steps": ["Vertically opposite angles are EQUAL", "(2x + 30) = (3x + 10)", "2x + 30 = 3x + 10 → 20 = x → x = 20"],
+      "trick": "Vertically opposite = equal. Set them equal, solve. Classic CBSE question type!",
+      "alt": "2x+30 = 3x+10. Subtract 2x: 30 = x+10. Subtract 10: x = 20."
+    },
+    {
+      "question": "The sum of angles of a triangle is ____°.",
+      "question_spoken": "The sum of angles of a triangle is blank degrees.",
+      "answers": ["180", "180°"],
+      "steps": ["This is the Angle Sum Property of a triangle", "For ANY triangle (acute, right, obtuse)", "The sum of all 3 angles is always 180°"],
+      "trick": "180 degrees ALWAYS. No exceptions. Every triangle ever drawn, every triangle possible — angle sum is 180. This is the most used fact in geometry!",
+      "alt": "Tear off the 3 corners of any triangular piece of paper. Place them together. They always form a straight line — 180 degrees!"
+    },
+    {
+      "question": "Two parallel lines are cut by a transversal. One alternate exterior angle is 85°. Find the other alternate exterior angle.",
+      "question_spoken": "Two parallel lines are cut by a transversal. One alternate exterior angle is 85 degrees. Find the other.",
+      "answers": ["85", "85°", "85 degrees"],
+      "steps": ["Alternate exterior angles (parallel lines) are EQUAL", "Just like alternate interior angles", "Answer: 85°"],
+      "trick": "All alternate angle pairs (interior or exterior) are EQUAL for parallel lines. If one is given, the other is the same!",
+      "alt": "Alternate means on opposite sides. For parallel lines, angles on opposite sides at corresponding positions are always equal."
+    }
+  ]
 }
