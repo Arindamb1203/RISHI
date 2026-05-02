@@ -48,8 +48,8 @@
   D:\rishi\
   |
   +---.github\workflows\                 AUTOMATED TESTING PIPELINE
-  |       test.yml / test-explain.yml / test-practice.yml
-  |       test-exam.yml / test-admin.yml / test-parent.yml / test-landing.yml
+  |       test.yml / test-explain.yml (Class8+9) / test-practice.yml (Class8+9)
+  |       test-exam.yml / test-admin.yml / test-parent.yml (incl. syllabus) / test-landing.yml
   |
   +---functions\                        ROOT level — NOT inside public
   |   |   tts.js                        ElevenLabs TTS proxy
