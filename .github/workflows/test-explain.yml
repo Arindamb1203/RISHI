@@ -24,7 +24,19 @@ jobs:
             "https://rishi-ewh.pages.dev/explain/class8/geometry/understanding-quadrilaterals.html" \
             "https://rishi-ewh.pages.dev/explain/class8/geometry/visualising-solid-shapes.html" \
             "https://rishi-ewh.pages.dev/explain/class8/mensuration/area-plane-figures.html" \
-            "https://rishi-ewh.pages.dev/explain/class8/mensuration/surface-area-volume.html"
+            "https://rishi-ewh.pages.dev/explain/class8/mensuration/surface-area-volume.html" \
+            "https://rishi-ewh.pages.dev/explain/class9/arithmetic/real-numbers.html" \
+            "https://rishi-ewh.pages.dev/explain/class9/algebra/polynomials.html" \
+            "https://rishi-ewh.pages.dev/explain/class9/algebra/linear-equations-two-variables.html" \
+            "https://rishi-ewh.pages.dev/explain/class9/coordinate-geometry/coordinate-geometry.html" \
+            "https://rishi-ewh.pages.dev/explain/class9/geometry/euclids-geometry.html" \
+            "https://rishi-ewh.pages.dev/explain/class9/geometry/lines-and-angles.html" \
+            "https://rishi-ewh.pages.dev/explain/class9/geometry/triangles.html" \
+            "https://rishi-ewh.pages.dev/explain/class9/geometry/quadrilaterals.html" \
+            "https://rishi-ewh.pages.dev/explain/class9/geometry/circles.html" \
+            "https://rishi-ewh.pages.dev/explain/class9/mensuration/herons-formula.html" \
+            "https://rishi-ewh.pages.dev/explain/class9/mensuration/surface-areas-volumes.html" \
+            "https://rishi-ewh.pages.dev/explain/class9/data-handling/statistics.html"
           do
             status=$(curl -L -o /dev/null -s -w "%{http_code}" "$url")
             echo "$status $url"
