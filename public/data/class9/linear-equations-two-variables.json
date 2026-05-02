@@ -8,383 +8,323 @@
   "chap_id":        3,
   "exam_key":       "c9-03",
 
-  "intro_text": "Hi <span class=\"hl\" id=\"sName\">there</span>! &#128522; Welcome to <span class=\"hl\">Linear Equations in Two Variables</span>! Did you know that every time you mix two things — like price and quantity, or speed and time — you get a linear equation in two variables? And every solution forms a beautiful straight line! &#127776; Let&#39;s explore!",
+  "intro_text": "Hi <span class=\"hl\" id=\"sName\">there</span>! &#128522; Today we explore <span class=\"hl\">Linear Equations in Two Variables</span> — equations like 2x + 3y = 6 that draw a straight line! Every point on that line is a solution. Let&#39;s discover this beautiful chapter! &#127919;",
 
-  "complete_message": "You have mastered Linear Equations in Two Variables! Every equation tells the story of a straight line &#128170;",
+  "complete_message": "You have mastered Linear Equations in Two Variables! Every line tells a story &#128170;",
 
   "explain_questions": [
     {
       "id": "leq1",
-      "question": "What is a linear equation in two variables?",
+      "question": "What is a Linear Equation in Two Variables?",
       "question_spoken": "What is a linear equation in two variables?",
       "steps": [
-        {"t": "A linear equation in two variables is of the form ax + by + c = 0, where a, b, c are real numbers and a, b are NOT both zero. It involves exactly two variables, each with degree 1.", "s": "The standard form is ax plus by plus c equals zero, where a and b are not both zero."},
-        {"t": "Examples: 2x + 3y = 6 (same as 2x + 3y - 6 = 0). x - y = 0. 3x = 12 is also linear in two variables — write it as 3x + 0y = 12!", "s": "2x plus 3y minus 6 equals zero is a standard example. Even 3x equals 12 can be written with two variables."},
-        {"t": "NOT linear equations: x² + y = 5 (degree 2), xy = 6 (product of variables), √x + y = 3 (fractional power). The key rule: ALL variables must have power exactly 1.", "s": "Any equation with x squared, or x times y, or square root of x is NOT a linear equation."}
+        {"t": "A linear equation in two variables is of the form ax + by + c = 0, where a, b, c are real numbers and a and b are NOT both zero. It has two variables — x and y — each with power 1.", "s": "The standard form is ax plus by plus c equals zero, where a and b are not both zero."},
+        {"t": "Examples: 2x + 3y = 6, x − y = 4, 5x = 2y − 1. All these can be written as ax + by + c = 0. Note: x = 5 is also a linear equation in two variables — it can be written as 1x + 0y − 5 = 0!", "s": "Even x equals 5 is a linear equation in two variables, written as x plus 0y minus 5 equals zero."},
+        {"t": "A solution of ax + by + c = 0 is any pair of values (x, y) that satisfies the equation. Unlike one variable, two-variable equations have INFINITELY MANY solutions!", "s": "Every pair of values that satisfies the equation is a solution. There are infinitely many such pairs."}
       ],
-      "confirm_question": "Is 3x² + 2y = 5 a linear equation in two variables? Yes or No.",
-      "confirm_question_spoken": "Is 3x squared plus 2y equals 5 a linear equation in two variables?",
-      "answers": ["no"],
+      "confirm_question": "Write 'the cost of 2 pens and 3 pencils is Rs 18' as a linear equation in two variables.",
+      "confirm_question_spoken": "Write the statement: the cost of 2 pens and 3 pencils is 18 rupees, as a linear equation in two variables.",
+      "answers": ["2x+3y=18", "2x + 3y = 18", "2x+3y-18=0"],
       "nudges": [
-        "Check the power of each variable — what is the power of x?",
-        "x² means x has power 2, not 1",
-        "For a linear equation ALL variables must have power exactly 1. Answer: No!"
+        "Let x = cost of pen, y = cost of pencil",
+        "2 pens cost 2x, 3 pencils cost 3y, total = 18",
+        "Answer: 2x + 3y = 18"
       ],
-      "anim_svg": "<g id=\"leq1s0\" opacity=\"0\"><rect x=\"10\" y=\"8\" width=\"390\" height=\"30\" rx=\"7\" fill=\"#f5e6c8\"/><text x=\"210\" y=\"28\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"800\" fill=\"#d4870a\">ax + by + c = 0 — Standard Form</text></g><g id=\"leq1s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Examples: 2x+3y=6 | x-y=0 | 3x=12</text></g><g id=\"leq1s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"12\" font-weight=\"800\" fill=\"#b85c2a\">NOT linear: x²+y=5 | xy=6 | √x+y=3</text></g><g id=\"leq1ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#fff5f0\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#b85c2a\">3x²+2y=5 → x has power 2 → NOT linear</text></g>"
+      "anim_svg": "<g id=\"leq1s0\" opacity=\"0\"><rect x=\"10\" y=\"8\" width=\"390\" height=\"30\" rx=\"7\" fill=\"#f5e6c8\"/><text x=\"210\" y=\"28\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"800\" fill=\"#d4870a\">ax + by + c = 0 where a,b not both zero</text></g><g id=\"leq1s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">2x+3y=6 | x=5 means x+0y-5=0 ✓</text></g><g id=\"leq1s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Infinitely many solutions — every (x,y) on the line</text></g><g id=\"leq1ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">2x + 3y = 18</text></g>"
     },
     {
       "id": "leq2",
-      "question": "How many solutions does a linear equation in two variables have?",
-      "question_spoken": "How many solutions does a linear equation in two variables have?",
+      "question": "How do you find solutions of a linear equation in two variables?",
+      "question_spoken": "How do you find solutions of a linear equation in two variables?",
       "steps": [
-        {"t": "A linear equation in two variables has INFINITELY MANY solutions! Unlike one variable (one solution), here any value of x gives a corresponding y, so solutions never end.", "s": "Unlike one variable equations, a linear equation in two variables has infinitely many solutions."},
-        {"t": "Example: 2x + y = 6. When x=0, y=6. When x=1, y=4. When x=2, y=2. When x=3, y=0. When x=-1, y=8. Each gives a valid solution (x,y) pair!", "s": "For 2x plus y equals 6, substituting x equals 0 gives y equals 6. Substituting x equals 1 gives y equals 4. We can go on forever."},
-        {"t": "Each solution is an ORDERED PAIR (x, y). Geometrically, all these pairs together form a STRAIGHT LINE on the Cartesian plane. Every point on that line is a solution!", "s": "Every solution is an ordered pair. Together they form a straight line on the graph."}
+        {"t": "To find solutions of 2x + y = 6: choose any value for x, then calculate y. If x=0: y=6 → (0,6). If x=1: y=4 → (1,4). If x=3: y=0 → (3,0). All are valid solutions!", "s": "Choose a value for x, substitute, and solve for y. Each value of x gives one solution pair."},
+        {"t": "You can also start with y values. If y=2: 2x+2=6 → 2x=4 → x=2. Solution: (2,2). Always verify by substituting back into the original equation!", "s": "You can also choose a y value first, then find x. Always verify your answer."},
+        {"t": "The easiest solutions to find: set x=0 to get the y-intercept, and set y=0 to get the x-intercept. These two points are enough to draw the complete straight line!", "s": "Setting x equal to zero or y equal to zero gives the intercept points — the easiest solutions to find."}
       ],
-      "confirm_question": "Find one solution of 2x + 3y = 12. (Hint: try x = 0)",
-      "confirm_question_spoken": "Find one solution of 2x plus 3y equals 12. Try x equals 0.",
-      "answers": ["(0,4)", "0,4", "x=0 y=4", "y=4"],
+      "confirm_question": "Find the solution of x + 2y = 6 when x = 0.",
+      "confirm_question_spoken": "Find the solution of x plus 2y equals 6 when x equals 0.",
+      "answers": ["(0,3)", "y=3", "3", "0,3"],
       "nudges": [
-        "Put x = 0 in the equation: 2(0) + 3y = 12",
-        "So 3y = 12, which gives y = 4",
-        "Solution is (0, 4) — the point where the line crosses the y-axis!"
+        "Substitute x = 0 into x + 2y = 6",
+        "0 + 2y = 6 → 2y = 6 → y = 3",
+        "Answer: y = 3, so the solution is (0, 3)"
       ],
-      "anim_svg": "<g id=\"leq2s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Linear eq in 2 vars → Infinitely many solutions</text></g><g id=\"leq2s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">2x+y=6: (0,6),(1,4),(2,2),(3,0),(-1,8)...</text></g><g id=\"leq2s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">All solutions together form a straight line</text></g><g id=\"leq2ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">x=0: 3y=12 → y=4 → Solution: (0,4)</text></g>"
+      "anim_svg": "<g id=\"leq2s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">2x+y=6: set x=0 → y=6, set x=1 → y=4</text></g><g id=\"leq2s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Can also choose y first: y=2 → x=2</text></g><g id=\"leq2s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">x=0 (y-intercept) and y=0 (x-intercept) easiest!</text></g><g id=\"leq2ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">x+2y=6, x=0: y=3 → Solution (0,3)</text></g>"
     },
     {
       "id": "leq3",
-      "question": "How do you write a real-life situation as a linear equation in two variables?",
-      "question_spoken": "How do you write a real life situation as a linear equation in two variables?",
+      "question": "What does the graph of a linear equation in two variables look like?",
+      "question_spoken": "What does the graph of a linear equation in two variables look like?",
       "steps": [
-        {"t": "Real-life problems often have two unknown quantities related to each other. We assign variables (usually x and y) to these unknowns and write the relationship as an equation.", "s": "Assign x and y to the two unknown quantities and write their relationship as an equation."},
-        {"t": "Example: A notebook costs twice as much as a pen. Let notebook cost = x rupees, pen cost = y rupees. Then: x = 2y, or x - 2y = 0. This is our linear equation!", "s": "If a notebook costs twice a pen, and notebook is x and pen is y, then x equals 2y."},
-        {"t": "Example 2: Tickets for a match cost ₹20 for children and ₹50 for adults. Total collection is ₹1500. If x = children, y = adults: 20x + 50y = 1500. Simplify: 2x + 5y = 150.", "s": "20x plus 50y equals 1500 simplifies to 2x plus 5y equals 150."}
+        {"t": "Every linear equation in two variables, when plotted on the Cartesian plane, gives a STRAIGHT LINE. Every point on that line is a solution. Every solution is a point on that line.", "s": "The graph of every linear equation in two variables is always a straight line."},
+        {"t": "To draw the graph of 2x + y = 6: find at least 2 solutions — (0,6) and (3,0). Plot these points and join them with a straight line extending infinitely in both directions.", "s": "Find two solutions, plot them, and draw a line through them extending in both directions."},
+        {"t": "The line is infinite — this represents all infinitely many solutions. Points NOT on the line do NOT satisfy the equation. This is the geometric meaning of a linear equation!", "s": "Every point on the line is a solution. Points off the line are not solutions."}
       ],
-      "confirm_question": "The sum of two numbers is 25. Write this as a linear equation in two variables.",
-      "confirm_question_spoken": "The sum of two numbers is 25. Write this as a linear equation in two variables.",
-      "answers": ["x+y=25", "x + y = 25", "y+x=25"],
+      "confirm_question": "The graph of every linear equation in two variables is a ______.",
+      "confirm_question_spoken": "The graph of every linear equation in two variables is a blank.",
+      "answers": ["straight line", "line", "straight"],
       "nudges": [
-        "Let the two numbers be x and y",
-        "Sum means addition: x + y = 25",
-        "Answer: x + y = 25"
+        "Think about what shape you get when you plot all the solutions",
+        "All the solution points lie on one geometric shape",
+        "Answer: straight line"
       ],
-      "anim_svg": "<g id=\"leq3s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Assign x,y to unknowns → write relationship</text></g><g id=\"leq3s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Notebook=2×Pen → x=2y → x-2y=0</text></g><g id=\"leq3s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Children x, Adults y: 20x+50y=1500</text></g><g id=\"leq3ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Two numbers sum to 25 → x + y = 25</text></g>"
+      "anim_svg": "<g id=\"leq3s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Linear equation → STRAIGHT LINE on Cartesian plane</text></g><g id=\"leq3s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">2x+y=6: plot (0,6) and (3,0) → join → straight line</text></g><g id=\"leq3s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Line is infinite → infinitely many solutions</text></g><g id=\"leq3ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Straight line</text></g>"
     },
     {
       "id": "leq4",
-      "question": "How do you draw the graph of a linear equation in two variables?",
-      "question_spoken": "How do you draw the graph of a linear equation in two variables?",
+      "question": "What are lines parallel to the x-axis and y-axis?",
+      "question_spoken": "What are lines parallel to the x-axis and y-axis?",
       "steps": [
-        {"t": "Step 1: Find at least TWO solutions (ordered pairs). The easiest: put x=0 and find y (y-intercept), then put y=0 and find x (x-intercept).", "s": "Find two solutions by substituting x equals 0 and then y equals 0."},
-        {"t": "Example: Graph 2x + y = 6. When x=0: y=6, point (0,6). When y=0: 2x=6, x=3, point (3,0). Plot both points on the Cartesian plane.", "s": "For 2x plus y equals 6, we get points 0,6 and 3,0."},
-        {"t": "Step 2: Join the two points with a straight line and extend it on both sides. Every point on this line is a solution of the equation. The line is the COMPLETE graph!", "s": "Join the two points and extend the line. Every point on this line is a solution."}
+        {"t": "x = k is a VERTICAL line. For example x=3: every point has x-coordinate=3 — like (3,0),(3,1),(3,−5). This line is parallel to the y-axis.", "s": "x equals k is a vertical line parallel to the y-axis."},
+        {"t": "y = k is a HORIZONTAL line. For example y=4: every point has y-coordinate=4 — like (0,4),(1,4),(−3,4). This line is parallel to the x-axis.", "s": "y equals k is a horizontal line parallel to the x-axis."},
+        {"t": "Special cases: x=0 IS the y-axis. y=0 IS the x-axis. Lines of the form y=mx (c=0) pass through the origin (0,0). For example y=2x passes through (0,0),(1,2),(2,4).", "s": "x equals zero is the y-axis itself. y equals zero is the x-axis itself. y equals mx passes through the origin."}
       ],
-      "confirm_question": "For the graph of x + 2y = 4, what is the y-intercept? (Put x=0)",
-      "confirm_question_spoken": "For the graph of x plus 2y equals 4, what is the y intercept? Put x equals 0.",
-      "answers": ["2", "(0,2)", "y=2"],
+      "confirm_question": "What type of line is y = 5?",
+      "confirm_question_spoken": "What type of line is y equals 5?",
+      "answers": ["horizontal", "horizontal line", "parallel to x-axis"],
       "nudges": [
-        "Put x = 0: 0 + 2y = 4",
-        "2y = 4, so y = 2",
-        "y-intercept is 2, so the point is (0, 2)"
+        "y = 5 means every point has y-coordinate = 5, no matter what x is",
+        "Points: (0,5), (1,5), (100,5) — all at the same height",
+        "Answer: Horizontal line, parallel to the x-axis"
       ],
-      "anim_svg": "<g id=\"leq4s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Step 1: Find 2 solutions — use x=0 and y=0</text></g><g id=\"leq4s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">2x+y=6: (0,6) and (3,0) → plot these points</text></g><g id=\"leq4s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Join &amp; extend → straight line = all solutions</text></g><g id=\"leq4ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">x=0: 2y=4 → y=2 → y-intercept is (0,2)</text></g>"
+      "anim_svg": "<g id=\"leq4s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">x=k → VERTICAL (parallel to y-axis)</text></g><g id=\"leq4s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">y=k → HORIZONTAL (parallel to x-axis)</text></g><g id=\"leq4s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">x=0 is y-axis | y=0 is x-axis | y=mx thru origin</text></g><g id=\"leq4ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">y=5 → horizontal line, parallel to x-axis</text></g>"
     },
     {
       "id": "leq5",
-      "question": "What are lines parallel to the x-axis and y-axis?",
-      "question_spoken": "What are lines parallel to the x axis and y axis?",
+      "question": "How do you verify if a point lies on a line?",
+      "question_spoken": "How do you verify if a point lies on a line?",
       "steps": [
-        {"t": "A line PARALLEL TO THE X-AXIS has equation y = k, where k is a constant. Every point on this line has the same y-coordinate. Example: y = 3 is a horizontal line.", "s": "y equals k is a horizontal line parallel to the x axis. Every point has y coordinate equal to k."},
-        {"t": "A line PARALLEL TO THE Y-AXIS has equation x = k, where k is a constant. Every point on this line has the same x-coordinate. Example: x = 2 is a vertical line.", "s": "x equals k is a vertical line parallel to the y axis. Every point has x coordinate equal to k."},
-        {"t": "Special cases: y = 0 is the x-axis itself! And x = 0 is the y-axis itself! These are the two most important lines on the Cartesian plane.", "s": "y equals zero is the x axis itself. x equals zero is the y axis itself."}
+        {"t": "To check if point (2,3) lies on 2x+y=7: substitute x=2,y=3. LHS = 2(2)+3 = 4+3 = 7 = RHS ✓. Yes, (2,3) lies on the line!", "s": "Substitute x and y. If LHS equals RHS, the point lies on the line."},
+        {"t": "To check if (1,2) lies on 2x+y=7: LHS = 2(1)+2 = 4 ≠ 7. No, (1,2) does NOT lie on this line. The substitution test is fail-proof!", "s": "If LHS does not equal RHS, the point does not lie on the line."},
+        {"t": "This is a very common CBSE exam question. Always substitute the point's coordinates into the equation. If LHS = RHS → ON the line. If LHS ≠ RHS → OFF the line.", "s": "This substitution test is the key method for all verification problems in CBSE."}
       ],
-      "confirm_question": "What type of line is y = -4?",
-      "confirm_question_spoken": "What type of line is y equals negative 4?",
-      "answers": ["horizontal", "parallel to x axis", "parallel to x-axis"],
+      "confirm_question": "Does the point (3, 2) lie on the line x + y = 5? Yes or No.",
+      "confirm_question_spoken": "Does the point 3 comma 2 lie on the line x plus y equals 5?",
+      "answers": ["yes"],
       "nudges": [
-        "y = k is always a horizontal line",
-        "It is parallel to the x-axis at a distance of 4 units below it",
-        "Answer: Horizontal line parallel to the x-axis"
+        "Substitute x=3, y=2 into x + y = 5",
+        "LHS = 3 + 2 = 5 = RHS",
+        "Answer: Yes! (3,2) satisfies the equation."
       ],
-      "anim_svg": "<g id=\"leq5s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">y = k → horizontal line (parallel to x-axis)</text></g><g id=\"leq5s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">x = k → vertical line (parallel to y-axis)</text></g><g id=\"leq5s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">y=0 = x-axis itself | x=0 = y-axis itself</text></g><g id=\"leq5ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">y = -4 → horizontal line parallel to x-axis</text></g>"
+      "anim_svg": "<g id=\"leq5s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Check (2,3) on 2x+y=7: 4+3=7 ✓ YES</text></g><g id=\"leq5s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Check (1,2) on 2x+y=7: 2+2=4 ≠ 7 ✗ NO</text></g><g id=\"leq5s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">LHS=RHS → ON line | LHS≠RHS → OFF line</text></g><g id=\"leq5ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">3+2=5 ✓ → Yes, (3,2) is on x+y=5</text></g>"
     },
     {
       "id": "leq6",
-      "question": "How do you verify if a given point lies on the graph of a linear equation?",
-      "question_spoken": "How do you verify if a given point lies on the graph of a linear equation?",
+      "question": "How do you write a real-life situation as a linear equation?",
+      "question_spoken": "How do you write a real-life situation as a linear equation in two variables?",
       "steps": [
-        {"t": "To check if point (a, b) lies on the line ax + by + c = 0: simply SUBSTITUTE x=a and y=b into the equation. If the equation is satisfied (LHS = RHS), the point lies on the line.", "s": "Substitute the x and y coordinates of the point into the equation. If it satisfies the equation, the point is on the line."},
-        {"t": "Example: Does (2, 1) lie on 3x - 2y = 4? Substitute: 3(2) - 2(1) = 6 - 2 = 4. LHS = RHS = 4. YES, (2,1) lies on the line!", "s": "For 3x minus 2y equals 4, substituting 2 and 1 gives 6 minus 2 equals 4. It satisfies the equation, so the point lies on the line."},
-        {"t": "Example 2: Does (1, 2) lie on x + 2y = 7? Substitute: 1 + 2(2) = 1 + 4 = 5 ≠ 7. LHS ≠ RHS. NO, (1,2) does NOT lie on this line.", "s": "For x plus 2y equals 7, substituting 1 and 2 gives 5, which is not equal to 7. So the point does not lie on the line."}
+        {"t": "Step 1: Identify the two unknowns and assign variables. Example: 'A horse costs Rs 5000 more than a cow.' Let x = cost of horse, y = cost of cow.", "s": "Assign a variable to each unknown quantity."},
+        {"t": "Step 2: Translate the relationship. 'Horse costs Rs 5000 more than cow' → x = y + 5000. Rearrange to standard form: x − y − 5000 = 0.", "s": "Translate the word statement into a mathematical equation."},
+        {"t": "Step 3: Verify — does your equation make sense? If horse costs Rs 10000, cow costs Rs 5000. Check: 10000 − 5000 − 5000 = 0 ✓. Word problems become easy with practice!", "s": "Always verify with a number example that your equation represents the situation correctly."}
       ],
-      "confirm_question": "Does the point (1, 3) lie on the line 2x + y = 5? Yes or No.",
-      "confirm_question_spoken": "Does the point 1 comma 3 lie on the line 2x plus y equals 5?",
-      "answers": ["yes"],
+      "confirm_question": "Write as a linear equation: 'The sum of two numbers x and y is 30'",
+      "confirm_question_spoken": "Write as a linear equation: the sum of two numbers x and y is 30.",
+      "answers": ["x+y=30", "x + y = 30", "x+y-30=0"],
       "nudges": [
-        "Substitute x=1, y=3 into 2x + y = 5",
-        "2(1) + 3 = 2 + 3 = 5",
-        "LHS = RHS = 5, so YES, the point lies on the line!"
+        "Sum means addition: x + y",
+        "That sum equals 30",
+        "Answer: x + y = 30"
       ],
-      "anim_svg": "<g id=\"leq6s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Substitute (a,b) → if LHS=RHS → point on line</text></g><g id=\"leq6s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">(2,1) on 3x-2y=4? → 6-2=4=RHS ✓ YES</text></g><g id=\"leq6s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"12\" font-weight=\"800\" fill=\"#b85c2a\">(1,2) on x+2y=7? → 1+4=5≠7 ✗ NO</text></g><g id=\"leq6ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">2(1)+3 = 5 = RHS → YES, (1,3) is on the line</text></g>"
+      "anim_svg": "<g id=\"leq6s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Step 1: Assign variables to the unknowns</text></g><g id=\"leq6s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Step 2: Translate → x = y+5000 → x-y-5000=0</text></g><g id=\"leq6s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Step 3: Verify with numbers</text></g><g id=\"leq6ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">x + y = 30</text></g>"
     },
     {
       "id": "leq7",
-      "question": "What does the graph of x = 0 and y = 0 represent?",
-      "question_spoken": "What does the graph of x equals 0 and y equals 0 represent?",
+      "question": "How many solutions does a linear equation in two variables have and why?",
+      "question_spoken": "How many solutions does a linear equation in two variables have and why?",
       "steps": [
-        {"t": "x = 0 means every point on this line has x-coordinate = 0. These are points like (0,1), (0,-2), (0,5) — all on the y-axis! So x = 0 IS the y-axis.", "s": "x equals zero means all points have x coordinate zero. This is the y axis itself."},
-        {"t": "y = 0 means every point has y-coordinate = 0. These are points like (1,0), (-3,0), (5,0) — all on the x-axis! So y = 0 IS the x-axis.", "s": "y equals zero means all points have y coordinate zero. This is the x axis itself."},
-        {"t": "This is a beautiful connection: the axes themselves are linear equations! x = 0 → y-axis. y = 0 → x-axis. And the origin (0,0) is the point where BOTH axes meet.", "s": "The coordinate axes are themselves linear equations. They meet at the origin zero zero."}
+        {"t": "A linear equation in two variables has INFINITELY MANY solutions. For any value you choose for x, you can always find a y that satisfies the equation. There is no restriction!", "s": "For every x value you choose, there is always a corresponding y. So solutions are infinite."},
+        {"t": "Compare: x+5=8 (one variable) has exactly ONE solution, x=3. But x+y=8 (two variables) has infinite solutions: (0,8),(1,7),(2,6),(3,5)... going on forever!", "s": "One variable gives exactly one solution. Two variables give infinitely many."},
+        {"t": "Geometrically: a straight line has infinitely many points. Each point is a solution. Since the line is infinite, the solutions are infinite. This is a fundamental theorem!", "s": "A straight line has infinitely many points. Each is a solution. So solutions are infinite."}
       ],
-      "confirm_question": "The equation x = 0 represents which axis?",
-      "confirm_question_spoken": "The equation x equals 0 represents which axis?",
-      "answers": ["y-axis", "y axis", "the y axis"],
+      "confirm_question": "How many solutions does x + y = 10 have?",
+      "confirm_question_spoken": "How many solutions does x plus y equals 10 have?",
+      "answers": ["infinitely many", "infinite", "infinitely"],
       "nudges": [
-        "x = 0 means the x-coordinate is always zero",
-        "All points with x=0 lie on the vertical axis",
-        "Answer: The y-axis!"
+        "Try x=0, x=1, x=2, x=100 — you always find a y",
+        "The line representing x+y=10 extends infinitely",
+        "Answer: Infinitely many solutions"
       ],
-      "anim_svg": "<g id=\"leq7s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">x=0: all points (0,y) → this IS the y-axis</text></g><g id=\"leq7s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">y=0: all points (x,0) → this IS the x-axis</text></g><g id=\"leq7s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Axes are linear equations! Meet at origin (0,0)</text></g><g id=\"leq7ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">x=0 → y-axis | y=0 → x-axis</text></g>"
+      "anim_svg": "<g id=\"leq7s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">For any x → y=(RHS-ax)/b always exists</text></g><g id=\"leq7s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">x+y=8: (0,8),(1,7),(2,6)... never ends!</text></g><g id=\"leq7s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Infinite line = infinite points = infinite solutions</text></g><g id=\"leq7ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Infinitely many solutions</text></g>"
     },
     {
       "id": "leq8",
-      "question": "Can a single-variable equation be written as a linear equation in two variables?",
-      "question_spoken": "Can a single variable equation be written as a linear equation in two variables?",
+      "question": "What is the standard form and how do you identify a, b, c?",
+      "question_spoken": "What is the standard form of a linear equation and how do you identify a, b and c?",
       "steps": [
-        {"t": "YES! Any equation like 2x = 6 can be written as 2x + 0y = 6. The coefficient of y is zero. It is still a linear equation in two variables — just with b = 0!", "s": "Yes. 2x equals 6 can be written as 2x plus 0y equals 6. The coefficient of y is zero."},
-        {"t": "Graphically: 2x + 0y = 6 → x = 3. This is a VERTICAL LINE passing through all points where x = 3: (3,0), (3,1), (3,-2), (3,100)... infinite solutions!", "s": "The graph of x equals 3 is a vertical line through all points with x coordinate 3."},
-        {"t": "Similarly, 0x + 3y = 9 → y = 3. This is a HORIZONTAL LINE at y = 3. All equations with one variable still have infinitely many solutions as linear equations in two variables!", "s": "And y equals 3 is a horizontal line. Single variable equations still have infinitely many solutions when treated as two-variable equations."}
+        {"t": "Standard form: ax + by + c = 0. Rearrange any linear equation into this form. Example: 2x = 3y − 5. Move all to left: 2x − 3y + 5 = 0. So a=2, b=−3, c=5.", "s": "Bring all terms to the left side to get ax plus by plus c equals zero."},
+        {"t": "Example 2: y = 4x + 7. Rearrange: −4x + y − 7 = 0, or 4x − y + 7 = 0. Example 3: x/2 + y/3 = 1. Multiply by 6: 3x + 2y − 6 = 0. a=3, b=2, c=−6.", "s": "Rearrange to standard form, multiply to clear fractions if needed, then read off a, b, and c."},
+        {"t": "Critical rule: a and b cannot BOTH be zero. At least one must be non-zero. If both are zero, no variable remains — it would not be a linear equation in two variables.", "s": "At least one of a or b must be non-zero for the equation to have two variables."}
       ],
-      "confirm_question": "2x = 10 as a linear equation in two variables. What is the value of x?",
-      "confirm_question_spoken": "2x equals 10 as a linear equation in two variables. What is the value of x?",
-      "answers": ["5", "x=5"],
+      "confirm_question": "Write 2x = 5 − 3y in standard form.",
+      "confirm_question_spoken": "Write 2x equals 5 minus 3y in standard form.",
+      "answers": ["2x+3y-5=0", "2x+3y=5"],
       "nudges": [
-        "Write as 2x + 0y = 10",
-        "This gives x = 5 — a vertical line",
-        "x = 5 for every point on this line, regardless of y"
+        "Move all terms to left: 2x + 3y − 5 = 0",
+        "Compare with ax + by + c = 0",
+        "Answer: 2x + 3y − 5 = 0"
       ],
-      "anim_svg": "<g id=\"leq8s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">2x=6 → 2x+0y=6 → still linear in 2 vars!</text></g><g id=\"leq8s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">x=3: vertical line through (3,0),(3,1),(3,-2)...</text></g><g id=\"leq8s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">0x+3y=9 → y=3: horizontal line at y=3</text></g><g id=\"leq8ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">2x+0y=10 → x=5 (vertical line)</text></g>"
+      "anim_svg": "<g id=\"leq8s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Standard form: ax + by + c = 0</text></g><g id=\"leq8s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">2x=3y-5 → 2x-3y+5=0: a=2,b=-3,c=5</text></g><g id=\"leq8s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">a and b cannot BOTH be zero</text></g><g id=\"leq8ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">2x + 3y - 5 = 0</text></g>"
     },
     {
       "id": "leq9",
-      "question": "What is the graph of y = mx (a line through the origin)?",
-      "question_spoken": "What is the graph of y equals mx, a line through the origin?",
+      "question": "What does the graph of x = a and y = b look like?",
+      "question_spoken": "What does the graph of x equals a and y equals b look like?",
       "steps": [
-        {"t": "An equation of the form y = mx (no constant term) always passes through the ORIGIN (0,0). When x=0, y=0. The origin is always a solution!", "s": "y equals mx always passes through the origin. When x is zero, y is also zero."},
-        {"t": "m is called the SLOPE of the line. It tells how steep the line is. m = 2 means for every 1 unit right, go 2 units up. m = -1 means for every 1 unit right, go 1 unit down.", "s": "m is the slope. m equals 2 means for every 1 step right, go 2 steps up."},
-        {"t": "Example: y = 2x. Points: (0,0), (1,2), (2,4), (-1,-2). Plot them and you get a line through the origin slanting upward. The greater the m, the steeper the line!", "s": "For y equals 2x, the points 0,0 and 1,2 and 2,4 all lie on the same straight line through the origin."}
+        {"t": "x = a (e.g., x=3): VERTICAL line passing through all points with x-coordinate=3. (3,0),(3,1),(3,−5) all lie on it. Parallel to y-axis and perpendicular to x-axis.", "s": "x equals a is a vertical line parallel to the y-axis."},
+        {"t": "y = b (e.g., y=4): HORIZONTAL line through all points with y-coordinate=4. (0,4),(1,4),(−3,4) all lie on it. Parallel to x-axis and perpendicular to y-axis.", "s": "y equals b is a horizontal line parallel to the x-axis."},
+        {"t": "Special: x=0 is the y-axis itself! y=0 is the x-axis itself! y=mx (no constant) passes through origin. y=2x: (0,0),(1,2),(2,4) — all through the origin.", "s": "x equals zero is the y-axis. y equals zero is the x-axis. y equals mx always passes through the origin."}
       ],
-      "confirm_question": "Does y = 3x pass through the origin? Yes or No.",
-      "confirm_question_spoken": "Does y equals 3x pass through the origin?",
-      "answers": ["yes"],
+      "confirm_question": "What is the graph of x = 0?",
+      "confirm_question_spoken": "What is the graph of x equals 0?",
+      "answers": ["y-axis", "the y-axis"],
       "nudges": [
-        "Put x = 0 in y = 3x",
-        "y = 3(0) = 0, so the point is (0,0)",
-        "Yes! y = mx ALWAYS passes through the origin (0,0)"
+        "x=0 means all points with x-coordinate = 0",
+        "All such points lie on the vertical axis",
+        "Answer: The y-axis"
       ],
-      "anim_svg": "<g id=\"leq9s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">y=mx: always passes through origin (0,0)</text></g><g id=\"leq9s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">m = slope: steepness of the line</text></g><g id=\"leq9s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">y=2x: (0,0),(1,2),(2,4),(-1,-2) — through origin</text></g><g id=\"leq9ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">y=3(0)=0 → (0,0) ✓ YES, passes through origin</text></g>"
+      "anim_svg": "<g id=\"leq9s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">x=3 → VERTICAL (parallel to y-axis)</text></g><g id=\"leq9s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">y=4 → HORIZONTAL (parallel to x-axis)</text></g><g id=\"leq9s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">x=0 is y-axis | y=0 is x-axis | y=mx thru origin</text></g><g id=\"leq9ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">x = 0 is the y-axis</text></g>"
     },
     {
       "id": "leq10",
-      "question": "How do you find the value of a variable when a point lies on a given line?",
-      "question_spoken": "How do you find the value of a variable when a point lies on a given line?",
+      "question": "How do you find the value of k if a point lies on a given line?",
+      "question_spoken": "How do you find the value of k if a point lies on a given line?",
       "steps": [
-        {"t": "If a point (a, b) lies on a line, it SATISFIES the equation. So substitute the known coordinate and solve for the unknown one. This is a one-step algebra problem!", "s": "If a point lies on a line, it satisfies the equation. Substitute the known value and solve for the unknown."},
-        {"t": "Example: The point (k, 3) lies on 2x - y = 7. Substitute x=k and y=3: 2k - 3 = 7 → 2k = 10 → k = 5.", "s": "Substituting k and 3 into 2x minus y equals 7 gives 2k minus 3 equals 7, so k equals 5."},
-        {"t": "Always verify: Put (5, 3) back into 2x - y = 7: 2(5) - 3 = 10 - 3 = 7 ✓. The point (5, 3) does indeed lie on the line!", "s": "Always verify by substituting back. 2 times 5 minus 3 equals 7. Confirmed!"}
+        {"t": "If point (2,3) lies on 2x + ky = 12: since (2,3) is a solution, it satisfies the equation. Substitute x=2, y=3: 2(2) + k(3) = 12 → 4 + 3k = 12.", "s": "Substitute the coordinates of the point into the equation."},
+        {"t": "Solve for k: 3k = 12 − 4 = 8 → k = 8/3. So when k=8/3, point (2,3) lies on the line 2x + ky = 12.", "s": "Solve the equation for k. 3k equals 8 gives k equals 8 over 3."},
+        {"t": "This is one of the most common CBSE question types! Key idea: point on line → coordinates satisfy equation → substitute → solve. Three steps always.", "s": "This is a very common CBSE question. Always substitute the given point and solve for the unknown."}
       ],
-      "confirm_question": "If (2, k) lies on the line x + 2y = 8, find k.",
-      "confirm_question_spoken": "If the point 2 comma k lies on the line x plus 2y equals 8, find k.",
-      "answers": ["3", "k=3"],
+      "confirm_question": "Point (1, 4) lies on kx + 2y = 9. Find k.",
+      "confirm_question_spoken": "The point 1 comma 4 lies on kx plus 2y equals 9. Find k.",
+      "answers": ["1", "k=1"],
       "nudges": [
-        "Substitute x=2, y=k into x + 2y = 8",
-        "2 + 2k = 8 → 2k = 6",
-        "k = 3"
+        "Substitute x=1, y=4 into kx + 2y = 9",
+        "k(1) + 2(4) = 9 → k + 8 = 9",
+        "k = 1"
       ],
-      "anim_svg": "<g id=\"leq10s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Point on line → satisfies equation → substitute</text></g><g id=\"leq10s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">(k,3) on 2x-y=7: 2k-3=7 → k=5</text></g><g id=\"leq10s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Verify: 2(5)-3=7 ✓ Confirmed!</text></g><g id=\"leq10ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">2+2k=8 → 2k=6 → k=3</text></g>"
+      "anim_svg": "<g id=\"leq10s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Point on line → substitute coordinates</text></g><g id=\"leq10s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">2(2)+k(3)=12 → 4+3k=12 → k=8/3</text></g><g id=\"leq10s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Most common CBSE type — 3 steps always!</text></g><g id=\"leq10ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">k(1)+2(4)=9 → k+8=9 → k=1</text></g>"
     }
   ],
 
   "practice_questions": [
     {
-      "question": "How many solutions does 3x + 2y = 18 have?",
-      "question_spoken": "How many solutions does 3x plus 2y equals 18 have?",
+      "question": "Which of the following is a linear equation in two variables? A: x2 + y = 3  B: x + y = 5  C: 1/x + y = 2  D: x + 1/y = 3",
+      "question_spoken": "Which is a linear equation in two variables? A: x squared plus y equals 3. B: x plus y equals 5. C: 1 over x plus y equals 2. D: x plus 1 over y equals 3.",
+      "answers": ["b", "x+y=5", "b: x+y=5"],
+      "steps": ["A: x² — power is 2, not 1 — NOT linear", "C: 1/x = x⁻¹ — negative power — NOT linear", "D: 1/y = y⁻¹ — negative power — NOT linear", "B: x+y=5 — both powers are 1 ✓ LINEAR!"],
+      "trick": "For a linear equation, ALL variables must have power exactly 1. No squares, no roots, no fractions with variables in the denominator!",
+      "alt": "The word linear means line. Only equations where all variables have power 1 produce straight lines when graphed."
+    },
+    {
+      "question": "Write the equation 2x = 5 − 3y in standard form ax + by + c = 0.",
+      "question_spoken": "Write 2x equals 5 minus 3y in standard form ax plus by plus c equals zero.",
+      "answers": ["2x+3y-5=0", "2x+3y=5"],
+      "steps": ["Move all terms to left side", "2x − (5−3y) = 0 → 2x + 3y − 5 = 0", "Standard form: a=2, b=3, c=−5"],
+      "trick": "Move everything to the left. Right side must become zero. Be careful with negative signs when moving terms!",
+      "alt": "2x = 5 − 3y. Add 3y to both sides: 2x + 3y = 5. Subtract 5: 2x + 3y − 5 = 0."
+    },
+    {
+      "question": "Find y when x = 2 in the equation 3x + y = 10.",
+      "question_spoken": "Find y when x equals 2 in the equation 3x plus y equals 10.",
+      "answers": ["4", "y=4"],
+      "steps": ["Substitute x=2: 3(2) + y = 10", "6 + y = 10", "y = 10 − 6 = 4"],
+      "trick": "Substitute the given value first, then solve for the other variable. Simple substitution always works!",
+      "alt": "3 times 2 is 6. I need 6 + y = 10. So y must be 4 to balance the equation."
+    },
+    {
+      "question": "Does the point (3, 4) satisfy the equation 2x − y = 2? Yes or No.",
+      "question_spoken": "Does the point 3 comma 4 satisfy the equation 2x minus y equals 2?",
+      "answers": ["yes"],
+      "steps": ["Substitute x=3, y=4 into 2x−y=2", "LHS = 2(3)−4 = 6−4 = 2", "LHS = 2 = RHS ✓ Yes!"],
+      "trick": "Substitution test: put in x and y, calculate LHS. If LHS = RHS, point is ON the line. Never guess!",
+      "alt": "2 times 3 is 6. Then 6 minus 4 is 2. That matches RHS which is also 2. So yes, it satisfies."
+    },
+    {
+      "question": "3 pens cost x rupees each and 2 notebooks cost y rupees each. Total cost is Rs 50. Write the linear equation.",
+      "question_spoken": "3 pens cost x rupees each and 2 notebooks cost y rupees each. Total cost is 50 rupees. Write the linear equation.",
+      "answers": ["3x+2y=50", "3x + 2y = 50", "3x+2y-50=0"],
+      "steps": ["3 pens cost 3x rupees", "2 notebooks cost 2y rupees", "Total = 3x + 2y = 50"],
+      "trick": "Cost = (quantity) × (price). Multiply each item by its price, add them, equal to total. Straightforward!",
+      "alt": "Think: price of pens total plus price of notebooks total equals grand total. 3x + 2y = 50."
+    },
+    {
+      "question": "Find two solutions of the equation x + 2y = 8.",
+      "question_spoken": "Find two solutions of the equation x plus 2y equals 8.",
+      "answers": ["(0,4) and (8,0)", "(0,4)", "(8,0)", "x=0,y=4"],
+      "steps": ["Set x=0: 0+2y=8 → y=4. Solution: (0,4)", "Set y=0: x+0=8 → x=8. Solution: (8,0)", "Both are valid solutions on the line x+2y=8"],
+      "trick": "The easiest trick: always set x=0 to get one solution, then set y=0 to get another. These give the intercept points!",
+      "alt": "x-intercept: set y=0 → x=8 → (8,0). y-intercept: set x=0 → y=4 → (0,4). These two points define the complete line."
+    },
+    {
+      "question": "What is the graph of x = −3?",
+      "question_spoken": "What is the graph of x equals negative 3?",
+      "answers": ["vertical line", "vertical", "line parallel to y-axis"],
+      "steps": ["x=−3 means all points where x-coordinate is −3", "Points: (−3,0),(−3,1),(−3,−2),(−3,100)...", "These form a vertical line parallel to the y-axis"],
+      "trick": "x = constant → VERTICAL line (parallel to y-axis). y = constant → HORIZONTAL line (parallel to x-axis). This pattern NEVER changes!",
+      "alt": "Imagine walking on a path where your x-coordinate is always −3. No matter how far up or down you go, you trace a vertical line."
+    },
+    {
+      "question": "Point (k, 2) lies on the line 3x + 2y = 10. Find k.",
+      "question_spoken": "The point k comma 2 lies on the line 3x plus 2y equals 10. Find k.",
+      "answers": ["2", "k=2"],
+      "steps": ["Substitute x=k, y=2 into 3x+2y=10", "3k + 2(2) = 10 → 3k + 4 = 10", "3k = 6 → k = 2"],
+      "trick": "Point on line → its coordinates satisfy the equation. Substitute both coordinates and solve for k. Always!",
+      "alt": "3k + 4 = 10. Subtract 4 from both sides: 3k = 6. Divide by 3: k = 2."
+    },
+    {
+      "question": "Which is a solution of 2x + y = 7? A: (3,1)  B: (1,5)  C: (2,4)  D: (0,8)",
+      "question_spoken": "Which is a solution of 2x plus y equals 7? A: 3 comma 1. B: 1 comma 5. C: 2 comma 4. D: 0 comma 8.",
+      "answers": ["b", "(1,5)", "1,5"],
+      "steps": ["A: 2(3)+1=7 ✓ Also works! Both A and B are solutions.", "B: 2(1)+5=7 ✓ Correct!", "C: 2(2)+4=8 ≠ 7 ✗", "D: 2(0)+8=8 ≠ 7 ✗"],
+      "trick": "Test each option by substituting into the equation. The answer where LHS=RHS is correct. Always check all options!",
+      "alt": "For B: 2×1=2, then 2+5=7. Equals RHS! So (1,5) is a solution."
+    },
+    {
+      "question": "The equation x + y = 0 passes through which special point?",
+      "question_spoken": "The equation x plus y equals 0 passes through which special point?",
+      "answers": ["origin", "(0,0)", "the origin"],
+      "steps": ["Set x=0: 0+y=0 → y=0. So (0,0) is a solution!", "x+y=0 means y=−x. Other solutions: (1,−1),(2,−2),(−3,3)", "All on a line through the origin (0,0)"],
+      "trick": "Any equation where c=0 (the constant term is zero) always passes through the origin! Check: put (0,0) into ax+by+0=0: you always get 0=0 ✓",
+      "alt": "Substitute (0,0): 0+0=0. True! So the origin lies on this line. Equations with no constant term always pass through origin."
+    },
+    {
+      "question": "Find y when x = 0 in 4x − 3y = 12.",
+      "question_spoken": "Find y when x equals 0 in 4x minus 3y equals 12.",
+      "answers": ["-4", "y=-4", "negative 4"],
+      "steps": ["Substitute x=0: 4(0)−3y=12", "−3y = 12", "y = 12÷(−3) = −4"],
+      "trick": "Setting x=0 gives the y-intercept. Don't forget: dividing a positive number by a negative gives a negative answer!",
+      "alt": "0 minus 3y = 12. So −3y=12. Divide both sides by −3: y=−4. The negative sign is important!"
+    },
+    {
+      "question": "Is x = 5 a linear equation in two variables? Yes or No.",
+      "question_spoken": "Is x equals 5 a linear equation in two variables? Yes or No.",
+      "answers": ["yes"],
+      "steps": ["x=5 can be written as x + 0y − 5 = 0", "Here a=1, b=0, c=−5. Not both zero!", "So YES — x=5 IS a linear equation in two variables"],
+      "trick": "Any equation with just one variable can still be a linear equation in two variables! Just write the missing variable with coefficient zero. x=5 means x+0y=5.",
+      "alt": "The condition is that a and b are not BOTH zero. Here a=1, b=0. Since a is not zero, it qualifies."
+    },
+    {
+      "question": "How many solutions does 3x − 2y = 7 have?",
+      "question_spoken": "How many solutions does 3x minus 2y equals 7 have?",
       "answers": ["infinitely many", "infinite", "infinitely"],
-      "steps": [
-        "A linear equation in two variables always represents a straight line",
-        "A straight line has infinitely many points on it",
-        "Each point is a solution → Infinitely many solutions"
-      ],
-      "trick": "Every linear equation in two variables = straight line = infinite solutions. Never just one or two!",
-      "alt": "Try x=0: y=9. Try x=2: y=6. Try x=4: y=3. You can keep going forever — infinite solutions!"
+      "steps": ["For any x, y = (3x−7)/2 always gives a valid answer", "x=1:y=−2 | x=3:y=1 | x=5:y=4 | x=7:y=7...", "We can keep going forever — infinitely many solutions"],
+      "trick": "ALL linear equations in two variables have infinitely many solutions. This is always true without exception — the line is infinite!",
+      "alt": "A straight line never ends. Every point on the infinite line is a solution. Infinite points = infinite solutions."
     },
     {
-      "question": "Is (1, 1) a solution of 2x + 3y = 5? Yes or No.",
-      "question_spoken": "Is 1 comma 1 a solution of 2x plus 3y equals 5?",
-      "answers": ["yes"],
-      "steps": [
-        "Substitute x=1, y=1 into 2x + 3y = 5",
-        "2(1) + 3(1) = 2 + 3 = 5",
-        "LHS = RHS = 5 → YES, (1,1) is a solution"
-      ],
-      "trick": "Just substitute and check. If LHS equals RHS, the point is on the line.",
-      "alt": "Think of it as a balance: 2×1 + 3×1 = 5. Does this equal the RHS 5? Yes! So it works."
+      "question": "The perimeter of a rectangle is 30 cm. Length is x cm and breadth is y cm. Write the linear equation.",
+      "question_spoken": "The perimeter of a rectangle is 30 cm. Length is x and breadth is y. Write the linear equation.",
+      "answers": ["2x+2y=30", "x+y=15", "2(x+y)=30"],
+      "steps": ["Perimeter of rectangle = 2(length + breadth) = 2(x+y)", "2(x+y) = 30", "Simplify: x + y = 15"],
+      "trick": "Perimeter = 2(l+b). Set equal to given perimeter, then simplify by dividing by 2.",
+      "alt": "2x + 2y = 30. Divide every term by 2: x + y = 15. Both forms are correct answers."
     },
     {
-      "question": "Write the equation: a notebook costs ₹3 more than a pen. (notebook = x, pen = y)",
-      "question_spoken": "Write the equation: a notebook costs 3 rupees more than a pen. Notebook is x, pen is y.",
-      "answers": ["x=y+3", "x = y + 3", "x-y=3", "x - y = 3"],
-      "steps": [
-        "Notebook (x) costs 3 more than pen (y)",
-        "x = y + 3, or equivalently x - y = 3",
-        "Both forms are correct linear equations in two variables"
-      ],
-      "trick": "More than means add. Notebook is MORE, so start with notebook = pen + 3.",
-      "alt": "If a pen costs ₹10, notebook costs ₹13. If pen is ₹20, notebook is ₹23. The difference is always 3: x - y = 3."
-    },
-    {
-      "question": "For x + 2y = 6, find y when x = 0. (y-intercept)",
-      "question_spoken": "For x plus 2y equals 6, find y when x equals 0.",
-      "answers": ["3", "y=3"],
-      "steps": [
-        "Put x = 0: 0 + 2y = 6",
-        "2y = 6 → y = 3",
-        "y-intercept is (0, 3)"
-      ],
-      "trick": "To find y-intercept always put x=0. To find x-intercept always put y=0.",
-      "alt": "Cover the x term (since x=0): you just have 2y = 6. Divide both sides by 2. y = 3."
-    },
-    {
-      "question": "What is the x-intercept of 2x - 3y = 12? (put y=0)",
-      "question_spoken": "What is the x intercept of 2x minus 3y equals 12? Put y equals 0.",
-      "answers": ["6", "x=6", "(6,0)"],
-      "steps": [
-        "Put y = 0: 2x - 3(0) = 12",
-        "2x = 12 → x = 6",
-        "x-intercept is (6, 0)"
-      ],
-      "trick": "x-intercept: put y=0. y-intercept: put x=0. Remember this always!",
-      "alt": "When y=0, the equation becomes 2x = 12. Simple division: x = 6. Plot point (6,0) on the x-axis."
-    },
-    {
-      "question": "Does y = 2x pass through the origin? Yes or No.",
-      "question_spoken": "Does y equals 2x pass through the origin?",
-      "answers": ["yes"],
-      "steps": [
-        "Put x = 0: y = 2(0) = 0",
-        "So point (0, 0) satisfies the equation",
-        "YES — y = mx always passes through origin (0,0)"
-      ],
-      "trick": "Any equation of the form y = mx (no constant term) ALWAYS passes through the origin.",
-      "alt": "If there is no + or - number at the end (no constant), the line goes through origin. y = 2x has no constant, so yes!"
-    },
-    {
-      "question": "What type of line is x = -3?",
-      "question_spoken": "What type of line is x equals negative 3?",
-      "answers": ["vertical", "parallel to y axis", "parallel to y-axis"],
-      "steps": [
-        "x = k is always a vertical line (parallel to y-axis)",
-        "x = -3 means every point has x-coordinate = -3",
-        "Points: (-3, 0), (-3, 1), (-3, -5) — all form a vertical line"
-      ],
-      "trick": "x = constant → vertical line (parallel to y-axis). y = constant → horizontal line (parallel to x-axis).",
-      "alt": "Think: x-axis is horizontal, y-axis is vertical. x = k is parallel to the y-axis, so it's VERTICAL."
-    },
-    {
-      "question": "If (3, k) lies on 4x - y = 9, find k.",
-      "question_spoken": "If the point 3 comma k lies on 4x minus y equals 9, find k.",
-      "answers": ["3", "k=3"],
-      "steps": [
-        "Substitute x=3, y=k into 4x - y = 9",
-        "4(3) - k = 9 → 12 - k = 9",
-        "k = 12 - 9 = 3"
-      ],
-      "trick": "Substitute the known coordinate, then solve for the unknown. It's just simple algebra!",
-      "alt": "12 - k = 9. Think: what do you subtract from 12 to get 9? Answer: 3. So k = 3."
-    },
-    {
-      "question": "The perimeter of a rectangle is 32 cm. Write it as a linear equation if length = x and breadth = y.",
-      "question_spoken": "The perimeter of a rectangle is 32 cm. Write it as a linear equation if length is x and breadth is y.",
-      "answers": ["x+y=16", "x + y = 16", "2x+2y=32", "2(x+y)=32"],
-      "steps": [
-        "Perimeter of rectangle = 2(length + breadth) = 2(x + y)",
-        "2(x + y) = 32",
-        "Simplify: x + y = 16"
-      ],
-      "trick": "Perimeter = 2(l + b). Divide both sides by 2 to get the simplest form: x + y = 16.",
-      "alt": "If length is 10, breadth = 6 (since 10+6=16). If length is 12, breadth = 4. All pairs (x,y) where x+y=16 work!"
-    },
-    {
-      "question": "Represent 3x = 15 as a linear equation in two variables and state what its graph looks like.",
-      "question_spoken": "Represent 3x equals 15 as a linear equation in two variables and state what its graph looks like.",
-      "answers": ["x=5", "vertical line", "vertical line x=5"],
-      "steps": [
-        "Write as 3x + 0y = 15 → x = 5",
-        "This is a vertical line parallel to the y-axis",
-        "Every point on the line has x=5: (5,0), (5,1), (5,-3) etc."
-      ],
-      "trick": "When only x is present (coefficient of y is 0), the graph is always a vertical line x = constant.",
-      "alt": "3x = 15 gives x = 5. No matter what y is, x stays 5. Draw a straight vertical line at x = 5."
-    },
-    {
-      "question": "Which of the following is a linear equation in two variables? A: x²+y=3  B: x+y=7  C: xy=4  D: √x+y=2",
-      "question_spoken": "Which is a linear equation in two variables? A: x squared plus y equals 3. B: x plus y equals 7. C: xy equals 4. D: root x plus y equals 2.",
-      "answers": ["b", "B", "x+y=7"],
-      "steps": [
-        "A: x² has degree 2 → NOT linear",
-        "B: x+y=7 — both variables have degree 1 → LINEAR ✓",
-        "C: xy means degree 2 (product of variables) → NOT linear. D: √x = x^(1/2) → NOT linear"
-      ],
-      "trick": "For a linear equation: all variable powers must be exactly 1. No squares, no products, no roots of variables.",
-      "alt": "Go through each: A fails (x²), B passes (x and y both to power 1), C fails (xy is degree 2), D fails (√x is degree 1/2)."
-    },
-    {
-      "question": "Find the point where the line y = 2x - 1 meets the x-axis.",
-      "question_spoken": "Find the point where the line y equals 2x minus 1 meets the x axis.",
-      "answers": ["(1/2,0)", "(0.5,0)", "x=1/2", "x=0.5"],
-      "steps": [
-        "On the x-axis, y = 0. Put y = 0 in y = 2x - 1",
-        "0 = 2x - 1 → 2x = 1 → x = 1/2",
-        "The line meets x-axis at (1/2, 0)"
-      ],
-      "trick": "Line meets x-axis where y=0. Line meets y-axis where x=0. Remember these two rules always!",
-      "alt": "Set y=0: 2x - 1 = 0. Add 1: 2x = 1. Divide by 2: x = 0.5. Point is (0.5, 0)."
-    },
-    {
-      "question": "Is x = 7 a linear equation in two variables? Yes or No.",
-      "question_spoken": "Is x equals 7 a linear equation in two variables?",
-      "answers": ["yes"],
-      "steps": [
-        "x = 7 can be written as x + 0y = 7",
-        "It is in the form ax + by + c = 0 with a=1, b=0, c=-7",
-        "YES — it is a linear equation in two variables (b can be zero!)"
-      ],
-      "trick": "a and b cannot BOTH be zero, but ONE of them can be zero. x=7 has b=0 which is perfectly fine!",
-      "alt": "The rule says a and b cannot BOTH be zero. Here a=1 (not zero), so it's valid even though b=0."
-    },
-    {
-      "question": "If (a, 2) and (3, b) are both solutions of x + y = 5, find a and b.",
-      "question_spoken": "If a comma 2 and 3 comma b are both solutions of x plus y equals 5, find a and b.",
-      "answers": ["a=3 b=2", "a=3, b=2", "3 and 2"],
-      "steps": [
-        "For (a, 2): a + 2 = 5 → a = 3",
-        "For (3, b): 3 + b = 5 → b = 2",
-        "a = 3, b = 2"
-      ],
-      "trick": "Substitute each point separately. Each gives you one simple equation to solve.",
-      "alt": "Think: what + 2 = 5? Answer: 3. So a=3. What does 3 + ? = 5? Answer: 2. So b=2."
-    },
-    {
-      "question": "The graph of x + y = 7 passes through which of these points? A:(2,5)  B:(3,3)  C:(1,7)  D:(4,2)",
-      "question_spoken": "The graph of x plus y equals 7 passes through which point? A: 2,5. B: 3,3. C: 1,7. D: 4,2.",
-      "answers": ["a", "A", "(2,5)", "2,5"],
-      "steps": [
-        "Check A: 2+5=7 ✓",
-        "Check B: 3+3=6≠7 ✗. Check C: 1+7=8≠7 ✗. Check D: 4+2=6≠7 ✗",
-        "Only A:(2,5) satisfies x+y=7"
-      ],
-      "trick": "Just add the x and y coordinates. Whichever pair sums to 7 is the answer.",
-      "alt": "Which pair of numbers adds up to 7? 2+5=7 ✓. Done!"
+      "question": "Where does the line x + y = 5 cross the y-axis?",
+      "question_spoken": "Where does the line x plus y equals 5 cross the y-axis?",
+      "answers": ["(0,5)", "0,5", "y=5"],
+      "steps": ["The y-axis is where x=0", "Substitute x=0: 0+y=5 → y=5", "The line crosses the y-axis at (0,5)"],
+      "trick": "Y-intercept → set x=0. X-intercept → set y=0. This is the fastest way to find intercepts in any exam!",
+      "alt": "The y-axis has x=0 everywhere. Put x=0 into x+y=5: y=5. So the crossing point is (0,5)."
     }
   ]
 }

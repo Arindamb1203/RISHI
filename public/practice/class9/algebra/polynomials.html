@@ -5,12 +5,351 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="rishi-board" content="cbse">
 <meta name="rishi-class" content="9">
-<title>Practice — Polynomials | RISHI</title>
-<!-- SHELL: Content to be built chapter by chapter -->
+<title>Practice – Polynomials | RISHI</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Nunito',sans-serif;background:#0d0d1a;min-height:100vh;color:#fff;overflow-x:hidden;}
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:10px 20px;background:rgba(0,0,0,.5);border-bottom:1px solid rgba(255,215,0,.2);position:sticky;top:0;z-index:200;gap:10px;flex-wrap:wrap;}
+.topbar-left{display:flex;gap:8px;align-items:center;}
+.topbar-right{display:flex;gap:8px;align-items:center;}
+.tbtn{padding:8px 16px;border-radius:20px;border:none;cursor:pointer;font-family:'Nunito',sans-serif;font-weight:700;font-size:13px;}
+.tbtn-back{background:rgba(255,215,0,.15);border:1px solid #ffd700;color:#ffd700;}
+.tbtn-break{background:rgba(255,107,107,.2);border:1px solid #ff6b6b;color:#ff6b6b;position:relative;}
+.break-menu{display:none;position:absolute;top:40px;right:0;background:#1a1a2e;border:1px solid rgba(255,255,255,.15);border-radius:10px;min-width:160px;z-index:300;}
+.break-menu.show{display:block;}
+.break-opt{padding:10px 16px;cursor:pointer;font-size:13px;border-bottom:1px solid rgba(255,255,255,.05);}
+.break-opt:hover{background:rgba(255,215,0,.1);}
+.session-timer{font-family:'Courier New',monospace;font-size:14px;color:#aaa;background:rgba(0,0,0,.3);padding:6px 12px;border-radius:12px;}
+.coins-badge{background:linear-gradient(135deg,#ffd700,#ffed4e);color:#1a1a2e;padding:6px 14px;border-radius:20px;font-weight:900;font-size:14px;display:flex;align-items:center;gap:5px;}
+.main-layout{display:grid;grid-template-columns:220px 1fr 300px;gap:16px;padding:16px;max-width:1400px;margin:0 auto;}
+@media(max-width:1100px){.main-layout{grid-template-columns:1fr;}}
+.left-panel{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:16px;height:fit-content;position:sticky;top:70px;}
+.lp-chapter{font-size:11px;text-transform:uppercase;letter-spacing:2px;color:rgba(255,255,255,.4);margin-bottom:6px;}
+.lp-title{font-size:15px;font-weight:800;color:#ffd700;margin-bottom:16px;line-height:1.3;}
+.lp-stat{margin-bottom:12px;}
+.lp-stat-label{font-size:11px;color:rgba(255,255,255,.4);margin-bottom:4px;}
+.lp-stat-val{font-size:22px;font-weight:900;color:#fff;}
+.lp-stat-sub{font-size:11px;color:rgba(255,255,255,.4);}
+.progress-dots{display:flex;flex-wrap:wrap;gap:5px;margin-top:12px;}
+.pdot{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.4);}
+.pdot.active{background:#ffd700;color:#1a1a2e;border-color:#ffd700;}
+.pdot.correct{background:#2ecc71;color:#fff;border-color:#2ecc71;}
+.pdot.wrong{background:#e74c3c;color:#fff;border-color:#e74c3c;}
+.streak-bar{margin-top:14px;}
+.streak-label{font-size:11px;color:rgba(255,255,255,.4);margin-bottom:6px;}
+.streak-pips{display:flex;gap:4px;}
+.spip{width:28px;height:8px;border-radius:4px;background:rgba(255,255,255,.1);}
+.spip.filled{background:#2ecc71;}
+.q-area{display:flex;flex-direction:column;gap:14px;}
+.q-card{border-radius:18px;padding:28px;position:relative;overflow:hidden;min-height:160px;border:1px solid rgba(255,255,255,.1);}
+.q-card-inner{position:relative;z-index:2;}
+.q-badge{font-size:10px;text-transform:uppercase;letter-spacing:2px;color:rgba(255,255,255,.5);margin-bottom:8px;}
+.q-text{font-size:20px;font-weight:700;line-height:1.5;margin-bottom:6px;}
+.attempt-info{display:flex;gap:12px;font-size:12px;color:rgba(255,255,255,.5);}
+.attempt-info span{background:rgba(255,255,255,.08);padding:3px 10px;border-radius:10px;}
+.earn-badge{background:rgba(255,215,0,.15);color:#ffd700;border:1px solid rgba(255,215,0,.3);}
+.tbg-0{background:linear-gradient(135deg,#0a2a4a,#1a5276);}
+.tbg-1{background:linear-gradient(135deg,#1b2838,#2d6a4f);}
+.tbg-2{background:linear-gradient(135deg,#2c1810,#922b21);}
+.tbg-3{background:linear-gradient(135deg,#0d1b2a,#1f3a5c);}
+.tbg-4{background:linear-gradient(135deg,#1a0a2e,#4a235a);}
+.tbg-5{background:linear-gradient(135deg,#1c2237,#0e4d5c);}
+.tbg-6{background:linear-gradient(135deg,#2a1e00,#7d6608);}
+.tbg-7{background:linear-gradient(135deg,#0a1628,#154360);}
+.tbg-8{background:linear-gradient(135deg,#1a2c1a,#1d5e35);}
+.tbg-9{background:linear-gradient(135deg,#2c0a0a,#7b241c);}
+.tbg-10{background:linear-gradient(135deg,#0d0d2e,#283593);}
+.tbg-11{background:linear-gradient(135deg,#0a2010,#145a32);}
+.tbg-12{background:linear-gradient(135deg,#1a0d00,#784212);}
+.tbg-13{background:linear-gradient(135deg,#00141a,#0e6655);}
+.tbg-14{background:linear-gradient(135deg,#1a0028,#6c3483);}
+.destination-tag{position:absolute;bottom:12px;right:16px;font-size:10px;color:rgba(255,255,255,.3);font-style:italic;}
+.instruction-box{background:rgba(255,215,0,.06);border:1px solid rgba(255,215,0,.2);border-radius:12px;padding:14px 18px;font-size:13px;font-weight:700;color:#ffd700;min-height:40px;}
+.answer-wrap{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:20px;}
+.answer-input{width:100%;padding:14px 18px;background:rgba(0,0,0,.4);border:2px solid rgba(255,215,0,.3);border-radius:30px;color:#fff;font-size:17px;font-family:'Nunito',sans-serif;outline:none;transition:.2s;}
+.answer-input:focus{border-color:#ffd700;}
+.submit-btn{width:100%;margin-top:10px;padding:13px;background:linear-gradient(135deg,#ffd700,#f39c12);color:#1a1a2e;border:none;border-radius:30px;font-size:16px;font-weight:900;cursor:pointer;font-family:'Nunito',sans-serif;transition:.15s;}
+.submit-btn:hover{opacity:.9;transform:translateY(-1px);}
+.submit-btn:disabled{opacity:.4;cursor:not-allowed;transform:none;}
+.feedback-box{border-radius:16px;padding:20px;display:none;}
+.feedback-box.correct{display:block;background:rgba(46,204,113,.1);border:1px solid rgba(46,204,113,.4);}
+.feedback-box.wrong{display:block;background:rgba(231,76,60,.08);border:1px solid rgba(231,76,60,.3);}
+.fb-title{font-size:18px;font-weight:800;margin-bottom:12px;}
+.feedback-box.correct .fb-title{color:#2ecc71;}
+.feedback-box.wrong .fb-title{color:#e74c3c;}
+.steps-list{background:rgba(0,0,0,.3);border-radius:10px;padding:14px;margin:10px 0;}
+.step-item{padding:6px 0 6px 22px;position:relative;font-size:14px;line-height:1.5;border-bottom:1px solid rgba(255,255,255,.05);}
+.step-item:last-child{border-bottom:none;}
+.step-item::before{content:"→";position:absolute;left:0;color:#ffd700;}
+.trick-box{background:rgba(255,215,0,.08);border:1px solid rgba(255,215,0,.2);border-radius:8px;padding:10px 14px;margin-top:10px;font-size:13px;}
+.trick-box strong{color:#ffd700;}
+.clear-check{margin-top:16px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+.clear-check span{font-size:14px;font-weight:700;flex:1;}
+.btn-yes{padding:10px 22px;background:#2ecc71;color:#fff;border:none;border-radius:20px;cursor:pointer;font-weight:700;font-size:14px;font-family:'Nunito',sans-serif;}
+.btn-no{padding:10px 22px;background:#e74c3c;color:#fff;border:none;border-radius:20px;cursor:pointer;font-weight:700;font-size:14px;font-family:'Nunito',sans-serif;}
+.try-again-btn{display:none;width:100%;margin-top:12px;padding:14px;background:#c0392b;color:#ffd700;border:none;border-radius:14px;font-size:17px;font-weight:900;cursor:pointer;letter-spacing:1px;font-family:'Nunito',sans-serif;border:2px solid rgba(255,215,0,.3);}
+.try-again-btn:hover{background:#e74c3c;}
+@keyframes coinFall{0%{transform:translateY(-60px) scale(1.2);opacity:1;}80%{opacity:1;}100%{transform:translateY(0) scale(0.5);opacity:0;}}
+.coin-anim{position:fixed;top:50px;right:80px;font-size:28px;z-index:1000;animation:coinFall 1s ease-in forwards;pointer-events:none;}
+.praise-word{font-size:28px;color:#ffd700;font-weight:900;font-style:italic;}
+.praise-meta{font-size:12px;color:rgba(255,255,255,.5);margin-top:4px;}
+.next-btn{width:100%;margin-top:12px;padding:13px;background:rgba(255,215,0,.15);border:1px solid #ffd700;color:#ffd700;border-radius:14px;font-size:15px;font-weight:900;cursor:pointer;font-family:'Nunito',sans-serif;display:none;}
+.next-btn.show{display:block;}
+.right-panel{display:flex;flex-direction:column;gap:14px;}
+.rishika-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:16px;text-align:center;}
+.rishika-name-tag{font-size:11px;letter-spacing:2px;color:rgba(255,215,0,.7);text-transform:uppercase;margin-bottom:6px;}
+.rishika-bubble{background:rgba(255,215,0,.08);border-radius:12px;padding:10px 14px;font-size:13px;line-height:1.5;min-height:48px;border:1px solid rgba(255,215,0,.15);}
+.rough-card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:16px;flex:1;}
+.rough-title{font-size:12px;text-transform:uppercase;letter-spacing:2px;color:rgba(255,255,255,.3);margin-bottom:8px;}
+.rough-area{width:100%;min-height:280px;background:#f8f5ec;color:#333;border-radius:10px;padding:14px;font-family:'Courier New',monospace;font-size:14px;line-height:1.8;border:none;outline:none;resize:vertical;}
+.break-overlay{display:none;position:fixed;inset:0;background:#0a0a1a;z-index:500;flex-direction:column;align-items:center;justify-content:center;text-align:center;}
+.break-overlay.show{display:flex;}
+.break-type{font-size:20px;color:rgba(255,255,255,.6);margin-bottom:10px;}
+.break-clock{font-family:'Courier New',monospace;font-size:96px;font-weight:700;color:#ffd700;margin-bottom:30px;}
+.end-break-btn{padding:16px 48px;background:#2ecc71;color:#fff;border:none;border-radius:30px;font-size:20px;font-weight:700;cursor:pointer;font-family:'Nunito',sans-serif;}
+.comp-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:600;align-items:center;justify-content:center;}
+.comp-overlay.show{display:flex;}
+.comp-box{background:linear-gradient(135deg,#0d0d1a,#1a1a2e);border:2px solid #ffd700;border-radius:24px;padding:48px;text-align:center;max-width:500px;width:90%;}
+.comp-icon{font-size:64px;margin-bottom:12px;}
+.comp-title{font-size:28px;font-weight:900;color:#ffd700;margin-bottom:8px;}
+.comp-msg{color:rgba(255,255,255,.7);font-size:15px;line-height:1.6;margin-bottom:20px;}
+.comp-foreign{font-size:22px;color:#4ecdc4;font-style:italic;margin-bottom:24px;}
+.comp-btn{padding:14px 40px;background:linear-gradient(135deg,#ffd700,#f39c12);color:#1a1a2e;border:none;border-radius:24px;font-size:16px;font-weight:900;cursor:pointer;font-family:'Nunito',sans-serif;}
+@keyframes toastIn{0%{transform:translateX(120%);opacity:0;}20%{transform:translateX(0);opacity:1;}80%{transform:translateX(0);opacity:1;}100%{transform:translateX(120%);opacity:0;}}
+.streak-toast{position:fixed;bottom:30px;right:20px;background:#2ecc71;color:#fff;padding:14px 22px;border-radius:14px;font-weight:900;font-size:15px;z-index:700;animation:toastIn 3.5s ease forwards;pointer-events:none;}
+.tap-overlay{position:fixed;inset:0;background:rgba(10,10,26,0.92);z-index:999;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;}
+.tap-overlay.hidden{display:none;}
+.tap-circle{width:110px;height:110px;border-radius:50%;background:linear-gradient(135deg,#ffd700,#f39c12);display:flex;align-items:center;justify-content:center;font-size:42px;margin-bottom:20px;box-shadow:0 0 40px rgba(255,215,0,0.5);animation:tapPulse 1.4s ease-in-out infinite;}
+@keyframes tapPulse{0%,100%{transform:scale(1);}50%{transform:scale(1.08);}}
+.tap-text{color:#fff;font-family:'Nunito',sans-serif;font-size:20px;font-weight:800;letter-spacing:2px;}
+.tap-sub{color:rgba(255,255,255,0.5);font-size:13px;margin-top:8px;}
+</style>
+<script src="/rishi-sync.js"></script>
 <script src="/rishi-core.js"></script>
+<script src="/rishi-presence.js"></script>
 </head>
 <body>
-<!-- Polynomials | Class 9 | CBSE | Practice Page -->
-<!-- TODO: Build full practice page content here -->
+<div class="tap-overlay" id="tapOverlay" onclick="startPractice()">
+  <div class="tap-circle">▶</div>
+  <div class="tap-text">TAP TO BEGIN</div>
+  <div class="tap-sub">Sound will be enabled</div>
+</div>
+<div class="topbar">
+  <div class="topbar-left">
+    <button class="tbtn tbtn-back" onclick="backToSyllabus()">← Syllabus</button>
+    <div style="font-family:'Orbitron',sans-serif;font-size:11px;letter-spacing:2px;color:rgba(255,215,0,.6);">🔣 PRACTICE</div>
+  </div>
+  <span class="session-timer" id="sessionTimer">00:00</span>
+  <div class="topbar-right">
+    <div style="position:relative;">
+      <button class="tbtn tbtn-break" onclick="toggleBreakMenu()">⏸ Break ▾</button>
+      <div class="break-menu" id="breakMenu">
+        <div class="break-opt" onclick="startBreak('Water')">💧 Water</div>
+        <div class="break-opt" onclick="startBreak('Washroom')">🚻 Washroom</div>
+        <div class="break-opt" onclick="startBreak('Physical Game')">🏃 Physical Game</div>
+        <div class="break-opt" onclick="startBreak('Play with me')">🎮 Play with me</div>
+      </div>
+    </div>
+    <div class="coins-badge">🪙 <span id="coinCount">0</span></div>
+  </div>
+</div>
+<div class="main-layout">
+  <div class="left-panel">
+    <div class="lp-chapter">Class 9 · Chapter 2</div>
+    <div class="lp-title">Polynomials</div>
+    <div class="lp-stat">
+      <div class="lp-stat-label">Question</div>
+      <div class="lp-stat-val"><span id="qNumDisp">1</span><span style="font-size:14px;color:rgba(255,255,255,.3);">/15</span></div>
+    </div>
+    <div class="lp-stat">
+      <div class="lp-stat-label">Correct Streak</div>
+      <div class="lp-stat-val" id="streakNum">0</div>
+      <div class="lp-stat-sub">Need 5 to unlock exam</div>
+    </div>
+    <div class="lp-stat">
+      <div class="lp-stat-label">Correct Total</div>
+      <div class="lp-stat-val" id="totalCorr">0</div>
+    </div>
+    <div class="streak-bar">
+      <div class="streak-label">Streak progress</div>
+      <div class="streak-pips" id="streakPips"></div>
+    </div>
+    <div class="progress-dots" id="progressDots"></div>
+  </div>
+  <div class="q-area">
+    <div class="q-card tbg-0" id="qCard">
+      <div class="q-card-inner">
+        <div class="q-badge" id="qBadge">Question 1 of 15</div>
+        <div class="q-text" id="qText">Loading...</div>
+        <div class="attempt-info" style="margin-top:8px;">
+          <span id="attemptNum">Attempt: 1</span>
+          <span class="earn-badge" id="earnCoins">5 coins if correct</span>
+        </div>
+      </div>
+      <div class="destination-tag" id="destTag">🌍 Paris, France</div>
+    </div>
+    <div class="instruction-box" id="instrBox"></div>
+    <div class="answer-wrap">
+      <input type="text" class="answer-input" id="answerInput"
+        placeholder="Type your answer here..."
+        onkeydown="if(event.key==='Enter')submitAnswer();">
+      <button class="submit-btn" id="submitBtn" onclick="submitAnswer()">Submit Answer ▶</button>
+    </div>
+    <div class="feedback-box" id="feedbackBox"></div>
+    <button class="next-btn" id="nextBtn" onclick="nextQ()">Next Question ▶</button>
+  </div>
+  <div class="right-panel">
+    <div class="rishika-card">
+      <div class="rishika-name-tag">Rishika</div>
+      <div id="rishika-avatar"></div>
+      <div class="rishika-bubble" id="rishikaBubble">Ready for Polynomials practice! 🔣</div>
+    </div>
+    <div class="rough-card">
+      <div class="rough-title">📝 Rough Work</div>
+      <textarea class="rough-area" placeholder="Do all working here..."></textarea>
+    </div>
+  </div>
+</div>
+<div class="break-overlay" id="breakOverlay">
+  <div class="break-type" id="breakType">Break</div>
+  <div class="break-clock" id="breakClock">00:00</div>
+  <button class="end-break-btn" onclick="endBreak()">End Break ▶</button>
+</div>
+<div class="comp-overlay" id="compOverlay">
+  <div class="comp-box">
+    <div class="comp-icon" id="compIcon">🏆</div>
+    <div class="comp-title" id="compTitle">Session Complete!</div>
+    <div class="comp-msg" id="compMsg"></div>
+    <div class="comp-foreign" id="compForeign"></div>
+    <button class="comp-btn" onclick="backToSyllabus()">Back to Syllabus</button>
+  </div>
+</div>
+<script>
+var CHAP_ID=2;
+var QB=[
+  {q:"Which of the following is NOT a polynomial? A: x²+3  B: √x+1  C: 3x³-2  D: 7",qs:"Which is not a polynomial: A x squared plus 3, B root x plus 1, C 3x cubed minus 2, D 7?",ans:["b","b: √x+1","root x","option b"],steps:["A polynomial needs all variable exponents to be whole numbers","√x = x^(1/2) — exponent is 1/2, not a whole number","Answer: B — √x+1 is NOT a polynomial"],trick:"Quick check: any square root of a variable makes it NOT a polynomial. √x = x^(1/2) — fraction power!",alt:"Think: can every term's variable be written with a whole number power? √x = x^(0.5). Not whole. NOT a polynomial."},
+  {q:"What is the degree of 5x³ + 4x² + 7x?",qs:"What is the degree of 5x cubed plus 4x squared plus 7x?",ans:["3","three"],steps:["Find the highest power of x in the polynomial","Powers present: 3, 2, 1","Highest power = 3, so degree = 3"],trick:"Degree = highest power of the variable. Scan all terms, pick the biggest exponent.",alt:"Write out all powers of x: x³, x², x¹. The biggest is 3. That is the degree."},
+  {q:"Find the zero of p(x) = 3x - 6.",qs:"Find the zero of p of x equals 3x minus 6.",ans:["2","x=2","x = 2"],steps:["Set p(x) = 0: 3x - 6 = 0","3x = 6","x = 2. Verify: p(2) = 6-6 = 0 ✓"],trick:"Zero = value that makes polynomial equal zero. Set it to 0 and solve!",alt:"Think: what value of x makes 3x equal to 6? That is x = 2."},
+  {q:"Using Remainder Theorem, find the remainder when x³+3x²+3x+1 is divided by (x+1).",qs:"Find the remainder when x cubed plus 3x squared plus 3x plus 1 is divided by x plus 1.",ans:["0","zero","remainder 0","remainder is 0"],steps:["Remainder Theorem: substitute x = -1 (zero of x+1)","p(-1) = (-1)³ + 3(-1)² + 3(-1) + 1","= -1 + 3 - 3 + 1 = 0"],trick:"For (x+a), substitute x = -a. For (x-a), substitute x = a. Then just calculate p(that value).",alt:"p(-1) = -1 + 3 - 3 + 1. Add carefully: (-1+3)=2, (2-3)=-1, (-1+1)=0. Remainder = 0."},
+  {q:"Is (x-2) a factor of p(x) = x³-4x²+x+6? Find p(2).",qs:"Is x minus 2 a factor of x cubed minus 4x squared plus x plus 6? Find p of 2.",ans:["0","yes","yes p(2)=0"],steps:["Factor Theorem: (x-2) is a factor if p(2) = 0","p(2) = 8 - 16 + 2 + 6","= 0. Yes, (x-2) IS a factor!"],trick:"Factor Theorem: substitute the zero of the divisor. Zero result = confirmed factor!",alt:"p(2): 2³=8, -4×4=-16, +2, +6. Sum: 8-16+2+6 = 0. Since it is zero, yes it is a factor."},
+  {q:"Expand (x+3)² using identity.",qs:"Expand x plus 3 whole squared.",ans:["x²+6x+9","x^2+6x+9","x squared+6x+9"],steps:["Use (a+b)² = a² + 2ab + b²","Here a=x, b=3: x² + 2(x)(3) + 3²","= x² + 6x + 9"],trick:"(a+b)² = a² + 2ab + b². Middle term is TWICE the product of a and b.",alt:"Think of (x+3)(x+3). FOIL: x²+3x+3x+9 = x²+6x+9."},
+  {q:"Factorise: x² + 5x + 6",qs:"Factorise x squared plus 5x plus 6.",ans:["(x+2)(x+3)","(x+3)(x+2)"],steps:["Need two numbers with product 6 and sum 5","2 × 3 = 6, 2 + 3 = 5 ✓","Answer: (x+2)(x+3)"],trick:"Product = constant term, Sum = coefficient of x. Find the pair, write the factors directly!",alt:"Trial: factors of 6 are (1,6), (2,3). Which adds to 5? → (2,3). So factors are (x+2)(x+3)."},
+  {q:"Evaluate 99³ using identity (a-b)³.",qs:"Evaluate 99 cubed using the identity.",ans:["970299"],steps:["Write 99 = 100-1, so 99³ = (100-1)³","= 100³ - 3(100²)(1) + 3(100)(1²) - 1³","= 1000000 - 30000 + 300 - 1 = 970299"],trick:"(a-b)³ = a³ - 3a²b + 3ab² - b³. For 99=100-1: huge numbers become easy!",alt:"Step by step: 100³=1000000. Minus 3×10000=30000. Plus 300. Minus 1. Count carefully!"},
+  {q:"If x+y+z=0, find x³+y³+z³.",qs:"If x plus y plus z equals zero, find x cubed plus y cubed plus z cubed.",ans:["3xyz","3 xyz","equals 3xyz"],steps:["Identity: x³+y³+z³-3xyz = (x+y+z)(x²+y²+z²-xy-yz-zx)","Since x+y+z=0, right side = 0","So x³+y³+z³ = 3xyz"],trick:"This is a famous result: if the sum is zero, the sum of cubes = 3 × product of all three!",alt:"The identity gives (x+y+z) × (something). If x+y+z=0, then zero times anything = zero. So x³+y³+z³ = 3xyz."},
+  {q:"Classify: x - x³. Is it linear, quadratic, or cubic?",qs:"Classify x minus x cubed as linear, quadratic or cubic.",ans:["cubic","it is cubic"],steps:["Find the degree: highest power of x in x - x³","Powers: 1 and 3. Highest = 3","Degree 3 → Cubic polynomial"],trick:"Cubic = degree 3. Look for x³ term. If present, it is cubic regardless of other terms.",alt:"x - x³ = -x³ + x. The leading term has power 3. Degree 3 = cubic."},
+  {q:"Find the remainder when p(x) = x³-1 is divided by (x-1).",qs:"Find the remainder when x cubed minus 1 is divided by x minus 1.",ans:["0","zero"],steps:["Remainder Theorem: substitute x = 1","p(1) = 1³ - 1 = 1 - 1","= 0. Remainder is 0."],trick:"For (x-1), always substitute x=1. Here p(1) = 0 means (x-1) is actually a FACTOR!",alt:"Think of difference of cubes: x³-1 = (x-1)(x²+x+1). So (x-1) divides it exactly, remainder = 0."},
+  {q:"What is the zero of the polynomial p(x) = cx + d (c ≠ 0)?",qs:"What is the zero of p of x equals cx plus d?",ans:["-d/c","negative d over c","x = -d/c"],steps:["Set cx + d = 0","cx = -d","x = -d/c"],trick:"For any linear polynomial ax+b, zero = -b/a. Negative of constant, divided by coefficient of x.",alt:"Solve for x directly: cx = -d, divide both sides by c. x = -d/c."},
+  {q:"Expand: (2x+3y)²",qs:"Expand 2x plus 3y whole squared.",ans:["4x²+12xy+9y²","4x^2+12xy+9y^2"],steps:["(a+b)² = a²+2ab+b² with a=2x, b=3y","(2x)² + 2(2x)(3y) + (3y)²","= 4x² + 12xy + 9y²"],trick:"Square first term, twice the product of both terms, square last term. Don't forget the 2!",alt:"(2x)²=4x², 2×2x×3y=12xy, (3y)²=9y². Add them: 4x²+12xy+9y²."},
+  {q:"If p(x) = x²-5x+6, find p(2) + p(3).",qs:"For p of x equals x squared minus 5x plus 6, find p of 2 plus p of 3.",ans:["0","zero"],steps:["p(2) = 4-10+6 = 0","p(3) = 9-15+6 = 0","p(2)+p(3) = 0+0 = 0"],trick:"Both 2 and 3 are zeroes of x²-5x+6 = (x-2)(x-3)! Zeroes always give p(x)=0.",alt:"Substitute: p(2)=4-10+6=0 and p(3)=9-15+6=0. Sum = 0. Both are roots of this quadratic!"},
+  {q:"Factorise: x³ + 8 (hint: sum of cubes)",qs:"Factorise x cubed plus 8 using sum of cubes.",ans:["(x+2)(x²-2x+4)"],steps:["x³+8 = x³+2³ — this is sum of cubes!","Formula: a³+b³ = (a+b)(a²-ab+b²)","= (x+2)(x²-2x+4)"],trick:"a³+b³ = (a+b)(a²-ab+b²). Note: the middle term inside the bracket is NEGATIVE!",alt:"8 = 2³, so a=x, b=2. Apply: (x+2)(x²-x×2+2²) = (x+2)(x²-2x+4)."}
+];
+
+var voices=[],selVoice=null;
+function initVoices(cb){function load(){voices=window.speechSynthesis.getVoices();var pref=['Riya','Heera','Priya','Aditi','Zira','Samantha','Google UK English Female'];for(var p of pref){for(var v of voices){if(v.name.includes(p)||v.lang.includes(p)){selVoice=v;break;}}if(selVoice)break;}if(!selVoice&&voices.length)selVoice=voices.find(function(v){return v.lang.startsWith('en');})||voices[0];if(cb)cb();}if(window.speechSynthesis.getVoices().length>0)load();else{window.speechSynthesis.onvoiceschanged=load;setTimeout(function(){if(!selVoice)load();},1000);}}
+function say(txt,rate,pitch){_unlockTTS();window.speechSynthesis.cancel();var u=new SpeechSynthesisUtterance(txt);if(selVoice)u.voice=selVoice;u.rate=rate||0.88;u.pitch=pitch||1.05;u.lang='en-IN';window.speechSynthesis.speak(u);}
+var _ttsUnlocked=false;
+function _unlockTTS(){if(_ttsUnlocked)return;_ttsUnlocked=true;var u=new SpeechSynthesisUtterance('');u.volume=0;window.speechSynthesis.speak(u);}
+document.addEventListener('click',_unlockTTS,{once:true});
+
+var idx=0,attemptNo=0,correctStreak=0,totalCorrect=0,sessionOver=false;
+var coins=parseInt(localStorage.getItem('rishi_coins')||'0');
+var answered=[];
+var breakInterval=null,sessionInterval=null,sessionSecs=0;
+var DESTINATIONS=['Paris, France','Bali, Indonesia','Machu Picchu, Peru','Santorini, Greece','Kyoto, Japan','Grand Canyon, USA','Amalfi Coast, Italy','Swiss Alps','Maldives','Rajasthan, India','Cape Town, S. Africa','New Zealand Fjords','Amazon Rainforest','Iceland Aurora','Dubai City'];
+var PRAISES=[{word:'Magnifique!',lang:'French',mean:'Magnificent!'},{word:'Bravissimo!',lang:'Italian',mean:'Very well done!'},{word:'Wunderbar!',lang:'German',mean:'Wonderful!'},{word:'Shabash!',lang:'Hindi',mean:'Well done!'},{word:'Felicitaciones!',lang:'Spanish',mean:'Congratulations!'},{word:'Ausgezeichnet!',lang:'German',mean:'Excellent!'},{word:'Parabens!',lang:'Portuguese',mean:'Congratulations!'},{word:'Fantastique!',lang:'French',mean:'Fantastic!'},{word:'Bravissimo!',lang:'Italian',mean:'Brilliant!'},{word:'Marvellous!',lang:'English',mean:'Marvellous!'}];
+function G(id){return document.getElementById(id);}
+function init(){
+  rishiCheckPlan(CHAP_ID);
+  if(!rishiIsExplainDone(CHAP_ID)){window.location.href='/syllabus.html';return;}
+  coins=parseInt(localStorage.getItem('rishi_coins')||'0');
+  updateCoins();answered=new Array(QB.length).fill(null);
+  renderDots();renderStreak();
+  initVoices(function(){loadQ(0);});rInit();
+  sessionInterval=setInterval(function(){sessionSecs++;var m=Math.floor(sessionSecs/60).toString().padStart(2,'0');var s=(sessionSecs%60).toString().padStart(2,'0');var el=G('sessionTimer');if(el)el.textContent=m+':'+s;},1000);
+}
+function loadQ(i){
+  if(i>=QB.length){onComplete();return;}
+  idx=i;attemptNo=0;
+  var q=QB[i];
+  G('qCard').className='q-card tbg-'+(i%15);
+  G('qBadge').textContent='Question '+(i+1)+' of '+QB.length;
+  G('qText').innerHTML=q.q;
+  G('destTag').textContent='🌍 '+DESTINATIONS[i%DESTINATIONS.length];
+  G('attemptNum').textContent='Attempt: 1';
+  G('earnCoins').textContent='5 coins if correct';
+  G('answerInput').value='';G('answerInput').disabled=false;G('submitBtn').disabled=false;
+  G('feedbackBox').className='feedback-box';G('nextBtn').className='next-btn';
+  typeInstruction('Work it out in the rough area. Then type your answer below.');
+  setRishika('Ready for question '+(i+1)+'! You can do it! 🔣');
+  if(idx>0)setTimeout(function(){say(q.qs||q.q.replace(/<[^>]+>/g,''));},400);
+  renderDots();G('qNumDisp').textContent=i+1;
+}
+var typeTimer=null;
+function typeInstruction(txt){var el=G('instrBox');el.textContent='';if(typeTimer)clearInterval(typeTimer);var i=0;typeTimer=setInterval(function(){if(i<txt.length){el.textContent+=txt[i];i++;}else clearInterval(typeTimer);},35);}
+function submitAnswer(){var raw=G('answerInput').value.trim();if(!raw){G('answerInput').focus();return;}attemptNo++;G('attemptNum').textContent='Attempt: '+attemptNo;var q=QB[idx];var userClean=raw.toLowerCase().replace(/\s+/g,'');var ok=q.ans.some(function(a){var ac=a.toLowerCase().replace(/\s+/g,'');return userClean===ac||userClean.includes(ac)||ac.includes(userClean);});if(ok){handleCorrect(q);}else{handleWrong(q,raw);}}
+function handleCorrect(q){
+  correctStreak++;totalCorrect++;G('streakNum').textContent=correctStreak;G('totalCorr').textContent=totalCorrect;
+  if(attemptNo===1){coins+=5;localStorage.setItem('rishi_coins',coins);updateCoins();spawnCoin();}
+  G('earnCoins').textContent=attemptNo===1?'✓ +5 coins':'✓ Correct!';
+  answered[idx]='correct';renderDots();renderStreak();
+  var p=PRAISES[Math.floor(Math.random()*PRAISES.length)];
+  G('feedbackBox').className='feedback-box correct';
+  G('feedbackBox').innerHTML='<div class="fb-title">✓ Correct!</div><div class="praise-word">'+p.word+'</div><div class="praise-meta">'+p.lang+' — "'+p.mean+'"</div>';
+  G('nextBtn').className='next-btn show';setRishika('Excellent! '+p.word+' 🎉');G('answerInput').disabled=true;G('submitBtn').disabled=true;
+  if(correctStreak>=5&&!rishiIsPracticeDone(CHAP_ID)){rishiMarkPracticeDone(CHAP_ID);showStreakToast();}
+  say(p.word);
+}
+function handleWrong(q,userAns){
+  correctStreak=0;G('streakNum').textContent=correctStreak;
+  answered[idx]='wrong';renderDots();renderStreak();
+  G('answerInput').disabled=true;G('submitBtn').disabled=true;G('earnCoins').textContent='Coins: missed';
+  setRishika('Hmm, not quite! Let me explain step by step. 💪');say('Not quite right. Let me explain.');
+  var stepsHtml=q.steps.map(function(s){return '<div class="step-item">'+s+'</div>';}).join('');
+  G('feedbackBox').className='feedback-box wrong';
+  G('feedbackBox').innerHTML='<div class="fb-title">✗ Not quite right</div>'
+    +'<div style="font-size:13px;color:rgba(255,255,255,.6);margin-bottom:8px;">Your answer: <span style="color:#e74c3c;font-weight:700;">'+userAns+'</span></div>'
+    +'<div class="steps-list">'+stepsHtml+'</div>'
+    +'<div class="trick-box"><strong>💡 Rishika\'s Trick:</strong> '+q.trick+'</div>'
+    +'<div class="clear-check"><span>Is it clear now?</span><button class="btn-yes" onclick="isClear(true)">Yes ✓</button><button class="btn-no" onclick="isClear(false)">No, explain again</button></div>'
+    +'<button class="try-again-btn" id="tryAgainBtn" onclick="tryAgain()">TRY AGAIN ▶</button>';
+}
+function isClear(yes){if(yes){G('tryAgainBtn').style.display='block';setRishika('Great! Now try again! 🌟');say('Good! Try the question again.');}else{setRishika('No problem! Here is another way to think about it!');say('Let me explain differently.');var div=document.createElement('div');div.style.cssText='margin-top:12px;padding:12px;background:rgba(78,205,196,.08);border-radius:10px;border:1px solid rgba(78,205,196,.2);font-size:13px;line-height:1.6;';div.innerHTML='<strong style="color:#4ecdc4;">🔄 Another way:</strong><br>'+QB[idx].alt;G('feedbackBox').appendChild(div);setTimeout(function(){G('tryAgainBtn').style.display='block';},400);}}
+function tryAgain(){G('answerInput').value='';G('answerInput').disabled=false;G('submitBtn').disabled=false;G('feedbackBox').className='feedback-box';answered[idx]=null;attemptNo++;G('attemptNum').textContent='Attempt: '+attemptNo;G('earnCoins').textContent='Keep trying!';setRishika('Take your time! Work it out step by step. 📝');G('answerInput').focus();}
+function nextQ(){loadQ(idx+1);}
+function onComplete(){
+  sessionOver=true;clearInterval(sessionInterval);
+  var done=rishiIsPracticeDone(CHAP_ID);
+  G('compIcon').textContent=done?'🏆':'📚';G('compTitle').textContent=done?'Exam Unlocked!':'Session Complete!';
+  G('compMsg').textContent=done?'5 in a row achieved! Polynomials exam is now unlocked. You are doing great!':'Good session! Keep practising to get 5 in a row and unlock the exam.';
+  var phrases=['Felicitaciones! (Spanish)','Ausgezeichnet! (German)','Bravissimo! (Italian)','Parabens! (Portuguese)','Magnifique! (French)'];
+  G('compForeign').textContent=phrases[Math.floor(Math.random()*phrases.length)];
+  G('compOverlay').className='comp-overlay show';
+  if(done){rCelebrate();}else{rHappy();}
+}
+function showStreakToast(){var t=document.createElement('div');t.className='streak-toast';t.textContent='🔥 5-in-a-row! Exam Unlocked!';document.body.appendChild(t);setTimeout(function(){if(t.parentNode)t.parentNode.removeChild(t);},3600);}
+function spawnCoin(){for(var i=0;i<3;i++){(function(delay){setTimeout(function(){var c=document.createElement('div');c.className='coin-anim';c.textContent='🪙';c.style.right=(60+Math.random()*40)+'px';document.body.appendChild(c);setTimeout(function(){if(c.parentNode)c.parentNode.removeChild(c);},1100);},delay);})(i*200);}}
+function setRishika(txt){var bubble=G('rishikaBubble');if(bubble&&txt)bubble.textContent=txt;}
+function updateCoins(){var el=G('coinCount');if(el)el.textContent=coins;}
+function renderDots(){var c=G('progressDots');if(!c)return;var h='';for(var i=0;i<QB.length;i++){var cls='pdot';if(i===idx)cls+=' active';else if(answered[i]==='correct')cls+=' correct';else if(answered[i]==='wrong')cls+=' wrong';h+='<div class="'+cls+'">'+(i+1)+'</div>';}c.innerHTML=h;}
+function renderStreak(){var c=G('streakPips');if(!c)return;var h='';for(var i=0;i<5;i++){h+='<div class="spip'+(i<correctStreak?' filled':'')+'" ></div>';}c.innerHTML=h;}
+function toggleBreakMenu(){var m=G('breakMenu');if(m)m.classList.toggle('show');}
+function startBreak(reason){var el=G('breakType');if(el)el.textContent=reason+' Break';G('breakOverlay').className='break-overlay show';G('breakMenu').classList.remove('show');clearInterval(sessionInterval);var bSecs=0;breakInterval=setInterval(function(){bSecs++;var m=Math.floor(bSecs/60).toString().padStart(2,'0');var s=(bSecs%60).toString().padStart(2,'0');var el2=G('breakClock');if(el2)el2.textContent=m+':'+s;},1000);}
+function endBreak(){clearInterval(breakInterval);G('breakOverlay').className='break-overlay';sessionInterval=setInterval(function(){sessionSecs++;var m=Math.floor(sessionSecs/60).toString().padStart(2,'0');var s=(sessionSecs%60).toString().padStart(2,'0');var el=G('sessionTimer');if(el)el.textContent=m+':'+s;},1000);}
+function backToSyllabus(){window.location.href='/syllabus.html';}
+document.addEventListener('click',function(e){if(!e.target.closest('.tbtn-break')){var m=G('breakMenu');if(m)m.classList.remove('show');}});
+function startPractice(){var overlay=document.getElementById('tapOverlay');if(overlay)overlay.classList.add('hidden');var u=new SpeechSynthesisUtterance('.');u.volume=0.01;window.speechSynthesis.speak(u);var q=QB[idx];if(q)setTimeout(function(){say(q.qs||q.q.replace(/<[^>]+>/g,''));},300);}
+window.onload=function(){init();};
+</script>
+<script>
+var RISHI_SPRITES={celebrate:{file:'/images/rishika/sprites/celebrate.jpeg',cols:4,rows:3,fw:384,fh:341,seq:[[0,0],[1,0],[2,0],[3,0],[0,1],[1,1],[2,1],[3,1],[0,2],[1,2],[2,2],[3,2],[3,2],[2,2],[3,2],[1,2],[2,2],[1,2],[2,2],[1,2],[0,2],[3,1],[2,1],[1,1],[0,1],[3,0],[2,0],[1,0],[0,0]],fps:8,loop:false,holdMs:3000,glow:'0 0 40px 12px rgba(245,158,11,0.6)',border:'#f59e0b'},praise:{file:'/images/rishika/sprites/praise.jpeg',cols:4,rows:3,fw:384,fh:341,seq:[[0,0],[1,0],[2,0],[3,0],[0,1],[1,1],[2,1],[3,1],[0,2],[1,2],[2,2],[3,2],[2,2],[1,2],[0,2],[1,1],[3,0],[1,0],[0,0]],fps:6,loop:false,holdMs:2000,glow:'0 0 28px 8px rgba(139,92,246,0.5)',border:'#a78bfa'},disappointed:{file:'/images/rishika/sprites/disappointed-s1.jpeg',cols:4,rows:3,fw:384,fh:341,seq:[[0,0],[1,0],[2,0],[0,0],[3,0],[2,0],[0,1],[1,1],[2,1],[1,1],[3,1],[0,2],[1,2],[0,2],[2,2],[3,2],[0,0]],fps:5,loop:false,holdMs:2000,glow:'0 0 25px 6px rgba(225,29,72,0.35)',border:'#f87171'},talking:{file:'/images/rishika/sprites/neutral-talking.png',cols:6,rows:2,fw:256,fh:512,seq:[[0,0],[1,0],[2,0],[3,0],[4,0],[5,0],[5,0],[4,0],[3,0],[2,0],[1,0],[0,0],[0,1],[1,1],[2,1],[3,1],[4,1],[5,1],[4,1],[3,1],[2,1],[1,1],[0,1],[5,0]],fps:10,loop:true,holdMs:0,glow:'0 0 20px rgba(109,40,217,0.3)',border:'#7c3aed'}};
+var _rCanvas=null,_rCtx=null,_rCurName=null,_rSeqIdx=0,_rFrameTimer=null,_rImgs={},_rLoaded=0,_rTotal=0,_rDW=200,_rDH=220;
+function rInit(){var container=document.getElementById('rishika-avatar');if(!container||_rCanvas)return;_rCanvas=document.createElement('canvas');_rCanvas.width=_rDW;_rCanvas.height=_rDH;_rCanvas.style.cssText='border-radius:12px;transition:box-shadow .3s;display:block;margin:0 auto;';container.appendChild(_rCanvas);_rCtx=_rCanvas.getContext('2d');var keys=Object.keys(RISHI_SPRITES);_rTotal=keys.length;_rLoaded=0;keys.forEach(function(k){var img=new Image();_rImgs[k]=img;img.onload=function(){_rLoaded++;if(_rLoaded===_rTotal)_rPlay('talking');};img.onerror=function(){_rLoaded++;if(_rLoaded===_rTotal)_rPlay('talking');};img.src=RISHI_SPRITES[k].file;});}
+function _rPlay(name){_rStop();if(!RISHI_SPRITES[name])return;_rCurName=name;_rSeqIdx=0;var s=RISHI_SPRITES[name];if(_rCanvas){_rCanvas.style.boxShadow=s.glow;_rCanvas.style.border='2px solid '+s.border;}_rDrawFrame();var interval=Math.round(1000/s.fps);_rFrameTimer=setInterval(function(){_rSeqIdx++;if(_rSeqIdx>=s.seq.length){if(s.loop){_rSeqIdx=0;}else{_rStop();if(name!=='talking')setTimeout(function(){_rPlay('talking');},s.holdMs||1000);return;}}_rDrawFrame();},interval);}
+function _rDrawFrame(){if(!_rCtx||!_rCurName)return;var s=RISHI_SPRITES[_rCurName];var img=_rImgs[_rCurName];if(!img||!img.complete||img.naturalWidth===0)return;var frame=s.seq[_rSeqIdx]||[0,0];var sx=frame[0]*s.fw;var sy=frame[1]*s.fh;_rCtx.clearRect(0,0,_rDW,_rDH);_rCtx.drawImage(img,sx,sy,s.fw,s.fh,0,0,_rDW,_rDH);}
+function _rStop(){if(_rFrameTimer){clearInterval(_rFrameTimer);_rFrameTimer=null;}}
+function rHappy(){_rPlay('praise');}
+function rCelebrate(){_rPlay('celebrate');}
+</script>
 </body>
 </html>
