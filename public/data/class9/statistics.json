@@ -1,7 +1,330 @@
 {
-  "_note": "STUB \u2014 fill in questions before unlocking Class 9",
-  "chapter": "statistics",
-  "class": 9,
-  "board": "cbse",
-  "questions": []
+  "chapter_slug":   "statistics",
+  "chapter_name":   "Statistics",
+  "chapter_emoji":  "📊",
+  "class_num":      9,
+  "board":          "cbse",
+  "topic":          "data-handling",
+  "chap_id":        12,
+  "exam_key":       "c9-12",
+
+  "intro_text": "Hi <span class=\"hl\" id=\"sName\">there</span>! &#128522; Today we master <span class=\"hl\">Statistics</span> — the science of collecting, organising and interpreting data! From frequency tables to histograms to mean, median and mode — these tools help us make sense of the world! &#127919;",
+
+  "complete_message": "You have completed ALL 12 chapters of Class 9 Mathematics! Statistics is now yours &#128170;",
+
+  "explain_questions": [
+    {
+      "id": "st1",
+      "question": "What is Statistics and what are the key terms?",
+      "question_spoken": "What is Statistics and what are the key terms?",
+      "steps": [
+        {"t": "STATISTICS is the science of collecting, organising, presenting, analysing and interpreting numerical data to draw conclusions. DATA = collection of numbers/facts gathered for analysis.", "s": "Statistics is the science of collecting, organising and interpreting data. Data is the collection of numbers gathered for analysis."},
+        {"t": "Key terms: PRIMARY DATA = collected directly by the investigator (surveys, experiments). SECONDARY DATA = collected by someone else (newspapers, government records). RAW DATA = data in original unorganised form.", "s": "Primary data is collected directly. Secondary data is collected by others. Raw data is unorganised original data."},
+        {"t": "POPULATION = the entire group being studied. SAMPLE = a smaller group chosen from the population. VARIABLE = the characteristic being measured. OBSERVATION = each value in the data. FREQUENCY = how many times a value occurs.", "s": "Population is the whole group. Sample is a part of it. Frequency is how many times a value occurs."}
+      ],
+      "confirm_question": "Data collected by the investigator directly is called ______ data.",
+      "confirm_question_spoken": "Data collected by the investigator directly is called blank data.",
+      "answers": ["primary", "primary data"],
+      "nudges": [
+        "There are two types: primary and secondary",
+        "If YOU collect the data yourself through surveys or experiments...",
+        "Answer: Primary data"
+      ],
+      "anim_svg": "<g id=\"st1s0\" opacity=\"0\"><rect x=\"10\" y=\"8\" width=\"390\" height=\"30\" rx=\"7\" fill=\"#f5e6c8\"/><text x=\"210\" y=\"28\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"800\" fill=\"#d4870a\">Statistics: Collect→Organise→Present→Analyse→Interpret</text></g><g id=\"st1s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Primary: collected directly | Secondary: from others</text></g><g id=\"st1s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Population: whole group | Sample: part | Frequency: count</text></g><g id=\"st1ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Collected directly = Primary data</text></g>"
+    },
+    {
+      "id": "st2",
+      "question": "What is a Frequency Distribution Table?",
+      "question_spoken": "What is a Frequency Distribution Table?",
+      "steps": [
+        {"t": "A FREQUENCY DISTRIBUTION TABLE organises raw data into classes (groups) and shows how many observations fall in each class. It makes large data easy to understand at a glance!", "s": "A frequency distribution table groups data into classes and shows the count in each group."},
+        {"t": "Terms: CLASS INTERVAL = the range of each group (e.g. 0-10, 10-20). CLASS WIDTH = upper limit − lower limit (=10 in this case). CLASS MARK = midpoint of class = (upper+lower)/2. FREQUENCY = count in that class.", "s": "Class interval is the range. Class width is upper minus lower limit. Class mark is the midpoint. Frequency is the count."},
+        {"t": "CUMULATIVE FREQUENCY = running total of frequencies. RELATIVE FREQUENCY = frequency/total × 100%. Exclusive class intervals (10-20, 20-30): 20 goes in 20-30 NOT 10-20. Upper limit is excluded!", "s": "Cumulative frequency is the running total. In exclusive intervals, the upper limit belongs to the next class."}
+      ],
+      "confirm_question": "Class mark of the interval 20-30 is ____.",
+      "confirm_question_spoken": "The class mark of the interval 20 to 30 is blank.",
+      "answers": ["25", "25.0"],
+      "nudges": [
+        "Class mark = (upper limit + lower limit) / 2",
+        "= (20 + 30) / 2",
+        "Answer: 25"
+      ],
+      "anim_svg": "<g id=\"st2s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Frequency Distribution: group data into classes</text></g><g id=\"st2s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Class width=upper-lower | Class mark=(u+l)/2</text></g><g id=\"st2s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Exclusive: upper limit→next class | Cum.freq=running total</text></g><g id=\"st2ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Class mark = (20+30)/2 = 25</text></g>"
+    },
+    {
+      "id": "st3",
+      "question": "What is a Histogram and how do you draw one?",
+      "question_spoken": "What is a Histogram and how do you draw one?",
+      "steps": [
+        {"t": "A HISTOGRAM is a bar graph for continuous data (grouped frequency distribution). Key difference from bar graph: NO GAPS between bars! Bars touch each other because data is continuous.", "s": "A histogram has no gaps between bars. It is used for continuous grouped data. This is the key difference from a bar graph."},
+        {"t": "How to draw: X-axis = class intervals (plotted on a continuous scale). Y-axis = frequency. Draw bars with width = class width and height = frequency. Label both axes. Title the graph.", "s": "X-axis shows class intervals. Y-axis shows frequency. Bars have width equal to class width and height equal to frequency."},
+        {"t": "If class widths are UNEQUAL, use frequency density on Y-axis: Frequency Density = Frequency / Class Width. This ensures fair comparison between classes of different widths. Equal widths: frequency density = frequency!", "s": "For unequal class widths, use frequency density equals frequency divided by class width on the y-axis."}
+      ],
+      "confirm_question": "In a histogram, the bars touch each other because data is ______.",
+      "confirm_question_spoken": "In a histogram, the bars touch each other because data is blank.",
+      "answers": ["continuous", "continuous data"],
+      "nudges": [
+        "Bar graphs have gaps for discrete data",
+        "Histograms have no gaps for what type of data?",
+        "Answer: Continuous (no gaps between continuous values)"
+      ],
+      "anim_svg": "<g id=\"st3s0\" opacity=\"0\"><rect x=\"10\" y=\"8\" width=\"390\" height=\"30\" rx=\"7\" fill=\"#f5e6c8\"/><text x=\"210\" y=\"28\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"800\" fill=\"#d4870a\">Histogram: bars TOUCH (continuous data, no gaps!)</text></g><g id=\"st3s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">X: class intervals | Y: frequency | width=class width</text></g><g id=\"st3s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Unequal widths: use freq. density=freq/class width</text></g><g id=\"st3ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">No gaps → Continuous data</text></g>"
+    },
+    {
+      "id": "st4",
+      "question": "What is the Mean and how do you calculate it?",
+      "question_spoken": "What is the Mean and how do you calculate it?",
+      "steps": [
+        {"t": "MEAN (Arithmetic Mean) = Sum of all observations / Number of observations = Σx / n. It is the 'average' — the balance point of the data. Symbol: x̄ (x-bar).", "s": "Mean equals sum of all values divided by number of values. It is the balance point of the data. Symbol is x bar."},
+        {"t": "For UNGROUPED data: Mean = (x₁+x₂+...+xₙ)/n. Example: data 4,7,2,9,3. Mean = (4+7+2+9+3)/5 = 25/5 = 5. For GROUPED data (frequency table): Mean = Σ(fᵢxᵢ)/Σfᵢ where xᵢ is class mark.", "s": "For ungrouped data, add all values and divide by count. For grouped data, multiply each class mark by its frequency, add, then divide by total frequency."},
+        {"t": "ASSUMED MEAN METHOD: Choose a convenient assumed mean 'a'. Let dᵢ = xᵢ - a. Then Mean = a + (Σfᵢdᵢ/Σfᵢ). This reduces calculation! Used when class marks are large numbers.", "s": "Assumed mean method: subtract assumed mean from each class mark, multiply by frequency, sum up, divide by total frequency, add assumed mean."}
+      ],
+      "confirm_question": "Find the mean of: 5, 8, 3, 7, 2",
+      "confirm_question_spoken": "Find the mean of 5, 8, 3, 7 and 2.",
+      "answers": ["5", "5.0"],
+      "nudges": [
+        "Mean = sum / count",
+        "Sum = 5+8+3+7+2 = 25. Count = 5",
+        "Mean = 25/5 = 5"
+      ],
+      "anim_svg": "<g id=\"st4s0\" opacity=\"0\"><rect x=\"10\" y=\"8\" width=\"390\" height=\"30\" rx=\"7\" fill=\"#eef2eb\"/><text x=\"210\" y=\"28\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Mean = Σx/n (ungrouped) | Σfᵢxᵢ/Σfᵢ (grouped)</text></g><g id=\"st4s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">4,7,2,9,3: sum=25, n=5 → Mean=5</text></g><g id=\"st4s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Assumed mean: Mean=a+Σfᵢdᵢ/Σfᵢ where dᵢ=xᵢ-a</text></g><g id=\"st4ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Mean = (5+8+3+7+2)/5 = 25/5 = 5</text></g>"
+    },
+    {
+      "id": "st5",
+      "question": "What is the Median and how do you find it?",
+      "question_spoken": "What is the Median and how do you find it?",
+      "steps": [
+        {"t": "MEDIAN = the middle value when data is arranged in ASCENDING ORDER. It divides the data into two equal halves. Not affected by extreme values (unlike mean)!", "s": "Median is the middle value after arranging data in ascending order. It is not affected by extreme values."},
+        {"t": "For ODD number of observations (n): Median = value at position (n+1)/2. Example: 2,3,5,7,9 (n=5). Position = (5+1)/2 = 3rd value = 5. For EVEN n: Median = average of (n/2)th and (n/2+1)th values.", "s": "For odd n: median is the middle value at position n plus 1 over 2. For even n: average the two middle values."},
+        {"t": "Example (even n): 2,4,5,7,8,9 (n=6). Middle positions: 3rd=5 and 4th=7. Median = (5+7)/2 = 6. Always SORT first! Many students forget to sort — always the first step.", "s": "Even n: positions n over 2 and n over 2 plus 1. Average those two values. Always sort data first before finding median."}
+      ],
+      "confirm_question": "Find the median of: 3, 1, 7, 5, 9",
+      "confirm_question_spoken": "Find the median of 3, 1, 7, 5 and 9.",
+      "answers": ["5"],
+      "nudges": [
+        "First arrange in order: 1, 3, 5, 7, 9",
+        "n=5 (odd). Position = (5+1)/2 = 3rd value",
+        "3rd value = 5. Median = 5"
+      ],
+      "anim_svg": "<g id=\"st5s0\" opacity=\"0\"><rect x=\"10\" y=\"8\" width=\"390\" height=\"30\" rx=\"7\" fill=\"#f5e6c8\"/><text x=\"210\" y=\"28\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"800\" fill=\"#d4870a\">Median = middle value (SORT FIRST!)</text></g><g id=\"st5s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Odd n: pos=(n+1)/2 | Even n: avg of n/2 and (n/2+1)</text></g><g id=\"st5s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Even example: 2,4,5,7,8,9 → (5+7)/2=6</text></g><g id=\"st5ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">1,3,5,7,9 → 3rd value = 5</text></g>"
+    },
+    {
+      "id": "st6",
+      "question": "What is the Mode and how do you find it?",
+      "question_spoken": "What is the Mode and how do you find it?",
+      "steps": [
+        {"t": "MODE = the value that occurs MOST FREQUENTLY in the data. The most popular value! A data set can have: No mode (all values different), One mode (unimodal), Two modes (bimodal), Multiple modes.", "s": "Mode is the value that appears most often. Data can have no mode, one mode, or multiple modes."},
+        {"t": "Example: 4, 5, 3, 4, 7, 4, 2, 6. Count: 4 appears 3 times (most). Mode = 4. Example: 2, 3, 3, 4, 4, 5. Both 3 and 4 appear twice. Two modes: 3 and 4 (bimodal).", "s": "The value appearing most is the mode. If two values tie, both are modes — the data is bimodal."},
+        {"t": "Mode is most useful for: finding the most popular item (best-selling product, most common shoe size, most frequent score). Unlike mean and median, mode can be used for NON-NUMERICAL data too (most popular colour)!", "s": "Mode is best for finding the most popular item. It works for non-numerical data too, unlike mean and median."}
+      ],
+      "confirm_question": "Find the mode of: 2, 3, 4, 3, 5, 3, 2, 4",
+      "confirm_question_spoken": "Find the mode of 2, 3, 4, 3, 5, 3, 2 and 4.",
+      "answers": ["3"],
+      "nudges": [
+        "Count frequency of each value",
+        "2 appears 2 times, 3 appears 3 times, 4 appears 2 times, 5 appears 1 time",
+        "3 appears most often → Mode = 3"
+      ],
+      "anim_svg": "<g id=\"st6s0\" opacity=\"0\"><rect x=\"10\" y=\"8\" width=\"390\" height=\"30\" rx=\"7\" fill=\"#eef2eb\"/><text x=\"210\" y=\"28\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Mode = most frequent value</text></g><g id=\"st6s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">4,5,3,4,7,4,2,6 → 4 appears 3 times → Mode=4</text></g><g id=\"st6s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Bimodal: 2 modes | Works for non-numerical data too!</text></g><g id=\"st6ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">3 appears 3 times → Mode = 3</text></g>"
+    },
+    {
+      "id": "st7",
+      "question": "What is a Frequency Polygon and how is it drawn?",
+      "question_spoken": "What is a Frequency Polygon and how is it drawn?",
+      "steps": [
+        {"t": "A FREQUENCY POLYGON is a line graph that shows the distribution of data. It is drawn by joining the midpoints (class marks) of the tops of histogram bars with straight lines. It is smoother than a histogram!", "s": "A frequency polygon joins the midpoints of histogram bar tops with straight lines. It shows data distribution as a smooth shape."},
+        {"t": "To draw WITHOUT histogram: Plot points (class mark, frequency) for each class. Add two extra points at zero frequency: one class before the first and one after the last. Join all points with straight lines.", "s": "Plot each class mark against its frequency. Add zero-frequency points at each end. Join all points with straight lines."},
+        {"t": "The polygon should be CLOSED — it starts and ends at the x-axis (zero frequency). The area under the frequency polygon equals the area of the histogram. Frequency polygons are useful to COMPARE two distributions on the same graph!", "s": "The polygon closes at the x-axis. Its area equals the histogram area. Frequency polygons allow comparison of two datasets on the same graph."}
+      ],
+      "confirm_question": "A frequency polygon is drawn by joining midpoints of ______ of histogram bars.",
+      "confirm_question_spoken": "A frequency polygon is drawn by joining the midpoints of blank of histogram bars.",
+      "answers": ["tops", "the tops", "top sides", "upper sides"],
+      "nudges": [
+        "Think about which part of each histogram bar is used",
+        "The highest point of each bar is...",
+        "Answer: Tops (the top edges of the bars)"
+      ],
+      "anim_svg": "<g id=\"st7s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Frequency Polygon: join midpoints of tops of bars</text></g><g id=\"st7s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Without histogram: plot (class mark, freq), add 0-freq ends</text></g><g id=\"st7s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Closed polygon | Same area as histogram | Compare 2 datasets</text></g><g id=\"st7ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Join midpoints of TOPS of histogram bars</text></g>"
+    },
+    {
+      "id": "st8",
+      "question": "How do you compare Mean, Median and Mode?",
+      "question_spoken": "How do you compare mean, median and mode?",
+      "steps": [
+        {"t": "MEAN: Best when data is symmetric (no outliers). Uses ALL values. Affected by extreme values. Most mathematically useful. Example: average marks in class.", "s": "Mean uses all values and is best for symmetric data. It is affected by outliers like a very high or very low value."},
+        {"t": "MEDIAN: Best when data has outliers (extreme values). Divides data into two equal halves. Not affected by extremes. Example: median salary in a company (few very high salaries don't distort it).", "s": "Median is best when there are outliers. It is not affected by extreme values. Best for salary or income data."},
+        {"t": "MODE: Best for most popular item. Can be used for qualitative data. May not exist or may be multiple. Example: most common dress size, most popular product. Relationship: In symmetric distribution, Mean = Median = Mode!", "s": "Mode is best for most popular item. In symmetric data, all three measures are equal. Mode works for non-numerical data."}
+      ],
+      "confirm_question": "Which measure of central tendency is NOT affected by extreme values?",
+      "confirm_question_spoken": "Which measure of central tendency is not affected by extreme values?",
+      "answers": ["median", "the median"],
+      "nudges": [
+        "Mean uses all values — so extreme values change it",
+        "Mode just finds the most frequent — but a single extreme value won't have high frequency",
+        "Median only cares about the middle position — extreme values don't change it"
+      ],
+      "anim_svg": "<g id=\"st8s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Mean: uses all | best for symmetric | affected by outliers</text></g><g id=\"st8s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Median: middle | NOT affected by outliers | best for salary</text></g><g id=\"st8s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Mode: most popular | works for qualitative data</text></g><g id=\"st8ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">MEDIAN is not affected by extreme values</text></g>"
+    },
+    {
+      "id": "st9",
+      "question": "How do you calculate Mean from a frequency distribution table?",
+      "question_spoken": "How do you calculate mean from a frequency distribution table?",
+      "steps": [
+        {"t": "For grouped data: Mean = Σ(fᵢ × xᵢ) / Σfᵢ. Where xᵢ = class mark of each class, fᵢ = frequency of each class. Step 1: Find class marks. Step 2: Multiply each class mark by frequency. Step 3: Sum all fᵢxᵢ. Step 4: Divide by Σfᵢ.", "s": "Mean from frequency table: multiply each class mark by its frequency, sum all those products, divide by total frequency."},
+        {"t": "Example: Classes 0-10, 10-20, 20-30 with frequencies 5, 8, 7. Class marks: 5, 15, 25. fᵢxᵢ: 25, 120, 175. Σfᵢxᵢ = 320. Σfᵢ = 20. Mean = 320/20 = 16.", "s": "Classes 0-10, 10-20, 20-30 with frequencies 5, 8, 7. Class marks 5, 15, 25. Products: 25, 120, 175. Sum 320 divided by 20 equals mean 16."},
+        {"t": "STEP DEVIATION METHOD: dᵢ = (xᵢ − a)/h where a = assumed mean, h = class width. Mean = a + h × (Σfᵢdᵢ/Σfᵢ). This is fastest when class width is constant. Very useful for CBSE board questions!", "s": "Step deviation method: dᵢ equals class mark minus assumed mean divided by class width. Mean equals assumed mean plus class width times sum of f d over total frequency."}
+      ],
+      "confirm_question": "For classes 0-10, 10-20, 20-30 with frequencies 4, 6, 5 — what is Σfᵢ?",
+      "confirm_question_spoken": "For classes 0-10, 10-20 and 20-30 with frequencies 4, 6 and 5 — what is the total frequency?",
+      "answers": ["15", "15 observations"],
+      "nudges": [
+        "Σfᵢ means sum of all frequencies",
+        "4 + 6 + 5 = ?",
+        "Answer: Σfᵢ = 15"
+      ],
+      "anim_svg": "<g id=\"st9s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Grouped Mean = Σ(fᵢxᵢ)/Σfᵢ</text></g><g id=\"st9s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Classes:0-10,10-20,20-30 | f:5,8,7 | xᵢ:5,15,25</text></g><g id=\"st9s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Σfx=25+120+175=320 | Σf=20 | Mean=320/20=16</text></g><g id=\"st9ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Σfᵢ = 4+6+5 = 15</text></g>"
+    },
+    {
+      "id": "st10",
+      "question": "What are the different types of graphical representations of data?",
+      "question_spoken": "What are the different types of graphical representations of data?",
+      "steps": [
+        {"t": "BAR GRAPH: for discrete data, bars have gaps. HISTOGRAM: for continuous grouped data, no gaps. FREQUENCY POLYGON: line graph connecting class mark vs frequency. PIE CHART: for parts of a whole (uses angles, 360° total).", "s": "Bar graph for discrete data. Histogram for continuous data. Frequency polygon is a line version of histogram. Pie chart shows proportions."},
+        {"t": "STEM-AND-LEAF PLOT: shows actual data values while grouped. Good for small datasets. Example: scores 34,36,45,47,52 → Stem 3: 4,6 | Stem 4: 5,7 | Stem 5: 2. Both stem and leaf are visible!", "s": "Stem and leaf plot shows actual values grouped by first digits. Stem is tens digit, leaf is units digit."},
+        {"t": "OGIVE (Cumulative Frequency Curve): graph of cumulative frequency vs upper class boundary. Shaped like an S-curve. Used to find median graphically (at 50th percentile). Less than ogive uses upper limits!", "s": "Ogive is the cumulative frequency curve. It has an S-shape. The median can be read from the ogive at the 50th percentile."}
+      ],
+      "confirm_question": "Which graph is used for continuous grouped data with NO gaps between bars?",
+      "confirm_question_spoken": "Which graph is used for continuous grouped data with no gaps between bars?",
+      "answers": ["histogram", "a histogram"],
+      "nudges": [
+        "Bar graph has gaps. This one does NOT have gaps.",
+        "It is used for continuous grouped data",
+        "Answer: Histogram"
+      ],
+      "anim_svg": "<g id=\"st10s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Bar:gaps,discrete | Histogram:no gaps,continuous</text></g><g id=\"st10s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Freq. Polygon: line | Pie: proportions | Stem-Leaf: actual vals</text></g><g id=\"st10s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Ogive: cumulative freq curve (S-shape) → find median!</text></g><g id=\"st10ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Histogram — no gaps, continuous data</text></g>"
+    }
+  ],
+
+  "practice_questions": [
+    {
+      "question": "Find the mean of: 12, 18, 15, 20, 25, 10",
+      "question_spoken": "Find the mean of 12, 18, 15, 20, 25 and 10.",
+      "answers": ["16.67", "100/6", "50/3", "16⅔"],
+      "steps": ["Sum = 12+18+15+20+25+10 = 100", "n = 6", "Mean = 100/6 = 16.67 (or 50/3)"],
+      "trick": "Mean = sum/count. Add all values, divide by how many. Always count carefully!",
+      "alt": "12+18=30, 30+15=45, 45+20=65, 65+25=90, 90+10=100. Divide by 6: 100/6≈16.67."
+    },
+    {
+      "question": "Find the median of: 7, 3, 11, 5, 9, 1, 13",
+      "question_spoken": "Find the median of 7, 3, 11, 5, 9, 1 and 13.",
+      "answers": ["7"],
+      "steps": ["Sort: 1, 3, 5, 7, 9, 11, 13", "n = 7 (odd). Position = (7+1)/2 = 4th value", "4th value = 7. Median = 7"],
+      "trick": "SORT FIRST! Then for odd n, find the middle position (n+1)/2. Here 4th value is 7.",
+      "alt": "Arranged: 1,3,5,7,9,11,13. Middle (4th) value is 7."
+    },
+    {
+      "question": "Find the mode of: 4, 7, 4, 9, 3, 7, 4, 7, 3",
+      "question_spoken": "Find the mode of 4, 7, 4, 9, 3, 7, 4, 7, 3.",
+      "answers": ["4 and 7", "both 4 and 7", "4, 7"],
+      "steps": ["Count: 4 appears 3 times, 7 appears 3 times, 3 appears 2 times, 9 appears 1 time", "Both 4 and 7 appear equally most often (3 times each)", "Mode = 4 and 7 (bimodal)"],
+      "trick": "Count frequencies carefully! When two values tie for most frequent, both are modes. This is called bimodal data.",
+      "alt": "Tally: 4 three times, 7 three times. Tie! Both 4 and 7 are modes."
+    },
+    {
+      "question": "Class mark of the interval 30-40 is ____.",
+      "question_spoken": "The class mark of the interval 30 to 40 is blank.",
+      "answers": ["35", "35.0"],
+      "steps": ["Class mark = (lower limit + upper limit) / 2", "= (30 + 40) / 2 = 70/2", "= 35"],
+      "trick": "Class mark = midpoint = (lower+upper)/2. Always the average of the two class boundaries!",
+      "alt": "Midpoint of 30 and 40 is (30+40)/2 = 70/2 = 35."
+    },
+    {
+      "question": "Find the median of: 15, 22, 8, 17, 31, 11, 25, 20",
+      "question_spoken": "Find the median of 15, 22, 8, 17, 31, 11, 25 and 20.",
+      "answers": ["18.5", "18½"],
+      "steps": ["Sort: 8, 11, 15, 17, 20, 22, 25, 31", "n=8 (even). Positions: 4th=17 and 5th=20", "Median = (17+20)/2 = 37/2 = 18.5"],
+      "trick": "Even n: average of (n/2)th and (n/2+1)th. Here n=8: 4th and 5th values. (17+20)/2=18.5.",
+      "alt": "Sorted: 8,11,15,17,20,22,25,31. Middle two: 17 and 20. Average: (17+20)/2=18.5."
+    },
+    {
+      "question": "In a histogram, the class width is 10 and frequency is 15. What is the frequency density?",
+      "question_spoken": "In a histogram, class width is 10 and frequency is 15. What is the frequency density?",
+      "answers": ["1.5", "1.5 per unit"],
+      "steps": ["Frequency density = Frequency / Class Width", "= 15 / 10", "= 1.5"],
+      "trick": "Frequency density = frequency/class width. Used when class widths are unequal for fair comparison.",
+      "alt": "Divide frequency by class width: 15/10=1.5. This normalises for class width differences."
+    },
+    {
+      "question": "The mean of 5 numbers is 18. If one number is removed and the mean becomes 16, what was the removed number?",
+      "question_spoken": "The mean of 5 numbers is 18. If one number is removed and the mean becomes 16, what was the removed number?",
+      "answers": ["26"],
+      "steps": ["Sum of 5 numbers = 5 × 18 = 90", "Sum of remaining 4 = 4 × 16 = 64", "Removed number = 90 − 64 = 26"],
+      "trick": "Sum = mean × count. Find original sum, find new sum, subtract to get the removed value. Classic CBSE type!",
+      "alt": "Original total=90. After removal, 4 numbers with mean 16: total=64. Removed=90-64=26."
+    },
+    {
+      "question": "Which of the following is NOT a measure of central tendency? A: Mean  B: Range  C: Median  D: Mode",
+      "question_spoken": "Which is NOT a measure of central tendency? A: Mean. B: Range. C: Median. D: Mode.",
+      "answers": ["B", "range", "b: range"],
+      "steps": ["Mean, Median and Mode are the three measures of central tendency", "Range = Maximum − Minimum → measures SPREAD not centre", "Range is a measure of dispersion, not central tendency"],
+      "trick": "Central tendency = centre of data (Mean, Median, Mode). Range = spread = max minus min. Range is about how spread out data is!",
+      "alt": "Range tells how wide the data is. Mean, median, mode tell where the data is centred. Range is a measure of spread."
+    },
+    {
+      "question": "Find the mean of data: values 10, 20, 30 with frequencies 4, 5, 6 respectively.",
+      "question_spoken": "Find the mean of data with values 10, 20, 30 having frequencies 4, 5 and 6.",
+      "answers": ["21.33", "64/3", "21⅓"],
+      "steps": ["Σfᵢxᵢ = 4×10 + 5×20 + 6×30 = 40+100+180 = 320", "Σfᵢ = 4+5+6 = 15", "Mean = 320/15 = 64/3 ≈ 21.33"],
+      "trick": "Grouped mean = Σfx/Σf. Multiply each value by its frequency, sum up, divide by total frequency.",
+      "alt": "Products: 40+100+180=320. Total freq=15. Mean=320/15=21.33."
+    },
+    {
+      "question": "If the mean of 6, 8, x, 14, 16 is 11, find x.",
+      "question_spoken": "If the mean of 6, 8, x, 14 and 16 is 11, find x.",
+      "answers": ["11", "x=11"],
+      "steps": ["Mean = sum/count → 11 = (6+8+x+14+16)/5", "55 = 44 + x", "x = 55 − 44 = 11"],
+      "trick": "Mean × count = sum. So sum = 11×5=55. Known values sum = 6+8+14+16=44. x=55-44=11.",
+      "alt": "11×5=55=6+8+x+14+16=44+x. x=55-44=11."
+    },
+    {
+      "question": "How many total observations are there if frequencies are 8, 12, 15, 10, 5?",
+      "question_spoken": "How many total observations are there if frequencies are 8, 12, 15, 10 and 5?",
+      "answers": ["50"],
+      "steps": ["Total observations = sum of all frequencies", "= 8+12+15+10+5", "= 50"],
+      "trick": "Total observations = Σf = sum of all frequencies. Simple addition!",
+      "alt": "8+12=20, 20+15=35, 35+10=45, 45+5=50."
+    },
+    {
+      "question": "The median of 2, 5, 7, 9, 11 is ____.",
+      "question_spoken": "The median of 2, 5, 7, 9 and 11 is blank.",
+      "answers": ["7"],
+      "steps": ["Data already sorted: 2, 5, 7, 9, 11", "n=5 (odd). Position = (5+1)/2 = 3rd value", "3rd value = 7. Median = 7"],
+      "trick": "Data is already sorted here! n=5 odd, position=(5+1)/2=3. Third value is 7.",
+      "alt": "Middle value of 5 items is the 3rd one: 2,5,7→ median=7."
+    },
+    {
+      "question": "In a class, scores are: 85, 92, 78, 92, 88, 75, 92, 80. Find the mode.",
+      "question_spoken": "Scores are 85, 92, 78, 92, 88, 75, 92 and 80. Find the mode.",
+      "answers": ["92"],
+      "steps": ["Count each: 92 appears 3 times (most frequent)", "All others appear only once", "Mode = 92"],
+      "trick": "Mode = most frequent. Here 92 appears 3 times while all others appear once. Easy!",
+      "alt": "Tally: 92 occurs at positions 2, 4, 7 — three times. Most frequent = mode = 92."
+    },
+    {
+      "question": "The class width of the interval 25-35 is ____.",
+      "question_spoken": "The class width of the interval 25 to 35 is blank.",
+      "answers": ["10"],
+      "steps": ["Class width = upper limit − lower limit", "= 35 − 25", "= 10"],
+      "trick": "Class width = difference between upper and lower class limits. Simple subtraction!",
+      "alt": "35 minus 25 equals 10. The interval spans 10 units."
+    },
+    {
+      "question": "Mean marks of 30 students is 60. 10 more students with mean 40 join. Find new mean.",
+      "question_spoken": "Mean marks of 30 students is 60. 10 more students with mean 40 join. Find the new mean.",
+      "answers": ["55", "55 marks"],
+      "steps": ["Sum of first 30 = 30×60 = 1800", "Sum of next 10 = 10×40 = 400", "New mean = (1800+400)/(30+10) = 2200/40 = 55"],
+      "trick": "Combined mean: total sum / total count. Don't average the means directly — that would be wrong! Always use actual sums.",
+      "alt": "Total sum=1800+400=2200. Total count=40. New mean=2200/40=55."
+    }
+  ]
 }

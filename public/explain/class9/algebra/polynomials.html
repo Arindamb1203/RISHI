@@ -39,13 +39,13 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 .step.vis{opacity:1;transform:translateY(0);}
 .step-num{width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;font-size:11px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:2px solid var(--border-dark);}
 .step-body{flex:1;font-size:13px;font-weight:700;color:var(--mid);line-height:1.6;padding-top:2px;}
-.anim-panel{background:#fffdf8;border:2px solid var(--border-dark);border-radius:14px;margin-bottom:12px;overflow:hidden;box-shadow:0 4px 16px rgba(107,76,42,.1);}
+.anim-panel{background:#fffdf8;border:2px solid var(--border-dark);border-radius:14px;margin-bottom:12px;overflow:hidden;}
 .anim-header{background:linear-gradient(135deg,var(--charcoal),#3d2e1a);padding:7px 14px;display:flex;align-items:center;justify-content:space-between;}
 .anim-header-lbl{font-family:'Orbitron',sans-serif;font-size:9px;letter-spacing:2px;color:var(--gold-light);text-transform:uppercase;}
 .anim-replay{font-size:10px;font-weight:900;color:var(--gold-pale);background:none;border:1px solid var(--gold-pale);border-radius:20px;padding:2px 9px;cursor:pointer;display:none;}
 .anim-canvas{width:100%;max-height:195px;overflow:hidden;display:flex;align-items:center;justify-content:center;background:#fffdf8;}
 .anim-canvas svg{width:100%;max-height:195px;}
-.anim-status{padding:6px 14px;font-family:Nunito,sans-serif;font-size:12px;font-weight:800;color:var(--mid);text-align:center;min-height:26px;border-top:1px solid var(--gold-pale);}
+.anim-status{padding:6px 14px;font-size:12px;font-weight:800;color:var(--mid);text-align:center;min-height:26px;border-top:1px solid var(--gold-pale);}
 .anim-play-btn{width:100%;padding:10px;font-family:Nunito,sans-serif;font-size:14px;font-weight:900;background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;border:none;cursor:pointer;}
 .anim-play-btn:disabled{background:var(--gold-pale);color:var(--inactive);cursor:not-allowed;}
 .steps-btn{width:100%;padding:10px;font-family:Nunito,sans-serif;font-size:14px;font-weight:900;background:linear-gradient(135deg,var(--sage),var(--sage-light));color:#fff;border:none;cursor:pointer;display:none;border-top:1px solid var(--gold-pale);}
@@ -81,22 +81,18 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 .done-banner.show{display:block;}
 .done-banner .dt{font-family:'Orbitron',sans-serif;font-size:12px;letter-spacing:2px;color:var(--sage);margin-bottom:4px;}
 .done-banner .ds{font-size:13px;font-weight:700;color:var(--mid);}
-.math-input-wrap{margin-bottom:10px;}
 .math-raw{width:100%;padding:10px 13px;border-radius:10px;border:2px solid var(--border-dark);background:var(--warm-white);color:var(--charcoal);font-size:1rem;font-family:'Share Tech Mono',monospace;resize:none;outline:none;min-height:48px;line-height:1.6;transition:border-color .2s;}
-.math-raw:focus{border-color:var(--amber);box-shadow:0 0 0 3px rgba(212,135,10,.12);}
+.math-raw:focus{border-color:var(--amber);}
 .math-raw::placeholder{color:var(--inactive);font-family:Nunito,sans-serif;}
 .math-preview-label{font-size:0.68rem;text-transform:uppercase;letter-spacing:2px;color:var(--soft);margin:.5rem 0 .25rem;}
 .math-preview{min-height:44px;padding:.6rem 1rem;background:#f9f4ec;border-radius:8px;border:1.5px solid var(--gold-pale);font-size:1.1rem;color:var(--charcoal);overflow-x:auto;display:flex;align-items:center;justify-content:center;margin-bottom:10px;}
-.sugg-strip{margin-bottom:10px;}
-.sugg-strip-head{font-size:.68rem;text-transform:uppercase;letter-spacing:1.5px;color:var(--soft);margin-bottom:.4rem;}
-.sugg-chips{display:flex;flex-wrap:wrap;gap:.35rem;}
-.schip{border:1.5px solid;border-radius:20px;padding:.25rem .75rem;font-size:.78rem;cursor:pointer;background:transparent;font-family:Nunito,sans-serif;font-weight:700;transition:all .15s;}
-.schip.confirm{border-color:#1a6aaa;color:#0a5a9a;background:#eef6ff;font-weight:800;}
+.sugg-chips{display:flex;flex-wrap:wrap;gap:.35rem;margin-bottom:10px;}
+.schip{border:1.5px solid #1a6aaa;border-radius:20px;padding:.25rem .75rem;font-size:.78rem;cursor:pointer;background:#eef6ff;color:#0a5a9a;font-family:Nunito,sans-serif;font-weight:800;}
 #rWrap{position:fixed;bottom:68px;left:10px;z-index:200;width:82px;pointer-events:none;}
 #rChar{width:82px;filter:drop-shadow(0 4px 10px rgba(107,76,42,.3));}
 @keyframes rIn{from{transform:translateY(50px);opacity:0}to{transform:translateY(0);opacity:1}}
 @keyframes rBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
-@media(max-width:600px){.main{padding:10px 10px 120px;}.topbar,.prog-wrap{padding-left:10px;padding-right:10px;}.timer-num{font-size:48px;}}
+@media(max-width:600px){.main{padding:10px 10px 120px;}}
 </style>
 <script src="/rishi-sync.js"></script>
 <script src="/rishi-core.js"></script>
@@ -124,7 +120,7 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
     <div class="rishika-avatar">&#128105;&#8205;&#127979;</div>
     <div class="rishika-bubble">
       <div class="rishika-name">Rishika</div>
-      <div class="rishika-text" id="introText">Welcome back, <span class="hl" id="sName">champion</span>! &#128522; Today we explore <span class="hl">Polynomials</span> — the language of algebra! From degree to zeroes, Remainder Theorem to factorisation — let&#39;s master it all! &#128161;</div>
+      <div class="rishika-text" id="introText">Hi <span class="hl" id="sName">there</span>! &#128522; Ready for <span class="hl">Polynomials</span>? These are algebraic expressions that follow special rules — and they unlock the secret to factorising any expression! Let&#39;s dive in! &#128640;</div>
       <button class="btn-speak" onclick="startLesson()" id="startBtn">&#9654; Start Lesson</button>
     </div>
   </div>
@@ -158,8 +154,6 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
   <ellipse cx="50" cy="66" rx="22" ry="16" fill="#7ab87a" stroke="#5a8a60" stroke-width="1.5"/>
   <line x1="50" y1="50" x2="50" y2="82" stroke="#5a8a60" stroke-width="1.5"/>
   <line x1="28" y1="66" x2="72" y2="66" stroke="#5a8a60" stroke-width="1.5"/>
-  <line x1="32" y1="55" x2="68" y2="77" stroke="#5a8a60" stroke-width="1"/>
-  <line x1="68" y1="55" x2="32" y2="77" stroke="#5a8a60" stroke-width="1"/>
   <ellipse cx="20" cy="82" rx="10" ry="7" fill="#7ab87a" stroke="#5a8a60" stroke-width="1.5" transform="rotate(-20,20,82)"/>
   <ellipse cx="80" cy="82" rx="10" ry="7" fill="#7ab87a" stroke="#5a8a60" stroke-width="1.5" transform="rotate(20,80,82)"/>
   <ellipse cx="22" cy="58" rx="9" ry="6" fill="#7ab87a" stroke="#5a8a60" stroke-width="1.5" transform="rotate(20,22,58)"/>
@@ -180,14 +174,13 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 </div>
 <script>
 var voicesReady=false,selectedVoice=null,elAudio=null;
-function pickVoice(){var vs=window.speechSynthesis.getVoices();if(!vs||vs.length===0)return false;var fk=["heera","veena","priya","raveena","female","woman","zira","samantha","victoria","karen","moira","tessa","fiona"];for(var i=0;i<vs.length;i++){if(vs[i].lang.toLowerCase().indexOf("en-in")===0){var n=vs[i].name.toLowerCase();for(var k=0;k<fk.length;k++){if(n.indexOf(fk[k])>=0){selectedVoice=vs[i];return true;}}}}for(var i=0;i<vs.length;i++){if(vs[i].lang.toLowerCase().indexOf("en")===0){var n=vs[i].name.toLowerCase();for(var k=0;k<fk.length;k++){if(n.indexOf(fk[k])>=0){selectedVoice=vs[i];return true;}}}}return false;}
+function pickVoice(){var vs=window.speechSynthesis.getVoices();if(!vs||vs.length===0)return false;var fk=["heera","veena","priya","raveena","female","woman","zira","samantha","victoria","karen"];for(var i=0;i<vs.length;i++){if(vs[i].lang.toLowerCase().indexOf("en-in")===0){var n=vs[i].name.toLowerCase();for(var k=0;k<fk.length;k++){if(n.indexOf(fk[k])>=0){selectedVoice=vs[i];return true;}}}}for(var i=0;i<vs.length;i++){if(vs[i].lang.toLowerCase().indexOf("en")===0){var n=vs[i].name.toLowerCase();for(var k=0;k<fk.length;k++){if(n.indexOf(fk[k])>=0){selectedVoice=vs[i];return true;}}}}return false;}
 function initVoices(cb){if(pickVoice()){voicesReady=true;cb();return;}window.speechSynthesis.onvoiceschanged=function(){window.speechSynthesis.onvoiceschanged=null;pickVoice();voicesReady=true;cb();};setTimeout(function(){if(!voicesReady){pickVoice();voicesReady=true;cb();}},2000);}
 function stopAllAudio(){if(elAudio){try{elAudio.pause();elAudio.src="";}catch(x){}elAudio=null;}if(window.speechSynthesis)window.speechSynthesis.cancel();}
 function sayBrowser(text,onEnd){if(!window.speechSynthesis)return;window.speechSynthesis.cancel();rStartTalk(text.length);var u=new SpeechSynthesisUtterance(text);u.lang="en-IN";u.rate=0.88;u.pitch=1.15;if(selectedVoice)u.voice=selectedVoice;u.onend=function(){rStopTalk();if(onEnd)onEnd();};u.onerror=function(){rStopTalk();if(onEnd)onEnd();};window.speechSynthesis.speak(u);}
 function say(text,onEnd){stopAllAudio();rStartTalk(text.length);fetch("/tts",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({text:text})}).then(function(res){if(!res.ok)throw new Error("TTS "+res.status);return res.blob();}).then(function(blob){var url=URL.createObjectURL(blob);elAudio=new Audio(url);elAudio.onended=function(){URL.revokeObjectURL(url);elAudio=null;rStopTalk();if(onEnd)onEnd();};elAudio.onerror=function(){URL.revokeObjectURL(url);elAudio=null;rStopTalk();if(onEnd)onEnd();};var p=elAudio.play();if(p&&p.catch){p.catch(function(){URL.revokeObjectURL(url);elAudio=null;sayBrowser(text,onEnd);});}}).catch(function(err){sayBrowser(text,onEnd);});}
 function sayEl(id){var e=G(id);if(e)say(e.innerText||e.textContent);}
 window.addEventListener("beforeunload",function(){stopAllAudio();});
-window.addEventListener("pagehide",function(){stopAllAudio();});
 var mouthTmr=null,blinkTmr=null,mOpen=false;
 function rInit(){var c=G("rChar");if(c)c.style.animation="rIn .6s cubic-bezier(.34,1.56,.64,1) forwards";scheduleBlink();}
 function scheduleBlink(){blinkTmr=setTimeout(function(){rBlink();scheduleBlink();},2200+Math.random()*3000);}
@@ -198,113 +191,146 @@ function rHappy(){var c=G("rChar");if(c)c.style.animation="rBounce .35s ease-in-
 function rThink(){setTimeout(rStopTalk,1800);}
 
 var QB=[
-{id:"pol1",q:"What is a Polynomial? What makes an expression a polynomial?",qs:"What is a Polynomial and what makes an expression a polynomial?",anim:"pol1",
-steps:[
-{t:"A polynomial is an algebraic expression with one or more terms, where each term has a variable raised to a WHOLE NUMBER power. Example: 3x² + 5x + 2 is a polynomial.",s:"A polynomial has variables with whole number exponents. 3x squared plus 5x plus 2 is a polynomial."},
-{t:"IMPORTANT: If any variable has a fractional or negative exponent, it is NOT a polynomial. So √x (which is x^(1/2)) and 1/x (which is x^(-1)) are NOT polynomials!",s:"Fractional or negative exponents disqualify an expression from being a polynomial."},
-{t:"Polynomials are named by number of terms: Monomial (1 term) like 5x², Binomial (2 terms) like x+3, Trinomial (3 terms) like x²+2x+1. The DEGREE is the highest power of the variable.",s:"Monomial has 1 term, binomial has 2, trinomial has 3. Degree is the highest power."}
-],cq:"Is x² + √x + 1 a polynomial? Type yes or no.",cqs:"Is x squared plus root x plus 1 a polynomial?",ans:["no"],
-nudges:["Look at the term √x — what is its exponent?","√x = x^(1/2) — the exponent is 1/2, which is NOT a whole number","Answer: No! It is NOT a polynomial because of the √x term."]},
-
-{id:"pol2",q:"What is the Degree of a polynomial and how do you classify polynomials?",qs:"What is the degree of a polynomial and how do you classify polynomials?",anim:"pol2",
-steps:[
-{t:"The DEGREE of a polynomial is the highest power of the variable. In 5x³ + 4x² + 7x, the highest power is 3, so degree = 3.",s:"The degree is the highest power of the variable. In 5x cubed plus 4x squared plus 7x, degree is 3."},
-{t:"Classification: Degree 0 = Constant polynomial (e.g. 7). Degree 1 = Linear polynomial (e.g. 3x + 2). Degree 2 = Quadratic polynomial (e.g. x² + x). Degree 3 = Cubic polynomial (e.g. x³ - 2x).",s:"Degree 0 is constant, degree 1 is linear, degree 2 is quadratic, degree 3 is cubic."},
-{t:"Important: The degree of a non-zero constant like 7 is 0 (since 7 = 7x⁰). A zero polynomial has no defined degree.",s:"A non-zero constant has degree 0. The zero polynomial has no defined degree."}
-],cq:"What is the degree of the polynomial 4 - y²?",cqs:"What is the degree of the polynomial 4 minus y squared?",ans:["2","two"],
-nudges:["Find the highest power of the variable y","In 4 - y², the powers of y are 0 and 2","The highest power is 2, so degree = 2"]},
-
-{id:"pol3",q:"What are the Zeroes of a polynomial and how do you find them?",qs:"What are the zeroes of a polynomial and how do you find them?",anim:"pol3",
-steps:[
-{t:"A ZERO of a polynomial p(x) is a value of x for which p(x) = 0. In other words, it is the value that makes the polynomial equal to zero.",s:"A zero is the value of x that makes the polynomial equal to zero."},
-{t:"To find zeroes: set the polynomial equal to zero and solve for x. For p(x) = x + 5: set x + 5 = 0, so x = -5. This means p(-5) = 0.",s:"Set the polynomial equal to zero and solve. For x plus 5, setting to zero gives x equals minus 5."},
-{t:"A linear polynomial has exactly ONE zero. A quadratic can have 0, 1, or 2 zeroes. Every polynomial of degree n has at most n zeroes. This is a fundamental theorem!",s:"A linear polynomial has one zero. A quadratic has at most two zeroes. Degree n means at most n zeroes."}
-],cq:"Find the zero of p(x) = 3x - 6.",cqs:"Find the zero of p of x equals 3x minus 6.",ans:["2","x=2","x = 2"],
-nudges:["Set 3x - 6 = 0","3x = 6, so x = ?","x = 2. Verify: p(2) = 3(2) - 6 = 0 ✓"]},
-
-{id:"pol4",q:"What is the Remainder Theorem and how does it save time?",qs:"What is the Remainder Theorem?",anim:"pol4",
-steps:[
-{t:"REMAINDER THEOREM: When a polynomial p(x) is divided by (x - a), the remainder equals p(a). You don't need to actually do long division!",s:"When dividing p of x by x minus a, the remainder equals p of a. No long division needed!"},
-{t:"Example: Find remainder when p(x) = x³ + 3x² + 3x + 1 is divided by (x + 1). Here a = -1 (since x + 1 = x - (-1)). So remainder = p(-1) = -1 + 3 - 3 + 1 = 0.",s:"For x plus 1, substitute x equals minus 1. p of minus 1 equals minus 1 plus 3 minus 3 plus 1 which is zero."},
-{t:"The remainder is ZERO — this means (x+1) is a FACTOR of p(x)! The Remainder Theorem directly connects to the Factor Theorem: remainder = 0 means it divides exactly.",s:"Remainder zero means the divisor is a factor. This connects Remainder Theorem to Factor Theorem."}
-],cq:"If p(x) = x³ - 1 is divided by (x - 1), what is the remainder?",cqs:"If p of x equals x cubed minus 1 is divided by x minus 1, what is the remainder?",ans:["0","zero"],
-nudges:["Use Remainder Theorem: substitute x = 1","p(1) = 1³ - 1 = 1 - 1","p(1) = 0. The remainder is 0!"]},
-
-{id:"pol5",q:"What is the Factor Theorem and how do you use it to factorise?",qs:"What is the Factor Theorem?",anim:"pol5",
-steps:[
-{t:"FACTOR THEOREM: (x - a) is a factor of polynomial p(x) if and only if p(a) = 0. It is a special case of Remainder Theorem where the remainder is zero.",s:"x minus a is a factor of p of x if and only if p of a equals zero."},
-{t:"To factorise a cubic: Step 1 - Try values like ±1, ±2, ±3 until you find p(a) = 0. Step 2 - Divide p(x) by (x - a) to get quotient. Step 3 - Factorise the quotient further.",s:"To factorise a cubic, try values until p of a is zero, then divide and factorise the quotient."},
-{t:"Example: For p(x) = x³ - 4x² + x + 6, try x = 2: p(2) = 8 - 16 + 2 + 6 = 0. So (x-2) is a factor! Dividing gives (x-2)(x²-2x-3) = (x-2)(x-3)(x+1).",s:"p of 2 equals zero, so x minus 2 is a factor. After dividing, we get x minus 2 times x minus 3 times x plus 1."}
-],cq:"If p(a) = 0 for polynomial p(x), then (x - a) is a _____ of p(x). Fill in the blank.",cqs:"If p of a equals zero, then x minus a is a what of p of x?",ans:["factor"],
-nudges:["This is the direct statement of Factor Theorem","When the remainder is zero, the divisor divides exactly","The answer is: factor"]},
-
-{id:"pol6",q:"What are Algebraic Identities for polynomials and why are they important?",qs:"What are the key algebraic identities for polynomials?",anim:"pol6",
-steps:[
-{t:"Key identities to memorise: (a+b)² = a²+2ab+b² | (a-b)² = a²-2ab+b² | (a+b)(a-b) = a²-b² | (a+b)³ = a³+3a²b+3ab²+b³ | (a-b)³ = a³-3a²b+3ab²-b³",s:"The five key identities: a plus b squared, a minus b squared, a plus b times a minus b, and the two cubed identities."},
-{t:"Also critical: a³+b³ = (a+b)(a²-ab+b²) | a³-b³ = (a-b)(a²+ab+b²) | a³+b³+c³-3abc = (a+b+c)(a²+b²+c²-ab-bc-ca). If a+b+c = 0, then a³+b³+c³ = 3abc!",s:"The sum and difference of cubes formulas, and the special identity: if a plus b plus c is zero, then the sum of their cubes equals 3abc."},
-{t:"These identities let you evaluate large numbers quickly! 99³ = (100-1)³ = 100³ - 3(100²)(1) + 3(100)(1) - 1 = 1000000 - 30000 + 300 - 1 = 970299. Much faster than direct multiplication!",s:"Use identities to evaluate quickly. 99 cubed as 100 minus 1 cubed gives 970299 without long multiplication."}
-],cq:"Expand (x + 3)² using identity. What is the answer?",cqs:"Expand x plus 3 whole squared.",ans:["x²+6x+9","x^2+6x+9","x squared plus 6x plus 9"],
-nudges:["Use (a+b)² = a² + 2ab + b² where a=x, b=3","x² + 2(x)(3) + 3² = x² + 6x + 9","Answer: x² + 6x + 9"]},
-
-{id:"pol7",q:"How do you factorise polynomials using splitting the middle term?",qs:"How do you factorise polynomials using splitting the middle term?",anim:"pol7",
-steps:[
-{t:"To factorise ax² + bx + c: find two numbers p and q such that p × q = a × c and p + q = b. Then split the middle term bx as px + qx and group.",s:"Find two numbers whose product is a times c and sum is b. Then split the middle term."},
-{t:"Example: x² + 5x + 6. Here a=1, b=5, c=6. Need p×q = 6 and p+q = 5. Numbers: 2 and 3 (since 2×3=6 and 2+3=5). Split: x² + 2x + 3x + 6.",s:"For x squared plus 5x plus 6, we need numbers whose product is 6 and sum is 5. Those are 2 and 3."},
-{t:"Group: x(x+2) + 3(x+2) = (x+2)(x+3). Always verify by expanding back! This method works for all quadratic polynomials.",s:"Grouping gives x plus 2 times x plus 3. Always verify by expanding."}
-],cq:"Factorise: x² + 7x + 10. What are the factors?",cqs:"Factorise x squared plus 7x plus 10.",ans:["(x+2)(x+5)","(x+5)(x+2)","x+2 and x+5"],
-nudges:["Find two numbers with product 10 and sum 7","Try 2 and 5: 2×5=10, 2+5=7 ✓","Answer: (x+2)(x+5)"]},
-
-{id:"pol8",q:"How do you evaluate polynomials using p(x) notation?",qs:"How do you evaluate polynomials using p of x notation?",anim:"pol8",
-steps:[
-{t:"p(x) notation means 'polynomial in x'. To find p(a), simply substitute x = a everywhere in the polynomial and calculate the result.",s:"p of x means polynomial in x. To find p of a, substitute x equals a everywhere."},
-{t:"Example: p(x) = x³ - 2x² - x + 2. Find p(0), p(1), p(2). p(0) = 0 - 0 - 0 + 2 = 2. p(1) = 1 - 2 - 1 + 2 = 0. p(2) = 8 - 8 - 2 + 2 = 0.",s:"For the polynomial x cubed minus 2x squared minus x plus 2, p of 0 is 2, p of 1 is 0, and p of 2 is 0."},
-{t:"Since p(1) = 0 and p(2) = 0, both x=1 and x=2 are ZEROES of this polynomial! This connects p(x) evaluation directly to finding zeroes and factors.",s:"Since p of 1 and p of 2 are both zero, x equals 1 and x equals 2 are zeroes, meaning x minus 1 and x minus 2 are factors."}
-],cq:"For p(x) = x² - 5x + 6, what is p(2)?",cqs:"For p of x equals x squared minus 5x plus 6, find p of 2.",ans:["0","zero"],
-nudges:["Substitute x = 2: 2² - 5(2) + 6","= 4 - 10 + 6","= 0. So x = 2 is a zero of this polynomial!"]},
-
-{id:"pol9",q:"What is the geometric meaning of zeroes and how to find zeroes graphically?",qs:"What is the geometric meaning of zeroes of a polynomial?",anim:"pol9",
-steps:[
-{t:"Geometrically, the zero of a polynomial p(x) is the x-coordinate of the point where the graph of y = p(x) crosses (or touches) the x-axis.",s:"A zero is where the graph crosses the x-axis, since that is where y equals zero."},
-{t:"For a linear polynomial y = ax + b, the graph is a straight line cutting the x-axis at ONE point. That x-intercept is the zero. For quadratic y = ax² + bx + c, the parabola can cut x-axis at 0, 1, or 2 points.",s:"Linear graph cuts x-axis once. Quadratic parabola can cut zero, one, or two times."},
-{t:"This visual understanding is powerful: if you see where the graph crosses the x-axis, you instantly know the zeroes! The number of crossings tells you the number of real zeroes.",s:"Count x-axis crossings to count real zeroes. This is a direct geometric interpretation."}
-],cq:"The graph of a linear polynomial cuts the x-axis at how many points?",cqs:"How many points does the graph of a linear polynomial cut the x-axis?",ans:["1","one","exactly one","exactly 1"],
-nudges:["A linear polynomial has degree 1","Degree 1 means at most 1 zero","A non-constant linear polynomial always cuts x-axis exactly once — answer: 1"]},
-
-{id:"pol10",q:"How do you use the identity a³ + b³ + c³ - 3abc and when does it simplify?",qs:"How do you use the identity a cubed plus b cubed plus c cubed minus 3abc?",anim:"pol10",
-steps:[
-{t:"The identity is: a³ + b³ + c³ - 3abc = (a + b + c)(a² + b² + c² - ab - bc - ca). This holds for all values of a, b, c.",s:"a cubed plus b cubed plus c cubed minus 3abc equals a plus b plus c times the bracket a squared plus b squared plus c squared minus ab minus bc minus ca."},
-{t:"SPECIAL CASE: If a + b + c = 0, then the right side becomes 0 × (bracket) = 0. Therefore a³ + b³ + c³ - 3abc = 0, which means a³ + b³ + c³ = 3abc!",s:"If a plus b plus c equals zero, then a cubed plus b cubed plus c cubed equals 3abc. The bracket disappears."},
-{t:"Example: If x + y + z = 0, prove x³ + y³ + z³ = 3xyz. Proof: Use the identity. Since x+y+z=0, the identity gives x³+y³+z³-3xyz = 0, so x³+y³+z³ = 3xyz. Proved!",s:"Proof: substitute a plus b plus c equals zero in the identity. The result follows immediately."}
-],cq:"If a + b + c = 0 and a = 1, b = 2, c = -3, find a³ + b³ + c³.",cqs:"If a plus b plus c equals zero with a equals 1, b equals 2, c equals minus 3, find a cubed plus b cubed plus c cubed.",ans:["18","3abc"],
-nudges:["Since a+b+c = 1+2+(-3) = 0, use the special case","a³+b³+c³ = 3abc = 3(1)(2)(-3)","= 3 × (-6) = -18. Wait: 3×1×2×(-3) = -18. Answer: -18"]
+{
+id:"p1",
+q:"What is a polynomial? What are its key parts?",
+qs:"What is a polynomial and what are its key parts?",
+anim:"p1",
+steps:[{"t": "A polynomial is an algebraic expression with variables and coefficients, where exponents of variables are WHOLE NUMBERS (0, 1, 2, 3...). Example: 3x² + 5x − 7 is a polynomial.", "s": "A polynomial uses whole number powers of variables. No fractions or negative powers allowed."}, {"t": "Key parts: Term = each part separated by + or −. Coefficient = number multiplied with the variable. Degree = highest power of the variable. Constant = term with no variable.", "s": "The degree is the highest power. The coefficient is the number before the variable."}, {"t": "Types: Monomial (1 term), Binomial (2 terms), Trinomial (3 terms). And by degree: Linear (degree 1), Quadratic (degree 2), Cubic (degree 3).", "s": "One term is monomial, two terms is binomial, three terms is trinomial."}],
+cq:"What is the degree of 5x\u00b3 \u2212 4x\u00b2 + 7x \u2212 2?",
+cqs:"What is the degree of 5x cubed minus 4x squared plus 7x minus 2?",
+ans:["3", "degree 3"],
+nudges:["Look for the HIGHEST power of x", "Powers present: 3, 2, 1, 0", "The highest power is 3, so degree = 3"],
+anim_svg:"<g id=\"p1s0\" opacity=\"0\"><rect x=\"10\" y=\"8\" width=\"390\" height=\"30\" rx=\"7\" fill=\"#f5e6c8\"/><text x=\"210\" y=\"28\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"800\" fill=\"#d4870a\">Polynomial: whole number powers only</text></g><g id=\"p1s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Monomial: 1 term | Binomial: 2 | Trinomial: 3</text></g><g id=\"p1s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Linear:deg1 | Quadratic:deg2 | Cubic:deg3</text></g><g id=\"p1ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">5x³ − 4x² + 7x − 2 → Degree = 3</text></g>"
+},
+{
+id:"p2",
+q:"What are the zeroes of a polynomial?",
+qs:"What are the zeroes of a polynomial?",
+anim:"p2",
+steps:[{"t": "A zero of a polynomial p(x) is a value of x that makes p(x) = 0. To find zeroes, set p(x) = 0 and solve for x.", "s": "The zero of a polynomial is the value of x that makes the polynomial equal to zero."}, {"t": "Example: p(x) = x − 5. Set x − 5 = 0 → x = 5. So 5 is the zero of this polynomial. Verify: p(5) = 5 − 5 = 0 ✓", "s": "For x minus 5, setting it to zero gives x equals 5. That is the zero."}, {"t": "A linear polynomial (degree 1) has exactly ONE zero. A quadratic has at most TWO zeroes. A polynomial of degree n has at most n zeroes.", "s": "A linear polynomial has one zero. A polynomial of degree n has at most n zeroes."}],
+cq:"Find the zero of p(x) = 3x \u2212 6",
+cqs:"Find the zero of p of x equals 3x minus 6.",
+ans:["2", "x=2", "x = 2"],
+nudges:["Set p(x) = 0: 3x − 6 = 0", "Add 6 to both sides: 3x = 6", "Divide by 3: x = 2"],
+anim_svg:"<g id=\"p2s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Zero of p(x) = value where p(x) = 0</text></g><g id=\"p2s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">p(x)=x−5 → x=5 is zero | p(5)=0 ✓</text></g><g id=\"p2s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Degree n → at most n zeroes</text></g><g id=\"p2ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">3x−6=0 → x=2</text></g>"
+},
+{
+id:"p3",
+q:"What is the Remainder Theorem?",
+qs:"What is the Remainder Theorem?",
+anim:"p3",
+steps:[{"t": "The Remainder Theorem says: When a polynomial p(x) is divided by (x − a), the remainder equals p(a). No long division needed!", "s": "The Remainder Theorem: when p of x is divided by x minus a, the remainder is p of a."}, {"t": "Example: Find remainder when p(x) = x³ + 3x² − 5x + 4 is divided by (x − 1). By theorem: remainder = p(1) = 1 + 3 − 5 + 4 = 3.", "s": "Just substitute a equals 1 into the polynomial. 1 plus 3 minus 5 plus 4 equals 3."}, {"t": "Why does this work? Polynomial division gives: p(x) = (x − a) × q(x) + r. When x = a: p(a) = 0 × q(a) + r = r. Beautiful shortcut!", "s": "When x equals a, the divisor becomes zero, leaving just the remainder."}],
+cq:"Find the remainder when x\u00b3 + 1 is divided by (x + 1).",
+cqs:"Find the remainder when x cubed plus 1 is divided by x plus 1.",
+ans:["0", "zero"],
+nudges:["(x+1) means x − (−1), so substitute x = −1", "p(−1) = (−1)³ + 1 = −1 + 1", "Remainder = 0"],
+anim_svg:"<g id=\"p3s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Remainder Theorem: divide p(x) by (x−a)</text></g><g id=\"p3s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Remainder = p(a) — no long division!</text></g><g id=\"p3s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">p(x)÷(x−1): remainder=p(1)=1+3−5+4=3</text></g><g id=\"p3ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">p(−1)=−1+1=0 → Remainder=0</text></g>"
+},
+{
+id:"p4",
+q:"What is the Factor Theorem?",
+qs:"What is the Factor Theorem?",
+anim:"p4",
+steps:[{"t": "The Factor Theorem is a special case of Remainder Theorem: (x − a) is a factor of p(x) if and only if p(a) = 0.", "s": "x minus a is a factor of p of x if and only if p of a equals zero."}, {"t": "To check if (x − 2) is a factor: calculate p(2). If p(2) = 0, yes it is! If p(2) ≠ 0, no it is not.", "s": "Substitute the value. If the result is zero, it is a factor."}, {"t": "To find the value of unknown k: if (x − a) is given as a factor, use p(a) = 0 and solve. Example: If (x−1) is factor of 4x³−4x²+k, then p(1) = 0 → 4−4+k = 0 → k = 0.", "s": "Set p of a equal to zero and solve for the unknown."}],
+cq:"Is (x + 1) a factor of x\u00b3 + x\u00b2 + x + 1? Yes or No.",
+cqs:"Is x plus 1 a factor of x cubed plus x squared plus x plus 1?",
+ans:["yes"],
+nudges:["For (x+1), substitute x = −1", "p(−1) = (−1)³ + (−1)² + (−1) + 1 = −1 + 1 − 1 + 1", "Result = 0, so YES, (x+1) is a factor!"],
+anim_svg:"<g id=\"p4s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Factor Theorem: (x−a) is factor iff p(a)=0</text></g><g id=\"p4s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">p(a)=0 → factor | p(a)≠0 → not a factor</text></g><g id=\"p4s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Find k: set p(a)=0 and solve</text></g><g id=\"p4ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">p(−1)=−1+1−1+1=0 → YES factor</text></g>"
+},
+{
+id:"p5",
+q:"How do you use algebraic identities for polynomials?",
+qs:"How do you use algebraic identities for polynomials?",
+anim:"p5",
+steps:[{"t": "The key identities to memorise: (a+b)² = a² + 2ab + b². (a−b)² = a² − 2ab + b². (a+b)(a−b) = a² − b². These help expand AND factorise.", "s": "The three key square identities. They work for both expansion and factorisation."}, {"t": "Sum and difference of cubes: a³ + b³ = (a+b)(a²−ab+b²). a³ − b³ = (a−b)(a²+ab+b²). Critical for factorising cubic expressions!", "s": "For cubes: a cubed plus b cubed equals a plus b times a squared minus ab plus b squared."}, {"t": "Super identity: (a+b+c)² = a²+b²+c²+2ab+2bc+2ca. And if a+b+c=0, then a³+b³+c³ = 3abc!", "s": "If a plus b plus c equals zero, then a cubed plus b cubed plus c cubed equals 3abc."}],
+cq:"Expand: (2x + 3y)\u00b2",
+cqs:"Expand 2x plus 3y whole squared.",
+ans:["4x2+12xy+9y2", "4x²+12xy+9y²", "4x^2+12xy+9y^2"],
+nudges:["Use (a+b)² = a²+2ab+b² with a=2x, b=3y", "(2x)²=4x², 2×2x×3y=12xy, (3y)²=9y²", "Answer: 4x² + 12xy + 9y²"],
+anim_svg:"<g id=\"p5s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">(a+b)²=a²+2ab+b² | (a−b)²=a²−2ab+b²</text></g><g id=\"p5s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">a³+b³=(a+b)(a²−ab+b²) | a³−b³=(a−b)(a²+ab+b²)</text></g><g id=\"p5s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">a+b+c=0 → a³+b³+c³=3abc</text></g><g id=\"p5ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">(2x+3y)²=4x²+12xy+9y²</text></g>"
+},
+{
+id:"p6",
+q:"How do you factorise quadratic polynomials?",
+qs:"How do you factorise quadratic polynomials?",
+anim:"p6",
+steps:[{"t": "For ax² + bx + c, find two numbers p and q such that p + q = b (coefficient of x) and p × q = ac (product of a and c).", "s": "Find two numbers that add to b and multiply to a times c."}, {"t": "Example: x² − 5x + 6. Here a=1, b=−5, c=6. Need p+q = −5 and p×q = 6. So p=−2, q=−3.", "s": "For x squared minus 5x plus 6, we need numbers that add to negative 5 and multiply to 6. Those are negative 2 and negative 3."}, {"t": "Split: x² − 2x − 3x + 6 = x(x−2) − 3(x−2) = (x−2)(x−3). Always verify by multiplying back!", "s": "Split the middle term, group, and factor out. Then verify by expanding back."}],
+cq:"Factorise x\u00b2 + 7x + 12",
+cqs:"Factorise x squared plus 7x plus 12.",
+ans:["(x+3)(x+4)", "(x+4)(x+3)"],
+nudges:["Find two numbers: sum = 7, product = 12", "Those numbers are 3 and 4 (3+4=7, 3×4=12)", "Answer: (x + 3)(x + 4)"],
+anim_svg:"<g id=\"p6s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Factorise ax²+bx+c: find p,q where p+q=b, pq=ac</text></g><g id=\"p6s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">x²−5x+6: need sum=−5, product=6 → −2,−3</text></g><g id=\"p6s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">x²−2x−3x+6=x(x−2)−3(x−2)=(x−2)(x−3)</text></g><g id=\"p6ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">x²+7x+12=(x+3)(x+4)</text></g>"
+},
+{
+id:"p7",
+q:"How do you evaluate expressions using identities?",
+qs:"How do you evaluate expressions using identities?",
+anim:"p7",
+steps:[{"t": "Smart trick: instead of calculating 99² directly, write 99 = (100 − 1) and use (a−b)² = a²−2ab+b².", "s": "Write the number as a sum or difference of a round number, then apply the identity."}, {"t": "99² = (100−1)² = 10000 − 200 + 1 = 9801. Much faster than multiplying 99×99!", "s": "100 squared is 10000. Minus 200 plus 1 gives 9801."}, {"t": "Similarly: 101² = (100+1)² = 10201. And 98 × 102 = (100−2)(100+2) = 10000−4 = 9996. Identities save time in exams!", "s": "These identity shortcuts are very useful in exams. Always look for a round number nearby."}],
+cq:"Use identity to find 101\u00b2",
+cqs:"Use an algebraic identity to find 101 squared.",
+ans:["10201"],
+nudges:["Write 101 = 100 + 1. Use (a+b)² = a²+2ab+b²", "(100+1)² = 10000 + 200 + 1", "Answer: 10201"],
+anim_svg:"<g id=\"p7s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">99²→write as (100−1)²→use identity</text></g><g id=\"p7s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">=10000−200+1=9801</text></g><g id=\"p7s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">101²=10201 | 98×102=9996</text></g><g id=\"p7ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">(100+1)²=10000+200+1=10201</text></g>"
+},
+{
+id:"p8",
+q:"What is the identity for (a+b+c)\u00b2 and when is it useful?",
+qs:"What is the identity for a plus b plus c whole squared?",
+anim:"p8",
+steps:[{"t": "(a+b+c)² = a² + b² + c² + 2ab + 2bc + 2ca. This is one of the most powerful identities in Class 9 algebra.", "s": "The full expansion of a plus b plus c squared has 6 terms."}, {"t": "It helps you find a²+b²+c² when you know a+b+c and ab+bc+ca. Formula: a²+b²+c² = (a+b+c)² − 2(ab+bc+ca).", "s": "Subtract 2 times the sum of products from the square of the sum."}, {"t": "Example: If a+b+c = 9 and ab+bc+ca = 26, then a²+b²+c² = 81 − 52 = 29. This type appears in CBSE board papers every year!", "s": "81 minus 52 equals 29. This exact type appears in board exams every year."}],
+cq:"If a+b+c = 6 and ab+bc+ca = 11, find a\u00b2+b\u00b2+c\u00b2",
+cqs:"If a plus b plus c equals 6 and ab plus bc plus ca equals 11, find a squared plus b squared plus c squared.",
+ans:["14"],
+nudges:["Use: a²+b²+c² = (a+b+c)² − 2(ab+bc+ca)", "= 6² − 2×11 = 36 − 22", "Answer: 14"],
+anim_svg:"<g id=\"p8s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">(a+b+c)²=a²+b²+c²+2ab+2bc+2ca</text></g><g id=\"p8s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">a²+b²+c²=(a+b+c)²−2(ab+bc+ca)</text></g><g id=\"p8s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">a+b+c=9,ab+bc+ca=26 → 81−52=29</text></g><g id=\"p8ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">6²−2(11)=36−22=14</text></g>"
+},
+{
+id:"p9",
+q:"How do you factorise sum/difference of cubes?",
+qs:"How do you factorise sum and difference of cubes?",
+anim:"p9",
+steps:[{"t": "Sum of cubes: a³ + b³ = (a+b)(a² − ab + b²). Difference of cubes: a³ − b³ = (a−b)(a² + ab + b²). These must be memorised!", "s": "Sum of cubes: a plus b times a squared minus ab plus b squared. Difference: a minus b times a squared plus ab plus b squared."}, {"t": "Example: Factorise 8x³ + 27. Identify: 8x³ = (2x)³ and 27 = 3³. So a = 2x, b = 3.", "s": "Recognise that 8x cubed is 2x whole cubed and 27 is 3 cubed."}, {"t": "Apply formula: (2x+3)((2x)²−(2x)(3)+3²) = (2x+3)(4x²−6x+9). Always check by identifying perfect cubes first!", "s": "Substituting gives 2x plus 3 times 4x squared minus 6x plus 9."}],
+cq:"Factorise: x\u00b3 \u2212 8",
+cqs:"Factorise x cubed minus 8.",
+ans:["(x-2)(x2+2x+4)", "(x−2)(x²+2x+4)", "(x-2)(x^2+2x+4)"],
+nudges:["x³ − 8 = x³ − 2³. Use a³−b³ = (a−b)(a²+ab+b²)", "a=x, b=2. So: (x−2)(x²+2x+4)", "Answer: (x − 2)(x² + 2x + 4)"],
+anim_svg:"<g id=\"p9s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">a³+b³=(a+b)(a²−ab+b²) | a³−b³=(a−b)(a²+ab+b²)</text></g><g id=\"p9s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">8x³+27=(2x)³+3³ → a=2x, b=3</text></g><g id=\"p9s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">=(2x+3)(4x²−6x+9)</text></g><g id=\"p9ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">x³−8=(x−2)(x²+2x+4)</text></g>"
+},
+{
+id:"p10",
+q:"When a+b+c = 0, what is a\u00b3+b\u00b3+c\u00b3?",
+qs:"When a plus b plus c equals zero, what is a cubed plus b cubed plus c cubed?",
+anim:"p10",
+steps:[{"t": "The identity: a³+b³+c³ − 3abc = (a+b+c)(a²+b²+c²−ab−bc−ca). This is a critical identity for Class 9.", "s": "The identity for sum of cubes minus 3abc involves the factor a plus b plus c."}, {"t": "If a+b+c = 0, then the right side = 0 × (anything) = 0. So a³+b³+c³ − 3abc = 0.", "s": "When a plus b plus c equals zero, the whole right side becomes zero."}, {"t": "Therefore: a³+b³+c³ = 3abc. If three numbers add to zero, their cubes always equal 3 times their product.", "s": "If the three numbers sum to zero, their cubes equal 3 times their product."}],
+cq:"If x+y+z = 0 and xyz = 5, find x\u00b3+y\u00b3+z\u00b3.",
+cqs:"If x plus y plus z equals zero and xyz equals 5, find x cubed plus y cubed plus z cubed.",
+ans:["15"],
+nudges:["Since x+y+z = 0, we use: x³+y³+z³ = 3xyz", "= 3 × 5", "Answer: 15"],
+anim_svg:"<g id=\"p10s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">a³+b³+c³−3abc=(a+b+c)(a²+b²+c²−ab−bc−ca)</text></g><g id=\"p10s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">a+b+c=0 → RHS=0 → a³+b³+c³=3abc</text></g><g id=\"p10s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">xyz=5 → x³+y³+z³=3×5=15</text></g><g id=\"p10ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">x³+y³+z³=3xyz=3×5=15</text></g>"
 }
 ];
 
 function getAnimSVG(t){
-  var base='<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Nunito,sans-serif;background:#fffdf8"><rect width="420" height="178" fill="#fffdf8"/>';
-  var m={
-    "pol1":base+'<g id="pol1s0" opacity="0"><rect x="10" y="8" width="390" height="32" rx="8" fill="#eef2eb"/><text x="210" y="28" text-anchor="middle" font-size="12" font-weight="800" fill="#5a4a30">POLYNOMIAL: variable exponents are whole numbers (0,1,2,3...)</text></g><g id="pol1s1" opacity="0"><rect x="10" y="48" width="185" height="50" rx="8" fill="#eef2eb"/><text x="102" y="68" text-anchor="middle" font-size="11" font-weight="800" fill="#5a4a30">✅ POLYNOMIAL</text><text x="102" y="84" text-anchor="middle" font-size="10" fill="#7a8c6e">3x² + 5x + 2</text><text x="102" y="98" text-anchor="middle" font-size="10" fill="#7a8c6e">4x³ - 7 | √2 · x</text></g><g id="pol1s2" opacity="0"><rect x="215" y="48" width="195" height="50" rx="8" fill="#fff5f0"/><text x="312" y="68" text-anchor="middle" font-size="11" font-weight="800" fill="#b85c2a">❌ NOT POLYNOMIAL</text><text x="312" y="84" text-anchor="middle" font-size="10" fill="#b85c2a">√x = x^(1/2)</text><text x="312" y="98" text-anchor="middle" font-size="10" fill="#b85c2a">1/x = x^(-1)</text></g><g id="pol1ans" opacity="0"><rect x="40" y="114" width="320" height="24" rx="7" fill="#fff5f0" stroke="#b85c2a" stroke-width="1.5"/><text x="210" y="130" text-anchor="middle" font-family="Share Tech Mono" font-size="12" font-weight="bold" fill="#b85c2a">√x has exponent 1/2 → NOT a polynomial</text></g></svg>',
-    "pol2":base+'<g id="pol2s0" opacity="0"><text x="22" y="30" font-size="12" font-weight="800" fill="#5a4a30">DEGREE = highest power of variable</text></g><g id="pol2s1" opacity="0"><text x="22" y="60" font-size="11" font-weight="700" fill="#5a4a30">Degree 0 → Constant | Degree 1 → Linear</text><text x="22" y="80" font-size="11" font-weight="700" fill="#5a4a30">Degree 2 → Quadratic | Degree 3 → Cubic</text></g><g id="pol2s2" opacity="0"><rect x="10" y="96" width="390" height="28" rx="8" fill="#f5e6c8"/><text x="210" y="114" text-anchor="middle" font-size="12" font-weight="800" fill="#d4870a">4 - y² → highest power is 2 → Degree = 2</text></g><g id="pol2ans" opacity="0"><rect x="40" y="138" width="320" height="24" rx="7" fill="#eef2eb" stroke="#6b4c2a" stroke-width="1.5"/><text x="210" y="153" text-anchor="middle" font-family="Share Tech Mono" font-size="14" font-weight="bold" fill="#7a8c6e">Degree of 4 - y² = 2</text></g></svg>',
-    "pol3":base+'<g id="pol3s0" opacity="0"><text x="22" y="30" font-size="12" font-weight="800" fill="#5a4a30">ZERO: value of x that makes p(x) = 0</text></g><g id="pol3s1" opacity="0"><text x="22" y="70" font-size="12" font-weight="700" fill="#5a4a30">p(x) = 3x - 6 → Set to 0 → 3x = 6 → x = 2</text></g><g id="pol3s2" opacity="0"><text x="22" y="110" font-size="12" font-weight="700" fill="#5a4a30">Verify: p(2) = 3(2) - 6 = 6 - 6 = 0 ✓</text></g><g id="pol3ans" opacity="0"><rect x="40" y="138" width="320" height="24" rx="7" fill="#eef2eb" stroke="#6b4c2a" stroke-width="1.5"/><text x="210" y="153" text-anchor="middle" font-family="Share Tech Mono" font-size="14" font-weight="bold" fill="#7a8c6e">Zero of 3x - 6 is x = 2</text></g></svg>',
-    "pol4":base+'<g id="pol4s0" opacity="0"><rect x="10" y="8" width="390" height="30" rx="8" fill="#f5e6c8"/><text x="210" y="27" text-anchor="middle" font-size="12" font-weight="800" fill="#d4870a">REMAINDER THEOREM: divide p(x) by (x-a) → remainder = p(a)</text></g><g id="pol4s1" opacity="0"><text x="22" y="68" font-size="11" font-weight="700" fill="#5a4a30">p(x) = x³+3x²+3x+1 ÷ (x+1): substitute x = -1</text><text x="22" y="88" font-size="11" font-weight="700" fill="#5a4a30">p(-1) = -1+3-3+1 = 0 → Remainder = 0</text></g><g id="pol4s2" opacity="0"><rect x="10" y="104" width="390" height="30" rx="8" fill="#eef2eb"/><text x="210" y="122" text-anchor="middle" font-size="12" font-weight="800" fill="#7a8c6e">Remainder = 0 → (x+1) is a FACTOR!</text></g><g id="pol4ans" opacity="0"><rect x="40" y="148" width="320" height="24" rx="7" fill="#eef2eb" stroke="#6b4c2a" stroke-width="1.5"/><text x="210" y="163" text-anchor="middle" font-family="Share Tech Mono" font-size="13" font-weight="bold" fill="#7a8c6e">p(1) = 1-1 = 0 → Remainder = 0</text></g></svg>',
-    "pol5":base+'<g id="pol5s0" opacity="0"><rect x="10" y="8" width="390" height="30" rx="8" fill="#f5e6c8"/><text x="210" y="27" text-anchor="middle" font-size="12" font-weight="800" fill="#d4870a">FACTOR THEOREM: p(a)=0 ↔ (x-a) is a factor</text></g><g id="pol5s1" opacity="0"><text x="22" y="68" font-size="11" font-weight="700" fill="#5a4a30">p(x) = x³-4x²+x+6: try x=2</text><text x="22" y="88" font-size="11" font-weight="700" fill="#5a4a30">p(2) = 8-16+2+6 = 0 → (x-2) is a factor!</text></g><g id="pol5s2" opacity="0"><text x="22" y="122" font-size="11" font-weight="700" fill="#5a4a30">(x-2)(x²-2x-3) = (x-2)(x-3)(x+1)</text></g><g id="pol5ans" opacity="0"><rect x="40" y="148" width="320" height="24" rx="7" fill="#eef2eb" stroke="#6b4c2a" stroke-width="1.5"/><text x="210" y="163" text-anchor="middle" font-family="Share Tech Mono" font-size="13" font-weight="bold" fill="#7a8c6e">p(a)=0 → (x-a) is a FACTOR</text></g></svg>',
-    "pol6":base+'<g id="pol6s0" opacity="0"><text x="22" y="24" font-size="10" font-weight="800" fill="#5a4a30">(a+b)²=a²+2ab+b² | (a-b)²=a²-2ab+b²</text><text x="22" y="42" font-size="10" font-weight="800" fill="#5a4a30">(a+b)(a-b)=a²-b²</text></g><g id="pol6s1" opacity="0"><text x="22" y="76" font-size="10" font-weight="800" fill="#5a4a30">(a+b)³=a³+3a²b+3ab²+b³</text><text x="22" y="94" font-size="10" font-weight="800" fill="#5a4a30">a³+b³+c³-3abc=(a+b+c)(a²+b²+c²-ab-bc-ca)</text></g><g id="pol6s2" opacity="0"><rect x="10" y="110" width="390" height="30" rx="8" fill="#f5e6c8"/><text x="210" y="128" text-anchor="middle" font-size="12" font-weight="800" fill="#d4870a">99³=(100-1)³=1000000-30000+300-1=970299</text></g><g id="pol6ans" opacity="0"><rect x="40" y="152" width="320" height="22" rx="7" fill="#eef2eb" stroke="#6b4c2a" stroke-width="1.5"/><text x="210" y="166" text-anchor="middle" font-family="Share Tech Mono" font-size="13" font-weight="bold" fill="#7a8c6e">(x+3)²=x²+6x+9</text></g></svg>',
-    "pol7":base+'<g id="pol7s0" opacity="0"><text x="22" y="30" font-size="12" font-weight="800" fill="#5a4a30">Split middle term: find p,q where p×q=ac and p+q=b</text></g><g id="pol7s1" opacity="0"><text x="22" y="70" font-size="11" font-weight="700" fill="#5a4a30">x²+5x+6: need p×q=6, p+q=5 → 2 and 3</text><text x="22" y="90" font-size="11" font-weight="700" fill="#5a4a30">x²+2x+3x+6 = x(x+2)+3(x+2)</text></g><g id="pol7s2" opacity="0"><rect x="10" y="106" width="390" height="28" rx="8" fill="#eef2eb"/><text x="210" y="124" text-anchor="middle" font-size="13" font-weight="800" fill="#7a8c6e">= (x+2)(x+3) ✓ Verify: (x+2)(x+3)=x²+5x+6</text></g><g id="pol7ans" opacity="0"><rect x="40" y="148" width="320" height="24" rx="7" fill="#eef2eb" stroke="#6b4c2a" stroke-width="1.5"/><text x="210" y="163" text-anchor="middle" font-family="Share Tech Mono" font-size="13" font-weight="bold" fill="#7a8c6e">x²+7x+10 = (x+2)(x+5)</text></g></svg>',
-    "pol8":base+'<g id="pol8s0" opacity="0"><text x="22" y="30" font-size="12" font-weight="800" fill="#5a4a30">p(a) = substitute x=a in p(x) and calculate</text></g><g id="pol8s1" opacity="0"><text x="22" y="70" font-size="11" font-weight="700" fill="#5a4a30">p(x)=x³-2x²-x+2: p(0)=2, p(1)=0, p(2)=0</text></g><g id="pol8s2" opacity="0"><rect x="10" y="98" width="390" height="28" rx="8" fill="#eef2eb"/><text x="210" y="116" text-anchor="middle" font-size="12" font-weight="800" fill="#7a8c6e">p(1)=0 and p(2)=0 → x=1 and x=2 are ZEROES</text></g><g id="pol8ans" opacity="0"><rect x="40" y="142" width="320" height="24" rx="7" fill="#eef2eb" stroke="#6b4c2a" stroke-width="1.5"/><text x="210" y="157" text-anchor="middle" font-family="Share Tech Mono" font-size="13" font-weight="bold" fill="#7a8c6e">p(2)=4-10+6=0</text></g></svg>',
-    "pol9":base+'<g id="pol9s0" opacity="0"><text x="22" y="30" font-size="12" font-weight="800" fill="#5a4a30">GEOMETRIC: zero = x-coordinate where graph crosses x-axis</text></g><g id="pol9s1" opacity="0"><line x1="30" y1="90" x2="390" y2="90" stroke="#5a4a30" stroke-width="1.5"/><text x="30" y="106" font-size="9" fill="#5a4a30">x-axis</text><line x1="100" y1="60" x2="280" y2="120" stroke="#2563EB" stroke-width="2"/><text x="140" y="56" font-size="10" fill="#2563EB">Linear: 1 crossing</text><circle cx="190" cy="90" r="4" fill="#d4870a"/></g><g id="pol9s2" opacity="0"><text x="22" y="140" font-size="11" font-weight="700" fill="#5a4a30">Quadratic parabola: 0, 1 or 2 x-crossings = 0, 1 or 2 zeroes</text></g><g id="pol9ans" opacity="0"><rect x="40" y="156" width="320" height="18" rx="7" fill="#eef2eb" stroke="#6b4c2a" stroke-width="1.5"/><text x="210" y="168" text-anchor="middle" font-family="Share Tech Mono" font-size="12" font-weight="bold" fill="#7a8c6e">Linear polynomial cuts x-axis exactly ONCE</text></g></svg>',
-    "pol10":base+'<g id="pol10s0" opacity="0"><text x="22" y="24" font-size="10" font-weight="800" fill="#5a4a30">a³+b³+c³-3abc = (a+b+c)(a²+b²+c²-ab-bc-ca)</text></g><g id="pol10s1" opacity="0"><rect x="10" y="38" width="390" height="40" rx="8" fill="#f5e6c8"/><text x="210" y="56" text-anchor="middle" font-size="12" font-weight="800" fill="#d4870a">SPECIAL: if a+b+c=0 → a³+b³+c³ = 3abc</text><text x="210" y="72" text-anchor="middle" font-size="11" font-weight="700" fill="#d4870a">Right side becomes 0 × (bracket) = 0</text></g><g id="pol10s2" opacity="0"><text x="22" y="108" font-size="11" font-weight="700" fill="#5a4a30">a=1,b=2,c=-3: a+b+c=0</text><text x="22" y="126" font-size="11" font-weight="700" fill="#5a4a30">a³+b³+c³ = 3abc = 3(1)(2)(-3) = -18</text></g><g id="pol10ans" opacity="0"><rect x="40" y="150" width="320" height="24" rx="7" fill="#eef2eb" stroke="#6b4c2a" stroke-width="1.5"/><text x="210" y="165" text-anchor="middle" font-family="Share Tech Mono" font-size="13" font-weight="bold" fill="#7a8c6e">3abc = 3×1×2×(-3) = -18</text></g></svg>'
-  };
-  return m[t]||'<svg viewBox="0 0 420 178"><text x="210" y="89" text-anchor="middle" font-family="Nunito" font-size="14" fill="#5a4a30">Loading...</text></svg>';
+var base='<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Nunito,sans-serif;background:#fffdf8"><rect width="420" height="178" fill="#fffdf8"/>';
+var svgs={
+"p1":base+"<g id=\"p1s0\" opacity=\"0\"><rect x=\"10\" y=\"8\" width=\"390\" height=\"30\" rx=\"7\" fill=\"#f5e6c8\"/><text x=\"210\" y=\"28\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"800\" fill=\"#d4870a\">Polynomial: whole number powers only</text></g><g id=\"p1s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Monomial: 1 term | Binomial: 2 | Trinomial: 3</text></g><g id=\"p1s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Linear:deg1 | Quadratic:deg2 | Cubic:deg3</text></g><g id=\"p1ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">5x\u00b3 \u2212 4x\u00b2 + 7x \u2212 2 \u2192 Degree = 3</text></g>",
+"p2":base+"<g id=\"p2s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Zero of p(x) = value where p(x) = 0</text></g><g id=\"p2s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">p(x)=x\u22125 \u2192 x=5 is zero | p(5)=0 \u2713</text></g><g id=\"p2s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Degree n \u2192 at most n zeroes</text></g><g id=\"p2ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">3x\u22126=0 \u2192 x=2</text></g>",
+"p3":base+"<g id=\"p3s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Remainder Theorem: divide p(x) by (x\u2212a)</text></g><g id=\"p3s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Remainder = p(a) \u2014 no long division!</text></g><g id=\"p3s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">p(x)\u00f7(x\u22121): remainder=p(1)=1+3\u22125+4=3</text></g><g id=\"p3ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">p(\u22121)=\u22121+1=0 \u2192 Remainder=0</text></g>",
+"p4":base+"<g id=\"p4s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Factor Theorem: (x\u2212a) is factor iff p(a)=0</text></g><g id=\"p4s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">p(a)=0 \u2192 factor | p(a)\u22600 \u2192 not a factor</text></g><g id=\"p4s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Find k: set p(a)=0 and solve</text></g><g id=\"p4ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">p(\u22121)=\u22121+1\u22121+1=0 \u2192 YES factor</text></g>",
+"p5":base+"<g id=\"p5s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">(a+b)\u00b2=a\u00b2+2ab+b\u00b2 | (a\u2212b)\u00b2=a\u00b2\u22122ab+b\u00b2</text></g><g id=\"p5s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">a\u00b3+b\u00b3=(a+b)(a\u00b2\u2212ab+b\u00b2) | a\u00b3\u2212b\u00b3=(a\u2212b)(a\u00b2+ab+b\u00b2)</text></g><g id=\"p5s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">a+b+c=0 \u2192 a\u00b3+b\u00b3+c\u00b3=3abc</text></g><g id=\"p5ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">(2x+3y)\u00b2=4x\u00b2+12xy+9y\u00b2</text></g>",
+"p6":base+"<g id=\"p6s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">Factorise ax\u00b2+bx+c: find p,q where p+q=b, pq=ac</text></g><g id=\"p6s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">x\u00b2\u22125x+6: need sum=\u22125, product=6 \u2192 \u22122,\u22123</text></g><g id=\"p6s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">x\u00b2\u22122x\u22123x+6=x(x\u22122)\u22123(x\u22122)=(x\u22122)(x\u22123)</text></g><g id=\"p6ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">x\u00b2+7x+12=(x+3)(x+4)</text></g>",
+"p7":base+"<g id=\"p7s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">99\u00b2\u2192write as (100\u22121)\u00b2\u2192use identity</text></g><g id=\"p7s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">=10000\u2212200+1=9801</text></g><g id=\"p7s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">101\u00b2=10201 | 98\u00d7102=9996</text></g><g id=\"p7ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">(100+1)\u00b2=10000+200+1=10201</text></g>",
+"p8":base+"<g id=\"p8s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">(a+b+c)\u00b2=a\u00b2+b\u00b2+c\u00b2+2ab+2bc+2ca</text></g><g id=\"p8s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">a\u00b2+b\u00b2+c\u00b2=(a+b+c)\u00b2\u22122(ab+bc+ca)</text></g><g id=\"p8s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">a+b+c=9,ab+bc+ca=26 \u2192 81\u221252=29</text></g><g id=\"p8ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">6\u00b2\u22122(11)=36\u221222=14</text></g>",
+"p9":base+"<g id=\"p9s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">a\u00b3+b\u00b3=(a+b)(a\u00b2\u2212ab+b\u00b2) | a\u00b3\u2212b\u00b3=(a\u2212b)(a\u00b2+ab+b\u00b2)</text></g><g id=\"p9s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">8x\u00b3+27=(2x)\u00b3+3\u00b3 \u2192 a=2x, b=3</text></g><g id=\"p9s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">=(2x+3)(4x\u00b2\u22126x+9)</text></g><g id=\"p9ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">x\u00b3\u22128=(x\u22122)(x\u00b2+2x+4)</text></g>",
+"p10":base+"<g id=\"p10s0\" opacity=\"0\"><text x=\"22\" y=\"30\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">a\u00b3+b\u00b3+c\u00b3\u22123abc=(a+b+c)(a\u00b2+b\u00b2+c\u00b2\u2212ab\u2212bc\u2212ca)</text></g><g id=\"p10s1\" opacity=\"0\"><text x=\"22\" y=\"70\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">a+b+c=0 \u2192 RHS=0 \u2192 a\u00b3+b\u00b3+c\u00b3=3abc</text></g><g id=\"p10s2\" opacity=\"0\"><text x=\"22\" y=\"110\" font-size=\"12\" font-weight=\"800\" fill=\"#5a4a30\">xyz=5 \u2192 x\u00b3+y\u00b3+z\u00b3=3\u00d75=15</text></g><g id=\"p10ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">x\u00b3+y\u00b3+z\u00b3=3xyz=3\u00d75=15</text></g>"
+};
+return svgs[t]||'<svg viewBox="0 0 420 178"><text x="210" y="89" text-anchor="middle" font-family="Nunito" font-size="14" fill="#5a4a30">Loading...</text></svg>';
 }
 
-function makeAnimPlay(id,steps,ansLabel){
-  return function(done){
-    setStatus("Solving step by step...");
-    var delay=600;
-    steps.forEach(function(_,i){(function(ii,dd){at(dd,function(){fade(id+"s"+ii,1);});})(i,delay+i*2800);});
-    at(delay+steps.length*2800,function(){fade(id+"ans",1);setStatus("Key concept: "+ansLabel);at(2000,done);});
-  };
-}
+function makeAnimPlay(id,steps,ansLabel){return function(done){setStatus("Solving step by step...");var delay=600;steps.forEach(function(_,i){var d=delay+i*2800;(function(ii,dd){at(dd,function(){fade(id+"s"+ii,1);});})( i,d);});at(delay+steps.length*2800,function(){fade(id+"ans",1);setStatus("Answer: "+ansLabel);at(2000,done);});}; }
 var ANIM_PLAYS={};
 QB.forEach(function(q){ANIM_PLAYS[q.id]=makeAnimPlay(q.id,q.steps,q.ans[0]);});
 function getAnimPlay(t){return ANIM_PLAYS[t]||function(done){done();};}
@@ -315,15 +341,14 @@ function clearAt(){for(var i=0;i<atTimers.length;i++)clearTimeout(atTimers[i]);a
 function at(ms,fn){atTimers.push(setTimeout(fn,ms));}
 function fade(id,v){var e=G(id);if(e){e.style.transition="opacity .5s";e.style.opacity=v;}}
 function setStatus(t){var e=G("animStatus");if(e)e.textContent=t;}
-
 function startLesson(){var btn=G('startBtn');if(btn){btn.disabled=true;btn.textContent='▶ Starting...';}var done=false;function proceed(){if(!done){done=true;setTimeout(showQ,600);}}say(G('introText').innerText,proceed);setTimeout(proceed,8000);}
 function init(){
   rishiCheckPlan(2);
   var st=JSON.parse(localStorage.getItem("rishi_current_student")||"{}");
-  G("sName").textContent=st.studentName?st.studentName.split(" ")[0]:"champion";
-  if(rishiIsExplainDone(2))completed=true;
-  if(completed){G("doneBanner").classList.add("show");unlockNav();}
-  buildSession();rInit();initVoices(function(){startLesson();});
+  G("sName")&&(G("sName").textContent=st.studentName?st.studentName.split(" ")[0]:"there");
+  if(rishiIsExplainDone(2)){completed=true;G("doneBanner").classList.add("show");unlockNav();}
+  buildSession();rInit();
+  initVoices(function(){startLesson();});
 }
 function buildSession(){session=QB.slice().sort(function(){return Math.random()-.5;}).slice(0,PER_SESSION);}
 function showQ(){
@@ -341,17 +366,17 @@ function showQ(){
   G("qArea").appendChild(ap);setTimeout(startAnim,800);
 }
 function startAnim(){var q=session[idx];var pb=G("animPlayBtn");if(pb){pb.disabled=true;pb.textContent="&#9654; Playing...";}getAnimPlay(q.anim)(function(){var sb=G("stepsBtn");if(sb)sb.style.display="block";var rb=G("animReplay");if(rb)rb.style.display="block";if(pb)pb.style.display="none";setTimeout(beginSteps,600);});}
-function replayAnim(){clearAt();window.speechSynthesis&&window.speechSynthesis.cancel();rStopTalk();var q=session[idx];var canvas=G("animCanvas");if(canvas)canvas.innerHTML=getAnimSVG(q.anim);G("animReplay").style.display="none";G("stepsBtn").style.display="none";var pb=G("animPlayBtn");if(pb){pb.style.display="block";pb.disabled=false;pb.textContent="&#9654; Play Animation";}setStatus("Tap Play to watch with narration!");}
+function replayAnim(){clearAt();window.speechSynthesis&&window.speechSynthesis.cancel();rStopTalk();var q=session[idx];G("animCanvas").innerHTML=getAnimSVG(q.anim);G("animReplay").style.display="none";G("stepsBtn").style.display="none";var pb=G("animPlayBtn");if(pb){pb.style.display="block";pb.disabled=false;pb.textContent="&#9654; Play Animation";}setStatus("Tap Play to watch with narration!");}
 function beginSteps(){var q=session[idx];var sc=document.createElement("div");sc.className="q-card";sc.innerHTML='<div class="q-label">&#128214; Step-by-Step</div><div id="stepsWrap"></div><button class="btn-speak" id="nxtStepBtn" onclick="nextStep()" style="margin-top:10px;">&#9654; Next Step</button>';G("qArea").appendChild(sc);sc.scrollIntoView({behavior:"smooth",block:"start"});G("stepsBtn").style.display="none";setTimeout(nextStep,350);}
 function nextStep(){var q=session[idx];if(stepIdx>=q.steps.length){G("nxtStepBtn").style.display="none";var ib=document.createElement("button");ib.className="btn-speak";ib.innerHTML="&#9989; I Understand!";ib.style.cssText="margin-top:16px;width:100%;";ib.onclick=function(){ib.remove();showConfirm();};G("stepsWrap").appendChild(ib);ib.scrollIntoView({behavior:"smooth",block:"center"});return;}var s=q.steps[stepIdx];var wrap=G("stepsWrap");var d=document.createElement("div");d.className="step";d.innerHTML='<div class="step-num">'+(stepIdx+1)+'</div><div class="step-body">'+s.t+'</div>';wrap.appendChild(d);setTimeout(function(){d.classList.add("vis");},40);setTimeout(nextStep,3500);stepIdx++;}
 function showConfirm(){
   var q=session[idx];var c=document.createElement("div");c.className="confirm-wrap";
   c.innerHTML='<div class="confirm-title">&#127917; Rishika asks!</div>'
     +'<div class="confirm-q">'+q.cq+'</div>'
-    +'<div class="math-input-wrap"><textarea id="rawAnswer" class="math-raw" rows="2" autocomplete="off" placeholder="Type your answer here..."></textarea></div>'
+    +'<textarea id="rawAnswer" class="math-raw" rows="2" placeholder="Type your answer here..."></textarea>'
     +'<div class="math-preview-label">Preview</div>'
-    +'<div class="math-preview" id="mathPreview"><span style="color:var(--inactive);font-style:italic;font-size:.85rem;">your answer will appear here...</span></div>'
-    +'<div class="sugg-strip"><div class="sugg-strip-head">Quick chips</div><div class="sugg-chips" id="suggChips"></div></div>'
+    +'<div class="math-preview" id="mathPreview"></div>'
+    +'<div class="sugg-chips" id="suggChips"></div>'
     +'<button type="button" onclick="submitTyped()" style="width:100%;font-family:Nunito,sans-serif;font-size:14px;font-weight:900;padding:11px;border-radius:12px;border:none;background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;cursor:pointer;margin-bottom:8px;">Submit Answer</button>'
     +'<div class="result-box" id="rbox"></div>'
     +'<div class="nudge" id="nudgeBox"></div>'
@@ -359,9 +384,8 @@ function showConfirm(){
   G("qArea").appendChild(c);c.scrollIntoView({behavior:"smooth",block:"center"});
   var ra=G("rawAnswer");
   if(ra){ra.addEventListener("input",mathUpdate);ra.addEventListener("keydown",function(ev){if(ev.key==="Enter"&&!ev.shiftKey){ev.preventDefault();submitTyped();}});setTimeout(function(){ra.focus();},300);}
-  buildSuggChips(makeChips(q));say(q.cqs);
+  buildSuggChips(q.ans);say(q.cqs);
 }
-function makeChips(q){return[];}
 function submitTyped(){var ra=G("rawAnswer");if(!ra)return;var val=String(ra.value||"").trim();if(!val){ra.focus();return;}handleAnswer(val.toLowerCase());}
 function goNext(){idx++;G("qArea").innerHTML="";showQ();window.scrollTo({top:0,behavior:"smooth"});}
 function updateProg(){var pct=Math.round((idx/PER_SESSION)*100);G("progFill").style.width=pct+"%";G("progLabel").textContent="Question "+(idx+1)+" of "+PER_SESSION;G("progPct").textContent=pct+"%";}
@@ -374,15 +398,15 @@ function onComplete(){
   var cel=document.createElement("div");cel.className="rishika-wrap";
   cel.innerHTML='<div class="rishika-avatar">&#128105;&#8205;&#127979;</div>'
     +'<div class="rishika-bubble"><div class="rishika-name">Rishika</div>'
-    +'<div class="rishika-text" id="celText">&#127881; <span class="hl">'+nm+'</span>, you have mastered <span class="hl">Polynomials</span>! Degree, zeroes, Remainder Theorem, Factor Theorem, identities — all in your arsenal now! &#128170;</div>'
+    +'<div class="rishika-text" id="celText">&#127881; <span class="hl">'+nm+'</span>, You have mastered Polynomials! The Remainder and Factor Theorems are now yours &#128170;</div>'
     +'<button class="btn-speak" onclick="sayEl(\'celText\')">&#128266; Hear</button></div>';
   G("qArea").appendChild(cel);setTimeout(function(){sayEl("celText");rHappy();},400);
 }
 function goPractice(){if(!completed){alert("Complete explanations first!");return;}location.href="/practice/class9/algebra/polynomials.html";}
 function goExam(){if(!completed){alert("Complete explanations first!");return;}location.href="/exam.html?ch=c9-02";}
-var CELEBRATIONS=[{word:"Bravissimo!",lang:"Italian",mean:"Very well done!",speak:"Bravissimo"},{word:"Wunderbar!",lang:"German",mean:"Wonderful!",speak:"Wunderbar"},{word:"Shabash!",lang:"Hindi",mean:"Well done!",speak:"Shabash"},{word:"Magnifique!",lang:"French",mean:"Magnificent!",speak:"Magnifique"},{word:"Felicitaciones!",lang:"Spanish",mean:"Congratulations!",speak:"Felicitaciones"}];
+var CELEBRATIONS=[{word:"Magnifique!",lang:"French",meaning:"Magnificent!",speak:"Magnifique"},{word:"Bravissimo!",lang:"Italian",meaning:"Very well done!",speak:"Bravissimo"},{word:"Wunderbar!",lang:"German",meaning:"Wonderful!",speak:"Wunderbar"},{word:"Shabash!",lang:"Hindi",meaning:"Well done!",speak:"Shabash"},{word:"Felicitaciones!",lang:"Spanish",meaning:"Congratulations!",speak:"Felicitaciones"}];
 var lastCelIdx=-1;
-function celebrate(){var i;do{i=Math.floor(Math.random()*CELEBRATIONS.length);}while(i===lastCelIdx&&CELEBRATIONS.length>1);lastCelIdx=i;var c=CELEBRATIONS[i];var rb=G("rbox");rb.className="result-box ok";rb.innerHTML='<div style="font-size:1.2rem;font-weight:900;">'+c.word+'</div><div style="font-size:0.75rem;color:var(--mid);">'+c.lang+' &middot; <em>'+c.mean+'</em></div>';G("nudgeBox").classList.remove("show");var nb=G("btnNext");if(nb)nb.classList.add("show");say(c.speak);rHappy();}
+function celebrate(){var i;do{i=Math.floor(Math.random()*CELEBRATIONS.length);}while(i===lastCelIdx&&CELEBRATIONS.length>1);lastCelIdx=i;var c=CELEBRATIONS[i];var rb=G("rbox");rb.className="result-box ok";rb.innerHTML='<div style="font-size:18px;font-weight:900;">'+c.word+'</div><div style="font-size:11px;">'+c.lang+' &middot; <em>'+c.meaning+'</em></div>';G("nudgeBox").classList.remove("show");var nb=G("btnNext");if(nb)nb.classList.add("show");say(c.speak);rHappy();}
 function handleAnswer(text){var q=session[idx];var ok=q.ans.some(function(a){return text.includes(a.toLowerCase())||a.toLowerCase().includes(text);});var rb=G("rbox");if(ok){celebrate();}else{nudgeCount++;rb.className="result-box no";rb.textContent="\u2716 Not quite. Listen to my hint!";var nudge=q.nudges[Math.min(nudgeCount-1,q.nudges.length-1)];showNudge(nudge);say(nudge);rThink();if(nudgeCount>=3){var nb2=G("btnNext");if(nb2){nb2.classList.add("show");nb2.textContent="I Understand \u25b6";}}}}
 function showNudge(msg){var n=G("nudgeBox");if(n){n.textContent=msg;n.classList.add("show");}}
 function openBreak(){G("breakOv").classList.add("show");}
@@ -390,7 +414,7 @@ function closeBreak(){G("breakOv").classList.remove("show");}
 function startBreak(r){closeBreak();breakSecs=0;G("timerLbl").textContent=r;G("timerNum").textContent="00:00";G("timerScreen").classList.add("show");breakTmr=setInterval(function(){breakSecs++;var m=String(Math.floor(breakSecs/60)).padStart(2,"0");var s=String(breakSecs%60).padStart(2,"0");G("timerNum").textContent=m+":"+s;},1000);}
 function endBreak(){clearInterval(breakTmr);G("timerScreen").classList.remove("show");}
 function mathUpdate(){var ra=G("rawAnswer");if(!ra)return;var v=ra.value.trim();var el=G("mathPreview");if(el)el.textContent=v||"";}
-function buildSuggChips(list){var el=G("suggChips");if(!el)return;var ra=G("rawAnswer");el.innerHTML="";list.forEach(function(c){var btn=document.createElement("button");btn.className="schip "+(c.type||"confirm");btn.textContent=c.label;btn.type="button";btn.addEventListener("click",function(){if(c.ins&&ra){var s=ra.selectionStart,e=ra.selectionEnd;ra.value=ra.value.slice(0,s)+c.ins+ra.value.slice(e);ra.focus();mathUpdate();}});el.appendChild(btn);});}
+function buildSuggChips(ans){var el=G("suggChips");if(!el)return;el.innerHTML="";(ans||[]).forEach(function(a){var btn=document.createElement("button");btn.className="schip";btn.textContent=a;btn.type="button";btn.addEventListener("click",function(){var ra=G("rawAnswer");if(ra){ra.value=a;mathUpdate();ra.focus();}});el.appendChild(btn);});}
 window.onload=init;
 </script>
 <script src="/explain-helper.js"></script>
