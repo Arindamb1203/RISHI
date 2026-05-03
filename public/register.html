@@ -1044,7 +1044,7 @@ function saveToLocalStorage(type) {
   existing.push(data);
   localStorage.setItem('rishi_registrations', JSON.stringify(existing));
   /* Push to D1 cloud — so any device can log in */
-  fetch('/functions/d1-sync', {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'register',data:data})}).catch(function(){});
+  fetch('/d1-sync', {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'register',data:data})}).catch(function(){});
   localStorage.setItem('rishi_current_student', JSON.stringify({
     studentName: data.studentName,
     parentName: data.parentName,

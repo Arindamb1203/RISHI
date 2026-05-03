@@ -508,6 +508,50 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);}
   <source src="https://www.soundjay.com/misc/sounds/bell-ringing-05.mp3" type="audio/mpeg">
 </audio>
 
+<!-- SYSTEM REQUIREMENTS POPUP -->
+<div id="reqPopup" style="display:none;position:fixed;inset:0;z-index:200;background:rgba(28,18,8,0.72);backdrop-filter:blur(6px);align-items:center;justify-content:center;padding:20px;">
+  <div style="background:#fffdf8;border:2px solid rgba(201,138,0,0.5);border-radius:20px;padding:32px 36px;max-width:520px;width:100%;position:relative;box-shadow:0 20px 80px rgba(201,138,0,0.2);animation:fadeUp 0.35s both;">
+    <!-- Close X -->
+    <button onclick="document.getElementById('reqPopup').style.display='none'" style="position:absolute;top:14px;right:16px;background:none;border:none;font-size:20px;color:rgba(28,18,8,0.4);cursor:pointer;font-weight:900;line-height:1;padding:4px 8px;" title="Close">✕</button>
+
+    <div style="font-family:'Orbitron',monospace;font-size:10px;letter-spacing:4px;color:rgba(201,138,0,0.7);text-transform:uppercase;margin-bottom:18px;font-weight:700;">// What You Need //</div>
+
+    <!-- STUDENT -->
+    <div style="background:linear-gradient(135deg,#fff9ee,#fdf3df);border:1.5px solid rgba(201,138,0,0.35);border-radius:14px;padding:18px 20px;margin-bottom:14px;">
+      <div style="font-family:'Orbitron',monospace;font-size:11px;font-weight:900;color:#c98a00;letter-spacing:2px;margin-bottom:12px;">🎓 STUDENT</div>
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <div style="display:flex;align-items:center;gap:10px;font-family:'Nunito',sans-serif;font-size:14px;font-weight:700;color:#3a2a10;">
+          <span style="font-size:18px;">💻</span> Laptop or Desktop <span style="font-size:11px;color:#888;font-weight:600;">(MacBook works too)</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;font-family:'Nunito',sans-serif;font-size:14px;font-weight:700;color:#3a2a10;">
+          <span style="font-size:18px;">⚙️</span> Basic configuration — any modern browser
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;font-family:'Nunito',sans-serif;font-size:14px;font-weight:700;color:#3a2a10;">
+          <span style="font-size:18px;">🎧</span> Headphones <span style="font-size:11px;color:#888;font-weight:600;">(for Rishika's voice)</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;font-family:'Nunito',sans-serif;font-size:14px;font-weight:700;color:#3a2a10;">
+          <span style="font-size:18px;">📶</span> Internet connection
+        </div>
+      </div>
+    </div>
+
+    <!-- PARENT -->
+    <div style="background:linear-gradient(135deg,#f0f5ee,#e8f0e4);border:1.5px solid rgba(74,124,89,0.35);border-radius:14px;padding:18px 20px;">
+      <div style="font-family:'Orbitron',monospace;font-size:11px;font-weight:900;color:#4a7c59;letter-spacing:2px;margin-bottom:12px;">👨‍👩‍👦 PARENT</div>
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <div style="display:flex;align-items:center;gap:10px;font-family:'Nunito',sans-serif;font-size:14px;font-weight:700;color:#3a2a10;">
+          <span style="font-size:18px;">📱</span> Mobile — Android or iPhone <span style="font-size:11px;color:#888;font-weight:600;">(iOS works)</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;font-family:'Nunito',sans-serif;font-size:14px;font-weight:700;color:#3a2a10;">
+          <span style="font-size:18px;">📶</span> Internet connection
+        </div>
+      </div>
+    </div>
+
+    <button onclick="document.getElementById('reqPopup').style.display='none';window.location.href='/register.html';" style="font-family:'Orbitron',monospace;font-weight:900;font-size:13px;letter-spacing:2px;width:100%;margin-top:18px;padding:15px;background:linear-gradient(135deg,#c98a00,#e06b10);color:#fff;border:none;border-radius:12px;cursor:pointer;">✦ Got It — Let&#39;s Begin</button>
+  </div>
+</div>
+
 <script>
 // ── DATA ──────────────────────────────────────────────────
 const FEATS=[
@@ -822,6 +866,11 @@ function r4(){
 }
 
 function r5(){
+  // Show requirements popup after 1 second on the final section
+  setTimeout(function(){
+    var p = document.getElementById('reqPopup');
+    if(p) p.style.display = 'flex';
+  }, 1000);
   return `<div style="text-align:center;max-width:620px;width:100%;display:flex;flex-direction:column;align-items:center;">
     <div class="fm" style="font-size:0.68rem;letter-spacing:0.36em;color:var(--faint);margin-bottom:0.8rem;">// THE FINAL DOOR //</div>
     <h2 class="fd" style="font-size:clamp(1.4rem,4vw,2.2rem);color:var(--text);margin-bottom:0.9rem;">One decision.<br/><span style="color:var(--gold)">A different future for your child.</span></h2>
