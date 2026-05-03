@@ -503,10 +503,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);}
   <div id="hint" style="display:none;">↑ tap above to begin</div>
 </div>
 
-<!-- AUDIO -->
-<audio id="snd" preload="auto">
-  <source src="https://www.soundjay.com/misc/sounds/bell-ringing-05.mp3" type="audio/mpeg">
-</audio>
+<!-- AUDIO: bell generated via Web Audio API -->
 
 <!-- SYSTEM REQUIREMENTS POPUP -->
 <div id="reqPopup" style="display:none;position:fixed;inset:0;z-index:200;background:rgba(28,18,8,0.72);backdrop-filter:blur(6px);align-items:center;justify-content:center;padding:20px;">
@@ -686,16 +683,29 @@ function startAudio(){
 
 // Father's voice - plays on room 1
 let fatherAudio=null;
+var _fatherTTS=null;
 function playFatherVoice(){
   try{
-    if(fatherAudio){fatherAudio.pause();fatherAudio.currentTime=0;}
-    fatherAudio=new Audio('/arindam.mp3');
-    fatherAudio.volume=1.0;
-    fatherAudio.play().catch(e=>console.log('Audio play blocked:',e));
-  }catch(e){console.log('Audio error:',e);}
+    if(!window.speechSynthesis)return;
+    window.speechSynthesis.cancel();
+    var text=FL.join(' ');
+    var utt=new SpeechSynthesisUtterance(text);
+    utt.lang='en-IN';
+    utt.rate=0.88;
+    utt.pitch=0.95;
+    utt.volume=1.0;
+    // Prefer a male English-IN voice if available
+    var voices=window.speechSynthesis.getVoices();
+    var v=voices.find(function(v){return v.lang==='en-IN' && v.name.toLowerCase().indexOf('male')>=0;})
+        || voices.find(function(v){return v.lang==='en-IN';})
+        || voices.find(function(v){return v.lang.startsWith('en');});
+    if(v) utt.voice=v;
+    _fatherTTS=utt;
+    window.speechSynthesis.speak(utt);
+  }catch(e){}
 }
 function stopFatherVoice(){
-  if(fatherAudio){fatherAudio.pause();fatherAudio.currentTime=0;}
+  try{if(window.speechSynthesis)window.speechSynthesis.cancel();}catch(e){}
 }
 
 function r1(){
