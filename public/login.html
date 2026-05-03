@@ -80,6 +80,12 @@
   .back-link{display:block;text-align:center;margin-top:24px;font-size:13px;font-weight:800;color:var(--soft);cursor:pointer;text-decoration:none;}
   .back-link:hover{color:var(--amber);}
 
+  /* PIN ON HOME PAGE */
+  .pin-btn{display:none;width:100%;font-family:'Nunito',sans-serif;font-size:16px;font-weight:900;background:linear-gradient(135deg,var(--sage),var(--sage-light));color:#fff;border:none;border-radius:14px;padding:15px;cursor:pointer;letter-spacing:.5px;box-shadow:0 6px 24px rgba(122,140,110,.35);transition:all .2s;margin-top:14px;}
+  .pin-btn:hover{transform:translateY(-2px);box-shadow:0 10px 32px rgba(122,140,110,.45);}
+  .ios-tip{display:none;background:#e8f5e9;border:1.5px solid var(--sage-light);border-radius:12px;padding:14px 16px;margin-top:12px;font-size:13px;font-weight:700;color:var(--mid);line-height:1.8;text-align:left;}
+  .ios-tip strong{color:var(--sage);}
+
   @media(max-width:500px){.card{padding:32px 20px;}}
 </style>
 </head>
@@ -196,9 +202,42 @@
   </div>
 
   <a class="back-link" href="/landing.html">← Back to Home</a>
+
+  <!-- PIN ON HOME PAGE — shown only for parent role -->
+  <button class="pin-btn" id="pinBtn" onclick="handlePinHome()">📌 Pin on Home Page</button>
+  <div class="ios-tip" id="iosTip">
+    <strong>Add to Home Screen (iPhone):</strong><br>
+    1. Tap the <strong>Share</strong> button (□↑) at the bottom of Safari<br>
+    2. Scroll down and tap <strong>"Add to Home Screen"</strong><br>
+    3. Tap <strong>Add</strong> — the app appears as <strong style="font-family:'Orbitron',sans-serif;color:var(--amber);">R</strong> on your home screen
+  </div>
 </div>
 
 <script>
+// ── PWA INSTALL (Pin on Home Page) ────────────────────────────────────────────
+var _deferredPrompt = null;
+window.addEventListener('beforeinstallprompt', function(e) {
+  e.preventDefault();
+  _deferredPrompt = e;
+});
+
+function showPinButton() {
+  document.getElementById('pinBtn').style.display = 'block';
+}
+
+function handlePinHome() {
+  var isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+  if (_deferredPrompt) {
+    _deferredPrompt.prompt();
+    _deferredPrompt.userChoice.then(function() { _deferredPrompt = null; });
+  } else if (isIOS) {
+    var tip = document.getElementById('iosTip');
+    tip.style.display = tip.style.display === 'block' ? 'none' : 'block';
+  } else {
+    alert('To pin RISHI: open this page in Chrome on your mobile, tap the menu (3 dots) and select "Add to Home Screen".');
+  }
+}
+
 // ── SHARED PASSWORDS ──────────────────────────────────────────────────────────
 var STUDENT_PASS = 'Study@Rishi1';
 var PARENT_PASS  = 'Parent@Rishi1';
@@ -254,6 +293,10 @@ window.onload = function(){
       document.getElementById('firstLoginPanel').style.display = 'block';
     }
     document.getElementById('redirectBanner').style.display = 'none';
+
+    // Show "Pin on Home Page" for parent role
+    if(pRole === 'parent') showPinButton();
+
     return;
   }
   // Auto-redirect removed
