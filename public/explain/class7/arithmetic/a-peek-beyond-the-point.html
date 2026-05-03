@@ -5,12 +5,418 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="rishi-board" content="cbse">
 <meta name="rishi-class" content="7">
-<title>RISHI — A Peek Beyond The Point</title>
-<!-- SHELL: Content to be built chapter by chapter -->
+<title>RISHI — A Peek Beyond the Point</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Nunito:wght@400;600;700;800;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<style>
+:root{--cream:#fdf6ec;--warm-white:#fffdf8;--gold:#c8922a;--gold-light:#e8b84b;--gold-pale:#f5e6c8;--amber:#d4870a;--sage:#7a8c6e;--sage-light:#a8b89a;--rust:#b85c2a;--charcoal:#2a2218;--mid:#5a4a30;--soft:#8a7a5a;--inactive:#c8b89a;--border-dark:#6b4c2a;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--cream);font-family:Nunito,sans-serif;min-height:100vh;color:var(--charcoal);}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(var(--gold-pale) 1px,transparent 1px),linear-gradient(90deg,var(--gold-pale) 1px,transparent 1px);background-size:40px 40px;opacity:.3;z-index:0;pointer-events:none;}
+.topbar{position:sticky;top:0;z-index:100;background:rgba(253,246,236,.97);border-bottom:2px solid var(--border-dark);backdrop-filter:blur(8px);padding:10px 18px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;}
+.logo-sm{font-family:'Orbitron',sans-serif;font-size:17px;font-weight:900;letter-spacing:4px;background:linear-gradient(135deg,var(--amber),var(--gold-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.topbar-center{font-family:'Orbitron',sans-serif;font-size:10px;letter-spacing:2px;color:var(--amber);text-transform:uppercase;}
+.topbar-right{display:flex;gap:8px;}
+.btn-topbar{font-family:Nunito,sans-serif;font-size:12px;font-weight:900;padding:6px 14px;border-radius:20px;border:2px solid var(--border-dark);background:var(--warm-white);color:var(--mid);cursor:pointer;}
+.btn-topbar.back{background:var(--gold-pale);}
+.prog-wrap{position:relative;z-index:10;padding:8px 18px;background:rgba(255,253,248,.9);border-bottom:1.5px solid var(--gold-pale);}
+.prog-info{display:flex;justify-content:space-between;font-size:11px;font-weight:800;color:var(--mid);margin-bottom:5px;}
+.prog-bar{height:6px;background:var(--gold-pale);border-radius:4px;overflow:hidden;}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--sage),var(--gold));border-radius:4px;transition:width .5s ease;}
+.main{position:relative;z-index:10;max-width:820px;margin:0 auto;padding:14px 14px 120px;}
+.rishika-wrap{display:flex;align-items:flex-start;gap:12px;margin-bottom:14px;}
+.rishika-avatar{width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,var(--sage),var(--sage-light));border:2px solid var(--border-dark);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;}
+.rishika-bubble{background:rgba(255,253,248,.97);border:2px solid var(--border-dark);border-radius:0 16px 16px 16px;padding:12px 16px;flex:1;box-shadow:0 4px 20px rgba(107,76,42,.1);}
+.rishika-name{font-size:10px;font-weight:900;color:var(--sage);letter-spacing:2px;text-transform:uppercase;margin-bottom:5px;}
+.rishika-text{font-size:14px;font-weight:700;color:var(--charcoal);line-height:1.6;}
+.hl{color:var(--amber);font-weight:900;}
+.btn-speak{display:inline-flex;align-items:center;gap:6px;font-family:Nunito,sans-serif;font-size:11px;font-weight:900;padding:5px 11px;border-radius:20px;border:2px solid var(--sage);background:#eef2eb;color:var(--sage);cursor:pointer;margin-top:8px;}
+.q-card{background:rgba(255,253,248,.97);border:2px solid var(--border-dark);border-radius:16px;padding:16px 18px;margin-bottom:12px;box-shadow:0 4px 20px rgba(107,76,42,.1);}
+.q-label{font-family:'Orbitron',sans-serif;font-size:10px;letter-spacing:3px;color:var(--amber);text-transform:uppercase;margin-bottom:8px;}
+.q-text{font-size:15px;font-weight:800;color:var(--charcoal);line-height:1.6;margin-bottom:10px;}
+.step{display:flex;gap:10px;margin-bottom:12px;opacity:0;transform:translateY(6px);transition:all .4s ease;}
+.step.vis{opacity:1;transform:translateY(0);}
+.step-num{width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;font-size:11px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:2px solid var(--border-dark);}
+.step-body{flex:1;font-size:13px;font-weight:700;color:var(--mid);line-height:1.6;padding-top:2px;}
+.anim-panel{background:#fffdf8;border:2px solid var(--border-dark);border-radius:14px;margin-bottom:12px;overflow:hidden;}
+.anim-header{background:linear-gradient(135deg,var(--charcoal),#3d2e1a);padding:7px 14px;display:flex;align-items:center;justify-content:space-between;}
+.anim-header-lbl{font-family:'Orbitron',sans-serif;font-size:9px;letter-spacing:2px;color:var(--gold-light);text-transform:uppercase;}
+.anim-replay{font-size:10px;font-weight:900;color:var(--gold-pale);background:none;border:1px solid var(--gold-pale);border-radius:20px;padding:2px 9px;cursor:pointer;display:none;}
+.anim-canvas{width:100%;max-height:195px;overflow:hidden;display:flex;align-items:center;justify-content:center;background:#fffdf8;}
+.anim-canvas svg{width:100%;max-height:195px;}
+.anim-status{padding:6px 14px;font-size:12px;font-weight:800;color:var(--mid);text-align:center;min-height:26px;border-top:1px solid var(--gold-pale);}
+.anim-play-btn{width:100%;padding:10px;font-family:Nunito,sans-serif;font-size:14px;font-weight:900;background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;border:none;cursor:pointer;}
+.anim-play-btn:disabled{background:var(--gold-pale);color:var(--inactive);cursor:not-allowed;}
+.steps-btn{width:100%;padding:10px;font-family:Nunito,sans-serif;font-size:14px;font-weight:900;background:linear-gradient(135deg,var(--sage),var(--sage-light));color:#fff;border:none;cursor:pointer;display:none;border-top:1px solid var(--gold-pale);}
+.confirm-wrap{margin-top:12px;background:linear-gradient(135deg,#eef2eb,#f5fbf2);border:2px solid var(--border-dark);border-radius:14px;padding:16px 18px;}
+.confirm-title{font-size:11px;font-weight:900;color:var(--sage);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;}
+.confirm-q{font-size:14px;font-weight:800;color:var(--charcoal);margin-bottom:12px;line-height:1.5;}
+.result-box{font-size:12px;font-weight:800;padding:9px 13px;border-radius:9px;display:none;line-height:1.4;}
+.result-box.ok{background:#eef2eb;border:2px solid var(--sage);color:var(--sage);display:block;}
+.result-box.no{background:#fff5f0;border:2px solid var(--rust);color:var(--rust);display:block;}
+.nudge{font-size:12px;font-weight:700;color:var(--mid);margin-top:7px;font-style:italic;display:none;}
+.nudge.show{display:block;}
+.btn-next{font-family:Nunito,sans-serif;font-size:14px;font-weight:900;padding:11px 22px;border-radius:12px;border:none;background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;cursor:pointer;display:none;margin-top:10px;width:100%;}
+.btn-next.show{display:block;}
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;z-index:100;background:rgba(253,246,236,.97);border-top:2px solid var(--border-dark);padding:10px 18px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap;align-items:center;}
+.btn-nav{font-family:Nunito,sans-serif;font-size:13px;font-weight:900;padding:10px 20px;border-radius:12px;border:2px solid var(--border-dark);cursor:pointer;}
+.btn-nav.practice{background:linear-gradient(135deg,var(--sage),var(--sage-light));color:#fff;border-color:var(--sage);}
+.btn-nav.exam{background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;border-color:var(--amber);}
+.btn-nav.locked{background:var(--gold-pale);color:var(--inactive);cursor:not-allowed;border-color:var(--inactive);}
+.lock-tip{font-size:10px;font-weight:700;color:var(--rust);width:100%;text-align:center;}
+.overlay{display:none;position:fixed;inset:0;background:rgba(42,34,24,.92);z-index:1000;flex-direction:column;align-items:center;justify-content:center;backdrop-filter:blur(6px);}
+.overlay.show{display:flex;}
+.break-box{background:var(--warm-white);border:2px solid var(--border-dark);border-radius:22px;padding:28px 32px;max-width:380px;width:90%;text-align:center;}
+.break-title{font-family:'Orbitron',sans-serif;font-size:14px;font-weight:900;color:var(--amber);letter-spacing:3px;margin-bottom:5px;}
+.break-sub{font-size:12px;font-weight:700;color:var(--soft);margin-bottom:16px;}
+.break-opts{display:flex;flex-direction:column;gap:8px;margin-bottom:12px;}
+.break-opt{font-family:Nunito,sans-serif;font-size:14px;font-weight:800;padding:11px;border-radius:11px;border:2px solid var(--border-dark);background:var(--warm-white);color:var(--mid);cursor:pointer;}
+.timer-screen{display:none;position:fixed;inset:0;background:#1a1208;z-index:1001;flex-direction:column;align-items:center;justify-content:center;}
+.timer-screen.show{display:flex;}
+.timer-reason{font-family:'Orbitron',sans-serif;font-size:12px;letter-spacing:4px;color:var(--gold-light);margin-bottom:16px;text-transform:uppercase;}
+.timer-num{font-family:'Orbitron',sans-serif;font-size:68px;font-weight:900;color:var(--gold-light);letter-spacing:6px;margin-bottom:30px;}
+.btn-end{font-family:Nunito,sans-serif;font-size:16px;font-weight:900;padding:13px 32px;border-radius:13px;border:2px solid var(--gold-light);background:transparent;color:var(--gold-light);cursor:pointer;}
+.done-banner{background:linear-gradient(135deg,#eef2eb,#f5fbf2);border:2px solid var(--border-dark);border-radius:14px;padding:14px 18px;text-align:center;margin-bottom:14px;display:none;}
+.done-banner.show{display:block;}
+.done-banner .dt{font-family:'Orbitron',sans-serif;font-size:12px;letter-spacing:2px;color:var(--sage);margin-bottom:4px;}
+.done-banner .ds{font-size:13px;font-weight:700;color:var(--mid);}
+.math-raw{width:100%;padding:10px 13px;border-radius:10px;border:2px solid var(--border-dark);background:var(--warm-white);color:var(--charcoal);font-size:1rem;font-family:'Share Tech Mono',monospace;resize:none;outline:none;min-height:48px;line-height:1.6;transition:border-color .2s;}
+.math-raw:focus{border-color:var(--amber);}
+.math-raw::placeholder{color:var(--inactive);font-family:Nunito,sans-serif;}
+.math-preview-label{font-size:0.68rem;text-transform:uppercase;letter-spacing:2px;color:var(--soft);margin:.5rem 0 .25rem;}
+.math-preview{min-height:44px;padding:.6rem 1rem;background:#f9f4ec;border-radius:8px;border:1.5px solid var(--gold-pale);font-size:1.1rem;color:var(--charcoal);overflow-x:auto;display:flex;align-items:center;justify-content:center;margin-bottom:10px;}
+.sugg-chips{display:flex;flex-wrap:wrap;gap:.35rem;margin-bottom:10px;}
+.schip{border:1.5px solid #1a6aaa;border-radius:20px;padding:.25rem .75rem;font-size:.78rem;cursor:pointer;background:#eef6ff;color:#0a5a9a;font-family:Nunito,sans-serif;font-weight:800;}
+#rWrap{position:fixed;bottom:68px;left:10px;z-index:200;width:82px;pointer-events:none;}
+#rChar{width:82px;filter:drop-shadow(0 4px 10px rgba(107,76,42,.3));}
+@keyframes rIn{from{transform:translateY(50px);opacity:0}to{transform:translateY(0);opacity:1}}
+@keyframes rBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+@media(max-width:600px){.main{padding:10px 10px 120px;}}
+</style>
+<script src="/rishi-sync.js"></script>
 <script src="/rishi-core.js"></script>
+<script src="/rishi-presence.js"></script>
 </head>
 <body>
-<!-- A Peek Beyond The Point | Class 7 | CBSE | Explain Page -->
-<!-- TODO: Build full explain page content here -->
+<div class="topbar">
+  <div class="logo-sm">RISHI</div>
+  <div class="topbar-center">🔍 A Peek Beyond the Point</div>
+  <div class="topbar-right">
+    <button class="btn-topbar" onclick="openBreak()">&#9749; Break</button>
+    <button class="btn-topbar back" onclick="location.href='/syllabus.html'">&#8592; Syllabus</button>
+  </div>
+</div>
+<div class="prog-wrap">
+  <div class="prog-info"><span id="progLabel">Question 1 of 10</span><span id="progPct">0%</span></div>
+  <div class="prog-bar"><div class="prog-fill" id="progFill" style="width:0%"></div></div>
+</div>
+<div class="main">
+  <div class="done-banner" id="doneBanner">
+    <div class="dt">&#10003; Explanation Completed!</div>
+    <div class="ds">Practice and Exam now unlocked.</div>
+  </div>
+  <div class="rishika-wrap">
+    <div class="rishika-avatar">&#128105;&#8205;&#127979;</div>
+    <div class="rishika-bubble">
+      <div class="rishika-name">Rishika</div>
+      <div class="rishika-text" id="introText">Hi <span class="hl" id="sName">there</span>! Get ready to explore the fascinating world of decimal numbers! We&#39;ll uncover how they work and make calculations super easy. ✨🔢</div>
+      <button class="btn-speak" onclick="startLesson()" id="startBtn">&#9654; Start Lesson</button>
+    </div>
+  </div>
+  <div id="qArea"></div>
+</div>
+<div class="bottom-nav">
+  <div class="lock-tip" id="lockTip">&#9757; Complete explanations to unlock Practice and Exam</div>
+  <button class="btn-nav practice locked" id="btnPractice" onclick="goPractice()">&#9999;&#65039; Practice</button>
+  <button class="btn-nav exam locked" id="btnExam" onclick="goExam()">&#128221; Exam</button>
+</div>
+<div class="overlay" id="breakOv">
+  <div class="break-box">
+    <div class="break-title">Break</div>
+    <div class="break-sub">Choose &mdash; timer starts</div>
+    <div class="break-opts">
+      <button class="break-opt" onclick="startBreak('Water')">&#128167; Water</button>
+      <button class="break-opt" onclick="startBreak('Washroom')">&#128701; Washroom</button>
+      <button class="break-opt" onclick="startBreak('Physical')">&#127939; Physical</button>
+    </div>
+    <button class="break-opt" style="color:var(--soft)" onclick="closeBreak()">Cancel</button>
+  </div>
+</div>
+<div class="timer-screen" id="timerScreen">
+  <div class="timer-reason" id="timerLbl">Break</div>
+  <div class="timer-num" id="timerNum">00:00</div>
+  <button class="btn-end" onclick="endBreak()">&#10003; End Break</button>
+</div>
+<div id="rWrap">
+<svg id="rChar" viewBox="0 0 100 110" xmlns="http://www.w3.org/2000/svg">
+  <ellipse cx="50" cy="68" rx="36" ry="28" fill="#5a8a60" stroke="#3d6b42" stroke-width="2"/>
+  <ellipse cx="50" cy="66" rx="22" ry="16" fill="#7ab87a" stroke="#5a8a60" stroke-width="1.5"/>
+  <line x1="50" y1="50" x2="50" y2="82" stroke="#5a8a60" stroke-width="1.5"/>
+  <line x1="28" y1="66" x2="72" y2="66" stroke="#5a8a60" stroke-width="1.5"/>
+  <ellipse cx="20" cy="82" rx="10" ry="7" fill="#7ab87a" stroke="#5a8a60" stroke-width="1.5" transform="rotate(-20,20,82)"/>
+  <ellipse cx="80" cy="82" rx="10" ry="7" fill="#7ab87a" stroke="#5a8a60" stroke-width="1.5" transform="rotate(20,80,82)"/>
+  <ellipse cx="22" cy="58" rx="9" ry="6" fill="#7ab87a" stroke="#5a8a60" stroke-width="1.5" transform="rotate(20,22,58)"/>
+  <ellipse cx="78" cy="58" rx="9" ry="6" fill="#7ab87a" stroke="#5a8a60" stroke-width="1.5" transform="rotate(-20,78,58)"/>
+  <ellipse cx="50" cy="42" rx="10" ry="14" fill="#8fba6a" stroke="#5a8a60" stroke-width="1.5"/>
+  <ellipse cx="50" cy="28" rx="18" ry="16" fill="#8fba6a" stroke="#5a8a60" stroke-width="2"/>
+  <ellipse cx="43" cy="24" rx="5" ry="5.5" fill="white"/><ellipse cx="57" cy="24" rx="5" ry="5.5" fill="white"/>
+  <ellipse cx="43" cy="25" rx="3" ry="3.5" fill="#1a3a1a"/><ellipse cx="57" cy="25" rx="3" ry="3.5" fill="#1a3a1a"/>
+  <circle cx="44" cy="23" r="1.2" fill="white"/><circle cx="58" cy="23" r="1.2" fill="white"/>
+  <ellipse id="rLid1" cx="43" cy="24" rx="5" ry="1" fill="#8fba6a" opacity="0"/>
+  <ellipse id="rLid2" cx="57" cy="24" rx="5" ry="1" fill="#8fba6a" opacity="0"/>
+  <path id="rMouth" d="M44,33 Q50,38 56,33" fill="none" stroke="#3d6b42" stroke-width="2" stroke-linecap="round"/>
+  <ellipse id="rBlush1" cx="36" cy="30" rx="7" ry="4" fill="#ff9999" opacity="0"/>
+  <ellipse id="rBlush2" cx="64" cy="30" rx="7" ry="4" fill="#ff9999" opacity="0"/>
+  <rect x="28" y="90" width="44" height="13" fill="#d4870a" rx="4"/>
+  <text x="50" y="100" text-anchor="middle" font-family="Nunito" font-size="7" font-weight="900" fill="white">RISHIKA</text>
+</svg>
+</div>
+<script>
+var voicesReady=false,selectedVoice=null,elAudio=null;
+function pickVoice(){var vs=window.speechSynthesis.getVoices();if(!vs||vs.length===0)return false;var fk=["heera","veena","priya","raveena","female","woman","zira","samantha","victoria","karen"];for(var i=0;i<vs.length;i++){if(vs[i].lang.toLowerCase().indexOf("en-in")===0){var n=vs[i].name.toLowerCase();for(var k=0;k<fk.length;k++){if(n.indexOf(fk[k])>=0){selectedVoice=vs[i];return true;}}}}for(var i=0;i<vs.length;i++){if(vs[i].lang.toLowerCase().indexOf("en")===0){var n=vs[i].name.toLowerCase();for(var k=0;k<fk.length;k++){if(n.indexOf(fk[k])>=0){selectedVoice=vs[i];return true;}}}}return false;}
+function initVoices(cb){if(pickVoice()){voicesReady=true;cb();return;}window.speechSynthesis.onvoiceschanged=function(){window.speechSynthesis.onvoiceschanged=null;pickVoice();voicesReady=true;cb();};setTimeout(function(){if(!voicesReady){pickVoice();voicesReady=true;cb();}},2000);}
+function stopAllAudio(){if(elAudio){try{elAudio.pause();elAudio.src="";}catch(x){}elAudio=null;}if(window.speechSynthesis)window.speechSynthesis.cancel();}
+function sayBrowser(text,onEnd){if(!window.speechSynthesis)return;window.speechSynthesis.cancel();rStartTalk(text.length);var u=new SpeechSynthesisUtterance(text);u.lang="en-IN";u.rate=0.88;u.pitch=1.15;if(selectedVoice)u.voice=selectedVoice;u.onend=function(){rStopTalk();if(onEnd)onEnd();};u.onerror=function(){rStopTalk();if(onEnd)onEnd();};window.speechSynthesis.speak(u);}
+function say(text,onEnd){stopAllAudio();rStartTalk(text.length);fetch("/tts",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({text:text})}).then(function(res){if(!res.ok)throw new Error("TTS "+res.status);return res.blob();}).then(function(blob){var url=URL.createObjectURL(blob);elAudio=new Audio(url);elAudio.onended=function(){URL.revokeObjectURL(url);elAudio=null;rStopTalk();if(onEnd)onEnd();};elAudio.onerror=function(){URL.revokeObjectURL(url);elAudio=null;rStopTalk();if(onEnd)onEnd();};var p=elAudio.play();if(p&&p.catch){p.catch(function(){URL.revokeObjectURL(url);elAudio=null;sayBrowser(text,onEnd);});}}).catch(function(err){sayBrowser(text,onEnd);});}
+function sayEl(id){var e=G(id);if(e)say(e.innerText||e.textContent);}
+window.addEventListener("beforeunload",function(){stopAllAudio();});
+var mouthTmr=null,blinkTmr=null,mOpen=false;
+function rInit(){var c=G("rChar");if(c)c.style.animation="rIn .6s cubic-bezier(.34,1.56,.64,1) forwards";scheduleBlink();}
+function scheduleBlink(){blinkTmr=setTimeout(function(){rBlink();scheduleBlink();},2200+Math.random()*3000);}
+function rBlink(){var l=G("rLid1"),r=G("rLid2");if(!l||!r)return;l.setAttribute("ry","5.5");r.setAttribute("ry","5.5");setTimeout(function(){l.setAttribute("ry","1");r.setAttribute("ry","1");},120);}
+function rStartTalk(len){rStopTalk();G("rBlush1").style.opacity="0.7";G("rBlush2").style.opacity="0.7";mOpen=false;mouthTmr=setInterval(function(){mOpen=!mOpen;var m=G("rMouth");if(!m)return;if(mOpen){m.setAttribute("d","M42,33 Q50,42 58,33");m.setAttribute("fill","#1a3a1a");}else{m.setAttribute("d","M44,33 Q50,38 56,33");m.setAttribute("fill","none");}},160);setTimeout(rStopTalk,Math.max(1800,(len||20)*58));}
+function rStopTalk(){clearInterval(mouthTmr);mOpen=false;var m=G("rMouth");if(m){m.setAttribute("d","M44,33 Q50,38 56,33");m.setAttribute("fill","none");}G("rBlush1").style.opacity="0";G("rBlush2").style.opacity="0";}
+function rHappy(){var c=G("rChar");if(c)c.style.animation="rBounce .35s ease-in-out 5";G("rBlush1").style.opacity="1";G("rBlush2").style.opacity="1";setTimeout(function(){rStopTalk();var c=G("rChar");if(c)c.style.animation="none";},2500);}
+function rThink(){setTimeout(rStopTalk,1800);}
+
+var QB=[
+{
+id:"q1",
+q:"What is the place value of the digit 7 in the number 12.375?",
+qs:"What is the place value of the digit seven in the number twelve point three seven five?",
+anim:"q1",
+steps:[{"t": "Identify the decimal point.", "s": "First, locate the decimal point in the number. It separates the whole number part from the fractional part."}, {"t": "Count places to the right of the decimal.", "s": "Now, count the positions of the digits to the right of the decimal point. The first place is tenths, the second is hundredths, and so on."}, {"t": "Name the place value of 7.", "s": "Since 7 is in the second position after the decimal point, its place value is hundredths."}],
+cq:"What is the place value of 4 in 0.49?",
+cqs:"What is the place value of four in zero point four nine?",
+ans:["Hundredths", "0.07", "7/100"],
+nudges:["Remember, digits to the right of the decimal point represent parts of a whole.", "The first digit after the decimal is in the 'tenths' place. What about the second?", "The digit 7 is in the hundredths place."],
+anim_svg:"<g id=\"q1s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Identify the decimal point.</text></g><g id=\"q1s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Count places to the right of the decimal.</text></g><g id=\"q1s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Name the place value of 7.</text></g><g id=\"q1ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Hundredths</text></g>"
+},
+{
+id:"q2",
+q:"How do you read the decimal number 5.23?",
+qs:"How do you read the decimal number five point two three?",
+anim:"q2",
+steps:[{"t": "Read the whole number part.", "s": "Start by reading the digits before the decimal point as a whole number."}, {"t": "Say 'point' for the decimal.", "s": "Next, say the word 'point' to indicate the decimal separator."}, {"t": "Read digits after the decimal individually.", "s": "Finally, read each digit after the decimal point separately, not as a whole number."}],
+cq:"How do you read 10.05?",
+cqs:"How do you read ten point zero five?",
+ans:["Five point two three"],
+nudges:["Think about how you'd tell someone this number over the phone.", "Do you read the digits after the decimal as a single number or individually?", "You read it as 'Five point two three'."],
+anim_svg:"<g id=\"q2s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Read the whole number part.</text></g><g id=\"q2s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Say 'point' for the decimal.</text></g><g id=\"q2s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Read digits after the decimal individually.</text></g><g id=\"q2ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Five point two three</text></g>"
+},
+{
+id:"q3",
+q:"Convert the fraction 3/10 to a decimal.",
+qs:"Convert the fraction three tenths to a decimal.",
+anim:"q3",
+steps:[{"t": "Understand the denominator.", "s": "The denominator, 10, tells us that the number has one decimal place, representing tenths."}, {"t": "Place the numerator after the decimal.", "s": "Since it's 3 tenths, the digit 3 will be in the tenths place, which is the first digit after the decimal point."}, {"t": "Write the decimal.", "s": "So, with a zero in the ones place, the decimal form is 0.3."}],
+cq:"Convert 7/100 to a decimal.",
+cqs:"Convert seven hundredths to a decimal.",
+ans:["0.3"],
+nudges:["Remember, the number of zeros in the denominator (10, 100, 1000) tells you how many decimal places there will be.", "Since the denominator is 10, there will be one digit after the decimal point.", "The decimal form is 0.3."],
+anim_svg:"<g id=\"q3s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Understand the denominator.</text></g><g id=\"q3s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Place the numerator after the decimal.</text></g><g id=\"q3s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Write the decimal.</text></g><g id=\"q3ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">0.3</text></g>"
+},
+{
+id:"q4",
+q:"Which is greater: 0.5 or 0.45?",
+qs:"Which is greater: zero point five or zero point four five?",
+anim:"q4",
+steps:[{"t": "Make the number of decimal places equal.", "s": "To compare easily, add a zero to 0.5 to make it 0.50. Now both numbers have two decimal places."}, {"t": "Compare the whole number parts.", "s": "Both numbers have 0 as their whole number part, so we move to the decimal part."}, {"t": "Compare digits from left to right.", "s": "Now compare 0.50 and 0.45. The tenths digit in 0.50 is 5, and in 0.45 it is 4. Since 5 is greater than 4, 0.50 is greater."}],
+cq:"Which is smaller: 1.2 or 1.25?",
+cqs:"Which is smaller: one point two or one point two five?",
+ans:["0.5"],
+nudges:["It helps to make the number of decimal places the same for both numbers.", "Think of 0.5 as 50 paise and 0.45 as 45 paise.", "0.5 is greater than 0.45."],
+anim_svg:"<g id=\"q4s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Make the number of decimal places equal.</text></g><g id=\"q4s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Compare the whole number parts.</text></g><g id=\"q4s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Compare digits from left to right.</text></g><g id=\"q4ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">0.5</text></g>"
+},
+{
+id:"q5",
+q:"Add 3.25 and 1.7.",
+qs:"Add three point two five and one point seven.",
+anim:"q5",
+steps:[{"t": "Line up the decimal points.", "s": "Write the numbers one below the other, making sure their decimal points are perfectly aligned."}, {"t": "Add zeros to equalize decimal places.", "s": "To make addition easier, add a zero to 1.7 so it becomes 1.70. Now both numbers have two decimal places."}, {"t": "Add column by column.", "s": "Start adding from the rightmost column, just like with whole numbers. Carry over if needed, and place the decimal point in the sum directly below the others."}],
+cq:"What is 2.1 + 0.55?",
+cqs:"What is two point one plus zero point five five?",
+ans:["4.95"],
+nudges:["Remember to align the decimal points before you start adding.", "You can add a zero to 1.7 to make it 1.70.", "The sum is 4.95."],
+anim_svg:"<g id=\"q5s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Line up the decimal points.</text></g><g id=\"q5s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Add zeros to equalize decimal places.</text></g><g id=\"q5s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Add column by column.</text></g><g id=\"q5ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">4.95</text></g>"
+},
+{
+id:"q6",
+q:"Subtract 2.4 from 5.85.",
+qs:"Subtract two point four from five point eight five.",
+anim:"q6",
+steps:[{"t": "Line up the decimal points.", "s": "Write 5.85 and 2.4 one below the other, ensuring their decimal points are aligned."}, {"t": "Add zeros to equalize decimal places.", "s": "Add a zero to 2.4 to make it 2.40. This helps in subtracting digits in each place value."}, {"t": "Subtract column by column.", "s": "Start subtracting from the rightmost column. If you need to borrow, do so from the digit to the left. Place the decimal point in the difference directly below the others."}],
+cq:"What is 7.3 - 1.25?",
+cqs:"What is seven point three minus one point two five?",
+ans:["3.45"],
+nudges:["Always align the decimal points first. Think of 2.4 as 2.40.", "Subtract the hundredths, then the tenths, then the ones.", "The difference is 3.45."],
+anim_svg:"<g id=\"q6s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Line up the decimal points.</text></g><g id=\"q6s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Add zeros to equalize decimal places.</text></g><g id=\"q6s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Subtract column by column.</text></g><g id=\"q6ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">3.45</text></g>"
+},
+{
+id:"q7",
+q:"Multiply 2.5 by 3.",
+qs:"Multiply two point five by three.",
+anim:"q7",
+steps:[{"t": "Multiply ignoring the decimal point.", "s": "First, multiply 25 by 3 as if they were whole numbers. What do you get?"}, {"t": "Count decimal places in the original decimal.", "s": "Now, look at the original decimal number, 2.5. How many digits are there after the decimal point?"}, {"t": "Place the decimal point in the product.", "s": "In your product from step 1, count that many places from the right and place the decimal point. So, if 2.5 has one decimal place, your answer will also have one decimal place."}],
+cq:"What is 1.2 x 4?",
+cqs:"What is one point two multiplied by four?",
+ans:["7.5"],
+nudges:["First, multiply 25 by 3.", "How many digits are after the decimal in 2.5?", "The product is 7.5."],
+anim_svg:"<g id=\"q7s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Multiply ignoring the decimal point.</text></g><g id=\"q7s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Count decimal places in the original decimal.</text></g><g id=\"q7s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Place the decimal point in the product.</text></g><g id=\"q7ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">7.5</text></g>"
+},
+{
+id:"q8",
+q:"Divide 45.6 by 100.",
+qs:"Divide forty five point six by one hundred.",
+anim:"q8",
+steps:[{"t": "Identify the divisor and its zeros.", "s": "The divisor is 100. Count how many zeros are in 100."}, {"t": "Move the decimal point to the left.", "s": "When dividing by 10, 100, 1000, etc., you move the decimal point to the left. The number of places you move it is equal to the number of zeros in the divisor."}, {"t": "Write the final answer.", "s": "Since 100 has two zeros, move the decimal point in 45.6 two places to the left. You might need to add a zero in front if there isn't a digit."}],
+cq:"What is 3.7 divided by 10?",
+cqs:"What is three point seven divided by ten?",
+ans:["0.456"],
+nudges:["Dividing by 100 makes the number smaller.", "How many places do you need to shift the decimal point to the left?", "The result is 0.456."],
+anim_svg:"<g id=\"q8s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Identify the divisor and its zeros.</text></g><g id=\"q8s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Move the decimal point to the left.</text></g><g id=\"q8s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Write the final answer.</text></g><g id=\"q8ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">0.456</text></g>"
+},
+{
+id:"q9",
+q:"Multiply 0.3 by 0.4.",
+qs:"Multiply zero point three by zero point four.",
+anim:"q9",
+steps:[{"t": "Multiply ignoring decimal points.", "s": "First, multiply 3 by 4 as if they were whole numbers. What is that product?"}, {"t": "Count total decimal places.", "s": "Count the total number of digits after the decimal point in both 0.3 (one place) and 0.4 (one place). Add them up."}, {"t": "Place the decimal point in the product.", "s": "In the product from step 1, count from the right and place the decimal point according to the total number of decimal places you counted. You might need to add leading zeros."}],
+cq:"What is 0.2 x 0.5?",
+cqs:"What is zero point two multiplied by zero point five?",
+ans:["0.12"],
+nudges:["Multiply 3 by 4 first.", "How many decimal places are there in total in 0.3 and 0.4?", "The product is 0.12."],
+anim_svg:"<g id=\"q9s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Multiply ignoring decimal points.</text></g><g id=\"q9s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Count total decimal places.</text></g><g id=\"q9s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Place the decimal point in the product.</text></g><g id=\"q9ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">0.12</text></g>"
+},
+{
+id:"q10",
+q:"Divide 1.2 by 0.3.",
+qs:"Divide one point two by zero point three.",
+anim:"q10",
+steps:[{"t": "Convert divisor to a whole number.", "s": "To make division easier, we want the divisor (0.3) to be a whole number. Multiply both the divisor and the dividend (1.2) by the same power of 10 to achieve this."}, {"t": "Perform the division.", "s": "Now that you have a whole number divisor, perform the division as you would with whole numbers or a decimal by a whole number."}, {"t": "Write the final answer.", "s": "The result of the division is your final answer."}],
+cq:"What is 2.4 divided by 0.6?",
+cqs:"What is two point four divided by zero point six?",
+ans:["4"],
+nudges:["Try to get rid of the decimal in the divisor (0.3). What do you multiply it by?", "If you multiply 0.3 by 10, you must also multiply 1.2 by 10.", "The answer is 4."],
+anim_svg:"<g id=\"q10s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Convert divisor to a whole number.</text></g><g id=\"q10s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Perform the division.</text></g><g id=\"q10s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Write the final answer.</text></g><g id=\"q10ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">4</text></g>"
+}
+];
+
+function getAnimSVG(t){
+var base='<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Nunito,sans-serif;background:#fffdf8"><rect width="420" height="178" fill="#fffdf8"/>';
+var svgs={
+"q1":base+"<g id=\"q1s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Identify the decimal point.</text></g><g id=\"q1s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Count places to the right of the decimal.</text></g><g id=\"q1s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Name the place value of 7.</text></g><g id=\"q1ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Hundredths</text></g>",
+"q2":base+"<g id=\"q2s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Read the whole number part.</text></g><g id=\"q2s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Say 'point' for the decimal.</text></g><g id=\"q2s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Read digits after the decimal individually.</text></g><g id=\"q2ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Five point two three</text></g>",
+"q3":base+"<g id=\"q3s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Understand the denominator.</text></g><g id=\"q3s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Place the numerator after the decimal.</text></g><g id=\"q3s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Write the decimal.</text></g><g id=\"q3ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">0.3</text></g>",
+"q4":base+"<g id=\"q4s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Make the number of decimal places equal.</text></g><g id=\"q4s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Compare the whole number parts.</text></g><g id=\"q4s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Compare digits from left to right.</text></g><g id=\"q4ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">0.5</text></g>",
+"q5":base+"<g id=\"q5s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Line up the decimal points.</text></g><g id=\"q5s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Add zeros to equalize decimal places.</text></g><g id=\"q5s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Add column by column.</text></g><g id=\"q5ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">4.95</text></g>",
+"q6":base+"<g id=\"q6s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Line up the decimal points.</text></g><g id=\"q6s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Add zeros to equalize decimal places.</text></g><g id=\"q6s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Subtract column by column.</text></g><g id=\"q6ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">3.45</text></g>",
+"q7":base+"<g id=\"q7s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Multiply ignoring the decimal point.</text></g><g id=\"q7s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Count decimal places in the original decimal.</text></g><g id=\"q7s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Place the decimal point in the product.</text></g><g id=\"q7ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">7.5</text></g>",
+"q8":base+"<g id=\"q8s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Identify the divisor and its zeros.</text></g><g id=\"q8s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Move the decimal point to the left.</text></g><g id=\"q8s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Write the final answer.</text></g><g id=\"q8ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">0.456</text></g>",
+"q9":base+"<g id=\"q9s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Multiply ignoring decimal points.</text></g><g id=\"q9s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Count total decimal places.</text></g><g id=\"q9s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Place the decimal point in the product.</text></g><g id=\"q9ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">0.12</text></g>",
+"q10":base+"<g id=\"q10s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Convert divisor to a whole number.</text></g><g id=\"q10s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Perform the division.</text></g><g id=\"q10s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Write the final answer.</text></g><g id=\"q10ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">4</text></g>"
+};
+return svgs[t]||'<svg viewBox="0 0 420 178"><text x="210" y="89" text-anchor="middle" font-family="Nunito" font-size="14" fill="#5a4a30">Loading...</text></svg>';
+}
+
+function makeAnimPlay(id,steps,ansLabel){return function(done){setStatus("Solving step by step...");var delay=600;steps.forEach(function(_,i){var d=delay+i*2800;(function(ii,dd){at(dd,function(){fade(id+"s"+ii,1);});})( i,d);});at(delay+steps.length*2800,function(){fade(id+"ans",1);setStatus("Answer: "+ansLabel);at(2000,done);});}; }
+var ANIM_PLAYS={};
+QB.forEach(function(q){ANIM_PLAYS[q.id]=makeAnimPlay(q.id,q.steps,q.ans[0]);});
+function getAnimPlay(t){return ANIM_PLAYS[t]||function(done){done();};}
+
+var atTimers=[],session=[],idx=0,stepIdx=0,nudgeCount=0,completed=false,breakSecs=0,breakTmr=null,PER_SESSION=10;
+function G(id){return document.getElementById(id);}
+function clearAt(){for(var i=0;i<atTimers.length;i++)clearTimeout(atTimers[i]);atTimers=[];}
+function at(ms,fn){atTimers.push(setTimeout(fn,ms));}
+function fade(id,v){var e=G(id);if(e){e.style.transition="opacity .5s";e.style.opacity=v;}}
+function setStatus(t){var e=G("animStatus");if(e)e.textContent=t;}
+function startLesson(){var btn=G('startBtn');if(btn){btn.disabled=true;btn.textContent='▶ Starting...';}var done=false;function proceed(){if(!done){done=true;setTimeout(showQ,600);}}say(G('introText').innerText,proceed);setTimeout(proceed,8000);}
+function init(){
+  rishiCheckPlan(3);
+  var st=JSON.parse(localStorage.getItem("rishi_current_student")||"{}");
+  G("sName")&&(G("sName").textContent=st.studentName?st.studentName.split(" ")[0]:"there");
+  if(rishiIsExplainDone(3)){completed=true;G("doneBanner").classList.add("show");unlockNav();}
+  buildSession();rInit();
+  initVoices(function(){startLesson();});
+}
+function buildSession(){session=QB.slice().sort(function(){return Math.random()-.5;}).slice(0,PER_SESSION);}
+function showQ(){
+  if(idx>=session.length){onComplete();return;}
+  var q=session[idx];stepIdx=0;nudgeCount=0;updateProg();G("qArea").innerHTML="";clearAt();
+  var qc=document.createElement("div");qc.className="q-card";
+  qc.innerHTML='<div class="q-label">Question '+(idx+1)+' of '+PER_SESSION+'</div><div class="q-text">'+q.q+'</div><button class="btn-speak" onclick="say(session[idx].qs)">&#128266; Hear</button>';
+  G("qArea").appendChild(qc);
+  var ap=document.createElement("div");ap.className="anim-panel";
+  ap.innerHTML='<div class="anim-header"><span class="anim-header-lbl">&#127909; Live Animation</span><button class="anim-replay" id="animReplay" onclick="replayAnim()">&#8635; Replay</button></div>'
+    +'<div class="anim-canvas" id="animCanvas">'+getAnimSVG(q.anim)+'</div>'
+    +'<div class="anim-status" id="animStatus">Tap Play to watch with narration!</div>'
+    +'<button class="anim-play-btn" id="animPlayBtn" onclick="startAnim()">&#9654; Play Animation</button>'
+    +'<button class="steps-btn" id="stepsBtn" onclick="beginSteps()">&#128214; See Step-by-Step</button>';
+  G("qArea").appendChild(ap);setTimeout(startAnim,800);
+}
+function startAnim(){var q=session[idx];var pb=G("animPlayBtn");if(pb){pb.disabled=true;pb.textContent="&#9654; Playing...";}getAnimPlay(q.anim)(function(){var sb=G("stepsBtn");if(sb)sb.style.display="block";var rb=G("animReplay");if(rb)rb.style.display="block";if(pb)pb.style.display="none";setTimeout(beginSteps,600);});}
+function replayAnim(){clearAt();window.speechSynthesis&&window.speechSynthesis.cancel();rStopTalk();var q=session[idx];G("animCanvas").innerHTML=getAnimSVG(q.anim);G("animReplay").style.display="none";G("stepsBtn").style.display="none";var pb=G("animPlayBtn");if(pb){pb.style.display="block";pb.disabled=false;pb.textContent="&#9654; Play Animation";}setStatus("Tap Play to watch with narration!");}
+function beginSteps(){var q=session[idx];var sc=document.createElement("div");sc.className="q-card";sc.innerHTML='<div class="q-label">&#128214; Step-by-Step</div><div id="stepsWrap"></div><button class="btn-speak" id="nxtStepBtn" onclick="nextStep()" style="margin-top:10px;">&#9654; Next Step</button>';G("qArea").appendChild(sc);sc.scrollIntoView({behavior:"smooth",block:"start"});G("stepsBtn").style.display="none";setTimeout(nextStep,350);}
+function nextStep(){var q=session[idx];if(stepIdx>=q.steps.length){G("nxtStepBtn").style.display="none";var ib=document.createElement("button");ib.className="btn-speak";ib.innerHTML="&#9989; I Understand!";ib.style.cssText="margin-top:16px;width:100%;";ib.onclick=function(){ib.remove();showConfirm();};G("stepsWrap").appendChild(ib);ib.scrollIntoView({behavior:"smooth",block:"center"});return;}var s=q.steps[stepIdx];var wrap=G("stepsWrap");var d=document.createElement("div");d.className="step";d.innerHTML='<div class="step-num">'+(stepIdx+1)+'</div><div class="step-body">'+s.t+'</div>';wrap.appendChild(d);setTimeout(function(){d.classList.add("vis");},40);setTimeout(nextStep,3500);stepIdx++;}
+function showConfirm(){
+  var q=session[idx];var c=document.createElement("div");c.className="confirm-wrap";
+  c.innerHTML='<div class="confirm-title">&#127917; Rishika asks!</div>'
+    +'<div class="confirm-q">'+q.cq+'</div>'
+    +'<textarea id="rawAnswer" class="math-raw" rows="2" placeholder="Type your answer here..."></textarea>'
+    +'<div class="math-preview-label">Preview</div>'
+    +'<div class="math-preview" id="mathPreview"></div>'
+    +'<div class="sugg-chips" id="suggChips"></div>'
+    +'<button type="button" onclick="submitTyped()" style="width:100%;font-family:Nunito,sans-serif;font-size:14px;font-weight:900;padding:11px;border-radius:12px;border:none;background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;cursor:pointer;margin-bottom:8px;">Submit Answer</button>'
+    +'<div class="result-box" id="rbox"></div>'
+    +'<div class="nudge" id="nudgeBox"></div>'
+    +'<button type="button" class="btn-next" id="btnNext" onclick="goNext()">Next Question &#9654;</button>';
+  G("qArea").appendChild(c);c.scrollIntoView({behavior:"smooth",block:"center"});
+  var ra=G("rawAnswer");
+  if(ra){ra.addEventListener("input",mathUpdate);ra.addEventListener("keydown",function(ev){if(ev.key==="Enter"&&!ev.shiftKey){ev.preventDefault();submitTyped();}});setTimeout(function(){ra.focus();},300);}
+  buildSuggChips(q.ans);say(q.cqs);
+}
+function submitTyped(){var ra=G("rawAnswer");if(!ra)return;var val=String(ra.value||"").trim();if(!val){ra.focus();return;}handleAnswer(val.toLowerCase());}
+function goNext(){idx++;G("qArea").innerHTML="";showQ();window.scrollTo({top:0,behavior:"smooth"});}
+function updateProg(){var pct=Math.round((idx/PER_SESSION)*100);G("progFill").style.width=pct+"%";G("progLabel").textContent="Question "+(idx+1)+" of "+PER_SESSION;G("progPct").textContent=pct+"%";}
+function unlockNav(){G("btnPractice").classList.remove("locked");G("btnExam").classList.remove("locked");G("lockTip").style.display="none";}
+function onComplete(){
+  rishiMarkExplainDone(3);
+  completed=true;G("doneBanner").classList.add("show");unlockNav();
+  var st=JSON.parse(localStorage.getItem("rishi_current_student")||"{}");
+  var nm=st.studentName?st.studentName.split(" ")[0]:"champion";
+  var cel=document.createElement("div");cel.className="rishika-wrap";
+  cel.innerHTML='<div class="rishika-avatar">&#128105;&#8205;&#127979;</div>'
+    +'<div class="rishika-bubble"><div class="rishika-name">Rishika</div>'
+    +'<div class="rishika-text" id="celText">&#127881; <span class="hl">'+nm+'</span>, Fantastic job! You&#39;ve mastered decimals! Keep up the great work! 🎉</div>'
+    +'<button class="btn-speak" onclick="sayEl(\'celText\')">&#128266; Hear</button></div>';
+  G("qArea").appendChild(cel);setTimeout(function(){sayEl("celText");rHappy();},400);
+}
+function goPractice(){if(!completed){alert("Complete explanations first!");return;}location.href="/practice/class7/arithmetic/a-peek-beyond-the-point.html";}
+function goExam(){if(!completed){alert("Complete explanations first!");return;}location.href="/exam.html?ch=c7-03";}
+var CELEBRATIONS=[{word:"Magnifique!",lang:"French",meaning:"Magnificent!",speak:"Magnifique"},{word:"Bravissimo!",lang:"Italian",meaning:"Very well done!",speak:"Bravissimo"},{word:"Wunderbar!",lang:"German",meaning:"Wonderful!",speak:"Wunderbar"},{word:"Shabash!",lang:"Hindi",meaning:"Well done!",speak:"Shabash"},{word:"Felicitaciones!",lang:"Spanish",meaning:"Congratulations!",speak:"Felicitaciones"}];
+var lastCelIdx=-1;
+function celebrate(){var i;do{i=Math.floor(Math.random()*CELEBRATIONS.length);}while(i===lastCelIdx&&CELEBRATIONS.length>1);lastCelIdx=i;var c=CELEBRATIONS[i];var rb=G("rbox");rb.className="result-box ok";rb.innerHTML='<div style="font-size:18px;font-weight:900;">'+c.word+'</div><div style="font-size:11px;">'+c.lang+' &middot; <em>'+c.meaning+'</em></div>';G("nudgeBox").classList.remove("show");var nb=G("btnNext");if(nb)nb.classList.add("show");say(c.speak);rHappy();}
+function handleAnswer(text){var q=session[idx];var ok=q.ans.some(function(a){return text.includes(a.toLowerCase())||a.toLowerCase().includes(text);});var rb=G("rbox");if(ok){celebrate();}else{nudgeCount++;rb.className="result-box no";rb.textContent="\u2716 Not quite. Listen to my hint!";var nudge=q.nudges[Math.min(nudgeCount-1,q.nudges.length-1)];showNudge(nudge);say(nudge);rThink();if(nudgeCount>=3){var nb2=G("btnNext");if(nb2){nb2.classList.add("show");nb2.textContent="I Understand \u25b6";}}}}
+function showNudge(msg){var n=G("nudgeBox");if(n){n.textContent=msg;n.classList.add("show");}}
+function openBreak(){G("breakOv").classList.add("show");}
+function closeBreak(){G("breakOv").classList.remove("show");}
+function startBreak(r){closeBreak();breakSecs=0;G("timerLbl").textContent=r;G("timerNum").textContent="00:00";G("timerScreen").classList.add("show");breakTmr=setInterval(function(){breakSecs++;var m=String(Math.floor(breakSecs/60)).padStart(2,"0");var s=String(breakSecs%60).padStart(2,"0");G("timerNum").textContent=m+":"+s;},1000);}
+function endBreak(){clearInterval(breakTmr);G("timerScreen").classList.remove("show");}
+function mathUpdate(){var ra=G("rawAnswer");if(!ra)return;var v=ra.value.trim();var el=G("mathPreview");if(el)el.textContent=v||"";}
+function buildSuggChips(ans){var el=G("suggChips");if(!el)return;el.innerHTML="";(ans||[]).forEach(function(a){var btn=document.createElement("button");btn.className="schip";btn.textContent=a;btn.type="button";btn.addEventListener("click",function(){var ra=G("rawAnswer");if(ra){ra.value=a;mathUpdate();ra.focus();}});el.appendChild(btn);});}
+window.onload=init;
+</script>
+<script src="/explain-helper.js"></script>
 </body>
 </html>
