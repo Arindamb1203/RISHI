@@ -795,46 +795,62 @@
 
 <!-- SUCCESS MODAL -->
 <div class="modal-overlay" id="successModal">
-  <div class="modal">
+  <div class="modal" style="max-width:580px;">
     <div class="modal-icon">🎉</div>
-    <div class="modal-title">Welcome to RISHI!</div>
+    <div class="modal-title">RISHI Is Ready!</div>
     <div class="modal-sub" id="modalSub">Your journey with Rishika begins now.</div>
 
-    <div class="cred-box">
-      <div class="cred-row">
-        <span class="cred-key">🎓 Student Username</span>
-        <span class="cred-val" id="modalUser">—</span>
+    <!-- STUDENT SECTION -->
+    <div style="background:linear-gradient(135deg,#fff9ee,var(--gold-pale));border:2px solid var(--gold);border-radius:16px;padding:20px 24px;margin-bottom:16px;text-align:left;">
+      <div style="font-family:'Orbitron',sans-serif;font-size:10px;letter-spacing:3px;color:var(--amber);text-transform:uppercase;margin-bottom:14px;font-weight:900;">🎓 Student</div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+        <span style="font-size:12px;font-weight:800;color:var(--mid);text-transform:uppercase;letter-spacing:0.5px;">Username</span>
+        <span style="font-family:'Share Tech Mono',monospace;font-size:17px;font-weight:700;color:var(--charcoal);" id="modalUser">—</span>
+      </div>
+      <div style="font-size:12px;font-weight:700;color:var(--soft);margin-bottom:12px;">🔐 No password yet — you will set it on first login</div>
+      <div style="background:var(--warm-white);border:1.5px solid var(--gold-light);border-radius:10px;padding:12px 14px;margin-bottom:14px;">
+        <div style="font-size:10px;font-weight:800;color:var(--amber);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;">Login Link</div>
+        <a id="studentLink" href="#" target="_blank" style="font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--amber);word-break:break-all;font-weight:700;text-decoration:none;display:block;margin-bottom:8px;">—</a>
+        <button onclick="copyLink('studentLink', this)" style="font-family:'Nunito',sans-serif;font-size:12px;font-weight:800;background:var(--gold-pale);border:1.5px solid var(--gold);border-radius:8px;padding:6px 14px;cursor:pointer;color:var(--amber);">📋 Copy Link</button>
+      </div>
+      <div style="background:#fff8e1;border-radius:10px;padding:14px 16px;">
+        <div style="font-size:12px;font-weight:900;color:var(--rust);margin-bottom:8px;">📌 Student Instructions</div>
+        <div style="font-size:13px;font-weight:700;color:var(--mid);line-height:1.9;">
+          1. Open RISHI on a <strong>Laptop or Desktop</strong> — not mobile<br>
+          2. Click the link above to open<br>
+          3. Set your password on first login<br>
+          4. Bookmark the page in the browser Bookmark Bar<br>
+          5. Always start RISHI from that bookmark 🔖
+        </div>
       </div>
     </div>
 
-    <div class="cred-box" style="margin-top:10px; background:#eef2eb; border-color:var(--sage-light);">
-      <div class="cred-row">
-        <span class="cred-key">👨‍👩‍👦 Parent Username</span>
-        <span class="cred-val" id="modalParentUser">—</span>
+    <!-- PARENT SECTION -->
+    <div style="background:linear-gradient(135deg,#f0f5ee,#e6f0e2);border:2px solid var(--sage-light);border-radius:16px;padding:20px 24px;margin-bottom:20px;text-align:left;">
+      <div style="font-family:'Orbitron',sans-serif;font-size:10px;letter-spacing:3px;color:var(--sage);text-transform:uppercase;margin-bottom:14px;font-weight:900;">👨‍👩‍👦 Parent</div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+        <span style="font-size:12px;font-weight:800;color:var(--mid);text-transform:uppercase;letter-spacing:0.5px;">Username</span>
+        <span style="font-family:'Share Tech Mono',monospace;font-size:17px;font-weight:700;color:var(--charcoal);" id="modalParentUser">—</span>
+      </div>
+      <div style="font-size:12px;font-weight:700;color:var(--soft);margin-bottom:12px;">🔐 No password yet — you will set it on first login</div>
+      <div style="background:var(--warm-white);border:1.5px solid var(--sage-light);border-radius:10px;padding:12px 14px;margin-bottom:14px;">
+        <div style="font-size:10px;font-weight:800;color:var(--sage);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;">Parent Portal Link</div>
+        <a id="parentLink" href="#" target="_blank" style="font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--sage);word-break:break-all;font-weight:700;text-decoration:none;display:block;margin-bottom:8px;">—</a>
+        <button onclick="copyLink('parentLink', this)" style="font-family:'Nunito',sans-serif;font-size:12px;font-weight:800;background:#e6f0e2;border:1.5px solid var(--sage-light);border-radius:8px;padding:6px 14px;cursor:pointer;color:var(--sage);">📋 Copy Link</button>
+      </div>
+      <div style="background:#e8f5e9;border-radius:10px;padding:14px 16px;">
+        <div style="font-size:12px;font-weight:900;color:var(--sage);margin-bottom:8px;">📌 Parent Instructions</div>
+        <div style="font-size:13px;font-weight:700;color:var(--mid);line-height:1.9;">
+          1. Open the Parent Portal Link on your <strong>Mobile</strong><br>
+          2. Set your password on first login<br>
+          3. Tap the <strong style="color:var(--rust);">"Pin on Home Page"</strong> button on the login screen<br>
+          4. The app will appear as <strong style="font-family:'Orbitron',sans-serif;font-size:15px;color:var(--amber);">R</strong> on your home screen<br>
+          5. Works on Android &amp; iPhone 📱
+        </div>
       </div>
     </div>
 
-    <div style="background:#fff8e1;border:1px solid #f5a623;border-radius:10px;padding:12px 14px;font-size:13px;font-weight:700;color:#b45309;margin-top:14px;text-align:left;">
-      🔐 No password yet — on first login, you will be asked to set your own password. Keep your username safe!
-    </div>
-
-    <div style="font-size:13px; font-weight:800; color:var(--rust); margin-bottom:14px; text-align:left; margin-top:14px;">
-      📌 Please save these usernames. Click the links below to open and bookmark them.
-    </div>
-
-    <div class="link-box">
-      <div class="link-label">🎓 Student Link — click to open</div>
-      <a class="link-url" id="studentLink" href="#" target="_blank" style="display:block;text-decoration:none;cursor:pointer;">—</a>
-      <div class="link-instruction">Prefilled login → Bookmark it in Bookmark Bar → Student starts here</div>
-    </div>
-
-    <div class="link-box" style="background:#eef2eb; border-color:var(--sage-light);">
-      <div class="link-label" style="color:var(--sage);">👨‍👩‍👦 Parent Portal Link — click to open</div>
-      <a class="link-url" id="parentLink" href="#" target="_blank" style="display:block;text-decoration:none;cursor:pointer;">—</a>
-      <div class="link-instruction">Prefilled login → Lands on Parent Portal → Monitor your child here</div>
-    </div>
-
-    <button class="btn-modal" onclick="closeModal()">Got it! Let's Begin ✨</button>
+    <button class="btn-modal" onclick="closeModal()">Got it! Let&#39;s Begin ✨</button>
   </div>
 </div>
 
@@ -1087,6 +1103,15 @@ function closeModal() {
   document.getElementById('successModal').classList.remove('show');
   var sUser = window._regStudentUser;
   window.location.href = '/login.html?user=' + encodeURIComponent(sUser) + '&role=student&first=1';
+}
+
+function copyLink(linkId, btn) {
+  var url = document.getElementById(linkId).href;
+  navigator.clipboard.writeText(url).then(function() {
+    var orig = btn.textContent;
+    btn.textContent = '✅ Copied!';
+    setTimeout(function() { btn.textContent = orig; }, 2000);
+  });
 }
 
 // ============================================================

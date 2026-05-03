@@ -358,22 +358,36 @@ body{font-family:'Nunito',sans-serif;background:#0d0d1a;min-height:100vh;color:#
    CH_ID_STR used for all localStorage keys.
 ─────────────────────────────────────────────────────── */
 var CHAPTER_MAP = {
-  '01':  { intId: 1,   name: 'Rational Numbers',                  topic: 'Arithmetic'    },
-  '02':  { intId: 2,   name: 'Linear Equations in One Variable',  topic: 'Algebra'       },
-  '03':  { intId: 3,   name: 'Understanding Quadrilaterals',       topic: 'Geometry'      },
-  '04':  { intId: 4,   name: 'Practical Geometry',                 topic: 'Geometry'      },
-  '05':  { intId: 5,   name: 'Data Handling',                      topic: 'Data Handling' },
-  '08':  { intId: 8,   name: 'Comparing Quantities',               topic: 'Arithmetic'    },
-  '09':  { intId: 9,   name: 'Algebraic Expressions & Identities', topic: 'Algebra'       },
-  '10':  { intId: 10,  name: 'Visualising Solid Shapes',           topic: 'Geometry'      },
-  '11a': { intId: 11,  name: 'Mensuration — Area of Plane Figures',topic: 'Mensuration'   },
-  '11b': { intId: 11,  name: 'Mensuration — Surface Area & Volume',topic: 'Mensuration'   },
-  '12':  { intId: 12,  name: 'Exponents and Powers',               topic: 'Arithmetic'    },
-  '13':  { intId: 13,  name: 'Direct & Inverse Proportions',       topic: 'Arithmetic'    },
-  '14':  { intId: 14,  name: 'Factorisation',                      topic: 'Algebra'       },
-  '15':  { intId: 15,  name: 'Playing with Numbers',               topic: 'Algebra'       },
-  '16':  { intId: 16,  name: 'Introduction to Graphs',             topic: 'Data Handling' },
-  '17':  { intId: 17,  name: 'Chance and Probability',             topic: 'Data Handling' }
+  /* ── Class 8 ── */
+  '01':  { intId: 1,   cls: '8', apiCh: '01',  name: 'Rational Numbers',                  topic: 'Arithmetic'    },
+  '02':  { intId: 2,   cls: '8', apiCh: '02',  name: 'Linear Equations in One Variable',  topic: 'Algebra'       },
+  '03':  { intId: 3,   cls: '8', apiCh: '03',  name: 'Understanding Quadrilaterals',       topic: 'Geometry'      },
+  '04':  { intId: 4,   cls: '8', apiCh: '04',  name: 'Practical Geometry',                 topic: 'Geometry'      },
+  '05':  { intId: 5,   cls: '8', apiCh: '05',  name: 'Data Handling',                      topic: 'Data Handling' },
+  '08':  { intId: 8,   cls: '8', apiCh: '08',  name: 'Comparing Quantities',               topic: 'Arithmetic'    },
+  '09':  { intId: 9,   cls: '8', apiCh: '09',  name: 'Algebraic Expressions & Identities', topic: 'Algebra'       },
+  '10':  { intId: 10,  cls: '8', apiCh: '10',  name: 'Visualising Solid Shapes',           topic: 'Geometry'      },
+  '11a': { intId: 11,  cls: '8', apiCh: '11a', name: 'Mensuration \u2014 Area of Plane Figures', topic: 'Mensuration' },
+  '11b': { intId: 11,  cls: '8', apiCh: '11b', name: 'Mensuration \u2014 Surface Area & Volume', topic: 'Mensuration' },
+  '12':  { intId: 12,  cls: '8', apiCh: '12',  name: 'Exponents and Powers',               topic: 'Arithmetic'    },
+  '13':  { intId: 13,  cls: '8', apiCh: '13',  name: 'Direct & Inverse Proportions',       topic: 'Arithmetic'    },
+  '14':  { intId: 14,  cls: '8', apiCh: '14',  name: 'Factorisation',                      topic: 'Algebra'       },
+  '15':  { intId: 15,  cls: '8', apiCh: '15',  name: 'Playing with Numbers',               topic: 'Algebra'       },
+  '16':  { intId: 16,  cls: '8', apiCh: '16',  name: 'Introduction to Graphs',             topic: 'Data Handling' },
+  '17':  { intId: 17,  cls: '8', apiCh: '17',  name: 'Chance and Probability',             topic: 'Data Handling' },
+  /* ── Class 9 ── */
+  'c9-01': { intId: 1,  cls: '9', apiCh: '01', name: 'Real Numbers',                          topic: 'Arithmetic'         },
+  'c9-02': { intId: 2,  cls: '9', apiCh: '02', name: 'Polynomials',                           topic: 'Algebra'            },
+  'c9-03': { intId: 3,  cls: '9', apiCh: '03', name: 'Linear Equations in Two Variables',     topic: 'Algebra'            },
+  'c9-04': { intId: 4,  cls: '9', apiCh: '04', name: 'Coordinate Geometry',                   topic: 'Coordinate Geometry'},
+  'c9-05': { intId: 5,  cls: '9', apiCh: '05', name: 'Euclid\'s Geometry',                    topic: 'Geometry'           },
+  'c9-06': { intId: 6,  cls: '9', apiCh: '06', name: 'Lines and Angles',                      topic: 'Geometry'           },
+  'c9-07': { intId: 7,  cls: '9', apiCh: '07', name: 'Triangles',                             topic: 'Geometry'           },
+  'c9-08': { intId: 8,  cls: '9', apiCh: '08', name: 'Quadrilaterals',                        topic: 'Geometry'           },
+  'c9-09': { intId: 9,  cls: '9', apiCh: '09', name: 'Circles',                               topic: 'Geometry'           },
+  'c9-10': { intId: 10, cls: '9', apiCh: '10', name: 'Heron\'s Formula',                      topic: 'Mensuration'        },
+  'c9-11': { intId: 11, cls: '9', apiCh: '11', name: 'Surface Areas and Volumes',             topic: 'Mensuration'        },
+  'c9-12': { intId: 12, cls: '9', apiCh: '12', name: 'Statistics',                            topic: 'Data Handling'      }
 };
 
 var SECTION_INFO = {
@@ -451,6 +465,7 @@ window.addEventListener('load', function () {
   /* Fill chapter info */
   document.getElementById('topbar-chapter').textContent = CH_INFO.name;
   document.getElementById('lp-title').textContent = CH_INFO.name;
+  document.querySelector('.lp-chapter').textContent = 'CBSE \u00b7 Class ' + CH_INFO.cls;
   document.getElementById('coins-display').textContent = rishiGetCoins();
 
   /* Load questions */
@@ -460,7 +475,7 @@ window.addEventListener('load', function () {
 /* ─ LOAD QUESTIONS ────────────────────────────────────── */
 async function loadQuestions() {
   try {
-    var url = '/api/questions?board=cbse&class=8&ch=' + CH_ID_STR + '&type=exam';
+    var url = '/api/questions?board=cbse&class=' + CH_INFO.cls + '&ch=' + CH_INFO.apiCh + '&type=exam';
     var res = await fetch(url);
     if (!res.ok) throw new Error('HTTP ' + res.status);
     var data = await res.json();
