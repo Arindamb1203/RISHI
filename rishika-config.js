@@ -2,7 +2,7 @@
 ═══════════════════════════════════════════════════════════════
   RISHIKA CONFIG — Paste this entire file at the start of
   every new Claude session to restore full project context.
-  Last updated: 2 May 2026 — evening
+  Last updated: 4 May 2026 — afternoon
   (Class 9 all 12 chapters complete, generate.py built)
 ═══════════════════════════════════════════════════════════════
 
@@ -44,7 +44,7 @@
   NOTE: If generator shows warnings on portal files but HTML was
         generated — portals may already be correct. Check before fixing.
 
-▌ FILE TREE (actual repo as of 2 May 2026)
+▌ FILE TREE (actual repo as of 4 May 2026)
   D:\rishi\
   |
   +---.github\workflows\                 AUTOMATED TESTING PIPELINE
@@ -66,7 +66,9 @@
   |   |   exam.html / topic-exam.html / sampurna-pariksha.html
   |   |   login.html / register.html / landing.html / coming-soon.html
   |   |   parent.html                   CLASS-AWARE, 5 tabs + Live Status + Study Slots
-  |   |   parent-dashboard.html
+  |   |                                 ⚡ Analytics tab → redirects to parent-dashboard.html
+  |   |   parent-dashboard.html         Full analytics — RISHI light theme, fluorescent green borders
+  |   |                                 Has referral banner (Tiranga/green), back button → parent.html
   |   |   rishi-core.js                 rishi_admin_bypass → sessionStorage only
   |   |   rishi-presence.js / rishi-sync.js / rishi-diagram.js
   |   |   explain-helper.js             "I Don't Understand" → /api/explain-differently
@@ -161,11 +163,42 @@
   NCERT, NCERT Exemplar, RD Sharma, RS Aggarwal,
   CBSE Past Papers (10yr), Olympiad (IMO/MOF/ISMO), CBSE Sample Papers (2yr)
 
+▌ REFERRAL SYSTEM (built 4 May 2026)
+  parent-dashboard.html — referral banner with fluorescent green border
+  Referral link: https://rishi-ewh.pages.dev/landing.html?ref=PARENTID
+  D1 table: rishi_referrals (ref_by, referred_username, registered_at, subscription_credited)
+  D1 actions: log-referral, get-referrals, credit-referral (payment stub)
+  register.html reads ?ref= on load → fires log-referral silently on registration
+  Unlimited stacking — each referral = 1 free month
+  credit-referral: wire to payment gateway when available
+
+▌ LOGIN PAGE (login.html)
+  "Pin on Home Page" button — shown only when ?role=parent in URL
+  Android: native beforeinstallprompt PWA install
+  iOS: shows step-by-step Share → Add to Home Screen tip
+  Parent app appears as R on home screen
+
+▌ REGISTER PAGE (register.html)
+  Success modal — two sections: Student (gold) + Parent (sage/green)
+  Student instructions: use Laptop/Desktop, bookmark the link
+  Parent instructions: use Mobile, tap Pin on Home Page, app appears as R
+  Copy Link buttons for both student and parent links
+  D1 URL fixed: /d1-sync (was /functions/d1-sync)
+
+▌ LANDING PAGE (landing.html)
+  arindam.mp3 father voice — file at D:\rishi\public\arindam.mp3
+  CRITICAL: arindam.mp3 must be committed to git (was in dist\ not public\)
+  System requirements popup: auto-shows on r5 section after 1 second
+  Student: Laptop/Desktop + headphones + internet
+  Parent: Mobile (Android or iPhone) + internet
+  Close X + "Got It — Let's Begin" button → /register.html
+
 ▌ REMAINING WORK — PRIORITY ORDER
   [DONE] Class 9 — all 12 chapters ✅
   [NEXT] Class 7 — 8 chapters (Ganita Prakash new NCERT 2025-26)
   [THEN] Class 6 — 10 chapters (new NCERT 2025-26)
   [THEN] ICSE Class 8 → WBBSE Class 8
+  [PENDING] Payment gateway → wire credit-referral in d1-sync.js
 
 ▌ CLASS 7 CHAPTER MAP (Ganita Prakash, new NCERT 2025-26)
   Arithmetic: Large Numbers Around Us, Arithmetic Expressions,
@@ -196,4 +229,6 @@
   12. Build order: content JSON → run generate.py → git push
   13. data-handling folder uses hyphen (not underscore)
   14. Topic folder for Statistics: data-handling
+  15. RISHI theme is LIGHT — cream bg (#fdf6ec), warm white cards (#fffdf8),
+      charcoal text (#2a2218), gold accents. NO DARK BACKGROUNDS EVER.
 */
