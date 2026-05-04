@@ -642,7 +642,7 @@ button{font-family:'Outfit',sans-serif;}
   <div class="tab-bar">
     <button class="tab-btn on" id="tab-plan" onclick="switchTab('plan')">&#128203; Study Plan</button>
     <button class="tab-btn" id="tab-perf" onclick="switchTab('perf')">&#128202; Performance</button>
-    <button class="tab-btn" id="tab-dash" onclick="switchTab('dash')">&#9889; Analytics</button>
+    <button class="tab-btn" id="tab-dash" onclick="window.location.href='/parent-dashboard.html'">&#9889; Analytics</button>
     <button class="tab-btn" id="tab-slots" onclick="switchTab('slots')">&#9201; Study Slots</button>
     <button class="tab-btn" id="tab-live" onclick="switchTab('live')">&#128241; Live Status</button>
   </div>
@@ -740,48 +740,7 @@ button{font-family:'Outfit',sans-serif;}
     </div>
 
     <!-- ===== ANALYTICS TAB ===== -->
-    <div id="view-dash" class="hidden">
-      <!-- Hero Band -->
-      <div class="dash-hero">
-        <div class="hero-left">
-          <div class="hero-ring-wrap">
-            <svg class="hero-ring" viewBox="0 0 120 120">
-              <circle cx="60" cy="60" r="50" fill="none" stroke="rgba(255,255,255,.1)" stroke-width="10"/>
-              <circle id="hero-arc" cx="60" cy="60" r="50" fill="none" stroke="url(#heroGrad)" stroke-width="10"
-                stroke-linecap="round" stroke-dasharray="314" stroke-dashoffset="314"
-                transform="rotate(-90 60 60)" style="transition:stroke-dashoffset 1.4s cubic-bezier(.4,0,.2,1)"/>
-              <defs>
-                <linearGradient id="heroGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" stop-color="#F59E0B"/>
-                  <stop offset="100%" stop-color="#10B981"/>
-                </linearGradient>
-              </defs>
-            </svg>
-            <div class="hero-ring-inner">
-              <div class="hero-pct" id="hero-pct">—</div>
-              <div class="hero-pct-lbl">Success Rate</div>
-            </div>
-          </div>
-        </div>
-        <div class="hero-right">
-          <div class="hero-title">Predicted Exam Readiness</div>
-          <div class="hero-sub">Based on practice accuracy, explain sessions, completion rate &amp; time remaining</div>
-          <div class="hero-kpis" id="hero-kpis"></div>
-        </div>
-      </div>
-
-      <!-- Chapter Intelligence Grid -->
-      <div class="dash-sec-hdr"><span>&#128218; Chapter Intelligence</span><span class="dash-filter-row" id="ch-filter-row"></span></div>
-      <div class="ch-intel-grid" id="ch-intel-grid"></div>
-
-      <!-- Prediction Legend -->
-      <div class="pred-legend" id="pred-legend"></div>
-
-      <!-- Exam Scores Dashboard -->
-      <div class="dash-sec-hdr" style="margin-top:28px"><span>&#127941; Exam Scores Dashboard</span></div>
-      <div id="exam-dash-con"></div>
-
-    </div><!-- /view-dash -->
+    <div id="view-dash" class="hidden"></div>
 
     <!-- ===== SLOTS TAB ===== -->
     <div id="view-slots" class="hidden">
@@ -1161,7 +1120,6 @@ function switchTab(tab) {
   document.getElementById('view-slots').className = tab === 'slots' ? '' : 'hidden';
   document.getElementById('view-live').className  = tab === 'live'  ? '' : 'hidden';
   if (tab === 'perf')  renderPerformance();
-  if (tab === 'dash')  renderAnalytics();
   if (tab === 'slots') renderSlots();
   if (tab === 'live')  renderLive();
 }
