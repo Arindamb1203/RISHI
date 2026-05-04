@@ -7,16 +7,17 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Syne:wght@700;800;900&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg:#0C1118; --bg2:#111820; --bg3:#161E28;
-  --panel:#1A2230; --panel2:#1F2A3A; --border:#243044;
-  --gold:#F5A623; --gold2:#FFC85A; --goldf:rgba(245,166,35,.12);
-  --green:#22C97D; --red:#F24C6A; --blue:#4A9EFF; --amber:#F59E0B;
-  --text:#E8EDF5; --muted:#5B7394; --dim:#3A4D63;
-  --font-head:'Syne',sans-serif; --font-body:'DM Sans',sans-serif; --font-mono:'DM Mono',monospace;
+  --bg:#fdf6ec; --bg2:#fffdf8; --bg3:#f5ede0;
+  --panel:#fffdf8; --panel2:#f5e6c8; --border:#e0c898;
+  --gold:#c8922a; --gold2:#e8b84b; --goldf:rgba(200,146,42,.1);
+  --green:#4a8a4a; --red:#c0392b; --blue:#2563eb; --amber:#d4870a;
+  --text:#2a2218; --muted:#8a7a5a; --dim:#c8922a;
+  --font-head:'Syne',sans-serif; --font-body:'Nunito',sans-serif; --font-mono:'DM Mono',monospace;
 }
 *{box-sizing:border-box;margin:0;padding:0;}
 html{scroll-behavior:smooth;}
 body{background:var(--bg);color:var(--text);font-family:var(--font-body);min-height:100vh;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(#f5e6c8 1px,transparent 1px),linear-gradient(90deg,#f5e6c8 1px,transparent 1px);background-size:40px 40px;opacity:.25;z-index:0;pointer-events:none;}
 ::-webkit-scrollbar{width:4px;} ::-webkit-scrollbar-track{background:var(--bg);} ::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px;}
 
 /* ── HEADER ── */
@@ -65,7 +66,42 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);min-hei
 .ptitle{font-family:var(--font-head);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.8px;color:var(--muted);margin-bottom:16px;display:flex;align-items:center;gap:8px;}
 .ptitle-ico{font-size:13px;}
 
-/* ── HERO BAND ── */
+/* ── REFERRAL ── */
+.ref-banner{
+  background:var(--panel);border:2px solid #39FF14;border-radius:18px;
+  padding:22px 28px;margin-bottom:14px;
+  display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;
+  box-shadow:0 0 18px rgba(57,255,20,.18),0 4px 20px rgba(0,0,0,.06);
+}
+.ref-banner-inner{display:contents;}
+.ref-banner-left{display:flex;align-items:center;gap:16px;}
+.ref-banner-ico{font-size:32px;}
+.ref-banner-txt{font-family:var(--font-head);font-size:15px;font-weight:900;color:var(--text);}
+.ref-banner-sub{font-size:11px;color:var(--muted);margin-top:3px;}
+.ref-months{background:rgba(57,255,20,.08);border:1.5px solid #39FF14;border-radius:10px;padding:7px 14px;font-family:var(--font-mono);font-size:12px;color:#1a8c00;font-weight:700;}
+.ref-btn{font-family:var(--font-head);font-size:12px;font-weight:800;letter-spacing:.5px;padding:11px 24px;border:2px solid #39FF14;border-radius:12px;cursor:pointer;background:rgba(57,255,20,.1);color:#1a8c00;transition:all .2s;white-space:nowrap;}
+.ref-btn:hover{background:rgba(57,255,20,.2);box-shadow:0 0 16px rgba(57,255,20,.35);transform:translateY(-1px);}
+
+.ref-modal-overlay{display:none;position:fixed;inset:0;z-index:300;background:rgba(42,34,24,.5);backdrop-filter:blur(6px);align-items:center;justify-content:center;padding:20px;}
+.ref-modal-overlay.show{display:flex;}
+.ref-modal{background:var(--panel);border:2px solid #39FF14;border-radius:22px;padding:32px;max-width:500px;width:100%;position:relative;box-shadow:0 0 32px rgba(57,255,20,.2),0 24px 60px rgba(0,0,0,.15);}
+.ref-modal-title{font-family:var(--font-head);font-size:20px;font-weight:900;color:var(--text);margin-bottom:6px;}
+.ref-modal-sub{font-size:12px;color:var(--muted);margin-bottom:22px;line-height:1.7;}
+.ref-stat{background:rgba(57,255,20,.06);border:1.5px solid #39FF14;border-radius:12px;padding:16px;text-align:center;margin-bottom:20px;}
+.ref-stat-n{font-family:var(--font-mono);font-size:36px;font-weight:700;color:#1a8c00;line-height:1;}
+.ref-stat-l{font-size:11px;color:var(--muted);margin-top:6px;}
+.ref-link-box{background:var(--bg3);border:1.5px solid #39FF14;border-radius:12px;padding:16px;margin-bottom:14px;}
+.ref-link-lbl{font-size:10px;font-weight:700;color:#1a8c00;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:8px;}
+.ref-link-url{font-family:var(--font-mono);font-size:11px;color:var(--gold);word-break:break-all;display:block;margin-bottom:12px;line-height:1.6;font-weight:600;}
+.ref-copy-btn{font-family:var(--font-body);font-size:12px;font-weight:700;padding:8px 20px;background:#39FF14;border:none;color:#0a2e00;border-radius:9px;cursor:pointer;transition:all .2s;font-weight:800;}
+.ref-copy-btn:hover{background:#2dcc10;box-shadow:0 0 12px rgba(57,255,20,.4);}
+.ref-how{background:var(--bg3);border:1.5px solid var(--border);border-radius:12px;padding:16px;margin-bottom:16px;}
+.ref-how-title{font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:12px;}
+.ref-how-step{font-size:13px;color:var(--text);line-height:2.1;}
+.ref-close{position:absolute;top:16px;right:18px;background:var(--bg3);border:1px solid var(--border);color:var(--muted);font-size:15px;cursor:pointer;font-weight:700;padding:5px 10px;line-height:1;border-radius:8px;transition:all .2s;}
+.ref-close:hover{border-color:#39FF14;color:var(--text);}
+
+
 .hero-band{
   background:var(--bg2);border:1px solid var(--border);border-radius:20px;
   padding:24px;margin-bottom:14px;display:grid;
@@ -409,6 +445,54 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);min-hei
     <div class="hero-alerts">
       <div class="alerts-title">&#128276; Parent Alerts</div>
       <div id="alerts-list"></div>
+    </div>
+  </div>
+
+  <!-- ── REFERRAL BANNER ── -->
+  <div class="ref-banner">
+    <div class="ref-banner-inner">
+      <div class="ref-banner-left">
+        <div class="ref-banner-ico">🎁</div>
+        <div>
+          <div class="ref-banner-txt">Refer a friend — get 1 month FREE</div>
+          <div class="ref-banner-sub">Every successful referral adds 1 free month. Unlimited stacking.</div>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+        <div class="ref-months" id="ref-months-earned">🎁 0 free months earned</div>
+        <button class="ref-btn" onclick="openReferModal()">Share My Link →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── REFERRAL MODAL ── -->
+  <div class="ref-modal-overlay" id="refModal">
+    <div class="ref-modal">
+      <button class="ref-close" onclick="closeReferModal()">✕</button>
+      <div class="ref-modal-title">🎁 Refer &amp; Earn</div>
+      <div class="ref-modal-sub">Share your link. When someone registers and pays, 1 free month is added to your account — silently, automatically, forever.</div>
+
+        <div class="ref-stat">
+          <div class="ref-stat-n" id="ref-modal-count">0</div>
+          <div class="ref-stat-l">Successful referrals → free months earned</div>
+        </div>
+
+        <div class="ref-link-box">
+          <div class="ref-link-lbl">Your Referral Link</div>
+          <span class="ref-link-url" id="ref-link-display">—</span>
+          <button class="ref-copy-btn" onclick="copyReferLink(this)">📋 Copy Link</button>
+        </div>
+
+        <div class="ref-how">
+          <div class="ref-how-title">How it works</div>
+          <div class="ref-how-step">
+            1. Copy your link and share via WhatsApp or message<br>
+            2. They open it → land on RISHI<br>
+            3. They register and complete payment<br>
+            4. 1 month added to your subscription automatically<br>
+            5. They will never know they came from your referral 🤫
+          </div>
+      </div>
     </div>
   </div>
 
@@ -1353,10 +1437,56 @@ function toggleBreakDate(date) {
   if (arrow) arrow.classList.toggle('open', !isOpen);
 }
 
+// ══ REFERRAL ══
+function getParentUsername() {
+  try {
+    var cur = JSON.parse(localStorage.getItem('rishi_current_student') || '{}');
+    return cur.parentUsername || '';
+  } catch(e) { return ''; }
+}
+
+function openReferModal() {
+  var pUser = getParentUsername();
+  if (!pUser) { alert('Please log in as a parent to get your referral link.'); return; }
+  var link = 'https://rishi-ewh.pages.dev/landing.html?ref=' + encodeURIComponent(pUser);
+  document.getElementById('ref-link-display').textContent = link;
+  document.getElementById('refModal').classList.add('show');
+  loadReferralCount(pUser);
+}
+
+function closeReferModal() {
+  document.getElementById('refModal').classList.remove('show');
+}
+
+function copyReferLink(btn) {
+  var url = document.getElementById('ref-link-display').textContent;
+  navigator.clipboard.writeText(url).then(function() {
+    var orig = btn.textContent;
+    btn.textContent = '✅ Copied!';
+    setTimeout(function() { btn.textContent = orig; }, 2000);
+  });
+}
+
+function loadReferralCount(pUser) {
+  if (!pUser) return;
+  fetch('/d1-sync', {
+    method: 'POST',
+    headers: {'Content-Type':'application/json'},
+    body: JSON.stringify({action:'get-referrals', parentUsername: pUser})
+  }).then(function(r){ return r.json(); }).then(function(d) {
+    if (d.ok) {
+      var n = d.count || 0;
+      document.getElementById('ref-modal-count').textContent = n;
+      document.getElementById('ref-months-earned').textContent = '🎁 ' + n + ' free month' + (n !== 1 ? 's' : '') + ' earned';
+    }
+  }).catch(function(){});
+}
+
 window.onload = function() {
   loadParentClassData();
   seedDemo();
   renderTimestamp();
+  loadReferralCount(getParentUsername());
 
   /* Restore previously selected student */
   var saved = localStorage.getItem('rishi_selected_student');
