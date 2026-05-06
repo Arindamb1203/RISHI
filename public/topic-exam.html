@@ -283,13 +283,24 @@ body{font-family:'Nunito',sans-serif;background:#0d0d1a;min-height:100vh;color:#
    Each topic: list of chapter string IDs to fetch questions from.
    intIds: used for rishiIsChapExamDone gate check.
 ─────────────────────────────────────────────────────────── */
-var TOPIC_MAP = {
+var TOPIC_MAP_CLASS8 = {
   algebra:     { name:'Algebra',       icon:'&#128291;', chapters:['02','09','14','15'] },
   geometry:    { name:'Geometry',      icon:'&#128208;', chapters:['03','04','10']      },
   mensuration: { name:'Mensuration',   icon:'&#128207;', chapters:['11a','11b']         },
   arithmetic:  { name:'Arithmetic',    icon:'&#128290;', chapters:['01','08','12','13','16'] },
   datahandling:{ name:'Data Handling', icon:'&#128202;', chapters:['05','17']           }
 };
+
+var TOPIC_MAP_CLASS9 = {
+  arithmetic:       { name:'Arithmetic',        icon:'&#128290;', chapters:['01']             },
+  algebra:          { name:'Algebra',            icon:'&#128291;', chapters:['02','03']        },
+  'coord-geometry': { name:'Coord. Geometry',   icon:'&#128205;', chapters:['04']             },
+  geometry:         { name:'Geometry',           icon:'&#128208;', chapters:['05','06','07','08','09'] },
+  mensuration:      { name:'Mensuration',        icon:'&#128207;', chapters:['10','11']        },
+  datahandling:     { name:'Data Handling',      icon:'&#128202;', chapters:['12']            }
+};
+
+var TOPIC_MAP = TOPIC_MAP_CLASS8; /* default; overridden in init */
 
 /* Sampling: how many questions to take from each section pool */
 var SAMPLE_A = 14;  /* 14 x 1 = 14 marks */
@@ -316,6 +327,7 @@ var DESTINATIONS = [
 /* ── Runtime state ── */
 var TOPIC_ID   = '';
 var TOPIC_INFO = null;
+var STUDENT_CLASS = 8;
 var allQ       = [];
 var currentIdx = 0;
 var selectedOpt = null;
@@ -334,6 +346,8 @@ var breakSecs   = 0;
 window.addEventListener('load', function () {
   var params = new URLSearchParams(window.location.search);
   TOPIC_ID   = (params.get('topic') || '').toLowerCase();
+  STUDENT_CLASS = parseInt(params.get('class') || '8') || 8;
+  TOPIC_MAP  = (STUDENT_CLASS === 9) ? TOPIC_MAP_CLASS9 : TOPIC_MAP_CLASS8;
   TOPIC_INFO = TOPIC_MAP[TOPIC_ID];
 
   if (!TOPIC_INFO) {
@@ -372,7 +386,7 @@ window.addEventListener('load', function () {
 async function loadAllChapters() {
   var chs = TOPIC_INFO.chapters;
   var promises = chs.map(function (ch) {
-    return fetch('/api/questions?board=cbse&class=8&ch=' + ch + '&type=exam')
+    return fetch('/api/questions?board=cbse&class=' + STUDENT_CLASS + '&ch=' + ch + '&type=exam')
       .then(function (r) {
         if (!r.ok) throw new Error('HTTP ' + r.status + ' for ch ' + ch);
         return r.json();
