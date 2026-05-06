@@ -3,16 +3,15 @@
   RISHIKA CONFIG — Paste this entire file at the start of
   every new Claude session to restore full project context.
   Last updated: 6 May 2026
-  (Class 9 fully complete incl. exams + topic exams + sampurna)
-  (Class 7 explain + practice complete, exams not yet built)
+  (Class 9 fully complete. Class 7 explain+practice done.)
 ═══════════════════════════════════════════════════════════════
 
 ▌ OWNER
   Arindam Bhowmik — non-technical, sole developer + owner
   All code written by Claude, deployed via git push from VS Code on Windows
   Student testing: Dabeet (student), Priyanka (parent)
-  Student ID: dabeet8{class}{last3mobile} e.g. dabeet8171
-  Parent ID:  priyanka{last5mobile}       e.g. priyanka47522
+  Student ID format: {firstname}{class}{last3mobile} e.g. dabeet8171
+  Parent ID format:  {firstname}{last5mobile}        e.g. priyanka47522
 
 ▌ REPO & HOSTING
   Repo:    github.com/Arindamb1203/RISHI
@@ -28,10 +27,51 @@
   Works on low-end devices and budget Android phones
   No backend server — Cloudflare Pages Functions for API only
 
+▌ CLOUDFLARE ENVIRONMENT VARIABLES (all set)
+  ELEVENLABS_API_KEY   — ElevenLabs API key (ends in 91f7)
+  ELEVENLABS_VOICE_ID  — EXAVITQu4vr4xnSDxMaL (Sarah — free voice)
+  GEMINI_API_KEY       — Gemini API key
+  RISHI_ADMIN_TOKEN    — Admin panel auth token
+
+  NOTE on ElevenLabs voices:
+    Sarah (EXAVITQu4vr4xnSDxMaL) — FREE voice — USE THIS
+    Priyanka (BpjGufoPiobT79j2vtj4) — PAID library voice — DO NOT USE on free plan
+
+▌ CLOUDFLARE D1 DATABASE
+  Database name: rishi-db
+  D1 binding name in Cloudflare dashboard: DB
+  Tables:
+    rishi_sync     — progress data (explain done, practice done, exam scores etc.)
+    rishi_accounts — student and parent registrations
+    rishi_referrals — ref_by, referred_username, registered_at, subscription_credited
+  File: functions/d1-sync.js (at repo ROOT — NOT inside public\)
+  Client interceptor: public/rishi-sync.js (silently pushes rishi_* keys to D1)
+  Injected into all HTML pages via inject_sync.py
+
+▌ D1-SYNC.JS ACTIONS
+  sync-progress     — push/pull localStorage rishi_* keys
+  register          — save student/parent account to rishi_accounts
+  login             — validate credentials (case-insensitive username matching)
+  forgot            — retrieve credentials by mobile number
+  change-password   — update password in D1
+  assign-chapters   — parent assigns chapters to student
+  log-referral      — record referral on registration
+  get-referrals     — fetch parent referral list
+  credit-referral   — mark referral credited (stub — wire to payment gateway later)
+
+▌ AUTH SYSTEM
+  Student login: username={firstname}{class}{last3mobile}, password=Study@Rishi1
+  Parent login:  username={firstname}{last5mobile}, password=Parent@Rishi1
+  Hardcoded fallback: username=parent / password=rishi2024 (any device)
+  Login flow: check D1 first → check localStorage → check hardcoded fallback
+  After login: student → /syllabus.html | parent → /parent.html
+  rishi_admin_bypass → sessionStorage ONLY (never localStorage)
+  Admin password: rishi2025
+
 ▌ GENERATOR SYSTEM (generate.py)
   Location: D:\rishi\public\generate.py
   Usage:    cd D:\rishi\public
-            python generate.py data/class9/chapter-slug.json
+            python generate.py data/classX/chapter-slug.json
   What it does:
     1. Reads content JSON from data/classX/chapter-slug.json
     2. Generates explain/classX/topic/chapter-slug.html
@@ -42,223 +82,241 @@
   Content JSON schema: chapter_slug, chapter_name, chapter_emoji,
     class_num, board, topic, chap_id, exam_key, intro_text,
     complete_message, explain_questions (10), practice_questions (15)
-  NOTE: If generator shows warnings on portal files but HTML was
-        generated — portals may already be correct. Check before fixing.
 
 ▌ BATCH GENERATORS
-  batch_generate.py     — generates explain+practice pages for a class
+  batch_generate.py      — generates explain+practice pages for a class
     Usage: python batch_generate.py --class 7 [--resume]
-  batch_exam_generate.py — generates chapter exam JSONs for a class
+    Gemini generates content JSON, runs generate.py on each.
+    On 429: waits 65s. Between chapters: waits 20s. max_tokens=16000.
+    --resume: skips chapters where all 3 files already exist.
+
+  batch_exam_generate.py — generates chapter exam JSONs
     Usage: python batch_exam_generate.py [--resume]
-    Currently supports Class 9 only. Rate limit: wait 20s between chapters.
-    On 429 error: waits 65s and retries. Use --resume to skip already-built.
+    Currently supports Class 9. Output: data/cbse/class9/chXX/chXX-exam.json
 
 ▌ FILE TREE (actual repo as of 6 May 2026)
   D:\rishi\
   |
-  +---.github\workflows\                 AUTOMATED TESTING PIPELINE
-  |       test.yml / test-explain.yml (Class8+9) / test-practice.yml (Class8+9)
-  |       test-exam.yml / test-admin.yml / test-parent.yml (incl. syllabus) / test-landing.yml
+  +---.github\workflows\
+  |       test.yml / test-explain.yml / test-practice.yml / test-exam.yml
+  |       test-admin.yml / test-parent.yml / test-landing.yml
   |
-  +---functions\                        ROOT level — NOT inside public
+  +---functions\                        REPO ROOT — NOT inside public
   |   |   tts.js                        ElevenLabs TTS proxy
   |   \---api\
   |           admin.js
-  |           questions.js              CLASS-AWARE: supports class 8 and 9
+  |           questions.js              CLASS-AWARE: class 8 and 9
   |           explain.js
-  |           explain-differently.js    maxOutputTokens:200, ~50 token prompt (250 TPM limit)
+  |           explain-differently.js    maxOutputTokens:200
   |           deploy.js
   |
   +---public\
-  |   |   admin.html                    7 tabs incl. Deploy tab
-  |   |                                 Edit modal: white bg, Class 6/7/8/9 + Board dropdown
-  |   |   exam.html                     CLASS-AWARE: reads ?ch= param, supports c9-XX keys
-  |   |   topic-exam.html               CLASS-AWARE: reads ?topic=&class= params
-  |   |   sampurna-pariksha.html        CLASS-AWARE: reads ?class= param
-  |   |   login.html / register.html / landing.html / coming-soon.html
+  |   |   admin.html                    Password: rishi2025
+  |   |                                 7 tabs: Dashboard/Chapters/Topic Exams/
+  |   |                                 Questions/Student/Logs/Deploy
+  |   |                                 Bypass toggle → rishi_admin_bypass=1 sessionStorage
+  |   |   exam.html                     CLASS-AWARE: ?ch= param, supports c9-XX keys
+  |   |   topic-exam.html               CLASS-AWARE: ?topic=&class= params
+  |   |   sampurna-pariksha.html        CLASS-AWARE: ?class= param
+  |   |   login.html                    Hardcoded fallback parent/rishi2024
+  |   |                                 "Pin on Home Page" button when ?role=parent
+  |   |   register.html                 Success modal: Student (gold) + Parent (sage/green)
+  |   |                                 Copy Link buttons. D1 URL: /d1-sync
+  |   |   landing.html                  arindam.mp3 father voice (public\arindam.mp3)
+  |   |                                 System requirements popup auto-shows on r5 section
+  |   |   coming-soon.html
   |   |   parent.html                   CLASS-AWARE, 5 tabs + Live Status + Study Slots
-  |   |                                 ⚡ Analytics tab → redirects to parent-dashboard.html
-  |   |   parent-dashboard.html         Full analytics — RISHI light theme, fluorescent green borders
-  |   |                                 Has referral banner (Tiranga/green), back button → parent.html
-  |   |   rishi-core.js                 rishi_admin_bypass → sessionStorage only
-  |   |   rishi-presence.js / rishi-sync.js / rishi-diagram.js
-  |   |   explain-helper.js             "I Don't Understand" → /api/explain-differently
+  |   |                                 Analytics tab → redirects to parent-dashboard.html
+  |   |   parent-dashboard.html         Light theme, fluorescent green borders
+  |   |                                 Referral banner, back → parent.html
+  |   |                                 Polls localStorage every 10s for presence data
+  |   |   rishi-core.js                 Plan checks, explain/practice tracking
+  |   |                                 5-minute idle auto-break detector
+  |   |                                 rishi_admin_bypass → sessionStorage only
+  |   |   rishi-presence.js             Injected all pages. Timing slots, heartbeat (30s),
+  |   |                                 exam timer persistence (10s), session resume
+  |   |                                 rishi_presence_log — JSON array capped 200 entries
+  |   |   rishi-sync.js                 localStorage interceptor → D1 sync
+  |   |   rishi-diagram.js
+  |   |   explain-helper.js             "I Don't Understand" / "Explain Differently"
+  |   |                                 → /api/explain-differently → Gemini
   |   |   syllabus.html                 CLASS-AWARE for 6,7,8,9
-  |   |                                 Class 9 EXAM_PATHS filled ✅
-  |   |                                 Topic exam + sampurna links pass ?class= param ✅
-  |   |   generate.py                   CHAPTER GENERATOR
-  |   |   batch_generate.py             BATCH EXPLAIN+PRACTICE GENERATOR
-  |   |   batch_exam_generate.py        BATCH EXAM JSON GENERATOR (Class 9)
+  |   |                                 Class 9 EXAM_PATHS filled
+  |   |                                 Topic exam + sampurna links pass ?class=STUDENT_CLASS
+  |   |   generate.py / batch_generate.py / batch_exam_generate.py
   |   |
   |   +---data\
-  |   |   +---class8\                   16 practice QB JSONs (old format)
-  |   |   +---class9\                   12 content JSONs (new format for generator) ALL ✅
-  |   |   +---class7\                   8 content JSONs ✅
-  |   |   +---class6\                   stubs only
+  |   |   +---class8\  16 practice QB JSONs (old format)
+  |   |   +---class9\  12 content JSONs (new format) ALL built
+  |   |   +---class7\  8 content JSONs built
+  |   |   +---class6\  stubs only
   |   |   \---cbse\
-  |   |       +---class8\              Exam JSONs ch01-ch17 ✅
-  |   |       \---class9\              Exam JSONs ch01-ch12 ✅
-  |   |           ch01/ ch02/ ch03/ ch04/ ch05/ ch06/
-  |   |           ch07/ ch08/ ch09/ ch10/ ch11/ ch12/
+  |   |       +---class8\  Exam JSONs ch01-ch17 (topic-grouped folders)
+  |   |       \---class9\  Exam JSONs ch01-ch12 (1:1 folders)
   |   |
   |   +---explain\
-  |   |   +---class8\                   16 pages ✅ all built
-  |   |   +---class9\                   12 pages ✅ all built
-  |   |   +---class7\                   8 pages ✅ all built
-  |   |   \---class6\                   stubs only
+  |   |   class8(16p) / class9(12p) / class7(8p) / class6(stubs)
   |   |
-  |   +---practice\                     same structure
-  |   |   +---class8\  ✅  class9\  ✅  class7\  ✅  class6\ stubs
+  |   +---practice\
+  |   |   class8(16p) / class9(12p) / class7(8p) / class6(stubs)
   |   |
   |   +---images\rishika\sprites\
-  |           celebrate.jpeg / disappointed-s1.jpeg / neutral-talking.png / praise.jpeg
-  |
-  \---icons\ icon-192.png / icon-512.png
+  |   |   celebrate.jpeg / disappointed-s1.jpeg / neutral-talking.png / praise.jpeg
+  |   |
+  |   +---icons\  icon-192.png + icon-512.png (gold R on navy — PWA)
+  |   \---manifest.json / sw.js  (PWA — parent.html only)
 
-▌ CLASS 9 — FULLY COMPLETE ✅
-  Ch1  Real Numbers          (arithmetic)         exam: c9-01
-  Ch2  Polynomials           (algebra)            exam: c9-02
-  Ch3  Linear Equations      (algebra)            exam: c9-03
-  Ch4  Coordinate Geometry   (coordinate-geometry) exam: c9-04
-  Ch5  Euclid's Geometry     (geometry)           exam: c9-05
-  Ch6  Lines and Angles      (geometry)           exam: c9-06
-  Ch7  Triangles             (geometry)           exam: c9-07
-  Ch8  Quadrilaterals        (geometry)           exam: c9-08
-  Ch9  Circles               (geometry)           exam: c9-09
-  Ch10 Heron's Formula       (mensuration)        exam: c9-10
-  Ch11 Surface Areas & Vols  (mensuration)        exam: c9-11
-  Ch12 Statistics            (data-handling)      exam: c9-12
-  Topic exams: arithmetic, algebra, coord-geometry, geometry, mensuration, datahandling ✅
-  Sampurna Pariksha: class-aware, gates on all 12 chapter exams ✅
+▌ CLASS 9 — FULLY COMPLETE
+  Ch1  Real Numbers          (arithmetic)          c9-01
+  Ch2  Polynomials           (algebra)             c9-02
+  Ch3  Linear Equations      (algebra)             c9-03
+  Ch4  Coordinate Geometry   (coordinate-geometry) c9-04
+  Ch5  Euclid Geometry       (geometry)            c9-05
+  Ch6  Lines and Angles      (geometry)            c9-06
+  Ch7  Triangles             (geometry)            c9-07
+  Ch8  Quadrilaterals        (geometry)            c9-08
+  Ch9  Circles               (geometry)            c9-09
+  Ch10 Heron Formula         (mensuration)         c9-10
+  Ch11 Surface Areas Vols    (mensuration)         c9-11
+  Ch12 Statistics            (data-handling)       c9-12
+  Chapter exams / Topic exams / Sampurna Pariksha — ALL DONE
 
-▌ CLASS 8 — ALL 16 CHAPTERS COMPLETE ✅
-  Chapters 6 & 7 (Squares/Cubes) deferred
-  Exam keys: ch01-ch17 (with ch11a, ch11b for mensuration)
-  Topic exams: algebra, geometry, mensuration, arithmetic, datahandling ✅
-  Sampurna Pariksha: gates on all 17 chapter exams ✅
+▌ CLASS 8 — ALL 16 CHAPTERS COMPLETE
+  Chapters 6 and 7 (Squares/Cubes) deferred
+  Exam keys: 01-17 (11a, 11b for mensuration split)
+  Chapter exams / Topic exams / Sampurna Pariksha — ALL DONE
 
-▌ CLASS 7 — EXPLAIN + PRACTICE COMPLETE ✅, EXAMS NOT YET BUILT
-  Ch1 Large Numbers Around Us  (arithmetic)
-  Ch2 Arithmetic Expressions   (arithmetic)
-  Ch3 A Peek Beyond the Point  (arithmetic)
-  Ch4 Expressions using Letter-Numbers (algebra)
-  Ch5 Parallel and Intersecting Lines  (geometry)
-  Ch6 Number Play              (arithmetic)
-  Ch7 A Tale of Three Intersecting Lines (geometry)
-  Ch8 Working with Fractions   (arithmetic)
-  Exam keys: c7-01 to c7-08 (reserved, not yet built)
+▌ CLASS 7 — EXPLAIN + PRACTICE DONE, EXAMS NOT YET BUILT
+  Ch1 Large Numbers Around Us   (arithmetic)  c7-01 reserved
+  Ch2 Arithmetic Expressions    (arithmetic)  c7-02 reserved
+  Ch3 A Peek Beyond the Point   (arithmetic)  c7-03 reserved
+  Ch4 Expressions Letter-Numbers (algebra)    c7-04 reserved
+  Ch5 Parallel Intersecting Lines (geometry)  c7-05 reserved
+  Ch6 Number Play               (arithmetic)  c7-06 reserved
+  Ch7 A Tale Three Intersecting  (geometry)   c7-07 reserved
+  Ch8 Working with Fractions    (arithmetic)  c7-08 reserved
+  Textbook: Ganita Prakash (new NCERT 2025-26)
 
 ▌ CLASS 6 — NOT STARTED
-  10 chapters defined in syllabus.html, all built:false
+  10 chapters in syllabus.html, all built:false
+  Textbook: new NCERT 2025-26
 
 ▌ EXAM KEY FORMAT
-  Class 8: 01, 02, 03, 04, 05, 08, 09, 10, 11a, 11b, 12, 13, 14, 15, 16, 17
+  Class 8: 01,02,03,04,05,08,09,10,11a,11b,12,13,14,15,16,17
   Class 9: c9-01 to c9-12
   Class 7: c7-01 to c7-08 (reserved)
   Class 6: c6-01 to c6-10 (reserved)
 
 ▌ QUESTIONS.JS FOLDER MAP
-  Class 8: grouped by topic (ch01 folder has ch01,ch08,ch12,ch13 etc.)
-  Class 9: 1:1 mapping (ch01/ → ch01-exam.json, ch02/ → ch02-exam.json etc.)
+  Class 8 — topic-grouped (not 1:1):
+    01→ch01  08→ch01  12→ch01  13→ch01
+    02→ch02  09→ch02  14→ch02
+    03→ch03  04→ch03  10→ch03
+    05→ch05  11a→ch11  11b→ch11
+    15→ch15  16→ch16  17→ch17
+  Class 9 — 1:1: 01→ch01 ... 12→ch12
   API: GET /api/questions?board=cbse&class=8&ch=01&type=exam
+  Fallback: KV (RISHI_QUESTIONS) → static JSON file
 
-▌ MULTI-CLASS ARCHITECTURE
-  Folder: explain/classX/topic/chapter.html
-          practice/classX/topic/chapter.html
-          data/classX/chapter.json
-          data/cbse/classX/chXX/chXX-exam.json
-  Meta tags on every page: rishi-board, rishi-class
-  Admin bypass: sessionStorage only (not localStorage)
-  generate.py marks built:true in all 3 portals automatically
+▌ TOPIC EXAM STRUCTURE
+  topic-exam.html reads ?topic=&class= from URL
+  Class 8 topics: algebra(02,09,14,15) geometry(03,04,10) mensuration(11a,11b)
+                  arithmetic(01,08,12,13,16) datahandling(05,17)
+  Class 9 topics: arithmetic(01) algebra(02,03) coord-geometry(04)
+                  geometry(05,06,07,08,09) mensuration(10,11) datahandling(12)
+  Sampling: 14xA + 8xB + 4xC + 6xD = 32 questions / 60 marks / 45 min
+  Gate: all chapter exams in topic must be done
 
-▌ PORTAL STATUS
-  Class 8: syllabus ✅  parent ✅  admin ✅
-  Class 9: syllabus ✅  parent ✅  admin ✅
-  Class 7: syllabus ✅ (3 of 8 built:true)  parent ✅  admin ✅
+▌ SAMPURNA PARIKSHA
+  sampurna-pariksha.html reads ?class= from URL
+  Class 8: 17 chapters | Class 9: 12 chapters
+  Sampling: 20xA + 10xB + 8xC + 12xD = 50 questions / 100 marks / 90 min
+  Gate: ALL chapter exams done
 
-▌ AGENT-BASED TESTING
-  Arindam has created agents to test pages automatically
-  Manual testing not required — agents handle verification
+▌ CHAPTER EXAM JSON FORMAT
+  sections A(20x1) B(10x2) C(6x3) D(10x3) E(2 cases x 3 subparts) = 52Q / 100 marks
+  Known fixes applied: Class 9 Ch01 D_Q7 = 1225, D_Q9 replaced with 6^x=216
 
-▌ CHARACTERS
-  Rishika — ALL pages. Turtle SVG bottom-left on explain pages.
-             Sprite canvas on practice pages.
-             "Rishika is by your side today!" (Rekha RETIRED)
+▌ LOCALSTORAGE KEYS (complete)
+  rishi_explain_done_{chId}        "1"  (integer chId e.g. 2)
+  rishi_practice_done_{chId}       "1"
+  rishi_chapexam_done_{chIdStr}    "1"  (padded e.g. "02","11a","c9-01")
+  rishi_exam_score_{chIdStr}       number
+  rishi_exam_attempts_{chIdStr}    number
+  rishi_topicexam_done_{topic}     "1"
+  rishi_topicexam_score_{topic}    number
+  rishi_sampurna_done             "1"
+  rishi_sampurna_score            number
+  rishi_coins                     number
+  rishi_break_log                 JSON array
+  rishi_current_student           JSON object
+  rishi_active_chapters_{sid}     JSON (parent assigned chapters, keyed by student ID)
+  rishi_active_chapters           JSON (fallback, no student ID)
+  rishi_presence_log              JSON array capped 200 entries
+  rishi_presence_heartbeat        timestamp
+  rishi_presence_page             page name
+  rishi_exam_timer_{chIdStr}      remaining seconds (saved every 10s)
+  rishi_admin_bypass              "1" (sessionStorage ONLY — never localStorage)
 
-▌ USER ID SYSTEM
-  Student: {firstname}{class}{last3mobile}
-  Parent:  {firstname}{last5mobile}
-  Trial: 30 days from registration
+  LEGACY (Class 8 backward compat):
+  explain_linear_done / explain_quadrilaterals_done / explain_practical_done
+  explain_algebraic_done / explain_area_done / explain_surface_done / explain_graphs_done
+
+▌ EXPLAIN PAGE TECHNICAL RULES (critical — never violate)
+  SVG canvas: max-height 195px. ViewBox max height 195px. e.g. viewBox="0 0 420 178"
+  Timer: ALL setTimeout via at(ms, fn) → stored in atTimers[] → clearAt() on Replay
+  Replay: re-inject fresh SVG via canvas.innerHTML = getAnimSVG(...)
+  Duration estimate: Math.max(1800, text.length * 58) ms
+  initVoices(callback) MUST complete before any say() call
+  Never call say() in window.onload directly
+  Mouth sync: setInterval 160ms. Blush 0.7 while talking, 0 after.
+  Blink: recursive setTimeout, delay 2200+rand*3000, lid ry for 120ms
+  speechSynthesis.cancel() on beforeunload and pagehide
+  Smart apostrophes in JS strings = crash. Use \' or &#39;
+  SVG attributes: never double-quote inside JS double-quoted string
+
+▌ RISHIKA AVATAR
+  Only character — ALL pages. Rekha RETIRED forever.
+  Explain: SVG turtle bottom-left
+  Practice/exam: sprite canvas (FaceTime-style)
+  Wrong answer: 1st→disappointed, 2nd→talking/hint, 3rd→neutral
+  Multilingual praise: 10 languages
 
 ▌ ELEVENLABS TTS
-  Proxy: /tts via functions/tts.js
-  Fallback: Browser TTS if ElevenLabs fails
+  Proxy: POST /tts via functions/tts.js (REPO ROOT — not inside public\)
+  Free voice: Sarah EXAVITQu4vr4xnSDxMaL
+  DO NOT USE: Priyanka BpjGufoPiobT79j2vtj4 (paid)
+  Browser TTS fallback: heera→veena→priya→raveena→female→woman→zira→samantha
+  Rate: 0.88, Pitch: 1.15, Lang: en-IN
 
 ▌ GEMINI API
   Model: gemini-2.5-flash
-  URL:   https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent
-  Key:   GEMINI_API_KEY (Cloudflare env var)
-  explain-differently.js: maxOutputTokens:200 (fits 250 TPM free tier)
+  URL: https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent
+  Key: GEMINI_API_KEY (Cloudflare env var)
+  explain-differently.js: maxOutputTokens:200 (250 TPM free tier)
 
-▌ EXPLAIN PAGE FLOW
-  initVoices → startLesson → showQ → startAnim → beginSteps → showConfirm
-  explain-helper.js adds "I Don't Understand" → /api/explain-differently
+▌ RISHI THEME (always light)
+  Background: cream #fdf6ec | Cards: warm white #fffdf8
+  Text: charcoal #2a2218 | Accents: gold #d4a017 / amber / sage green
+  NO DARK BACKGROUNDS on student/parent pages
+  Fonts: Orbitron (headers) + Nunito (body)
 
-▌ PRACTICE PAGE FLOW
-  CHAP_ID = chapter number (1-based per class)
-  15 questions, 5-streak unlocks exam
-  Coins: +5 per correct first attempt
-  Rishika sprite canvas (celebrate/praise/disappointed/talking)
-
-▌ QUESTION BANK SOURCES
-  NCERT, NCERT Exemplar, RD Sharma, RS Aggarwal,
-  CBSE Past Papers (10yr), Olympiad (IMO/MOF/ISMO), CBSE Sample Papers (2yr)
-
-▌ REFERRAL SYSTEM (built 4 May 2026)
-  parent-dashboard.html — referral banner with fluorescent green border
-  Referral link: https://rishi-ewh.pages.dev/landing.html?ref=PARENTID
-  D1 table: rishi_referrals (ref_by, referred_username, registered_at, subscription_credited)
-  D1 actions: log-referral, get-referrals, credit-referral (payment stub)
-  register.html reads ?ref= on load → fires log-referral silently on registration
-  Unlimited stacking — each referral = 1 free month
-  credit-referral: wire to payment gateway when available
-
-▌ LOGIN PAGE (login.html)
-  "Pin on Home Page" button — shown only when ?role=parent in URL
-  Android: native beforeinstallprompt PWA install
-  iOS: shows step-by-step Share → Add to Home Screen tip
-  Parent app appears as R on home screen
-
-▌ REGISTER PAGE (register.html)
-  Success modal — two sections: Student (gold) + Parent (sage/green)
-  Student instructions: use Laptop/Desktop, bookmark the link
-  Parent instructions: use Mobile, tap Pin on Home Page, app appears as R
-  Copy Link buttons for both student and parent links
-  D1 URL fixed: /d1-sync (was /functions/d1-sync)
-
-▌ LANDING PAGE (landing.html)
-  arindam.mp3 father voice — file at D:\rishi\public\arindam.mp3
-  CRITICAL: arindam.mp3 must be committed to git (was in dist\ not public\)
-  System requirements popup: auto-shows on r5 section after 1 second
-  Student: Laptop/Desktop + headphones + internet
-  Parent: Mobile (Android or iPhone) + internet
-  Close X + "Got It — Let's Begin" button → /register.html
+▌ WINDOWS FAMILY SAFETY
+  Dabeet laptop: family.microsoft.com
+  Child Microsoft account: dabeet.171822@outlook.com
 
 ▌ REMAINING WORK — PRIORITY ORDER
-  [DONE] Class 9 — fully complete ✅
-  [DONE] Class 7 — explain + practice ✅
-  [NEXT] Class 7 — chapter exams (8 JSONs, manual or batch)
-  [THEN] Class 7 — topic exams + sampurna (need exam JSONs first)
-  [THEN] Class 6 — 10 chapters (explain + practice + exams)
+  [DONE] Class 8 — fully complete
+  [DONE] Class 9 — fully complete
+  [DONE] Class 7 — explain + practice
+  [NEXT] Class 7 — chapter exams (8 JSONs, manual write like Class 9)
+  [THEN] Class 7 — topic exams + sampurna (after exams built)
+  [THEN] Class 6 — 10 chapters full build
   [THEN] ICSE Class 8 → WBBSE Class 8
-  [PENDING] Payment gateway → wire credit-referral in d1-sync.js
-
-▌ CLASS 7 CHAPTER MAP (Ganita Prakash, new NCERT 2025-26)
-  Arithmetic: Large Numbers Around Us, Arithmetic Expressions,
-              A Peek Beyond the Point, Number Play, Working with Fractions
-  Algebra:    Expressions using Letter-Numbers
-  Geometry:   Parallel and Intersecting Lines
-               A Tale of Three Intersecting Lines
+  [PENDING] Payment gateway → credit-referral in d1-sync.js
+  [PENDING] YouTube video embed (one per chapter, Arindam picks, Claude wires)
+  [FUTURE] OTP SMS reset — blocked on TRAI DLT registration
+  [FUTURE] Vedic Maths mini-module
 
 ▌ CLASS 6 CHAPTER MAP (new NCERT 2025-26)
   Arithmetic:    Patterns in Mathematics, Number Play, Prime Time,
@@ -273,15 +331,19 @@
   3. git add . from D:\rishi (NOT D:\rishi\public)
   4. Always end every session: git add . → commit → push
   5. Response style: extremely concise, no fluff
-  6. Smart apostrophes in JS = syntax crash. Use \' or &#39;
-  7. tts.js at repo ROOT functions\tts.js — NOT inside public\
+  6. Smart apostrophes in JS = crash. Use \' or &#39;
+  7. tts.js at REPO ROOT functions\tts.js — NOT inside public\
   8. Do things simply — never overcomplicate
-  9. rishi_admin_bypass in sessionStorage — never change this
+  9. rishi_admin_bypass in sessionStorage ONLY — never localStorage
   10. generate.py handles portal updates automatically
   11. NEVER ask Arindam to edit code manually — deliver complete files
   12. Build order: content JSON → run generate.py → git push
   13. data-handling folder uses hyphen (not underscore)
   14. Topic folder for Statistics: data-handling
-  15. RISHI theme is LIGHT — cream bg (#fdf6ec), warm white cards (#fffdf8),
-      charcoal text (#2a2218), gold accents. NO DARK BACKGROUNDS EVER.
+  15. RISHI theme is LIGHT. NO dark backgrounds ever.
+  16. SVG canvas max-height 195px — never exceed
+  17. All setTimeout via at() on explain pages — never raw setTimeout
+  18. initVoices(callback) before any say() — never say() in window.onload
+  19. functions/d1-sync.js is at REPO ROOT functions/ — not in public/
+  20. arindam.mp3 must be in public/ and committed to git
 */
