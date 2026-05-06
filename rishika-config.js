@@ -2,8 +2,9 @@
 ═══════════════════════════════════════════════════════════════
   RISHIKA CONFIG — Paste this entire file at the start of
   every new Claude session to restore full project context.
-  Last updated: 4 May 2026 — afternoon
-  (Class 9 all 12 chapters complete, generate.py built)
+  Last updated: 6 May 2026
+  (Class 9 fully complete incl. exams + topic exams + sampurna)
+  (Class 7 explain + practice complete, exams not yet built)
 ═══════════════════════════════════════════════════════════════
 
 ▌ OWNER
@@ -44,7 +45,15 @@
   NOTE: If generator shows warnings on portal files but HTML was
         generated — portals may already be correct. Check before fixing.
 
-▌ FILE TREE (actual repo as of 4 May 2026)
+▌ BATCH GENERATORS
+  batch_generate.py     — generates explain+practice pages for a class
+    Usage: python batch_generate.py --class 7 [--resume]
+  batch_exam_generate.py — generates chapter exam JSONs for a class
+    Usage: python batch_exam_generate.py [--resume]
+    Currently supports Class 9 only. Rate limit: wait 20s between chapters.
+    On 429 error: waits 65s and retries. Use --resume to skip already-built.
+
+▌ FILE TREE (actual repo as of 6 May 2026)
   D:\rishi\
   |
   +---.github\workflows\                 AUTOMATED TESTING PIPELINE
@@ -55,7 +64,7 @@
   |   |   tts.js                        ElevenLabs TTS proxy
   |   \---api\
   |           admin.js
-  |           questions.js
+  |           questions.js              CLASS-AWARE: supports class 8 and 9
   |           explain.js
   |           explain-differently.js    maxOutputTokens:200, ~50 token prompt (250 TPM limit)
   |           deploy.js
@@ -63,7 +72,9 @@
   +---public\
   |   |   admin.html                    7 tabs incl. Deploy tab
   |   |                                 Edit modal: white bg, Class 6/7/8/9 + Board dropdown
-  |   |   exam.html / topic-exam.html / sampurna-pariksha.html
+  |   |   exam.html                     CLASS-AWARE: reads ?ch= param, supports c9-XX keys
+  |   |   topic-exam.html               CLASS-AWARE: reads ?topic=&class= params
+  |   |   sampurna-pariksha.html        CLASS-AWARE: reads ?class= param
   |   |   login.html / register.html / landing.html / coming-soon.html
   |   |   parent.html                   CLASS-AWARE, 5 tabs + Live Status + Study Slots
   |   |                                 ⚡ Analytics tab → redirects to parent-dashboard.html
@@ -73,57 +84,97 @@
   |   |   rishi-presence.js / rishi-sync.js / rishi-diagram.js
   |   |   explain-helper.js             "I Don't Understand" → /api/explain-differently
   |   |   syllabus.html                 CLASS-AWARE for 6,7,8,9
+  |   |                                 Class 9 EXAM_PATHS filled ✅
+  |   |                                 Topic exam + sampurna links pass ?class= param ✅
   |   |   generate.py                   CHAPTER GENERATOR
+  |   |   batch_generate.py             BATCH EXPLAIN+PRACTICE GENERATOR
+  |   |   batch_exam_generate.py        BATCH EXAM JSON GENERATOR (Class 9)
   |   |
   |   +---data\
   |   |   +---class8\                   16 practice QB JSONs (old format)
   |   |   +---class9\                   12 content JSONs (new format for generator) ALL ✅
-  |   |   +---class7\                   stubs only
+  |   |   +---class7\                   8 content JSONs ✅
   |   |   +---class6\                   stubs only
-  |   |   \---cbse\class8\              Exam JSONs ch01-ch17
+  |   |   \---cbse\
+  |   |       +---class8\              Exam JSONs ch01-ch17 ✅
+  |   |       \---class9\              Exam JSONs ch01-ch12 ✅
+  |   |           ch01/ ch02/ ch03/ ch04/ ch05/ ch06/
+  |   |           ch07/ ch08/ ch09/ ch10/ ch11/ ch12/
   |   |
   |   +---explain\
   |   |   +---class8\                   16 pages ✅ all built
   |   |   +---class9\                   12 pages ✅ all built
-  |   |   +---class7\                   stubs only
+  |   |   +---class7\                   8 pages ✅ all built
   |   |   \---class6\                   stubs only
   |   |
-  |   +---practice\                     same structure, all ✅
+  |   +---practice\                     same structure
+  |   |   +---class8\  ✅  class9\  ✅  class7\  ✅  class6\ stubs
   |   |
   |   +---images\rishika\sprites\
   |           celebrate.jpeg / disappointed-s1.jpeg / neutral-talking.png / praise.jpeg
   |
   \---icons\ icon-192.png / icon-512.png
 
-▌ CLASS 9 — ALL 12 CHAPTERS COMPLETE ✅
-  Ch1  Real Numbers          (arithmetic)
-  Ch2  Polynomials           (algebra)
-  Ch3  Linear Equations in Two Variables (algebra)
-  Ch4  Coordinate Geometry   (coordinate-geometry)
-  Ch5  Euclid's Geometry     (geometry)
-  Ch6  Lines and Angles      (geometry)
-  Ch7  Triangles             (geometry)
-  Ch8  Quadrilaterals        (geometry)
-  Ch9  Circles               (geometry)
-  Ch10 Heron's Formula       (mensuration)
-  Ch11 Surface Areas & Vols  (mensuration)
-  Ch12 Statistics            (data-handling)
+▌ CLASS 9 — FULLY COMPLETE ✅
+  Ch1  Real Numbers          (arithmetic)         exam: c9-01
+  Ch2  Polynomials           (algebra)            exam: c9-02
+  Ch3  Linear Equations      (algebra)            exam: c9-03
+  Ch4  Coordinate Geometry   (coordinate-geometry) exam: c9-04
+  Ch5  Euclid's Geometry     (geometry)           exam: c9-05
+  Ch6  Lines and Angles      (geometry)           exam: c9-06
+  Ch7  Triangles             (geometry)           exam: c9-07
+  Ch8  Quadrilaterals        (geometry)           exam: c9-08
+  Ch9  Circles               (geometry)           exam: c9-09
+  Ch10 Heron's Formula       (mensuration)        exam: c9-10
+  Ch11 Surface Areas & Vols  (mensuration)        exam: c9-11
+  Ch12 Statistics            (data-handling)      exam: c9-12
+  Topic exams: arithmetic, algebra, coord-geometry, geometry, mensuration, datahandling ✅
+  Sampurna Pariksha: class-aware, gates on all 12 chapter exams ✅
 
 ▌ CLASS 8 — ALL 16 CHAPTERS COMPLETE ✅
   Chapters 6 & 7 (Squares/Cubes) deferred
+  Exam keys: ch01-ch17 (with ch11a, ch11b for mensuration)
+  Topic exams: algebra, geometry, mensuration, arithmetic, datahandling ✅
+  Sampurna Pariksha: gates on all 17 chapter exams ✅
+
+▌ CLASS 7 — EXPLAIN + PRACTICE COMPLETE ✅, EXAMS NOT YET BUILT
+  Ch1 Large Numbers Around Us  (arithmetic)
+  Ch2 Arithmetic Expressions   (arithmetic)
+  Ch3 A Peek Beyond the Point  (arithmetic)
+  Ch4 Expressions using Letter-Numbers (algebra)
+  Ch5 Parallel and Intersecting Lines  (geometry)
+  Ch6 Number Play              (arithmetic)
+  Ch7 A Tale of Three Intersecting Lines (geometry)
+  Ch8 Working with Fractions   (arithmetic)
+  Exam keys: c7-01 to c7-08 (reserved, not yet built)
+
+▌ CLASS 6 — NOT STARTED
+  10 chapters defined in syllabus.html, all built:false
+
+▌ EXAM KEY FORMAT
+  Class 8: 01, 02, 03, 04, 05, 08, 09, 10, 11a, 11b, 12, 13, 14, 15, 16, 17
+  Class 9: c9-01 to c9-12
+  Class 7: c7-01 to c7-08 (reserved)
+  Class 6: c6-01 to c6-10 (reserved)
+
+▌ QUESTIONS.JS FOLDER MAP
+  Class 8: grouped by topic (ch01 folder has ch01,ch08,ch12,ch13 etc.)
+  Class 9: 1:1 mapping (ch01/ → ch01-exam.json, ch02/ → ch02-exam.json etc.)
+  API: GET /api/questions?board=cbse&class=8&ch=01&type=exam
 
 ▌ MULTI-CLASS ARCHITECTURE
   Folder: explain/classX/topic/chapter.html
           practice/classX/topic/chapter.html
           data/classX/chapter.json
+          data/cbse/classX/chXX/chXX-exam.json
   Meta tags on every page: rishi-board, rishi-class
   Admin bypass: sessionStorage only (not localStorage)
   generate.py marks built:true in all 3 portals automatically
 
-▌ PORTAL STATUS — CLASS 9
-  syllabus.html: all 12 chapters built:true ✅
-  parent.html:   explainBuilt {1:1,2:1,...,12:1} ✅
-  admin.html:    all 12 chapters built:true ✅
+▌ PORTAL STATUS
+  Class 8: syllabus ✅  parent ✅  admin ✅
+  Class 9: syllabus ✅  parent ✅  admin ✅
+  Class 7: syllabus ✅ (3 of 8 built:true)  parent ✅  admin ✅
 
 ▌ AGENT-BASED TESTING
   Arindam has created agents to test pages automatically
@@ -194,9 +245,11 @@
   Close X + "Got It — Let's Begin" button → /register.html
 
 ▌ REMAINING WORK — PRIORITY ORDER
-  [DONE] Class 9 — all 12 chapters ✅
-  [NEXT] Class 7 — 8 chapters (Ganita Prakash new NCERT 2025-26)
-  [THEN] Class 6 — 10 chapters (new NCERT 2025-26)
+  [DONE] Class 9 — fully complete ✅
+  [DONE] Class 7 — explain + practice ✅
+  [NEXT] Class 7 — chapter exams (8 JSONs, manual or batch)
+  [THEN] Class 7 — topic exams + sampurna (need exam JSONs first)
+  [THEN] Class 6 — 10 chapters (explain + practice + exams)
   [THEN] ICSE Class 8 → WBBSE Class 8
   [PENDING] Payment gateway → wire credit-referral in d1-sync.js
 
