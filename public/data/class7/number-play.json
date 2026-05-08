@@ -1,7 +1,544 @@
 {
-  "_note": "STUB \u2014 fill in questions before unlocking Class 7",
-  "chapter": "number-play",
-  "class": 7,
+  "chapter_slug": "number-play",
+  "chapter_name": "Number Play",
+  "chapter_emoji": "🎮",
+  "class_num": 7,
   "board": "cbse",
-  "questions": []
+  "topic": "arithmetic",
+  "chap_id": 4,
+  "exam_key": "c7-04",
+  "intro_text": "Hi <span class=\"hl\" id=\"sName\">there</span>! Ready to unlock the secrets of numbers? 🤩 Let&#39;s dive into the exciting world of Number Play and discover how numbers work together! ✨",
+  "complete_message": "Awesome job! You&#39;ve mastered Number Play! 🎉",
+  "explain_questions": [
+    {
+      "id": "q1",
+      "question": "Is 340 divisible by 2, 5, and 10?",
+      "question_spoken": "Is three hundred forty divisible by two, five, and ten?",
+      "steps": [
+        {
+          "t": "Divisibility by 2: Check if the last digit is 0, 2, 4, 6, or 8.",
+          "s": "For divisibility by two, check if the last digit is zero, two, four, six, or eight."
+        },
+        {
+          "t": "Divisibility by 5: Check if the last digit is 0 or 5.",
+          "s": "For divisibility by five, check if the last digit is zero or five."
+        },
+        {
+          "t": "Divisibility by 10: Check if the last digit is 0.",
+          "s": "For divisibility by ten, check if the last digit is zero."
+        }
+      ],
+      "confirm_question": "Is 575 divisible by 2, 5, and 10?",
+      "confirm_question_spoken": "Is five hundred seventy-five divisible by two, five, and ten?",
+      "answers": [
+        "No, Yes, No",
+        "No Yes No"
+      ],
+      "nudges": [
+        "Look at the last digit of 340. What does it tell you about divisibility by 2, 5, or 10?",
+        "Remember, for a number to be divisible by 10, it must end in 0.",
+        "340 ends in 0. So, it is divisible by 2, 5, and 10."
+      ],
+      "anim_svg": "<g id=\"q1s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Divisibility by 2: Check if the last digit is 0, 2, 4, 6, or 8.</text></g><g id=\"q1s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Divisibility by 5: Check if the last digit is 0 or 5.</text></g><g id=\"q1s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Divisibility by 10: Check if the last digit is 0.</text></g><g id=\"q1ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">No, Yes, No</text></g>"
+    },
+    {
+      "id": "q2",
+      "question": "Is 729 divisible by 3 and 9?",
+      "question_spoken": "Is seven hundred twenty-nine divisible by three and nine?",
+      "steps": [
+        {
+          "t": "Find the sum of the digits of 729.",
+          "s": "First, find the sum of the digits of seven hundred twenty-nine."
+        },
+        {
+          "t": "Divisibility by 3: If the sum of digits is divisible by 3, the number is divisible by 3.",
+          "s": "For divisibility by three, if the sum of digits is divisible by three, the number is divisible by three."
+        },
+        {
+          "t": "Divisibility by 9: If the sum of digits is divisible by 9, the number is divisible by 9.",
+          "s": "For divisibility by nine, if the sum of digits is divisible by nine, the number is divisible by nine."
+        }
+      ],
+      "confirm_question": "Is 123 divisible by 3 and 9?",
+      "confirm_question_spoken": "Is one hundred twenty-three divisible by three and nine?",
+      "answers": [
+        "Yes, No",
+        "Yes No"
+      ],
+      "nudges": [
+        "First, add the digits of 729. What sum do you get?",
+        "Is the sum of the digits divisible by 3? Is it divisible by 9?",
+        "The sum of digits of 729 is 7+2+9 = 18. 18 is divisible by both 3 and 9. So, 729 is divisible by both 3 and 9."
+      ],
+      "anim_svg": "<g id=\"q2s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Find the sum of the digits of 729.</text></g><g id=\"q2s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Divisibility by 3: If the sum of digits is divisible by 3, the nu...</text></g><g id=\"q2s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Divisibility by 9: If the sum of digits is divisible by 9, the nu...</text></g><g id=\"q2ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Yes, No</text></g>"
+    },
+    {
+      "id": "q3",
+      "question": "List all factors of 24.",
+      "question_spoken": "List all factors of twenty-four.",
+      "steps": [
+        {
+          "t": "Start by dividing 24 by 1, then 2, then 3, and so on.",
+          "s": "Start by dividing twenty-four by one, then two, then three, and so on."
+        },
+        {
+          "t": "For each division that results in a whole number, both the divisor and the quotient are factors.",
+          "s": "For each division that results in a whole number, both the divisor and the quotient are factors."
+        },
+        {
+          "t": "Stop when the divisor becomes greater than the quotient.",
+          "s": "Stop when the divisor becomes greater than the quotient."
+        }
+      ],
+      "confirm_question": "List all factors of 18.",
+      "confirm_question_spoken": "List all factors of eighteen.",
+      "answers": [
+        "1, 2, 3, 4, 6, 8, 12, 24",
+        "1 2 3 4 6 8 12 24"
+      ],
+      "nudges": [
+        "Remember, factors are numbers that divide another number exactly, with no remainder.",
+        "Always start with 1 and the number itself. Then check pairs like (2, 12), (3, 8), (4, 6).",
+        "The factors of 24 are 1, 2, 3, 4, 6, 8, 12, 24."
+      ],
+      "anim_svg": "<g id=\"q3s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Start by dividing 24 by 1, then 2, then 3, and so on.</text></g><g id=\"q3s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">For each division that results in a whole number, both the diviso...</text></g><g id=\"q3s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Stop when the divisor becomes greater than the quotient.</text></g><g id=\"q3ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">1, 2, 3, 4, 6, 8, 12, 24</text></g>"
+    },
+    {
+      "id": "q4",
+      "question": "List the first 5 multiples of 7.",
+      "question_spoken": "List the first five multiples of seven.",
+      "steps": [
+        {
+          "t": "To find multiples, multiply the number by 1, 2, 3, and so on.",
+          "s": "To find multiples, multiply the number by one, two, three, and so on."
+        },
+        {
+          "t": "The first multiple is the number itself (7 x 1).",
+          "s": "The first multiple is the number itself, which is seven times one."
+        },
+        {
+          "t": "Continue multiplying by consecutive whole numbers until you have the required number of multiples.",
+          "s": "Continue multiplying by consecutive whole numbers until you have the required number of multiples."
+        }
+      ],
+      "confirm_question": "List the first 4 multiples of 9.",
+      "confirm_question_spoken": "List the first four multiples of nine.",
+      "answers": [
+        "7, 14, 21, 28, 35",
+        "7 14 21 28 35"
+      ],
+      "nudges": [
+        "Multiples are like the results you get when you multiply a number by other whole numbers.",
+        "Think of the multiplication table for 7.",
+        "The first 5 multiples of 7 are 7x1=7, 7x2=14, 7x3=21, 7x4=28, 7x5=35."
+      ],
+      "anim_svg": "<g id=\"q4s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">To find multiples, multiply the number by 1, 2, 3, and so on.</text></g><g id=\"q4s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">The first multiple is the number itself (7 x 1).</text></g><g id=\"q4s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Continue multiplying by consecutive whole numbers until you have ...</text></g><g id=\"q4ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">7, 14, 21, 28, 35</text></g>"
+    },
+    {
+      "id": "q5",
+      "question": "Is 1248 divisible by 4 and 8?",
+      "question_spoken": "Is one thousand two hundred forty-eight divisible by four and eight?",
+      "steps": [
+        {
+          "t": "Divisibility by 4: A number is divisible by 4 if the number formed by its last two digits is divisible by 4.",
+          "s": "For divisibility by four, a number is divisible by four if the number formed by its last two digits is divisible by four."
+        },
+        {
+          "t": "Divisibility by 8: A number is divisible by 8 if the number formed by its last three digits is divisible by 8.",
+          "s": "For divisibility by eight, a number is divisible by eight if the number formed by its last three digits is divisible by eight."
+        },
+        {
+          "t": "Apply these rules to 1248.",
+          "s": "Now, apply these rules to one thousand two hundred forty-eight."
+        }
+      ],
+      "confirm_question": "Is 316 divisible by 4 and 8?",
+      "confirm_question_spoken": "Is three hundred sixteen divisible by four and eight?",
+      "answers": [
+        "Yes, Yes",
+        "Yes Yes"
+      ],
+      "nudges": [
+        "For divisibility by 4, focus on the last two digits of 1248.",
+        "For divisibility by 8, consider the last three digits of 1248.",
+        "Last two digits of 1248 form 48, which is divisible by 4. Last three digits form 248. 248 divided by 8 equals 31, so it's divisible by 8."
+      ],
+      "anim_svg": "<g id=\"q5s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Divisibility by 4: A number is divisible by 4 if the number forme...</text></g><g id=\"q5s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Divisibility by 8: A number is divisible by 8 if the number forme...</text></g><g id=\"q5s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Apply these rules to 1248.</text></g><g id=\"q5ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Yes, Yes</text></g>"
+    },
+    {
+      "id": "q6",
+      "question": "Is 516 divisible by 6?",
+      "question_spoken": "Is five hundred sixteen divisible by six?",
+      "steps": [
+        {
+          "t": "Divisibility by 6: A number is divisible by 6 if it is divisible by both 2 and 3.",
+          "s": "For divisibility by six, a number is divisible by six if it is divisible by both two and three."
+        },
+        {
+          "t": "Divisibility by 2: Check if the number is even (ends in 0, 2, 4, 6, or 8).",
+          "s": "For divisibility by two, check if the number is even, meaning it ends in zero, two, four, six, or eight."
+        },
+        {
+          "t": "Divisibility by 3: Check if the sum of its digits is divisible by 3.",
+          "s": "For divisibility by three, check if the sum of its digits is divisible by three."
+        }
+      ],
+      "confirm_question": "Is 734 divisible by 6?",
+      "confirm_question_spoken": "Is seven hundred thirty-four divisible by six?",
+      "answers": [
+        "Yes",
+        "yes"
+      ],
+      "nudges": [
+        "First, check if 516 is an even number.",
+        "Next, calculate the sum of the digits of 516. Is this sum divisible by 3?",
+        "516 is even (ends in 6), so it's divisible by 2. Sum of digits = 5+1+6 = 12, which is divisible by 3. Since it's divisible by both 2 and 3, it's divisible by 6."
+      ],
+      "anim_svg": "<g id=\"q6s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Divisibility by 6: A number is divisible by 6 if it is divisible ...</text></g><g id=\"q6s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Divisibility by 2: Check if the number is even (ends in 0, 2, 4, ...</text></g><g id=\"q6s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Divisibility by 3: Check if the sum of its digits is divisible by...</text></g><g id=\"q6ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Yes</text></g>"
+    },
+    {
+      "id": "q7",
+      "question": "Classify 13, 21, and 29 as prime or composite.",
+      "question_spoken": "Classify thirteen, twenty-one, and twenty-nine as prime or composite.",
+      "steps": [
+        {
+          "t": "Prime number: A number greater than 1 with exactly two factors (1 and itself).",
+          "s": "A prime number is a number greater than one with exactly two factors: one and itself."
+        },
+        {
+          "t": "Composite number: A number greater than 1 with more than two factors.",
+          "s": "A composite number is a number greater than one with more than two factors."
+        },
+        {
+          "t": "Find the factors for each number to classify them.",
+          "s": "Now, find the factors for each number to classify them."
+        }
+      ],
+      "confirm_question": "Classify 17, 25, and 31 as prime or composite.",
+      "confirm_question_spoken": "Classify seventeen, twenty-five, and thirty-one as prime or composite.",
+      "answers": [
+        "13: Prime, 21: Composite, 29: Prime",
+        "13 Prime, 21 Composite, 29 Prime"
+      ],
+      "nudges": [
+        "For 13, what are its factors? Only 1 and 13.",
+        "For 21, can you find any factors other than 1 and 21? (Hint: 3 and 7)",
+        "13 has factors 1, 13 (Prime). 21 has factors 1, 3, 7, 21 (Composite). 29 has factors 1, 29 (Prime)."
+      ],
+      "anim_svg": "<g id=\"q7s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Prime number: A number greater than 1 with exactly two factors (1...</text></g><g id=\"q7s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Composite number: A number greater than 1 with more than two fact...</text></g><g id=\"q7s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Find the factors for each number to classify them.</text></g><g id=\"q7ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">13: Prime, 21: Composite, 29: Prime</text></g>"
+    },
+    {
+      "id": "q8",
+      "question": "Find the prime factorisation of 60 using a factor tree.",
+      "question_spoken": "Find the prime factorisation of sixty using a factor tree.",
+      "steps": [
+        {
+          "t": "Start with 60 at the top. Find any two factors of 60 (e.g., 6 and 10).",
+          "s": "Start with sixty at the top. Find any two factors of sixty, for example, six and ten."
+        },
+        {
+          "t": "Continue breaking down composite factors until all branches end in prime numbers.",
+          "s": "Continue breaking down composite factors until all branches end in prime numbers."
+        },
+        {
+          "t": "List all the prime numbers at the end of the branches.",
+          "s": "Finally, list all the prime numbers at the end of the branches."
+        }
+      ],
+      "confirm_question": "Find the prime factorisation of 48 using a factor tree.",
+      "confirm_question_spoken": "Find the prime factorisation of forty-eight using a factor tree.",
+      "answers": [
+        "2 x 2 x 3 x 5",
+        "2*2*3*5",
+        "2^2 x 3 x 5"
+      ],
+      "nudges": [
+        "Start by splitting 60 into two factors, for example, 6 and 10.",
+        "Now, split 6 into its prime factors and 10 into its prime factors.",
+        "60 = 6 x 10 = (2 x 3) x (2 x 5) = 2 x 2 x 3 x 5."
+      ],
+      "anim_svg": "<g id=\"q8s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Start with 60 at the top. Find any two factors of 60 (e.g., 6 and...</text></g><g id=\"q8s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Continue breaking down composite factors until all branches end i...</text></g><g id=\"q8s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">List all the prime numbers at the end of the branches.</text></g><g id=\"q8ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">2 x 2 x 3 x 5</text></g>"
+    },
+    {
+      "id": "q9",
+      "question": "Find the HCF of 36 and 48 using prime factorisation.",
+      "question_spoken": "Find the H C F of thirty-six and forty-eight using prime factorisation.",
+      "steps": [
+        {
+          "t": "Find the prime factorisation of 36.",
+          "s": "First, find the prime factorisation of thirty-six."
+        },
+        {
+          "t": "Find the prime factorisation of 48.",
+          "s": "Next, find the prime factorisation of forty-eight."
+        },
+        {
+          "t": "Identify common prime factors and multiply them, taking the lowest power of each.",
+          "s": "Identify the common prime factors and multiply them, taking the lowest power of each common factor."
+        }
+      ],
+      "confirm_question": "Find the HCF of 28 and 42 using prime factorisation.",
+      "confirm_question_spoken": "Find the H C F of twenty-eight and forty-two using prime factorisation.",
+      "answers": [
+        "12"
+      ],
+      "nudges": [
+        "Prime factors of 36 are 2 x 2 x 3 x 3.",
+        "Prime factors of 48 are 2 x 2 x 2 x 2 x 3.",
+        "Common prime factors are two 2s and one 3. So, HCF = 2 x 2 x 3 = 12."
+      ],
+      "anim_svg": "<g id=\"q9s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Find the prime factorisation of 36.</text></g><g id=\"q9s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Find the prime factorisation of 48.</text></g><g id=\"q9s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Identify common prime factors and multiply them, taking the lowes...</text></g><g id=\"q9ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">12</text></g>"
+    },
+    {
+      "id": "q10",
+      "question": "Find the LCM of 18 and 24 using prime factorisation.",
+      "question_spoken": "Find the L C M of eighteen and twenty-four using prime factorisation.",
+      "steps": [
+        {
+          "t": "Find the prime factorisation of 18.",
+          "s": "First, find the prime factorisation of eighteen."
+        },
+        {
+          "t": "Find the prime factorisation of 24.",
+          "s": "Next, find the prime factorisation of twenty-four."
+        },
+        {
+          "t": "For each prime factor, take the highest power it appears in either factorisation and multiply them.",
+          "s": "For each prime factor, take the highest power it appears in either factorisation and multiply them."
+        }
+      ],
+      "confirm_question": "Find the LCM of 15 and 20 using prime factorisation.",
+      "confirm_question_spoken": "Find the L C M of fifteen and twenty using prime factorisation.",
+      "answers": [
+        "72"
+      ],
+      "nudges": [
+        "Prime factors of 18 are 2 x 3 x 3 (2^1 x 3^2).",
+        "Prime factors of 24 are 2 x 2 x 2 x 3 (2^3 x 3^1).",
+        "Take the highest power of each prime factor: 2^3 (from 24) and 3^2 (from 18). LCM = 2^3 x 3^2 = 8 x 9 = 72."
+      ],
+      "anim_svg": "<g id=\"q10s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Find the prime factorisation of 18.</text></g><g id=\"q10s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Find the prime factorisation of 24.</text></g><g id=\"q10s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">For each prime factor, take the highest power it appears in eithe...</text></g><g id=\"q10ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">72</text></g>"
+    }
+  ],
+  "practice_questions": [
+    {
+      "question": "Which of these numbers is divisible by 5 but not by 10? (A) 120 (B) 235 (C) 400 (D) 552",
+      "question_spoken": "Which of these numbers is divisible by five but not by ten? A one hundred twenty, B two hundred thirty-five, C four hundred, D five hundred fifty-two.",
+      "answers": [
+        "B",
+        "235"
+      ],
+      "steps": [
+        "A number is divisible by 5 if its last digit is 0 or 5.",
+        "A number is divisible by 10 if its last digit is 0.",
+        "We need a number ending in 5."
+      ],
+      "trick": "Look for numbers ending in 5. Only those are divisible by 5 but not 10.",
+      "alt": "Check each option. 120 ends in 0 (divisible by 5 and 10). 235 ends in 5 (divisible by 5, not 10). 400 ends in 0 (divisible by 5 and 10). 552 ends in 2 (not divisible by 5 or 10)."
+    },
+    {
+      "question": "Is 819 divisible by 3? Is it divisible by 9?",
+      "question_spoken": "Is eight hundred nineteen divisible by three? Is it divisible by nine?",
+      "answers": [
+        "Yes, Yes",
+        "Yes Yes"
+      ],
+      "steps": [
+        "Sum the digits of 819: 8 + 1 + 9 = 18.",
+        "Check if 18 is divisible by 3.",
+        "Check if 18 is divisible by 9."
+      ],
+      "trick": "If the sum of digits is divisible by 9, it's automatically divisible by 3 too!",
+      "alt": "You can try dividing 819 by 3 and 9 directly. 819 divided by 3 equals 273. 819 divided by 9 equals 91. Both exact divisions."
+    },
+    {
+      "question": "How many factors does 16 have?",
+      "question_spoken": "How many factors does sixteen have?",
+      "answers": [
+        "5"
+      ],
+      "steps": [
+        "List factors: 1, 16.",
+        "Continue: 2, 8.",
+        "Continue: 4. (Stop as 4 is already listed as a factor)"
+      ],
+      "trick": "For perfect squares, the square root is a factor that is paired with itself, so it's counted once.",
+      "alt": "You can use prime factorization: 16 = 2^4. The number of factors is (4+1) = 5."
+    },
+    {
+      "question": "What is the 6th multiple of 12?",
+      "question_spoken": "What is the sixth multiple of twelve?",
+      "answers": [
+        "72"
+      ],
+      "steps": [
+        "Multiples are found by multiplying the number by 1, 2, 3, ...",
+        "We need the 6th multiple.",
+        "Multiply 12 by 6."
+      ],
+      "trick": "Just multiply the number by the position of the multiple you want.",
+      "alt": "List the multiples: 12, 24, 36, 48, 60, 72. The 6th one is 72."
+    },
+    {
+      "question": "Which of these is a prime number? (A) 39 (B) 51 (C) 67 (D) 87",
+      "question_spoken": "Which of these is a prime number? A thirty-nine, B fifty-one, C sixty-seven, D eighty-seven.",
+      "answers": [
+        "C",
+        "67"
+      ],
+      "steps": [
+        "Check 39: Sum of digits is 3+9=12, which is divisible by 3. So, 39 is composite.",
+        "Check 51: Sum of digits is 5+1=6, which is divisible by 3. So, 51 is composite.",
+        "Check 67: Not divisible by 2, 3, 5. For 7, 67 / 7 is not a whole number. So, 67 is prime."
+      ],
+      "trick": "For numbers under 100, quickly check divisibility by small primes: 2, 3, 5, 7.",
+      "alt": "List factors for each. 39 = 3 x 13. 51 = 3 x 17. 87 = 3 x 29. 67 has only factors 1 and 67."
+    },
+    {
+      "question": "Complete the prime factorisation of 28 using a factor tree: 28 = 2 x __ x __",
+      "question_spoken": "Complete the prime factorisation of twenty-eight using a factor tree: twenty-eight equals two times blank times blank.",
+      "answers": [
+        "2 x 2 x 7",
+        "2^2 x 7"
+      ],
+      "steps": [
+        "Start with 28. Divide by 2: 28 = 2 x 14.",
+        "Now, factor 14: 14 = 2 x 7.",
+        "Combine all prime factors: 28 = 2 x 2 x 7 = 2^2 x 7."
+      ],
+      "trick": "Always try to divide by the smallest prime number first (2, 3, 5, 7...).",
+      "alt": "You can use division method: 28 divided by 2 equals 14, 14 divided by 2 equals 7, 7 divided by 7 equals 1. So, 28 = 2 x 2 x 7."
+    },
+    {
+      "question": "Is 1056 divisible by 4, 6, and 8?",
+      "question_spoken": "Is one thousand fifty-six divisible by four, six, and eight?",
+      "answers": [
+        "Yes, Yes, Yes",
+        "Yes Yes Yes"
+      ],
+      "steps": [
+        "Divisibility by 4: Last two digits (56) are divisible by 4 (56/4=14). Yes.",
+        "Divisibility by 6: Ends in 6 (divisible by 2). Sum of digits 1+0+5+6=12 (divisible by 3). Yes.",
+        "Divisibility by 8: Last three digits (056 or 56) are divisible by 8 (56/8=7). Yes."
+      ],
+      "trick": "If a number is divisible by 8, it must also be divisible by 4 and 2.",
+      "alt": "Perform actual division for each. 1056/4 = 264. 1056/6 = 176. 1056/8 = 132. All exact."
+    },
+    {
+      "question": "Is 1331 divisible by 11?",
+      "question_spoken": "Is one thousand three hundred thirty-one divisible by eleven?",
+      "answers": [
+        "Yes",
+        "yes"
+      ],
+      "steps": [
+        "Alternating sum of digits: 1 - 3 + 3 - 1.",
+        "Calculate the sum: 1 - 3 + 3 - 1 = 0.",
+        "If the alternating sum is 0 or a multiple of 11, the number is divisible by 11."
+      ],
+      "trick": "For 11, group digits from right in pairs, then subtract. Or use the alternating sum method.",
+      "alt": "Divide 1331 by 11. 1331 divided by 11 equals 121. It's an exact division."
+    },
+    {
+      "question": "Find the HCF of 20 and 30 by listing their factors.",
+      "question_spoken": "Find the H C F of twenty and thirty by listing their factors.",
+      "answers": [
+        "10"
+      ],
+      "steps": [
+        "Factors of 20: 1, 2, 4, 5, 10, 20.",
+        "Factors of 30: 1, 2, 3, 5, 6, 10, 15, 30.",
+        "Common factors are 1, 2, 5, 10. The highest is 10."
+      ],
+      "trick": "Start listing factors from the largest possible common factor downwards.",
+      "alt": "Use prime factorization: 20 = 2^2 x 5, 30 = 2 x 3 x 5. Common factors are 2 and 5. HCF = 2 x 5 = 10."
+    },
+    {
+      "question": "Find the HCF of 72 and 108 using prime factorisation.",
+      "question_spoken": "Find the H C F of seventy-two and one hundred eight using prime factorisation.",
+      "answers": [
+        "36"
+      ],
+      "steps": [
+        "Prime factors of 72: 2^3 x 3^2 (2x2x2x3x3).",
+        "Prime factors of 108: 2^2 x 3^3 (2x2x3x3x3).",
+        "Common factors with lowest powers: 2^2 and 3^2. HCF = 4 x 9 = 36."
+      ],
+      "trick": "When finding HCF, always pick the lowest power for each common prime factor.",
+      "alt": "Use the division method (Euclidean algorithm): 108 = 1 x 72 + 36. 72 = 2 x 36 + 0. The last non-zero remainder is 36."
+    },
+    {
+      "question": "Find the LCM of 6 and 8 by listing their multiples.",
+      "question_spoken": "Find the L C M of six and eight by listing their multiples.",
+      "answers": [
+        "24"
+      ],
+      "steps": [
+        "Multiples of 6: 6, 12, 18, 24, 30...",
+        "Multiples of 8: 8, 16, 24, 32...",
+        "The first common multiple is 24."
+      ],
+      "trick": "Start listing multiples of the larger number first, then check if the smaller number divides them.",
+      "alt": "Use prime factorization: 6 = 2 x 3, 8 = 2^3. LCM = 2^3 x 3 = 8 x 3 = 24."
+    },
+    {
+      "question": "Find the LCM of 12, 15, and 20 using prime factorisation.",
+      "question_spoken": "Find the L C M of twelve, fifteen, and twenty using prime factorisation.",
+      "answers": [
+        "60"
+      ],
+      "steps": [
+        "Prime factors of 12: 2^2 x 3.",
+        "Prime factors of 15: 3 x 5.",
+        "Prime factors of 20: 2^2 x 5. Combine highest powers: 2^2 x 3 x 5 = 60."
+      ],
+      "trick": "For LCM, take the highest power of all prime factors present in any of the numbers.",
+      "alt": "Use the common division method: Divide 12, 15, 20 by 2, then 6, 15, 10 by 2, then 3, 15, 5 by 3, then 1, 5, 5 by 5. Multiply all divisors: 2 x 2 x 3 x 5 = 60."
+    },
+    {
+      "question": "Is 343 divisible by 7?",
+      "question_spoken": "Is three hundred forty-three divisible by seven?",
+      "answers": [
+        "Yes",
+        "yes"
+      ],
+      "steps": [
+        "Take the last digit (3), double it (6).",
+        "Subtract this from the remaining part of the number (34 - 6 = 28).",
+        "If the result (28) is divisible by 7, then the original number is divisible by 7."
+      ],
+      "trick": "For divisibility by 7, you can repeatedly apply the 'double the last digit and subtract' rule until you get a small number you know.",
+      "alt": "Perform direct division: 343 divided by 7 equals 49. It's an exact division."
+    },
+    {
+      "question": "Two ropes are 72 cm and 90 cm long. What is the greatest possible length of pieces that can be cut from both ropes without any leftover?",
+      "question_spoken": "Two ropes are seventy-two centimeters and ninety centimeters long. What is the greatest possible length of pieces that can be cut from both ropes without any leftover?",
+      "answers": [
+        "18 cm",
+        "18cm",
+        "18"
+      ],
+      "steps": [
+        "The problem asks for the 'greatest possible length' to cut from both, implying HCF.",
+        "Find the prime factors of 72: 2^3 x 3^2.",
+        "Find the prime factors of 90: 2 x 3^2 x 5. The HCF is 2 x 3^2 = 18."
+      ],
+      "trick": "'Greatest', 'largest', 'maximum' often point to HCF. 'Smallest', 'least', 'minimum' often point to LCM.",
+      "alt": "List factors: Factors of 72: 1, 2, 3, 4, 6, 8, 9, 12, 18, 24, 36, 72. Factors of 90: 1, 2, 3, 5, 6, 9, 10, 15, 18, 30, 45, 90. Common factors: 1, 2, 3, 6, 9, 18. HCF = 18."
+    },
+    {
+      "question": "The HCF of two numbers is 6 and their LCM is 72. If one number is 24, what is the other number?",
+      "question_spoken": "The H C F of two numbers is six and their L C M is seventy-two. If one number is twenty-four, what is the other number?",
+      "answers": [
+        "18"
+      ],
+      "steps": [
+        "Recall the relation: Product of two numbers = HCF x LCM.",
+        "Let the two numbers be 'a' and 'b'. So, a x b = HCF x LCM.",
+        "Substitute the given values: 24 x b = 6 x 72. Solve for b."
+      ],
+      "trick": "This formula is a powerful shortcut for finding a missing number, HCF, or LCM when the other three are known.",
+      "alt": "24 x b = 432. To find b, divide 432 by 24. 432 / 24 = 18."
+    }
+  ]
 }

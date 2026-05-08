@@ -1,7 +1,554 @@
 {
-  "_note": "STUB \u2014 fill in questions before unlocking Class 7",
-  "chapter": "a-tale-of-three-intersecting-lines",
-  "class": 7,
+  "chapter_slug": "a-tale-of-three-intersecting-lines",
+  "chapter_name": "A Tale of Three Intersecting Lines",
+  "chapter_emoji": "🔺",
+  "class_num": 7,
   "board": "cbse",
-  "questions": []
+  "topic": "geometry",
+  "chap_id": 8,
+  "exam_key": "c7-08",
+  "intro_text": "Hi <span class=\"hl\" id=\"sName\">there</span>! I&#39;m Rishika, and today we explore triangles — the strongest shape in nature! 🔺 From the pyramids of Egypt to bridges and rooftops, triangles are everywhere. Let&#39;s discover their amazing properties!",
+  "complete_message": "Outstanding! You&#39;ve mastered A Tale of Three Intersecting Lines! 🏆",
+  "explain_questions": [
+    {
+      "id": "q1",
+      "question": "What is a triangle? What are its basic elements?",
+      "question_spoken": "What is a triangle? What are its basic elements?",
+      "steps": [
+        {
+          "t": "A triangle is a closed figure with 3 sides, 3 angles and 3 vertices.",
+          "s": "A triangle is a closed figure formed by three line segments. It has 3 sides, 3 angles, and 3 vertices."
+        },
+        {
+          "t": "Named by vertices: triangle ABC has vertices A, B, C; sides AB, BC, CA.",
+          "s": "A triangle is named by its vertices. Triangle ABC has vertices A, B and C, and sides AB, BC and CA."
+        },
+        {
+          "t": "The sum of all three angles of a triangle is always 180 degrees.",
+          "s": "The most important property: the sum of all three interior angles of any triangle is always 180 degrees."
+        }
+      ],
+      "confirm_question": "How many sides does a triangle have?",
+      "confirm_question_spoken": "How many sides does a triangle have?",
+      "answers": [
+        "3",
+        "three"
+      ],
+      "nudges": [
+        "Think about what TRI means.",
+        "TRI means three in Latin.",
+        "A triangle has 3 sides, 3 angles and 3 vertices!"
+      ],
+      "anim_svg": "<g id=\"q1s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Triangle: 3 sides, 3 angles, 3 vertices</text></g><g id=\"q1s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Triangle ABC: sides AB, BC, CA</text></g><g id=\"q1s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Sum of all angles = 180° (always!)</text></g><g id=\"q1ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">3 sides</text></g>"
+    },
+    {
+      "id": "q2",
+      "question": "In triangle ABC, angle A = 60 degrees and angle B = 80 degrees. Find angle C.",
+      "question_spoken": "In triangle ABC, angle A equals 60 degrees and angle B equals 80 degrees. Find angle C.",
+      "steps": [
+        {
+          "t": "Angle sum property: angle A + angle B + angle C = 180 degrees.",
+          "s": "By the angle sum property of triangles, all three angles add up to 180 degrees."
+        },
+        {
+          "t": "60 + 80 + angle C = 180. So 140 + angle C = 180.",
+          "s": "Substituting: 60 plus 80 plus angle C equals 180. So 140 plus angle C equals 180."
+        },
+        {
+          "t": "Angle C = 180 - 140 = 40 degrees.",
+          "s": "Angle C equals 180 minus 140 which is 40 degrees."
+        }
+      ],
+      "confirm_question": "In a triangle, two angles are 55 and 75 degrees. Find the third angle.",
+      "confirm_question_spoken": "In a triangle, two angles are 55 and 75 degrees. Find the third angle.",
+      "answers": [
+        "50",
+        "50 degrees"
+      ],
+      "nudges": [
+        "All three angles add up to 180 degrees.",
+        "55 + 75 = 130. So the third angle = 180 - 130.",
+        "180 - 130 = 50 degrees!"
+      ],
+      "anim_svg": "<g id=\"q2s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Angle sum: A + B + C = 180°</text></g><g id=\"q2s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">60 + 80 + C = 180 → C = 40°</text></g><g id=\"q2s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Angle C = 40 degrees</text></g><g id=\"q2ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">40 degrees</text></g>"
+    },
+    {
+      "id": "q3",
+      "question": "What are the types of triangles based on angles?",
+      "question_spoken": "What are the types of triangles based on angles?",
+      "steps": [
+        {
+          "t": "Acute triangle: ALL three angles are less than 90 degrees.",
+          "s": "An acute triangle has all three angles less than 90 degrees. Every angle is sharp."
+        },
+        {
+          "t": "Right triangle: ONE angle is exactly 90 degrees.",
+          "s": "A right triangle has exactly one angle that is 90 degrees. The side opposite the right angle is the hypotenuse."
+        },
+        {
+          "t": "Obtuse triangle: ONE angle is greater than 90 degrees.",
+          "s": "An obtuse triangle has one angle greater than 90 degrees. The other two angles must both be acute."
+        }
+      ],
+      "confirm_question": "A triangle has angles 30, 60 and 90 degrees. What type is it?",
+      "confirm_question_spoken": "A triangle has angles 30, 60 and 90 degrees. What type is it?",
+      "answers": [
+        "right",
+        "right triangle",
+        "right-angled",
+        "right angled"
+      ],
+      "nudges": [
+        "Look at the largest angle in the triangle.",
+        "One of the angles is exactly 90 degrees.",
+        "A triangle with one 90-degree angle is a right triangle!"
+      ],
+      "anim_svg": "<g id=\"q3s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Acute: all angles &lt; 90°</text></g><g id=\"q3s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Right: one angle = 90°</text></g><g id=\"q3s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Obtuse: one angle &gt; 90°</text></g><g id=\"q3ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Right triangle</text></g>"
+    },
+    {
+      "id": "q4",
+      "question": "What are the types of triangles based on sides?",
+      "question_spoken": "What are the types of triangles based on sides?",
+      "steps": [
+        {
+          "t": "Equilateral triangle: ALL three sides are equal. All angles = 60 degrees.",
+          "s": "An equilateral triangle has all three sides equal. Since all sides are equal, all three angles are also equal, each measuring 60 degrees."
+        },
+        {
+          "t": "Isosceles triangle: ANY two sides are equal. Base angles are equal.",
+          "s": "An isosceles triangle has two equal sides. The angles opposite the equal sides are also equal, called base angles."
+        },
+        {
+          "t": "Scalene triangle: ALL three sides are different. All angles are different.",
+          "s": "A scalene triangle has all three sides of different lengths. All three angles are also different."
+        }
+      ],
+      "confirm_question": "A triangle has two equal sides of 5 cm and a third side of 7 cm. What type is it?",
+      "confirm_question_spoken": "A triangle has two equal sides of 5 centimetres and a third side of 7 centimetres. What type is it?",
+      "answers": [
+        "isosceles",
+        "isosceles triangle"
+      ],
+      "nudges": [
+        "Count how many sides are equal.",
+        "Two sides are equal (5 cm each) and one is different (7 cm).",
+        "A triangle with two equal sides is isosceles!"
+      ],
+      "anim_svg": "<g id=\"q4s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Equilateral: all 3 sides equal, all angles 60°</text></g><g id=\"q4s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Isosceles: 2 sides equal, base angles equal</text></g><g id=\"q4s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Scalene: all sides different, all angles different</text></g><g id=\"q4ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Isosceles triangle</text></g>"
+    },
+    {
+      "id": "q5",
+      "question": "What is the exterior angle of a triangle? State the exterior angle theorem.",
+      "question_spoken": "What is the exterior angle of a triangle? State the exterior angle theorem.",
+      "steps": [
+        {
+          "t": "Exterior angle: formed by one side and the extension of an adjacent side.",
+          "s": "An exterior angle of a triangle is formed by one side of the triangle and the extension of an adjacent side."
+        },
+        {
+          "t": "Exterior Angle Theorem: exterior angle = sum of two non-adjacent interior angles.",
+          "s": "The Exterior Angle Theorem states that the exterior angle of a triangle equals the sum of the two interior angles that are not adjacent to it."
+        },
+        {
+          "t": "Example: If angles A=50 and B=70, exterior angle at C = 50+70 = 120 degrees.",
+          "s": "For example, if angle A is 50 degrees and angle B is 70 degrees, the exterior angle at C equals 50 plus 70 which is 120 degrees."
+        }
+      ],
+      "confirm_question": "In triangle ABC, angle A = 45 and angle B = 65. Find the exterior angle at C.",
+      "confirm_question_spoken": "In triangle ABC, angle A equals 45 degrees and angle B equals 65 degrees. Find the exterior angle at C.",
+      "answers": [
+        "110",
+        "110 degrees"
+      ],
+      "nudges": [
+        "Exterior angle equals sum of the two non-adjacent interior angles.",
+        "The non-adjacent angles to C are A and B.",
+        "45 + 65 = 110 degrees!"
+      ],
+      "anim_svg": "<g id=\"q5s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Exterior angle: outside the triangle</text></g><g id=\"q5s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Exterior angle = sum of 2 non-adjacent interior angles</text></g><g id=\"q5s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">50 + 70 = 120° (exterior at C)</text></g><g id=\"q5ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">110 degrees</text></g>"
+    },
+    {
+      "id": "q6",
+      "question": "What is the median of a triangle?",
+      "question_spoken": "What is the median of a triangle?",
+      "steps": [
+        {
+          "t": "Median: a line from a vertex to the MIDPOINT of the opposite side.",
+          "s": "A median of a triangle is a line segment drawn from a vertex to the midpoint of the opposite side."
+        },
+        {
+          "t": "Every triangle has 3 medians, one from each vertex.",
+          "s": "Since a triangle has 3 vertices, it has 3 medians, one from each vertex to the midpoint of the opposite side."
+        },
+        {
+          "t": "All 3 medians meet at one point called the CENTROID (centre of gravity).",
+          "s": "All three medians intersect at a single point called the centroid, which is the centre of gravity of the triangle."
+        }
+      ],
+      "confirm_question": "How many medians does a triangle have?",
+      "confirm_question_spoken": "How many medians does a triangle have?",
+      "answers": [
+        "3",
+        "three"
+      ],
+      "nudges": [
+        "A median goes from each vertex to the midpoint of the opposite side.",
+        "How many vertices does a triangle have?",
+        "3 vertices means 3 medians!"
+      ],
+      "anim_svg": "<g id=\"q6s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Median: vertex to midpoint of opposite side</text></g><g id=\"q6s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">3 medians in every triangle</text></g><g id=\"q6s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">All 3 meet at CENTROID</text></g><g id=\"q6ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">3 medians</text></g>"
+    },
+    {
+      "id": "q7",
+      "question": "What is the altitude of a triangle?",
+      "question_spoken": "What is the altitude of a triangle?",
+      "steps": [
+        {
+          "t": "Altitude: perpendicular from a vertex to the opposite side (or its extension).",
+          "s": "The altitude of a triangle is the perpendicular line segment drawn from a vertex to the opposite side or to the extension of the opposite side."
+        },
+        {
+          "t": "Every triangle has 3 altitudes, one from each vertex.",
+          "s": "A triangle has 3 altitudes, one from each vertex, each perpendicular to the opposite side."
+        },
+        {
+          "t": "All 3 altitudes meet at a point called the ORTHOCENTRE.",
+          "s": "All three altitudes meet at a single point called the orthocentre."
+        }
+      ],
+      "confirm_question": "What is the name of the point where all three altitudes of a triangle meet?",
+      "confirm_question_spoken": "What is the name of the point where all three altitudes of a triangle meet?",
+      "answers": [
+        "orthocentre",
+        "orthocenter"
+      ],
+      "nudges": [
+        "All three altitudes meet at a special point.",
+        "It starts with the letter O.",
+        "The point is called the orthocentre!"
+      ],
+      "anim_svg": "<g id=\"q7s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Altitude: perpendicular from vertex to opposite side</text></g><g id=\"q7s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">3 altitudes in every triangle</text></g><g id=\"q7s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">All 3 meet at ORTHOCENTRE</text></g><g id=\"q7ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Orthocentre</text></g>"
+    },
+    {
+      "id": "q8",
+      "question": "What is the triangle inequality? Can a triangle have sides 3, 4 and 8?",
+      "question_spoken": "What is the triangle inequality? Can a triangle have sides 3, 4 and 8 centimetres?",
+      "steps": [
+        {
+          "t": "Triangle inequality: sum of any two sides must be GREATER than the third side.",
+          "s": "The triangle inequality states that the sum of any two sides of a triangle must be greater than the third side."
+        },
+        {
+          "t": "Check: 3+4=7. Is 7 > 8? No! 7 is less than 8.",
+          "s": "For sides 3, 4 and 8: check 3 plus 4 equals 7. Is 7 greater than 8? No, 7 is less than 8."
+        },
+        {
+          "t": "Since 3+4 is NOT greater than 8, these sides CANNOT form a triangle.",
+          "s": "Since the sum of two sides 3 and 4 is not greater than the third side 8, these measurements cannot form a triangle."
+        }
+      ],
+      "confirm_question": "Can a triangle have sides 5, 7 and 11?",
+      "confirm_question_spoken": "Can a triangle have sides 5, 7 and 11 centimetres?",
+      "answers": [
+        "yes",
+        "Yes"
+      ],
+      "nudges": [
+        "Check if sum of any two sides is greater than the third.",
+        "Check the smallest two: 5 + 7 = 12. Is 12 > 11?",
+        "12 > 11. Yes, a triangle is possible!"
+      ],
+      "anim_svg": "<g id=\"q8s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Triangle inequality: sum of 2 sides &gt; third side</text></g><g id=\"q8s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">3+4=7, is 7 &gt; 8? No!</text></g><g id=\"q8s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Cannot form a triangle!</text></g><g id=\"q8ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">No, cannot form triangle</text></g>"
+    },
+    {
+      "id": "q9",
+      "question": "What are the properties of an equilateral triangle?",
+      "question_spoken": "What are the properties of an equilateral triangle?",
+      "steps": [
+        {
+          "t": "All 3 sides are equal. All 3 angles are equal = 60 degrees each.",
+          "s": "An equilateral triangle has all three sides equal and all three angles equal. Each angle is exactly 60 degrees."
+        },
+        {
+          "t": "It is also isosceles (any two sides are equal).",
+          "s": "An equilateral triangle is a special case of isosceles triangle because any two of its sides are equal."
+        },
+        {
+          "t": "Its median, altitude, perpendicular bisector from each vertex all coincide.",
+          "s": "In an equilateral triangle, the median, altitude and perpendicular bisector from each vertex all fall on the same line."
+        }
+      ],
+      "confirm_question": "Each angle of an equilateral triangle is how many degrees?",
+      "confirm_question_spoken": "Each angle of an equilateral triangle is how many degrees?",
+      "answers": [
+        "60",
+        "60 degrees"
+      ],
+      "nudges": [
+        "All three angles are equal and they add up to 180 degrees.",
+        "180 divided by 3 = ?",
+        "180 / 3 = 60 degrees each!"
+      ],
+      "anim_svg": "<g id=\"q9s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Equilateral: all sides equal, all angles = 60°</text></g><g id=\"q9s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Also qualifies as isosceles</text></g><g id=\"q9s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Median = altitude = perpendicular bisector</text></g><g id=\"q9ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">60 degrees</text></g>"
+    },
+    {
+      "id": "q10",
+      "question": "The angles of a triangle are in ratio 1:2:3. Find all three angles.",
+      "question_spoken": "The angles of a triangle are in ratio 1:2:3. Find all three angles.",
+      "steps": [
+        {
+          "t": "Let angles be x, 2x and 3x. Sum = 180 degrees.",
+          "s": "Let the angles be x, 2x and 3x. By angle sum property, they must add to 180 degrees."
+        },
+        {
+          "t": "x + 2x + 3x = 180. So 6x = 180. x = 30.",
+          "s": "x plus 2x plus 3x equals 6x equals 180. So x equals 30 degrees."
+        },
+        {
+          "t": "Angles are 30, 60 and 90 degrees. It is a right-angled triangle!",
+          "s": "The three angles are 30, 60 and 90 degrees. Since one angle is 90 degrees, it is a right-angled triangle!"
+        }
+      ],
+      "confirm_question": "Angles of a triangle are in ratio 2:3:4. Find the largest angle.",
+      "confirm_question_spoken": "Angles of a triangle are in ratio 2:3:4. Find the largest angle.",
+      "answers": [
+        "80",
+        "80 degrees"
+      ],
+      "nudges": [
+        "Let angles be 2k, 3k and 4k. Their sum is 180.",
+        "2k + 3k + 4k = 9k = 180. So k = 20.",
+        "Largest angle = 4k = 4 x 20 = 80 degrees!"
+      ],
+      "anim_svg": "<g id=\"q10s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Ratio 1:2:3 → angles x, 2x, 3x</text></g><g id=\"q10s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">6x = 180 → x = 30</text></g><g id=\"q10s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Angles: 30, 60, 90 ° (right triangle!)</text></g><g id=\"q10ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">30, 60 and 90 degrees</text></g>"
+    }
+  ],
+  "practice_questions": [
+    {
+      "question": "Two angles of a triangle are 47 and 63 degrees. Find the third angle.",
+      "question_spoken": "Two angles of a triangle are 47 and 63 degrees. Find the third angle.",
+      "answers": [
+        "70",
+        "70 degrees"
+      ],
+      "steps": [
+        "Sum of all angles = 180 degrees.",
+        "47 + 63 = 110 degrees.",
+        "Third angle = 180 - 110 = 70 degrees."
+      ],
+      "trick": "Rishika Trick: Add the two known angles and subtract from 180. Simple as that!",
+      "alt": "Third angle = 180 - 47 - 63 = 70 degrees."
+    },
+    {
+      "question": "Classify the triangle with angles 35, 55 and 90 degrees.",
+      "question_spoken": "Classify the triangle with angles 35, 55 and 90 degrees.",
+      "answers": [
+        "right triangle",
+        "right",
+        "right-angled triangle"
+      ],
+      "steps": [
+        "Check the largest angle: 90 degrees.",
+        "A triangle with one 90-degree angle is a right triangle.",
+        "It is a right-angled triangle."
+      ],
+      "trick": "Rishika Trick: Check the largest angle only! Less than 90 = acute, equals 90 = right, more than 90 = obtuse.",
+      "alt": "One angle is exactly 90 degrees, so it is a right-angled triangle."
+    },
+    {
+      "question": "In triangle PQR, the exterior angle at Q is 115 degrees and angle P = 55 degrees. Find angle R.",
+      "question_spoken": "In triangle PQR, the exterior angle at Q is 115 degrees and angle P equals 55 degrees. Find angle R.",
+      "answers": [
+        "60",
+        "60 degrees"
+      ],
+      "steps": [
+        "Exterior angle at Q = angle P + angle R (exterior angle theorem).",
+        "115 = 55 + angle R.",
+        "Angle R = 115 - 55 = 60 degrees."
+      ],
+      "trick": "Rishika Trick: Exterior angle = sum of the two non-adjacent interior angles. Rearrange to find the unknown!",
+      "alt": "Also: interior angle at Q = 180 - 115 = 65. Then angle R = 180 - 55 - 65 = 60 degrees."
+    },
+    {
+      "question": "Can a triangle have sides 6 cm, 8 cm and 15 cm?",
+      "question_spoken": "Can a triangle have sides 6 centimetres, 8 centimetres and 15 centimetres?",
+      "answers": [
+        "no",
+        "No"
+      ],
+      "steps": [
+        "Check: sum of two smallest sides = 6 + 8 = 14.",
+        "Is 14 > 15? No, 14 is less than 15.",
+        "Triangle inequality fails, so these sides cannot form a triangle."
+      ],
+      "trick": "Rishika Trick: Only check the two smallest sides! Their sum must be greater than the largest side.",
+      "alt": "6 + 8 = 14. Since 14 < 15, the triangle inequality is violated. No triangle possible."
+    },
+    {
+      "question": "An isosceles triangle has base angles of 50 degrees each. Find the vertex angle.",
+      "question_spoken": "An isosceles triangle has base angles of 50 degrees each. Find the vertex angle.",
+      "answers": [
+        "80",
+        "80 degrees"
+      ],
+      "steps": [
+        "Base angles of isosceles triangle are equal: both 50 degrees.",
+        "Sum of all angles = 180 degrees.",
+        "Vertex angle = 180 - 50 - 50 = 80 degrees."
+      ],
+      "trick": "Rishika Trick: In isosceles triangle, base angles are equal. Vertex angle = 180 - 2 x (base angle)!",
+      "alt": "Vertex angle = 180 - 2(50) = 180 - 100 = 80 degrees."
+    },
+    {
+      "question": "Each angle of an equilateral triangle is how many degrees?",
+      "question_spoken": "Each angle of an equilateral triangle is how many degrees?",
+      "answers": [
+        "60",
+        "60 degrees"
+      ],
+      "steps": [
+        "Equilateral triangle has all three angles equal.",
+        "Sum of angles = 180 degrees.",
+        "Each angle = 180 / 3 = 60 degrees."
+      ],
+      "trick": "Rishika Trick: Equilateral means equal. Three equal angles summing to 180. So each = 60!",
+      "alt": "All angles equal and sum to 180. So each angle = 60 degrees."
+    },
+    {
+      "question": "The exterior angle of a triangle is 130 degrees. If one non-adjacent interior angle is 70 degrees, find the other.",
+      "question_spoken": "The exterior angle of a triangle is 130 degrees. If one non-adjacent interior angle is 70 degrees, find the other non-adjacent interior angle.",
+      "answers": [
+        "60",
+        "60 degrees"
+      ],
+      "steps": [
+        "Exterior angle = sum of two non-adjacent interior angles.",
+        "130 = 70 + other angle.",
+        "Other angle = 130 - 70 = 60 degrees."
+      ],
+      "trick": "Rishika Trick: Exterior angle = sum of remote interior angles. Subtract one to find the other!",
+      "alt": "130 - 70 = 60 degrees."
+    },
+    {
+      "question": "The angles of a triangle are in ratio 3:4:5. Find all three angles.",
+      "question_spoken": "The angles of a triangle are in ratio 3:4:5. Find all three angles.",
+      "answers": [
+        "45, 60, 75",
+        "45 60 75"
+      ],
+      "steps": [
+        "Let angles be 3k, 4k and 5k. Sum = 180.",
+        "12k = 180, so k = 15.",
+        "Angles: 3x15=45, 4x15=60, 5x15=75 degrees."
+      ],
+      "trick": "Rishika Trick: Add ratio parts (3+4+5=12). Divide 180 by 12 to get k. Then multiply each part by k!",
+      "alt": "k = 180/12 = 15. Angles = 45, 60, 75 degrees."
+    },
+    {
+      "question": "In a right-angled triangle, one acute angle is 35 degrees. Find the other acute angle.",
+      "question_spoken": "In a right-angled triangle, one acute angle is 35 degrees. Find the other acute angle.",
+      "answers": [
+        "55",
+        "55 degrees"
+      ],
+      "steps": [
+        "Right triangle has one angle = 90 degrees.",
+        "Sum of all angles = 180.",
+        "Other acute angle = 180 - 90 - 35 = 55 degrees."
+      ],
+      "trick": "Rishika Trick: In a right triangle, the two acute angles are always complementary (add to 90)! So 90 - 35 = 55.",
+      "alt": "The two acute angles add to 90. So 90 - 35 = 55 degrees."
+    },
+    {
+      "question": "Triangle ABC has angle A = 2x, angle B = 3x and angle C = 4x. Find x and all angles.",
+      "question_spoken": "Triangle ABC has angle A equal to 2x, angle B equal to 3x and angle C equal to 4x. Find x and all three angles.",
+      "answers": [
+        "20",
+        "x=20"
+      ],
+      "steps": [
+        "2x + 3x + 4x = 180.",
+        "9x = 180, x = 20.",
+        "Angles: A=40, B=60, C=80 degrees."
+      ],
+      "trick": "Rishika Trick: Add the coefficients (2+3+4=9). Divide 180 by 9 to find x directly!",
+      "alt": "9x = 180, x = 20. Angles are 40, 60 and 80 degrees."
+    },
+    {
+      "question": "Identify the type: a triangle with sides 5 cm, 5 cm and 5 cm.",
+      "question_spoken": "Identify the type: a triangle with sides 5 centimetres, 5 centimetres and 5 centimetres.",
+      "answers": [
+        "equilateral",
+        "equilateral triangle"
+      ],
+      "steps": [
+        "All three sides are equal (5 cm each).",
+        "A triangle with all sides equal is equilateral.",
+        "All angles are also equal at 60 degrees each."
+      ],
+      "trick": "Rishika Trick: Equal sides = equilateral. If all three sides same, all three angles are also same (60 each)!",
+      "alt": "Three equal sides means equilateral triangle with all angles 60 degrees."
+    },
+    {
+      "question": "The centroid divides each median in ratio 2:1 from vertex. If a median is 9 cm, find the distance from vertex to centroid.",
+      "question_spoken": "The centroid divides each median in ratio 2:1 from the vertex. If a median is 9 centimetres long, find the distance from vertex to centroid.",
+      "answers": [
+        "6",
+        "6 cm"
+      ],
+      "steps": [
+        "Centroid divides median in ratio 2:1 from vertex.",
+        "Distance from vertex = 2/(2+1) x 9 = 2/3 x 9.",
+        "= 6 cm."
+      ],
+      "trick": "Rishika Trick: Centroid is always 2/3 of the way from vertex to midpoint. So vertex to centroid = 2/3 of median!",
+      "alt": "2/3 x 9 = 6 cm from vertex to centroid."
+    },
+    {
+      "question": "In triangle ABC, AB = AC. If angle A = 40 degrees, find angle B.",
+      "question_spoken": "In triangle ABC, AB equals AC. If angle A equals 40 degrees, find angle B.",
+      "answers": [
+        "70",
+        "70 degrees"
+      ],
+      "steps": [
+        "AB = AC means triangle is isosceles. Angles B and C are equal.",
+        "Angle A + angle B + angle C = 180.",
+        "40 + 2(angle B) = 180, so angle B = 70 degrees."
+      ],
+      "trick": "Rishika Trick: Equal sides opposite equal angles. AB=AC means angle B = angle C. Use angle sum to find them!",
+      "alt": "Angle B = angle C = (180-40)/2 = 140/2 = 70 degrees."
+    },
+    {
+      "question": "Can a triangle be both right-angled and equilateral?",
+      "question_spoken": "Can a triangle be both right-angled and equilateral?",
+      "answers": [
+        "no",
+        "No"
+      ],
+      "steps": [
+        "Equilateral triangle has all angles = 60 degrees.",
+        "Right triangle must have one angle = 90 degrees.",
+        "60 is not 90, so a triangle cannot be both equilateral and right-angled."
+      ],
+      "trick": "Rishika Trick: Equilateral forces all angles to 60. Right-angled forces one to 90. These two conditions contradict each other!",
+      "alt": "Equilateral = all angles 60. Right-angled = one angle 90. Impossible to have both."
+    },
+    {
+      "question": "In triangle XYZ, exterior angle at Z = 3x + 10 and the two non-adjacent interior angles are x + 20 and x + 30. Find x.",
+      "question_spoken": "In triangle XYZ, the exterior angle at Z equals 3x plus 10 and the two non-adjacent interior angles are x plus 20 and x plus 30. Find x.",
+      "answers": [
+        "40",
+        "x = 40"
+      ],
+      "steps": [
+        "Exterior angle = sum of non-adjacent interior angles.",
+        "3x + 10 = (x + 20) + (x + 30) = 2x + 50.",
+        "3x - 2x = 50 - 10, so x = 40. Check: exterior = 130, interior sum = 60 + 70 = 130."
+      ],
+      "trick": "Rishika Trick: Set exterior angle equal to sum of the two given interior angles and solve for x!",
+      "alt": "3x+10 = 2x+50, x = 40. Verify: exterior = 130, interior sum = 60+70 = 130. Correct!"
+    }
+  ]
 }
