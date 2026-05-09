@@ -403,7 +403,6 @@ button{font-family:'Outfit',sans-serif;cursor:pointer;}
         <div class="card-ttl">🚀 Bulk Operations — <span id="qb-class-label">Class 7</span></div>
         <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;">
           <button class="btn btn-gold"  id="qb-gen-all-btn"  onclick="qbGenerateAll()">✨ Generate All Chapters (AI)</button>
-          <button class="btn btn-ghost" id="qb-seed-all-btn" onclick="qbSeedAll()">⬆ Seed All to KV</button>
           <button class="btn btn-ghost" onclick="qbListKeys()">📋 List KV Keys</button>
           <button class="btn btn-ghost" onclick="qbClearLog()">🗑 Clear Log</button>
         </div>
@@ -1432,7 +1431,7 @@ var QB_TAGS = [
   {value:'explain',      label:'Explain'}
 ];
 
-var QB_SRC_LABELS = {NCT:'NCERT',RDS:'RD Sharma',RSA:'RS Aggarwal',EXM:'Exemplar',CBP:'CBSE PY',OLY:'Olympiad',ORI:'Original'};
+var QB_SRC_LABELS = {NCT:'N', RDS:'RD', RSA:'RS', EXM:'EX', CBP:'CB', OLY:'OL', ORI:'OR'};
 
 var qbActiveClass = 7;
 var qbBankCache   = {};   // chId → {count, questions, chapterName, tag}
@@ -1486,7 +1485,6 @@ function qbBuildGrid() {
       '<div style="display:flex;gap:6px;">' +
         '<button id="qb-gen-btn-' + ch.id + '" onclick="qbGenerateChapter(\'' + ch.id + '\')" style="flex:2;padding:7px 4px;border:none;border-radius:7px;font-size:13px;font-weight:800;cursor:pointer;background:rgba(124,58,237,.15);color:#7c3aed;font-family:Outfit,sans-serif;">✨ Generate</button>' +
         '<button id="qb-prev-btn-' + ch.id + '" onclick="qbPreviewChapter(\'' + ch.id + '\')" style="flex:1;padding:7px 4px;border:none;border-radius:7px;font-size:13px;font-weight:800;cursor:pointer;background:rgba(5,150,105,.1);color:var(--green);font-family:Outfit,sans-serif;">👁 View</button>' +
-        '<button id="qb-seed-btn-' + ch.id + '" onclick="qbSeedChapter(\'' + ch.id + '\')" style="flex:1;padding:7px 4px;border:none;border-radius:7px;font-size:13px;font-weight:800;cursor:pointer;background:rgba(212,135,10,.12);color:var(--amber);font-family:Outfit,sans-serif;">⬆ Seed</button>' +
         '<button onclick="qbDeleteChapter(\'' + ch.id + '\')" style="padding:7px 10px;border:none;border-radius:7px;font-size:13px;cursor:pointer;background:rgba(192,57,43,.08);color:var(--red);font-family:Outfit,sans-serif;">🗑</button>' +
       '</div>';
     grid.appendChild(card);
