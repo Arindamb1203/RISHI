@@ -2,9 +2,10 @@
 ═══════════════════════════════════════════════════════════════
   RISHIKA CONFIG — Paste this entire file at the start of
   every new Claude session to restore full project context.
-  Last updated: 8 May 2026
-  (Class 9 complete. Class 7 explain+practice complete.
-   Class 7 exam JSONs IN PROGRESS — ch01 started.)
+  Last updated: 9 May 2026
+  (Class 9 complete. Class 8 complete. Class 7 explain+practice
+   complete. Class 7 exam JSONs ALL 8 BUILT & DEPLOYED.
+   Gemini fully replaced by OpenAI gpt-4.1-mini.)
 ═══════════════════════════════════════════════════════════════
 
 ▌ OWNER
@@ -29,8 +30,19 @@
 
 ▌ CLOUDFLARE ENVIRONMENT VARIABLES
   ELEVENLABS_API_KEY / ELEVENLABS_VOICE_ID (Sarah EXAVITQu4vr4xnSDxMaL — free)
-  GEMINI_API_KEY / RISHI_ADMIN_TOKEN
+  OPENAI_API_KEY (gpt-4.1-mini — replaces Gemini for everything)
+  RISHI_ADMIN_TOKEN
   D1 binding: DB (database: rishi-db)
+  NOTE: GEMINI_API_KEY still in Cloudflare but being phased out.
+        All new code uses OPENAI_API_KEY only.
+        Remove GEMINI_API_KEY after full OpenAI migration is done.
+
+▌ OPENAI API
+  Model: gpt-4.1-mini
+  Key: OPENAI_API_KEY (Cloudflare env var)
+  Usage tier: 1 | Credit: $5.00 loaded
+  Replaces Gemini for: explain AI, practice AI, question generation, everything
+  GEMINI IS NO LONGER USED — do not write any new Gemini code
 
 ▌ D1 DATABASE
   Tables: rishi_sync, rishi_accounts, rishi_referrals
@@ -46,6 +58,10 @@
   Path: D:\rishi\public\data\cbse\classX\chXX\chXX-exam.json
   Schema: sections A(20x1) B(10x2) C(6x3) D(10x3) E(2 cases x 3 subparts)
   = 52 questions / 100 marks
+  CRITICAL: Section E uses key "cases" (not "questions") — match Class 9 format exactly
+  Each question must have: source (ncert/ncert_exemplar/rd_sharma/olympiad/cbse_sample)
+  Each section must have: count field
+  Section D must have: answer_type field (fraction/integer/expression/decimal/text)
 
 ▌ EXAM KEY FORMAT
   Class 8: 01,02,...,17 (with 11a,11b)
@@ -53,23 +69,28 @@
   Class 7: c7-01 to c7-08
   Class 6: c6-01 to c6-10 (reserved)
 
-▌ FILE TREE (as of 8 May 2026)
+▌ FILE TREE (as of 9 May 2026)
   D:\rishi\
   +---functions\
   |   |   tts.js
   |   \---api\
   |           questions.js   CLASS 7 FOLDER MAP ADDED (deployed)
   |           admin.js / explain.js / explain-differently.js / deploy.js
+  |           NOTE: explain.js and explain-differently.js still use Gemini
+  |                 — to be migrated to OpenAI next session
   |
   +---public\
-      |   admin.html          CLASS 7 EXAM PATHS ADDED (ready to deploy after exams done)
+      |   admin.html          CLASS 7 EXAM PATHS ADDED & PATCHED (deployed)
       |   exam.html           CLASS 7 CHAPTER MAP ADDED (deployed)
-      |   topic-exam.html     CLASS 7 TOPIC MAP ADDED (ready to deploy after exams done)
-      |   sampurna-pariksha.html  CLASS 7 CHAPTERS ADDED (ready to deploy after exams done)
+      |   topic-exam.html     NEEDS REBUILD for Class 7
+      |   sampurna-pariksha.html  NEEDS REBUILD for Class 7
       |   syllabus.html       CLASS 7 EXAM_PATHS FILLED (deployed)
       |   parent.html / login.html / register.html / landing.html
       |   rishi-core.js / rishi-presence.js / rishi-sync.js / explain-helper.js
       |   generate.py / batch_generate.py / batch_exam_generate.py
+      |   rishi_cleanup.py    (cleanup + Class 8 exam file fixer — already run)
+      |   fix_class7.py       (Class 7 exam placer + admin patcher — already run)
+      |   class7_exam_data.json (Class 7 exam JSON bundle — keep)
       |
       +---data\
       |   +---class7\   8 content JSONs ALL VERIFIED
@@ -77,58 +98,38 @@
       |   +---class9\   12 content JSONs
       |   +---class6\   stubs only
       |   \---cbse\
-      |       +---class8\  Exam JSONs ch01-ch17
-      |       +---class9\  Exam JSONs ch01-ch12
-      |       \---class7\  EXAM JSONs IN PROGRESS
+      |       +---class8\  Exam JSONs — files now in correct chXX folders (fixed)
+      |       +---class9\  Exam JSONs ch01-ch12 (complete, NCERT-sourced)
+      |       \---class7\  Exam JSONs ch01-ch08 (BUILT — generic quality,
+      |                    to be REBUILT with OpenAI question bank system)
       |
       +---explain\  class8 class9 class7 all built. class6 stubs.
       +---practice\ same.
+      +---admin\
+              question-manager.html  (existing agent — review before building new system)
 
 ▌ CLASS 9 — FULLY COMPLETE
   12 chapters: explain + practice + chapter exams + topic exams + sampurna
+  Exam JSONs: NCERT/Exemplar sourced, have source field, correct structure
 
 ▌ CLASS 8 — FULLY COMPLETE
   16 chapters (ch06,ch07 deferred): explain + practice + chapter exams + topic exams + sampurna
+  Exam JSONs: in correct chXX folders (fixed today)
 
 ▌ CLASS 7 — CURRENT STATUS
-  Explain + Practice: ALL 8 CHAPTERS DONE
-  Content JSON fixes:
-    number-play.json: 6 confirm answers fixed
-    a-peek-beyond-the-point.json: 9 confirm answers fixed
-    large-numbers-around-us.json: all correct
-    arithmetic-expressions.json: all correct
-    working-with-fractions.json: written by Claude, verified
-    expressions-using-letter-numbers.json: written by Claude, verified
-    parallel-and-intersecting-lines.json: written by Claude, verified
-    a-tale-of-three-intersecting-lines.json: written by Claude, verified
-
-  Chapter Exams — IN PROGRESS:
-    ch01 Large Numbers Around Us       STARTED (incomplete — resume first)
-    ch02 Arithmetic Expressions        NOT STARTED
-    ch03 A Peek Beyond the Point       NOT STARTED
-    ch04 Number Play                   NOT STARTED
-    ch05 Working with Fractions        NOT STARTED
-    ch06 Expressions using Letter-Numbers NOT STARTED
-    ch07 Parallel and Intersecting Lines  NOT STARTED
-    ch08 A Tale of Three Intersecting Lines NOT STARTED
-
-  Portal files ready in Claude outputs (deploy AFTER all 8 exams done):
-    topic-exam.html / sampurna-pariksha.html / admin.html
-
-▌ CLASS 7 CHAPTER MAP (Ganita Prakash, new NCERT 2025-26)
-  Ch1 Large Numbers Around Us   (arithmetic)  c7-01
-  Ch2 Arithmetic Expressions    (arithmetic)  c7-02
-  Ch3 A Peek Beyond the Point   (arithmetic)  c7-03
-  Ch4 Number Play               (arithmetic)  c7-04
-  Ch5 Working with Fractions    (arithmetic)  c7-05
-  Ch6 Expressions using Letter-Numbers (algebra) c7-06
-  Ch7 Parallel and Intersecting Lines (geometry) c7-07
-  Ch8 A Tale of Three Intersecting Lines (geometry) c7-08
-
-▌ CLASS 7 TOPIC MAP
-  arithmetic: 01,02,03,04,05
-  algebra:    06
-  geometry:   07,08
+  Explain + Practice: ALL 8 CHAPTERS DONE ✓
+  Chapter Exams: ALL 8 BUILT but GENERIC quality — need rebuild with OpenAI system
+    ch01 Large Numbers Around Us       BUILT (generic)
+    ch02 Arithmetic Expressions        BUILT (generic)
+    ch03 A Peek Beyond the Point       BUILT (generic)
+    ch04 Number Play                   BUILT (generic)
+    ch05 Working with Fractions        BUILT (generic)
+    ch06 Expressions using Letter-Numbers BUILT (generic)
+    ch07 Parallel and Intersecting Lines  BUILT (generic)
+    ch08 A Tale of Three Intersecting Lines BUILT (generic)
+  Portal files: topic-exam.html + sampurna-pariksha.html need rebuild for Class 7
+  admin.html: Class 7 exam paths patched ✓
+  Checker: fix_class7.py — run after git push to verify all green
 
 ▌ CLASS 6 — NOT STARTED
   Chapters: Patterns in Mathematics, Number Play, Prime Time,
@@ -139,7 +140,7 @@
 ▌ QUESTIONS.JS FOLDER MAP
   Class 8: topic-grouped
   Class 9: 1:1 mapping ch01-ch12
-  Class 7: 1:1 mapping ch01-ch08 (added)
+  Class 7: 1:1 mapping ch01-ch08 (deployed)
   API: GET /api/questions?board=cbse&class=7&ch=01&type=exam
 
 ▌ AUTH
@@ -154,24 +155,28 @@
   Free voice: Sarah EXAVITQu4vr4xnSDxMaL
   DO NOT USE Priyanka BpjGufoPiobT79j2vtj4 (paid)
 
-▌ GEMINI API
-  Model: gemini-2.5-flash
-  URL: https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent
-  Key: GEMINI_API_KEY (Cloudflare env var)
-
 ▌ RISHI THEME — ALWAYS LIGHT
   Background: #fdf6ec | Cards: #fffdf8 | Text: #2a2218
   Gold: #d4a017 | Fonts: Orbitron + Nunito
   NO DARK BACKGROUNDS EVER
 
 ▌ REMAINING WORK — IN ORDER
-  1. Class 7 chapter exams — 8 JSONs (IN PROGRESS)
-  2. Deploy portal files (topic-exam, sampurna, admin) after exams done
-  3. Class 7 topic exams + sampurna (automatic once portals deployed)
-  4. Class 6 — full build (explain + practice + exams)
-  5. ICSE Class 8 / WBBSE Class 8
-  6. Payment gateway (credit-referral in d1-sync.js)
-  7. YouTube video embed (one per chapter)
+  1. Git push → run fix_class7.py checker → confirm all green (Class 7 wrap-up)
+  2. Rebuild topic-exam.html + sampurna-pariksha.html for Class 7
+  3. Check admin/question-manager.html — understand existing agent before building
+  4. Migrate explain.js + explain-differently.js from Gemini → OpenAI
+  5. Build OpenAI question bank system:
+     - Questions sourced from NCERT, NCERT Exemplar, RD Sharma, Olympiad
+     - Tagged: explain / practice / chapter_exam / topic_exam / sampurna
+     - Each question has source field
+  6. Build placeholder checker/creator py
+  7. Build question distributor py
+  8. Wire admin seeding → triggers OpenAI to refresh question bank
+  9. Rebuild Class 7 exam JSONs using new system (replace generic ones)
+  10. Class 6 — full build (explain + practice + exams)
+  11. ICSE Class 8 / WBBSE Class 8
+  12. Payment gateway (credit-referral in d1-sync.js)
+  13. YouTube video embed (one per chapter)
 
 ▌ CRITICAL RULES FOR CLAUDE
   1. NEVER guess file contents — always read actual file first
@@ -189,4 +194,10 @@
   13. All setTimeout via at() on explain pages
   14. initVoices(callback) before any say() call
   15. functions/d1-sync.js at REPO ROOT — not in public\
+  16. GEMINI IS DEAD — never write Gemini code. Use OpenAI gpt-4.1-mini only
+  17. Exam JSON structure must match Class 9 format exactly:
+      Section E key = "cases" (not "questions")
+      Every question needs "source" field
+      Every section needs "count" field
+      Section D needs "answer_type" field
 */
