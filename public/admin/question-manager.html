@@ -6,288 +6,277 @@
   <title>RISHI — Question Bank Manager</title>
   <style>
     :root {
-      --bg: #0f172a;
-      --surface: #1e293b;
-      --surface2: #334155;
-      --accent: #6366f1;
-      --accent2: #22d3ee;
-      --success: #22c55e;
-      --danger: #ef4444;
-      --warn: #f59e0b;
-      --text: #f1f5f9;
-      --muted: #94a3b8;
-      --border: #334155;
+      --bg: #0f172a; --surface: #1e293b; --surface2: #334155;
+      --accent: #6366f1; --accent2: #22d3ee; --success: #22c55e;
+      --danger: #ef4444; --warn: #f59e0b; --purple: #a855f7;
+      --text: #f1f5f9; --muted: #94a3b8; --border: #334155;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: 'Segoe UI', system-ui, sans-serif;
-      min-height: 100vh;
-      padding: 24px;
-    }
-    header {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      margin-bottom: 32px;
-      border-bottom: 1px solid var(--border);
-      padding-bottom: 20px;
-    }
-    header h1 { font-size: 1.6rem; color: var(--accent2); }
-    header span { color: var(--muted); font-size: 0.9rem; }
+    body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; min-height: 100vh; padding: 24px; }
 
-    /* Auth gate */
-    #auth-gate {
-      max-width: 420px;
-      margin: 80px auto;
-      background: var(--surface);
-      border-radius: 16px;
-      padding: 40px;
-      text-align: center;
-    }
+    /* Auth */
+    #auth-gate { max-width: 420px; margin: 80px auto; background: var(--surface); border-radius: 16px; padding: 40px; text-align: center; }
     #auth-gate h2 { margin-bottom: 24px; color: var(--accent2); }
-    #auth-gate input {
-      width: 100%;
-      padding: 12px 16px;
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      color: var(--text);
-      font-size: 1rem;
-      margin-bottom: 16px;
-    }
-    #auth-gate button {
-      width: 100%;
-      padding: 12px;
-      background: var(--accent);
-      color: white;
-      border: none;
-      border-radius: 8px;
-      font-size: 1rem;
-      cursor: pointer;
-    }
+    #auth-gate input { width: 100%; padding: 12px 16px; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-size: 1rem; margin-bottom: 16px; }
+    #auth-gate button { width: 100%; padding: 12px; background: var(--accent); color: white; border: none; border-radius: 8px; font-size: 1rem; cursor: pointer; }
+    #auth-error { color: var(--danger); margin-top: 12px; font-size: 0.85rem; display: none; }
 
-    /* Main UI */
+    /* Main */
     #main { display: none; }
-    .section-title {
-      font-size: 1.1rem;
-      font-weight: 600;
-      color: var(--accent2);
-      margin-bottom: 16px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .card {
-      background: var(--surface);
-      border-radius: 12px;
-      padding: 24px;
-      margin-bottom: 24px;
-      border: 1px solid var(--border);
-    }
+    header { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; border-bottom: 1px solid var(--border); padding-bottom: 20px; }
+    header h1 { font-size: 1.5rem; color: var(--accent2); }
+    header span { color: var(--muted); font-size: 0.85rem; }
 
-    /* Seed All button */
-    .btn-seed-all {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      background: var(--accent);
-      color: white;
-      border: none;
-      border-radius: 10px;
-      padding: 14px 28px;
-      font-size: 1rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: opacity 0.2s;
-      margin-bottom: 12px;
+    /* Class tabs */
+    .class-tabs { display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap; }
+    .class-tab {
+      padding: 8px 20px; border-radius: 20px; font-size: 0.85rem; font-weight: 700;
+      cursor: pointer; border: 2px solid var(--border); background: var(--surface);
+      color: var(--muted); transition: all 0.2s;
     }
-    .btn-seed-all:disabled { opacity: 0.5; cursor: not-allowed; }
-    .btn-seed-all:hover:not(:disabled) { opacity: 0.85; }
+    .class-tab.active { background: var(--accent); border-color: var(--accent); color: white; }
+    .class-tab.coming { opacity: 0.4; cursor: not-allowed; }
+
+    /* Cards */
+    .card { background: var(--surface); border-radius: 12px; padding: 20px; margin-bottom: 20px; border: 1px solid var(--border); }
+    .section-title { font-size: 1rem; font-weight: 700; color: var(--accent2); margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+
+    /* Bulk ops */
+    .bulk-row { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 12px; }
+    .btn-bulk {
+      display: flex; align-items: center; gap: 8px; padding: 10px 20px;
+      border: none; border-radius: 8px; font-size: 0.85rem; font-weight: 700;
+      cursor: pointer; transition: opacity 0.2s;
+    }
+    .btn-bulk:disabled { opacity: 0.5; cursor: not-allowed; }
+    .btn-bulk:hover:not(:disabled) { opacity: 0.85; }
+    .btn-gen-all  { background: var(--purple); color: white; }
+    .btn-seed-all { background: var(--accent); color: white; }
+    .btn-outline  { background: var(--surface2); color: var(--text); border: 1px solid var(--border); }
 
     /* Chapter grid */
-    .chapter-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 12px;
-    }
+    .chapter-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 14px; }
     .ch-card {
-      background: var(--surface2);
-      border-radius: 10px;
-      padding: 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      border: 1px solid transparent;
-      transition: border-color 0.2s;
+      background: var(--surface2); border-radius: 10px; padding: 16px;
+      display: flex; flex-direction: column; gap: 10px;
+      border: 1px solid transparent; transition: border-color 0.2s;
     }
-    .ch-card.seeded { border-color: var(--success); }
-    .ch-card.error  { border-color: var(--danger); }
+    .ch-card.seeded   { border-color: var(--success); }
+    .ch-card.generated { border-color: var(--purple); }
+    .ch-card.error    { border-color: var(--danger); }
 
-    .ch-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
+    .ch-header { display: flex; justify-content: space-between; align-items: flex-start; }
+    .ch-id    { font-size: 0.7rem; color: var(--muted); font-weight: 700; }
+    .ch-name  { font-size: 0.9rem; font-weight: 700; margin-top: 2px; }
+    .ch-topic { font-size: 0.72rem; color: var(--muted); margin-top: 2px; }
+
+    .badges { display: flex; flex-direction: column; gap: 4px; align-items: flex-end; }
+    .badge {
+      font-size: 0.65rem; padding: 2px 7px; border-radius: 20px; font-weight: 700; white-space: nowrap;
     }
-    .ch-id { font-size: 0.75rem; color: var(--muted); font-weight: 600; }
-    .ch-name { font-size: 0.9rem; font-weight: 600; }
-    .ch-topic { font-size: 0.75rem; color: var(--muted); margin-top: 2px; }
+    .badge-pending  { background: rgba(245,158,11,0.2); color: var(--warn); }
+    .badge-seeded   { background: rgba(34,197,94,0.2); color: var(--success); }
+    .badge-seeding  { background: rgba(99,102,241,0.2); color: var(--accent); }
+    .badge-error    { background: rgba(239,68,68,0.2); color: var(--danger); }
+    .badge-bank     { background: rgba(168,85,247,0.2); color: var(--purple); }
+    .badge-gen      { background: rgba(168,85,247,0.15); color: #c084fc; }
 
-    .status-badge {
-      font-size: 0.7rem;
-      padding: 3px 8px;
-      border-radius: 20px;
-      font-weight: 600;
+    /* Generate controls */
+    .gen-controls { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+    .gen-controls select, .gen-controls input {
+      background: var(--bg); border: 1px solid var(--border); border-radius: 6px;
+      color: var(--text); font-size: 0.78rem; padding: 5px 8px;
     }
-    .status-pending  { background: rgba(245,158,11,0.2); color: var(--warn); }
-    .status-seeded   { background: rgba(34,197,94,0.2); color: var(--success); }
-    .status-seeding  { background: rgba(99,102,241,0.2); color: var(--accent); }
-    .status-error    { background: rgba(239,68,68,0.2); color: var(--danger); }
+    .gen-controls select { flex: 1; min-width: 120px; }
+    .gen-controls input  { width: 52px; text-align: center; }
 
-    .ch-actions { display: flex; gap: 8px; }
+    /* Action buttons */
+    .ch-actions { display: flex; gap: 6px; flex-wrap: wrap; }
     .btn-sm {
-      flex: 1;
-      padding: 8px 0;
-      border: none;
-      border-radius: 6px;
-      font-size: 0.8rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: opacity 0.2s;
+      flex: 1; padding: 7px 4px; border: none; border-radius: 6px;
+      font-size: 0.75rem; font-weight: 700; cursor: pointer; transition: opacity 0.2s; min-width: 70px;
     }
-    .btn-sm:disabled { opacity: 0.5; cursor: not-allowed; }
-    .btn-seed   { background: rgba(99,102,241,0.3); color: #a5b4fc; }
-    .btn-delete { background: rgba(239,68,68,0.2); color: #fca5a5; }
-    .btn-seed:hover:not(:disabled)   { background: rgba(99,102,241,0.5); }
-    .btn-delete:hover:not(:disabled) { background: rgba(239,68,68,0.4); }
+    .btn-sm:disabled { opacity: 0.45; cursor: not-allowed; }
+    .btn-generate { background: rgba(168,85,247,0.3); color: #d8b4fe; }
+    .btn-generate:hover:not(:disabled) { background: rgba(168,85,247,0.5); }
+    .btn-preview  { background: rgba(34,211,238,0.15); color: var(--accent2); }
+    .btn-preview:hover:not(:disabled) { background: rgba(34,211,238,0.3); }
+    .btn-seed     { background: rgba(99,102,241,0.25); color: #a5b4fc; }
+    .btn-seed:hover:not(:disabled) { background: rgba(99,102,241,0.45); }
+    .btn-delete   { background: rgba(239,68,68,0.18); color: #fca5a5; }
+    .btn-delete:hover:not(:disabled) { background: rgba(239,68,68,0.35); }
+
+    /* KV keys */
+    #kv-list { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+    .kv-key { background: var(--surface2); border-radius: 6px; padding: 3px 9px; font-size: 0.72rem; color: var(--muted); font-family: monospace; }
 
     /* Log */
-    #log {
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 16px;
-      font-family: monospace;
-      font-size: 0.8rem;
-      max-height: 240px;
-      overflow-y: auto;
-      color: var(--muted);
-    }
+    #log { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 14px; font-family: monospace; font-size: 0.78rem; max-height: 220px; overflow-y: auto; color: var(--muted); }
     .log-ok   { color: var(--success); }
     .log-err  { color: var(--danger); }
     .log-info { color: var(--accent2); }
+    .log-gen  { color: var(--purple); }
 
-    /* KV key list */
-    #kv-list { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
-    .kv-key {
-      background: var(--surface2);
-      border-radius: 6px;
-      padding: 4px 10px;
-      font-size: 0.75rem;
-      color: var(--muted);
-      font-family: monospace;
+    /* Preview modal */
+    #preview-modal {
+      display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.75);
+      z-index: 1000; align-items: center; justify-content: center; padding: 20px;
     }
+    #preview-modal.open { display: flex; }
+    .preview-box {
+      background: var(--surface); border-radius: 16px; padding: 28px;
+      max-width: 760px; width: 100%; max-height: 85vh; overflow-y: auto;
+      border: 1px solid var(--border);
+    }
+    .preview-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+    .preview-header h2 { color: var(--purple); font-size: 1.1rem; }
+    .btn-close { background: var(--surface2); border: 1px solid var(--border); color: var(--muted); padding: 6px 14px; border-radius: 8px; cursor: pointer; font-size: 0.85rem; }
 
-    .divider { height: 1px; background: var(--border); margin: 8px 0; }
+    .q-item { background: var(--surface2); border-radius: 8px; padding: 14px; margin-bottom: 12px; border-left: 3px solid var(--purple); }
+    .q-meta { font-size: 0.68rem; color: var(--muted); margin-bottom: 6px; display: flex; gap: 8px; flex-wrap: wrap; }
+    .q-text { font-size: 0.9rem; font-weight: 600; margin-bottom: 10px; line-height: 1.4; }
+    .q-options { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 8px; }
+    .q-opt { font-size: 0.8rem; padding: 5px 10px; border-radius: 6px; background: var(--bg); }
+    .q-opt.correct { background: rgba(34,197,94,0.2); color: var(--success); font-weight: 700; }
+    .q-explanation { font-size: 0.78rem; color: var(--muted); font-style: italic; border-top: 1px solid var(--border); padding-top: 8px; margin-top: 6px; }
+    .tag-pill { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 0.65rem; font-weight: 700; background: rgba(168,85,247,0.2); color: #c084fc; }
+    .diff-pill { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 0.65rem; font-weight: 700; }
+    .diff-easy   { background: rgba(34,197,94,0.2); color: var(--success); }
+    .diff-medium { background: rgba(245,158,11,0.2); color: var(--warn); }
+    .diff-hard   { background: rgba(239,68,68,0.2); color: var(--danger); }
+    .src-pill { background: rgba(34,211,238,0.15); color: var(--accent2); display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 0.65rem; font-weight: 700; }
+
+    .divider { height: 1px; background: var(--border); margin: 10px 0; }
   </style>
 </head>
 <body>
 
-<!-- AUTH GATE -->
+<!-- AUTH -->
 <div id="auth-gate">
   <h2>🔐 Admin Access</h2>
-  <p style="color:var(--muted);margin-bottom:24px;font-size:0.9rem;">
-    Enter your admin token to manage question banks
-  </p>
+  <p style="color:var(--muted);margin-bottom:24px;font-size:0.88rem;">RISHI Question Bank Manager</p>
   <input type="password" id="token-input" placeholder="Admin token" />
-  <button onclick="doLogin()">Enter Admin Panel</button>
-  <p id="auth-error" style="color:var(--danger);margin-top:12px;font-size:0.85rem;display:none;">
-    Invalid token. Try again.
-  </p>
+  <button onclick="doLogin()">Enter</button>
+  <p id="auth-error">Invalid token. Try again.</p>
 </div>
 
-<!-- MAIN PANEL -->
+<!-- MAIN -->
 <div id="main">
   <header>
     <div>
       <h1>⚙️ RISHI Question Bank Manager</h1>
-      <span>CBSE Class 8 · Cloudflare KV · 16 chapters</span>
+      <span id="header-sub">CBSE · Cloudflare KV</span>
     </div>
-    <button onclick="doLogout()" style="margin-left:auto;background:var(--surface2);color:var(--muted);border:1px solid var(--border);padding:8px 16px;border-radius:8px;cursor:pointer;font-size:0.85rem;">
-      Logout
-    </button>
+    <button onclick="doLogout()" style="margin-left:auto;background:var(--surface2);color:var(--muted);border:1px solid var(--border);padding:8px 16px;border-radius:8px;cursor:pointer;font-size:0.82rem;">Logout</button>
   </header>
 
-  <!-- SEED ALL -->
+  <!-- CLASS TABS -->
+  <div class="class-tabs">
+    <button class="class-tab coming" title="Coming soon">Class 6</button>
+    <button class="class-tab active" onclick="switchClass(7, this)">Class 7</button>
+    <button class="class-tab" onclick="switchClass(8, this)">Class 8</button>
+    <button class="class-tab coming" title="Coming soon">Class 9</button>
+    <button class="class-tab coming" title="Coming soon">Class 10</button>
+  </div>
+
+  <!-- BULK OPS -->
   <div class="card">
     <div class="section-title">🚀 Bulk Operations</div>
-    <button class="btn-seed-all" id="btn-seed-all" onclick="seedAll()">
-      ⬆ Seed All 16 Chapters to KV
-    </button>
-    <p style="color:var(--muted);font-size:0.82rem;">
-      Loads all chapter exam.json files from the repo into Cloudflare KV. Run this once after deployment, then annually when you refresh questions.
-    </p>
-    <div class="divider"></div>
-    <div style="display:flex;gap:10px;margin-top:8px;">
-      <button onclick="listKeys()" style="background:var(--surface2);color:var(--text);border:1px solid var(--border);padding:8px 16px;border-radius:8px;cursor:pointer;font-size:0.85rem;">
-        📋 List KV Keys
-      </button>
-      <button onclick="clearLog()" style="background:var(--surface2);color:var(--muted);border:1px solid var(--border);padding:8px 16px;border-radius:8px;cursor:pointer;font-size:0.85rem;">
-        🗑 Clear Log
-      </button>
+    <div class="bulk-row">
+      <button class="btn-bulk btn-gen-all" id="btn-gen-all" onclick="generateAll()">✨ Generate All Chapters (AI)</button>
+      <button class="btn-bulk btn-seed-all" id="btn-seed-all" onclick="seedAll()">⬆ Seed All to KV</button>
+      <button class="btn-bulk btn-outline" onclick="listKeys()">📋 List KV Keys</button>
+      <button class="btn-bulk btn-outline" onclick="clearLog()">🗑 Clear Log</button>
     </div>
     <div id="kv-list"></div>
   </div>
 
-  <!-- CHAPTER CARDS -->
+  <!-- CHAPTER GRID -->
   <div class="card">
-    <div class="section-title">📚 Chapter-wise Management</div>
+    <div class="section-title" id="grid-title">📚 Class 7 — Chapter Management</div>
     <div class="chapter-grid" id="chapter-grid"></div>
   </div>
 
-  <!-- ACTIVITY LOG -->
+  <!-- LOG -->
   <div class="card">
     <div class="section-title">📝 Activity Log</div>
     <div id="log"><span class="log-info">— Ready —</span></div>
   </div>
 </div>
 
+<!-- PREVIEW MODAL -->
+<div id="preview-modal">
+  <div class="preview-box">
+    <div class="preview-header">
+      <h2 id="preview-title">Generated Questions</h2>
+      <button class="btn-close" onclick="closePreview()">✕ Close</button>
+    </div>
+    <div id="preview-body"></div>
+  </div>
+</div>
+
 <script>
-// ── Chapter data ─────────────────────────────────────────
-const CHAPTERS = [
-  { id: "01", name: "Rational Numbers",                 topic: "Arithmetic"    },
-  { id: "02", name: "Linear Equations",                 topic: "Algebra"       },
-  { id: "03", name: "Understanding Quadrilaterals",     topic: "Geometry"      },
-  { id: "04", name: "Practical Geometry",               topic: "Geometry"      },
-  { id: "05", name: "Data Handling",                    topic: "Data Handling" },
-  { id: "08", name: "Comparing Quantities",             topic: "Arithmetic"    },
-  { id: "09", name: "Algebraic Expressions",            topic: "Algebra"       },
-  { id: "10", name: "Visualising Solid Shapes",         topic: "Geometry"      },
-  { id: "11a", name: "Mensuration — Area",              topic: "Mensuration"   },
-  { id: "11b", name: "Mensuration — Volume",            topic: "Mensuration"   },
-  { id: "12", name: "Exponents and Powers",             topic: "Arithmetic"    },
-  { id: "13", name: "Direct & Inverse Proportion",      topic: "Arithmetic"    },
-  { id: "14", name: "Factorisation",                    topic: "Algebra"       },
-  { id: "15", name: "Playing with Numbers",             topic: "Algebra"       },
-  { id: "16", name: "Introduction to Graphs",           topic: "Data Handling" },
+// ── Chapter data ──────────────────────────────────────────
+const CHAPTERS = {
+  7: [
+    { id: "01", name: "Integers",                         topic: "Number System" },
+    { id: "02", name: "Fractions and Decimals",           topic: "Number System" },
+    { id: "03", name: "Data Handling",                    topic: "Data Handling" },
+    { id: "04", name: "Simple Equations",                 topic: "Algebra"       },
+    { id: "05", name: "Lines and Angles",                 topic: "Geometry"      },
+    { id: "06", name: "The Triangle and its Properties",  topic: "Geometry"      },
+    { id: "07", name: "Congruence of Triangles",          topic: "Geometry"      },
+    { id: "08", name: "Comparing Quantities",             topic: "Arithmetic"    },
+    { id: "09", name: "Rational Numbers",                 topic: "Number System" },
+    { id: "10", name: "Practical Geometry",               topic: "Geometry"      },
+    { id: "11", name: "Perimeter and Area",               topic: "Mensuration"   },
+    { id: "12", name: "Algebraic Expressions",            topic: "Algebra"       },
+    { id: "13", name: "Exponents and Powers",             topic: "Number System" },
+  ],
+  8: [
+    { id: "01",  name: "Rational Numbers",                topic: "Arithmetic"    },
+    { id: "02",  name: "Linear Equations",                topic: "Algebra"       },
+    { id: "03",  name: "Understanding Quadrilaterals",    topic: "Geometry"      },
+    { id: "04",  name: "Practical Geometry",              topic: "Geometry"      },
+    { id: "05",  name: "Data Handling",                   topic: "Data Handling" },
+    { id: "08",  name: "Comparing Quantities",            topic: "Arithmetic"    },
+    { id: "09",  name: "Algebraic Expressions",           topic: "Algebra"       },
+    { id: "10",  name: "Visualising Solid Shapes",        topic: "Geometry"      },
+    { id: "11a", name: "Mensuration — Area",              topic: "Mensuration"   },
+    { id: "11b", name: "Mensuration — Volume",            topic: "Mensuration"   },
+    { id: "12",  name: "Exponents and Powers",            topic: "Arithmetic"    },
+    { id: "13",  name: "Direct & Inverse Proportion",     topic: "Arithmetic"    },
+    { id: "14",  name: "Factorisation",                   topic: "Algebra"       },
+    { id: "15",  name: "Playing with Numbers",            topic: "Algebra"       },
+    { id: "16",  name: "Introduction to Graphs",          topic: "Data Handling" },
+  ]
+};
+
+const TAGS = [
+  { value: "chapter_exam", label: "Chapter Exam" },
+  { value: "practice",     label: "Practice"     },
+  { value: "topic_exam",   label: "Topic Exam"   },
+  { value: "sampurna",     label: "Sampurna"     },
+  { value: "explain",      label: "Explain"       },
 ];
 
-let adminToken = "";
+const SOURCE_LABELS = { NCT:"NCERT", RDS:"RD Sharma", RSA:"RS Aggarwal", EXM:"Exemplar", CBP:"CBSE PY", OLY:"Olympiad", ORI:"Original" };
+
+let adminToken  = "";
+let activeClass = 7;
+let bankCache   = {};  // chId → { count, questions }
 
 // ── Auth ──────────────────────────────────────────────────
 function doLogin() {
   const t = document.getElementById("token-input").value.trim();
   if (!t) return;
-  // Store token and show main (actual validation happens on first API call)
   adminToken = t;
   sessionStorage.setItem("rishi_admin_token", t);
   document.getElementById("auth-gate").style.display = "none";
   document.getElementById("main").style.display = "block";
   buildGrid();
-  log("Logged in. Token set.", "info");
+  log("Session started.", "info");
 }
-
 function doLogout() {
   adminToken = "";
   sessionStorage.removeItem("rishi_admin_token");
@@ -295,8 +284,6 @@ function doLogout() {
   document.getElementById("auth-gate").style.display = "block";
   document.getElementById("token-input").value = "";
 }
-
-// Auto-restore session
 window.addEventListener("load", () => {
   const saved = sessionStorage.getItem("rishi_admin_token");
   if (saved) {
@@ -306,185 +293,319 @@ window.addEventListener("load", () => {
     buildGrid();
     log("Session restored.", "info");
   }
+  document.getElementById("token-input").addEventListener("keydown", e => {
+    if (e.key === "Enter") doLogin();
+  });
 });
+
+// ── Class switch ──────────────────────────────────────────
+function switchClass(cls, tabEl) {
+  if (tabEl.classList.contains("coming")) return;
+  document.querySelectorAll(".class-tab").forEach(t => t.classList.remove("active"));
+  tabEl.classList.add("active");
+  activeClass = cls;
+  bankCache = {};
+  buildGrid();
+  log(`Switched to Class ${cls}`, "info");
+}
 
 // ── Build chapter grid ────────────────────────────────────
 function buildGrid() {
+  const chapters = CHAPTERS[activeClass] || [];
+  document.getElementById("grid-title").textContent = `📚 Class ${activeClass} — Chapter Management`;
+  document.getElementById("header-sub").textContent = `CBSE Class ${activeClass} · Cloudflare KV`;
+
   const grid = document.getElementById("chapter-grid");
   grid.innerHTML = "";
-  CHAPTERS.forEach(ch => {
+
+  chapters.forEach(ch => {
     const card = document.createElement("div");
     card.className = "ch-card";
     card.id = `card-${ch.id}`;
+
+    // Tag options
+    const tagOptions = TAGS.map(t =>
+      `<option value="${t.value}">${t.label}</option>`
+    ).join("");
+
     card.innerHTML = `
       <div class="ch-header">
         <div>
-          <div class="ch-id">Ch ${ch.id}</div>
+          <div class="ch-id">Ch ${ch.id} · ${activeClass} CBSE</div>
           <div class="ch-name">${ch.name}</div>
           <div class="ch-topic">${ch.topic}</div>
         </div>
-        <span class="status-badge status-pending" id="status-${ch.id}">Pending</span>
+        <div class="badges">
+          <span class="badge badge-pending" id="kv-badge-${ch.id}">KV: —</span>
+          <span class="badge badge-bank"    id="bank-badge-${ch.id}" style="display:none">Bank: 0</span>
+        </div>
       </div>
+
+      <div class="gen-controls">
+        <select id="tag-${ch.id}">${tagOptions}</select>
+        <input  type="number" id="count-${ch.id}" value="15" min="5" max="20" title="Questions to generate" />
+        <select id="mode-${ch.id}" style="width:90px">
+          <option value="append">Append</option>
+          <option value="replace">Replace</option>
+        </select>
+      </div>
+
       <div class="ch-actions">
-        <button class="btn-sm btn-seed" id="seed-btn-${ch.id}" onclick="seedChapter('${ch.id}')">
-          ⬆ Seed to KV
-        </button>
-        <button class="btn-sm btn-delete" id="del-btn-${ch.id}" onclick="deleteChapter('${ch.id}')">
-          🗑 Delete
-        </button>
+        <button class="btn-sm btn-generate" id="gen-btn-${ch.id}"  onclick="generateChapter('${ch.id}')">✨ Generate</button>
+        <button class="btn-sm btn-preview"  id="prev-btn-${ch.id}" onclick="previewChapter('${ch.id}')" style="display:none">👁 Preview</button>
+        <button class="btn-sm btn-seed"     id="seed-btn-${ch.id}" onclick="seedChapter('${ch.id}')">⬆ Seed</button>
+        <button class="btn-sm btn-delete"   id="del-btn-${ch.id}"  onclick="deleteChapter('${ch.id}')">🗑</button>
       </div>
     `;
     grid.appendChild(card);
   });
 }
 
-// ── API call helper ───────────────────────────────────────
-async function adminAPI(body) {
-  const res = await fetch("/api/admin", {
+// ── API helpers ───────────────────────────────────────────
+async function adminAPI(endpoint, body) {
+  const res = await fetch(endpoint, {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "Authorization": `Bearer ${adminToken}`,
-    },
-    body: JSON.stringify(body),
+    headers: { "Content-Type": "application/json", "Authorization": `Bearer ${adminToken}` },
+    body: JSON.stringify(body)
   });
   const data = await res.json();
-  if (res.status === 401) {
-    document.getElementById("auth-error") && (document.getElementById("auth-error").style.display = "block");
-    throw new Error("Unauthorised — token may be invalid");
-  }
+  if (res.status === 401) { alert("Token invalid. Please log in again."); doLogout(); throw new Error("Unauthorised"); }
   return data;
 }
 
-// ── Seed single chapter ───────────────────────────────────
-async function seedChapter(chId) {
-  setStatus(chId, "seeding", "Seeding…");
-  setButtonsDisabled(chId, true);
-  log(`Seeding ch${chId}…`, "info");
+// ── Generate single chapter ───────────────────────────────
+async function generateChapter(chId) {
+  const chapters = CHAPTERS[activeClass] || [];
+  const ch = chapters.find(c => c.id === chId);
+  if (!ch) return;
+
+  const tag   = document.getElementById(`tag-${chId}`).value;
+  const count = parseInt(document.getElementById(`count-${chId}`).value) || 15;
+  const mode  = document.getElementById(`mode-${chId}`).value;
+
+  setGenBusy(chId, true);
+  log(`✨ Generating ${count} ${tag} questions for Ch${chId} (${ch.name}) — Class ${activeClass}…`, "gen");
 
   try {
-    const data = await adminAPI({ action: "seed", board: "cbse", class: "8", ch: chId, type: "exam" });
-    if (data.error) throw new Error(data.error);
-    setStatus(chId, "seeded", "✓ In KV");
-    document.getElementById(`card-${chId}`).classList.add("seeded");
-    log(`✓ ch${chId}: ${data.message}`, "ok");
-  } catch (err) {
-    setStatus(chId, "error", "Error");
-    document.getElementById(`card-${chId}`).classList.add("error");
-    log(`✗ ch${chId}: ${err.message}`, "err");
-  }
-  setButtonsDisabled(chId, false);
-}
-
-// ── Delete single chapter ─────────────────────────────────
-async function deleteChapter(chId) {
-  if (!confirm(`Delete KV key for ch${chId}? This will remove it from the live database.`)) return;
-  log(`Deleting ch${chId}…`, "info");
-  try {
-    const data = await adminAPI({ action: "delete", board: "cbse", class: "8", ch: chId, type: "exam" });
-    setStatus(chId, "pending", "Pending");
-    document.getElementById(`card-${chId}`).classList.remove("seeded", "error");
-    log(`✓ ${data.message}`, "ok");
-  } catch (err) {
-    log(`✗ Delete ch${chId}: ${err.message}`, "err");
-  }
-}
-
-// ── Seed all ──────────────────────────────────────────────
-async function seedAll() {
-  const btn = document.getElementById("btn-seed-all");
-  btn.disabled = true;
-  btn.textContent = "⏳ Seeding all chapters…";
-  log("=== Starting seed_all ===", "info");
-
-  try {
-    const data = await adminAPI({ action: "seed_all", board: "cbse", class: "8", type: "exam" });
-    (data.results || []).forEach(r => {
-      if (r.error) {
-        setStatus(r.ch, "error", "Error");
-        document.getElementById(`card-${r.ch}`)?.classList.add("error");
-        log(`✗ ch${r.ch}: ${r.error}`, "err");
-      } else {
-        setStatus(r.ch, "seeded", "✓ In KV");
-        document.getElementById(`card-${r.ch}`)?.classList.add("seeded");
-        log(`✓ ch${r.ch}: ${r.message}`, "ok");
-      }
+    const data = await adminAPI("/api/generate-questions", {
+      board: "cbse", class: String(activeClass),
+      chId, chapterName: ch.name, tag, count, mode
     });
-    log(`=== Done: ${data.message} ===`, "info");
+
+    if (data.error) throw new Error(data.error);
+
+    // Cache questions for preview
+    bankCache[chId] = { count: data.total_in_bank, questions: data.questions, chapterName: ch.name, tag };
+
+    // Update badges
+    const bankBadge = document.getElementById(`bank-badge-${chId}`);
+    bankBadge.textContent = `Bank: ${data.total_in_bank}`;
+    bankBadge.style.display = "block";
+    document.getElementById(`card-${chId}`).classList.add("generated");
+    document.getElementById(`prev-btn-${chId}`).style.display = "";
+
+    log(`✓ Ch${chId}: Generated ${data.generated} questions. Bank total: ${data.total_in_bank} [${data.kvKey}]`, "ok");
   } catch (err) {
-    log(`✗ seed_all failed: ${err.message}`, "err");
+    document.getElementById(`card-${chId}`).classList.add("error");
+    log(`✗ Ch${chId} generate failed: ${err.message}`, "err");
+  }
+
+  setGenBusy(chId, false);
+}
+
+// ── Preview questions ─────────────────────────────────────
+function previewChapter(chId) {
+  const cache = bankCache[chId];
+  if (!cache || !cache.questions || !cache.questions.length) {
+    log(`No preview data for ch${chId} — generate first.`, "err"); return;
+  }
+
+  document.getElementById("preview-title").textContent =
+    `Ch${chId}: ${cache.chapterName} — ${cache.questions.length} questions (${cache.tag})`;
+
+  const body = document.getElementById("preview-body");
+  body.innerHTML = "";
+
+  cache.questions.forEach((q, i) => {
+    const diffClass = `diff-${q.difficulty || "medium"}`;
+    const srcLabel  = SOURCE_LABELS[q.source] || q.source || "—";
+    const optHtml   = (q.options || []).map((opt, idx) =>
+      `<div class="q-opt${idx === q.correct ? " correct" : ""}">
+        ${String.fromCharCode(65 + idx)}. ${escHtml(opt)}
+       </div>`
+    ).join("");
+
+    body.innerHTML += `
+      <div class="q-item">
+        <div class="q-meta">
+          <span>${i + 1}/${cache.questions.length}</span>
+          <span class="tag-pill">${q.tag || cache.tag}</span>
+          <span class="diff-pill ${diffClass}">${q.difficulty || "medium"}</span>
+          <span class="src-pill">${srcLabel}</span>
+          <span style="color:var(--muted)">${q.id}</span>
+        </div>
+        <div class="q-text">${escHtml(q.q)}</div>
+        <div class="q-options">${optHtml}</div>
+        ${q.explanation ? `<div class="q-explanation">💡 ${escHtml(q.explanation)}</div>` : ""}
+      </div>`;
+  });
+
+  document.getElementById("preview-modal").classList.add("open");
+}
+
+function closePreview() {
+  document.getElementById("preview-modal").classList.remove("open");
+}
+// Close modal on backdrop click
+document.getElementById("preview-modal").addEventListener("click", function(e) {
+  if (e.target === this) closePreview();
+});
+
+// ── Generate all chapters ─────────────────────────────────
+async function generateAll() {
+  const btn = document.getElementById("btn-gen-all");
+  btn.disabled = true;
+  btn.textContent = "⏳ Generating…";
+
+  const chapters = CHAPTERS[activeClass] || [];
+  const tag = "chapter_exam";
+  log(`=== Generate All — Class ${activeClass} (${tag}) ===`, "gen");
+
+  for (const ch of chapters) {
+    await generateChapter(ch.id);
+    await sleep(800); // small delay between calls
   }
 
   btn.disabled = false;
-  btn.innerHTML = "⬆ Seed All 16 Chapters to KV";
+  btn.textContent = "✨ Generate All Chapters (AI)";
+  log(`=== Generate All complete ===`, "gen");
 }
 
-// ── List KV keys ──────────────────────────────────────────
+// ── Seed / Delete / List (existing, adapted for multi-class) ─
+async function seedChapter(chId) {
+  setKvBusy(chId, true);
+  log(`⬆ Seeding Ch${chId} (Class ${activeClass}) to KV…`, "info");
+  try {
+    const data = await adminAPI("/api/admin", {
+      action: "seed", board: "cbse", class: String(activeClass), ch: chId, type: "exam"
+    });
+    if (data.error) throw new Error(data.error);
+    setKvStatus(chId, "seeded", "KV: ✓");
+    document.getElementById(`card-${chId}`).classList.add("seeded");
+    log(`✓ Ch${chId} seeded: ${data.message}`, "ok");
+  } catch (err) {
+    setKvStatus(chId, "error", "KV: ✗");
+    log(`✗ Ch${chId} seed failed: ${err.message}`, "err");
+  }
+  setKvBusy(chId, false);
+}
+
+async function deleteChapter(chId) {
+  if (!confirm(`Delete KV key for Ch${chId} Class ${activeClass}?`)) return;
+  try {
+    const data = await adminAPI("/api/admin", {
+      action: "delete", board: "cbse", class: String(activeClass), ch: chId, type: "exam"
+    });
+    setKvStatus(chId, "pending", "KV: —");
+    document.getElementById(`card-${chId}`).classList.remove("seeded", "error");
+    log(`✓ ${data.message}`, "ok");
+  } catch (err) {
+    log(`✗ Delete Ch${chId}: ${err.message}`, "err");
+  }
+}
+
+async function seedAll() {
+  const btn = document.getElementById("btn-seed-all");
+  btn.disabled = true;
+  btn.textContent = "⏳ Seeding…";
+  log(`=== Seed All — Class ${activeClass} ===`, "info");
+  try {
+    const data = await adminAPI("/api/admin", {
+      action: "seed_all", board: "cbse", class: String(activeClass), type: "exam"
+    });
+    (data.results || []).forEach(r => {
+      if (r.error) {
+        setKvStatus(r.ch, "error", "KV: ✗");
+        log(`✗ Ch${r.ch}: ${r.error}`, "err");
+      } else {
+        setKvStatus(r.ch, "seeded", "KV: ✓");
+        document.getElementById(`card-${r.ch}`)?.classList.add("seeded");
+        log(`✓ Ch${r.ch}: ${r.message}`, "ok");
+      }
+    });
+    log(`=== ${data.message} ===`, "info");
+  } catch (err) {
+    log(`✗ Seed all failed: ${err.message}`, "err");
+  }
+  btn.disabled = false;
+  btn.textContent = "⬆ Seed All to KV";
+}
+
 async function listKeys() {
   log("Listing KV keys…", "info");
   try {
-    const data = await adminAPI({ action: "list" });
+    const data = await adminAPI("/api/admin", { action: "list" });
     const container = document.getElementById("kv-list");
     container.innerHTML = "";
     if (!data.keys || !data.keys.length) {
-      container.innerHTML = "<span style='color:var(--muted);font-size:0.8rem;'>No keys found in KV</span>";
-      log("KV is empty", "info");
-      return;
+      container.innerHTML = "<span style='color:var(--muted);font-size:0.78rem;'>No keys in KV</span>";
+      log("KV is empty", "info"); return;
     }
+    // Filter keys relevant to active class
     data.keys.forEach(k => {
       const span = document.createElement("span");
       span.className = "kv-key";
       span.textContent = k;
       container.appendChild(span);
-
-      // Mark corresponding card as seeded
-      const match = k.match(/ch(\w+)_exam/);
+      // Mark card as seeded if it matches active class
+      const match = k.match(new RegExp(`cbse_${activeClass}_ch(\\w+)_`));
       if (match) {
-        setStatus(match[1], "seeded", "✓ In KV");
+        setKvStatus(match[1], "seeded", "KV: ✓");
         document.getElementById(`card-${match[1]}`)?.classList.add("seeded");
       }
     });
-    log(`Found ${data.keys.length} keys in KV`, "ok");
+    log(`${data.keys.length} keys in KV`, "ok");
   } catch (err) {
     log(`✗ List failed: ${err.message}`, "err");
   }
 }
 
 // ── UI helpers ────────────────────────────────────────────
-function setStatus(chId, statusClass, text) {
-  const badge = document.getElementById(`status-${chId}`);
-  if (!badge) return;
-  badge.className = `status-badge status-${statusClass}`;
-  badge.textContent = text;
+function setGenBusy(chId, busy) {
+  const btn = document.getElementById(`gen-btn-${chId}`);
+  if (!btn) return;
+  btn.disabled = busy;
+  btn.textContent = busy ? "⏳…" : "✨ Generate";
 }
 
-function setButtonsDisabled(chId, disabled) {
+function setKvBusy(chId, busy) {
   const s = document.getElementById(`seed-btn-${chId}`);
   const d = document.getElementById(`del-btn-${chId}`);
-  if (s) s.disabled = disabled;
-  if (d) d.disabled = disabled;
+  if (s) s.disabled = busy;
+  if (d) d.disabled = busy;
+}
+
+function setKvStatus(chId, cls, text) {
+  const badge = document.getElementById(`kv-badge-${chId}`);
+  if (!badge) return;
+  badge.className = `badge badge-${cls === "seeded" ? "seeded" : cls === "error" ? "error" : "pending"}`;
+  badge.textContent = text;
 }
 
 function log(msg, type = "info") {
   const el = document.getElementById("log");
   const line = document.createElement("div");
   line.className = `log-${type}`;
-  const time = new Date().toLocaleTimeString();
-  line.textContent = `[${time}] ${msg}`;
+  line.textContent = `[${new Date().toLocaleTimeString()}] ${msg}`;
   el.appendChild(line);
   el.scrollTop = el.scrollHeight;
 }
 
-function clearLog() {
-  document.getElementById("log").innerHTML = "";
+function clearLog() { document.getElementById("log").innerHTML = ""; }
+function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+function escHtml(str) {
+  return String(str).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
 }
-
-// Enter key on token input
-document.addEventListener("keydown", e => {
-  if (e.key === "Enter" && document.getElementById("auth-gate").style.display !== "none") {
-    doLogin();
-  }
-});
 </script>
 </body>
 </html>
