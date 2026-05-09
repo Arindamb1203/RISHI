@@ -186,7 +186,7 @@ Return ONLY this JSON array, nothing else:
       },
       body: JSON.stringify({
         model:       OPENAI_MODEL,
-        max_tokens:  4000,
+        max_tokens:  6000,
         temperature: 0.7,
         messages: [
           { role: "system", content: systemPrompt },
@@ -214,6 +214,12 @@ Return ONLY this JSON array, nothing else:
   /* ── Parse JSON from response ── */
   // Strip markdown code fences if OpenAI added them despite instructions
   raw = raw.replace(/^```json\s*/i, "").replace(/^```\s*/i, "").replace(/\s*```$/i, "").trim();
+
+  // Repair truncated JSON — if cut off mid-array, close it at last complete object
+  if (!raw.endsWith("]")) {
+    const lastClose = raw.lastIndexOf("}");
+    if (lastClose > 0) raw = raw.substring(0, lastClose + 1) + "]";
+  }
 
   let newQuestions;
   try {
