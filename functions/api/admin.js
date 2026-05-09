@@ -72,6 +72,21 @@ export async function onRequestPost(context) {
   // ── Route actions ────────────────────────────────────────
   switch (action) {
 
+    case "get": {
+      if (!ch) return jsonResponse({ error: "Missing param: ch" }, 400);
+      const chId = normaliseChId(ch);
+      const tag  = body.tag || "chapter_exam";
+      const kvKey = `${board}_${cls}_ch${chId}_${tag}`;
+      const raw = await env.RISHI_QUESTIONS.get(kvKey);
+      if (!raw) return jsonResponse({ error: `No data found for key: ${kvKey}` }, 404);
+      try {
+        const parsed = JSON.parse(raw);
+        return jsonResponse({ ...parsed.meta, questions: parsed.questions }, 200);
+      } catch(e) {
+        return jsonResponse({ error: "Corrupt KV data", detail: e.message }, 500);
+      }
+    }
+
     case "seed": {
       if (!ch) return jsonResponse({ error: "Missing param: ch" }, 400);
       const result = await seedChapter(env, request, board, cls, ch, type);
