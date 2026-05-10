@@ -1168,7 +1168,12 @@ function buildPageRow(label, url, built, done, sessions, cid) {
 }
 
 function openPage(url) {
-  window.open(url, "_blank");
+  var bypass = sessionStorage.getItem('rishi_admin_bypass') === '1';
+  if (bypass) {
+    var sep = url.indexOf('?') >= 0 ? '&' : '?';
+    url = url + sep + 'bypass=1';
+  }
+  window.open(url, '_blank');
 }
 
 function resetChapter(cid) {
@@ -1747,12 +1752,7 @@ function qbLog(msg) {
   var el = document.getElementById('qb-log');
   if (!el) return;
   var time = new Date().toLocaleTimeString();
-  // Colorize: Ch number in gold, chapter name in parentheses in cyan
-  var colored = msg
-    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
-    .replace(/(Ch\w+):/g, '<span style="color:var(--gold);font-weight:900;">$1</span>:')
-    .replace(/\(([^)]+)\)/g, '(<span style="color:var(--accent2,#22d3ee);font-weight:800;">$1</span>)');
-  el.innerHTML += '\n[' + time + '] ' + colored;
+  el.textContent += '\n[' + time + '] ' + msg;
   el.scrollTop = el.scrollHeight;
 }
 function qbClearLog() { var el = document.getElementById('qb-log'); if (el) el.textContent = ''; }
