@@ -80,6 +80,39 @@ const FOLDER_MAP = {
   },
 };
 
+
+// Convert new question bank format (flat array) → old sections format
+function bankToSections(bankData) {
+  const letters = ['a','b','c','d'];
+  const qs = (bankData.questions || []).map(function(q) {
+    return {
+      id:          q.id,
+      text:        q.q,
+      options:     { a: q.options[0], b: q.options[1], c: q.options[2], d: q.options[3] },
+      correct:     letters[Math.min(q.correct, 3)] || 'a',
+      difficulty:  q.difficulty || 'medium',
+      explanation: q.explanation || ''
+    };
+  });
+  return {
+    meta: {
+      board:        (bankData.meta && bankData.meta.board)       || 'cbse',
+      class:        (bankData.meta && bankData.meta.class)       || 8,
+      chapter_id:   (bankData.meta && bankData.meta.chId)        || '',
+      chapter_name: (bankData.meta && bankData.meta.chapterName) || '',
+      topic_group:  ''
+    },
+    sections: {
+      A: {
+        type:        'mcq',
+        label:       'Conceptual',
+        marks_per_q: 1,
+        questions:   qs
+      }
+    }
+  };
+}
+
 export async function onRequestGet(context) {
   const { request, env } = context;
   const url = new URL(request.url);
@@ -103,10 +136,24 @@ export async function onRequestGet(context) {
   const kvKey = `${board}_${cls}_ch${chIdPadded}_${type}`;
 
   try {
-    // 1. Try KV first
+    // 1. Try KV first (try both _exam and _chapter_exam tags)
     if (env.RISHI_QUESTIONS) {
-      const kvData = await env.RISHI_QUESTIONS.get(kvKey);
+      const kvKey2 = `${board}_${cls}_ch${chIdPadded}_chapter_exam`;
+      let kvData = await env.RISHI_QUESTIONS.get(kvKey);
+      if (!kvData) kvData = await env.RISHI_QUESTIONS.get(kvKey2);
       if (kvData) {
+        // Parse and check if it's the new bank format (has questions array)
+        try {
+          const parsed = JSON.parse(kvData);
+          if (parsed.questions && Array.isArray(parsed.questions)) {
+            // New bank format → convert to sections format
+            return new Response(JSON.stringify(bankToSections(parsed)), {
+              status: 200,
+              headers: corsHeaders("application/json"),
+            });
+          }
+        } catch(e) {}
+        // Old format — return as-is
         return new Response(kvData, {
           status: 200,
           headers: corsHeaders("application/json"),
