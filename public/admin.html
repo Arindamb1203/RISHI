@@ -1008,8 +1008,7 @@ function goStudent(idx) {
   localStorage.setItem('rishi_current_student', JSON.stringify(st));
   sessionStorage.setItem('rishi_admin_bypass', '1'); /* skip all locks */
   loadAdminClassData(parseInt(r.class || 8));
-  var bypassParam = sessionStorage.getItem('rishi_admin_bypass') === '1' ? '?bypass=1' : '';
-  window.open('/syllabus.html' + bypassParam, '_blank');
+  window.open('/syllabus.html', '_blank');
 }
 
 function goParent(idx) {
