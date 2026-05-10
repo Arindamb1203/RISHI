@@ -278,6 +278,7 @@ body{font-family:'Nunito',sans-serif;background:#07060f;min-height:100vh;color:#
 /* ── ALL CHAPTERS PER CLASS ──────────────────────────────── */
 var ALL_CHAPTERS_CLASS8 = ['01','02','03','04','05','08','09','10','11a','11b','12','13','14','15','16','17'];
 var ALL_CHAPTERS_CLASS9 = ['01','02','03','04','05','06','07','08','09','10','11','12'];
+var ALL_CHAPTERS_CLASS7 = ['01','02','03','04','05','06','07','08'];
 
 var STUDENT_CLASS = 8;
 var ALL_CHAPTERS  = ALL_CHAPTERS_CLASS8; /* overridden in init */
@@ -324,7 +325,9 @@ var breakSecs   = 0;
 window.addEventListener('load', function () {
   var params = new URLSearchParams(window.location.search);
   STUDENT_CLASS = parseInt(params.get('class') || '8') || 8;
-  ALL_CHAPTERS  = (STUDENT_CLASS === 9) ? ALL_CHAPTERS_CLASS9 : ALL_CHAPTERS_CLASS8;
+  ALL_CHAPTERS  = (STUDENT_CLASS === 7) ? ALL_CHAPTERS_CLASS7
+              : (STUDENT_CLASS === 9) ? ALL_CHAPTERS_CLASS9
+              : ALL_CHAPTERS_CLASS8;
   var totalCh   = ALL_CHAPTERS.length;
 
   /* Gate: all chapter exams done */
