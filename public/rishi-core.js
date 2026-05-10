@@ -3,18 +3,6 @@
    Include in every explain/practice/exam page
    ═══════════════════════════════════════════ */
 
-/* ── ADMIN BYPASS via URL param ─────────────────
-   When admin opens a page with ?bypass=1, set sessionStorage
-   so all lock checks in this tab are bypassed.
-   ─────────────────────────────────────────────── */
-(function() {
-  try {
-    if (new URLSearchParams(window.location.search).get('bypass') === '1') {
-      sessionStorage.setItem('rishi_admin_bypass', '1');
-    }
-  } catch(e) {}
-})();
-
 /* Map chapter ID → legacy progress key (for backwards compat) */
 var RISHI_LEGACY_KEYS = {
   2:  "explain_linear_done",
@@ -102,6 +90,7 @@ function rishiMarkTopicExamDone(topic) {
   localStorage.setItem('rishi_topicexam_attempts_' + topic, String(n));
 }
 function rishiIsTopicExamDone(topic) {
+  if (sessionStorage.getItem('rishi_admin_bypass') === '1') return true;
   return localStorage.getItem('rishi_topicexam_done_' + topic) === '1';
 }
 function rishiTopicExamAttemptCount(topic) {
@@ -186,6 +175,7 @@ function rishiIsPracticeDone(chId) {
 }
 
 function rishiIsChapExamDone(chId) {
+  if (sessionStorage.getItem('rishi_admin_bypass') === '1') return true;
   return localStorage.getItem("rishi_chapexam_done_" + chId) === "1";
 }
 
