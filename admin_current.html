@@ -3,6 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
 <title>RISHI — Admin Panel</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Outfit:wght@400;500;600;700;800&family=Share+Tech+Mono&display=swap" rel="stylesheet">
 <style>
@@ -206,6 +209,10 @@ button{font-family:'Outfit',sans-serif;cursor:pointer;}
 /* ── MISC ── */
 .section-note{font-size:16px;color:var(--muted);line-height:1.8;padding:10px 0;margin-bottom:6px;font-weight:600;}
 .hidden{display:none!important;}
+.admin-class-bar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:10px 20px;background:#fff;border-bottom:2px solid var(--border);}
+.admin-class-tab{font-size:14px;font-weight:800;padding:6px 18px;border-radius:20px;border:2px solid var(--border);background:#fff;color:var(--muted);transition:all .15s;cursor:pointer;}
+.admin-class-tab:hover{border-color:var(--gold);color:var(--text);}
+.admin-class-tab.on{background:var(--gold);border-color:var(--gold);color:#fff;}
 </style>
 </head>
 <body>
@@ -256,6 +263,13 @@ button{font-family:'Outfit',sans-serif;cursor:pointer;}
     <button class="tab"    id="tab-deploy"    onclick="switchTab('deploy')">🚀 Deploy</button>
   </div>
 
+  <div class="admin-class-bar" id="admin-class-bar">
+    <span style="font-size:13px;font-weight:800;color:var(--muted);margin-right:4px;">Class:</span>
+    <button class="admin-class-tab" data-cls="6" onclick="switchAdminClass(6)">Class 6</button>
+    <button class="admin-class-tab" data-cls="7" onclick="switchAdminClass(7)">Class 7</button>
+    <button class="admin-class-tab on" data-cls="8" onclick="switchAdminClass(8)">Class 8</button>
+    <button class="admin-class-tab" data-cls="9" onclick="switchAdminClass(9)">Class 9</button>
+  </div>
   <div class="wrap">
 
     <!-- ══ DASHBOARD TAB ══ -->
@@ -390,20 +404,11 @@ button{font-family:'Outfit',sans-serif;cursor:pointer;}
     <!-- QUESTIONS TAB -->
     <div id="view-questions" class="hidden">
 
-      <!-- Class selector -->
-      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px;" id="qb-class-tabs">
-        <button class="tf-btn" id="qbtab-6"  onclick="qbSwitchClass(6,this)">Class 6</button>
-        <button class="tf-btn on" id="qbtab-7" onclick="qbSwitchClass(7,this)">Class 7</button>
-        <button class="tf-btn" id="qbtab-8"  onclick="qbSwitchClass(8,this)">Class 8</button>
-        <button class="tf-btn" id="qbtab-9"  onclick="qbSwitchClass(9,this)">Class 9</button>
-      </div>
-
       <!-- Bulk ops -->
       <div class="card">
         <div class="card-ttl">🚀 Bulk Operations — <span id="qb-class-label">Class 7</span></div>
         <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;">
           <button class="btn btn-gold"  id="qb-gen-all-btn"  onclick="qbGenerateAll()">✨ Generate All Chapters (AI)</button>
-          <button class="btn btn-ghost" id="qb-seed-all-btn" onclick="qbSeedAll()">⬆ Seed All to KV</button>
           <button class="btn btn-ghost" onclick="qbListKeys()">📋 List KV Keys</button>
           <button class="btn btn-ghost" onclick="qbClearLog()">🗑 Clear Log</button>
         </div>
@@ -443,6 +448,20 @@ button{font-family:'Outfit',sans-serif;cursor:pointer;}
    ══════════════════════════════════════════════════════════ */
 
 var ADMIN_PASS = 'rishi2025';
+var activeAdminClass = 8;
+function switchAdminClass(cls) {
+  activeAdminClass = cls;
+  loadAdminClassData(cls);
+  qbActiveClass = cls; qbBankCache = {};
+  var g = document.getElementById('qb-chapter-grid');
+  if (g) g.innerHTML = '';
+  var lbl = document.getElementById('qb-class-label');
+  if (lbl) lbl.textContent = 'Class ' + cls;
+  document.querySelectorAll('.admin-class-tab').forEach(function(b){
+    b.classList.toggle('on', parseInt(b.dataset.cls) === cls);
+  });
+  refresh();
+}
 var adminToken = '';
 
 /* ── CHAPTER DATA — ALL CLASSES ────────────────────────── */
@@ -1314,41 +1333,83 @@ function clearAllPlans() {
 /* ── UTILS ───────────────────────────────────────────────── */
 
 /* -- TOPIC EXAMS TAB ----------------------------------------------- */
-var TOPIC_EXAM_LIST = [
-  {id:'algebra',     name:'Algebra',       icon:'x+y', chs:[2,9,14,15]},
-  {id:'geometry',    name:'Geometry',      icon:'geo', chs:[3,4,10]},
-  {id:'mensuration', name:'Mensuration',   icon:'pi',  chs:[11,112]},
-  {id:'arithmetic',  name:'Arithmetic',    icon:'123', chs:[1,8,12,13,16]},
-  {id:'datahandling',name:'Data Handling', icon:'bar', chs:[5,17]}
-];
+var TOPIC_EXAMS_BY_CLASS = {
+  6:[
+    {id:'t6-arithmetic',name:'Arithmetic',  icon:'🔢',chs:[1,3,5,7,10],url:null},
+    {id:'t6-geometry',  name:'Geometry',    icon:'📐',chs:[2,8,9],      url:null},
+    {id:'t6-mensuration',name:'Mensuration',icon:'📏',chs:[6],          url:null},
+  ],
+  7:[
+    {id:'t7-arithmetic',name:'Arithmetic',  icon:'🔢',chs:[1,2,3,6,8], url:null},
+    {id:'t7-algebra',   name:'Algebra',     icon:'🔣',chs:[4],          url:null},
+    {id:'t7-geometry',  name:'Geometry',    icon:'📐',chs:[5,7],        url:null},
+  ],
+  8:[
+    {id:'algebra',     name:'Algebra',      icon:'🔣',chs:[2,9,14,15],  url:'/topic-exam.html?topic=algebra'},
+    {id:'geometry',    name:'Geometry',     icon:'📐',chs:[3,4,10],     url:'/topic-exam.html?topic=geometry'},
+    {id:'mensuration', name:'Mensuration',  icon:'📏',chs:[11,112],     url:'/topic-exam.html?topic=mensuration'},
+    {id:'arithmetic',  name:'Arithmetic',   icon:'🔢',chs:[1,8,12,13,16],url:'/topic-exam.html?topic=arithmetic'},
+    {id:'datahandling',name:'Data Handling',icon:'📊',chs:[5,17],       url:'/topic-exam.html?topic=datahandling'},
+  ],
+  9:[
+    {id:'t9-algebra',    name:'Algebra',      icon:'🔣',chs:[2,3],      url:null},
+    {id:'t9-geometry',   name:'Geometry',     icon:'📐',chs:[5,6,7,8,9],url:null},
+    {id:'t9-mensuration',name:'Mensuration',  icon:'📏',chs:[10,11],    url:null},
+    {id:'t9-data',       name:'Data Handling',icon:'📊',chs:[12],       url:null},
+  ]
+};
+var SAMPURNA_BY_CLASS = {6:null,7:null,8:'/sampurna-pariksha.html',9:null};
 
 function isTopicExamDone(tid) {
   return localStorage.getItem('rishi_topicexam_done_' + tid) === '1';
 }
 
 function buildTopics() {
+  var examList = TOPIC_EXAMS_BY_CLASS[activeAdminClass] || [];
+  var sampurnaUrl = SAMPURNA_BY_CLASS[activeAdminClass] || null;
   var html = '';
-  for (var i = 0; i < TOPIC_EXAM_LIST.length; i++) {
-    var t = TOPIC_EXAM_LIST[i];
+  for (var i = 0; i < examList.length; i++) {
+    var t = examList[i]; var built = !!t.url;
     var done = isTopicExamDone(t.id);
     var score = localStorage.getItem('rishi_topicexam_score_' + t.id) || '—';
     var attempts = localStorage.getItem('rishi_topicexam_attempts_' + t.id) || '0';
-    html += '<div class="card" style="margin-bottom:0;">';
-    html += '<div class="card-ttl">' + t.name + '</div>';
-    html += '<div style="font-size:15px;color:var(--muted);margin-bottom:10px;">' + t.chs.length + ' chapters &nbsp;&middot;&nbsp; Status: <span style="color:' + (done ? 'var(--green)' : 'var(--amber)') + ';font-weight:700;">' + (done ? '&#10003; Done' : 'Not taken') + '</span>';
-    if (done) html += ' &nbsp;&middot;&nbsp; Best: ' + score + '/60 &nbsp;&middot;&nbsp; Attempts: ' + attempts;
-    html += '</div>';
-    html += '<div style="display:flex;gap:8px;flex-wrap:wrap;">';
-    html += '<button class="btn btn-gold" onclick="openTopicExam(\'' + t.id + '\')">&#128203; Open Topic Exam</button>';
-    if (done) html += '<button class="btn btn-danger" onclick="resetTopicExam(\'' + t.id + '\')">&#8635; Reset</button>';
-    html += '</div>';
+    html += '<div class="card" style="margin-bottom:0;"><div class="card-ttl">' + t.icon + ' ' + t.name + '</div>';
+    html += '<div style="font-size:15px;color:var(--muted);margin-bottom:10px;">' + t.chs.length + ' chapters &nbsp;&middot;&nbsp; ';
+    if (!built) { html += '<span style="color:var(--dim);font-weight:700;">Coming Soon</span>'; }
+    else {
+      html += 'Status: <span style="color:' + (done?'var(--green)':'var(--amber)') + ';font-weight:700;">' + (done?'&#10003; Done':'Not taken') + '</span>';
+      if (done) html += ' &nbsp;&middot;&nbsp; Best: ' + score + '/60 &nbsp;&middot;&nbsp; Attempts: ' + attempts;
+    }
+    html += '</div><div style="display:flex;gap:8px;flex-wrap:wrap;">';
+    if (built) {
+      html += '<button class="btn btn-gold" onclick="openTopicExam(\'' + t.id + '\',\'' + t.url + '\')">&#128203; Open Topic Exam</button>';
+      if (done) html += '<button class="btn btn-danger" onclick="resetTopicExam(\'' + t.id + '\')">&#8635; Reset</button>';
+    } else { html += '<button class="btn btn-ghost" disabled style="opacity:.5;">&#128203; Coming Soon</button>'; }
+    html += '</div></div>';
+  }
+  html += '<div class="card" style="margin-bottom:0;border-left:5px solid var(--gold);"><div class="card-ttl">&#127942; Sampurna Pariksha — Grand Final Exam</div>';
+  if (!sampurnaUrl) {
+    html += '<div style="font-size:15px;color:var(--dim);font-weight:700;margin-bottom:10px;">Coming Soon for Class ' + activeAdminClass + '</div>';
+    html += '<button class="btn btn-ghost" disabled style="opacity:.5;">&#127942; Coming Soon</button>';
+  } else {
+    var spDone = localStorage.getItem('rishi_sampurna_done') === '1';
+    var spScore = localStorage.getItem('rishi_sampurna_score') || '—';
+    html += '<div style="font-size:15px;color:var(--muted);margin-bottom:10px;">50 questions &nbsp;&middot;&nbsp; All chapters &nbsp;&middot;&nbsp; Status: <span style="color:' + (spDone?'var(--green)':'var(--amber)') + ';font-weight:700;">' + (spDone?'&#10003; Done':'Not taken') + '</span>';
+    if (spDone) html += ' &nbsp;&middot;&nbsp; Score: ' + spScore + '/50';
+    html += '</div><div style="display:flex;gap:8px;flex-wrap:wrap;">';
+    html += '<button class="btn btn-gold" onclick="window.open(\'' + sampurnaUrl + '\',\'_blank\')">&#127942; Open Sampurna Pariksha</button>';
+    if (spDone) html += '<button class="btn btn-danger" onclick="resetSampurna()">&#8635; Reset</button>';
     html += '</div>';
   }
+  html += '</div>';
   document.getElementById('topics-grid').innerHTML = html;
 }
-
-function openTopicExam(tid) {
-  window.open('/topic-exam.html?topic=' + tid, '_blank');
+function openTopicExam(tid,url){window.open(url,'_blank');}
+function resetSampurna(){
+  if(!confirm('Reset Sampurna Pariksha?'))return;
+  localStorage.removeItem('rishi_sampurna_done');
+  localStorage.removeItem('rishi_sampurna_score');
+  buildTopics(); showToast('Sampurna Pariksha reset.');
 }
 
 function resetTopicExam(tid) {
@@ -1432,13 +1493,21 @@ var QB_TAGS = [
   {value:'explain',      label:'Explain'}
 ];
 
-var QB_SRC_LABELS = {NCT:'NCERT',RDS:'RD Sharma',RSA:'RS Aggarwal',EXM:'Exemplar',CBP:'CBSE PY',OLY:'Olympiad',ORI:'Original'};
+var QB_SRC_LABELS = {NCT:'N', RDS:'RD', RSA:'RS', EXM:'EX', CBP:'CB', OLY:'OL', ORI:'OR'};
 
 var qbActiveClass = 7;
 var qbBankCache   = {};   // chId → {count, questions, chapterName, tag}
 
 function buildQuestionsTab() {
-  qbBuildGrid();
+  if (qbActiveClass !== activeAdminClass) {
+    qbActiveClass = activeAdminClass; qbBankCache = {};
+    var g = document.getElementById('qb-chapter-grid');
+    if (g) g.innerHTML = '';
+    var lbl = document.getElementById('qb-class-label');
+    if (lbl) lbl.textContent = 'Class ' + activeAdminClass;
+  }
+  var grid = document.getElementById('qb-chapter-grid');
+  if (grid && grid.children.length === 0) qbBuildGrid();
 }
 
 function qbSwitchClass(cls, btn) {
@@ -1484,8 +1553,7 @@ function qbBuildGrid() {
       '</div>' +
       '<div style="display:flex;gap:6px;">' +
         '<button id="qb-gen-btn-' + ch.id + '" onclick="qbGenerateChapter(\'' + ch.id + '\')" style="flex:2;padding:7px 4px;border:none;border-radius:7px;font-size:13px;font-weight:800;cursor:pointer;background:rgba(124,58,237,.15);color:#7c3aed;font-family:Outfit,sans-serif;">✨ Generate</button>' +
-        '<button id="qb-prev-btn-' + ch.id + '" onclick="qbPreviewChapter(\'' + ch.id + '\')" style="flex:1;padding:7px 4px;border:none;border-radius:7px;font-size:13px;font-weight:800;cursor:pointer;background:rgba(5,150,105,.1);color:var(--green);font-family:Outfit,sans-serif;display:none;">👁 View</button>' +
-        '<button id="qb-seed-btn-' + ch.id + '" onclick="qbSeedChapter(\'' + ch.id + '\')" style="flex:1;padding:7px 4px;border:none;border-radius:7px;font-size:13px;font-weight:800;cursor:pointer;background:rgba(212,135,10,.12);color:var(--amber);font-family:Outfit,sans-serif;">⬆ Seed</button>' +
+        '<button id="qb-prev-btn-' + ch.id + '" onclick="qbPreviewChapter(\'' + ch.id + '\')" style="flex:1;padding:7px 4px;border:none;border-radius:7px;font-size:13px;font-weight:800;cursor:pointer;background:#1a7a4a;color:#fff;font-family:Outfit,sans-serif;">👁 View</button>' +
         '<button onclick="qbDeleteChapter(\'' + ch.id + '\')" style="padding:7px 10px;border:none;border-radius:7px;font-size:13px;cursor:pointer;background:rgba(192,57,43,.08);color:var(--red);font-family:Outfit,sans-serif;">🗑</button>' +
       '</div>';
     grid.appendChild(card);
@@ -1540,9 +1608,25 @@ async function qbGenerateAll() {
 }
 
 /* Preview */
-function qbPreviewChapter(chId) {
+async function qbPreviewChapter(chId) {
   var cache = qbBankCache[chId];
-  if (!cache || !cache.questions || !cache.questions.length) { qbLog('No preview — generate first.'); return; }
+  if (!cache || !cache.questions || !cache.questions.length) {
+    // Not in memory — fetch from KV
+    qbLog('Loading Ch' + chId + ' from KV…');
+    try {
+      var res = await fetch('/api/admin', {
+        method:'POST', headers:{'Content-Type':'application/json','Authorization':'Bearer '+getToken()},
+        body: JSON.stringify({action:'get', board:'cbse', class:String(qbActiveClass), ch:chId, tag: 'chapter_exam'})
+      });
+      var data = await res.json();
+      if (data.error || !data.questions || !data.questions.length) { qbLog('No questions in KV for Ch' + chId + '. Generate first.'); return; }
+      cache = {count:data.questions.length, questions:data.questions, chapterName:data.chapterName || ('Ch' + chId), tag:data.tag || 'chapter_exam'};
+      qbBankCache[chId] = cache;
+      var bb = document.getElementById('qb-bank-badge-' + chId);
+      if (bb) { bb.textContent = 'Bank: ' + data.questions.length; bb.style.display = ''; }
+      qbLog('✓ Loaded ' + data.questions.length + ' questions from KV');
+    } catch(e) { qbLog('✗ KV fetch failed: ' + e.message); return; }
+  }
   document.getElementById('qb-preview-title').textContent = 'Ch' + chId + ': ' + cache.chapterName + ' — ' + cache.questions.length + ' questions (' + cache.tag + ')';
   var body = document.getElementById('qb-preview-body');
   body.innerHTML = '';
