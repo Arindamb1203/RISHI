@@ -328,7 +328,7 @@ window.addEventListener('load', function () {
   var totalCh   = ALL_CHAPTERS.length;
 
   /* Gate: all chapter exams done */
-  var bypass = localStorage.getItem('rishi_admin_bypass') === '1';
+  var bypass = sessionStorage.getItem('rishi_admin_bypass') === '1';
   if (!bypass) {
     var locked = [];
     for (var i = 0; i < ALL_CHAPTERS.length; i++) {
