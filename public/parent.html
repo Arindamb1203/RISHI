@@ -543,11 +543,11 @@ button{font-family:'Outfit',sans-serif;}
     </div>
     <div class="login-field">
       <label class="login-lbl">Password</label>
-      <input class="login-inp" type="password" id="login-pass" value="rishi2024" autocomplete="current-password" onkeydown="if(event.key==='Enter')tryLogin()">
+      <input class="login-inp" type="password" id="login-pass" value="rishi2025" autocomplete="current-password" onkeydown="if(event.key==='Enter')tryLogin()">
     </div>
     <div class="login-err" id="login-err">Incorrect password. Please try again.</div>
     <button class="btn-login" onclick="tryLogin()">Access Parent Portal</button>
-    <div class="login-note">This portal is for parents only. Student progress is monitored here.<br>Default password: rishi2024 &mdash; change after first login.</div>
+    <div class="login-note">This portal is for parents only. Student progress is monitored here.<br>Default password: rishi2025 &mdash; use with any registered parent username.</div>
   </div>
 </div>
 
@@ -942,7 +942,7 @@ var calManual = false;
 // ===========================
 // AUTH
 // ===========================
-var PARENT_PASS = 'Parent@Rishi1';
+var PARENT_PASS = 'rishi2025';
 
 function tryLogin() {
   var user = document.getElementById('login-user').value.trim();
@@ -965,6 +965,14 @@ function tryLogin() {
     sessionStorage.setItem('rishi_parent_auth','1');
     sessionStorage.setItem('rishi_parent_student_id', found.studentUsername);
     sessionStorage.setItem('rishi_parent_student_name', found.studentName || 'Student');
+    enterPortal();
+  } else if(pass === PARENT_PASS) {
+    /* Fallback: correct password but no matching registration — use current student */
+    var cs = {};
+    try { cs = JSON.parse(localStorage.getItem('rishi_current_student')||'{}'); } catch(e){}
+    sessionStorage.setItem('rishi_parent_auth','1');
+    sessionStorage.setItem('rishi_parent_student_id',   cs.studentUsername||cs.studentId||'default');
+    sessionStorage.setItem('rishi_parent_student_name', cs.studentName||'Student');
     enterPortal();
   } else {
     var e = document.getElementById('login-err');

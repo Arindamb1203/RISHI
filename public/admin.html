@@ -311,6 +311,7 @@ button{font-family:'Outfit',sans-serif;cursor:pointer;}
         <div style="display:flex;gap:8px;flex-wrap:wrap;">
           <button class="btn btn-ghost" onclick="switchTab('tree')">→ Open Chapter Tree</button>
           <button class="btn btn-ghost" onclick="window.open('/login.html','_blank')">🔐 Student Login</button>
+          <button class="btn btn-ghost" onclick="openParentDirect()">👨‍👩‍👧 Parent Portal</button>
           <button class="btn btn-danger" onclick="resetAllProgress()">🗑 Reset All Student Progress</button>
           <button class="btn btn-danger" onclick="clearAllPlans()">🗑 Clear All Study Plans</button>
         </div>
@@ -1009,6 +1010,16 @@ function goStudent(idx) {
   sessionStorage.setItem('rishi_admin_bypass', '1'); /* skip all locks */
   loadAdminClassData(parseInt(r.class || 8));
   window.open('/syllabus.html', '_blank');
+}
+
+function openParentDirect() {
+  var bypass = sessionStorage.getItem('rishi_admin_bypass') === '1';
+  var cs = {};
+  try { cs = JSON.parse(localStorage.getItem('rishi_current_student')||'{}'); } catch(e){}
+  var sName = encodeURIComponent(cs.studentName || 'Student');
+  var sId   = encodeURIComponent(cs.studentUsername || cs.studentId || 'default');
+  var url = '/parent.html?bypass=1&sName=' + sName + '&sId=' + sId;
+  window.open(url, '_blank');
 }
 
 function goParent(idx) {
