@@ -1088,7 +1088,7 @@ function getAnimPlay(type){
 /* ═══════════════════════════════
    CORE ENGINE
    ═══════════════════════════════ */
-var session=[],idx=0,stepIdx=0,nudgeCount=0,completed=false;
+var session=[],idx=0,stepIdx=0,nudgeCount=0,completed=false,confirmShown=false;
 var breakSecs=0,breakTmr=null;
 var PER_SESSION=10;
 
@@ -1112,7 +1112,7 @@ function buildSession(){
 function showQ(){
   if(idx>=session.length){onComplete();return;}
   var q=session[idx];
-  stepIdx=0;nudgeCount=0;
+  stepIdx=0;nudgeCount=0; confirmShown=false;
   updateProg();
   G("qArea").innerHTML="";
   clearAt();
@@ -1187,7 +1187,7 @@ function nextStep(){
   stepIdx++;
 }
 
-function showConfirm(){
+function showConfirm(){if(confirmShown)return;confirmShown=true;
   var q=session[idx];var c=document.createElement("div");c.className="confirm-wrap";
   c.innerHTML='<div class="confirm-title">&#127917; Rishika asks!</div>'
     +'<div class="confirm-q">'+q.cq+'</div>'
@@ -1210,6 +1210,11 @@ function showConfirm(){
   say(q.cqs);
 }
 
+function submitTyped(){
+  var ra=G("rawAnswer");if(!ra)return;
+  var raw=ra.value.trim().toLowerCase();if(!raw){ra.focus();return;}
+  handleAnswer(raw);
+}
 function goNext(){idx++;G("qArea").innerHTML="";showQ();window.scrollTo({top:0,behavior:"smooth"});}
 
 function updateProg(){
@@ -1421,7 +1426,6 @@ function mathUpdate(){
 }
 
 </script>
-<script src="/explain-helper.js"></script>
 <script src="/explain-helper.js"></script>
 </body>
 </html>

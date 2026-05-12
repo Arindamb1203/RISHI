@@ -506,7 +506,7 @@ function playSplit3(done){
 function getAnimSVG(t){var m={hcf1:svgHcf1,hcf2:svgHcf2,diffsq1:svgDiffSq1,persq1:svgPersq1,split1:svgSplit1,split2:svgSplit2,group1:svgGroup1,diffsq2:svgDiffSq2,cubic1:svgCubic1,split3:svgSplit3};return m[t]?m[t]():'<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="background:#fffdf8"><text x="210" y="89" text-anchor="middle" font-family="Nunito" font-size="14" fill="#5a4a30">Loading...</text></svg>';}
 function getAnimPlay(t){var m={hcf1:playHcf1,hcf2:playHcf2,diffsq1:playDiffSq1,persq1:playPersq1,split1:playSplit1,split2:playSplit2,group1:playGroup1,diffsq2:playDiffSq2,cubic1:playCubic1,split3:playSplit3};return m[t]||function(done){done();};}
 
-var session=[],idx=0,stepIdx=0,nudgeCount=0,completed=false;
+var session=[],idx=0,stepIdx=0,nudgeCount=0,completed=false,confirmShown=false;
 var breakSecs=0,breakTmr=null;
 var PER_SESSION=10;
 
@@ -565,7 +565,7 @@ function init(){
 function buildSession(){var first=QB[0];var rest=QB.slice(1).sort(function(){return Math.random()-.5;});session=[first].concat(rest.slice(0,PER_SESSION-1));}
 function showQ(){
   if(idx>=session.length){onComplete();return;}
-  var q=session[idx];stepIdx=0;nudgeCount=0;updateProg();G("qArea").innerHTML="";clearAt();
+  var q=session[idx];stepIdx=0;nudgeCount=0; confirmShown=false;updateProg();G("qArea").innerHTML="";clearAt();
   var qc=document.createElement("div");qc.className="q-card";
   qc.innerHTML='<div class="q-label">Question '+(idx+1)+' of '+PER_SESSION+'</div><div class="q-text">'+q.q+'</div><button class="btn-speak" onclick="say(session[idx].qs)">&#128266; Hear</button>';
   G("qArea").appendChild(qc);
@@ -639,7 +639,7 @@ function nextStep(){
     stepIdx++;
   }
 }
-function showConfirm(){
+function showConfirm(){if(confirmShown)return;confirmShown=true;
   var q=session[idx];var c=document.createElement("div");c.className="confirm-wrap";
   c.innerHTML='<div class="confirm-title">&#127917; Rishika asks!</div>'
     +'<div class="confirm-q">'+q.cq+'</div>'
@@ -932,7 +932,6 @@ function mathUpdate(){
 }
 </script>
 
-<script src="/explain-helper.js"></script>
 <script src="/explain-helper.js"></script>
 </body>
 </html>
