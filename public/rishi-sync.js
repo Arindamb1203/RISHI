@@ -28,13 +28,15 @@
     'rishi_heatmap',
     'rishi_exam_scores',
     'rishi_progress',
-    'rishi_active_chapters'
+    'rishi_active_chapters',
+    'rishi_plans'
   ];
 
   var SYNC_PREFIX = [
     'rishi_explain_done_',
     'rishi_practice_done_',
-    'rishi_chapexam_done_'
+    'rishi_chapexam_done_',
+    'rishi_plans_'
   ];
 
   function shouldSync(key) {
