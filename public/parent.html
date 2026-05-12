@@ -1029,6 +1029,64 @@ function checkAuth() {
   }
 }
 
+
+/* ── PROFILE / SETTINGS PANEL ───────────────────────── */
+function showProfilePanel() {
+  var sid = sessionStorage.getItem('rishi_parent_student_id') || 'default';
+  var sName = sessionStorage.getItem('rishi_parent_student_name') || 'Student';
+  var regs = [];
+  try { regs = JSON.parse(localStorage.getItem('rishi_registrations')||'[]'); } catch(e){}
+  var reg = regs.find(function(r){ return r.studentUsername === sid; }) || {};
+  var pId = reg.parentUsername || 'parent';
+  var mobile = reg.primaryMobile || '—';
+
+  var panel = document.createElement('div');
+  panel.id = 'profile-panel';
+  panel.style.cssText = 'position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,0.6);display:flex;align-items:center;justify-content:center;padding:20px;';
+  panel.innerHTML = '<div style="background:#fff;border-radius:16px;padding:24px;max-width:480px;width:100%;font-family:Nunito,sans-serif;">' +
+    '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">' +
+      '<div style="font-size:18px;font-weight:900;color:#0f2240;">👤 Profile &amp; Settings</div>' +
+      '<button onclick="document.getElementById(\'profile-panel\').remove()" style="background:none;border:none;font-size:22px;cursor:pointer;color:#666;">✕</button>' +
+    '</div>' +
+    '<div style="background:#f5ede0;border-radius:10px;padding:14px;margin-bottom:14px;">' +
+      '<div style="font-size:12px;color:#6b5a3e;font-weight:800;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px;">Parent ID</div>' +
+      '<div style="font-size:16px;font-weight:800;color:#0f2240;font-family:Share Tech Mono,monospace;">' + pId + '</div>' +
+    '</div>' +
+    '<div style="background:#f5ede0;border-radius:10px;padding:14px;margin-bottom:14px;">' +
+      '<div style="font-size:12px;color:#6b5a3e;font-weight:800;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px;">Student ID</div>' +
+      '<div style="font-size:16px;font-weight:800;color:#c8922a;font-family:Share Tech Mono,monospace;">' + sid + '</div>' +
+      '<div style="font-size:13px;color:#6b5a3e;margin-top:4px;">' + sName + '</div>' +
+    '</div>' +
+    '<div style="background:#f5ede0;border-radius:10px;padding:14px;margin-bottom:14px;">' +
+      '<div style="font-size:12px;color:#6b5a3e;font-weight:800;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px;">Mobile</div>' +
+      '<div style="font-size:14px;font-weight:700;color:#0f2240;">' + mobile + '</div>' +
+    '</div>' +
+    '<div style="display:flex;flex-direction:column;gap:8px;">' +
+      '<button onclick="resetPassword()" style="padding:12px;background:#c8922a;color:#fff;border:none;border-radius:10px;font-weight:800;cursor:pointer;font-family:inherit;font-size:14px;">🔐 Reset Password</button>' +
+      '<button onclick="alert(\'Payment history coming soon\')" style="padding:12px;background:#1a7a4a;color:#fff;border:none;border-radius:10px;font-weight:800;cursor:pointer;font-family:inherit;font-size:14px;">💳 Payment History</button>' +
+      '<button onclick="window.location.href=\'/landing.html\'" style="padding:12px;background:#fff;color:#0f2240;border:2px solid #e8d9c4;border-radius:10px;font-weight:800;cursor:pointer;font-family:inherit;font-size:14px;">🏠 Back to Home</button>' +
+    '</div>' +
+    '</div>';
+  document.body.appendChild(panel);
+}
+
+function resetPassword() {
+  var newPw = prompt('Enter new password (min 6 chars):');
+  if (!newPw || newPw.length < 6) { alert('Password must be at least 6 characters.'); return; }
+  var sid = sessionStorage.getItem('rishi_parent_student_id') || 'default';
+  var regs = [];
+  try { regs = JSON.parse(localStorage.getItem('rishi_registrations')||'[]'); } catch(e){}
+  var reg = regs.find(function(r){ return r.studentUsername === sid; });
+  if (!reg) { alert('Cannot reset password: no matching parent registration.'); return; }
+  var overrides = {};
+  try { overrides = JSON.parse(localStorage.getItem('rishi_pw_overrides')||'{}'); } catch(e){}
+  overrides[reg.parentUsername] = newPw;
+  localStorage.setItem('rishi_pw_overrides', JSON.stringify(overrides));
+  alert('✅ Password updated. Use new password next login.');
+  document.getElementById('profile-panel').remove();
+}
+
+
 function enterPortal() {
   isAuth = true;
   document.getElementById('login-screen').style.display = 'none';

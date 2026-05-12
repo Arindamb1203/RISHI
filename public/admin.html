@@ -870,56 +870,49 @@ function renderStudentRows(regs) {
     return;
   }
   var allRegs = window._allRegs || regs;
-  var today   = new Date(); today.setHours(0,0,0,0);
+  var today = new Date(); today.setHours(0,0,0,0);
 
-  var html = '<div style="display:flex;flex-direction:column;gap:12px;">';
+  var html = '<div style="overflow-x:auto;"><table style="width:100%;border-collapse:collapse;font-size:13px;font-family:Outfit,sans-serif;">';
+  html += '<thead><tr style="background:var(--s2);border-bottom:2px solid var(--border);">';
+  html += '<th style="text-align:left;padding:8px 10px;font-weight:900;color:var(--muted);text-transform:uppercase;font-size:11px;letter-spacing:.5px;">Student</th>';
+  html += '<th style="text-align:left;padding:8px 10px;font-weight:900;color:var(--muted);text-transform:uppercase;font-size:11px;letter-spacing:.5px;">Parent</th>';
+  html += '<th style="text-align:left;padding:8px 10px;font-weight:900;color:var(--muted);text-transform:uppercase;font-size:11px;letter-spacing:.5px;">Mobile</th>';
+  html += '<th style="text-align:left;padding:8px 10px;font-weight:900;color:var(--muted);text-transform:uppercase;font-size:11px;letter-spacing:.5px;">Cls</th>';
+  html += '<th style="text-align:center;padding:8px 10px;font-weight:900;color:var(--muted);text-transform:uppercase;font-size:11px;letter-spacing:.5px;" colspan="7">Quick Access</th>';
+  html += '<th style="text-align:left;padding:8px 10px;font-weight:900;color:var(--muted);text-transform:uppercase;font-size:11px;letter-spacing:.5px;">Sub</th>';
+  html += '</tr></thead><tbody>';
+
   regs.forEach(function(r) {
-    var idx    = allRegs.indexOf(r);
+    var idx = allRegs.indexOf(r);
     var sName  = r.studentName || 'Student';
     var sId    = r.studentUsername || r.studentId || '—';
-    var pName  = r.parentName || '—';
     var pId    = r.parentUsername || r.parentId || '—';
     var mobile = r.primaryMobile || '—';
+    var cls    = r.class || '8';
+    var status = r.subscriptionStatus || 'trial';
+    var statusColor = {trial:'#f59e0b',subscribed:'#22c55e',discontinued:'#ef4444'}[status]||'#94a3b8';
 
-    /* Subscription */
-    var status  = r.subscriptionStatus || 'trial';
-    var expiry  = r.subscriptionExpiry ? new Date(r.subscriptionExpiry) : null;
-    var discDate = r.discontinuedDate || null;
-    var rejDate  = r.rejoinedDate || null;
-    var daysLeft = expiry ? Math.ceil((expiry - today) / 86400000) : null;
+    function btn(label, href, color) {
+      var bypass = sessionStorage.getItem('rishi_admin_bypass') === '1' ? (href.indexOf('?')>=0?'&':'?')+'bypass=1' : '';
+      return '<button onclick="window.open(\'' + href + bypass + '\',\'_blank\')" style="padding:4px 8px;border:1.5px solid ' + color + ';background:#fff;color:' + color + ';border-radius:5px;font-size:11px;font-weight:800;cursor:pointer;font-family:inherit;margin:1px;">' + label + '</button>';
+    }
 
-    var statusColor = {trial:'#f59e0b', subscribed:'#22c55e', discontinued:'#ef4444'}[status] || '#94a3b8';
-    var statusLabel = {trial:'Trial', subscribed:'Subscribed', discontinued:'Discontinued'}[status] || status;
-    var expiryStr   = expiry ? expiry.toLocaleDateString('en-IN') : '—';
-    var daysStr     = daysLeft !== null ? (daysLeft < 0 ? 'Expired' : daysLeft + 'd left') : '—';
-
-    html += '<div style="background:var(--card2);border:1px solid var(--border);border-radius:14px;padding:14px 16px;">';
-
-    /* Row 1: name + buttons */
-    html += '<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px;">';
-    html += '<div style="font-size:22px;">🎓</div>';
-    html += '<div style="flex:1;min-width:140px;">';
-    html +=   '<div style="font-weight:800;font-size:15px;color:var(--text);">' + esc(sName) + '</div>';
-    html +=   '<div style="font-size:12px;color:var(--dim);margin-top:2px;">Student: <b>' + esc(sId) + '</b> &nbsp;|&nbsp; Parent: <b>' + esc(pId) + '</b></div>';
-    html +=   '<div style="font-size:12px;color:var(--dim);margin-top:2px;">📞 ' + esc(mobile) + ' &nbsp;|&nbsp; ' + esc(pName) + '</div>';
-    html += '</div>';
-    html += '<button class="btn btn-ghost" style="font-size:12px;" onclick="goStudent(' + idx + ')">📚 Student</button>';
-    html += '<button class="btn btn-ghost" style="font-size:12px;" onclick="goParent(' + idx + ')">👨‍👩‍👧 Parent</button>';
-    html += '</div>';
-
-    /* Row 2: subscription strip */
-    html += '<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:8px 10px;background:var(--card);border:1px solid var(--border);border-radius:10px;">';
-    html += '<span style="font-size:12px;font-weight:800;padding:3px 10px;border-radius:20px;background:' + statusColor + ';color:#fff;">' + statusLabel + '</span>';
-    html += '<span style="font-size:12px;color:var(--muted);">Expires: <b>' + expiryStr + '</b></span>';
-    html += '<span style="font-size:12px;color:' + (daysLeft !== null && daysLeft <= 3 ? '#ef4444' : 'var(--muted)') + ';font-weight:700;">' + daysStr + '</span>';
-    if(discDate) html += '<span style="font-size:11px;color:var(--muted);">Discontinued: ' + discDate + '</span>';
-    if(rejDate)  html += '<span style="font-size:11px;color:var(--muted);">Rejoined: ' + rejDate + '</span>';
-    html += '<button onclick="showSubEdit(' + idx + ')" style="margin-left:auto;font-size:11px;padding:4px 10px;border:1px solid var(--border);border-radius:6px;background:none;cursor:pointer;color:var(--muted);font-family:Outfit,sans-serif;font-weight:700;">✏ Edit</button>';
-    html += '</div>';
-
-    html += '</div>';
+    html += '<tr style="border-bottom:1px solid var(--border);">';
+    html += '<td style="padding:6px 10px;"><b>' + esc(sName) + '</b><br><small style="color:var(--dim);">' + esc(sId) + '</small></td>';
+    html += '<td style="padding:6px 10px;"><small>' + esc(pId) + '</small></td>';
+    html += '<td style="padding:6px 10px;"><small>' + esc(mobile) + '</small></td>';
+    html += '<td style="padding:6px 10px;"><span style="background:var(--s3);padding:2px 6px;border-radius:4px;font-weight:800;">' + esc(cls) + '</span></td>';
+    html += '<td style="padding:6px 4px;">' + btn('Explain','/syllabus.html','#7c3aed') + '</td>';
+    html += '<td style="padding:6px 4px;">' + btn('Practice','/syllabus.html','#0891b2') + '</td>';
+    html += '<td style="padding:6px 4px;">' + btn('Exam','/syllabus.html','#c8922a') + '</td>';
+    html += '<td style="padding:6px 4px;">' + btn('Topic','/topic-exam.html?topic=algebra&class='+cls,'#1a7a4a') + '</td>';
+    html += '<td style="padding:6px 4px;">' + btn('Samp','/sampurna-pariksha.html?class='+cls,'#c0392b') + '</td>';
+    html += '<td style="padding:6px 4px;"><button onclick="goParent(' + idx + ')" style="padding:4px 8px;border:1.5px solid #0f2240;background:#fff;color:#0f2240;border-radius:5px;font-size:11px;font-weight:800;cursor:pointer;font-family:inherit;margin:1px;">Parent</button></td>';
+    html += '<td style="padding:6px 4px;"><button onclick="alert(\'Reference coming soon\')" style="padding:4px 8px;border:1.5px solid #888;background:#fff;color:#888;border-radius:5px;font-size:11px;font-weight:800;cursor:pointer;font-family:inherit;margin:1px;">Ref</button></td>';
+    html += '<td style="padding:6px 10px;"><span style="font-size:10px;font-weight:800;padding:2px 6px;border-radius:8px;background:' + statusColor + ';color:#fff;">' + status + '</span>&nbsp;<button onclick="showSubEdit(' + idx + ')" style="font-size:10px;padding:2px 6px;border:1px solid var(--border);border-radius:4px;background:none;cursor:pointer;color:var(--muted);">✏</button></td>';
+    html += '</tr>';
   });
-  html += '</div>';
+  html += '</tbody></table></div>';
   con.innerHTML = html;
 }
 

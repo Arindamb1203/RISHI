@@ -139,6 +139,24 @@ body::after{content:'RISHI';position:fixed;bottom:-40px;right:-30px;font-family:
 <script src="/rishi-sync.js"></script>
 </head>
 <body>
+<div id="syl-id-bar" style="background:#fef9f2;border-bottom:2px solid #e8d9c4;padding:8px 16px;display:flex;gap:14px;flex-wrap:wrap;font-size:13px;font-weight:700;font-family:'Share Tech Mono',monospace;color:#6b5a3e;">
+  <span>Student: <span id="syl-sid" style="color:#c8922a;">—</span></span>
+  <span>Parent: <span id="syl-pid" style="color:#0f2240;">—</span></span>
+  <span style="margin-left:auto;">Class: <span id="syl-cls" style="color:#1a7a4a;">—</span></span>
+</div>
+<script>
+(function(){
+  try {
+    var cs = JSON.parse(localStorage.getItem('rishi_current_student')||'{}');
+    document.addEventListener('DOMContentLoaded', function(){
+      var sid = document.getElementById('syl-sid'); if (sid) sid.textContent = cs.studentId || cs.studentUsername || '—';
+      var pid = document.getElementById('syl-pid'); if (pid) pid.textContent = cs.parentUsername || cs.parentId || '—';
+      var cls = document.getElementById('syl-cls'); if (cls) cls.textContent = cs.class || '8';
+    });
+  } catch(e){}
+})();
+</script>
+
 
 <header class="hdr">
   <div class="hdr-logo">RISHI</div>
