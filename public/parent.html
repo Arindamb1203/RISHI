@@ -682,18 +682,15 @@ button{font-family:'Outfit',sans-serif;}
       <div id="hdr-menu-dropdown" style="display:none;position:absolute;top:58px;right:12px;background:var(--navy);border:1px solid rgba(255,255,255,.15);border-radius:10px;padding:8px;z-index:200;min-width:160px;box-shadow:0 8px 24px rgba(0,0,0,.3);">
         <button onclick="showLeaderboard();toggleHdrMenu()" style="display:block;width:100%;text-align:left;padding:10px 14px;background:none;border:none;color:white;cursor:pointer;font-family:inherit;font-size:14px;font-weight:700;border-radius:6px;">🏆 Leaderboard</button>
         <button onclick="showInstructions();toggleHdrMenu()" style="display:block;width:100%;text-align:left;padding:10px 14px;background:none;border:none;color:white;cursor:pointer;font-family:inherit;font-size:14px;font-weight:700;border-radius:6px;">❓ Guide</button>
-        <button onclick="showProfilePanel()" title="Profile &amp; Settings" style="font-size:16px;padding:5px 12px;background:#c8922a;color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:900;margin-right:2px;">👤</button>
+                <button onclick="showProfilePanel();toggleHdrMenu()" style="display:block;width:100%;text-align:left;padding:10px 14px;background:none;border:none;color:white;cursor:pointer;font-family:inherit;font-size:14px;font-weight:700;border-radius:6px;">👤 Profile &amp; Settings</button>
         <button onclick="syncToCloud();toggleHdrMenu()" style="display:block;width:100%;text-align:left;padding:10px 14px;background:none;border:none;color:#22c97d;cursor:pointer;font-family:inherit;font-size:14px;font-weight:700;border-radius:6px;">☁ Sync</button>
-      <button onclick="showProfilePanel()" class="btn-out-hdr" title="Profile &amp; Settings">👤</button>
-      <button onclick="showProfilePanel()" class="btn-out-hdr" title="Profile &amp; Settings" style="font-size:16px;">👤</button>
-        <button onclick="logout()" style="display:block;width:100%;text-align:left;padding:10px 14px;background:none;border:none;color:#ef4444;cursor:pointer;font-family:inherit;font-size:14px;font-weight:700;border-radius:6px;">← Sign Out</button>
+                    <button onclick="logout()" style="display:block;width:100%;text-align:left;padding:10px 14px;background:none;border:none;color:#ef4444;cursor:pointer;font-family:inherit;font-size:14px;font-weight:700;border-radius:6px;">← Sign Out</button>
       </div>
       <div class="hdr-badge" id="student-name-badge">&#128274; Parent</div>
       <button class="btn-out-hdr" onclick="showLeaderboard()" class="btn-out-hdr btn-hide-mobile">🏆 Leaderboard</button>
       <button class="btn-out-hdr" onclick="showInstructions()" class="btn-out-hdr btn-hide-mobile">&#10067; Guide</button>
       <button onclick="showProfilePanel()" style="font-size:16px;padding:5px 12px;background:#c8922a;color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:900;margin:0 2px;" title="Profile">👤</button>
-      <button class="btn-out-hdr" onclick="showProfilePanel()" title="Profile &amp; Settings" style="font-size:17px;padding:5px 12px;background:#c8922a;color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:800;">👤</button>
-      <button onclick="syncToCloud()" style="background:#1a7a4a;color:#fff;border:none;padding:8px 16px;border-radius:8px;font-weight:800;cursor:pointer;font-family:inherit;font-size:14px;margin-right:6px;"class="sync-btn-standalone">☁ Sync</button><button class="btn-out-hdr signout-btn-standalone" onclick="logout()">Sign Out</button>
+                  <button onclick="syncToCloud()" style="background:#1a7a4a;color:#fff;border:none;padding:8px 16px;border-radius:8px;font-weight:800;cursor:pointer;font-family:inherit;font-size:14px;margin-right:6px;"class="sync-btn-standalone">☁ Sync</button><button class="btn-out-hdr signout-btn-standalone" onclick="logout()">Sign Out</button>
     </div>
   </div>
 
