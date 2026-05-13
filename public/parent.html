@@ -533,21 +533,24 @@ button{font-family:'Outfit',sans-serif;}
 .break-stat-l{font-size:16px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;margin-top:3px;}
 
 /* ── MOBILE RESPONSIVE ── */
-@media(max-width:640px){
-  .hdr{padding:0 12px;gap:8px;}
-  .hdr-logo{font-size:17px;letter-spacing:2px;}
-  .hdr-sep{display:none;}
-  .hdr-title{font-size:13px;font-weight:700;}
-  .hdr-badge{font-size:12px;padding:4px 8px;max-width:130px;
-    overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+#hdr-menu-btn{display:none;}
+@media(max-width:700px){
+  #hdr-menu-btn{display:flex!important;align-items:center;justify-content:center;}
   .btn-hide-mobile{display:none!important;}
-  .btn-out-hdr{font-size:13px;padding:5px 8px;}
-  .sync-btn-mobile{padding:6px 10px!important;font-size:12px!important;}
+  .hdr{padding:0 10px;gap:6px;overflow:hidden;}
+  .hdr-sep{display:none;}
+  .hdr-title{font-size:13px;}
+  .hdr-badge{font-size:12px;padding:3px 8px;max-width:140px;
+    overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .tab-bar{overflow-x:auto;-webkit-overflow-scrolling:touch;padding:0 8px;scrollbar-width:none;}
+  .tab-bar::-webkit-scrollbar{display:none;}
   .tab-btn{font-size:13px;padding:12px 10px;white-space:nowrap;}
   .wrap{padding:12px 10px 60px;}
 }
 @media(max-width:380px){
   .hdr-title{display:none;}
+  .hdr-badge{max-width:110px;}
+}
   .hdr-badge{max-width:100px;}
 }
 </style>
@@ -678,7 +681,7 @@ button{font-family:'Outfit',sans-serif;}
     <div class="hdr-sep"></div>
     <div class="hdr-title">Parent Portal</div>
     <div class="hdr-r">
-      <button class="btn-out-hdr" id="hdr-menu-btn" onclick="toggleHdrMenu()" style="display:none;font-size:20px;padding:6px 12px;padding:5px 10px;font-size:18px;" aria-label="Menu">☰</button>
+      <button class="btn-out-hdr" id="hdr-menu-btn" onclick="toggleHdrMenu()" style="font-size:20px;padding:6px 12px;" aria-label="Menu">☰</button>
       <div id="hdr-menu-dropdown" style="display:none;position:absolute;top:58px;right:12px;background:var(--navy);border:1px solid rgba(255,255,255,.15);border-radius:10px;padding:8px;z-index:200;min-width:160px;box-shadow:0 8px 24px rgba(0,0,0,.3);">
         <button onclick="showLeaderboard();toggleHdrMenu()" style="display:block;width:100%;text-align:left;padding:10px 14px;background:none;border:none;color:white;cursor:pointer;font-family:inherit;font-size:14px;font-weight:700;border-radius:6px;">🏆 Leaderboard</button>
         <button onclick="showInstructions();toggleHdrMenu()" style="display:block;width:100%;text-align:left;padding:10px 14px;background:none;border:none;color:white;cursor:pointer;font-family:inherit;font-size:14px;font-weight:700;border-radius:6px;">❓ Guide</button>
