@@ -299,6 +299,12 @@ var TOPIC_MAP_CLASS9 = {
   mensuration:      { name:'Mensuration',        icon:'&#128207;', chapters:['10','11']        },
   datahandling:     { name:'Data Handling',      icon:'&#128202;', chapters:['12']            }
 };
+var TOPIC_MAP_CLASS6 = {
+  arithmetic:  { name:'Arithmetic',   icon:'&#128290;', chapters:['01','03','05','07','10'] },
+  geometry:    { name:'Geometry',     icon:'&#128208;', chapters:['02','08','09']           },
+  mensuration: { name:'Mensuration',  icon:'&#128207;', chapters:['06']                    },
+  datahandling:{ name:'Data Handling',icon:'&#128202;', chapters:['04']                    }
+};
 var TOPIC_MAP_CLASS7 = {
   arithmetic: { name:'Arithmetic', icon:'&#128290;', chapters:['01','02','03','06','08'] },
   algebra:    { name:'Algebra',    icon:'&#128291;', chapters:['04']                     },
@@ -353,7 +359,8 @@ window.addEventListener('load', function () {
   var params = new URLSearchParams(window.location.search);
   TOPIC_ID   = (params.get('topic') || '').toLowerCase();
   STUDENT_CLASS = parseInt(params.get('class') || '8') || 8;
-  TOPIC_MAP  = (STUDENT_CLASS === 7) ? TOPIC_MAP_CLASS7
+  TOPIC_MAP  = (STUDENT_CLASS === 6) ? TOPIC_MAP_CLASS6
+             : (STUDENT_CLASS === 7) ? TOPIC_MAP_CLASS7
              : (STUDENT_CLASS === 9) ? TOPIC_MAP_CLASS9
              : TOPIC_MAP_CLASS8;
   TOPIC_INFO = TOPIC_MAP[TOPIC_ID];
