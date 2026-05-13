@@ -571,8 +571,8 @@ button{font-family:'Outfit',sans-serif;}
     <div class="login-err" id="login-err">Incorrect password. Please try again.</div>
     <button class="btn-login" onclick="tryLogin()">Access Parent Portal</button>
     <div style="display:flex;justify-content:space-between;margin-top:14px;margin-bottom:4px;">
-    <button onclick="toggleForgotParent()" style="background:none;border:none;color:var(--gold2);cursor:pointer;font-size:14px;font-weight:700;padding:0;font-family:inherit;">🔑 Forgot credentials?</button>
-    <button onclick="toggleChangePwParent()" style="background:none;border:none;color:var(--gold2);cursor:pointer;font-size:14px;font-weight:700;padding:0;font-family:inherit;">🔐 Change password</button>
+    <button onclick="toggleForgotParent()" style="background:none;border:none;color:rgba(255,255,255,0.85);cursor:pointer;font-size:14px;font-weight:700;padding:0;font-family:inherit;">🔑 Forgot credentials?</button>
+    <button onclick="toggleChangePwParent()" style="background:none;border:none;color:rgba(255,255,255,0.85);cursor:pointer;font-size:14px;font-weight:700;padding:0;font-family:inherit;">🔐 Change password</button>
   </div>
 
   <!-- Forgot credentials -->
@@ -678,13 +678,14 @@ button{font-family:'Outfit',sans-serif;}
     <div class="hdr-sep"></div>
     <div class="hdr-title">Parent Portal</div>
     <div class="hdr-r">
-      <button class="btn-out-hdr" id="hdr-menu-btn" onclick="toggleHdrMenu()" style="display:none;padding:5px 10px;font-size:18px;" aria-label="Menu">☰</button>
+      <button class="btn-out-hdr" id="hdr-menu-btn" onclick="toggleHdrMenu()" style="display:none;font-size:20px;padding:6px 12px;padding:5px 10px;font-size:18px;" aria-label="Menu">☰</button>
       <div id="hdr-menu-dropdown" style="display:none;position:absolute;top:58px;right:12px;background:var(--navy);border:1px solid rgba(255,255,255,.15);border-radius:10px;padding:8px;z-index:200;min-width:160px;box-shadow:0 8px 24px rgba(0,0,0,.3);">
         <button onclick="showLeaderboard();toggleHdrMenu()" style="display:block;width:100%;text-align:left;padding:10px 14px;background:none;border:none;color:white;cursor:pointer;font-family:inherit;font-size:14px;font-weight:700;border-radius:6px;">🏆 Leaderboard</button>
         <button onclick="showInstructions();toggleHdrMenu()" style="display:block;width:100%;text-align:left;padding:10px 14px;background:none;border:none;color:white;cursor:pointer;font-family:inherit;font-size:14px;font-weight:700;border-radius:6px;">❓ Guide</button>
         <button onclick="showProfilePanel();toggleHdrMenu()" style="display:block;width:100%;text-align:left;padding:10px 14px;background:none;border:none;color:white;cursor:pointer;font-family:inherit;font-size:14px;font-weight:700;border-radius:6px;">👤 Profile &amp; Settings</button>
         <button onclick="syncToCloud();toggleHdrMenu()" style="display:block;width:100%;text-align:left;padding:10px 14px;background:none;border:none;color:#22c97d;cursor:pointer;font-family:inherit;font-size:14px;font-weight:700;border-radius:6px;">☁ Sync</button>
-      <button onclick="showProfilePanel()" class="btn-out-hdr btn-hide-mobile" title="Profile &amp; Settings" style="font-size:16px;">👤</button>
+      <button onclick="showProfilePanel()" class="btn-out-hdr" title="Profile &amp; Settings">👤</button>
+      <button onclick="showProfilePanel()" class="btn-out-hdr" title="Profile &amp; Settings" style="font-size:16px;">👤</button>
         <button onclick="logout()" style="display:block;width:100%;text-align:left;padding:10px 14px;background:none;border:none;color:#ef4444;cursor:pointer;font-family:inherit;font-size:14px;font-weight:700;border-radius:6px;">← Sign Out</button>
       </div>
       <div class="hdr-badge" id="student-name-badge">&#128274; Parent</div>
