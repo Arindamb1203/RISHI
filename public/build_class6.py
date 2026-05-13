@@ -1,573 +1,508 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-═══════════════════════════════════════════════════════════════
-  RISHI — Class 6 Master Builder
-  Generates ALL Class 6 content via OpenAI in one execution.
-  
-  Usage:
-    python build_class6.py --all                    # Build all 10 chapters
-    python build_class6.py --chapter prime-time     # Build/rebuild one chapter
-    python build_class6.py --list                   # Show chapter list
-    python build_class6.py --estimate               # Show cost estimate only
-    
-  Requirements:
-    - OPENAI_API_KEY in environment variables
-    - Run from D:\\rishi\\public\\ directory
-    - Templates must exist at:
-        explain/class7/working-with-fractions.html
-        practice/class8/factorisation.html
-═══════════════════════════════════════════════════════════════
+RISHI — Class 6 Master Builder v2
+Generates ALL Class 6 content via OpenAI in one execution.
+
+Usage:
+  python build_class6.py --all                    # Build all 10 chapters
+  python build_class6.py --chapter prime-time     # Build/rebuild one chapter
+  python build_class6.py --list                   # Show chapter slugs
+  python build_class6.py --estimate               # Cost + time estimate
+
+Flags (combine with above):
+  --skip-explain    Skip explain page generation
+  --skip-practice   Skip practice page generation
+  --skip-exam       Skip exam JSON generation
+
+Run from: D:\\rishi\\public\\
 """
 
-import os
-import sys
-import json
-import re
-import time
-import argparse
-import subprocess
+import os, sys, json, re, time, argparse, subprocess, shutil
 from pathlib import Path
+from datetime import datetime
 
-# ═══════════════════════════════════════════════════════════════
-# AUTO-INSTALL DEPENDENCIES
-# ═══════════════════════════════════════════════════════════════
+# ── AUTO-INSTALL ─────────────────────────────────────────────────
 def ensure_packages():
-    """Install required packages if missing."""
-    required = ['openai']
-    for pkg in required:
+    for pkg in ['openai']:
         try:
             __import__(pkg)
         except ImportError:
-            print(f"📦 Installing {pkg}...")
+            print(f"Installing {pkg}...")
             subprocess.check_call([sys.executable, '-m', 'pip', 'install', pkg, '--quiet'])
-            print(f"✅ {pkg} installed")
-
 ensure_packages()
-
 from openai import OpenAI
 
-# ═══════════════════════════════════════════════════════════════
-# CONFIG
-# ═══════════════════════════════════════════════════════════════
-SCRIPT_DIR = Path(__file__).parent.resolve()  # D:\rishi\public\
-REPO_ROOT = SCRIPT_DIR.parent                  # D:\rishi\
+# ── PATHS (confirmed from actual file tree) ───────────────────────
+SCRIPT_DIR = Path(__file__).parent.resolve()
+REPO_ROOT  = SCRIPT_DIR.parent
 
-EXPLAIN_TEMPLATE = SCRIPT_DIR / 'explain' / 'class7' / 'working-with-fractions.html'
-PRACTICE_TEMPLATE = SCRIPT_DIR / 'practice' / 'class8' / 'factorisation.html'
-
-OUT_EXPLAIN = SCRIPT_DIR / 'explain' / 'class6'
-OUT_PRACTICE = SCRIPT_DIR / 'practice' / 'class6'
-OUT_DATA = SCRIPT_DIR / 'data' / 'cbse' / 'class6'
+EXPLAIN_TEMPLATE  = SCRIPT_DIR / 'explain'  / 'class7' / 'arithmetic' / 'working-with-fractions.html'
+PRACTICE_TEMPLATE = SCRIPT_DIR / 'practice' / 'class8' / 'algebra'    / 'factorisation.html'
 
 OPENAI_MODEL = 'gpt-4.1-mini'
 
-# ═══════════════════════════════════════════════════════════════
-# CLASS 6 CHAPTER MANIFEST (NCERT Ganita Prakash 2025-26)
-# ═══════════════════════════════════════════════════════════════
+# ── CHAPTER MANIFEST (NCERT Ganita Prakash Class 6, 2025-26) ─────
 CHAPTERS = [
-    {
-        'id': 1, 'slug': 'patterns-in-maths', 'name': 'Patterns in Mathematics',
-        'topic': 'arithmetic', 'emoji': '🔢', 'exam_id': 'c6-01',
-        'concepts': 'Number patterns, sequences (counting numbers, odd, even, square, triangular), visual patterns, recognising and extending patterns, simple rules from patterns'
-    },
-    {
-        'id': 2, 'slug': 'lines-and-angles', 'name': 'Lines and Angles',
-        'topic': 'geometry', 'emoji': '📐', 'exam_id': 'c6-02',
-        'concepts': 'Points, lines, line segments, rays, angles (acute, right, obtuse, straight, reflex), measuring angles in degrees, parallel and intersecting lines, perpendicular lines'
-    },
-    {
-        'id': 3, 'slug': 'number-play', 'name': 'Number Play',
-        'topic': 'arithmetic', 'emoji': '🎲', 'exam_id': 'c6-03',
-        'concepts': 'Playing with numbers, supercells, picking numbers using rules, digit sums, number puzzles, Collatz-like sequences, palindromes, magic squares basics'
-    },
-    {
-        'id': 4, 'slug': 'data-handling-and-presentation', 'name': 'Data Handling and Presentation',
-        'topic': 'data-handling', 'emoji': '📊', 'exam_id': 'c6-04',
-        'concepts': 'Collecting data, organising in tally marks and tables, pictographs, bar graphs, reading and interpreting graphs, simple frequency tables'
-    },
-    {
-        'id': 5, 'slug': 'prime-time', 'name': 'Prime Time',
-        'topic': 'arithmetic', 'emoji': '⭐', 'exam_id': 'c6-05',
-        'concepts': 'Factors and multiples, prime and composite numbers, prime factorisation, HCF and LCM (introductory), divisibility rules for 2, 3, 4, 5, 6, 9, 10, co-primes'
-    },
-    {
-        'id': 6, 'slug': 'perimeter-and-area', 'name': 'Perimeter and Area',
-        'topic': 'mensuration', 'emoji': '🔲', 'exam_id': 'c6-06',
-        'concepts': 'Perimeter of rectangle, square, triangle, regular polygons; area of squares and rectangles by counting unit squares; area formulas; area of irregular shapes by decomposition'
-    },
-    {
-        'id': 7, 'slug': 'fractions', 'name': 'Fractions',
-        'topic': 'arithmetic', 'emoji': '½', 'exam_id': 'c6-07',
-        'concepts': 'Fraction as part of whole, equivalent fractions, simplest form, comparing fractions, addition and subtraction of like and unlike fractions, mixed numbers, fraction of a collection'
-    },
-    {
-        'id': 8, 'slug': 'playing-with-constructions', 'name': 'Playing with Constructions',
-        'topic': 'geometry', 'emoji': '📏', 'exam_id': 'c6-08',
-        'concepts': 'Using ruler and compass; drawing line segments of given length; constructing perpendicular bisectors, angle bisectors; constructing angles of 60°, 90°, 120°; basic shape construction (squares, equilateral triangles, regular hexagons)'
-    },
-    {
-        'id': 9, 'slug': 'symmetry', 'name': 'Symmetry',
-        'topic': 'geometry', 'emoji': '🪞', 'exam_id': 'c6-09',
-        'concepts': 'Line/reflection symmetry, lines of symmetry of common shapes (square, rectangle, circle, regular polygons), rotational symmetry, order of rotational symmetry, symmetry in everyday objects'
-    },
-    {
-        'id': 10, 'slug': 'other-side-of-zero', 'name': 'The Other Side of Zero',
-        'topic': 'arithmetic', 'emoji': '⚖️', 'exam_id': 'c6-10',
-        'concepts': 'Introduction to negative numbers, the integer number line, comparing integers, addition and subtraction of integers, real-life contexts (temperature, debt, elevation), opposites of integers'
-    },
+    {'id':1,'ch':'ch01','slug':'patterns-in-mathematics','name':'Patterns in Mathematics',
+     'topic':'arithmetic','emoji':'🔢',
+     'concepts':'Number sequences (counting, odd, even, square, triangular, Fibonacci), visual patterns, extending patterns, finding rules, number patterns in tables'},
+    {'id':2,'ch':'ch02','slug':'lines-and-angles','name':'Lines and Angles',
+     'topic':'geometry','emoji':'📐',
+     'concepts':'Points, lines, line segments, rays; acute, right, obtuse, straight, reflex angles; measuring angles; complementary and supplementary angles; vertically opposite angles; parallel lines and transversal'},
+    {'id':3,'ch':'ch03','slug':'number-play','name':'Number Play',
+     'topic':'arithmetic','emoji':'🎲',
+     'concepts':'Supercells, number puzzles, choosing numbers by rules, palindrome numbers, digit sums and divisibility, magic squares, Collatz sequence basics'},
+    {'id':4,'ch':'ch04','slug':'data-handling-and-presentation','name':'Data Handling and Presentation',
+     'topic':'data-handling','emoji':'📊',
+     'concepts':'Collecting and organising data, tally marks, frequency tables, pictographs, bar graphs (horizontal and vertical), reading and interpreting graphs, mean of data'},
+    {'id':5,'ch':'ch05','slug':'prime-time','name':'Prime Time',
+     'topic':'arithmetic','emoji':'⭐',
+     'concepts':'Factors and multiples, prime and composite numbers, prime factorisation (factor tree and division), HCF, LCM, divisibility rules (2,3,4,5,6,7,8,9,10,11), co-prime numbers'},
+    {'id':6,'ch':'ch06','slug':'perimeter-and-area','name':'Perimeter and Area',
+     'topic':'mensuration','emoji':'🔲',
+     'concepts':'Perimeter of rectangle (2(l+b)), square (4s), triangle; area of square (s2), rectangle (l x b); unit squares; area of irregular shapes; real-life problems'},
+    {'id':7,'ch':'ch07','slug':'fractions','name':'Fractions',
+     'topic':'arithmetic','emoji':'1/2',
+     'concepts':'Fraction as part of whole and collection, proper/improper/mixed fractions, equivalent fractions, simplest form, comparing fractions, addition and subtraction of like and unlike fractions, fraction of a quantity'},
+    {'id':8,'ch':'ch08','slug':'playing-with-constructions','name':'Playing with Constructions',
+     'topic':'geometry','emoji':'📏',
+     'concepts':'Ruler and compass; line segment; perpendicular bisector; angle bisector; constructing 60, 90, 120 degree angles; equilateral triangle; square; regular hexagon'},
+    {'id':9,'ch':'ch09','slug':'symmetry','name':'Symmetry',
+     'topic':'geometry','emoji':'🪞',
+     'concepts':'Line and reflection symmetry, lines of symmetry of regular shapes (square:4, rectangle:2, equilateral triangle:3, circle:infinite), rotational symmetry, order and angle of rotation'},
+    {'id':10,'ch':'ch10','slug':'the-other-side-of-zero','name':'The Other Side of Zero',
+     'topic':'arithmetic','emoji':'⚖️',
+     'concepts':'Negative integers, number line with negatives, comparing and ordering integers, absolute value, addition and subtraction of integers, real-life contexts (temperature, debt, elevation)'},
 ]
 
-# ═══════════════════════════════════════════════════════════════
-# UTILITIES
-# ═══════════════════════════════════════════════════════════════
+# ── OUTPUT PATH FUNCTIONS ─────────────────────────────────────────
+def explain_out(ch):
+    return SCRIPT_DIR / 'explain' / 'class6' / ch['topic'] / f"{ch['slug']}.html"
+
+def practice_out(ch):
+    return SCRIPT_DIR / 'practice' / 'class6' / ch['topic'] / f"{ch['slug']}.html"
+
+def exam_out(ch):
+    return SCRIPT_DIR / 'data' / 'cbse' / 'class6' / ch['ch'] / f"{ch['ch']}-exam.json"
+
+# ── UTILITIES ─────────────────────────────────────────────────────
 def log(msg, level='INFO'):
-    icons = {'INFO': 'ℹ️ ', 'OK': '✅', 'WARN': '⚠️ ', 'ERR': '❌', 'WORK': '⚙️ '}
-    print(f"{icons.get(level, '  ')} {msg}")
+    icons = {'INFO':'  ','OK':'OK','WARN':'!!','ERR':'XX','WORK':'..'}
+    print(f"[{icons.get(level,'  ')}] {msg}", flush=True)
 
 def fail(msg):
     log(msg, 'ERR')
     sys.exit(1)
 
-def get_client():
-    """Get OpenAI client. Validates API key."""
-    key = os.environ.get('OPENAI_API_KEY')
-    if not key:
-        fail("OPENAI_API_KEY environment variable not set.\n"
-             "   Set it in Windows: setx OPENAI_API_KEY \"your-key-here\"\n"
-             "   Then RESTART your terminal.")
-    return OpenAI(api_key=key)
+def backup_if_exists(path):
+    if path.exists():
+        shutil.copy2(path, str(path) + '.bak')
 
 def validate_setup():
-    """Check templates exist and folders are creatable."""
     if not EXPLAIN_TEMPLATE.exists():
-        fail(f"Explain template not found: {EXPLAIN_TEMPLATE}\n"
-             f"   Run script from D:\\rishi\\public\\ directory.")
+        fail(f"Explain template missing:\n    {EXPLAIN_TEMPLATE}")
     if not PRACTICE_TEMPLATE.exists():
-        fail(f"Practice template not found: {PRACTICE_TEMPLATE}")
-    
-    OUT_EXPLAIN.mkdir(parents=True, exist_ok=True)
-    OUT_PRACTICE.mkdir(parents=True, exist_ok=True)
-    OUT_DATA.mkdir(parents=True, exist_ok=True)
-    log(f"Output folders ready in {SCRIPT_DIR}", 'OK')
+        fail(f"Practice template missing:\n    {PRACTICE_TEMPLATE}")
+    for ch in CHAPTERS:
+        explain_out(ch).parent.mkdir(parents=True, exist_ok=True)
+        practice_out(ch).parent.mkdir(parents=True, exist_ok=True)
+        exam_out(ch).parent.mkdir(parents=True, exist_ok=True)
+    log("Output folders ready", 'OK')
 
-def read_template(path):
-    return path.read_text(encoding='utf-8')
+def get_client():
+    key = os.environ.get('OPENAI_API_KEY')
+    if not key:
+        fail("OPENAI_API_KEY not set.\n"
+             "  In PowerShell run:\n"
+             "    $env:OPENAI_API_KEY='sk-...'")
+    return OpenAI(api_key=key)
 
-# ═══════════════════════════════════════════════════════════════
-# OPENAI GENERATION
-# ═══════════════════════════════════════════════════════════════
 def call_openai(client, system_prompt, user_prompt, max_retries=3):
-    """Call OpenAI with JSON mode and retries."""
     for attempt in range(max_retries):
         try:
             resp = client.chat.completions.create(
                 model=OPENAI_MODEL,
-                response_format={'type': 'json_object'},
+                response_format={'type':'json_object'},
                 messages=[
-                    {'role': 'system', 'content': system_prompt},
-                    {'role': 'user', 'content': user_prompt},
+                    {'role':'system','content':system_prompt},
+                    {'role':'user',  'content':user_prompt},
                 ],
                 temperature=0.4,
             )
-            content = resp.choices[0].message.content
-            return json.loads(content)
-        except json.JSONDecodeError as e:
-            log(f"JSON parse error (attempt {attempt+1}): {e}", 'WARN')
-            if attempt == max_retries - 1:
-                raise
-            time.sleep(2)
+            return json.loads(resp.choices[0].message.content)
         except Exception as e:
-            log(f"OpenAI error (attempt {attempt+1}): {e}", 'WARN')
-            if attempt == max_retries - 1:
+            log(f"OpenAI attempt {attempt+1} failed: {e}", 'WARN')
+            if attempt < max_retries - 1:
+                time.sleep(3)
+            else:
                 raise
-            time.sleep(3)
 
-# ── EXPLAIN PAGE GENERATION ──────────────────────────────────────
-EXPLAIN_SYSTEM = """You are an expert NCERT Class 6 mathematics teacher creating educational content for the RISHI tutoring app. You create content for "Rishika", a friendly AI tutor character.
+# ── TREE WRITER ───────────────────────────────────────────────────
+def write_tree():
+    skip = {'.git','node_modules','__pycache__','.cloudflare'}
+    lines = [f"RISHI File Tree — {datetime.now().strftime('%Y-%m-%d %H:%M')}", ""]
+    for dp, dns, fns in os.walk(REPO_ROOT):
+        dns[:] = sorted(d for d in dns if d not in skip)
+        rel   = Path(dp).relative_to(REPO_ROOT)
+        depth = len(rel.parts)
+        if depth > 7:
+            continue
+        indent = '  ' * depth
+        folder = Path(dp).name if depth > 0 else 'RISHI'
+        lines.append(f"{indent}+--- {folder}/")
+        for fn in sorted(fns):
+            lines.append(f"{indent}    {fn}")
+    (REPO_ROOT / 'tree.txt').write_text('\n'.join(lines), encoding='utf-8')
+    log("tree.txt updated at D:\\rishi\\tree.txt", 'OK')
 
-CRITICAL RULES:
-- Output MUST be valid JSON exactly matching the schema given.
-- All math must be ACCURATE and age-appropriate for Class 6 (age 11-12).
-- Use SIMPLE language. Indian context (rupees, pizza, cricket, sweets, etc.).
-- Use CBSE/NCERT terminology and notation.
-- Speech text (qs, cqs, s) should be naturally readable aloud — spell out symbols (e.g., "5 plus 3" not "5+3").
-- Display text (q, t, cq) can use HTML entities (&times;, &divide;, &sup2;, &minus;) and span tags like <span class='hl'>X</span> or <span class='ans-tag'>X</span>.
-- anim_svg: simple inline SVG snippets following EXACT pattern shown in the example. Include 3 step layers (q1s0, q1s1, q1s2) and 1 answer layer (q1ans). Keep text VERY short.
-- The character is "Rishika" — never "Rekha"."""
+# ═══════════════════════════════════════════════════════════════
+# EXPLAIN GENERATION
+# ═══════════════════════════════════════════════════════════════
+EXPLAIN_SYS = """You create explain page content for RISHI, an NCERT Class 6 maths tutoring app for Indian students aged 11-12.
+Tutor character: RISHIKA only (never Rekha).
+OUTPUT: valid JSON only, no markdown, no extra text.
+RULES:
+- Simple language, Indian context (rupees, cricket, mithai, school, etc.)
+- CBSE/NCERT terminology
+- q/cq: display text. Use HTML entities (&times; &divide; &sup2; &minus; &frac12; &rarr;) and <span class='hl'>X</span> or <span class='ans-tag'>X</span>
+- qs/cqs/s fields: speech text only — spell out all symbols
+- anim_svg: follow EXACT pattern shown in schema — 3 step layers + 1 ans layer
+- NO smart apostrophes — use straight apostrophe (') only"""
 
-EXPLAIN_SCHEMA_EXAMPLE = '''{
-  "title": "Working with Fractions",
-  "topbar_label": "½ Working with Fractions",
-  "intro": "Hi <span class=\\"hl\\" id=\\"sName\\">there</span>! I&#39;m Rishika, and today we&#39;re going to master fractions together! 🍕 From pizza slices to recipe measurements, fractions are everywhere — let&#39;s unlock their secrets!",
-  "questions": [
-    {
-      "id": "q1",
-      "q": "What is a proper fraction? Give an example.",
-      "qs": "What is a proper fraction? Give an example.",
-      "anim": "q1",
-      "steps": [
-        {"t": "A fraction has two parts: numerator (top) and denominator (bottom).", "s": "A fraction has two parts: the numerator on top and the denominator on the bottom."},
-        {"t": "A PROPER fraction: numerator is LESS than denominator.", "s": "A proper fraction is one where the numerator is less than the denominator."},
-        {"t": "Example: 3/5. Here 3 (top) < 5 (bottom). So 3/5 is proper.", "s": "For example, 3 over 5. Since 3 is less than 5, it is a proper fraction."}
-      ],
-      "cq": "Is 7/9 a proper fraction?",
-      "cqs": "Is 7 over 9 a proper fraction?",
-      "ans": ["yes", "Yes", "YES"],
-      "nudges": ["Compare top and bottom.", "7 is the numerator, 9 is the denominator. Which is bigger?", "7 < 9, so yes it is proper!"],
-      "anim_svg": "<g id=\\"q1s0\\" opacity=\\"0\\"><text x=\\"22\\" y=\\"28\\" font-size=\\"11\\" font-weight=\\"800\\" fill=\\"#5a4a30\\">Fraction = numerator (top) / denominator (bottom)</text></g><g id=\\"q1s1\\" opacity=\\"0\\"><text x=\\"22\\" y=\\"68\\" font-size=\\"11\\" font-weight=\\"800\\" fill=\\"#5a4a30\\">Proper fraction: numerator &lt; denominator</text></g><g id=\\"q1s2\\" opacity=\\"0\\"><text x=\\"22\\" y=\\"108\\" font-size=\\"11\\" font-weight=\\"800\\" fill=\\"#5a4a30\\">Example: 3/5 (3 &lt; 5) → proper</text></g><g id=\\"q1ans\\" opacity=\\"0\\"><rect x=\\"40\\" y=\\"148\\" width=\\"320\\" height=\\"24\\" rx=\\"7\\" fill=\\"#eef2eb\\" stroke=\\"#6b4c2a\\" stroke-width=\\"1.5\\"/><text x=\\"210\\" y=\\"163\\" text-anchor=\\"middle\\" font-family=\\"Share Tech Mono\\" font-size=\\"12\\" font-weight=\\"bold\\" fill=\\"#7a8c6e\\">Yes, 7/9 is a proper fraction</text></g>"
-    }
-  ]
-}'''
+EXPLAIN_USER = """Chapter: {name} | Topic: {topic}
+Concepts: {concepts}
 
-def gen_explain_content(client, ch):
-    user_prompt = f"""Generate explain page content for this Class 6 chapter:
+Generate EXACTLY 10 questions (id q1..q10), easy to medium, each on a different concept.
 
-Chapter: {ch['name']}
-Topic: {ch['topic']}
-Key concepts to teach: {ch['concepts']}
-
-Create EXACTLY 10 questions (id q1 to q10) progressing from EASY to MEDIUM difficulty.
-Each question must teach a different sub-concept covering all key concepts above.
-Use the SCHEMA below. Output ONLY valid JSON matching this structure (no extra text):
-
-{EXPLAIN_SCHEMA_EXAMPLE}
-
-Now generate for "{ch['name']}". The "topbar_label" must start with "{ch['emoji']} " then the chapter name.
-The "intro" must mention Rishika and be warm, age-appropriate for Class 6, and reference the chapter topic with an emoji.
-"""
-    data = call_openai(client, EXPLAIN_SYSTEM, user_prompt)
-    return data
-
-# ── PRACTICE PAGE GENERATION ─────────────────────────────────────
-PRACTICE_SYSTEM = """You are creating PRACTICE problems (not explanations) for NCERT Class 6 mathematics in the RISHI tutoring app.
-
-CRITICAL RULES:
-- Output MUST be valid JSON exactly matching the given schema.
-- Practice questions are SLIGHTLY HARDER than explain questions — student already learned concepts.
-- Mix straightforward computation with 1-2 word problems / real-life applications.
-- All math accurate and age-appropriate for Class 6 (age 11-12).
-- Use Indian context.
-- The character is "Rishika"."""
-
-PRACTICE_SCHEMA_EXAMPLE = '''{
-  "title": "Factorisation",
-  "topbar_label": "🧮 Factorisation",
-  "intro": "Hi <span class=\\"hl\\" id=\\"sName\\">there</span>! 😊 I am Rishika! Today we crack <span class=\\"hl\\">Factorisation</span> together! Let us begin! 🌟",
-  "questions": [
-    {
-      "id": "p1",
-      "q": "Factorise: <span class='hl'>4x + 8</span>",
-      "qs": "Factorise 4x plus 8.",
-      "anim": "p1",
-      "steps": [
-        {"t": "Find HCF of 4 and 8. HCF = <span class='ans-tag'>4</span>", "s": "Find the HCF of 4 and 8. The HCF is 4."},
-        {"t": "Divide each term: 4x ÷ 4 = x, 8 ÷ 4 = 2", "s": "Divide each term by 4."},
-        {"t": "Answer: <span class='ans-tag'>4(x + 2)</span>", "s": "So the factorised form is 4 times x plus 2."}
-      ],
-      "cq": "Factorise: 6x + 9",
-      "cqs": "Factorise 6x plus 9.",
-      "ans": ["3(2x+3)", "3(2x + 3)", "3 times 2x plus 3"],
-      "nudges": ["HCF of 6 and 9 is 3. Take it outside.", "3 × what gives 6x? 3 × what gives 9?", "Answer is 3(2x + 3)!"],
-      "anim_svg": "<g id=\\"p1s0\\" opacity=\\"0\\"><text x=\\"22\\" y=\\"28\\" font-size=\\"11\\" font-weight=\\"800\\" fill=\\"#5a4a30\\">Find HCF of coefficients</text></g><g id=\\"p1s1\\" opacity=\\"0\\"><text x=\\"22\\" y=\\"68\\" font-size=\\"11\\" font-weight=\\"800\\" fill=\\"#5a4a30\\">Divide each term by HCF</text></g><g id=\\"p1s2\\" opacity=\\"0\\"><text x=\\"22\\" y=\\"108\\" font-size=\\"11\\" font-weight=\\"800\\" fill=\\"#5a4a30\\">Write HCF outside, rest inside brackets</text></g><g id=\\"p1ans\\" opacity=\\"0\\"><rect x=\\"40\\" y=\\"148\\" width=\\"320\\" height=\\"24\\" rx=\\"7\\" fill=\\"#eef2eb\\" stroke=\\"#6b4c2a\\" stroke-width=\\"1.5\\"/><text x=\\"210\\" y=\\"163\\" text-anchor=\\"middle\\" font-family=\\"Share Tech Mono\\" font-size=\\"12\\" font-weight=\\"bold\\" fill=\\"#7a8c6e\\">3(2x + 3)</text></g>"
-    }
-  ]
-}'''
-
-def gen_practice_content(client, ch):
-    user_prompt = f"""Generate practice page content for this Class 6 chapter:
-
-Chapter: {ch['name']}
-Topic: {ch['topic']}
-Key concepts: {ch['concepts']}
-
-Create EXACTLY 10 PRACTICE questions (ids p1 to p10).
-Practice questions should TEST understanding, not teach. Mix:
-- 6-7 direct skill questions (slightly harder than explain page)
-- 2-3 word problems with Indian real-life context
-
-Use the SCHEMA below. Output ONLY valid JSON:
-
-{PRACTICE_SCHEMA_EXAMPLE}
-
-Now generate for "{ch['name']}". The "topbar_label" must start with "{ch['emoji']} ".
-"""
-    data = call_openai(client, PRACTICE_SYSTEM, user_prompt)
-    return data
-
-# ── EXAM JSON GENERATION ─────────────────────────────────────────
-EXAM_SYSTEM = """You generate multiple-choice exam questions for NCERT Class 6 mathematics.
-
-CRITICAL RULES:
-- Output MUST be valid JSON exactly matching schema.
-- 15 MCQs total, mix of difficulties: 5 easy, 7 medium, 3 hard.
-- Each question has EXACTLY 4 options.
-- "correct" is 0-indexed (0, 1, 2, or 3).
-- Distractors must be plausible (common mistakes), not random.
-- Math accurate. Indian context where natural."""
-
-def gen_exam_questions(client, ch):
-    user_prompt = f"""Generate 15 multiple-choice exam questions for Class 6 chapter "{ch['name']}".
-
-Topic: {ch['topic']}
-Concepts: {ch['concepts']}
-
-Output ONLY valid JSON in this exact schema:
-
+JSON structure to output:
 {{
-  "chapter_id": "{ch['exam_id']}",
-  "chapter_name": "{ch['name']}",
-  "class": 6,
-  "board": "cbse",
+  "title": "{name}",
+  "topbar_label": "{emoji} {name}",
+  "intro": "Hi <span class=\\"hl\\" id=\\"sName\\">there</span>! I&#39;m Rishika! Today we explore <span class=\\"hl\\">{name}</span>! {emoji} Let&#39;s begin!",
   "questions": [
     {{
-      "id": "{ch['exam_id']}-q01",
-      "q": "Question text here",
-      "options": ["Option A", "Option B", "Option C", "Option D"],
-      "correct": 0,
-      "explanation": "Brief explanation of correct answer",
-      "difficulty": "easy"
+      "id": "q1",
+      "q": "display question",
+      "qs": "speech question",
+      "anim": "q1",
+      "steps": [{{"t":"step 1 display","s":"step 1 speech"}},{{"t":"step 2 display","s":"step 2 speech"}},{{"t":"step 3 display","s":"step 3 speech"}}],
+      "cq": "follow-up display",
+      "cqs": "follow-up speech",
+      "ans": ["answer1","answer2"],
+      "nudges": ["hint1","hint2","direct hint"],
+      "anim_svg": "<g id=\\"q1s0\\" opacity=\\"0\\"><text x=\\"22\\" y=\\"28\\" font-size=\\"11\\" font-weight=\\"800\\" fill=\\"#5a4a30\\">Step 1 key point</text></g><g id=\\"q1s1\\" opacity=\\"0\\"><text x=\\"22\\" y=\\"68\\" font-size=\\"11\\" font-weight=\\"800\\" fill=\\"#5a4a30\\">Step 2 key point</text></g><g id=\\"q1s2\\" opacity=\\"0\\"><text x=\\"22\\" y=\\"108\\" font-size=\\"11\\" font-weight=\\"800\\" fill=\\"#5a4a30\\">Step 3 key point</text></g><g id=\\"q1ans\\" opacity=\\"0\\"><rect x=\\"40\\" y=\\"148\\" width=\\"320\\" height=\\"24\\" rx=\\"7\\" fill=\\"#eef2eb\\" stroke=\\"#6b4c2a\\" stroke-width=\\"1.5\\"/><text x=\\"210\\" y=\\"163\\" text-anchor=\\"middle\\" font-family=\\"Share Tech Mono\\" font-size=\\"12\\" font-weight=\\"bold\\" fill=\\"#7a8c6e\\">answer text</text></g>"
     }}
   ]
-}}
+}}"""
 
-Make 15 questions total (id q01 to q15). Difficulty distribution: q01-q05 easy, q06-q12 medium, q13-q15 hard."""
-    data = call_openai(client, EXAM_SYSTEM, user_prompt)
+def gen_explain(client, ch):
+    data = call_openai(client, EXPLAIN_SYS,
+        EXPLAIN_USER.format(name=ch['name'],topic=ch['topic'],concepts=ch['concepts'],emoji=ch['emoji']))
+    if len(data.get('questions',[])) < 8:
+        raise ValueError(f"Only {len(data.get('questions',[]))} explain questions returned")
     return data
+
+# ═══════════════════════════════════════════════════════════════
+# PRACTICE GENERATION
+# ═══════════════════════════════════════════════════════════════
+PRACTICE_SYS = """You create PRACTICE problems for RISHI NCERT Class 6 maths app.
+Tutor character: RISHIKA only. OUTPUT: valid JSON only.
+Practice is harder than explain — student already knows the concept.
+Mix computation + 2-3 Indian-context word problems.
+NO smart apostrophes — use straight apostrophe (') only."""
+
+PRACTICE_USER = """Chapter: {name} | Topic: {topic}
+Concepts: {concepts}
+
+Generate EXACTLY 10 practice problems (id p1..p10). Mix: 7-8 skill + 2-3 word problems.
+
+JSON structure:
+{{
+  "title": "{name}",
+  "topbar_label": "{emoji} {name}",
+  "intro": "Hi <span class=\\"hl\\" id=\\"sName\\">there</span>! I&#39;m Rishika! Let&#39;s practice <span class=\\"hl\\">{name}</span>! {emoji} Let&#39;s go!",
+  "questions": [
+    {{
+      "id": "p1",
+      "q": "display question",
+      "qs": "speech question",
+      "anim": "p1",
+      "steps": [{{"t":"step 1 display","s":"step 1 speech"}},{{"t":"step 2 display","s":"step 2 speech"}},{{"t":"step 3 display","s":"step 3 speech"}}],
+      "cq": "follow-up display",
+      "cqs": "follow-up speech",
+      "ans": ["answer1","answer2"],
+      "nudges": ["hint1","hint2","direct hint"],
+      "anim_svg": "<g id=\\"p1s0\\" opacity=\\"0\\"><text x=\\"22\\" y=\\"28\\" font-size=\\"11\\" font-weight=\\"800\\" fill=\\"#5a4a30\\">Step 1 key point</text></g><g id=\\"p1s1\\" opacity=\\"0\\"><text x=\\"22\\" y=\\"68\\" font-size=\\"11\\" font-weight=\\"800\\" fill=\\"#5a4a30\\">Step 2 key point</text></g><g id=\\"p1s2\\" opacity=\\"0\\"><text x=\\"22\\" y=\\"108\\" font-size=\\"11\\" font-weight=\\"800\\" fill=\\"#5a4a30\\">Step 3 key point</text></g><g id=\\"p1ans\\" opacity=\\"0\\"><rect x=\\"40\\" y=\\"148\\" width=\\"320\\" height=\\"24\\" rx=\\"7\\" fill=\\"#eef2eb\\" stroke=\\"#6b4c2a\\" stroke-width=\\"1.5\\"/><text x=\\"210\\" y=\\"163\\" text-anchor=\\"middle\\" font-family=\\"Share Tech Mono\\" font-size=\\"12\\" font-weight=\\"bold\\" fill=\\"#7a8c6e\\">answer text</text></g>"
+    }}
+  ]
+}}"""
+
+def gen_practice(client, ch):
+    data = call_openai(client, PRACTICE_SYS,
+        PRACTICE_USER.format(name=ch['name'],topic=ch['topic'],concepts=ch['concepts'],emoji=ch['emoji']))
+    if len(data.get('questions',[])) < 8:
+        raise ValueError(f"Only {len(data.get('questions',[]))} practice questions returned")
+    return data
+
+# ═══════════════════════════════════════════════════════════════
+# EXAM JSON GENERATION (exact schema from actual ch01-exam.json)
+# ═══════════════════════════════════════════════════════════════
+EXAM_SYS = """You generate CBSE exam questions for Class 6 mathematics.
+OUTPUT: valid JSON only. No markdown.
+- Math must be 100% accurate for Class 6 (age 11-12)
+- Use Indian number system (lakhs, crores) where relevant
+- Distractors must be plausible (common student mistakes)
+- Difficulty: easy=recall/simple computation, medium=application, hard=multi-step/HOTS"""
+
+def gen_sec_A(client, ch):
+    prompt = f"""Chapter: {ch['name']} (Class 6 CBSE) | Concepts: {ch['concepts']}
+Generate EXACTLY 20 conceptual MCQs for Section A (1 mark each). Difficulty: 14 easy, 6 medium.
+Output JSON:
+{{"questions":[{{"id":"cbse_6_{ch['ch']}_A_001","text":"...","options":{{"a":"...","b":"...","c":"...","d":"..."}},"correct":"b","difficulty":"easy","explanation":"..."}}]}}
+IDs: cbse_6_{ch['ch']}_A_001 to cbse_6_{ch['ch']}_A_020"""
+    data = call_openai(client, EXAM_SYS, prompt)
+    qs = data.get('questions',[])
+    if len(qs) < 18: raise ValueError(f"Sec A: got {len(qs)}/20")
+    return qs[:20]
+
+def gen_sec_B(client, ch):
+    prompt = f"""Chapter: {ch['name']} (Class 6 CBSE) | Concepts: {ch['concepts']}
+Generate EXACTLY 10 application/word-problem MCQs for Section B (2 marks each). All medium. Indian real-life contexts.
+Output JSON:
+{{"questions":[{{"id":"cbse_6_{ch['ch']}_B_001","text":"...","options":{{"a":"...","b":"...","c":"...","d":"..."}},"correct":"c","difficulty":"medium","explanation":"..."}}]}}
+IDs: cbse_6_{ch['ch']}_B_001 to cbse_6_{ch['ch']}_B_010"""
+    data = call_openai(client, EXAM_SYS, prompt)
+    qs = data.get('questions',[])
+    if len(qs) < 8: raise ValueError(f"Sec B: got {len(qs)}/10")
+    return qs[:10]
+
+def gen_sec_C(client, ch):
+    prompt = f"""Chapter: {ch['name']} (Class 6 CBSE) | Concepts: {ch['concepts']}
+Generate EXACTLY 6 HOTS MCQs for Section C (3 marks each). All hard. Multi-step reasoning required.
+Output JSON:
+{{"questions":[{{"id":"cbse_6_{ch['ch']}_C_001","text":"...","options":{{"a":"...","b":"...","c":"...","d":"..."}},"correct":"a","difficulty":"hard","explanation":"..."}}]}}
+IDs: cbse_6_{ch['ch']}_C_001 to cbse_6_{ch['ch']}_C_006"""
+    data = call_openai(client, EXAM_SYS, prompt)
+    qs = data.get('questions',[])
+    if len(qs) < 5: raise ValueError(f"Sec C: got {len(qs)}/6")
+    return qs[:6]
+
+def gen_sec_D(client, ch):
+    prompt = f"""Chapter: {ch['name']} (Class 6 CBSE) | Concepts: {ch['concepts']}
+Generate EXACTLY 10 direct-input (short answer) questions for Section D (3 marks each). Medium-hard. Student types answer.
+Output JSON:
+{{"questions":[{{"id":"cbse_6_{ch['ch']}_D_001","text":"...","correct_answer":"...","answer_type":"text","accepted_forms":["...","..."],"difficulty":"medium","explanation":"..."}}]}}
+IDs: cbse_6_{ch['ch']}_D_001 to cbse_6_{ch['ch']}_D_010"""
+    data = call_openai(client, EXAM_SYS, prompt)
+    qs = data.get('questions',[])
+    if len(qs) < 8: raise ValueError(f"Sec D: got {len(qs)}/10")
+    return qs[:10]
+
+def gen_sec_E(client, ch):
+    prompt = f"""Chapter: {ch['name']} (Class 6 CBSE) | Concepts: {ch['concepts']}
+Generate EXACTLY 2 case study questions for Section E. Each has 3 subparts (2 marks each). Indian real-life contexts.
+Output JSON:
+{{"questions":[{{"id":"cbse_6_{ch['ch']}_E_case1","case_text":"scenario paragraph","subparts":[{{"id":"cbse_6_{ch['ch']}_E_case1_q1","text":"...","type":"mcq","options":{{"a":"...","b":"...","c":"...","d":"..."}},"correct":"a","marks":2,"explanation":"..."}},{{"id":"cbse_6_{ch['ch']}_E_case1_q2","text":"...","type":"mcq","options":{{"a":"...","b":"...","c":"...","d":"..."}},"correct":"b","marks":2,"explanation":"..."}},{{"id":"cbse_6_{ch['ch']}_E_case1_q3","text":"...","type":"direct_input","correct_answer":"...","accepted_forms":["..."],"marks":2,"explanation":"..."}}]}}]}}
+Generate 2 case studies (case1 and case2) with 3 subparts each."""
+    data = call_openai(client, EXAM_SYS, prompt)
+    qs = data.get('questions',[])
+    if len(qs) < 2: raise ValueError(f"Sec E: got {len(qs)}/2 case studies")
+    return qs[:2]
+
+def gen_exam(client, ch):
+    log("  Sec A — 20 Conceptual MCQs", 'WORK')
+    sec_a = gen_sec_A(client, ch)
+    log("  Sec B — 10 Application MCQs", 'WORK')
+    sec_b = gen_sec_B(client, ch)
+    log("  Sec C — 6 Higher Order MCQs", 'WORK')
+    sec_c = gen_sec_C(client, ch)
+    log("  Sec D — 10 Direct Input", 'WORK')
+    sec_d = gen_sec_D(client, ch)
+    log("  Sec E — 2 Case Studies", 'WORK')
+    sec_e = gen_sec_E(client, ch)
+
+    marks = (len(sec_a)*1 + len(sec_b)*2 + len(sec_c)*3 + len(sec_d)*3 +
+             sum(sum(sp.get('marks',2) for sp in q.get('subparts',[])) for q in sec_e))
+
+    return {
+        "meta": {
+            "board": "cbse", "class": 6,
+            "chapter_id": ch['ch'], "chapter_name": ch['name'],
+            "topic_group": ch['topic'],
+            "total_marks": marks,
+            "generated": datetime.now().strftime("%Y-%m"),
+            "version": 1
+        },
+        "sections": {
+            "A": {"type":"mcq",          "label":"Conceptual",   "marks_per_q":1, "questions":sec_a},
+            "B": {"type":"mcq",          "label":"Application",  "marks_per_q":2, "questions":sec_b},
+            "C": {"type":"mcq",          "label":"Higher Order", "marks_per_q":3, "questions":sec_c},
+            "D": {"type":"direct_input", "label":"Numerical",    "marks_per_q":3, "questions":sec_d},
+            "E": {"type":"case_study",   "label":"Case Study",   "marks_per_q":2, "questions":sec_e},
+        }
+    }
 
 # ═══════════════════════════════════════════════════════════════
 # TEMPLATE INJECTION
 # ═══════════════════════════════════════════════════════════════
-def js_string_escape(s):
-    """Escape a string for safe JS string literal."""
-    return s.replace('\\', '\\\\').replace('"', '\\"').replace('\n', '\\n')
-
-def build_qb_block(questions):
-    """Convert questions list to JS QB array literal."""
+def build_qb(questions):
     items = []
     for q in questions:
-        item = '{\n'
-        item += f'id:"{q["id"]}",\n'
-        item += f'q:{json.dumps(q["q"], ensure_ascii=False)},\n'
-        item += f'qs:{json.dumps(q["qs"], ensure_ascii=False)},\n'
-        item += f'anim:"{q["anim"]}",\n'
-        item += f'steps:{json.dumps(q["steps"], ensure_ascii=False)},\n'
-        item += f'cq:{json.dumps(q["cq"], ensure_ascii=False)},\n'
-        item += f'cqs:{json.dumps(q["cqs"], ensure_ascii=False)},\n'
-        item += f'ans:{json.dumps(q["ans"], ensure_ascii=False)},\n'
-        item += f'nudges:{json.dumps(q["nudges"], ensure_ascii=False)},\n'
-        item += f'anim_svg:{json.dumps(q["anim_svg"], ensure_ascii=False)}\n'
-        item += '}'
-        items.append(item)
+        s  = '{\n'
+        s += f'id:{json.dumps(q["id"])},\n'
+        s += f'q:{json.dumps(q["q"],ensure_ascii=False)},\n'
+        s += f'qs:{json.dumps(q["qs"],ensure_ascii=False)},\n'
+        s += f'anim:{json.dumps(q["anim"])},\n'
+        s += f'steps:{json.dumps(q["steps"],ensure_ascii=False)},\n'
+        s += f'cq:{json.dumps(q["cq"],ensure_ascii=False)},\n'
+        s += f'cqs:{json.dumps(q["cqs"],ensure_ascii=False)},\n'
+        s += f'ans:{json.dumps(q["ans"],ensure_ascii=False)},\n'
+        s += f'nudges:{json.dumps(q["nudges"],ensure_ascii=False)},\n'
+        s += f'anim_svg:{json.dumps(q["anim_svg"],ensure_ascii=False)}\n'
+        s += '}'
+        items.append(s)
     return 'var QB=[\n' + ',\n'.join(items) + '\n];'
 
-def build_svgs_block(questions):
-    """Build the var svgs={...} block for getAnimSVG function."""
-    entries = []
-    for q in questions:
-        entries.append(f'{json.dumps(q["anim"])}:base+{json.dumps(q["anim_svg"], ensure_ascii=False)}')
+def build_svgs(questions):
+    entries = [f'{json.dumps(q["anim"])}:base+{json.dumps(q["anim_svg"],ensure_ascii=False)}' for q in questions]
     return 'var svgs={\n' + ',\n'.join(entries) + '\n};'
 
-def inject_into_template(template, ch, ai_data, page_kind):
-    """Replace the variable blocks in template with chapter-specific content."""
+def inject(template, ch, ai_data):
     out = template
-    
-    # 1. Replace <meta name="rishi-class" content="X">
-    out = re.sub(
-        r'<meta name="rishi-class" content="\d+">',
-        '<meta name="rishi-class" content="6">',
-        out
-    )
-    
-    # 2. Replace <title>RISHI — XXX</title>
-    out = re.sub(
-        r'<title>RISHI[^<]*</title>',
-        f'<title>RISHI — {ai_data["title"]}</title>',
-        out
-    )
-    
-    # 3. Replace topbar-center text
-    out = re.sub(
-        r'(<div class="topbar-center">)[^<]*(</div>)',
-        lambda m: m.group(1) + ai_data['topbar_label'] + m.group(2),
-        out, count=1
-    )
-    
-    # 4. Replace intro text in rishika-text id="introText"
-    intro_pattern = re.compile(
-        r'(<div class="rishika-text" id="introText">)(.*?)(</div>)',
-        re.DOTALL
-    )
-    out = intro_pattern.sub(
-        lambda m: m.group(1) + '\n        ' + ai_data['intro'] + '\n      ' + m.group(3),
-        out, count=1
-    )
-    
-    # 5. Replace var QB=[...]; block
-    new_qb = build_qb_block(ai_data['questions'])
-    qb_pattern = re.compile(r'var QB=\[.*?^\];', re.DOTALL | re.MULTILINE)
-    out, n = qb_pattern.subn(new_qb, out, count=1)
-    if n == 0:
-        log(f"WARNING: Could not find QB block in {page_kind} template", 'WARN')
-    
-    # 6. Replace var svgs={...}; block inside getAnimSVG
-    new_svgs = build_svgs_block(ai_data['questions'])
-    # Match: var svgs={\n...\n};
-    svgs_pattern = re.compile(r'var svgs=\{[^;]*?\n\};', re.DOTALL)
-    out, n = svgs_pattern.subn(new_svgs, out, count=1)
-    if n == 0:
-        log(f"Note: svgs block not replaced in {page_kind} (anim_svg in QB still works)", 'WARN')
-    
+    out = re.sub(r'<meta name="rishi-class" content="\d+">', '<meta name="rishi-class" content="6">', out)
+    out = re.sub(r'<title>RISHI[^<]*</title>', f'<title>RISHI \u2014 {ai_data["title"]}</title>', out)
+    out = re.sub(r'(<div class="topbar-center">)[^<]*(</div>)',
+                 lambda m: m.group(1)+ai_data['topbar_label']+m.group(2), out, count=1)
+    out = re.sub(r'(<div class="rishika-text" id="introText">)(.*?)(</div>)',
+                 lambda m: m.group(1)+'\n        '+ai_data['intro']+'\n      '+m.group(3),
+                 out, flags=re.DOTALL, count=1)
+    out, n = re.subn(r'var QB=\[.*?^\];', build_qb(ai_data['questions']),
+                     out, count=1, flags=re.DOTALL|re.MULTILINE)
+    if n == 0: log("QB block not replaced — check template", 'WARN')
+    out, _ = re.subn(r'var svgs=\{[^;]*?\n\};', build_svgs(ai_data['questions']),
+                     out, count=1, flags=re.DOTALL)
     return out
 
 # ═══════════════════════════════════════════════════════════════
 # CHAPTER BUILD
 # ═══════════════════════════════════════════════════════════════
-def build_chapter(client, ch, do_explain=True, do_practice=True, do_exam=True):
-    """Build all 3 files for one chapter."""
-    log(f"━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━", 'INFO')
-    log(f"Chapter {ch['id']}: {ch['name']}", 'WORK')
-    
-    # Read templates fresh each chapter
-    explain_tmpl = read_template(EXPLAIN_TEMPLATE)
-    practice_tmpl = read_template(PRACTICE_TEMPLATE)
-    
-    # Generate explain
+def build_chapter(client, ch, do_explain, do_practice, do_exam):
+    print()
+    log(f"Ch {ch['id']}/10 — {ch['name']}", 'WORK')
+    t0 = time.time()
+    ex_tmpl = EXPLAIN_TEMPLATE.read_text(encoding='utf-8')
+    pr_tmpl = PRACTICE_TEMPLATE.read_text(encoding='utf-8')
+
     if do_explain:
-        log("Generating explain content via OpenAI...", 'WORK')
-        t0 = time.time()
-        explain_data = gen_explain_content(client, ch)
-        log(f"Got {len(explain_data.get('questions', []))} questions in {time.time()-t0:.1f}s", 'OK')
-        
-        explain_html = inject_into_template(explain_tmpl, ch, explain_data, 'explain')
-        out_path = OUT_EXPLAIN / f"{ch['slug']}.html"
-        out_path.write_text(explain_html, encoding='utf-8')
-        log(f"Wrote {out_path.relative_to(REPO_ROOT)}", 'OK')
-    
-    # Generate practice
+        log("Generating explain...", 'WORK')
+        data = gen_explain(client, ch)
+        out  = explain_out(ch)
+        backup_if_exists(out)
+        out.write_text(inject(ex_tmpl, ch, data), encoding='utf-8')
+        log(f"explain/class6/{ch['topic']}/{ch['slug']}.html", 'OK')
+
     if do_practice:
-        log("Generating practice content via OpenAI...", 'WORK')
-        t0 = time.time()
-        practice_data = gen_practice_content(client, ch)
-        log(f"Got {len(practice_data.get('questions', []))} questions in {time.time()-t0:.1f}s", 'OK')
-        
-        practice_html = inject_into_template(practice_tmpl, ch, practice_data, 'practice')
-        out_path = OUT_PRACTICE / f"{ch['slug']}.html"
-        out_path.write_text(practice_html, encoding='utf-8')
-        log(f"Wrote {out_path.relative_to(REPO_ROOT)}", 'OK')
-    
-    # Generate exam JSON
+        log("Generating practice...", 'WORK')
+        data = gen_practice(client, ch)
+        out  = practice_out(ch)
+        backup_if_exists(out)
+        out.write_text(inject(pr_tmpl, ch, data), encoding='utf-8')
+        log(f"practice/class6/{ch['topic']}/{ch['slug']}.html", 'OK')
+
     if do_exam:
-        log("Generating exam questions via OpenAI...", 'WORK')
-        t0 = time.time()
-        exam_data = gen_exam_questions(client, ch)
-        log(f"Got {len(exam_data.get('questions', []))} MCQs in {time.time()-t0:.1f}s", 'OK')
-        
-        out_path = OUT_DATA / f"{ch['exam_id']}.json"
-        out_path.write_text(
-            json.dumps(exam_data, ensure_ascii=False, indent=2),
-            encoding='utf-8'
-        )
-        log(f"Wrote {out_path.relative_to(REPO_ROOT)}", 'OK')
+        log("Generating exam (5 sections)...", 'WORK')
+        data = gen_exam(client, ch)
+        out  = exam_out(ch)
+        backup_if_exists(out)
+        out.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding='utf-8')
+        n = sum(len(s['questions']) for s in data['sections'].values())
+        log(f"data/cbse/class6/{ch['ch']}/{ch['ch']}-exam.json ({n} questions, {data['meta']['total_marks']} marks)", 'OK')
+
+    log(f"Done in {time.time()-t0:.1f}s", 'OK')
 
 # ═══════════════════════════════════════════════════════════════
 # MAIN
 # ═══════════════════════════════════════════════════════════════
 def main():
-    parser = argparse.ArgumentParser(
-        description='RISHI Class 6 master builder',
-        formatter_class=argparse.RawDescriptionHelpFormatter,
-    )
+    parser = argparse.ArgumentParser(description='RISHI Class 6 Master Builder v2')
     g = parser.add_mutually_exclusive_group(required=True)
-    g.add_argument('--all', action='store_true', help='Build all 10 chapters')
-    g.add_argument('--chapter', metavar='SLUG', help='Build/rebuild one chapter by slug')
-    g.add_argument('--list', action='store_true', help='List all chapter slugs')
-    g.add_argument('--estimate', action='store_true', help='Show cost estimate only')
-    
-    parser.add_argument('--skip-explain', action='store_true', help='Skip explain page generation')
-    parser.add_argument('--skip-practice', action='store_true', help='Skip practice page generation')
-    parser.add_argument('--skip-exam', action='store_true', help='Skip exam JSON generation')
-    
+    g.add_argument('--all',      action='store_true')
+    g.add_argument('--chapter',  metavar='SLUG')
+    g.add_argument('--list',     action='store_true')
+    g.add_argument('--estimate', action='store_true')
+    parser.add_argument('--skip-explain',  action='store_true')
+    parser.add_argument('--skip-practice', action='store_true')
+    parser.add_argument('--skip-exam',     action='store_true')
     args = parser.parse_args()
-    
+
     print()
-    print("═" * 60)
-    print("  RISHI — Class 6 Master Builder")
-    print("═" * 60)
-    print()
-    
+    print('='*55)
+    print('  RISHI Class 6 Master Builder v2')
+    print('='*55)
+
     if args.list:
-        print("Class 6 chapters:\n")
-        for ch in CHAPTERS:
-            print(f"  {ch['id']:>2}. {ch['slug']:<35} {ch['name']}")
+        print()
+        for c in CHAPTERS:
+            print(f"  {c['id']:>2}. {c['slug']:<40} [{c['topic']}]")
         return
-    
+
     if args.estimate:
         n = 1 if args.chapter else len(CHAPTERS)
-        calls = n * 3
-        cost = calls * 0.002
-        print(f"Estimate for {n} chapter(s):")
-        print(f"  • OpenAI API calls: ~{calls} (gpt-4.1-mini)")
-        print(f"  • Estimated cost: ~${cost:.3f} USD")
-        print(f"  • Estimated time: ~{n * 1.5:.1f} minutes")
+        per = (0 if args.skip_explain else 1)+(0 if args.skip_practice else 1)+(0 if args.skip_exam else 5)
+        calls = n * per
+        print(f"\n  Chapters : {n}")
+        print(f"  API calls: ~{calls}")
+        print(f"  Est. cost: ~${calls*0.004:.2f} USD")
+        print(f"  Est. time: ~{calls*20//60} min {calls*20%60} sec")
         return
-    
+
     validate_setup()
     client = get_client()
-    log(f"Using model: {OPENAI_MODEL}", 'OK')
-    
-    do_explain = not args.skip_explain
-    do_practice = not args.skip_practice
-    do_exam = not args.skip_exam
-    
-    # Determine chapters to build
-    if args.chapter:
-        target = [c for c in CHAPTERS if c['slug'] == args.chapter]
-        if not target:
-            fail(f"Unknown chapter: {args.chapter}\n   Run --list to see slugs.")
-        chapters = target
-    else:
-        chapters = CHAPTERS
-    
-    log(f"Building {len(chapters)} chapter(s)", 'INFO')
-    print()
-    
-    t_start = time.time()
+    log(f"Model: {OPENAI_MODEL}", 'OK')
+
+    chapters = [c for c in CHAPTERS if c['slug']==args.chapter] if args.chapter else CHAPTERS
+    if args.chapter and not chapters:
+        fail(f"Unknown slug: {args.chapter}\nRun --list to see valid slugs.")
+
+    do_e = not args.skip_explain
+    do_p = not args.skip_practice
+    do_x = not args.skip_exam
+
     failures = []
+    t0 = time.time()
     for ch in chapters:
         try:
-            build_chapter(client, ch, do_explain, do_practice, do_exam)
+            build_chapter(client, ch, do_e, do_p, do_x)
         except Exception as e:
-            log(f"FAILED chapter {ch['slug']}: {e}", 'ERR')
-            failures.append((ch['slug'], str(e)))
-    
-    elapsed = time.time() - t_start
+            log(f"FAILED {ch['slug']}: {e}", 'ERR')
+            failures.append(ch['slug'])
+
+    write_tree()
+    elapsed = time.time()-t0
+
     print()
-    print("═" * 60)
+    print('='*55)
     print(f"  BUILD COMPLETE — {elapsed/60:.1f} minutes")
-    print("═" * 60)
-    
-    success = len(chapters) - len(failures)
-    log(f"Successful: {success}/{len(chapters)} chapters", 'OK' if not failures else 'WARN')
-    
+    print('='*55)
+    log(f"Success: {len(chapters)-len(failures)}/{len(chapters)}", 'OK')
+
     if failures:
         print()
-        log("Failed chapters (rerun with --chapter <slug>):", 'ERR')
-        for slug, err in failures:
-            print(f"   • {slug}: {err}")
-    
+        log("Failed chapters — rerun individually:", 'ERR')
+        for s in failures:
+            print(f"  python build_class6.py --chapter {s}")
+
     print()
     print("NEXT STEPS:")
-    print("  1. Review a few generated files for quality.")
-    print("  2. From D:\\rishi  run:")
-    print("       git add .")
-    print("       git commit -m \"Class 6 content batch\"")
-    print("       git push")
-    print("  3. Send Arindam's portal files to Claude for portal wiring:")
-    print("       syllabus.html, parent.html, admin.html,")
-    print("       topic-exam.html, sampurna-pariksha.html")
-    print("  4. After portals wired: Admin panel → Class 6 → generate KV banks.")
+    print("  cd D:\\rishi")
+    print("  git add .")
+    print('  git commit -m "Class 6: AI-generated content"')
+    print("  git push")
     print()
+    print("  Then share these 5 files for portal wiring:")
+    print("  syllabus.html, parent.html, admin.html,")
+    print("  topic-exam.html, sampurna-pariksha.html")
 
 if __name__ == '__main__':
     main()

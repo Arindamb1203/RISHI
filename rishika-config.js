@@ -2,106 +2,155 @@
 ═══════════════════════════════════════════════════════════════
   RISHIKA CONFIG — Paste this entire file at the start of
   every new Claude session to restore full project context.
-  Last updated: 10 May 2026
+  Last updated: 13 May 2026
 ═══════════════════════════════════════════════════════════════
 
 ▌ OWNER
   Arindam Bhowmik — non-technical, sole developer + owner
   All code written by Claude, deployed via git push from VS Code on Windows
-  Student testing: Dabeet (student), Priyanka (parent)
-  Student ID: dabeet8{class}{last3mobile} e.g. dabeet8171
-  Parent ID:  priyanka{last5mobile}       e.g. priyanka47522
+  Student: Dabeet Bhowmik — ID: RISHI-DABEET-001
+  Parent:  Priyanka — ID: PARENT-PRIYANKA-002, password: rishi2025
+  git add . always from D:\rishi (NOT D:\rishi\public)
 
 ▌ REPO & HOSTING
   Repo:    github.com/Arindamb1203/RISHI
   Live:    rishi-ewh.pages.dev
-  Host:    Cloudflare Pages (free, unlimited bandwidth)
-  Deploy:  git push to main → auto deploys (~30 seconds)
+  Host:    Cloudflare Pages — auto deploys on git push (~30s)
   Build output directory: public
-  CRITICAL: git add . must be run from D:\rishi (NOT D:\rishi\public)
-            functions\ folder is at repo root, not inside public\
+  functions\ folder at repo ROOT — not inside public\
 
 ▌ STACK
-  Pure HTML / CSS / Vanilla JS — no frameworks, no React
-  Works on low-end devices and budget Android phones
-  No backend server — Cloudflare Pages Functions for API only
+  Pure HTML / CSS / Vanilla JS — no frameworks
+  Cloudflare Pages Functions for API only
 
 ▌ AI — ALL OPENAI (Gemini fully dropped)
   Model: gpt-4.1-mini
   Key:   OPENAI_API_KEY (Cloudflare env var)
-  explain-differently.js  → OpenAI gpt-4.1-mini
-  generate-questions.js   → OpenAI gpt-4.1-mini
-  NEVER use Gemini again. NEVER guess model names — check docs first.
+  explain-differently.js → OpenAI gpt-4.1-mini
+  generate-questions.js  → OpenAI gpt-4.1-mini
+  NEVER use Gemini. NEVER guess model names.
 
 ▌ QUESTION BANK SYSTEM (built May 2026)
   Backend:  functions/api/generate-questions.js
-            POST /api/generate-questions
-            Auth: Bearer RISHI_ADMIN_TOKEN
+            POST /api/generate-questions, Auth: Bearer RISHI_ADMIN_TOKEN
             Stores in Cloudflare KV (RISHI_QUESTIONS binding)
-            KV key format: {board}_{class}_ch{chId}_{tag}
-            e.g. cbse_7_ch01_chapter_exam
+            KV key: {board}_{class}_ch{chId}_{tag} e.g. cbse_7_ch01_chapter_exam
   Tags:     chapter_exam / practice / topic_exam / sampurna / explain
-  Sources:  NCT RDS RSA EXM CBP OLY ORI (admin-only, never shown to students)
+  Sources:  NCT RDS RSA EXM CBP OLY ORI (admin-only metadata)
   Schema:   id, q, options[4], correct(0-indexed), explanation, source, tag,
             exam_exclusive, difficulty, verified, times_served, times_correct,
             times_wrong, rested, year_last_used
-  Admin KV: admin.js handles seed/seed_all/delete/list/get
-  questions.js: tries KV with _exam then _chapter_exam tag;
-                converts bank format (flat array) → sections format (A/B/C)
+  questions.js: tries KV _exam then _chapter_exam; converts bank format → sections format
+  Admin KV: admin.js — seed/seed_all/delete/list/get
 
-▌ QUESTION BANKS GENERATED (as of 10 May 2026)
+▌ QUESTION BANKS (as of 13 May 2026)
   Class 7: all 8 chapters ✅ (chapter_exam, 15 Qs each)
   Class 8: PENDING — generate via admin Questions tab
   Class 9: all built chapters ✅ (chapter_exam, 15 Qs each)
   Class 6: not yet
 
 ▌ ADMIN PANEL
-  URL:  rishi-ewh.pages.dev/admin
-  File: public/admin.html ← CORRECT. NEVER public/admin/admin.html
-  Cloudflare serves /admin from public/admin.html (flat file in public/)
-  public/admin/ folder exists ONLY for question-manager.html (old KV seeder)
-  Features: Dashboard, Chapters, Topic Exams, Questions, Student, Logs, Deploy
+  URL:  rishi-ewh.pages.dev/admin  password: rishi2025
+  File: public/admin.html ← ONLY correct path
+  NEVER public/admin/admin.html — wasted full session on this mistake
+  public/admin/ folder: question-manager.html only (old KV seeder)
+  Tabs: Dashboard, Chapters, Topic Exams, Questions, Student, Logs, Deploy
   Global Class selector (6/7/8/9) drives ALL tabs
-  Topic Exams tab has Sampurna Pariksha card per class
-  Sampurna URLs:
-    Class 7: /sampurna-pariksha.html?class=7
-    Class 8: /sampurna-pariksha.html
-    Class 9: /sampurna-pariksha.html?class=9
+  Dashboard: Live Stats (registered/online/offline/revenue/referrals)
+             Registered Students table — columns: Student ID | Parent ID | Phone |
+             Explain | Practice | Chapter Exam | Topic Exam | Sampurna | Reference
+             Each button opens as that student with bypass. Reference = placeholder.
+  Topic Exams tab: per-class topics + Sampurna Pariksha card
+  Sampurna URLs: Class7:/sampurna-pariksha.html?class=7
+                 Class8:/sampurna-pariksha.html
+                 Class9:/sampurna-pariksha.html?class=9
 
 ▌ BYPASS SYSTEM
   Key: rishi_admin_bypass — sessionStorage ONLY (never localStorage)
-  Mechanism: admin openPage() / goStudent() appends ?bypass=1 to URL
-             rishi-core.js detects ?bypass=1 on load → sets sessionStorage
+  admin openPage() / goStudent() / openAsStudent() append ?bypass=1 to URL
+  rishi-core.js detects ?bypass=1 → sets sessionStorage on load
+  Bypass in: rishiCheckPlan, rishiIsExplainDone, rishiIsPracticeDone,
+             rishiIsChapExamDone, rishiIsTopicExamDone
+  sampurna-pariksha.html: sessionStorage (was localStorage — fixed)
   sessionStorage does NOT persist across tabs — URL param is the bridge
-  Bypass respected in: rishiCheckPlan, rishiIsExplainDone, rishiIsPracticeDone,
-                       rishiIsChapExamDone, rishiIsTopicExamDone
-  sampurna-pariksha.html uses sessionStorage for bypass (fixed from localStorage)
+
+▌ PARENT PORTAL
+  URL:  rishi-ewh.pages.dev/parent
+  File: public/parent.html (2700+ lines — always read before editing)
+  Default password: rishi2025
+  Login has: Forgot credentials + Change password (mobile number verification)
+  Header: RISHI logo | Parent Portal | Student badge | Leaderboard | Guide |
+          👤 Profile (gold button) | ☁ Sync (green) | Sign Out
+  Mobile: hamburger ☰ replaces Leaderboard/Guide; shows dropdown menu
+  Profile panel: parent ID, student ID, mobile, Reset Password,
+                 Subscription History (placeholder), Referral (placeholder)
+  Tabs: Study Plan | Performance | Analytics | Study Slots | Live Status
+  ☁ Sync button: pushes all localStorage data to Cloudflare D1
+  Cross-device sync: rishi_plans + rishi_plans_ added to rishi-sync.js
+  ?tab= URL param: parent.html opens correct tab when linked from dashboard
+
+▌ PARENT DASHBOARD
+  URL:  rishi-ewh.pages.dev/parent-dashboard
+  File: public/parent-dashboard.html
+  Has nav strip below header: Study Plan|Performance|Analytics|Study Slots|Live Status
+  ← Portal button returns to parent.html
+
+▌ SYNC SYSTEM (rishi-sync.js)
+  Syncs to Cloudflare D1 via /d1-sync endpoint
+  SYNC_EXACT includes: rishi_active_chapters, rishi_plans, rishi_chapter_progress,
+                       rishi_explain_sessions, rishi_practice_sessions, etc.
+  SYNC_PREFIX includes: rishi_explain_done_, rishi_practice_done_,
+                        rishi_chapexam_done_, rishi_plans_
+  rishiSync.pushAll() — pushes all local data to D1 (call from device with data)
+  rishiSync.pull()    — pulls student data from D1
+  Active Study Plans blank fix: call pushAll() from Priyanka's phone after login
+
+▌ PRICING
+  Subscription: ₹599/month (updated from ₹299 in register.html + landing.html)
+
+▌ LOGIN PAGES
+  Student login (login.html): Username + Password, Forgot credentials,
+                               Change password, Parent Login button,
+                               Register / Home / Payment links at bottom
+                               WAIT — Arindam removed bottom nav (students don't need it)
+                               Current: Forgot credentials + Change password only
+  Parent login (parent.html): Username + Password + Access Parent Portal button
+                               Forgot credentials (mobile verify) + Change password
+
+▌ SYLLABUS
+  syllabus.html: shows Student ID + Parent ID + Class bar at top
+  class-aware 6/7/8/9
 
 ▌ EXAM PAGES
-  exam.html:           chapter exams — reads /api/questions — NO voice (never had it)
+  exam.html:           chapter exams — NO voice (never had it, not a regression)
   topic-exam.html:     class-aware 7/8/9 — TOPIC_MAP_CLASS7/8/9
                        URL: /topic-exam.html?topic=arithmetic&class=7
   sampurna-pariksha.html: class-aware 7/8/9 — ALL_CHAPTERS_CLASS7/8/9
                        URL: /sampurna-pariksha.html?class=7
 
-▌ GENERATOR SYSTEM (generate.py)
-  Location: D:\rishi\public\generate.py
-  Usage:    cd D:\rishi\public && python generate.py data/classX/chapter-slug.json
-  Updates syllabus.html, parent.html, admin.html (built:true) automatically
+▌ DATABASE FOLDER
+  D:\rishi\database\schema.sql — D1 schema documentation
+  Tables: student_data, registrations, payments, password_resets
 
-▌ FILE TREE (as of 10 May 2026)
+▌ GENERATOR SYSTEM (generate.py)
+  Location: D:\rishi\public\generate.py  ← PROTECTED, never delete
+  Usage: cd D:\rishi\public && python generate.py data/classX/chapter-slug.json
+  Updates syllabus.html, parent.html, admin.html automatically
+
+▌ FILE TREE (as of 13 May 2026)
   D:\rishi\
+  +---database\schema.sql
   +---functions\api\
-  |       admin.js / questions.js / explain.js
-  |       explain-differently.js   (OpenAI gpt-4.1-mini)
-  |       generate-questions.js    (OpenAI MCQ → KV)
-  |       deploy.js / tts.js
+  |       admin.js / questions.js / explain.js / explain-differently.js
+  |       generate-questions.js / deploy.js / tts.js / d1-sync.js
   +---public\
-  |   |   admin.html               MAIN ADMIN (/admin)
+  |   |   admin.html           MAIN ADMIN (/admin)
   |   |   exam.html / topic-exam.html / sampurna-pariksha.html
+  |   |   login.html / register.html / landing.html / coming-soon.html
+  |   |   parent.html / parent-dashboard.html
   |   |   rishi-core.js / rishi-presence.js / rishi-sync.js / rishi-diagram.js
-  |   |   explain-helper.js / syllabus.html / parent.html / parent-dashboard.html
-  |   +---admin\  question-manager.html (old, kept)
+  |   |   explain-helper.js / syllabus.html / generate.py (PROTECTED)
+  |   +---admin\  question-manager.html
   |   +---data\cbse\class8\ exam JSONs ch01-ch17
   |   +---explain\class7,8,9\ all ✅
   |   \---practice\class7,8,9\ all ✅
@@ -121,61 +170,61 @@
   Ch6 Number Play                   arithmetic  exam:c7-04  KV:06
   Ch7 A Tale of Three Int. Lines    geometry    exam:c7-08  KV:07
   Ch8 Working with Fractions        arithmetic  exam:c7-05  KV:08
-  NOTE: exam URL uses c7-XX; exam.html maps to apiCh (XX); KV uses 01..08
-
-▌ CLASS 6 CHAPTER MAP (NCERT 2025-26)
-  Arithmetic: Patterns in Maths, Number Play, Prime Time, Fractions, Other Side of Zero
-  Geometry:   Lines and Angles, Playing with Constructions, Symmetry
-  Mensuration: Perimeter and Area
-  Data Handling: Data Handling and Presentation
 
 ▌ PENDING WORK — PRIORITY ORDER
-  [P0] Class 8 question bank — generate via admin (15 Qs/chapter, chapter_exam tag)
+  [P0] Class 8 question bank — generate via admin Questions tab (15 Qs/chapter)
+  [P0] Active Study Plans sync — Priyanka must tap ☁ Sync on her phone to push to D1
   [P1] Presence & Resume System (rishi-presence.js)
        Single injection all pages, localStorage, timing slots,
-       online/offline, session resume, exam timer persistence, parent dashboard
+       online/offline, session resume, exam timer persistence
   [P2] YouTube video embed (one per chapter, Arindam picks URL, Claude wires)
   [P3] Practice pages verification
   [FUTURE] Class 6 — 10 chapters
   [FUTURE] ICSE / WBBSE
 
 ▌ PORTAL STATUS
-  syllabus.html:          class-aware 6/7/8/9 ✅
-  parent.html:            class-aware, 5 tabs ✅
-  admin.html:             class-aware 6/7/8/9, question bank ✅
+  syllabus.html:          class-aware 6/7/8/9, shows student+parent IDs ✅
+  parent.html:            mobile-responsive, profile panel, sync button ✅
+  parent-dashboard.html:  nav strip added ✅
+  admin.html:             class-aware, rich student table, live stats ✅
   topic-exam.html:        class-aware 7/8/9 ✅
   sampurna-pariksha.html: class-aware 7/8/9 ✅
+  login.html:             parent login button, forgot/change password ✅
+  register.html:          ₹599 pricing ✅
+  landing.html:           ₹599 pricing ✅
 
 ▌ CHARACTERS
   Rishika — ALL pages. Turtle SVG on explain. Sprite on practice.
   Rekha: PERMANENTLY RETIRED. Never use this name.
 
 ▌ ELEVENLABS TTS
-  Proxy: functions/tts.js (repo root)
-  Voice: Priyanka, ID BpjGufoPiobT79j2vtj4
-  Fallback: Browser TTS
+  Proxy: functions/tts.js (repo root, NOT inside public)
+  Voice: Priyanka, ID BpjGufoPiobT79j2vtj4 / Fallback: Browser TTS
 
 ▌ CRITICAL RULES FOR CLAUDE
-  1.  NEVER guess file contents — always read actual file first
+  1.  NEVER guess file contents — always read actual current file first
   2.  NEVER deliver code without checking for errors
   3.  git add . from D:\rishi (NOT D:\rishi\public)
   4.  Always end session: git add . → commit → push
   5.  Response style: extremely concise, no fluff
   6.  Smart apostrophes in JS = syntax crash. Use \' or &#39;
-  7.  tts.js at repo ROOT functions\tts.js — NOT inside public\
+  7.  tts.js at repo ROOT functions\tts.js
   8.  Do things simply — never overcomplicate
-  9.  rishi_admin_bypass → sessionStorage ONLY — never localStorage
-  10. generate.py handles portal updates automatically
-  11. NEVER ask Arindam to edit code manually — deliver complete files
-  12. Build order: content JSON → generate.py → git push
-  13. data-handling folder uses hyphen not underscore
-  14. Admin file: public/admin.html — NEVER public/admin/admin.html
-  15. OpenAI only — Gemini is dead in this project
-  16. NEVER do partial patches on HTML/JS — always deliver COMPLETE files
-      Python string replacement fails silently on Windows CRLF line endings
-  17. admin.html path: Cloudflare serves /admin from public/admin.html (flat)
-      NOT from public/admin/admin.html (subfolder) — wasted a full session on this
-  18. sessionStorage does NOT persist across browser tabs — use URL ?bypass=1
-  19. Deliver files via present_files — not by asking Arindam to copy-paste code
-  20. Before any fix: read the ACTUAL file in repo, not a previously uploaded version
+  9.  rishi_admin_bypass → sessionStorage ONLY
+  10. generate.py handles portal updates — NEVER delete it
+  11. NEVER ask Arindam to edit code manually — deliver files
+  12. data-handling folder uses hyphen not underscore
+  13. Admin: public/admin.html ONLY — never public/admin/admin.html
+  14. OpenAI only — Gemini dead
+  15. NEVER partial patches — Python CRLF causes silent failures
+  16. Always read the deployed file (ask Arindam to upload current version)
+      NOT a previously uploaded/cached version
+  17. Python scripts: ALWAYS use regex (re.sub) not exact string replace
+      Exact strings fail on Windows CRLF and after previous patches
+  18. parent.html is 2700+ lines — complex file, always read before touching
+  19. Cloudflare serves /admin from public/admin.html flat file
+  20. sessionStorage NOT shared across tabs — always pass ?bypass=1 in URL
+  21. Price is ₹599 everywhere (not ₹299)
+  22. Cleanup: run cleanup.py from D:\rishi to remove temp fix scripts
+  23. database/schema.sql documents D1 table structure
 */
