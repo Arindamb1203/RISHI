@@ -817,23 +817,6 @@ function buildDashboard() {
   var regs = [];
   try { regs = JSON.parse(localStorage.getItem('rishi_registrations') || '[]'); } catch(e) {}
   var totalReg = regs.length;
-  var totalRevenue = 0;
-  regs.forEach(function(r){
-    if (r.subscriptionStatus === 'subscribed') totalRevenue += 599;
-    else if (r.subscriptionStatus === 'trial') totalRevenue += 0;
-  });
-  // Online/offline based on rishi_presence_online timestamp (last 5 min = online)
-  var now = Math.floor(Date.now() / 1000);
-  var online = 0, offline = 0;
-  regs.forEach(function(r){
-    var sid = (r.studentUsername || r.studentId || '').toLowerCase();
-    var lastSeen = parseInt(localStorage.getItem('rishi_presence_online_' + sid) || '0', 10);
-    if (lastSeen && (now - lastSeen) < 300) online++; else offline++;
-  });
-  var items = [
-  var regs = [];
-  try { regs = JSON.parse(localStorage.getItem('rishi_registrations') || '[]'); } catch(e) {}
-  var totalReg = regs.length;
   var totalRevenue = regs.filter(function(r){return r.subscriptionStatus==='subscribed';}).length * 599;
   var now = Math.floor(Date.now()/1000);
   var online = 0;
@@ -848,7 +831,7 @@ function buildDashboard() {
     {n: totalReg - online,        l:'Offline',             c:'var(--muted)'},
     {n: '&#8377;' + totalRevenue, l:'Revenue Earned',      c:'var(--amber)'},
     {n: '&#8212;',               l:'Referrals',           c:'var(--dim)'}
-  ]];
+  ];
   var html = '';
   for (var i = 0; i < items.length; i++) {
     html += '<div class="stat-box"><div class="stat-n" style="color:' + items[i].c + '">' + items[i].n + '</div><div class="stat-l">' + items[i].l + '</div></div>';
