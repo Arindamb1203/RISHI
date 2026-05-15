@@ -537,7 +537,7 @@ button{font-family:'Outfit',sans-serif;}
 @media(max-width:700px){
   #hdr-menu-btn{display:flex!important;align-items:center;justify-content:center;}
   .btn-hide-mobile{display:none!important;}
-  .hdr{padding:0 10px;gap:6px;overflow:hidden;}
+  .hdr{padding:0 10px;gap:6px;overflow:visible;}
   .hdr-sep{display:none;}
   .hdr-title{font-size:13px;}
   .hdr-badge{font-size:12px;padding:3px 8px;max-width:140px;
@@ -682,7 +682,7 @@ button{font-family:'Outfit',sans-serif;}
     <div class="hdr-title">Parent Portal</div>
     <div class="hdr-r">
       <button class="btn-out-hdr" id="hdr-menu-btn" onclick="toggleHdrMenu()" style="font-size:20px;padding:6px 12px;" aria-label="Menu">☰</button>
-      <div id="hdr-menu-dropdown" style="display:none;position:absolute;top:58px;right:12px;background:var(--navy);border:1px solid rgba(255,255,255,.15);border-radius:10px;padding:8px;z-index:200;min-width:160px;box-shadow:0 8px 24px rgba(0,0,0,.3);">
+      <div id="hdr-menu-dropdown" style="display:none;position:fixed;top:58px;left:0;right:0;background:var(--navy);border-bottom:2px solid rgba(255,255,255,.15);padding:8px 12px;z-index:9999;box-shadow:0 8px 24px rgba(0,0,0,.4);">
         <button onclick="showLeaderboard();toggleHdrMenu()" style="display:block;width:100%;text-align:left;padding:10px 14px;background:none;border:none;color:white;cursor:pointer;font-family:inherit;font-size:14px;font-weight:700;border-radius:6px;">🏆 Leaderboard</button>
         <button onclick="showInstructions();toggleHdrMenu()" style="display:block;width:100%;text-align:left;padding:10px 14px;background:none;border:none;color:white;cursor:pointer;font-family:inherit;font-size:14px;font-weight:700;border-radius:6px;">❓ Guide</button>
                 <button onclick="showProfilePanel();toggleHdrMenu()" style="display:block;width:100%;text-align:left;padding:10px 14px;background:none;border:none;color:white;cursor:pointer;font-family:inherit;font-size:14px;font-weight:700;border-radius:6px;">👤 Profile &amp; Settings</button>
@@ -1100,7 +1100,7 @@ function showProfilePanel() {
 
   var panel = document.createElement('div');
   panel.id = 'profile-panel';
-  panel.style.cssText = 'position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,0.6);display:flex;align-items:center;justify-content:center;padding:20px;';
+  panel.style.cssText = 'position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,0.6);display:flex;align-items:flex-end;justify-content:center;padding:0;';
   panel.innerHTML = '<div style="background:#fff;border-radius:16px;padding:24px;max-width:480px;width:100%;font-family:Nunito,sans-serif;">' +
     '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">' +
       '<div style="font-size:18px;font-weight:900;color:#0f2240;">👤 Profile &amp; Settings</div>' +
