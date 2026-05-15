@@ -410,6 +410,19 @@ button{font-family:'Outfit',sans-serif;cursor:pointer;}
           <button class="btn btn-ghost" onclick="qbClearLog()">🗑 Clear Log</button>
         </div>
         <div id="qb-kv-list" style="display:flex;flex-wrap:wrap;gap:6px;margin-top:4px;"></div>
+        <div id="qb-progress-wrap" style="display:none;margin-top:12px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+            <span style="font-size:13px;font-weight:700;color:var(--text);" id="qb-progress-label">Generating...</span>
+            <span style="font-size:13px;font-weight:900;color:var(--gold);" id="qb-progress-count">0 / 0</span>
+          </div>
+          <div style="background:var(--border);border-radius:8px;height:10px;overflow:hidden;">
+            <div id="qb-progress-bar" style="height:100%;width:0%;background:linear-gradient(90deg,#7c3aed,#a78bfa);border-radius:8px;transition:width 0.4s ease;"></div>
+          </div>
+          <div style="display:flex;justify-content:space-between;margin-top:6px;font-size:12px;font-family:'Share Tech Mono',monospace;">
+            <span style="color:var(--green);" id="qb-progress-ok">✓ 0 done</span>
+            <span style="color:#ef4444;" id="qb-progress-err">✗ 0 failed</span>
+          </div>
+        </div>
       </div>
 
       <!-- Chapter grid -->
@@ -1635,17 +1648,45 @@ async function qbGenerateChapter(chId) {
 
 /* Generate all */
 async function qbGenerateAll() {
-  var btn = document.getElementById('qb-gen-all-btn');
-  btn.disabled = true; btn.textContent = '⏳ Generating…';
+  var btn   = document.getElementById('qb-gen-all-btn');
+  var wrap  = document.getElementById('qb-progress-wrap');
+  var bar   = document.getElementById('qb-progress-bar');
+  var label = document.getElementById('qb-progress-label');
+  var count = document.getElementById('qb-progress-count');
+  var okEl  = document.getElementById('qb-progress-ok');
+  var errEl = document.getElementById('qb-progress-err');
+  btn.disabled = true; btn.textContent = '⏳ Starting…';
+  wrap.style.display = 'block';
   var chapters = QB_CHAPTERS[qbActiveClass] || [];
-  qbLog('=== Generate All — Class ' + qbActiveClass + ' (' + chapters.length + ' chapters) ===');
+  var total = chapters.length; var done = 0; var errs = 0;
+  bar.style.width = '0%';
+  count.textContent = '0 / ' + total;
+  okEl.textContent  = '✓ 0 done';
+  errEl.textContent = '✗ 0 failed';
+  qbLog('=== Generate All — Class ' + qbActiveClass + ' (' + total + ' chapters) ===');
   for (var i = 0; i < chapters.length; i++) {
-    btn.textContent = '⏳ ' + (i+1) + ' / ' + chapters.length + '...';
+    var chName = chapters[i].name || ('Ch' + chapters[i].id);
+    label.textContent = 'Generating Ch' + chapters[i].id + ': ' + chName + '…';
+    btn.textContent = '⏳ ' + (i+1) + ' / ' + total;
+    var prevErrCount = document.getElementById('qb-log').querySelectorAll('[data-err]').length;
     await qbGenerateChapter(chapters[i].id);
+    done++;
+    /* Check if last log entry was an error */
+    var logEl = document.getElementById('qb-log');
+    var lastLine = logEl.lastElementChild;
+    if (lastLine && lastLine.querySelector && lastLine.querySelector('span[style*="#ef4444"]')) errs++;
+    var pct = Math.round((done / total) * 100);
+    bar.style.width = pct + '%';
+    bar.style.background = errs > 0 ? 'linear-gradient(90deg,#7c3aed,#ef4444)' : 'linear-gradient(90deg,#7c3aed,#a78bfa)';
+    count.textContent = done + ' / ' + total;
+    okEl.textContent  = '✓ ' + (done - errs) + ' done';
+    errEl.textContent = '✗ ' + errs + ' failed';
     await new Promise(function(r){ setTimeout(r, 700); });
   }
   btn.disabled = false; btn.textContent = '✨ Generate All Chapters (AI)';
-  qbLog('=== Generate All complete ===');
+  label.textContent = errs === 0 ? 'All ' + total + ' chapters complete!' : (total - errs) + ' done, ' + errs + ' failed — use Retry on errors';
+  bar.style.width = '100%';
+  qbLog('=== Done: ' + (done-errs) + ' OK, ' + errs + ' failed ===');
 }
 
 /* Preview */
