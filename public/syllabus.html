@@ -464,6 +464,10 @@ function isChapExamDone(cid){
   var key=EXAM_DONE_KEYS[cid]||String(cid);
   return localStorage.getItem("rishi_chapexam_done_"+key)==="1";
 }
+function rishiIsTopicExamDone(topic){
+  if(sessionStorage.getItem('rishi_admin_bypass')==='1') return true;
+  return localStorage.getItem('rishi_topicexam_done_'+topic)==='1';
+}
 /* ── Plan & Date Helpers ── */
 function getPlanActive(){
   /* Admin bypass — all chapters open */
