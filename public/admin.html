@@ -669,7 +669,8 @@ function showAdmin() {
 }
 
 /* ── TABS ───────────────────────────────────────────────── */
-var activeTab = localStorage.getItem('rishi_admin_tab') || 'dash';
+var _storedTab = localStorage.getItem('rishi_admin_tab') || 'dash';
+var activeTab = (_storedTab === 'tree') ? 'dash' : _storedTab;
 function switchTab(t) {
   activeTab = t;
   localStorage.setItem('rishi_admin_tab', t);
@@ -755,7 +756,6 @@ function getStats() {
 function refresh() {
   updateBypassUI();
   if      (activeTab === 'dash')    { buildDashboard(); }
-  else if (activeTab === 'tree')    { buildTree(); }
   else if (activeTab === 'student') { buildStudent(); }
   else if (activeTab === 'topics')    { buildTopics(); }
   else if (activeTab === 'questions') { buildQuestionsTab(); }
@@ -1074,7 +1074,7 @@ function buildPlansSection() {
 
 /* ── CHAPTER TREE ───────────────────────────────────────── */
 var treeFilter = 'all';
-function buildTree(filter) {
+function buildTree(filter) { if(!document.getElementById('tree-filters')) return; /* tab removed */
   if (filter !== undefined) treeFilter = filter;
 
   /* Filters */
@@ -1183,7 +1183,7 @@ function resetChapter(cid) {
     var lp = lsGet('rishi_progress', {}); delete lp[LEGACY_MAP[cid]]; localStorage.setItem('rishi_progress', JSON.stringify(lp));
   }
 
-  buildTree();
+  refresh();
   showToast('Chapter ' + (cid === 112 ? '11b' : cid) + ' reset.');
 }
 
