@@ -732,9 +732,10 @@ function showAdmin() {
 }
 
 /* ── TABS ───────────────────────────────────────────────── */
-var activeTab = 'dash';
+var activeTab = localStorage.getItem('rishi_admin_tab') || 'dash';
 function switchTab(t) {
   activeTab = t;
+  localStorage.setItem('rishi_admin_tab', t);
   ['dash','tree','topics','questions','student','logs','deploy'].forEach(function(id) {
     document.getElementById('tab-' + id).classList.toggle('on', id === t);
     document.getElementById('view-' + id).classList.toggle('hidden', id !== t);
@@ -1221,7 +1222,8 @@ function buildPageRow(label, url, built, done, sessions, cid) {
 }
 
 function openPage(url) {
-  window.open(url, "_blank");
+  var sep = url.indexOf('?') >= 0 ? '&' : '?';
+  window.open(url + sep + 'bypass=1', '_blank');
 }
 
 function resetChapter(cid) {
@@ -1388,9 +1390,10 @@ function clearAllPlans() {
 /* -- TOPIC EXAMS TAB ----------------------------------------------- */
 var TOPIC_EXAMS_BY_CLASS = {
   6:[
-    {id:'t6-arithmetic',name:'Arithmetic',  icon:'🔢',chs:[1,3,5,7,10],url:null},
-    {id:'t6-geometry',  name:'Geometry',    icon:'📐',chs:[2,8,9],      url:null},
-    {id:'t6-mensuration',name:'Mensuration',icon:'📏',chs:[6],          url:null},
+    {id:'t6-arithmetic',  name:'Arithmetic',   icon:'🔢',chs:[1,3,5,7,10],url:'/topic-exam.html?topic=arithmetic&class=6'},
+    {id:'t6-geometry',    name:'Geometry',     icon:'📐',chs:[2,8,9],      url:'/topic-exam.html?topic=geometry&class=6'},
+    {id:'t6-mensuration', name:'Mensuration',  icon:'📏',chs:[6],          url:'/topic-exam.html?topic=mensuration&class=6'},
+    {id:'t6-datahandling',name:'Data Handling',icon:'📊',chs:[4],          url:'/topic-exam.html?topic=datahandling&class=6'},
   ],
   7:[
     {id:'t7-arithmetic',name:'Arithmetic',  icon:'🔢',chs:[1,2,3,6,8], url:'/topic-exam.html?topic=arithmetic&class=7'},
@@ -1411,7 +1414,7 @@ var TOPIC_EXAMS_BY_CLASS = {
     {id:'t9-data',       name:'Data Handling',icon:'📊',chs:[12],       url:'/topic-exam.html?topic=datahandling&class=9'},
   ]
 };
-var SAMPURNA_BY_CLASS={6:null,7:'/sampurna-pariksha.html?class=7',8:'/sampurna-pariksha.html',9:'/sampurna-pariksha.html?class=9'};
+var SAMPURNA_BY_CLASS={6:'/sampurna-pariksha.html?class=6',7:'/sampurna-pariksha.html?class=7',8:'/sampurna-pariksha.html',9:'/sampurna-pariksha.html?class=9'};
 
 function isTopicExamDone(tid) {
   return localStorage.getItem('rishi_topicexam_done_' + tid) === '1';
