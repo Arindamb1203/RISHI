@@ -1,3 +1,13 @@
+/* ── BYPASS DETECTION ───────────────────────
+   If page loaded with ?bypass=1, activate admin bypass
+   immediately so all rishiIs* checks return true.
+   ─────────────────────────────────────────── */
+(function() {
+  if (location.search.indexOf('bypass=1') !== -1) {
+    sessionStorage.setItem('rishi_admin_bypass', '1');
+  }
+})();
+
 /* ═══════════════════════════════════════════
    RISHI CORE — rishi-core.js
    Include in every explain/practice/exam page
