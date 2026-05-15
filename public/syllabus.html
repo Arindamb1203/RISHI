@@ -438,7 +438,15 @@ var STUDENT_CLASS = 8; /* set in init */
 function G(id){return document.getElementById(id);}
 function logout(){localStorage.removeItem('rishi_current_student');window.location.href='/login.html';}
 
+/* Admin bypass URL detection */
+(function(){
+  if(location.search.indexOf('bypass=1')!==-1){
+    sessionStorage.setItem('rishi_admin_bypass','1');
+  }
+})();
+
 function isExplainDone(cid){
+  if(sessionStorage.getItem('rishi_admin_bypass')==='1') return true;
   if(localStorage.getItem("rishi_explain_done_"+cid)==="1") return true;
   if(LEGACY_KEYS[cid]){
     var p={};try{p=JSON.parse(localStorage.getItem("rishi_progress")||"{}");}catch(e){}
@@ -446,8 +454,12 @@ function isExplainDone(cid){
   }
   return false;
 }
-function isPracticeDone(cid){return localStorage.getItem("rishi_practice_done_"+cid)==="1";}
+function isPracticeDone(cid){
+  if(sessionStorage.getItem('rishi_admin_bypass')==='1') return true;
+  return localStorage.getItem("rishi_practice_done_"+cid)==="1";
+}
 function isChapExamDone(cid){
+  if(sessionStorage.getItem('rishi_admin_bypass')==='1') return true;
   /* Use the padded key that exam.html actually writes (e.g. "02", "11a") */
   var key=EXAM_DONE_KEYS[cid]||String(cid);
   return localStorage.getItem("rishi_chapexam_done_"+key)==="1";
