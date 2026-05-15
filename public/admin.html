@@ -1638,8 +1638,9 @@ async function qbGenerateAll() {
   var btn = document.getElementById('qb-gen-all-btn');
   btn.disabled = true; btn.textContent = '⏳ Generating…';
   var chapters = QB_CHAPTERS[qbActiveClass] || [];
-  qbLog('=== Generate All — Class ' + qbActiveClass + ' ===');
+  qbLog('=== Generate All — Class ' + qbActiveClass + ' (' + chapters.length + ' chapters) ===');
   for (var i = 0; i < chapters.length; i++) {
+    btn.textContent = '⏳ ' + (i+1) + ' / ' + chapters.length + '...';
     await qbGenerateChapter(chapters[i].id);
     await new Promise(function(r){ setTimeout(r, 700); });
   }
@@ -1786,11 +1787,38 @@ async function qbListKeys() {
 function qbLog(msg) {
   var el = document.getElementById('qb-log');
   if (!el) return;
+  if (el.childElementCount === 0) el.textContent = '';
   var time = new Date().toLocaleTimeString();
-  el.textContent += '\n[' + time + '] ' + msg;
+  var line = document.createElement('div');
+  line.style.cssText = 'padding:2px 0;line-height:1.5;';
+  var color;
+  if      (msg.charAt(0) === '✓') color = 'var(--green)';
+  else if (msg.charAt(0) === '✗') color = '#ef4444';
+  else if (msg.charAt(0) === '✨') color = '#f59e0b';
+  else if (msg.indexOf('===') === 0)           color = 'rgba(255,255,255,.3)';
+  else                                           color = 'var(--muted)';
+  var stamp = document.createElement('span');
+  stamp.style.cssText = 'color:rgba(255,255,255,.25);margin-right:6px;';
+  stamp.textContent = '[' + time + ']';
+  var text = document.createElement('span');
+  text.style.color = color;
+  text.textContent = ' ' + msg;
+  line.appendChild(stamp);
+  line.appendChild(text);
+  if (msg.charAt(0) === '✗') {
+    var m = msg.match(/Ch(\w+)\s/);
+    if (m) {
+      var rb = document.createElement('button');
+      rb.textContent = 'Retry';
+      rb.style.cssText = 'margin-left:10px;padding:1px 8px;font-size:11px;background:rgba(239,68,68,.15);border:1px solid #ef4444;color:#ef4444;border-radius:4px;cursor:pointer;font-family:inherit;vertical-align:middle;';
+      (function(cid){ rb.onclick = function(){ qbGenerateChapter(cid); }; })(m[1]);
+      line.appendChild(rb);
+    }
+  }
+  el.appendChild(line);
   el.scrollTop = el.scrollHeight;
 }
-function qbClearLog() { var el = document.getElementById('qb-log'); if (el) el.textContent = ''; }
+function qbClearLog() { var el = document.getElementById('qb-log'); if (el) el.innerHTML = ''; }
 
 function esc(s) {
   return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
