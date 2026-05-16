@@ -681,7 +681,7 @@ button{font-family:'Outfit',sans-serif;}
     <div class="hdr-sep"></div>
     <div class="hdr-title">Parent Portal</div>
     <div class="hdr-r">
-      <button class="btn-out-hdr" id="hdr-menu-btn" onclick="toggleHdrMenu(event)" ontouchend="toggleHdrMenu(event)" style="font-size:20px;padding:6px 12px;" aria-label="Menu">☰</button>
+      <button class="btn-out-hdr" id="hdr-menu-btn" ontouchstart="toggleHdrMenu(event)" onclick="toggleHdrMenu(event)" style="font-size:20px;padding:6px 12px;" aria-label="Menu">☰</button>
       <div id="hdr-menu-dropdown" style="display:none;position:fixed;top:58px;left:0;right:0;background:var(--navy);border-bottom:2px solid rgba(255,255,255,.15);padding:8px 12px;z-index:9999;box-shadow:0 8px 24px rgba(0,0,0,.4);">
         <button onclick="showLeaderboard();toggleHdrMenu()" style="display:block;width:100%;text-align:left;padding:10px 14px;background:none;border:none;color:white;cursor:pointer;font-family:inherit;font-size:14px;font-weight:700;border-radius:6px;">🏆 Leaderboard</button>
         <button onclick="showInstructions();toggleHdrMenu()" style="display:block;width:100%;text-align:left;padding:10px 14px;background:none;border:none;color:white;cursor:pointer;font-family:inherit;font-size:14px;font-weight:700;border-radius:6px;">❓ Guide</button>
