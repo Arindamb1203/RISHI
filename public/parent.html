@@ -2843,29 +2843,16 @@ function toggleHdrMenu(e) {
 }
 </script>
 
+
+
 <script>
-function showSyncToast(msg, bg) {
-  bg = bg || '#0f2240';
-  var t = document.getElementById('sync-toast');
-  if (!t) {
-    t = document.createElement('div');
-    t.id = 'sync-toast';
-    t.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);padding:14px 28px;border-radius:12px;font-size:15px;font-weight:800;color:#fff;z-index:99999;text-align:center;box-shadow:0 4px 24px rgba(0,0,0,.3);transition:opacity .4s;max-width:90vw;font-family:Nunito,sans-serif;';
-    document.body.appendChild(t);
-  }
-  t.style.background = bg;
-  t.style.opacity = '1';
-  t.textContent = msg;
-  clearTimeout(t._timer);
-  if (bg !== '#0f2240') {
-    t._timer = setTimeout(function(){ t.style.opacity = '0'; }, 3000);
-  }
-}
 function syncToCloud() {
-  if (typeof rishiSync === 'undefined') { showSyncToast('Sync not available', '#c0392b'); return; }
-  showSyncToast('⏳ Syncing to cloud…', '#0f2240');
+  if (typeof rishiSync === 'undefined') {
+    alert('ERROR: rishiSync not loaded. rishi-sync.js missing from page.');
+    return;
+  }
   rishiSync.pushAll();
-  setTimeout(function(){ showSyncToast('✅ Synced! Data saved.', '#1a7a4a'); }, 1800);
+  alert('Sync done! Data pushed to cloud.');
 }
 </script>
 </body>
