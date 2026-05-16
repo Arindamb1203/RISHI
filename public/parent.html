@@ -534,6 +534,8 @@ button{font-family:'Outfit',sans-serif;}
 
 /* ── MOBILE RESPONSIVE ── */
 #hdr-menu-btn{display:none;}
+#hdr-menu-arrow{display:none;}
+@media(max-width:700px){#hdr-menu-arrow{display:inline;}}
 @media(max-width:700px){
   #hdr-menu-btn{display:flex!important;align-items:center;justify-content:center;}
   .btn-hide-mobile{display:none!important;}
@@ -558,8 +560,11 @@ button{font-family:'Outfit',sans-serif;}
 function toggleHdrMenu(e) {
   if (e) { e.stopPropagation(); e.preventDefault(); }
   var d = document.getElementById('hdr-menu-dropdown');
+  var arrow = document.getElementById('hdr-menu-arrow');
   if (!d) return;
-  d.style.display = (d.style.display === 'block') ? 'none' : 'block';
+  var open = d.style.display === 'block';
+  d.style.display = open ? 'none' : 'block';
+  if (arrow) arrow.textContent = open ? '▾' : '▴';
 }
 
 </script>
@@ -687,9 +692,8 @@ function toggleHdrMenu(e) {
   <div class="hdr">
     <div class="hdr-logo">RISHI<span>.</span></div>
     <div class="hdr-sep"></div>
-    <div class="hdr-title">Parent Portal</div>
+    <div class="hdr-title" id="hdr-menu-trigger" onclick="toggleHdrMenu(event)" style="cursor:pointer;user-select:none;">Parent Portal <span id="hdr-menu-arrow" style="font-size:11px;opacity:.7;">▾</span></div>
     <div class="hdr-r">
-      <button class="btn-out-hdr" id="hdr-menu-btn" onclick="toggleHdrMenu(event)"  style="font-size:20px;padding:6px 12px;" aria-label="Menu">☰</button>
       <div id="hdr-menu-dropdown" style="display:none;position:fixed;top:58px;left:0;right:0;background:var(--navy);border-bottom:2px solid rgba(255,255,255,.15);padding:8px 12px;z-index:9999;box-shadow:0 8px 24px rgba(0,0,0,.4);">
         <button onclick="showLeaderboard();toggleHdrMenu()" style="display:block;width:100%;text-align:left;padding:10px 14px;background:none;border:none;color:white;cursor:pointer;font-family:inherit;font-size:14px;font-weight:700;border-radius:6px;">🏆 Leaderboard</button>
         <button onclick="showInstructions();toggleHdrMenu()" style="display:block;width:100%;text-align:left;padding:10px 14px;background:none;border:none;color:white;cursor:pointer;font-family:inherit;font-size:14px;font-weight:700;border-radius:6px;">❓ Guide</button>
