@@ -557,8 +557,6 @@ button{font-family:'Outfit',sans-serif;}
 }
 </style>
 <script src="/rishi-sync.js">
-function toggleHdrMenu(e) {
-  if (e) { e.stopPropagation(); e.preventDefault(); }
   var d = document.getElementById('hdr-menu-dropdown');
   var arrow = document.getElementById('hdr-menu-arrow');
   if (!d) return;
@@ -2832,5 +2830,17 @@ function showLeaderboard() {
 }
 </script>
 
+
+<script>
+function toggleHdrMenu(e) {
+  if (e) { e.stopPropagation(); e.preventDefault(); }
+  var d = document.getElementById('hdr-menu-dropdown');
+  var arrow = document.getElementById('hdr-menu-arrow');
+  if (!d) return;
+  var open = d.style.display === 'block';
+  d.style.display = open ? 'none' : 'block';
+  if (arrow) arrow.textContent = open ? '\u25be' : '\u25b4';
+}
+</script>
 </body>
 </html>
