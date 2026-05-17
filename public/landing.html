@@ -121,7 +121,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);}
   </div>
   <div style="display:flex;align-items:center;gap:0.7rem;">
     <div id="counter" class="fm">01 / 06</div>
-    <div id="dots"><div class="dot on"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+    <div id="dots"><div class="dot on"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
   </div>
 </div>
 
@@ -231,7 +231,7 @@ function go(t){
     setTimeout(()=>{dL.style.transform='scaleX(0)';dR.style.transform='scaleX(0)';setTimeout(()=>{busy=false;},800);},50);
   },820);
 }
-function goNext(){if(cur<5)go(cur+1);}
+function goNext(){if(cur<4)go(cur+1);}
 function goBack(){if(cur>0)go(cur-1);}
 function doExit(){try{window.close();}catch(e){}window.location.href="about:blank";}
 document.addEventListener('keydown',e=>{
@@ -240,12 +240,12 @@ document.addEventListener('keydown',e=>{
 });
 
 function updateNav(){
-  document.getElementById('counter').textContent=String(cur+1).padStart(2,'0')+' / 06';
-  document.getElementById('progF').style.width=(cur/5*100)+'%';
+  document.getElementById('counter').textContent=String(cur+1).padStart(2,'0')+' / 05';
+  document.getElementById('progF').style.width=(cur/4*100)+'%';
   document.querySelectorAll('.dot').forEach((d,i)=>d.classList.toggle('on',i<=cur));
-  document.getElementById('abts').style.display=(cur>=3&&cur<5)?'flex':'none';
+  document.getElementById('abts').style.display=(cur===3)?'flex':'none';
   const cw=document.getElementById('cw');const hint=document.getElementById('hint');const cb=document.getElementById('cb');
-  if(cur===5){cw.style.display='none';hint.style.display='none';}
+  if(cur===4){cw.style.display='none';hint.style.display='none';}
   else if(cur===3){cw.style.display='none';hint.style.display='none';}
   else if(cur===0){cw.style.display='none';hint.style.display='block';}
   else{cw.style.display='flex';hint.style.display='none';cb.textContent='Continue →';}
@@ -261,7 +261,6 @@ function render(){
   else if(cur===1){c.innerHTML=r1();startType();}
   else if(cur===2)c.innerHTML=r2();
   else if(cur===3){c.innerHTML=r3();startFeat();}
-  else if(cur===4)c.innerHTML=r4();
   else c.innerHTML=r5();
 }
 
