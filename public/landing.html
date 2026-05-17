@@ -504,6 +504,36 @@ function r5(){
   </div>`;
 }
 
+function startType(){
+  clearTimeout(ttimer);playFatherVoice();let li=0,ci=0;
+  function tick(){const el=document.getElementById('tw');if(!el)return;if(li>=FL.length){el.innerHTML=FL.join('<br/>');return;}const done=FL.slice(0,li).join('<br/>');el.innerHTML=(done?done+'<br/>':'')+FL[li].slice(0,ci)+'<span class="cur"></span>';ci++;if(ci>FL[li].length){li++;ci=0;ttimer=setTimeout(tick,450);}else ttimer=setTimeout(tick,36);}
+  ttimer=setTimeout(tick,600);
+}
+
+function startFeat(){
+  clearTimeout(ftimer);const card=document.getElementById('fcard');
+  if(card){card.className='card feat-card hide';ftimer=setTimeout(()=>{if(document.getElementById('fcard')){document.getElementById('fcard').className='card feat-card show';playWhoosh();}},80);}
+}
+
+function playWhoosh(){
+  try{const ctx=new(window.AudioContext||window.webkitAudioContext)();
+  const buf=ctx.createBuffer(1,ctx.sampleRate*0.4,ctx.sampleRate);const data=buf.getChannelData(0);
+  for(let i=0;i<data.length;i++)data[i]=(Math.random()*2-1)*Math.pow(1-i/data.length,2)*0.6;
+  const src=ctx.createBufferSource();const g=ctx.createGain();src.buffer=buf;src.connect(g);g.connect(ctx.destination);
+  g.gain.setValueAtTime(0.5,ctx.currentTime);g.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+0.4);
+  src.start();src.stop(ctx.currentTime+0.4);}catch(e){}
+}
+
+function advance(){
+  const card=document.getElementById('fcard');if(!card)return;
+  card.className='card feat-card out';dp.push(FEATS[fi].p);
+  ftimer=setTimeout(()=>{
+    if(fi<FEATS.length-1){fi++;document.getElementById('content').innerHTML=r3();startFeat();}
+    else{const fc=document.getElementById('fc');if(fc)fc.innerHTML=`<div class="card" style="width:100%;text-align:center;"><div class="cr-tr"></div><div class="cr-bl"></div><div style="font-size:3rem;margin-bottom:0.8rem;animation:floatY 3s ease-in-out infinite;">&#9889;</div><div class="fd" style="font-weight:900;font-size:1.5rem;color:var(--gold);margin-bottom:0.6rem;">13 Features. One Promise.</div><div class="fb" style="font-size:0.98rem;line-height:1.9;color:var(--muted);text-align:center;max-width:400px;margin:0 auto 1rem;">Rishi stands beside every child and parent in the journey of learning Maths &#8212; with confidence, every single day.</div><button onclick="goNext()" class="reg-btn" style="max-width:280px;font-size:0.8rem;padding:0.9rem 2rem;">See the Promise &#8594;</button></div>`;}
+  },520);
+}
+
+
 function showSkipMessage(){
   const c=document.getElementById('content');
   c.innerHTML=`<div style="text-align:center;max-width:440px;">
