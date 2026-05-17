@@ -200,7 +200,7 @@ const FL=[
   "Her name is Rishika.",
   "Built by a father who understands the fear of Maths —",
   "and the hope behind every child.",
-  "For every child sitting alone tonight.",
+  "For every child sitting alone — feeling helpless, struggling with Maths.",
 ];
 
 const ACC0=["var(--gold)","var(--amber)","var(--sage)"];
@@ -253,21 +253,22 @@ function render(){
 }
 
 function r0(){
-  const w=[...Array(16)].map((_,i)=>`<div style="width:5px;border-radius:3px;background:linear-gradient(to top,var(--gold),var(--amber));height:${20+Math.sin(i*0.7)*16}px;animation:soundWave ${0.55+i*0.1}s ${i*0.07}s ease-in-out infinite alternate;opacity:0.8;"></div>`).join('');
-  return `<div style="text-align:center;max-width:680px;width:100%;display:flex;flex-direction:column;align-items:center;">
-    <div class="fm fu" style="font-size:0.68rem;letter-spacing:0.36em;color:var(--faint);margin-bottom:0.8rem;">// BEFORE WE BEGIN //</div>
-    <h2 class="fd fu d1" style="font-size:clamp(1.6rem,4.5vw,2.5rem);color:var(--text);line-height:1.3;margin-bottom:0.5rem;">
-      <span style="color:var(--gold)">Headphones Recommended.</span><br/>For a focused &amp; distraction-free experience.
+  const w=[...Array(12)].map((_,i)=>`<div style="width:4px;border-radius:3px;background:linear-gradient(to top,var(--gold),var(--amber));height:${14+Math.sin(i*0.7)*12}px;animation:soundWave ${0.55+i*0.1}s ${i*0.08}s ease-in-out infinite alternate;opacity:0.8;"></div>`).join('');
+  return `<div style="text-align:center;max-width:640px;width:100%;display:flex;flex-direction:column;align-items:center;gap:0;">
+    <div class="fm fu" style="font-size:0.62rem;letter-spacing:0.36em;color:var(--faint);margin-bottom:0.5rem;">// BEFORE WE BEGIN //</div>
+    <h2 class="fd fu d1" style="font-size:clamp(1.25rem,3.5vw,1.9rem);color:var(--text);line-height:1.25;margin-bottom:0.3rem;">
+      <span style="color:var(--gold)">Headphones Recommended</span><br/>
+      <span style="font-size:0.78em;color:var(--muted);">For a focused &amp; distraction-free experience</span>
     </h2>
-    <p class="fb fu d2" style="font-size:1rem;color:var(--amber);font-weight:700;margin-bottom:0.4rem;">Use headphones for the best experience &mdash; speakers work too.</p>
-    <div style="position:relative;width:160px;height:160px;margin:1.2rem auto;display:flex;align-items:center;justify-content:center;">
-      ${[0,1,2].map(i=>`<div style="position:absolute;inset:-${i*18}px;border-radius:50%;border:2px solid rgba(201,138,0,${0.35-i*0.1});animation:glowPulse ${1.5+i*0.6}s ${i*0.3}s ease-in-out infinite;"></div>`).join('')}
-      <div style="font-size:5.5rem;animation:floatY 3s ease-in-out infinite;">&#127911;</div>
+    <p class="fb fu d2" style="font-size:0.9rem;color:var(--amber);font-weight:700;margin-bottom:0;">Use headphones for the best experience &mdash; speakers work too.</p>
+    <div style="position:relative;width:110px;height:110px;margin:0.7rem auto 0;display:flex;align-items:center;justify-content:center;">
+      ${[0,1].map(i=>`<div style="position:absolute;inset:-${i*14}px;border-radius:50%;border:2px solid rgba(201,138,0,${0.35-i*0.12});animation:glowPulse ${1.5+i*0.6}s ${i*0.3}s ease-in-out infinite;"></div>`).join('')}
+      <div style="font-size:4rem;animation:floatY 3s ease-in-out infinite;">&#127911;</div>
     </div>
-    <div style="display:flex;align-items:flex-end;gap:4px;margin:0.8rem auto 1.8rem;height:50px;justify-content:center;">${w}</div>
-    <div style="display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;">
-      <button onclick="startAudio();go(1)" style="font-family:'Orbitron',monospace;font-weight:900;font-size:0.85rem;letter-spacing:0.14em;padding:1.1rem 2.5rem;background:linear-gradient(135deg,var(--gold),var(--amber));color:white;border:none;cursor:pointer;text-transform:uppercase;transition:all 0.3s;box-shadow:0 6px 28px rgba(201,138,0,0.35);border-radius:6px;">&#127911; HEADPHONES ON &mdash; BEGIN</button>
-      <button onclick="startAudio();go(1)" style="font-family:'Nunito',sans-serif;font-weight:700;font-size:0.82rem;padding:1.1rem 2rem;background:transparent;border:2px solid rgba(201,138,0,0.3);color:var(--amber);cursor:pointer;transition:all 0.3s;border-radius:6px;">Continue without headphones &rarr;</button>
+    <div style="display:flex;align-items:flex-end;gap:3px;margin:0.5rem auto 0.8rem;height:36px;justify-content:center;">${w}</div>
+    <div style="display:flex;gap:0.8rem;flex-wrap:wrap;justify-content:center;">
+      <button onclick="startAudio();go(1)" style="font-family:'Orbitron',monospace;font-weight:900;font-size:0.8rem;letter-spacing:0.12em;padding:0.9rem 2rem;background:linear-gradient(135deg,var(--gold),var(--amber));color:white;border:none;cursor:pointer;text-transform:uppercase;transition:all 0.3s;box-shadow:0 6px 28px rgba(201,138,0,0.35);border-radius:6px;">&#127911; HEADPHONES ON &mdash; BEGIN</button>
+      <button onclick="startAudio();go(1)" style="font-family:'Nunito',sans-serif;font-weight:700;font-size:0.8rem;padding:0.9rem 1.6rem;background:transparent;border:2px solid rgba(201,138,0,0.3);color:var(--amber);cursor:pointer;transition:all 0.3s;border-radius:6px;">Continue without headphones &rarr;</button>
     </div>
   </div>`;
 }
@@ -321,7 +322,18 @@ function r2(){
         <div class="fb" style="font-size:0.88rem;line-height:1.75;color:var(--muted);font-weight:500;">Achievement &amp; Mastery.<br/>Lord Ganesha's consort of success &mdash; the destination every student deserves.</div>
       </div>
     </div>
-    <div class="fb fu d4" style="font-size:1rem;color:var(--muted);font-weight:500;margin-top:1.2rem;font-style:italic;">"Rishi stands beside every child and parent in the journey of learning Maths &mdash; with confidence, every single day."</div>
+    <div class="fu d4" style="margin-top:1.4rem;width:100%;max-width:560px;">
+      <div style="position:relative;background:linear-gradient(135deg,rgba(201,138,0,0.13),rgba(224,107,16,0.08));border:2px solid rgba(201,138,0,0.35);border-radius:14px;padding:1.2rem 1.8rem;text-align:center;box-shadow:0 4px 24px rgba(201,138,0,0.12);">
+        <div style="position:absolute;top:-1px;left:50%;transform:translateX(-50%);background:var(--bg);padding:0 0.8rem;">
+          <span style="font-family:'Share Tech Mono',monospace;font-size:0.52rem;letter-spacing:0.28em;color:var(--gold);">OUR PROMISE</span>
+        </div>
+        <div class="fd" style="font-size:clamp(0.92rem,2.2vw,1.12rem);font-weight:900;color:var(--text);line-height:1.55;">
+          Rishi stands beside <span style="color:var(--gold);">every child</span> and <span style="color:var(--amber);">every parent</span><br/>
+          in the journey of learning Maths —<br/>
+          <span style="color:var(--gold);font-size:1.08em;">with confidence, every single day.</span>
+        </div>
+      </div>
+    </div>
   </div>`;
 }
 
@@ -406,7 +418,7 @@ function advance(){
   card.className='card feat-card out';dp.push(FEATS[fi].p);
   ftimer=setTimeout(()=>{
     if(fi<FEATS.length-1){fi++;document.getElementById('content').innerHTML=r3();startFeat();}
-    else{const fc=document.getElementById('fc');if(fc)fc.innerHTML=`<div class="card" style="width:100%;text-align:center;"><div class="cr-tr"></div><div class="cr-bl"></div><div style="font-size:3rem;margin-bottom:0.8rem;animation:floatY 3s ease-in-out infinite;">&#9889;</div><div class="fd" style="font-weight:900;font-size:1.5rem;color:var(--gold);margin-bottom:0.6rem;">All 14 Features. One Companion.</div><div class="fb" style="font-size:0.98rem;line-height:1.9;color:var(--muted);text-align:center;max-width:400px;margin:0 auto 1rem;">Rishi stands beside every child and parent in the journey of learning Maths &mdash; with confidence, every single day.</div><button onclick="goNext()" class="reg-btn" style="max-width:280px;font-size:0.8rem;padding:0.9rem 2rem;">See the Investment &rarr;</button></div>`;}
+    else{const fc=document.getElementById('fc');if(fc)fc.innerHTML=`<div class="card" style="width:100%;text-align:center;"><div class="cr-tr"></div><div class="cr-bl"></div><div style="font-size:3rem;margin-bottom:0.8rem;animation:floatY 3s ease-in-out infinite;">&#9889;</div><div class="fd" style="font-weight:900;font-size:1.5rem;color:var(--gold);margin-bottom:0.6rem;">All 14 Features. One Companion.</div><div class="fb" style="font-size:0.98rem;line-height:1.9;color:var(--muted);text-align:center;max-width:400px;margin:0 auto 1rem;">Rishi stands beside every child and parent in the journey of learning Maths — with confidence, every single day.</div><button onclick="goNext()" class="reg-btn" style="max-width:280px;font-size:0.8rem;padding:0.9rem 2rem;">See the Investment &rarr;</button></div>`;}
   },520);
 }
 
