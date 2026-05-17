@@ -1015,38 +1015,85 @@ var PARENT_PASS = 'rishi2025';
 function tryLogin() {
   var user = document.getElementById('login-user').value.trim();
   var pass = document.getElementById('login-pass').value;
+  var userLC = user.toLowerCase();
 
+  /* ── Step 1: Check localStorage (case-insensitive) ── */
   var overrides = {};
   try { overrides = JSON.parse(localStorage.getItem('rishi_pw_overrides') || '{}'); } catch(e){}
   var regs = [];
   try { regs = JSON.parse(localStorage.getItem('rishi_registrations') || '[]'); } catch(e){}
 
   var found = null;
-  for(var i=0;i<regs.length;i++){
-    if(regs[i].parentUsername === user){
-      var pw = overrides[user] || PARENT_PASS;
-      if(pw === pass){ found = regs[i]; break; }
+  for(var i = 0; i < regs.length; i++){
+    if((regs[i].parentUsername||'').toLowerCase() === userLC){
+      var localPw = overrides[regs[i].parentUsername] || overrides[user] || PARENT_PASS;
+      if(localPw === pass){ found = regs[i]; break; }
     }
   }
 
   if(found){
     sessionStorage.setItem('rishi_parent_auth','1');
-    sessionStorage.setItem('rishi_parent_student_id', found.studentUsername);
+    sessionStorage.setItem('rishi_parent_student_id',   found.studentUsername);
     sessionStorage.setItem('rishi_parent_student_name', found.studentName || 'Student');
     enterPortal();
-  } else if(pass === PARENT_PASS) {
-    /* Fallback: correct password but no matching registration — use current student */
-    var cs = {};
-    try { cs = JSON.parse(localStorage.getItem('rishi_current_student')||'{}'); } catch(e){}
-    sessionStorage.setItem('rishi_parent_auth','1');
-    sessionStorage.setItem('rishi_parent_student_id',   cs.studentUsername||cs.studentId||'default');
-    sessionStorage.setItem('rishi_parent_student_name', cs.studentName||'Student');
-    enterPortal();
-  } else {
-    var e = document.getElementById('login-err');
-    e.className = 'login-err show';
-    document.getElementById('login-pass').value = '';
+    return;
   }
+
+  /* ── Step 2: Not in localStorage — look up D1 ── */
+  fetch('/d1-sync', {
+    method: 'POST',
+    headers: {'Content-Type':'application/json'},
+    body: JSON.stringify({action:'find-account', username: userLC})
+  })
+  .then(function(r){ return r.json(); })
+  .then(function(resp){
+    if(!resp.ok || !resp.found || resp.role !== 'parent'){
+      showLoginError(); return;
+    }
+    /* Check password: D1 pw_override first, then default */
+    var d1Pw = resp.pw_override || PARENT_PASS;
+    if(pass !== d1Pw){
+      showLoginError(); return;
+    }
+    var regData = resp.data || {};
+    /* Cache locally so next login is instant */
+    var allRegs = [];
+    try { allRegs = JSON.parse(localStorage.getItem('rishi_registrations')||'[]'); } catch(e){}
+    var exists = allRegs.some(function(r){ return (r.parentUsername||'').toLowerCase() === userLC; });
+    if(!exists && regData.studentUsername){
+      allRegs.push(regData);
+      localStorage.setItem('rishi_registrations', JSON.stringify(allRegs));
+    }
+    /* Cache pw_override locally too */
+    if(resp.pw_override){
+      overrides[regData.parentUsername || user] = resp.pw_override;
+      localStorage.setItem('rishi_pw_overrides', JSON.stringify(overrides));
+    }
+    sessionStorage.setItem('rishi_parent_auth','1');
+    sessionStorage.setItem('rishi_parent_student_id',   regData.studentUsername || 'default');
+    sessionStorage.setItem('rishi_parent_student_name', regData.studentName     || 'Student');
+    enterPortal();
+  })
+  .catch(function(){
+    /* D1 unreachable — use password-only fallback */
+    if(pass === PARENT_PASS){
+      var cs = {};
+      try { cs = JSON.parse(localStorage.getItem('rishi_current_student')||'{}'); } catch(e){}
+      sessionStorage.setItem('rishi_parent_auth','1');
+      sessionStorage.setItem('rishi_parent_student_id',   cs.studentUsername||cs.studentId||'default');
+      sessionStorage.setItem('rishi_parent_student_name', cs.studentName||'Student');
+      enterPortal();
+    } else {
+      showLoginError();
+    }
+  });
+}
+
+function showLoginError(){
+  var e = document.getElementById('login-err');
+  if(e){ e.className = 'login-err show'; }
+  var p = document.getElementById('login-pass');
+  if(p) p.value = '';
 }
 
 function logout() {
@@ -1151,7 +1198,13 @@ function resetPassword() {
   try { overrides = JSON.parse(localStorage.getItem('rishi_pw_overrides')||'{}'); } catch(e){}
   overrides[reg.parentUsername] = newPw;
   localStorage.setItem('rishi_pw_overrides', JSON.stringify(overrides));
-  alert('✅ Password updated. Use new password next login.');
+  /* Save to D1 so new password works on ALL devices */
+  fetch('/d1-sync', {
+    method: 'POST',
+    headers: {'Content-Type':'application/json'},
+    body: JSON.stringify({action:'save-pw', username: reg.parentUsername.toLowerCase(), pw: newPw})
+  }).catch(function(){});
+  alert('✅ Password updated. Works on all devices now.');
   document.getElementById('profile-panel').remove();
 }
 
