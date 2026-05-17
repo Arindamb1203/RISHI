@@ -402,7 +402,7 @@ function r5(){
       <span style="font-family:'Nunito',sans-serif;font-size:0.95rem;color:rgba(255,255,255,0.88);font-weight:600;">${item}</span>
     </div>`).join('');
 
-  return \`<div style="width:100%;max-width:680px;position:relative;padding:0.5rem;">
+  return `<div style="width:100%;max-width:680px;position:relative;padding:0.5rem;">
 
     <!-- Atmospheric glow behind card -->
     <div style="position:absolute;top:-40px;left:50%;transform:translateX(-50%);width:400px;height:200px;background:radial-gradient(ellipse,rgba(201,138,0,0.12),transparent 70%);pointer-events:none;"></div>
@@ -448,7 +448,7 @@ function r5(){
 
         <!-- Arrow points -->
         <div style="display:flex;flex-direction:column;gap:0.55rem;margin-bottom:1.2rem;padding-left:0.2rem;">
-          \${arrowItems}
+          ${arrowItems}
         </div>
 
         <!-- The ASK -->
@@ -501,17 +501,17 @@ function r5(){
 
       </div>
     </div>
-  </div>\`;
+  </div>`;
 }
 
 function showSkipMessage(){
   const c=document.getElementById('content');
-  c.innerHTML=\`<div style="text-align:center;max-width:440px;">
+  c.innerHTML=`<div style="text-align:center;max-width:440px;">
     <div style="font-size:3rem;margin-bottom:1rem;animation:floatY 3s ease-in-out infinite;">&#128149;</div>
     <div class="fd" style="font-size:1.2rem;font-weight:900;color:var(--gold);margin-bottom:0.6rem;">That is okay.</div>
     <div class="fb" style="font-size:0.95rem;color:var(--muted);line-height:1.9;font-weight:500;margin-bottom:1.4rem;">Riyon needed this.<br/>Your child might too.<br/>We will be here when you are ready.</div>
     <button onclick="window.location.href='/register.html?ref=prelaunch&badge=founder'" style="font-family:'Orbitron',monospace;font-weight:700;font-size:0.72rem;letter-spacing:0.15em;padding:0.85rem 1.8rem;background:var(--goldBg);border:2px solid var(--gold);color:var(--gold);cursor:pointer;border-radius:8px;transition:all 0.25s;">Register when ready &#10022;</button>
-  </div>\`;
+  </div>`;
 }
 
 
