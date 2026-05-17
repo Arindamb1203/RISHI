@@ -16,6 +16,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);}
 @keyframes rotateSlow{to{transform:rotate(360deg)}}
 @keyframes soundWave{0%,100%{transform:scaleY(0.2)}50%{transform:scaleY(1)}}
 @keyframes glowPulse{0%,100%{opacity:0.3}50%{opacity:0.9}}
+@keyframes founderGlow{0%,100%{box-shadow:0 0 24px rgba(201,138,0,0.4),0 6px 20px rgba(0,0,0,0.3)}50%{box-shadow:0 0 45px rgba(201,138,0,0.7),0 0 80px rgba(224,107,16,0.2),0 6px 20px rgba(0,0,0,0.3)}}
 @keyframes punchIn{from{opacity:0;transform:translateX(24px)}to{opacity:1;transform:translateX(0)}}
 @keyframes nb{0%,100%{opacity:1}50%{opacity:0.5}}
 @keyframes scanH{0%{left:-100%}100%{left:100%}}
@@ -166,20 +167,32 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);}
 
 <script>
 const FEATS=[
-  {i:"&#127918;",t:"Play to Learn",p:"Maths meets gaming.",b:"Earn points solving questions. Spend them on integrated games that sharpen focus and brain activity. Two earned breaks per session — your child will do Maths to get there."},
-  {i:"&#128105;&#8205;&#128188;",t:"Meet Rishika",p:"Always beside your child.",b:"A real-looking, elegant AI companion — like the elder sister who always has time. She explains with warmth, celebrates every step, finds a completely new way until it truly clicks."},
-  {i:"&#127897;&#65039;",t:"Talk, Don't Type",p:"Voice beats keyboard.",b:"Maths symbols cannot be typed. Your child speaks steps naturally — every word appears live on screen. Audio and visual memory together are the strongest form of learning."},
-  {i:"&#129504;",t:"Your Questions Only",p:"Powered by AI Analysis.",b:"RISHI analyses every session — hesitations, speed, errors. It picks the perfect next question. Not too easy, not too hard. Step by step toward planned mastery."},
-  {i:"&#128197;",t:"Study Calendar",p:"Exam Focussed.",b:"Enter last exam scores. Rishika generates a personal study calendar — chapter by chapter, day by day — making your child stronger before the next exam."},
-  {i:"&#128202;",t:"Parent Dashboard",p:"Parent Cloud Dashboard.",b:"From your office, open your phone. Questions attempted, one-shot answers, breaks taken, session time — all live. You are always in the picture even when not home."},
-  {i:"&#128221;",t:"Earn Your Exam",p:"Only when truly ready.",b:"Mock exams unlock only when AI confirms genuine readiness from real practice data. Time-bound, confidence-building. The exam becomes proof of preparation — not a source of fear."},
-  {i:"&#127941;",t:"Leaderboard",p:"Friendly competition.",b:"Every RISHI student is on a live leaderboard. Your child will want to climb it. And to climb it, they have to study. Healthy competition drives real effort every single day."},
-  {i:"&#128218;",t:"Trusted Libraries",p:"Questions from the best.",b:"Official question libraries from CBSE, ICSE, WBBSE and international sources. Every question is curriculum-accurate, board-aligned and pedagogically sound."},
-  {i:"&#127757;",t:"Language Surprises",p:"Learning sneaks in.",b:"Rishika celebrates in French, Japanese, Spanish and more — explaining what each phrase means. Curiosity sparked every day, completely naturally."},
-  {i:"&#128172;",t:"Chat with Rishika",p:"Any question. Any time.",b:"Rishika chats about anything — general knowledge, curiosity, life. Like a wise elder sister who is always free. Your child stays inside the app, not wandering to YouTube."},
-  {i:"&#128300;",t:"Science-Backed",p:"Every decision has proof.",b:"Medical science shapes break timing. Cognitive science shapes explanations. Behavioural psychology powers the earn-your-break model. Eye-safe colours throughout."},
-  {i:"&#127919;",t:"Made for You",p:"Built for every child.",b:"RISHI is built specifically for students who are average or weak in Maths — Classes 6 to 10. The child who understands when someone sits beside them. This app was made for them."},
-  {i:"&#128260;",t:"Always Affordable",p:"\u20b9599/month. Cancel anytime.",b:"Monthly recharge. Stop anytime, come back anytime — progress stays. Full refund if not satisfied after first month. No questions. No forms. No waiting."},
+  {i:"&#128218;",t:"AI Question Banks",p:"The most trusted source. AI-selected.",
+   b:"RISHI integrates with India's most respected curriculum frameworks. Every question is carefully selected from well-established academic sources aligned to CBSE, ICSE, and WBBSE syllabi. AI picks the right question at the right time — not too easy, not too hard. No random internet questions. Just accurate, board-aligned content your child can trust completely."},
+  {i:"&#127918;",t:"Learn with Fun",p:"Maths meets gaming.",
+   b:"Earn points solving questions. Spend them on integrated games that sharpen focus and brain activity. Two earned breaks per session — your child will do Maths to get there. Learning stops feeling like a burden. It becomes something they genuinely look forward to every day."},
+  {i:"&#128105;&#8205;&#128188;",t:"Meet Rishika",p:"Your child's personal DIDI. Always there.",
+   b:"Rishika is like the elder sister your child always needed. She sits beside them, monitors every step, helps when they are stuck, and celebrates when they succeed. She never loses patience, never makes your child feel small, and never gives up — no matter how many times they get it wrong."},
+  {i:"&#128197;",t:"AI Study Calendar",p:"Exam-focused. Day by day. AI-planned.",
+   b:"Tell Rishika your last exam scores and your next exam date. She builds a personalised study calendar — chapter by chapter, day by day — ensuring your child is genuinely stronger before the next test. Not just covered. Stronger. Every single day accounted for."},
+  {i:"&#129513;",t:"Learn → Practice → Exam",p:"Built for real understanding.",
+   b:"Every chapter follows a proven three-step loop: Explain (Rishika teaches step by step with full clarity), Practice (questions that build real skill at the right pace), Exam (timed tests that prove genuine readiness). Your child does not just do Maths — they understand it, practise it, and earn the right to be tested on it."},
+  {i:"&#128202;",t:"Parent Dashboard",p:"Your monitoring rights. Real time.",
+   b:"From your office, open your phone. See questions attempted, one-shot correct answers, breaks taken, session duration — all live. You are never out of the picture, even when you are not home. True real-time monitoring — not just weekly reports. You remain present, always."},
+  {i:"&#128221;",t:"Earn Your Exam",p:"Give exam. Pass. Earn. Spend.",
+   b:"Your child does not get access to chapter exams by default — they earn it through genuine practice results. Then they sit a timed, structured exam. Pass it, earn points. Those points unlock integrated games, curated portals inside the app, and special rewards — or parents can choose to reward their child themselves, based on what they have earned. Achievement has real value here."},
+  {i:"&#127941;",t:"Live Leaderboard",p:"Real time. Competitive. Motivating.",
+   b:"Every RISHI student sees where they stand, updated in real time. Healthy competition is one of the most powerful motivators in learning. Your child will push themselves — not because you told them to, but because they want to climb. That internal drive is priceless and lasts a lifetime."},
+  {i:"&#127919;",t:"You Decide the Chapters",p:"Your child's pace. Your choice.",
+   b:"You are in control. Choose which chapters your child focuses on, in what order, at what pace. RISHI adapts completely — there is no fixed path forced on your child. Whether exam revision or filling learning gaps, you set the direction. Rishika does the rest."},
+  {i:"&#127757;",t:"Language Surprises",p:"Create interest to learn new languages.",
+   b:"Rishika celebrates your child's wins in French, Japanese, Spanish, Arabic and more — and explains what each phrase means. Not forced. Not formal. Just a quiet spark of curiosity, every single day. Your child becomes a more curious, more global learner — without even noticing it is happening."},
+  {i:"&#127775;",t:"Made for Every Child",p:"Built for the average student.",
+   b:"RISHI was built specifically for students who are average or weak in Maths — Classes 6 to 10. The child who understands when someone explains it clearly, but gets lost when left alone. That child is not less intelligent. They simply needed the right companion. This app was made entirely for them."},
+  {i:"&#128260;",t:"Always Affordable",p:"₹599/month. Cancel anytime.",
+   b:"Monthly recharge. Stop anytime, come back anytime — progress stays exactly where it was. Full refund if not satisfied after the first month. No questions. No forms. No waiting. We believe deeply in what we built."},
+  {i:"&#127760;",t:"Beyond RISHI",p:"A guided path to what is next.",
+   b:"RISHI does not try to be everything. When your child is ready to go further — deeper learning, advanced challenges, broader academic excellence — Rishika guides them toward the most worthy, trusted resources and platforms available. Your child's journey does not end here. It begins here."},
 ];
 
 const FL=[
@@ -346,7 +359,7 @@ function r3(){
     <div class="fc" id="fc">
       <div class="card feat-card show" id="fcard" style="width:100%;text-align:center;border-color:${ac}44;">
         <div class="cr-tr" style="border-color:${ac}"></div><div class="cr-bl" style="border-color:${ac}"></div>
-        <div class="card-lbl" style="color:${ac};">FEATURE ${String(fi+1).padStart(2,'0')} / 14</div>
+        <div class="card-lbl" style="color:${ac};">FEATURE ${String(fi+1).padStart(2,'02')} / 13</div>
         <div class="fi-icon" style="filter:drop-shadow(0 4px 14px ${ac}80);">${feat.i}</div>
         <div class="ft">${feat.t}</div>
         <div class="fp" style="color:${ac};">"${feat.p}"</div>
@@ -376,51 +389,131 @@ function r4(){
 }
 
 function r5(){
-  setTimeout(()=>{var p=document.getElementById('reqPopup');if(p)p.style.display='flex';},1000);
-  return `<div style="text-align:center;max-width:620px;width:100%;display:flex;flex-direction:column;align-items:center;">
-    <div class="fm" style="font-size:0.68rem;letter-spacing:0.36em;color:var(--faint);margin-bottom:0.8rem;">// THE FINAL DOOR //</div>
-    <h2 class="fd" style="font-size:clamp(1.4rem,4vw,2.2rem);color:var(--text);margin-bottom:0.9rem;">One decision.<br/><span style="color:var(--gold)">A different future for your child.</span></h2>
-    <p class="fb" style="font-size:1rem;line-height:1.9;color:var(--muted);font-weight:500;max-width:460px;margin:0 auto 2rem;">Try it free. No risk. Full refund if not satisfied in first month &mdash; no questions asked.</p>
-    <div class="holo-av" onclick="window.location.href='/register.html'">
-      <div style="font-size:3rem;margin-bottom:0.4rem;animation:floatY 3s ease-in-out infinite;">&#128105;&#8205;&#128188;</div>
-      <div class="fm" style="font-size:0.55rem;letter-spacing:0.2em;color:var(--faint);text-align:center;line-height:1.7;">TOUCH<br/>RISHI</div>
-      <div style="width:9px;height:9px;border-radius:50%;background:var(--gold);margin-top:0.5rem;box-shadow:0 0 10px var(--goldL);"></div>
+  const items=[
+    "Smarter AI question sourcing",
+    "Richer step-by-step explanations",
+    "More dynamic features for our children"
+  ];
+  const arrowItems = items.map(item=>`
+    <div style="display:flex;align-items:center;gap:0.85rem;animation:fadeUp 0.6s both;">
+      <div style="width:22px;height:22px;border-radius:50%;background:linear-gradient(135deg,rgba(201,138,0,0.25),rgba(224,107,16,0.15));border:1.5px solid rgba(201,138,0,0.6);display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 0 8px rgba(201,138,0,0.2);">
+        <span style="color:var(--gold);font-size:0.65rem;font-weight:900;">&#8594;</span>
+      </div>
+      <span style="font-family:'Nunito',sans-serif;font-size:0.95rem;color:rgba(255,255,255,0.88);font-weight:600;">${item}</span>
+    </div>`).join('');
+
+  return \`<div style="width:100%;max-width:680px;position:relative;padding:0.5rem;">
+
+    <!-- Atmospheric glow behind card -->
+    <div style="position:absolute;top:-40px;left:50%;transform:translateX(-50%);width:400px;height:200px;background:radial-gradient(ellipse,rgba(201,138,0,0.12),transparent 70%);pointer-events:none;"></div>
+
+    <div style="background:linear-gradient(160deg,#130900,#1f0e03,#130900);border:1px solid rgba(201,138,0,0.28);border-radius:22px;overflow:hidden;box-shadow:0 24px 80px rgba(0,0,0,0.55),0 0 0 1px rgba(201,138,0,0.08),inset 0 1px 0 rgba(255,255,255,0.04);position:relative;">
+
+      <!-- Inner glow top-right -->
+      <div style="position:absolute;top:-60px;right:-60px;width:240px;height:240px;background:radial-gradient(circle,rgba(201,138,0,0.07),transparent 65%);pointer-events:none;"></div>
+      <!-- Inner glow bottom-left -->
+      <div style="position:absolute;bottom:-40px;left:-40px;width:180px;height:180px;background:radial-gradient(circle,rgba(224,107,16,0.05),transparent 65%);pointer-events:none;"></div>
+
+      <!-- TOP BADGE -->
+      <div style="text-align:center;padding:1.6rem 2rem 0;">
+        <div style="display:inline-flex;align-items:center;gap:0.55rem;background:rgba(201,138,0,0.1);border:1.5px solid rgba(201,138,0,0.45);border-radius:100px;padding:0.4rem 1.2rem;">
+          <div style="width:7px;height:7px;border-radius:50%;background:var(--gold);box-shadow:0 0 10px var(--goldL);animation:glowPulse 1.4s ease-in-out infinite;"></div>
+          <span style="font-family:'Share Tech Mono',monospace;font-size:0.52rem;letter-spacing:0.32em;color:var(--gold);">PRE&nbsp;&middot;&nbsp;LAUNCH&nbsp;&middot;&nbsp;FOUNDER</span>
+          <div style="width:7px;height:7px;border-radius:50%;background:var(--gold);box-shadow:0 0 10px var(--goldL);animation:glowPulse 1.4s ease-in-out 0.7s infinite;"></div>
+        </div>
+      </div>
+
+      <!-- MAIN CONTENT -->
+      <div style="padding:1.4rem 2.2rem 2rem;">
+
+        <!-- Hero line -->
+        <div style="text-align:center;margin-bottom:1.2rem;">
+          <div class="fd" style="font-size:clamp(1.05rem,2.8vw,1.4rem);font-weight:900;color:#ffffff;line-height:1.4;">
+            A father who did not know coding<br/>
+            <span style="background:linear-gradient(135deg,var(--gold),var(--amber));-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:shimmer 3s linear infinite;background-size:200% auto;">built this for your child.</span>
+          </div>
+        </div>
+
+        <!-- Divider -->
+        <div style="height:1px;background:linear-gradient(90deg,transparent,rgba(201,138,0,0.25),transparent);margin-bottom:1.1rem;"></div>
+
+        <!-- Letter body -->
+        <div style="background:rgba(255,255,255,0.03);border-left:3px solid rgba(201,138,0,0.45);border-radius:0 10px 10px 0;padding:1rem 1.3rem;margin-bottom:1.1rem;">
+          <p style="font-family:'Nunito',sans-serif;font-size:0.9rem;color:rgba(255,255,255,0.78);line-height:1.95;font-weight:500;margin:0;">
+            Every line of code was written by a father who does not know coding &mdash; yet built it anyway, across months of sleepless nights. A platform like this costs double-figure lakhs. I saved that cost with effort alone.
+            <br/><br/>
+            But integrating AI, better question sourcing, and richer features needs real money. <strong style="color:rgba(255,255,255,0.92);">I am stuck. Every pre-launch registration brings me one step closer.</strong>
+          </p>
+        </div>
+
+        <!-- Arrow points -->
+        <div style="display:flex;flex-direction:column;gap:0.55rem;margin-bottom:1.2rem;padding-left:0.2rem;">
+          \${arrowItems}
+        </div>
+
+        <!-- The ASK -->
+        <div style="text-align:center;background:rgba(201,138,0,0.06);border:1px solid rgba(201,138,0,0.18);border-radius:14px;padding:1.1rem 1.4rem;margin-bottom:1.1rem;">
+          <div class="fd" style="font-size:0.85rem;font-weight:700;color:rgba(255,255,255,0.75);letter-spacing:0.05em;margin-bottom:0.3rem;">Will you help me make it real?</div>
+          <div style="display:flex;align-items:baseline;justify-content:center;gap:0.3rem;margin:0.3rem 0;">
+            <span style="font-family:'Share Tech Mono',monospace;font-size:1rem;color:rgba(201,138,0,0.7);">only</span>
+            <span class="fd" style="font-size:clamp(2.2rem,7vw,3.2rem);font-weight:900;background:linear-gradient(135deg,var(--gold),var(--amber),var(--gold));background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:shimmer 2.5s linear infinite;line-height:1;">&#8377;599</span>
+            <span style="font-family:'Nunito',sans-serif;font-size:0.8rem;color:rgba(255,255,255,0.35);font-weight:500;">/ month</span>
+          </div>
+          <div style="font-family:'Nunito',sans-serif;font-size:0.75rem;color:rgba(255,255,255,0.4);font-weight:500;line-height:1.7;">
+            Cancel any time &nbsp;&middot;&nbsp; Full refund instantly &nbsp;&middot;&nbsp; No questions asked<br/>
+            <em>I won't judge you either.</em>
+          </div>
+        </div>
+
+        <!-- Promise quote -->
+        <div style="text-align:center;margin-bottom:1.3rem;">
+          <div style="font-family:'Nunito',sans-serif;font-size:0.88rem;font-style:italic;color:rgba(255,255,255,0.45);line-height:1.7;">
+            &ldquo;You are not buying a product.<br/>You are joining a father's promise.&rdquo;
+          </div>
+        </div>
+
+        <!-- BUTTONS -->
+        <div style="display:flex;flex-direction:column;gap:0.65rem;align-items:center;">
+
+          <!-- YES button - glowing gold -->
+          <button onclick="window.location.href='/register.html?ref=prelaunch&badge=founder'"
+            style="width:100%;max-width:400px;font-family:'Orbitron',monospace;font-weight:900;font-size:0.88rem;letter-spacing:0.18em;padding:1.1rem 2rem;background:linear-gradient(135deg,#c98a00,#e06b10,#c98a00);background-size:200% auto;color:#fff;border:none;cursor:pointer;border-radius:10px;box-shadow:0 0 24px rgba(201,138,0,0.4),0 6px 20px rgba(0,0,0,0.3);animation:shimmer 3s linear infinite,founderGlow 2.5s ease-in-out infinite;transition:transform 0.2s,box-shadow 0.2s;position:relative;overflow:hidden;"
+            onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 0 40px rgba(201,138,0,0.6),0 10px 30px rgba(0,0,0,0.4)'"
+            onmouseout="this.style.transform='none';this.style.boxShadow='0 0 24px rgba(201,138,0,0.4),0 6px 20px rgba(0,0,0,0.3)'">
+            &#10022;&nbsp; YES &mdash; I'll join the promise
+          </button>
+
+          <!-- Maybe later -->
+          <button onclick="showSkipMessage()"
+            style="width:100%;max-width:400px;font-family:'Nunito',sans-serif;font-weight:600;font-size:0.8rem;padding:0.75rem 2rem;background:transparent;border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.35);cursor:pointer;border-radius:10px;transition:all 0.25s;"
+            onmouseover="this.style.borderColor='rgba(255,255,255,0.25)';this.style.color='rgba(255,255,255,0.6)'"
+            onmouseout="this.style.borderColor='rgba(255,255,255,0.1)';this.style.color='rgba(255,255,255,0.35)'">
+            Maybe later &rarr;
+          </button>
+        </div>
+
+        <!-- Signature -->
+        <div style="text-align:center;margin-top:1.2rem;padding-top:1rem;border-top:1px solid rgba(255,255,255,0.05);">
+          <div style="font-family:'Nunito',sans-serif;font-size:0.7rem;color:rgba(255,255,255,0.2);font-style:italic;">
+            &mdash;&nbsp; Arindam, father of Riyon. Builder of RISHI.
+          </div>
+        </div>
+
+      </div>
     </div>
-    <div style="height:1.8rem;"></div>
-    <button class="reg-btn" onclick="window.location.href='/register.html'">&#10022; Begin Your Child's Journey</button>
-    <a class="wa-btn" href="https://wa.me/919836107236?text=Hi%2C%20I%20want%20to%20know%20more%20about%20RISHI" target="_blank">&#128172; Chat with us on WhatsApp</a>
-    <div class="fb" style="font-size:0.62rem;font-weight:600;color:var(--faint);letter-spacing:0.12em;text-align:center;line-height:2.1;">FREE DEMO &middot; MONTHLY &middot; CANCEL ANYTIME<br/><span style="color:var(--gold);font-weight:700;">FULL REFUND IF NOT SATISFIED &middot; NO QUESTIONS ASKED</span></div>
-  </div>`;
+  </div>\`;
 }
 
-function startType(){
-  clearTimeout(ttimer);playFatherVoice();let li=0,ci=0;
-  function tick(){const el=document.getElementById('tw');if(!el)return;if(li>=FL.length){el.innerHTML=FL.join('<br/>');return;}const done=FL.slice(0,li).join('<br/>');el.innerHTML=(done?done+'<br/>':'')+FL[li].slice(0,ci)+'<span class="cur"></span>';ci++;if(ci>FL[li].length){li++;ci=0;ttimer=setTimeout(tick,450);}else ttimer=setTimeout(tick,36);}
-  ttimer=setTimeout(tick,600);
+function showSkipMessage(){
+  const c=document.getElementById('content');
+  c.innerHTML=\`<div style="text-align:center;max-width:440px;">
+    <div style="font-size:3rem;margin-bottom:1rem;animation:floatY 3s ease-in-out infinite;">&#128149;</div>
+    <div class="fd" style="font-size:1.2rem;font-weight:900;color:var(--gold);margin-bottom:0.6rem;">That is okay.</div>
+    <div class="fb" style="font-size:0.95rem;color:var(--muted);line-height:1.9;font-weight:500;margin-bottom:1.4rem;">Riyon needed this.<br/>Your child might too.<br/>We will be here when you are ready.</div>
+    <button onclick="window.location.href='/register.html?ref=prelaunch&badge=founder'" style="font-family:'Orbitron',monospace;font-weight:700;font-size:0.72rem;letter-spacing:0.15em;padding:0.85rem 1.8rem;background:var(--goldBg);border:2px solid var(--gold);color:var(--gold);cursor:pointer;border-radius:8px;transition:all 0.25s;">Register when ready &#10022;</button>
+  </div>\`;
 }
 
-function startFeat(){
-  clearTimeout(ftimer);const card=document.getElementById('fcard');
-  if(card){card.className='card feat-card hide';ftimer=setTimeout(()=>{if(document.getElementById('fcard')){document.getElementById('fcard').className='card feat-card show';playWhoosh();}},80);}
-}
-
-function playWhoosh(){
-  try{const ctx=new(window.AudioContext||window.webkitAudioContext)();
-  const buf=ctx.createBuffer(1,ctx.sampleRate*0.4,ctx.sampleRate);const data=buf.getChannelData(0);
-  for(let i=0;i<data.length;i++)data[i]=(Math.random()*2-1)*Math.pow(1-i/data.length,2)*0.6;
-  const src=ctx.createBufferSource();const g=ctx.createGain();src.buffer=buf;src.connect(g);g.connect(ctx.destination);
-  g.gain.setValueAtTime(0.5,ctx.currentTime);g.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+0.4);
-  src.start();src.stop(ctx.currentTime+0.4);}catch(e){}
-}
-
-function advance(){
-  const card=document.getElementById('fcard');if(!card)return;
-  card.className='card feat-card out';dp.push(FEATS[fi].p);
-  ftimer=setTimeout(()=>{
-    if(fi<FEATS.length-1){fi++;document.getElementById('content').innerHTML=r3();startFeat();}
-    else{const fc=document.getElementById('fc');if(fc)fc.innerHTML=`<div class="card" style="width:100%;text-align:center;"><div class="cr-tr"></div><div class="cr-bl"></div><div style="font-size:3rem;margin-bottom:0.8rem;animation:floatY 3s ease-in-out infinite;">&#9889;</div><div class="fd" style="font-weight:900;font-size:1.5rem;color:var(--gold);margin-bottom:0.6rem;">All 14 Features. One Companion.</div><div class="fb" style="font-size:0.98rem;line-height:1.9;color:var(--muted);text-align:center;max-width:400px;margin:0 auto 1rem;">Rishi stands beside every child and parent in the journey of learning Maths — with confidence, every single day.</div><button onclick="goNext()" class="reg-btn" style="max-width:280px;font-size:0.8rem;padding:0.9rem 2rem;">See the Investment &rarr;</button></div>`;}
-  },520);
-}
 
 render();
 setTimeout(()=>{document.getElementById('dL').style.transform='scaleX(0)';document.getElementById('dR').style.transform='scaleX(0)';},100);
