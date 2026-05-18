@@ -570,7 +570,7 @@ button{font-family:'Outfit',sans-serif;}
 <body>
 
 <!-- ===== LOGIN SCREEN ===== -->
-<div id="login-screen">
+<div id="login-screen" style="display:none">
   <div class="login-box">
     <div class="login-rishi">RISHI<span>.</span></div>
     <div class="login-tag">Parent Portal &mdash; Class 8 CBSE Mathematics</div>
@@ -1094,8 +1094,7 @@ function showLoginError(){
 
 function logout() {
   sessionStorage.removeItem('rishi_parent_auth');
-  document.getElementById('main-portal').className = 'hidden';
-  document.getElementById('login-screen').style.display = 'flex';
+  window.location.href = '/login.html';
 }
 
 function checkAuth() {
@@ -1137,7 +1136,10 @@ function checkAuth() {
   if(window.location.search.indexOf('auto=1') > -1){
     sessionStorage.setItem('rishi_parent_auth','1');
     enterPortal();
+    return;
   }
+  /* Not authenticated — redirect to login page */
+  window.location.href = '/login.html';
 }
 
 
