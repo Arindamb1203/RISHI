@@ -274,6 +274,18 @@ function findAccount(username, password){
 
   var uLower = username.trim().toLowerCase();
 
+  /* PARENT-xxx hardcoded accounts — match password then grant parent role */
+  if(uLower.indexOf('parent-') === 0){
+    var parentPw = overrides[uLower] || overrides[username.trim()] || PARENT_PASS;
+    if(password === parentPw){
+      var cs0 = {};
+      try { cs0 = JSON.parse(localStorage.getItem('rishi_current_student')||'{}'); } catch(e){}
+      return {username:username, role:'parent', board:cs0.board||'CBSE', class:cs0.class||'8',
+              studentId:cs0.studentId||uLower, studentName:cs0.studentName||'Student',
+              parentName:cs0.parentName||'', parentUsername:username};
+    }
+  }
+
   for(var i=0;i<regs.length;i++){
     var r = regs[i];
     // Student login — case insensitive
