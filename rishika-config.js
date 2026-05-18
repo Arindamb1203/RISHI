@@ -1,49 +1,49 @@
 /*
-═══════════════════════════════════════════════════════════════
+===============================================================
   RISHIKA CONFIG — Paste this entire file at the start of
   every new Claude session to restore full project context.
-  Last updated: 15 May 2026 (evening)
-═══════════════════════════════════════════════════════════════
+  Last updated: 18 May 2026 (night)
+===============================================================
 
-▌ OWNER
+| OWNER
   Arindam Bhowmik — non-technical, sole developer + owner
   All code written by Claude, deployed via git push from VS Code on Windows
   Student: Dabeet Bhowmik — ID: RISHI-DABEET-001
   Parent:  Priyanka — ID: PARENT-PRIYANKA-002, password: rishi2025
   git add . always from D:\rishi (NOT D:\rishi\public)
 
-▌ REPO & HOSTING
+| REPO & HOSTING
   Repo:    github.com/Arindamb1203/RISHI
   Live:    rishi-ewh.pages.dev
   Host:    Cloudflare Pages — auto deploys on git push (~30s)
   Build output directory: public
   functions\ folder at repo ROOT — not inside public\
 
-▌ STACK
+| STACK
   Pure HTML / CSS / Vanilla JS — no frameworks
   Cloudflare Pages Functions for API only
 
-▌ AI — ALL OPENAI (Gemini fully dropped)
+| AI — ALL OPENAI (Gemini fully dropped)
   Model: gpt-4.1-mini
   Key:   OPENAI_API_KEY (Cloudflare env var)
   explain-differently.js  OpenAI gpt-4.1-mini
   generate-questions.js   OpenAI gpt-4.1-mini
   NEVER use Gemini. NEVER guess model names.
 
-▌ QUESTION BANK SYSTEM
+| QUESTION BANK SYSTEM
   Backend:  functions/api/generate-questions.js
             POST /api/generate-questions, Auth: Bearer RISHI_ADMIN_TOKEN
             Stores in Cloudflare KV (RISHI_QUESTIONS binding)
             KV key: {board}_{class}_ch{chId}_{tag} e.g. cbse_7_ch01_chapter_exam
   questions.js: tries KV _exam then _chapter_exam; converts bank format to sections
 
-▌ QUESTION BANKS (as of 15 May 2026)
+| QUESTION BANKS (as of 15 May 2026)
   Class 7: all 8 chapters  (chapter_exam, 15 Qs each)
   Class 8: all 16 chapters  (chapter_exam, 15 Qs each) — generated 15 May
   Class 9: all built chapters  (chapter_exam, 15 Qs each)
   Class 6: PENDING — generate via admin Questions tab
 
-▌ ADMIN PANEL
+| ADMIN PANEL
   URL:  rishi-ewh.pages.dev/admin  password: rishi2025
   File: public/admin.html — ONLY correct path. NEVER public/admin/admin.html
   Tabs: Dashboard | Topic Exams | Questions | Student | Logs | Deploy
@@ -60,7 +60,7 @@
             Class8:/sampurna-pariksha.html
             Class9:/sampurna-pariksha.html?class=9
 
-▌ BYPASS SYSTEM (fully fixed 15 May 2026)
+| BYPASS SYSTEM (fully fixed 15 May 2026)
   Key: rishi_admin_bypass — sessionStorage ONLY (never localStorage)
   Flow: admin openPage()/openAsStudent() append ?bypass=1 to URL
         rishi-core.js IIFE on load detects ?bypass=1 sets sessionStorage immediately
@@ -73,35 +73,55 @@
     + bypass URL detection IIFE at top of syllabus script
   RULE 23: Any bypass fix to rishi-core.js must ALSO be applied to syllabus.html
 
-▌ PARENT PORTAL
+| LOGIN SYSTEM (updated 18 May 2026)
+  Single login page: /login.html — the ONLY login UI. Dark blue parent form GONE.
+  login.html findAccount() lookup order:
+    1. PARENT-xxx prefix check: username starting with "PARENT-" is accepted if
+       password matches PARENT_PASS (rishi2025) or a stored pw_override.
+       Handles manually-assigned IDs like PARENT-PRIYANKA-002.
+       WHY NEEDED: Registration auto-generates parent usernames (e.g. priyanka12345),
+       so PARENT-PRIYANKA-002 never appears in rishi_registrations.
+       Real registered parents are NOT affected — their usernames never start with PARENT-.
+    2. localStorage rishi_registrations loop — finds all registered students/parents
+    3. D1 cloud lookup — cross-device (every registration auto-syncs to D1)
+  parent.html: checkAuth() redirects to /login.html if not authenticated
+  logout() also redirects to /login.html
+  Password show/hide eye button on login.html password field (click to show/hide)
+  PARENT_PASS = 'rishi2025' in login.html and register.html
+  STUDENT_PASS = 'Study@Rishi1' (default, set on first login)
+
+| PARENT PORTAL
   URL:  rishi-ewh.pages.dev/parent
   File: public/parent.html (2700+ lines — always read before editing)
   Default password: rishi2025
   Tabs: Study Plan | Performance | Analytics | Study Slots | Live Status
   Sync button pushes localStorage to Cloudflare D1
+  Fixed 18 May: JS SyntaxError on lines 1241+1319 (unescaped quotes in innerHTML strings)
 
-▌ PARENT DASHBOARD
+| PARENT DASHBOARD
   URL: rishi-ewh.pages.dev/parent-dashboard
   File: public/parent-dashboard.html
 
-▌ SYNC SYSTEM (rishi-sync.js)
+| SYNC SYSTEM (rishi-sync.js)
   Syncs to Cloudflare D1 via /d1-sync endpoint
-  rishiSync.pushAll() from Priyanka phone to fix blank Study Plans
+  register.html auto-calls /d1-sync action:'register' on every signup
+  d1-sync.js actions: set / get / register / find-account / find-by-mobile / save-pw
+  rishi_accounts table: username, role, mobile, data(JSON), pw_override, updated_at
 
-▌ PRICING
+| PRICING
   Subscription: 599/month everywhere
 
-▌ SYLLABUS
+| SYLLABUS
   syllabus.html: class-aware 6/7/8/9
   CRITICAL: does NOT include rishi-core.js — has own local done-check functions
             has bypass URL detection IIFE and bypass checks in all done functions
 
-▌ EXAM PAGES
+| EXAM PAGES
   exam.html:           chapter exams — NO voice
   topic-exam.html:     class-aware 6/7/8/9 — TOPIC_MAP_CLASS6/7/8/9
   sampurna-pariksha.html: class-aware 6/7/8/9 — ALL_CHAPTERS_CLASS6/7/8/9
 
-▌ CLASS 6 CHAPTER MAP (NCERT Ganita Prakash 2025-26)
+| CLASS 6 CHAPTER MAP (NCERT Ganita Prakash 2025-26)
   Ch1  Patterns in Mathematics       arithmetic    exam:c6-01  KV:01
   Ch2  Lines and Angles              geometry      exam:c6-02  KV:02
   Ch3  Number Play                   arithmetic    exam:c6-03  KV:03
@@ -116,7 +136,7 @@
          practice/class6/<topic>/<slug>.html
          data/cbse/class6/chXX/chXX-exam.json
 
-▌ CLASS 7 CHAPTER MAP (Ganita Prakash, NCERT 2025-26)
+| CLASS 7 CHAPTER MAP (Ganita Prakash, NCERT 2025-26)
   Ch1 Large Numbers Around Us       arithmetic  exam:c7-01  KV:01
   Ch2 Arithmetic Expressions        arithmetic  exam:c7-02  KV:02
   Ch3 A Peek Beyond the Point       arithmetic  exam:c7-03  KV:03
@@ -126,21 +146,22 @@
   Ch7 A Tale of Three Int. Lines    geometry    exam:c7-08  KV:07
   Ch8 Working with Fractions        arithmetic  exam:c7-05  KV:08
 
-▌ DATABASE
+| DATABASE
   D:\rishi\database\schema.sql — D1 schema
   Tables: student_data, registrations, payments, password_resets
+  rishi_accounts: username, role, mobile, data(JSON), pw_override, updated_at
 
-▌ GENERATOR SYSTEM
+| GENERATOR SYSTEM
   generate.py — PROTECTED. D:\rishi\public\generate.py — NEVER delete
   Usage: cd D:\rishi\public && python generate.py data/classX/chapter-slug.json
 
-▌ PYTHON SCRIPTS IN public\
+| PYTHON SCRIPTS IN public\
   generate.py              PROTECTED — per-chapter portal wiring
   build_class6.py          AI content generator for Class 6 (already run)
   update_class6_portals.py Class 6 portal wiring (already run)
   batch_generate.py / batch_exam_generate.py / check7.py / patch_admin7.py
 
-▌ FILE TREE (as of 15 May 2026)
+| FILE TREE (as of 18 May 2026)
   D:\rishi\
   +---database\schema.sql
   +---functions\api\
@@ -159,17 +180,17 @@
   |   +---explain\class6..9\  all topic subfolders
   |   \---practice\class6..9\ all topic subfolders
 
-▌ CLASS STATUS
+| CLASS STATUS
   Class 8 — 16 chapters  (Ch6 Squares, Ch7 Cubes deferred)
-  Class 9 — 12 chapters 
-  Class 7 — 8 chapters 
+  Class 9 — 12 chapters
+  Class 7 — 8 chapters
   Class 6 — 10 chapters  content + portals done, KV banks pending
 
-▌ RISHI-CORE.JS (updated 15 May 2026)
+| RISHI-CORE.JS (updated 15 May 2026)
   Top of file: IIFE detects ?bypass=1 in URL sets sessionStorage immediately
   All bypass checks use sessionStorage('rishi_admin_bypass') === '1'
 
-▌ RISHI-PRESENCE.JS (v2 — updated 15 May 2026)
+| RISHI-PRESENCE.JS (v2 — updated 15 May 2026)
   Fixed: bypass uses sessionStorage; heartbeat writes rishi_presence_online_<sid>
   New: Session resume for explain + practice pages (zero page changes needed)
        Saves window.idx on heartbeat/visibility/unload
@@ -179,32 +200,33 @@
        Auto-clears on completion / 24hr TTL
   Unchanged: rishiSaveExamState / rishiGetExamResume / rishiClearExamResume
 
-▌ PENDING WORK
+| PENDING WORK
   [P0] Class 6 KV question banks — Admin Class 6 Generate All
   [P0] Active Study Plans sync — Priyanka tap Sync on phone
   [P2] YouTube video embed (Arindam picks URL, Claude wires)
   [P3] Practice pages verification + Class 6 quality check
   [FUTURE] ICSE / WBBSE
 
-▌ PORTAL STATUS
+| PORTAL STATUS
   index.html:             redirect to landing.html
   syllabus.html:          class-aware 6/7/8/9, bypass fully fixed
-  parent.html:            mobile-responsive, sync, profile panel
+  parent.html:            mobile-responsive, sync, profile panel, syntax fixed 18 May
   parent-dashboard.html:  nav strip
   admin.html:             6 tabs, bypass, coloured log, progress bar
   topic-exam.html:        class-aware 6/7/8/9
   sampurna-pariksha.html: class-aware 6/7/8/9
-  login.html / register.html / landing.html: all current
+  login.html:             single golden UI, show/hide password, PARENT-xxx fix (18 May)
+  register.html / landing.html: current
 
-▌ CHARACTERS
+| CHARACTERS
   Rishika — ALL pages. Turtle SVG on explain. Sprite on practice.
   Rekha: PERMANENTLY RETIRED. Never use.
 
-▌ ELEVENLABS TTS
+| ELEVENLABS TTS
   Proxy: functions/tts.js (repo root)
   Voice: Priyanka, ID BpjGufoPiobT79j2vtj4 / Fallback: Browser TTS
 
-▌ CRITICAL RULES FOR CLAUDE
+| CRITICAL RULES FOR CLAUDE
   1.  ABSOLUTE MANDATE: NEVER assume any file path, structure, content, format, naming
       Always read the actual current file first. Ask if unavailable. No exceptions.
   2.  NEVER deliver code without error checking
@@ -223,10 +245,15 @@
   15. NEVER partial patches — deliver COMPLETE files
   16. Always read the CURRENT file — never use previously uploaded version
   17. Python patches: use regex or line-based logic — exact string replace fails on CRLF
-  18. parent.html 2700+ lines — always read before touching
+  18. parent.html 2700+ lines — always read before editing
   19. sessionStorage NOT shared across tabs — always pass ?bypass=1 in URL
   20. Price is 599 everywhere
   21. syllabus.html has LOCAL done-check functions — bypass fix there is SEPARATE from rishi-core.js
   22. Admin Chapters tab REMOVED 15 May — never re-add
   23. Deliver files via present_files — never ask copy-paste
+  24. PARENT-xxx usernames are manually assigned admin IDs handled by prefix check in
+      findAccount() BEFORE the registration loop. Real registered parents have
+      auto-generated usernames (firstname+mobile digits) — never PARENT- prefix.
+  25. innerHTML strings in JS use single-quote delimiters — always escape inner single
+      quotes as \' to avoid SyntaxError. Rule 6 applies inside JS strings too.
 */
