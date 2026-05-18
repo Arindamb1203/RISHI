@@ -1017,12 +1017,12 @@ function tryLogin() {
   var pass = document.getElementById('login-pass').value;
   var userLC = user.toLowerCase();
 
-  /* ── Step 1: Check localStorage (case-insensitive) ── */
   var overrides = {};
   try { overrides = JSON.parse(localStorage.getItem('rishi_pw_overrides') || '{}'); } catch(e){}
   var regs = [];
   try { regs = JSON.parse(localStorage.getItem('rishi_registrations') || '[]'); } catch(e){}
 
+  /* Step 1: Check localStorage — case-insensitive */
   var found = null;
   for(var i = 0; i < regs.length; i++){
     if((regs[i].parentUsername||'').toLowerCase() === userLC){
@@ -1030,7 +1030,6 @@ function tryLogin() {
       if(localPw === pass){ found = regs[i]; break; }
     }
   }
-
   if(found){
     sessionStorage.setItem('rishi_parent_auth','1');
     sessionStorage.setItem('rishi_parent_student_id',   found.studentUsername);
@@ -1039,59 +1038,56 @@ function tryLogin() {
     return;
   }
 
-  /* ── Step 2: Not in localStorage — look up D1 ── */
-  fetch('/d1-sync', {
-    method: 'POST',
-    headers: {'Content-Type':'application/json'},
-    body: JSON.stringify({action:'find-account', username: userLC})
-  })
-  .then(function(r){ return r.json(); })
-  .then(function(resp){
-    if(!resp.ok || !resp.found || resp.role !== 'parent'){
-      showLoginError(); return;
-    }
-    /* Check password: D1 pw_override first, then default */
-    var d1Pw = resp.pw_override || PARENT_PASS;
-    if(pass !== d1Pw){
-      showLoginError(); return;
-    }
-    var regData = resp.data || {};
-    /* Cache locally so next login is instant */
-    var allRegs = [];
-    try { allRegs = JSON.parse(localStorage.getItem('rishi_registrations')||'[]'); } catch(e){}
-    var exists = allRegs.some(function(r){ return (r.parentUsername||'').toLowerCase() === userLC; });
-    if(!exists && regData.studentUsername){
-      allRegs.push(regData);
-      localStorage.setItem('rishi_registrations', JSON.stringify(allRegs));
-    }
-    /* Cache pw_override locally too */
-    if(resp.pw_override){
-      overrides[regData.parentUsername || user] = resp.pw_override;
-      localStorage.setItem('rishi_pw_overrides', JSON.stringify(overrides));
-    }
-    sessionStorage.setItem('rishi_parent_auth','1');
-    sessionStorage.setItem('rishi_parent_student_id',   regData.studentUsername || 'default');
-    sessionStorage.setItem('rishi_parent_student_name', regData.studentName     || 'Student');
-    enterPortal();
-  })
-  .catch(function(){
-    /* D1 unreachable — use password-only fallback */
-    if(pass === PARENT_PASS){
-      var cs = {};
-      try { cs = JSON.parse(localStorage.getItem('rishi_current_student')||'{}'); } catch(e){}
-      sessionStorage.setItem('rishi_parent_auth','1');
-      sessionStorage.setItem('rishi_parent_student_id',   cs.studentUsername||cs.studentId||'default');
-      sessionStorage.setItem('rishi_parent_student_name', cs.studentName||'Student');
-      enterPortal();
-    } else {
-      showLoginError();
-    }
-  });
+  /* Step 2: Real parent username (PARENT-xxx) — try D1 */
+  var overridePw = overrides[user] || overrides[userLC] || PARENT_PASS;
+  if((pass === overridePw || pass === PARENT_PASS) && userLC.indexOf('parent-') === 0){
+    fetch('/d1-sync', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({action:'find-account', username: userLC})
+    })
+    .then(function(r){ return r.json(); })
+    .then(function(resp){
+      if(resp.ok && resp.found && resp.role === 'parent'){
+        var d1Pw = resp.pw_override || PARENT_PASS;
+        if(pass !== d1Pw){ showLoginError(); return; }
+        var rd = resp.data || {};
+        var allRegs = [];
+        try { allRegs = JSON.parse(localStorage.getItem('rishi_registrations')||'[]'); } catch(e){}
+        if(!allRegs.some(function(r2){ return (r2.parentUsername||'').toLowerCase()===userLC; })){
+          allRegs.push(rd); localStorage.setItem('rishi_registrations', JSON.stringify(allRegs));
+        }
+        sessionStorage.setItem('rishi_parent_auth','1');
+        sessionStorage.setItem('rishi_parent_student_id',   rd.studentUsername||'default');
+        sessionStorage.setItem('rishi_parent_student_name', rd.studentName||'Student');
+        enterPortal();
+      } else { enterWithCurrentStudent(); }
+    })
+    .catch(function(){ enterWithCurrentStudent(); });
+    return;
+  }
+
+  /* Step 3: Generic fallback — correct password, use rishi_current_student */
+  if(pass === PARENT_PASS || pass === (overrides[user]||'')){
+    enterWithCurrentStudent();
+    return;
+  }
+
+  showLoginError();
+}
+
+function enterWithCurrentStudent(){
+  var cs = {};
+  try { cs = JSON.parse(localStorage.getItem('rishi_current_student')||'{}'); } catch(e){}
+  sessionStorage.setItem('rishi_parent_auth','1');
+  sessionStorage.setItem('rishi_parent_student_id',   cs.studentUsername||cs.studentId||'default');
+  sessionStorage.setItem('rishi_parent_student_name', cs.studentName||'Student');
+  enterPortal();
 }
 
 function showLoginError(){
   var e = document.getElementById('login-err');
-  if(e){ e.className = 'login-err show'; }
+  if(e) e.className = 'login-err show';
   var p = document.getElementById('login-pass');
   if(p) p.value = '';
 }
@@ -1198,13 +1194,10 @@ function resetPassword() {
   try { overrides = JSON.parse(localStorage.getItem('rishi_pw_overrides')||'{}'); } catch(e){}
   overrides[reg.parentUsername] = newPw;
   localStorage.setItem('rishi_pw_overrides', JSON.stringify(overrides));
-  /* Save to D1 so new password works on ALL devices */
-  fetch('/d1-sync', {
-    method: 'POST',
-    headers: {'Content-Type':'application/json'},
-    body: JSON.stringify({action:'save-pw', username: reg.parentUsername.toLowerCase(), pw: newPw})
+  fetch('/d1-sync',{method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({action:'save-pw',username:reg.parentUsername.toLowerCase(),pw:newPw})
   }).catch(function(){});
-  alert('✅ Password updated. Works on all devices now.');
+  alert('\u2705 Password updated. Works on all devices now.');
   document.getElementById('profile-panel').remove();
 }
 
@@ -1300,6 +1293,45 @@ function showPaymentHistory() {
 
   document.body.appendChild(panel);
 }
+
+function showPaymentHistory() {
+  var pp = document.getElementById('profile-panel');
+  if (pp) pp.remove();
+  var sid = sessionStorage.getItem('rishi_parent_student_id') || 'default';
+  var regs = [];
+  try { regs = JSON.parse(localStorage.getItem('rishi_registrations') || '[]'); } catch(e) {}
+  var reg = regs.find(function(r){ return r.studentUsername === sid; }) || {};
+  var subStatus = reg.subscriptionStatus || 'active';
+  var subExpiry = reg.subscriptionExpiry  || '';
+  var subStart  = reg.subscriptionStart   || reg.createdAt || '';
+  var board = (reg.board || 'CBSE').toUpperCase();
+  var cls   = reg.class  || '8';
+  var statusColor = subStatus==='active'?'#059669':subStatus==='trial'?'#D97706':'#DC2626';
+  var statusLabel = subStatus==='active'?'&#10003; Active':subStatus==='trial'?'&#9711; Trial':'&#10005; Expired';
+  function fmtDate(d){ if(!d) return '&#8212;'; var dt=new Date(d); return isNaN(dt)?d:dt.toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'}); }
+  var panel = document.createElement('div');
+  panel.id = 'pay-history-panel';
+  panel.style.cssText = 'position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,0.65);display:flex;align-items:flex-end;justify-content:center;';
+  panel.innerHTML = '<div style="background:#fff;border-radius:20px 20px 0 0;padding:24px 20px 32px;max-width:480px;width:100%;font-family:Outfit,sans-serif;max-height:80vh;overflow-y:auto;">'
+    +'<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;"><div style="font-size:17px;font-weight:900;color:#0f2240;">&#128176; Subscription</div>'
+    +'<button onclick="document.getElementById('pay-history-panel').remove()" style="background:none;border:none;font-size:22px;cursor:pointer;">&#10005;</button></div>'
+    +'<div style="background:linear-gradient(135deg,#0f2240,#1a3560);border-radius:14px;padding:16px 18px;margin-bottom:14px;color:#fff;">'
+    +'<div style="font-size:11px;font-weight:700;color:rgba(255,255,255,0.55);margin-bottom:6px;">CURRENT SUBSCRIPTION</div>'
+    +'<div style="display:flex;justify-content:space-between;align-items:center;">'
+    +'<div><div style="font-size:22px;font-weight:900;color:#F59E0B;">&#8377;599<span style="font-size:13px;color:rgba(255,255,255,0.6);"> / month</span></div>'
+    +'<div style="font-size:13px;color:rgba(255,255,255,0.7);margin-top:3px;">Class '+cls+' '+board+' Mathematics</div></div>'
+    +'<div style="background:'+statusColor+'22;border:1.5px solid '+statusColor+';color:'+statusColor+';border-radius:100px;padding:4px 14px;font-size:12px;font-weight:800;">'+statusLabel+'</div></div></div>'
+    +'<div style="background:#f8fafc;border-radius:12px;margin-bottom:14px;">'
+    +'<div style="display:flex;justify-content:space-between;padding:11px 16px;border-bottom:1px solid #e8edf2;"><span style="font-size:13px;color:#64748b;font-weight:600;">Started</span><span style="font-size:13px;font-weight:800;">'+fmtDate(subStart)+'</span></div>'
+    +'<div style="display:flex;justify-content:space-between;padding:11px 16px;border-bottom:1px solid #e8edf2;"><span style="font-size:13px;color:#64748b;font-weight:600;">Valid Until</span><span style="font-size:13px;font-weight:800;">'+fmtDate(subExpiry)+'</span></div>'
+    +'<div style="display:flex;justify-content:space-between;padding:11px 16px;"><span style="font-size:13px;color:#64748b;font-weight:600;">Amount</span><span style="font-size:13px;font-weight:800;color:#059669;">&#8377;599 / month</span></div></div>'
+    +'<div style="background:#f0fdf4;border:1.5px solid #bbf7d0;border-radius:12px;padding:12px 16px;margin-bottom:14px;text-align:center;">'
+    +'<div style="font-size:13px;font-weight:800;color:#059669;">&#10003; 100% Refund Guarantee</div>'
+    +'<div style="font-size:12px;color:#16a34a;margin-top:3px;">Cancel any time &middot; Full refund instantly &middot; No questions asked</div></div>'
+    +'<a href="https://wa.me/919836107236?text=Hi%2C+query+about+RISHI+subscription." target="_blank" style="display:flex;align-items:center;justify-content:center;gap:8px;background:#25D366;color:#fff;border-radius:12px;padding:13px;font-weight:800;text-decoration:none;">&#128172; Contact on WhatsApp</a></div>';
+  document.body.appendChild(panel);
+}
+
 
 // Handle ?tab= URL param to open specific tab on load
 (function(){

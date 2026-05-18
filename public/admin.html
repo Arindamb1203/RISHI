@@ -313,8 +313,11 @@ button{font-family:'Outfit',sans-serif;cursor:pointer;}
           <button class="btn btn-ghost" onclick="window.open('/register.html','_blank')" style="border-color:rgba(52,152,219,0.5);color:#2980b9;">📝 Registration Page</button>
           <button class="btn btn-ghost" onclick="window.open('/payment.html','_blank')" style="border-color:rgba(201,138,0,0.5);color:#c98a00;">💳 Payment Page</button>
         </div>
+        <button class="btn btn-ghost" onclick="syncAllToD1()" style="border-color:rgba(22,163,74,0.5);color:#16a34a;">&#9650; Sync All Parents to D1</button>
+        </div>
         <div class="section-note">
-          ⚡ Use Open Chapter Tree to access any page directly. Enable BYPASS to skip flow locks.
+          ⚡ Use Open Chapter Tree to access any page directly. Enable BYPASS to skip flow locks.<br/>
+          &#9650; Run "Sync All Parents to D1" once if a parent cannot login from their phone.
         </div>
       </div>
 
@@ -1009,9 +1012,35 @@ function goParent(idx) {
   var regs = window._allRegs || [];
   var r    = regs[idx];
   if (!r) return;
+  /* Push registration to D1 so parent can login from any device */
+  if (r.studentUsername && r.parentUsername && r.primaryMobile) {
+    fetch('/d1-sync', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({action:'register', data: r})
+    }).catch(function(){});
+  }
   var sName = encodeURIComponent(r.studentName || 'Student');
   var sId   = encodeURIComponent(r.studentUsername || r.studentId || '—');
   window.open('/parent.html?bypass=1&sName=' + sName + '&sId=' + sId, '_blank');
+}
+
+function syncAllToD1() {
+  var regs = (window._allRegs || []).filter(function(r){ return !r._isTest && r.studentUsername && r.parentUsername && r.primaryMobile; });
+  if (!regs.length) { alert('No real registrations found to sync.'); return; }
+  var done = 0, failed = 0;
+  var promises = regs.map(function(r) {
+    return fetch('/d1-sync', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({action:'register', data: r})
+    }).then(function(res){ return res.json(); })
+    .then(function(j){ if(j.ok) done++; else failed++; })
+    .catch(function(){ failed++; });
+  });
+  Promise.all(promises).then(function(){
+    alert('Sync complete. ' + done + ' synced, ' + failed + ' failed.');
+  });
 }
 
 function loadTestData() {
