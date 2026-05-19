@@ -283,8 +283,8 @@
   Unchanged: rishiSaveExamState / rishiGetExamResume / rishiClearExamResume
 
 | PENDING WORK
-  [P0] Class 6 KV question banks — Admin → Class 6 → Questions → Generate All
-  [P0] Active Study Plans sync — Priyanka tap Sync on phone
+  [DONE] Class 6 KV question banks — verified via wrangler, all 10 keys exist in KV
+  [DONE] Active Study Plans sync — rishi_accounts has dabeet+priyanka, rishi_sync has 2 rows
   [P2] YouTube video embed (one per chapter — Arindam picks URL, Claude wires)
   [P3] Practice pages verification + Class 6 quality check
   [FUTURE] ICSE / WBBSE
