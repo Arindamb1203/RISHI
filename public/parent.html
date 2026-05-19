@@ -822,7 +822,7 @@ button{font-family:'Outfit',sans-serif;}
             <div class="plan-date-lbl">&#128197; Exam Date</div>
             <input type="date" class="plan-date-inp" id="exam-date-main">
             <span style="font-size:12px;color:var(--muted);font-style:italic;white-space:nowrap;">(optional)</span>
-            <button class="plan-study-btn" id="plan-study-btn" onclick="generateAIPlan()">&#10024; Plan Study</button>
+            <button class="plan-study-btn" id="plan-study-btn" onclick="generateAIPlan()">&#10024; AI Plan</button>
           </div>
         </div>
       </div>
@@ -1806,11 +1806,17 @@ function unlockReset() {
   _topicsForceOpen = true;
   clearAll();
   _topicsForceOpen = false;
+  /* Reset plan button if stuck */
+  var btn = document.getElementById('plan-study-btn');
+  if (btn) { btn.disabled = false; btn.innerHTML = '\u2728 AI Plan'; }
   /* Open all topics */
   var topicGrps = document.querySelectorAll('.topic-chs');
   var arrows     = document.querySelectorAll('.topic-arrow');
   topicGrps.forEach(function(el){ el.classList.add('open'); });
   arrows.forEach(function(el){ el.classList.add('open'); });
+  /* Clear alert box */
+  var ab = document.getElementById('alerts-box');
+  if (ab) ab.innerHTML = '';
   hide('step-dates');
   hide('step-cal');
   hide('lock-section');
@@ -1925,12 +1931,27 @@ function generateAIPlan() {
   if (!selChIds.length) { alert('Please select at least one chapter first.'); return; }
   var btn = document.getElementById('plan-study-btn');
   btn.disabled = true;
-  btn.textContent = '\u23F3 Planning\u2026';
+  btn.textContent = '\u23F3 AI Planning\u2026';
 
   var examDate = (document.getElementById('exam-date-main') || {}).value || '';
   var examType = selExamId ? (getExam(selExamId) || {}).name || selExamId : 'General';
   var sorted   = selChIds.slice().sort(function(a,b){return a-b;});
   var chapters = sorted.map(function(id){ var ch=getCh(id); return ch ? 'Ch'+id+'. '+ch.name : ''; }).filter(Boolean);
+
+  /* Timeout: if API doesn't respond in 10s, fall back to autoSchedule */
+  var timedOut = false;
+  var timer = setTimeout(function() {
+    timedOut = true;
+    btn.disabled = false;
+    btn.innerHTML = '\u2728 AI Plan';
+    autoSchedule();
+    renderDateTable();
+    renderCalendar();
+    validateAndShow();
+    show('step-dates');
+    show('step-cal');
+    show('lock-section');
+  }, 10000);
 
   fetch('/api/plan', {
     method: 'POST',
@@ -1944,24 +1965,19 @@ function generateAIPlan() {
   })
   .then(function(r){ return r.json(); })
   .then(function(d) {
+    if (timedOut) return;
+    clearTimeout(timer);
     btn.disabled = false;
-    btn.innerHTML = '\u2728 Plan Study';
+    btn.innerHTML = '\u2728 AI Plan';
     if (!d.ok || !d.plan || !d.plan.length) {
-      /* Fallback to autoSchedule */
       autoSchedule();
     } else {
-      /* Populate chDates from AI response */
       for (var i = 0; i < d.plan.length; i++) {
         var item = d.plan[i];
-        /* Match by chapter index */
-        var cid = sorted[i];
+        var cid  = sorted[i];
         if (!cid) continue;
         var existMode = (chDates[cid] && chDates[cid].mode) ? chDates[cid].mode : 'explain';
-        chDates[cid] = {
-          start:  item.startDate  || '',
-          target: item.targetDate || '',
-          mode:   existMode
-        };
+        chDates[cid] = { start: item.startDate || '', target: item.targetDate || '', mode: existMode };
       }
     }
     renderDateTable();
@@ -1970,14 +1986,14 @@ function generateAIPlan() {
     show('step-dates');
     show('step-cal');
     show('lock-section');
-    /* Scroll to schedule */
     var el = document.getElementById('step-dates');
     if (el) setTimeout(function(){ el.scrollIntoView({behavior:'smooth',block:'start'}); }, 100);
   })
   .catch(function() {
+    if (timedOut) return;
+    clearTimeout(timer);
     btn.disabled = false;
-    btn.innerHTML = '\u2728 Plan Study';
-    /* Fallback */
+    btn.innerHTML = '\u2728 AI Plan';
     autoSchedule();
     renderDateTable();
     renderCalendar();
