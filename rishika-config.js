@@ -2,7 +2,7 @@
 ===============================================================
   RISHIKA CONFIG — Paste this entire file at the start of
   every new Claude session to restore full project context.
-  Last updated: 18 May 2026 (night)
+  Last updated: 19 May 2026 (USERS tab, referral system, admin fixes)
 ===============================================================
 
 | OWNER
@@ -46,11 +46,14 @@
 | ADMIN PANEL
   URL:  rishi-ewh.pages.dev/admin  password: rishi2025
   File: public/admin.html — ONLY correct path. NEVER public/admin/admin.html
-  Tabs: Dashboard | Topic Exams | Questions | Student | Logs | Deploy
+  Tabs: Dashboard | Topic Exams | Questions | Student | Logs | Deploy | Users
   NOTE: Chapters tab REMOVED 15 May — was reading admin localStorage not student data
+  NOTE: Student/Logs/Deploy tab HTML divs were missing — FIXED 19 May (added static HTML)
+  switchTab() is now null-safe and includes 'users'
   Global Class selector (6/7/8/9) drives ALL tabs
   Tab persistence: localStorage rishi_admin_tab — restored on refresh
   Dashboard: Live Stats + Registered Students table
+             Ref button REMOVED from student table (19 May)
              All Open buttons append ?bypass=1 — pages unlock automatically
   Activity Log: colour-coded (amber=generating, green=success, red=error+Retry)
                 Progress bar during Generate All shows X/total
@@ -59,6 +62,31 @@
             Class7:/sampurna-pariksha.html?class=7
             Class8:/sampurna-pariksha.html
             Class9:/sampurna-pariksha.html?class=9
+
+| ADMIN USERS TAB (built 19 May 2026)
+  New tab: 👥 Users — full registered user directory
+  Two top buttons:
+    "Admin Ref Code — ₹599 Full Recharge" → modal shows code ADMIN-RISHI599
+      with Copy button. Used to give a parent a free full-month subscription.
+    "Download Excel Report" → XLSX via SheetJS CDN (cdnjs.cloudflare.com)
+      Multi-row per student (one row per paid month). Filename: RISHI-Users-YYYY-MM-DD.xlsx
+  Table columns: Parent ID | Student ID | Number | Class | School | Board | Subscribed Months | Referred ↗
+  Month Strip (Subscribed Months column):
+    12 colored boxes — one per month, last 12 months ending current month
+    Single letter label (J F M A M J J A S O N D)
+    Colors: Green=#1a7a4a (UPI) | Blue=#2563eb (BT) | Purple=#7c3aed (CRCRD) | Grey=not paid
+    ★ overlay on box = referral used (e.g. UPI+R, BT+R, CRCRD+R)
+    Hover tooltip: "Mar 2026 — UPI+R"
+  Referred ↗ column:
+    Gold badge showing count — clickable → modal showing referred users
+    Modal columns: Student ID | Parent ID | Number | Month Strip
+    Zero referrals: grey "0" badge, not clickable
+  Registration data model fields (full):
+    studentName, studentUsername, parentName, parentUsername,
+    primaryMobile, board, class, school (may be blank),
+    subscriptionStatus, subscriptionExpiry, discontinuedDate, rejoinedDate,
+    referredBy (parentUsername of referrer), _isTest,
+    payments: { "YYYY-MM": "UPI" | "BT" | "CRCRD" | "UPI+R" | "BT+R" | "CRCRD+R" }
 
 | BYPASS SYSTEM (fully fixed 15 May 2026)
   Key: rishi_admin_bypass — sessionStorage ONLY (never localStorage)
@@ -90,7 +118,18 @@
   PARENT_PASS = 'rishi2025' in login.html and register.html
   STUDENT_PASS = 'Study@Rishi1' (default, set on first login)
 
-| PARENT PORTAL
+| PARENT DASHBOARD REFERRAL SYSTEM (built 19 May 2026)
+  File: public/parent-dashboard.html
+  Referral banner: "Refer a friend — both get ₹100 discount" (prominent/bold)
+  Clicking banner opens referral form row-by-row:
+    Fields: First Name of student, Last Name, WhatsApp number, Reference code (auto-generated)
+  "Share" button sends WhatsApp message with link + code: "Use code to get ₹100 off"
+  Each referral adds a new row (new unique code per referral)
+  referredBy field written to registration when code used
+  Admin USERS tab shows referral count per parent (clickable)
+  Admin USERS tab Ref Code: ADMIN-RISHI599 → ₹599 full recharge (admin-only, no discount)
+
+
   URL:  rishi-ewh.pages.dev/parent
   File: public/parent.html (2700+ lines — always read before editing)
   Default password: rishi2025
@@ -201,9 +240,10 @@
   Unchanged: rishiSaveExamState / rishiGetExamResume / rishiClearExamResume
 
 | PENDING WORK
-  [P0] Class 6 KV question banks — Admin Class 6 Generate All
+  [P0] Class 6 KV question banks — Admin → Class 6 → Questions → Generate All
   [P0] Active Study Plans sync — Priyanka tap Sync on phone
-  [P2] YouTube video embed (Arindam picks URL, Claude wires)
+  [P1] Wire payments{} + referredBy + school fields on register.html → save to registration obj
+  [P2] YouTube video embed (one per chapter — Arindam picks URL, Claude wires)
   [P3] Practice pages verification + Class 6 quality check
   [FUTURE] ICSE / WBBSE
 
@@ -212,7 +252,9 @@
   syllabus.html:          class-aware 6/7/8/9, bypass fully fixed
   parent.html:            mobile-responsive, sync, profile panel, syntax fixed 18 May
   parent-dashboard.html:  nav strip
-  admin.html:             6 tabs, bypass, coloured log, progress bar
+  admin.html:             7 tabs (Dashboard/Topic Exams/Questions/Student/Logs/Deploy/Users),
+                          bypass, coloured log, progress bar, USERS tab with month strip,
+                          referral counts, Admin Ref Code, Excel export (19 May)
   topic-exam.html:        class-aware 6/7/8/9
   sampurna-pariksha.html: class-aware 6/7/8/9
   login.html:             single golden UI, show/hide password, PARENT-xxx fix (18 May)
