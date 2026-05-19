@@ -127,7 +127,85 @@ button{font-family:'Outfit',sans-serif;}
 }
 .step-badge.done{background:var(--green);}
 
-/* ====== EXAM GRID ====== */
+/* ====== COMPACT EXAM PILLS ====== */
+.exam-pills{display:flex;gap:8px;flex-wrap:wrap;}
+.exam-pill{
+  font-size:13px;font-weight:800;padding:8px 18px;border-radius:20px;
+  border:2px solid var(--border);background:var(--light);color:var(--text);
+  cursor:pointer;transition:all .18s;letter-spacing:.3px;white-space:nowrap;
+}
+.exam-pill:hover{border-color:var(--navy);background:white;transform:translateY(-1px);}
+.exam-pill.sel{background:var(--navy);color:white;border-color:var(--navy);box-shadow:0 3px 10px rgba(15,34,64,.25);}
+
+/* ====== PLAN DATE ROW ====== */
+.plan-date-row{
+  display:flex;align-items:center;gap:10px;
+  background:#EFF6FF;border:1.5px solid #BFDBFE;
+  border-radius:12px;padding:14px 16px;flex-wrap:wrap;
+}
+.plan-date-lbl{font-size:11px;font-weight:800;color:#1D4ED8;text-transform:uppercase;letter-spacing:1px;white-space:nowrap;}
+.plan-date-inp{
+  font-family:'Outfit',sans-serif;font-size:17px;font-weight:800;
+  color:var(--navy);background:white;border:2px solid var(--navy);
+  border-radius:9px;padding:8px 12px;outline:none;cursor:pointer;
+}
+.plan-study-btn{
+  font-size:13px;font-weight:800;padding:10px 22px;
+  background:linear-gradient(135deg,#7c3aed,#5b21b6);
+  color:white;border:none;border-radius:10px;cursor:pointer;
+  transition:all .2s;white-space:nowrap;display:inline-flex;align-items:center;gap:6px;
+  box-shadow:0 3px 10px rgba(124,58,237,.3);
+}
+.plan-study-btn:hover{opacity:.9;transform:translateY(-1px);}
+.plan-study-btn:disabled{opacity:.45;cursor:not-allowed;transform:none;}
+
+/* ====== SELECTED TAGS ====== */
+.sel-tags-wrap{margin-bottom:12px;}
+.sel-tags-lbl{font-size:10px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:1.2px;margin-bottom:6px;}
+.sel-tags{display:flex;flex-wrap:wrap;gap:5px;min-height:24px;}
+.sel-tag{
+  font-size:12px;font-weight:700;padding:3px 10px;
+  background:#EFF6FF;border:1px solid #BFDBFE;border-radius:12px;
+  color:#1D4ED8;display:inline-flex;align-items:center;gap:5px;
+}
+.sel-tag-x{cursor:pointer;font-weight:900;font-size:13px;opacity:.55;line-height:1;}
+.sel-tag-x:hover{opacity:1;color:var(--red);}
+.sel-none{font-size:13px;color:var(--muted);font-style:italic;}
+
+/* ====== COMPACT TOPICS ====== */
+.topic-grp{margin-bottom:6px;border:1px solid var(--border);border-radius:10px;overflow:hidden;}
+.topic-hdr{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:9px 14px;background:var(--light);cursor:pointer;
+  font-size:13px;font-weight:800;color:var(--text);
+  transition:background .15s;user-select:none;
+}
+.topic-hdr:hover{background:#e8edf5;}
+.topic-hdr.has-sel{background:#EFF6FF;}
+.topic-hdr-l{display:flex;align-items:center;gap:8px;}
+.topic-sel-ct{font-size:10px;font-weight:800;background:var(--navy);color:white;padding:2px 7px;border-radius:8px;}
+.topic-arrow{font-size:11px;color:var(--muted);transition:transform .2s;}
+.topic-arrow.open{transform:rotate(180deg);}
+.topic-chs{display:none;padding:8px 12px 10px;flex-wrap:wrap;gap:6px;background:white;border-top:1px solid var(--border);}
+.topic-chs.open{display:flex;}
+.ch-btn{
+  font-size:12px;font-weight:700;padding:4px 12px;border-radius:12px;
+  border:1.5px solid var(--border);background:white;color:var(--text);
+  cursor:pointer;transition:all .15s;
+}
+.ch-btn:hover{border-color:var(--navy);background:#f0f4ff;}
+.ch-btn.sel{background:var(--navy);color:white;border-color:var(--navy);}
+
+/* ====== PROMINENT DATES in DT TABLE ====== */
+.dt-inp{
+  width:100%;padding:7px 8px;border:2px solid var(--border);
+  border-radius:8px;font-size:15px;font-weight:800;
+  font-family:'Outfit',sans-serif;
+  outline:none;background:white;cursor:pointer;color:var(--navy);transition:border .2s;
+}
+.dt-inp:focus{border-color:var(--navy);box-shadow:0 0 0 3px rgba(15,34,64,.1);}
+
+/* ====== CHAPTER LIST ====== */
 .exam-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
 @media(max-width:580px){.exam-grid{grid-template-columns:repeat(2,1fr);}}
 .exam-tile{
@@ -143,7 +221,6 @@ button{font-family:'Outfit',sans-serif;}
 
 /* ====== CHAPTER LIST ====== */
 .ch-top{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap;}
-.topic-grp{margin-bottom:14px;}
 .topic-lbl{
   font-size:16px;font-weight:800;text-transform:uppercase;
   letter-spacing:1.5px;color:var(--muted);margin-bottom:6px;
@@ -721,35 +798,48 @@ button{font-family:'Outfit',sans-serif;}
     <!-- ===== PLAN TAB ===== -->
     <div id="view-plan">
 
-      <!-- Step 1: Exam Type -->
+      <!-- Step 1: Exam Type (compact pills) -->
       <div class="card">
-        <div class="card-title"><span class="step-badge" id="sb1">1</span>Select Exam Type</div>
-        <div class="exam-grid" id="exam-grid"></div>
+        <div class="card-title" style="margin-bottom:12px;"><span class="step-badge" id="sb1">1</span>Select Exam Type</div>
+        <div class="exam-pills" id="exam-grid"></div>
       </div>
 
-      <!-- Step 2: Chapters -->
+      <!-- Step 2: Topics & Chapters -->
       <div class="card hidden" id="step-chs">
-        <div class="card-title"><span class="step-badge" id="sb2">2</span>Select Chapters <span style="font-weight:500;font-size:16px;color:var(--muted);text-transform:none;letter-spacing:0">&mdash; choose any chapters for this exam</span></div>
-        <div class="ch-top">
-          <button class="btn btn-ghost btn-sm" onclick="selectAll()">Select All</button>
-          <button class="btn btn-ghost btn-sm" onclick="clearAll()">Clear All</button>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:8px;">
+          <div class="card-title" style="margin:0;"><span class="step-badge" id="sb2">2</span>Select Topics &amp; Chapters</div>
+          <button class="btn btn-ghost btn-sm" onclick="unlockReset()" style="font-size:12px;">&#128275; Unlock &amp; Reset</button>
         </div>
         <div id="chapter-list"></div>
+
+        <!-- Selected tags + Exam date + Plan button (shown after ≥1 chapter selected) -->
+        <div id="step-plan-inner" style="display:none;margin-top:16px;border-top:1px solid var(--border);padding-top:16px;">
+          <div class="sel-tags-wrap">
+            <div class="sel-tags-lbl">Selected Chapters</div>
+            <div class="sel-tags" id="selected-tags"></div>
+          </div>
+          <div class="plan-date-row" style="margin-top:10px;">
+            <div class="plan-date-lbl">&#128197; Exam Date</div>
+            <input type="date" class="plan-date-inp" id="exam-date-main">
+            <span style="font-size:12px;color:var(--muted);font-style:italic;white-space:nowrap;">(optional)</span>
+            <button class="plan-study-btn" id="plan-study-btn" onclick="generateAIPlan()">&#10024; Plan Study</button>
+          </div>
+        </div>
       </div>
 
-      <!-- Step 3: Dates -->
+      <!-- Step 3: Schedule (dates, prominent) -->
       <div class="card hidden" id="step-dates">
-        <div class="card-title"><span class="step-badge" id="sb3">3</span>Assign Study Dates</div>
+        <div class="card-title"><span class="step-badge" id="sb3">3</span>Study Schedule <span style="font-size:12px;font-weight:600;color:var(--muted);text-transform:none;letter-spacing:0;margin-left:4px;">&#8212; edit any date and others shift automatically</span></div>
         <div class="quick-bar">
-          <span style="font-size:16px;font-weight:700;color:var(--muted);align-self:center;">Quick set:</span>
-          <button class="qd-btn" onclick="quickSet(7)">7 days each</button>
-          <button class="qd-btn" onclick="quickSet(10)">10 days each</button>
-          <button class="qd-btn" onclick="quickSet(14)">14 days each</button>
-          <button class="qd-btn" onclick="quickSet(21)">21 days each</button>
+          <span style="font-size:13px;font-weight:700;color:var(--muted);align-self:center;">Quick set:</span>
+          <button class="qd-btn" onclick="quickSet(7)">7d each</button>
+          <button class="qd-btn" onclick="quickSet(10)">10d each</button>
+          <button class="qd-btn" onclick="quickSet(14)">14d each</button>
+          <button class="qd-btn" onclick="quickSet(21)">21d each</button>
         </div>
         <div class="dt-wrap">
           <div id="dt-container">
-            <div class="empty"><div class="empty-ico">&#128197;</div><div class="empty-txt">Select chapters above to assign dates</div></div>
+            <div class="empty"><div class="empty-ico">&#128197;</div><div class="empty-txt">Select chapters and click Plan Study above</div></div>
           </div>
         </div>
       </div>
@@ -1594,43 +1684,38 @@ function renderExamGrid() {
   for (var i = 0; i < EXAM_TYPES.length; i++) {
     var ex = EXAM_TYPES[i];
     var isSel = selExamId === ex.id;
-    var eb = ex.color + '18';
-    html += '<div class="exam-tile' + (isSel ? ' sel' : '') + '" ';
-    html += 'style="--ec:' + ex.color + ';--eb:' + eb + '" ';
+    html += '<button class="exam-pill' + (isSel ? ' sel' : '') + '" ';
     html += 'onclick="selectExam(\'' + ex.id + '\')">';
-    html += '<div class="exam-icon">' + ex.icon + '</div>';
-    html += '<div class="exam-name">' + ex.name + '</div>';
-    html += '<div class="exam-sub">' + (ex.isAnnual ? 'Max 2 targets/day' : '1 target/day') + '</div>';
-    html += '</div>';
+    html += ex.icon + ' ' + ex.name;
+    html += '</button>';
   }
   document.getElementById('exam-grid').innerHTML = html;
   updateStepBadge('sb1', selExamId !== null);
 }
+
+var _topicsForceOpen = false;
 
 function selectExam(examId) {
   selExamId = examId;
   selChIds = [];
   chDates = {};
   calManual = false;
+  _topicsForceOpen = true;
 
-  // Pre-tick all chapters with default mode 'explain'
+  /* Pre-tick all chapters */
   for (var i = 0; i < CHAPTERS.length; i++) {
     var cid = CHAPTERS[i].id;
     selChIds.push(cid);
     chDates[cid] = {start:'', target:'', mode:'explain'};
   }
-  // AI pre-fill dates sequentially from tomorrow
-  autoSchedule();
+  _topicsForceOpen = false;
 
   renderExamGrid();
   renderChapterList();
-  renderDateTable();
-  renderCalendar();
-  validateAndShow();
   show('step-chs');
-  show('step-dates');
-  show('step-cal');
-  show('lock-section');
+  hide('step-dates');
+  hide('step-cal');
+  hide('lock-section');
 }
 
 function getExam(id) {
@@ -1655,9 +1740,7 @@ function getChColor(id) {
 // CHAPTER LIST
 // ===========================
 function renderChapterList() {
-  // Group by topic
-  var topics = {};
-  var topicOrder = [];
+  var topics = {}, topicOrder = [];
   for (var i = 0; i < CHAPTERS.length; i++) {
     var ch = CHAPTERS[i];
     if (!topics[ch.topic]) { topics[ch.topic] = []; topicOrder.push(ch.topic); }
@@ -1667,27 +1750,70 @@ function renderChapterList() {
   var html = '';
   for (var t = 0; t < topicOrder.length; t++) {
     var topic = topicOrder[t];
-    var chs = topics[topic];
-    html += '<div class="topic-grp">';
-    html += '<div class="topic-lbl">' + topic + '</div>';
-    html += '<div class="ch-grid">';
+    var chs   = topics[topic];
+    var selInTopic = chs.filter(function(c){ return selChIds.indexOf(c.id) > -1; }).length;
+    var isOpen = selInTopic > 0 || _topicsForceOpen;
+
+    html += '<div class="topic-grp" id="tgrp-' + t + '">';
+    html += '<div class="topic-hdr' + (selInTopic > 0 ? ' has-sel' : '') + '" onclick="toggleTopic(' + t + ')">';
+    html += '<div class="topic-hdr-l">';
+    html += '<span>' + topic + '</span>';
+    if (selInTopic > 0) html += '<span class="topic-sel-ct">' + selInTopic + '</span>';
+    html += '</div>';
+    html += '<span class="topic-arrow' + (isOpen ? ' open' : '') + '" id="tarrow-' + t + '">&#9660;</span>';
+    html += '</div>';
+    html += '<div class="topic-chs' + (isOpen ? ' open' : '') + '" id="tchs-' + t + '">';
     for (var j = 0; j < chs.length; j++) {
-      var ch2 = chs[j];
+      var ch2  = chs[j];
       var isSel = selChIds.indexOf(ch2.id) > -1;
-      var color = getChColor(ch2.id);
-      var cb = color + '18';
-      html += '<div class="ch-tile' + (isSel ? ' sel' : '') + '" ';
-      html += 'style="--chc:' + color + ';--chb:' + cb + '" ';
-      html += 'onclick="toggleCh(' + ch2.id + ')">';
-      html += '<input type="checkbox" ' + (isSel ? 'checked' : '') + ' onclick="event.stopPropagation();toggleCh(' + ch2.id + ')">';
-      html += '<div class="ch-nbadge" style="background:' + color + '">' + ch2.id + '</div>';
-      html += '<div class="ch-lbl">' + ch2.name + '</div>';
-      html += '</div>';
+      html += '<button class="ch-btn' + (isSel ? ' sel' : '') + '" onclick="toggleCh(' + ch2.id + ')">' + ch2.name + '</button>';
     }
     html += '</div></div>';
   }
   document.getElementById('chapter-list').innerHTML = html;
   updateStepBadge('sb2', selChIds.length > 0);
+  renderSelectedTags();
+  /* Show/hide plan inner section */
+  var inner = document.getElementById('step-plan-inner');
+  if (inner) inner.style.display = selChIds.length > 0 ? 'block' : 'none';
+}
+
+function toggleTopic(idx) {
+  var chs   = document.getElementById('tchs-' + idx);
+  var arrow = document.getElementById('tarrow-' + idx);
+  if (!chs) return;
+  var isOpen = chs.classList.contains('open');
+  if (isOpen) { chs.classList.remove('open'); arrow.classList.remove('open'); }
+  else         { chs.classList.add('open');    arrow.classList.add('open');    }
+}
+
+function renderSelectedTags() {
+  var wrap = document.getElementById('selected-tags');
+  if (!wrap) return;
+  if (!selChIds.length) { wrap.innerHTML = '<span class="sel-none">None selected yet</span>'; return; }
+  var sorted = selChIds.slice().sort(function(a,b){return a-b;});
+  var html = '';
+  for (var i = 0; i < sorted.length; i++) {
+    var ch = getCh(sorted[i]);
+    if (!ch) continue;
+    html += '<span class="sel-tag">Ch' + sorted[i] + '. ' + ch.name
+      + '<span class="sel-tag-x" onclick="toggleCh(' + sorted[i] + ')">&#10005;</span></span>';
+  }
+  wrap.innerHTML = html;
+}
+
+function unlockReset() {
+  _topicsForceOpen = true;
+  clearAll();
+  _topicsForceOpen = false;
+  /* Open all topics */
+  var topicGrps = document.querySelectorAll('.topic-chs');
+  var arrows     = document.querySelectorAll('.topic-arrow');
+  topicGrps.forEach(function(el){ el.classList.add('open'); });
+  arrows.forEach(function(el){ el.classList.add('open'); });
+  hide('step-dates');
+  hide('step-cal');
+  hide('lock-section');
 }
 
 function toggleCh(chId) {
@@ -1790,6 +1916,76 @@ function renderDateTable() {
   html += '</tbody></table>';
   con.innerHTML = html;
   updateStepBadge('sb3', allDatesSet());
+}
+
+// ===========================
+// AI STUDY PLAN
+// ===========================
+function generateAIPlan() {
+  if (!selChIds.length) { alert('Please select at least one chapter first.'); return; }
+  var btn = document.getElementById('plan-study-btn');
+  btn.disabled = true;
+  btn.textContent = '\u23F3 Planning\u2026';
+
+  var examDate = (document.getElementById('exam-date-main') || {}).value || '';
+  var examType = selExamId ? (getExam(selExamId) || {}).name || selExamId : 'General';
+  var sorted   = selChIds.slice().sort(function(a,b){return a-b;});
+  var chapters = sorted.map(function(id){ var ch=getCh(id); return ch ? 'Ch'+id+'. '+ch.name : ''; }).filter(Boolean);
+
+  fetch('/api/plan', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      chapters:     chapters,
+      examDate:     examDate,
+      examType:     examType,
+      studentClass: currentClass || 8
+    })
+  })
+  .then(function(r){ return r.json(); })
+  .then(function(d) {
+    btn.disabled = false;
+    btn.innerHTML = '\u2728 Plan Study';
+    if (!d.ok || !d.plan || !d.plan.length) {
+      /* Fallback to autoSchedule */
+      autoSchedule();
+    } else {
+      /* Populate chDates from AI response */
+      for (var i = 0; i < d.plan.length; i++) {
+        var item = d.plan[i];
+        /* Match by chapter index */
+        var cid = sorted[i];
+        if (!cid) continue;
+        var existMode = (chDates[cid] && chDates[cid].mode) ? chDates[cid].mode : 'explain';
+        chDates[cid] = {
+          start:  item.startDate  || '',
+          target: item.targetDate || '',
+          mode:   existMode
+        };
+      }
+    }
+    renderDateTable();
+    renderCalendar();
+    validateAndShow();
+    show('step-dates');
+    show('step-cal');
+    show('lock-section');
+    /* Scroll to schedule */
+    var el = document.getElementById('step-dates');
+    if (el) setTimeout(function(){ el.scrollIntoView({behavior:'smooth',block:'start'}); }, 100);
+  })
+  .catch(function() {
+    btn.disabled = false;
+    btn.innerHTML = '\u2728 Plan Study';
+    /* Fallback */
+    autoSchedule();
+    renderDateTable();
+    renderCalendar();
+    validateAndShow();
+    show('step-dates');
+    show('step-cal');
+    show('lock-section');
+  });
 }
 
 function autoSchedule() {
