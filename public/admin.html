@@ -2050,7 +2050,7 @@ function buildUsersTab() {
     var sName  = esc(r.studentName || '');
     var phone  = esc(r.primaryMobile || '—');
     var cls    = esc(r.class || '—');
-    var school = esc(r.school || '—');
+    var school = esc(r.school || r.schoolName || '—');
     var board  = esc(r.board || 'CBSE');
     var referredCount = (refMap[r.parentUsername] || []).length;
 
@@ -2166,6 +2166,9 @@ function showAdminRefCode() {
   /* Keep last 10 only */
   if (codes.length > 10) codes = codes.slice(-10);
   localStorage.setItem('rishi_admin_ref_codes', JSON.stringify(codes));
+  /* Persist to D1 so register/payment pages can validate it */
+  fetch('/d1-sync', {method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({action:'store-admin-code',code:newCode})}).catch(function(){});
 
   /* Build history HTML (newest first) */
   var histHtml = '';

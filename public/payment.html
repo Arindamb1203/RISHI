@@ -399,6 +399,32 @@ function submitPayment() {
     hist.unshift(rec);
     localStorage.setItem('rishi_payment_history', JSON.stringify(hist));
   } catch(e) {}
+  /* Write payments{} to registration object + sync to D1 */
+  try {
+    var payMode = currentMethod === 'upi' ? 'UPI' : currentMethod === 'bank' ? 'BT' : 'CRCRD';
+    /* If any applied code is an admin code, override mode to Admin */
+    for (var _ci = 0; _ci < appliedCodes.length; _ci++) {
+      if ((appliedCodes[_ci].code||'').toUpperCase().indexOf('ARISHI-') === 0) { payMode = 'Admin'; break; }
+    }
+    /* Check if a referral code was applied (non-admin) */
+    var hasRefCode = appliedCodes.some(function(c){ return (c.code||'').toUpperCase().indexOf('ARISHI-') !== 0 && c.code; });
+    if (hasRefCode && payMode !== 'Admin') payMode = payMode + '+R';
+    var _now = new Date();
+    var _monthKey = _now.getFullYear() + '-' + String(_now.getMonth()+1).padStart(2,'0');
+    var _regs = JSON.parse(localStorage.getItem('rishi_registrations')||'[]');
+    var _ri = -1;
+    if (studentId) {
+      _ri = _regs.findIndex(function(r){ return (r.studentUsername||r.studentId||'').toLowerCase() === studentId.toLowerCase(); });
+    }
+    if (_ri > -1) {
+      if (!_regs[_ri].payments) _regs[_ri].payments = {};
+      _regs[_ri].payments[_monthKey] = payMode;
+      localStorage.setItem('rishi_registrations', JSON.stringify(_regs));
+      /* Sync updated registration to D1 */
+      fetch('/d1-sync', {method:'POST',headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({action:'register',data:_regs[_ri]})}).catch(function(){});
+    }
+  } catch(_e) {}
   /* Show modal */
   var now = new Date();
   var dateStr = ('0'+now.getDate()).slice(-2)+'-'+('0'+(now.getMonth()+1)).slice(-2)+'-'+now.getFullYear();

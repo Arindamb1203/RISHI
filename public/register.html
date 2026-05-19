@@ -1039,7 +1039,6 @@ function saveToLocalStorage(type) {
     parentUsername: pUser,
     firstLoginStudent: true,
     firstLoginParent:  true,
-    subscriptionStatus: 'trial',
     subscriptionExpiry: (function(){ var d = new Date(); d.setDate(d.getDate()+30); return d.toISOString().slice(0,10); })(),
     board: document.getElementById('board').value,
     class: document.getElementById('class').value,
@@ -1051,13 +1050,38 @@ function saveToLocalStorage(type) {
     altMobile: document.getElementById('altMobile').value,
     parentEmail: document.getElementById('parentEmail').value.trim(),
     registrationType: type,
-    registeredAt: new Date().toISOString()
+    registeredAt: new Date().toISOString(),
+    school: document.getElementById('schoolName').value.trim(),
+    referredBy: _regRefCode || null,
+    payments: (function(){
+      if (_regIsAdminCode && _regRefCode) {
+        var now = new Date();
+        var key = now.getFullYear() + '-' + String(now.getMonth()+1).padStart(2,'0');
+        var obj = {}; obj[key] = 'Admin'; return obj;
+      }
+      return {};
+    })(),
+    subscriptionStatus: (_regIsAdminCode && _regRefCode) ? 'subscribed' : 'trial'
   };
   const existing = JSON.parse(localStorage.getItem('rishi_registrations') || '[]');
   existing.push(data);
   localStorage.setItem('rishi_registrations', JSON.stringify(existing));
   /* Push to D1 cloud — so any device can log in */
   fetch('/d1-sync', {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'register',data:data})}).catch(function(){});
+  /* If a ref code was used, redeem it in D1 */
+  if (_regRefCode) {
+    var _sid = data.studentUsername || '';
+    fetch('/d1-sync', {method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({action:'redeem-referral',code:_regRefCode,usedBy:_sid})}).catch(function(){});
+    /* If admin code: update admin localStorage used flag */
+    if (_regIsAdminCode) {
+      try {
+        var ac = JSON.parse(localStorage.getItem('rishi_admin_ref_codes')||'[]');
+        ac.forEach(function(c){ if(c.code===_regRefCode){c.used=true;c.used_by=_sid;c.used_at=new Date().toISOString();} });
+        localStorage.setItem('rishi_admin_ref_codes', JSON.stringify(ac));
+      } catch(e){}
+    }
+  }
   localStorage.setItem('rishi_current_student', JSON.stringify({
     studentName: data.studentName,
     parentName: data.parentName,
@@ -1316,6 +1340,7 @@ const kolkataSchools = [
 // REFERRAL CODE — APPLY AT REGISTRATION
 // ============================================================
 var _regRefCode = null;
+var _regIsAdminCode = false;
 var _regBaseAmount = 599;
 var _regFinalAmount = 599;
 
@@ -1338,12 +1363,22 @@ function applyRefCode() {
   }).then(function(r) { return r.json(); }).then(function(d) {
     if (d.ok && d.valid) {
       _regRefCode = code;
-      _regFinalAmount = _regBaseAmount - 100;
-      msgEl.style.color = 'var(--success)';
-      msgEl.textContent = '\u2705 Code applied! \u20B9100 discount added.';
-      document.getElementById('reg-amount-original').style.display = 'block';
-      document.getElementById('reg-amount-display').textContent = '\u20B9' + _regFinalAmount;
-      document.getElementById('reg-amount-note').textContent = '\u20B9100 discount applied via referral';
+      _regIsAdminCode = (d.type === 'admin');
+      if (_regIsAdminCode) {
+        _regFinalAmount = 0;
+        msgEl.style.color = 'var(--success)';
+        msgEl.textContent = '\u2705 Admin code applied! This month is FREE \u2014 \u20B90 payable.';
+        document.getElementById('reg-amount-original').style.display = 'block';
+        document.getElementById('reg-amount-display').textContent = '\u20B90';
+        document.getElementById('reg-amount-note').textContent = 'Admin Full Recharge \u2014 \u20B9599 waived';
+      } else {
+        _regFinalAmount = _regBaseAmount - 100;
+        msgEl.style.color = 'var(--success)';
+        msgEl.textContent = '\u2705 Code applied! \u20B9100 discount added.';
+        document.getElementById('reg-amount-original').style.display = 'block';
+        document.getElementById('reg-amount-display').textContent = '\u20B9' + _regFinalAmount;
+        document.getElementById('reg-amount-note').textContent = '\u20B9100 discount applied via referral';
+      }
       document.getElementById('refCodeInput').disabled = true;
     } else {
       _regRefCode = null;

@@ -33,6 +33,7 @@ export async function onRequest(context) {
     await env.DB.exec("CREATE TABLE IF NOT EXISTS rishi_sync (student_id TEXT NOT NULL, key TEXT NOT NULL, value TEXT NOT NULL, updated_at INTEGER NOT NULL, PRIMARY KEY (student_id, key))");
     await env.DB.exec("CREATE TABLE IF NOT EXISTS rishi_accounts (username TEXT PRIMARY KEY, role TEXT NOT NULL, mobile TEXT NOT NULL, data TEXT NOT NULL, pw_override TEXT, updated_at INTEGER NOT NULL)");
     await env.DB.exec("CREATE TABLE IF NOT EXISTS rishi_referrals (code TEXT PRIMARY KEY, referrer_username TEXT NOT NULL, referee_fname TEXT, referee_lname TEXT, referee_wa TEXT, created_at INTEGER NOT NULL, used_by TEXT, used_at INTEGER, status TEXT NOT NULL DEFAULT 'active')");
+    await env.DB.exec("CREATE TABLE IF NOT EXISTS rishi_admin_codes (code TEXT PRIMARY KEY, created_at INTEGER NOT NULL, used INTEGER NOT NULL DEFAULT 0, used_by TEXT, used_at INTEGER)");
   } catch(e) {
     return new Response(JSON.stringify({ error: "Table init failed", detail: String(e) }), { status: 500, headers });
   }
@@ -168,6 +169,21 @@ export async function onRequest(context) {
      REFERRAL SYSTEM
   ════════════════════════════════ */
 
+  /* Store an admin-generated one-time code */
+  if (action === "store-admin-code") {
+    const { code } = body;
+    if (!code) return new Response(JSON.stringify({ error: "code required" }), { status: 400, headers });
+    try {
+      await env.DB.prepare(
+        `INSERT INTO rishi_admin_codes (code, created_at) VALUES (?, ?)
+         ON CONFLICT(code) DO NOTHING`
+      ).bind(code.toUpperCase().trim(), Date.now()).run();
+      return new Response(JSON.stringify({ ok: true }), { headers });
+    } catch(e) {
+      return new Response(JSON.stringify({ error: "Store admin code failed", detail: String(e) }), { status: 500, headers });
+    }
+  }
+
   /* Store a new referral code */
   if (action === "store-referral") {
     const { code, referrerUsername, refereeFname, refereeLname, refereeWa } = body;
@@ -197,17 +213,34 @@ export async function onRequest(context) {
   if (action === "validate-referral") {
     const { code } = body;
     if (!code) return new Response(JSON.stringify({ error: "code required" }), { status: 400, headers });
+    const upperCode = code.toUpperCase().trim();
+
+    /* ── Admin one-time code (ARISHI- prefix) ── */
+    if (upperCode.startsWith("ARISHI-")) {
+      try {
+        const row = await env.DB.prepare(
+          `SELECT code, used, used_by FROM rishi_admin_codes WHERE code = ?`
+        ).bind(upperCode).first();
+        if (!row) return new Response(JSON.stringify({ ok: true, valid: false, message: "Admin code not found or expired" }), { headers });
+        if (row.used) return new Response(JSON.stringify({ ok: true, valid: false, message: "Admin code already used by " + (row.used_by || "a student") }), { headers });
+        return new Response(JSON.stringify({ ok: true, valid: true, type: "admin", fullRecharge: true, discount: 599 }), { headers });
+      } catch(e) {
+        return new Response(JSON.stringify({ error: "Admin code validate failed", detail: String(e) }), { status: 500, headers });
+      }
+    }
+
+    /* ── Parent referral code ── */
     try {
       const row = await env.DB.prepare(
         `SELECT code, referrer_username, status FROM rishi_referrals WHERE code = ?`
-      ).bind(code.toUpperCase().trim()).first();
+      ).bind(upperCode).first();
       if (!row) {
         return new Response(JSON.stringify({ ok: true, valid: false, message: "Code not found" }), { headers });
       }
       if (row.status !== 'active') {
         return new Response(JSON.stringify({ ok: true, valid: false, message: "Code already used" }), { headers });
       }
-      return new Response(JSON.stringify({ ok: true, valid: true }), { headers });
+      return new Response(JSON.stringify({ ok: true, valid: true, type: "referral", discount: 100 }), { headers });
     } catch(e) {
       return new Response(JSON.stringify({ error: "Validate failed", detail: String(e) }), { status: 500, headers });
     }
@@ -219,10 +252,26 @@ export async function onRequest(context) {
     if (!code || !usedBy) {
       return new Response(JSON.stringify({ error: "code and usedBy required" }), { status: 400, headers });
     }
+    const upperCode = code.toUpperCase().trim();
+
+    /* ── Admin one-time code ── */
+    if (upperCode.startsWith("ARISHI-")) {
+      try {
+        const result = await env.DB.prepare(
+          `UPDATE rishi_admin_codes SET used = 1, used_by = ?, used_at = ? WHERE code = ? AND used = 0`
+        ).bind(usedBy.trim(), Date.now(), upperCode).run();
+        const redeemed = result.meta && result.meta.changes > 0;
+        return new Response(JSON.stringify({ ok: true, redeemed }), { headers });
+      } catch(e) {
+        return new Response(JSON.stringify({ error: "Redeem admin code failed", detail: String(e) }), { status: 500, headers });
+      }
+    }
+
+    /* ── Parent referral code ── */
     try {
       const result = await env.DB.prepare(
         `UPDATE rishi_referrals SET status = 'used', used_by = ?, used_at = ? WHERE code = ? AND status = 'active'`
-      ).bind(usedBy.trim(), Date.now(), code.toUpperCase().trim()).run();
+      ).bind(usedBy.trim(), Date.now(), upperCode).run();
       const redeemed = result.meta && result.meta.changes > 0;
       return new Response(JSON.stringify({ ok: true, redeemed }), { headers });
     } catch(e) {
