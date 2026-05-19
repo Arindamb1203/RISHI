@@ -32,6 +32,7 @@ export async function onRequest(context) {
   try {
     await env.DB.exec("CREATE TABLE IF NOT EXISTS rishi_sync (student_id TEXT NOT NULL, key TEXT NOT NULL, value TEXT NOT NULL, updated_at INTEGER NOT NULL, PRIMARY KEY (student_id, key))");
     await env.DB.exec("CREATE TABLE IF NOT EXISTS rishi_accounts (username TEXT PRIMARY KEY, role TEXT NOT NULL, mobile TEXT NOT NULL, data TEXT NOT NULL, pw_override TEXT, updated_at INTEGER NOT NULL)");
+    await env.DB.exec("CREATE TABLE IF NOT EXISTS rishi_referrals (code TEXT PRIMARY KEY, referrer_username TEXT NOT NULL, referee_fname TEXT, referee_lname TEXT, referee_wa TEXT, created_at INTEGER NOT NULL, used_by TEXT, used_at INTEGER, status TEXT NOT NULL DEFAULT 'active')");
   } catch(e) {
     return new Response(JSON.stringify({ error: "Table init failed", detail: String(e) }), { status: 500, headers });
   }
@@ -160,6 +161,72 @@ export async function onRequest(context) {
       return new Response(JSON.stringify({ ok: true }), { headers });
     } catch(e) {
       return new Response(JSON.stringify({ error: "PW save failed", detail: String(e) }), { status: 500, headers });
+    }
+  }
+
+  /* ════════════════════════════════
+     REFERRAL SYSTEM
+  ════════════════════════════════ */
+
+  /* Store a new referral code */
+  if (action === "store-referral") {
+    const { code, referrerUsername, refereeFname, refereeLname, refereeWa } = body;
+    if (!code || !referrerUsername) {
+      return new Response(JSON.stringify({ error: "code and referrerUsername required" }), { status: 400, headers });
+    }
+    try {
+      await env.DB.prepare(
+        `INSERT INTO rishi_referrals (code, referrer_username, referee_fname, referee_lname, referee_wa, created_at)
+         VALUES (?, ?, ?, ?, ?, ?)
+         ON CONFLICT(code) DO NOTHING`
+      ).bind(
+        code.toUpperCase().trim(),
+        referrerUsername.toLowerCase().trim(),
+        refereeFname || '',
+        refereeLname || '',
+        refereeWa    || '',
+        Date.now()
+      ).run();
+      return new Response(JSON.stringify({ ok: true }), { headers });
+    } catch(e) {
+      return new Response(JSON.stringify({ error: "Store referral failed", detail: String(e) }), { status: 500, headers });
+    }
+  }
+
+  /* Validate a referral code (check active, not used) */
+  if (action === "validate-referral") {
+    const { code } = body;
+    if (!code) return new Response(JSON.stringify({ error: "code required" }), { status: 400, headers });
+    try {
+      const row = await env.DB.prepare(
+        `SELECT code, referrer_username, status FROM rishi_referrals WHERE code = ?`
+      ).bind(code.toUpperCase().trim()).first();
+      if (!row) {
+        return new Response(JSON.stringify({ ok: true, valid: false, message: "Code not found" }), { headers });
+      }
+      if (row.status !== 'active') {
+        return new Response(JSON.stringify({ ok: true, valid: false, message: "Code already used" }), { headers });
+      }
+      return new Response(JSON.stringify({ ok: true, valid: true }), { headers });
+    } catch(e) {
+      return new Response(JSON.stringify({ error: "Validate failed", detail: String(e) }), { status: 500, headers });
+    }
+  }
+
+  /* Redeem a referral code — mark as used */
+  if (action === "redeem-referral") {
+    const { code, usedBy } = body;
+    if (!code || !usedBy) {
+      return new Response(JSON.stringify({ error: "code and usedBy required" }), { status: 400, headers });
+    }
+    try {
+      const result = await env.DB.prepare(
+        `UPDATE rishi_referrals SET status = 'used', used_by = ?, used_at = ? WHERE code = ? AND status = 'active'`
+      ).bind(usedBy.trim(), Date.now(), code.toUpperCase().trim()).run();
+      const redeemed = result.meta && result.meta.changes > 0;
+      return new Response(JSON.stringify({ ok: true, redeemed }), { headers });
+    } catch(e) {
+      return new Response(JSON.stringify({ error: "Redeem failed", detail: String(e) }), { status: 500, headers });
     }
   }
 

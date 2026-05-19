@@ -741,14 +741,27 @@
 
     <div class="refund-badge">✅ 100% refund if not satisfied after 1st month — no questions asked</div>
 
+    <!-- REFERRAL CODE (OPTIONAL) -->
+    <div style="background:#f5fbf2;border:1.5px solid var(--sage-light);border-radius:14px;padding:18px 20px;margin-bottom:18px;">
+      <div style="font-size:13px;font-weight:900;color:var(--sage);text-transform:uppercase;letter-spacing:.8px;margin-bottom:10px;">&#127873; Have a Referral Code? (Optional)</div>
+      <div style="display:flex;gap:10px;align-items:flex-start;flex-wrap:wrap;">
+        <input type="text" id="refCodeInput" placeholder="e.g. RISHI-ABC123"
+          style="font-family:\'Share Tech Mono\',monospace;font-size:15px;font-weight:700;color:var(--charcoal);background:var(--warm-white);border:2px solid var(--gold-pale);border-radius:10px;padding:11px 14px;outline:none;flex:1;min-width:160px;text-transform:uppercase;letter-spacing:1px;"
+          oninput="this.value=this.value.toUpperCase()">
+        <button onclick="applyRefCode()" style="font-family:\'Nunito\',sans-serif;font-size:14px;font-weight:800;padding:11px 22px;background:linear-gradient(135deg,var(--sage),var(--sage-light));color:#fff;border:none;border-radius:10px;cursor:pointer;white-space:nowrap;">Apply Code</button>
+      </div>
+      <div id="refCodeMsg" style="font-size:12px;font-weight:700;margin-top:8px;display:none;"></div>
+    </div>
+
     <div class="amount-display">
       <div>
         <div class="amount-label">Monthly Subscription</div>
         <div class="amount-note">Cancel anytime · Progress always saved</div>
       </div>
       <div style="text-align:right">
-        <div class="amount-value">₹599</div>
-        <div class="amount-note">vs Home Tutor ₹1,500/month</div>
+        <div id="reg-amount-original" style="font-family:\'Orbitron\',sans-serif;font-size:18px;font-weight:900;color:var(--soft);text-decoration:line-through;display:none;">&#8377;599</div>
+        <div class="amount-value" id="reg-amount-display">&#8377;599</div>
+        <div class="amount-note" id="reg-amount-note">vs Home Tutor &#8377;1,500/month</div>
       </div>
     </div>
 
@@ -1298,6 +1311,50 @@ const kolkataSchools = [
   "St. Joseph's Convent Darjeeling",
   "Dow Hill School Kurseong"
 ];
+
+// ============================================================
+// REFERRAL CODE — APPLY AT REGISTRATION
+// ============================================================
+var _regRefCode = null;
+var _regBaseAmount = 599;
+var _regFinalAmount = 599;
+
+function applyRefCode() {
+  var code = (document.getElementById('refCodeInput').value || '').trim().toUpperCase();
+  var msgEl = document.getElementById('refCodeMsg');
+  if (!code) {
+    msgEl.style.display = 'block';
+    msgEl.style.color = 'var(--error)';
+    msgEl.textContent = 'Please enter a referral code.';
+    return;
+  }
+  msgEl.style.display = 'block';
+  msgEl.style.color = 'var(--soft)';
+  msgEl.textContent = 'Validating\u2026';
+  fetch('/d1-sync', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ action: 'validate-referral', code: code })
+  }).then(function(r) { return r.json(); }).then(function(d) {
+    if (d.ok && d.valid) {
+      _regRefCode = code;
+      _regFinalAmount = _regBaseAmount - 100;
+      msgEl.style.color = 'var(--success)';
+      msgEl.textContent = '\u2705 Code applied! \u20B9100 discount added.';
+      document.getElementById('reg-amount-original').style.display = 'block';
+      document.getElementById('reg-amount-display').textContent = '\u20B9' + _regFinalAmount;
+      document.getElementById('reg-amount-note').textContent = '\u20B9100 discount applied via referral';
+      document.getElementById('refCodeInput').disabled = true;
+    } else {
+      _regRefCode = null;
+      msgEl.style.color = 'var(--error)';
+      msgEl.textContent = '\u274C ' + (d.message || 'Invalid or already used code.');
+    }
+  }).catch(function() {
+    msgEl.style.color = 'var(--soft)';
+    msgEl.textContent = 'Could not validate \u2014 proceeding without discount.';
+  });
+}
 
 // Sort alphabetically
 kolkataSchools.sort((a, b) => a.localeCompare(b));

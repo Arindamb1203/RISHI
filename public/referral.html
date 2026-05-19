@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RISHI &#8211; Refer &amp; Earn</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Syne:wght@700;800;900&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fdf6ec;--bg2:#fffdf8;--bg3:#f5ede0;--panel:#fffdf8;--border:#e0c898;--gold:#c8922a;--gold2:#e8b84b;--goldf:rgba(200,146,42,.1);--text:#2a2218;--muted:#8a7a5a;--font-head:'Syne',sans-serif;--font-body:'DM Sans',sans-serif;--font-mono:'DM Mono',monospace;}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);min-height:100vh;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(#f5e6c8 1px,transparent 1px),linear-gradient(90deg,#f5e6c8 1px,transparent 1px);background-size:40px 40px;opacity:.25;z-index:0;pointer-events:none;}
+::-webkit-scrollbar{width:4px;}::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px;}
+.hdr{background:var(--bg2);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:16px;padding:0 24px;height:56px;position:sticky;top:0;z-index:100;}
+.hdr-logo{font-family:var(--font-head);font-size:18px;font-weight:900;letter-spacing:4px;color:var(--text);}
+.hdr-logo span{color:var(--gold);}
+.hdr-div{width:1px;height:22px;background:var(--border);}
+.hdr-tag{font-size:11px;font-weight:600;color:var(--muted);}
+.hdr-r{margin-left:auto;display:flex;align-items:center;gap:10px;}
+.recharge-btn{font-family:var(--font-head);font-size:12px;font-weight:800;padding:7px 16px;background:linear-gradient(135deg,var(--gold),var(--gold2));color:#fff;border:none;border-radius:9px;cursor:pointer;text-decoration:none;box-shadow:0 2px 10px rgba(200,146,42,.3);}
+.hdr-back{font-size:11px;font-weight:600;padding:5px 13px;border-radius:7px;background:var(--panel);border:1px solid var(--border);color:var(--muted);text-decoration:none;}
+.quick-nav{background:#0f2240;display:flex;overflow-x:auto;border-bottom:1px solid rgba(255,255,255,.1);scrollbar-width:none;}
+.quick-nav::-webkit-scrollbar{display:none;}
+.quick-nav a{color:rgba(255,255,255,.65);text-decoration:none;padding:12px 18px;font-size:14px;font-weight:700;white-space:nowrap;border-bottom:3px solid transparent;}
+.quick-nav a.active{color:#f5a623;border-bottom-color:#f5a623;}
+.main{max-width:740px;margin:0 auto;padding:28px 16px 60px;position:relative;z-index:1;}
+
+/* HERO */
+.hero-ref{background:var(--panel);border:2.5px solid #39FF14;border-radius:20px;padding:30px 34px;margin-bottom:22px;text-align:center;box-shadow:0 0 28px rgba(57,255,20,.14),0 6px 24px rgba(0,0,0,.05);}
+.hero-ico{font-size:46px;display:block;margin-bottom:12px;}
+.hero-title{font-family:var(--font-head);font-size:23px;font-weight:900;color:var(--text);line-height:1.25;margin-bottom:8px;}
+.hero-title .amt{color:#1a8c00;background:rgba(57,255,20,.12);border:2px solid #39FF14;border-radius:9px;padding:1px 10px;}
+.hero-sub{font-size:13px;color:var(--muted);line-height:1.7;max-width:460px;margin:0 auto;}
+
+/* FORM CARD */
+.form-card{background:var(--panel);border:1.5px solid var(--border);border-radius:18px;padding:26px;margin-bottom:20px;}
+.card-sec-title{font-family:var(--font-head);font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:2px;color:var(--muted);margin-bottom:18px;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;}
+@media(max-width:540px){.form-row{grid-template-columns:1fr;}}
+.form-group{display:flex;flex-direction:column;gap:5px;}
+.form-label{font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1.2px;}
+.form-input{background:var(--bg3);border:1.5px solid var(--border);border-radius:10px;padding:11px 14px;font-size:15px;font-weight:600;color:var(--text);font-family:var(--font-body);outline:none;transition:border-color .15s;-webkit-appearance:none;}
+.form-input:focus{border-color:var(--gold);box-shadow:0 0 0 3px var(--goldf);}
+.form-input.filled{border-color:#4a8a4a;}
+
+/* GENERATE BUTTON */
+.gen-btn{width:100%;margin-top:4px;font-family:var(--font-head);font-size:15px;font-weight:800;padding:14px;border-radius:12px;border:1.5px solid var(--border);background:var(--bg3);color:var(--muted);cursor:not-allowed;transition:all .25s;letter-spacing:.5px;}
+.gen-btn.ready{background:var(--text);color:#fff;border-color:var(--text);cursor:pointer;box-shadow:0 4px 16px rgba(42,34,24,.18);}
+.gen-btn.ready:hover{background:#3d3020;transform:translateY(-1px);}
+
+/* CODE RESULT */
+.code-result{display:none;margin-top:18px;background:rgba(57,255,20,.05);border:2px solid #39FF14;border-radius:14px;padding:20px 22px;animation:fadeUp .3s ease both;}
+.code-result.show{display:block;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+.code-lbl{font-size:10px;font-weight:700;color:#1a8c00;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:8px;}
+.code-display{font-family:var(--font-mono);font-size:28px;font-weight:700;color:#1a8c00;letter-spacing:3px;margin-bottom:16px;}
+.share-row{display:flex;gap:10px;flex-wrap:wrap;}
+.wa-btn{font-family:var(--font-head);font-size:13px;font-weight:800;padding:11px 24px;background:#25D366;color:#fff;border:none;border-radius:10px;cursor:pointer;display:inline-flex;align-items:center;gap:7px;box-shadow:0 3px 10px rgba(37,211,102,.22);transition:all .2s;}
+.wa-btn:hover{background:#1ebe5d;transform:translateY(-1px);}
+.copy-btn{font-size:13px;font-weight:700;padding:11px 16px;background:var(--panel);border:1.5px solid #39FF14;border-radius:10px;color:#1a8c00;cursor:pointer;transition:all .2s;}
+.copy-btn:hover{background:rgba(57,255,20,.1);}
+
+/* TABLE */
+.ref-table-sec{background:var(--panel);border:1px solid var(--border);border-radius:18px;padding:22px;margin-bottom:20px;}
+.ref-table-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
+.ref-table-title{font-family:var(--font-head);font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:2px;color:var(--text);}
+.count-badge{font-family:var(--font-mono);font-size:12px;font-weight:700;padding:4px 12px;background:rgba(57,255,20,.1);border:1.5px solid #39FF14;border-radius:8px;color:#1a8c00;}
+.ref-empty{text-align:center;padding:36px 20px;color:var(--muted);font-size:13px;border:2px dashed var(--border);border-radius:12px;line-height:1.8;}
+.ref-tbl{width:100%;border-collapse:collapse;}
+.ref-tbl th{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:var(--muted);padding:0 10px 10px;text-align:left;border-bottom:1px solid var(--border);}
+.ref-tbl td{padding:11px 10px;font-size:13px;border-bottom:1px solid rgba(224,200,152,.3);vertical-align:middle;}
+.ref-tbl tr:last-child td{border-bottom:none;}
+.ref-tbl tbody tr:hover td{background:rgba(200,146,42,.04);}
+.code-badge{font-family:var(--font-mono);font-size:11px;font-weight:700;padding:4px 9px;background:rgba(57,255,20,.08);border:1px solid #39FF14;border-radius:6px;color:#1a8c00;letter-spacing:.8px;}
+.st-active{font-size:10px;font-weight:700;padding:3px 9px;border-radius:6px;background:rgba(57,255,20,.1);color:#1a8c00;border:1px solid #39FF14;}
+.st-used{font-size:10px;font-weight:700;padding:3px 9px;border-radius:6px;background:rgba(200,146,42,.1);color:var(--gold);border:1px solid var(--border);}
+.resend-btn{font-size:11px;font-weight:700;padding:5px 11px;background:#25D366;color:#fff;border:none;border-radius:6px;cursor:pointer;}
+.del-btn{font-size:11px;padding:5px 8px;background:none;border:1px solid rgba(192,57,43,.3);border-radius:6px;color:#c0392b;cursor:pointer;margin-left:4px;}
+@media(max-width:580px){.hide-sm{display:none;}}
+
+/* RECHARGE CTA */
+.recharge-cta{background:linear-gradient(135deg,#fffdf8,#fff9ee);border:1.5px solid var(--gold);border-radius:18px;padding:22px 26px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+.recharge-cta-txt{font-family:var(--font-head);font-size:15px;font-weight:900;color:var(--text);}
+.recharge-cta-sub{font-size:12px;color:var(--muted);margin-top:3px;}
+.recharge-cta-btn{font-family:var(--font-head);font-size:14px;font-weight:800;padding:13px 30px;background:linear-gradient(135deg,var(--gold),var(--gold2));color:#fff;border:none;border-radius:12px;cursor:pointer;text-decoration:none;display:inline-block;box-shadow:0 4px 14px rgba(200,146,42,.28);}
+</style>
+</head>
+<body>
+
+<div class="hdr">
+  <div class="hdr-logo">RISHI<span>.</span></div>
+  <div class="hdr-div"></div>
+  <div class="hdr-tag">Refer &amp; Earn</div>
+  <div class="hdr-r">
+    <a class="recharge-btn" href="/payment.html">&#128179; Recharge RISHI</a>
+    <a class="hdr-back" href="/parent-dashboard.html">&#8592; Dashboard</a>
+  </div>
+</div>
+
+<div class="quick-nav">
+  <a href="/parent.html?tab=plan">&#128203; Study Plan</a>
+  <a href="/parent.html?tab=perf">&#128202; Performance</a>
+  <a href="/parent-dashboard.html">&#9889; Analytics</a>
+  <a href="/parent.html?tab=slots">&#128336; Study Slots</a>
+  <a href="/parent.html?tab=live">&#128225; Live Status</a>
+  <a href="/referral.html" class="active">&#127873; Refer &amp; Earn</a>
+</div>
+
+<div class="main">
+
+  <div class="hero-ref">
+    <span class="hero-ico">&#127873;</span>
+    <div class="hero-title">Refer a friend &#8212; both of you get <span class="amt">&#8377;100 OFF</span></div>
+    <div class="hero-sub">Fill in your friend&#39;s details, generate a unique code, then share it on WhatsApp. When they subscribe using your code &#8212; <strong>both get &#8377;100 discount</strong>.</div>
+  </div>
+
+  <!-- FORM -->
+  <div class="form-card">
+    <div class="card-sec-title">&#128228; New Referral</div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">First Name of Student</label>
+        <input class="form-input" id="f-fname" type="text" placeholder="e.g. Rahul" autocomplete="off" oninput="onFieldInput()">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Last Name of Student</label>
+        <input class="form-input" id="f-lname" type="text" placeholder="e.g. Sharma" autocomplete="off" oninput="onFieldInput()">
+      </div>
+    </div>
+
+    <div class="form-row" style="grid-template-columns:1fr;">
+      <div class="form-group">
+        <label class="form-label">WhatsApp Number (10 digits)</label>
+        <input class="form-input" id="f-wa" type="tel" placeholder="e.g. 9876543210" maxlength="10" autocomplete="off"
+          oninput="this.value=this.value.replace(/\D/g,\'\');onFieldInput()">
+      </div>
+    </div>
+
+    <button class="gen-btn" id="gen-btn" onclick="generateCode()">&#128273; Generate Referral Code</button>
+
+    <div class="code-result" id="code-result">
+      <div class="code-lbl">&#128273; Your Unique Referral Code</div>
+      <div class="code-display" id="code-display">&#8212;</div>
+      <div class="share-row">
+        <button class="wa-btn" onclick="shareOnWhatsApp()">&#128241; Share on WhatsApp</button>
+        <button class="copy-btn" id="copy-btn" onclick="copyCode()">&#128203; Copy Code</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TABLE -->
+  <div class="ref-table-sec">
+    <div class="ref-table-hdr">
+      <div class="ref-table-title">&#128203; Your Referrals</div>
+      <div class="count-badge" id="ref-count-badge">0 Referrals</div>
+    </div>
+    <div id="ref-table-wrap">
+      <div class="ref-empty">&#128588; No referrals yet. Fill the form above and generate your first code!</div>
+    </div>
+  </div>
+
+  <!-- RECHARGE CTA -->
+  <div class="recharge-cta">
+    <div>
+      <div class="recharge-cta-txt">&#128179; Recharge RISHI Subscription</div>
+      <div class="recharge-cta-sub">Apply your referral codes to get discounts on renewal.</div>
+    </div>
+    <a class="recharge-cta-btn" href="/payment.html">Pay &#8377;599 &#8594;</a>
+  </div>
+
+</div>
+
+<script>
+var STORE_KEY = 'rishi_referrals';
+var _code = null, _fname = '', _lname = '', _wa = '';
+
+function getReferrals() { try { return JSON.parse(localStorage.getItem(STORE_KEY)||'[]'); } catch(e) { return []; } }
+function saveReferrals(a) { try { localStorage.setItem(STORE_KEY,JSON.stringify(a)); } catch(e) {} }
+
+function getParentUsername() {
+  try { return JSON.parse(localStorage.getItem('rishi_current_student')||'{}').parentUsername || 'parent'; } catch(e) { return 'parent'; }
+}
+
+function genCode() {
+  var ch='ABCDEFGHJKLMNPQRSTUVWXYZ23456789', c='RISHI-';
+  for(var i=0;i<6;i++) c+=ch[Math.floor(Math.random()*ch.length)];
+  return c;
+}
+
+function onFieldInput() {
+  var fn=document.getElementById('f-fname').value.trim();
+  var ln=document.getElementById('f-lname').value.trim();
+  var wa=document.getElementById('f-wa').value.trim();
+  var ok=fn.length>0 && ln.length>0 && wa.length===10;
+  var btn=document.getElementById('gen-btn');
+  ok ? btn.classList.add('ready') : btn.classList.remove('ready');
+  fn.length>0 ? document.getElementById('f-fname').classList.add('filled') : document.getElementById('f-fname').classList.remove('filled');
+  ln.length>0 ? document.getElementById('f-lname').classList.add('filled') : document.getElementById('f-lname').classList.remove('filled');
+  wa.length===10 ? document.getElementById('f-wa').classList.add('filled') : document.getElementById('f-wa').classList.remove('filled');
+  if(!ok) { document.getElementById('code-result').classList.remove('show'); _code=null; }
+}
+
+function generateCode() {
+  _fname=document.getElementById('f-fname').value.trim();
+  _lname=document.getElementById('f-lname').value.trim();
+  _wa=document.getElementById('f-wa').value.trim();
+  if(!_fname||!_lname||_wa.length!==10) { alert('Please fill all three fields first.'); return; }
+  _code=genCode();
+  document.getElementById('code-display').textContent=_code;
+  document.getElementById('code-result').classList.add('show');
+  /* Store to D1 */
+  fetch('/d1-sync',{method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({action:'store-referral',code:_code,referrerUsername:getParentUsername(),
+      refereeFname:_fname,refereeLname:_lname,refereeWa:_wa})}).catch(function(){});
+}
+
+function buildMsg(fn,ln,code) {
+  var name=(fn+' '+ln).trim();
+  return 'Hi '+name+'! \uD83D\uDC4B\n\n'
+    +'I use *RISHI* for my child\u2019s CBSE Maths \u2014 AI-powered personal tutoring! \uD83C\uDF1F\n\n'
+    +'\uD83C\uDF81 *Special Offer:* Use my code and we *BOTH get \u20B9100 off!*\n\n'
+    +'\uD83D\uDD11 *Code: '+code+'*\n\n'
+    +'Register here: https://rishi-ewh.pages.dev/register.html\n\n'
+    +'At payment, enter code *'+code+'* to get \u20B9100 off. \uD83D\uDCB0';
+}
+
+function shareOnWhatsApp() {
+  if(!_code) { alert('Please generate a code first.'); return; }
+  /* Save to local history (avoid duplicates) */
+  var refs=getReferrals();
+  var exists=refs.some(function(r){return r.code===_code;});
+  if(!exists) {
+    var now=new Date();
+    var d=('0'+now.getDate()).slice(-2)+'-'+('0'+(now.getMonth()+1)).slice(-2)+'-'+now.getFullYear();
+    refs.unshift({fname:_fname,lname:_lname,wa:_wa,code:_code,date:d,status:'active'});
+    saveReferrals(refs);
+    renderTable();
+  }
+  window.open('https://wa.me/91'+_wa+'?text='+encodeURIComponent(buildMsg(_fname,_lname,_code)),'_blank');
+}
+
+function copyCode() {
+  if(!_code) return;
+  var btn=document.getElementById('copy-btn');
+  navigator.clipboard.writeText(_code).then(function(){
+    btn.textContent='\u2705 Copied!';
+    setTimeout(function(){btn.textContent='\uD83D\uDCCB Copy Code';},2000);
+  }).catch(function(){ prompt('Copy this code:',_code); });
+}
+
+function resendReferral(i) {
+  var r=getReferrals()[i]; if(!r) return;
+  window.open('https://wa.me/91'+r.wa+'?text='+encodeURIComponent(buildMsg(r.fname,r.lname,r.code)),'_blank');
+}
+
+function deleteReferral(i) {
+  if(!confirm('Remove this referral?')) return;
+  var refs=getReferrals(); refs.splice(i,1); saveReferrals(refs); renderTable();
+}
+
+function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+function renderTable() {
+  var refs=getReferrals();
+  document.getElementById('ref-count-badge').textContent=refs.length+' Referral'+(refs.length!==1?'s':'');
+  var wrap=document.getElementById('ref-table-wrap');
+  if(!refs.length){
+    wrap.innerHTML='<div class="ref-empty">\uD83D\uDE48 No referrals yet. Fill the form above and generate your first code!</div>';
+    return;
+  }
+  var rows='';
+  for(var i=0;i<refs.length;i++){
+    var r=refs[i];
+    rows+='<tr>'
+      +'<td style="font-weight:600;">'+esc(r.fname)+' '+esc(r.lname)+'</td>'
+      +'<td class="hide-sm" style="font-family:var(--font-mono);font-size:11px;color:var(--muted);">'+esc(r.wa)+'</td>'
+      +'<td><span class="code-badge">'+esc(r.code)+'</span></td>'
+      +'<td><span class="'+(r.status==='used'?'st-used':'st-active')+'">'+(r.status==='used'?'Used':'Active')+'</span></td>'
+      +'<td class="hide-sm" style="font-family:var(--font-mono);font-size:10px;color:var(--muted);">'+esc(r.date)+'</td>'
+      +'<td style="white-space:nowrap;">'
+      +'<button class="resend-btn" onclick="resendReferral('+i+')">\uD83D\uDCF1</button>'
+      +'<button class="del-btn" onclick="deleteReferral('+i+')">\u2715</button>'
+      +'</td></tr>';
+  }
+  wrap.innerHTML='<table class="ref-tbl"><thead><tr>'
+    +'<th>Student</th><th class="hide-sm">WhatsApp</th><th>Code</th><th>Status</th><th class="hide-sm">Date</th><th></th>'
+    +'</tr></thead><tbody>'+rows+'</tbody></table>';
+}
+
+window.onload=function(){ renderTable(); };
+</script>
+</body>
+</html>
