@@ -2,7 +2,7 @@
 ===============================================================
   RISHIKA CONFIG — Paste this entire file at the start of
   every new Claude session to restore full project context.
-  Last updated: 19 May 2026 (USERS tab, referral system, admin fixes)
+  Last updated: 19 May 2026 (Admin ref codes fully wired)
 ===============================================================
 
 | OWNER
@@ -63,7 +63,46 @@
             Class8:/sampurna-pariksha.html
             Class9:/sampurna-pariksha.html?class=9
 
-| ADMIN USERS TAB (built 19 May 2026)
+| ADMIN REF CODE SYSTEM (fully wired 19 May 2026)
+  Code format: ARISHI-XXXX1234 (4 random uppercase chars + 4 digits)
+  Generated in: admin.html Users tab → "Admin Ref Code" button
+  Each generation: new unique code, previous active code auto-superseded
+  On generation: stored in localStorage rishi_admin_ref_codes[] + synced to D1 rishi_admin_codes table
+  Code fields: {code, created_at, used, superseded, used_by, used_at}
+  D1 table: rishi_admin_codes (code PK, created_at, used, used_by, used_at)
+
+  VALIDATION FLOW (d1-sync.js validate-referral):
+    ARISHI- prefix → checks rishi_admin_codes table → returns {type:'admin', fullRecharge:true, discount:599}
+    Other codes → checks rishi_referrals table → returns {type:'referral', discount:100}
+
+  REDEMPTION FLOW:
+    ARISHI- → UPDATE rishi_admin_codes SET used=1
+    Other   → UPDATE rishi_referrals SET status='used'
+
+  register.html:
+    applyRefCode(): if type==='admin' → _regIsAdminCode=true, _regFinalAmount=0
+    Shows "Admin Full Recharge — ₹599 waived" (₹0 payable)
+    saveToLocalStorage(): adds school (alias of schoolName), referredBy, payments{YYYY-MM:'Admin'},
+      subscriptionStatus:'subscribed' (if admin code), then calls redeem-referral
+
+  payment.html confirmPayment():
+    After payment confirmed: writes payments[YYYY-MM] = 'UPI'|'BT'|'CRCRD'|'Admin'|'UPI+R' etc.
+    to rishi_registrations in localStorage, then syncs full registration to D1 via action:'register'
+    Admin code among appliedCodes → mode = 'Admin'
+    Non-admin referral code → appends '+R' to mode
+
+  admin.html USERS tab:
+    school field: reads r.school || r.schoolName (both field names handled)
+    Month strip: Admin mode = red (#c0392b) box
+
+  PAYMENT MODE CODES:
+    UPI    = UPI payment, no referral
+    BT     = Bank Transfer, no referral
+    CRCRD  = Credit/Debit Card, no referral
+    Admin  = Admin-granted free month
+    UPI+R  = UPI + parent referral code used
+    BT+R   = Bank Transfer + referral
+    CRCRD+R = Card + referral
   New tab: 👥 Users — full registered user directory
   Two top buttons:
     "Admin Ref Code — ₹599 Full Recharge" → modal shows code ADMIN-RISHI599
@@ -141,11 +180,15 @@
   URL: rishi-ewh.pages.dev/parent-dashboard
   File: public/parent-dashboard.html
 
-| SYNC SYSTEM (rishi-sync.js)
+| SYNC SYSTEM (rishi-sync.js + d1-sync.js)
   Syncs to Cloudflare D1 via /d1-sync endpoint
   register.html auto-calls /d1-sync action:'register' on every signup
-  d1-sync.js actions: set / get / register / find-account / find-by-mobile / save-pw
+  payment.html auto-calls /d1-sync action:'register' after payment confirms (with payments{} updated)
+  d1-sync.js actions: set / get / register / find-account / find-by-mobile / save-pw /
+                      store-referral / validate-referral / redeem-referral / store-admin-code
   rishi_accounts table: username, role, mobile, data(JSON), pw_override, updated_at
+  rishi_referrals table: code, referrer_username, referee details, created_at, used_by, used_at, status
+  rishi_admin_codes table: code, created_at, used(0/1), used_by, used_at
 
 | PRICING
   Subscription: 599/month everywhere
@@ -242,7 +285,6 @@
 | PENDING WORK
   [P0] Class 6 KV question banks — Admin → Class 6 → Questions → Generate All
   [P0] Active Study Plans sync — Priyanka tap Sync on phone
-  [P1] Wire payments{} + referredBy + school fields on register.html → save to registration obj
   [P2] YouTube video embed (one per chapter — Arindam picks URL, Claude wires)
   [P3] Practice pages verification + Class 6 quality check
   [FUTURE] ICSE / WBBSE
