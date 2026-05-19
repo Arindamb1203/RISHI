@@ -713,6 +713,7 @@ button{font-family:'Outfit',sans-serif;}
     <button class="tab-btn" id="tab-dash" onclick="window.location.href='/parent-dashboard.html'">&#9889; Analytics</button>
     <button class="tab-btn" id="tab-slots" onclick="switchTab('slots')">&#9201; Study Slots</button>
     <button class="tab-btn" id="tab-live" onclick="switchTab('live')">&#128241; Live Status</button>
+    <button class="tab-btn" id="tab-refer" onclick="window.location.href='/referral.html'" style="color:#39FF14;">&#127873; Refer &amp; Earn</button>
   </div>
 
   <div class="wrap">
@@ -1177,7 +1178,7 @@ function showProfilePanel() {
     '<div style="display:flex;flex-direction:column;gap:8px;">' +
       '<button onclick="resetPassword()" style="padding:12px;background:#c8922a;color:#fff;border:none;border-radius:10px;font-weight:800;cursor:pointer;font-family:inherit;font-size:14px;">🔐 Reset Password</button>' +
       '<button onclick="showPaymentHistory()" style="padding:12px;background:#1a7a4a;color:#fff;border:none;border-radius:10px;font-weight:800;cursor:pointer;font-family:inherit;font-size:14px;">💳 Subscription History</button>' +
-      '<button onclick="alert(\'Referral feature coming soon\')" style="padding:12px;background:#7c3aed;color:#fff;border:none;border-radius:10px;font-weight:800;cursor:pointer;font-family:inherit;font-size:14px;">🔗 Referral Program</button>' +
+      '<button onclick="window.location.href=\'/referral.html\'" style="padding:12px;background:#7c3aed;color:#fff;border:none;border-radius:10px;font-weight:800;cursor:pointer;font-family:inherit;font-size:14px;">🔗 Refer &amp; Earn ₹100</button>' +
       '<button onclick="window.location.href=\'/landing.html\'" style="padding:12px;background:#fff;color:#0f2240;border:2px solid #e8d9c4;border-radius:10px;font-weight:800;cursor:pointer;font-family:inherit;font-size:14px;">🏠 Back to Home</button>' +
     '</div>' +
     '</div>';
@@ -1397,7 +1398,7 @@ function initMainPortal() {
   var sName = sessionStorage.getItem('rishi_parent_student_name') || 'Student';
   var sId   = getStudentId();
   var badge = document.getElementById('student-name-badge');
-  if(badge) badge.textContent = '🎓 ' + sName + '  ·  ' + sId;
+  if(badge) badge.textContent = '\uD83C\uDF93 ' + (sName.split(' ')[0] || sName);
   loadPlans();
   var now = new Date();
   calYear = now.getFullYear();
