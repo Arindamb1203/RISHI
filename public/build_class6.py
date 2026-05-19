@@ -380,8 +380,29 @@ def inject(template, ch, ai_data):
     out, n = re.subn(r'var QB=\[.*?^\];', build_qb(ai_data['questions']),
                      out, count=1, flags=re.DOTALL|re.MULTILINE)
     if n == 0: log("QB block not replaced — check template", 'WARN')
-    out, _ = re.subn(r'var svgs=\{[^;]*?\n\};', build_svgs(ai_data['questions']),
-                     out, count=1, flags=re.DOTALL)
+    # svgs: [\s\S]*? instead of [^;]*? so semicolons inside SVG content are matched
+    out, _ = re.subn(r'var svgs=\{[\s\S]*?\n\};', build_svgs(ai_data['questions']),
+                     out, count=1)
+    # Fix CHAP_ID (practice pages inherit wrong id from template)
+    out = re.sub(r'var CHAP_ID=\d+;', f'var CHAP_ID={ch["id"]};', out, count=1)
+    # Fix rishiCheckPlan/IsExplainDone/MarkExplainDone IDs (explain pages inherit template id)
+    out = re.sub(
+        r'(rishiCheckPlan|rishiIsExplainDone|rishiMarkExplainDone)\(\d+\)',
+        lambda m: f'{m.group(1)}({ch["id"]})',
+        out
+    )
+    # Fix goPractice URL (explain template hardcodes class7 path)
+    out = re.sub(
+        r'location\.href="/practice/class7/[^"]+\.html"',
+        f'location.href="/practice/class6/{ch["topic"]}/{ch["slug"]}.html"',
+        out, count=1
+    )
+    # Fix goExam URL (explain template hardcodes c7-05)
+    out = re.sub(
+        r'location\.href="/exam\.html\?ch=c7-[^"]+"',
+        f'location.href="/exam.html?ch=c6-{ch["id"]:02d}"',
+        out, count=1
+    )
     return out
 
 # ═══════════════════════════════════════════════════════════════
