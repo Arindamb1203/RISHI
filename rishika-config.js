@@ -2,7 +2,7 @@
 ===============================================================
   RISHIKA CONFIG — Paste this entire file at the start of
   every new Claude session to restore full project context.
-  Last updated: 19 May 2026 (Admin ref codes fully wired)
+  Last updated: 19 May 2026 (ICSE build started — Class 7 generator ready)
 ===============================================================
 
 | OWNER
@@ -41,7 +41,7 @@
   Class 7: all 8 chapters  (chapter_exam, 15 Qs each)
   Class 8: all 16 chapters  (chapter_exam, 15 Qs each) — generated 15 May
   Class 9: all built chapters  (chapter_exam, 15 Qs each)
-  Class 6: PENDING — generate via admin Questions tab
+  Class 6: DONE — all 10 keys verified via wrangler (cbse_6_ch01..ch10_chapter_exam)
 
 | ADMIN PANEL
   URL:  rishi-ewh.pages.dev/admin  password: rishi2025
@@ -239,11 +239,13 @@
 
 | PYTHON SCRIPTS IN public\
   generate.py              PROTECTED — per-chapter portal wiring
-  build_class6.py          AI content generator for Class 6 (already run)
+  build_class6.py          AI content generator for Class 6 (run + bug-fixed 19 May)
+  build_icse_class7.py     AI content generator for ICSE Class 7 (ready, not run yet)
+  fix_class6_bugs.py       Batch patcher for Class 6 bugs (reusable)
   update_class6_portals.py Class 6 portal wiring (already run)
   batch_generate.py / batch_exam_generate.py / check7.py / patch_admin7.py
 
-| FILE TREE (as of 18 May 2026)
+| FILE TREE (as of 19 May 2026)
   D:\rishi\
   +---database\schema.sql
   +---functions\api\
@@ -259,14 +261,27 @@
   |   +---admin\  question-manager.html
   |   +---data\cbse\class6..9\  exam JSONs
   |   +---data\class6..9\  chapter data JSONs
-  |   +---explain\class6..9\  all topic subfolders
-  |   \---practice\class6..9\ all topic subfolders
+  |   +---explain\class6..9\  CBSE — all topic subfolders
+  |   +---explain\icse\class7\ ICSE Class 7 — pending build
+  |   +---practice\class6..9\ CBSE — all topic subfolders
+  |   \---practice\icse\class7\ ICSE Class 7 — pending build
 
-| CLASS STATUS
+| CLASS STATUS (CBSE)
   Class 8 — 16 chapters  (Ch6 Squares, Ch7 Cubes deferred)
   Class 9 — 12 chapters
   Class 7 — 8 chapters
-  Class 6 — 10 chapters  content + portals done, KV banks pending
+  Class 6 — 10 chapters  content + portals + KV banks all done
+             Bug fix 19 May: CHAP_ID, goPractice/goExam links, SVGs — all 20 pages patched
+             build_class6.py inject() fixed — all 4 bugs prevented in future builds
+             fix_class6_bugs.py created for reuse
+
+| CLASS STATUS (ICSE) — started 19 May 2026
+  Class 7 — build_icse_class7.py ready (22 chapters, ~$0.62, ~51 min)
+             Folder: explain/icse/class7/<topic>/<slug>.html
+                     practice/icse/class7/<topic>/<slug>.html
+             Topics: arithmetic(11) algebra(2) geometry(6) mensuration(1) data-handling(2)
+             Next: run --chapter integers to test, then --all
+  Class 6, 8, 9 — pending after Class 7 pilot
 
 | RISHI-CORE.JS (updated 15 May 2026)
   Top of file: IIFE detects ?bypass=1 in URL sets sessionStorage immediately
@@ -285,9 +300,11 @@
 | PENDING WORK
   [DONE] Class 6 KV question banks — verified via wrangler, all 10 keys exist in KV
   [DONE] Active Study Plans sync — rishi_accounts has dabeet+priyanka, rishi_sync has 2 rows
+  [DONE] Class 6 bug fix — CHAP_ID, goPractice/goExam links, SVGs patched 19 May
   [P2] YouTube video embed (one per chapter — Arindam picks URL, Claude wires)
-  [P3] Practice pages verification + Class 6 quality check
-  [FUTURE] ICSE / WBBSE
+  [P3] Practice pages verification (CBSE classes 7/8/9)
+  [ICSE-NEXT] Run build_icse_class7.py --chapter integers → verify → --all → portal wiring
+  [ICSE-FUTURE] Classes 6, 8, 9 after Class 7 pilot complete
 
 | PORTAL STATUS
   index.html:             redirect to landing.html
