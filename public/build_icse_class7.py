@@ -506,10 +506,11 @@ def inject(template, ch, ai_data):
     # svgs block ([\s\S]*? handles semicolons inside SVG content)
     out, _ = re.subn(r'var svgs=\{[\s\S]*?\n\};', build_svgs(ai_data['questions']),
                      out, count=1)
-    # CHAP_ID (practice pages)
-    out = re.sub(r'var CHAP_ID=\d+;', f'var CHAP_ID={ch["id"]};', out, count=1)
+    # CHAP_ID (practice pages) — board-qualified string avoids collision with CBSE practice keys
+    out = re.sub(r'var CHAP_ID=\d+;', f"var CHAP_ID='ic7_{ch['id']}';", out, count=1)
     # ICSE pages are not gated by the CBSE parent-plan system
-    out = re.sub(r'rishiCheckPlan\(\d+\);', '', out, count=1)
+    # Match both literal rishiCheckPlan(1) and template's rishiCheckPlan(CHAP_ID)
+    out = re.sub(r'rishiCheckPlan\([^)]+\);', '', out, count=1)
     # Use board-qualified string IDs to avoid localStorage collision with CBSE chapters
     # e.g. integers (id=1) uses 'ic7_1', not 1 — so "rishi_explain_done_ic7_1" is unique
     icse_id = f"'ic7_{ch['id']}'"
@@ -522,6 +523,29 @@ def inject(template, ch, ai_data):
     out = out.replace(
         'initVoices(function(){startLesson();});',
         'initVoices(function(){});'
+    )
+    # pagehide fires on mobile/Safari when tab is backgrounded — beforeunload alone misses it
+    out = out.replace(
+        'window.addEventListener("beforeunload",function(){stopAllAudio();});',
+        'window.addEventListener("beforeunload",function(){stopAllAudio();});window.addEventListener("pagehide",function(){stopAllAudio();});'
+    )
+    # Add macOS system voices to pickVoice keyword list
+    out = out.replace(
+        '"heera","veena","priya","raveena","female","woman","zira","samantha","victoria","karen"',
+        '"heera","veena","priya","raveena","female","woman","zira","samantha","victoria","karen","moira","tessa","fiona"'
+    )
+    # Add autocomplete="off" so mobile keyboards don't suggest answers
+    out = out.replace(
+        'id="rawAnswer" class="math-raw" rows="2" placeholder=',
+        'id="rawAnswer" class="math-raw" rows="2" autocomplete="off" placeholder='
+    )
+    # goExam gate: require practice 5-streak before exam (explain-only completes explain, not practice)
+    icse_id_str = f"'ic7_{ch['id']}'"
+    practice_gate = f"if(!rishiIsPracticeDone({icse_id_str})){{alert('Complete Practice with 5 in a row first!');return;}}"
+    out = re.sub(
+        r'(function goExam\(\)\{if\(!completed\)\{[^}]+\})(location\.href=)',
+        lambda m: m.group(1) + practice_gate + m.group(2),
+        out, count=1
     )
     # goPractice URL
     out = re.sub(

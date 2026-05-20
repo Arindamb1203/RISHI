@@ -176,13 +176,13 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 </div>
 <script>
 var voicesReady=false,selectedVoice=null,elAudio=null;
-function pickVoice(){var vs=window.speechSynthesis.getVoices();if(!vs||vs.length===0)return false;var fk=["heera","veena","priya","raveena","female","woman","zira","samantha","victoria","karen"];for(var i=0;i<vs.length;i++){if(vs[i].lang.toLowerCase().indexOf("en-in")===0){var n=vs[i].name.toLowerCase();for(var k=0;k<fk.length;k++){if(n.indexOf(fk[k])>=0){selectedVoice=vs[i];return true;}}}}for(var i=0;i<vs.length;i++){if(vs[i].lang.toLowerCase().indexOf("en")===0){var n=vs[i].name.toLowerCase();for(var k=0;k<fk.length;k++){if(n.indexOf(fk[k])>=0){selectedVoice=vs[i];return true;}}}}return false;}
+function pickVoice(){var vs=window.speechSynthesis.getVoices();if(!vs||vs.length===0)return false;var fk=["heera","veena","priya","raveena","female","woman","zira","samantha","victoria","karen","moira","tessa","fiona"];for(var i=0;i<vs.length;i++){if(vs[i].lang.toLowerCase().indexOf("en-in")===0){var n=vs[i].name.toLowerCase();for(var k=0;k<fk.length;k++){if(n.indexOf(fk[k])>=0){selectedVoice=vs[i];return true;}}}}for(var i=0;i<vs.length;i++){if(vs[i].lang.toLowerCase().indexOf("en")===0){var n=vs[i].name.toLowerCase();for(var k=0;k<fk.length;k++){if(n.indexOf(fk[k])>=0){selectedVoice=vs[i];return true;}}}}return false;}
 function initVoices(cb){if(pickVoice()){voicesReady=true;cb();return;}window.speechSynthesis.onvoiceschanged=function(){window.speechSynthesis.onvoiceschanged=null;pickVoice();voicesReady=true;cb();};setTimeout(function(){if(!voicesReady){pickVoice();voicesReady=true;cb();}},2000);}
 function stopAllAudio(){if(elAudio){try{elAudio.pause();elAudio.src="";}catch(x){}elAudio=null;}if(window.speechSynthesis)window.speechSynthesis.cancel();}
 function sayBrowser(text,onEnd){if(!window.speechSynthesis)return;window.speechSynthesis.cancel();rStartTalk(text.length);var u=new SpeechSynthesisUtterance(text);u.lang="en-IN";u.rate=0.88;u.pitch=1.15;if(selectedVoice)u.voice=selectedVoice;u.onend=function(){rStopTalk();if(onEnd)onEnd();};u.onerror=function(){rStopTalk();if(onEnd)onEnd();};window.speechSynthesis.speak(u);}
 function say(text,onEnd){stopAllAudio();rStartTalk(text.length);fetch("/tts",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({text:text})}).then(function(res){if(!res.ok)throw new Error("TTS "+res.status);return res.blob();}).then(function(blob){var url=URL.createObjectURL(blob);elAudio=new Audio(url);elAudio.onended=function(){URL.revokeObjectURL(url);elAudio=null;rStopTalk();if(onEnd)onEnd();};elAudio.onerror=function(){URL.revokeObjectURL(url);elAudio=null;rStopTalk();if(onEnd)onEnd();};var p=elAudio.play();if(p&&p.catch){p.catch(function(){URL.revokeObjectURL(url);elAudio=null;sayBrowser(text,onEnd);});}}).catch(function(err){sayBrowser(text,onEnd);});}
 function sayEl(id){var e=G(id);if(e)say(e.innerText||e.textContent);}
-window.addEventListener("beforeunload",function(){stopAllAudio();});
+window.addEventListener("beforeunload",function(){stopAllAudio();});window.addEventListener("pagehide",function(){stopAllAudio();});
 var mouthTmr=null,blinkTmr=null,mOpen=false;
 function rInit(){var c=G("rChar");if(c)c.style.animation="rIn .6s cubic-bezier(.34,1.56,.64,1) forwards";scheduleBlink();}
 function scheduleBlink(){blinkTmr=setTimeout(function(){rBlink();scheduleBlink();},2200+Math.random()*3000);}
@@ -374,7 +374,7 @@ function showConfirm(){if(confirmShown)return;confirmShown=true;
   var q=session[idx];var c=document.createElement("div");c.className="confirm-wrap";
   c.innerHTML='<div class="confirm-title">&#127917; Rishika asks!</div>'
     +'<div class="confirm-q">'+q.cq+'</div>'
-    +'<textarea id="rawAnswer" class="math-raw" rows="2" placeholder="Type your answer here..."></textarea>'
+    +'<textarea id="rawAnswer" class="math-raw" rows="2" autocomplete="off" placeholder="Type your answer here..."></textarea>'
     +'<div class="math-preview-label">Preview</div>'
     +'<div class="math-preview" id="mathPreview"></div>'
     +'<div class="sugg-chips" id="suggChips"></div>'
@@ -404,7 +404,7 @@ function onComplete(){
   G("qArea").appendChild(cel);setTimeout(function(){sayEl("celText");rHappy();},400);
 }
 function goPractice(){if(!completed){alert("Complete explanations first!");return;}location.href="/practice/icse/class7/arithmetic/integers.html";}
-function goExam(){if(!completed){alert("Complete explanations first!");return;}location.href="/exam.html?ch=ic7-01";}
+function goExam(){if(!completed){alert("Complete explanations first!");return;}if(!rishiIsPracticeDone('ic7_1')){alert('Complete Practice with 5 in a row first!');return;}location.href="/exam.html?ch=ic7-01";}
 var CELEBRATIONS=[{word:"Magnifique!",lang:"French",meaning:"Magnificent!",speak:"Magnifique"},{word:"Bravissimo!",lang:"Italian",meaning:"Very well done!",speak:"Bravissimo"},{word:"Wunderbar!",lang:"German",meaning:"Wonderful!",speak:"Wunderbar"},{word:"Shabash!",lang:"Hindi",meaning:"Well done!",speak:"Shabash"},{word:"Felicitaciones!",lang:"Spanish",meaning:"Congratulations!",speak:"Felicitaciones"}];
 var lastCelIdx=-1;
 function celebrate(){var i;do{i=Math.floor(Math.random()*CELEBRATIONS.length);}while(i===lastCelIdx&&CELEBRATIONS.length>1);lastCelIdx=i;var c=CELEBRATIONS[i];var rb=G("rbox");rb.className="result-box ok";rb.innerHTML='<div style="font-size:18px;font-weight:900;">'+c.word+'</div><div style="font-size:11px;">'+c.lang+' &middot; <em>'+c.meaning+'</em></div>';G("nudgeBox").classList.remove("show");var nb=G("btnNext");if(nb)nb.classList.add("show");say(c.speak);rHappy();}
