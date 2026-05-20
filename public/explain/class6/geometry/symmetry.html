@@ -337,7 +337,7 @@ var ANIM_PLAYS={};
 QB.forEach(function(q){ANIM_PLAYS[q.id]=makeAnimPlay(q.id,q.steps,q.ans[0]);});
 function getAnimPlay(t){return ANIM_PLAYS[t]||function(done){done();};}
 
-var atTimers=[],session=[],idx=0,stepIdx=0,nudgeCount=0,completed=false,breakSecs=0,breakTmr=null,PER_SESSION=10;
+var atTimers=[],session=[],idx=0,stepIdx=0,nudgeCount=0,completed=false,confirmShown=false,breakSecs=0,breakTmr=null,PER_SESSION=10;
 function G(id){return document.getElementById(id);}
 function clearAt(){for(var i=0;i<atTimers.length;i++)clearTimeout(atTimers[i]);atTimers=[];}
 function at(ms,fn){atTimers.push(setTimeout(fn,ms));}
@@ -389,7 +389,7 @@ function showConfirm(){if(confirmShown)return;confirmShown=true;
   buildSuggChips(q.ans);say(q.cqs);
 }
 function submitTyped(){var ra=G("rawAnswer");if(!ra)return;var val=String(ra.value||"").trim();if(!val){ra.focus();return;}handleAnswer(val.toLowerCase());}
-function goNext(){idx++;G("qArea").innerHTML="";showQ();window.scrollTo({top:0,behavior:"smooth"});}
+function goNext(){confirmShown=false;idx++;G("qArea").innerHTML="";showQ();window.scrollTo({top:0,behavior:"smooth"});}
 function updateProg(){var pct=Math.round((idx/PER_SESSION)*100);G("progFill").style.width=pct+"%";G("progLabel").textContent="Question "+(idx+1)+" of "+PER_SESSION;G("progPct").textContent=pct+"%";}
 function unlockNav(){G("btnPractice").classList.remove("locked");G("btnExam").classList.remove("locked");G("lockTip").style.display="none";}
 function onComplete(){
@@ -400,7 +400,7 @@ function onComplete(){
   var cel=document.createElement("div");cel.className="rishika-wrap";
   cel.innerHTML='<div class="rishika-avatar">&#128105;&#8205;&#127979;</div>'
     +'<div class="rishika-bubble"><div class="rishika-name">Rishika</div>'
-    +'<div class="rishika-text" id="celText">&#127881; <span class="hl">'+nm+'</span>, Fantastic work! You&#39;ve mastered Working with Fractions! 🎉</div>'
+    +'<div class="rishika-text" id="celText">&#127881; <span class="hl">'+nm+'</span>, Fantastic work! You&#39;ve mastered Symmetry! 🎉</div>'
     +'<button class="btn-speak" onclick="sayEl(\'celText\')">&#128266; Hear</button></div>';
   G("qArea").appendChild(cel);setTimeout(function(){sayEl("celText");rHappy();},400);
 }

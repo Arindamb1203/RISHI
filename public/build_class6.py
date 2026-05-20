@@ -201,6 +201,9 @@ def gen_explain(client, ch):
         EXPLAIN_USER.format(name=ch['name'],topic=ch['topic'],concepts=ch['concepts'],emoji=ch['emoji']))
     if len(data.get('questions',[])) < 8:
         raise ValueError(f"Only {len(data.get('questions',[]))} explain questions returned")
+    for q in data.get('questions', []):
+        if len(q.get('steps', [])) > 3:
+            q['steps'] = q['steps'][:3]
     return data
 
 # ═══════════════════════════════════════════════════════════════
@@ -243,6 +246,9 @@ def gen_practice(client, ch):
         PRACTICE_USER.format(name=ch['name'],topic=ch['topic'],concepts=ch['concepts'],emoji=ch['emoji']))
     if len(data.get('questions',[])) < 8:
         raise ValueError(f"Only {len(data.get('questions',[]))} practice questions returned")
+    for q in data.get('questions', []):
+        if len(q.get('steps', [])) > 3:
+            q['steps'] = q['steps'][:3]
     return data
 
 # ═══════════════════════════════════════════════════════════════
@@ -401,6 +407,24 @@ def inject(template, ch, ai_data):
     out = re.sub(
         r'location\.href="/exam\.html\?ch=c7-[^"]+"',
         f'location.href="/exam.html?ch=c6-{ch["id"]:02d}"',
+        out, count=1
+    )
+    # Fix confirmShown: not declared → follow-up question silently skipped after q1
+    out = re.sub(
+        r'(completed=false,)(breakSecs)',
+        r'\1confirmShown=false,\2',
+        out, count=1
+    )
+    # Fix confirmShown: not reset between questions → goNext never clears it
+    out = re.sub(
+        r'(function goNext\(\)\{)(idx\+\+)',
+        r'\1confirmShown=false;\2',
+        out, count=1
+    )
+    # Fix completion message (template hardcodes "Working with Fractions")
+    out = re.sub(
+        r"You&#39;ve mastered [^<]+!",
+        f"You&#39;ve mastered {ch['name']}!",
         out, count=1
     )
     return out

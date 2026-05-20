@@ -270,7 +270,7 @@ id:"q7",
 q:"Verify associative property for addition: (&minus;2 &plus; 3) &plus; 4 and &minus;2 &plus; (3 &plus; 4).",
 qs:"Verify associative property for addition: open bracket minus two plus three close bracket plus four and minus two plus open bracket three plus four close bracket",
 anim:"q7",
-steps:[{"t": "Calculate (&minus;2 &plus; 3) = 1", "s": "Calculate minus two plus three equals one"}, {"t": "Then 1 &plus; 4 = 5", "s": "Then one plus four equals five"}, {"t": "Calculate (3 &plus; 4) = 7 and &minus;2 &plus; 7 = 5", "s": "Calculate three plus four equals seven and minus two plus seven equals five"}, {"t": "Both results are equal, so associative property holds", "s": "Both results are equal, so associative property holds"}],
+steps:[{"t": "Calculate (&minus;2 &plus; 3) = 1", "s": "Calculate minus two plus three equals one"}, {"t": "Then 1 &plus; 4 = 5", "s": "Then one plus four equals five"}, {"t": "Calculate (3 &plus; 4) = 7 and &minus;2 &plus; 7 = 5, so both equal 5", "s": "Calculate three plus four equals seven and minus two plus seven equals five, so both equal five"}],
 cq:"Check associative property for multiplication: (&minus;1 &times; 2) &times; 3 and &minus;1 &times; (2 &times; 3).",
 cqs:"Check associative property for multiplication: open bracket minus one multiplied by two close bracket multiplied by three and minus one multiplied by open bracket two multiplied by three close bracket",
 ans:["Both expressions equal 5, associative property holds"],
@@ -337,7 +337,7 @@ var ANIM_PLAYS={};
 QB.forEach(function(q){ANIM_PLAYS[q.id]=makeAnimPlay(q.id,q.steps,q.ans[0]);});
 function getAnimPlay(t){return ANIM_PLAYS[t]||function(done){done();};}
 
-var atTimers=[],session=[],idx=0,stepIdx=0,nudgeCount=0,completed=false,breakSecs=0,breakTmr=null,PER_SESSION=10;
+var atTimers=[],session=[],idx=0,stepIdx=0,nudgeCount=0,completed=false,confirmShown=false,breakSecs=0,breakTmr=null,PER_SESSION=10;
 function G(id){return document.getElementById(id);}
 function clearAt(){for(var i=0;i<atTimers.length;i++)clearTimeout(atTimers[i]);atTimers=[];}
 function at(ms,fn){atTimers.push(setTimeout(fn,ms));}
@@ -389,7 +389,7 @@ function showConfirm(){if(confirmShown)return;confirmShown=true;
   buildSuggChips(q.ans);say(q.cqs);
 }
 function submitTyped(){var ra=G("rawAnswer");if(!ra)return;var val=String(ra.value||"").trim();if(!val){ra.focus();return;}handleAnswer(val.toLowerCase());}
-function goNext(){idx++;G("qArea").innerHTML="";showQ();window.scrollTo({top:0,behavior:"smooth"});}
+function goNext(){confirmShown=false;idx++;G("qArea").innerHTML="";showQ();window.scrollTo({top:0,behavior:"smooth"});}
 function updateProg(){var pct=Math.round((idx/PER_SESSION)*100);G("progFill").style.width=pct+"%";G("progLabel").textContent="Question "+(idx+1)+" of "+PER_SESSION;G("progPct").textContent=pct+"%";}
 function unlockNav(){G("btnPractice").classList.remove("locked");G("btnExam").classList.remove("locked");G("lockTip").style.display="none";}
 function onComplete(){
@@ -400,7 +400,7 @@ function onComplete(){
   var cel=document.createElement("div");cel.className="rishika-wrap";
   cel.innerHTML='<div class="rishika-avatar">&#128105;&#8205;&#127979;</div>'
     +'<div class="rishika-bubble"><div class="rishika-name">Rishika</div>'
-    +'<div class="rishika-text" id="celText">&#127881; <span class="hl">'+nm+'</span>, Fantastic work! You&#39;ve mastered Working with Fractions! 🎉</div>'
+    +'<div class="rishika-text" id="celText">&#127881; <span class="hl">'+nm+'</span>, Fantastic work! You&#39;ve mastered Integers! 🎉</div>'
     +'<button class="btn-speak" onclick="sayEl(\'celText\')">&#128266; Hear</button></div>';
   G("qArea").appendChild(cel);setTimeout(function(){sayEl("celText");rHappy();},400);
 }

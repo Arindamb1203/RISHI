@@ -22,16 +22,16 @@ from pathlib import Path
 PUBLIC = Path(__file__).parent.resolve()
 
 CHAPTERS = [
-    {'id':1, 'slug':'patterns-in-mathematics',        'topic':'arithmetic'},
-    {'id':2, 'slug':'lines-and-angles',                'topic':'geometry'},
-    {'id':3, 'slug':'number-play',                     'topic':'arithmetic'},
-    {'id':4, 'slug':'data-handling-and-presentation',  'topic':'data-handling'},
-    {'id':5, 'slug':'prime-time',                      'topic':'arithmetic'},
-    {'id':6, 'slug':'perimeter-and-area',               'topic':'mensuration'},
-    {'id':7, 'slug':'fractions',                        'topic':'arithmetic'},
-    {'id':8, 'slug':'playing-with-constructions',       'topic':'geometry'},
-    {'id':9, 'slug':'symmetry',                         'topic':'geometry'},
-    {'id':10,'slug':'the-other-side-of-zero',           'topic':'arithmetic'},
+    {'id':1, 'slug':'patterns-in-mathematics',        'topic':'arithmetic',    'name':'Patterns in Mathematics'},
+    {'id':2, 'slug':'lines-and-angles',                'topic':'geometry',      'name':'Lines and Angles'},
+    {'id':3, 'slug':'number-play',                     'topic':'arithmetic',    'name':'Number Play'},
+    {'id':4, 'slug':'data-handling-and-presentation',  'topic':'data-handling', 'name':'Data Handling and Presentation'},
+    {'id':5, 'slug':'prime-time',                      'topic':'arithmetic',    'name':'Prime Time'},
+    {'id':6, 'slug':'perimeter-and-area',               'topic':'mensuration',   'name':'Perimeter and Area'},
+    {'id':7, 'slug':'fractions',                        'topic':'arithmetic',    'name':'Fractions'},
+    {'id':8, 'slug':'playing-with-constructions',       'topic':'geometry',      'name':'Playing with Constructions'},
+    {'id':9, 'slug':'symmetry',                         'topic':'geometry',      'name':'Symmetry'},
+    {'id':10,'slug':'the-other-side-of-zero',           'topic':'arithmetic',    'name':'The Other Side of Zero'},
 ]
 BY_SLUG = {c['slug']: c for c in CHAPTERS}
 
@@ -116,7 +116,25 @@ def fix_explain(path, ch):
         changes.append(f'goExam -> {exam_url}')
         html = new
 
-    # 4. Rebuild var svgs={} from QB anim_svg fields
+    # 4. Fix confirmShown: not declared → follow-up skipped after q1
+    new = re.sub(r'(completed=false,)(breakSecs)', r'\1confirmShown=false,\2', html, count=1)
+    if new != html:
+        changes.append('confirmShown declared')
+        html = new
+
+    # 5. Fix confirmShown: not reset in goNext → only q1 ever shows confirm
+    new = re.sub(r'(function goNext\(\)\{)(idx\+\+)', r'\1confirmShown=false;\2', html, count=1)
+    if new != html:
+        changes.append('confirmShown reset in goNext')
+        html = new
+
+    # 6. Fix completion message (template hardcodes "Working with Fractions")
+    new = re.sub(r"You&#39;ve mastered [^<]+!", f"You&#39;ve mastered {ch['name']}!", html, count=1)
+    if new != html:
+        changes.append(f'completion message -> {ch["name"]}')
+        html = new
+
+    # 7. Rebuild var svgs={} from QB anim_svg fields
     new_svgs = extract_svgs_from_qb(html)
     if new_svgs:
         new = re.sub(r'var svgs=\{[\s\S]*?\r?\n\};', new_svgs, html, count=1)
