@@ -195,144 +195,144 @@ function rThink(){setTimeout(rStopTalk,1800);}
 var QB=[
 {
 id:"q1",
-q:"Calculate: &minus;7 &plus; 12",
-qs:"Calculate minus seven plus twelve",
+q:"Calculate: <span class='hl'>7 &plus; ( &minus; 3 )</span>",
+qs:"Calculate seven plus negative three.",
 anim:"q1",
-steps:[{"t": "Start from &minus;7 on the number line", "s": "Start from minus seven on the number line"}, {"t": "Move 12 steps to the right", "s": "Move twelve steps to the right"}, {"t": "You reach 5, so &minus;7 &plus; 12 = 5", "s": "You reach five, so minus seven plus twelve equals five"}],
-cq:"What is &minus;7 &plus; &minus;12?",
-cqs:"What is minus seven plus minus twelve",
-ans:["5"],
-nudges:["Remember moving right means adding positive numbers", "Moving left means adding negative numbers", "Try counting steps carefully on the number line"],
-anim_svg:"<g id=\"q1s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Start at minus seven</text></g><g id=\"q1s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Move twelve steps right</text></g><g id=\"q1s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Result is five</text></g><g id=\"q1ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">5</text></g>"
+steps:[{"t": "Rewrite as 7 &minus; 3", "s": "Rewrite as seven minus three."}, {"t": "Calculate 7 &minus; 3 = 4", "s": "Calculate seven minus three equals four."}, {"t": "Answer is 4", "s": "Answer is four."}],
+cq:"What is <span class='hl'>( &minus; 5 ) &plus; 9</span>?",
+cqs:"What is negative five plus nine?",
+ans:["4"],
+nudges:["Remember adding a negative number is like subtraction.", "Try rewriting the sum as subtraction.", "7 plus negative 3 equals 4."],
+anim_svg:"<g id=\"q1s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Rewrite addition of negative as subtraction</text></g><g id=\"q1s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Subtract the numbers</text></g><g id=\"q1s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Final answer</text></g><g id=\"q1ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">4</text></g>"
 },
 {
 id:"q2",
-q:"Find: 15 &minus; (&minus;9)",
-qs:"Find fifteen minus minus nine",
+q:"Find: <span class='hl'>( &minus; 8 ) &minus; ( &minus; 5 )</span>",
+qs:"Find negative eight minus negative five.",
 anim:"q2",
-steps:[{"t": "Subtracting a negative is same as adding positive", "s": "Subtracting a negative is same as adding positive"}, {"t": "So, 15 &minus; (&minus;9) = 15 &plus; 9", "s": "So, fifteen minus minus nine equals fifteen plus nine"}, {"t": "15 &plus; 9 = 24", "s": "Fifteen plus nine equals twenty four"}],
-cq:"Calculate &minus;8 &minus; (&minus;3)",
-cqs:"Calculate minus eight minus minus three",
-ans:["24"],
-nudges:["Remember minus minus becomes plus", "Change subtraction of negative to addition", "Add the numbers after changing signs"],
-anim_svg:"<g id=\"q2s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Minus minus equals plus</text></g><g id=\"q2s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Change to addition</text></g><g id=\"q2s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Add the numbers</text></g><g id=\"q2ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">24</text></g>"
+steps:[{"t": "Rewrite as ( &minus; 8 ) &plus; 5", "s": "Rewrite as negative eight plus five."}, {"t": "Calculate &minus;8 &plus; 5 = &minus;3", "s": "Calculate negative eight plus five equals negative three."}, {"t": "Answer is &minus;3", "s": "Answer is negative three."}],
+cq:"What is ( &minus; 6 ) &minus; 4?",
+cqs:"What is negative six minus four?",
+ans:["-3"],
+nudges:["Subtracting a negative is same as adding positive.", "Change the minus sign before negative five to plus.", "Negative eight plus five equals negative three."],
+anim_svg:"<g id=\"q2s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Change minus negative to plus positive</text></g><g id=\"q2s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Add the integers</text></g><g id=\"q2s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Final answer</text></g><g id=\"q2ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">-3</text></g>"
 },
 {
 id:"q3",
-q:"Calculate: &minus;4 &times; 6",
-qs:"Calculate minus four multiplied by six",
+q:"Calculate: <span class='hl'>( &minus; 4 ) &times; 6</span>",
+qs:"Calculate negative four multiplied by six.",
 anim:"q3",
-steps:[{"t": "Multiply absolute values: 4 &times; 6 = 24", "s": "Multiply absolute values: four times six equals twenty four"}, {"t": "Since one number is negative, product is negative", "s": "Since one number is negative, product is negative"}, {"t": "Answer is &minus;24", "s": "Answer is minus twenty four"}],
-cq:"Find &minus;7 &times; &minus;3",
-cqs:"Find minus seven multiplied by minus three",
+steps:[{"t": "Multiply 4 &times; 6 = 24", "s": "Multiply four times six equals twenty four."}, {"t": "Sign rule: negative &times; positive = negative", "s": "Negative times positive equals negative."}, {"t": "Answer is &minus;24", "s": "Answer is negative twenty four."}],
+cq:"What is ( &minus; 7 ) &times; ( &minus; 3 )?",
+cqs:"What is negative seven multiplied by negative three?",
 ans:["-24"],
-nudges:["Multiply absolute values first", "Check signs: one negative means product negative", "Two negatives multiplied give positive"],
-anim_svg:"<g id=\"q3s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Multiply absolute values</text></g><g id=\"q3s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Check signs for product</text></g><g id=\"q3s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Final product sign</text></g><g id=\"q3ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">&minus;24</text></g>"
+nudges:["Multiply absolute values first.", "Remember negative times positive is negative.", "Answer is negative twenty four."],
+anim_svg:"<g id=\"q3s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Multiply absolute values</text></g><g id=\"q3s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Apply sign rules</text></g><g id=\"q3s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Final answer</text></g><g id=\"q3ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">-24</text></g>"
 },
 {
 id:"q4",
-q:"Calculate: &minus;36 &divide; 6",
-qs:"Calculate minus thirty six divided by six",
+q:"Find: <span class='hl'>( &minus; 18 ) &divide; 3</span>",
+qs:"Find negative eighteen divided by three.",
 anim:"q4",
-steps:[{"t": "Divide absolute values: 36 &divide; 6 = 6", "s": "Divide absolute values: thirty six divided by six equals six"}, {"t": "Since numerator is negative and denominator positive, quotient is negative", "s": "Since numerator is negative and denominator positive, quotient is negative"}, {"t": "Answer is &minus;6", "s": "Answer is minus six"}],
-cq:"Find &minus;45 &divide; &minus;9",
-cqs:"Find minus forty five divided by minus nine",
+steps:[{"t": "Divide 18 &divide; 3 = 6", "s": "Divide eighteen by three equals six."}, {"t": "Sign rule: negative &divide; positive = negative", "s": "Negative divided by positive equals negative."}, {"t": "Answer is &minus;6", "s": "Answer is negative six."}],
+cq:"What is ( &minus; 20 ) &divide; ( &minus; 4 )?",
+cqs:"What is negative twenty divided by negative four?",
 ans:["-6"],
-nudges:["Divide absolute values first", "Check signs: different signs mean negative quotient", "Same signs mean positive quotient"],
-anim_svg:"<g id=\"q4s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Divide absolute values</text></g><g id=\"q4s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Check signs for quotient</text></g><g id=\"q4s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Final quotient sign</text></g><g id=\"q4ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">&minus;6</text></g>"
+nudges:["Divide absolute values first.", "Negative divided by positive is negative.", "Answer is negative six."],
+anim_svg:"<g id=\"q4s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Divide absolute values</text></g><g id=\"q4s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Apply sign rules</text></g><g id=\"q4s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Final answer</text></g><g id=\"q4ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">-6</text></g>"
 },
 {
 id:"q5",
-q:"Is the set of integers closed under addition? Explain with example.",
-qs:"Is the set of integers closed under addition? Explain with example",
+q:"Which property is shown by: <span class='hl'>3 &plus; 5 = 5 &plus; 3</span>?",
+qs:"Which property is shown by three plus five equals five plus three?",
 anim:"q5",
-steps:[{"t": "Closure means sum of two integers is always an integer", "s": "Closure means sum of two integers is always an integer"}, {"t": "Example: 3 &plus; (&minus;5) = &minus;2, which is an integer", "s": "Example: three plus minus five equals minus two, which is an integer"}, {"t": "So integers are closed under addition", "s": "So integers are closed under addition"}],
-cq:"Is the set of integers closed under division? Explain.",
-cqs:"Is the set of integers closed under division? Explain",
-ans:["Yes, integers are closed under addition"],
-nudges:["Think about sum of two integers", "Check if result is always integer", "Use example with positive and negative numbers"],
-anim_svg:"<g id=\"q5s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Closure means sum stays integer</text></g><g id=\"q5s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Example: 3 plus minus 5 equals minus 2</text></g><g id=\"q5s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Result is integer, so closed</text></g><g id=\"q5ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Yes, integers are closed under addition</text></g>"
+steps:[{"t": "Check if order changes sum", "s": "Check if changing order changes sum."}, {"t": "Sum remains 8 in both cases", "s": "Sum is eight both ways."}, {"t": "This is the commutative property of addition", "s": "This shows commutative property of addition."}],
+cq:"Is multiplication commutative? Is 4 &times; 7 = 7 &times; 4?",
+cqs:"Is multiplication commutative? Is four times seven equal to seven times four?",
+ans:["Commutative property"],
+nudges:["Try swapping the numbers and see if result changes.", "If sum or product stays same, it is commutative.", "Addition and multiplication are commutative."],
+anim_svg:"<g id=\"q5s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Check order of numbers</text></g><g id=\"q5s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Compare sums</text></g><g id=\"q5s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Identify property</text></g><g id=\"q5ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Commutative property</text></g>"
 },
 {
 id:"q6",
-q:"Show that addition of integers is commutative using 8 and &minus;3.",
-qs:"Show that addition of integers is commutative using eight and minus three",
+q:"Find the absolute value of <span class='hl'>( &minus; 15 )</span>",
+qs:"Find the absolute value of negative fifteen.",
 anim:"q6",
-steps:[{"t": "Calculate 8 &plus; (&minus;3) = 5", "s": "Calculate eight plus minus three equals five"}, {"t": "Calculate &minus;3 &plus; 8 = 5", "s": "Calculate minus three plus eight equals five"}, {"t": "Since both are equal, addition is commutative", "s": "Since both are equal, addition is commutative"}],
-cq:"Show multiplication of integers is commutative using &minus;4 and 7.",
-cqs:"Show multiplication of integers is commutative using minus four and seven",
-ans:["Addition is commutative as both sums equal 5"],
-nudges:["Add numbers in both orders", "Compare results", "If equal, commutative property holds"],
-anim_svg:"<g id=\"q6s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Calculate 8 plus minus 3</text></g><g id=\"q6s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Calculate minus 3 plus 8</text></g><g id=\"q6s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Both sums equal 5</text></g><g id=\"q6ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Addition is commutative as both sums equal 5</text></g>"
+steps:[{"t": "Absolute value means distance from zero", "s": "Absolute value means distance from zero."}, {"t": "Distance of &minus;15 from zero is 15", "s": "Distance of negative fifteen from zero is fifteen."}, {"t": "Answer is 15", "s": "Answer is fifteen."}],
+cq:"What is absolute value of 9?",
+cqs:"What is absolute value of nine?",
+ans:["15"],
+nudges:["Ignore the negative sign for absolute value.", "Think of number line distance from zero.", "Absolute value of negative fifteen is fifteen."],
+anim_svg:"<g id=\"q6s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Absolute value means distance</text></g><g id=\"q6s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Distance from zero</text></g><g id=\"q6s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Final absolute value</text></g><g id=\"q6ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">15</text></g>"
 },
 {
 id:"q7",
-q:"Verify associative property for addition: (&minus;2 &plus; 3) &plus; 4 and &minus;2 &plus; (3 &plus; 4).",
-qs:"Verify associative property for addition: open bracket minus two plus three close bracket plus four and minus two plus open bracket three plus four close bracket",
+q:"On a number line, which integer is greater: <span class='hl'>( &minus; 2 ) or ( &minus; 5 )</span>?",
+qs:"On a number line, which integer is greater: negative two or negative five?",
 anim:"q7",
-steps:[{"t": "Calculate (&minus;2 &plus; 3) = 1", "s": "Calculate minus two plus three equals one"}, {"t": "Then 1 &plus; 4 = 5", "s": "Then one plus four equals five"}, {"t": "Calculate (3 &plus; 4) = 7 and &minus;2 &plus; 7 = 5, so both equal 5", "s": "Calculate three plus four equals seven and minus two plus seven equals five, so both equal five"}],
-cq:"Check associative property for multiplication: (&minus;1 &times; 2) &times; 3 and &minus;1 &times; (2 &times; 3).",
-cqs:"Check associative property for multiplication: open bracket minus one multiplied by two close bracket multiplied by three and minus one multiplied by open bracket two multiplied by three close bracket",
-ans:["Both expressions equal 5, associative property holds"],
-nudges:["Calculate inside brackets first", "Add or multiply results", "Compare final answers"],
-anim_svg:"<g id=\"q7s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Calculate minus two plus three</text></g><g id=\"q7s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Add four to result</text></g><g id=\"q7s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Calculate other bracket and add</text></g><g id=\"q7ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Both expressions equal 5, associative property holds</text></g>"
+steps:[{"t": "Locate &minus;2 and &minus;5 on number line", "s": "Locate negative two and negative five on number line."}, {"t": "&minus;2 is to the right of &minus;5", "s": "Negative two is to the right of negative five."}, {"t": "Number to the right is greater, so &minus;2 is greater", "s": "Number to the right is greater, so negative two is greater."}],
+cq:"Which is smaller: 3 or &minus;1?",
+cqs:"Which is smaller: three or negative one?",
+ans:["-2"],
+nudges:["Remember numbers on right are greater on number line.", "Negative two is closer to zero than negative five.", "Negative two is greater than negative five."],
+anim_svg:"<g id=\"q7s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Locate integers on number line</text></g><g id=\"q7s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Compare positions</text></g><g id=\"q7s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Right number is greater</text></g><g id=\"q7ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">-2</text></g>"
 },
 {
 id:"q8",
-q:"Use distributive property: Calculate 3 &times; (&minus;4 &plus; 5).",
-qs:"Use distributive property: calculate three multiplied by open bracket minus four plus five close bracket",
+q:"Verify if addition is associative: <span class='hl'>( 2 &plus; 3 ) &plus; 4 = 2 &plus; ( 3 &plus; 4 )</span>",
+qs:"Verify if addition is associative: open bracket two plus three close bracket plus four equals two plus open bracket three plus four close bracket.",
 anim:"q8",
-steps:[{"t": "Calculate inside bracket: &minus;4 &plus; 5 = 1", "s": "Calculate inside bracket: minus four plus five equals one"}, {"t": "Multiply 3 &times; 1 = 3", "s": "Multiply three times one equals three"}, {"t": "Using distributive property: 3 &times; &minus;4 + 3 &times; 5 = &minus;12 + 15 = 3", "s": "Using distributive property: three times minus four plus three times five equals minus twelve plus fifteen equals three"}],
-cq:"Calculate 4 &times; (6 &minus; 2) using distributive property.",
-cqs:"Calculate four multiplied by open bracket six minus two close bracket using distributive property",
-ans:["3"],
-nudges:["Calculate inside bracket first", "Multiply outside number with each term inside bracket", "Add the products"],
-anim_svg:"<g id=\"q8s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Calculate inside bracket</text></g><g id=\"q8s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Multiply outside number</text></g><g id=\"q8s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Add products</text></g><g id=\"q8ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">3</text></g>"
+steps:[{"t": "Calculate left side: ( 2 &plus; 3 ) &plus; 4 = 5 &plus; 4 = 9", "s": "Calculate left side: open bracket two plus three close bracket plus four equals five plus four equals nine."}, {"t": "Calculate right side: 2 &plus; ( 3 &plus; 4 ) = 2 &plus; 7 = 9", "s": "Calculate right side: two plus open bracket three plus four close bracket equals two plus seven equals nine."}, {"t": "Both sides equal 9, so addition is associative", "s": "Both sides equal nine, so addition is associative."}],
+cq:"Is multiplication associative? Check ( 2 &times; 3 ) &times; 4 and 2 &times; ( 3 &times; 4 )",
+cqs:"Is multiplication associative? Check open bracket two times three close bracket times four and two times open bracket three times four close bracket.",
+ans:["Associative property"],
+nudges:["Calculate both sides carefully.", "If both sides are equal, property holds.", "Addition and multiplication are associative."],
+anim_svg:"<g id=\"q8s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Calculate left side</text></g><g id=\"q8s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Calculate right side</text></g><g id=\"q8s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Compare results</text></g><g id=\"q8ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Associative property</text></g>"
 },
 {
 id:"q9",
-q:"Find the absolute value of &minus;15 and 9.",
-qs:"Find the absolute value of minus fifteen and nine",
+q:"Use distributive property to expand: <span class='hl'>3 &times; ( 4 &plus; 5 )</span>",
+qs:"Use distributive property to expand three times open bracket four plus five close bracket.",
 anim:"q9",
-steps:[{"t": "Absolute value means distance from zero on number line", "s": "Absolute value means distance from zero on number line"}, {"t": "Distance of &minus;15 from zero is 15", "s": "Distance of minus fifteen from zero is fifteen"}, {"t": "Distance of 9 from zero is 9", "s": "Distance of nine from zero is nine"}],
-cq:"What is the absolute value of &minus;7?",
-cqs:"What is the absolute value of minus seven",
-ans:["15", "9"],
-nudges:["Think how far numbers are from zero", "Ignore negative sign for absolute value", "Absolute value is always positive"],
-anim_svg:"<g id=\"q9s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Distance from zero</text></g><g id=\"q9s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Minus fifteen is 15 units away</text></g><g id=\"q9s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Nine is 9 units away</text></g><g id=\"q9ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">15 and 9</text></g>"
+steps:[{"t": "Multiply 3 &times; 4 = 12", "s": "Multiply three times four equals twelve."}, {"t": "Multiply 3 &times; 5 = 15", "s": "Multiply three times five equals fifteen."}, {"t": "Add results: 12 &plus; 15 = 27", "s": "Add results: twelve plus fifteen equals twenty seven."}],
+cq:"Expand 2 &times; ( 6 &minus; 3 )",
+cqs:"Expand two times open bracket six minus three close bracket.",
+ans:["27"],
+nudges:["Multiply 3 with each term inside bracket.", "Add the products.", "Answer is twenty seven."],
+anim_svg:"<g id=\"q9s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Multiply first term</text></g><g id=\"q9s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Multiply second term</text></g><g id=\"q9s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Add products</text></g><g id=\"q9ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">27</text></g>"
 },
 {
 id:"q10",
-q:"Evaluate using BODMAS: &minus;5 &plus; 3 &times; (&minus;2) &minus; 4 &divide; 2",
-qs:"Evaluate using BODMAS: minus five plus three multiplied by open bracket minus two close bracket minus four divided by two",
+q:"Evaluate using BODMAS: <span class='hl'>( &minus; 3 ) &times; ( 6 &plus; 2 ) &divide; 4</span>",
+qs:"Evaluate using BODMAS: open bracket negative three close bracket times open bracket six plus two close bracket divided by four.",
 anim:"q10",
-steps:[{"t": "First, multiply: 3 &times; &minus;2 = &minus;6", "s": "First, multiply: three times minus two equals minus six"}, {"t": "Next, divide: 4 &divide; 2 = 2", "s": "Next, divide: four divided by two equals two"}, {"t": "Now, calculate: &minus;5 &plus; &minus;6 &minus; 2 = &minus;13", "s": "Now, calculate: minus five plus minus six minus two equals minus thirteen"}],
-cq:"Evaluate: 8 &minus; 4 &times; 2 &plus; 6 &divide; 3 using BODMAS.",
-cqs:"Evaluate: eight minus four multiplied by two plus six divided by three using BODMAS",
-ans:["-13"],
-nudges:["Do multiplication and division first", "Then do addition and subtraction", "Follow order strictly"],
-anim_svg:"<g id=\"q10s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Multiply three and minus two</text></g><g id=\"q10s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Divide four by two</text></g><g id=\"q10s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Add and subtract results</text></g><g id=\"q10ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">&minus;13</text></g>"
+steps:[{"t": "Calculate inside bracket: 6 &plus; 2 = 8", "s": "Calculate inside bracket: six plus two equals eight."}, {"t": "Multiply: &minus;3 &times; 8 = &minus;24", "s": "Multiply: negative three times eight equals negative twenty four."}, {"t": "Divide: &minus;24 &divide; 4 = &minus;6", "s": "Divide: negative twenty four divided by four equals negative six."}],
+cq:"Evaluate ( 5 &minus; 3 ) &times ( &minus; 2 ) &plus; 4",
+cqs:"Evaluate open bracket five minus three close bracket times negative two plus four.",
+ans:["-6"],
+nudges:["First solve brackets.", "Then multiply and divide.", "Finally add or subtract."],
+anim_svg:"<g id=\"q10s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Solve inside brackets</text></g><g id=\"q10s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Multiply</text></g><g id=\"q10s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Divide and find final answer</text></g><g id=\"q10ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">-6</text></g>"
 }
 ];
 
 function getAnimSVG(t){
 var base='<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Nunito,sans-serif;background:#fffdf8"><rect width="420" height="178" fill="#fffdf8"/>';
 var svgs={
-"q1":base+"<g id=\"q1s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Start at minus seven</text></g><g id=\"q1s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Move twelve steps right</text></g><g id=\"q1s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Result is five</text></g><g id=\"q1ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">5</text></g>",
-"q2":base+"<g id=\"q2s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Minus minus equals plus</text></g><g id=\"q2s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Change to addition</text></g><g id=\"q2s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Add the numbers</text></g><g id=\"q2ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">24</text></g>",
-"q3":base+"<g id=\"q3s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Multiply absolute values</text></g><g id=\"q3s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Check signs for product</text></g><g id=\"q3s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Final product sign</text></g><g id=\"q3ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">&minus;24</text></g>",
-"q4":base+"<g id=\"q4s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Divide absolute values</text></g><g id=\"q4s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Check signs for quotient</text></g><g id=\"q4s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Final quotient sign</text></g><g id=\"q4ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">&minus;6</text></g>",
-"q5":base+"<g id=\"q5s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Closure means sum stays integer</text></g><g id=\"q5s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Example: 3 plus minus 5 equals minus 2</text></g><g id=\"q5s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Result is integer, so closed</text></g><g id=\"q5ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Yes, integers are closed under addition</text></g>",
-"q6":base+"<g id=\"q6s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Calculate 8 plus minus 3</text></g><g id=\"q6s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Calculate minus 3 plus 8</text></g><g id=\"q6s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Both sums equal 5</text></g><g id=\"q6ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Addition is commutative as both sums equal 5</text></g>",
-"q7":base+"<g id=\"q7s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Calculate minus two plus three</text></g><g id=\"q7s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Add four to result</text></g><g id=\"q7s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Calculate other bracket and add</text></g><g id=\"q7ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Both expressions equal 5, associative property holds</text></g>",
-"q8":base+"<g id=\"q8s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Calculate inside bracket</text></g><g id=\"q8s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Multiply outside number</text></g><g id=\"q8s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Add products</text></g><g id=\"q8ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">3</text></g>",
-"q9":base+"<g id=\"q9s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Distance from zero</text></g><g id=\"q9s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Minus fifteen is 15 units away</text></g><g id=\"q9s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Nine is 9 units away</text></g><g id=\"q9ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">15 and 9</text></g>",
-"q10":base+"<g id=\"q10s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Multiply three and minus two</text></g><g id=\"q10s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Divide four by two</text></g><g id=\"q10s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Add and subtract results</text></g><g id=\"q10ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">&minus;13</text></g>"
+"q1":base+"<g id=\"q1s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Rewrite addition of negative as subtraction</text></g><g id=\"q1s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Subtract the numbers</text></g><g id=\"q1s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Final answer</text></g><g id=\"q1ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">4</text></g>",
+"q2":base+"<g id=\"q2s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Change minus negative to plus positive</text></g><g id=\"q2s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Add the integers</text></g><g id=\"q2s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Final answer</text></g><g id=\"q2ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">-3</text></g>",
+"q3":base+"<g id=\"q3s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Multiply absolute values</text></g><g id=\"q3s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Apply sign rules</text></g><g id=\"q3s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Final answer</text></g><g id=\"q3ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">-24</text></g>",
+"q4":base+"<g id=\"q4s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Divide absolute values</text></g><g id=\"q4s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Apply sign rules</text></g><g id=\"q4s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Final answer</text></g><g id=\"q4ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">-6</text></g>",
+"q5":base+"<g id=\"q5s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Check order of numbers</text></g><g id=\"q5s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Compare sums</text></g><g id=\"q5s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Identify property</text></g><g id=\"q5ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Commutative property</text></g>",
+"q6":base+"<g id=\"q6s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Absolute value means distance</text></g><g id=\"q6s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Distance from zero</text></g><g id=\"q6s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Final absolute value</text></g><g id=\"q6ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">15</text></g>",
+"q7":base+"<g id=\"q7s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Locate integers on number line</text></g><g id=\"q7s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Compare positions</text></g><g id=\"q7s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Right number is greater</text></g><g id=\"q7ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">-2</text></g>",
+"q8":base+"<g id=\"q8s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Calculate left side</text></g><g id=\"q8s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Calculate right side</text></g><g id=\"q8s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Compare results</text></g><g id=\"q8ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Associative property</text></g>",
+"q9":base+"<g id=\"q9s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Multiply first term</text></g><g id=\"q9s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Multiply second term</text></g><g id=\"q9s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Add products</text></g><g id=\"q9ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">27</text></g>",
+"q10":base+"<g id=\"q10s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Solve inside brackets</text></g><g id=\"q10s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Multiply</text></g><g id=\"q10s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Divide and find final answer</text></g><g id=\"q10ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">-6</text></g>"
 };
 return svgs[t]||'<svg viewBox="0 0 420 178"><text x="210" y="89" text-anchor="middle" font-family="Nunito" font-size="14" fill="#5a4a30">Loading...</text></svg>';
 }
 
-function makeAnimPlay(id,steps,ansLabel){return function(done){setStatus("Solving step by step...");var delay=600;steps.forEach(function(s,i){var d=delay+i*2800;(function(ii,dd,ss){at(dd,function(){fade(id+"s"+ii,1);say(ss.s);});})(i,d,s);});at(delay+steps.length*2800,function(){fade(id+"ans",1);setStatus("Answer: "+ansLabel);at(2000,done);});};}
+function makeAnimPlay(id,steps,ansLabel){var gen=0;return function(done){var myGen=++gen;setStatus("Solving step by step...");function playStep(i){if(myGen!==gen)return;if(i>=steps.length){at(400,function(){if(myGen!==gen)return;fade(id+"ans",1);setStatus("Answer: "+ansLabel);at(2000,done);});return;}at(i===0?600:400,function(){if(myGen!==gen)return;fade(id+"s"+i,1);say(steps[i].s,function(){playStep(i+1);});});}playStep(0);}; }
 var ANIM_PLAYS={};
 QB.forEach(function(q){ANIM_PLAYS[q.id]=makeAnimPlay(q.id,q.steps,q.ans[0]);});
 function getAnimPlay(t){return ANIM_PLAYS[t]||function(done){done();};}
@@ -345,6 +345,7 @@ function fade(id,v){var e=G(id);if(e){e.style.transition="opacity .5s";e.style.o
 function setStatus(t){var e=G("animStatus");if(e)e.textContent=t;}
 function startLesson(){var btn=G('startBtn');if(btn){btn.disabled=true;btn.textContent='▶ Starting...';}var done=false;function proceed(){if(!done){done=true;setTimeout(showQ,600);}}say(G('introText').innerText,proceed);setTimeout(proceed,8000);}
 function init(){
+  
   var st=JSON.parse(localStorage.getItem("rishi_current_student")||"{}");
   G("sName")&&(G("sName").textContent=st.studentName?st.studentName.split(" ")[0]:"there");
   if(rishiIsExplainDone('ic7_1')){completed=true;G("doneBanner").classList.add("show");unlockNav();}

@@ -577,12 +577,13 @@ def inject(template, ch, ai_data):
         f"You&#39;ve mastered {ch['name']}!",
         out, count=1
     )
-    # Fix makeAnimPlay: template forEach discards step speech text (uses _ placeholder);
-    # replace with version that captures step as s and calls say(ss.s) for TTS narration
-    out = re.sub(
-        r'steps\.forEach\(function\(_,i\)\{var d=delay\+i\*2800;\(function\(ii,dd\)\{at\(dd,function\(\)\{fade\(id\+"s"\+ii,1\);\}\);\}\)\( i,d\);\}\);',
-        'steps.forEach(function(s,i){var d=delay+i*2800;(function(ii,dd,ss){at(dd,function(){fade(id+"s"+ii,1);say(ss.s);});})(i,d,s);});',
-        out, count=1
+    # Replace makeAnimPlay with TTS-chained version. CBSE template uses fixed timers
+    # with no say() in animation. ICSE needs each step to wait for TTS to complete
+    # (onEnd callback) before the next step fades in. Generation counter invalidates
+    # stale callbacks when the user hits Replay before the sequence finishes.
+    out = out.replace(
+        'function makeAnimPlay(id,steps,ansLabel){return function(done){setStatus("Solving step by step...");var delay=600;steps.forEach(function(_,i){var d=delay+i*2800;(function(ii,dd){at(dd,function(){fade(id+"s"+ii,1);});})( i,d);});at(delay+steps.length*2800,function(){fade(id+"ans",1);setStatus("Answer: "+ansLabel);at(2000,done);});}; }',
+        'function makeAnimPlay(id,steps,ansLabel){var gen=0;return function(done){var myGen=++gen;setStatus("Solving step by step...");function playStep(i){if(myGen!==gen)return;if(i>=steps.length){at(400,function(){if(myGen!==gen)return;fade(id+"ans",1);setStatus("Answer: "+ansLabel);at(2000,done);});return;}at(i===0?600:400,function(){if(myGen!==gen)return;fade(id+"s"+i,1);say(steps[i].s,function(){playStep(i+1);});});}playStep(0);}; }'
     )
     return out
 
