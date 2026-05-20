@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="rishi-board" content="icse">
 <meta name="rishi-class" content="7">
-<title>Practice – Factorisation | RISHI</title>
+<title>Practice – Integers | RISHI</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 
@@ -180,8 +180,8 @@ body{font-family:'Nunito',sans-serif;background:#0d0d1a;min-height:100vh;color:#
 <div class="main-layout">
   <!-- LEFT PANEL -->
   <div class="left-panel">
-    <div class="lp-chapter">Chapter 14</div>
-    <div class="lp-title">Factorisation</div>
+    <div class="lp-chapter">Chapter 1</div>
+    <div class="lp-title">Integers</div>
     <div class="lp-stat">
       <div class="lp-stat-label">Question</div>
       <div class="lp-stat-val"><span id="qNumDisp">1</span><span style="font-size:14px;color:rgba(255,255,255,.3);">/15</span></div>
@@ -406,127 +406,127 @@ window.addEventListener('load', function() {
 
 </script>
 <script>
-var CHAP_ID=1;
+var CHAP_ID='ic7_1';
 var QB=[
 {
 id:"p1",
-q:"Calculate: (-15) + 28 - 12 + (-5).",
-qs:"Calculate negative fifteen plus twenty eight minus twelve plus negative five.",
+q:"Calculate: (-7) + 12 - (-5) + (-10).",
+qs:"Calculate negative seven plus twelve minus negative five plus negative ten.",
 anim:"p1",
-steps:[{"t": "Add -15 and 28 to get 13.", "s": "Add negative fifteen and twenty eight to get thirteen."}, {"t": "Subtract 12 from 13 to get 1.", "s": "Subtract twelve from thirteen to get one."}, {"t": "Add -5 to 1 to get -4.", "s": "Add negative five to one to get negative four."}],
-cq:"What is the sum of (-15) + 28 - 12 + (-5)?",
-cqs:"What is the sum of negative fifteen plus twenty eight minus twelve plus negative five?",
-ans:["-4"],
-nudges:["Group positive and negative numbers first.", "Remember to add negative numbers as subtracting.", "Check your signs carefully."],
-anim_svg:"<g id=\"p1s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Add negative and positive integers carefully</text></g><g id=\"p1s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Subtract integers stepwise</text></g><g id=\"p1s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Final addition with negative integer</text></g><g id=\"p1ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">-4</text></g>"
+steps:[{"t": "Add -7 and 12: -7 + 12 = 5", "s": "Add negative seven and twelve to get five."}, {"t": "Subtract -5: 5 - (-5) = 5 + 5 = 10", "s": "Subtract negative five by adding five to get ten."}, {"t": "Add -10: 10 + (-10) = 0", "s": "Add negative ten to ten to get zero."}],
+cq:"What is the final sum of these integers?",
+cqs:"What number do you get after adding all the integers?",
+ans:["0"],
+nudges:["Remember subtracting a negative is adding a positive.", "Group positive and negative numbers separately.", "Calculate step by step."],
+anim_svg:"<g id=\"p1s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">-7 + 12 = 5</text></g><g id=\"p1s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">5 - (-5) = 10</text></g><g id=\"p1s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">10 + (-10) = 0</text></g><g id=\"p1ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">0</text></g>"
 },
 {
 id:"p2",
-q:"Find the product: (-7) × 8 × (-3).",
-qs:"Find the product of negative seven times eight times negative three.",
+q:"Find the product: (-8) × 5 × (-3).",
+qs:"Find the product of negative eight, five, and negative three.",
 anim:"p2",
-steps:[{"t": "Multiply -7 and 8 to get -56.", "s": "Multiply negative seven and eight to get negative fifty six."}, {"t": "Multiply -56 and -3 to get 168.", "s": "Multiply negative fifty six and negative three to get one hundred sixty eight."}],
-cq:"What is the product of (-7) × 8 × (-3)?",
-cqs:"What is the product of negative seven times eight times negative three?",
-ans:["168"],
-nudges:["Multiply stepwise.", "Remember: negative × positive = negative.", "Negative × negative = positive."],
-anim_svg:"<g id=\"p2s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Multiply first two integers</text></g><g id=\"p2s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Multiply result with third integer</text></g><g id=\"p2ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">168</text></g>"
+steps:[{"t": "Multiply -8 and 5: -8 × 5 = -40", "s": "Multiply negative eight and five to get negative forty."}, {"t": "Multiply -40 and -3: -40 × -3 = 120", "s": "Multiply negative forty and negative three to get positive one hundred twenty."}],
+cq:"What is the final product?",
+cqs:"What number do you get after multiplying all the integers?",
+ans:["120"],
+nudges:["Recall that negative × positive = negative.", "Negative × negative = positive.", "Multiply stepwise."],
+anim_svg:"<g id=\"p2s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">-8 × 5 = -40</text></g><g id=\"p2s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">-40 × -3 = 120</text></g><g id=\"p2ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">120</text></g>"
 },
 {
 id:"p3",
-q:"Evaluate: [(-12) + 9] × (-4) ÷ 3.",
-qs:"Evaluate open bracket negative twelve plus nine close bracket times negative four divided by three.",
+q:"Evaluate: 24 ÷ (-6) + (-4) × 3.",
+qs:"Evaluate twenty four divided by negative six plus negative four times three.",
 anim:"p3",
-steps:[{"t": "Calculate inside brackets: -12 + 9 = -3.", "s": "Calculate inside brackets: negative twelve plus nine equals negative three."}, {"t": "Multiply -3 by -4 to get 12.", "s": "Multiply negative three by negative four to get twelve."}, {"t": "Divide 12 by 3 to get 4.", "s": "Divide twelve by three to get four."}],
-cq:"What is the value of [(-12) + 9] × (-4) ÷ 3?",
-cqs:"What is the value of open bracket negative twelve plus nine close bracket times negative four divided by three?",
-ans:["4"],
-nudges:["Follow BODMAS carefully.", "Calculate bracket first.", "Watch signs when multiplying and dividing."],
-anim_svg:"<g id=\"p3s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Calculate inside brackets first</text></g><g id=\"p3s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Multiply the bracket result by -4</text></g><g id=\"p3s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Divide by 3 to get final answer</text></g><g id=\"p3ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">4</text></g>"
+steps:[{"t": "Divide 24 by -6: 24 ÷ (-6) = -4", "s": "Divide twenty four by negative six to get negative four."}, {"t": "Multiply -4 and 3: -4 × 3 = -12", "s": "Multiply negative four and three to get negative twelve."}, {"t": "Add results: -4 + (-12) = -16", "s": "Add negative four and negative twelve to get negative sixteen."}],
+cq:"What is the value of the expression?",
+cqs:"What number do you get after evaluating the expression?",
+ans:["-16"],
+nudges:["Follow BODMAS: division and multiplication first.", "Add the results carefully.", "Watch signs carefully."],
+anim_svg:"<g id=\"p3s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">24 ÷ -6 = -4</text></g><g id=\"p3s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">-4 × 3 = -12</text></g><g id=\"p3s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">-4 + (-12) = -16</text></g><g id=\"p3ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">-16</text></g>"
 },
 {
 id:"p4",
-q:"Find the absolute value of -45 and then subtract 30.",
-qs:"Find the absolute value of negative forty five and then subtract thirty.",
+q:"If the absolute value of an integer is 9 and the integer is negative, what is the integer?",
+qs:"If the absolute value of an integer is nine and the integer is negative, what is the integer?",
 anim:"p4",
-steps:[{"t": "Absolute value of -45 is 45.", "s": "Absolute value of negative forty five is forty five."}, {"t": "Subtract 30 from 45 to get 15.", "s": "Subtract thirty from forty five to get fifteen."}],
-cq:"What is | -45 | - 30?",
-cqs:"What is the absolute value of negative forty five minus thirty?",
-ans:["15"],
-nudges:["Recall absolute value is distance from zero.", "Then subtract as usual."],
-anim_svg:"<g id=\"p4s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Find absolute value first</text></g><g id=\"p4s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Subtract 30 from absolute value</text></g><g id=\"p4ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">15</text></g>"
+steps:[{"t": "Absolute value of integer = 9", "s": "The absolute value is given as nine."}, {"t": "Integer is negative, so integer = -9", "s": "Since integer is negative, it is negative nine."}],
+cq:"What is the integer?",
+cqs:"What number has absolute value nine and is negative?",
+ans:["-9"],
+nudges:["Absolute value is always positive.", "Integer is negative here.", "So integer is negative of absolute value."],
+anim_svg:"<g id=\"p4s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">|x| = 9</text></g><g id=\"p4s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">x = -9</text></g><g id=\"p4ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">-9</text></g>"
 },
 {
 id:"p5",
-q:"Check if integers are closed under multiplication: Multiply -9 and 7.",
-qs:"Check if integers are closed under multiplication by multiplying negative nine and seven.",
+q:"Simplify using distributive property: 6 × ( -4 + 7 ).",
+qs:"Simplify six times the quantity negative four plus seven using distributive property.",
 anim:"p5",
-steps:[{"t": "Multiply -9 and 7 to get -63.", "s": "Multiply negative nine and seven to get negative sixty three."}, {"t": "Since -63 is an integer, multiplication is closed.", "s": "Since negative sixty three is an integer, multiplication is closed."}],
-cq:"Is the product of -9 and 7 an integer?",
-cqs:"Is the product of negative nine and seven an integer?",
-ans:["Yes, -63 is an integer."],
-nudges:["Multiply the numbers first.", "Check if result is an integer."],
-anim_svg:"<g id=\"p5s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Multiply the two integers</text></g><g id=\"p5s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Check if result is integer</text></g><g id=\"p5ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Yes, -63 is an integer.</text></g>"
+steps:[{"t": "Apply distributive property: 6 × (-4) + 6 × 7", "s": "Multiply six by each term inside the bracket."}, {"t": "Calculate: -24 + 42", "s": "Multiply six and negative four to get -24; six and seven to get 42."}, {"t": "Add: -24 + 42 = 18", "s": "Add negative twenty four and forty two to get eighteen."}],
+cq:"What is the simplified result?",
+cqs:"What number do you get after simplifying?",
+ans:["18"],
+nudges:["Remember distributive property: a(b + c) = ab + ac.", "Calculate each multiplication carefully.", "Add the results."],
+anim_svg:"<g id=\"p5s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">6 × (-4) + 6 × 7</text></g><g id=\"p5s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">-24 + 42</text></g><g id=\"p5s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">18</text></g><g id=\"p5ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">18</text></g>"
 },
 {
 id:"p6",
-q:"Using the associative property, simplify: (5 + (-8)) + 12.",
-qs:"Using the associative property, simplify open bracket five plus negative eight close bracket plus twelve.",
+q:"Order these integers from smallest to largest: -15, 0, 7, -3, 12.",
+qs:"Order the integers negative fifteen, zero, seven, negative three, and twelve from smallest to largest.",
 anim:"p6",
-steps:[{"t": "Calculate inside first bracket: 5 + (-8) = -3.", "s": "Calculate inside first bracket: five plus negative eight equals negative three."}, {"t": "Add -3 and 12 to get 9.", "s": "Add negative three and twelve to get nine."}],
-cq:"What is the simplified value of (5 + (-8)) + 12?",
-cqs:"What is the simplified value of open bracket five plus negative eight close bracket plus twelve?",
-ans:["9"],
-nudges:["Calculate inside brackets first.", "Then add the result with 12."],
-anim_svg:"<g id=\"p6s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Calculate inside brackets first</text></g><g id=\"p6s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Add the result to 12</text></g><g id=\"p6ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">9</text></g>"
+steps:[{"t": "Identify smallest: -15", "s": "Negative fifteen is smallest."}, {"t": "Next: -3, then 0, then 7, then 12", "s": "Order is -15, -3, 0, 7, 12."}],
+cq:"What is the order from smallest to largest?",
+cqs:"Can you arrange these numbers from smallest to largest?",
+ans:["-15, -3, 0, 7, 12"],
+nudges:["Remember negative numbers are less than zero.", "Closer to zero means larger when negative.", "Arrange carefully."],
+anim_svg:"<g id=\"p6s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Smallest: -15</text></g><g id=\"p6s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Order: -15, -3, 0, 7, 12</text></g><g id=\"p6ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">-15, -3, 0, 7, 12</text></g>"
 },
 {
 id:"p7",
-q:"If the temperature in Shimla was -5°C in the morning and it rose by 12°C by afternoon, what is the temperature then?",
-qs:"If the temperature in Shimla was negative five degrees Celsius in the morning and it rose by twelve degrees Celsius by afternoon, what is the temperature then?",
+q:"Calculate: (-9) - [(-3) + 7] × 2.",
+qs:"Calculate negative nine minus the quantity negative three plus seven times two.",
 anim:"p7",
-steps:[{"t": "Start with initial temperature: -5°C.", "s": "Start with initial temperature negative five degrees Celsius."}, {"t": "Add the rise: -5 + 12 = 7°C.", "s": "Add the rise: negative five plus twelve equals seven degrees Celsius."}],
-cq:"What is the temperature in Shimla by afternoon?",
-cqs:"What is the temperature in Shimla by afternoon?",
-ans:["7°C"],
-nudges:["Add the increase to the initial temperature.", "Remember negative plus positive integer rules."],
-anim_svg:"<g id=\"p7s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Note initial temperature</text></g><g id=\"p7s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Add temperature rise</text></g><g id=\"p7ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">7°C</text></g>"
+steps:[{"t": "Calculate inside bracket: (-3) + 7 = 4", "s": "Add negative three and seven to get four."}, {"t": "Multiply bracket result by 2: 4 × 2 = 8", "s": "Multiply four by two to get eight."}, {"t": "Subtract: (-9) - 8 = -17", "s": "Subtract eight from negative nine to get negative seventeen."}],
+cq:"What is the final answer?",
+cqs:"What number do you get after evaluating the expression?",
+ans:["-17"],
+nudges:["Use BODMAS: brackets first, then multiplication, then subtraction.", "Calculate carefully.", "Watch signs."],
+anim_svg:"<g id=\"p7s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">(-3) + 7 = 4</text></g><g id=\"p7s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">4 × 2 = 8</text></g><g id=\"p7s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">-9 - 8 = -17</text></g><g id=\"p7ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">-17</text></g>"
 },
 {
 id:"p8",
-q:"A shopkeeper had a loss of ₹250 on Monday and a profit of ₹400 on Tuesday. What is his net gain or loss?",
-qs:"A shopkeeper had a loss of two hundred fifty rupees on Monday and a profit of four hundred rupees on Tuesday. What is his net gain or loss?",
+q:"Verify if integers are closed under subtraction: Is (-5) - 8 an integer?",
+qs:"Verify if integers are closed under subtraction by checking if negative five minus eight is an integer.",
 anim:"p8",
-steps:[{"t": "Represent loss as -250 and profit as +400.", "s": "Represent loss as negative two hundred fifty and profit as positive four hundred."}, {"t": "Add the two: -250 + 400 = 150.", "s": "Add negative two hundred fifty and four hundred to get one hundred fifty."}],
-cq:"What is the net gain or loss?",
-cqs:"What is the net gain or loss?",
-ans:["Net gain of ₹150"],
-nudges:["Loss is negative, profit is positive.", "Add integers to find net result."],
-anim_svg:"<g id=\"p8s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Represent loss and profit as integers</text></g><g id=\"p8s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Add the integers to find net gain/loss</text></g><g id=\"p8ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Net gain of ₹150</text></g>"
+steps:[{"t": "Calculate: (-5) - 8 = -13", "s": "Subtract eight from negative five to get negative thirteen."}, {"t": "-13 is an integer", "s": "Negative thirteen is an integer."}, {"t": "Hence integers are closed under subtraction", "s": "So integers are closed under subtraction."}],
+cq:"Is the result an integer?",
+cqs:"Is negative thirteen an integer?",
+ans:["Yes"],
+nudges:["Calculate the subtraction.", "Check if result is integer.", "Recall closure property."],
+anim_svg:"<g id=\"p8s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">-5 - 8 = -13</text></g><g id=\"p8s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">-13 is integer</text></g><g id=\"p8s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Integers closed under subtraction</text></g><g id=\"p8ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Yes</text></g>"
 },
 {
 id:"p9",
-q:"Simplify using distributive property: 6 × (4 + (-9)).",
-qs:"Simplify six times open bracket four plus negative nine close bracket using distributive property.",
+q:"Word problem: A Mumbai shopkeeper had a debt of ₹1200 (represented as -1200). He repaid ₹500. What is his new debt?",
+qs:"A Mumbai shopkeeper had a debt of one thousand two hundred rupees, represented as negative one two zero zero. He repaid five hundred rupees. What is his new debt?",
 anim:"p9",
-steps:[{"t": "Distribute 6: 6×4 + 6×(-9).", "s": "Distribute six to four and negative nine."}, {"t": "Calculate: 24 + (-54) = -30.", "s": "Calculate twenty four plus negative fifty four equals negative thirty."}],
-cq:"What is the simplified value of 6 × (4 + (-9))?",
-cqs:"What is the simplified value of six times open bracket four plus negative nine close bracket?",
-ans:["-30"],
-nudges:["Apply distributive property.", "Multiply each term inside brackets by 6.", "Add the results."],
-anim_svg:"<g id=\"p9s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Distribute 6 to both terms</text></g><g id=\"p9s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Add the products</text></g><g id=\"p9ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">-30</text></g>"
+steps:[{"t": "Initial debt = -1200", "s": "Shopkeeper's initial debt is negative one thousand two hundred."}, {"t": "Repayment = +500", "s": "He repaid five hundred rupees."}, {"t": "New debt = -1200 + 500 = -700", "s": "Subtract repayment from debt to get negative seven hundred."}],
+cq:"What is the new debt amount?",
+cqs:"How much debt does the shopkeeper have now?",
+ans:["-700"],
+nudges:["Debt is negative.", "Repayment reduces debt.", "Add repayment to debt carefully."],
+anim_svg:"<g id=\"p9s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Debt = -1200</text></g><g id=\"p9s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Repayment = +500</text></g><g id=\"p9s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">New debt = -700</text></g><g id=\"p9ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">-700</text></g>"
 },
 {
 id:"p10",
-q:"On a number line, which integer is greater: -3 or -7?",
-qs:"On a number line, which integer is greater: negative three or negative seven?",
+q:"Word problem: A hill station in Himachal Pradesh is at an altitude of 1500 m above sea level. A valley nearby is at 300 m below sea level. What is the difference in altitude between the hill station and the valley?",
+qs:"A hill station in Himachal Pradesh is at an altitude of fifteen hundred meters above sea level. A valley nearby is at three hundred meters below sea level. What is the difference in altitude between the hill station and the valley?",
 anim:"p10",
-steps:[{"t": "Locate -3 and -7 on number line.", "s": "Locate negative three and negative seven on number line."}, {"t": "-3 is to the right of -7.", "s": "Negative three is to the right of negative seven."}, {"t": "Therefore, -3 > -7.", "s": "Therefore, negative three is greater than negative seven."}],
-cq:"Which integer is greater: -3 or -7?",
-cqs:"Which integer is greater: negative three or negative seven?",
-ans:["-3"],
-nudges:["Recall integers on number line.", "Right side means greater value."],
-anim_svg:"<g id=\"p10s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Locate integers on number line</text></g><g id=\"p10s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Compare their positions</text></g><g id=\"p10s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Integer on right is greater</text></g><g id=\"p10ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">-3</text></g>"
+steps:[{"t": "Hill station altitude = +1500 m", "s": "Hill station is 1500 meters above sea level."}, {"t": "Valley altitude = -300 m", "s": "Valley is 300 meters below sea level."}, {"t": "Difference = 1500 - (-300) = 1500 + 300 = 1800 m", "s": "Difference is sum of absolute values: 1800 meters."}],
+cq:"What is the altitude difference?",
+cqs:"How many meters difference is there between hill station and valley?",
+ans:["1800"],
+nudges:["Above sea level is positive.", "Below sea level is negative.", "Subtract negative by adding absolute value."],
+anim_svg:"<g id=\"p10s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Hill station = +1500</text></g><g id=\"p10s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Valley = -300</text></g><g id=\"p10s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Difference = 1800</text></g><g id=\"p10ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">1800</text></g>"
 }
 ];
 
@@ -584,7 +584,7 @@ var PRAISES=[
 function G(id){return document.getElementById(id);}
 /* ── INIT ── */
 function init(){
-  rishiCheckPlan(CHAP_ID);
+  
   if(localStorage.getItem('rishi_admin_bypass')!=='1' && !rishiIsExplainDone(CHAP_ID)){window.location.href='/syllabus.html';return;}
   coins=parseInt(localStorage.getItem('rishi_coins')||'0');
   updateCoins();

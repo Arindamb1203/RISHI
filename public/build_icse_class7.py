@@ -492,6 +492,14 @@ def inject(template, ch, ai_data):
     # Title + topbar
     out = re.sub(r'<title>RISHI[^<]*</title>',
                  f'<title>RISHI — {ai_data["title"]}</title>', out)
+    # Practice template title format: "Practice – Factorisation | RISHI"
+    out = re.sub(r'<title>Practice[^<]*</title>',
+                 f'<title>Practice – {ai_data["title"]} | RISHI</title>', out)
+    # Left panel chapter number and name (practice template only)
+    out = re.sub(r'(<div class="lp-chapter">)Chapter \d+(</div>)',
+                 f'\\g<1>Chapter {ch["id"]}\\g<2>', out, count=1)
+    out = re.sub(r'(<div class="lp-title">)[^<]*(</div>)',
+                 f'\\g<1>{ch["name"]}\\g<2>', out, count=1)
     out = re.sub(r'(<div class="topbar-center">)[^<]*(</div>)',
                  lambda m: m.group(1) + ai_data['topbar_label'] + m.group(2),
                  out, count=1)
