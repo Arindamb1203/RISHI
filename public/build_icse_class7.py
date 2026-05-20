@@ -256,6 +256,118 @@ def call_openai(client, system_prompt, user_prompt, max_retries=3):
                 raise
 
 # ═══════════════════════════════════════════════════════════════
+# VISUAL ANIMATION SVG EXAMPLES  (per chapter/topic)
+# ═══════════════════════════════════════════════════════════════
+def _q(s):
+    """Escape double quotes for embedding SVG inside a JSON string in a Python prompt."""
+    return s.replace('"', '\\"')
+
+def _number_line_ticks(v_min, v_max, scale=18, cx=210, y=95):
+    """Return SVG tick marks + labels for a number line."""
+    out = []
+    for v in range(v_min, v_max + 1):
+        x = cx + v * scale
+        if x < 25 or x > 400: continue
+        if v == 0:
+            out.append(f'<line x1="{x}" y1="87" x2="{x}" y2="103" stroke="#5a4a30" stroke-width="2.5"/>')
+            out.append(f'<text x="{x}" y="116" text-anchor="middle" font-size="10" fill="#5a4a30" font-weight="800">0</text>')
+        else:
+            out.append(f'<line x1="{x}" y1="90" x2="{x}" y2="100" stroke="#5a4a30" stroke-width="1.5"/>')
+            out.append(f'<text x="{x}" y="113" text-anchor="middle" font-size="9" fill="#8a7a5a">{v}</text>')
+    return ''.join(out)
+
+def _number_line_base(v_min=-8, v_max=8, scale=18, cx=210, y=95):
+    """Return SVG for number line axis + ticks."""
+    x1 = max(20, cx + v_min * scale - 5)
+    x2 = min(400, cx + v_max * scale + 5)
+    return (f'<line x1="{x1}" y1="{y}" x2="{x2}" y2="{y}" stroke="#5a4a30" stroke-width="2"/>'
+            f'<polygon points="{x2},{y-4} {x2+8},{y} {x2},{y+4}" fill="#5a4a30"/>'
+            + _number_line_ticks(v_min, v_max, scale, cx, y))
+
+def _circle_at(v, label, color, scale=18, cx=210, cy=95, r=11):
+    x = cx + v * scale
+    return (f'<circle cx="{x}" cy="{cy}" r="{r}" fill="{color}" stroke="white" stroke-width="2.5"/>'
+            f'<text x="{x}" y="{cy+4}" text-anchor="middle" font-size="10" fill="white" font-weight="900">{label}</text>')
+
+def _arc_arrow(x1, x2, y=95, arc_height=40, color="#b85c2a"):
+    """Curved arc arrow from x1 to x2 above the number line."""
+    mid_x = (x1 + x2) / 2
+    mid_y = y - arc_height
+    # arrowhead at x2
+    arr = f'<polygon points="{x2},{y-10} {x2-6},{y-20} {x2+6},{y-20}" fill="{color}"/>'
+    return (f'<path d="M {x1} {y-10} Q {mid_x} {mid_y} {x2} {y-10}" '
+            f'stroke="{color}" stroke-width="2.5" fill="none" stroke-linecap="round"/>'
+            + arr)
+
+def _ans_box(text, qid):
+    return (f'<g id="{qid}ans" opacity="0">'
+            f'<rect x="110" y="148" width="200" height="26" rx="8" fill="#eef2eb" stroke="#7a8c6e" stroke-width="2"/>'
+            f'<text x="210" y="165" text-anchor="middle" font-family="Share Tech Mono" font-size="12" font-weight="bold" fill="#7a8c6e">{text}</text>'
+            f'</g>')
+
+def anim_example_integers(prefix='q'):
+    """Number line example: 7 + (−3) = 4  (for both explain q1 and practice p1)."""
+    qid = f'{prefix}1'
+    scale, cx, cy = 18, 210, 95
+    base = _number_line_base(-8, 8, scale, cx, cy)
+    x7  = cx + 7  * scale   # 336
+    x4  = cx + 4  * scale   # 282
+    mid = (x7 + x4) / 2     # 309
+
+    s0 = (f'<g id="{qid}s0" opacity="0">'
+          + base
+          + _circle_at(7, '+7', '#c8922a', scale, cx, cy)
+          + f'<text x="210" y="38" text-anchor="middle" font-size="12" fill="#5a4a30" font-weight="800">Find: 7 + (&minus;3)</text>'
+          + f'<text x="210" y="57" text-anchor="middle" font-size="10" fill="#8a7a5a">Mark +7 on the number line</text>'
+          + f'</g>')
+
+    s1 = (f'<g id="{qid}s1" opacity="0">'
+          + _arc_arrow(x7, x4, cy, 38)
+          + f'<text x="{mid}" y="{cy-44}" text-anchor="middle" font-size="13" fill="#b85c2a" font-weight="900">&minus;3</text>'
+          + f'<text x="210" y="148" text-anchor="middle" font-size="11" fill="#b85c2a" font-weight="700">Move 3 steps LEFT (subtract 3)</text>'
+          + f'</g>')
+
+    s2 = (f'<g id="{qid}s2" opacity="0">'
+          + _circle_at(4, '4', '#7a8c6e', scale, cx, cy)
+          + f'<text x="210" y="165" text-anchor="middle" font-size="12" fill="#7a8c6e" font-weight="800">Land on +4 &#10003;</text>'
+          + f'</g>')
+
+    ans = _ans_box('7 + (&minus;3) = 4', qid)
+    return _q(s0 + s1 + s2 + ans)
+
+def anim_example_generic(prefix='q', topic=''):
+    """Improved generic visual example — large styled formula boxes with colored shapes."""
+    qid = f'{prefix}1'
+    # Three colored number/shape tiles showing a worked example
+    s0 = (f'<g id="{qid}s0" opacity="0">'
+          f'<rect x="30" y="20" width="360" height="44" rx="10" fill="#f5e6c8" stroke="#c8922a" stroke-width="2"/>'
+          f'<text x="210" y="38" text-anchor="middle" font-size="13" fill="#5a4a30" font-weight="800">Given Information</text>'
+          f'<text x="210" y="56" text-anchor="middle" font-size="11" fill="#8a7a5a">Write down what you know</text>'
+          f'</g>')
+    s1 = (f'<g id="{qid}s1" opacity="0">'
+          f'<rect x="30" y="75" width="360" height="44" rx="10" fill="#eef2eb" stroke="#7a8c6e" stroke-width="2"/>'
+          f'<text x="210" y="93" text-anchor="middle" font-size="13" fill="#5a4a30" font-weight="800">Apply the Formula / Rule</text>'
+          f'<text x="210" y="111" text-anchor="middle" font-size="11" fill="#8a7a5a">Show the working step</text>'
+          f'</g>')
+    s2 = (f'<g id="{qid}s2" opacity="0">'
+          f'<rect x="60" y="128" width="300" height="32" rx="10" fill="#eef2eb" stroke="#7a8c6e" stroke-width="2.5"/>'
+          f'<text x="210" y="149" text-anchor="middle" font-size="13" fill="#7a8c6e" font-weight="900">Result = answer</text>'
+          f'</g>')
+    ans = _ans_box('answer', qid)
+    return _q(s0 + s1 + s2 + ans)
+
+def anim_example_for_chapter(ch, prefix='q'):
+    """Return the best visual anim_svg example for this chapter."""
+    ch_id = ch['id']
+    topic = ch.get('topic', '')
+    if ch_id == 1:   # Integers
+        return anim_example_integers(prefix)
+    elif ch_id == 2: # Rational Numbers — number line
+        return anim_example_integers(prefix)  # same number line visual
+    else:
+        return anim_example_generic(prefix, topic)
+
+# ═══════════════════════════════════════════════════════════════
 # EXPLAIN GENERATION
 # ═══════════════════════════════════════════════════════════════
 EXPLAIN_SYS = """You create explain page content for RISHI, an ICSE Class 7 maths tutoring app for Indian students aged 12-13.
@@ -267,19 +379,28 @@ RULES:
 - ICSE/Selina terminology and notation
 - q/cq: display text. Use HTML entities (&times; &divide; &sup2; &minus; &frac12; &rarr;) and <span class='hl'>X</span> or <span class='ans-tag'>X</span>
 - qs/cqs/s fields: speech text only — spell out all symbols
-- anim_svg: follow EXACT pattern shown in schema — 3 step layers + 1 ans layer
+- anim_svg: SVG viewBox 0 0 420 178. MUST use VISUAL OBJECTS (shapes, lines, circles, arrows, number lines, bars, grids) NOT plain text labels. See the visual example below.
+- For Integers/Rationals: draw a number line (horizontal line at y=95, ticks with labels, colored circles at number positions, arc arrows for add/subtract operations)
+- Each question: 3 step groups (id=QIDsN, opacity=0) + 1 answer group (id=QIDans, opacity=0). JavaScript fades them in with voice.
 - NO smart apostrophes — use straight apostrophe (') only"""
 
-EXPLAIN_USER = """Chapter: {name} | Topic: {topic}
-Concepts: {concepts}
+def build_explain_user(ch):
+    anim_ex = anim_example_for_chapter(ch, 'q')
+    return f"""Chapter: {ch['name']} | Topic: {ch['topic']}
+Concepts: {ch['concepts']}
 
 Generate EXACTLY 10 questions (id q1..q10), easy to medium, each on a different concept.
+The anim_svg for EVERY question must show VISUAL objects matching the chapter topic.
+For Integers: use a number line with circles at positions and arc arrows for operations — adapt the numbers for each actual question.
 
-JSON structure to output:
+VISUAL anim_svg example for q1 (follow this style for ALL questions, adapting numbers/shapes):
+"anim_svg": "{anim_ex}"
+
+Full JSON structure to output:
 {{
-  "title": "{name}",
-  "topbar_label": "{emoji} {name}",
-  "intro": "Hi <span class=\\"hl\\" id=\\"sName\\">there</span>! I&#39;m Rishika! Today we explore <span class=\\"hl\\">{name}</span>! {emoji} Let&#39;s begin!",
+  "title": "{ch['name']}",
+  "topbar_label": "{ch['emoji']} {ch['name']}",
+  "intro": "Hi <span class=\\"hl\\" id=\\"sName\\">there</span>! I&#39;m Rishika! Today we explore <span class=\\"hl\\">{ch['name']}</span>! {ch['emoji']} Let&#39;s begin!",
   "questions": [
     {{
       "id": "q1",
@@ -291,15 +412,13 @@ JSON structure to output:
       "cqs": "follow-up speech",
       "ans": ["answer1","answer2"],
       "nudges": ["hint1","hint2","direct hint"],
-      "anim_svg": "<g id=\\"q1s0\\" opacity=\\"0\\"><text x=\\"22\\" y=\\"28\\" font-size=\\"11\\" font-weight=\\"800\\" fill=\\"#5a4a30\\">Step 1 key point</text></g><g id=\\"q1s1\\" opacity=\\"0\\"><text x=\\"22\\" y=\\"68\\" font-size=\\"11\\" font-weight=\\"800\\" fill=\\"#5a4a30\\">Step 2 key point</text></g><g id=\\"q1s2\\" opacity=\\"0\\"><text x=\\"22\\" y=\\"108\\" font-size=\\"11\\" font-weight=\\"800\\" fill=\\"#5a4a30\\">Step 3 key point</text></g><g id=\\"q1ans\\" opacity=\\"0\\"><rect x=\\"40\\" y=\\"148\\" width=\\"320\\" height=\\"24\\" rx=\\"7\\" fill=\\"#eef2eb\\" stroke=\\"#6b4c2a\\" stroke-width=\\"1.5\\"/><text x=\\"210\\" y=\\"163\\" text-anchor=\\"middle\\" font-family=\\"Share Tech Mono\\" font-size=\\"12\\" font-weight=\\"bold\\" fill=\\"#7a8c6e\\">answer text</text></g>"
+      "anim_svg": "(visual SVG matching the example style above, adapted for this question's numbers)"
     }}
   ]
 }}"""
 
 def gen_explain(client, ch):
-    data = call_openai(client, EXPLAIN_SYS,
-        EXPLAIN_USER.format(name=ch['name'], topic=ch['topic'],
-                            concepts=ch['concepts'], emoji=ch['emoji']))
+    data = call_openai(client, EXPLAIN_SYS, build_explain_user(ch))
     if len(data.get('questions', [])) < 8:
         raise ValueError(f"Only {len(data.get('questions',[]))} explain questions returned")
     for q in data.get('questions', []):
@@ -316,18 +435,26 @@ Textbook: Selina Concise Mathematics Class 7 (ICSE).
 Tutor character: RISHIKA only. OUTPUT: valid JSON only.
 Practice is harder than explain — student already knows the concept.
 Mix computation + 2-3 Indian-context word problems.
+anim_svg: SVG viewBox 0 0 420 178. MUST use VISUAL OBJECTS (number lines, circles, arrows, bars, shapes) — NOT plain text labels.
+For Integers/Rationals: number line with colored circles at positions and arc arrows for operations.
 NO smart apostrophes — use straight apostrophe (') only."""
 
-PRACTICE_USER = """Chapter: {name} | Topic: {topic}
-Concepts: {concepts}
+def build_practice_user(ch):
+    anim_ex = anim_example_for_chapter(ch, 'p')
+    return f"""Chapter: {ch['name']} | Topic: {ch['topic']}
+Concepts: {ch['concepts']}
 
 Generate EXACTLY 10 practice problems (id p1..p10). Mix: 7-8 skill + 2-3 word problems.
+The anim_svg for EVERY question must show VISUAL objects. For Integers: number line with circles and arc arrows. Adapt the numbers for each actual question.
 
-JSON structure:
+VISUAL anim_svg example for p1:
+"anim_svg": "{anim_ex}"
+
+Full JSON structure:
 {{
-  "title": "{name}",
-  "topbar_label": "{emoji} {name}",
-  "intro": "Hi <span class=\\"hl\\" id=\\"sName\\">there</span>! I&#39;m Rishika! Let&#39;s practice <span class=\\"hl\\">{name}</span>! {emoji} Let&#39;s go!",
+  "title": "{ch['name']}",
+  "topbar_label": "{ch['emoji']} {ch['name']}",
+  "intro": "Hi <span class=\\"hl\\" id=\\"sName\\">there</span>! I&#39;m Rishika! Let&#39;s practice <span class=\\"hl\\">{ch['name']}</span>! {ch['emoji']} Let&#39;s go!",
   "questions": [
     {{
       "id": "p1",
@@ -339,15 +466,13 @@ JSON structure:
       "cqs": "follow-up speech",
       "ans": ["answer1","answer2"],
       "nudges": ["hint1","hint2","direct hint"],
-      "anim_svg": "<g id=\\"p1s0\\" opacity=\\"0\\"><text x=\\"22\\" y=\\"28\\" font-size=\\"11\\" font-weight=\\"800\\" fill=\\"#5a4a30\\">Step 1 key point</text></g><g id=\\"p1s1\\" opacity=\\"0\\"><text x=\\"22\\" y=\\"68\\" font-size=\\"11\\" font-weight=\\"800\\" fill=\\"#5a4a30\\">Step 2 key point</text></g><g id=\\"p1s2\\" opacity=\\"0\\"><text x=\\"22\\" y=\\"108\\" font-size=\\"11\\" font-weight=\\"800\\" fill=\\"#5a4a30\\">Step 3 key point</text></g><g id=\\"p1ans\\" opacity=\\"0\\"><rect x=\\"40\\" y=\\"148\\" width=\\"320\\" height=\\"24\\" rx=\\"7\\" fill=\\"#eef2eb\\" stroke=\\"#6b4c2a\\" stroke-width=\\"1.5\\"/><text x=\\"210\\" y=\\"163\\" text-anchor=\\"middle\\" font-family=\\"Share Tech Mono\\" font-size=\\"12\\" font-weight=\\"bold\\" fill=\\"#7a8c6e\\">answer text</text></g>"
+      "anim_svg": "(visual SVG matching the example style above, adapted for this question's numbers)"
     }}
   ]
 }}"""
 
 def gen_practice(client, ch):
-    data = call_openai(client, PRACTICE_SYS,
-        PRACTICE_USER.format(name=ch['name'], topic=ch['topic'],
-                             concepts=ch['concepts'], emoji=ch['emoji']))
+    data = call_openai(client, PRACTICE_SYS, build_practice_user(ch))
     if len(data.get('questions', [])) < 8:
         raise ValueError(f"Only {len(data.get('questions',[]))} practice questions returned")
     for q in data.get('questions', []):
