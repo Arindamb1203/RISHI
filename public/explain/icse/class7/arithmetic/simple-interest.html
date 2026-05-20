@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="rishi-board" content="icse">
 <meta name="rishi-class" content="7">
-<title>RISHI — Integers</title>
+<title>RISHI — Simple Interest</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Nunito:wght@400;600;700;800;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
@@ -101,7 +101,7 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 <body>
 <div class="topbar">
   <div class="logo-sm">RISHI</div>
-  <div class="topbar-center">➕ Integers</div>
+  <div class="topbar-center">🏦 Simple Interest</div>
   <div class="topbar-right">
     <button class="btn-topbar" onclick="openBreak()">&#9749; Break</button>
     <button class="btn-topbar back" onclick="location.href='/syllabus.html'">&#8592; Syllabus</button>
@@ -121,7 +121,7 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
     <div class="rishika-bubble">
       <div class="rishika-name">Rishika</div>
       <div class="rishika-text" id="introText">
-        Hi <span class="hl" id="sName">there</span>! I&#39;m Rishika! Today we explore <span class="hl">Integers</span>! ➕ Let&#39;s begin!
+        Hi <span class="hl" id="sName">there</span>! I&#39;m Rishika! Today we explore <span class="hl">Simple Interest</span>! 🏦 Let&#39;s begin!
       </div>
       <button class="btn-speak" onclick="startLesson()" id="startBtn">&#9654; Start Lesson</button>
     </div>
@@ -195,139 +195,139 @@ function rThink(){setTimeout(rStopTalk,1800);}
 var QB=[
 {
 id:"q1",
-q:"Calculate: <span class='hl'>7 &plus; &minus;3</span>",
-qs:"Calculate seven plus minus three",
+q:"Find the simple interest on Rs. 5000 at 5% per annum for 3 years.",
+qs:"Find the simple interest on five thousand rupees at five percent per annum for three years.",
 anim:"q1",
-steps:[{"t": "Start with 7", "s": "Start with seven"}, {"t": "Add negative 3", "s": "Add negative three"}, {"t": "Result is 4", "s": "Result is four"}],
-cq:"What is 7 &minus; 3?",
-cqs:"What is seven minus three?",
-ans:["4"],
-nudges:["Remember adding a negative number is like subtracting.", "Think of number line movement.", "7 plus minus 3 equals 4."],
-anim_svg:"<g id=\"q1s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Start with 7</text></g><g id=\"q1s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Add negative 3</text></g><g id=\"q1s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Result is 4</text></g><g id=\"q1ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">4</text></g>"
+steps:[{"t": "Identify principal, rate, and time.", "s": "The principal is five thousand rupees, rate is five percent, and time is three years."}, {"t": "Use the formula SI = P × R × T ÷ 100.", "s": "Simple interest equals principal times rate times time divided by one hundred."}, {"t": "Calculate SI = 5000 × 5 × 3 ÷ 100 = Rs. 750.", "s": "Calculate five thousand times five times three divided by one hundred equals seven hundred fifty rupees."}],
+cq:"What will be the amount after 3 years?",
+cqs:"What will be the total amount after three years?",
+ans:["Rs. 750", "Rs. 5750"],
+nudges:["Recall the simple interest formula.", "Multiply principal, rate, and time first.", "SI = P × R × T ÷ 100."],
+anim_svg:"<g id=\"q1s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Principal = Rs. 5000, Rate = 5%, Time = 3 years</text></g><g id=\"q1s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">SI = P × R × T ÷ 100</text></g><g id=\"q1s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">SI = 5000 × 5 × 3 ÷ 100 = Rs. 750</text></g><g id=\"q1ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Rs. 750</text></g>"
 },
 {
 id:"q2",
-q:"Find: <span class='hl'>&minus;5 &minus; &minus;8</span>",
-qs:"Find minus five minus minus eight",
+q:"Calculate the amount received after 2 years on Rs. 8000 at 6% simple interest per annum.",
+qs:"Calculate the amount received after two years on eight thousand rupees at six percent simple interest per annum.",
 anim:"q2",
-steps:[{"t": "Minus 5 minus minus 8", "s": "Minus five minus minus eight"}, {"t": "Minus minus becomes plus", "s": "Minus minus becomes plus"}, {"t": "So, &minus;5 &plus; 8 = 3", "s": "So, minus five plus eight equals three"}],
-cq:"What is &minus;5 &plus; 8?",
-cqs:"What is minus five plus eight?",
-ans:["3"],
-nudges:["Subtracting a negative is like adding.", "Change double minus to plus.", "Calculate &minus;5 plus 8."],
-anim_svg:"<g id=\"q2s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Minus 5 minus minus 8</text></g><g id=\"q2s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Minus minus becomes plus</text></g><g id=\"q2s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Result is 3</text></g><g id=\"q2ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">3</text></g>"
+steps:[{"t": "Find simple interest first.", "s": "Calculate simple interest using SI = P × R × T ÷ 100."}, {"t": "SI = 8000 × 6 × 2 ÷ 100 = Rs. 960.", "s": "Calculate eight thousand times six times two divided by one hundred equals nine hundred sixty rupees."}, {"t": "Amount = Principal + Simple Interest = 8000 + 960 = Rs. 8960.", "s": "Add principal and simple interest to get amount: eight thousand plus nine hundred sixty equals eight thousand nine hundred sixty rupees."}],
+cq:"What is the simple interest earned?",
+cqs:"What is the simple interest earned on the principal?",
+ans:["Rs. 960", "Rs. 8960"],
+nudges:["Remember amount = principal + SI.", "Calculate SI before amount.", "Use SI = P × R × T ÷ 100."],
+anim_svg:"<g id=\"q2s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Calculate SI first: SI = P × R × T ÷ 100</text></g><g id=\"q2s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">SI = 8000 × 6 × 2 ÷ 100 = Rs. 960</text></g><g id=\"q2s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Amount = 8000 + 960 = Rs. 8960</text></g><g id=\"q2ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Rs. 8960</text></g>"
 },
 {
 id:"q3",
-q:"Calculate: <span class='hl'>(&minus;4) &times; 6</span>",
-qs:"Calculate minus four multiplied by six",
+q:"If the simple interest on Rs. 6000 at 4% per annum is Rs. 720, find the time period.",
+qs:"If the simple interest on six thousand rupees at four percent per annum is seven hundred twenty rupees, find the time period.",
 anim:"q3",
-steps:[{"t": "Multiply 4 by 6", "s": "Multiply four by six"}, {"t": "Result is 24", "s": "Result is twenty four"}, {"t": "Since one number is negative, answer is negative", "s": "Since one number is negative, answer is negative"}],
-cq:"What is 4 &times; &minus;6?",
-cqs:"What is four multiplied by minus six?",
-ans:["-24"],
-nudges:["Multiply absolute values first.", "Negative times positive is negative.", "Answer is minus twenty four."],
-anim_svg:"<g id=\"q3s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Multiply 4 by 6</text></g><g id=\"q3s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Result is 24</text></g><g id=\"q3s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">One negative number means negative result</text></g><g id=\"q3ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">&minus;24</text></g>"
+steps:[{"t": "Use SI = P × R × T ÷ 100 and solve for T.", "s": "Simple interest equals principal times rate times time divided by one hundred. Rearrange to find time."}, {"t": "T = SI × 100 ÷ (P × R) = 720 × 100 ÷ (6000 × 4).", "s": "Time equals simple interest times one hundred divided by principal times rate."}, {"t": "Calculate T = 72000 ÷ 24000 = 3 years.", "s": "Calculate seventy two thousand divided by twenty four thousand equals three years."}],
+cq:"What is the time period in years?",
+cqs:"What is the time period for the interest to be Rs. 720?",
+ans:["3 years"],
+nudges:["Rearrange the formula to find time.", "Multiply denominator first.", "T = SI × 100 ÷ (P × R)."],
+anim_svg:"<g id=\"q3s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">SI = P × R × T ÷ 100</text></g><g id=\"q3s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">T = SI × 100 ÷ (P × R)</text></g><g id=\"q3s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">T = 720 × 100 ÷ (6000 × 4) = 3 years</text></g><g id=\"q3ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">3 years</text></g>"
 },
 {
 id:"q4",
-q:"Find: <span class='hl'>&minus;36 &divide; 6</span>",
-qs:"Find minus thirty six divided by six",
+q:"A sum of Rs. 9000 amounts to Rs. 10,350 in 3 years at simple interest. Find the rate of interest per annum.",
+qs:"A sum of nine thousand rupees amounts to ten thousand three hundred fifty rupees in three years at simple interest. Find the rate of interest per annum.",
 anim:"q4",
-steps:[{"t": "Divide 36 by 6", "s": "Divide thirty six by six"}, {"t": "Result is 6", "s": "Result is six"}, {"t": "Negative divided by positive is negative", "s": "Negative divided by positive is negative"}],
-cq:"What is 36 &divide; &minus;6?",
-cqs:"What is thirty six divided by minus six?",
-ans:["-6"],
-nudges:["Divide absolute values first.", "Sign rules for division like multiplication.", "Answer is minus six."],
-anim_svg:"<g id=\"q4s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Divide 36 by 6</text></g><g id=\"q4s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Result is 6</text></g><g id=\"q4s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Negative divided by positive is negative</text></g><g id=\"q4ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">&minus;6</text></g>"
+steps:[{"t": "Find simple interest: SI = Amount - Principal = 10350 - 9000 = Rs. 1350.", "s": "Simple interest equals amount minus principal: ten thousand three hundred fifty minus nine thousand equals one thousand three hundred fifty rupees."}, {"t": "Use SI = P × R × T ÷ 100 to find R.", "s": "Use formula simple interest equals principal times rate times time divided by one hundred to find rate."}, {"t": "R = SI × 100 ÷ (P × T) = 1350 × 100 ÷ (9000 × 3) = 5%.", "s": "Rate equals simple interest times one hundred divided by principal times time: one thousand three hundred fifty times one hundred divided by nine thousand times three equals five percent."}],
+cq:"What is the rate of interest per annum?",
+cqs:"Find the rate of interest per annum.",
+ans:["5%"],
+nudges:["Calculate simple interest first.", "Rearrange formula to find rate.", "R = SI × 100 ÷ (P × T)."],
+anim_svg:"<g id=\"q4s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">SI = Amount - Principal = Rs. 1350</text></g><g id=\"q4s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">SI = P × R × T ÷ 100</text></g><g id=\"q4s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">R = 1350 × 100 ÷ (9000 × 3) = 5%</text></g><g id=\"q4ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">5%</text></g>"
 },
 {
 id:"q5",
-q:"Check if integers are closed under addition: Is <span class='hl'>5 &plus; &minus;2</span> an integer?",
-qs:"Check if integers are closed under addition: Is five plus minus two an integer",
+q:"Find the simple interest on Rs. 7000 for 4 years at 3% per annum.",
+qs:"Find the simple interest on seven thousand rupees for four years at three percent per annum.",
 anim:"q5",
-steps:[{"t": "Add 5 and minus 2", "s": "Add five and minus two"}, {"t": "Result is 3", "s": "Result is three"}, {"t": "3 is an integer, so closed under addition", "s": "Three is an integer, so integers are closed under addition"}],
-cq:"Is 5 &times; &minus;2 an integer?",
-cqs:"Is five multiplied by minus two an integer?",
-ans:["Yes"],
-nudges:["Add the numbers first.", "Check if result is integer.", "Multiplication also results in integer."],
-anim_svg:"<g id=\"q5s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Add 5 and minus 2</text></g><g id=\"q5s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Result is 3</text></g><g id=\"q5s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">3 is integer, so closed under addition</text></g><g id=\"q5ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Yes</text></g>"
+steps:[{"t": "Use SI = P × R × T ÷ 100.", "s": "Simple interest equals principal times rate times time divided by one hundred."}, {"t": "SI = 7000 × 3 × 4 ÷ 100 = Rs. 840.", "s": "Calculate seven thousand times three times four divided by one hundred equals eight hundred forty rupees."}, {"t": "Simple interest is Rs. 840.", "s": "Simple interest is eight hundred forty rupees."}],
+cq:"What is the total amount after 4 years?",
+cqs:"Find the total amount after four years.",
+ans:["Rs. 840", "Rs. 7840"],
+nudges:["Calculate SI first.", "Add SI to principal for amount.", "Use SI = P × R × T ÷ 100."],
+anim_svg:"<g id=\"q5s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">SI = P × R × T ÷ 100</text></g><g id=\"q5s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">SI = 7000 × 3 × 4 ÷ 100 = Rs. 840</text></g><g id=\"q5s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Simple interest = Rs. 840</text></g><g id=\"q5ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Rs. 840</text></g>"
 },
 {
 id:"q6",
-q:"Show commutative property: Is <span class='hl'>3 &plus; &minus;7 = &minus;7 &plus; 3</span> true?",
-qs:"Show commutative property: Is three plus minus seven equals minus seven plus three true",
+q:"Two sums of Rs. 4000 and Rs. 6000 are lent out at 6% and 5% per annum respectively for 2 years. Find the difference in the interest amounts.",
+qs:"Two sums of four thousand rupees and six thousand rupees are lent out at six percent and five percent per annum respectively for two years. Find the difference in the interest amounts.",
 anim:"q6",
-steps:[{"t": "Calculate 3 plus minus 7", "s": "Calculate three plus minus seven"}, {"t": "Result is minus 4", "s": "Result is minus four"}, {"t": "Calculate minus 7 plus 3", "s": "Calculate minus seven plus three"}],
-cq:"Is multiplication commutative for integers?",
-cqs:"Is multiplication commutative for integers?",
-ans:["Yes"],
-nudges:["Calculate both sides.", "Compare results.", "Commutative means order does not matter."],
-anim_svg:"<g id=\"q6s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Calculate 3 plus minus 7</text></g><g id=\"q6s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Result is minus 4</text></g><g id=\"q6s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Calculate minus 7 plus 3</text></g><g id=\"q6ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Yes</text></g>"
+steps:[{"t": "Calculate SI on Rs. 4000 at 6% for 2 years.", "s": "Simple interest equals four thousand times six times two divided by one hundred."}, {"t": "SI1 = 4000 × 6 × 2 ÷ 100 = Rs. 480.", "s": "Simple interest one equals four thousand times six times two divided by one hundred equals four hundred eighty rupees."}, {"t": "Calculate SI on Rs. 6000 at 5% for 2 years.", "s": "Simple interest equals six thousand times five times two divided by one hundred."}],
+cq:"Which sum earns more interest?",
+cqs:"Which sum earns more simple interest?",
+ans:["Rs. 120", "Rs. 600 earns more"],
+nudges:["Calculate both interests separately.", "Subtract smaller interest from bigger.", "Use SI = P × R × T ÷ 100."],
+anim_svg:"<g id=\"q6s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">SI1 = 4000 × 6 × 2 ÷ 100 = Rs. 480</text></g><g id=\"q6s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">SI2 = 6000 × 5 × 2 ÷ 100 = Rs. 600</text></g><g id=\"q6s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Difference = Rs. 120</text></g><g id=\"q6ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Rs. 120</text></g>"
 },
 {
 id:"q7",
-q:"Use associative property: Calculate <span class='hl''>(&minus;2 &plus; 5) &plus; 3</span> and <span class='hl''>&minus;2 &plus; (5 &plus; 3)</span>",
-qs:"Use associative property: Calculate open bracket minus two plus five close bracket plus three and minus two plus open bracket five plus three close bracket",
+q:"A sum of Rs. 10,000 is lent at 8% simple interest per annum. Find the amount after 5 years.",
+qs:"A sum of ten thousand rupees is lent at eight percent simple interest per annum. Find the amount after five years.",
 anim:"q7",
-steps:[{"t": "Calculate inside first bracket: &minus;2 &plus; 5 = 3", "s": "Calculate inside first bracket: minus two plus five equals three"}, {"t": "Add 3: 3 &plus; 3 = 6", "s": "Add three: three plus three equals six"}, {"t": "Calculate inside second bracket: 5 &plus; 3 = 8", "s": "Calculate inside second bracket: five plus three equals eight"}],
-cq:"Does associative property work for multiplication of integers?",
-cqs:"Does associative property work for multiplication of integers?",
-ans:["Yes"],
-nudges:["Calculate each expression stepwise.", "Compare results.", "Associative means grouping does not change result."],
-anim_svg:"<g id=\"q7s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Calculate minus 2 plus 5</text></g><g id=\"q7s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Add 3 to result</text></g><g id=\"q7s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Calculate 5 plus 3, then add minus 2</text></g><g id=\"q7ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Yes</text></g>"
+steps:[{"t": "Calculate simple interest: SI = 10000 × 8 × 5 ÷ 100 = Rs. 4000.", "s": "Simple interest equals ten thousand times eight times five divided by one hundred equals four thousand rupees."}, {"t": "Amount = Principal + SI = 10000 + 4000 = Rs. 14000.", "s": "Amount equals principal plus simple interest: ten thousand plus four thousand equals fourteen thousand rupees."}, {"t": "Total amount after 5 years is Rs. 14000.", "s": "Total amount after five years is fourteen thousand rupees."}],
+cq:"How much interest is earned in 5 years?",
+cqs:"Find the simple interest earned in five years.",
+ans:["Rs. 4000", "Rs. 14000"],
+nudges:["First find simple interest.", "Then add to principal for amount.", "Use SI = P × R × T ÷ 100."],
+anim_svg:"<g id=\"q7s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">SI = 10000 × 8 × 5 ÷ 100 = Rs. 4000</text></g><g id=\"q7s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Amount = 10000 + 4000 = Rs. 14000</text></g><g id=\"q7s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Total amount = Rs. 14000</text></g><g id=\"q7ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Rs. 14000</text></g>"
 },
 {
 id:"q8",
-q:"Apply distributive property: Simplify <span class='hl'>3 &times; (&minus;4 &plus; 7)</span>",
-qs:"Apply distributive property: Simplify three multiplied by open bracket minus four plus seven close bracket",
+q:"Find the principal if the simple interest is Rs. 900 at 5% per annum for 3 years.",
+qs:"Find the principal if the simple interest is nine hundred rupees at five percent per annum for three years.",
 anim:"q8",
-steps:[{"t": "Calculate inside bracket: &minus;4 &plus; 7 = 3", "s": "Calculate inside bracket: minus four plus seven equals three"}, {"t": "Multiply: 3 &times; 3 = 9", "s": "Multiply: three times three equals nine"}, {"t": "Distributive property: 3 &times; &minus;4 + 3 &times; 7 = &minus;12 + 21 = 9", "s": "Distributive property: three times minus four plus three times seven equals minus twelve plus twenty one equals nine"}],
-cq:"Is distributive property true for integers?",
-cqs:"Is distributive property true for integers?",
-ans:["Yes"],
-nudges:["Calculate inside bracket first.", "Multiply each term separately.", "Add results to verify."],
-anim_svg:"<g id=\"q8s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Calculate minus 4 plus 7</text></g><g id=\"q8s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Multiply 3 by 3</text></g><g id=\"q8s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Distribute multiplication</text></g><g id=\"q8ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">9</text></g>"
+steps:[{"t": "Use SI = P × R × T ÷ 100 and solve for P.", "s": "Simple interest equals principal times rate times time divided by one hundred. Rearrange to find principal."}, {"t": "P = SI × 100 ÷ (R × T) = 900 × 100 ÷ (5 × 3).", "s": "Principal equals simple interest times one hundred divided by rate times time."}, {"t": "Calculate P = 90000 ÷ 15 = Rs. 6000.", "s": "Calculate ninety thousand divided by fifteen equals six thousand rupees."}],
+cq:"What is the principal amount?",
+cqs:"Find the principal amount lent.",
+ans:["Rs. 6000"],
+nudges:["Rearrange formula to find principal.", "Multiply denominator first.", "P = SI × 100 ÷ (R × T)."],
+anim_svg:"<g id=\"q8s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">SI = P × R × T ÷ 100</text></g><g id=\"q8s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">P = SI × 100 ÷ (R × T)</text></g><g id=\"q8s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">P = 900 × 100 ÷ (5 × 3) = Rs. 6000</text></g><g id=\"q8ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Rs. 6000</text></g>"
 },
 {
 id:"q9",
-q:"Find absolute value: | <span class='hl'>&minus;15</span> |",
-qs:"Find absolute value of minus fifteen",
+q:"A sum of Rs. 12000 is lent at 7.5% per annum simple interest for 2 years. Find the simple interest.",
+qs:"A sum of twelve thousand rupees is lent at seven point five percent per annum simple interest for two years. Find the simple interest.",
 anim:"q9",
-steps:[{"t": "Absolute value means distance from zero", "s": "Absolute value means distance from zero"}, {"t": "Distance of &minus;15 from zero is 15", "s": "Distance of minus fifteen from zero is fifteen"}, {"t": "So, |&minus;15| = 15", "s": "So, absolute value of minus fifteen equals fifteen"}],
-cq:"What is | 20 |?",
-cqs:"What is absolute value of twenty?",
-ans:["20"],
-nudges:["Absolute value is always positive.", "It is distance from zero.", "Ignore the minus sign."],
-anim_svg:"<g id=\"q9s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Absolute value means distance from zero</text></g><g id=\"q9s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Distance of minus 15 is 15</text></g><g id=\"q9s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Absolute value is positive</text></g><g id=\"q9ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">15</text></g>"
+steps:[{"t": "Use SI = P × R × T ÷ 100.", "s": "Simple interest equals principal times rate times time divided by one hundred."}, {"t": "SI = 12000 × 7.5 × 2 ÷ 100 = Rs. 1800.", "s": "Calculate twelve thousand times seven point five times two divided by one hundred equals one thousand eight hundred rupees."}, {"t": "Simple interest is Rs. 1800.", "s": "Simple interest is one thousand eight hundred rupees."}],
+cq:"What is the total amount after 2 years?",
+cqs:"Find the total amount after two years.",
+ans:["Rs. 1800", "Rs. 13800"],
+nudges:["Calculate SI first.", "Add SI to principal for amount.", "Use SI = P × R × T ÷ 100."],
+anim_svg:"<g id=\"q9s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">SI = P × R × T ÷ 100</text></g><g id=\"q9s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">SI = 12000 × 7.5 × 2 ÷ 100 = Rs. 1800</text></g><g id=\"q9s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Simple interest = Rs. 1800</text></g><g id=\"q9ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Rs. 1800</text></g>"
 },
 {
 id:"q10",
-q:"Evaluate using BODMAS: <span class='hl'>8 &minus; (3 &times; &minus;2) &plus; 5</span>",
-qs:"Evaluate using BODMAS: eight minus open bracket three multiplied by minus two close bracket plus five",
+q:"Ramesh lent Rs. 5000 at 6% per annum simple interest. After how many years will he get Rs. 600 as interest?",
+qs:"Ramesh lent five thousand rupees at six percent per annum simple interest. After how many years will he get six hundred rupees as interest?",
 anim:"q10",
-steps:[{"t": "Multiply first: 3 &times; &minus;2 = &minus;6", "s": "Multiply first: three times minus two equals minus six"}, {"t": "Expression becomes: 8 &minus; ( &minus;6 ) &plus; 5", "s": "Expression becomes: eight minus minus six plus five"}, {"t": "Minus minus becomes plus: 8 &plus; 6 &plus; 5", "s": "Minus minus becomes plus: eight plus six plus five"}],
-cq:"Evaluate: (10 &plus; &minus;3) &times; 2",
-cqs:"Evaluate: open bracket ten plus minus three close bracket multiplied by two",
-ans:["19"],
-nudges:["Follow BODMAS: Brackets, Orders, Division, Multiplication, Addition, Subtraction.", "Calculate multiplication inside bracket first.", "Change double negatives to plus."],
-anim_svg:"<g id=\"q10s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Multiply 3 by minus 2</text></g><g id=\"q10s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Replace minus minus with plus</text></g><g id=\"q10s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Add all numbers</text></g><g id=\"q10ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">19</text></g>"
+steps:[{"t": "Use SI = P × R × T ÷ 100 and solve for T.", "s": "Simple interest equals principal times rate times time divided by one hundred. Rearrange to find time."}, {"t": "T = SI × 100 ÷ (P × R) = 600 × 100 ÷ (5000 × 6).", "s": "Time equals simple interest times one hundred divided by principal times rate."}, {"t": "Calculate T = 60000 ÷ 30000 = 2 years.", "s": "Calculate sixty thousand divided by thirty thousand equals two years."}],
+cq:"How many years will it take to earn Rs. 600 interest?",
+cqs:"Find the time period to earn six hundred rupees interest.",
+ans:["2 years"],
+nudges:["Rearrange formula to find time.", "Multiply denominator first.", "T = SI × 100 ÷ (P × R)."],
+anim_svg:"<g id=\"q10s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">SI = P × R × T ÷ 100</text></g><g id=\"q10s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">T = SI × 100 ÷ (P × R)</text></g><g id=\"q10s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">T = 600 × 100 ÷ (5000 × 6) = 2 years</text></g><g id=\"q10ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">2 years</text></g>"
 }
 ];
 
 function getAnimSVG(t){
 var base='<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Nunito,sans-serif;background:#fffdf8"><rect width="420" height="178" fill="#fffdf8"/>';
 var svgs={
-"q1":base+"<g id=\"q1s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Start with 7</text></g><g id=\"q1s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Add negative 3</text></g><g id=\"q1s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Result is 4</text></g><g id=\"q1ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">4</text></g>",
-"q2":base+"<g id=\"q2s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Minus 5 minus minus 8</text></g><g id=\"q2s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Minus minus becomes plus</text></g><g id=\"q2s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Result is 3</text></g><g id=\"q2ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">3</text></g>",
-"q3":base+"<g id=\"q3s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Multiply 4 by 6</text></g><g id=\"q3s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Result is 24</text></g><g id=\"q3s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">One negative number means negative result</text></g><g id=\"q3ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">&minus;24</text></g>",
-"q4":base+"<g id=\"q4s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Divide 36 by 6</text></g><g id=\"q4s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Result is 6</text></g><g id=\"q4s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Negative divided by positive is negative</text></g><g id=\"q4ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">&minus;6</text></g>",
-"q5":base+"<g id=\"q5s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Add 5 and minus 2</text></g><g id=\"q5s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Result is 3</text></g><g id=\"q5s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">3 is integer, so closed under addition</text></g><g id=\"q5ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Yes</text></g>",
-"q6":base+"<g id=\"q6s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Calculate 3 plus minus 7</text></g><g id=\"q6s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Result is minus 4</text></g><g id=\"q6s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Calculate minus 7 plus 3</text></g><g id=\"q6ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Yes</text></g>",
-"q7":base+"<g id=\"q7s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Calculate minus 2 plus 5</text></g><g id=\"q7s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Add 3 to result</text></g><g id=\"q7s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Calculate 5 plus 3, then add minus 2</text></g><g id=\"q7ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Yes</text></g>",
-"q8":base+"<g id=\"q8s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Calculate minus 4 plus 7</text></g><g id=\"q8s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Multiply 3 by 3</text></g><g id=\"q8s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Distribute multiplication</text></g><g id=\"q8ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">9</text></g>",
-"q9":base+"<g id=\"q9s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Absolute value means distance from zero</text></g><g id=\"q9s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Distance of minus 15 is 15</text></g><g id=\"q9s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Absolute value is positive</text></g><g id=\"q9ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">15</text></g>",
-"q10":base+"<g id=\"q10s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Multiply 3 by minus 2</text></g><g id=\"q10s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Replace minus minus with plus</text></g><g id=\"q10s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Add all numbers</text></g><g id=\"q10ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">19</text></g>"
+"q1":base+"<g id=\"q1s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Principal = Rs. 5000, Rate = 5%, Time = 3 years</text></g><g id=\"q1s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">SI = P × R × T ÷ 100</text></g><g id=\"q1s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">SI = 5000 × 5 × 3 ÷ 100 = Rs. 750</text></g><g id=\"q1ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Rs. 750</text></g>",
+"q2":base+"<g id=\"q2s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Calculate SI first: SI = P × R × T ÷ 100</text></g><g id=\"q2s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">SI = 8000 × 6 × 2 ÷ 100 = Rs. 960</text></g><g id=\"q2s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Amount = 8000 + 960 = Rs. 8960</text></g><g id=\"q2ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Rs. 8960</text></g>",
+"q3":base+"<g id=\"q3s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">SI = P × R × T ÷ 100</text></g><g id=\"q3s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">T = SI × 100 ÷ (P × R)</text></g><g id=\"q3s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">T = 720 × 100 ÷ (6000 × 4) = 3 years</text></g><g id=\"q3ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">3 years</text></g>",
+"q4":base+"<g id=\"q4s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">SI = Amount - Principal = Rs. 1350</text></g><g id=\"q4s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">SI = P × R × T ÷ 100</text></g><g id=\"q4s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">R = 1350 × 100 ÷ (9000 × 3) = 5%</text></g><g id=\"q4ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">5%</text></g>",
+"q5":base+"<g id=\"q5s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">SI = P × R × T ÷ 100</text></g><g id=\"q5s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">SI = 7000 × 3 × 4 ÷ 100 = Rs. 840</text></g><g id=\"q5s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Simple interest = Rs. 840</text></g><g id=\"q5ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Rs. 840</text></g>",
+"q6":base+"<g id=\"q6s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">SI1 = 4000 × 6 × 2 ÷ 100 = Rs. 480</text></g><g id=\"q6s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">SI2 = 6000 × 5 × 2 ÷ 100 = Rs. 600</text></g><g id=\"q6s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Difference = Rs. 120</text></g><g id=\"q6ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Rs. 120</text></g>",
+"q7":base+"<g id=\"q7s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">SI = 10000 × 8 × 5 ÷ 100 = Rs. 4000</text></g><g id=\"q7s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Amount = 10000 + 4000 = Rs. 14000</text></g><g id=\"q7s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Total amount = Rs. 14000</text></g><g id=\"q7ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Rs. 14000</text></g>",
+"q8":base+"<g id=\"q8s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">SI = P × R × T ÷ 100</text></g><g id=\"q8s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">P = SI × 100 ÷ (R × T)</text></g><g id=\"q8s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">P = 900 × 100 ÷ (5 × 3) = Rs. 6000</text></g><g id=\"q8ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Rs. 6000</text></g>",
+"q9":base+"<g id=\"q9s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">SI = P × R × T ÷ 100</text></g><g id=\"q9s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">SI = 12000 × 7.5 × 2 ÷ 100 = Rs. 1800</text></g><g id=\"q9s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Simple interest = Rs. 1800</text></g><g id=\"q9ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Rs. 1800</text></g>",
+"q10":base+"<g id=\"q10s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">SI = P × R × T ÷ 100</text></g><g id=\"q10s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">T = SI × 100 ÷ (P × R)</text></g><g id=\"q10s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">T = 600 × 100 ÷ (5000 × 6) = 2 years</text></g><g id=\"q10ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">2 years</text></g>"
 };
 return svgs[t]||'<svg viewBox="0 0 420 178"><text x="210" y="89" text-anchor="middle" font-family="Nunito" font-size="14" fill="#5a4a30">Loading...</text></svg>';
 }
@@ -348,7 +348,7 @@ function init(){
   
   var st=JSON.parse(localStorage.getItem("rishi_current_student")||"{}");
   G("sName")&&(G("sName").textContent=st.studentName?st.studentName.split(" ")[0]:"there");
-  if(rishiIsExplainDone('ic7_1')){completed=true;G("doneBanner").classList.add("show");unlockNav();}
+  if(rishiIsExplainDone('ic7_10')){completed=true;G("doneBanner").classList.add("show");unlockNav();}
   buildSession();rInit();
   initVoices(function(){});
 }
@@ -393,19 +393,19 @@ function goNext(){confirmShown=false;idx++;G("qArea").innerHTML="";showQ();windo
 function updateProg(){var pct=Math.round((idx/PER_SESSION)*100);G("progFill").style.width=pct+"%";G("progLabel").textContent="Question "+(idx+1)+" of "+PER_SESSION;G("progPct").textContent=pct+"%";}
 function unlockNav(){G("btnPractice").classList.remove("locked");G("btnExam").classList.remove("locked");G("lockTip").style.display="none";}
 function onComplete(){
-  rishiMarkExplainDone('ic7_1');
+  rishiMarkExplainDone('ic7_10');
   completed=true;G("doneBanner").classList.add("show");unlockNav();
   var st=JSON.parse(localStorage.getItem("rishi_current_student")||"{}");
   var nm=st.studentName?st.studentName.split(" ")[0]:"champion";
   var cel=document.createElement("div");cel.className="rishika-wrap";
   cel.innerHTML='<div class="rishika-avatar">&#128105;&#8205;&#127979;</div>'
     +'<div class="rishika-bubble"><div class="rishika-name">Rishika</div>'
-    +'<div class="rishika-text" id="celText">&#127881; <span class="hl">'+nm+'</span>, Fantastic work! You&#39;ve mastered Integers! 🎉</div>'
+    +'<div class="rishika-text" id="celText">&#127881; <span class="hl">'+nm+'</span>, Fantastic work! You&#39;ve mastered Simple Interest! 🎉</div>'
     +'<button class="btn-speak" onclick="sayEl(\'celText\')">&#128266; Hear</button></div>';
   G("qArea").appendChild(cel);setTimeout(function(){sayEl("celText");rHappy();},400);
 }
-function goPractice(){if(!completed){alert("Complete explanations first!");return;}location.href="/practice/icse/class7/arithmetic/integers.html";}
-function goExam(){if(!completed){alert("Complete explanations first!");return;}if(!rishiIsPracticeDone('ic7_1')){alert('Complete Practice with 5 in a row first!');return;}location.href="/exam.html?ch=ic7-01";}
+function goPractice(){if(!completed){alert("Complete explanations first!");return;}location.href="/practice/icse/class7/arithmetic/simple-interest.html";}
+function goExam(){if(!completed){alert("Complete explanations first!");return;}if(!rishiIsPracticeDone('ic7_10')){alert('Complete Practice with 5 in a row first!');return;}location.href="/exam.html?ch=ic7-10";}
 var CELEBRATIONS=[{word:"Magnifique!",lang:"French",meaning:"Magnificent!",speak:"Magnifique"},{word:"Bravissimo!",lang:"Italian",meaning:"Very well done!",speak:"Bravissimo"},{word:"Wunderbar!",lang:"German",meaning:"Wonderful!",speak:"Wunderbar"},{word:"Shabash!",lang:"Hindi",meaning:"Well done!",speak:"Shabash"},{word:"Felicitaciones!",lang:"Spanish",meaning:"Congratulations!",speak:"Felicitaciones"}];
 var lastCelIdx=-1;
 function celebrate(){var i;do{i=Math.floor(Math.random()*CELEBRATIONS.length);}while(i===lastCelIdx&&CELEBRATIONS.length>1);lastCelIdx=i;var c=CELEBRATIONS[i];var rb=G("rbox");rb.className="result-box ok";rb.innerHTML='<div style="font-size:18px;font-weight:900;">'+c.word+'</div><div style="font-size:11px;">'+c.lang+' &middot; <em>'+c.meaning+'</em></div>';G("nudgeBox").classList.remove("show");var nb=G("btnNext");if(nb)nb.classList.add("show");say(c.speak);rHappy();}

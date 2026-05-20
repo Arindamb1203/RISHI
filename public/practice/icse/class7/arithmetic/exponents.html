@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="rishi-board" content="icse">
 <meta name="rishi-class" content="7">
-<title>Practice – Integers | RISHI</title>
+<title>Practice – Exponents | RISHI</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 
@@ -180,8 +180,8 @@ body{font-family:'Nunito',sans-serif;background:#0d0d1a;min-height:100vh;color:#
 <div class="main-layout">
   <!-- LEFT PANEL -->
   <div class="left-panel">
-    <div class="lp-chapter">Chapter 1</div>
-    <div class="lp-title">Integers</div>
+    <div class="lp-chapter">Chapter 5</div>
+    <div class="lp-title">Exponents</div>
     <div class="lp-stat">
       <div class="lp-stat-label">Question</div>
       <div class="lp-stat-val"><span id="qNumDisp">1</span><span style="font-size:14px;color:rgba(255,255,255,.3);">/15</span></div>
@@ -406,127 +406,127 @@ window.addEventListener('load', function() {
 
 </script>
 <script>
-var CHAP_ID='ic7_1';
+var CHAP_ID='ic7_5';
 var QB=[
 {
 id:"p1",
-q:"Calculate: (-15) + 28 - 13 + (-7).",
-qs:"Calculate negative fifteen plus twenty eight minus thirteen plus negative seven.",
+q:"Simplify: 3^4 × 3^2",
+qs:"Simplify three to the power four multiplied by three to the power two",
 anim:"p1",
-steps:[{"t": "Add (-15) and 28 to get 13.", "s": "Add negative fifteen and twenty eight to get thirteen."}, {"t": "Subtract 13 from 13 to get 0.", "s": "Subtract thirteen from thirteen to get zero."}, {"t": "Add (-7) to 0 to get -7.", "s": "Add negative seven to zero to get negative seven."}],
-cq:"What is the sum of all these integers?",
-cqs:"What is the total sum after adding all these numbers?",
-ans:["-7"],
-nudges:["Group positive and negative numbers first.", "Remember adding a negative number is subtraction.", "Calculate step by step carefully."],
-anim_svg:"<g id=\"p1s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Add (-15) + 28 = 13</text></g><g id=\"p1s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">13 - 13 = 0</text></g><g id=\"p1s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">0 + (-7) = -7</text></g><g id=\"p1ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">-7</text></g>"
+steps:[{"t": "Use the law a^m × a^n = a^(m+n)", "s": "We add the exponents 4 and 2"}, {"t": "Calculate 4 + 2 = 6", "s": "Adding the exponents gives 6"}, {"t": "So, 3^4 × 3^2 = 3^6", "s": "The answer is three to the power six"}],
+cq:"What is 3^6?",
+cqs:"Calculate three to the power six",
+ans:["729"],
+nudges:["Remember to add exponents when bases are same and multiplied", "3^4 means 3×3×3×3", "3^6 means 3 multiplied by itself 6 times"],
+anim_svg:"<g id=\"p1s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Add exponents: 4 + 2</text></g><g id=\"p1s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Sum is 6</text></g><g id=\"p1s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Result: 3^6</text></g><g id=\"p1ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">729</text></g>"
 },
 {
 id:"p2",
-q:"Find the product: (-9) × 6 × (-2).",
-qs:"Find the product of negative nine times six times negative two.",
+q:"Simplify: (2^3)^4",
+qs:"Simplify open bracket two to the power three close bracket to the power four",
 anim:"p2",
-steps:[{"t": "Multiply (-9) and 6 to get -54.", "s": "Multiply negative nine and six to get negative fifty four."}, {"t": "Multiply -54 and (-2) to get 108.", "s": "Multiply negative fifty four and negative two to get one hundred eight."}],
-cq:"What is the final product?",
-cqs:"What is the result after multiplying all numbers?",
-ans:["108"],
-nudges:["Multiply stepwise.", "Remember negative × negative = positive.", "Calculate carefully."],
-anim_svg:"<g id=\"p2s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">(-9) × 6 = -54</text></g><g id=\"p2s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">-54 × (-2) = 108</text></g><g id=\"p2ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">108</text></g>"
+steps:[{"t": "Use the law (a^m)^n = a^(mn)", "s": "Multiply the exponents 3 and 4"}, {"t": "Calculate 3 × 4 = 12", "s": "The new exponent is 12"}, {"t": "So, (2^3)^4 = 2^12", "s": "The answer is two to the power twelve"}],
+cq:"What is 2^12?",
+cqs:"Calculate two to the power twelve",
+ans:["4096"],
+nudges:["Multiply exponents when power is raised to another power", "2^3 means 2×2×2", "2^12 means 2 multiplied by itself 12 times"],
+anim_svg:"<g id=\"p2s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Multiply exponents: 3 × 4</text></g><g id=\"p2s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Result is 12</text></g><g id=\"p2s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Final: 2^12</text></g><g id=\"p2ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">4096</text></g>"
 },
 {
 id:"p3",
-q:"Evaluate: |-12| + (-7) + 15.",
-qs:"Evaluate absolute value of negative twelve plus negative seven plus fifteen.",
+q:"Simplify: (5^2 × 5^3) / 5^4",
+qs:"Simplify open bracket five squared times five cubed close bracket divided by five to the power four",
 anim:"p3",
-steps:[{"t": "Find absolute value of -12 which is 12.", "s": "Find absolute value of negative twelve which is twelve."}, {"t": "Add 12 and (-7) to get 5.", "s": "Add twelve and negative seven to get five."}, {"t": "Add 5 and 15 to get 20.", "s": "Add five and fifteen to get twenty."}],
-cq:"What is the final sum?",
-cqs:"What is the total after adding all numbers?",
-ans:["20"],
-nudges:["Recall absolute value is distance from zero.", "Add integers carefully.", "Calculate stepwise."],
-anim_svg:"<g id=\"p3s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">|-12| = 12</text></g><g id=\"p3s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">12 + (-7) = 5</text></g><g id=\"p3s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">5 + 15 = 20</text></g><g id=\"p3ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">20</text></g>"
+steps:[{"t": "Multiply powers with same base: 5^2 × 5^3 = 5^(2+3) = 5^5", "s": "Add exponents 2 and 3"}, {"t": "Divide powers with same base: 5^5 / 5^4 = 5^(5-4) = 5^1", "s": "Subtract exponents 5 and 4"}, {"t": "So, the answer is 5^1 = 5", "s": "Final simplified value is 5"}],
+cq:"What is 5^1?",
+cqs:"Calculate five to the power one",
+ans:["5"],
+nudges:["Add exponents when multiplying same base", "Subtract exponents when dividing same base", "Anything to power 1 is itself"],
+anim_svg:"<g id=\"p3s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Add exponents: 2 + 3 = 5</text></g><g id=\"p3s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Subtract exponents: 5 - 4 = 1</text></g><g id=\"p3s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Result: 5^1 = 5</text></g><g id=\"p3ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">5</text></g>"
 },
 {
 id:"p4",
-q:"Simplify: (-8) - (-3) + 5 - 12.",
-qs:"Simplify negative eight minus negative three plus five minus twelve.",
+q:"Simplify: (3 × 4)^3",
+qs:"Simplify open bracket three times four close bracket to the power three",
 anim:"p4",
-steps:[{"t": "Subtract (-3) from (-8) which is (-8) + 3 = -5.", "s": "Subtract negative three from negative eight which is negative eight plus three equals negative five."}, {"t": "Add 5 to -5 to get 0.", "s": "Add five to negative five to get zero."}, {"t": "Subtract 12 from 0 to get -12.", "s": "Subtract twelve from zero to get negative twelve."}],
-cq:"What is the simplified result?",
-cqs:"What number do you get after simplification?",
-ans:["-12"],
-nudges:["Remember subtracting a negative is addition.", "Calculate stepwise carefully.", "Keep track of signs."],
-anim_svg:"<g id=\"p4s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">(-8) - (-3) = -5</text></g><g id=\"p4s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">-5 + 5 = 0</text></g><g id=\"p4s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">0 - 12 = -12</text></g><g id=\"p4ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">-12</text></g>"
+steps:[{"t": "Use law (ab)^n = a^n × b^n", "s": "Raise each factor to power 3"}, {"t": "Calculate 3^3 = 27 and 4^3 = 64", "s": "Compute each power separately"}, {"t": "Multiply 27 × 64 = 1728", "s": "Final answer is 1728"}],
+cq:"What is the value of (3 × 4)^3?",
+cqs:"Calculate three times four raised to power three",
+ans:["1728"],
+nudges:["Apply power to each factor inside bracket", "Calculate powers separately", "Multiply results"],
+anim_svg:"<g id=\"p4s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Apply power to each factor</text></g><g id=\"p4s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Calculate 3^3 and 4^3</text></g><g id=\"p4s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Multiply results</text></g><g id=\"p4ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">1728</text></g>"
 },
 {
 id:"p5",
-q:"Using BODMAS, evaluate: 18 - [4 × (-3) + 6] ÷ 3.",
-qs:"Using BODMAS, evaluate eighteen minus bracket four times negative three plus six bracket divided by three.",
+q:"Simplify: 7^0 + 5^1",
+qs:"Simplify seven to the power zero plus five to the power one",
 anim:"p5",
-steps:[{"t": "Calculate inside bracket: 4 × (-3) = -12.", "s": "Calculate inside bracket: four times negative three equals negative twelve."}, {"t": "Add -12 and 6 to get -6.", "s": "Add negative twelve and six to get negative six."}, {"t": "Divide -6 by 3 to get -2.", "s": "Divide negative six by three to get negative two."}],
-cq:"What is the final value?",
-cqs:"What number do you get after evaluating the expression?",
-ans:["20"],
-nudges:["Follow BODMAS carefully.", "Calculate inside brackets first.", "Remember subtracting a negative is addition."],
-anim_svg:"<g id=\"p5s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">4 × (-3) = -12</text></g><g id=\"p5s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">-12 + 6 = -6</text></g><g id=\"p5s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">-6 ÷ 3 = -2</text></g><g id=\"p5s3\" opacity=\"0\"><text x=\"22\" y=\"148\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">18 - (-2) = 20</text></g><g id=\"p5ans\" opacity=\"0\"><rect x=\"40\" y=\"188\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"203\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">20</text></g>"
+steps:[{"t": "Recall a^0 = 1 for any a ≠ 0", "s": "So, 7^0 = 1"}, {"t": "Recall a^1 = a", "s": "So, 5^1 = 5"}, {"t": "Sum 1 + 5 = 6", "s": "Final answer is 6"}],
+cq:"What is 7^0 + 5^1?",
+cqs:"Calculate seven to zero plus five to one",
+ans:["6"],
+nudges:["Anything to power zero is 1", "Anything to power one is itself", "Add the results"],
+anim_svg:"<g id=\"p5s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">7^0 = 1</text></g><g id=\"p5s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">5^1 = 5</text></g><g id=\"p5s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Sum = 6</text></g><g id=\"p5ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">6</text></g>"
 },
 {
 id:"p6",
-q:"If the temperature in Shimla was -5°C in the morning and it rose by 12°C by afternoon, what is the new temperature?",
-qs:"If the temperature in Shimla was negative five degrees Celsius in the morning and it rose by twelve degrees Celsius by afternoon, what is the new temperature?",
+q:"Simplify: 10^5 / 10^7",
+qs:"Simplify ten to the power five divided by ten to the power seven",
 anim:"p6",
-steps:[{"t": "Initial temperature is -5°C.", "s": "Initial temperature is negative five degrees Celsius."}, {"t": "Temperature rose by 12°C, so add 12 to -5.", "s": "Temperature rose by twelve degrees Celsius, so add twelve to negative five."}, {"t": "Calculate -5 + 12 = 7°C.", "s": "Calculate negative five plus twelve equals seven degrees Celsius."}],
-cq:"What is the afternoon temperature in Shimla?",
-cqs:"What temperature does Shimla have in the afternoon?",
-ans:["7°C"],
-nudges:["Add the rise to the initial temperature.", "Remember adding a positive number to a negative.", "Calculate carefully."],
-anim_svg:"<g id=\"p6s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Initial temperature = -5°C</text></g><g id=\"p6s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">-5 + 12 = 7</text></g><g id=\"p6s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">New temperature = 7°C</text></g><g id=\"p6ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">7°C</text></g>"
+steps:[{"t": "Use the law a^m / a^n = a^(m-n)", "s": "Subtract exponents 5 and 7"}, {"t": "Calculate 5 - 7 = -2", "s": "Result is 10 to the power minus two"}, {"t": "So, 10^5 / 10^7 = 10^-2", "s": "Final answer is 10 to the power negative two"}],
+cq:"What is 10^-2 as a decimal?",
+cqs:"Calculate ten to the power minus two as decimal",
+ans:["0.01"],
+nudges:["Subtract exponents when dividing same base", "Negative exponent means reciprocal", "10^-2 = 1 / 10^2"],
+anim_svg:"<g id=\"p6s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Subtract exponents: 5 - 7</text></g><g id=\"p6s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Result is -2</text></g><g id=\"p6s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Answer: 10^-2</text></g><g id=\"p6ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">0.01</text></g>"
 },
 {
 id:"p7",
-q:"A shopkeeper had a loss of Rs. 250 on Monday and a profit of Rs. 400 on Tuesday. What is his net gain or loss over the two days?",
-qs:"A shopkeeper had a loss of two hundred fifty rupees on Monday and a profit of four hundred rupees on Tuesday. What is his net gain or loss over the two days?",
+q:"Express 4500000 in scientific notation",
+qs:"Express four million five hundred thousand in scientific notation",
 anim:"p7",
-steps:[{"t": "Represent loss as -250 and profit as +400.", "s": "Represent loss as negative two hundred fifty and profit as positive four hundred."}, {"t": "Add -250 and 400 to get 150.", "s": "Add negative two hundred fifty and four hundred to get one hundred fifty."}, {"t": "Since result is positive, net gain is Rs. 150.", "s": "Since result is positive, net gain is one hundred fifty rupees."}],
-cq:"What is the net amount after two days?",
-cqs:"Did the shopkeeper gain or lose money overall, and how much?",
-ans:["Net gain of Rs. 150"],
-nudges:["Use negative for loss and positive for profit.", "Add the two values.", "Interpret the sign of the result."],
-anim_svg:"<g id=\"p7s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Loss = -250, Profit = 400</text></g><g id=\"p7s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">-250 + 400 = 150</text></g><g id=\"p7s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Net gain = Rs. 150</text></g><g id=\"p7ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Net gain of Rs. 150</text></g>"
+steps:[{"t": "Move decimal point to after first digit: 4.5", "s": "Count how many places decimal moved: 6"}, {"t": "Write as 4.5 × 10^6", "s": "Scientific notation is 4.5 times ten to the power six"}, {"t": "So, 4500000 = 4.5 × 10^6", "s": "Answer in scientific notation"}],
+cq:"What is 4500000 in scientific notation?",
+cqs:"Express four million five hundred thousand as scientific notation",
+ans:["4.5 × 10^6"],
+nudges:["Move decimal after first digit", "Count decimal places moved", "Use power of ten accordingly"],
+anim_svg:"<g id=\"p7s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Move decimal to 4.5</text></g><g id=\"p7s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Count places moved: 6</text></g><g id=\"p7s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Write as 4.5 × 10^6</text></g><g id=\"p7ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">4.5 × 10^6</text></g>"
 },
 {
 id:"p8",
-q:"Simplify: (-24) ÷ (-6) + (-3) × 4.",
-qs:"Simplify negative twenty four divided by negative six plus negative three times four.",
+q:"Simplify: (8^3) / (8^5)",
+qs:"Simplify eight to the power three divided by eight to the power five",
 anim:"p8",
-steps:[{"t": "Divide (-24) by (-6) to get 4.", "s": "Divide negative twenty four by negative six to get four."}, {"t": "Multiply (-3) by 4 to get -12.", "s": "Multiply negative three by four to get negative twelve."}, {"t": "Add 4 and (-12) to get -8.", "s": "Add four and negative twelve to get negative eight."}],
-cq:"What is the simplified answer?",
-cqs:"What is the final value after simplification?",
-ans:["-8"],
-nudges:["Divide first then multiply.", "Remember negative divided by negative is positive.", "Add positive and negative carefully."],
-anim_svg:"<g id=\"p8s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">(-24) ÷ (-6) = 4</text></g><g id=\"p8s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">(-3) × 4 = -12</text></g><g id=\"p8s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">4 + (-12) = -8</text></g><g id=\"p8ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">-8</text></g>"
+steps:[{"t": "Use a^m / a^n = a^(m-n)", "s": "Subtract exponents 3 and 5"}, {"t": "Calculate 3 - 5 = -2", "s": "Result is 8^-2"}, {"t": "So, (8^3) / (8^5) = 8^-2", "s": "Answer is eight to the power minus two"}],
+cq:"What is 8^-2 as a fraction?",
+cqs:"Express eight to the power minus two as a fraction",
+ans:["1/64"],
+nudges:["Subtract exponents", "Negative exponent means reciprocal", "8^2 = 64 so 8^-2 = 1/64"],
+anim_svg:"<g id=\"p8s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Subtract exponents: 3 - 5</text></g><g id=\"p8s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Result: -2</text></g><g id=\"p8s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Answer: 8^-2</text></g><g id=\"p8ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">1/64</text></g>"
 },
 {
 id:"p9",
-q:"Rohit had Rs. 500 in his account. He withdrew Rs. 650. What is his account balance now?",
-qs:"Rohit had five hundred rupees in his account. He withdrew six hundred fifty rupees. What is his account balance now?",
+q:"A farmer planted 2^5 mango trees and 2^3 apple trees. How many trees did he plant in total?",
+qs:"A farmer planted two to the power five mango trees and two to the power three apple trees. How many trees in total?",
 anim:"p9",
-steps:[{"t": "Initial balance is Rs. 500.", "s": "Initial balance is five hundred rupees."}, {"t": "Withdrawal is Rs. 650, so subtract 650 from 500.", "s": "Withdrawal is six hundred fifty rupees, so subtract six hundred fifty from five hundred."}, {"t": "Calculate 500 - 650 = -150.", "s": "Calculate five hundred minus six hundred fifty equals negative one hundred fifty."}],
-cq:"What does a negative balance mean here?",
-cqs:"What is Rohit's account status after withdrawal?",
-ans:["Rs. -150 (Overdrawn by Rs. 150)"],
-nudges:["Subtract withdrawal from balance.", "Negative balance means overdraft.", "Calculate carefully."],
-anim_svg:"<g id=\"p9s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Balance = 500</text></g><g id=\"p9s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">500 - 650 = -150</text></g><g id=\"p9s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Account overdrawn by Rs. 150</text></g><g id=\"p9ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Rs. -150 (Overdrawn by Rs. 150)</text></g>"
+steps:[{"t": "Calculate 2^5 = 32 mango trees", "s": "Two to the power five equals 32"}, {"t": "Calculate 2^3 = 8 apple trees", "s": "Two to the power three equals 8"}, {"t": "Add 32 + 8 = 40 trees", "s": "Total trees planted are 40"}],
+cq:"What is the total number of trees?",
+cqs:"Calculate total mango and apple trees",
+ans:["40"],
+nudges:["Calculate each power separately", "Add the results", "Total trees is sum of mango and apple trees"],
+anim_svg:"<g id=\"p9s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Calculate 2^5 = 32</text></g><g id=\"p9s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Calculate 2^3 = 8</text></g><g id=\"p9s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Add 32 + 8 = 40</text></g><g id=\"p9ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">40</text></g>"
 },
 {
 id:"p10",
-q:"Verify the distributive property: Calculate 5 × [(-3) + 7] and 5 × (-3) + 5 × 7, then compare.",
-qs:"Verify the distributive property by calculating five times negative three plus seven in bracket and then five times negative three plus five times seven, then compare.",
+q:"The population of a town is 1.2 × 10^4. If it doubles in 3 years, what will be the population then?",
+qs:"The population of a town is 1.2 times ten to the power four. If it doubles in three years, what is the population then?",
 anim:"p10",
-steps:[{"t": "Calculate inside bracket: (-3) + 7 = 4.", "s": "Calculate inside bracket: negative three plus seven equals four."}, {"t": "Multiply 5 × 4 = 20.", "s": "Multiply five times four equals twenty."}, {"t": "Calculate 5 × (-3) = -15 and 5 × 7 = 35.", "s": "Calculate five times negative three equals negative fifteen and five times seven equals thirty five."}],
-cq:"Does the distributive property hold true here?",
-cqs:"Are both methods giving the same answer?",
-ans:["Yes, both equal 20"],
-nudges:["Calculate inside bracket first.", "Multiply separately then add.", "Compare both results."],
-anim_svg:"<g id=\"p10s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">(-3) + 7 = 4</text></g><g id=\"p10s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">5 × 4 = 20</text></g><g id=\"p10s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">5 × (-3) = -15, 5 × 7 = 35</text></g><g id=\"p10s3\" opacity=\"0\"><text x=\"22\" y=\"148\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">-15 + 35 = 20</text></g><g id=\"p10s4\" opacity=\"0\"><text x=\"22\" y=\"188\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Distributive property verified</text></g><g id=\"p10ans\" opacity=\"0\"><rect x=\"40\" y=\"228\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"243\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Yes, both equal 20</text></g>"
+steps:[{"t": "Current population = 1.2 × 10^4 = 12000", "s": "Convert scientific notation to number"}, {"t": "Double population: 12000 × 2 = 24000", "s": "Multiply by 2"}, {"t": "Express 24000 in scientific notation: 2.4 × 10^4", "s": "Final population in scientific notation"}],
+cq:"What is the new population in scientific notation?",
+cqs:"Calculate doubled population in scientific notation",
+ans:["2.4 × 10^4"],
+nudges:["Convert scientific notation to number", "Multiply by 2", "Convert back to scientific notation"],
+anim_svg:"<g id=\"p10s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Convert 1.2 × 10^4 to 12000</text></g><g id=\"p10s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Multiply by 2 to get 24000</text></g><g id=\"p10s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Express as 2.4 × 10^4</text></g><g id=\"p10ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">2.4 × 10^4</text></g>"
 }
 ];
 

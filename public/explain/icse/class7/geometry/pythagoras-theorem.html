@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="rishi-board" content="icse">
 <meta name="rishi-class" content="7">
-<title>RISHI — Integers</title>
+<title>RISHI — Pythagoras Theorem</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Nunito:wght@400;600;700;800;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
@@ -101,7 +101,7 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 <body>
 <div class="topbar">
   <div class="logo-sm">RISHI</div>
-  <div class="topbar-center">➕ Integers</div>
+  <div class="topbar-center">📏 Pythagoras Theorem</div>
   <div class="topbar-right">
     <button class="btn-topbar" onclick="openBreak()">&#9749; Break</button>
     <button class="btn-topbar back" onclick="location.href='/syllabus.html'">&#8592; Syllabus</button>
@@ -121,7 +121,7 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
     <div class="rishika-bubble">
       <div class="rishika-name">Rishika</div>
       <div class="rishika-text" id="introText">
-        Hi <span class="hl" id="sName">there</span>! I&#39;m Rishika! Today we explore <span class="hl">Integers</span>! ➕ Let&#39;s begin!
+        Hi <span class="hl" id="sName">there</span>! I&#39;m Rishika! Today we explore <span class="hl">Pythagoras Theorem</span>! 📏 Let&#39;s begin!
       </div>
       <button class="btn-speak" onclick="startLesson()" id="startBtn">&#9654; Start Lesson</button>
     </div>
@@ -195,139 +195,139 @@ function rThink(){setTimeout(rStopTalk,1800);}
 var QB=[
 {
 id:"q1",
-q:"Calculate: <span class='hl'>7 &plus; &minus;3</span>",
-qs:"Calculate seven plus minus three",
+q:"In a right-angled triangle, the sides adjacent to the right angle are 3 cm and 4 cm. Find the length of the hypotenuse.",
+qs:"In a right angled triangle, the sides adjacent to the right angle are 3 centimetres and 4 centimetres. Find the length of the hypotenuse.",
 anim:"q1",
-steps:[{"t": "Start with 7", "s": "Start with seven"}, {"t": "Add negative 3", "s": "Add negative three"}, {"t": "Result is 4", "s": "Result is four"}],
-cq:"What is 7 &minus; 3?",
-cqs:"What is seven minus three?",
-ans:["4"],
-nudges:["Remember adding a negative number is like subtracting.", "Think of number line movement.", "7 plus minus 3 equals 4."],
-anim_svg:"<g id=\"q1s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Start with 7</text></g><g id=\"q1s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Add negative 3</text></g><g id=\"q1s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Result is 4</text></g><g id=\"q1ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">4</text></g>"
+steps:[{"t": "Square the two shorter sides: 3 &times; 3 = 9 and 4 &times; 4 = 16.", "s": "Square the two shorter sides: three times three equals nine and four times four equals sixteen."}, {"t": "Add these squares: 9 + 16 = 25.", "s": "Add these squares: nine plus sixteen equals twenty five."}, {"t": "Find the square root of 25 to get the hypotenuse: &radic;25 = 5 cm.", "s": "Find the square root of twenty five to get the hypotenuse: square root of twenty five equals five centimetres."}],
+cq:"What is the hypotenuse length?",
+cqs:"What is the hypotenuse length?",
+ans:["5 cm"],
+nudges:["Remember Pythagoras theorem: hypotenuse squared equals sum of squares of other two sides.", "Try squaring both sides and then adding.", "The hypotenuse is 5 cm."],
+anim_svg:"<g id=\"q1s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Square sides: 3 squared = 9, 4 squared = 16</text></g><g id=\"q1s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Sum of squares: 9 plus 16 equals 25</text></g><g id=\"q1s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Hypotenuse = square root of 25 = 5 cm</text></g><g id=\"q1ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">5 cm</text></g>"
 },
 {
 id:"q2",
-q:"Find: <span class='hl'>&minus;5 &minus; &minus;8</span>",
-qs:"Find minus five minus minus eight",
+q:"State the Pythagoras theorem in your own words.",
+qs:"State the Pythagoras theorem in your own words.",
 anim:"q2",
-steps:[{"t": "Minus 5 minus minus 8", "s": "Minus five minus minus eight"}, {"t": "Minus minus becomes plus", "s": "Minus minus becomes plus"}, {"t": "So, &minus;5 &plus; 8 = 3", "s": "So, minus five plus eight equals three"}],
-cq:"What is &minus;5 &plus; 8?",
-cqs:"What is minus five plus eight?",
-ans:["3"],
-nudges:["Subtracting a negative is like adding.", "Change double minus to plus.", "Calculate &minus;5 plus 8."],
-anim_svg:"<g id=\"q2s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Minus 5 minus minus 8</text></g><g id=\"q2s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Minus minus becomes plus</text></g><g id=\"q2s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Result is 3</text></g><g id=\"q2ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">3</text></g>"
+steps:[{"t": "Consider a right-angled triangle with sides a, b and hypotenuse c.", "s": "Consider a right angled triangle with sides a, b and hypotenuse c."}, {"t": "The theorem states: a&sup2; + b&sup2; = c&sup2;.", "s": "The theorem states: a squared plus b squared equals c squared."}, {"t": "This means the square of hypotenuse equals sum of squares of other two sides.", "s": "This means the square of hypotenuse equals sum of squares of other two sides."}],
+cq:"What is the relation between the sides of a right-angled triangle?",
+cqs:"What is the relation between the sides of a right angled triangle?",
+ans:["Square of hypotenuse equals sum of squares of other two sides."],
+nudges:["Think about the sides of a right-angled triangle.", "Remember the formula a squared plus b squared equals c squared.", "The hypotenuse squared equals sum of squares of the other two sides."],
+anim_svg:"<g id=\"q2s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Right angled triangle sides a, b and hypotenuse c</text></g><g id=\"q2s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">a squared plus b squared equals c squared</text></g><g id=\"q2s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Hypotenuse squared equals sum of squares of other sides</text></g><g id=\"q2ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">a squared plus b squared equals c squared</text></g>"
 },
 {
 id:"q3",
-q:"Calculate: <span class='hl'>(&minus;4) &times; 6</span>",
-qs:"Calculate minus four multiplied by six",
+q:"Which of these sets of numbers is a Pythagorean triplet? (3, 4, 5), (6, 8, 10), (5, 12, 14)",
+qs:"Which of these sets of numbers is a Pythagorean triplet? Three, four, five; six, eight, ten; five, twelve, fourteen.",
 anim:"q3",
-steps:[{"t": "Multiply 4 by 6", "s": "Multiply four by six"}, {"t": "Result is 24", "s": "Result is twenty four"}, {"t": "Since one number is negative, answer is negative", "s": "Since one number is negative, answer is negative"}],
-cq:"What is 4 &times; &minus;6?",
-cqs:"What is four multiplied by minus six?",
-ans:["-24"],
-nudges:["Multiply absolute values first.", "Negative times positive is negative.", "Answer is minus twenty four."],
-anim_svg:"<g id=\"q3s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Multiply 4 by 6</text></g><g id=\"q3s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Result is 24</text></g><g id=\"q3s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">One negative number means negative result</text></g><g id=\"q3ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">&minus;24</text></g>"
+steps:[{"t": "Check if a&sup2; + b&sup2; = c&sup2; for each set.", "s": "Check if a squared plus b squared equals c squared for each set."}, {"t": "For (3, 4, 5): 3&sup2; + 4&sup2; = 9 + 16 = 25 and 5&sup2; = 25, so it is a triplet.", "s": "For three, four, five: three squared plus four squared equals nine plus sixteen equals twenty five and five squared equals twenty five, so it is a triplet."}, {"t": "For (6, 8, 10): 6&sup2; + 8&sup2; = 36 + 64 = 100 and 10&sup2; = 100, so it is also a triplet.", "s": "For six, eight, ten: six squared plus eight squared equals thirty six plus sixty four equals one hundred and ten squared equals one hundred, so it is also a triplet."}],
+cq:"Identify the Pythagorean triplets from the given sets.",
+cqs:"Identify the Pythagorean triplets from the given sets.",
+ans:["(3, 4, 5)", "(6, 8, 10)"],
+nudges:["Square each number and check the sum.", "Try the formula for each set.", "(3, 4, 5) and (6, 8, 10) satisfy the theorem."],
+anim_svg:"<g id=\"q3s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Check a squared plus b squared equals c squared</text></g><g id=\"q3s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">3 squared plus 4 squared equals 5 squared</text></g><g id=\"q3s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">6 squared plus 8 squared equals 10 squared</text></g><g id=\"q3ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">(3, 4, 5) and (6, 8, 10)</text></g>"
 },
 {
 id:"q4",
-q:"Find: <span class='hl'>&minus;36 &divide; 6</span>",
-qs:"Find minus thirty six divided by six",
+q:"Find the missing side of a right triangle if the hypotenuse is 13 cm and one side is 5 cm.",
+qs:"Find the missing side of a right triangle if the hypotenuse is thirteen centimetres and one side is five centimetres.",
 anim:"q4",
-steps:[{"t": "Divide 36 by 6", "s": "Divide thirty six by six"}, {"t": "Result is 6", "s": "Result is six"}, {"t": "Negative divided by positive is negative", "s": "Negative divided by positive is negative"}],
-cq:"What is 36 &divide; &minus;6?",
-cqs:"What is thirty six divided by minus six?",
-ans:["-6"],
-nudges:["Divide absolute values first.", "Sign rules for division like multiplication.", "Answer is minus six."],
-anim_svg:"<g id=\"q4s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Divide 36 by 6</text></g><g id=\"q4s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Result is 6</text></g><g id=\"q4s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Negative divided by positive is negative</text></g><g id=\"q4ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">&minus;6</text></g>"
+steps:[{"t": "Use Pythagoras theorem: a&sup2; + b&sup2; = c&sup2; where c = 13 cm and one side = 5 cm.", "s": "Use Pythagoras theorem: a squared plus b squared equals c squared where c equals thirteen centimetres and one side equals five centimetres."}, {"t": "Let missing side be b: 5&sup2; + b&sup2; = 13&sup2; &rarr; 25 + b&sup2; = 169.", "s": "Let missing side be b: five squared plus b squared equals thirteen squared implies twenty five plus b squared equals one hundred sixty nine."}, {"t": "Solve for b&sup2;: b&sup2; = 169 &minus; 25 = 144, so b = &radic;144 = 12 cm.", "s": "Solve for b squared: b squared equals one hundred sixty nine minus twenty five equals one hundred forty four, so b equals square root of one hundred forty four equals twelve centimetres."}],
+cq:"What is the length of the missing side?",
+cqs:"What is the length of the missing side?",
+ans:["12 cm"],
+nudges:["Apply the formula and isolate the missing side.", "Subtract square of known side from square of hypotenuse.", "The missing side is 12 cm."],
+anim_svg:"<g id=\"q4s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Use a squared plus b squared equals c squared</text></g><g id=\"q4s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">25 plus b squared equals 169</text></g><g id=\"q4s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">b squared equals 144, so b equals 12 cm</text></g><g id=\"q4ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">12 cm</text></g>"
 },
 {
 id:"q5",
-q:"Check if integers are closed under addition: Is <span class='hl'>5 &plus; &minus;2</span> an integer?",
-qs:"Check if integers are closed under addition: Is five plus minus two an integer",
+q:"Prove that a triangle with sides 7 cm, 24 cm and 25 cm is right angled.",
+qs:"Prove that a triangle with sides seven centimetres, twenty four centimetres and twenty five centimetres is right angled.",
 anim:"q5",
-steps:[{"t": "Add 5 and minus 2", "s": "Add five and minus two"}, {"t": "Result is 3", "s": "Result is three"}, {"t": "3 is an integer, so closed under addition", "s": "Three is an integer, so integers are closed under addition"}],
-cq:"Is 5 &times; &minus;2 an integer?",
-cqs:"Is five multiplied by minus two an integer?",
-ans:["Yes"],
-nudges:["Add the numbers first.", "Check if result is integer.", "Multiplication also results in integer."],
-anim_svg:"<g id=\"q5s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Add 5 and minus 2</text></g><g id=\"q5s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Result is 3</text></g><g id=\"q5s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">3 is integer, so closed under addition</text></g><g id=\"q5ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Yes</text></g>"
+steps:[{"t": "Check if 7&sup2; + 24&sup2; = 25&sup2;.", "s": "Check if seven squared plus twenty four squared equals twenty five squared."}, {"t": "Calculate: 49 + 576 = 625.", "s": "Calculate: forty nine plus five hundred seventy six equals six hundred twenty five."}, {"t": "Since 25&sup2; = 625, the triangle is right angled by converse of Pythagoras theorem.", "s": "Since twenty five squared equals six hundred twenty five, the triangle is right angled by converse of Pythagoras theorem."}],
+cq:"Is the triangle right angled?",
+cqs:"Is the triangle right angled?",
+ans:["Yes, it is right angled."],
+nudges:["Use converse of Pythagoras theorem.", "Check if sum of squares of smaller sides equals square of largest side.", "It satisfies the theorem, so it is right angled."],
+anim_svg:"<g id=\"q5s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Check if 7 squared plus 24 squared equals 25 squared</text></g><g id=\"q5s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">49 plus 576 equals 625</text></g><g id=\"q5s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Since 25 squared equals 625, triangle is right angled</text></g><g id=\"q5ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Yes, it is right angled.</text></g>"
 },
 {
 id:"q6",
-q:"Show commutative property: Is <span class='hl'>3 &plus; &minus;7 = &minus;7 &plus; 3</span> true?",
-qs:"Show commutative property: Is three plus minus seven equals minus seven plus three true",
+q:"A ladder 10 m long leans against a wall. The foot of the ladder is 6 m from the wall. Find the height the ladder reaches on the wall.",
+qs:"A ladder ten metres long leans against a wall. The foot of the ladder is six metres from the wall. Find the height the ladder reaches on the wall.",
 anim:"q6",
-steps:[{"t": "Calculate 3 plus minus 7", "s": "Calculate three plus minus seven"}, {"t": "Result is minus 4", "s": "Result is minus four"}, {"t": "Calculate minus 7 plus 3", "s": "Calculate minus seven plus three"}],
-cq:"Is multiplication commutative for integers?",
-cqs:"Is multiplication commutative for integers?",
-ans:["Yes"],
-nudges:["Calculate both sides.", "Compare results.", "Commutative means order does not matter."],
-anim_svg:"<g id=\"q6s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Calculate 3 plus minus 7</text></g><g id=\"q6s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Result is minus 4</text></g><g id=\"q6s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Calculate minus 7 plus 3</text></g><g id=\"q6ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Yes</text></g>"
+steps:[{"t": "Consider ladder as hypotenuse c = 10 m, distance from wall a = 6 m.", "s": "Consider ladder as hypotenuse c equals ten metres, distance from wall a equals six metres."}, {"t": "Use Pythagoras theorem: a&sup2; + b&sup2; = c&sup2; &rarr; 6&sup2; + b&sup2; = 10&sup2;.", "s": "Use Pythagoras theorem: a squared plus b squared equals c squared implies six squared plus b squared equals ten squared."}, {"t": "Solve for b: 36 + b&sup2; = 100 &rarr; b&sup2; = 64 &rarr; b = 8 m.", "s": "Solve for b: thirty six plus b squared equals one hundred implies b squared equals sixty four implies b equals eight metres."}],
+cq:"What height does the ladder reach on the wall?",
+cqs:"What height does the ladder reach on the wall?",
+ans:["8 m"],
+nudges:["Use ladder as hypotenuse and distance as one side.", "Apply Pythagoras theorem and solve for missing side.", "The height is 8 metres."],
+anim_svg:"<g id=\"q6s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Ladder is hypotenuse 10 metres, base 6 metres</text></g><g id=\"q6s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">6 squared plus b squared equals 10 squared</text></g><g id=\"q6s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">b squared equals 64, so b equals 8 metres</text></g><g id=\"q6ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">8 m</text></g>"
 },
 {
 id:"q7",
-q:"Use associative property: Calculate <span class='hl''>(&minus;2 &plus; 5) &plus; 3</span> and <span class='hl''>&minus;2 &plus; (5 &plus; 3)</span>",
-qs:"Use associative property: Calculate open bracket minus two plus five close bracket plus three and minus two plus open bracket five plus three close bracket",
+q:"Explain the converse of Pythagoras theorem with an example.",
+qs:"Explain the converse of Pythagoras theorem with an example.",
 anim:"q7",
-steps:[{"t": "Calculate inside first bracket: &minus;2 &plus; 5 = 3", "s": "Calculate inside first bracket: minus two plus five equals three"}, {"t": "Add 3: 3 &plus; 3 = 6", "s": "Add three: three plus three equals six"}, {"t": "Calculate inside second bracket: 5 &plus; 3 = 8", "s": "Calculate inside second bracket: five plus three equals eight"}],
-cq:"Does associative property work for multiplication of integers?",
-cqs:"Does associative property work for multiplication of integers?",
-ans:["Yes"],
-nudges:["Calculate each expression stepwise.", "Compare results.", "Associative means grouping does not change result."],
-anim_svg:"<g id=\"q7s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Calculate minus 2 plus 5</text></g><g id=\"q7s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Add 3 to result</text></g><g id=\"q7s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Calculate 5 plus 3, then add minus 2</text></g><g id=\"q7ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Yes</text></g>"
+steps:[{"t": "Converse states: If a&sup2; + b&sup2; = c&sup2; for sides of a triangle, then it is right angled.", "s": "Converse states: If a squared plus b squared equals c squared for sides of a triangle, then it is right angled."}, {"t": "Example: Triangle with sides 5 cm, 12 cm and 13 cm.", "s": "Example: Triangle with sides five centimetres, twelve centimetres and thirteen centimetres."}, {"t": "Since 5&sup2; + 12&sup2; = 25 + 144 = 169 = 13&sup2;, triangle is right angled.", "s": "Since five squared plus twelve squared equals twenty five plus one hundred forty four equals one hundred sixty nine equals thirteen squared, triangle is right angled."}],
+cq:"What does converse of Pythagoras theorem tell us?",
+cqs:"What does converse of Pythagoras theorem tell us?",
+ans:["If sum of squares of two sides equals square of third side, triangle is right angled."],
+nudges:["Think about the condition to identify right angled triangle.", "Use example to check the condition.", "It helps to confirm if triangle is right angled."],
+anim_svg:"<g id=\"q7s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">If a squared plus b squared equals c squared, triangle is right angled</text></g><g id=\"q7s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Example sides: 5, 12, 13</text></g><g id=\"q7s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">5 squared plus 12 squared equals 13 squared</text></g><g id=\"q7ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">If sum of squares equals square of third side, triangle is right angled</text></g>"
 },
 {
 id:"q8",
-q:"Apply distributive property: Simplify <span class='hl'>3 &times; (&minus;4 &plus; 7)</span>",
-qs:"Apply distributive property: Simplify three multiplied by open bracket minus four plus seven close bracket",
+q:"A rectangular field has length 15 m and width 8 m. Find the diagonal length.",
+qs:"A rectangular field has length fifteen metres and width eight metres. Find the diagonal length.",
 anim:"q8",
-steps:[{"t": "Calculate inside bracket: &minus;4 &plus; 7 = 3", "s": "Calculate inside bracket: minus four plus seven equals three"}, {"t": "Multiply: 3 &times; 3 = 9", "s": "Multiply: three times three equals nine"}, {"t": "Distributive property: 3 &times; &minus;4 + 3 &times; 7 = &minus;12 + 21 = 9", "s": "Distributive property: three times minus four plus three times seven equals minus twelve plus twenty one equals nine"}],
-cq:"Is distributive property true for integers?",
-cqs:"Is distributive property true for integers?",
-ans:["Yes"],
-nudges:["Calculate inside bracket first.", "Multiply each term separately.", "Add results to verify."],
-anim_svg:"<g id=\"q8s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Calculate minus 4 plus 7</text></g><g id=\"q8s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Multiply 3 by 3</text></g><g id=\"q8s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Distribute multiplication</text></g><g id=\"q8ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">9</text></g>"
+steps:[{"t": "Consider length and width as sides of right triangle: 15 m and 8 m.", "s": "Consider length and width as sides of right triangle: fifteen metres and eight metres."}, {"t": "Use Pythagoras theorem: diagonal squared = 15&sup2; + 8&sup2; = 225 + 64 = 289.", "s": "Use Pythagoras theorem: diagonal squared equals fifteen squared plus eight squared equals two hundred twenty five plus sixty four equals two hundred eighty nine."}, {"t": "Diagonal length = &radic;289 = 17 m.", "s": "Diagonal length equals square root of two hundred eighty nine equals seventeen metres."}],
+cq:"What is the diagonal length of the field?",
+cqs:"What is the diagonal length of the field?",
+ans:["17 m"],
+nudges:["Use length and width as sides of right triangle.", "Apply Pythagoras theorem to find diagonal.", "Diagonal is 17 metres."],
+anim_svg:"<g id=\"q8s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Length and width as triangle sides</text></g><g id=\"q8s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Diagonal squared equals 225 plus 64</text></g><g id=\"q8s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Diagonal equals square root of 289 equals 17</text></g><g id=\"q8ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">17 m</text></g>"
 },
 {
 id:"q9",
-q:"Find absolute value: | <span class='hl'>&minus;15</span> |",
-qs:"Find absolute value of minus fifteen",
+q:"A kite is flying with a string of length 20 m. The kite is directly above a point 12 m from the flyer. How high is the kite?",
+qs:"A kite is flying with a string of length twenty metres. The kite is directly above a point twelve metres from the flyer. How high is the kite?",
 anim:"q9",
-steps:[{"t": "Absolute value means distance from zero", "s": "Absolute value means distance from zero"}, {"t": "Distance of &minus;15 from zero is 15", "s": "Distance of minus fifteen from zero is fifteen"}, {"t": "So, |&minus;15| = 15", "s": "So, absolute value of minus fifteen equals fifteen"}],
-cq:"What is | 20 |?",
-cqs:"What is absolute value of twenty?",
-ans:["20"],
-nudges:["Absolute value is always positive.", "It is distance from zero.", "Ignore the minus sign."],
-anim_svg:"<g id=\"q9s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Absolute value means distance from zero</text></g><g id=\"q9s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Distance of minus 15 is 15</text></g><g id=\"q9s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Absolute value is positive</text></g><g id=\"q9ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">15</text></g>"
+steps:[{"t": "Consider string as hypotenuse c = 20 m, horizontal distance a = 12 m.", "s": "Consider string as hypotenuse c equals twenty metres, horizontal distance a equals twelve metres."}, {"t": "Use Pythagoras theorem: a&sup2; + b&sup2; = c&sup2; &rarr; 12&sup2; + b&sup2; = 20&sup2;.", "s": "Use Pythagoras theorem: a squared plus b squared equals c squared implies twelve squared plus b squared equals twenty squared."}, {"t": "Solve for b: 144 + b&sup2; = 400 &rarr; b&sup2; = 256 &rarr; b = 16 m.", "s": "Solve for b: one hundred forty four plus b squared equals four hundred implies b squared equals two hundred fifty six implies b equals sixteen metres."}],
+cq:"What is the height of the kite?",
+cqs:"What is the height of the kite?",
+ans:["16 m"],
+nudges:["Use string length as hypotenuse.", "Apply Pythagoras theorem to find height.", "Height is 16 metres."],
+anim_svg:"<g id=\"q9s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">String is hypotenuse 20 metres, base 12 metres</text></g><g id=\"q9s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">12 squared plus b squared equals 20 squared</text></g><g id=\"q9s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">b squared equals 256, so b equals 16 metres</text></g><g id=\"q9ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">16 m</text></g>"
 },
 {
 id:"q10",
-q:"Evaluate using BODMAS: <span class='hl'>8 &minus; (3 &times; &minus;2) &plus; 5</span>",
-qs:"Evaluate using BODMAS: eight minus open bracket three multiplied by minus two close bracket plus five",
+q:"A triangular mithai box has sides 6 cm, 8 cm and 10 cm. Is it a right-angled triangle? Justify.",
+qs:"A triangular mithai box has sides six centimetres, eight centimetres and ten centimetres. Is it a right angled triangle? Justify.",
 anim:"q10",
-steps:[{"t": "Multiply first: 3 &times; &minus;2 = &minus;6", "s": "Multiply first: three times minus two equals minus six"}, {"t": "Expression becomes: 8 &minus; ( &minus;6 ) &plus; 5", "s": "Expression becomes: eight minus minus six plus five"}, {"t": "Minus minus becomes plus: 8 &plus; 6 &plus; 5", "s": "Minus minus becomes plus: eight plus six plus five"}],
-cq:"Evaluate: (10 &plus; &minus;3) &times; 2",
-cqs:"Evaluate: open bracket ten plus minus three close bracket multiplied by two",
-ans:["19"],
-nudges:["Follow BODMAS: Brackets, Orders, Division, Multiplication, Addition, Subtraction.", "Calculate multiplication inside bracket first.", "Change double negatives to plus."],
-anim_svg:"<g id=\"q10s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Multiply 3 by minus 2</text></g><g id=\"q10s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Replace minus minus with plus</text></g><g id=\"q10s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Add all numbers</text></g><g id=\"q10ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">19</text></g>"
+steps:[{"t": "Check if 6&sup2; + 8&sup2; = 10&sup2;.", "s": "Check if six squared plus eight squared equals ten squared."}, {"t": "Calculate: 36 + 64 = 100.", "s": "Calculate: thirty six plus sixty four equals one hundred."}, {"t": "Since 10&sup2; = 100, the triangle is right angled by converse of Pythagoras theorem.", "s": "Since ten squared equals one hundred, the triangle is right angled by converse of Pythagoras theorem."}],
+cq:"Is the mithai box shaped like a right angled triangle?",
+cqs:"Is the mithai box shaped like a right angled triangle?",
+ans:["Yes, it is right angled."],
+nudges:["Use converse of Pythagoras theorem.", "Check if sum of squares of smaller sides equals square of largest side.", "It satisfies the condition, so yes."],
+anim_svg:"<g id=\"q10s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Check if 6 squared plus 8 squared equals 10 squared</text></g><g id=\"q10s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">36 plus 64 equals 100</text></g><g id=\"q10s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Since 10 squared equals 100, triangle is right angled</text></g><g id=\"q10ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Yes, it is right angled.</text></g>"
 }
 ];
 
 function getAnimSVG(t){
 var base='<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Nunito,sans-serif;background:#fffdf8"><rect width="420" height="178" fill="#fffdf8"/>';
 var svgs={
-"q1":base+"<g id=\"q1s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Start with 7</text></g><g id=\"q1s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Add negative 3</text></g><g id=\"q1s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Result is 4</text></g><g id=\"q1ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">4</text></g>",
-"q2":base+"<g id=\"q2s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Minus 5 minus minus 8</text></g><g id=\"q2s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Minus minus becomes plus</text></g><g id=\"q2s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Result is 3</text></g><g id=\"q2ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">3</text></g>",
-"q3":base+"<g id=\"q3s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Multiply 4 by 6</text></g><g id=\"q3s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Result is 24</text></g><g id=\"q3s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">One negative number means negative result</text></g><g id=\"q3ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">&minus;24</text></g>",
-"q4":base+"<g id=\"q4s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Divide 36 by 6</text></g><g id=\"q4s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Result is 6</text></g><g id=\"q4s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Negative divided by positive is negative</text></g><g id=\"q4ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">&minus;6</text></g>",
-"q5":base+"<g id=\"q5s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Add 5 and minus 2</text></g><g id=\"q5s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Result is 3</text></g><g id=\"q5s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">3 is integer, so closed under addition</text></g><g id=\"q5ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Yes</text></g>",
-"q6":base+"<g id=\"q6s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Calculate 3 plus minus 7</text></g><g id=\"q6s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Result is minus 4</text></g><g id=\"q6s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Calculate minus 7 plus 3</text></g><g id=\"q6ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Yes</text></g>",
-"q7":base+"<g id=\"q7s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Calculate minus 2 plus 5</text></g><g id=\"q7s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Add 3 to result</text></g><g id=\"q7s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Calculate 5 plus 3, then add minus 2</text></g><g id=\"q7ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Yes</text></g>",
-"q8":base+"<g id=\"q8s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Calculate minus 4 plus 7</text></g><g id=\"q8s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Multiply 3 by 3</text></g><g id=\"q8s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Distribute multiplication</text></g><g id=\"q8ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">9</text></g>",
-"q9":base+"<g id=\"q9s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Absolute value means distance from zero</text></g><g id=\"q9s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Distance of minus 15 is 15</text></g><g id=\"q9s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Absolute value is positive</text></g><g id=\"q9ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">15</text></g>",
-"q10":base+"<g id=\"q10s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Multiply 3 by minus 2</text></g><g id=\"q10s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Replace minus minus with plus</text></g><g id=\"q10s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Add all numbers</text></g><g id=\"q10ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">19</text></g>"
+"q1":base+"<g id=\"q1s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Square sides: 3 squared = 9, 4 squared = 16</text></g><g id=\"q1s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Sum of squares: 9 plus 16 equals 25</text></g><g id=\"q1s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Hypotenuse = square root of 25 = 5 cm</text></g><g id=\"q1ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">5 cm</text></g>",
+"q2":base+"<g id=\"q2s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Right angled triangle sides a, b and hypotenuse c</text></g><g id=\"q2s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">a squared plus b squared equals c squared</text></g><g id=\"q2s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Hypotenuse squared equals sum of squares of other sides</text></g><g id=\"q2ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">a squared plus b squared equals c squared</text></g>",
+"q3":base+"<g id=\"q3s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Check a squared plus b squared equals c squared</text></g><g id=\"q3s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">3 squared plus 4 squared equals 5 squared</text></g><g id=\"q3s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">6 squared plus 8 squared equals 10 squared</text></g><g id=\"q3ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">(3, 4, 5) and (6, 8, 10)</text></g>",
+"q4":base+"<g id=\"q4s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Use a squared plus b squared equals c squared</text></g><g id=\"q4s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">25 plus b squared equals 169</text></g><g id=\"q4s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">b squared equals 144, so b equals 12 cm</text></g><g id=\"q4ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">12 cm</text></g>",
+"q5":base+"<g id=\"q5s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Check if 7 squared plus 24 squared equals 25 squared</text></g><g id=\"q5s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">49 plus 576 equals 625</text></g><g id=\"q5s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Since 25 squared equals 625, triangle is right angled</text></g><g id=\"q5ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Yes, it is right angled.</text></g>",
+"q6":base+"<g id=\"q6s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Ladder is hypotenuse 10 metres, base 6 metres</text></g><g id=\"q6s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">6 squared plus b squared equals 10 squared</text></g><g id=\"q6s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">b squared equals 64, so b equals 8 metres</text></g><g id=\"q6ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">8 m</text></g>",
+"q7":base+"<g id=\"q7s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">If a squared plus b squared equals c squared, triangle is right angled</text></g><g id=\"q7s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Example sides: 5, 12, 13</text></g><g id=\"q7s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">5 squared plus 12 squared equals 13 squared</text></g><g id=\"q7ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">If sum of squares equals square of third side, triangle is right angled</text></g>",
+"q8":base+"<g id=\"q8s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Length and width as triangle sides</text></g><g id=\"q8s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Diagonal squared equals 225 plus 64</text></g><g id=\"q8s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Diagonal equals square root of 289 equals 17</text></g><g id=\"q8ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">17 m</text></g>",
+"q9":base+"<g id=\"q9s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">String is hypotenuse 20 metres, base 12 metres</text></g><g id=\"q9s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">12 squared plus b squared equals 20 squared</text></g><g id=\"q9s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">b squared equals 256, so b equals 16 metres</text></g><g id=\"q9ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">16 m</text></g>",
+"q10":base+"<g id=\"q10s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Check if 6 squared plus 8 squared equals 10 squared</text></g><g id=\"q10s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">36 plus 64 equals 100</text></g><g id=\"q10s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Since 10 squared equals 100, triangle is right angled</text></g><g id=\"q10ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Yes, it is right angled.</text></g>"
 };
 return svgs[t]||'<svg viewBox="0 0 420 178"><text x="210" y="89" text-anchor="middle" font-family="Nunito" font-size="14" fill="#5a4a30">Loading...</text></svg>';
 }
@@ -348,7 +348,7 @@ function init(){
   
   var st=JSON.parse(localStorage.getItem("rishi_current_student")||"{}");
   G("sName")&&(G("sName").textContent=st.studentName?st.studentName.split(" ")[0]:"there");
-  if(rishiIsExplainDone('ic7_1')){completed=true;G("doneBanner").classList.add("show");unlockNav();}
+  if(rishiIsExplainDone('ic7_16')){completed=true;G("doneBanner").classList.add("show");unlockNav();}
   buildSession();rInit();
   initVoices(function(){});
 }
@@ -393,19 +393,19 @@ function goNext(){confirmShown=false;idx++;G("qArea").innerHTML="";showQ();windo
 function updateProg(){var pct=Math.round((idx/PER_SESSION)*100);G("progFill").style.width=pct+"%";G("progLabel").textContent="Question "+(idx+1)+" of "+PER_SESSION;G("progPct").textContent=pct+"%";}
 function unlockNav(){G("btnPractice").classList.remove("locked");G("btnExam").classList.remove("locked");G("lockTip").style.display="none";}
 function onComplete(){
-  rishiMarkExplainDone('ic7_1');
+  rishiMarkExplainDone('ic7_16');
   completed=true;G("doneBanner").classList.add("show");unlockNav();
   var st=JSON.parse(localStorage.getItem("rishi_current_student")||"{}");
   var nm=st.studentName?st.studentName.split(" ")[0]:"champion";
   var cel=document.createElement("div");cel.className="rishika-wrap";
   cel.innerHTML='<div class="rishika-avatar">&#128105;&#8205;&#127979;</div>'
     +'<div class="rishika-bubble"><div class="rishika-name">Rishika</div>'
-    +'<div class="rishika-text" id="celText">&#127881; <span class="hl">'+nm+'</span>, Fantastic work! You&#39;ve mastered Integers! 🎉</div>'
+    +'<div class="rishika-text" id="celText">&#127881; <span class="hl">'+nm+'</span>, Fantastic work! You&#39;ve mastered Pythagoras Theorem! 🎉</div>'
     +'<button class="btn-speak" onclick="sayEl(\'celText\')">&#128266; Hear</button></div>';
   G("qArea").appendChild(cel);setTimeout(function(){sayEl("celText");rHappy();},400);
 }
-function goPractice(){if(!completed){alert("Complete explanations first!");return;}location.href="/practice/icse/class7/arithmetic/integers.html";}
-function goExam(){if(!completed){alert("Complete explanations first!");return;}if(!rishiIsPracticeDone('ic7_1')){alert('Complete Practice with 5 in a row first!');return;}location.href="/exam.html?ch=ic7-01";}
+function goPractice(){if(!completed){alert("Complete explanations first!");return;}location.href="/practice/icse/class7/geometry/pythagoras-theorem.html";}
+function goExam(){if(!completed){alert("Complete explanations first!");return;}if(!rishiIsPracticeDone('ic7_16')){alert('Complete Practice with 5 in a row first!');return;}location.href="/exam.html?ch=ic7-16";}
 var CELEBRATIONS=[{word:"Magnifique!",lang:"French",meaning:"Magnificent!",speak:"Magnifique"},{word:"Bravissimo!",lang:"Italian",meaning:"Very well done!",speak:"Bravissimo"},{word:"Wunderbar!",lang:"German",meaning:"Wonderful!",speak:"Wunderbar"},{word:"Shabash!",lang:"Hindi",meaning:"Well done!",speak:"Shabash"},{word:"Felicitaciones!",lang:"Spanish",meaning:"Congratulations!",speak:"Felicitaciones"}];
 var lastCelIdx=-1;
 function celebrate(){var i;do{i=Math.floor(Math.random()*CELEBRATIONS.length);}while(i===lastCelIdx&&CELEBRATIONS.length>1);lastCelIdx=i;var c=CELEBRATIONS[i];var rb=G("rbox");rb.className="result-box ok";rb.innerHTML='<div style="font-size:18px;font-weight:900;">'+c.word+'</div><div style="font-size:11px;">'+c.lang+' &middot; <em>'+c.meaning+'</em></div>';G("nudgeBox").classList.remove("show");var nb=G("btnNext");if(nb)nb.classList.add("show");say(c.speak);rHappy();}

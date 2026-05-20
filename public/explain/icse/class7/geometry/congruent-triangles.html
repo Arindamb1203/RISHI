@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="rishi-board" content="icse">
 <meta name="rishi-class" content="7">
-<title>RISHI — Integers</title>
+<title>RISHI — Congruent Triangles</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Nunito:wght@400;600;700;800;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
@@ -101,7 +101,7 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 <body>
 <div class="topbar">
   <div class="logo-sm">RISHI</div>
-  <div class="topbar-center">➕ Integers</div>
+  <div class="topbar-center">🔄 Congruent Triangles</div>
   <div class="topbar-right">
     <button class="btn-topbar" onclick="openBreak()">&#9749; Break</button>
     <button class="btn-topbar back" onclick="location.href='/syllabus.html'">&#8592; Syllabus</button>
@@ -121,7 +121,7 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
     <div class="rishika-bubble">
       <div class="rishika-name">Rishika</div>
       <div class="rishika-text" id="introText">
-        Hi <span class="hl" id="sName">there</span>! I&#39;m Rishika! Today we explore <span class="hl">Integers</span>! ➕ Let&#39;s begin!
+        Hi <span class="hl" id="sName">there</span>! I&#39;m Rishika! Today we explore <span class="hl">Congruent Triangles</span>! 🔄 Let&#39;s begin!
       </div>
       <button class="btn-speak" onclick="startLesson()" id="startBtn">&#9654; Start Lesson</button>
     </div>
@@ -195,139 +195,139 @@ function rThink(){setTimeout(rStopTalk,1800);}
 var QB=[
 {
 id:"q1",
-q:"Calculate: <span class='hl'>7 &plus; &minus;3</span>",
-qs:"Calculate seven plus minus three",
+q:"Two triangles have all three sides equal in length. Are these triangles congruent?",
+qs:"Two triangles have all three sides equal in length. Are these triangles congruent?",
 anim:"q1",
-steps:[{"t": "Start with 7", "s": "Start with seven"}, {"t": "Add negative 3", "s": "Add negative three"}, {"t": "Result is 4", "s": "Result is four"}],
-cq:"What is 7 &minus; 3?",
-cqs:"What is seven minus three?",
-ans:["4"],
-nudges:["Remember adding a negative number is like subtracting.", "Think of number line movement.", "7 plus minus 3 equals 4."],
-anim_svg:"<g id=\"q1s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Start with 7</text></g><g id=\"q1s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Add negative 3</text></g><g id=\"q1s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Result is 4</text></g><g id=\"q1ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">4</text></g>"
+steps:[{"t": "Check if all three sides of one triangle are equal to the corresponding sides of the other triangle.", "s": "Check if all three sides of one triangle are equal to the corresponding sides of the other triangle."}, {"t": "If yes, then by SSS criterion, the triangles are congruent.", "s": "If yes, then by S S S criterion, the triangles are congruent."}, {"t": "Therefore, the two triangles are congruent.", "s": "Therefore, the two triangles are congruent."}],
+cq:"What does SSS stand for in triangle congruence?",
+cqs:"What does S S S stand for in triangle congruence?",
+ans:["Side Side Side", "All three sides of one triangle equal to all three sides of another triangle"],
+nudges:["Think about matching sides of triangles.", "SSS means all three sides must be equal.", "SSS criterion says triangles are congruent if three sides are equal."],
+anim_svg:"<g id=\"q1s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Check all three sides equal</text></g><g id=\"q1s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Use S S S criterion</text></g><g id=\"q1s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Triangles are congruent</text></g><g id=\"q1ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Side Side Side</text></g>"
 },
 {
 id:"q2",
-q:"Find: <span class='hl'>&minus;5 &minus; &minus;8</span>",
-qs:"Find minus five minus minus eight",
+q:"In two triangles, two sides and the included angle are equal. Which congruence criterion applies here?",
+qs:"In two triangles, two sides and the included angle are equal. Which congruence criterion applies here?",
 anim:"q2",
-steps:[{"t": "Minus 5 minus minus 8", "s": "Minus five minus minus eight"}, {"t": "Minus minus becomes plus", "s": "Minus minus becomes plus"}, {"t": "So, &minus;5 &plus; 8 = 3", "s": "So, minus five plus eight equals three"}],
-cq:"What is &minus;5 &plus; 8?",
-cqs:"What is minus five plus eight?",
-ans:["3"],
-nudges:["Subtracting a negative is like adding.", "Change double minus to plus.", "Calculate &minus;5 plus 8."],
-anim_svg:"<g id=\"q2s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Minus 5 minus minus 8</text></g><g id=\"q2s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Minus minus becomes plus</text></g><g id=\"q2s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Result is 3</text></g><g id=\"q2ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">3</text></g>"
+steps:[{"t": "Identify the two sides and the angle between them in both triangles.", "s": "Identify the two sides and the angle between them in both triangles."}, {"t": "Since two sides and the included angle are equal, SAS criterion applies.", "s": "Since two sides and the included angle are equal, S A S criterion applies."}, {"t": "Hence, the triangles are congruent by SAS.", "s": "Hence, the triangles are congruent by S A S."}],
+cq:"What does SAS stand for in triangle congruence?",
+cqs:"What does S A S stand for in triangle congruence?",
+ans:["Side Angle Side", "Two sides and the included angle are equal"],
+nudges:["Focus on two sides and the angle between them.", "SAS means Side Angle Side.", "Two sides with the angle between them equal means congruent triangles."],
+anim_svg:"<g id=\"q2s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Identify two sides and included angle</text></g><g id=\"q2s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Apply S A S criterion</text></g><g id=\"q2s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Triangles are congruent</text></g><g id=\"q2ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Side Angle Side</text></g>"
 },
 {
 id:"q3",
-q:"Calculate: <span class='hl'>(&minus;4) &times; 6</span>",
-qs:"Calculate minus four multiplied by six",
+q:"Two triangles have two angles and the side between them equal. Which congruence rule is used?",
+qs:"Two triangles have two angles and the side between them equal. Which congruence rule is used?",
 anim:"q3",
-steps:[{"t": "Multiply 4 by 6", "s": "Multiply four by six"}, {"t": "Result is 24", "s": "Result is twenty four"}, {"t": "Since one number is negative, answer is negative", "s": "Since one number is negative, answer is negative"}],
-cq:"What is 4 &times; &minus;6?",
-cqs:"What is four multiplied by minus six?",
-ans:["-24"],
-nudges:["Multiply absolute values first.", "Negative times positive is negative.", "Answer is minus twenty four."],
-anim_svg:"<g id=\"q3s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Multiply 4 by 6</text></g><g id=\"q3s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Result is 24</text></g><g id=\"q3s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">One negative number means negative result</text></g><g id=\"q3ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">&minus;24</text></g>"
+steps:[{"t": "Check the two angles and the side between them in both triangles.", "s": "Check the two angles and the side between them in both triangles."}, {"t": "This matches the ASA criterion for congruence.", "s": "This matches the A S A criterion for congruence."}, {"t": "So, the triangles are congruent by ASA.", "s": "So, the triangles are congruent by A S A."}],
+cq:"What does ASA stand for in triangle congruence?",
+cqs:"What does A S A stand for in triangle congruence?",
+ans:["Angle Side Angle", "Two angles and the included side are equal"],
+nudges:["Focus on two angles and the side between them.", "ASA means Angle Side Angle.", "Triangles with two angles and included side equal are congruent."],
+anim_svg:"<g id=\"q3s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Check two angles and included side</text></g><g id=\"q3s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Apply A S A criterion</text></g><g id=\"q3s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Triangles are congruent</text></g><g id=\"q3ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Angle Side Angle</text></g>"
 },
 {
 id:"q4",
-q:"Find: <span class='hl'>&minus;36 &divide; 6</span>",
-qs:"Find minus thirty six divided by six",
+q:"If two angles and a non-included side of one triangle are equal to the corresponding parts of another triangle, which criterion proves congruence?",
+qs:"If two angles and a non-included side of one triangle are equal to the corresponding parts of another triangle, which criterion proves congruence?",
 anim:"q4",
-steps:[{"t": "Divide 36 by 6", "s": "Divide thirty six by six"}, {"t": "Result is 6", "s": "Result is six"}, {"t": "Negative divided by positive is negative", "s": "Negative divided by positive is negative"}],
-cq:"What is 36 &divide; &minus;6?",
-cqs:"What is thirty six divided by minus six?",
-ans:["-6"],
-nudges:["Divide absolute values first.", "Sign rules for division like multiplication.", "Answer is minus six."],
-anim_svg:"<g id=\"q4s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Divide 36 by 6</text></g><g id=\"q4s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Result is 6</text></g><g id=\"q4s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Negative divided by positive is negative</text></g><g id=\"q4ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">&minus;6</text></g>"
+steps:[{"t": "Identify the two angles and the side not between them in both triangles.", "s": "Identify the two angles and the side not between them in both triangles."}, {"t": "This is the AAS (Angle Angle Side) criterion.", "s": "This is the A A S (Angle Angle Side) criterion."}, {"t": "Thus, triangles are congruent by AAS.", "s": "Thus, triangles are congruent by A A S."}],
+cq:"What does AAS stand for in triangle congruence?",
+cqs:"What does A A S stand for in triangle congruence?",
+ans:["Angle Angle Side", "Two angles and a non-included side equal"],
+nudges:["Remember side is not between the two angles here.", "AAS means two angles and one side equal.", "Triangles with two angles and a non-included side equal are congruent."],
+anim_svg:"<g id=\"q4s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Identify two angles and non-included side</text></g><g id=\"q4s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Use A A S criterion</text></g><g id=\"q4s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Triangles are congruent</text></g><g id=\"q4ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Angle Angle Side</text></g>"
 },
 {
 id:"q5",
-q:"Check if integers are closed under addition: Is <span class='hl'>5 &plus; &minus;2</span> an integer?",
-qs:"Check if integers are closed under addition: Is five plus minus two an integer",
+q:"In right angled triangles, if the hypotenuse and one side are equal, which congruence criterion applies?",
+qs:"In right angled triangles, if the hypotenuse and one side are equal, which congruence criterion applies?",
 anim:"q5",
-steps:[{"t": "Add 5 and minus 2", "s": "Add five and minus two"}, {"t": "Result is 3", "s": "Result is three"}, {"t": "3 is an integer, so closed under addition", "s": "Three is an integer, so integers are closed under addition"}],
-cq:"Is 5 &times; &minus;2 an integer?",
-cqs:"Is five multiplied by minus two an integer?",
-ans:["Yes"],
-nudges:["Add the numbers first.", "Check if result is integer.", "Multiplication also results in integer."],
-anim_svg:"<g id=\"q5s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Add 5 and minus 2</text></g><g id=\"q5s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Result is 3</text></g><g id=\"q5s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">3 is integer, so closed under addition</text></g><g id=\"q5ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Yes</text></g>"
+steps:[{"t": "Note the right angle in both triangles.", "s": "Note the right angle in both triangles."}, {"t": "Check if hypotenuse and one other side are equal.", "s": "Check if hypotenuse and one other side are equal."}, {"t": "Then, by RHS criterion, triangles are congruent.", "s": "Then, by R H S criterion, triangles are congruent."}],
+cq:"What does RHS stand for in triangle congruence?",
+cqs:"What does R H S stand for in triangle congruence?",
+ans:["Right angle Hypotenuse Side", "Right angled triangles with equal hypotenuse and side"],
+nudges:["Remember these are right angled triangles.", "RHS means Right angle Hypotenuse Side.", "Right angled triangles with equal hypotenuse and side are congruent."],
+anim_svg:"<g id=\"q5s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Identify right angles</text></g><g id=\"q5s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Check hypotenuse and side equal</text></g><g id=\"q5s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Apply R H S criterion</text></g><g id=\"q5ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Right angle Hypotenuse Side</text></g>"
 },
 {
 id:"q6",
-q:"Show commutative property: Is <span class='hl'>3 &plus; &minus;7 = &minus;7 &plus; 3</span> true?",
-qs:"Show commutative property: Is three plus minus seven equals minus seven plus three true",
+q:"What is meant by CPCT in congruent triangles?",
+qs:"What is meant by C P C T in congruent triangles?",
 anim:"q6",
-steps:[{"t": "Calculate 3 plus minus 7", "s": "Calculate three plus minus seven"}, {"t": "Result is minus 4", "s": "Result is minus four"}, {"t": "Calculate minus 7 plus 3", "s": "Calculate minus seven plus three"}],
-cq:"Is multiplication commutative for integers?",
-cqs:"Is multiplication commutative for integers?",
-ans:["Yes"],
-nudges:["Calculate both sides.", "Compare results.", "Commutative means order does not matter."],
-anim_svg:"<g id=\"q6s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Calculate 3 plus minus 7</text></g><g id=\"q6s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Result is minus 4</text></g><g id=\"q6s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Calculate minus 7 plus 3</text></g><g id=\"q6ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Yes</text></g>"
+steps:[{"t": "CPCT stands for Corresponding Parts of Congruent Triangles.", "s": "C P C T stands for Corresponding Parts of Congruent Triangles."}, {"t": "It means all corresponding sides and angles of congruent triangles are equal.", "s": "It means all corresponding sides and angles of congruent triangles are equal."}, {"t": "We use CPCT to prove parts of triangles are equal after proving congruence.", "s": "We use C P C T to prove parts of triangles are equal after proving congruence."}],
+cq:"How does CPCT help in geometry proofs?",
+cqs:"How does C P C T help in geometry proofs?",
+ans:["It shows equal parts of congruent triangles", "Used to prove equal sides or angles after congruence"],
+nudges:["Remember CPCT relates to equal parts.", "It helps to show sides or angles are equal after congruence.", "CPCT means corresponding parts of congruent triangles are equal."],
+anim_svg:"<g id=\"q6s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Meaning of C P C T</text></g><g id=\"q6s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Corresponding parts equal</text></g><g id=\"q6s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Used in proofs after congruence</text></g><g id=\"q6ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Corresponding Parts of Congruent Triangles</text></g>"
 },
 {
 id:"q7",
-q:"Use associative property: Calculate <span class='hl''>(&minus;2 &plus; 5) &plus; 3</span> and <span class='hl''>&minus;2 &plus; (5 &plus; 3)</span>",
-qs:"Use associative property: Calculate open bracket minus two plus five close bracket plus three and minus two plus open bracket five plus three close bracket",
+q:"How can you prove two triangles are congruent using the SSS criterion with a cricket bat example?",
+qs:"How can you prove two triangles are congruent using the S S S criterion with a cricket bat example?",
 anim:"q7",
-steps:[{"t": "Calculate inside first bracket: &minus;2 &plus; 5 = 3", "s": "Calculate inside first bracket: minus two plus five equals three"}, {"t": "Add 3: 3 &plus; 3 = 6", "s": "Add three: three plus three equals six"}, {"t": "Calculate inside second bracket: 5 &plus; 3 = 8", "s": "Calculate inside second bracket: five plus three equals eight"}],
-cq:"Does associative property work for multiplication of integers?",
-cqs:"Does associative property work for multiplication of integers?",
-ans:["Yes"],
-nudges:["Calculate each expression stepwise.", "Compare results.", "Associative means grouping does not change result."],
-anim_svg:"<g id=\"q7s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Calculate minus 2 plus 5</text></g><g id=\"q7s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Add 3 to result</text></g><g id=\"q7s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Calculate 5 plus 3, then add minus 2</text></g><g id=\"q7ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Yes</text></g>"
+steps:[{"t": "Imagine two triangular cricket bat handles with sides measured.", "s": "Imagine two triangular cricket bat handles with sides measured."}, {"t": "If all three sides of one handle are equal to the other, then by SSS, they are congruent.", "s": "If all three sides of one handle are equal to the other, then by S S S, they are congruent."}, {"t": "Thus, the two cricket bat handles are congruent triangles.", "s": "Thus, the two cricket bat handles are congruent triangles."}],
+cq:"Why is congruence important in making cricket bats?",
+cqs:"Why is congruence important in making cricket bats?",
+ans:["Ensures handles are identical", "Helps in uniform design and balance"],
+nudges:["Think about equal sides in the bat handles.", "Congruence means same shape and size handles.", "SSS helps confirm handles match perfectly."],
+anim_svg:"<g id=\"q7s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Measure sides of handles</text></g><g id=\"q7s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Check all three sides equal</text></g><g id=\"q7s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Handles are congruent triangles</text></g><g id=\"q7ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Ensures handles are identical</text></g>"
 },
 {
 id:"q8",
-q:"Apply distributive property: Simplify <span class='hl'>3 &times; (&minus;4 &plus; 7)</span>",
-qs:"Apply distributive property: Simplify three multiplied by open bracket minus four plus seven close bracket",
+q:"In a proof, you show two triangles have equal sides and included angle. What is your next step to prove congruence?",
+qs:"In a proof, you show two triangles have equal sides and included angle. What is your next step to prove congruence?",
 anim:"q8",
-steps:[{"t": "Calculate inside bracket: &minus;4 &plus; 7 = 3", "s": "Calculate inside bracket: minus four plus seven equals three"}, {"t": "Multiply: 3 &times; 3 = 9", "s": "Multiply: three times three equals nine"}, {"t": "Distributive property: 3 &times; &minus;4 + 3 &times; 7 = &minus;12 + 21 = 9", "s": "Distributive property: three times minus four plus three times seven equals minus twelve plus twenty one equals nine"}],
-cq:"Is distributive property true for integers?",
-cqs:"Is distributive property true for integers?",
-ans:["Yes"],
-nudges:["Calculate inside bracket first.", "Multiply each term separately.", "Add results to verify."],
-anim_svg:"<g id=\"q8s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Calculate minus 4 plus 7</text></g><g id=\"q8s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Multiply 3 by 3</text></g><g id=\"q8s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Distribute multiplication</text></g><g id=\"q8ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">9</text></g>"
+steps:[{"t": "Identify the sides and included angle equal in both triangles.", "s": "Identify the sides and included angle equal in both triangles."}, {"t": "Apply the SAS congruence criterion.", "s": "Apply the S A S congruence criterion."}, {"t": "Conclude that the triangles are congruent.", "s": "Conclude that the triangles are congruent."}],
+cq:"How does proving congruence help in geometry?",
+cqs:"How does proving congruence help in geometry?",
+ans:["It helps to prove equal sides or angles", "Used to solve problems and proofs"],
+nudges:["Remember congruence shows exact match.", "Use criteria like SAS to prove congruence.", "Congruence helps in many geometry proofs."],
+anim_svg:"<g id=\"q8s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Identify equal sides and angle</text></g><g id=\"q8s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Apply S A S criterion</text></g><g id=\"q8s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Conclude triangles congruent</text></g><g id=\"q8ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Apply SAS criterion to prove congruence</text></g>"
 },
 {
 id:"q9",
-q:"Find absolute value: | <span class='hl'>&minus;15</span> |",
-qs:"Find absolute value of minus fifteen",
+q:"Can two triangles with equal areas but different shapes be congruent? Explain.",
+qs:"Can two triangles with equal areas but different shapes be congruent? Explain.",
 anim:"q9",
-steps:[{"t": "Absolute value means distance from zero", "s": "Absolute value means distance from zero"}, {"t": "Distance of &minus;15 from zero is 15", "s": "Distance of minus fifteen from zero is fifteen"}, {"t": "So, |&minus;15| = 15", "s": "So, absolute value of minus fifteen equals fifteen"}],
-cq:"What is | 20 |?",
-cqs:"What is absolute value of twenty?",
-ans:["20"],
-nudges:["Absolute value is always positive.", "It is distance from zero.", "Ignore the minus sign."],
-anim_svg:"<g id=\"q9s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Absolute value means distance from zero</text></g><g id=\"q9s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Distance of minus 15 is 15</text></g><g id=\"q9s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Absolute value is positive</text></g><g id=\"q9ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">15</text></g>"
+steps:[{"t": "Congruent triangles must have equal sides and angles.", "s": "Congruent triangles must have equal sides and angles."}, {"t": "Equal area alone does not guarantee congruence.", "s": "Equal area alone does not guarantee congruence."}, {"t": "So, triangles with equal area but different shapes are not congruent.", "s": "So, triangles with equal area but different shapes are not congruent."}],
+cq:"What else must be equal for triangles to be congruent?",
+cqs:"What else must be equal for triangles to be congruent?",
+ans:["Corresponding sides and angles", "Shape and size must be exactly same"],
+nudges:["Think about sides and angles, not just area.", "Congruent means same shape and size.", "Equal area does not mean congruent."],
+anim_svg:"<g id=\"q9s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Congruent means equal sides and angles</text></g><g id=\"q9s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Equal area alone not enough</text></g><g id=\"q9s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Triangles not congruent</text></g><g id=\"q9ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Sides and angles must be equal</text></g>"
 },
 {
 id:"q10",
-q:"Evaluate using BODMAS: <span class='hl'>8 &minus; (3 &times; &minus;2) &plus; 5</span>",
-qs:"Evaluate using BODMAS: eight minus open bracket three multiplied by minus two close bracket plus five",
+q:"How can congruent triangles help in designing a mithai box with equal triangular compartments?",
+qs:"How can congruent triangles help in designing a mithai box with equal triangular compartments?",
 anim:"q10",
-steps:[{"t": "Multiply first: 3 &times; &minus;2 = &minus;6", "s": "Multiply first: three times minus two equals minus six"}, {"t": "Expression becomes: 8 &minus; ( &minus;6 ) &plus; 5", "s": "Expression becomes: eight minus minus six plus five"}, {"t": "Minus minus becomes plus: 8 &plus; 6 &plus; 5", "s": "Minus minus becomes plus: eight plus six plus five"}],
-cq:"Evaluate: (10 &plus; &minus;3) &times; 2",
-cqs:"Evaluate: open bracket ten plus minus three close bracket multiplied by two",
-ans:["19"],
-nudges:["Follow BODMAS: Brackets, Orders, Division, Multiplication, Addition, Subtraction.", "Calculate multiplication inside bracket first.", "Change double negatives to plus."],
-anim_svg:"<g id=\"q10s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Multiply 3 by minus 2</text></g><g id=\"q10s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Replace minus minus with plus</text></g><g id=\"q10s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Add all numbers</text></g><g id=\"q10ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">19</text></g>"
+steps:[{"t": "Divide the box into triangular compartments.", "s": "Divide the box into triangular compartments."}, {"t": "Make sure all triangular compartments are congruent.", "s": "Make sure all triangular compartments are congruent."}, {"t": "This ensures equal size and shape for each mithai piece.", "s": "This ensures equal size and shape for each mithai piece."}],
+cq:"Why is congruence useful in this design?",
+cqs:"Why is congruence useful in this design?",
+ans:["Ensures fair and equal mithai pieces", "Makes the box look neat and uniform"],
+nudges:["Think about equal size mithai pieces.", "Congruent triangles mean equal compartments.", "Helps in fair sharing and neat presentation."],
+anim_svg:"<g id=\"q10s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Divide box into triangles</text></g><g id=\"q10s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Make triangles congruent</text></g><g id=\"q10s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Equal size mithai pieces</text></g><g id=\"q10ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Ensures fair and equal mithai pieces</text></g>"
 }
 ];
 
 function getAnimSVG(t){
 var base='<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Nunito,sans-serif;background:#fffdf8"><rect width="420" height="178" fill="#fffdf8"/>';
 var svgs={
-"q1":base+"<g id=\"q1s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Start with 7</text></g><g id=\"q1s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Add negative 3</text></g><g id=\"q1s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Result is 4</text></g><g id=\"q1ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">4</text></g>",
-"q2":base+"<g id=\"q2s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Minus 5 minus minus 8</text></g><g id=\"q2s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Minus minus becomes plus</text></g><g id=\"q2s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Result is 3</text></g><g id=\"q2ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">3</text></g>",
-"q3":base+"<g id=\"q3s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Multiply 4 by 6</text></g><g id=\"q3s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Result is 24</text></g><g id=\"q3s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">One negative number means negative result</text></g><g id=\"q3ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">&minus;24</text></g>",
-"q4":base+"<g id=\"q4s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Divide 36 by 6</text></g><g id=\"q4s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Result is 6</text></g><g id=\"q4s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Negative divided by positive is negative</text></g><g id=\"q4ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">&minus;6</text></g>",
-"q5":base+"<g id=\"q5s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Add 5 and minus 2</text></g><g id=\"q5s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Result is 3</text></g><g id=\"q5s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">3 is integer, so closed under addition</text></g><g id=\"q5ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Yes</text></g>",
-"q6":base+"<g id=\"q6s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Calculate 3 plus minus 7</text></g><g id=\"q6s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Result is minus 4</text></g><g id=\"q6s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Calculate minus 7 plus 3</text></g><g id=\"q6ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Yes</text></g>",
-"q7":base+"<g id=\"q7s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Calculate minus 2 plus 5</text></g><g id=\"q7s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Add 3 to result</text></g><g id=\"q7s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Calculate 5 plus 3, then add minus 2</text></g><g id=\"q7ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Yes</text></g>",
-"q8":base+"<g id=\"q8s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Calculate minus 4 plus 7</text></g><g id=\"q8s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Multiply 3 by 3</text></g><g id=\"q8s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Distribute multiplication</text></g><g id=\"q8ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">9</text></g>",
-"q9":base+"<g id=\"q9s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Absolute value means distance from zero</text></g><g id=\"q9s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Distance of minus 15 is 15</text></g><g id=\"q9s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Absolute value is positive</text></g><g id=\"q9ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">15</text></g>",
-"q10":base+"<g id=\"q10s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Multiply 3 by minus 2</text></g><g id=\"q10s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Replace minus minus with plus</text></g><g id=\"q10s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Add all numbers</text></g><g id=\"q10ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">19</text></g>"
+"q1":base+"<g id=\"q1s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Check all three sides equal</text></g><g id=\"q1s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Use S S S criterion</text></g><g id=\"q1s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Triangles are congruent</text></g><g id=\"q1ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Side Side Side</text></g>",
+"q2":base+"<g id=\"q2s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Identify two sides and included angle</text></g><g id=\"q2s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Apply S A S criterion</text></g><g id=\"q2s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Triangles are congruent</text></g><g id=\"q2ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Side Angle Side</text></g>",
+"q3":base+"<g id=\"q3s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Check two angles and included side</text></g><g id=\"q3s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Apply A S A criterion</text></g><g id=\"q3s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Triangles are congruent</text></g><g id=\"q3ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Angle Side Angle</text></g>",
+"q4":base+"<g id=\"q4s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Identify two angles and non-included side</text></g><g id=\"q4s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Use A A S criterion</text></g><g id=\"q4s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Triangles are congruent</text></g><g id=\"q4ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Angle Angle Side</text></g>",
+"q5":base+"<g id=\"q5s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Identify right angles</text></g><g id=\"q5s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Check hypotenuse and side equal</text></g><g id=\"q5s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Apply R H S criterion</text></g><g id=\"q5ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Right angle Hypotenuse Side</text></g>",
+"q6":base+"<g id=\"q6s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Meaning of C P C T</text></g><g id=\"q6s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Corresponding parts equal</text></g><g id=\"q6s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Used in proofs after congruence</text></g><g id=\"q6ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Corresponding Parts of Congruent Triangles</text></g>",
+"q7":base+"<g id=\"q7s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Measure sides of handles</text></g><g id=\"q7s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Check all three sides equal</text></g><g id=\"q7s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Handles are congruent triangles</text></g><g id=\"q7ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Ensures handles are identical</text></g>",
+"q8":base+"<g id=\"q8s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Identify equal sides and angle</text></g><g id=\"q8s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Apply S A S criterion</text></g><g id=\"q8s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Conclude triangles congruent</text></g><g id=\"q8ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Apply SAS criterion to prove congruence</text></g>",
+"q9":base+"<g id=\"q9s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Congruent means equal sides and angles</text></g><g id=\"q9s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Equal area alone not enough</text></g><g id=\"q9s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Triangles not congruent</text></g><g id=\"q9ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Sides and angles must be equal</text></g>",
+"q10":base+"<g id=\"q10s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Divide box into triangles</text></g><g id=\"q10s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Make triangles congruent</text></g><g id=\"q10s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Equal size mithai pieces</text></g><g id=\"q10ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Ensures fair and equal mithai pieces</text></g>"
 };
 return svgs[t]||'<svg viewBox="0 0 420 178"><text x="210" y="89" text-anchor="middle" font-family="Nunito" font-size="14" fill="#5a4a30">Loading...</text></svg>';
 }
@@ -348,7 +348,7 @@ function init(){
   
   var st=JSON.parse(localStorage.getItem("rishi_current_student")||"{}");
   G("sName")&&(G("sName").textContent=st.studentName?st.studentName.split(" ")[0]:"there");
-  if(rishiIsExplainDone('ic7_1')){completed=true;G("doneBanner").classList.add("show");unlockNav();}
+  if(rishiIsExplainDone('ic7_19')){completed=true;G("doneBanner").classList.add("show");unlockNav();}
   buildSession();rInit();
   initVoices(function(){});
 }
@@ -393,19 +393,19 @@ function goNext(){confirmShown=false;idx++;G("qArea").innerHTML="";showQ();windo
 function updateProg(){var pct=Math.round((idx/PER_SESSION)*100);G("progFill").style.width=pct+"%";G("progLabel").textContent="Question "+(idx+1)+" of "+PER_SESSION;G("progPct").textContent=pct+"%";}
 function unlockNav(){G("btnPractice").classList.remove("locked");G("btnExam").classList.remove("locked");G("lockTip").style.display="none";}
 function onComplete(){
-  rishiMarkExplainDone('ic7_1');
+  rishiMarkExplainDone('ic7_19');
   completed=true;G("doneBanner").classList.add("show");unlockNav();
   var st=JSON.parse(localStorage.getItem("rishi_current_student")||"{}");
   var nm=st.studentName?st.studentName.split(" ")[0]:"champion";
   var cel=document.createElement("div");cel.className="rishika-wrap";
   cel.innerHTML='<div class="rishika-avatar">&#128105;&#8205;&#127979;</div>'
     +'<div class="rishika-bubble"><div class="rishika-name">Rishika</div>'
-    +'<div class="rishika-text" id="celText">&#127881; <span class="hl">'+nm+'</span>, Fantastic work! You&#39;ve mastered Integers! 🎉</div>'
+    +'<div class="rishika-text" id="celText">&#127881; <span class="hl">'+nm+'</span>, Fantastic work! You&#39;ve mastered Congruent Triangles! 🎉</div>'
     +'<button class="btn-speak" onclick="sayEl(\'celText\')">&#128266; Hear</button></div>';
   G("qArea").appendChild(cel);setTimeout(function(){sayEl("celText");rHappy();},400);
 }
-function goPractice(){if(!completed){alert("Complete explanations first!");return;}location.href="/practice/icse/class7/arithmetic/integers.html";}
-function goExam(){if(!completed){alert("Complete explanations first!");return;}if(!rishiIsPracticeDone('ic7_1')){alert('Complete Practice with 5 in a row first!');return;}location.href="/exam.html?ch=ic7-01";}
+function goPractice(){if(!completed){alert("Complete explanations first!");return;}location.href="/practice/icse/class7/geometry/congruent-triangles.html";}
+function goExam(){if(!completed){alert("Complete explanations first!");return;}if(!rishiIsPracticeDone('ic7_19')){alert('Complete Practice with 5 in a row first!');return;}location.href="/exam.html?ch=ic7-19";}
 var CELEBRATIONS=[{word:"Magnifique!",lang:"French",meaning:"Magnificent!",speak:"Magnifique"},{word:"Bravissimo!",lang:"Italian",meaning:"Very well done!",speak:"Bravissimo"},{word:"Wunderbar!",lang:"German",meaning:"Wonderful!",speak:"Wunderbar"},{word:"Shabash!",lang:"Hindi",meaning:"Well done!",speak:"Shabash"},{word:"Felicitaciones!",lang:"Spanish",meaning:"Congratulations!",speak:"Felicitaciones"}];
 var lastCelIdx=-1;
 function celebrate(){var i;do{i=Math.floor(Math.random()*CELEBRATIONS.length);}while(i===lastCelIdx&&CELEBRATIONS.length>1);lastCelIdx=i;var c=CELEBRATIONS[i];var rb=G("rbox");rb.className="result-box ok";rb.innerHTML='<div style="font-size:18px;font-weight:900;">'+c.word+'</div><div style="font-size:11px;">'+c.lang+' &middot; <em>'+c.meaning+'</em></div>';G("nudgeBox").classList.remove("show");var nb=G("btnNext");if(nb)nb.classList.add("show");say(c.speak);rHappy();}

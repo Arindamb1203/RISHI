@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="rishi-board" content="icse">
 <meta name="rishi-class" content="7">
-<title>RISHI — Integers</title>
+<title>RISHI — Profit, Loss and Discount</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Nunito:wght@400;600;700;800;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
@@ -101,7 +101,7 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 <body>
 <div class="topbar">
   <div class="logo-sm">RISHI</div>
-  <div class="topbar-center">➕ Integers</div>
+  <div class="topbar-center">💰 Profit, Loss and Discount</div>
   <div class="topbar-right">
     <button class="btn-topbar" onclick="openBreak()">&#9749; Break</button>
     <button class="btn-topbar back" onclick="location.href='/syllabus.html'">&#8592; Syllabus</button>
@@ -121,7 +121,7 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
     <div class="rishika-bubble">
       <div class="rishika-name">Rishika</div>
       <div class="rishika-text" id="introText">
-        Hi <span class="hl" id="sName">there</span>! I&#39;m Rishika! Today we explore <span class="hl">Integers</span>! ➕ Let&#39;s begin!
+        Hi <span class="hl" id="sName">there</span>! I&#39;m Rishika! Today we explore <span class="hl">Profit, Loss and Discount</span>! 💰 Let&#39;s begin!
       </div>
       <button class="btn-speak" onclick="startLesson()" id="startBtn">&#9654; Start Lesson</button>
     </div>
@@ -195,139 +195,139 @@ function rThink(){setTimeout(rStopTalk,1800);}
 var QB=[
 {
 id:"q1",
-q:"Calculate: <span class='hl'>7 &plus; &minus;3</span>",
-qs:"Calculate seven plus minus three",
+q:"A shopkeeper buys a cricket bat for ₹800 and sells it for ₹1000. Find the profit or loss made by the shopkeeper.",
+qs:"A shopkeeper buys a cricket bat for eight hundred rupees and sells it for one thousand rupees. Find the profit or loss made by the shopkeeper.",
 anim:"q1",
-steps:[{"t": "Start with 7", "s": "Start with seven"}, {"t": "Add negative 3", "s": "Add negative three"}, {"t": "Result is 4", "s": "Result is four"}],
-cq:"What is 7 &minus; 3?",
-cqs:"What is seven minus three?",
-ans:["4"],
-nudges:["Remember adding a negative number is like subtracting.", "Think of number line movement.", "7 plus minus 3 equals 4."],
-anim_svg:"<g id=\"q1s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Start with 7</text></g><g id=\"q1s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Add negative 3</text></g><g id=\"q1s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Result is 4</text></g><g id=\"q1ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">4</text></g>"
+steps:[{"t": "Calculate profit or loss = Selling price minus Cost price", "s": "Calculate profit or loss equals Selling price minus Cost price"}, {"t": "Profit or loss = ₹1000 minus ₹800 = ₹200", "s": "Profit or loss equals one thousand rupees minus eight hundred rupees equals two hundred rupees"}, {"t": "Since result is positive, it is a profit of ₹200", "s": "Since result is positive, it is a profit of two hundred rupees"}],
+cq:"What is the profit percentage on the cost price?",
+cqs:"What is the profit percentage on the cost price?",
+ans:["Profit = ₹200", "Profit% = (200 × 100) ÷ 800 = 25%"],
+nudges:["Profit is Selling price minus Cost price", "Profit percentage is (Profit × 100) ÷ Cost price", "Calculate profit first, then profit percentage"],
+anim_svg:"<g id=\"q1s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Profit or Loss = SP &minus; CP</text></g><g id=\"q1s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Profit or Loss = ₹1000 &minus; ₹800 = ₹200</text></g><g id=\"q1s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Profit of ₹200 since positive</text></g><g id=\"q1ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Profit = ₹200</text></g>"
 },
 {
 id:"q2",
-q:"Find: <span class='hl'>&minus;5 &minus; &minus;8</span>",
-qs:"Find minus five minus minus eight",
+q:"A book is bought for ₹500 and sold at a loss of ₹50. Find the selling price of the book.",
+qs:"A book is bought for five hundred rupees and sold at a loss of fifty rupees. Find the selling price of the book.",
 anim:"q2",
-steps:[{"t": "Minus 5 minus minus 8", "s": "Minus five minus minus eight"}, {"t": "Minus minus becomes plus", "s": "Minus minus becomes plus"}, {"t": "So, &minus;5 &plus; 8 = 3", "s": "So, minus five plus eight equals three"}],
-cq:"What is &minus;5 &plus; 8?",
-cqs:"What is minus five plus eight?",
-ans:["3"],
-nudges:["Subtracting a negative is like adding.", "Change double minus to plus.", "Calculate &minus;5 plus 8."],
-anim_svg:"<g id=\"q2s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Minus 5 minus minus 8</text></g><g id=\"q2s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Minus minus becomes plus</text></g><g id=\"q2s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Result is 3</text></g><g id=\"q2ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">3</text></g>"
+steps:[{"t": "Selling price = Cost price minus Loss", "s": "Selling price equals Cost price minus Loss"}, {"t": "SP = ₹500 minus ₹50 = ₹450", "s": "Selling price equals five hundred rupees minus fifty rupees equals four hundred fifty rupees"}, {"t": "Selling price is ₹450", "s": "Selling price is four hundred fifty rupees"}],
+cq:"What is the loss percentage on the cost price?",
+cqs:"What is the loss percentage on the cost price?",
+ans:["Selling price = ₹450", "Loss% = (50 × 100) ÷ 500 = 10%"],
+nudges:["Loss is Cost price minus Selling price", "Loss percentage is (Loss × 100) ÷ Cost price", "Calculate selling price first, then loss percentage"],
+anim_svg:"<g id=\"q2s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">SP = CP &minus; Loss</text></g><g id=\"q2s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">SP = ₹500 &minus; ₹50 = ₹450</text></g><g id=\"q2s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Selling price is ₹450</text></g><g id=\"q2ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">SP = ₹450</text></g>"
 },
 {
 id:"q3",
-q:"Calculate: <span class='hl'>(&minus;4) &times; 6</span>",
-qs:"Calculate minus four multiplied by six",
+q:"A shirt is marked at ₹1200. If a discount of 10% is given, find the selling price.",
+qs:"A shirt is marked at one thousand two hundred rupees. If a discount of ten percent is given, find the selling price.",
 anim:"q3",
-steps:[{"t": "Multiply 4 by 6", "s": "Multiply four by six"}, {"t": "Result is 24", "s": "Result is twenty four"}, {"t": "Since one number is negative, answer is negative", "s": "Since one number is negative, answer is negative"}],
-cq:"What is 4 &times; &minus;6?",
-cqs:"What is four multiplied by minus six?",
-ans:["-24"],
-nudges:["Multiply absolute values first.", "Negative times positive is negative.", "Answer is minus twenty four."],
-anim_svg:"<g id=\"q3s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Multiply 4 by 6</text></g><g id=\"q3s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Result is 24</text></g><g id=\"q3s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">One negative number means negative result</text></g><g id=\"q3ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">&minus;24</text></g>"
+steps:[{"t": "Discount amount = Marked price × Discount%", "s": "Discount amount equals Marked price multiplied by Discount percent"}, {"t": "Discount = ₹1200 × 10 ÷ 100 = ₹120", "s": "Discount equals one thousand two hundred rupees multiplied by ten divided by one hundred equals one hundred twenty rupees"}, {"t": "Selling price = Marked price minus Discount = ₹1200 minus ₹120 = ₹1080", "s": "Selling price equals Marked price minus Discount equals one thousand two hundred rupees minus one hundred twenty rupees equals one thousand eighty rupees"}],
+cq:"What is the discount amount on the shirt?",
+cqs:"What is the discount amount on the shirt?",
+ans:["Discount = ₹120", "Selling price = ₹1080"],
+nudges:["Discount is percentage of marked price", "Selling price = Marked price minus Discount", "Calculate discount first, then selling price"],
+anim_svg:"<g id=\"q3s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Discount = MP × Discount%</text></g><g id=\"q3s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Discount = ₹1200 × 10 ÷ 100 = ₹120</text></g><g id=\"q3s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">SP = MP &minus; Discount = ₹1080</text></g><g id=\"q3ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Discount = ₹120</text></g>"
 },
 {
 id:"q4",
-q:"Find: <span class='hl'>&minus;36 &divide; 6</span>",
-qs:"Find minus thirty six divided by six",
+q:"A shopkeeper sells a packet of sweets for ₹180 at a profit of 20%. Find the cost price of the packet.",
+qs:"A shopkeeper sells a packet of sweets for one hundred eighty rupees at a profit of twenty percent. Find the cost price of the packet.",
 anim:"q4",
-steps:[{"t": "Divide 36 by 6", "s": "Divide thirty six by six"}, {"t": "Result is 6", "s": "Result is six"}, {"t": "Negative divided by positive is negative", "s": "Negative divided by positive is negative"}],
-cq:"What is 36 &divide; &minus;6?",
-cqs:"What is thirty six divided by minus six?",
-ans:["-6"],
-nudges:["Divide absolute values first.", "Sign rules for division like multiplication.", "Answer is minus six."],
-anim_svg:"<g id=\"q4s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Divide 36 by 6</text></g><g id=\"q4s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Result is 6</text></g><g id=\"q4s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Negative divided by positive is negative</text></g><g id=\"q4ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">&minus;6</text></g>"
+steps:[{"t": "Profit% = (Profit × 100) ÷ Cost price", "s": "Profit percent equals Profit multiplied by one hundred divided by Cost price"}, {"t": "Let cost price be x. Then, Selling price = Cost price + Profit = x + 20% of x = 1.2x", "s": "Let cost price be x. Then, Selling price equals Cost price plus Profit equals x plus twenty percent of x equals one point two x"}, {"t": "Given SP = ₹180, so 1.2x = 180 ⇒ x = ₹180 ÷ 1.2 = ₹150", "s": "Given Selling price equals one hundred eighty rupees, so one point two x equals one hundred eighty rupees, therefore x equals one hundred eighty rupees divided by one point two equals one hundred fifty rupees"}],
+cq:"What is the cost price of the sweets packet?",
+cqs:"What is the cost price of the sweets packet?",
+ans:["Cost price = ₹150"],
+nudges:["Use formula SP = CP + Profit", "Express profit as percentage of CP", "Solve equation for CP"],
+anim_svg:"<g id=\"q4s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Profit% = (Profit × 100) ÷ CP</text></g><g id=\"q4s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">SP = CP + 20% of CP = 1.2 × CP</text></g><g id=\"q4s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">1.2 × CP = ₹180 ⇒ CP = ₹150</text></g><g id=\"q4ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Cost price = ₹150</text></g>"
 },
 {
 id:"q5",
-q:"Check if integers are closed under addition: Is <span class='hl'>5 &plus; &minus;2</span> an integer?",
-qs:"Check if integers are closed under addition: Is five plus minus two an integer",
+q:"An article is marked at ₹2500. The shopkeeper allows a discount of 15% and pays VAT of 5% on the selling price. Find the final price paid by the customer.",
+qs:"An article is marked at two thousand five hundred rupees. The shopkeeper allows a discount of fifteen percent and pays VAT of five percent on the selling price. Find the final price paid by the customer.",
 anim:"q5",
-steps:[{"t": "Add 5 and minus 2", "s": "Add five and minus two"}, {"t": "Result is 3", "s": "Result is three"}, {"t": "3 is an integer, so closed under addition", "s": "Three is an integer, so integers are closed under addition"}],
-cq:"Is 5 &times; &minus;2 an integer?",
-cqs:"Is five multiplied by minus two an integer?",
-ans:["Yes"],
-nudges:["Add the numbers first.", "Check if result is integer.", "Multiplication also results in integer."],
-anim_svg:"<g id=\"q5s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Add 5 and minus 2</text></g><g id=\"q5s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Result is 3</text></g><g id=\"q5s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">3 is integer, so closed under addition</text></g><g id=\"q5ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Yes</text></g>"
+steps:[{"t": "Calculate discount = 15% of ₹2500 = ₹375", "s": "Calculate discount equals fifteen percent of two thousand five hundred rupees equals three hundred seventy five rupees"}, {"t": "Selling price = Marked price minus Discount = ₹2500 minus ₹375 = ₹2125", "s": "Selling price equals Marked price minus Discount equals two thousand five hundred rupees minus three hundred seventy five rupees equals two thousand one hundred twenty five rupees"}, {"t": "VAT = 5% of Selling price = 5% of ₹2125 = ₹106.25", "s": "VAT equals five percent of Selling price equals five percent of two thousand one hundred twenty five rupees equals one hundred six rupees and twenty five paise"}],
+cq:"What is the final price including VAT?",
+cqs:"What is the final price including VAT?",
+ans:["Final price = ₹2231.25"],
+nudges:["Calculate discount first", "Subtract discount from marked price for selling price", "Add VAT on selling price for final price"],
+anim_svg:"<g id=\"q5s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Discount = MP × 15%</text></g><g id=\"q5s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">SP = MP &minus; Discount</text></g><g id=\"q5s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Final Price = SP + VAT</text></g><g id=\"q5ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Final price = ₹2231.25</text></g>"
 },
 {
 id:"q6",
-q:"Show commutative property: Is <span class='hl'>3 &plus; &minus;7 = &minus;7 &plus; 3</span> true?",
-qs:"Show commutative property: Is three plus minus seven equals minus seven plus three true",
+q:"A shop offers two successive discounts of 10% and 5% on a bicycle marked at ₹5000. Find the final selling price after both discounts.",
+qs:"A shop offers two successive discounts of ten percent and five percent on a bicycle marked at five thousand rupees. Find the final selling price after both discounts.",
 anim:"q6",
-steps:[{"t": "Calculate 3 plus minus 7", "s": "Calculate three plus minus seven"}, {"t": "Result is minus 4", "s": "Result is minus four"}, {"t": "Calculate minus 7 plus 3", "s": "Calculate minus seven plus three"}],
-cq:"Is multiplication commutative for integers?",
-cqs:"Is multiplication commutative for integers?",
-ans:["Yes"],
-nudges:["Calculate both sides.", "Compare results.", "Commutative means order does not matter."],
-anim_svg:"<g id=\"q6s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Calculate 3 plus minus 7</text></g><g id=\"q6s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Result is minus 4</text></g><g id=\"q6s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Calculate minus 7 plus 3</text></g><g id=\"q6ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Yes</text></g>"
+steps:[{"t": "First discount = 10% of ₹5000 = ₹500", "s": "First discount equals ten percent of five thousand rupees equals five hundred rupees"}, {"t": "Price after first discount = ₹5000 minus ₹500 = ₹4500", "s": "Price after first discount equals five thousand rupees minus five hundred rupees equals four thousand five hundred rupees"}, {"t": "Second discount = 5% of ₹4500 = ₹225", "s": "Second discount equals five percent of four thousand five hundred rupees equals two hundred twenty five rupees"}],
+cq:"What is the total discount given on the bicycle?",
+cqs:"What is the total discount given on the bicycle?",
+ans:["Final selling price = ₹4275", "Total discount = ₹500 + ₹225 = ₹725"],
+nudges:["Calculate first discount and subtract", "Calculate second discount on reduced price", "Subtract second discount for final price"],
+anim_svg:"<g id=\"q6s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">First discount = MP × 10%</text></g><g id=\"q6s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Price after first discount = MP &minus; First discount</text></g><g id=\"q6s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Final price = Price after first discount &minus; Second discount</text></g><g id=\"q6ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Final price = ₹4275</text></g>"
 },
 {
 id:"q7",
-q:"Use associative property: Calculate <span class='hl''>(&minus;2 &plus; 5) &plus; 3</span> and <span class='hl''>&minus;2 &plus; (5 &plus; 3)</span>",
-qs:"Use associative property: Calculate open bracket minus two plus five close bracket plus three and minus two plus open bracket five plus three close bracket",
+q:"A trader buys an article for ₹1500 and sells it at a loss of 12%. Find the selling price.",
+qs:"A trader buys an article for one thousand five hundred rupees and sells it at a loss of twelve percent. Find the selling price.",
 anim:"q7",
-steps:[{"t": "Calculate inside first bracket: &minus;2 &plus; 5 = 3", "s": "Calculate inside first bracket: minus two plus five equals three"}, {"t": "Add 3: 3 &plus; 3 = 6", "s": "Add three: three plus three equals six"}, {"t": "Calculate inside second bracket: 5 &plus; 3 = 8", "s": "Calculate inside second bracket: five plus three equals eight"}],
-cq:"Does associative property work for multiplication of integers?",
-cqs:"Does associative property work for multiplication of integers?",
-ans:["Yes"],
-nudges:["Calculate each expression stepwise.", "Compare results.", "Associative means grouping does not change result."],
-anim_svg:"<g id=\"q7s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Calculate minus 2 plus 5</text></g><g id=\"q7s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Add 3 to result</text></g><g id=\"q7s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Calculate 5 plus 3, then add minus 2</text></g><g id=\"q7ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Yes</text></g>"
+steps:[{"t": "Loss% = (Loss × 100) ÷ Cost price", "s": "Loss percent equals Loss multiplied by one hundred divided by Cost price"}, {"t": "Selling price = Cost price minus Loss = CP minus (Loss% of CP) = 1500 minus 12% of 1500", "s": "Selling price equals Cost price minus Loss equals CP minus twelve percent of CP equals one thousand five hundred rupees minus twelve percent of one thousand five hundred rupees"}, {"t": "Loss amount = 12% of 1500 = ₹180", "s": "Loss amount equals twelve percent of one thousand five hundred rupees equals one hundred eighty rupees"}],
+cq:"What is the selling price of the article?",
+cqs:"What is the selling price of the article?",
+ans:["Selling price = ₹1320"],
+nudges:["Calculate loss amount first", "Subtract loss from cost price", "Use formula SP = CP minus Loss"],
+anim_svg:"<g id=\"q7s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">SP = CP &minus; Loss</text></g><g id=\"q7s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Loss = 12% of CP</text></g><g id=\"q7s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">SP = ₹1500 &minus; ₹180 = ₹1320</text></g><g id=\"q7ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Selling price = ₹1320</text></g>"
 },
 {
 id:"q8",
-q:"Apply distributive property: Simplify <span class='hl'>3 &times; (&minus;4 &plus; 7)</span>",
-qs:"Apply distributive property: Simplify three multiplied by open bracket minus four plus seven close bracket",
+q:"A shopkeeper marks an article at ₹6000. He allows a discount of 8% and gains 12% on the cost price. Find the cost price of the article.",
+qs:"A shopkeeper marks an article at six thousand rupees. He allows a discount of eight percent and gains twelve percent on the cost price. Find the cost price of the article.",
 anim:"q8",
-steps:[{"t": "Calculate inside bracket: &minus;4 &plus; 7 = 3", "s": "Calculate inside bracket: minus four plus seven equals three"}, {"t": "Multiply: 3 &times; 3 = 9", "s": "Multiply: three times three equals nine"}, {"t": "Distributive property: 3 &times; &minus;4 + 3 &times; 7 = &minus;12 + 21 = 9", "s": "Distributive property: three times minus four plus three times seven equals minus twelve plus twenty one equals nine"}],
-cq:"Is distributive property true for integers?",
-cqs:"Is distributive property true for integers?",
-ans:["Yes"],
-nudges:["Calculate inside bracket first.", "Multiply each term separately.", "Add results to verify."],
-anim_svg:"<g id=\"q8s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Calculate minus 4 plus 7</text></g><g id=\"q8s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Multiply 3 by 3</text></g><g id=\"q8s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Distribute multiplication</text></g><g id=\"q8ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">9</text></g>"
+steps:[{"t": "Let cost price be x. Gain = 12% of x = 0.12x", "s": "Let cost price be x. Gain equals twelve percent of x equals zero point one two x"}, {"t": "Selling price = Cost price + Gain = x + 0.12x = 1.12x", "s": "Selling price equals Cost price plus Gain equals x plus zero point one two x equals one point one two x"}, {"t": "Discount = 8% of Marked price = 0.08 × 6000 = ₹480", "s": "Discount equals eight percent of Marked price equals zero point zero eight multiplied by six thousand rupees equals four hundred eighty rupees"}],
+cq:"What is the cost price of the article?",
+cqs:"What is the cost price of the article?",
+ans:["Cost price = ₹4928.57"],
+nudges:["Use SP = CP + Gain", "Calculate discount on marked price", "Equate SP to Marked price minus discount"],
+anim_svg:"<g id=\"q8s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">SP = CP + Gain</text></g><g id=\"q8s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Discount = MP × 8%</text></g><g id=\"q8s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">SP = MP &minus; Discount</text></g><g id=\"q8ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Cost price = ₹4928.57</text></g>"
 },
 {
 id:"q9",
-q:"Find absolute value: | <span class='hl'>&minus;15</span> |",
-qs:"Find absolute value of minus fifteen",
+q:"A trader marks an article at ₹4000 and allows a discount of 5%. If the cost price is ₹3500, find the profit or loss percentage.",
+qs:"A trader marks an article at four thousand rupees and allows a discount of five percent. If the cost price is three thousand five hundred rupees, find the profit or loss percentage.",
 anim:"q9",
-steps:[{"t": "Absolute value means distance from zero", "s": "Absolute value means distance from zero"}, {"t": "Distance of &minus;15 from zero is 15", "s": "Distance of minus fifteen from zero is fifteen"}, {"t": "So, |&minus;15| = 15", "s": "So, absolute value of minus fifteen equals fifteen"}],
-cq:"What is | 20 |?",
-cqs:"What is absolute value of twenty?",
-ans:["20"],
-nudges:["Absolute value is always positive.", "It is distance from zero.", "Ignore the minus sign."],
-anim_svg:"<g id=\"q9s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Absolute value means distance from zero</text></g><g id=\"q9s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Distance of minus 15 is 15</text></g><g id=\"q9s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Absolute value is positive</text></g><g id=\"q9ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">15</text></g>"
+steps:[{"t": "Discount = 5% of ₹4000 = ₹200", "s": "Discount equals five percent of four thousand rupees equals two hundred rupees"}, {"t": "Selling price = Marked price minus Discount = ₹4000 minus ₹200 = ₹3800", "s": "Selling price equals Marked price minus Discount equals four thousand rupees minus two hundred rupees equals three thousand eight hundred rupees"}, {"t": "Profit = Selling price minus Cost price = ₹3800 minus ₹3500 = ₹300", "s": "Profit equals Selling price minus Cost price equals three thousand eight hundred rupees minus three thousand five hundred rupees equals three hundred rupees"}],
+cq:"Is there a profit or loss, and what is its percentage?",
+cqs:"Is there a profit or loss, and what is its percentage?",
+ans:["Profit of ₹300", "Profit% ≈ 8.57%"],
+nudges:["Calculate discount first", "Find selling price", "Calculate profit and profit percentage"],
+anim_svg:"<g id=\"q9s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Discount = MP × 5%</text></g><g id=\"q9s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">SP = MP &minus; Discount</text></g><g id=\"q9s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Profit% = (Profit × 100) ÷ CP</text></g><g id=\"q9ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Profit ≈ 8.57%</text></g>"
 },
 {
 id:"q10",
-q:"Evaluate using BODMAS: <span class='hl'>8 &minus; (3 &times; &minus;2) &plus; 5</span>",
-qs:"Evaluate using BODMAS: eight minus open bracket three multiplied by minus two close bracket plus five",
+q:"A shopkeeper buys a radio for ₹1800 and sells it for ₹1620. Find the loss percentage on the cost price.",
+qs:"A shopkeeper buys a radio for one thousand eight hundred rupees and sells it for one thousand six hundred twenty rupees. Find the loss percentage on the cost price.",
 anim:"q10",
-steps:[{"t": "Multiply first: 3 &times; &minus;2 = &minus;6", "s": "Multiply first: three times minus two equals minus six"}, {"t": "Expression becomes: 8 &minus; ( &minus;6 ) &plus; 5", "s": "Expression becomes: eight minus minus six plus five"}, {"t": "Minus minus becomes plus: 8 &plus; 6 &plus; 5", "s": "Minus minus becomes plus: eight plus six plus five"}],
-cq:"Evaluate: (10 &plus; &minus;3) &times; 2",
-cqs:"Evaluate: open bracket ten plus minus three close bracket multiplied by two",
-ans:["19"],
-nudges:["Follow BODMAS: Brackets, Orders, Division, Multiplication, Addition, Subtraction.", "Calculate multiplication inside bracket first.", "Change double negatives to plus."],
-anim_svg:"<g id=\"q10s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Multiply 3 by minus 2</text></g><g id=\"q10s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Replace minus minus with plus</text></g><g id=\"q10s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Add all numbers</text></g><g id=\"q10ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">19</text></g>"
+steps:[{"t": "Loss = Cost price minus Selling price = ₹1800 minus ₹1620 = ₹180", "s": "Loss equals Cost price minus Selling price equals one thousand eight hundred rupees minus one thousand six hundred twenty rupees equals one hundred eighty rupees"}, {"t": "Loss% = (Loss × 100) ÷ Cost price = (180 × 100) ÷ 1800 = 10%", "s": "Loss percent equals Loss multiplied by one hundred divided by Cost price equals one hundred eighty multiplied by one hundred divided by one thousand eight hundred equals ten percent"}],
+cq:"What is the loss percentage on the radio?",
+cqs:"What is the loss percentage on the radio?",
+ans:["Loss% = 10%"],
+nudges:["Calculate loss first", "Use formula Loss% = (Loss × 100) ÷ CP", "Loss is CP minus SP"],
+anim_svg:"<g id=\"q10s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Loss = CP &minus; SP</text></g><g id=\"q10s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Loss% = (Loss × 100) ÷ CP</text></g><g id=\"q10s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Loss% = (180 × 100) ÷ 1800 = 10%</text></g><g id=\"q10ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Loss% = 10%</text></g>"
 }
 ];
 
 function getAnimSVG(t){
 var base='<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Nunito,sans-serif;background:#fffdf8"><rect width="420" height="178" fill="#fffdf8"/>';
 var svgs={
-"q1":base+"<g id=\"q1s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Start with 7</text></g><g id=\"q1s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Add negative 3</text></g><g id=\"q1s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Result is 4</text></g><g id=\"q1ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">4</text></g>",
-"q2":base+"<g id=\"q2s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Minus 5 minus minus 8</text></g><g id=\"q2s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Minus minus becomes plus</text></g><g id=\"q2s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Result is 3</text></g><g id=\"q2ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">3</text></g>",
-"q3":base+"<g id=\"q3s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Multiply 4 by 6</text></g><g id=\"q3s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Result is 24</text></g><g id=\"q3s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">One negative number means negative result</text></g><g id=\"q3ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">&minus;24</text></g>",
-"q4":base+"<g id=\"q4s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Divide 36 by 6</text></g><g id=\"q4s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Result is 6</text></g><g id=\"q4s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Negative divided by positive is negative</text></g><g id=\"q4ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">&minus;6</text></g>",
-"q5":base+"<g id=\"q5s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Add 5 and minus 2</text></g><g id=\"q5s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Result is 3</text></g><g id=\"q5s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">3 is integer, so closed under addition</text></g><g id=\"q5ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Yes</text></g>",
-"q6":base+"<g id=\"q6s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Calculate 3 plus minus 7</text></g><g id=\"q6s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Result is minus 4</text></g><g id=\"q6s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Calculate minus 7 plus 3</text></g><g id=\"q6ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Yes</text></g>",
-"q7":base+"<g id=\"q7s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Calculate minus 2 plus 5</text></g><g id=\"q7s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Add 3 to result</text></g><g id=\"q7s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Calculate 5 plus 3, then add minus 2</text></g><g id=\"q7ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Yes</text></g>",
-"q8":base+"<g id=\"q8s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Calculate minus 4 plus 7</text></g><g id=\"q8s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Multiply 3 by 3</text></g><g id=\"q8s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Distribute multiplication</text></g><g id=\"q8ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">9</text></g>",
-"q9":base+"<g id=\"q9s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Absolute value means distance from zero</text></g><g id=\"q9s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Distance of minus 15 is 15</text></g><g id=\"q9s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Absolute value is positive</text></g><g id=\"q9ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">15</text></g>",
-"q10":base+"<g id=\"q10s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Multiply 3 by minus 2</text></g><g id=\"q10s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Replace minus minus with plus</text></g><g id=\"q10s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Add all numbers</text></g><g id=\"q10ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">19</text></g>"
+"q1":base+"<g id=\"q1s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Profit or Loss = SP &minus; CP</text></g><g id=\"q1s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Profit or Loss = ₹1000 &minus; ₹800 = ₹200</text></g><g id=\"q1s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Profit of ₹200 since positive</text></g><g id=\"q1ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Profit = ₹200</text></g>",
+"q2":base+"<g id=\"q2s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">SP = CP &minus; Loss</text></g><g id=\"q2s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">SP = ₹500 &minus; ₹50 = ₹450</text></g><g id=\"q2s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Selling price is ₹450</text></g><g id=\"q2ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">SP = ₹450</text></g>",
+"q3":base+"<g id=\"q3s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Discount = MP × Discount%</text></g><g id=\"q3s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Discount = ₹1200 × 10 ÷ 100 = ₹120</text></g><g id=\"q3s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">SP = MP &minus; Discount = ₹1080</text></g><g id=\"q3ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Discount = ₹120</text></g>",
+"q4":base+"<g id=\"q4s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Profit% = (Profit × 100) ÷ CP</text></g><g id=\"q4s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">SP = CP + 20% of CP = 1.2 × CP</text></g><g id=\"q4s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">1.2 × CP = ₹180 ⇒ CP = ₹150</text></g><g id=\"q4ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Cost price = ₹150</text></g>",
+"q5":base+"<g id=\"q5s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Discount = MP × 15%</text></g><g id=\"q5s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">SP = MP &minus; Discount</text></g><g id=\"q5s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Final Price = SP + VAT</text></g><g id=\"q5ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Final price = ₹2231.25</text></g>",
+"q6":base+"<g id=\"q6s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">First discount = MP × 10%</text></g><g id=\"q6s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Price after first discount = MP &minus; First discount</text></g><g id=\"q6s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Final price = Price after first discount &minus; Second discount</text></g><g id=\"q6ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Final price = ₹4275</text></g>",
+"q7":base+"<g id=\"q7s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">SP = CP &minus; Loss</text></g><g id=\"q7s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Loss = 12% of CP</text></g><g id=\"q7s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">SP = ₹1500 &minus; ₹180 = ₹1320</text></g><g id=\"q7ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Selling price = ₹1320</text></g>",
+"q8":base+"<g id=\"q8s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">SP = CP + Gain</text></g><g id=\"q8s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Discount = MP × 8%</text></g><g id=\"q8s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">SP = MP &minus; Discount</text></g><g id=\"q8ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Cost price = ₹4928.57</text></g>",
+"q9":base+"<g id=\"q9s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Discount = MP × 5%</text></g><g id=\"q9s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">SP = MP &minus; Discount</text></g><g id=\"q9s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Profit% = (Profit × 100) ÷ CP</text></g><g id=\"q9ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Profit ≈ 8.57%</text></g>",
+"q10":base+"<g id=\"q10s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Loss = CP &minus; SP</text></g><g id=\"q10s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Loss% = (Loss × 100) ÷ CP</text></g><g id=\"q10s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Loss% = (180 × 100) ÷ 1800 = 10%</text></g><g id=\"q10ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Loss% = 10%</text></g>"
 };
 return svgs[t]||'<svg viewBox="0 0 420 178"><text x="210" y="89" text-anchor="middle" font-family="Nunito" font-size="14" fill="#5a4a30">Loading...</text></svg>';
 }
@@ -348,7 +348,7 @@ function init(){
   
   var st=JSON.parse(localStorage.getItem("rishi_current_student")||"{}");
   G("sName")&&(G("sName").textContent=st.studentName?st.studentName.split(" ")[0]:"there");
-  if(rishiIsExplainDone('ic7_1')){completed=true;G("doneBanner").classList.add("show");unlockNav();}
+  if(rishiIsExplainDone('ic7_9')){completed=true;G("doneBanner").classList.add("show");unlockNav();}
   buildSession();rInit();
   initVoices(function(){});
 }
@@ -393,19 +393,19 @@ function goNext(){confirmShown=false;idx++;G("qArea").innerHTML="";showQ();windo
 function updateProg(){var pct=Math.round((idx/PER_SESSION)*100);G("progFill").style.width=pct+"%";G("progLabel").textContent="Question "+(idx+1)+" of "+PER_SESSION;G("progPct").textContent=pct+"%";}
 function unlockNav(){G("btnPractice").classList.remove("locked");G("btnExam").classList.remove("locked");G("lockTip").style.display="none";}
 function onComplete(){
-  rishiMarkExplainDone('ic7_1');
+  rishiMarkExplainDone('ic7_9');
   completed=true;G("doneBanner").classList.add("show");unlockNav();
   var st=JSON.parse(localStorage.getItem("rishi_current_student")||"{}");
   var nm=st.studentName?st.studentName.split(" ")[0]:"champion";
   var cel=document.createElement("div");cel.className="rishika-wrap";
   cel.innerHTML='<div class="rishika-avatar">&#128105;&#8205;&#127979;</div>'
     +'<div class="rishika-bubble"><div class="rishika-name">Rishika</div>'
-    +'<div class="rishika-text" id="celText">&#127881; <span class="hl">'+nm+'</span>, Fantastic work! You&#39;ve mastered Integers! 🎉</div>'
+    +'<div class="rishika-text" id="celText">&#127881; <span class="hl">'+nm+'</span>, Fantastic work! You&#39;ve mastered Profit, Loss and Discount! 🎉</div>'
     +'<button class="btn-speak" onclick="sayEl(\'celText\')">&#128266; Hear</button></div>';
   G("qArea").appendChild(cel);setTimeout(function(){sayEl("celText");rHappy();},400);
 }
-function goPractice(){if(!completed){alert("Complete explanations first!");return;}location.href="/practice/icse/class7/arithmetic/integers.html";}
-function goExam(){if(!completed){alert("Complete explanations first!");return;}if(!rishiIsPracticeDone('ic7_1')){alert('Complete Practice with 5 in a row first!');return;}location.href="/exam.html?ch=ic7-01";}
+function goPractice(){if(!completed){alert("Complete explanations first!");return;}location.href="/practice/icse/class7/arithmetic/profit-loss-discount.html";}
+function goExam(){if(!completed){alert("Complete explanations first!");return;}if(!rishiIsPracticeDone('ic7_9')){alert('Complete Practice with 5 in a row first!');return;}location.href="/exam.html?ch=ic7-09";}
 var CELEBRATIONS=[{word:"Magnifique!",lang:"French",meaning:"Magnificent!",speak:"Magnifique"},{word:"Bravissimo!",lang:"Italian",meaning:"Very well done!",speak:"Bravissimo"},{word:"Wunderbar!",lang:"German",meaning:"Wonderful!",speak:"Wunderbar"},{word:"Shabash!",lang:"Hindi",meaning:"Well done!",speak:"Shabash"},{word:"Felicitaciones!",lang:"Spanish",meaning:"Congratulations!",speak:"Felicitaciones"}];
 var lastCelIdx=-1;
 function celebrate(){var i;do{i=Math.floor(Math.random()*CELEBRATIONS.length);}while(i===lastCelIdx&&CELEBRATIONS.length>1);lastCelIdx=i;var c=CELEBRATIONS[i];var rb=G("rbox");rb.className="result-box ok";rb.innerHTML='<div style="font-size:18px;font-weight:900;">'+c.word+'</div><div style="font-size:11px;">'+c.lang+' &middot; <em>'+c.meaning+'</em></div>';G("nudgeBox").classList.remove("show");var nb=G("btnNext");if(nb)nb.classList.add("show");say(c.speak);rHappy();}
