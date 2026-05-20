@@ -395,7 +395,30 @@ var CHAPTER_MAP = {
   'c7-05': { intId: 5,  cls: '7', apiCh: '05', name: 'Working with Fractions',                topic: 'Arithmetic'         },
   'c7-06': { intId: 6,  cls: '7', apiCh: '06', name: 'Expressions using Letter-Numbers',      topic: 'Algebra'            },
   'c7-07': { intId: 7,  cls: '7', apiCh: '07', name: 'Parallel and Intersecting Lines',       topic: 'Geometry'           },
-  'c7-08': { intId: 8,  cls: '7', apiCh: '08', name: 'A Tale of Three Intersecting Lines',    topic: 'Geometry'           }
+  'c7-08': { intId: 8,  cls: '7', apiCh: '08', name: 'A Tale of Three Intersecting Lines',    topic: 'Geometry'           },
+  /* ── ICSE Class 7 ── */
+  'ic7-01': { intId: 1,  cls: '7', apiCh: '01', board: 'icse', practiceKey: 'ic7_1',  name: 'Integers',                  topic: 'Arithmetic'    },
+  'ic7-02': { intId: 2,  cls: '7', apiCh: '02', board: 'icse', practiceKey: 'ic7_2',  name: 'Rational Numbers',           topic: 'Arithmetic'    },
+  'ic7-03': { intId: 3,  cls: '7', apiCh: '03', board: 'icse', practiceKey: 'ic7_3',  name: 'Fractions',                  topic: 'Arithmetic'    },
+  'ic7-04': { intId: 4,  cls: '7', apiCh: '04', board: 'icse', practiceKey: 'ic7_4',  name: 'Decimal Fractions',          topic: 'Arithmetic'    },
+  'ic7-05': { intId: 5,  cls: '7', apiCh: '05', board: 'icse', practiceKey: 'ic7_5',  name: 'Exponents',                  topic: 'Arithmetic'    },
+  'ic7-06': { intId: 6,  cls: '7', apiCh: '06', board: 'icse', practiceKey: 'ic7_6',  name: 'Ratio and Proportion',       topic: 'Arithmetic'    },
+  'ic7-07': { intId: 7,  cls: '7', apiCh: '07', board: 'icse', practiceKey: 'ic7_7',  name: 'Unitary Method',             topic: 'Arithmetic'    },
+  'ic7-08': { intId: 8,  cls: '7', apiCh: '08', board: 'icse', practiceKey: 'ic7_8',  name: 'Percent and Percentage',     topic: 'Arithmetic'    },
+  'ic7-09': { intId: 9,  cls: '7', apiCh: '09', board: 'icse', practiceKey: 'ic7_9',  name: 'Profit, Loss and Discount',  topic: 'Arithmetic'    },
+  'ic7-10': { intId: 10, cls: '7', apiCh: '10', board: 'icse', practiceKey: 'ic7_10', name: 'Simple Interest',            topic: 'Arithmetic'    },
+  'ic7-11': { intId: 11, cls: '7', apiCh: '11', board: 'icse', practiceKey: 'ic7_11', name: 'Set Concepts',               topic: 'Arithmetic'    },
+  'ic7-12': { intId: 12, cls: '7', apiCh: '12', board: 'icse', practiceKey: 'ic7_12', name: 'Fundamental Concepts',       topic: 'Algebra'       },
+  'ic7-13': { intId: 13, cls: '7', apiCh: '13', board: 'icse', practiceKey: 'ic7_13', name: 'Simple Linear Equations',    topic: 'Algebra'       },
+  'ic7-14': { intId: 14, cls: '7', apiCh: '14', board: 'icse', practiceKey: 'ic7_14', name: 'Lines and Angles',           topic: 'Geometry'      },
+  'ic7-15': { intId: 15, cls: '7', apiCh: '15', board: 'icse', practiceKey: 'ic7_15', name: 'Triangles',                  topic: 'Geometry'      },
+  'ic7-16': { intId: 16, cls: '7', apiCh: '16', board: 'icse', practiceKey: 'ic7_16', name: 'Pythagoras Theorem',         topic: 'Geometry'      },
+  'ic7-17': { intId: 17, cls: '7', apiCh: '17', board: 'icse', practiceKey: 'ic7_17', name: 'Symmetry',                   topic: 'Geometry'      },
+  'ic7-18': { intId: 18, cls: '7', apiCh: '18', board: 'icse', practiceKey: 'ic7_18', name: 'Recognition of Solids',      topic: 'Geometry'      },
+  'ic7-19': { intId: 19, cls: '7', apiCh: '19', board: 'icse', practiceKey: 'ic7_19', name: 'Congruent Triangles',        topic: 'Geometry'      },
+  'ic7-20': { intId: 20, cls: '7', apiCh: '20', board: 'icse', practiceKey: 'ic7_20', name: 'Mensuration',                topic: 'Mensuration'   },
+  'ic7-21': { intId: 21, cls: '7', apiCh: '21', board: 'icse', practiceKey: 'ic7_21', name: 'Data Handling',              topic: 'Data Handling' },
+  'ic7-22': { intId: 22, cls: '7', apiCh: '22', board: 'icse', practiceKey: 'ic7_22', name: 'Probability',                topic: 'Data Handling' }
 };
 
 var SECTION_INFO = {
@@ -457,11 +480,13 @@ window.addEventListener('load', function () {
   /* Set page title */
   document.title = 'Exam – ' + CH_INFO.name + ' | RISHI';
 
-  /* Plan gate */
-  rishiCheckPlan(CH_INFO.intId);
+  /* Plan gate — skip for ICSE (not on CBSE plan system) */
+  if (!CH_INFO.board || CH_INFO.board === 'cbse') {
+    rishiCheckPlan(CH_INFO.intId);
+  }
 
   /* Practice gate */
-  if (!rishiIsPracticeDone(CH_ID_STR)) {
+  if (!rishiIsPracticeDone(CH_INFO.practiceKey || CH_ID_STR)) {
     document.getElementById('loading-screen').classList.add('hidden');
     var gate = document.getElementById('gate-screen');
     document.getElementById('gate-msg').textContent =
@@ -473,7 +498,8 @@ window.addEventListener('load', function () {
   /* Fill chapter info */
   document.getElementById('topbar-chapter').textContent = CH_INFO.name;
   document.getElementById('lp-title').textContent = CH_INFO.name;
-  document.querySelector('.lp-chapter').textContent = 'CBSE \u00b7 Class ' + CH_INFO.cls;
+  var _boardLabel = (CH_INFO.board || 'cbse').toUpperCase();
+  document.querySelector('.lp-chapter').textContent = _boardLabel + ' \u00b7 Class ' + CH_INFO.cls;
   document.getElementById('coins-display').textContent = rishiGetCoins();
 
   /* Load questions */
@@ -483,7 +509,7 @@ window.addEventListener('load', function () {
 /* ─ LOAD QUESTIONS ────────────────────────────────────── */
 async function loadQuestions() {
   try {
-    var url = '/api/questions?board=cbse&class=' + CH_INFO.cls + '&ch=' + CH_INFO.apiCh + '&type=exam';
+    var url = '/api/questions?board=' + (CH_INFO.board || 'cbse') + '&class=' + CH_INFO.cls + '&ch=' + CH_INFO.apiCh + '&type=exam';
     var res = await fetch(url);
     if (!res.ok) throw new Error('HTTP ' + res.status);
     var data = await res.json();

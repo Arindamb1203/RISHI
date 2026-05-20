@@ -413,26 +413,126 @@ var ALL_CLASS_DATA = {
       1:"c6-01",2:"c6-02",3:"c6-03",4:"c6-04",5:"c6-05",
       6:"c6-06",7:"c6-07",8:"c6-08",9:"c6-09",10:"c6-10"
     }
+  },
+
+  /* ── ICSE CLASS 7 (key='ic7') ────────────────────────── */
+  'ic7': {
+    TOPICS: [
+      {id:'arithmetic',  name:'Arithmetic',   icon:'🔢', chapters:[1,2,3,4,5,6,7,8,9,10,11]},
+      {id:'algebra',     name:'Algebra',      icon:'🔣', chapters:[12,13]                   },
+      {id:'geometry',    name:'Geometry',     icon:'📐', chapters:[14,15,16,17,18,19]       },
+      {id:'mensuration', name:'Mensuration',  icon:'📏', chapters:[20]                      },
+      {id:'datahandling',name:'Data Handling',icon:'📊', chapters:[21,22]                   }
+    ],
+    CHAPTERS: {
+      1: {name:"Integers",                built:false, path:"/explain/icse/class7/arithmetic/integers.html"},
+      2: {name:"Rational Numbers",        built:false, path:"/explain/icse/class7/arithmetic/rational-numbers.html"},
+      3: {name:"Fractions",               built:false, path:"/explain/icse/class7/arithmetic/fractions.html"},
+      4: {name:"Decimal Fractions",       built:false, path:"/explain/icse/class7/arithmetic/decimal-fractions.html"},
+      5: {name:"Exponents",               built:false, path:"/explain/icse/class7/arithmetic/exponents.html"},
+      6: {name:"Ratio and Proportion",    built:false, path:"/explain/icse/class7/arithmetic/ratio-and-proportion.html"},
+      7: {name:"Unitary Method",          built:false, path:"/explain/icse/class7/arithmetic/unitary-method.html"},
+      8: {name:"Percent and Percentage",  built:false, path:"/explain/icse/class7/arithmetic/percent-and-percentage.html"},
+      9: {name:"Profit, Loss and Discount",built:false,path:"/explain/icse/class7/arithmetic/profit-loss-discount.html"},
+      10:{name:"Simple Interest",         built:false, path:"/explain/icse/class7/arithmetic/simple-interest.html"},
+      11:{name:"Set Concepts",            built:false, path:"/explain/icse/class7/arithmetic/set-concepts.html"},
+      12:{name:"Fundamental Concepts",    built:false, path:"/explain/icse/class7/algebra/fundamental-concepts.html"},
+      13:{name:"Simple Linear Equations", built:false, path:"/explain/icse/class7/algebra/simple-linear-equations.html"},
+      14:{name:"Lines and Angles",        built:false, path:"/explain/icse/class7/geometry/lines-and-angles.html"},
+      15:{name:"Triangles",               built:false, path:"/explain/icse/class7/geometry/triangles.html"},
+      16:{name:"Pythagoras Theorem",      built:false, path:"/explain/icse/class7/geometry/pythagoras-theorem.html"},
+      17:{name:"Symmetry",                built:false, path:"/explain/icse/class7/geometry/symmetry.html"},
+      18:{name:"Recognition of Solids",   built:false, path:"/explain/icse/class7/geometry/recognition-of-solids.html"},
+      19:{name:"Congruent Triangles",     built:false, path:"/explain/icse/class7/geometry/congruent-triangles.html"},
+      20:{name:"Mensuration",             built:false, path:"/explain/icse/class7/mensuration/mensuration.html"},
+      21:{name:"Data Handling",           built:false, path:"/explain/icse/class7/data-handling/data-handling.html"},
+      22:{name:"Probability",             built:false, path:"/explain/icse/class7/data-handling/probability.html"}
+    },
+    CH_COLORS: {
+      1:"#6C63FF",2:"#2563EB",3:"#7C3AED",4:"#0891B2",5:"#DC2626",6:"#059669",
+      7:"#D97706",8:"#B45309",9:"#0D9488",10:"#16A34A",11:"#0E7490",
+      12:"#4F46E5",13:"#7C3AED",
+      14:"#059669",15:"#0891B2",16:"#1D4ED8",17:"#9333EA",18:"#16A34A",19:"#0D9488",
+      20:"#B45309",
+      21:"#DC2626",22:"#D97706"
+    },
+    LEGACY_KEYS: {},
+    PRACTICE_PATHS: {
+      1: "/practice/icse/class7/arithmetic/integers.html",
+      2: "/practice/icse/class7/arithmetic/rational-numbers.html",
+      3: "/practice/icse/class7/arithmetic/fractions.html",
+      4: "/practice/icse/class7/arithmetic/decimal-fractions.html",
+      5: "/practice/icse/class7/arithmetic/exponents.html",
+      6: "/practice/icse/class7/arithmetic/ratio-and-proportion.html",
+      7: "/practice/icse/class7/arithmetic/unitary-method.html",
+      8: "/practice/icse/class7/arithmetic/percent-and-percentage.html",
+      9: "/practice/icse/class7/arithmetic/profit-loss-discount.html",
+      10:"/practice/icse/class7/arithmetic/simple-interest.html",
+      11:"/practice/icse/class7/arithmetic/set-concepts.html",
+      12:"/practice/icse/class7/algebra/fundamental-concepts.html",
+      13:"/practice/icse/class7/algebra/simple-linear-equations.html",
+      14:"/practice/icse/class7/geometry/lines-and-angles.html",
+      15:"/practice/icse/class7/geometry/triangles.html",
+      16:"/practice/icse/class7/geometry/pythagoras-theorem.html",
+      17:"/practice/icse/class7/geometry/symmetry.html",
+      18:"/practice/icse/class7/geometry/recognition-of-solids.html",
+      19:"/practice/icse/class7/geometry/congruent-triangles.html",
+      20:"/practice/icse/class7/mensuration/mensuration.html",
+      21:"/practice/icse/class7/data-handling/data-handling.html",
+      22:"/practice/icse/class7/data-handling/probability.html"
+    },
+    EXAM_PATHS: {
+      1:"/exam.html?ch=ic7-01", 2:"/exam.html?ch=ic7-02", 3:"/exam.html?ch=ic7-03",
+      4:"/exam.html?ch=ic7-04", 5:"/exam.html?ch=ic7-05", 6:"/exam.html?ch=ic7-06",
+      7:"/exam.html?ch=ic7-07", 8:"/exam.html?ch=ic7-08", 9:"/exam.html?ch=ic7-09",
+      10:"/exam.html?ch=ic7-10",11:"/exam.html?ch=ic7-11",12:"/exam.html?ch=ic7-12",
+      13:"/exam.html?ch=ic7-13",14:"/exam.html?ch=ic7-14",15:"/exam.html?ch=ic7-15",
+      16:"/exam.html?ch=ic7-16",17:"/exam.html?ch=ic7-17",18:"/exam.html?ch=ic7-18",
+      19:"/exam.html?ch=ic7-19",20:"/exam.html?ch=ic7-20",21:"/exam.html?ch=ic7-21",
+      22:"/exam.html?ch=ic7-22"
+    },
+    EXAM_DONE_KEYS: {
+      1:"ic7-01", 2:"ic7-02", 3:"ic7-03", 4:"ic7-04", 5:"ic7-05", 6:"ic7-06",
+      7:"ic7-07", 8:"ic7-08", 9:"ic7-09",10:"ic7-10",11:"ic7-11",12:"ic7-12",
+      13:"ic7-13",14:"ic7-14",15:"ic7-15",16:"ic7-16",17:"ic7-17",18:"ic7-18",
+      19:"ic7-19",20:"ic7-20",21:"ic7-21",22:"ic7-22"
+    },
+    EXPLAIN_DONE_KEYS: {
+      1:"ic7_1", 2:"ic7_2", 3:"ic7_3", 4:"ic7_4", 5:"ic7_5", 6:"ic7_6",
+      7:"ic7_7", 8:"ic7_8", 9:"ic7_9",10:"ic7_10",11:"ic7_11",12:"ic7_12",
+      13:"ic7_13",14:"ic7_14",15:"ic7_15",16:"ic7_16",17:"ic7_17",18:"ic7_18",
+      19:"ic7_19",20:"ic7_20",21:"ic7_21",22:"ic7_22"
+    },
+    PRACTICE_DONE_KEYS: {
+      1:"ic7_1", 2:"ic7_2", 3:"ic7_3", 4:"ic7_4", 5:"ic7_5", 6:"ic7_6",
+      7:"ic7_7", 8:"ic7_8", 9:"ic7_9",10:"ic7_10",11:"ic7_11",12:"ic7_12",
+      13:"ic7_13",14:"ic7_14",15:"ic7_15",16:"ic7_16",17:"ic7_17",18:"ic7_18",
+      19:"ic7_19",20:"ic7_20",21:"ic7_21",22:"ic7_22"
+    }
   }
 
 }; /* end ALL_CLASS_DATA */
 
 /* ── Active variables (populated by loadClassData at init) ── */
-var TOPICS, CHAPTERS, CH_COLORS, LEGACY_KEYS, PRACTICE_PATHS, EXAM_PATHS, EXAM_DONE_KEYS;
+var TOPICS, CHAPTERS, CH_COLORS, LEGACY_KEYS, PRACTICE_PATHS, EXAM_PATHS,
+    EXAM_DONE_KEYS, EXPLAIN_DONE_KEYS, PRACTICE_DONE_KEYS;
 
-function loadClassData(classNum) {
-  var cd = ALL_CLASS_DATA[classNum] || ALL_CLASS_DATA[8];
-  TOPICS         = cd.TOPICS;
-  CHAPTERS       = cd.CHAPTERS;
-  CH_COLORS      = cd.CH_COLORS;
-  LEGACY_KEYS    = cd.LEGACY_KEYS    || {};
-  PRACTICE_PATHS = cd.PRACTICE_PATHS || {};
-  EXAM_PATHS     = cd.EXAM_PATHS     || {};
-  EXAM_DONE_KEYS = cd.EXAM_DONE_KEYS || {};
+function loadClassData(classKey) {
+  var cd = ALL_CLASS_DATA[classKey] || ALL_CLASS_DATA[8];
+  TOPICS             = cd.TOPICS;
+  CHAPTERS           = cd.CHAPTERS;
+  CH_COLORS          = cd.CH_COLORS;
+  LEGACY_KEYS        = cd.LEGACY_KEYS        || {};
+  PRACTICE_PATHS     = cd.PRACTICE_PATHS     || {};
+  EXAM_PATHS         = cd.EXAM_PATHS         || {};
+  EXAM_DONE_KEYS     = cd.EXAM_DONE_KEYS     || {};
+  EXPLAIN_DONE_KEYS  = cd.EXPLAIN_DONE_KEYS  || {};
+  PRACTICE_DONE_KEYS = cd.PRACTICE_DONE_KEYS || {};
 }
 
-var activeTopic = null; /* set in init after loadClassData */
-var STUDENT_CLASS = 8; /* set in init */
+var activeTopic   = null; /* set in init after loadClassData */
+var STUDENT_CLASS = 8;   /* set in init */
+var STUDENT_BOARD = 'cbse'; /* set in init */
 
 
 function G(id){return document.getElementById(id);}
@@ -447,7 +547,8 @@ function logout(){localStorage.removeItem('rishi_current_student');window.locati
 
 function isExplainDone(cid){
   if(sessionStorage.getItem('rishi_admin_bypass')==='1') return true;
-  if(localStorage.getItem("rishi_explain_done_"+cid)==="1") return true;
+  var key = EXPLAIN_DONE_KEYS[cid] || cid;
+  if(localStorage.getItem("rishi_explain_done_"+key)==="1") return true;
   if(LEGACY_KEYS[cid]){
     var p={};try{p=JSON.parse(localStorage.getItem("rishi_progress")||"{}");}catch(e){}
     if(p[LEGACY_KEYS[cid]]) return true;
@@ -456,7 +557,8 @@ function isExplainDone(cid){
 }
 function isPracticeDone(cid){
   if(sessionStorage.getItem('rishi_admin_bypass')==='1') return true;
-  return localStorage.getItem("rishi_practice_done_"+cid)==="1";
+  var key = PRACTICE_DONE_KEYS[cid] || cid;
+  return localStorage.getItem("rishi_practice_done_"+key)==="1";
 }
 function isChapExamDone(cid){
   if(sessionStorage.getItem('rishi_admin_bypass')==='1') return true;
@@ -671,9 +773,9 @@ function buildChapterList(){
     html+='<div style="font-size:13px;font-weight:700;color:var(--green);margin-bottom:10px;">All '+topic.chapters.length+' chapters complete — Topic Exam unlocked!</div>';
     var topicDone=rishiIsTopicExamDone(topic.id);
     if(topicDone){
-      html+='<a href="/topic-exam.html?topic='+topic.id+'&class='+STUDENT_CLASS+'" style="display:inline-block;padding:10px 24px;background:var(--green-pale);color:var(--green);border:1.5px solid var(--green-border);border-radius:10px;font-weight:900;font-size:13px;text-decoration:none;">&#10003; Done &middot; Retry</a>';
+      html+='<a href="/topic-exam.html?topic='+topic.id+'&class='+STUDENT_CLASS+'&board='+STUDENT_BOARD+'" style="display:inline-block;padding:10px 24px;background:var(--green-pale);color:var(--green);border:1.5px solid var(--green-border);border-radius:10px;font-weight:900;font-size:13px;text-decoration:none;">&#10003; Done &middot; Retry</a>';
     } else {
-      html+='<a href="/topic-exam.html?topic='+topic.id+'&class='+STUDENT_CLASS+'" style="display:inline-block;padding:10px 24px;background:var(--green);color:white;border-radius:10px;font-weight:900;font-size:13px;text-decoration:none;">Start Topic Exam &#8594;</a>';
+      html+='<a href="/topic-exam.html?topic='+topic.id+'&class='+STUDENT_CLASS+'&board='+STUDENT_BOARD+'" style="display:inline-block;padding:10px 24px;background:var(--green);color:white;border-radius:10px;font-weight:900;font-size:13px;text-decoration:none;">Start Topic Exam &#8594;</a>';
     }
   } else {
     html+='<div style="font-size:12px;font-weight:700;color:var(--soft);margin-bottom:8px;">Complete all '+topic.chapters.length+' chapter exams to unlock</div>';
@@ -721,8 +823,8 @@ function renderSampurna(){
     html='<div class="sampurna-box locked"><div class="sampurna-ico">🏆</div><div class="sampurna-title">GRAND EXAM</div><div class="sampurna-sub">Content coming soon for this class.</div></div>';
   } else if(done===total){
     var btnHtml=spDone
-      ?'<div style="margin-bottom:6px;font-size:12px;font-weight:700;color:var(--sage);">&#10003; Done &middot; Best: '+spScore+'/100</div><a href="/sampurna-pariksha.html?class='+STUDENT_CLASS+'" style="display:inline-block;padding:10px 28px;background:var(--gold-pale);color:var(--amber);border:2px solid var(--gold);border-radius:12px;font-weight:900;font-size:14px;text-decoration:none;">&#128257; Retry</a>'
-      :'<a href="/sampurna-pariksha.html?class='+STUDENT_CLASS+'" style="display:inline-block;padding:12px 32px;background:linear-gradient(135deg,var(--amber),var(--gold));color:#1a1a00;border-radius:12px;font-weight:900;font-size:15px;text-decoration:none;box-shadow:0 4px 16px rgba(215,160,0,.3);">&#127942; Start Grand Exam</a>';
+      ?'<div style="margin-bottom:6px;font-size:12px;font-weight:700;color:var(--sage);">&#10003; Done &middot; Best: '+spScore+'/100</div><a href="/sampurna-pariksha.html?class='+STUDENT_CLASS+'&board='+STUDENT_BOARD+'" style="display:inline-block;padding:10px 28px;background:var(--gold-pale);color:var(--amber);border:2px solid var(--gold);border-radius:12px;font-weight:900;font-size:14px;text-decoration:none;">&#128257; Retry</a>'
+      :'<a href="/sampurna-pariksha.html?class='+STUDENT_CLASS+'&board='+STUDENT_BOARD+'" style="display:inline-block;padding:12px 32px;background:linear-gradient(135deg,var(--amber),var(--gold));color:#1a1a00;border-radius:12px;font-weight:900;font-size:15px;text-decoration:none;box-shadow:0 4px 16px rgba(215,160,0,.3);">&#127942; Start Grand Exam</a>';
     html='<div class="sampurna-box unlocked"><div class="sampurna-ico">&#127942;</div><div class="sampurna-title">GRAND EXAM</div><div class="sampurna-sub">All '+total+' chapters mastered! Grand exam unlocked.</div>'+btnHtml+'</div>';
   } else {
     html='<div class="sampurna-box locked"><div class="sampurna-ico">&#127942;</div><div class="sampurna-title">GRAND EXAM</div><div class="sampurna-sub">Complete all '+total+' chapter exams to unlock.<br>'+done+' of '+total+' done.</div><div class="sampurna-prog"><div class="sampurna-fill" style="width:'+pct+'%"></div></div></div>';
@@ -775,8 +877,10 @@ window.onload=function(){
   G('hdrName').textContent=name;
   G('wName').textContent=name;
   G('wSub').textContent='Class '+(st.class||8)+' · '+(st.board||'CBSE')+' Mathematics';
-  loadClassData(parseInt(st.class||8));
+  STUDENT_BOARD = (st.board||'CBSE').toLowerCase();
   STUDENT_CLASS = parseInt(st.class||8);
+  var classKey = (STUDENT_BOARD === 'icse' && STUDENT_CLASS === 7) ? 'ic7' : STUDENT_CLASS;
+  loadClassData(classKey);
   activeTopic = sessionStorage.getItem('rishi_syllabus_topic') || TOPICS[0].id;
   buildTopicRail();
   buildChapterList();

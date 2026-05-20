@@ -310,9 +310,17 @@ var TOPIC_MAP_CLASS7 = {
   algebra:    { name:'Algebra',    icon:'&#128291;', chapters:['04']                     },
   geometry:   { name:'Geometry',   icon:'&#128208;', chapters:['05','07']                }
 };
+var TOPIC_MAP_ICSE_CLASS7 = {
+  arithmetic:  { name:'Arithmetic',   icon:'&#128290;', chapters:['ic7-01','ic7-02','ic7-03','ic7-04','ic7-05','ic7-06','ic7-07','ic7-08','ic7-09','ic7-10','ic7-11'] },
+  algebra:     { name:'Algebra',      icon:'&#128291;', chapters:['ic7-12','ic7-13']                                                                                  },
+  geometry:    { name:'Geometry',     icon:'&#128208;', chapters:['ic7-14','ic7-15','ic7-16','ic7-17','ic7-18','ic7-19']                                              },
+  mensuration: { name:'Mensuration',  icon:'&#128207;', chapters:['ic7-20']                                                                                           },
+  datahandling:{ name:'Data Handling',icon:'&#128202;', chapters:['ic7-21','ic7-22']                                                                                  }
+};
 
 
-var TOPIC_MAP = TOPIC_MAP_CLASS8; /* default; overridden in init */
+var TOPIC_MAP    = TOPIC_MAP_CLASS8; /* default; overridden in init */
+var STUDENT_BOARD = 'cbse';
 
 /* Sampling: how many questions to take from each section pool */
 var SAMPLE_A = 14;  /* 14 x 1 = 14 marks */
@@ -357,9 +365,11 @@ var breakSecs   = 0;
 /* ── INIT ─────────────────────────────────────────────────── */
 window.addEventListener('load', function () {
   var params = new URLSearchParams(window.location.search);
-  TOPIC_ID   = (params.get('topic') || '').toLowerCase();
+  TOPIC_ID      = (params.get('topic') || '').toLowerCase();
   STUDENT_CLASS = parseInt(params.get('class') || '8') || 8;
-  TOPIC_MAP  = (STUDENT_CLASS === 6) ? TOPIC_MAP_CLASS6
+  STUDENT_BOARD = (params.get('board') || 'cbse').toLowerCase();
+  TOPIC_MAP  = (STUDENT_BOARD === 'icse' && STUDENT_CLASS === 7) ? TOPIC_MAP_ICSE_CLASS7
+             : (STUDENT_CLASS === 6) ? TOPIC_MAP_CLASS6
              : (STUDENT_CLASS === 7) ? TOPIC_MAP_CLASS7
              : (STUDENT_CLASS === 9) ? TOPIC_MAP_CLASS9
              : TOPIC_MAP_CLASS8;
@@ -401,7 +411,8 @@ window.addEventListener('load', function () {
 async function loadAllChapters() {
   var chs = TOPIC_INFO.chapters;
   var promises = chs.map(function (ch) {
-    return fetch('/api/questions?board=cbse&class=' + STUDENT_CLASS + '&ch=' + ch + '&type=exam')
+    var apiCh = (STUDENT_BOARD === 'icse') ? ch.replace(/^ic\d+-/, '') : ch;
+    return fetch('/api/questions?board=' + STUDENT_BOARD + '&class=' + STUDENT_CLASS + '&ch=' + apiCh + '&type=exam')
       .then(function (r) {
         if (!r.ok) throw new Error('HTTP ' + r.status + ' for ch ' + ch);
         return r.json();

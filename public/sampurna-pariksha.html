@@ -279,9 +279,11 @@ body{font-family:'Nunito',sans-serif;background:#07060f;min-height:100vh;color:#
 var ALL_CHAPTERS_CLASS8 = ['01','02','03','04','05','08','09','10','11a','11b','12','13','14','15','16','17'];
 var ALL_CHAPTERS_CLASS9 = ['01','02','03','04','05','06','07','08','09','10','11','12'];
 var ALL_CHAPTERS_CLASS6 = ['01','02','03','04','05','06','07','08','09','10'];
-var ALL_CHAPTERS_CLASS7 = ['01','02','03','04','05','06','07','08'];
+var ALL_CHAPTERS_CLASS7      = ['01','02','03','04','05','06','07','08'];
+var ALL_CHAPTERS_ICSE_CLASS7 = ['ic7-01','ic7-02','ic7-03','ic7-04','ic7-05','ic7-06','ic7-07','ic7-08','ic7-09','ic7-10','ic7-11','ic7-12','ic7-13','ic7-14','ic7-15','ic7-16','ic7-17','ic7-18','ic7-19','ic7-20','ic7-21','ic7-22'];
 
 var STUDENT_CLASS = 8;
+var STUDENT_BOARD = 'cbse';
 var ALL_CHAPTERS  = ALL_CHAPTERS_CLASS8; /* overridden in init */
 
 /* ── SAMPLING ────────────────────────────────────────────── */
@@ -326,7 +328,9 @@ var breakSecs   = 0;
 window.addEventListener('load', function () {
   var params = new URLSearchParams(window.location.search);
   STUDENT_CLASS = parseInt(params.get('class') || '8') || 8;
-  ALL_CHAPTERS  = (STUDENT_CLASS === 6) ? ALL_CHAPTERS_CLASS6
+  STUDENT_BOARD = (params.get('board') || 'cbse').toLowerCase();
+  ALL_CHAPTERS  = (STUDENT_BOARD === 'icse' && STUDENT_CLASS === 7) ? ALL_CHAPTERS_ICSE_CLASS7
+              : (STUDENT_CLASS === 6) ? ALL_CHAPTERS_CLASS6
               : (STUDENT_CLASS === 7) ? ALL_CHAPTERS_CLASS7
               : (STUDENT_CLASS === 9) ? ALL_CHAPTERS_CLASS9
               : ALL_CHAPTERS_CLASS8;
@@ -356,7 +360,8 @@ window.addEventListener('load', function () {
 /* ── LOAD ALL 17 CHAPTERS IN PARALLEL ───────────────────── */
 async function loadAllChapters() {
   var promises = ALL_CHAPTERS.map(function (ch) {
-    return fetch('/api/questions?board=cbse&class=' + STUDENT_CLASS + '&ch=' + ch + '&type=exam')
+    var apiCh = (STUDENT_BOARD === 'icse') ? ch.replace(/^ic\d+-/, '') : ch;
+    return fetch('/api/questions?board=' + STUDENT_BOARD + '&class=' + STUDENT_CLASS + '&ch=' + apiCh + '&type=exam')
       .then(function (r) {
         if (!r.ok) throw new Error('HTTP ' + r.status + ' for ch' + ch);
         return r.json();

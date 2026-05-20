@@ -315,10 +315,11 @@ button{font-family:'Outfit',sans-serif;cursor:pointer;}
 
   <div class="admin-class-bar" id="admin-class-bar">
     <span style="font-size:13px;font-weight:800;color:var(--muted);margin-right:4px;">Class:</span>
-    <button class="admin-class-tab" data-cls="6" onclick="switchAdminClass(6)">Class 6</button>
-    <button class="admin-class-tab" data-cls="7" onclick="switchAdminClass(7)">Class 7</button>
+    <button class="admin-class-tab" data-cls="6"   onclick="switchAdminClass(6)">Class 6</button>
+    <button class="admin-class-tab" data-cls="7"   onclick="switchAdminClass(7)">Class 7</button>
+    <button class="admin-class-tab" data-cls="ic7" onclick="switchAdminClass('ic7')">Class 7 ICSE</button>
     <button class="admin-class-tab on" data-cls="8" onclick="switchAdminClass(8)">Class 8</button>
-    <button class="admin-class-tab" data-cls="9" onclick="switchAdminClass(9)">Class 9</button>
+    <button class="admin-class-tab" data-cls="9"   onclick="switchAdminClass(9)">Class 9</button>
   </div>
   <div class="wrap">
 
@@ -529,6 +530,9 @@ button{font-family:'Outfit',sans-serif;cursor:pointer;}
 
 var ADMIN_PASS = 'rishi2025';
 var activeAdminClass = 8;
+function adminClassLabel(cls) {
+  return cls === 'ic7' ? 'Class 7 ICSE' : 'Class ' + cls;
+}
 function switchAdminClass(cls) {
   activeAdminClass = cls;
   loadAdminClassData(cls);
@@ -536,9 +540,9 @@ function switchAdminClass(cls) {
   var g = document.getElementById('qb-chapter-grid');
   if (g) g.innerHTML = '';
   var lbl = document.getElementById('qb-class-label');
-  if (lbl) lbl.textContent = 'Class ' + cls;
+  if (lbl) lbl.textContent = adminClassLabel(cls);
   document.querySelectorAll('.admin-class-tab').forEach(function(b){
-    b.classList.toggle('on', parseInt(b.dataset.cls) === cls);
+    b.classList.toggle('on', b.dataset.cls === String(cls));
   });
   refresh();
 }
@@ -741,6 +745,86 @@ var ALL_CLASS_CH = {
       {id:'datahandling',name:'Data Handling',icon:'📊', chs:[4]}
     ],
     ALL_BUILT_CHS: [1,2,3,4,5,6,7,8,9,10]
+  },
+
+  /* ── ICSE CLASS 7 (key='ic7') ── */
+  'ic7': {
+    CH: {
+      1: {n:'Integers',                  topic:'Arithmetic',    color:'#6C63FF', built:false,
+          ex:'/explain/icse/class7/arithmetic/integers.html',
+          pr:'/practice/icse/class7/arithmetic/integers.html',            exam:'/exam.html?ch=ic7-01'},
+      2: {n:'Rational Numbers',          topic:'Arithmetic',    color:'#2563EB', built:false,
+          ex:'/explain/icse/class7/arithmetic/rational-numbers.html',
+          pr:'/practice/icse/class7/arithmetic/rational-numbers.html',    exam:'/exam.html?ch=ic7-02'},
+      3: {n:'Fractions',                 topic:'Arithmetic',    color:'#7C3AED', built:false,
+          ex:'/explain/icse/class7/arithmetic/fractions.html',
+          pr:'/practice/icse/class7/arithmetic/fractions.html',           exam:'/exam.html?ch=ic7-03'},
+      4: {n:'Decimal Fractions',         topic:'Arithmetic',    color:'#0891B2', built:false,
+          ex:'/explain/icse/class7/arithmetic/decimal-fractions.html',
+          pr:'/practice/icse/class7/arithmetic/decimal-fractions.html',   exam:'/exam.html?ch=ic7-04'},
+      5: {n:'Exponents',                 topic:'Arithmetic',    color:'#DC2626', built:false,
+          ex:'/explain/icse/class7/arithmetic/exponents.html',
+          pr:'/practice/icse/class7/arithmetic/exponents.html',           exam:'/exam.html?ch=ic7-05'},
+      6: {n:'Ratio and Proportion',      topic:'Arithmetic',    color:'#059669', built:false,
+          ex:'/explain/icse/class7/arithmetic/ratio-and-proportion.html',
+          pr:'/practice/icse/class7/arithmetic/ratio-and-proportion.html',exam:'/exam.html?ch=ic7-06'},
+      7: {n:'Unitary Method',            topic:'Arithmetic',    color:'#D97706', built:false,
+          ex:'/explain/icse/class7/arithmetic/unitary-method.html',
+          pr:'/practice/icse/class7/arithmetic/unitary-method.html',      exam:'/exam.html?ch=ic7-07'},
+      8: {n:'Percent and Percentage',    topic:'Arithmetic',    color:'#B45309', built:false,
+          ex:'/explain/icse/class7/arithmetic/percent-and-percentage.html',
+          pr:'/practice/icse/class7/arithmetic/percent-and-percentage.html',exam:'/exam.html?ch=ic7-08'},
+      9: {n:'Profit, Loss and Discount', topic:'Arithmetic',    color:'#0D9488', built:false,
+          ex:'/explain/icse/class7/arithmetic/profit-loss-discount.html',
+          pr:'/practice/icse/class7/arithmetic/profit-loss-discount.html',exam:'/exam.html?ch=ic7-09'},
+      10:{n:'Simple Interest',           topic:'Arithmetic',    color:'#16A34A', built:false,
+          ex:'/explain/icse/class7/arithmetic/simple-interest.html',
+          pr:'/practice/icse/class7/arithmetic/simple-interest.html',     exam:'/exam.html?ch=ic7-10'},
+      11:{n:'Set Concepts',              topic:'Arithmetic',    color:'#0E7490', built:false,
+          ex:'/explain/icse/class7/arithmetic/set-concepts.html',
+          pr:'/practice/icse/class7/arithmetic/set-concepts.html',        exam:'/exam.html?ch=ic7-11'},
+      12:{n:'Fundamental Concepts',      topic:'Algebra',       color:'#4F46E5', built:false,
+          ex:'/explain/icse/class7/algebra/fundamental-concepts.html',
+          pr:'/practice/icse/class7/algebra/fundamental-concepts.html',   exam:'/exam.html?ch=ic7-12'},
+      13:{n:'Simple Linear Equations',   topic:'Algebra',       color:'#7C3AED', built:false,
+          ex:'/explain/icse/class7/algebra/simple-linear-equations.html',
+          pr:'/practice/icse/class7/algebra/simple-linear-equations.html',exam:'/exam.html?ch=ic7-13'},
+      14:{n:'Lines and Angles',          topic:'Geometry',      color:'#059669', built:false,
+          ex:'/explain/icse/class7/geometry/lines-and-angles.html',
+          pr:'/practice/icse/class7/geometry/lines-and-angles.html',      exam:'/exam.html?ch=ic7-14'},
+      15:{n:'Triangles',                 topic:'Geometry',      color:'#0891B2', built:false,
+          ex:'/explain/icse/class7/geometry/triangles.html',
+          pr:'/practice/icse/class7/geometry/triangles.html',             exam:'/exam.html?ch=ic7-15'},
+      16:{n:'Pythagoras Theorem',        topic:'Geometry',      color:'#1D4ED8', built:false,
+          ex:'/explain/icse/class7/geometry/pythagoras-theorem.html',
+          pr:'/practice/icse/class7/geometry/pythagoras-theorem.html',    exam:'/exam.html?ch=ic7-16'},
+      17:{n:'Symmetry',                  topic:'Geometry',      color:'#9333EA', built:false,
+          ex:'/explain/icse/class7/geometry/symmetry.html',
+          pr:'/practice/icse/class7/geometry/symmetry.html',              exam:'/exam.html?ch=ic7-17'},
+      18:{n:'Recognition of Solids',     topic:'Geometry',      color:'#16A34A', built:false,
+          ex:'/explain/icse/class7/geometry/recognition-of-solids.html',
+          pr:'/practice/icse/class7/geometry/recognition-of-solids.html', exam:'/exam.html?ch=ic7-18'},
+      19:{n:'Congruent Triangles',       topic:'Geometry',      color:'#0D9488', built:false,
+          ex:'/explain/icse/class7/geometry/congruent-triangles.html',
+          pr:'/practice/icse/class7/geometry/congruent-triangles.html',   exam:'/exam.html?ch=ic7-19'},
+      20:{n:'Mensuration',               topic:'Mensuration',   color:'#B45309', built:false,
+          ex:'/explain/icse/class7/mensuration/mensuration.html',
+          pr:'/practice/icse/class7/mensuration/mensuration.html',        exam:'/exam.html?ch=ic7-20'},
+      21:{n:'Data Handling',             topic:'Data Handling', color:'#DC2626', built:false,
+          ex:'/explain/icse/class7/data-handling/data-handling.html',
+          pr:'/practice/icse/class7/data-handling/data-handling.html',    exam:'/exam.html?ch=ic7-21'},
+      22:{n:'Probability',               topic:'Data Handling', color:'#D97706', built:false,
+          ex:'/explain/icse/class7/data-handling/probability.html',
+          pr:'/practice/icse/class7/data-handling/probability.html',      exam:'/exam.html?ch=ic7-22'}
+    },
+    TOPICS: [
+      {id:'arithmetic',  name:'Arithmetic',   icon:'🔢', chs:[1,2,3,4,5,6,7,8,9,10,11]},
+      {id:'algebra',     name:'Algebra',      icon:'🔣', chs:[12,13]                   },
+      {id:'geometry',    name:'Geometry',     icon:'📐', chs:[14,15,16,17,18,19]       },
+      {id:'mensuration', name:'Mensuration',  icon:'📏', chs:[20]                      },
+      {id:'datahandling',name:'Data Handling',icon:'📊', chs:[21,22]                   }
+    ],
+    ALL_BUILT_CHS: []
   }
 
 }; /* end ALL_CLASS_CH */
@@ -1604,6 +1688,30 @@ var QB_CHAPTERS = {
     {id:'07', name:'A Tale of Three Intersecting Lines',topic:'Geometry'},
     {id:'08', name:'Working with Fractions',            topic:'Arithmetic'}
   ],
+  'ic7': [
+    {id:'01', name:'Integers',                   topic:'Arithmetic'},
+    {id:'02', name:'Rational Numbers',            topic:'Arithmetic'},
+    {id:'03', name:'Fractions',                   topic:'Arithmetic'},
+    {id:'04', name:'Decimal Fractions',           topic:'Arithmetic'},
+    {id:'05', name:'Exponents',                   topic:'Arithmetic'},
+    {id:'06', name:'Ratio and Proportion',         topic:'Arithmetic'},
+    {id:'07', name:'Unitary Method',               topic:'Arithmetic'},
+    {id:'08', name:'Percent and Percentage',       topic:'Arithmetic'},
+    {id:'09', name:'Profit, Loss and Discount',    topic:'Arithmetic'},
+    {id:'10', name:'Simple Interest',              topic:'Arithmetic'},
+    {id:'11', name:'Set Concepts',                 topic:'Arithmetic'},
+    {id:'12', name:'Fundamental Concepts',         topic:'Algebra'},
+    {id:'13', name:'Simple Linear Equations',      topic:'Algebra'},
+    {id:'14', name:'Lines and Angles',             topic:'Geometry'},
+    {id:'15', name:'Triangles',                    topic:'Geometry'},
+    {id:'16', name:'Pythagoras Theorem',           topic:'Geometry'},
+    {id:'17', name:'Symmetry',                     topic:'Geometry'},
+    {id:'18', name:'Recognition of Solids',        topic:'Geometry'},
+    {id:'19', name:'Congruent Triangles',          topic:'Geometry'},
+    {id:'20', name:'Mensuration',                  topic:'Mensuration'},
+    {id:'21', name:'Data Handling',                topic:'Data Handling'},
+    {id:'22', name:'Probability',                  topic:'Data Handling'}
+  ],
   8: [
     {id:'01',  name:'Rational Numbers',              topic:'Arithmetic'},
     {id:'02',  name:'Linear Equations',              topic:'Algebra'},
@@ -1657,7 +1765,7 @@ function buildQuestionsTab() {
     var g = document.getElementById('qb-chapter-grid');
     if (g) g.innerHTML = '';
     var lbl = document.getElementById('qb-class-label');
-    if (lbl) lbl.textContent = 'Class ' + activeAdminClass;
+    if (lbl) lbl.textContent = adminClassLabel(activeAdminClass);
   }
   var grid = document.getElementById('qb-chapter-grid');
   if (grid && grid.children.length === 0) qbBuildGrid();
@@ -1675,7 +1783,7 @@ function qbSwitchClass(cls, btn) {
 
 function qbBuildGrid() {
   var chapters = QB_CHAPTERS[qbActiveClass] || [];
-  document.getElementById('qb-grid-title').textContent = '📚 Class ' + qbActiveClass + ' — Chapters';
+  document.getElementById('qb-grid-title').textContent = '📚 ' + adminClassLabel(qbActiveClass) + ' — Chapters';
   var grid = document.getElementById('qb-chapter-grid');
   grid.innerHTML = '';
 
@@ -1728,7 +1836,7 @@ async function qbGenerateChapter(chId) {
     var res = await fetch('/api/generate-questions', {
       method:'POST',
       headers:{'Content-Type':'application/json','Authorization':'Bearer ' + getToken()},
-      body: JSON.stringify({board:'cbse', class:String(qbActiveClass), chId:chId, chapterName:ch.name, tag:tag, count:count, mode:mode})
+      body: JSON.stringify({board: qbActiveClass === 'ic7' ? 'icse' : 'cbse', class: qbActiveClass === 'ic7' ? '7' : String(qbActiveClass), chId:chId, chapterName:ch.name, tag:tag, count:count, mode:mode})
     });
     var data = await res.json();
     if (data.error) throw new Error(data.error);

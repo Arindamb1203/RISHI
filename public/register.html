@@ -637,24 +637,24 @@
       </div>
       <div class="field">
         <label>Board *</label>
-        <select id="board" onchange="checkField(this); updateProgress()">
+        <select id="board" onchange="checkField(this); updateProgress(); onBoardChange(this.value)">
           <option value="CBSE" selected>CBSE ✓</option>
-          <option value="ICSE" disabled>ICSE — Coming Soon 🔒</option>
+          <option value="ICSE">ICSE ✓</option>
           <option value="WBBSE" disabled>WBBSE — Coming Soon 🔒</option>
         </select>
-        <div class="field-note" style="color:var(--rust);font-weight:800;">🔒 Only CBSE available now — more boards coming soon</div>
+        <div class="field-note">CBSE Class VIII · ICSE Class VII available</div>
         <div class="val-msg" id="err-board">Please select board</div>
       </div>
       <div class="field">
         <label>Class *</label>
         <select id="class" onchange="checkField(this); updateProgress()">
           <option value="6" disabled>Class VI — Coming Soon 🔒</option>
-          <option value="7" disabled>Class VII — Coming Soon 🔒</option>
-          <option value="8" selected>Class VIII ✓</option>
+          <option value="7" disabled>Class VII (ICSE)</option>
+          <option value="8" selected>Class VIII (CBSE)</option>
           <option value="9" disabled>Class IX — Coming Soon 🔒</option>
           <option value="10" disabled>Class X — Coming Soon 🔒</option>
         </select>
-        <div class="field-note" style="color:var(--rust);font-weight:800;">🔒 Only Class 8 available now — more classes coming soon</div>
+        <div class="field-note" id="class-note">Class VIII auto-selected for CBSE</div>
         <div class="val-msg" id="err-class">Please select class</div>
       </div>
       <div class="field" style="position:relative;">
@@ -868,12 +868,30 @@
 </div>
 
 <script>
+function onBoardChange(board) {
+  var c = document.getElementById('class');
+  var note = document.getElementById('class-note');
+  if (board === 'ICSE') {
+    c.querySelector('option[value="7"]').disabled  = false;
+    c.querySelector('option[value="8"]').disabled  = true;
+    c.value = '7';
+    note.textContent = 'Class VII auto-selected for ICSE';
+  } else {
+    c.querySelector('option[value="7"]').disabled  = true;
+    c.querySelector('option[value="8"]').disabled  = false;
+    c.value = '8';
+    note.textContent = 'Class VIII auto-selected for CBSE';
+  }
+  c.classList.add('filled');
+  checkField(c);
+  updateProgress();
+}
+
 // Pre-select CBSE and Class 8 on load
 window.addEventListener('load', function(){
   const b = document.getElementById('board');
-  const c = document.getElementById('class');
   b.value = 'CBSE'; b.classList.add('filled');
-  c.value = '8';    c.classList.add('filled');
+  onBoardChange('CBSE');
   updateProgress();
 });
 
