@@ -19,7 +19,7 @@ Flags (combine with above):
 Run from: D:\\rishi\\public\\
 """
 
-import os, sys, json, re, time, argparse, subprocess, shutil
+import os, sys, json, re, time, argparse, subprocess, shutil, html
 from pathlib import Path
 from datetime import datetime
 
@@ -305,6 +305,7 @@ def gen_explain(client, ch):
     for q in data.get('questions', []):
         if len(q.get('steps', [])) > 3:
             q['steps'] = q['steps'][:3]
+        q['ans'] = [html.unescape(a) for a in q.get('ans', [])]
     return data
 
 # ═══════════════════════════════════════════════════════════════
@@ -352,6 +353,7 @@ def gen_practice(client, ch):
     for q in data.get('questions', []):
         if len(q.get('steps', [])) > 3:
             q['steps'] = q['steps'][:3]
+        q['ans'] = [html.unescape(a) for a in q.get('ans', [])]
     return data
 
 # ═══════════════════════════════════════════════════════════════
@@ -540,6 +542,13 @@ def inject(template, ch, ai_data):
     out = re.sub(
         r"You&#39;ve mastered [^<]+!",
         f"You&#39;ve mastered {ch['name']}!",
+        out, count=1
+    )
+    # Fix makeAnimPlay: template forEach discards step speech text (uses _ placeholder);
+    # replace with version that captures step as s and calls say(ss.s) for TTS narration
+    out = re.sub(
+        r'steps\.forEach\(function\(_,i\)\{var d=delay\+i\*2800;\(function\(ii,dd\)\{at\(dd,function\(\)\{fade\(id\+"s"\+ii,1\);\}\);\}\)\( i,d\);\}\);',
+        'steps.forEach(function(s,i){var d=delay+i*2800;(function(ii,dd,ss){at(dd,function(){fade(id+"s"+ii,1);say(ss.s);});})(i,d,s);});',
         out, count=1
     )
     return out

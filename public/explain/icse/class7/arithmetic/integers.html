@@ -225,7 +225,7 @@ anim:"q3",
 steps:[{"t": "Multiply absolute values: 4 &times; 6 = 24", "s": "Multiply absolute values: four times six equals twenty four"}, {"t": "Since one number is negative, product is negative", "s": "Since one number is negative, product is negative"}, {"t": "Answer is &minus;24", "s": "Answer is minus twenty four"}],
 cq:"Find &minus;7 &times; &minus;3",
 cqs:"Find minus seven multiplied by minus three",
-ans:["&minus;24"],
+ans:["-24"],
 nudges:["Multiply absolute values first", "Check signs: one negative means product negative", "Two negatives multiplied give positive"],
 anim_svg:"<g id=\"q3s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Multiply absolute values</text></g><g id=\"q3s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Check signs for product</text></g><g id=\"q3s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Final product sign</text></g><g id=\"q3ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">&minus;24</text></g>"
 },
@@ -237,7 +237,7 @@ anim:"q4",
 steps:[{"t": "Divide absolute values: 36 &divide; 6 = 6", "s": "Divide absolute values: thirty six divided by six equals six"}, {"t": "Since numerator is negative and denominator positive, quotient is negative", "s": "Since numerator is negative and denominator positive, quotient is negative"}, {"t": "Answer is &minus;6", "s": "Answer is minus six"}],
 cq:"Find &minus;45 &divide; &minus;9",
 cqs:"Find minus forty five divided by minus nine",
-ans:["&minus;6"],
+ans:["-6"],
 nudges:["Divide absolute values first", "Check signs: different signs mean negative quotient", "Same signs mean positive quotient"],
 anim_svg:"<g id=\"q4s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Divide absolute values</text></g><g id=\"q4s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Check signs for quotient</text></g><g id=\"q4s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Final quotient sign</text></g><g id=\"q4ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">&minus;6</text></g>"
 },
@@ -309,7 +309,7 @@ anim:"q10",
 steps:[{"t": "First, multiply: 3 &times; &minus;2 = &minus;6", "s": "First, multiply: three times minus two equals minus six"}, {"t": "Next, divide: 4 &divide; 2 = 2", "s": "Next, divide: four divided by two equals two"}, {"t": "Now, calculate: &minus;5 &plus; &minus;6 &minus; 2 = &minus;13", "s": "Now, calculate: minus five plus minus six minus two equals minus thirteen"}],
 cq:"Evaluate: 8 &minus; 4 &times; 2 &plus; 6 &divide; 3 using BODMAS.",
 cqs:"Evaluate: eight minus four multiplied by two plus six divided by three using BODMAS",
-ans:["&minus;13"],
+ans:["-13"],
 nudges:["Do multiplication and division first", "Then do addition and subtraction", "Follow order strictly"],
 anim_svg:"<g id=\"q10s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Multiply three and minus two</text></g><g id=\"q10s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Divide four by two</text></g><g id=\"q10s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Add and subtract results</text></g><g id=\"q10ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">&minus;13</text></g>"
 }
@@ -332,7 +332,7 @@ var svgs={
 return svgs[t]||'<svg viewBox="0 0 420 178"><text x="210" y="89" text-anchor="middle" font-family="Nunito" font-size="14" fill="#5a4a30">Loading...</text></svg>';
 }
 
-function makeAnimPlay(id,steps,ansLabel){return function(done){setStatus("Solving step by step...");var delay=600;steps.forEach(function(_,i){var d=delay+i*2800;(function(ii,dd){at(dd,function(){fade(id+"s"+ii,1);});})( i,d);});at(delay+steps.length*2800,function(){fade(id+"ans",1);setStatus("Answer: "+ansLabel);at(2000,done);});}; }
+function makeAnimPlay(id,steps,ansLabel){return function(done){setStatus("Solving step by step...");var delay=600;steps.forEach(function(s,i){var d=delay+i*2800;(function(ii,dd,ss){at(dd,function(){fade(id+"s"+ii,1);say(ss.s);});})(i,d,s);});at(delay+steps.length*2800,function(){fade(id+"ans",1);setStatus("Answer: "+ansLabel);at(2000,done);});};}
 var ANIM_PLAYS={};
 QB.forEach(function(q){ANIM_PLAYS[q.id]=makeAnimPlay(q.id,q.steps,q.ans[0]);});
 function getAnimPlay(t){return ANIM_PLAYS[t]||function(done){done();};}
