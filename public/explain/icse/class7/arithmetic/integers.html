@@ -315,27 +315,282 @@ anim_svg:"<g id=\"q10s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\"
 }
 ];
 
-function getAnimSVG(t){
-var base='<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Nunito,sans-serif;background:#fffdf8"><rect width="420" height="178" fill="#fffdf8"/>';
-var svgs={
-"q1":base+"<g id=\"q1s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Rewrite addition of negative as subtraction</text></g><g id=\"q1s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Subtract the numbers</text></g><g id=\"q1s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Final answer</text></g><g id=\"q1ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">4</text></g>",
-"q2":base+"<g id=\"q2s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Change minus negative to plus positive</text></g><g id=\"q2s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Add the integers</text></g><g id=\"q2s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Final answer</text></g><g id=\"q2ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">-3</text></g>",
-"q3":base+"<g id=\"q3s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Multiply absolute values</text></g><g id=\"q3s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Apply sign rules</text></g><g id=\"q3s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Final answer</text></g><g id=\"q3ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">-24</text></g>",
-"q4":base+"<g id=\"q4s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Divide absolute values</text></g><g id=\"q4s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Apply sign rules</text></g><g id=\"q4s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Final answer</text></g><g id=\"q4ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">-6</text></g>",
-"q5":base+"<g id=\"q5s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Check order of numbers</text></g><g id=\"q5s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Compare sums</text></g><g id=\"q5s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Identify property</text></g><g id=\"q5ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Commutative property</text></g>",
-"q6":base+"<g id=\"q6s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Absolute value means distance</text></g><g id=\"q6s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Distance from zero</text></g><g id=\"q6s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Final absolute value</text></g><g id=\"q6ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">15</text></g>",
-"q7":base+"<g id=\"q7s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Locate integers on number line</text></g><g id=\"q7s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Compare positions</text></g><g id=\"q7s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Right number is greater</text></g><g id=\"q7ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">-2</text></g>",
-"q8":base+"<g id=\"q8s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Calculate left side</text></g><g id=\"q8s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Calculate right side</text></g><g id=\"q8s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Compare results</text></g><g id=\"q8ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Associative property</text></g>",
-"q9":base+"<g id=\"q9s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Multiply first term</text></g><g id=\"q9s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Multiply second term</text></g><g id=\"q9s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Add products</text></g><g id=\"q9ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">27</text></g>",
-"q10":base+"<g id=\"q10s0\" opacity=\"0\"><text x=\"22\" y=\"28\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Solve inside brackets</text></g><g id=\"q10s1\" opacity=\"0\"><text x=\"22\" y=\"68\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Multiply</text></g><g id=\"q10s2\" opacity=\"0\"><text x=\"22\" y=\"108\" font-size=\"11\" font-weight=\"800\" fill=\"#5a4a30\">Divide and find final answer</text></g><g id=\"q10ans\" opacity=\"0\"><rect x=\"40\" y=\"148\" width=\"320\" height=\"24\" rx=\"7\" fill=\"#eef2eb\" stroke=\"#6b4c2a\" stroke-width=\"1.5\"/><text x=\"210\" y=\"163\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">-6</text></g>"
-};
-return svgs[t]||'<svg viewBox="0 0 420 178"><text x="210" y="89" text-anchor="middle" font-family="Nunito" font-size="14" fill="#5a4a30">Loading...</text></svg>';
+/* ======================================================
+   VISUAL ANIMATIONS  (CBSE linear-equations style)
+   Each question has svgQx() + playQx(done).
+   No say() here — TTS is handled by nextStep().
+   ====================================================== */
+
+/* Q1: 7 + (-3) = 4 — number line, marker slides */
+function svgQ1(){
+  var s='<svg viewBox="0 0 420 195" width="100%" xmlns="http://www.w3.org/2000/svg" style="background:#fffdf8">';
+  s+='<defs>'
+   +'<marker id="ah1a" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3z" fill="#d4870a"/></marker>'
+   +'<marker id="ah1b" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3z" fill="#b85c2a"/></marker>'
+   +'</defs>';
+  s+='<text x="210" y="18" text-anchor="middle" font-family="Nunito" font-size="12" font-weight="800" fill="#5a4a30">7 + (-3) = ?</text>';
+  s+='<line x1="124" y1="115" x2="394" y2="115" stroke="#c8b89a" stroke-width="2"/>';
+  var t;for(t=-1;t<=9;t++){var x=210+t*19;s+='<line x1="'+x+'" y1="109" x2="'+x+'" y2="121" stroke="#6b4c2a" stroke-width="1.5"/>';s+='<text x="'+x+'" y="135" text-anchor="middle" font-family="Share Tech Mono" font-size="10" fill="#5a4a30">'+t+'</text>';}
+  s+='<g id="a1a" opacity="0" style="transition:opacity .5s"><path d="M210,109 Q276,72 343,109" fill="none" stroke="#d4870a" stroke-width="2.5" marker-end="url(#ah1a)"/><text x="276" y="64" text-anchor="middle" font-family="Nunito" font-size="11" font-weight="900" fill="#d4870a">+7</text></g>';
+  s+='<g id="a1b" opacity="0" style="transition:opacity .5s"><path d="M343,121 Q314,152 286,121" fill="none" stroke="#b85c2a" stroke-width="2.5" marker-end="url(#ah1b)"/><text x="314" y="168" text-anchor="middle" font-family="Nunito" font-size="11" font-weight="900" fill="#b85c2a">-3</text></g>';
+  s+='<g id="mk1" style="transform:translateX(0px);transition:transform 1.5s cubic-bezier(.34,1.56,.64,1)"><circle cx="210" cy="115" r="12" fill="#d4870a" stroke="#6b4c2a" stroke-width="2.5"/><text x="210" y="119" text-anchor="middle" font-family="Share Tech Mono" font-size="9" font-weight="bold" fill="#fff">0</text></g>';
+  s+='<g id="hl1" opacity="0" style="transition:opacity .8s"><circle cx="286" cy="115" r="18" fill="none" stroke="#c8922a" stroke-width="3" stroke-dasharray="5,3"/></g>';
+  s+='<g id="wb1" opacity="0" style="transition:opacity .7s"><rect x="140" y="152" width="140" height="30" fill="#7a8c6e" rx="8"/><text x="210" y="172" text-anchor="middle" font-family="Share Tech Mono" font-size="15" font-weight="bold" fill="#fff">= 4 &#10003;</text></g>';
+  s+='</svg>';return s;
+}
+function playQ1(done){
+  setStatus("Starting at 0 on the number line...");
+  at(2000,function(){var m=G("mk1");if(m)m.style.transform="translateX(133px)";setStatus("Jump RIGHT 7 steps — land on 7!");});
+  at(4000,function(){fade("a1a",1);});
+  at(5200,function(){var m=G("mk1");if(m)m.style.transform="translateX(76px)";setStatus("Adding -3: jump LEFT 3 steps!");});
+  at(7000,function(){fade("a1b",1);fade("hl1",1);setStatus("Land at 4!");});
+  at(8500,function(){fade("wb1",1);setStatus("Answer: 4");at(1500,done);});
 }
 
-function makeAnimPlay(id,steps,ansLabel){var gen=0;return function(done){var myGen=++gen;setStatus("Solving step by step...");function playStep(i){if(myGen!==gen)return;if(i>=steps.length){at(400,function(){if(myGen!==gen)return;fade(id+"ans",1);setStatus("Answer: "+ansLabel);at(2000,done);});return;}at(i===0?600:400,function(){if(myGen!==gen)return;fade(id+"s"+i,1);at(500,function(){if(myGen!==gen)return;setStatus(steps[i].t);say(steps[i].s,function(){playStep(i+1);});});});}playStep(0);}; }
-var ANIM_PLAYS={};
-QB.forEach(function(q){ANIM_PLAYS[q.id]=makeAnimPlay(q.id,q.steps,q.ans[0]);});
-function getAnimPlay(t){return ANIM_PLAYS[t]||function(done){done();};}
+/* Q2: (-8)-(-5)=-3 — sign flip + number line */
+function svgQ2(){
+  var s='<svg viewBox="0 0 420 210" width="100%" xmlns="http://www.w3.org/2000/svg" style="background:#fffdf8">';
+  s+='<defs><marker id="ah2a" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3z" fill="#7a8c6e"/></marker></defs>';
+  s+='<text x="210" y="20" text-anchor="middle" font-family="Share Tech Mono" font-size="16" font-weight="bold" fill="#5a4a30">(-8) - (-5)</text>';
+  s+='<g id="q2hl" opacity="0" style="transition:opacity .5s"><rect x="230" y="5" width="94" height="22" rx="5" fill="none" stroke="#b85c2a" stroke-width="2.5" stroke-dasharray="5,3"/></g>';
+  s+='<g id="q2tr" opacity="0" style="transition:opacity .6s"><line x1="210" y1="28" x2="210" y2="48" stroke="#6b4c2a" stroke-width="2"/><polygon points="204,46 216,46 210,56" fill="#6b4c2a"/><text x="210" y="72" text-anchor="middle" font-family="Nunito" font-size="11" font-weight="800" fill="#b85c2a">minus negative = PLUS positive</text></g>';
+  s+='<g id="q2eq" opacity="0" style="transition:opacity .6s"><text x="210" y="92" text-anchor="middle" font-family="Share Tech Mono" font-size="15" font-weight="bold" fill="#7a8c6e">(-8) + 5</text></g>';
+  s+='<line x1="30" y1="148" x2="230" y2="148" stroke="#c8b89a" stroke-width="2"/>';
+  var nn=[-8,-7,-6,-5,-4,-3,-2,-1,0];for(var i=0;i<nn.length;i++){var n=nn[i];var x=210+n*19;s+='<line x1="'+x+'" y1="142" x2="'+x+'" y2="154" stroke="#6b4c2a" stroke-width="1.5"/>';if(n===-8||n===-5||n===-3||n===0)s+='<text x="'+x+'" y="168" text-anchor="middle" font-family="Share Tech Mono" font-size="10" fill="#5a4a30">'+n+'</text>';}
+  s+='<g id="mk2" style="transform:translateX(-152px);transition:transform 1.5s cubic-bezier(.34,1.56,.64,1)"><circle cx="210" cy="148" r="12" fill="#b85c2a" stroke="#6b4c2a" stroke-width="2.5"/><text x="210" y="152" text-anchor="middle" font-family="Share Tech Mono" font-size="8" font-weight="bold" fill="#fff">-8</text></g>';
+  s+='<g id="q2arr" opacity="0" style="transition:opacity .5s"><path d="M58,154 Q105,182 153,154" fill="none" stroke="#7a8c6e" stroke-width="2.5" marker-end="url(#ah2a)"/><text x="105" y="196" text-anchor="middle" font-family="Nunito" font-size="11" font-weight="900" fill="#7a8c6e">+5</text></g>';
+  s+='<g id="wb2" opacity="0" style="transition:opacity .7s"><rect x="140" y="186" width="140" height="26" fill="#7a8c6e" rx="8"/><text x="210" y="204" text-anchor="middle" font-family="Share Tech Mono" font-size="14" font-weight="bold" fill="#fff">= -3 &#10003;</text></g>';
+  s+='</svg>';return s;
+}
+function playQ2(done){
+  setStatus("Spot the double negative...");
+  at(2000,function(){fade("q2hl",1);setStatus("See the minus negative? -(-5)");});
+  at(4000,function(){fade("q2tr",1);setStatus("Minus negative becomes PLUS positive!");});
+  at(6500,function(){fade("q2eq",1);setStatus("Rewritten: (-8) + 5");});
+  at(8500,function(){var m=G("mk2");if(m)m.style.transform="translateX(-57px)";setStatus("Number line: start at -8, jump right +5!");});
+  at(10500,function(){fade("q2arr",1);fade("wb2",1);setStatus("Land at -3. Answer: -3");at(1500,done);});
+}
+
+/* Q3: (-4) x 6 = -24 — sign rule tiles */
+function svgQ3(){
+  var s='<svg viewBox="0 0 420 215" width="100%" xmlns="http://www.w3.org/2000/svg" style="background:#fffdf8">';
+  s+='<text x="210" y="22" text-anchor="middle" font-family="Nunito" font-size="12" font-weight="800" fill="#5a4a30">(-4) x 6 = ?</text>';
+  s+='<rect x="40" y="42" width="110" height="72" fill="#b85c2a" rx="14" stroke="#6b4c2a" stroke-width="2"/>';
+  s+='<text x="95" y="84" text-anchor="middle" font-family="Share Tech Mono" font-size="32" font-weight="bold" fill="#fff">-</text>';
+  s+='<text x="95" y="105" text-anchor="middle" font-family="Nunito" font-size="11" font-weight="800" fill="#f5e6c8">negative</text>';
+  s+='<text x="210" y="86" text-anchor="middle" font-family="Share Tech Mono" font-size="30" font-weight="bold" fill="#6b4c2a">x</text>';
+  s+='<rect x="270" y="42" width="110" height="72" fill="#7a8c6e" rx="14" stroke="#6b4c2a" stroke-width="2"/>';
+  s+='<text x="325" y="84" text-anchor="middle" font-family="Share Tech Mono" font-size="32" font-weight="bold" fill="#fff">+</text>';
+  s+='<text x="325" y="105" text-anchor="middle" font-family="Nunito" font-size="11" font-weight="800" fill="#f5e6c8">positive</text>';
+  s+='<g id="q3rule" opacity="0" style="transition:opacity .6s"><rect x="40" y="130" width="340" height="36" fill="#b85c2a" rx="12"/><text x="210" y="154" text-anchor="middle" font-family="Nunito" font-size="14" font-weight="900" fill="#fff">neg x pos = NEGATIVE</text></g>';
+  s+='<g id="q3calc" opacity="0" style="transition:opacity .6s"><text x="210" y="186" text-anchor="middle" font-family="Share Tech Mono" font-size="13" font-weight="bold" fill="#5a4a30">|−4| x |6| = 4 x 6 = 24</text></g>';
+  s+='<g id="wb3" opacity="0" style="transition:opacity .7s"><rect x="135" y="192" width="150" height="28" fill="#6b4c2a" rx="8"/><text x="210" y="211" text-anchor="middle" font-family="Share Tech Mono" font-size="15" font-weight="bold" fill="#e8b84b">= -24 &#10003;</text></g>';
+  s+='</svg>';return s;
+}
+function playQ3(done){
+  setStatus("Sign rule for multiplication...");
+  at(3000,function(){fade("q3rule",1);setStatus("Neg x Pos = NEGATIVE. Remember this rule!");});
+  at(6000,function(){fade("q3calc",1);setStatus("Absolute values: 4 x 6 = 24");});
+  at(8500,function(){fade("wb3",1);setStatus("Apply negative sign: answer is -24");at(1500,done);});
+}
+
+/* Q4: (-18) / 3 = -6 — sign rule tiles */
+function svgQ4(){
+  var s='<svg viewBox="0 0 420 215" width="100%" xmlns="http://www.w3.org/2000/svg" style="background:#fffdf8">';
+  s+='<text x="210" y="22" text-anchor="middle" font-family="Nunito" font-size="12" font-weight="800" fill="#5a4a30">(-18) / 3 = ?</text>';
+  s+='<rect x="40" y="42" width="110" height="72" fill="#b85c2a" rx="14" stroke="#6b4c2a" stroke-width="2"/>';
+  s+='<text x="95" y="84" text-anchor="middle" font-family="Share Tech Mono" font-size="32" font-weight="bold" fill="#fff">-</text>';
+  s+='<text x="95" y="105" text-anchor="middle" font-family="Nunito" font-size="11" font-weight="800" fill="#f5e6c8">negative</text>';
+  s+='<text x="210" y="86" text-anchor="middle" font-family="Share Tech Mono" font-size="28" font-weight="bold" fill="#6b4c2a">/</text>';
+  s+='<rect x="270" y="42" width="110" height="72" fill="#7a8c6e" rx="14" stroke="#6b4c2a" stroke-width="2"/>';
+  s+='<text x="325" y="84" text-anchor="middle" font-family="Share Tech Mono" font-size="32" font-weight="bold" fill="#fff">+</text>';
+  s+='<text x="325" y="105" text-anchor="middle" font-family="Nunito" font-size="11" font-weight="800" fill="#f5e6c8">positive</text>';
+  s+='<g id="q4rule" opacity="0" style="transition:opacity .6s"><rect x="40" y="130" width="340" height="36" fill="#b85c2a" rx="12"/><text x="210" y="154" text-anchor="middle" font-family="Nunito" font-size="14" font-weight="900" fill="#fff">neg / pos = NEGATIVE</text></g>';
+  s+='<g id="q4calc" opacity="0" style="transition:opacity .6s"><text x="210" y="186" text-anchor="middle" font-family="Share Tech Mono" font-size="13" font-weight="bold" fill="#5a4a30">|−18| / |3| = 18 / 3 = 6</text></g>';
+  s+='<g id="wb4" opacity="0" style="transition:opacity .7s"><rect x="135" y="192" width="150" height="28" fill="#6b4c2a" rx="8"/><text x="210" y="211" text-anchor="middle" font-family="Share Tech Mono" font-size="15" font-weight="bold" fill="#e8b84b">= -6 &#10003;</text></g>';
+  s+='</svg>';return s;
+}
+function playQ4(done){
+  setStatus("Sign rule for division...");
+  at(3000,function(){fade("q4rule",1);setStatus("Neg / Pos = NEGATIVE — same rule!");});
+  at(6000,function(){fade("q4calc",1);setStatus("Absolute values: 18 / 3 = 6");});
+  at(8500,function(){fade("wb4",1);setStatus("Apply negative sign: answer is -6");at(1500,done);});
+}
+
+/* Q5: 3+5=5+3 — commutative, two tile rows */
+function svgQ5(){
+  var s='<svg viewBox="0 0 420 205" width="100%" xmlns="http://www.w3.org/2000/svg" style="background:#fffdf8">';
+  s+='<defs><marker id="ah5" markerWidth="7" markerHeight="5" refX="6" refY="2.5" orient="auto"><path d="M0,0 L0,5 L7,2.5z" fill="#b85c2a"/></marker></defs>';
+  s+='<text x="210" y="18" text-anchor="middle" font-family="Nunito" font-size="12" font-weight="800" fill="#5a4a30">3 + 5 = 5 + 3 ?</text>';
+  s+='<rect x="26" y="30" width="50" height="50" fill="#d4870a" rx="10"/><text x="51" y="62" text-anchor="middle" font-family="Share Tech Mono" font-size="26" font-weight="bold" fill="#fff">3</text>';
+  s+='<text x="88" y="60" text-anchor="middle" font-family="Share Tech Mono" font-size="22" fill="#6b4c2a">+</text>';
+  s+='<rect x="104" y="30" width="50" height="50" fill="#7a8c6e" rx="10"/><text x="129" y="62" text-anchor="middle" font-family="Share Tech Mono" font-size="26" font-weight="bold" fill="#fff">5</text>';
+  s+='<text x="168" y="60" text-anchor="middle" font-family="Share Tech Mono" font-size="22" fill="#6b4c2a">=</text>';
+  s+='<g id="q5r1" opacity="0" style="transition:opacity .6s"><rect x="183" y="30" width="50" height="50" fill="#6b4c2a" rx="10"/><text x="208" y="62" text-anchor="middle" font-family="Share Tech Mono" font-size="26" font-weight="bold" fill="#e8b84b">8</text></g>';
+  s+='<g id="q5sw" opacity="0" style="transition:opacity .5s"><path d="M51,82 Q90,108 129,82" fill="none" stroke="#b85c2a" stroke-width="2" marker-end="url(#ah5)"/><path d="M129,82 Q90,108 51,82" fill="none" stroke="#b85c2a" stroke-width="2"/><text x="90" y="124" text-anchor="middle" font-family="Nunito" font-size="10" font-weight="800" fill="#b85c2a">swap order!</text></g>';
+  s+='<g id="q5r2" opacity="0" style="transition:opacity .7s">';
+  s+='<rect x="26" y="132" width="50" height="50" fill="#7a8c6e" rx="10"/><text x="51" y="164" text-anchor="middle" font-family="Share Tech Mono" font-size="26" font-weight="bold" fill="#fff">5</text>';
+  s+='<text x="88" y="162" text-anchor="middle" font-family="Share Tech Mono" font-size="22" fill="#6b4c2a">+</text>';
+  s+='<rect x="104" y="132" width="50" height="50" fill="#d4870a" rx="10"/><text x="129" y="164" text-anchor="middle" font-family="Share Tech Mono" font-size="26" font-weight="bold" fill="#fff">3</text>';
+  s+='<text x="168" y="162" text-anchor="middle" font-family="Share Tech Mono" font-size="22" fill="#6b4c2a">=</text>';
+  s+='<rect x="183" y="132" width="50" height="50" fill="#6b4c2a" rx="10"/><text x="208" y="164" text-anchor="middle" font-family="Share Tech Mono" font-size="26" font-weight="bold" fill="#e8b84b">8</text>';
+  s+='</g>';
+  s+='<g id="q5comm" opacity="0" style="transition:opacity .7s"><rect x="248" y="132" width="158" height="52" fill="#d4870a" rx="12"/><text x="327" y="154" text-anchor="middle" font-family="Nunito" font-size="12" font-weight="900" fill="#fff">Same sum!</text><text x="327" y="170" text-anchor="middle" font-family="Nunito" font-size="11" font-weight="800" fill="#f5e6c8">COMMUTATIVE &#10003;</text></g>';
+  s+='</svg>';return s;
+}
+function playQ5(done){
+  setStatus("Does order matter in addition?");
+  at(2500,function(){fade("q5r1",1);setStatus("3 + 5 = 8");});
+  at(4800,function(){fade("q5sw",1);setStatus("Now swap the numbers...");});
+  at(7000,function(){fade("q5r2",1);fade("q5comm",1);setStatus("5 + 3 = 8 also! Same result! Commutative property!");});
+  at(9500,done);
+}
+
+/* Q6: |(-15)| = 15 — distance on number line */
+function svgQ6(){
+  var s='<svg viewBox="0 0 420 180" width="100%" xmlns="http://www.w3.org/2000/svg" style="background:#fffdf8">';
+  s+='<defs>'
+   +'<marker id="ah6r" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3z" fill="#d4870a"/></marker>'
+   +'<marker id="ah6l" markerWidth="8" markerHeight="6" refX="1" refY="3" orient="auto-start-reverse"><path d="M0,0 L0,6 L8,3z" fill="#d4870a"/></marker>'
+   +'</defs>';
+  s+='<text x="210" y="18" text-anchor="middle" font-family="Nunito" font-size="12" font-weight="800" fill="#5a4a30">|(-15)| = ?</text>';
+  s+='<line x1="20" y1="90" x2="400" y2="90" stroke="#c8b89a" stroke-width="2.5"/>';
+  s+='<polygon points="398,86 407,90 398,94" fill="#c8b89a"/>';
+  s+='<line x1="30" y1="82" x2="30" y2="98" stroke="#6b4c2a" stroke-width="2"/>';
+  s+='<text x="30" y="113" text-anchor="middle" font-family="Share Tech Mono" font-size="12" font-weight="bold" fill="#b85c2a">-15</text>';
+  s+='<circle cx="30" cy="90" r="7" fill="#b85c2a" stroke="#6b4c2a" stroke-width="2"/>';
+  s+='<line x1="360" y1="82" x2="360" y2="98" stroke="#6b4c2a" stroke-width="2"/>';
+  s+='<text x="360" y="113" text-anchor="middle" font-family="Share Tech Mono" font-size="12" font-weight="bold" fill="#5a4a30">0</text>';
+  s+='<circle cx="360" cy="90" r="7" fill="#7a8c6e" stroke="#6b4c2a" stroke-width="2"/>';
+  s+='<g id="q6dist" opacity="0" style="transition:opacity .7s"><line x1="38" y1="64" x2="352" y2="64" stroke="#d4870a" stroke-width="3" marker-start="url(#ah6l)" marker-end="url(#ah6r)"/><text x="195" y="54" text-anchor="middle" font-family="Nunito" font-size="13" font-weight="900" fill="#d4870a">15 steps apart</text></g>';
+  s+='<g id="q6abs" opacity="0" style="transition:opacity .6s"><rect x="26" y="125" width="196" height="36" fill="#d4870a" rx="10"/><text x="124" y="141" text-anchor="middle" font-family="Nunito" font-size="11" font-weight="900" fill="#fff">Distance from zero = 15</text><text x="124" y="155" text-anchor="middle" font-family="Nunito" font-size="10" font-weight="700" fill="#f5e6c8">ignore the sign!</text></g>';
+  s+='<g id="wb6" opacity="0" style="transition:opacity .7s"><rect x="240" y="125" width="154" height="36" fill="#6b4c2a" rx="8"/><text x="317" y="148" text-anchor="middle" font-family="Share Tech Mono" font-size="16" font-weight="bold" fill="#e8b84b">= 15 &#10003;</text></g>';
+  s+='</svg>';return s;
+}
+function playQ6(done){
+  setStatus("Where is -15 on the number line?");
+  at(3000,function(){fade("q6dist",1);setStatus("Count steps from -15 to 0... that is 15 steps!");});
+  at(6000,function(){fade("q6abs",1);setStatus("Absolute value = distance from zero!");});
+  at(8500,function(){fade("wb6",1);setStatus("|-15| = 15");at(1500,done);});
+}
+
+/* Q7: -2 vs -5 — number line comparison */
+function svgQ7(){
+  var s='<svg viewBox="0 0 420 188" width="100%" xmlns="http://www.w3.org/2000/svg" style="background:#fffdf8">';
+  s+='<defs><marker id="ah7" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3z" fill="#d4870a"/></marker></defs>';
+  s+='<text x="210" y="18" text-anchor="middle" font-family="Nunito" font-size="12" font-weight="800" fill="#5a4a30">-2 vs -5: which is greater?</text>';
+  s+='<line x1="68" y1="100" x2="284" y2="100" stroke="#c8b89a" stroke-width="2"/>';
+  var nn2=[-6,-5,-4,-3,-2,-1,0,1];for(var i=0;i<nn2.length;i++){var n=nn2[i];var x=210+n*19;if(x>=68&&x<=284){s+='<line x1="'+x+'" y1="94" x2="'+x+'" y2="106" stroke="#6b4c2a" stroke-width="1.5"/>';s+='<text x="'+x+'" y="120" text-anchor="middle" font-family="Share Tech Mono" font-size="10" fill="#5a4a30">'+n+'</text>';}}
+  s+='<g id="mk5a" opacity="0" style="transition:opacity .6s"><circle cx="115" cy="100" r="14" fill="#b85c2a" stroke="#6b4c2a" stroke-width="2.5"/><text x="115" y="104" text-anchor="middle" font-family="Share Tech Mono" font-size="9" font-weight="bold" fill="#fff">-5</text></g>';
+  s+='<g id="mk2a" opacity="0" style="transition:opacity .6s"><circle cx="172" cy="100" r="14" fill="#d4870a" stroke="#6b4c2a" stroke-width="2.5"/><text x="172" y="104" text-anchor="middle" font-family="Share Tech Mono" font-size="9" font-weight="bold" fill="#fff">-2</text></g>';
+  s+='<g id="q7rg" opacity="0" style="transition:opacity .6s"><path d="M115,76 L172,76" fill="none" stroke="#d4870a" stroke-width="2.5" marker-end="url(#ah7)"/><text x="144" y="68" text-anchor="middle" font-family="Nunito" font-size="10" font-weight="900" fill="#d4870a">further RIGHT = GREATER</text></g>';
+  s+='<g id="q7win" opacity="0" style="transition:opacity .7s"><rect x="62" y="136" width="296" height="42" fill="#d4870a" rx="12"/><text x="210" y="154" text-anchor="middle" font-family="Nunito" font-size="13" font-weight="900" fill="#fff">-2 is to the RIGHT of -5</text><text x="210" y="170" text-anchor="middle" font-family="Nunito" font-size="13" font-weight="900" fill="#fff">so -2 &gt; -5 &#10003;</text></g>';
+  s+='</svg>';return s;
+}
+function playQ7(done){
+  setStatus("Let us place both on the number line...");
+  at(2500,function(){fade("mk5a",1);setStatus("Place -5 here.");});
+  at(5000,function(){fade("mk2a",1);setStatus("Place -2 here.");});
+  at(7500,function(){fade("q7rg",1);setStatus("Numbers to the RIGHT are GREATER!");});
+  at(9500,function(){fade("q7win",1);setStatus("-2 is to the right, so -2 > -5");at(1500,done);});
+}
+
+/* Q8: (2+3)+4 = 2+(3+4) — associative */
+function svgQ8(){
+  var s='<svg viewBox="0 0 420 210" width="100%" xmlns="http://www.w3.org/2000/svg" style="background:#fffdf8">';
+  s+='<text x="210" y="18" text-anchor="middle" font-family="Nunito" font-size="12" font-weight="800" fill="#5a4a30">(2+3)+4 = 2+(3+4) ?</text>';
+  s+='<rect x="20" y="30" width="100" height="46" rx="8" fill="none" stroke="#d4870a" stroke-width="2.5" stroke-dasharray="5,3"/>';
+  s+='<text x="70" y="60" text-anchor="middle" font-family="Share Tech Mono" font-size="20" font-weight="bold" fill="#d4870a">2+3</text>';
+  s+='<text x="132" y="58" text-anchor="middle" font-family="Share Tech Mono" font-size="22" fill="#6b4c2a">+4</text>';
+  s+='<g id="q8s1" opacity="0" style="transition:opacity .6s"><text x="70" y="88" text-anchor="middle" font-family="Nunito" font-size="11" font-weight="800" fill="#d4870a">2+3 = 5</text></g>';
+  s+='<g id="q8s1b" opacity="0" style="transition:opacity .6s"><rect x="20" y="95" width="162" height="30" fill="#d4870a" rx="8"/><text x="101" y="115" text-anchor="middle" font-family="Share Tech Mono" font-size="14" font-weight="bold" fill="#fff">5 + 4 = 9</text></g>';
+  s+='<line x1="20" y1="140" x2="400" y2="140" stroke="#c8b89a" stroke-width="1.5" stroke-dasharray="4,3"/>';
+  s+='<text x="24" y="165" text-anchor="middle" font-family="Share Tech Mono" font-size="20" font-weight="bold" fill="#5a4a30">2</text>';
+  s+='<text x="60" y="163" text-anchor="middle" font-family="Share Tech Mono" font-size="20" fill="#6b4c2a">+</text>';
+  s+='<rect x="78" y="148" width="100" height="46" rx="8" fill="none" stroke="#7a8c6e" stroke-width="2.5" stroke-dasharray="5,3"/>';
+  s+='<text x="128" y="178" text-anchor="middle" font-family="Share Tech Mono" font-size="20" font-weight="bold" fill="#7a8c6e">3+4</text>';
+  s+='<g id="q8s2" opacity="0" style="transition:opacity .6s"><text x="128" y="204" text-anchor="middle" font-family="Nunito" font-size="11" font-weight="800" fill="#7a8c6e">3+4 = 7</text></g>';
+  s+='<g id="q8both" opacity="0" style="transition:opacity .7s"><rect x="248" y="145" width="158" height="58" fill="#d4870a" rx="12"/><text x="327" y="168" text-anchor="middle" font-family="Nunito" font-size="14" font-weight="900" fill="#fff">Both = 9!</text><text x="327" y="188" text-anchor="middle" font-family="Nunito" font-size="11" font-weight="800" fill="#f5e6c8">ASSOCIATIVE &#10003;</text></g>';
+  s+='</svg>';return s;
+}
+function playQ8(done){
+  setStatus("Grouping with brackets...");
+  at(2500,function(){fade("q8s1",1);setStatus("Left side: (2+3) = 5 first...");});
+  at(5000,function(){fade("q8s1b",1);setStatus("Then 5 + 4 = 9");});
+  at(7500,function(){fade("q8s2",1);setStatus("Right side: (3+4) = 7 first, then 2+7 = 9");});
+  at(10000,function(){fade("q8both",1);setStatus("Both give 9! Grouping does not matter. Associative!");});
+  at(12500,done);
+}
+
+/* Q9: 3*(4+5) = 27 — distributive */
+function svgQ9(){
+  var s='<svg viewBox="0 0 420 200" width="100%" xmlns="http://www.w3.org/2000/svg" style="background:#fffdf8">';
+  s+='<defs><marker id="ah9" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3z" fill="#d4870a"/></marker></defs>';
+  s+='<text x="210" y="18" text-anchor="middle" font-family="Nunito" font-size="12" font-weight="800" fill="#5a4a30">3 x (4 + 5) = ?</text>';
+  s+='<rect x="28" y="44" width="58" height="58" fill="#d4870a" rx="12" stroke="#6b4c2a" stroke-width="2"/>';
+  s+='<text x="57" y="80" text-anchor="middle" font-family="Share Tech Mono" font-size="30" font-weight="bold" fill="#fff">3</text>';
+  s+='<text x="100" y="78" text-anchor="middle" font-family="Share Tech Mono" font-size="22" fill="#6b4c2a">x</text>';
+  s+='<rect x="114" y="42" width="122" height="62" rx="10" fill="#f5e6c8" stroke="#6b4c2a" stroke-width="2"/>';
+  s+='<rect x="124" y="52" width="42" height="42" fill="#7a8c6e" rx="8"/><text x="145" y="78" text-anchor="middle" font-family="Share Tech Mono" font-size="24" font-weight="bold" fill="#fff">4</text>';
+  s+='<text x="178" y="78" text-anchor="middle" font-family="Share Tech Mono" font-size="18" fill="#6b4c2a">+</text>';
+  s+='<rect x="192" y="52" width="36" height="42" fill="#b85c2a" rx="8"/><text x="210" y="78" text-anchor="middle" font-family="Share Tech Mono" font-size="24" font-weight="bold" fill="#fff">5</text>';
+  s+='<g id="q9a1" opacity="0" style="transition:opacity .5s"><path d="M60,44 Q98,16 143,44" fill="none" stroke="#d4870a" stroke-width="2.5" marker-end="url(#ah9)"/></g>';
+  s+='<g id="q9a2" opacity="0" style="transition:opacity .5s"><path d="M60,44 Q132,8 208,46" fill="none" stroke="#d4870a" stroke-width="2.5" marker-end="url(#ah9)"/></g>';
+  s+='<g id="q9p1" opacity="0" style="transition:opacity .6s"><rect x="28" y="124" width="102" height="40" fill="#7a8c6e" rx="10"/><text x="79" y="149" text-anchor="middle" font-family="Share Tech Mono" font-size="15" font-weight="bold" fill="#fff">3x4 = 12</text></g>';
+  s+='<g id="q9p2" opacity="0" style="transition:opacity .6s"><rect x="142" y="124" width="102" height="40" fill="#b85c2a" rx="10"/><text x="193" y="149" text-anchor="middle" font-family="Share Tech Mono" font-size="15" font-weight="bold" fill="#fff">3x5 = 15</text></g>';
+  s+='<g id="q9tot" opacity="0" style="transition:opacity .7s"><rect x="256" y="124" width="144" height="40" fill="#6b4c2a" rx="10"/><text x="328" y="149" text-anchor="middle" font-family="Share Tech Mono" font-size="15" font-weight="bold" fill="#e8b84b">12+15=27 &#10003;</text></g>';
+  s+='</svg>';return s;
+}
+function playQ9(done){
+  setStatus("Distribute 3 to each term in the bracket!");
+  at(2500,function(){fade("q9a1",1);fade("q9p1",1);setStatus("3 x 4 = 12");});
+  at(5500,function(){fade("q9a2",1);fade("q9p2",1);setStatus("3 x 5 = 15");});
+  at(8500,function(){fade("q9tot",1);setStatus("Add them: 12 + 15 = 27");at(1500,done);});
+}
+
+/* Q10: (-3)*(6+2)/4 = -6 — BODMAS */
+function svgQ10(){
+  var s='<svg viewBox="0 0 420 210" width="100%" xmlns="http://www.w3.org/2000/svg" style="background:#fffdf8">';
+  s+='<text x="210" y="18" text-anchor="middle" font-family="Nunito" font-size="12" font-weight="800" fill="#5a4a30">(-3) x (6+2) / 4 = ?</text>';
+  s+='<text x="210" y="40" text-anchor="middle" font-family="Orbitron,sans-serif" font-size="12" font-weight="900" letter-spacing="8" fill="#c8b89a">B O D M A S</text>';
+  s+='<g id="q10b" opacity="0" style="transition:opacity .6s"><rect x="112" y="52" width="102" height="46" rx="8" fill="#d4870a" stroke="#6b4c2a" stroke-width="2"/><text x="163" y="82" text-anchor="middle" font-family="Share Tech Mono" font-size="20" font-weight="bold" fill="#fff">6+2=8</text><text x="210" y="113" text-anchor="middle" font-family="Nunito" font-size="12" font-weight="800" fill="#d4870a">B — Brackets: (6+2) = 8</text></g>';
+  s+='<g id="q10m" opacity="0" style="transition:opacity .6s"><rect x="30" y="124" width="360" height="36" fill="#b85c2a" rx="10"/><text x="210" y="147" text-anchor="middle" font-family="Share Tech Mono" font-size="14" font-weight="bold" fill="#fff">M — (-3) x 8 = -24</text></g>';
+  s+='<g id="q10d" opacity="0" style="transition:opacity .6s"><rect x="30" y="170" width="360" height="36" fill="#7a8c6e" rx="10"/><text x="210" y="193" text-anchor="middle" font-family="Share Tech Mono" font-size="14" font-weight="bold" fill="#fff">D — (-24) / 4 = -6 &#10003;</text></g>';
+  s+='</svg>';return s;
+}
+function playQ10(done){
+  setStatus("BODMAS: Brackets first!");
+  at(2500,function(){fade("q10b",1);setStatus("B — Brackets: 6+2 = 8");});
+  at(5500,function(){fade("q10m",1);setStatus("M — Multiply: (-3) x 8 = -24");});
+  at(8500,function(){fade("q10d",1);setStatus("D — Divide: -24 / 4 = -6");at(2000,done);});
+}
+
+function getAnimSVG(t){
+  if(t==="q1")return svgQ1();
+  if(t==="q2")return svgQ2();
+  if(t==="q3")return svgQ3();
+  if(t==="q4")return svgQ4();
+  if(t==="q5")return svgQ5();
+  if(t==="q6")return svgQ6();
+  if(t==="q7")return svgQ7();
+  if(t==="q8")return svgQ8();
+  if(t==="q9")return svgQ9();
+  if(t==="q10")return svgQ10();
+  return '';
+}
+function getAnimPlay(t){
+  if(t==="q1")return playQ1;
+  if(t==="q2")return playQ2;
+  if(t==="q3")return playQ3;
+  if(t==="q4")return playQ4;
+  if(t==="q5")return playQ5;
+  if(t==="q6")return playQ6;
+  if(t==="q7")return playQ7;
+  if(t==="q8")return playQ8;
+  if(t==="q9")return playQ9;
+  if(t==="q10")return playQ10;
+  return function(done){done();};
+};}
 
 var atTimers=[],session=[],idx=0,stepIdx=0,nudgeCount=0,completed=false,confirmShown=false,breakSecs=0,breakTmr=null,PER_SESSION=10;
 function G(id){return document.getElementById(id);}
