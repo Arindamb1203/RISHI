@@ -648,10 +648,10 @@
       <div class="field">
         <label>Class *</label>
         <select id="class" onchange="checkField(this); updateProgress()">
-          <option value="6" disabled>Class VI — Coming Soon 🔒</option>
-          <option value="7" disabled>Class VII</option>
+          <option value="6">Class VI</option>
+          <option value="7">Class VII</option>
           <option value="8" selected>Class VIII</option>
-          <option value="9" disabled>Class IX — Coming Soon 🔒</option>
+          <option value="9">Class IX</option>
           <option value="10" disabled>Class X — Coming Soon 🔒</option>
         </select>
         <div class="field-note" id="class-note">Class VIII auto-selected for CBSE</div>
@@ -871,17 +871,7 @@
 function onBoardChange(board) {
   var c = document.getElementById('class');
   var note = document.getElementById('class-note');
-  if (board === 'ICSE') {
-    c.querySelector('option[value="7"]').disabled  = false;
-    c.querySelector('option[value="8"]').disabled  = true;
-    c.value = '7';
-    note.textContent = 'Class VII auto-selected for ICSE';
-  } else {
-    c.querySelector('option[value="7"]').disabled  = true;
-    c.querySelector('option[value="8"]').disabled  = false;
-    c.value = '8';
-    note.textContent = 'Class VIII auto-selected for CBSE';
-  }
+  note.textContent = 'Select class — VI to IX available';
   c.classList.add('filled');
   checkField(c);
   updateProgress();
