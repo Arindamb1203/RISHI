@@ -351,7 +351,7 @@ button{font-family:'Outfit',sans-serif;cursor:pointer;}
           <button onclick="clearTestData()" style="font-size:12px;padding:6px 14px;background:var(--card2);color:var(--muted);border:1px solid var(--border);border-radius:8px;cursor:pointer;font-family:Outfit,sans-serif;font-weight:700;">🗑 Clear Test Data</button>
         </div>
         <input type="text" id="student-search" placeholder="🔍 Search by name, ID or mobile..."
-          oninput="filterStudents(this.value)"
+          autocomplete="off" oninput="filterStudents(this.value)"
           style="width:100%;padding:10px 14px;border:1px solid var(--border);border-radius:10px;font-family:Outfit,sans-serif;font-size:14px;background:var(--card2);color:var(--text);margin-bottom:14px;box-sizing:border-box;">
         <div id="dash-students"></div>
       </div>
@@ -1013,6 +1013,7 @@ function buildDashboard() {
 }
 
 function buildStudentList() {
+  var si = document.getElementById('student-search'); if (si) si.value = '';
   var saved = lsGet('rishi_registrations', []);
   var cur   = lsGet('rishi_current_student', {});
   if(!saved.length && cur.studentName) {
