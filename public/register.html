@@ -649,8 +649,8 @@
         <label>Class *</label>
         <select id="class" onchange="checkField(this); updateProgress()">
           <option value="6" disabled>Class VI — Coming Soon 🔒</option>
-          <option value="7" disabled>Class VII (ICSE)</option>
-          <option value="8" selected>Class VIII (CBSE)</option>
+          <option value="7" disabled>Class VII</option>
+          <option value="8" selected>Class VIII</option>
           <option value="9" disabled>Class IX — Coming Soon 🔒</option>
           <option value="10" disabled>Class X — Coming Soon 🔒</option>
         </select>
@@ -793,9 +793,9 @@
   <!-- TRY FOR 1 DAY -->
   <div class="card" style="text-align:center; padding:28px 40px;">
     <div style="font-size:15px; font-weight:800; color:var(--mid); margin-bottom:6px;">Want to explore first?</div>
-    <div style="font-size:13px; font-weight:700; color:var(--soft); margin-bottom:20px;">Try the full app free for 1 day — no payment needed</div>
+    <div style="font-size:13px; font-weight:700; color:var(--soft); margin-bottom:20px;">Trial for 7 days — full access, no payment needed</div>
     <button class="btn btn-try" id="tryBtn" onclick="handleTry()" style="max-width:320px; margin:0 auto; display:block;">
-      ✨ Try for 1 Day — Free
+      ✨ Trial for 7 Days — Free
     </button>
     <div style="font-size:12px; color:var(--soft); margin-top:10px; font-weight:700;">
       All registration details above must be filled to try
@@ -950,10 +950,12 @@ function updateProgress() {
   if (allDone) {
     paySection.classList.remove('locked');
     lockMsg.style.display = 'none';
-    // 🔒 INACTIVE: Pay button stays disabled (payment gateway not active)
-    // To activate: remove 'disabled' attribute and 'inactive' class from payBtn
-    // document.getElementById('payBtn').disabled = false;
-    // document.getElementById('payBtn').classList.remove('inactive');
+    /* Re-enable pay button only if admin code already applied */
+    if (_regIsAdminCode) {
+      var pb = document.getElementById('payBtn');
+      pb.disabled = false;
+      pb.classList.remove('inactive');
+    }
   } else {
     paySection.classList.add('locked');
     lockMsg.style.display = 'block';
@@ -995,13 +997,14 @@ function selectPay(el, method) {
 // 🔒 INACTIVE: REAL PAYMENT HANDLER
 // ============================================================
 function handlePayment() {
+  if (_regIsAdminCode) {
+    if (!validateAll()) return;
+    saveToLocalStorage('subscribed');
+    generateAndShow(true);
+    return;
+  }
   // 🔒 INACTIVE — payment gateway not connected yet
-  // Steps when activated:
-  // 1. Validate all fields
-  // 2. Send to payment gateway (Razorpay / PhonePe / etc.)
-  // 3. On success → call generateAndShow(true)
-  // 4. Save data to Google Sheet + localStorage
-  alert('Payment gateway coming soon! Please use Try for 1 Day to explore.');
+  alert('Payment gateway coming soon! Please use Trial for 7 Days to explore.');
 }
 
 // ============================================================
@@ -1057,7 +1060,7 @@ function saveToLocalStorage(type) {
     parentUsername: pUser,
     firstLoginStudent: true,
     firstLoginParent:  true,
-    subscriptionExpiry: (function(){ var d = new Date(); d.setDate(d.getDate()+30); return d.toISOString().slice(0,10); })(),
+    subscriptionExpiry: (function(){ var d = new Date(); d.setDate(d.getDate()+(type==='trial'?7:30)); return d.toISOString().slice(0,10); })(),
     board: document.getElementById('board').value,
     class: document.getElementById('class').value,
     schoolName: document.getElementById('schoolName').value.trim(),
@@ -1389,6 +1392,12 @@ function applyRefCode() {
         document.getElementById('reg-amount-original').style.display = 'block';
         document.getElementById('reg-amount-display').textContent = '\u20B90';
         document.getElementById('reg-amount-note').textContent = 'Admin Full Recharge \u2014 \u20B9599 waived';
+        /* Enable pay button immediately \u2014 form may already be complete */
+        var _pb = document.getElementById('payBtn');
+        _pb.textContent = '\u2705 Activate \u2014 \u20B90 (Admin Code)';
+        var _allDone = true;
+        requiredFields.forEach(function(id){ var el=document.getElementById(id); if(el&&(el.value.trim()===''||el.value.trim()==='0'))_allDone=false; });
+        if (_allDone) { _pb.disabled = false; _pb.classList.remove('inactive'); }
       } else {
         _regFinalAmount = _regBaseAmount - 100;
         msgEl.style.color = 'var(--success)';
