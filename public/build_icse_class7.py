@@ -508,11 +508,20 @@ def inject(template, ch, ai_data):
                      out, count=1)
     # CHAP_ID (practice pages)
     out = re.sub(r'var CHAP_ID=\d+;', f'var CHAP_ID={ch["id"]};', out, count=1)
-    # Chapter ID calls (explain pages — rishiCheckPlan etc.)
+    # ICSE pages are not gated by the CBSE parent-plan system
+    out = re.sub(r'rishiCheckPlan\(\d+\);', '', out, count=1)
+    # Use board-qualified string IDs to avoid localStorage collision with CBSE chapters
+    # e.g. integers (id=1) uses 'ic7_1', not 1 — so "rishi_explain_done_ic7_1" is unique
+    icse_id = f"'ic7_{ch['id']}'"
     out = re.sub(
-        r'(rishiCheckPlan|rishiIsExplainDone|rishiMarkExplainDone)\(\d+\)',
-        lambda m: f'{m.group(1)}({ch["id"]})',
+        r'(rishiIsExplainDone|rishiMarkExplainDone)\(\d+\)',
+        lambda m: f"{m.group(1)}({icse_id})",
         out
+    )
+    # Don't auto-start lesson on page load — wait for user click (enables browser audio)
+    out = out.replace(
+        'initVoices(function(){startLesson();});',
+        'initVoices(function(){});'
     )
     # goPractice URL
     out = re.sub(

@@ -345,12 +345,11 @@ function fade(id,v){var e=G(id);if(e){e.style.transition="opacity .5s";e.style.o
 function setStatus(t){var e=G("animStatus");if(e)e.textContent=t;}
 function startLesson(){var btn=G('startBtn');if(btn){btn.disabled=true;btn.textContent='▶ Starting...';}var done=false;function proceed(){if(!done){done=true;setTimeout(showQ,600);}}say(G('introText').innerText,proceed);setTimeout(proceed,8000);}
 function init(){
-  rishiCheckPlan(1);
   var st=JSON.parse(localStorage.getItem("rishi_current_student")||"{}");
   G("sName")&&(G("sName").textContent=st.studentName?st.studentName.split(" ")[0]:"there");
-  if(rishiIsExplainDone(1)){completed=true;G("doneBanner").classList.add("show");unlockNav();}
+  if(rishiIsExplainDone('ic7_1')){completed=true;G("doneBanner").classList.add("show");unlockNav();}
   buildSession();rInit();
-  initVoices(function(){startLesson();});
+  initVoices(function(){});
 }
 function buildSession(){session=QB.slice().sort(function(){return Math.random()-.5;}).slice(0,PER_SESSION);}
 function showQ(){
@@ -393,7 +392,7 @@ function goNext(){confirmShown=false;idx++;G("qArea").innerHTML="";showQ();windo
 function updateProg(){var pct=Math.round((idx/PER_SESSION)*100);G("progFill").style.width=pct+"%";G("progLabel").textContent="Question "+(idx+1)+" of "+PER_SESSION;G("progPct").textContent=pct+"%";}
 function unlockNav(){G("btnPractice").classList.remove("locked");G("btnExam").classList.remove("locked");G("lockTip").style.display="none";}
 function onComplete(){
-  rishiMarkExplainDone(1);
+  rishiMarkExplainDone('ic7_1');
   completed=true;G("doneBanner").classList.add("show");unlockNav();
   var st=JSON.parse(localStorage.getItem("rishi_current_student")||"{}");
   var nm=st.studentName?st.studentName.split(" ")[0]:"champion";
