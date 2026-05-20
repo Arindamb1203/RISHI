@@ -165,6 +165,30 @@ export async function onRequest(context) {
     }
   }
 
+  /* Update profile fields for an existing student/parent pair */
+  if (action === "update-profile") {
+    const { studentUsername, data } = body;
+    if (!studentUsername || !data) {
+      return new Response(JSON.stringify({ error: "studentUsername and data required" }), { status: 400, headers });
+    }
+    const now = Date.now();
+    const json = JSON.stringify(data);
+    const mobile = data.primaryMobile || '';
+    try {
+      await env.DB.prepare(
+        `UPDATE rishi_accounts SET data = ?, mobile = ?, updated_at = ? WHERE username = ?`
+      ).bind(json, mobile, now, studentUsername.trim().toLowerCase()).run();
+      if (data.parentUsername) {
+        await env.DB.prepare(
+          `UPDATE rishi_accounts SET data = ?, mobile = ?, updated_at = ? WHERE username = ?`
+        ).bind(json, mobile, now, data.parentUsername.trim().toLowerCase()).run();
+      }
+      return new Response(JSON.stringify({ ok: true }), { headers });
+    } catch(e) {
+      return new Response(JSON.stringify({ error: "Update failed", detail: String(e) }), { status: 500, headers });
+    }
+  }
+
   /* ════════════════════════════════
      REFERRAL SYSTEM
   ════════════════════════════════ */

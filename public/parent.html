@@ -1279,42 +1279,139 @@ function checkAuth() {
 /* ── PROFILE / SETTINGS PANEL ───────────────────────── */
 function showProfilePanel() {
   var sid = sessionStorage.getItem('rishi_parent_student_id') || 'default';
-  var sName = sessionStorage.getItem('rishi_parent_student_name') || 'Student';
   var regs = [];
-  try { regs = JSON.parse(localStorage.getItem('rishi_registrations')||'[]'); } catch(e){}
-  var reg = regs.find(function(r){ return r.studentUsername === sid; }) || {};
-  var pId = reg.parentUsername || 'parent';
-  var mobile = reg.primaryMobile || '—';
+  try { regs = JSON.parse(localStorage.getItem('rishi_registrations') || '[]'); } catch(e) {}
+  var reg = regs.find(function(r) { return r.studentUsername === sid; }) || {};
+
+  var inp = 'width:100%;padding:12px 14px;border:2px solid #e2e8f0;border-radius:10px;font-size:15px;font-family:Outfit,sans-serif;outline:none;color:#1e293b;background:#fff;box-sizing:border-box;transition:border .2s;';
+  var lbl = 'display:block;font-size:11px;font-weight:800;color:#64748b;text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px;';
+  var fld = 'margin-bottom:16px;';
 
   var panel = document.createElement('div');
   panel.id = 'profile-panel';
-  panel.style.cssText = 'position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,0.6);display:flex;align-items:flex-end;justify-content:center;padding:0;';
-  panel.innerHTML = '<div style="background:#fff;border-radius:16px;padding:24px;max-width:480px;width:100%;font-family:Nunito,sans-serif;">' +
-    '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">' +
-      '<div style="font-size:18px;font-weight:900;color:#0f2240;">👤 Profile &amp; Settings</div>' +
-      '<button onclick="document.getElementById(\'profile-panel\').remove()" style="background:none;border:none;font-size:22px;cursor:pointer;color:#666;">✕</button>' +
-    '</div>' +
-    '<div style="background:#f5ede0;border-radius:10px;padding:14px;margin-bottom:14px;">' +
-      '<div style="font-size:12px;color:#6b5a3e;font-weight:800;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px;">Parent ID</div>' +
-      '<div style="font-size:16px;font-weight:800;color:#0f2240;font-family:Share Tech Mono,monospace;">' + pId + '</div>' +
-    '</div>' +
-    '<div style="background:#f5ede0;border-radius:10px;padding:14px;margin-bottom:14px;">' +
-      '<div style="font-size:12px;color:#6b5a3e;font-weight:800;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px;">Student ID</div>' +
-      '<div style="font-size:16px;font-weight:800;color:#c8922a;font-family:Share Tech Mono,monospace;">' + sid + '</div>' +
-      '<div style="font-size:13px;color:#6b5a3e;margin-top:4px;">' + sName + '</div>' +
-    '</div>' +
-    '<div style="background:#f5ede0;border-radius:10px;padding:14px;margin-bottom:14px;">' +
-      '<div style="font-size:12px;color:#6b5a3e;font-weight:800;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px;">Mobile</div>' +
-      '<div style="font-size:14px;font-weight:700;color:#0f2240;">' + mobile + '</div>' +
-    '</div>' +
-    '<div style="display:flex;flex-direction:column;gap:8px;">' +
-      '<button onclick="resetPassword()" style="padding:12px;background:#c8922a;color:#fff;border:none;border-radius:10px;font-weight:800;cursor:pointer;font-family:inherit;font-size:14px;">🔐 Reset Password</button>' +
-      '<button onclick="showPaymentHistory()" style="padding:12px;background:#1a7a4a;color:#fff;border:none;border-radius:10px;font-weight:800;cursor:pointer;font-family:inherit;font-size:14px;">💳 Subscription History</button>' +
-      '<button onclick="window.location.href=\'/referral.html\'" style="padding:12px;background:#7c3aed;color:#fff;border:none;border-radius:10px;font-weight:800;cursor:pointer;font-family:inherit;font-size:14px;">🔗 Refer &amp; Earn ₹100</button>' +
-      '<button onclick="window.location.href=\'/landing.html\'" style="padding:12px;background:#fff;color:#0f2240;border:2px solid #e8d9c4;border-radius:10px;font-weight:800;cursor:pointer;font-family:inherit;font-size:14px;">🏠 Back to Home</button>' +
-    '</div>' +
-    '</div>';
+  panel.style.cssText = 'position:fixed;inset:0;z-index:99999;background:rgba(15,34,64,.75);display:flex;align-items:flex-end;justify-content:center;';
+  panel.innerHTML =
+    '<div style="background:#fff;border-radius:20px 20px 0 0;max-width:500px;width:100%;font-family:Outfit,sans-serif;max-height:92vh;display:flex;flex-direction:column;">'
+    /* Header */
+    +'<div style="background:linear-gradient(135deg,#0f2240,#1a3560);border-radius:20px 20px 0 0;padding:20px 22px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;">'
+      +'<div><div style="font-size:17px;font-weight:900;color:#fff;">&#128100; Student Profile</div>'
+      +'<div style="font-size:12px;color:rgba(255,255,255,.5);margin-top:2px;">Edit and save to cloud</div></div>'
+      +'<button onclick="document.getElementById(\'profile-panel\').remove()" style="background:rgba(255,255,255,.12);border:none;color:white;width:34px;height:34px;border-radius:50%;font-size:18px;cursor:pointer;line-height:1;">&#10005;</button>'
+    +'</div>'
+    /* Scrollable body */
+    +'<div style="overflow-y:auto;padding:22px 22px 28px;flex:1;">'
+      +'<div style="'+fld+'">'
+        +'<label style="'+lbl+'">Student Name</label>'
+        +'<input id="prof-student-name" type="text" value="'+((reg.studentName||'').replace(/"/g,'&quot;'))+'" style="'+inp+'" onfocus="this.style.borderColor=\'#0f2240\'" onblur="this.style.borderColor=\'#e2e8f0\'">'
+      +'</div>'
+      +'<div style="'+fld+'">'
+        +'<label style="'+lbl+'">Parent Name</label>'
+        +'<input id="prof-parent-name" type="text" value="'+((reg.parentName||'').replace(/"/g,'&quot;'))+'" style="'+inp+'" onfocus="this.style.borderColor=\'#0f2240\'" onblur="this.style.borderColor=\'#e2e8f0\'">'
+      +'</div>'
+      +'<div style="'+fld+'">'
+        +'<label style="'+lbl+'">Mobile Number</label>'
+        +'<input id="prof-mobile" type="tel" value="'+(reg.primaryMobile||'')+'" style="'+inp+'" onfocus="this.style.borderColor=\'#0f2240\'" onblur="this.style.borderColor=\'#e2e8f0\'">'
+      +'</div>'
+      +'<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;">'
+        +'<div>'
+          +'<label style="'+lbl+'">Class</label>'
+          +'<select id="prof-class" style="'+inp+'cursor:pointer;">'
+            +'<option value="7"'+(reg.class==='7'||reg.class===7?' selected':'')+'>Class 7</option>'
+            +'<option value="8"'+(reg.class==='8'||reg.class===8?' selected':'')+'>Class 8</option>'
+          +'</select>'
+        +'</div>'
+        +'<div>'
+          +'<label style="'+lbl+'">Board</label>'
+          +'<select id="prof-board" style="'+inp+'cursor:pointer;">'
+            +'<option value="CBSE"'+((reg.board||'').toUpperCase()==='CBSE'?' selected':'')+'>CBSE</option>'
+            +'<option value="ICSE"'+((reg.board||'').toUpperCase()==='ICSE'?' selected':'')+'>ICSE</option>'
+          +'</select>'
+        +'</div>'
+      +'</div>'
+      /* Account IDs read-only */
+      +'<div style="background:#f8fafc;border-radius:12px;padding:14px 16px;margin-bottom:20px;border:1px solid #e2e8f0;">'
+        +'<div style="font-size:10px;font-weight:800;color:#94a3b8;text-transform:uppercase;letter-spacing:.8px;margin-bottom:10px;">Login IDs (read-only)</div>'
+        +'<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:7px;">'
+          +'<span style="font-size:12px;color:#94a3b8;font-weight:600;">Student ID</span>'
+          +'<span style="font-size:13px;font-weight:800;color:#0f2240;font-family:monospace;">'+(reg.studentUsername||sid)+'</span>'
+        +'</div>'
+        +'<div style="display:flex;justify-content:space-between;align-items:center;">'
+          +'<span style="font-size:12px;color:#94a3b8;font-weight:600;">Parent ID</span>'
+          +'<span style="font-size:13px;font-weight:800;color:#c8922a;font-family:monospace;">'+(reg.parentUsername||'—')+'</span>'
+        +'</div>'
+      +'</div>'
+      /* Extra actions */
+      +'<div style="display:flex;flex-direction:column;gap:8px;margin-bottom:18px;">'
+        +'<button onclick="resetPassword()" style="padding:11px;background:#fff;color:#0f2240;border:2px solid #e2e8f0;border-radius:10px;font-weight:800;cursor:pointer;font-family:inherit;font-size:14px;text-align:left;">&#128272; Change Password</button>'
+        +'<button onclick="showPaymentHistory()" style="padding:11px;background:#fff;color:#059669;border:2px solid #e2e8f0;border-radius:10px;font-weight:800;cursor:pointer;font-family:inherit;font-size:14px;text-align:left;">&#128176; Subscription History</button>'
+      +'</div>'
+      /* Status + Save */
+      +'<div id="prof-status" style="font-size:13px;text-align:center;color:#059669;margin-bottom:10px;min-height:18px;font-weight:700;"></div>'
+      +'<button onclick="saveProfile()" style="width:100%;padding:14px;background:linear-gradient(135deg,#0f2240,#1a3560);color:#fff;border:none;border-radius:12px;font-size:15px;font-weight:800;cursor:pointer;font-family:Outfit,sans-serif;letter-spacing:.3px;">Save Changes</button>'
+    +'</div>'
+    +'</div>';
+
   document.body.appendChild(panel);
+}
+
+function saveProfile() {
+  var sid = sessionStorage.getItem('rishi_parent_student_id') || 'default';
+  var regs = [];
+  try { regs = JSON.parse(localStorage.getItem('rishi_registrations') || '[]'); } catch(e) {}
+  var idx = regs.findIndex(function(r) { return r.studentUsername === sid; });
+  if (idx < 0) {
+    var s = document.getElementById('prof-status');
+    if (s) { s.textContent = 'Error: registration not found'; s.style.color = '#dc2626'; }
+    return;
+  }
+
+  var newSName  = (document.getElementById('prof-student-name').value || '').trim();
+  var newPName  = (document.getElementById('prof-parent-name').value  || '').trim();
+  var newMobile = (document.getElementById('prof-mobile').value       || '').trim();
+  var newClass  = document.getElementById('prof-class').value;
+  var newBoard  = document.getElementById('prof-board').value;
+
+  var s = document.getElementById('prof-status');
+  if (!newSName || !newPName || !newMobile) {
+    if (s) { s.textContent = 'Please fill all required fields'; s.style.color = '#dc2626'; }
+    return;
+  }
+
+  regs[idx].studentName   = newSName;
+  regs[idx].parentName    = newPName;
+  regs[idx].primaryMobile = newMobile;
+  regs[idx].class         = newClass;
+  regs[idx].board         = newBoard;
+  localStorage.setItem('rishi_registrations', JSON.stringify(regs));
+
+  /* Update rishi_current_student so syllabus uses correct board/class */
+  try {
+    var cur = JSON.parse(localStorage.getItem('rishi_current_student') || '{}');
+    cur.name  = newSName;
+    cur.board = newBoard;
+    cur.class = parseInt(newClass);
+    localStorage.setItem('rishi_current_student', JSON.stringify(cur));
+  } catch(e) {}
+
+  /* Update session + header badge */
+  sessionStorage.setItem('rishi_parent_student_name', newSName);
+  var badge = document.getElementById('student-name-badge');
+  if (badge) badge.textContent = newSName;
+
+  if (s) { s.textContent = 'Saving to cloud…'; s.style.color = '#d97706'; }
+
+  fetch('/d1-sync', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({action: 'update-profile', studentUsername: sid, data: regs[idx]})
+  }).then(function(r) { return r.json(); }).then(function(j) {
+    if (s) {
+      s.textContent = j.ok ? '✓ Saved to cloud!' : '✓ Saved locally (cloud sync pending)';
+      s.style.color = j.ok ? '#059669' : '#d97706';
+    }
+  }).catch(function() {
+    if (s) { s.textContent = '✓ Saved locally (offline)'; s.style.color = '#d97706'; }
+  });
 }
 
 function resetPassword() {
@@ -1428,45 +1525,6 @@ function showPaymentHistory() {
 
   document.body.appendChild(panel);
 }
-
-function showPaymentHistory() {
-  var pp = document.getElementById('profile-panel');
-  if (pp) pp.remove();
-  var sid = sessionStorage.getItem('rishi_parent_student_id') || 'default';
-  var regs = [];
-  try { regs = JSON.parse(localStorage.getItem('rishi_registrations') || '[]'); } catch(e) {}
-  var reg = regs.find(function(r){ return r.studentUsername === sid; }) || {};
-  var subStatus = reg.subscriptionStatus || 'active';
-  var subExpiry = reg.subscriptionExpiry  || '';
-  var subStart  = reg.subscriptionStart   || reg.createdAt || '';
-  var board = (reg.board || 'CBSE').toUpperCase();
-  var cls   = reg.class  || '8';
-  var statusColor = subStatus==='active'?'#059669':subStatus==='trial'?'#D97706':'#DC2626';
-  var statusLabel = subStatus==='active'?'&#10003; Active':subStatus==='trial'?'&#9711; Trial':'&#10005; Expired';
-  function fmtDate(d){ if(!d) return '&#8212;'; var dt=new Date(d); return isNaN(dt)?d:dt.toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'}); }
-  var panel = document.createElement('div');
-  panel.id = 'pay-history-panel';
-  panel.style.cssText = 'position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,0.65);display:flex;align-items:flex-end;justify-content:center;';
-  panel.innerHTML = '<div style="background:#fff;border-radius:20px 20px 0 0;padding:24px 20px 32px;max-width:480px;width:100%;font-family:Outfit,sans-serif;max-height:80vh;overflow-y:auto;">'
-    +'<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;"><div style="font-size:17px;font-weight:900;color:#0f2240;">&#128176; Subscription</div>'
-    +'<button onclick="document.getElementById(\'pay-history-panel\').remove()" style="background:none;border:none;font-size:22px;cursor:pointer;">&#10005;</button></div>'
-    +'<div style="background:linear-gradient(135deg,#0f2240,#1a3560);border-radius:14px;padding:16px 18px;margin-bottom:14px;color:#fff;">'
-    +'<div style="font-size:11px;font-weight:700;color:rgba(255,255,255,0.55);margin-bottom:6px;">CURRENT SUBSCRIPTION</div>'
-    +'<div style="display:flex;justify-content:space-between;align-items:center;">'
-    +'<div><div style="font-size:22px;font-weight:900;color:#F59E0B;">&#8377;599<span style="font-size:13px;color:rgba(255,255,255,0.6);"> / month</span></div>'
-    +'<div style="font-size:13px;color:rgba(255,255,255,0.7);margin-top:3px;">Class '+cls+' '+board+' Mathematics</div></div>'
-    +'<div style="background:'+statusColor+'22;border:1.5px solid '+statusColor+';color:'+statusColor+';border-radius:100px;padding:4px 14px;font-size:12px;font-weight:800;">'+statusLabel+'</div></div></div>'
-    +'<div style="background:#f8fafc;border-radius:12px;margin-bottom:14px;">'
-    +'<div style="display:flex;justify-content:space-between;padding:11px 16px;border-bottom:1px solid #e8edf2;"><span style="font-size:13px;color:#64748b;font-weight:600;">Started</span><span style="font-size:13px;font-weight:800;">'+fmtDate(subStart)+'</span></div>'
-    +'<div style="display:flex;justify-content:space-between;padding:11px 16px;border-bottom:1px solid #e8edf2;"><span style="font-size:13px;color:#64748b;font-weight:600;">Valid Until</span><span style="font-size:13px;font-weight:800;">'+fmtDate(subExpiry)+'</span></div>'
-    +'<div style="display:flex;justify-content:space-between;padding:11px 16px;"><span style="font-size:13px;color:#64748b;font-weight:600;">Amount</span><span style="font-size:13px;font-weight:800;color:#059669;">&#8377;599 / month</span></div></div>'
-    +'<div style="background:#f0fdf4;border:1.5px solid #bbf7d0;border-radius:12px;padding:12px 16px;margin-bottom:14px;text-align:center;">'
-    +'<div style="font-size:13px;font-weight:800;color:#059669;">&#10003; 100% Refund Guarantee</div>'
-    +'<div style="font-size:12px;color:#16a34a;margin-top:3px;">Cancel any time &middot; Full refund instantly &middot; No questions asked</div></div>'
-    +'<a href="https://wa.me/919836107236?text=Hi%2C+query+about+RISHI+subscription." target="_blank" style="display:flex;align-items:center;justify-content:center;gap:8px;background:#25D366;color:#fff;border-radius:12px;padding:13px;font-weight:800;text-decoration:none;">&#128172; Contact on WhatsApp</a></div>';
-  document.body.appendChild(panel);
-}
-
 
 // Handle ?tab= URL param to open specific tab on load
 (function(){

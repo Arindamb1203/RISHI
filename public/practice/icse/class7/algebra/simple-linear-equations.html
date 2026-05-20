@@ -587,7 +587,7 @@ function G(id){return document.getElementById(id);}
 /* ── INIT ── */
 function init(){
   
-  if(localStorage.getItem('rishi_admin_bypass')!=='1' && !rishiIsExplainDone(CHAP_ID)){window.location.href='/syllabus.html';return;}
+  if(localStorage.getItem('rishi_admin_bypass')!=='1' && !rishiIsExplainDone(CHAP_ID)){window.location.href='/syllabus.html?board=icse&class=7';return;}
   coins=parseInt(localStorage.getItem('rishi_coins')||'0');
   updateCoins();
   answered=new Array(QB.length).fill(null);
@@ -846,7 +846,7 @@ function endBreak(){
   },1000);
 }
 /* ── BACK ── */
-function backToSyllabus(){window.location.href='/syllabus.html';}
+function backToSyllabus(){window.location.href='/syllabus.html?board=icse&class=7';}
 /* ── CLOSE BREAK MENU ON OUTSIDE CLICK ── */
 document.addEventListener('click',function(e){
   if(!e.target.closest('.tbtn-break')){{var m=G('breakMenu');if(m)m.classList.remove('show');}}
