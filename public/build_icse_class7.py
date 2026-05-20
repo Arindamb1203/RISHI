@@ -593,6 +593,15 @@ def inject(template, ch, ai_data):
         'function makeAnimPlay(id,steps,ansLabel){return function(done){setStatus("Solving step by step...");var delay=600;steps.forEach(function(_,i){var d=delay+i*2800;(function(ii,dd){at(dd,function(){fade(id+"s"+ii,1);});})( i,d);});at(delay+steps.length*2800,function(){fade(id+"ans",1);setStatus("Answer: "+ansLabel);at(2000,done);});}; }',
         'function makeAnimPlay(id,steps,ansLabel){var gen=0;return function(done){var myGen=++gen;setStatus("Solving step by step...");function playStep(i){if(myGen!==gen)return;if(i>=steps.length){at(400,function(){if(myGen!==gen)return;fade(id+"ans",1);setStatus("Answer: "+ansLabel);at(2000,done);});return;}at(i===0?600:400,function(){if(myGen!==gen)return;fade(id+"s"+i,1);say(steps[i].s,function(){playStep(i+1);});});}playStep(0);}; }'
     )
+    # nextStep: replace fixed 3.5s timer with TTS-chained auto-advance
+    out = out.replace(
+        "setTimeout(function(){d.classList.add(\"vis\");},40);setTimeout(nextStep,3500);stepIdx++;}",
+        "setTimeout(function(){d.classList.add(\"vis\");},40);stepIdx++;say(s.s||s.t.replace(/<[^>]*>/g,\"\"),function(){if(myGen===nsGen)nextStep();});}"
+    )
+    out = out.replace(
+        "function nextStep(){var q=session[idx];",
+        "var nsGen=0;function nextStep(){var myGen=++nsGen;var q=session[idx];"
+    )
     # Back button — point to ICSE syllabus, not CBSE
     out = out.replace(
         "location.href='/syllabus.html'",
