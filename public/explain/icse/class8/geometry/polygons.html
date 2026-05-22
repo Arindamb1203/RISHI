@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="rishi-board" content="icse">
+<meta name="rishi-class" content="8">
+<title>RISHI — Polygons</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Nunito:wght@400;600;700;800;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<style>
+:root{--cream:#fdf6ec;--warm-white:#fffdf8;--gold:#c8922a;--gold-light:#e8b84b;--gold-pale:#f5e6c8;--amber:#d4870a;--sage:#7a8c6e;--sage-light:#a8b89a;--rust:#b85c2a;--charcoal:#2a2218;--mid:#5a4a30;--soft:#8a7a5a;--inactive:#c8b89a;--border-dark:#6b4c2a;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--cream);font-family:Nunito,sans-serif;min-height:100vh;color:var(--charcoal);}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(var(--gold-pale) 1px,transparent 1px),linear-gradient(90deg,var(--gold-pale) 1px,transparent 1px);background-size:40px 40px;opacity:.3;z-index:0;pointer-events:none;}
+.topbar{position:sticky;top:0;z-index:100;background:rgba(253,246,236,.97);border-bottom:2px solid var(--border-dark);backdrop-filter:blur(8px);padding:10px 18px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;}
+.logo-sm{font-family:'Orbitron',sans-serif;font-size:17px;font-weight:900;letter-spacing:4px;background:linear-gradient(135deg,var(--amber),var(--gold-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.topbar-center{font-family:'Orbitron',sans-serif;font-size:10px;letter-spacing:2px;color:var(--amber);text-transform:uppercase;}
+.topbar-right{display:flex;gap:8px;}
+.btn-topbar{font-family:Nunito,sans-serif;font-size:12px;font-weight:900;padding:6px 14px;border-radius:20px;border:2px solid var(--border-dark);background:var(--warm-white);color:var(--mid);cursor:pointer;}
+.btn-topbar.back{background:var(--gold-pale);}
+.prog-wrap{position:relative;z-index:10;padding:8px 18px;background:rgba(255,253,248,.9);border-bottom:1.5px solid var(--gold-pale);}
+.prog-info{display:flex;justify-content:space-between;font-size:11px;font-weight:800;color:var(--mid);margin-bottom:5px;}
+.prog-bar{height:6px;background:var(--gold-pale);border-radius:4px;overflow:hidden;}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--sage),var(--gold));border-radius:4px;transition:width .5s ease;}
+.main{position:relative;z-index:10;max-width:820px;margin:0 auto;padding:14px 14px 120px;}
+.rishika-wrap{display:flex;align-items:flex-start;gap:12px;margin-bottom:14px;}
+.rishika-avatar{width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,var(--sage),var(--sage-light));border:2px solid var(--border-dark);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;}
+.rishika-bubble{background:rgba(255,253,248,.97);border:2px solid var(--border-dark);border-radius:0 16px 16px 16px;padding:12px 16px;flex:1;box-shadow:0 4px 20px rgba(107,76,42,.1);}
+.rishika-name{font-size:10px;font-weight:900;color:var(--sage);letter-spacing:2px;text-transform:uppercase;margin-bottom:5px;}
+.rishika-text{font-size:14px;font-weight:700;color:var(--charcoal);line-height:1.6;}
+.hl{color:var(--amber);font-weight:900;}
+.btn-speak{display:inline-flex;align-items:center;gap:6px;font-family:Nunito,sans-serif;font-size:11px;font-weight:900;padding:5px 11px;border-radius:20px;border:2px solid var(--sage);background:#eef2eb;color:var(--sage);cursor:pointer;margin-top:8px;}
+.q-card{background:rgba(255,253,248,.97);border:2px solid var(--border-dark);border-radius:16px;padding:16px 18px;margin-bottom:12px;box-shadow:0 4px 20px rgba(107,76,42,.1);}
+.q-label{font-family:'Orbitron',sans-serif;font-size:10px;letter-spacing:3px;color:var(--amber);text-transform:uppercase;margin-bottom:8px;}
+.q-text{font-size:15px;font-weight:800;color:var(--charcoal);line-height:1.6;margin-bottom:10px;}
+.step{display:flex;gap:10px;margin-bottom:12px;opacity:0;transform:translateY(6px);transition:all .4s ease;}
+.step.vis{opacity:1;transform:translateY(0);}
+.step-num{width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;font-size:11px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:2px solid var(--border-dark);}
+.step-body{flex:1;font-size:13px;font-weight:700;color:var(--mid);line-height:1.6;padding-top:2px;}
+.anim-panel{background:#fffdf8;border:2px solid var(--border-dark);border-radius:14px;margin-bottom:12px;overflow:hidden;}
+.anim-header{background:linear-gradient(135deg,var(--charcoal),#3d2e1a);padding:7px 14px;display:flex;align-items:center;justify-content:space-between;}
+.anim-header-lbl{font-family:'Orbitron',sans-serif;font-size:9px;letter-spacing:2px;color:var(--gold-light);text-transform:uppercase;}
+.anim-replay{font-size:10px;font-weight:900;color:var(--gold-pale);background:none;border:1px solid var(--gold-pale);border-radius:20px;padding:2px 9px;cursor:pointer;display:none;}
+.anim-canvas{width:100%;max-height:195px;overflow:hidden;display:flex;align-items:center;justify-content:center;background:#fffdf8;}
+.anim-canvas svg{width:100%;max-height:195px;}
+.anim-status{padding:6px 14px;font-size:12px;font-weight:800;color:var(--mid);text-align:center;min-height:26px;border-top:1px solid var(--gold-pale);}
+.anim-play-btn{width:100%;padding:10px;font-family:Nunito,sans-serif;font-size:14px;font-weight:900;background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;border:none;cursor:pointer;}
+.anim-play-btn:disabled{background:var(--gold-pale);color:var(--inactive);cursor:not-allowed;}
+.steps-btn{width:100%;padding:10px;font-family:Nunito,sans-serif;font-size:14px;font-weight:900;background:linear-gradient(135deg,var(--sage),var(--sage-light));color:#fff;border:none;cursor:pointer;display:none;border-top:1px solid var(--gold-pale);}
+.confirm-wrap{margin-top:12px;background:linear-gradient(135deg,#eef2eb,#f5fbf2);border:2px solid var(--border-dark);border-radius:14px;padding:16px 18px;}
+.confirm-title{font-size:11px;font-weight:900;color:var(--sage);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;}
+.confirm-q{font-size:14px;font-weight:800;color:var(--charcoal);margin-bottom:12px;line-height:1.5;}
+.result-box{font-size:12px;font-weight:800;padding:9px 13px;border-radius:9px;display:none;line-height:1.4;}
+.result-box.ok{background:#eef2eb;border:2px solid var(--sage);color:var(--sage);display:block;}
+.result-box.no{background:#fff5f0;border:2px solid var(--rust);color:var(--rust);display:block;}
+.nudge{font-size:12px;font-weight:700;color:var(--mid);margin-top:7px;font-style:italic;display:none;}
+.nudge.show{display:block;}
+.btn-next{font-family:Nunito,sans-serif;font-size:14px;font-weight:900;padding:11px 22px;border-radius:12px;border:none;background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;cursor:pointer;display:none;margin-top:10px;width:100%;}
+.btn-next.show{display:block;}
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;z-index:100;background:rgba(253,246,236,.97);border-top:2px solid var(--border-dark);padding:10px 18px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap;align-items:center;}
+.btn-nav{font-family:Nunito,sans-serif;font-size:13px;font-weight:900;padding:10px 20px;border-radius:12px;border:2px solid var(--border-dark);cursor:pointer;}
+.btn-nav.practice{background:linear-gradient(135deg,var(--sage),var(--sage-light));color:#fff;border-color:var(--sage);}
+.btn-nav.exam{background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;border-color:var(--amber);}
+.btn-nav.locked{background:var(--gold-pale);color:var(--inactive);cursor:not-allowed;border-color:var(--inactive);}
+.lock-tip{font-size:10px;font-weight:700;color:var(--rust);width:100%;text-align:center;}
+.overlay{display:none;position:fixed;inset:0;background:rgba(42,34,24,.92);z-index:1000;flex-direction:column;align-items:center;justify-content:center;backdrop-filter:blur(6px);}
+.overlay.show{display:flex;}
+.break-box{background:var(--warm-white);border:2px solid var(--border-dark);border-radius:22px;padding:28px 32px;max-width:380px;width:90%;text-align:center;}
+.break-title{font-family:'Orbitron',sans-serif;font-size:14px;font-weight:900;color:var(--amber);letter-spacing:3px;margin-bottom:5px;}
+.break-sub{font-size:12px;font-weight:700;color:var(--soft);margin-bottom:16px;}
+.break-opts{display:flex;flex-direction:column;gap:8px;margin-bottom:12px;}
+.break-opt{font-family:Nunito,sans-serif;font-size:14px;font-weight:800;padding:11px;border-radius:11px;border:2px solid var(--border-dark);background:var(--warm-white);color:var(--mid);cursor:pointer;}
+.timer-screen{display:none;position:fixed;inset:0;background:#1a1208;z-index:1001;flex-direction:column;align-items:center;justify-content:center;}
+.timer-screen.show{display:flex;}
+.timer-reason{font-family:'Orbitron',sans-serif;font-size:12px;letter-spacing:4px;color:var(--gold-light);margin-bottom:16px;text-transform:uppercase;}
+.timer-num{font-family:'Orbitron',sans-serif;font-size:68px;font-weight:900;color:var(--gold-light);letter-spacing:6px;margin-bottom:30px;}
+.btn-end{font-family:Nunito,sans-serif;font-size:16px;font-weight:900;padding:13px 32px;border-radius:13px;border:2px solid var(--gold-light);background:transparent;color:var(--gold-light);cursor:pointer;}
+.done-banner{background:linear-gradient(135deg,#eef2eb,#f5fbf2);border:2px solid var(--border-dark);border-radius:14px;padding:14px 18px;text-align:center;margin-bottom:14px;display:none;}
+.done-banner.show{display:block;}
+.done-banner .dt{font-family:'Orbitron',sans-serif;font-size:12px;letter-spacing:2px;color:var(--sage);margin-bottom:4px;}
+.done-banner .ds{font-size:13px;font-weight:700;color:var(--mid);}
+.math-raw{width:100%;padding:10px 13px;border-radius:10px;border:2px solid var(--border-dark);background:var(--warm-white);color:var(--charcoal);font-size:1rem;font-family:'Share Tech Mono',monospace;resize:none;outline:none;min-height:48px;line-height:1.6;transition:border-color .2s;}
+.math-raw:focus{border-color:var(--amber);}
+.math-raw::placeholder{color:var(--inactive);font-family:Nunito,sans-serif;}
+.math-preview-label{font-size:0.68rem;text-transform:uppercase;letter-spacing:2px;color:var(--soft);margin:.5rem 0 .25rem;}
+.math-preview{min-height:44px;padding:.6rem 1rem;background:#f9f4ec;border-radius:8px;border:1.5px solid var(--gold-pale);font-size:1.1rem;color:var(--charcoal);overflow-x:auto;display:flex;align-items:center;justify-content:center;margin-bottom:10px;}
+.sugg-chips{display:flex;flex-wrap:wrap;gap:.35rem;margin-bottom:10px;}
+.schip{border:1.5px solid #1a6aaa;border-radius:20px;padding:.25rem .75rem;font-size:.78rem;cursor:pointer;background:#eef6ff;color:#0a5a9a;font-family:Nunito,sans-serif;font-weight:800;}
+#rWrap{position:fixed;bottom:68px;left:10px;z-index:200;width:82px;pointer-events:none;}
+#rChar{width:82px;filter:drop-shadow(0 4px 10px rgba(107,76,42,.3));}
+@keyframes rIn{from{transform:translateY(50px);opacity:0}to{transform:translateY(0);opacity:1}}
+@keyframes rBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+@media(max-width:600px){.main{padding:10px 10px 120px;}}
+</style>
+<script src="/rishi-sync.js"></script>
+<script src="/rishi-core.js"></script>
+<script src="/rishi-presence.js"></script>
+</head>
+<body>
+<div class="topbar">
+  <div class="logo-sm">RISHI</div>
+  <div class="topbar-center">⬡ Polygons</div>
+  <div class="topbar-right">
+    <button class="btn-topbar" onclick="openBreak()">&#9749; Break</button>
+    <button class="btn-topbar back" onclick="location.href='/syllabus.html?board=icse&class=8'">&#8592; Syllabus</button>
+  </div>
+</div>
+<div class="prog-wrap">
+  <div class="prog-info"><span id="progLabel">Question 1 of 10</span><span id="progPct">0%</span></div>
+  <div class="prog-bar"><div class="prog-fill" id="progFill" style="width:0%"></div></div>
+</div>
+<div class="main">
+  <div class="done-banner" id="doneBanner">
+    <div class="dt">&#10003; Explanation Completed!</div>
+    <div class="ds">Practice and Exam now unlocked.</div>
+  </div>
+  <div class="rishika-wrap">
+    <div class="rishika-avatar">&#128105;&#8205;&#127979;</div>
+    <div class="rishika-bubble">
+      <div class="rishika-name">Rishika</div>
+      <div class="rishika-text" id="introText">
+        Hi <span class="hl" id="sName">there</span>! I&#39;m Rishika! Today we explore <span class="hl">Polygons</span>! ⬡ Let&#39;s begin!
+      </div>
+      <button class="btn-speak" onclick="startLesson()" id="startBtn">&#9654; Start Lesson</button>
+    </div>
+  </div>
+  <div id="qArea"></div>
+</div>
+<div class="bottom-nav">
+  <div class="lock-tip" id="lockTip">&#9757; Complete explanations to unlock Practice and Exam</div>
+  <button class="btn-nav practice locked" id="btnPractice" onclick="goPractice()">&#9999;&#65039; Practice</button>
+  <button class="btn-nav exam locked" id="btnExam" onclick="goExam()">&#128221; Exam</button>
+</div>
+<div class="overlay" id="breakOv">
+  <div class="break-box">
+    <div class="break-title">Break</div>
+    <div class="break-sub">Choose &mdash; timer starts</div>
+    <div class="break-opts">
+      <button class="break-opt" onclick="startBreak('Water')">&#128167; Water</button>
+      <button class="break-opt" onclick="startBreak('Washroom')">&#128701; Washroom</button>
+      <button class="break-opt" onclick="startBreak('Physical')">&#127939; Physical</button>
+    </div>
+    <button class="break-opt" style="color:var(--soft)" onclick="closeBreak()">Cancel</button>
+  </div>
+</div>
+<div class="timer-screen" id="timerScreen">
+  <div class="timer-reason" id="timerLbl">Break</div>
+  <div class="timer-num" id="timerNum">00:00</div>
+  <button class="btn-end" onclick="endBreak()">&#10003; End Break</button>
+</div>
+<div id="rWrap">
+<svg id="rChar" viewBox="0 0 100 110" xmlns="http://www.w3.org/2000/svg">
+  <ellipse cx="50" cy="68" rx="36" ry="28" fill="#5a8a60" stroke="#3d6b42" stroke-width="2"/>
+  <ellipse cx="50" cy="66" rx="22" ry="16" fill="#7ab87a" stroke="#5a8a60" stroke-width="1.5"/>
+  <line x1="50" y1="50" x2="50" y2="82" stroke="#5a8a60" stroke-width="1.5"/>
+  <line x1="28" y1="66" x2="72" y2="66" stroke="#5a8a60" stroke-width="1.5"/>
+  <ellipse cx="20" cy="82" rx="10" ry="7" fill="#7ab87a" stroke="#5a8a60" stroke-width="1.5" transform="rotate(-20,20,82)"/>
+  <ellipse cx="80" cy="82" rx="10" ry="7" fill="#7ab87a" stroke="#5a8a60" stroke-width="1.5" transform="rotate(20,80,82)"/>
+  <ellipse cx="22" cy="58" rx="9" ry="6" fill="#7ab87a" stroke="#5a8a60" stroke-width="1.5" transform="rotate(20,22,58)"/>
+  <ellipse cx="78" cy="58" rx="9" ry="6" fill="#7ab87a" stroke="#5a8a60" stroke-width="1.5" transform="rotate(-20,78,58)"/>
+  <ellipse cx="50" cy="42" rx="10" ry="14" fill="#8fba6a" stroke="#5a8a60" stroke-width="1.5"/>
+  <ellipse cx="50" cy="28" rx="18" ry="16" fill="#8fba6a" stroke="#5a8a60" stroke-width="2"/>
+  <ellipse cx="43" cy="24" rx="5" ry="5.5" fill="white"/><ellipse cx="57" cy="24" rx="5" ry="5.5" fill="white"/>
+  <ellipse cx="43" cy="25" rx="3" ry="3.5" fill="#1a3a1a"/><ellipse cx="57" cy="25" rx="3" ry="3.5" fill="#1a3a1a"/>
+  <circle cx="44" cy="23" r="1.2" fill="white"/><circle cx="58" cy="23" r="1.2" fill="white"/>
+  <ellipse id="rLid1" cx="43" cy="24" rx="5" ry="1" fill="#8fba6a" opacity="0"/>
+  <ellipse id="rLid2" cx="57" cy="24" rx="5" ry="1" fill="#8fba6a" opacity="0"/>
+  <path id="rMouth" d="M44,33 Q50,38 56,33" fill="none" stroke="#3d6b42" stroke-width="2" stroke-linecap="round"/>
+  <ellipse id="rBlush1" cx="36" cy="30" rx="7" ry="4" fill="#ff9999" opacity="0"/>
+  <ellipse id="rBlush2" cx="64" cy="30" rx="7" ry="4" fill="#ff9999" opacity="0"/>
+  <rect x="28" y="90" width="44" height="13" fill="#d4870a" rx="4"/>
+  <text x="50" y="100" text-anchor="middle" font-family="Nunito" font-size="7" font-weight="900" fill="white">RISHIKA</text>
+</svg>
+</div>
+<script>
+var voicesReady=false,selectedVoice=null,elAudio=null;
+function pickVoice(){var vs=window.speechSynthesis.getVoices();if(!vs||vs.length===0)return false;var fk=["heera","veena","priya","raveena","female","woman","zira","samantha","victoria","karen","moira","tessa","fiona"];for(var i=0;i<vs.length;i++){if(vs[i].lang.toLowerCase().indexOf("en-in")===0){var n=vs[i].name.toLowerCase();for(var k=0;k<fk.length;k++){if(n.indexOf(fk[k])>=0){selectedVoice=vs[i];return true;}}}}for(var i=0;i<vs.length;i++){if(vs[i].lang.toLowerCase().indexOf("en")===0){var n=vs[i].name.toLowerCase();for(var k=0;k<fk.length;k++){if(n.indexOf(fk[k])>=0){selectedVoice=vs[i];return true;}}}}return false;}
+function initVoices(cb){if(pickVoice()){voicesReady=true;cb();return;}window.speechSynthesis.onvoiceschanged=function(){window.speechSynthesis.onvoiceschanged=null;pickVoice();voicesReady=true;cb();};setTimeout(function(){if(!voicesReady){pickVoice();voicesReady=true;cb();}},2000);}
+function stopAllAudio(){if(elAudio){try{elAudio.onended=null;elAudio.onerror=null;elAudio.pause();elAudio.src="";}catch(x){}elAudio=null;}if(window.speechSynthesis)window.speechSynthesis.cancel();}
+function sayBrowser(text,onEnd){if(!window.speechSynthesis)return;window.speechSynthesis.cancel();rStartTalk(text.length);var u=new SpeechSynthesisUtterance(text);u.lang="en-IN";u.rate=0.88;u.pitch=1.15;if(selectedVoice)u.voice=selectedVoice;u.onend=function(){rStopTalk();if(onEnd)onEnd();};u.onerror=function(){rStopTalk();if(onEnd)onEnd();};window.speechSynthesis.speak(u);}
+function say(text,onEnd){stopAllAudio();rStartTalk(text.length);fetch("/tts",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({text:text})}).then(function(res){if(!res.ok)throw new Error("TTS "+res.status);return res.blob();}).then(function(blob){var url=URL.createObjectURL(blob);elAudio=new Audio(url);elAudio.onended=function(){URL.revokeObjectURL(url);elAudio=null;rStopTalk();if(onEnd)onEnd();};elAudio.onerror=function(){URL.revokeObjectURL(url);elAudio=null;rStopTalk();sayBrowser(text,onEnd);};var p=elAudio.play();if(p&&p.catch){p.catch(function(){URL.revokeObjectURL(url);elAudio=null;sayBrowser(text,onEnd);});}}).catch(function(err){sayBrowser(text,onEnd);});}
+function sayEl(id){var e=G(id);if(e)say(e.innerText||e.textContent);}
+window.addEventListener("beforeunload",function(){stopAllAudio();});window.addEventListener("pagehide",function(){stopAllAudio();});
+var mouthTmr=null,blinkTmr=null,mOpen=false;
+function rInit(){var c=G("rChar");if(c)c.style.animation="rIn .6s cubic-bezier(.34,1.56,.64,1) forwards";scheduleBlink();}
+function scheduleBlink(){blinkTmr=setTimeout(function(){rBlink();scheduleBlink();},2200+Math.random()*3000);}
+function rBlink(){var l=G("rLid1"),r=G("rLid2");if(!l||!r)return;l.setAttribute("ry","5.5");r.setAttribute("ry","5.5");setTimeout(function(){l.setAttribute("ry","1");r.setAttribute("ry","1");},120);}
+function rStartTalk(len){rStopTalk();G("rBlush1").style.opacity="0.7";G("rBlush2").style.opacity="0.7";mOpen=false;mouthTmr=setInterval(function(){mOpen=!mOpen;var m=G("rMouth");if(!m)return;if(mOpen){m.setAttribute("d","M42,33 Q50,42 58,33");m.setAttribute("fill","#1a3a1a");}else{m.setAttribute("d","M44,33 Q50,38 56,33");m.setAttribute("fill","none");}},160);setTimeout(rStopTalk,Math.max(1800,(len||20)*58));}
+function rStopTalk(){clearInterval(mouthTmr);mOpen=false;var m=G("rMouth");if(m){m.setAttribute("d","M44,33 Q50,38 56,33");m.setAttribute("fill","none");}G("rBlush1").style.opacity="0";G("rBlush2").style.opacity="0";}
+function rHappy(){var c=G("rChar");if(c)c.style.animation="rBounce .35s ease-in-out 5";G("rBlush1").style.opacity="1";G("rBlush2").style.opacity="1";setTimeout(function(){rStopTalk();var c=G("rChar");if(c)c.style.animation="none";},2500);}
+function rThink(){setTimeout(rStopTalk,1800);}
+
+var QB=[
+{
+id:"q1",
+q:"Identify the polygon shown: Is it a triangle, quadrilateral, pentagon, or hexagon?",
+qs:"Look at the shape and tell me which polygon it is: triangle, quadrilateral, pentagon, or hexagon.",
+anim:"q1",
+steps:[{"t": "Observe the shape carefully.", "s": "First, look at the number of sides of the polygon."}, {"t": "Count the sides.", "s": "Count how many straight sides the polygon has."}, {"t": "Match the number to the polygon name.", "s": "If it has three sides, it is a triangle; four sides, quadrilateral; five sides, pentagon; six sides, hexagon."}],
+cq:"What is the name of a polygon with five sides?",
+cqs:"Can you tell me what we call a polygon with five sides?",
+ans:["Pentagon", "pentagon"],
+nudges:["Count the sides carefully.", "Remember: triangle has 3 sides.", "A polygon with 5 sides is called a pentagon."],
+anim_svg:"<g id=\"q1s0\" opacity=\"0\"><rect x=\"30\" y=\"20\" width=\"360\" height=\"44\" rx=\"10\" fill=\"#f5e6c8\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"210\" y=\"38\" text-anchor=\"middle\" font-size=\"13\" fill=\"#5a4a30\" font-weight=\"800\">Observe the polygon</text><text x=\"210\" y=\"56\" text-anchor=\"middle\" font-size=\"11\" fill=\"#8a7a5a\">Count the number of sides</text></g><g id=\"q1s1\" opacity=\"0\"><polygon points=\"210,40 260,80 235,130 185,130 160,80\" fill=\"#d4e6f1\" stroke=\"#2e86c1\" stroke-width=\"3\"/><circle cx=\"210\" cy=\"40\" r=\"5\" fill=\"#2980b9\"/><circle cx=\"260\" cy=\"80\" r=\"5\" fill=\"#2980b9\"/><circle cx=\"235\" cy=\"130\" r=\"5\" fill=\"#2980b9\"/><circle cx=\"185\" cy=\"130\" r=\"5\" fill=\"#2980b9\"/><circle cx=\"160\" cy=\"80\" r=\"5\" fill=\"#2980b9\"/></g><g id=\"q1s2\" opacity=\"0\"><text x=\"210\" y=\"160\" text-anchor=\"middle\" font-size=\"14\" fill=\"#1b4f72\" font-weight=\"700\">This polygon has 5 sides, so it is a pentagon.</text></g><g id=\"q1ans\" opacity=\"0\"><rect x=\"110\" y=\"148\" width=\"200\" height=\"26\" rx=\"8\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"210\" y=\"165\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Pentagon</text></g>"
+},
+{
+id:"q2",
+q:"Is the polygon shown regular or irregular?",
+qs:"Look at the polygon and tell me if it is regular or irregular.",
+anim:"q2",
+steps:[{"t": "Check the sides of the polygon.", "s": "Are all sides equal in length?"}, {"t": "Check the angles.", "s": "Are all interior angles equal?"}, {"t": "Decide regularity.", "s": "If all sides and angles are equal, the polygon is regular; otherwise, irregular."}],
+cq:"What do we call a polygon with all equal sides and angles?",
+cqs:"Can you name a polygon with all sides and angles equal?",
+ans:["Regular polygon", "regular"],
+nudges:["Look carefully at the sides and angles.", "Equal sides and angles mean regular.", "If not equal, it is irregular."],
+anim_svg:"<g id=\"q2s0\" opacity=\"0\"><rect x=\"30\" y=\"20\" width=\"360\" height=\"44\" rx=\"10\" fill=\"#f5e6c8\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"210\" y=\"38\" text-anchor=\"middle\" font-size=\"13\" fill=\"#5a4a30\" font-weight=\"800\">Check sides and angles</text><text x=\"210\" y=\"56\" text-anchor=\"middle\" font-size=\"11\" fill=\"#8a7a5a\">Are all sides and angles equal?</text></g><g id=\"q2s1\" opacity=\"0\"><polygon points=\"170,40 250,40 290,80 250,120 170,120 130,80\" fill=\"#fdebd0\" stroke=\"#d35400\" stroke-width=\"3\"/><circle cx=\"170\" cy=\"40\" r=\"5\" fill=\"#e67e22\"/><circle cx=\"250\" cy=\"40\" r=\"5\" fill=\"#e67e22\"/><circle cx=\"290\" cy=\"80\" r=\"5\" fill=\"#e67e22\"/><circle cx=\"250\" cy=\"120\" r=\"5\" fill=\"#e67e22\"/><circle cx=\"170\" cy=\"120\" r=\"5\" fill=\"#e67e22\"/><circle cx=\"130\" cy=\"80\" r=\"5\" fill=\"#e67e22\"/></g><g id=\"q2s2\" opacity=\"0\"><text x=\"210\" y=\"160\" text-anchor=\"middle\" font-size=\"14\" fill=\"#a04000\" font-weight=\"700\">All sides and angles are equal, so this is a regular hexagon.</text></g><g id=\"q2ans\" opacity=\"0\"><rect x=\"110\" y=\"148\" width=\"200\" height=\"26\" rx=\"8\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"210\" y=\"165\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Regular polygon</text></g>"
+},
+{
+id:"q3",
+q:"Is the polygon shown convex or concave?",
+qs:"Look at the polygon and tell me if it is convex or concave.",
+anim:"q3",
+steps:[{"t": "Look at the interior angles.", "s": "Are all interior angles less than 180 degrees?"}, {"t": "Check for indentations.", "s": "Does the polygon have any 'inward' dents?"}, {"t": "Decide convexity.", "s": "If no dents and all angles less than 180 degrees, polygon is convex; else concave."}],
+cq:"What is a polygon called if it has an inward dent?",
+cqs:"Can you name a polygon with an inward dent?",
+ans:["Concave polygon", "concave"],
+nudges:["Look for any inward corners.", "Convex polygons bulge outwards.", "Concave polygons have dents."],
+anim_svg:"<g id=\"q3s0\" opacity=\"0\"><rect x=\"30\" y=\"20\" width=\"360\" height=\"44\" rx=\"10\" fill=\"#f5e6c8\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"210\" y=\"38\" text-anchor=\"middle\" font-size=\"13\" fill=\"#5a4a30\" font-weight=\"800\">Check the polygon shape</text><text x=\"210\" y=\"56\" text-anchor=\"middle\" font-size=\"11\" fill=\"#8a7a5a\">Look for inward dents or angles</text></g><g id=\"q3s1\" opacity=\"0\"><polygon points=\"150,40 250,40 280,90 220,90 200,130 150,130 130,90\" fill=\"#d5f5e3\" stroke=\"#27ae60\" stroke-width=\"3\"/><circle cx=\"150\" cy=\"40\" r=\"5\" fill=\"#229954\"/><circle cx=\"250\" cy=\"40\" r=\"5\" fill=\"#229954\"/><circle cx=\"280\" cy=\"90\" r=\"5\" fill=\"#229954\"/><circle cx=\"220\" cy=\"90\" r=\"5\" fill=\"#229954\"/><circle cx=\"200\" cy=\"130\" r=\"5\" fill=\"#229954\"/><circle cx=\"150\" cy=\"130\" r=\"5\" fill=\"#229954\"/><circle cx=\"130\" cy=\"90\" r=\"5\" fill=\"#229954\"/></g><g id=\"q3s2\" opacity=\"0\"><text x=\"210\" y=\"160\" text-anchor=\"middle\" font-size=\"14\" fill=\"#1e8449\" font-weight=\"700\">The polygon has an inward dent, so it is concave.</text></g><g id=\"q3ans\" opacity=\"0\"><rect x=\"110\" y=\"148\" width=\"200\" height=\"26\" rx=\"8\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"210\" y=\"165\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Concave polygon</text></g>"
+},
+{
+id:"q4",
+q:"Find the sum of interior angles of a hexagon.",
+qs:"Calculate the sum of interior angles of a polygon with six sides, a hexagon.",
+anim:"q4",
+steps:[{"t": "Recall the formula for sum of interior angles.", "s": "Sum = (n minus 2) times 180 degrees."}, {"t": "Substitute n = 6.", "s": "Sum = (6 minus 2) times 180."}, {"t": "Calculate the value.", "s": "Sum = 4 times 180 = 720 degrees."}],
+cq:"What is the sum of interior angles of a pentagon?",
+cqs:"Can you find the sum of interior angles of a polygon with five sides?",
+ans:["540 degrees", "540°"],
+nudges:["Use the formula (n minus 2) times 180.", "For pentagon n equals 5.", "Calculate carefully."],
+anim_svg:"<g id=\"q4s0\" opacity=\"0\"><rect x=\"30\" y=\"20\" width=\"360\" height=\"44\" rx=\"10\" fill=\"#f5e6c8\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"210\" y=\"38\" text-anchor=\"middle\" font-size=\"13\" fill=\"#5a4a30\" font-weight=\"800\">Use the formula</text><text x=\"210\" y=\"56\" text-anchor=\"middle\" font-size=\"11\" fill=\"#8a7a5a\">Sum = (n &minus; 2) &times; 180°</text></g><g id=\"q4s1\" opacity=\"0\"><polygon points=\"180,40 260,40 300,80 280,140 200,140 160,80\" fill=\"#f9e79f\" stroke=\"#b7950b\" stroke-width=\"3\"/><circle cx=\"180\" cy=\"40\" r=\"5\" fill=\"#b7950b\"/><circle cx=\"260\" cy=\"40\" r=\"5\" fill=\"#b7950b\"/><circle cx=\"300\" cy=\"80\" r=\"5\" fill=\"#b7950b\"/><circle cx=\"280\" cy=\"140\" r=\"5\" fill=\"#b7950b\"/><circle cx=\"200\" cy=\"140\" r=\"5\" fill=\"#b7950b\"/><circle cx=\"160\" cy=\"80\" r=\"5\" fill=\"#b7950b\"/></g><g id=\"q4s2\" opacity=\"0\"><text x=\"210\" y=\"160\" text-anchor=\"middle\" font-size=\"14\" fill=\"#7a6600\" font-weight=\"700\">Sum of interior angles = 720 degrees</text></g><g id=\"q4ans\" opacity=\"0\"><rect x=\"110\" y=\"148\" width=\"200\" height=\"26\" rx=\"8\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"210\" y=\"165\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">720°</text></g>"
+},
+{
+id:"q5",
+q:"What is the sum of exterior angles of any polygon?",
+qs:"Tell me the sum of all exterior angles of any polygon.",
+anim:"q5",
+steps:[{"t": "Recall the rule for exterior angles.", "s": "Sum of exterior angles of any polygon is always 360 degrees."}, {"t": "Check with examples.", "s": "Try with triangle or square to confirm."}, {"t": "State the answer.", "s": "Sum of exterior angles = 360 degrees."}],
+cq:"Is the sum of exterior angles same for a pentagon and a hexagon?",
+cqs:"Does the sum of exterior angles change with number of sides?",
+ans:["360 degrees", "360°"],
+nudges:["Remember the sum is always 360 degrees.", "It does not depend on number of sides.", "Try drawing to check."],
+anim_svg:"<g id=\"q5s0\" opacity=\"0\"><rect x=\"30\" y=\"20\" width=\"360\" height=\"44\" rx=\"10\" fill=\"#f5e6c8\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"210\" y=\"38\" text-anchor=\"middle\" font-size=\"13\" fill=\"#5a4a30\" font-weight=\"800\">Sum of exterior angles</text><text x=\"210\" y=\"56\" text-anchor=\"middle\" font-size=\"11\" fill=\"#8a7a5a\">Always 360 degrees</text></g><g id=\"q5s1\" opacity=\"0\"><polygon points=\"190,40 250,40 280,80 250,120 190,120 160,80\" fill=\"#fadbd8\" stroke=\"#c0392b\" stroke-width=\"3\"/><line x1=\"190\" y1=\"40\" x2=\"140\" y2=\"20\" stroke=\"#c0392b\" stroke-width=\"2\" marker-end=\"url(#arrow)\"/><line x1=\"250\" y1=\"40\" x2=\"290\" y2=\"10\" stroke=\"#c0392b\" stroke-width=\"2\" marker-end=\"url(#arrow)\"/><line x1=\"280\" y1=\"80\" x2=\"320\" y2=\"80\" stroke=\"#c0392b\" stroke-width=\"2\" marker-end=\"url(#arrow)\"/><line x1=\"250\" y1=\"120\" x2=\"290\" y2=\"150\" stroke=\"#c0392b\" stroke-width=\"2\" marker-end=\"url(#arrow)\"/><line x1=\"190\" y1=\"120\" x2=\"150\" y2=\"160\" stroke=\"#c0392b\" stroke-width=\"2\" marker-end=\"url(#arrow)\"/><line x1=\"160\" y1=\"80\" x2=\"120\" y2=\"80\" stroke=\"#c0392b\" stroke-width=\"2\" marker-end=\"url(#arrow)\"/></g><g id=\"q5s2\" opacity=\"0\"><text x=\"210\" y=\"160\" text-anchor=\"middle\" font-size=\"14\" fill=\"#922b21\" font-weight=\"700\">Sum of exterior angles = 360 degrees</text></g><g id=\"q5ans\" opacity=\"0\"><rect x=\"110\" y=\"148\" width=\"200\" height=\"26\" rx=\"8\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"210\" y=\"165\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">360°</text></g><defs><marker id=\"arrow\" markerWidth=\"6\" markerHeight=\"6\" refX=\"5\" refY=\"3\" orient=\"auto\" markerUnits=\"strokeWidth\"><path d=\"M0,0 L6,3 L0,6 L1.5,3 z\" fill=\"#c0392b\"/></marker></defs>"
+},
+{
+id:"q6",
+q:"Find each interior angle of a regular pentagon.",
+qs:"Calculate each interior angle of a regular polygon with five sides.",
+anim:"q6",
+steps:[{"t": "Use sum of interior angles formula.", "s": "Sum = (n minus 2) times 180 degrees."}, {"t": "Calculate sum for n = 5.", "s": "Sum = 3 times 180 = 540 degrees."}, {"t": "Divide sum by number of sides.", "s": "Each interior angle = 540 divided by 5 = 108 degrees."}],
+cq:"What is each interior angle of a regular hexagon?",
+cqs:"Find each interior angle if the polygon has six sides and is regular.",
+ans:["120 degrees", "120°"],
+nudges:["Find sum first, then divide by number of sides.", "Use formula carefully.", "Remember regular means all angles equal."],
+anim_svg:"<g id=\"q6s0\" opacity=\"0\"><rect x=\"30\" y=\"20\" width=\"360\" height=\"44\" rx=\"10\" fill=\"#f5e6c8\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"210\" y=\"38\" text-anchor=\"middle\" font-size=\"13\" fill=\"#5a4a30\" font-weight=\"800\">Calculate interior angle</text><text x=\"210\" y=\"56\" text-anchor=\"middle\" font-size=\"11\" fill=\"#8a7a5a\">Sum = (n &minus; 2) &times; 180°</text></g><g id=\"q6s1\" opacity=\"0\"><polygon points=\"180,40 240,40 280,80 240,120 180,120\" fill=\"#d6eaf8\" stroke=\"#2874a6\" stroke-width=\"3\"/><circle cx=\"180\" cy=\"40\" r=\"5\" fill=\"#21618c\"/><circle cx=\"240\" cy=\"40\" r=\"5\" fill=\"#21618c\"/><circle cx=\"280\" cy=\"80\" r=\"5\" fill=\"#21618c\"/><circle cx=\"240\" cy=\"120\" r=\"5\" fill=\"#21618c\"/><circle cx=\"180\" cy=\"120\" r=\"5\" fill=\"#21618c\"/></g><g id=\"q6s2\" opacity=\"0\"><text x=\"210\" y=\"160\" text-anchor=\"middle\" font-size=\"14\" fill=\"#1b4f72\" font-weight=\"700\">Each interior angle = 108 degrees</text></g><g id=\"q6ans\" opacity=\"0\"><rect x=\"110\" y=\"148\" width=\"200\" height=\"26\" rx=\"8\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"210\" y=\"165\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">108°</text></g>"
+},
+{
+id:"q7",
+q:"How many diagonals does a hexagon have?",
+qs:"Find the number of diagonals in a polygon with six sides.",
+anim:"q7",
+steps:[{"t": "Recall formula for diagonals.", "s": "Number of diagonals = n times (n minus 3) divided by 2."}, {"t": "Substitute n = 6.", "s": "Number of diagonals = 6 times 3 divided by 2."}, {"t": "Calculate the value.", "s": "Number of diagonals = 18 divided by 2 = 9."}],
+cq:"How many diagonals does a pentagon have?",
+cqs:"Calculate diagonals if polygon has five sides.",
+ans:["5"],
+nudges:["Use formula n(n minus 3)/2.", "Substitute n carefully.", "Calculate step by step."],
+anim_svg:"<g id=\"q7s0\" opacity=\"0\"><rect x=\"30\" y=\"20\" width=\"360\" height=\"44\" rx=\"10\" fill=\"#f5e6c8\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"210\" y=\"38\" text-anchor=\"middle\" font-size=\"13\" fill=\"#5a4a30\" font-weight=\"800\">Use diagonal formula</text><text x=\"210\" y=\"56\" text-anchor=\"middle\" font-size=\"11\" fill=\"#8a7a5a\">Diagonals = n &times; (n &minus; 3) &divide; 2</text></g><g id=\"q7s1\" opacity=\"0\"><polygon points=\"160,40 240,40 280,80 240,120 160,120 120,80\" fill=\"#fce5cd\" stroke=\"#af601a\" stroke-width=\"3\"/><circle cx=\"160\" cy=\"40\" r=\"5\" fill=\"#935116\"/><circle cx=\"240\" cy=\"40\" r=\"5\" fill=\"#935116\"/><circle cx=\"280\" cy=\"80\" r=\"5\" fill=\"#935116\"/><circle cx=\"240\" cy=\"120\" r=\"5\" fill=\"#935116\"/><circle cx=\"160\" cy=\"120\" r=\"5\" fill=\"#935116\"/><circle cx=\"120\" cy=\"80\" r=\"5\" fill=\"#935116\"/></g><g id=\"q7s2\" opacity=\"0\"><line x1=\"160\" y1=\"40\" x2=\"280\" y2=\"80\" stroke=\"#935116\" stroke-width=\"2\"/><line x1=\"160\" y1=\"40\" x2=\"240\" y2=\"120\" stroke=\"#935116\" stroke-width=\"2\"/><line x1=\"240\" y1=\"40\" x2=\"160\" y2=\"120\" stroke=\"#935116\" stroke-width=\"2\"/><line x1=\"240\" y1=\"40\" x2=\"120\" y2=\"80\" stroke=\"#935116\" stroke-width=\"2\"/><line x1=\"280\" y1=\"80\" x2=\"160\" y2=\"120\" stroke=\"#935116\" stroke-width=\"2\"/><line x1=\"280\" y1=\"80\" x2=\"120\" y2=\"80\" stroke=\"#935116\" stroke-width=\"2\"/><line x1=\"240\" y1=\"120\" x2=\"120\" y2=\"80\" stroke=\"#935116\" stroke-width=\"2\"/></g><g id=\"q7ans\" opacity=\"0\"><rect x=\"110\" y=\"148\" width=\"200\" height=\"26\" rx=\"8\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"210\" y=\"165\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">9</text></g>"
+},
+{
+id:"q8",
+q:"Name the polygon with 4 sides and all right angles.",
+qs:"What do we call a polygon with four sides and all angles 90 degrees?",
+anim:"q8",
+steps:[{"t": "Count the sides.", "s": "It has 4 sides."}, {"t": "Check the angles.", "s": "All angles are right angles, 90 degrees."}, {"t": "Name the polygon.", "s": "Such a polygon is called a rectangle or square."}],
+cq:"Is a square a regular polygon?",
+cqs:"Tell me if a square has all sides and angles equal.",
+ans:["Rectangle or square", "rectangle", "square"],
+nudges:["Four sides and right angles mean rectangle.", "If all sides equal, it is square.", "Both are quadrilaterals."],
+anim_svg:"<g id=\"q8s0\" opacity=\"0\"><rect x=\"30\" y=\"20\" width=\"360\" height=\"44\" rx=\"10\" fill=\"#f5e6c8\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"210\" y=\"38\" text-anchor=\"middle\" font-size=\"13\" fill=\"#5a4a30\" font-weight=\"800\">Identify the polygon</text><text x=\"210\" y=\"56\" text-anchor=\"middle\" font-size=\"11\" fill=\"#8a7a5a\">4 sides and all right angles</text></g><g id=\"q8s1\" opacity=\"0\"><rect x=\"160\" y=\"50\" width=\"100\" height=\"60\" fill=\"#d6eaf8\" stroke=\"#2874a6\" stroke-width=\"3\"/><line x1=\"160\" y1=\"50\" x2=\"170\" y2=\"60\" stroke=\"#2874a6\" stroke-width=\"2\"/><line x1=\"260\" y1=\"50\" x2=\"250\" y2=\"60\" stroke=\"#2874a6\" stroke-width=\"2\"/><line x1=\"160\" y1=\"110\" x2=\"170\" y2=\"100\" stroke=\"#2874a6\" stroke-width=\"2\"/><line x1=\"260\" y1=\"110\" x2=\"250\" y2=\"100\" stroke=\"#2874a6\" stroke-width=\"2\"/></g><g id=\"q8s2\" opacity=\"0\"><text x=\"210\" y=\"140\" text-anchor=\"middle\" font-size=\"14\" fill=\"#1b4f72\" font-weight=\"700\">This polygon is a rectangle or square.</text></g><g id=\"q8ans\" opacity=\"0\"><rect x=\"110\" y=\"128\" width=\"200\" height=\"26\" rx=\"8\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"210\" y=\"145\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Rectangle or Square</text></g>"
+},
+{
+id:"q9",
+q:"Is a polygon with a side bent inside called convex or concave?",
+qs:"If a polygon has a side bent inside, what type is it: convex or concave?",
+anim:"q9",
+steps:[{"t": "Look for inward bent side.", "s": "A side bent inside means an indentation."}, {"t": "Recall polygon types.", "s": "Convex polygons bulge outwards, no indentations."}, {"t": "Conclude the type.", "s": "Polygon with inward bent side is concave."}],
+cq:"Can a concave polygon have an interior angle greater than 180 degrees?",
+cqs:"Does a concave polygon have any interior angle more than 180 degrees?",
+ans:["Concave polygon", "concave"],
+nudges:["Look for inward dents.", "Convex polygons have no dents.", "Concave polygons have at least one dent."],
+anim_svg:"<g id=\"q9s0\" opacity=\"0\"><rect x=\"30\" y=\"20\" width=\"360\" height=\"44\" rx=\"10\" fill=\"#f5e6c8\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"210\" y=\"38\" text-anchor=\"middle\" font-size=\"13\" fill=\"#5a4a30\" font-weight=\"800\">Check polygon shape</text><text x=\"210\" y=\"56\" text-anchor=\"middle\" font-size=\"11\" fill=\"#8a7a5a\">Is there an inward bent side?</text></g><g id=\"q9s1\" opacity=\"0\"><polygon points=\"170,40 260,40 280,90 220,90 200,130 150,130 130,90\" fill=\"#d5f5e3\" stroke=\"#27ae60\" stroke-width=\"3\"/><circle cx=\"170\" cy=\"40\" r=\"5\" fill=\"#229954\"/><circle cx=\"260\" cy=\"40\" r=\"5\" fill=\"#229954\"/><circle cx=\"280\" cy=\"90\" r=\"5\" fill=\"#229954\"/><circle cx=\"220\" cy=\"90\" r=\"5\" fill=\"#229954\"/><circle cx=\"200\" cy=\"130\" r=\"5\" fill=\"#229954\"/><circle cx=\"150\" cy=\"130\" r=\"5\" fill=\"#229954\"/><circle cx=\"130\" cy=\"90\" r=\"5\" fill=\"#229954\"/></g><g id=\"q9s2\" opacity=\"0\"><text x=\"210\" y=\"160\" text-anchor=\"middle\" font-size=\"14\" fill=\"#1e8449\" font-weight=\"700\">The polygon is concave due to inward bent side.</text></g><g id=\"q9ans\" opacity=\"0\"><rect x=\"110\" y=\"148\" width=\"200\" height=\"26\" rx=\"8\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"210\" y=\"165\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Concave polygon</text></g>"
+},
+{
+id:"q10",
+q:"How many sides does a polygon have if its interior angle sum is 900°?",
+qs:"Find the number of sides of a polygon whose interior angles add up to nine hundred degrees.",
+anim:"q10",
+steps:[{"t": "Use formula sum = (n minus 2) times 180.", "s": "Sum of interior angles equals (n minus 2) times 180 degrees."}, {"t": "Set sum to 900 and solve for n.", "s": "900 = (n minus 2) times 180."}, {"t": "Calculate n.", "s": "Divide both sides by 180: 5 = n minus 2, so n = 7 sides."}],
+cq:"What is the sum of interior angles of a heptagon?",
+cqs:"Calculate sum of interior angles if polygon has seven sides.",
+ans:["7", "seven"],
+nudges:["Use formula and solve for n.", "Divide 900 by 180 first.", "Add 2 to the result."],
+anim_svg:"<g id=\"q10s0\" opacity=\"0\"><rect x=\"30\" y=\"20\" width=\"360\" height=\"44\" rx=\"10\" fill=\"#f5e6c8\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"210\" y=\"38\" text-anchor=\"middle\" font-size=\"13\" fill=\"#5a4a30\" font-weight=\"800\">Use formula and solve</text><text x=\"210\" y=\"56\" text-anchor=\"middle\" font-size=\"11\" fill=\"#8a7a5a\">900 = (n &minus; 2) &times; 180</text></g><g id=\"q10s1\" opacity=\"0\"><polygon points=\"180,40 260,40 300,80 280,140 200,140 160,80 140,90\" fill=\"#e8daef\" stroke=\"#7d3c98\" stroke-width=\"3\"/><circle cx=\"180\" cy=\"40\" r=\"5\" fill=\"#6c3483\"/><circle cx=\"260\" cy=\"40\" r=\"5\" fill=\"#6c3483\"/><circle cx=\"300\" cy=\"80\" r=\"5\" fill=\"#6c3483\"/><circle cx=\"280\" cy=\"140\" r=\"5\" fill=\"#6c3483\"/><circle cx=\"200\" cy=\"140\" r=\"5\" fill=\"#6c3483\"/><circle cx=\"160\" cy=\"80\" r=\"5\" fill=\"#6c3483\"/><circle cx=\"140\" cy=\"90\" r=\"5\" fill=\"#6c3483\"/></g><g id=\"q10s2\" opacity=\"0\"><text x=\"210\" y=\"160\" text-anchor=\"middle\" font-size=\"14\" fill=\"#512e5f\" font-weight=\"700\">Number of sides n = 7</text></g><g id=\"q10ans\" opacity=\"0\"><rect x=\"110\" y=\"148\" width=\"200\" height=\"26\" rx=\"8\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"210\" y=\"165\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">7</text></g>"
+}
+];
+
+function getAnimSVG(t){
+var base='<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Nunito,sans-serif;background:#fffdf8"><rect width="420" height="178" fill="#fffdf8"/>';
+var svgs={
+"q1":base+"<g id=\"q1s0\" opacity=\"0\"><rect x=\"30\" y=\"20\" width=\"360\" height=\"44\" rx=\"10\" fill=\"#f5e6c8\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"210\" y=\"38\" text-anchor=\"middle\" font-size=\"13\" fill=\"#5a4a30\" font-weight=\"800\">Observe the polygon</text><text x=\"210\" y=\"56\" text-anchor=\"middle\" font-size=\"11\" fill=\"#8a7a5a\">Count the number of sides</text></g><g id=\"q1s1\" opacity=\"0\"><polygon points=\"210,40 260,80 235,130 185,130 160,80\" fill=\"#d4e6f1\" stroke=\"#2e86c1\" stroke-width=\"3\"/><circle cx=\"210\" cy=\"40\" r=\"5\" fill=\"#2980b9\"/><circle cx=\"260\" cy=\"80\" r=\"5\" fill=\"#2980b9\"/><circle cx=\"235\" cy=\"130\" r=\"5\" fill=\"#2980b9\"/><circle cx=\"185\" cy=\"130\" r=\"5\" fill=\"#2980b9\"/><circle cx=\"160\" cy=\"80\" r=\"5\" fill=\"#2980b9\"/></g><g id=\"q1s2\" opacity=\"0\"><text x=\"210\" y=\"160\" text-anchor=\"middle\" font-size=\"14\" fill=\"#1b4f72\" font-weight=\"700\">This polygon has 5 sides, so it is a pentagon.</text></g><g id=\"q1ans\" opacity=\"0\"><rect x=\"110\" y=\"148\" width=\"200\" height=\"26\" rx=\"8\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"210\" y=\"165\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Pentagon</text></g>",
+"q2":base+"<g id=\"q2s0\" opacity=\"0\"><rect x=\"30\" y=\"20\" width=\"360\" height=\"44\" rx=\"10\" fill=\"#f5e6c8\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"210\" y=\"38\" text-anchor=\"middle\" font-size=\"13\" fill=\"#5a4a30\" font-weight=\"800\">Check sides and angles</text><text x=\"210\" y=\"56\" text-anchor=\"middle\" font-size=\"11\" fill=\"#8a7a5a\">Are all sides and angles equal?</text></g><g id=\"q2s1\" opacity=\"0\"><polygon points=\"170,40 250,40 290,80 250,120 170,120 130,80\" fill=\"#fdebd0\" stroke=\"#d35400\" stroke-width=\"3\"/><circle cx=\"170\" cy=\"40\" r=\"5\" fill=\"#e67e22\"/><circle cx=\"250\" cy=\"40\" r=\"5\" fill=\"#e67e22\"/><circle cx=\"290\" cy=\"80\" r=\"5\" fill=\"#e67e22\"/><circle cx=\"250\" cy=\"120\" r=\"5\" fill=\"#e67e22\"/><circle cx=\"170\" cy=\"120\" r=\"5\" fill=\"#e67e22\"/><circle cx=\"130\" cy=\"80\" r=\"5\" fill=\"#e67e22\"/></g><g id=\"q2s2\" opacity=\"0\"><text x=\"210\" y=\"160\" text-anchor=\"middle\" font-size=\"14\" fill=\"#a04000\" font-weight=\"700\">All sides and angles are equal, so this is a regular hexagon.</text></g><g id=\"q2ans\" opacity=\"0\"><rect x=\"110\" y=\"148\" width=\"200\" height=\"26\" rx=\"8\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"210\" y=\"165\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Regular polygon</text></g>",
+"q3":base+"<g id=\"q3s0\" opacity=\"0\"><rect x=\"30\" y=\"20\" width=\"360\" height=\"44\" rx=\"10\" fill=\"#f5e6c8\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"210\" y=\"38\" text-anchor=\"middle\" font-size=\"13\" fill=\"#5a4a30\" font-weight=\"800\">Check the polygon shape</text><text x=\"210\" y=\"56\" text-anchor=\"middle\" font-size=\"11\" fill=\"#8a7a5a\">Look for inward dents or angles</text></g><g id=\"q3s1\" opacity=\"0\"><polygon points=\"150,40 250,40 280,90 220,90 200,130 150,130 130,90\" fill=\"#d5f5e3\" stroke=\"#27ae60\" stroke-width=\"3\"/><circle cx=\"150\" cy=\"40\" r=\"5\" fill=\"#229954\"/><circle cx=\"250\" cy=\"40\" r=\"5\" fill=\"#229954\"/><circle cx=\"280\" cy=\"90\" r=\"5\" fill=\"#229954\"/><circle cx=\"220\" cy=\"90\" r=\"5\" fill=\"#229954\"/><circle cx=\"200\" cy=\"130\" r=\"5\" fill=\"#229954\"/><circle cx=\"150\" cy=\"130\" r=\"5\" fill=\"#229954\"/><circle cx=\"130\" cy=\"90\" r=\"5\" fill=\"#229954\"/></g><g id=\"q3s2\" opacity=\"0\"><text x=\"210\" y=\"160\" text-anchor=\"middle\" font-size=\"14\" fill=\"#1e8449\" font-weight=\"700\">The polygon has an inward dent, so it is concave.</text></g><g id=\"q3ans\" opacity=\"0\"><rect x=\"110\" y=\"148\" width=\"200\" height=\"26\" rx=\"8\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"210\" y=\"165\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Concave polygon</text></g>",
+"q4":base+"<g id=\"q4s0\" opacity=\"0\"><rect x=\"30\" y=\"20\" width=\"360\" height=\"44\" rx=\"10\" fill=\"#f5e6c8\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"210\" y=\"38\" text-anchor=\"middle\" font-size=\"13\" fill=\"#5a4a30\" font-weight=\"800\">Use the formula</text><text x=\"210\" y=\"56\" text-anchor=\"middle\" font-size=\"11\" fill=\"#8a7a5a\">Sum = (n &minus; 2) &times; 180°</text></g><g id=\"q4s1\" opacity=\"0\"><polygon points=\"180,40 260,40 300,80 280,140 200,140 160,80\" fill=\"#f9e79f\" stroke=\"#b7950b\" stroke-width=\"3\"/><circle cx=\"180\" cy=\"40\" r=\"5\" fill=\"#b7950b\"/><circle cx=\"260\" cy=\"40\" r=\"5\" fill=\"#b7950b\"/><circle cx=\"300\" cy=\"80\" r=\"5\" fill=\"#b7950b\"/><circle cx=\"280\" cy=\"140\" r=\"5\" fill=\"#b7950b\"/><circle cx=\"200\" cy=\"140\" r=\"5\" fill=\"#b7950b\"/><circle cx=\"160\" cy=\"80\" r=\"5\" fill=\"#b7950b\"/></g><g id=\"q4s2\" opacity=\"0\"><text x=\"210\" y=\"160\" text-anchor=\"middle\" font-size=\"14\" fill=\"#7a6600\" font-weight=\"700\">Sum of interior angles = 720 degrees</text></g><g id=\"q4ans\" opacity=\"0\"><rect x=\"110\" y=\"148\" width=\"200\" height=\"26\" rx=\"8\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"210\" y=\"165\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">720°</text></g>",
+"q5":base+"<g id=\"q5s0\" opacity=\"0\"><rect x=\"30\" y=\"20\" width=\"360\" height=\"44\" rx=\"10\" fill=\"#f5e6c8\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"210\" y=\"38\" text-anchor=\"middle\" font-size=\"13\" fill=\"#5a4a30\" font-weight=\"800\">Sum of exterior angles</text><text x=\"210\" y=\"56\" text-anchor=\"middle\" font-size=\"11\" fill=\"#8a7a5a\">Always 360 degrees</text></g><g id=\"q5s1\" opacity=\"0\"><polygon points=\"190,40 250,40 280,80 250,120 190,120 160,80\" fill=\"#fadbd8\" stroke=\"#c0392b\" stroke-width=\"3\"/><line x1=\"190\" y1=\"40\" x2=\"140\" y2=\"20\" stroke=\"#c0392b\" stroke-width=\"2\" marker-end=\"url(#arrow)\"/><line x1=\"250\" y1=\"40\" x2=\"290\" y2=\"10\" stroke=\"#c0392b\" stroke-width=\"2\" marker-end=\"url(#arrow)\"/><line x1=\"280\" y1=\"80\" x2=\"320\" y2=\"80\" stroke=\"#c0392b\" stroke-width=\"2\" marker-end=\"url(#arrow)\"/><line x1=\"250\" y1=\"120\" x2=\"290\" y2=\"150\" stroke=\"#c0392b\" stroke-width=\"2\" marker-end=\"url(#arrow)\"/><line x1=\"190\" y1=\"120\" x2=\"150\" y2=\"160\" stroke=\"#c0392b\" stroke-width=\"2\" marker-end=\"url(#arrow)\"/><line x1=\"160\" y1=\"80\" x2=\"120\" y2=\"80\" stroke=\"#c0392b\" stroke-width=\"2\" marker-end=\"url(#arrow)\"/></g><g id=\"q5s2\" opacity=\"0\"><text x=\"210\" y=\"160\" text-anchor=\"middle\" font-size=\"14\" fill=\"#922b21\" font-weight=\"700\">Sum of exterior angles = 360 degrees</text></g><g id=\"q5ans\" opacity=\"0\"><rect x=\"110\" y=\"148\" width=\"200\" height=\"26\" rx=\"8\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"210\" y=\"165\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">360°</text></g><defs><marker id=\"arrow\" markerWidth=\"6\" markerHeight=\"6\" refX=\"5\" refY=\"3\" orient=\"auto\" markerUnits=\"strokeWidth\"><path d=\"M0,0 L6,3 L0,6 L1.5,3 z\" fill=\"#c0392b\"/></marker></defs>",
+"q6":base+"<g id=\"q6s0\" opacity=\"0\"><rect x=\"30\" y=\"20\" width=\"360\" height=\"44\" rx=\"10\" fill=\"#f5e6c8\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"210\" y=\"38\" text-anchor=\"middle\" font-size=\"13\" fill=\"#5a4a30\" font-weight=\"800\">Calculate interior angle</text><text x=\"210\" y=\"56\" text-anchor=\"middle\" font-size=\"11\" fill=\"#8a7a5a\">Sum = (n &minus; 2) &times; 180°</text></g><g id=\"q6s1\" opacity=\"0\"><polygon points=\"180,40 240,40 280,80 240,120 180,120\" fill=\"#d6eaf8\" stroke=\"#2874a6\" stroke-width=\"3\"/><circle cx=\"180\" cy=\"40\" r=\"5\" fill=\"#21618c\"/><circle cx=\"240\" cy=\"40\" r=\"5\" fill=\"#21618c\"/><circle cx=\"280\" cy=\"80\" r=\"5\" fill=\"#21618c\"/><circle cx=\"240\" cy=\"120\" r=\"5\" fill=\"#21618c\"/><circle cx=\"180\" cy=\"120\" r=\"5\" fill=\"#21618c\"/></g><g id=\"q6s2\" opacity=\"0\"><text x=\"210\" y=\"160\" text-anchor=\"middle\" font-size=\"14\" fill=\"#1b4f72\" font-weight=\"700\">Each interior angle = 108 degrees</text></g><g id=\"q6ans\" opacity=\"0\"><rect x=\"110\" y=\"148\" width=\"200\" height=\"26\" rx=\"8\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"210\" y=\"165\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">108°</text></g>",
+"q7":base+"<g id=\"q7s0\" opacity=\"0\"><rect x=\"30\" y=\"20\" width=\"360\" height=\"44\" rx=\"10\" fill=\"#f5e6c8\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"210\" y=\"38\" text-anchor=\"middle\" font-size=\"13\" fill=\"#5a4a30\" font-weight=\"800\">Use diagonal formula</text><text x=\"210\" y=\"56\" text-anchor=\"middle\" font-size=\"11\" fill=\"#8a7a5a\">Diagonals = n &times; (n &minus; 3) &divide; 2</text></g><g id=\"q7s1\" opacity=\"0\"><polygon points=\"160,40 240,40 280,80 240,120 160,120 120,80\" fill=\"#fce5cd\" stroke=\"#af601a\" stroke-width=\"3\"/><circle cx=\"160\" cy=\"40\" r=\"5\" fill=\"#935116\"/><circle cx=\"240\" cy=\"40\" r=\"5\" fill=\"#935116\"/><circle cx=\"280\" cy=\"80\" r=\"5\" fill=\"#935116\"/><circle cx=\"240\" cy=\"120\" r=\"5\" fill=\"#935116\"/><circle cx=\"160\" cy=\"120\" r=\"5\" fill=\"#935116\"/><circle cx=\"120\" cy=\"80\" r=\"5\" fill=\"#935116\"/></g><g id=\"q7s2\" opacity=\"0\"><line x1=\"160\" y1=\"40\" x2=\"280\" y2=\"80\" stroke=\"#935116\" stroke-width=\"2\"/><line x1=\"160\" y1=\"40\" x2=\"240\" y2=\"120\" stroke=\"#935116\" stroke-width=\"2\"/><line x1=\"240\" y1=\"40\" x2=\"160\" y2=\"120\" stroke=\"#935116\" stroke-width=\"2\"/><line x1=\"240\" y1=\"40\" x2=\"120\" y2=\"80\" stroke=\"#935116\" stroke-width=\"2\"/><line x1=\"280\" y1=\"80\" x2=\"160\" y2=\"120\" stroke=\"#935116\" stroke-width=\"2\"/><line x1=\"280\" y1=\"80\" x2=\"120\" y2=\"80\" stroke=\"#935116\" stroke-width=\"2\"/><line x1=\"240\" y1=\"120\" x2=\"120\" y2=\"80\" stroke=\"#935116\" stroke-width=\"2\"/></g><g id=\"q7ans\" opacity=\"0\"><rect x=\"110\" y=\"148\" width=\"200\" height=\"26\" rx=\"8\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"210\" y=\"165\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">9</text></g>",
+"q8":base+"<g id=\"q8s0\" opacity=\"0\"><rect x=\"30\" y=\"20\" width=\"360\" height=\"44\" rx=\"10\" fill=\"#f5e6c8\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"210\" y=\"38\" text-anchor=\"middle\" font-size=\"13\" fill=\"#5a4a30\" font-weight=\"800\">Identify the polygon</text><text x=\"210\" y=\"56\" text-anchor=\"middle\" font-size=\"11\" fill=\"#8a7a5a\">4 sides and all right angles</text></g><g id=\"q8s1\" opacity=\"0\"><rect x=\"160\" y=\"50\" width=\"100\" height=\"60\" fill=\"#d6eaf8\" stroke=\"#2874a6\" stroke-width=\"3\"/><line x1=\"160\" y1=\"50\" x2=\"170\" y2=\"60\" stroke=\"#2874a6\" stroke-width=\"2\"/><line x1=\"260\" y1=\"50\" x2=\"250\" y2=\"60\" stroke=\"#2874a6\" stroke-width=\"2\"/><line x1=\"160\" y1=\"110\" x2=\"170\" y2=\"100\" stroke=\"#2874a6\" stroke-width=\"2\"/><line x1=\"260\" y1=\"110\" x2=\"250\" y2=\"100\" stroke=\"#2874a6\" stroke-width=\"2\"/></g><g id=\"q8s2\" opacity=\"0\"><text x=\"210\" y=\"140\" text-anchor=\"middle\" font-size=\"14\" fill=\"#1b4f72\" font-weight=\"700\">This polygon is a rectangle or square.</text></g><g id=\"q8ans\" opacity=\"0\"><rect x=\"110\" y=\"128\" width=\"200\" height=\"26\" rx=\"8\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"210\" y=\"145\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Rectangle or Square</text></g>",
+"q9":base+"<g id=\"q9s0\" opacity=\"0\"><rect x=\"30\" y=\"20\" width=\"360\" height=\"44\" rx=\"10\" fill=\"#f5e6c8\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"210\" y=\"38\" text-anchor=\"middle\" font-size=\"13\" fill=\"#5a4a30\" font-weight=\"800\">Check polygon shape</text><text x=\"210\" y=\"56\" text-anchor=\"middle\" font-size=\"11\" fill=\"#8a7a5a\">Is there an inward bent side?</text></g><g id=\"q9s1\" opacity=\"0\"><polygon points=\"170,40 260,40 280,90 220,90 200,130 150,130 130,90\" fill=\"#d5f5e3\" stroke=\"#27ae60\" stroke-width=\"3\"/><circle cx=\"170\" cy=\"40\" r=\"5\" fill=\"#229954\"/><circle cx=\"260\" cy=\"40\" r=\"5\" fill=\"#229954\"/><circle cx=\"280\" cy=\"90\" r=\"5\" fill=\"#229954\"/><circle cx=\"220\" cy=\"90\" r=\"5\" fill=\"#229954\"/><circle cx=\"200\" cy=\"130\" r=\"5\" fill=\"#229954\"/><circle cx=\"150\" cy=\"130\" r=\"5\" fill=\"#229954\"/><circle cx=\"130\" cy=\"90\" r=\"5\" fill=\"#229954\"/></g><g id=\"q9s2\" opacity=\"0\"><text x=\"210\" y=\"160\" text-anchor=\"middle\" font-size=\"14\" fill=\"#1e8449\" font-weight=\"700\">The polygon is concave due to inward bent side.</text></g><g id=\"q9ans\" opacity=\"0\"><rect x=\"110\" y=\"148\" width=\"200\" height=\"26\" rx=\"8\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"210\" y=\"165\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Concave polygon</text></g>",
+"q10":base+"<g id=\"q10s0\" opacity=\"0\"><rect x=\"30\" y=\"20\" width=\"360\" height=\"44\" rx=\"10\" fill=\"#f5e6c8\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"210\" y=\"38\" text-anchor=\"middle\" font-size=\"13\" fill=\"#5a4a30\" font-weight=\"800\">Use formula and solve</text><text x=\"210\" y=\"56\" text-anchor=\"middle\" font-size=\"11\" fill=\"#8a7a5a\">900 = (n &minus; 2) &times; 180</text></g><g id=\"q10s1\" opacity=\"0\"><polygon points=\"180,40 260,40 300,80 280,140 200,140 160,80 140,90\" fill=\"#e8daef\" stroke=\"#7d3c98\" stroke-width=\"3\"/><circle cx=\"180\" cy=\"40\" r=\"5\" fill=\"#6c3483\"/><circle cx=\"260\" cy=\"40\" r=\"5\" fill=\"#6c3483\"/><circle cx=\"300\" cy=\"80\" r=\"5\" fill=\"#6c3483\"/><circle cx=\"280\" cy=\"140\" r=\"5\" fill=\"#6c3483\"/><circle cx=\"200\" cy=\"140\" r=\"5\" fill=\"#6c3483\"/><circle cx=\"160\" cy=\"80\" r=\"5\" fill=\"#6c3483\"/><circle cx=\"140\" cy=\"90\" r=\"5\" fill=\"#6c3483\"/></g><g id=\"q10s2\" opacity=\"0\"><text x=\"210\" y=\"160\" text-anchor=\"middle\" font-size=\"14\" fill=\"#512e5f\" font-weight=\"700\">Number of sides n = 7</text></g><g id=\"q10ans\" opacity=\"0\"><rect x=\"110\" y=\"148\" width=\"200\" height=\"26\" rx=\"8\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"210\" y=\"165\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">7</text></g>"
+};
+return svgs[t]||'<svg viewBox="0 0 420 178"><text x="210" y="89" text-anchor="middle" font-family="Nunito" font-size="14" fill="#5a4a30">Loading...</text></svg>';
+}
+
+function makeAnimPlay(id,steps,ansLabel){var gen=0;return function(done){var myGen=++gen;setStatus("Solving step by step...");function playStep(i){if(myGen!==gen)return;if(i>=steps.length){at(400,function(){if(myGen!==gen)return;fade(id+"ans",1);setStatus("Answer: "+ansLabel);at(2000,done);});return;}at(i===0?600:400,function(){if(myGen!==gen)return;fade(id+"s"+i,1);say(steps[i].s,function(){playStep(i+1);});});}playStep(0);}; }
+var ANIM_PLAYS={};
+QB.forEach(function(q){ANIM_PLAYS[q.id]=makeAnimPlay(q.id,q.steps,q.ans[0]);});
+function getAnimPlay(t){return ANIM_PLAYS[t]||function(done){done();};}
+
+var atTimers=[],session=[],idx=0,stepIdx=0,nudgeCount=0,completed=false,confirmShown=false,breakSecs=0,breakTmr=null,PER_SESSION=10;
+function G(id){return document.getElementById(id);}
+function clearAt(){for(var i=0;i<atTimers.length;i++)clearTimeout(atTimers[i]);atTimers=[];}
+function at(ms,fn){atTimers.push(setTimeout(fn,ms));}
+function fade(id,v){var e=G(id);if(e){e.style.transition="opacity .5s";e.style.opacity=v;}}
+function setStatus(t){var e=G("animStatus");if(e)e.textContent=t;}
+function startLesson(){var btn=G('startBtn');if(btn){btn.disabled=true;btn.textContent='▶ Starting...';}var done=false;function proceed(){if(!done){done=true;setTimeout(showQ,600);}}say(G('introText').innerText,proceed);setTimeout(proceed,8000);}
+function init(){
+  
+  var st=JSON.parse(localStorage.getItem("rishi_current_student")||"{}");
+  G("sName")&&(G("sName").textContent=st.studentName?st.studentName.split(" ")[0]:"there");
+  if(rishiIsExplainDone('ic8_15')){completed=true;G("doneBanner").classList.add("show");unlockNav();}
+  buildSession();rInit();
+  initVoices(function(){});
+}
+function buildSession(){session=QB.slice().sort(function(){return Math.random()-.5;}).slice(0,PER_SESSION);}
+function showQ(){
+  if(idx>=session.length){onComplete();return;}
+  var q=session[idx];stepIdx=0;nudgeCount=0;updateProg();G("qArea").innerHTML="";clearAt();
+  var qc=document.createElement("div");qc.className="q-card";
+  qc.innerHTML='<div class="q-label">Question '+(idx+1)+' of '+PER_SESSION+'</div><div class="q-text">'+q.q+'</div><button class="btn-speak" onclick="say(session[idx].qs)">&#128266; Hear</button>';
+  G("qArea").appendChild(qc);
+  var ap=document.createElement("div");ap.className="anim-panel";
+  ap.innerHTML='<div class="anim-header"><span class="anim-header-lbl">&#127909; Live Animation</span><button class="anim-replay" id="animReplay" onclick="replayAnim()">&#8635; Replay</button></div>'
+    +'<div class="anim-canvas" id="animCanvas">'+getAnimSVG(q.anim)+'</div>'
+    +'<div class="anim-status" id="animStatus">Tap Play to watch with narration!</div>'
+    +'<button class="anim-play-btn" id="animPlayBtn" onclick="startAnim()">&#9654; Play Animation</button>'
+    +'<button class="steps-btn" id="stepsBtn" onclick="beginSteps()">&#128214; See Step-by-Step</button>';
+  G("qArea").appendChild(ap);setTimeout(startAnim,800);
+}
+function startAnim(){var q=session[idx];var pb=G("animPlayBtn");if(pb){pb.disabled=true;pb.textContent="&#9654; Playing...";}getAnimPlay(q.anim)(function(){var sb=G("stepsBtn");if(sb)sb.style.display="block";var rb=G("animReplay");if(rb)rb.style.display="block";if(pb)pb.style.display="none";setTimeout(beginSteps,600);});}
+function replayAnim(){clearAt();window.speechSynthesis&&window.speechSynthesis.cancel();rStopTalk();var q=session[idx];G("animCanvas").innerHTML=getAnimSVG(q.anim);G("animReplay").style.display="none";G("stepsBtn").style.display="none";var pb=G("animPlayBtn");if(pb){pb.style.display="block";pb.disabled=false;pb.textContent="&#9654; Play Animation";}setStatus("Tap Play to watch with narration!");}
+function beginSteps(){var q=session[idx];var sc=document.createElement("div");sc.className="q-card";sc.innerHTML='<div class="q-label">&#128214; Step-by-Step</div><div id="stepsWrap"></div><button class="btn-speak" id="nxtStepBtn" onclick="nextStep()" style="margin-top:10px;">&#9654; Next Step</button>';G("qArea").appendChild(sc);sc.scrollIntoView({behavior:"smooth",block:"start"});G("stepsBtn").style.display="none";setTimeout(nextStep,350);}
+var nsGen=0;function nextStep(){var myGen=++nsGen;var q=session[idx];if(stepIdx>=q.steps.length){G("nxtStepBtn").style.display="none";var ib=document.createElement("button");ib.className="btn-speak";ib.innerHTML="&#9989; I Understand!";ib.style.cssText="margin-top:16px;width:100%;";ib.onclick=function(){ib.remove();showConfirm();};G("stepsWrap").appendChild(ib);ib.scrollIntoView({behavior:"smooth",block:"center"});return;}var s=q.steps[stepIdx];var wrap=G("stepsWrap");var d=document.createElement("div");d.className="step";d.innerHTML='<div class="step-num">'+(stepIdx+1)+'</div><div class="step-body">'+s.t+'</div>';wrap.appendChild(d);setTimeout(function(){d.classList.add("vis");},40);stepIdx++;say(s.s||s.t.replace(/<[^>]*>/g,""),function(){if(myGen===nsGen)nextStep();});}
+function showConfirm(){if(confirmShown)return;confirmShown=true;
+  var q=session[idx];var c=document.createElement("div");c.className="confirm-wrap";
+  c.innerHTML='<div class="confirm-title">&#127917; Rishika asks!</div>'
+    +'<div class="confirm-q">'+q.cq+'</div>'
+    +'<textarea id="rawAnswer" class="math-raw" rows="2" autocomplete="off" placeholder="Type your answer here..."></textarea>'
+    +'<div class="math-preview-label">Preview</div>'
+    +'<div class="math-preview" id="mathPreview"></div>'
+    +'<div class="sugg-chips" id="suggChips"></div>'
+    +'<button type="button" onclick="submitTyped()" style="width:100%;font-family:Nunito,sans-serif;font-size:14px;font-weight:900;padding:11px;border-radius:12px;border:none;background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;cursor:pointer;margin-bottom:8px;">Submit Answer</button>'
+    +'<div class="result-box" id="rbox"></div>'
+    +'<div class="nudge" id="nudgeBox"></div>'
+    +'<button type="button" class="btn-next" id="btnNext" onclick="goNext()">Next Question &#9654;</button>';
+  G("qArea").appendChild(c);c.scrollIntoView({behavior:"smooth",block:"center"});
+  var ra=G("rawAnswer");
+  if(ra){ra.addEventListener("input",mathUpdate);ra.addEventListener("keydown",function(ev){if(ev.key==="Enter"&&!ev.shiftKey){ev.preventDefault();submitTyped();}});setTimeout(function(){ra.focus();},300);}
+  buildSuggChips(q.ans);say(q.cqs);
+}
+function submitTyped(){var ra=G("rawAnswer");if(!ra)return;var val=String(ra.value||"").trim();if(!val){ra.focus();return;}handleAnswer(val.toLowerCase());}
+function goNext(){confirmShown=false;idx++;G("qArea").innerHTML="";showQ();window.scrollTo({top:0,behavior:"smooth"});}
+function updateProg(){var pct=Math.round((idx/PER_SESSION)*100);G("progFill").style.width=pct+"%";G("progLabel").textContent="Question "+(idx+1)+" of "+PER_SESSION;G("progPct").textContent=pct+"%";}
+function unlockNav(){G("btnPractice").classList.remove("locked");G("btnExam").classList.remove("locked");G("lockTip").style.display="none";}
+function onComplete(){
+  rishiMarkExplainDone('ic8_15');
+  completed=true;G("doneBanner").classList.add("show");unlockNav();
+  var st=JSON.parse(localStorage.getItem("rishi_current_student")||"{}");
+  var nm=st.studentName?st.studentName.split(" ")[0]:"champion";
+  var cel=document.createElement("div");cel.className="rishika-wrap";
+  cel.innerHTML='<div class="rishika-avatar">&#128105;&#8205;&#127979;</div>'
+    +'<div class="rishika-bubble"><div class="rishika-name">Rishika</div>'
+    +'<div class="rishika-text" id="celText">&#127881; <span class="hl">'+nm+'</span>, Fantastic work! You&#39;ve mastered Polygons! 🎉</div>'
+    +'<button class="btn-speak" onclick="sayEl(\'celText\')">&#128266; Hear</button></div>';
+  G("qArea").appendChild(cel);setTimeout(function(){sayEl("celText");rHappy();},400);
+}
+function goPractice(){if(!completed){alert("Complete explanations first!");return;}location.href="/practice/icse/class8/geometry/polygons.html";}
+function goExam(){if(!completed){alert("Complete explanations first!");return;}if(!rishiIsPracticeDone('ic8_15')){alert('Complete Practice with 5 in a row first!');return;}location.href="/exam.html?ch=ic8-15";}
+var CELEBRATIONS=[{word:"Magnifique!",lang:"French",meaning:"Magnificent!",speak:"Magnifique"},{word:"Bravissimo!",lang:"Italian",meaning:"Very well done!",speak:"Bravissimo"},{word:"Wunderbar!",lang:"German",meaning:"Wonderful!",speak:"Wunderbar"},{word:"Shabash!",lang:"Hindi",meaning:"Well done!",speak:"Shabash"},{word:"Felicitaciones!",lang:"Spanish",meaning:"Congratulations!",speak:"Felicitaciones"}];
+var lastCelIdx=-1;
+function celebrate(){var i;do{i=Math.floor(Math.random()*CELEBRATIONS.length);}while(i===lastCelIdx&&CELEBRATIONS.length>1);lastCelIdx=i;var c=CELEBRATIONS[i];var rb=G("rbox");rb.className="result-box ok";rb.innerHTML='<div style="font-size:18px;font-weight:900;">'+c.word+'</div><div style="font-size:11px;">'+c.lang+' &middot; <em>'+c.meaning+'</em></div>';G("nudgeBox").classList.remove("show");var nb=G("btnNext");if(nb)nb.classList.add("show");say(c.speak);rHappy();}
+function handleAnswer(text){var q=session[idx];var ok=q.ans.some(function(a){return text.includes(a.toLowerCase())||a.toLowerCase().includes(text);});var rb=G("rbox");if(ok){celebrate();}else{nudgeCount++;rb.className="result-box no";rb.textContent="\u2716 Not quite. Listen to my hint!";var nudge=q.nudges[Math.min(nudgeCount-1,q.nudges.length-1)];showNudge(nudge);say(nudge);rThink();if(nudgeCount>=3){var nb2=G("btnNext");if(nb2){nb2.classList.add("show");nb2.textContent="I Understand \u25b6";}}}}
+function showNudge(msg){var n=G("nudgeBox");if(n){n.textContent=msg;n.classList.add("show");}}
+function openBreak(){G("breakOv").classList.add("show");}
+function closeBreak(){G("breakOv").classList.remove("show");}
+function startBreak(r){closeBreak();breakSecs=0;G("timerLbl").textContent=r;G("timerNum").textContent="00:00";G("timerScreen").classList.add("show");breakTmr=setInterval(function(){breakSecs++;var m=String(Math.floor(breakSecs/60)).padStart(2,"0");var s=String(breakSecs%60).padStart(2,"0");G("timerNum").textContent=m+":"+s;},1000);}
+function endBreak(){clearInterval(breakTmr);G("timerScreen").classList.remove("show");}
+function mathUpdate(){var ra=G("rawAnswer");if(!ra)return;var v=ra.value.trim();var el=G("mathPreview");if(el)el.textContent=v||"";}
+function buildSuggChips(ans){var el=G("suggChips");if(!el)return;el.innerHTML="";(ans||[]).forEach(function(a){var btn=document.createElement("button");btn.className="schip";btn.textContent=a;btn.type="button";btn.addEventListener("click",function(){var ra=G("rawAnswer");if(ra){ra.value=a;mathUpdate();ra.focus();}});el.appendChild(btn);});}
+window.onload=init;
+</script>
+<script src="/explain-helper.js"></script>
+</body>
+</html>

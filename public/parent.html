@@ -1047,6 +1047,32 @@ var ALL_CLASS_CHAPTERS = {
     ],
     explainBuilt: {1:1, 2:1, 3:1, 4:1, 5:1, 6:1, 7:1, 8:1, 9:1, 10:1}
   },
+  'ic8': {
+    chapters: [
+      {id:1,  name:"Rational Numbers",                     topic:"Arithmetic"},
+      {id:2,  name:"Exponents (Powers)",                   topic:"Arithmetic"},
+      {id:3,  name:"Squares and Square Roots",             topic:"Arithmetic"},
+      {id:4,  name:"Cubes and Cube Roots",                 topic:"Arithmetic"},
+      {id:5,  name:"Playing with Numbers",                 topic:"Arithmetic"},
+      {id:6,  name:"Sets",                                 topic:"Arithmetic"},
+      {id:7,  name:"Percent and Percentage",               topic:"Arithmetic"},
+      {id:8,  name:"Profit, Loss and Discount",            topic:"Arithmetic"},
+      {id:9,  name:"Compound Interest",                    topic:"Arithmetic"},
+      {id:10, name:"Direct and Inverse Variation",         topic:"Arithmetic"},
+      {id:11, name:"Time and Work",                        topic:"Arithmetic"},
+      {id:12, name:"Distance, Speed and Time",             topic:"Arithmetic"},
+      {id:13, name:"Linear Equations in One Variable",     topic:"Algebra"},
+      {id:14, name:"Linear Inequations",                   topic:"Algebra"},
+      {id:15, name:"Polygons",                             topic:"Geometry"},
+      {id:16, name:"Understanding Shapes (Quadrilaterals)",topic:"Geometry"},
+      {id:17, name:"Constructions of Quadrilaterals",      topic:"Geometry"},
+      {id:18, name:"Representing 3-D in 2-D",              topic:"Geometry"},
+      {id:19, name:"Area of Trapezium and Polygon",        topic:"Mensuration"},
+      {id:20, name:"Volume and Surface Area of Solids",    topic:"Mensuration"},
+      {id:21, name:"Data Handling",                        topic:"Data Handling"}
+    ],
+    explainBuilt: {1:1,2:1,3:1,4:1,5:1,6:1,7:1,8:1,9:1,10:1,11:1,12:1,13:1,14:1,15:1,16:1,17:1,18:1,19:1,20:1,21:1}
+  },
   'ic7': {
     chapters: [
       {id:1,  name:"Integers",                   topic:"Arithmetic"},
@@ -1101,6 +1127,7 @@ function getStudentClassKey() {
       var cls = parseInt(regs[i].class || 8);
       var board = (regs[i].board || 'CBSE').toLowerCase();
       if (board === 'icse' && cls === 7) return 'ic7';
+      if (board === 'icse' && cls === 8) return 'ic8';
       return cls;
     }
   }
@@ -1112,7 +1139,7 @@ function loadParentClassData() {
   var cd = ALL_CLASS_CHAPTERS[classKey] || ALL_CLASS_CHAPTERS[8];
   CHAPTERS     = cd.chapters;
   EXPLAIN_BUILT = cd.explainBuilt;
-  PROGRESS_KEY_PREFIX = (classKey === 'ic7') ? 'ic7_' : '';
+  PROGRESS_KEY_PREFIX = (classKey === 'ic7') ? 'ic7_' : (classKey === 'ic8') ? 'ic8_' : '';
 }
 
 

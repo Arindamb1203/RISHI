@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="rishi-board" content="icse">
+<meta name="rishi-class" content="8">
+<title>RISHI — Constructions of Quadrilaterals</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Nunito:wght@400;600;700;800;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<style>
+:root{--cream:#fdf6ec;--warm-white:#fffdf8;--gold:#c8922a;--gold-light:#e8b84b;--gold-pale:#f5e6c8;--amber:#d4870a;--sage:#7a8c6e;--sage-light:#a8b89a;--rust:#b85c2a;--charcoal:#2a2218;--mid:#5a4a30;--soft:#8a7a5a;--inactive:#c8b89a;--border-dark:#6b4c2a;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--cream);font-family:Nunito,sans-serif;min-height:100vh;color:var(--charcoal);}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(var(--gold-pale) 1px,transparent 1px),linear-gradient(90deg,var(--gold-pale) 1px,transparent 1px);background-size:40px 40px;opacity:.3;z-index:0;pointer-events:none;}
+.topbar{position:sticky;top:0;z-index:100;background:rgba(253,246,236,.97);border-bottom:2px solid var(--border-dark);backdrop-filter:blur(8px);padding:10px 18px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;}
+.logo-sm{font-family:'Orbitron',sans-serif;font-size:17px;font-weight:900;letter-spacing:4px;background:linear-gradient(135deg,var(--amber),var(--gold-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.topbar-center{font-family:'Orbitron',sans-serif;font-size:10px;letter-spacing:2px;color:var(--amber);text-transform:uppercase;}
+.topbar-right{display:flex;gap:8px;}
+.btn-topbar{font-family:Nunito,sans-serif;font-size:12px;font-weight:900;padding:6px 14px;border-radius:20px;border:2px solid var(--border-dark);background:var(--warm-white);color:var(--mid);cursor:pointer;}
+.btn-topbar.back{background:var(--gold-pale);}
+.prog-wrap{position:relative;z-index:10;padding:8px 18px;background:rgba(255,253,248,.9);border-bottom:1.5px solid var(--gold-pale);}
+.prog-info{display:flex;justify-content:space-between;font-size:11px;font-weight:800;color:var(--mid);margin-bottom:5px;}
+.prog-bar{height:6px;background:var(--gold-pale);border-radius:4px;overflow:hidden;}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--sage),var(--gold));border-radius:4px;transition:width .5s ease;}
+.main{position:relative;z-index:10;max-width:820px;margin:0 auto;padding:14px 14px 120px;}
+.rishika-wrap{display:flex;align-items:flex-start;gap:12px;margin-bottom:14px;}
+.rishika-avatar{width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,var(--sage),var(--sage-light));border:2px solid var(--border-dark);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;}
+.rishika-bubble{background:rgba(255,253,248,.97);border:2px solid var(--border-dark);border-radius:0 16px 16px 16px;padding:12px 16px;flex:1;box-shadow:0 4px 20px rgba(107,76,42,.1);}
+.rishika-name{font-size:10px;font-weight:900;color:var(--sage);letter-spacing:2px;text-transform:uppercase;margin-bottom:5px;}
+.rishika-text{font-size:14px;font-weight:700;color:var(--charcoal);line-height:1.6;}
+.hl{color:var(--amber);font-weight:900;}
+.btn-speak{display:inline-flex;align-items:center;gap:6px;font-family:Nunito,sans-serif;font-size:11px;font-weight:900;padding:5px 11px;border-radius:20px;border:2px solid var(--sage);background:#eef2eb;color:var(--sage);cursor:pointer;margin-top:8px;}
+.q-card{background:rgba(255,253,248,.97);border:2px solid var(--border-dark);border-radius:16px;padding:16px 18px;margin-bottom:12px;box-shadow:0 4px 20px rgba(107,76,42,.1);}
+.q-label{font-family:'Orbitron',sans-serif;font-size:10px;letter-spacing:3px;color:var(--amber);text-transform:uppercase;margin-bottom:8px;}
+.q-text{font-size:15px;font-weight:800;color:var(--charcoal);line-height:1.6;margin-bottom:10px;}
+.step{display:flex;gap:10px;margin-bottom:12px;opacity:0;transform:translateY(6px);transition:all .4s ease;}
+.step.vis{opacity:1;transform:translateY(0);}
+.step-num{width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;font-size:11px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:2px solid var(--border-dark);}
+.step-body{flex:1;font-size:13px;font-weight:700;color:var(--mid);line-height:1.6;padding-top:2px;}
+.anim-panel{background:#fffdf8;border:2px solid var(--border-dark);border-radius:14px;margin-bottom:12px;overflow:hidden;}
+.anim-header{background:linear-gradient(135deg,var(--charcoal),#3d2e1a);padding:7px 14px;display:flex;align-items:center;justify-content:space-between;}
+.anim-header-lbl{font-family:'Orbitron',sans-serif;font-size:9px;letter-spacing:2px;color:var(--gold-light);text-transform:uppercase;}
+.anim-replay{font-size:10px;font-weight:900;color:var(--gold-pale);background:none;border:1px solid var(--gold-pale);border-radius:20px;padding:2px 9px;cursor:pointer;display:none;}
+.anim-canvas{width:100%;max-height:195px;overflow:hidden;display:flex;align-items:center;justify-content:center;background:#fffdf8;}
+.anim-canvas svg{width:100%;max-height:195px;}
+.anim-status{padding:6px 14px;font-size:12px;font-weight:800;color:var(--mid);text-align:center;min-height:26px;border-top:1px solid var(--gold-pale);}
+.anim-play-btn{width:100%;padding:10px;font-family:Nunito,sans-serif;font-size:14px;font-weight:900;background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;border:none;cursor:pointer;}
+.anim-play-btn:disabled{background:var(--gold-pale);color:var(--inactive);cursor:not-allowed;}
+.steps-btn{width:100%;padding:10px;font-family:Nunito,sans-serif;font-size:14px;font-weight:900;background:linear-gradient(135deg,var(--sage),var(--sage-light));color:#fff;border:none;cursor:pointer;display:none;border-top:1px solid var(--gold-pale);}
+.confirm-wrap{margin-top:12px;background:linear-gradient(135deg,#eef2eb,#f5fbf2);border:2px solid var(--border-dark);border-radius:14px;padding:16px 18px;}
+.confirm-title{font-size:11px;font-weight:900;color:var(--sage);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;}
+.confirm-q{font-size:14px;font-weight:800;color:var(--charcoal);margin-bottom:12px;line-height:1.5;}
+.result-box{font-size:12px;font-weight:800;padding:9px 13px;border-radius:9px;display:none;line-height:1.4;}
+.result-box.ok{background:#eef2eb;border:2px solid var(--sage);color:var(--sage);display:block;}
+.result-box.no{background:#fff5f0;border:2px solid var(--rust);color:var(--rust);display:block;}
+.nudge{font-size:12px;font-weight:700;color:var(--mid);margin-top:7px;font-style:italic;display:none;}
+.nudge.show{display:block;}
+.btn-next{font-family:Nunito,sans-serif;font-size:14px;font-weight:900;padding:11px 22px;border-radius:12px;border:none;background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;cursor:pointer;display:none;margin-top:10px;width:100%;}
+.btn-next.show{display:block;}
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;z-index:100;background:rgba(253,246,236,.97);border-top:2px solid var(--border-dark);padding:10px 18px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap;align-items:center;}
+.btn-nav{font-family:Nunito,sans-serif;font-size:13px;font-weight:900;padding:10px 20px;border-radius:12px;border:2px solid var(--border-dark);cursor:pointer;}
+.btn-nav.practice{background:linear-gradient(135deg,var(--sage),var(--sage-light));color:#fff;border-color:var(--sage);}
+.btn-nav.exam{background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;border-color:var(--amber);}
+.btn-nav.locked{background:var(--gold-pale);color:var(--inactive);cursor:not-allowed;border-color:var(--inactive);}
+.lock-tip{font-size:10px;font-weight:700;color:var(--rust);width:100%;text-align:center;}
+.overlay{display:none;position:fixed;inset:0;background:rgba(42,34,24,.92);z-index:1000;flex-direction:column;align-items:center;justify-content:center;backdrop-filter:blur(6px);}
+.overlay.show{display:flex;}
+.break-box{background:var(--warm-white);border:2px solid var(--border-dark);border-radius:22px;padding:28px 32px;max-width:380px;width:90%;text-align:center;}
+.break-title{font-family:'Orbitron',sans-serif;font-size:14px;font-weight:900;color:var(--amber);letter-spacing:3px;margin-bottom:5px;}
+.break-sub{font-size:12px;font-weight:700;color:var(--soft);margin-bottom:16px;}
+.break-opts{display:flex;flex-direction:column;gap:8px;margin-bottom:12px;}
+.break-opt{font-family:Nunito,sans-serif;font-size:14px;font-weight:800;padding:11px;border-radius:11px;border:2px solid var(--border-dark);background:var(--warm-white);color:var(--mid);cursor:pointer;}
+.timer-screen{display:none;position:fixed;inset:0;background:#1a1208;z-index:1001;flex-direction:column;align-items:center;justify-content:center;}
+.timer-screen.show{display:flex;}
+.timer-reason{font-family:'Orbitron',sans-serif;font-size:12px;letter-spacing:4px;color:var(--gold-light);margin-bottom:16px;text-transform:uppercase;}
+.timer-num{font-family:'Orbitron',sans-serif;font-size:68px;font-weight:900;color:var(--gold-light);letter-spacing:6px;margin-bottom:30px;}
+.btn-end{font-family:Nunito,sans-serif;font-size:16px;font-weight:900;padding:13px 32px;border-radius:13px;border:2px solid var(--gold-light);background:transparent;color:var(--gold-light);cursor:pointer;}
+.done-banner{background:linear-gradient(135deg,#eef2eb,#f5fbf2);border:2px solid var(--border-dark);border-radius:14px;padding:14px 18px;text-align:center;margin-bottom:14px;display:none;}
+.done-banner.show{display:block;}
+.done-banner .dt{font-family:'Orbitron',sans-serif;font-size:12px;letter-spacing:2px;color:var(--sage);margin-bottom:4px;}
+.done-banner .ds{font-size:13px;font-weight:700;color:var(--mid);}
+.math-raw{width:100%;padding:10px 13px;border-radius:10px;border:2px solid var(--border-dark);background:var(--warm-white);color:var(--charcoal);font-size:1rem;font-family:'Share Tech Mono',monospace;resize:none;outline:none;min-height:48px;line-height:1.6;transition:border-color .2s;}
+.math-raw:focus{border-color:var(--amber);}
+.math-raw::placeholder{color:var(--inactive);font-family:Nunito,sans-serif;}
+.math-preview-label{font-size:0.68rem;text-transform:uppercase;letter-spacing:2px;color:var(--soft);margin:.5rem 0 .25rem;}
+.math-preview{min-height:44px;padding:.6rem 1rem;background:#f9f4ec;border-radius:8px;border:1.5px solid var(--gold-pale);font-size:1.1rem;color:var(--charcoal);overflow-x:auto;display:flex;align-items:center;justify-content:center;margin-bottom:10px;}
+.sugg-chips{display:flex;flex-wrap:wrap;gap:.35rem;margin-bottom:10px;}
+.schip{border:1.5px solid #1a6aaa;border-radius:20px;padding:.25rem .75rem;font-size:.78rem;cursor:pointer;background:#eef6ff;color:#0a5a9a;font-family:Nunito,sans-serif;font-weight:800;}
+#rWrap{position:fixed;bottom:68px;left:10px;z-index:200;width:82px;pointer-events:none;}
+#rChar{width:82px;filter:drop-shadow(0 4px 10px rgba(107,76,42,.3));}
+@keyframes rIn{from{transform:translateY(50px);opacity:0}to{transform:translateY(0);opacity:1}}
+@keyframes rBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+@media(max-width:600px){.main{padding:10px 10px 120px;}}
+</style>
+<script src="/rishi-sync.js"></script>
+<script src="/rishi-core.js"></script>
+<script src="/rishi-presence.js"></script>
+</head>
+<body>
+<div class="topbar">
+  <div class="logo-sm">RISHI</div>
+  <div class="topbar-center">📐 Constructions of Quadrilaterals</div>
+  <div class="topbar-right">
+    <button class="btn-topbar" onclick="openBreak()">&#9749; Break</button>
+    <button class="btn-topbar back" onclick="location.href='/syllabus.html?board=icse&class=8'">&#8592; Syllabus</button>
+  </div>
+</div>
+<div class="prog-wrap">
+  <div class="prog-info"><span id="progLabel">Question 1 of 10</span><span id="progPct">0%</span></div>
+  <div class="prog-bar"><div class="prog-fill" id="progFill" style="width:0%"></div></div>
+</div>
+<div class="main">
+  <div class="done-banner" id="doneBanner">
+    <div class="dt">&#10003; Explanation Completed!</div>
+    <div class="ds">Practice and Exam now unlocked.</div>
+  </div>
+  <div class="rishika-wrap">
+    <div class="rishika-avatar">&#128105;&#8205;&#127979;</div>
+    <div class="rishika-bubble">
+      <div class="rishika-name">Rishika</div>
+      <div class="rishika-text" id="introText">
+        Hi <span class="hl" id="sName">there</span>! I&#39;m Rishika! Today we explore <span class="hl">Constructions of Quadrilaterals</span>! 📐 Let&#39;s begin!
+      </div>
+      <button class="btn-speak" onclick="startLesson()" id="startBtn">&#9654; Start Lesson</button>
+    </div>
+  </div>
+  <div id="qArea"></div>
+</div>
+<div class="bottom-nav">
+  <div class="lock-tip" id="lockTip">&#9757; Complete explanations to unlock Practice and Exam</div>
+  <button class="btn-nav practice locked" id="btnPractice" onclick="goPractice()">&#9999;&#65039; Practice</button>
+  <button class="btn-nav exam locked" id="btnExam" onclick="goExam()">&#128221; Exam</button>
+</div>
+<div class="overlay" id="breakOv">
+  <div class="break-box">
+    <div class="break-title">Break</div>
+    <div class="break-sub">Choose &mdash; timer starts</div>
+    <div class="break-opts">
+      <button class="break-opt" onclick="startBreak('Water')">&#128167; Water</button>
+      <button class="break-opt" onclick="startBreak('Washroom')">&#128701; Washroom</button>
+      <button class="break-opt" onclick="startBreak('Physical')">&#127939; Physical</button>
+    </div>
+    <button class="break-opt" style="color:var(--soft)" onclick="closeBreak()">Cancel</button>
+  </div>
+</div>
+<div class="timer-screen" id="timerScreen">
+  <div class="timer-reason" id="timerLbl">Break</div>
+  <div class="timer-num" id="timerNum">00:00</div>
+  <button class="btn-end" onclick="endBreak()">&#10003; End Break</button>
+</div>
+<div id="rWrap">
+<svg id="rChar" viewBox="0 0 100 110" xmlns="http://www.w3.org/2000/svg">
+  <ellipse cx="50" cy="68" rx="36" ry="28" fill="#5a8a60" stroke="#3d6b42" stroke-width="2"/>
+  <ellipse cx="50" cy="66" rx="22" ry="16" fill="#7ab87a" stroke="#5a8a60" stroke-width="1.5"/>
+  <line x1="50" y1="50" x2="50" y2="82" stroke="#5a8a60" stroke-width="1.5"/>
+  <line x1="28" y1="66" x2="72" y2="66" stroke="#5a8a60" stroke-width="1.5"/>
+  <ellipse cx="20" cy="82" rx="10" ry="7" fill="#7ab87a" stroke="#5a8a60" stroke-width="1.5" transform="rotate(-20,20,82)"/>
+  <ellipse cx="80" cy="82" rx="10" ry="7" fill="#7ab87a" stroke="#5a8a60" stroke-width="1.5" transform="rotate(20,80,82)"/>
+  <ellipse cx="22" cy="58" rx="9" ry="6" fill="#7ab87a" stroke="#5a8a60" stroke-width="1.5" transform="rotate(20,22,58)"/>
+  <ellipse cx="78" cy="58" rx="9" ry="6" fill="#7ab87a" stroke="#5a8a60" stroke-width="1.5" transform="rotate(-20,78,58)"/>
+  <ellipse cx="50" cy="42" rx="10" ry="14" fill="#8fba6a" stroke="#5a8a60" stroke-width="1.5"/>
+  <ellipse cx="50" cy="28" rx="18" ry="16" fill="#8fba6a" stroke="#5a8a60" stroke-width="2"/>
+  <ellipse cx="43" cy="24" rx="5" ry="5.5" fill="white"/><ellipse cx="57" cy="24" rx="5" ry="5.5" fill="white"/>
+  <ellipse cx="43" cy="25" rx="3" ry="3.5" fill="#1a3a1a"/><ellipse cx="57" cy="25" rx="3" ry="3.5" fill="#1a3a1a"/>
+  <circle cx="44" cy="23" r="1.2" fill="white"/><circle cx="58" cy="23" r="1.2" fill="white"/>
+  <ellipse id="rLid1" cx="43" cy="24" rx="5" ry="1" fill="#8fba6a" opacity="0"/>
+  <ellipse id="rLid2" cx="57" cy="24" rx="5" ry="1" fill="#8fba6a" opacity="0"/>
+  <path id="rMouth" d="M44,33 Q50,38 56,33" fill="none" stroke="#3d6b42" stroke-width="2" stroke-linecap="round"/>
+  <ellipse id="rBlush1" cx="36" cy="30" rx="7" ry="4" fill="#ff9999" opacity="0"/>
+  <ellipse id="rBlush2" cx="64" cy="30" rx="7" ry="4" fill="#ff9999" opacity="0"/>
+  <rect x="28" y="90" width="44" height="13" fill="#d4870a" rx="4"/>
+  <text x="50" y="100" text-anchor="middle" font-family="Nunito" font-size="7" font-weight="900" fill="white">RISHIKA</text>
+</svg>
+</div>
+<script>
+var voicesReady=false,selectedVoice=null,elAudio=null;
+function pickVoice(){var vs=window.speechSynthesis.getVoices();if(!vs||vs.length===0)return false;var fk=["heera","veena","priya","raveena","female","woman","zira","samantha","victoria","karen","moira","tessa","fiona"];for(var i=0;i<vs.length;i++){if(vs[i].lang.toLowerCase().indexOf("en-in")===0){var n=vs[i].name.toLowerCase();for(var k=0;k<fk.length;k++){if(n.indexOf(fk[k])>=0){selectedVoice=vs[i];return true;}}}}for(var i=0;i<vs.length;i++){if(vs[i].lang.toLowerCase().indexOf("en")===0){var n=vs[i].name.toLowerCase();for(var k=0;k<fk.length;k++){if(n.indexOf(fk[k])>=0){selectedVoice=vs[i];return true;}}}}return false;}
+function initVoices(cb){if(pickVoice()){voicesReady=true;cb();return;}window.speechSynthesis.onvoiceschanged=function(){window.speechSynthesis.onvoiceschanged=null;pickVoice();voicesReady=true;cb();};setTimeout(function(){if(!voicesReady){pickVoice();voicesReady=true;cb();}},2000);}
+function stopAllAudio(){if(elAudio){try{elAudio.onended=null;elAudio.onerror=null;elAudio.pause();elAudio.src="";}catch(x){}elAudio=null;}if(window.speechSynthesis)window.speechSynthesis.cancel();}
+function sayBrowser(text,onEnd){if(!window.speechSynthesis)return;window.speechSynthesis.cancel();rStartTalk(text.length);var u=new SpeechSynthesisUtterance(text);u.lang="en-IN";u.rate=0.88;u.pitch=1.15;if(selectedVoice)u.voice=selectedVoice;u.onend=function(){rStopTalk();if(onEnd)onEnd();};u.onerror=function(){rStopTalk();if(onEnd)onEnd();};window.speechSynthesis.speak(u);}
+function say(text,onEnd){stopAllAudio();rStartTalk(text.length);fetch("/tts",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({text:text})}).then(function(res){if(!res.ok)throw new Error("TTS "+res.status);return res.blob();}).then(function(blob){var url=URL.createObjectURL(blob);elAudio=new Audio(url);elAudio.onended=function(){URL.revokeObjectURL(url);elAudio=null;rStopTalk();if(onEnd)onEnd();};elAudio.onerror=function(){URL.revokeObjectURL(url);elAudio=null;rStopTalk();sayBrowser(text,onEnd);};var p=elAudio.play();if(p&&p.catch){p.catch(function(){URL.revokeObjectURL(url);elAudio=null;sayBrowser(text,onEnd);});}}).catch(function(err){sayBrowser(text,onEnd);});}
+function sayEl(id){var e=G(id);if(e)say(e.innerText||e.textContent);}
+window.addEventListener("beforeunload",function(){stopAllAudio();});window.addEventListener("pagehide",function(){stopAllAudio();});
+var mouthTmr=null,blinkTmr=null,mOpen=false;
+function rInit(){var c=G("rChar");if(c)c.style.animation="rIn .6s cubic-bezier(.34,1.56,.64,1) forwards";scheduleBlink();}
+function scheduleBlink(){blinkTmr=setTimeout(function(){rBlink();scheduleBlink();},2200+Math.random()*3000);}
+function rBlink(){var l=G("rLid1"),r=G("rLid2");if(!l||!r)return;l.setAttribute("ry","5.5");r.setAttribute("ry","5.5");setTimeout(function(){l.setAttribute("ry","1");r.setAttribute("ry","1");},120);}
+function rStartTalk(len){rStopTalk();G("rBlush1").style.opacity="0.7";G("rBlush2").style.opacity="0.7";mOpen=false;mouthTmr=setInterval(function(){mOpen=!mOpen;var m=G("rMouth");if(!m)return;if(mOpen){m.setAttribute("d","M42,33 Q50,42 58,33");m.setAttribute("fill","#1a3a1a");}else{m.setAttribute("d","M44,33 Q50,38 56,33");m.setAttribute("fill","none");}},160);setTimeout(rStopTalk,Math.max(1800,(len||20)*58));}
+function rStopTalk(){clearInterval(mouthTmr);mOpen=false;var m=G("rMouth");if(m){m.setAttribute("d","M44,33 Q50,38 56,33");m.setAttribute("fill","none");}G("rBlush1").style.opacity="0";G("rBlush2").style.opacity="0";}
+function rHappy(){var c=G("rChar");if(c)c.style.animation="rBounce .35s ease-in-out 5";G("rBlush1").style.opacity="1";G("rBlush2").style.opacity="1";setTimeout(function(){rStopTalk();var c=G("rChar");if(c)c.style.animation="none";},2500);}
+function rThink(){setTimeout(rStopTalk,1800);}
+
+var QB=[
+{
+id:"q1",
+q:"Construct a quadrilateral ABCD given that AB = 5 cm, BC = 6 cm, CD = 4 cm, DA = 7 cm and diagonal AC = 8 cm.",
+qs:"Construct quadrilateral ABCD with sides AB equals 5 centimetres, BC equals 6 centimetres, CD equals 4 centimetres, DA equals 7 centimetres and diagonal AC equals 8 centimetres.",
+anim:"q1",
+steps:[{"t": "Draw side AC of length 8 cm.", "s": "First, draw the diagonal AC measuring 8 centimetres."}, {"t": "With A as centre, draw an arc of radius 7 cm; with C as centre, draw an arc of radius 4 cm to locate point D.", "s": "Next, use compass arcs from points A and C to find point D."}, {"t": "With A as centre, draw an arc of radius 5 cm; with C as centre, draw an arc of radius 6 cm to locate point B.", "s": "Similarly, draw arcs from A and C to find point B."}],
+cq:"What type of quadrilateral can ABCD be if AB is parallel to CD?",
+cqs:"If side AB is parallel to side CD, what special quadrilateral is ABCD?",
+ans:["Trapezium", "If AB is parallel to CD, ABCD is a trapezium."],
+nudges:["Start by drawing diagonal AC first.", "Use compass to draw arcs for locating points B and D.", "Remember to label all points clearly."],
+anim_svg:"<g id=\"q1s0\" opacity=\"0\"><rect x=\"30\" y=\"20\" width=\"360\" height=\"44\" rx=\"10\" fill=\"#f5e6c8\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"210\" y=\"38\" text-anchor=\"middle\" font-size=\"13\" fill=\"#5a4a30\" font-weight=\"800\">Draw diagonal AC = 8 cm</text></g><g id=\"q1s1\" opacity=\"0\"><circle cx=\"80\" cy=\"100\" r=\"7\" fill=\"none\" stroke=\"#7a8c6e\" stroke-width=\"1.5\"/><circle cx=\"240\" cy=\"100\" r=\"5\" fill=\"none\" stroke=\"#7a8c6e\" stroke-width=\"1.5\"/><line x1=\"80\" y1=\"100\" x2=\"240\" y2=\"100\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"80\" y=\"90\" font-size=\"12\" fill=\"#5a4a30\">A</text><text x=\"240\" y=\"90\" font-size=\"12\" fill=\"#5a4a30\">C</text></g><g id=\"q1s2\" opacity=\"0\"><circle cx=\"80\" cy=\"100\" r=\"70\" fill=\"none\" stroke=\"#7a8c6e\" stroke-dasharray=\"5 5\"/><circle cx=\"240\" cy=\"100\" r=\"40\" fill=\"none\" stroke=\"#7a8c6e\" stroke-dasharray=\"5 5\"/><text x=\"160\" y=\"50\" font-size=\"12\" fill=\"#5a4a30\">Arcs to locate D</text></g><g id=\"q1ans\" opacity=\"0\"><polygon points=\"80,100 130,140 240,100 180,60\" fill=\"none\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"100\" y=\"150\" font-size=\"12\" fill=\"#7a8c6e\">D</text><text x=\"130\" y=\"50\" font-size=\"12\" fill=\"#7a8c6e\">B</text></g>"
+},
+{
+id:"q2",
+q:"Construct a quadrilateral PQRS given that PQ = 6 cm, QR = 5 cm, RS = 7 cm, diagonal PR = 8 cm and diagonal QS = 6 cm.",
+qs:"Construct quadrilateral PQRS with sides PQ equals 6 centimetres, QR equals 5 centimetres, RS equals 7 centimetres and diagonals PR equals 8 centimetres and QS equals 6 centimetres.",
+anim:"q2",
+steps:[{"t": "Draw diagonal PR of length 8 cm.", "s": "Start by drawing diagonal PR measuring 8 centimetres."}, {"t": "With P as centre, draw an arc of radius 6 cm; with R as centre, draw an arc of radius 5 cm to locate point Q.", "s": "Draw arcs from P and R to find point Q."}, {"t": "With P as centre, draw an arc of radius 6 cm; with R as centre, draw an arc of radius 7 cm to locate point S.", "s": "Draw arcs from P and R to find point S."}],
+cq:"Which two diagonals intersect inside the quadrilateral PQRS?",
+cqs:"Name the diagonals that intersect inside quadrilateral PQRS.",
+ans:["PR and QS", "Diagonals PR and QS intersect inside PQRS."],
+nudges:["Draw the diagonals first.", "Use compass arcs to find points Q and S.", "Label all points clearly."],
+anim_svg:"<g id=\"q2s0\" opacity=\"0\"><line x1=\"60\" y1=\"100\" x2=\"220\" y2=\"100\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"60\" y=\"90\" font-size=\"12\" fill=\"#5a4a30\">P</text><text x=\"220\" y=\"90\" font-size=\"12\" fill=\"#5a4a30\">R</text></g><g id=\"q2s1\" opacity=\"0\"><circle cx=\"60\" cy=\"100\" r=\"60\" fill=\"none\" stroke=\"#7a8c6e\" stroke-dasharray=\"5 5\"/><circle cx=\"220\" cy=\"100\" r=\"50\" fill=\"none\" stroke=\"#7a8c6e\" stroke-dasharray=\"5 5\"/><text x=\"140\" y=\"50\" font-size=\"12\" fill=\"#5a4a30\">Arcs for Q</text></g><g id=\"q2s2\" opacity=\"0\"><circle cx=\"60\" cy=\"100\" r=\"60\" fill=\"none\" stroke=\"#7a8c6e\" stroke-dasharray=\"5 5\"/><circle cx=\"220\" cy=\"100\" r=\"70\" fill=\"none\" stroke=\"#7a8c6e\" stroke-dasharray=\"5 5\"/><text x=\"140\" y=\"160\" font-size=\"12\" fill=\"#5a4a30\">Arcs for S</text></g><g id=\"q2ans\" opacity=\"0\"><polygon points=\"60,100 110,150 220,100 170,50\" fill=\"none\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"110\" y=\"160\" font-size=\"12\" fill=\"#7a8c6e\">Q</text><text x=\"170\" y=\"40\" font-size=\"12\" fill=\"#7a8c6e\">S</text></g>"
+},
+{
+id:"q3",
+q:"Construct a quadrilateral WXYZ where WX = 5 cm, XY = 6 cm, YZ = 4 cm, ZX = 7 cm and angle WXY = 60°.",
+qs:"Construct quadrilateral WXYZ with sides WX equals 5 centimetres, XY equals 6 centimetres, YZ equals 4 centimetres, ZX equals 7 centimetres and angle WXY equals 60 degrees.",
+anim:"q3",
+steps:[{"t": "Draw side WX of length 5 cm.", "s": "Draw the side WX measuring 5 centimetres."}, {"t": "At point X, construct angle WXY of 60° using compass and ruler.", "s": "At point X, construct angle of 60 degrees."}, {"t": "From X along the angle, mark point Y at 6 cm; complete quadrilateral by joining YZ and ZX.", "s": "Mark Y on the angle at 6 centimetres and join points to form quadrilateral."}],
+cq:"What is the measure of angle XYZ if quadrilateral WXYZ is cyclic?",
+cqs:"If WXYZ is cyclic, what is angle XYZ?",
+ans:["120°", "Angle XYZ equals 120 degrees in cyclic quadrilateral."],
+nudges:["Start with side WX.", "Use protractor or compass to construct angle at X.", "Complete the quadrilateral by joining remaining sides."],
+anim_svg:"<g id=\"q3s0\" opacity=\"0\"><line x1=\"60\" y1=\"120\" x2=\"110\" y2=\"120\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"60\" y=\"110\" font-size=\"12\" fill=\"#5a4a30\">W</text><text x=\"110\" y=\"110\" font-size=\"12\" fill=\"#5a4a30\">X</text></g><g id=\"q3s1\" opacity=\"0\"><path d=\"M110 120 L160 80\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><circle cx=\"110\" cy=\"120\" r=\"40\" fill=\"none\" stroke=\"#7a8c6e\" stroke-dasharray=\"5 5\"/><text x=\"130\" y=\"90\" font-size=\"12\" fill=\"#5a4a30\">60° angle at X</text></g><g id=\"q3s2\" opacity=\"0\"><line x1=\"160\" y1=\"80\" x2=\"200\" y2=\"130\" stroke=\"#c8922a\" stroke-width=\"2\"/><line x1=\"200\" y1=\"130\" x2=\"60\" y2=\"120\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"160\" y=\"70\" font-size=\"12\" fill=\"#7a8c6e\">Y</text><text x=\"200\" y=\"140\" font-size=\"12\" fill=\"#7a8c6e\">Z</text></g><g id=\"q3ans\" opacity=\"0\"><polygon points=\"60,120 110,120 160,80 200,130\" fill=\"none\" stroke=\"#c8922a\" stroke-width=\"2\"/></g>"
+},
+{
+id:"q4",
+q:"Construct a quadrilateral ABCD with sides AB = 6 cm, BC = 5 cm, CD = 7 cm and angles ABC = 90°, BCD = 120°.",
+qs:"Construct quadrilateral ABCD with sides AB equals 6 centimetres, BC equals 5 centimetres, CD equals 7 centimetres and angles ABC equals 90 degrees, BCD equals 120 degrees.",
+anim:"q4",
+steps:[{"t": "Draw side AB of length 6 cm.", "s": "Draw side AB measuring 6 centimetres."}, {"t": "At B, construct angle ABC of 90° and mark point C at 5 cm from B.", "s": "At point B, construct 90 degrees angle and mark point C at 5 centimetres."}, {"t": "At C, construct angle BCD of 120° and mark point D at 7 cm from C.", "s": "At point C, construct 120 degrees angle and mark point D at 7 centimetres."}],
+cq:"What type of quadrilateral is ABCD if AD is parallel to BC?",
+cqs:"If AD is parallel to BC, what special quadrilateral is ABCD?",
+ans:["Parallelogram", "ABCD is a parallelogram if AD is parallel to BC."],
+nudges:["Draw side AB first.", "Use compass and protractor to construct given angles.", "Locate points C and D accordingly."],
+anim_svg:"<g id=\"q4s0\" opacity=\"0\"><line x1=\"50\" y1=\"120\" x2=\"110\" y2=\"120\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"50\" y=\"110\" font-size=\"12\" fill=\"#5a4a30\">A</text><text x=\"110\" y=\"110\" font-size=\"12\" fill=\"#5a4a30\">B</text></g><g id=\"q4s1\" opacity=\"0\"><line x1=\"110\" y1=\"120\" x2=\"110\" y2=\"70\" stroke=\"#c8922a\" stroke-width=\"2\"/><path d=\"M110 120 L130 100\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"120\" y=\"60\" font-size=\"12\" fill=\"#5a4a30\">C</text><text x=\"120\" y=\"130\" font-size=\"12\" fill=\"#5a4a30\">90° at B</text></g><g id=\"q4s2\" opacity=\"0\"><line x1=\"110\" y1=\"70\" x2=\"60\" y2=\"40\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"50\" y=\"40\" font-size=\"12\" fill=\"#7a8c6e\">D</text><text x=\"120\" y=\"75\" font-size=\"12\" fill=\"#5a4a30\">120° at C</text></g><g id=\"q4ans\" opacity=\"0\"><polygon points=\"50,120 110,120 110,70 60,40\" fill=\"none\" stroke=\"#c8922a\" stroke-width=\"2\"/></g>"
+},
+{
+id:"q5",
+q:"Construct a parallelogram PQRS given that PQ = 6 cm, QR = 4 cm and angle PQR = 60°.",
+qs:"Construct parallelogram PQRS with sides PQ equals 6 centimetres, QR equals 4 centimetres and angle PQR equals 60 degrees.",
+anim:"q5",
+steps:[{"t": "Draw side PQ of length 6 cm.", "s": "Draw side PQ measuring 6 centimetres."}, {"t": "At Q, construct angle PQR of 60° and draw side QR of length 4 cm.", "s": "At point Q, construct 60 degrees angle and draw side QR measuring 4 centimetres."}, {"t": "Complete parallelogram by drawing PS parallel to QR and RS parallel to PQ.", "s": "Draw lines parallel to complete parallelogram PQRS."}],
+cq:"What is the length of side PS in parallelogram PQRS?",
+cqs:"Find the length of side PS in parallelogram PQRS.",
+ans:["4 cm", "Side PS equals QR, so PS is 4 centimetres."],
+nudges:["Start with side PQ.", "Use compass and protractor for angle at Q.", "Remember opposite sides of parallelogram are equal."],
+anim_svg:"<g id=\"q5s0\" opacity=\"0\"><line x1=\"60\" y1=\"120\" x2=\"120\" y2=\"120\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"60\" y=\"110\" font-size=\"12\" fill=\"#5a4a30\">P</text><text x=\"120\" y=\"110\" font-size=\"12\" fill=\"#5a4a30\">Q</text></g><g id=\"q5s1\" opacity=\"0\"><line x1=\"120\" y1=\"120\" x2=\"160\" y2=\"80\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"160\" y=\"70\" font-size=\"12\" fill=\"#5a4a30\">R</text><text x=\"130\" y=\"130\" font-size=\"12\" fill=\"#5a4a30\">60° at Q</text></g><g id=\"q5s2\" opacity=\"0\"><line x1=\"60\" y1=\"120\" x2=\"100\" y2=\"80\" stroke=\"#c8922a\" stroke-width=\"2\"/><line x1=\"100\" y1=\"80\" x2=\"160\" y2=\"80\" stroke=\"#c8922a\" stroke-width=\"2\"/></g><g id=\"q5ans\" opacity=\"0\"><polygon points=\"60,120 120,120 160,80 100,80\" fill=\"none\" stroke=\"#c8922a\" stroke-width=\"2\"/></g>"
+},
+{
+id:"q6",
+q:"Construct a rectangle ABCD with length AB = 8 cm and width BC = 5 cm using ruler and compass.",
+qs:"Construct rectangle ABCD with length AB equals 8 centimetres and width BC equals 5 centimetres using ruler and compass.",
+anim:"q6",
+steps:[{"t": "Draw side AB of length 8 cm.", "s": "Draw side AB measuring 8 centimetres."}, {"t": "At A and B, construct right angles and mark points D and C at 5 cm from A and B respectively.", "s": "Construct 90 degrees angles at A and B and mark points D and C."}, {"t": "Join points C and D to complete rectangle ABCD.", "s": "Join points C and D to complete the rectangle."}],
+cq:"What is the length of diagonal AC in rectangle ABCD?",
+cqs:"Calculate the length of diagonal AC in rectangle ABCD.",
+ans:["9.43 cm", "Diagonal AC equals square root of (8 squared plus 5 squared) which is approximately 9.43 cm."],
+nudges:["Draw length AB first.", "Use compass to construct right angles.", "Use Pythagoras theorem to find diagonal."],
+anim_svg:"<g id=\"q6s0\" opacity=\"0\"><line x1=\"50\" y1=\"120\" x2=\"130\" y2=\"120\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"50\" y=\"110\" font-size=\"12\" fill=\"#5a4a30\">A</text><text x=\"130\" y=\"110\" font-size=\"12\" fill=\"#5a4a30\">B</text></g><g id=\"q6s1\" opacity=\"0\"><line x1=\"50\" y1=\"120\" x2=\"50\" y2=\"70\" stroke=\"#c8922a\" stroke-width=\"2\"/><line x1=\"130\" y1=\"120\" x2=\"130\" y2=\"70\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"40\" y=\"70\" font-size=\"12\" fill=\"#5a4a30\">D</text><text x=\"140\" y=\"70\" font-size=\"12\" fill=\"#5a4a30\">C</text></g><g id=\"q6s2\" opacity=\"0\"><line x1=\"50\" y1=\"70\" x2=\"130\" y2=\"70\" stroke=\"#c8922a\" stroke-width=\"2\"/></g><g id=\"q6ans\" opacity=\"0\"><line x1=\"50\" y1=\"120\" x2=\"130\" y2=\"70\" stroke=\"#7a8c6e\" stroke-width=\"2\" stroke-dasharray=\"5 5\"/><text x=\"90\" y=\"100\" font-size=\"12\" fill=\"#7a8c6e\">Diagonal AC</text></g>"
+},
+{
+id:"q7",
+q:"Construct a rhombus ABCD with side 6 cm and one angle ABC = 60°.",
+qs:"Construct rhombus ABCD with each side equal to 6 centimetres and angle ABC equal to 60 degrees.",
+anim:"q7",
+steps:[{"t": "Draw side AB of length 6 cm.", "s": "Draw side AB measuring 6 centimetres."}, {"t": "At B, construct angle ABC of 60° and draw side BC of length 6 cm.", "s": "At point B, construct 60 degrees angle and draw side BC measuring 6 centimetres."}, {"t": "Complete rhombus by drawing sides CD and DA equal to 6 cm.", "s": "Draw sides CD and DA equal to 6 centimetres to complete rhombus."}],
+cq:"What is the length of diagonal AC in rhombus ABCD?",
+cqs:"Find the length of diagonal AC in rhombus ABCD.",
+ans:["6 cm", "Diagonal AC equals 6 centimetres in this rhombus."],
+nudges:["Start with side AB.", "Use compass and protractor for angle at B.", "All sides are equal in rhombus."],
+anim_svg:"<g id=\"q7s0\" opacity=\"0\"><line x1=\"60\" y1=\"120\" x2=\"120\" y2=\"120\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"60\" y=\"110\" font-size=\"12\" fill=\"#5a4a30\">A</text><text x=\"120\" y=\"110\" font-size=\"12\" fill=\"#5a4a30\">B</text></g><g id=\"q7s1\" opacity=\"0\"><line x1=\"120\" y1=\"120\" x2=\"160\" y2=\"80\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"160\" y=\"70\" font-size=\"12\" fill=\"#5a4a30\">C</text><text x=\"130\" y=\"130\" font-size=\"12\" fill=\"#5a4a30\">60° at B</text></g><g id=\"q7s2\" opacity=\"0\"><line x1=\"60\" y1=\"120\" x2=\"100\" y2=\"80\" stroke=\"#c8922a\" stroke-width=\"2\"/><line x1=\"100\" y1=\"80\" x2=\"160\" y2=\"80\" stroke=\"#c8922a\" stroke-width=\"2\"/></g><g id=\"q7ans\" opacity=\"0\"><polygon points=\"60,120 120,120 160,80 100,80\" fill=\"none\" stroke=\"#c8922a\" stroke-width=\"2\"/><line x1=\"60\" y1=\"120\" x2=\"160\" y2=\"80\" stroke=\"#7a8c6e\" stroke-width=\"2\" stroke-dasharray=\"5 5\"/><text x=\"100\" y=\"110\" font-size=\"12\" fill=\"#7a8c6e\">Diagonal AC</text></g>"
+},
+{
+id:"q8",
+q:"Construct a square PQRS with side 5 cm using only ruler and compass.",
+qs:"Construct square PQRS with each side equal to 5 centimetres using ruler and compass.",
+anim:"q8",
+steps:[{"t": "Draw side PQ of length 5 cm.", "s": "Draw side PQ measuring 5 centimetres."}, {"t": "At P and Q, construct right angles and mark points S and R at 5 cm from P and Q respectively.", "s": "Construct 90 degrees angles at P and Q and mark points S and R."}, {"t": "Join points R and S to complete square PQRS.", "s": "Join points R and S to complete the square."}],
+cq:"What is the length of diagonal PR in square PQRS?",
+cqs:"Calculate the length of diagonal PR in square PQRS.",
+ans:["7.07 cm", "Diagonal PR equals 5 root 2 which is approximately 7.07 cm."],
+nudges:["Draw side PQ first.", "Use compass to construct right angles.", "Use Pythagoras theorem to find diagonal."],
+anim_svg:"<g id=\"q8s0\" opacity=\"0\"><line x1=\"60\" y1=\"120\" x2=\"110\" y2=\"120\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"60\" y=\"110\" font-size=\"12\" fill=\"#5a4a30\">P</text><text x=\"110\" y=\"110\" font-size=\"12\" fill=\"#5a4a30\">Q</text></g><g id=\"q8s1\" opacity=\"0\"><line x1=\"60\" y1=\"120\" x2=\"60\" y2=\"70\" stroke=\"#c8922a\" stroke-width=\"2\"/><line x1=\"110\" y1=\"120\" x2=\"110\" y2=\"70\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"50\" y=\"70\" font-size=\"12\" fill=\"#5a4a30\">S</text><text x=\"120\" y=\"70\" font-size=\"12\" fill=\"#5a4a30\">R</text></g><g id=\"q8s2\" opacity=\"0\"><line x1=\"60\" y1=\"70\" x2=\"110\" y2=\"70\" stroke=\"#c8922a\" stroke-width=\"2\"/></g><g id=\"q8ans\" opacity=\"0\"><line x1=\"60\" y1=\"120\" x2=\"110\" y2=\"70\" stroke=\"#7a8c6e\" stroke-width=\"2\" stroke-dasharray=\"5 5\"/><text x=\"85\" y=\"100\" font-size=\"12\" fill=\"#7a8c6e\">Diagonal PR</text></g>"
+},
+{
+id:"q9",
+q:"Construct a kite ABCD with AB = AD = 5 cm and BC = DC = 3 cm.",
+qs:"Construct kite ABCD with sides AB equals AD equals 5 centimetres and BC equals DC equals 3 centimetres.",
+anim:"q9",
+steps:[{"t": "Draw diagonal BD of length 6 cm.", "s": "Draw diagonal BD measuring 6 centimetres."}, {"t": "With B as centre, draw arcs of radius 5 cm; with D as centre, draw arcs of radius 5 cm to locate points A.", "s": "Draw arcs from B and D to find point A."}, {"t": "With B as centre, draw arcs of radius 3 cm; with D as centre, draw arcs of radius 3 cm to locate point C.", "s": "Draw arcs from B and D to find point C."}],
+cq:"What is the shape of kite ABCD if diagonals BD and AC are perpendicular?",
+cqs:"If diagonals BD and AC are perpendicular, what is kite ABCD?",
+ans:["A kite with perpendicular diagonals", "Kite ABCD has diagonals BD and AC perpendicular to each other."],
+nudges:["Draw diagonal BD first.", "Use compass arcs to find points A and C.", "Label all points clearly."],
+anim_svg:"<g id=\"q9s0\" opacity=\"0\"><line x1=\"80\" y1=\"100\" x2=\"140\" y2=\"100\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"80\" y=\"90\" font-size=\"12\" fill=\"#5a4a30\">B</text><text x=\"140\" y=\"90\" font-size=\"12\" fill=\"#5a4a30\">D</text></g><g id=\"q9s1\" opacity=\"0\"><circle cx=\"80\" cy=\"100\" r=\"50\" fill=\"none\" stroke=\"#7a8c6e\" stroke-dasharray=\"5 5\"/><circle cx=\"140\" cy=\"100\" r=\"50\" fill=\"none\" stroke=\"#7a8c6e\" stroke-dasharray=\"5 5\"/><text x=\"110\" y=\"50\" font-size=\"12\" fill=\"#5a4a30\">Arcs for A</text></g><g id=\"q9s2\" opacity=\"0\"><circle cx=\"80\" cy=\"100\" r=\"30\" fill=\"none\" stroke=\"#7a8c6e\" stroke-dasharray=\"5 5\"/><circle cx=\"140\" cy=\"100\" r=\"30\" fill=\"none\" stroke=\"#7a8c6e\" stroke-dasharray=\"5 5\"/><text x=\"110\" y=\"150\" font-size=\"12\" fill=\"#5a4a30\">Arcs for C</text></g><g id=\"q9ans\" opacity=\"0\"><polygon points=\"80,100 110,60 140,100 110,140\" fill=\"none\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"110\" y=\"55\" font-size=\"12\" fill=\"#7a8c6e\">A</text><text x=\"110\" y=\"155\" font-size=\"12\" fill=\"#7a8c6e\">C</text></g>"
+},
+{
+id:"q10",
+q:"Construct a trapezium ABCD with AB parallel to DC, AB = 7 cm, BC = 5 cm, CD = 6 cm and angle ABC = 90°.",
+qs:"Construct trapezium ABCD with AB parallel to DC, AB equals 7 centimetres, BC equals 5 centimetres, CD equals 6 centimetres and angle ABC equals 90 degrees.",
+anim:"q10",
+steps:[{"t": "Draw side AB of length 7 cm.", "s": "Draw side AB measuring 7 centimetres."}, {"t": "At B, construct angle ABC of 90° and draw side BC of length 5 cm.", "s": "At point B, construct 90 degrees angle and draw side BC measuring 5 centimetres."}, {"t": "Join point C to D such that CD = 6 cm and DC is parallel to AB.", "s": "Draw side CD of 6 centimetres parallel to AB to complete trapezium."}],
+cq:"What is the length of side AD in trapezium ABCD?",
+cqs:"Find the length of side AD in trapezium ABCD.",
+ans:["Approximately 4.24 cm", "Side AD is approximately 4.24 centimetres using Pythagoras theorem."],
+nudges:["Draw side AB first.", "Construct right angle at B.", "Use compass to draw side CD parallel to AB."],
+anim_svg:"<g id=\"q10s0\" opacity=\"0\"><line x1=\"50\" y1=\"120\" x2=\"120\" y2=\"120\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"50\" y=\"110\" font-size=\"12\" fill=\"#5a4a30\">A</text><text x=\"120\" y=\"110\" font-size=\"12\" fill=\"#5a4a30\">B</text></g><g id=\"q10s1\" opacity=\"0\"><line x1=\"120\" y1=\"120\" x2=\"120\" y2=\"70\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"130\" y=\"70\" font-size=\"12\" fill=\"#5a4a30\">C</text><text x=\"130\" y=\"130\" font-size=\"12\" fill=\"#5a4a30\">90° at B</text></g><g id=\"q10s2\" opacity=\"0\"><line x1=\"120\" y1=\"70\" x2=\"60\" y2=\"70\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"50\" y=\"70\" font-size=\"12\" fill=\"#7a8c6e\">D</text><text x=\"90\" y=\"60\" font-size=\"12\" fill=\"#5a4a30\">CD = 6 cm</text></g><g id=\"q10ans\" opacity=\"0\"><line x1=\"50\" y1=\"120\" x2=\"60\" y2=\"70\" stroke=\"#7a8c6e\" stroke-width=\"2\" stroke-dasharray=\"5 5\"/><text x=\"55\" y=\"95\" font-size=\"12\" fill=\"#7a8c6e\">AD</text></g>"
+}
+];
+
+function getAnimSVG(t){
+var base='<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Nunito,sans-serif;background:#fffdf8"><rect width="420" height="178" fill="#fffdf8"/>';
+var svgs={
+"q1":base+"<g id=\"q1s0\" opacity=\"0\"><rect x=\"30\" y=\"20\" width=\"360\" height=\"44\" rx=\"10\" fill=\"#f5e6c8\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"210\" y=\"38\" text-anchor=\"middle\" font-size=\"13\" fill=\"#5a4a30\" font-weight=\"800\">Draw diagonal AC = 8 cm</text></g><g id=\"q1s1\" opacity=\"0\"><circle cx=\"80\" cy=\"100\" r=\"7\" fill=\"none\" stroke=\"#7a8c6e\" stroke-width=\"1.5\"/><circle cx=\"240\" cy=\"100\" r=\"5\" fill=\"none\" stroke=\"#7a8c6e\" stroke-width=\"1.5\"/><line x1=\"80\" y1=\"100\" x2=\"240\" y2=\"100\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"80\" y=\"90\" font-size=\"12\" fill=\"#5a4a30\">A</text><text x=\"240\" y=\"90\" font-size=\"12\" fill=\"#5a4a30\">C</text></g><g id=\"q1s2\" opacity=\"0\"><circle cx=\"80\" cy=\"100\" r=\"70\" fill=\"none\" stroke=\"#7a8c6e\" stroke-dasharray=\"5 5\"/><circle cx=\"240\" cy=\"100\" r=\"40\" fill=\"none\" stroke=\"#7a8c6e\" stroke-dasharray=\"5 5\"/><text x=\"160\" y=\"50\" font-size=\"12\" fill=\"#5a4a30\">Arcs to locate D</text></g><g id=\"q1ans\" opacity=\"0\"><polygon points=\"80,100 130,140 240,100 180,60\" fill=\"none\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"100\" y=\"150\" font-size=\"12\" fill=\"#7a8c6e\">D</text><text x=\"130\" y=\"50\" font-size=\"12\" fill=\"#7a8c6e\">B</text></g>",
+"q2":base+"<g id=\"q2s0\" opacity=\"0\"><line x1=\"60\" y1=\"100\" x2=\"220\" y2=\"100\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"60\" y=\"90\" font-size=\"12\" fill=\"#5a4a30\">P</text><text x=\"220\" y=\"90\" font-size=\"12\" fill=\"#5a4a30\">R</text></g><g id=\"q2s1\" opacity=\"0\"><circle cx=\"60\" cy=\"100\" r=\"60\" fill=\"none\" stroke=\"#7a8c6e\" stroke-dasharray=\"5 5\"/><circle cx=\"220\" cy=\"100\" r=\"50\" fill=\"none\" stroke=\"#7a8c6e\" stroke-dasharray=\"5 5\"/><text x=\"140\" y=\"50\" font-size=\"12\" fill=\"#5a4a30\">Arcs for Q</text></g><g id=\"q2s2\" opacity=\"0\"><circle cx=\"60\" cy=\"100\" r=\"60\" fill=\"none\" stroke=\"#7a8c6e\" stroke-dasharray=\"5 5\"/><circle cx=\"220\" cy=\"100\" r=\"70\" fill=\"none\" stroke=\"#7a8c6e\" stroke-dasharray=\"5 5\"/><text x=\"140\" y=\"160\" font-size=\"12\" fill=\"#5a4a30\">Arcs for S</text></g><g id=\"q2ans\" opacity=\"0\"><polygon points=\"60,100 110,150 220,100 170,50\" fill=\"none\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"110\" y=\"160\" font-size=\"12\" fill=\"#7a8c6e\">Q</text><text x=\"170\" y=\"40\" font-size=\"12\" fill=\"#7a8c6e\">S</text></g>",
+"q3":base+"<g id=\"q3s0\" opacity=\"0\"><line x1=\"60\" y1=\"120\" x2=\"110\" y2=\"120\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"60\" y=\"110\" font-size=\"12\" fill=\"#5a4a30\">W</text><text x=\"110\" y=\"110\" font-size=\"12\" fill=\"#5a4a30\">X</text></g><g id=\"q3s1\" opacity=\"0\"><path d=\"M110 120 L160 80\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><circle cx=\"110\" cy=\"120\" r=\"40\" fill=\"none\" stroke=\"#7a8c6e\" stroke-dasharray=\"5 5\"/><text x=\"130\" y=\"90\" font-size=\"12\" fill=\"#5a4a30\">60° angle at X</text></g><g id=\"q3s2\" opacity=\"0\"><line x1=\"160\" y1=\"80\" x2=\"200\" y2=\"130\" stroke=\"#c8922a\" stroke-width=\"2\"/><line x1=\"200\" y1=\"130\" x2=\"60\" y2=\"120\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"160\" y=\"70\" font-size=\"12\" fill=\"#7a8c6e\">Y</text><text x=\"200\" y=\"140\" font-size=\"12\" fill=\"#7a8c6e\">Z</text></g><g id=\"q3ans\" opacity=\"0\"><polygon points=\"60,120 110,120 160,80 200,130\" fill=\"none\" stroke=\"#c8922a\" stroke-width=\"2\"/></g>",
+"q4":base+"<g id=\"q4s0\" opacity=\"0\"><line x1=\"50\" y1=\"120\" x2=\"110\" y2=\"120\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"50\" y=\"110\" font-size=\"12\" fill=\"#5a4a30\">A</text><text x=\"110\" y=\"110\" font-size=\"12\" fill=\"#5a4a30\">B</text></g><g id=\"q4s1\" opacity=\"0\"><line x1=\"110\" y1=\"120\" x2=\"110\" y2=\"70\" stroke=\"#c8922a\" stroke-width=\"2\"/><path d=\"M110 120 L130 100\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"120\" y=\"60\" font-size=\"12\" fill=\"#5a4a30\">C</text><text x=\"120\" y=\"130\" font-size=\"12\" fill=\"#5a4a30\">90° at B</text></g><g id=\"q4s2\" opacity=\"0\"><line x1=\"110\" y1=\"70\" x2=\"60\" y2=\"40\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"50\" y=\"40\" font-size=\"12\" fill=\"#7a8c6e\">D</text><text x=\"120\" y=\"75\" font-size=\"12\" fill=\"#5a4a30\">120° at C</text></g><g id=\"q4ans\" opacity=\"0\"><polygon points=\"50,120 110,120 110,70 60,40\" fill=\"none\" stroke=\"#c8922a\" stroke-width=\"2\"/></g>",
+"q5":base+"<g id=\"q5s0\" opacity=\"0\"><line x1=\"60\" y1=\"120\" x2=\"120\" y2=\"120\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"60\" y=\"110\" font-size=\"12\" fill=\"#5a4a30\">P</text><text x=\"120\" y=\"110\" font-size=\"12\" fill=\"#5a4a30\">Q</text></g><g id=\"q5s1\" opacity=\"0\"><line x1=\"120\" y1=\"120\" x2=\"160\" y2=\"80\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"160\" y=\"70\" font-size=\"12\" fill=\"#5a4a30\">R</text><text x=\"130\" y=\"130\" font-size=\"12\" fill=\"#5a4a30\">60° at Q</text></g><g id=\"q5s2\" opacity=\"0\"><line x1=\"60\" y1=\"120\" x2=\"100\" y2=\"80\" stroke=\"#c8922a\" stroke-width=\"2\"/><line x1=\"100\" y1=\"80\" x2=\"160\" y2=\"80\" stroke=\"#c8922a\" stroke-width=\"2\"/></g><g id=\"q5ans\" opacity=\"0\"><polygon points=\"60,120 120,120 160,80 100,80\" fill=\"none\" stroke=\"#c8922a\" stroke-width=\"2\"/></g>",
+"q6":base+"<g id=\"q6s0\" opacity=\"0\"><line x1=\"50\" y1=\"120\" x2=\"130\" y2=\"120\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"50\" y=\"110\" font-size=\"12\" fill=\"#5a4a30\">A</text><text x=\"130\" y=\"110\" font-size=\"12\" fill=\"#5a4a30\">B</text></g><g id=\"q6s1\" opacity=\"0\"><line x1=\"50\" y1=\"120\" x2=\"50\" y2=\"70\" stroke=\"#c8922a\" stroke-width=\"2\"/><line x1=\"130\" y1=\"120\" x2=\"130\" y2=\"70\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"40\" y=\"70\" font-size=\"12\" fill=\"#5a4a30\">D</text><text x=\"140\" y=\"70\" font-size=\"12\" fill=\"#5a4a30\">C</text></g><g id=\"q6s2\" opacity=\"0\"><line x1=\"50\" y1=\"70\" x2=\"130\" y2=\"70\" stroke=\"#c8922a\" stroke-width=\"2\"/></g><g id=\"q6ans\" opacity=\"0\"><line x1=\"50\" y1=\"120\" x2=\"130\" y2=\"70\" stroke=\"#7a8c6e\" stroke-width=\"2\" stroke-dasharray=\"5 5\"/><text x=\"90\" y=\"100\" font-size=\"12\" fill=\"#7a8c6e\">Diagonal AC</text></g>",
+"q7":base+"<g id=\"q7s0\" opacity=\"0\"><line x1=\"60\" y1=\"120\" x2=\"120\" y2=\"120\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"60\" y=\"110\" font-size=\"12\" fill=\"#5a4a30\">A</text><text x=\"120\" y=\"110\" font-size=\"12\" fill=\"#5a4a30\">B</text></g><g id=\"q7s1\" opacity=\"0\"><line x1=\"120\" y1=\"120\" x2=\"160\" y2=\"80\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"160\" y=\"70\" font-size=\"12\" fill=\"#5a4a30\">C</text><text x=\"130\" y=\"130\" font-size=\"12\" fill=\"#5a4a30\">60° at B</text></g><g id=\"q7s2\" opacity=\"0\"><line x1=\"60\" y1=\"120\" x2=\"100\" y2=\"80\" stroke=\"#c8922a\" stroke-width=\"2\"/><line x1=\"100\" y1=\"80\" x2=\"160\" y2=\"80\" stroke=\"#c8922a\" stroke-width=\"2\"/></g><g id=\"q7ans\" opacity=\"0\"><polygon points=\"60,120 120,120 160,80 100,80\" fill=\"none\" stroke=\"#c8922a\" stroke-width=\"2\"/><line x1=\"60\" y1=\"120\" x2=\"160\" y2=\"80\" stroke=\"#7a8c6e\" stroke-width=\"2\" stroke-dasharray=\"5 5\"/><text x=\"100\" y=\"110\" font-size=\"12\" fill=\"#7a8c6e\">Diagonal AC</text></g>",
+"q8":base+"<g id=\"q8s0\" opacity=\"0\"><line x1=\"60\" y1=\"120\" x2=\"110\" y2=\"120\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"60\" y=\"110\" font-size=\"12\" fill=\"#5a4a30\">P</text><text x=\"110\" y=\"110\" font-size=\"12\" fill=\"#5a4a30\">Q</text></g><g id=\"q8s1\" opacity=\"0\"><line x1=\"60\" y1=\"120\" x2=\"60\" y2=\"70\" stroke=\"#c8922a\" stroke-width=\"2\"/><line x1=\"110\" y1=\"120\" x2=\"110\" y2=\"70\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"50\" y=\"70\" font-size=\"12\" fill=\"#5a4a30\">S</text><text x=\"120\" y=\"70\" font-size=\"12\" fill=\"#5a4a30\">R</text></g><g id=\"q8s2\" opacity=\"0\"><line x1=\"60\" y1=\"70\" x2=\"110\" y2=\"70\" stroke=\"#c8922a\" stroke-width=\"2\"/></g><g id=\"q8ans\" opacity=\"0\"><line x1=\"60\" y1=\"120\" x2=\"110\" y2=\"70\" stroke=\"#7a8c6e\" stroke-width=\"2\" stroke-dasharray=\"5 5\"/><text x=\"85\" y=\"100\" font-size=\"12\" fill=\"#7a8c6e\">Diagonal PR</text></g>",
+"q9":base+"<g id=\"q9s0\" opacity=\"0\"><line x1=\"80\" y1=\"100\" x2=\"140\" y2=\"100\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"80\" y=\"90\" font-size=\"12\" fill=\"#5a4a30\">B</text><text x=\"140\" y=\"90\" font-size=\"12\" fill=\"#5a4a30\">D</text></g><g id=\"q9s1\" opacity=\"0\"><circle cx=\"80\" cy=\"100\" r=\"50\" fill=\"none\" stroke=\"#7a8c6e\" stroke-dasharray=\"5 5\"/><circle cx=\"140\" cy=\"100\" r=\"50\" fill=\"none\" stroke=\"#7a8c6e\" stroke-dasharray=\"5 5\"/><text x=\"110\" y=\"50\" font-size=\"12\" fill=\"#5a4a30\">Arcs for A</text></g><g id=\"q9s2\" opacity=\"0\"><circle cx=\"80\" cy=\"100\" r=\"30\" fill=\"none\" stroke=\"#7a8c6e\" stroke-dasharray=\"5 5\"/><circle cx=\"140\" cy=\"100\" r=\"30\" fill=\"none\" stroke=\"#7a8c6e\" stroke-dasharray=\"5 5\"/><text x=\"110\" y=\"150\" font-size=\"12\" fill=\"#5a4a30\">Arcs for C</text></g><g id=\"q9ans\" opacity=\"0\"><polygon points=\"80,100 110,60 140,100 110,140\" fill=\"none\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"110\" y=\"55\" font-size=\"12\" fill=\"#7a8c6e\">A</text><text x=\"110\" y=\"155\" font-size=\"12\" fill=\"#7a8c6e\">C</text></g>",
+"q10":base+"<g id=\"q10s0\" opacity=\"0\"><line x1=\"50\" y1=\"120\" x2=\"120\" y2=\"120\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"50\" y=\"110\" font-size=\"12\" fill=\"#5a4a30\">A</text><text x=\"120\" y=\"110\" font-size=\"12\" fill=\"#5a4a30\">B</text></g><g id=\"q10s1\" opacity=\"0\"><line x1=\"120\" y1=\"120\" x2=\"120\" y2=\"70\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"130\" y=\"70\" font-size=\"12\" fill=\"#5a4a30\">C</text><text x=\"130\" y=\"130\" font-size=\"12\" fill=\"#5a4a30\">90° at B</text></g><g id=\"q10s2\" opacity=\"0\"><line x1=\"120\" y1=\"70\" x2=\"60\" y2=\"70\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"50\" y=\"70\" font-size=\"12\" fill=\"#7a8c6e\">D</text><text x=\"90\" y=\"60\" font-size=\"12\" fill=\"#5a4a30\">CD = 6 cm</text></g><g id=\"q10ans\" opacity=\"0\"><line x1=\"50\" y1=\"120\" x2=\"60\" y2=\"70\" stroke=\"#7a8c6e\" stroke-width=\"2\" stroke-dasharray=\"5 5\"/><text x=\"55\" y=\"95\" font-size=\"12\" fill=\"#7a8c6e\">AD</text></g>"
+};
+return svgs[t]||'<svg viewBox="0 0 420 178"><text x="210" y="89" text-anchor="middle" font-family="Nunito" font-size="14" fill="#5a4a30">Loading...</text></svg>';
+}
+
+function makeAnimPlay(id,steps,ansLabel){var gen=0;return function(done){var myGen=++gen;setStatus("Solving step by step...");function playStep(i){if(myGen!==gen)return;if(i>=steps.length){at(400,function(){if(myGen!==gen)return;fade(id+"ans",1);setStatus("Answer: "+ansLabel);at(2000,done);});return;}at(i===0?600:400,function(){if(myGen!==gen)return;fade(id+"s"+i,1);say(steps[i].s,function(){playStep(i+1);});});}playStep(0);}; }
+var ANIM_PLAYS={};
+QB.forEach(function(q){ANIM_PLAYS[q.id]=makeAnimPlay(q.id,q.steps,q.ans[0]);});
+function getAnimPlay(t){return ANIM_PLAYS[t]||function(done){done();};}
+
+var atTimers=[],session=[],idx=0,stepIdx=0,nudgeCount=0,completed=false,confirmShown=false,breakSecs=0,breakTmr=null,PER_SESSION=10;
+function G(id){return document.getElementById(id);}
+function clearAt(){for(var i=0;i<atTimers.length;i++)clearTimeout(atTimers[i]);atTimers=[];}
+function at(ms,fn){atTimers.push(setTimeout(fn,ms));}
+function fade(id,v){var e=G(id);if(e){e.style.transition="opacity .5s";e.style.opacity=v;}}
+function setStatus(t){var e=G("animStatus");if(e)e.textContent=t;}
+function startLesson(){var btn=G('startBtn');if(btn){btn.disabled=true;btn.textContent='▶ Starting...';}var done=false;function proceed(){if(!done){done=true;setTimeout(showQ,600);}}say(G('introText').innerText,proceed);setTimeout(proceed,8000);}
+function init(){
+  
+  var st=JSON.parse(localStorage.getItem("rishi_current_student")||"{}");
+  G("sName")&&(G("sName").textContent=st.studentName?st.studentName.split(" ")[0]:"there");
+  if(rishiIsExplainDone('ic8_17')){completed=true;G("doneBanner").classList.add("show");unlockNav();}
+  buildSession();rInit();
+  initVoices(function(){});
+}
+function buildSession(){session=QB.slice().sort(function(){return Math.random()-.5;}).slice(0,PER_SESSION);}
+function showQ(){
+  if(idx>=session.length){onComplete();return;}
+  var q=session[idx];stepIdx=0;nudgeCount=0;updateProg();G("qArea").innerHTML="";clearAt();
+  var qc=document.createElement("div");qc.className="q-card";
+  qc.innerHTML='<div class="q-label">Question '+(idx+1)+' of '+PER_SESSION+'</div><div class="q-text">'+q.q+'</div><button class="btn-speak" onclick="say(session[idx].qs)">&#128266; Hear</button>';
+  G("qArea").appendChild(qc);
+  var ap=document.createElement("div");ap.className="anim-panel";
+  ap.innerHTML='<div class="anim-header"><span class="anim-header-lbl">&#127909; Live Animation</span><button class="anim-replay" id="animReplay" onclick="replayAnim()">&#8635; Replay</button></div>'
+    +'<div class="anim-canvas" id="animCanvas">'+getAnimSVG(q.anim)+'</div>'
+    +'<div class="anim-status" id="animStatus">Tap Play to watch with narration!</div>'
+    +'<button class="anim-play-btn" id="animPlayBtn" onclick="startAnim()">&#9654; Play Animation</button>'
+    +'<button class="steps-btn" id="stepsBtn" onclick="beginSteps()">&#128214; See Step-by-Step</button>';
+  G("qArea").appendChild(ap);setTimeout(startAnim,800);
+}
+function startAnim(){var q=session[idx];var pb=G("animPlayBtn");if(pb){pb.disabled=true;pb.textContent="&#9654; Playing...";}getAnimPlay(q.anim)(function(){var sb=G("stepsBtn");if(sb)sb.style.display="block";var rb=G("animReplay");if(rb)rb.style.display="block";if(pb)pb.style.display="none";setTimeout(beginSteps,600);});}
+function replayAnim(){clearAt();window.speechSynthesis&&window.speechSynthesis.cancel();rStopTalk();var q=session[idx];G("animCanvas").innerHTML=getAnimSVG(q.anim);G("animReplay").style.display="none";G("stepsBtn").style.display="none";var pb=G("animPlayBtn");if(pb){pb.style.display="block";pb.disabled=false;pb.textContent="&#9654; Play Animation";}setStatus("Tap Play to watch with narration!");}
+function beginSteps(){var q=session[idx];var sc=document.createElement("div");sc.className="q-card";sc.innerHTML='<div class="q-label">&#128214; Step-by-Step</div><div id="stepsWrap"></div><button class="btn-speak" id="nxtStepBtn" onclick="nextStep()" style="margin-top:10px;">&#9654; Next Step</button>';G("qArea").appendChild(sc);sc.scrollIntoView({behavior:"smooth",block:"start"});G("stepsBtn").style.display="none";setTimeout(nextStep,350);}
+var nsGen=0;function nextStep(){var myGen=++nsGen;var q=session[idx];if(stepIdx>=q.steps.length){G("nxtStepBtn").style.display="none";var ib=document.createElement("button");ib.className="btn-speak";ib.innerHTML="&#9989; I Understand!";ib.style.cssText="margin-top:16px;width:100%;";ib.onclick=function(){ib.remove();showConfirm();};G("stepsWrap").appendChild(ib);ib.scrollIntoView({behavior:"smooth",block:"center"});return;}var s=q.steps[stepIdx];var wrap=G("stepsWrap");var d=document.createElement("div");d.className="step";d.innerHTML='<div class="step-num">'+(stepIdx+1)+'</div><div class="step-body">'+s.t+'</div>';wrap.appendChild(d);setTimeout(function(){d.classList.add("vis");},40);stepIdx++;say(s.s||s.t.replace(/<[^>]*>/g,""),function(){if(myGen===nsGen)nextStep();});}
+function showConfirm(){if(confirmShown)return;confirmShown=true;
+  var q=session[idx];var c=document.createElement("div");c.className="confirm-wrap";
+  c.innerHTML='<div class="confirm-title">&#127917; Rishika asks!</div>'
+    +'<div class="confirm-q">'+q.cq+'</div>'
+    +'<textarea id="rawAnswer" class="math-raw" rows="2" autocomplete="off" placeholder="Type your answer here..."></textarea>'
+    +'<div class="math-preview-label">Preview</div>'
+    +'<div class="math-preview" id="mathPreview"></div>'
+    +'<div class="sugg-chips" id="suggChips"></div>'
+    +'<button type="button" onclick="submitTyped()" style="width:100%;font-family:Nunito,sans-serif;font-size:14px;font-weight:900;padding:11px;border-radius:12px;border:none;background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;cursor:pointer;margin-bottom:8px;">Submit Answer</button>'
+    +'<div class="result-box" id="rbox"></div>'
+    +'<div class="nudge" id="nudgeBox"></div>'
+    +'<button type="button" class="btn-next" id="btnNext" onclick="goNext()">Next Question &#9654;</button>';
+  G("qArea").appendChild(c);c.scrollIntoView({behavior:"smooth",block:"center"});
+  var ra=G("rawAnswer");
+  if(ra){ra.addEventListener("input",mathUpdate);ra.addEventListener("keydown",function(ev){if(ev.key==="Enter"&&!ev.shiftKey){ev.preventDefault();submitTyped();}});setTimeout(function(){ra.focus();},300);}
+  buildSuggChips(q.ans);say(q.cqs);
+}
+function submitTyped(){var ra=G("rawAnswer");if(!ra)return;var val=String(ra.value||"").trim();if(!val){ra.focus();return;}handleAnswer(val.toLowerCase());}
+function goNext(){confirmShown=false;idx++;G("qArea").innerHTML="";showQ();window.scrollTo({top:0,behavior:"smooth"});}
+function updateProg(){var pct=Math.round((idx/PER_SESSION)*100);G("progFill").style.width=pct+"%";G("progLabel").textContent="Question "+(idx+1)+" of "+PER_SESSION;G("progPct").textContent=pct+"%";}
+function unlockNav(){G("btnPractice").classList.remove("locked");G("btnExam").classList.remove("locked");G("lockTip").style.display="none";}
+function onComplete(){
+  rishiMarkExplainDone('ic8_17');
+  completed=true;G("doneBanner").classList.add("show");unlockNav();
+  var st=JSON.parse(localStorage.getItem("rishi_current_student")||"{}");
+  var nm=st.studentName?st.studentName.split(" ")[0]:"champion";
+  var cel=document.createElement("div");cel.className="rishika-wrap";
+  cel.innerHTML='<div class="rishika-avatar">&#128105;&#8205;&#127979;</div>'
+    +'<div class="rishika-bubble"><div class="rishika-name">Rishika</div>'
+    +'<div class="rishika-text" id="celText">&#127881; <span class="hl">'+nm+'</span>, Fantastic work! You&#39;ve mastered Constructions of Quadrilaterals! 🎉</div>'
+    +'<button class="btn-speak" onclick="sayEl(\'celText\')">&#128266; Hear</button></div>';
+  G("qArea").appendChild(cel);setTimeout(function(){sayEl("celText");rHappy();},400);
+}
+function goPractice(){if(!completed){alert("Complete explanations first!");return;}location.href="/practice/icse/class8/geometry/constructions.html";}
+function goExam(){if(!completed){alert("Complete explanations first!");return;}if(!rishiIsPracticeDone('ic8_17')){alert('Complete Practice with 5 in a row first!');return;}location.href="/exam.html?ch=ic8-17";}
+var CELEBRATIONS=[{word:"Magnifique!",lang:"French",meaning:"Magnificent!",speak:"Magnifique"},{word:"Bravissimo!",lang:"Italian",meaning:"Very well done!",speak:"Bravissimo"},{word:"Wunderbar!",lang:"German",meaning:"Wonderful!",speak:"Wunderbar"},{word:"Shabash!",lang:"Hindi",meaning:"Well done!",speak:"Shabash"},{word:"Felicitaciones!",lang:"Spanish",meaning:"Congratulations!",speak:"Felicitaciones"}];
+var lastCelIdx=-1;
+function celebrate(){var i;do{i=Math.floor(Math.random()*CELEBRATIONS.length);}while(i===lastCelIdx&&CELEBRATIONS.length>1);lastCelIdx=i;var c=CELEBRATIONS[i];var rb=G("rbox");rb.className="result-box ok";rb.innerHTML='<div style="font-size:18px;font-weight:900;">'+c.word+'</div><div style="font-size:11px;">'+c.lang+' &middot; <em>'+c.meaning+'</em></div>';G("nudgeBox").classList.remove("show");var nb=G("btnNext");if(nb)nb.classList.add("show");say(c.speak);rHappy();}
+function handleAnswer(text){var q=session[idx];var ok=q.ans.some(function(a){return text.includes(a.toLowerCase())||a.toLowerCase().includes(text);});var rb=G("rbox");if(ok){celebrate();}else{nudgeCount++;rb.className="result-box no";rb.textContent="\u2716 Not quite. Listen to my hint!";var nudge=q.nudges[Math.min(nudgeCount-1,q.nudges.length-1)];showNudge(nudge);say(nudge);rThink();if(nudgeCount>=3){var nb2=G("btnNext");if(nb2){nb2.classList.add("show");nb2.textContent="I Understand \u25b6";}}}}
+function showNudge(msg){var n=G("nudgeBox");if(n){n.textContent=msg;n.classList.add("show");}}
+function openBreak(){G("breakOv").classList.add("show");}
+function closeBreak(){G("breakOv").classList.remove("show");}
+function startBreak(r){closeBreak();breakSecs=0;G("timerLbl").textContent=r;G("timerNum").textContent="00:00";G("timerScreen").classList.add("show");breakTmr=setInterval(function(){breakSecs++;var m=String(Math.floor(breakSecs/60)).padStart(2,"0");var s=String(breakSecs%60).padStart(2,"0");G("timerNum").textContent=m+":"+s;},1000);}
+function endBreak(){clearInterval(breakTmr);G("timerScreen").classList.remove("show");}
+function mathUpdate(){var ra=G("rawAnswer");if(!ra)return;var v=ra.value.trim();var el=G("mathPreview");if(el)el.textContent=v||"";}
+function buildSuggChips(ans){var el=G("suggChips");if(!el)return;el.innerHTML="";(ans||[]).forEach(function(a){var btn=document.createElement("button");btn.className="schip";btn.textContent=a;btn.type="button";btn.addEventListener("click",function(){var ra=G("rawAnswer");if(ra){ra.value=a;mathUpdate();ra.focus();}});el.appendChild(btn);});}
+window.onload=init;
+</script>
+<script src="/explain-helper.js"></script>
+</body>
+</html>
