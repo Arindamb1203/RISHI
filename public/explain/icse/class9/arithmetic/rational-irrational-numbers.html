@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="rishi-board" content="icse">
+<meta name="rishi-class" content="9">
+<title>RISHI — Rational and Irrational Numbers</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Nunito:wght@400;600;700;800;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<style>
+:root{--cream:#fdf6ec;--warm-white:#fffdf8;--gold:#c8922a;--gold-light:#e8b84b;--gold-pale:#f5e6c8;--amber:#d4870a;--sage:#7a8c6e;--sage-light:#a8b89a;--rust:#b85c2a;--charcoal:#2a2218;--mid:#5a4a30;--soft:#8a7a5a;--inactive:#c8b89a;--border-dark:#6b4c2a;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--cream);font-family:Nunito,sans-serif;min-height:100vh;color:var(--charcoal);}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(var(--gold-pale) 1px,transparent 1px),linear-gradient(90deg,var(--gold-pale) 1px,transparent 1px);background-size:40px 40px;opacity:.3;z-index:0;pointer-events:none;}
+.topbar{position:sticky;top:0;z-index:100;background:rgba(253,246,236,.97);border-bottom:2px solid var(--border-dark);backdrop-filter:blur(8px);padding:10px 18px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;}
+.logo-sm{font-family:'Orbitron',sans-serif;font-size:17px;font-weight:900;letter-spacing:4px;background:linear-gradient(135deg,var(--amber),var(--gold-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.topbar-center{font-family:'Orbitron',sans-serif;font-size:10px;letter-spacing:2px;color:var(--amber);text-transform:uppercase;}
+.topbar-right{display:flex;gap:8px;}
+.btn-topbar{font-family:Nunito,sans-serif;font-size:12px;font-weight:900;padding:6px 14px;border-radius:20px;border:2px solid var(--border-dark);background:var(--warm-white);color:var(--mid);cursor:pointer;}
+.btn-topbar.back{background:var(--gold-pale);}
+.prog-wrap{position:relative;z-index:10;padding:8px 18px;background:rgba(255,253,248,.9);border-bottom:1.5px solid var(--gold-pale);}
+.prog-info{display:flex;justify-content:space-between;font-size:11px;font-weight:800;color:var(--mid);margin-bottom:5px;}
+.prog-bar{height:6px;background:var(--gold-pale);border-radius:4px;overflow:hidden;}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--sage),var(--gold));border-radius:4px;transition:width .5s ease;}
+.main{position:relative;z-index:10;max-width:820px;margin:0 auto;padding:14px 14px 120px;}
+.rishika-wrap{display:flex;align-items:flex-start;gap:12px;margin-bottom:14px;}
+.rishika-avatar{width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,var(--sage),var(--sage-light));border:2px solid var(--border-dark);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;}
+.rishika-bubble{background:rgba(255,253,248,.97);border:2px solid var(--border-dark);border-radius:0 16px 16px 16px;padding:12px 16px;flex:1;box-shadow:0 4px 20px rgba(107,76,42,.1);}
+.rishika-name{font-size:10px;font-weight:900;color:var(--sage);letter-spacing:2px;text-transform:uppercase;margin-bottom:5px;}
+.rishika-text{font-size:14px;font-weight:700;color:var(--charcoal);line-height:1.6;}
+.hl{color:var(--amber);font-weight:900;}
+.btn-speak{display:inline-flex;align-items:center;gap:6px;font-family:Nunito,sans-serif;font-size:11px;font-weight:900;padding:5px 11px;border-radius:20px;border:2px solid var(--sage);background:#eef2eb;color:var(--sage);cursor:pointer;margin-top:8px;}
+.q-card{background:rgba(255,253,248,.97);border:2px solid var(--border-dark);border-radius:16px;padding:16px 18px;margin-bottom:12px;box-shadow:0 4px 20px rgba(107,76,42,.1);}
+.q-label{font-family:'Orbitron',sans-serif;font-size:10px;letter-spacing:3px;color:var(--amber);text-transform:uppercase;margin-bottom:8px;}
+.q-text{font-size:15px;font-weight:800;color:var(--charcoal);line-height:1.6;margin-bottom:10px;}
+.step{display:flex;gap:10px;margin-bottom:12px;opacity:0;transform:translateY(6px);transition:all .4s ease;}
+.step.vis{opacity:1;transform:translateY(0);}
+.step-num{width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;font-size:11px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:2px solid var(--border-dark);}
+.step-body{flex:1;font-size:13px;font-weight:700;color:var(--mid);line-height:1.6;padding-top:2px;}
+.anim-panel{background:#fffdf8;border:2px solid var(--border-dark);border-radius:14px;margin-bottom:12px;overflow:hidden;}
+.anim-header{background:linear-gradient(135deg,var(--charcoal),#3d2e1a);padding:7px 14px;display:flex;align-items:center;justify-content:space-between;}
+.anim-header-lbl{font-family:'Orbitron',sans-serif;font-size:9px;letter-spacing:2px;color:var(--gold-light);text-transform:uppercase;}
+.anim-replay{font-size:10px;font-weight:900;color:var(--gold-pale);background:none;border:1px solid var(--gold-pale);border-radius:20px;padding:2px 9px;cursor:pointer;display:none;}
+.anim-canvas{width:100%;max-height:195px;overflow:hidden;display:flex;align-items:center;justify-content:center;background:#fffdf8;}
+.anim-canvas svg{width:100%;max-height:195px;}
+.anim-status{padding:6px 14px;font-size:12px;font-weight:800;color:var(--mid);text-align:center;min-height:26px;border-top:1px solid var(--gold-pale);}
+.anim-play-btn{width:100%;padding:10px;font-family:Nunito,sans-serif;font-size:14px;font-weight:900;background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;border:none;cursor:pointer;}
+.anim-play-btn:disabled{background:var(--gold-pale);color:var(--inactive);cursor:not-allowed;}
+.steps-btn{width:100%;padding:10px;font-family:Nunito,sans-serif;font-size:14px;font-weight:900;background:linear-gradient(135deg,var(--sage),var(--sage-light));color:#fff;border:none;cursor:pointer;display:none;border-top:1px solid var(--gold-pale);}
+.confirm-wrap{margin-top:12px;background:linear-gradient(135deg,#eef2eb,#f5fbf2);border:2px solid var(--border-dark);border-radius:14px;padding:16px 18px;}
+.confirm-title{font-size:11px;font-weight:900;color:var(--sage);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;}
+.confirm-q{font-size:14px;font-weight:800;color:var(--charcoal);margin-bottom:12px;line-height:1.5;}
+.result-box{font-size:12px;font-weight:800;padding:9px 13px;border-radius:9px;display:none;line-height:1.4;}
+.result-box.ok{background:#eef2eb;border:2px solid var(--sage);color:var(--sage);display:block;}
+.result-box.no{background:#fff5f0;border:2px solid var(--rust);color:var(--rust);display:block;}
+.nudge{font-size:12px;font-weight:700;color:var(--mid);margin-top:7px;font-style:italic;display:none;}
+.nudge.show{display:block;}
+.btn-next{font-family:Nunito,sans-serif;font-size:14px;font-weight:900;padding:11px 22px;border-radius:12px;border:none;background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;cursor:pointer;display:none;margin-top:10px;width:100%;}
+.btn-next.show{display:block;}
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;z-index:100;background:rgba(253,246,236,.97);border-top:2px solid var(--border-dark);padding:10px 18px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap;align-items:center;}
+.btn-nav{font-family:Nunito,sans-serif;font-size:13px;font-weight:900;padding:10px 20px;border-radius:12px;border:2px solid var(--border-dark);cursor:pointer;}
+.btn-nav.practice{background:linear-gradient(135deg,var(--sage),var(--sage-light));color:#fff;border-color:var(--sage);}
+.btn-nav.exam{background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;border-color:var(--amber);}
+.btn-nav.locked{background:var(--gold-pale);color:var(--inactive);cursor:not-allowed;border-color:var(--inactive);}
+.lock-tip{font-size:10px;font-weight:700;color:var(--rust);width:100%;text-align:center;}
+.overlay{display:none;position:fixed;inset:0;background:rgba(42,34,24,.92);z-index:1000;flex-direction:column;align-items:center;justify-content:center;backdrop-filter:blur(6px);}
+.overlay.show{display:flex;}
+.break-box{background:var(--warm-white);border:2px solid var(--border-dark);border-radius:22px;padding:28px 32px;max-width:380px;width:90%;text-align:center;}
+.break-title{font-family:'Orbitron',sans-serif;font-size:14px;font-weight:900;color:var(--amber);letter-spacing:3px;margin-bottom:5px;}
+.break-sub{font-size:12px;font-weight:700;color:var(--soft);margin-bottom:16px;}
+.break-opts{display:flex;flex-direction:column;gap:8px;margin-bottom:12px;}
+.break-opt{font-family:Nunito,sans-serif;font-size:14px;font-weight:800;padding:11px;border-radius:11px;border:2px solid var(--border-dark);background:var(--warm-white);color:var(--mid);cursor:pointer;}
+.timer-screen{display:none;position:fixed;inset:0;background:#1a1208;z-index:1001;flex-direction:column;align-items:center;justify-content:center;}
+.timer-screen.show{display:flex;}
+.timer-reason{font-family:'Orbitron',sans-serif;font-size:12px;letter-spacing:4px;color:var(--gold-light);margin-bottom:16px;text-transform:uppercase;}
+.timer-num{font-family:'Orbitron',sans-serif;font-size:68px;font-weight:900;color:var(--gold-light);letter-spacing:6px;margin-bottom:30px;}
+.btn-end{font-family:Nunito,sans-serif;font-size:16px;font-weight:900;padding:13px 32px;border-radius:13px;border:2px solid var(--gold-light);background:transparent;color:var(--gold-light);cursor:pointer;}
+.done-banner{background:linear-gradient(135deg,#eef2eb,#f5fbf2);border:2px solid var(--border-dark);border-radius:14px;padding:14px 18px;text-align:center;margin-bottom:14px;display:none;}
+.done-banner.show{display:block;}
+.done-banner .dt{font-family:'Orbitron',sans-serif;font-size:12px;letter-spacing:2px;color:var(--sage);margin-bottom:4px;}
+.done-banner .ds{font-size:13px;font-weight:700;color:var(--mid);}
+.math-raw{width:100%;padding:10px 13px;border-radius:10px;border:2px solid var(--border-dark);background:var(--warm-white);color:var(--charcoal);font-size:1rem;font-family:'Share Tech Mono',monospace;resize:none;outline:none;min-height:48px;line-height:1.6;transition:border-color .2s;}
+.math-raw:focus{border-color:var(--amber);}
+.math-raw::placeholder{color:var(--inactive);font-family:Nunito,sans-serif;}
+.math-preview-label{font-size:0.68rem;text-transform:uppercase;letter-spacing:2px;color:var(--soft);margin:.5rem 0 .25rem;}
+.math-preview{min-height:44px;padding:.6rem 1rem;background:#f9f4ec;border-radius:8px;border:1.5px solid var(--gold-pale);font-size:1.1rem;color:var(--charcoal);overflow-x:auto;display:flex;align-items:center;justify-content:center;margin-bottom:10px;}
+.sugg-chips{display:flex;flex-wrap:wrap;gap:.35rem;margin-bottom:10px;}
+.schip{border:1.5px solid #1a6aaa;border-radius:20px;padding:.25rem .75rem;font-size:.78rem;cursor:pointer;background:#eef6ff;color:#0a5a9a;font-family:Nunito,sans-serif;font-weight:800;}
+#rWrap{position:fixed;bottom:68px;left:10px;z-index:200;width:82px;pointer-events:none;}
+#rChar{width:82px;filter:drop-shadow(0 4px 10px rgba(107,76,42,.3));}
+@keyframes rIn{from{transform:translateY(50px);opacity:0}to{transform:translateY(0);opacity:1}}
+@keyframes rBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+@media(max-width:600px){.main{padding:10px 10px 120px;}}
+</style>
+<script src="/rishi-sync.js"></script>
+<script src="/rishi-core.js"></script>
+<script src="/rishi-presence.js"></script>
+</head>
+<body>
+<div class="topbar">
+  <div class="logo-sm">RISHI</div>
+  <div class="topbar-center">√ Rational and Irrational Numbers</div>
+  <div class="topbar-right">
+    <button class="btn-topbar" onclick="openBreak()">&#9749; Break</button>
+    <button class="btn-topbar back" onclick="location.href='/syllabus.html?board=icse&class=9'">&#8592; Syllabus</button>
+  </div>
+</div>
+<div class="prog-wrap">
+  <div class="prog-info"><span id="progLabel">Question 1 of 10</span><span id="progPct">0%</span></div>
+  <div class="prog-bar"><div class="prog-fill" id="progFill" style="width:0%"></div></div>
+</div>
+<div class="main">
+  <div class="done-banner" id="doneBanner">
+    <div class="dt">&#10003; Explanation Completed!</div>
+    <div class="ds">Practice and Exam now unlocked.</div>
+  </div>
+  <div class="rishika-wrap">
+    <div class="rishika-avatar">&#128105;&#8205;&#127979;</div>
+    <div class="rishika-bubble">
+      <div class="rishika-name">Rishika</div>
+      <div class="rishika-text" id="introText">
+        Hi <span class="hl" id="sName">there</span>! I&#39;m Rishika! Today we explore <span class="hl">Rational and Irrational Numbers</span>! √ Let&#39;s begin!
+      </div>
+      <button class="btn-speak" onclick="startLesson()" id="startBtn">&#9654; Start Lesson</button>
+    </div>
+  </div>
+  <div id="qArea"></div>
+</div>
+<div class="bottom-nav">
+  <div class="lock-tip" id="lockTip">&#9757; Complete explanations to unlock Practice and Exam</div>
+  <button class="btn-nav practice locked" id="btnPractice" onclick="goPractice()">&#9999;&#65039; Practice</button>
+  <button class="btn-nav exam locked" id="btnExam" onclick="goExam()">&#128221; Exam</button>
+</div>
+<div class="overlay" id="breakOv">
+  <div class="break-box">
+    <div class="break-title">Break</div>
+    <div class="break-sub">Choose &mdash; timer starts</div>
+    <div class="break-opts">
+      <button class="break-opt" onclick="startBreak('Water')">&#128167; Water</button>
+      <button class="break-opt" onclick="startBreak('Washroom')">&#128701; Washroom</button>
+      <button class="break-opt" onclick="startBreak('Physical')">&#127939; Physical</button>
+    </div>
+    <button class="break-opt" style="color:var(--soft)" onclick="closeBreak()">Cancel</button>
+  </div>
+</div>
+<div class="timer-screen" id="timerScreen">
+  <div class="timer-reason" id="timerLbl">Break</div>
+  <div class="timer-num" id="timerNum">00:00</div>
+  <button class="btn-end" onclick="endBreak()">&#10003; End Break</button>
+</div>
+<div id="rWrap">
+<svg id="rChar" viewBox="0 0 100 110" xmlns="http://www.w3.org/2000/svg">
+  <ellipse cx="50" cy="68" rx="36" ry="28" fill="#5a8a60" stroke="#3d6b42" stroke-width="2"/>
+  <ellipse cx="50" cy="66" rx="22" ry="16" fill="#7ab87a" stroke="#5a8a60" stroke-width="1.5"/>
+  <line x1="50" y1="50" x2="50" y2="82" stroke="#5a8a60" stroke-width="1.5"/>
+  <line x1="28" y1="66" x2="72" y2="66" stroke="#5a8a60" stroke-width="1.5"/>
+  <ellipse cx="20" cy="82" rx="10" ry="7" fill="#7ab87a" stroke="#5a8a60" stroke-width="1.5" transform="rotate(-20,20,82)"/>
+  <ellipse cx="80" cy="82" rx="10" ry="7" fill="#7ab87a" stroke="#5a8a60" stroke-width="1.5" transform="rotate(20,80,82)"/>
+  <ellipse cx="22" cy="58" rx="9" ry="6" fill="#7ab87a" stroke="#5a8a60" stroke-width="1.5" transform="rotate(20,22,58)"/>
+  <ellipse cx="78" cy="58" rx="9" ry="6" fill="#7ab87a" stroke="#5a8a60" stroke-width="1.5" transform="rotate(-20,78,58)"/>
+  <ellipse cx="50" cy="42" rx="10" ry="14" fill="#8fba6a" stroke="#5a8a60" stroke-width="1.5"/>
+  <ellipse cx="50" cy="28" rx="18" ry="16" fill="#8fba6a" stroke="#5a8a60" stroke-width="2"/>
+  <ellipse cx="43" cy="24" rx="5" ry="5.5" fill="white"/><ellipse cx="57" cy="24" rx="5" ry="5.5" fill="white"/>
+  <ellipse cx="43" cy="25" rx="3" ry="3.5" fill="#1a3a1a"/><ellipse cx="57" cy="25" rx="3" ry="3.5" fill="#1a3a1a"/>
+  <circle cx="44" cy="23" r="1.2" fill="white"/><circle cx="58" cy="23" r="1.2" fill="white"/>
+  <ellipse id="rLid1" cx="43" cy="24" rx="5" ry="1" fill="#8fba6a" opacity="0"/>
+  <ellipse id="rLid2" cx="57" cy="24" rx="5" ry="1" fill="#8fba6a" opacity="0"/>
+  <path id="rMouth" d="M44,33 Q50,38 56,33" fill="none" stroke="#3d6b42" stroke-width="2" stroke-linecap="round"/>
+  <ellipse id="rBlush1" cx="36" cy="30" rx="7" ry="4" fill="#ff9999" opacity="0"/>
+  <ellipse id="rBlush2" cx="64" cy="30" rx="7" ry="4" fill="#ff9999" opacity="0"/>
+  <rect x="28" y="90" width="44" height="13" fill="#d4870a" rx="4"/>
+  <text x="50" y="100" text-anchor="middle" font-family="Nunito" font-size="7" font-weight="900" fill="white">RISHIKA</text>
+</svg>
+</div>
+<script>
+var voicesReady=false,selectedVoice=null,elAudio=null;
+function pickVoice(){var vs=window.speechSynthesis.getVoices();if(!vs||vs.length===0)return false;var fk=["heera","veena","priya","raveena","female","woman","zira","samantha","victoria","karen","moira","tessa","fiona"];for(var i=0;i<vs.length;i++){if(vs[i].lang.toLowerCase().indexOf("en-in")===0){var n=vs[i].name.toLowerCase();for(var k=0;k<fk.length;k++){if(n.indexOf(fk[k])>=0){selectedVoice=vs[i];return true;}}}}for(var i=0;i<vs.length;i++){if(vs[i].lang.toLowerCase().indexOf("en")===0){var n=vs[i].name.toLowerCase();for(var k=0;k<fk.length;k++){if(n.indexOf(fk[k])>=0){selectedVoice=vs[i];return true;}}}}return false;}
+function initVoices(cb){if(pickVoice()){voicesReady=true;cb();return;}window.speechSynthesis.onvoiceschanged=function(){window.speechSynthesis.onvoiceschanged=null;pickVoice();voicesReady=true;cb();};setTimeout(function(){if(!voicesReady){pickVoice();voicesReady=true;cb();}},2000);}
+function stopAllAudio(){if(elAudio){try{elAudio.onended=null;elAudio.onerror=null;elAudio.pause();elAudio.src="";}catch(x){}elAudio=null;}if(window.speechSynthesis)window.speechSynthesis.cancel();}
+function sayBrowser(text,onEnd){if(!window.speechSynthesis)return;window.speechSynthesis.cancel();rStartTalk(text.length);var u=new SpeechSynthesisUtterance(text);u.lang="en-IN";u.rate=0.88;u.pitch=1.15;if(selectedVoice)u.voice=selectedVoice;u.onend=function(){rStopTalk();if(onEnd)onEnd();};u.onerror=function(){rStopTalk();if(onEnd)onEnd();};window.speechSynthesis.speak(u);}
+function say(text,onEnd){stopAllAudio();rStartTalk(text.length);fetch("/tts",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({text:text})}).then(function(res){if(!res.ok)throw new Error("TTS "+res.status);return res.blob();}).then(function(blob){var url=URL.createObjectURL(blob);elAudio=new Audio(url);elAudio.onended=function(){URL.revokeObjectURL(url);elAudio=null;rStopTalk();if(onEnd)onEnd();};elAudio.onerror=function(){URL.revokeObjectURL(url);elAudio=null;rStopTalk();sayBrowser(text,onEnd);};var p=elAudio.play();if(p&&p.catch){p.catch(function(){URL.revokeObjectURL(url);elAudio=null;sayBrowser(text,onEnd);});}}).catch(function(err){sayBrowser(text,onEnd);});}
+function sayEl(id){var e=G(id);if(e)say(e.innerText||e.textContent);}
+window.addEventListener("beforeunload",function(){stopAllAudio();});window.addEventListener("pagehide",function(){stopAllAudio();});
+var mouthTmr=null,blinkTmr=null,mOpen=false;
+function rInit(){var c=G("rChar");if(c)c.style.animation="rIn .6s cubic-bezier(.34,1.56,.64,1) forwards";scheduleBlink();}
+function scheduleBlink(){blinkTmr=setTimeout(function(){rBlink();scheduleBlink();},2200+Math.random()*3000);}
+function rBlink(){var l=G("rLid1"),r=G("rLid2");if(!l||!r)return;l.setAttribute("ry","5.5");r.setAttribute("ry","5.5");setTimeout(function(){l.setAttribute("ry","1");r.setAttribute("ry","1");},120);}
+function rStartTalk(len){rStopTalk();G("rBlush1").style.opacity="0.7";G("rBlush2").style.opacity="0.7";mOpen=false;mouthTmr=setInterval(function(){mOpen=!mOpen;var m=G("rMouth");if(!m)return;if(mOpen){m.setAttribute("d","M42,33 Q50,42 58,33");m.setAttribute("fill","#1a3a1a");}else{m.setAttribute("d","M44,33 Q50,38 56,33");m.setAttribute("fill","none");}},160);setTimeout(rStopTalk,Math.max(1800,(len||20)*58));}
+function rStopTalk(){clearInterval(mouthTmr);mOpen=false;var m=G("rMouth");if(m){m.setAttribute("d","M44,33 Q50,38 56,33");m.setAttribute("fill","none");}G("rBlush1").style.opacity="0";G("rBlush2").style.opacity="0";}
+function rHappy(){var c=G("rChar");if(c)c.style.animation="rBounce .35s ease-in-out 5";G("rBlush1").style.opacity="1";G("rBlush2").style.opacity="1";setTimeout(function(){rStopTalk();var c=G("rChar");if(c)c.style.animation="none";},2500);}
+function rThink(){setTimeout(rStopTalk,1800);}
+
+var QB=[
+{
+id:"q1",
+q:"Is the number <span class='hl'>7/4</span> a rational number? Why?",
+qs:"Is seven divided by four a rational number? Explain why.",
+anim:"q1",
+steps:[{"t": "Write the number in p/q form", "s": "The number is seven over four, already in p over q form."}, {"t": "Check if p and q are integers and q ≠ 0", "s": "Seven and four are integers and four is not zero."}, {"t": "Conclude the number is rational", "s": "Since it is p over q with integers and q not zero, it is rational."}],
+cq:"Can you give another example of a rational number?",
+cqs:"Give me another example of a rational number in p over q form.",
+ans:["Yes, 7/4 is rational because it is in the form p over q with integers p=7 and q=4, q not zero."],
+nudges:["Remember rational numbers are fractions p over q with q not zero.", "Check if numerator and denominator are integers.", "If yes, then it is rational."],
+anim_svg:"<g id=\"q1s0\" opacity=\"0\"><rect x=\"30\" y=\"20\" width=\"360\" height=\"44\" rx=\"10\" fill=\"#f5e6c8\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"210\" y=\"38\" text-anchor=\"middle\" font-size=\"13\" fill=\"#5a4a30\" font-weight=\"800\">Given Number</text><text x=\"210\" y=\"56\" text-anchor=\"middle\" font-size=\"11\" fill=\"#8a7a5a\">Number: 7 &divide; 4</text></g><g id=\"q1s1\" opacity=\"0\"><rect x=\"30\" y=\"75\" width=\"360\" height=\"44\" rx=\"10\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"210\" y=\"93\" text-anchor=\"middle\" font-size=\"13\" fill=\"#5a4a30\" font-weight=\"800\">Check p and q</text><text x=\"210\" y=\"111\" text-anchor=\"middle\" font-size=\"11\" fill=\"#8a7a5a\">p = 7, q = 4 (both integers, q ≠ 0)</text></g><g id=\"q1s2\" opacity=\"0\"><rect x=\"60\" y=\"128\" width=\"300\" height=\"32\" rx=\"10\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2.5\"/><text x=\"210\" y=\"149\" text-anchor=\"middle\" font-size=\"13\" fill=\"#7a8c6e\" font-weight=\"900\">7 &divide; 4 is a rational number</text></g><g id=\"q1ans\" opacity=\"0\"><rect x=\"110\" y=\"148\" width=\"200\" height=\"26\" rx=\"8\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"210\" y=\"165\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Rational Number</text></g>"
+},
+{
+id:"q2",
+q:"Is the decimal <span class='hl'>0.375</span> terminating or non-terminating? Explain.",
+qs:"Is zero point three seven five a terminating decimal or a non-terminating decimal? Explain.",
+anim:"q2",
+steps:[{"t": "Observe the decimal digits", "s": "The decimal 0.375 has three digits after the decimal point."}, {"t": "Check if digits end after finite places", "s": "The digits end after three decimal places, no more digits follow."}, {"t": "Conclude the decimal is terminating", "s": "Since digits stop, 0.375 is a terminating decimal."}],
+cq:"What about 0.3333... with repeating 3?",
+cqs:"Is zero point three repeating a terminating or non-terminating decimal?",
+ans:["0.375 is a terminating decimal because it has a finite number of digits after the decimal point."],
+nudges:["Count decimal digits after point.", "If digits stop, it is terminating.", "If digits repeat endlessly, it is non-terminating."],
+anim_svg:"<g id=\"q2s0\" opacity=\"0\"><rect x=\"30\" y=\"20\" width=\"360\" height=\"44\" rx=\"10\" fill=\"#f5e6c8\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"210\" y=\"38\" text-anchor=\"middle\" font-size=\"13\" fill=\"#5a4a30\" font-weight=\"800\">Decimal Number</text><text x=\"210\" y=\"56\" text-anchor=\"middle\" font-size=\"11\" fill=\"#8a7a5a\">0.375</text></g><g id=\"q2s1\" opacity=\"0\"><rect x=\"30\" y=\"75\" width=\"360\" height=\"44\" rx=\"10\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"210\" y=\"93\" text-anchor=\"middle\" font-size=\"13\" fill=\"#5a4a30\" font-weight=\"800\">Count Decimal Places</text><text x=\"210\" y=\"111\" text-anchor=\"middle\" font-size=\"11\" fill=\"#8a7a5a\">Three digits after decimal point</text></g><g id=\"q2s2\" opacity=\"0\"><rect x=\"60\" y=\"128\" width=\"300\" height=\"32\" rx=\"10\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2.5\"/><text x=\"210\" y=\"149\" text-anchor=\"middle\" font-size=\"13\" fill=\"#7a8c6e\" font-weight=\"900\">0.375 is Terminating Decimal</text></g><g id=\"q2ans\" opacity=\"0\"><rect x=\"110\" y=\"148\" width=\"200\" height=\"26\" rx=\"8\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"210\" y=\"165\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Terminating Decimal</text></g>"
+},
+{
+id:"q3",
+q:"Is the number <span class='hl'>&radic;2</span> rational or irrational? Explain why.",
+qs:"Is square root of two a rational or irrational number? Explain.",
+anim:"q3",
+steps:[{"t": "Recall definition of irrational number", "s": "Irrational numbers cannot be expressed as p over q with integers."}, {"t": "Know that square root of 2 is non-terminating non-repeating decimal", "s": "Square root of 2 is approximately 1.4142135... and digits do not repeat."}, {"t": "Conclude √2 is irrational", "s": "Thus, square root of 2 is irrational."}],
+cq:"Is √3 also irrational?",
+cqs:"Is square root of three irrational too?",
+ans:["√2 is irrational because it cannot be expressed as a fraction and its decimal is non-terminating and non-repeating."],
+nudges:["Remember irrational numbers cannot be written as p over q.", "Check decimal expansion of √2.", "It does not terminate or repeat."],
+anim_svg:"<g id=\"q3s0\" opacity=\"0\"><rect x=\"30\" y=\"20\" width=\"360\" height=\"44\" rx=\"10\" fill=\"#f5e6c8\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"210\" y=\"38\" text-anchor=\"middle\" font-size=\"13\" fill=\"#5a4a30\" font-weight=\"800\">Number to Check</text><text x=\"210\" y=\"56\" text-anchor=\"middle\" font-size=\"11\" fill=\"#8a7a5a\">&radic;2 ≈ 1.4142135...</text></g><g id=\"q3s1\" opacity=\"0\"><rect x=\"30\" y=\"75\" width=\"360\" height=\"44\" rx=\"10\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"210\" y=\"93\" text-anchor=\"middle\" font-size=\"13\" fill=\"#5a4a30\" font-weight=\"800\">Decimal Expansion</text><text x=\"210\" y=\"111\" text-anchor=\"middle\" font-size=\"11\" fill=\"#8a7a5a\">Non-terminating and non-repeating</text></g><g id=\"q3s2\" opacity=\"0\"><rect x=\"60\" y=\"128\" width=\"300\" height=\"32\" rx=\"10\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2.5\"/><text x=\"210\" y=\"149\" text-anchor=\"middle\" font-size=\"13\" fill=\"#7a8c6e\" font-weight=\"900\">&radic;2 is Irrational</text></g><g id=\"q3ans\" opacity=\"0\"><rect x=\"110\" y=\"148\" width=\"200\" height=\"26\" rx=\"8\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"210\" y=\"165\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Irrational Number</text></g>"
+},
+{
+id:"q4",
+q:"Simplify the surd <span class='hl'>&radic;50</span>.",
+qs:"Simplify square root of fifty.",
+anim:"q4",
+steps:[{"t": "Factor 50 into 25 &times; 2", "s": "Fifty equals twenty-five times two."}, {"t": "Use property &radic;ab = &radic;a &times; &radic;b", "s": "Square root of fifty equals square root of twenty-five times square root of two."}, {"t": "Simplify &radic;25 = 5", "s": "Square root of twenty-five is five, so answer is 5&radic;2."}],
+cq:"Simplify &radic;72 similarly.",
+cqs:"Simplify square root of seventy-two using the same method.",
+ans:["√50 = 5√2"],
+nudges:["Find perfect square factors of 50.", "Split under root into product.", "Simplify the perfect square root."],
+anim_svg:"<g id=\"q4s0\" opacity=\"0\"><rect x=\"30\" y=\"20\" width=\"360\" height=\"44\" rx=\"10\" fill=\"#f5e6c8\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"210\" y=\"38\" text-anchor=\"middle\" font-size=\"13\" fill=\"#5a4a30\" font-weight=\"800\">Given Surd</text><text x=\"210\" y=\"56\" text-anchor=\"middle\" font-size=\"11\" fill=\"#8a7a5a\">&radic;50</text></g><g id=\"q4s1\" opacity=\"0\"><rect x=\"30\" y=\"75\" width=\"360\" height=\"44\" rx=\"10\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"210\" y=\"93\" text-anchor=\"middle\" font-size=\"13\" fill=\"#5a4a30\" font-weight=\"800\">Factor 50</text><text x=\"210\" y=\"111\" text-anchor=\"middle\" font-size=\"11\" fill=\"#8a7a5a\">50 = 25 &times; 2</text></g><g id=\"q4s2\" opacity=\"0\"><rect x=\"60\" y=\"128\" width=\"300\" height=\"32\" rx=\"10\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2.5\"/><text x=\"210\" y=\"149\" text-anchor=\"middle\" font-size=\"13\" fill=\"#7a8c6e\" font-weight=\"900\">&radic;50 = 5&radic;2</text></g><g id=\"q4ans\" opacity=\"0\"><rect x=\"110\" y=\"148\" width=\"200\" height=\"26\" rx=\"8\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"210\" y=\"165\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">5&radic;2</text></g>"
+},
+{
+id:"q5",
+q:"Calculate <span class='hl'>&radic;3 &times; &radic;12</span>.",
+qs:"Calculate square root of three times square root of twelve.",
+anim:"q5",
+steps:[{"t": "Use multiplication property: &radic;a &times; &radic;b = &radic;ab", "s": "Multiply under the root: three times twelve equals thirty-six."}, {"t": "Calculate &radic;36", "s": "Square root of thirty-six is six."}, {"t": "Final answer is 6", "s": "So, &radic;3 &times; &radic;12 equals six."}],
+cq:"Find &radic;5 &times; &radic;20 similarly.",
+cqs:"Calculate square root of five times square root of twenty.",
+ans:["√3 × √12 = 6"],
+nudges:["Multiply numbers under the roots.", "Find square root of the product.", "Simplify to get final answer."],
+anim_svg:"<g id=\"q5s0\" opacity=\"0\"><rect x=\"30\" y=\"20\" width=\"360\" height=\"44\" rx=\"10\" fill=\"#f5e6c8\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"210\" y=\"38\" text-anchor=\"middle\" font-size=\"13\" fill=\"#5a4a30\" font-weight=\"800\">Given Expression</text><text x=\"210\" y=\"56\" text-anchor=\"middle\" font-size=\"11\" fill=\"#8a7a5a\">&radic;3 &times; &radic;12</text></g><g id=\"q5s1\" opacity=\"0\"><rect x=\"30\" y=\"75\" width=\"360\" height=\"44\" rx=\"10\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"210\" y=\"93\" text-anchor=\"middle\" font-size=\"13\" fill=\"#5a4a30\" font-weight=\"800\">Multiply under roots</text><text x=\"210\" y=\"111\" text-anchor=\"middle\" font-size=\"11\" fill=\"#8a7a5a\">3 &times; 12 = 36</text></g><g id=\"q5s2\" opacity=\"0\"><rect x=\"60\" y=\"128\" width=\"300\" height=\"32\" rx=\"10\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2.5\"/><text x=\"210\" y=\"149\" text-anchor=\"middle\" font-size=\"13\" fill=\"#7a8c6e\" font-weight=\"900\">&radic;36 = 6</text></g><g id=\"q5ans\" opacity=\"0\"><rect x=\"110\" y=\"148\" width=\"200\" height=\"26\" rx=\"8\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"210\" y=\"165\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">6</text></g>"
+},
+{
+id:"q6",
+q:"Rationalise the denominator of <span class='hl'>5 &divide; &radic;3</span>.",
+qs:"Rationalise the denominator of five divided by square root of three.",
+anim:"q6",
+steps:[{"t": "Multiply numerator and denominator by &radic;3", "s": "Multiply top and bottom by square root of three to remove root from denominator."}, {"t": "Calculate numerator: 5 &times; &radic;3", "s": "Numerator becomes 5 times square root of three."}, {"t": "Calculate denominator: &radic;3 &times; &radic;3 = 3", "s": "Denominator becomes 3, rationalised."}],
+cq:"Rationalise denominator of 7 &divide; &radic;5 similarly.",
+cqs:"Rationalise denominator of seven divided by square root of five.",
+ans:["5 ÷ √3 = (5√3) ÷ 3"],
+nudges:["Multiply numerator and denominator by denominator's root.", "Simplify denominator using &radic;a &times; &radic;a = a.", "Write final rationalised form."],
+anim_svg:"<g id=\"q6s0\" opacity=\"0\"><rect x=\"30\" y=\"20\" width=\"360\" height=\"44\" rx=\"10\" fill=\"#f5e6c8\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"210\" y=\"38\" text-anchor=\"middle\" font-size=\"13\" fill=\"#5a4a30\" font-weight=\"800\">Given Expression</text><text x=\"210\" y=\"56\" text-anchor=\"middle\" font-size=\"11\" fill=\"#8a7a5a\">5 &divide; &radic;3</text></g><g id=\"q6s1\" opacity=\"0\"><rect x=\"30\" y=\"75\" width=\"360\" height=\"44\" rx=\"10\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"210\" y=\"93\" text-anchor=\"middle\" font-size=\"13\" fill=\"#5a4a30\" font-weight=\"800\">Multiply numerator and denominator by &radic;3</text><text x=\"210\" y=\"111\" text-anchor=\"middle\" font-size=\"11\" fill=\"#8a7a5a\">(5 &times; &radic;3) &divide; (&radic;3 &times; &radic;3)</text></g><g id=\"q6s2\" opacity=\"0\"><rect x=\"60\" y=\"128\" width=\"300\" height=\"32\" rx=\"10\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2.5\"/><text x=\"210\" y=\"149\" text-anchor=\"middle\" font-size=\"13\" fill=\"#7a8c6e\" font-weight=\"900\">(5&radic;3) &divide; 3</text></g><g id=\"q6ans\" opacity=\"0\"><rect x=\"110\" y=\"148\" width=\"200\" height=\"26\" rx=\"8\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"210\" y=\"165\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">(5&radic;3) &divide; 3</text></g>"
+},
+{
+id:"q7",
+q:"Represent the irrational number <span class='hl'>&radic;5</span> on the number line.",
+qs:"Show how to represent square root of five on the number line.",
+anim:"q7",
+steps:[{"t": "Draw a number line from 0 to 3", "s": "Draw a horizontal line with points 0, 1, 2, 3 marked."}, {"t": "Construct a right triangle with sides 2 and 1", "s": "Draw vertical line 1 unit from 2 on number line to form right triangle."}, {"t": "Use Pythagoras theorem: hypotenuse = &radic;5", "s": "Hypotenuse length equals square root of five, mark on number line."}],
+cq:"Try representing &radic;10 similarly.",
+cqs:"Show how to represent square root of ten on number line.",
+ans:["Using right triangle with sides 2 and 1, hypotenuse is √5 on number line."],
+nudges:["Draw number line with whole numbers.", "Use right triangle to find &radic;5 length.", "Mark hypotenuse on number line."],
+anim_svg:"<g id=\"q7s0\" opacity=\"0\"><line x1=\"30\" y1=\"150\" x2=\"390\" y2=\"150\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><circle cx=\"30\" cy=\"150\" r=\"4\" fill=\"#c8922a\"/><circle cx=\"150\" cy=\"150\" r=\"4\" fill=\"#c8922a\"/><circle cx=\"270\" cy=\"150\" r=\"4\" fill=\"#c8922a\"/><circle cx=\"390\" cy=\"150\" r=\"4\" fill=\"#c8922a\"/><text x=\"30\" y=\"170\" text-anchor=\"middle\" font-size=\"12\" fill=\"#7a8c6e\">0</text><text x=\"150\" y=\"170\" text-anchor=\"middle\" font-size=\"12\" fill=\"#7a8c6e\">1</text><text x=\"270\" y=\"170\" text-anchor=\"middle\" font-size=\"12\" fill=\"#7a8c6e\">2</text><text x=\"390\" y=\"170\" text-anchor=\"middle\" font-size=\"12\" fill=\"#7a8c6e\">3</text></g><g id=\"q7s1\" opacity=\"0\"><line x1=\"270\" y1=\"150\" x2=\"270\" y2=\"110\" stroke=\"#c8922a\" stroke-width=\"2\"/><circle cx=\"270\" cy=\"110\" r=\"4\" fill=\"#c8922a\"/><line x1=\"270\" y1=\"110\" x2=\"330\" y2=\"150\" stroke=\"#c8922a\" stroke-width=\"2\"/><line x1=\"330\" y1=\"150\" x2=\"270\" y2=\"150\" stroke=\"#c8922a\" stroke-width=\"2\"/></g><g id=\"q7s2\" opacity=\"0\"><text x=\"300\" y=\"130\" font-size=\"14\" fill=\"#5a4a30\" font-weight=\"700\">&radic;5</text></g><g id=\"q7ans\" opacity=\"0\"><circle cx=\"330\" cy=\"150\" r=\"5\" fill=\"none\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"330\" y=\"140\" font-size=\"12\" fill=\"#7a8c6e\" font-weight=\"bold\" text-anchor=\"middle\">&radic;5</text></g>"
+},
+{
+id:"q8",
+q:"Write the decimal expansion of <span class='hl'>&pi;</span> up to 3 decimal places.",
+qs:"Write the value of pi up to three decimal places.",
+anim:"q8",
+steps:[{"t": "Recall value of pi", "s": "Pi is approximately 3.1415926..."}, {"t": "Round to 3 decimal places", "s": "Pi rounded to three decimals is 3.142."}, {"t": "Write final answer", "s": "So, pi up to three decimals is 3.142."}],
+cq:"Write pi up to 2 decimal places now.",
+cqs:"Write value of pi rounded to two decimals.",
+ans:["Pi is approximately 3.142 up to three decimal places."],
+nudges:["Remember pi is irrational.", "Use approximate value 3.1415926...", "Round carefully to required decimals."],
+anim_svg:"<g id=\"q8s0\" opacity=\"0\"><rect x=\"170\" y=\"40\" width=\"80\" height=\"80\" rx=\"40\" fill=\"#f5e6c8\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"210\" y=\"90\" font-size=\"24\" fill=\"#5a4a30\" font-weight=\"700\" text-anchor=\"middle\">&pi;</text></g><g id=\"q8s1\" opacity=\"0\"><rect x=\"110\" y=\"130\" width=\"200\" height=\"44\" rx=\"10\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"210\" y=\"160\" text-anchor=\"middle\" font-size=\"18\" fill=\"#7a8c6e\">3.1415926...</text></g><g id=\"q8s2\" opacity=\"0\"><rect x=\"150\" y=\"185\" width=\"120\" height=\"32\" rx=\"10\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2.5\"/><text x=\"210\" y=\"208\" text-anchor=\"middle\" font-size=\"16\" fill=\"#7a8c6e\" font-weight=\"900\">Rounded: 3.142</text></g><g id=\"q8ans\" opacity=\"0\"><rect x=\"170\" y=\"220\" width=\"80\" height=\"26\" rx=\"8\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"210\" y=\"238\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"14\" font-weight=\"bold\" fill=\"#7a8c6e\">3.142</text></g>"
+},
+{
+id:"q9",
+q:"Identify which of these numbers are irrational: <span class='hl'>&radic;9, &radic;7, 2.5, &pi;</span>",
+qs:"Which numbers among square root of nine, square root of seven, two point five, and pi are irrational?",
+anim:"q9",
+steps:[{"t": "Check &radic;9", "s": "Square root of nine is 3, a rational number."}, {"t": "Check &radic;7", "s": "Square root of seven is non-terminating and non-repeating, so irrational."}, {"t": "Check 2.5", "s": "Two point five is a terminating decimal, so rational."}],
+cq:"Which are rational among these?",
+cqs:"Identify the rational numbers from the list.",
+ans:["√7 and π are irrational numbers."],
+nudges:["Simplify square roots if possible.", "Check decimal expansions.", "Recall pi is irrational."],
+anim_svg:"<g id=\"q9s0\" opacity=\"0\"><rect x=\"40\" y=\"20\" width=\"340\" height=\"44\" rx=\"10\" fill=\"#f5e6c8\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"210\" y=\"38\" text-anchor=\"middle\" font-size=\"13\" fill=\"#5a4a30\" font-weight=\"800\">Numbers to Check</text><text x=\"210\" y=\"56\" text-anchor=\"middle\" font-size=\"11\" fill=\"#8a7a5a\">&radic;9, &radic;7, 2.5, &pi;</text></g><g id=\"q9s1\" opacity=\"0\"><rect x=\"40\" y=\"75\" width=\"340\" height=\"88\" rx=\"10\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"210\" y=\"95\" text-anchor=\"middle\" font-size=\"12\" fill=\"#5a4a30\" font-weight=\"700\">Check Each Number</text><text x=\"210\" y=\"115\" text-anchor=\"middle\" font-size=\"11\" fill=\"#7a8c6e\">&radic;9 = 3 (Rational)</text><text x=\"210\" y=\"135\" text-anchor=\"middle\" font-size=\"11\" fill=\"#7a8c6e\">&radic;7 (Irrational)</text><text x=\"210\" y=\"155\" text-anchor=\"middle\" font-size=\"11\" fill=\"#7a8c6e\">2.5 (Rational)</text><text x=\"210\" y=\"175\" text-anchor=\"middle\" font-size=\"11\" fill=\"#7a8c6e\">&pi; (Irrational)</text></g><g id=\"q9ans\" opacity=\"0\"><rect x=\"110\" y=\"180\" width=\"200\" height=\"26\" rx=\"8\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"210\" y=\"198\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">&radic;7, &pi; are Irrational</text></g>"
+},
+{
+id:"q10",
+q:"Place the numbers <span class='hl'>-2, 0, &radic;2, 3/2, &pi;</span> on the real number line.",
+qs:"Show where minus two, zero, square root of two, three halves, and pi are on the real number line.",
+anim:"q10",
+steps:[{"t": "Draw number line with negative and positive parts", "s": "Draw horizontal line with marks at -2, 0, 1, 1.5, 1.414, and 3.14."}, {"t": "Mark integers -2 and 0", "s": "Mark points for minus two and zero."}, {"t": "Mark fractions and irrationals", "s": "Mark 3/2 = 1.5, &radic;2 ≈ 1.414, and &pi; ≈ 3.14 on line."}],
+cq:"Which numbers are rational here?",
+cqs:"Identify rational numbers among these on the line.",
+ans:["-2, 0, and 3/2 are rational; √2 and π are irrational."],
+nudges:["Recall rational numbers include integers and fractions.", "Irrationals like &radic;2 and &pi; cannot be fractions.", "Locate approximate decimal values on line."],
+anim_svg:"<g id=\"q10s0\" opacity=\"0\"><line x1=\"50\" y1=\"120\" x2=\"370\" y2=\"120\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"50\" y=\"140\" text-anchor=\"middle\" font-size=\"12\" fill=\"#7a8c6e\">-2</text><text x=\"130\" y=\"140\" text-anchor=\"middle\" font-size=\"12\" fill=\"#7a8c6e\">0</text><text x=\"210\" y=\"140\" text-anchor=\"middle\" font-size=\"12\" fill=\"#7a8c6e\">&radic;2</text><text x=\"250\" y=\"140\" text-anchor=\"middle\" font-size=\"12\" fill=\"#7a8c6e\">3/2</text><text x=\"350\" y=\"140\" text-anchor=\"middle\" font-size=\"12\" fill=\"#7a8c6e\">&pi;</text></g><g id=\"q10s1\" opacity=\"0\"><circle cx=\"50\" cy=\"120\" r=\"5\" fill=\"#c8922a\"/><circle cx=\"130\" cy=\"120\" r=\"5\" fill=\"#c8922a\"/><circle cx=\"210\" cy=\"120\" r=\"5\" fill=\"#c8922a\"/><circle cx=\"250\" cy=\"120\" r=\"5\" fill=\"#c8922a\"/><circle cx=\"350\" cy=\"120\" r=\"5\" fill=\"#c8922a\"/></g><g id=\"q10s2\" opacity=\"0\"><text x=\"210\" y=\"100\" font-size=\"14\" fill=\"#5a4a30\" font-weight=\"700\">&radic;2 ≈ 1.414</text><text x=\"250\" y=\"100\" font-size=\"14\" fill=\"#5a4a30\" font-weight=\"700\">3/2 = 1.5</text><text x=\"350\" y=\"100\" font-size=\"14\" fill=\"#5a4a30\" font-weight=\"700\">&pi; ≈ 3.14</text></g><g id=\"q10ans\" opacity=\"0\"><rect x=\"140\" y=\"50\" width=\"160\" height=\"30\" rx=\"10\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"220\" y=\"70\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"14\" font-weight=\"bold\" fill=\"#7a8c6e\">-2, 0, 3/2 Rational; &radic;2, &pi; Irrational</text></g>"
+}
+];
+
+function getAnimSVG(t){
+var base='<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Nunito,sans-serif;background:#fffdf8"><rect width="420" height="178" fill="#fffdf8"/>';
+var svgs={
+"q1":base+"<g id=\"q1s0\" opacity=\"0\"><rect x=\"30\" y=\"20\" width=\"360\" height=\"44\" rx=\"10\" fill=\"#f5e6c8\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"210\" y=\"38\" text-anchor=\"middle\" font-size=\"13\" fill=\"#5a4a30\" font-weight=\"800\">Given Number</text><text x=\"210\" y=\"56\" text-anchor=\"middle\" font-size=\"11\" fill=\"#8a7a5a\">Number: 7 &divide; 4</text></g><g id=\"q1s1\" opacity=\"0\"><rect x=\"30\" y=\"75\" width=\"360\" height=\"44\" rx=\"10\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"210\" y=\"93\" text-anchor=\"middle\" font-size=\"13\" fill=\"#5a4a30\" font-weight=\"800\">Check p and q</text><text x=\"210\" y=\"111\" text-anchor=\"middle\" font-size=\"11\" fill=\"#8a7a5a\">p = 7, q = 4 (both integers, q ≠ 0)</text></g><g id=\"q1s2\" opacity=\"0\"><rect x=\"60\" y=\"128\" width=\"300\" height=\"32\" rx=\"10\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2.5\"/><text x=\"210\" y=\"149\" text-anchor=\"middle\" font-size=\"13\" fill=\"#7a8c6e\" font-weight=\"900\">7 &divide; 4 is a rational number</text></g><g id=\"q1ans\" opacity=\"0\"><rect x=\"110\" y=\"148\" width=\"200\" height=\"26\" rx=\"8\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"210\" y=\"165\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Rational Number</text></g>",
+"q2":base+"<g id=\"q2s0\" opacity=\"0\"><rect x=\"30\" y=\"20\" width=\"360\" height=\"44\" rx=\"10\" fill=\"#f5e6c8\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"210\" y=\"38\" text-anchor=\"middle\" font-size=\"13\" fill=\"#5a4a30\" font-weight=\"800\">Decimal Number</text><text x=\"210\" y=\"56\" text-anchor=\"middle\" font-size=\"11\" fill=\"#8a7a5a\">0.375</text></g><g id=\"q2s1\" opacity=\"0\"><rect x=\"30\" y=\"75\" width=\"360\" height=\"44\" rx=\"10\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"210\" y=\"93\" text-anchor=\"middle\" font-size=\"13\" fill=\"#5a4a30\" font-weight=\"800\">Count Decimal Places</text><text x=\"210\" y=\"111\" text-anchor=\"middle\" font-size=\"11\" fill=\"#8a7a5a\">Three digits after decimal point</text></g><g id=\"q2s2\" opacity=\"0\"><rect x=\"60\" y=\"128\" width=\"300\" height=\"32\" rx=\"10\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2.5\"/><text x=\"210\" y=\"149\" text-anchor=\"middle\" font-size=\"13\" fill=\"#7a8c6e\" font-weight=\"900\">0.375 is Terminating Decimal</text></g><g id=\"q2ans\" opacity=\"0\"><rect x=\"110\" y=\"148\" width=\"200\" height=\"26\" rx=\"8\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"210\" y=\"165\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Terminating Decimal</text></g>",
+"q3":base+"<g id=\"q3s0\" opacity=\"0\"><rect x=\"30\" y=\"20\" width=\"360\" height=\"44\" rx=\"10\" fill=\"#f5e6c8\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"210\" y=\"38\" text-anchor=\"middle\" font-size=\"13\" fill=\"#5a4a30\" font-weight=\"800\">Number to Check</text><text x=\"210\" y=\"56\" text-anchor=\"middle\" font-size=\"11\" fill=\"#8a7a5a\">&radic;2 ≈ 1.4142135...</text></g><g id=\"q3s1\" opacity=\"0\"><rect x=\"30\" y=\"75\" width=\"360\" height=\"44\" rx=\"10\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"210\" y=\"93\" text-anchor=\"middle\" font-size=\"13\" fill=\"#5a4a30\" font-weight=\"800\">Decimal Expansion</text><text x=\"210\" y=\"111\" text-anchor=\"middle\" font-size=\"11\" fill=\"#8a7a5a\">Non-terminating and non-repeating</text></g><g id=\"q3s2\" opacity=\"0\"><rect x=\"60\" y=\"128\" width=\"300\" height=\"32\" rx=\"10\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2.5\"/><text x=\"210\" y=\"149\" text-anchor=\"middle\" font-size=\"13\" fill=\"#7a8c6e\" font-weight=\"900\">&radic;2 is Irrational</text></g><g id=\"q3ans\" opacity=\"0\"><rect x=\"110\" y=\"148\" width=\"200\" height=\"26\" rx=\"8\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"210\" y=\"165\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Irrational Number</text></g>",
+"q4":base+"<g id=\"q4s0\" opacity=\"0\"><rect x=\"30\" y=\"20\" width=\"360\" height=\"44\" rx=\"10\" fill=\"#f5e6c8\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"210\" y=\"38\" text-anchor=\"middle\" font-size=\"13\" fill=\"#5a4a30\" font-weight=\"800\">Given Surd</text><text x=\"210\" y=\"56\" text-anchor=\"middle\" font-size=\"11\" fill=\"#8a7a5a\">&radic;50</text></g><g id=\"q4s1\" opacity=\"0\"><rect x=\"30\" y=\"75\" width=\"360\" height=\"44\" rx=\"10\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"210\" y=\"93\" text-anchor=\"middle\" font-size=\"13\" fill=\"#5a4a30\" font-weight=\"800\">Factor 50</text><text x=\"210\" y=\"111\" text-anchor=\"middle\" font-size=\"11\" fill=\"#8a7a5a\">50 = 25 &times; 2</text></g><g id=\"q4s2\" opacity=\"0\"><rect x=\"60\" y=\"128\" width=\"300\" height=\"32\" rx=\"10\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2.5\"/><text x=\"210\" y=\"149\" text-anchor=\"middle\" font-size=\"13\" fill=\"#7a8c6e\" font-weight=\"900\">&radic;50 = 5&radic;2</text></g><g id=\"q4ans\" opacity=\"0\"><rect x=\"110\" y=\"148\" width=\"200\" height=\"26\" rx=\"8\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"210\" y=\"165\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">5&radic;2</text></g>",
+"q5":base+"<g id=\"q5s0\" opacity=\"0\"><rect x=\"30\" y=\"20\" width=\"360\" height=\"44\" rx=\"10\" fill=\"#f5e6c8\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"210\" y=\"38\" text-anchor=\"middle\" font-size=\"13\" fill=\"#5a4a30\" font-weight=\"800\">Given Expression</text><text x=\"210\" y=\"56\" text-anchor=\"middle\" font-size=\"11\" fill=\"#8a7a5a\">&radic;3 &times; &radic;12</text></g><g id=\"q5s1\" opacity=\"0\"><rect x=\"30\" y=\"75\" width=\"360\" height=\"44\" rx=\"10\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"210\" y=\"93\" text-anchor=\"middle\" font-size=\"13\" fill=\"#5a4a30\" font-weight=\"800\">Multiply under roots</text><text x=\"210\" y=\"111\" text-anchor=\"middle\" font-size=\"11\" fill=\"#8a7a5a\">3 &times; 12 = 36</text></g><g id=\"q5s2\" opacity=\"0\"><rect x=\"60\" y=\"128\" width=\"300\" height=\"32\" rx=\"10\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2.5\"/><text x=\"210\" y=\"149\" text-anchor=\"middle\" font-size=\"13\" fill=\"#7a8c6e\" font-weight=\"900\">&radic;36 = 6</text></g><g id=\"q5ans\" opacity=\"0\"><rect x=\"110\" y=\"148\" width=\"200\" height=\"26\" rx=\"8\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"210\" y=\"165\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">6</text></g>",
+"q6":base+"<g id=\"q6s0\" opacity=\"0\"><rect x=\"30\" y=\"20\" width=\"360\" height=\"44\" rx=\"10\" fill=\"#f5e6c8\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"210\" y=\"38\" text-anchor=\"middle\" font-size=\"13\" fill=\"#5a4a30\" font-weight=\"800\">Given Expression</text><text x=\"210\" y=\"56\" text-anchor=\"middle\" font-size=\"11\" fill=\"#8a7a5a\">5 &divide; &radic;3</text></g><g id=\"q6s1\" opacity=\"0\"><rect x=\"30\" y=\"75\" width=\"360\" height=\"44\" rx=\"10\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"210\" y=\"93\" text-anchor=\"middle\" font-size=\"13\" fill=\"#5a4a30\" font-weight=\"800\">Multiply numerator and denominator by &radic;3</text><text x=\"210\" y=\"111\" text-anchor=\"middle\" font-size=\"11\" fill=\"#8a7a5a\">(5 &times; &radic;3) &divide; (&radic;3 &times; &radic;3)</text></g><g id=\"q6s2\" opacity=\"0\"><rect x=\"60\" y=\"128\" width=\"300\" height=\"32\" rx=\"10\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2.5\"/><text x=\"210\" y=\"149\" text-anchor=\"middle\" font-size=\"13\" fill=\"#7a8c6e\" font-weight=\"900\">(5&radic;3) &divide; 3</text></g><g id=\"q6ans\" opacity=\"0\"><rect x=\"110\" y=\"148\" width=\"200\" height=\"26\" rx=\"8\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"210\" y=\"165\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">(5&radic;3) &divide; 3</text></g>",
+"q7":base+"<g id=\"q7s0\" opacity=\"0\"><line x1=\"30\" y1=\"150\" x2=\"390\" y2=\"150\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><circle cx=\"30\" cy=\"150\" r=\"4\" fill=\"#c8922a\"/><circle cx=\"150\" cy=\"150\" r=\"4\" fill=\"#c8922a\"/><circle cx=\"270\" cy=\"150\" r=\"4\" fill=\"#c8922a\"/><circle cx=\"390\" cy=\"150\" r=\"4\" fill=\"#c8922a\"/><text x=\"30\" y=\"170\" text-anchor=\"middle\" font-size=\"12\" fill=\"#7a8c6e\">0</text><text x=\"150\" y=\"170\" text-anchor=\"middle\" font-size=\"12\" fill=\"#7a8c6e\">1</text><text x=\"270\" y=\"170\" text-anchor=\"middle\" font-size=\"12\" fill=\"#7a8c6e\">2</text><text x=\"390\" y=\"170\" text-anchor=\"middle\" font-size=\"12\" fill=\"#7a8c6e\">3</text></g><g id=\"q7s1\" opacity=\"0\"><line x1=\"270\" y1=\"150\" x2=\"270\" y2=\"110\" stroke=\"#c8922a\" stroke-width=\"2\"/><circle cx=\"270\" cy=\"110\" r=\"4\" fill=\"#c8922a\"/><line x1=\"270\" y1=\"110\" x2=\"330\" y2=\"150\" stroke=\"#c8922a\" stroke-width=\"2\"/><line x1=\"330\" y1=\"150\" x2=\"270\" y2=\"150\" stroke=\"#c8922a\" stroke-width=\"2\"/></g><g id=\"q7s2\" opacity=\"0\"><text x=\"300\" y=\"130\" font-size=\"14\" fill=\"#5a4a30\" font-weight=\"700\">&radic;5</text></g><g id=\"q7ans\" opacity=\"0\"><circle cx=\"330\" cy=\"150\" r=\"5\" fill=\"none\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"330\" y=\"140\" font-size=\"12\" fill=\"#7a8c6e\" font-weight=\"bold\" text-anchor=\"middle\">&radic;5</text></g>",
+"q8":base+"<g id=\"q8s0\" opacity=\"0\"><rect x=\"170\" y=\"40\" width=\"80\" height=\"80\" rx=\"40\" fill=\"#f5e6c8\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"210\" y=\"90\" font-size=\"24\" fill=\"#5a4a30\" font-weight=\"700\" text-anchor=\"middle\">&pi;</text></g><g id=\"q8s1\" opacity=\"0\"><rect x=\"110\" y=\"130\" width=\"200\" height=\"44\" rx=\"10\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"210\" y=\"160\" text-anchor=\"middle\" font-size=\"18\" fill=\"#7a8c6e\">3.1415926...</text></g><g id=\"q8s2\" opacity=\"0\"><rect x=\"150\" y=\"185\" width=\"120\" height=\"32\" rx=\"10\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2.5\"/><text x=\"210\" y=\"208\" text-anchor=\"middle\" font-size=\"16\" fill=\"#7a8c6e\" font-weight=\"900\">Rounded: 3.142</text></g><g id=\"q8ans\" opacity=\"0\"><rect x=\"170\" y=\"220\" width=\"80\" height=\"26\" rx=\"8\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"210\" y=\"238\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"14\" font-weight=\"bold\" fill=\"#7a8c6e\">3.142</text></g>",
+"q9":base+"<g id=\"q9s0\" opacity=\"0\"><rect x=\"40\" y=\"20\" width=\"340\" height=\"44\" rx=\"10\" fill=\"#f5e6c8\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"210\" y=\"38\" text-anchor=\"middle\" font-size=\"13\" fill=\"#5a4a30\" font-weight=\"800\">Numbers to Check</text><text x=\"210\" y=\"56\" text-anchor=\"middle\" font-size=\"11\" fill=\"#8a7a5a\">&radic;9, &radic;7, 2.5, &pi;</text></g><g id=\"q9s1\" opacity=\"0\"><rect x=\"40\" y=\"75\" width=\"340\" height=\"88\" rx=\"10\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"210\" y=\"95\" text-anchor=\"middle\" font-size=\"12\" fill=\"#5a4a30\" font-weight=\"700\">Check Each Number</text><text x=\"210\" y=\"115\" text-anchor=\"middle\" font-size=\"11\" fill=\"#7a8c6e\">&radic;9 = 3 (Rational)</text><text x=\"210\" y=\"135\" text-anchor=\"middle\" font-size=\"11\" fill=\"#7a8c6e\">&radic;7 (Irrational)</text><text x=\"210\" y=\"155\" text-anchor=\"middle\" font-size=\"11\" fill=\"#7a8c6e\">2.5 (Rational)</text><text x=\"210\" y=\"175\" text-anchor=\"middle\" font-size=\"11\" fill=\"#7a8c6e\">&pi; (Irrational)</text></g><g id=\"q9ans\" opacity=\"0\"><rect x=\"110\" y=\"180\" width=\"200\" height=\"26\" rx=\"8\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"210\" y=\"198\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">&radic;7, &pi; are Irrational</text></g>",
+"q10":base+"<g id=\"q10s0\" opacity=\"0\"><line x1=\"50\" y1=\"120\" x2=\"370\" y2=\"120\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"50\" y=\"140\" text-anchor=\"middle\" font-size=\"12\" fill=\"#7a8c6e\">-2</text><text x=\"130\" y=\"140\" text-anchor=\"middle\" font-size=\"12\" fill=\"#7a8c6e\">0</text><text x=\"210\" y=\"140\" text-anchor=\"middle\" font-size=\"12\" fill=\"#7a8c6e\">&radic;2</text><text x=\"250\" y=\"140\" text-anchor=\"middle\" font-size=\"12\" fill=\"#7a8c6e\">3/2</text><text x=\"350\" y=\"140\" text-anchor=\"middle\" font-size=\"12\" fill=\"#7a8c6e\">&pi;</text></g><g id=\"q10s1\" opacity=\"0\"><circle cx=\"50\" cy=\"120\" r=\"5\" fill=\"#c8922a\"/><circle cx=\"130\" cy=\"120\" r=\"5\" fill=\"#c8922a\"/><circle cx=\"210\" cy=\"120\" r=\"5\" fill=\"#c8922a\"/><circle cx=\"250\" cy=\"120\" r=\"5\" fill=\"#c8922a\"/><circle cx=\"350\" cy=\"120\" r=\"5\" fill=\"#c8922a\"/></g><g id=\"q10s2\" opacity=\"0\"><text x=\"210\" y=\"100\" font-size=\"14\" fill=\"#5a4a30\" font-weight=\"700\">&radic;2 ≈ 1.414</text><text x=\"250\" y=\"100\" font-size=\"14\" fill=\"#5a4a30\" font-weight=\"700\">3/2 = 1.5</text><text x=\"350\" y=\"100\" font-size=\"14\" fill=\"#5a4a30\" font-weight=\"700\">&pi; ≈ 3.14</text></g><g id=\"q10ans\" opacity=\"0\"><rect x=\"140\" y=\"50\" width=\"160\" height=\"30\" rx=\"10\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"220\" y=\"70\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"14\" font-weight=\"bold\" fill=\"#7a8c6e\">-2, 0, 3/2 Rational; &radic;2, &pi; Irrational</text></g>"
+};
+return svgs[t]||'<svg viewBox="0 0 420 178"><text x="210" y="89" text-anchor="middle" font-family="Nunito" font-size="14" fill="#5a4a30">Loading...</text></svg>';
+}
+
+function makeAnimPlay(id,steps,ansLabel){var gen=0;return function(done){var myGen=++gen;setStatus("Solving step by step...");function playStep(i){if(myGen!==gen)return;if(i>=steps.length){at(400,function(){if(myGen!==gen)return;fade(id+"ans",1);setStatus("Answer: "+ansLabel);at(2000,done);});return;}at(i===0?600:400,function(){if(myGen!==gen)return;fade(id+"s"+i,1);say(steps[i].s,function(){playStep(i+1);});});}playStep(0);}; }
+var ANIM_PLAYS={};
+QB.forEach(function(q){ANIM_PLAYS[q.id]=makeAnimPlay(q.id,q.steps,q.ans[0]);});
+function getAnimPlay(t){return ANIM_PLAYS[t]||function(done){done();};}
+
+var atTimers=[],session=[],idx=0,stepIdx=0,nudgeCount=0,completed=false,confirmShown=false,breakSecs=0,breakTmr=null,PER_SESSION=10;
+function G(id){return document.getElementById(id);}
+function clearAt(){for(var i=0;i<atTimers.length;i++)clearTimeout(atTimers[i]);atTimers=[];}
+function at(ms,fn){atTimers.push(setTimeout(fn,ms));}
+function fade(id,v){var e=G(id);if(e){e.style.transition="opacity .5s";e.style.opacity=v;}}
+function setStatus(t){var e=G("animStatus");if(e)e.textContent=t;}
+function startLesson(){var btn=G('startBtn');if(btn){btn.disabled=true;btn.textContent='▶ Starting...';}var done=false;function proceed(){if(!done){done=true;setTimeout(showQ,600);}}say(G('introText').innerText,proceed);setTimeout(proceed,8000);}
+function init(){
+  
+  var st=JSON.parse(localStorage.getItem("rishi_current_student")||"{}");
+  G("sName")&&(G("sName").textContent=st.studentName?st.studentName.split(" ")[0]:"there");
+  if(rishiIsExplainDone('ic9_1')){completed=true;G("doneBanner").classList.add("show");unlockNav();}
+  buildSession();rInit();
+  initVoices(function(){});
+}
+function buildSession(){session=QB.slice().sort(function(){return Math.random()-.5;}).slice(0,PER_SESSION);}
+function showQ(){
+  if(idx>=session.length){onComplete();return;}
+  var q=session[idx];stepIdx=0;nudgeCount=0;updateProg();G("qArea").innerHTML="";clearAt();
+  var qc=document.createElement("div");qc.className="q-card";
+  qc.innerHTML='<div class="q-label">Question '+(idx+1)+' of '+PER_SESSION+'</div><div class="q-text">'+q.q+'</div><button class="btn-speak" onclick="say(session[idx].qs)">&#128266; Hear</button>';
+  G("qArea").appendChild(qc);
+  var ap=document.createElement("div");ap.className="anim-panel";
+  ap.innerHTML='<div class="anim-header"><span class="anim-header-lbl">&#127909; Live Animation</span><button class="anim-replay" id="animReplay" onclick="replayAnim()">&#8635; Replay</button></div>'
+    +'<div class="anim-canvas" id="animCanvas">'+getAnimSVG(q.anim)+'</div>'
+    +'<div class="anim-status" id="animStatus">Tap Play to watch with narration!</div>'
+    +'<button class="anim-play-btn" id="animPlayBtn" onclick="startAnim()">&#9654; Play Animation</button>'
+    +'<button class="steps-btn" id="stepsBtn" onclick="beginSteps()">&#128214; See Step-by-Step</button>';
+  G("qArea").appendChild(ap);setTimeout(startAnim,800);
+}
+function startAnim(){var q=session[idx];var pb=G("animPlayBtn");if(pb){pb.disabled=true;pb.textContent="&#9654; Playing...";}getAnimPlay(q.anim)(function(){var sb=G("stepsBtn");if(sb)sb.style.display="block";var rb=G("animReplay");if(rb)rb.style.display="block";if(pb)pb.style.display="none";setTimeout(beginSteps,600);});}
+function replayAnim(){clearAt();window.speechSynthesis&&window.speechSynthesis.cancel();rStopTalk();var q=session[idx];G("animCanvas").innerHTML=getAnimSVG(q.anim);G("animReplay").style.display="none";G("stepsBtn").style.display="none";var pb=G("animPlayBtn");if(pb){pb.style.display="block";pb.disabled=false;pb.textContent="&#9654; Play Animation";}setStatus("Tap Play to watch with narration!");}
+function beginSteps(){var q=session[idx];var sc=document.createElement("div");sc.className="q-card";sc.innerHTML='<div class="q-label">&#128214; Step-by-Step</div><div id="stepsWrap"></div><button class="btn-speak" id="nxtStepBtn" onclick="nextStep()" style="margin-top:10px;">&#9654; Next Step</button>';G("qArea").appendChild(sc);sc.scrollIntoView({behavior:"smooth",block:"start"});G("stepsBtn").style.display="none";setTimeout(nextStep,350);}
+var nsGen=0;function nextStep(){var myGen=++nsGen;var q=session[idx];if(stepIdx>=q.steps.length){G("nxtStepBtn").style.display="none";var ib=document.createElement("button");ib.className="btn-speak";ib.innerHTML="&#9989; I Understand!";ib.style.cssText="margin-top:16px;width:100%;";ib.onclick=function(){ib.remove();showConfirm();};G("stepsWrap").appendChild(ib);ib.scrollIntoView({behavior:"smooth",block:"center"});return;}var s=q.steps[stepIdx];var wrap=G("stepsWrap");var d=document.createElement("div");d.className="step";d.innerHTML='<div class="step-num">'+(stepIdx+1)+'</div><div class="step-body">'+s.t+'</div>';wrap.appendChild(d);setTimeout(function(){d.classList.add("vis");},40);stepIdx++;say(s.s||s.t.replace(/<[^>]*>/g,""),function(){if(myGen===nsGen)nextStep();});}
+function showConfirm(){if(confirmShown)return;confirmShown=true;
+  var q=session[idx];var c=document.createElement("div");c.className="confirm-wrap";
+  c.innerHTML='<div class="confirm-title">&#127917; Rishika asks!</div>'
+    +'<div class="confirm-q">'+q.cq+'</div>'
+    +'<textarea id="rawAnswer" class="math-raw" rows="2" autocomplete="off" placeholder="Type your answer here..."></textarea>'
+    +'<div class="math-preview-label">Preview</div>'
+    +'<div class="math-preview" id="mathPreview"></div>'
+    +'<div class="sugg-chips" id="suggChips"></div>'
+    +'<button type="button" onclick="submitTyped()" style="width:100%;font-family:Nunito,sans-serif;font-size:14px;font-weight:900;padding:11px;border-radius:12px;border:none;background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;cursor:pointer;margin-bottom:8px;">Submit Answer</button>'
+    +'<div class="result-box" id="rbox"></div>'
+    +'<div class="nudge" id="nudgeBox"></div>'
+    +'<button type="button" class="btn-next" id="btnNext" onclick="goNext()">Next Question &#9654;</button>';
+  G("qArea").appendChild(c);c.scrollIntoView({behavior:"smooth",block:"center"});
+  var ra=G("rawAnswer");
+  if(ra){ra.addEventListener("input",mathUpdate);ra.addEventListener("keydown",function(ev){if(ev.key==="Enter"&&!ev.shiftKey){ev.preventDefault();submitTyped();}});setTimeout(function(){ra.focus();},300);}
+  buildSuggChips(q.ans);say(q.cqs);
+}
+function submitTyped(){var ra=G("rawAnswer");if(!ra)return;var val=String(ra.value||"").trim();if(!val){ra.focus();return;}handleAnswer(val.toLowerCase());}
+function goNext(){confirmShown=false;idx++;G("qArea").innerHTML="";showQ();window.scrollTo({top:0,behavior:"smooth"});}
+function updateProg(){var pct=Math.round((idx/PER_SESSION)*100);G("progFill").style.width=pct+"%";G("progLabel").textContent="Question "+(idx+1)+" of "+PER_SESSION;G("progPct").textContent=pct+"%";}
+function unlockNav(){G("btnPractice").classList.remove("locked");G("btnExam").classList.remove("locked");G("lockTip").style.display="none";}
+function onComplete(){
+  rishiMarkExplainDone('ic9_1');
+  completed=true;G("doneBanner").classList.add("show");unlockNav();
+  var st=JSON.parse(localStorage.getItem("rishi_current_student")||"{}");
+  var nm=st.studentName?st.studentName.split(" ")[0]:"champion";
+  var cel=document.createElement("div");cel.className="rishika-wrap";
+  cel.innerHTML='<div class="rishika-avatar">&#128105;&#8205;&#127979;</div>'
+    +'<div class="rishika-bubble"><div class="rishika-name">Rishika</div>'
+    +'<div class="rishika-text" id="celText">&#127881; <span class="hl">'+nm+'</span>, Fantastic work! You&#39;ve mastered Rational and Irrational Numbers! 🎉</div>'
+    +'<button class="btn-speak" onclick="sayEl(\'celText\')">&#128266; Hear</button></div>';
+  G("qArea").appendChild(cel);setTimeout(function(){sayEl("celText");rHappy();},400);
+}
+function goPractice(){if(!completed){alert("Complete explanations first!");return;}location.href="/practice/icse/class9/arithmetic/rational-irrational-numbers.html";}
+function goExam(){if(!completed){alert("Complete explanations first!");return;}if(!rishiIsPracticeDone('ic9_1')){alert('Complete Practice with 5 in a row first!');return;}location.href="/exam.html?ch=ic9-01";}
+var CELEBRATIONS=[{word:"Magnifique!",lang:"French",meaning:"Magnificent!",speak:"Magnifique"},{word:"Bravissimo!",lang:"Italian",meaning:"Very well done!",speak:"Bravissimo"},{word:"Wunderbar!",lang:"German",meaning:"Wonderful!",speak:"Wunderbar"},{word:"Shabash!",lang:"Hindi",meaning:"Well done!",speak:"Shabash"},{word:"Felicitaciones!",lang:"Spanish",meaning:"Congratulations!",speak:"Felicitaciones"}];
+var lastCelIdx=-1;
+function celebrate(){var i;do{i=Math.floor(Math.random()*CELEBRATIONS.length);}while(i===lastCelIdx&&CELEBRATIONS.length>1);lastCelIdx=i;var c=CELEBRATIONS[i];var rb=G("rbox");rb.className="result-box ok";rb.innerHTML='<div style="font-size:18px;font-weight:900;">'+c.word+'</div><div style="font-size:11px;">'+c.lang+' &middot; <em>'+c.meaning+'</em></div>';G("nudgeBox").classList.remove("show");var nb=G("btnNext");if(nb)nb.classList.add("show");say(c.speak);rHappy();}
+function handleAnswer(text){var q=session[idx];var ok=q.ans.some(function(a){return text.includes(a.toLowerCase())||a.toLowerCase().includes(text);});var rb=G("rbox");if(ok){celebrate();}else{nudgeCount++;rb.className="result-box no";rb.textContent="\u2716 Not quite. Listen to my hint!";var nudge=q.nudges[Math.min(nudgeCount-1,q.nudges.length-1)];showNudge(nudge);say(nudge);rThink();if(nudgeCount>=3){var nb2=G("btnNext");if(nb2){nb2.classList.add("show");nb2.textContent="I Understand \u25b6";}}}}
+function showNudge(msg){var n=G("nudgeBox");if(n){n.textContent=msg;n.classList.add("show");}}
+function openBreak(){G("breakOv").classList.add("show");}
+function closeBreak(){G("breakOv").classList.remove("show");}
+function startBreak(r){closeBreak();breakSecs=0;G("timerLbl").textContent=r;G("timerNum").textContent="00:00";G("timerScreen").classList.add("show");breakTmr=setInterval(function(){breakSecs++;var m=String(Math.floor(breakSecs/60)).padStart(2,"0");var s=String(breakSecs%60).padStart(2,"0");G("timerNum").textContent=m+":"+s;},1000);}
+function endBreak(){clearInterval(breakTmr);G("timerScreen").classList.remove("show");}
+function mathUpdate(){var ra=G("rawAnswer");if(!ra)return;var v=ra.value.trim();var el=G("mathPreview");if(el)el.textContent=v||"";}
+function buildSuggChips(ans){var el=G("suggChips");if(!el)return;el.innerHTML="";(ans||[]).forEach(function(a){var btn=document.createElement("button");btn.className="schip";btn.textContent=a;btn.type="button";btn.addEventListener("click",function(){var ra=G("rawAnswer");if(ra){ra.value=a;mathUpdate();ra.focus();}});el.appendChild(btn);});}
+window.onload=init;
+</script>
+<script src="/explain-helper.js"></script>
+</body>
+</html>

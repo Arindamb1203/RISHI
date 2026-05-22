@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="rishi-board" content="icse">
+<meta name="rishi-class" content="9">
+<title>RISHI — Compound Interest (Using Formula)</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Nunito:wght@400;600;700;800;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<style>
+:root{--cream:#fdf6ec;--warm-white:#fffdf8;--gold:#c8922a;--gold-light:#e8b84b;--gold-pale:#f5e6c8;--amber:#d4870a;--sage:#7a8c6e;--sage-light:#a8b89a;--rust:#b85c2a;--charcoal:#2a2218;--mid:#5a4a30;--soft:#8a7a5a;--inactive:#c8b89a;--border-dark:#6b4c2a;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--cream);font-family:Nunito,sans-serif;min-height:100vh;color:var(--charcoal);}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(var(--gold-pale) 1px,transparent 1px),linear-gradient(90deg,var(--gold-pale) 1px,transparent 1px);background-size:40px 40px;opacity:.3;z-index:0;pointer-events:none;}
+.topbar{position:sticky;top:0;z-index:100;background:rgba(253,246,236,.97);border-bottom:2px solid var(--border-dark);backdrop-filter:blur(8px);padding:10px 18px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;}
+.logo-sm{font-family:'Orbitron',sans-serif;font-size:17px;font-weight:900;letter-spacing:4px;background:linear-gradient(135deg,var(--amber),var(--gold-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.topbar-center{font-family:'Orbitron',sans-serif;font-size:10px;letter-spacing:2px;color:var(--amber);text-transform:uppercase;}
+.topbar-right{display:flex;gap:8px;}
+.btn-topbar{font-family:Nunito,sans-serif;font-size:12px;font-weight:900;padding:6px 14px;border-radius:20px;border:2px solid var(--border-dark);background:var(--warm-white);color:var(--mid);cursor:pointer;}
+.btn-topbar.back{background:var(--gold-pale);}
+.prog-wrap{position:relative;z-index:10;padding:8px 18px;background:rgba(255,253,248,.9);border-bottom:1.5px solid var(--gold-pale);}
+.prog-info{display:flex;justify-content:space-between;font-size:11px;font-weight:800;color:var(--mid);margin-bottom:5px;}
+.prog-bar{height:6px;background:var(--gold-pale);border-radius:4px;overflow:hidden;}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--sage),var(--gold));border-radius:4px;transition:width .5s ease;}
+.main{position:relative;z-index:10;max-width:820px;margin:0 auto;padding:14px 14px 120px;}
+.rishika-wrap{display:flex;align-items:flex-start;gap:12px;margin-bottom:14px;}
+.rishika-avatar{width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,var(--sage),var(--sage-light));border:2px solid var(--border-dark);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;}
+.rishika-bubble{background:rgba(255,253,248,.97);border:2px solid var(--border-dark);border-radius:0 16px 16px 16px;padding:12px 16px;flex:1;box-shadow:0 4px 20px rgba(107,76,42,.1);}
+.rishika-name{font-size:10px;font-weight:900;color:var(--sage);letter-spacing:2px;text-transform:uppercase;margin-bottom:5px;}
+.rishika-text{font-size:14px;font-weight:700;color:var(--charcoal);line-height:1.6;}
+.hl{color:var(--amber);font-weight:900;}
+.btn-speak{display:inline-flex;align-items:center;gap:6px;font-family:Nunito,sans-serif;font-size:11px;font-weight:900;padding:5px 11px;border-radius:20px;border:2px solid var(--sage);background:#eef2eb;color:var(--sage);cursor:pointer;margin-top:8px;}
+.q-card{background:rgba(255,253,248,.97);border:2px solid var(--border-dark);border-radius:16px;padding:16px 18px;margin-bottom:12px;box-shadow:0 4px 20px rgba(107,76,42,.1);}
+.q-label{font-family:'Orbitron',sans-serif;font-size:10px;letter-spacing:3px;color:var(--amber);text-transform:uppercase;margin-bottom:8px;}
+.q-text{font-size:15px;font-weight:800;color:var(--charcoal);line-height:1.6;margin-bottom:10px;}
+.step{display:flex;gap:10px;margin-bottom:12px;opacity:0;transform:translateY(6px);transition:all .4s ease;}
+.step.vis{opacity:1;transform:translateY(0);}
+.step-num{width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;font-size:11px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:2px solid var(--border-dark);}
+.step-body{flex:1;font-size:13px;font-weight:700;color:var(--mid);line-height:1.6;padding-top:2px;}
+.anim-panel{background:#fffdf8;border:2px solid var(--border-dark);border-radius:14px;margin-bottom:12px;overflow:hidden;}
+.anim-header{background:linear-gradient(135deg,var(--charcoal),#3d2e1a);padding:7px 14px;display:flex;align-items:center;justify-content:space-between;}
+.anim-header-lbl{font-family:'Orbitron',sans-serif;font-size:9px;letter-spacing:2px;color:var(--gold-light);text-transform:uppercase;}
+.anim-replay{font-size:10px;font-weight:900;color:var(--gold-pale);background:none;border:1px solid var(--gold-pale);border-radius:20px;padding:2px 9px;cursor:pointer;display:none;}
+.anim-canvas{width:100%;max-height:195px;overflow:hidden;display:flex;align-items:center;justify-content:center;background:#fffdf8;}
+.anim-canvas svg{width:100%;max-height:195px;}
+.anim-status{padding:6px 14px;font-size:12px;font-weight:800;color:var(--mid);text-align:center;min-height:26px;border-top:1px solid var(--gold-pale);}
+.anim-play-btn{width:100%;padding:10px;font-family:Nunito,sans-serif;font-size:14px;font-weight:900;background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;border:none;cursor:pointer;}
+.anim-play-btn:disabled{background:var(--gold-pale);color:var(--inactive);cursor:not-allowed;}
+.steps-btn{width:100%;padding:10px;font-family:Nunito,sans-serif;font-size:14px;font-weight:900;background:linear-gradient(135deg,var(--sage),var(--sage-light));color:#fff;border:none;cursor:pointer;display:none;border-top:1px solid var(--gold-pale);}
+.confirm-wrap{margin-top:12px;background:linear-gradient(135deg,#eef2eb,#f5fbf2);border:2px solid var(--border-dark);border-radius:14px;padding:16px 18px;}
+.confirm-title{font-size:11px;font-weight:900;color:var(--sage);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;}
+.confirm-q{font-size:14px;font-weight:800;color:var(--charcoal);margin-bottom:12px;line-height:1.5;}
+.result-box{font-size:12px;font-weight:800;padding:9px 13px;border-radius:9px;display:none;line-height:1.4;}
+.result-box.ok{background:#eef2eb;border:2px solid var(--sage);color:var(--sage);display:block;}
+.result-box.no{background:#fff5f0;border:2px solid var(--rust);color:var(--rust);display:block;}
+.nudge{font-size:12px;font-weight:700;color:var(--mid);margin-top:7px;font-style:italic;display:none;}
+.nudge.show{display:block;}
+.btn-next{font-family:Nunito,sans-serif;font-size:14px;font-weight:900;padding:11px 22px;border-radius:12px;border:none;background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;cursor:pointer;display:none;margin-top:10px;width:100%;}
+.btn-next.show{display:block;}
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;z-index:100;background:rgba(253,246,236,.97);border-top:2px solid var(--border-dark);padding:10px 18px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap;align-items:center;}
+.btn-nav{font-family:Nunito,sans-serif;font-size:13px;font-weight:900;padding:10px 20px;border-radius:12px;border:2px solid var(--border-dark);cursor:pointer;}
+.btn-nav.practice{background:linear-gradient(135deg,var(--sage),var(--sage-light));color:#fff;border-color:var(--sage);}
+.btn-nav.exam{background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;border-color:var(--amber);}
+.btn-nav.locked{background:var(--gold-pale);color:var(--inactive);cursor:not-allowed;border-color:var(--inactive);}
+.lock-tip{font-size:10px;font-weight:700;color:var(--rust);width:100%;text-align:center;}
+.overlay{display:none;position:fixed;inset:0;background:rgba(42,34,24,.92);z-index:1000;flex-direction:column;align-items:center;justify-content:center;backdrop-filter:blur(6px);}
+.overlay.show{display:flex;}
+.break-box{background:var(--warm-white);border:2px solid var(--border-dark);border-radius:22px;padding:28px 32px;max-width:380px;width:90%;text-align:center;}
+.break-title{font-family:'Orbitron',sans-serif;font-size:14px;font-weight:900;color:var(--amber);letter-spacing:3px;margin-bottom:5px;}
+.break-sub{font-size:12px;font-weight:700;color:var(--soft);margin-bottom:16px;}
+.break-opts{display:flex;flex-direction:column;gap:8px;margin-bottom:12px;}
+.break-opt{font-family:Nunito,sans-serif;font-size:14px;font-weight:800;padding:11px;border-radius:11px;border:2px solid var(--border-dark);background:var(--warm-white);color:var(--mid);cursor:pointer;}
+.timer-screen{display:none;position:fixed;inset:0;background:#1a1208;z-index:1001;flex-direction:column;align-items:center;justify-content:center;}
+.timer-screen.show{display:flex;}
+.timer-reason{font-family:'Orbitron',sans-serif;font-size:12px;letter-spacing:4px;color:var(--gold-light);margin-bottom:16px;text-transform:uppercase;}
+.timer-num{font-family:'Orbitron',sans-serif;font-size:68px;font-weight:900;color:var(--gold-light);letter-spacing:6px;margin-bottom:30px;}
+.btn-end{font-family:Nunito,sans-serif;font-size:16px;font-weight:900;padding:13px 32px;border-radius:13px;border:2px solid var(--gold-light);background:transparent;color:var(--gold-light);cursor:pointer;}
+.done-banner{background:linear-gradient(135deg,#eef2eb,#f5fbf2);border:2px solid var(--border-dark);border-radius:14px;padding:14px 18px;text-align:center;margin-bottom:14px;display:none;}
+.done-banner.show{display:block;}
+.done-banner .dt{font-family:'Orbitron',sans-serif;font-size:12px;letter-spacing:2px;color:var(--sage);margin-bottom:4px;}
+.done-banner .ds{font-size:13px;font-weight:700;color:var(--mid);}
+.math-raw{width:100%;padding:10px 13px;border-radius:10px;border:2px solid var(--border-dark);background:var(--warm-white);color:var(--charcoal);font-size:1rem;font-family:'Share Tech Mono',monospace;resize:none;outline:none;min-height:48px;line-height:1.6;transition:border-color .2s;}
+.math-raw:focus{border-color:var(--amber);}
+.math-raw::placeholder{color:var(--inactive);font-family:Nunito,sans-serif;}
+.math-preview-label{font-size:0.68rem;text-transform:uppercase;letter-spacing:2px;color:var(--soft);margin:.5rem 0 .25rem;}
+.math-preview{min-height:44px;padding:.6rem 1rem;background:#f9f4ec;border-radius:8px;border:1.5px solid var(--gold-pale);font-size:1.1rem;color:var(--charcoal);overflow-x:auto;display:flex;align-items:center;justify-content:center;margin-bottom:10px;}
+.sugg-chips{display:flex;flex-wrap:wrap;gap:.35rem;margin-bottom:10px;}
+.schip{border:1.5px solid #1a6aaa;border-radius:20px;padding:.25rem .75rem;font-size:.78rem;cursor:pointer;background:#eef6ff;color:#0a5a9a;font-family:Nunito,sans-serif;font-weight:800;}
+#rWrap{position:fixed;bottom:68px;left:10px;z-index:200;width:82px;pointer-events:none;}
+#rChar{width:82px;filter:drop-shadow(0 4px 10px rgba(107,76,42,.3));}
+@keyframes rIn{from{transform:translateY(50px);opacity:0}to{transform:translateY(0);opacity:1}}
+@keyframes rBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+@media(max-width:600px){.main{padding:10px 10px 120px;}}
+</style>
+<script src="/rishi-sync.js"></script>
+<script src="/rishi-core.js"></script>
+<script src="/rishi-presence.js"></script>
+</head>
+<body>
+<div class="topbar">
+  <div class="logo-sm">RISHI</div>
+  <div class="topbar-center">💹 Compound Interest (Using Formula)</div>
+  <div class="topbar-right">
+    <button class="btn-topbar" onclick="openBreak()">&#9749; Break</button>
+    <button class="btn-topbar back" onclick="location.href='/syllabus.html?board=icse&class=9'">&#8592; Syllabus</button>
+  </div>
+</div>
+<div class="prog-wrap">
+  <div class="prog-info"><span id="progLabel">Question 1 of 10</span><span id="progPct">0%</span></div>
+  <div class="prog-bar"><div class="prog-fill" id="progFill" style="width:0%"></div></div>
+</div>
+<div class="main">
+  <div class="done-banner" id="doneBanner">
+    <div class="dt">&#10003; Explanation Completed!</div>
+    <div class="ds">Practice and Exam now unlocked.</div>
+  </div>
+  <div class="rishika-wrap">
+    <div class="rishika-avatar">&#128105;&#8205;&#127979;</div>
+    <div class="rishika-bubble">
+      <div class="rishika-name">Rishika</div>
+      <div class="rishika-text" id="introText">
+        Hi <span class="hl" id="sName">there</span>! I&#39;m Rishika! Today we explore <span class="hl">Compound Interest (Using Formula)</span>! 💹 Let&#39;s begin!
+      </div>
+      <button class="btn-speak" onclick="startLesson()" id="startBtn">&#9654; Start Lesson</button>
+    </div>
+  </div>
+  <div id="qArea"></div>
+</div>
+<div class="bottom-nav">
+  <div class="lock-tip" id="lockTip">&#9757; Complete explanations to unlock Practice and Exam</div>
+  <button class="btn-nav practice locked" id="btnPractice" onclick="goPractice()">&#9999;&#65039; Practice</button>
+  <button class="btn-nav exam locked" id="btnExam" onclick="goExam()">&#128221; Exam</button>
+</div>
+<div class="overlay" id="breakOv">
+  <div class="break-box">
+    <div class="break-title">Break</div>
+    <div class="break-sub">Choose &mdash; timer starts</div>
+    <div class="break-opts">
+      <button class="break-opt" onclick="startBreak('Water')">&#128167; Water</button>
+      <button class="break-opt" onclick="startBreak('Washroom')">&#128701; Washroom</button>
+      <button class="break-opt" onclick="startBreak('Physical')">&#127939; Physical</button>
+    </div>
+    <button class="break-opt" style="color:var(--soft)" onclick="closeBreak()">Cancel</button>
+  </div>
+</div>
+<div class="timer-screen" id="timerScreen">
+  <div class="timer-reason" id="timerLbl">Break</div>
+  <div class="timer-num" id="timerNum">00:00</div>
+  <button class="btn-end" onclick="endBreak()">&#10003; End Break</button>
+</div>
+<div id="rWrap">
+<svg id="rChar" viewBox="0 0 100 110" xmlns="http://www.w3.org/2000/svg">
+  <ellipse cx="50" cy="68" rx="36" ry="28" fill="#5a8a60" stroke="#3d6b42" stroke-width="2"/>
+  <ellipse cx="50" cy="66" rx="22" ry="16" fill="#7ab87a" stroke="#5a8a60" stroke-width="1.5"/>
+  <line x1="50" y1="50" x2="50" y2="82" stroke="#5a8a60" stroke-width="1.5"/>
+  <line x1="28" y1="66" x2="72" y2="66" stroke="#5a8a60" stroke-width="1.5"/>
+  <ellipse cx="20" cy="82" rx="10" ry="7" fill="#7ab87a" stroke="#5a8a60" stroke-width="1.5" transform="rotate(-20,20,82)"/>
+  <ellipse cx="80" cy="82" rx="10" ry="7" fill="#7ab87a" stroke="#5a8a60" stroke-width="1.5" transform="rotate(20,80,82)"/>
+  <ellipse cx="22" cy="58" rx="9" ry="6" fill="#7ab87a" stroke="#5a8a60" stroke-width="1.5" transform="rotate(20,22,58)"/>
+  <ellipse cx="78" cy="58" rx="9" ry="6" fill="#7ab87a" stroke="#5a8a60" stroke-width="1.5" transform="rotate(-20,78,58)"/>
+  <ellipse cx="50" cy="42" rx="10" ry="14" fill="#8fba6a" stroke="#5a8a60" stroke-width="1.5"/>
+  <ellipse cx="50" cy="28" rx="18" ry="16" fill="#8fba6a" stroke="#5a8a60" stroke-width="2"/>
+  <ellipse cx="43" cy="24" rx="5" ry="5.5" fill="white"/><ellipse cx="57" cy="24" rx="5" ry="5.5" fill="white"/>
+  <ellipse cx="43" cy="25" rx="3" ry="3.5" fill="#1a3a1a"/><ellipse cx="57" cy="25" rx="3" ry="3.5" fill="#1a3a1a"/>
+  <circle cx="44" cy="23" r="1.2" fill="white"/><circle cx="58" cy="23" r="1.2" fill="white"/>
+  <ellipse id="rLid1" cx="43" cy="24" rx="5" ry="1" fill="#8fba6a" opacity="0"/>
+  <ellipse id="rLid2" cx="57" cy="24" rx="5" ry="1" fill="#8fba6a" opacity="0"/>
+  <path id="rMouth" d="M44,33 Q50,38 56,33" fill="none" stroke="#3d6b42" stroke-width="2" stroke-linecap="round"/>
+  <ellipse id="rBlush1" cx="36" cy="30" rx="7" ry="4" fill="#ff9999" opacity="0"/>
+  <ellipse id="rBlush2" cx="64" cy="30" rx="7" ry="4" fill="#ff9999" opacity="0"/>
+  <rect x="28" y="90" width="44" height="13" fill="#d4870a" rx="4"/>
+  <text x="50" y="100" text-anchor="middle" font-family="Nunito" font-size="7" font-weight="900" fill="white">RISHIKA</text>
+</svg>
+</div>
+<script>
+var voicesReady=false,selectedVoice=null,elAudio=null;
+function pickVoice(){var vs=window.speechSynthesis.getVoices();if(!vs||vs.length===0)return false;var fk=["heera","veena","priya","raveena","female","woman","zira","samantha","victoria","karen","moira","tessa","fiona"];for(var i=0;i<vs.length;i++){if(vs[i].lang.toLowerCase().indexOf("en-in")===0){var n=vs[i].name.toLowerCase();for(var k=0;k<fk.length;k++){if(n.indexOf(fk[k])>=0){selectedVoice=vs[i];return true;}}}}for(var i=0;i<vs.length;i++){if(vs[i].lang.toLowerCase().indexOf("en")===0){var n=vs[i].name.toLowerCase();for(var k=0;k<fk.length;k++){if(n.indexOf(fk[k])>=0){selectedVoice=vs[i];return true;}}}}return false;}
+function initVoices(cb){if(pickVoice()){voicesReady=true;cb();return;}window.speechSynthesis.onvoiceschanged=function(){window.speechSynthesis.onvoiceschanged=null;pickVoice();voicesReady=true;cb();};setTimeout(function(){if(!voicesReady){pickVoice();voicesReady=true;cb();}},2000);}
+function stopAllAudio(){if(elAudio){try{elAudio.onended=null;elAudio.onerror=null;elAudio.pause();elAudio.src="";}catch(x){}elAudio=null;}if(window.speechSynthesis)window.speechSynthesis.cancel();}
+function sayBrowser(text,onEnd){if(!window.speechSynthesis)return;window.speechSynthesis.cancel();rStartTalk(text.length);var u=new SpeechSynthesisUtterance(text);u.lang="en-IN";u.rate=0.88;u.pitch=1.15;if(selectedVoice)u.voice=selectedVoice;u.onend=function(){rStopTalk();if(onEnd)onEnd();};u.onerror=function(){rStopTalk();if(onEnd)onEnd();};window.speechSynthesis.speak(u);}
+function say(text,onEnd){stopAllAudio();rStartTalk(text.length);fetch("/tts",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({text:text})}).then(function(res){if(!res.ok)throw new Error("TTS "+res.status);return res.blob();}).then(function(blob){var url=URL.createObjectURL(blob);elAudio=new Audio(url);elAudio.onended=function(){URL.revokeObjectURL(url);elAudio=null;rStopTalk();if(onEnd)onEnd();};elAudio.onerror=function(){URL.revokeObjectURL(url);elAudio=null;rStopTalk();sayBrowser(text,onEnd);};var p=elAudio.play();if(p&&p.catch){p.catch(function(){URL.revokeObjectURL(url);elAudio=null;sayBrowser(text,onEnd);});}}).catch(function(err){sayBrowser(text,onEnd);});}
+function sayEl(id){var e=G(id);if(e)say(e.innerText||e.textContent);}
+window.addEventListener("beforeunload",function(){stopAllAudio();});window.addEventListener("pagehide",function(){stopAllAudio();});
+var mouthTmr=null,blinkTmr=null,mOpen=false;
+function rInit(){var c=G("rChar");if(c)c.style.animation="rIn .6s cubic-bezier(.34,1.56,.64,1) forwards";scheduleBlink();}
+function scheduleBlink(){blinkTmr=setTimeout(function(){rBlink();scheduleBlink();},2200+Math.random()*3000);}
+function rBlink(){var l=G("rLid1"),r=G("rLid2");if(!l||!r)return;l.setAttribute("ry","5.5");r.setAttribute("ry","5.5");setTimeout(function(){l.setAttribute("ry","1");r.setAttribute("ry","1");},120);}
+function rStartTalk(len){rStopTalk();G("rBlush1").style.opacity="0.7";G("rBlush2").style.opacity="0.7";mOpen=false;mouthTmr=setInterval(function(){mOpen=!mOpen;var m=G("rMouth");if(!m)return;if(mOpen){m.setAttribute("d","M42,33 Q50,42 58,33");m.setAttribute("fill","#1a3a1a");}else{m.setAttribute("d","M44,33 Q50,38 56,33");m.setAttribute("fill","none");}},160);setTimeout(rStopTalk,Math.max(1800,(len||20)*58));}
+function rStopTalk(){clearInterval(mouthTmr);mOpen=false;var m=G("rMouth");if(m){m.setAttribute("d","M44,33 Q50,38 56,33");m.setAttribute("fill","none");}G("rBlush1").style.opacity="0";G("rBlush2").style.opacity="0";}
+function rHappy(){var c=G("rChar");if(c)c.style.animation="rBounce .35s ease-in-out 5";G("rBlush1").style.opacity="1";G("rBlush2").style.opacity="1";setTimeout(function(){rStopTalk();var c=G("rChar");if(c)c.style.animation="none";},2500);}
+function rThink(){setTimeout(rStopTalk,1800);}
+
+var QB=[
+{
+id:"q1",
+q:"A sum of ₹10,000 is invested at an annual compound interest rate of 5%. Find the amount after 3 years.",
+qs:"A sum of ten thousand rupees is invested at five percent compound interest per year. Find the amount after three years.",
+anim:"q1",
+steps:[{"t": "Write down the formula A = P(1 + r/100)^n", "s": "First, write the compound interest formula A equals P times one plus r over one hundred all raised to the power n."}, {"t": "Substitute P = 10000, r = 5, n = 3", "s": "Now substitute principal as ten thousand, rate as five, and time as three years."}, {"t": "Calculate A = 10000 &times; (1 + 5/100)^3 = 10000 &times; (1.05)^3 = 11576.25", "s": "Calculate amount as ten thousand times one point zero five to the power three, which equals eleven thousand five hundred seventy six rupees and twenty five paise."}],
+cq:"What is the compound interest earned?",
+cqs:"Find the compound interest earned after 3 years.",
+ans:["₹11576.25", "₹1576.25"],
+nudges:["Remember the formula for amount in compound interest.", "Calculate (1 + r/100) raised to the power n carefully.", "Subtract principal from amount to get compound interest."],
+anim_svg:"<g id=\"q1s0\" opacity=\"0\"><rect x=\"30\" y=\"20\" width=\"360\" height=\"44\" rx=\"10\" fill=\"#f5e6c8\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"210\" y=\"38\" text-anchor=\"middle\" font-size=\"13\" fill=\"#5a4a30\" font-weight=\"800\">Given Information</text><text x=\"210\" y=\"56\" text-anchor=\"middle\" font-size=\"11\" fill=\"#8a7a5a\">P = ₹10,000, r = 5%, n = 3 years</text></g><g id=\"q1s1\" opacity=\"0\"><rect x=\"30\" y=\"75\" width=\"360\" height=\"44\" rx=\"10\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"210\" y=\"93\" text-anchor=\"middle\" font-size=\"13\" fill=\"#5a4a30\" font-weight=\"800\">Apply the Formula</text><text x=\"210\" y=\"111\" text-anchor=\"middle\" font-size=\"11\" fill=\"#8a7a5a\">A = P(1 + r/100)^n</text></g><g id=\"q1s2\" opacity=\"0\"><rect x=\"60\" y=\"128\" width=\"300\" height=\"32\" rx=\"10\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2.5\"/><text x=\"210\" y=\"149\" text-anchor=\"middle\" font-size=\"13\" fill=\"#7a8c6e\" font-weight=\"900\">A = ₹11576.25</text></g><g id=\"q1ans\" opacity=\"0\"><rect x=\"110\" y=\"148\" width=\"200\" height=\"26\" rx=\"8\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"210\" y=\"165\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Amount = ₹11576.25</text></g>"
+},
+{
+id:"q2",
+q:"Find the compound interest on ₹8,000 for 2 years at 6% per annum compounded half-yearly.",
+qs:"Find the compound interest on eight thousand rupees for two years at six percent per annum compounded half yearly.",
+anim:"q2",
+steps:[{"t": "Use half-yearly rate r/2 = 6/2 = 3% and n = 2 &times; 2 = 4 periods", "s": "Since interest is compounded half yearly, rate per period is three percent and number of periods is four."}, {"t": "Calculate A = 8000 &times; (1 + 3/100)^4", "s": "Calculate amount as eight thousand times one point zero three to the power four."}, {"t": "A = 8000 &times; 1.1255 = 9004", "s": "Amount equals nine thousand four rupees approximately."}],
+cq:"What is the compound interest earned?",
+cqs:"Find compound interest by subtracting principal from amount.",
+ans:["₹9004", "₹1004"],
+nudges:["Remember to adjust rate and time for half-yearly compounding.", "Calculate the amount carefully using the formula.", "Subtract principal from amount to get compound interest."],
+anim_svg:"<g id=\"q2s0\" opacity=\"0\"><rect x=\"30\" y=\"20\" width=\"360\" height=\"44\" rx=\"10\" fill=\"#f5e6c8\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"210\" y=\"38\" text-anchor=\"middle\" font-size=\"13\" fill=\"#5a4a30\" font-weight=\"800\">Half-Yearly Compounding</text><text x=\"210\" y=\"56\" text-anchor=\"middle\" font-size=\"11\" fill=\"#8a7a5a\">Rate per half year = 3%, Periods = 4</text></g><g id=\"q2s1\" opacity=\"0\"><rect x=\"30\" y=\"75\" width=\"360\" height=\"44\" rx=\"10\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"210\" y=\"93\" text-anchor=\"middle\" font-size=\"13\" fill=\"#5a4a30\" font-weight=\"800\">Apply Formula</text><text x=\"210\" y=\"111\" text-anchor=\"middle\" font-size=\"11\" fill=\"#8a7a5a\">A = 8000 &times; (1 + 3/100)^4</text></g><g id=\"q2s2\" opacity=\"0\"><rect x=\"60\" y=\"128\" width=\"300\" height=\"32\" rx=\"10\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2.5\"/><text x=\"210\" y=\"149\" text-anchor=\"middle\" font-size=\"13\" fill=\"#7a8c6e\" font-weight=\"900\">A ≈ ₹9004</text></g><g id=\"q2ans\" opacity=\"0\"><rect x=\"110\" y=\"148\" width=\"200\" height=\"26\" rx=\"8\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"210\" y=\"165\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">CI = ₹1004</text></g>"
+},
+{
+id:"q3",
+q:"Calculate the amount on ₹12,000 for 1 year at 8% per annum compounded quarterly.",
+qs:"Calculate the amount on twelve thousand rupees for one year at eight percent per annum compounded quarterly.",
+anim:"q3",
+steps:[{"t": "Quarterly rate = 8/4 = 2%, number of quarters = 4", "s": "Since compounding is quarterly, rate per quarter is two percent and number of quarters is four."}, {"t": "Apply formula A = 12000 &times; (1 + 2/100)^4", "s": "Calculate amount as twelve thousand times one point zero two to the power four."}, {"t": "A = 12000 &times; 1.0824 = 12988.8", "s": "Amount is approximately twelve thousand nine hundred eighty eight rupees and eighty paise."}],
+cq:"Find the compound interest earned.",
+cqs:"Subtract principal from amount to get compound interest.",
+ans:["₹12988.8", "₹988.8"],
+nudges:["Adjust rate and time for quarterly compounding.", "Calculate (1 + r/100)^n carefully.", "Subtract principal from amount to find compound interest."],
+anim_svg:"<g id=\"q3s0\" opacity=\"0\"><rect x=\"30\" y=\"20\" width=\"360\" height=\"44\" rx=\"10\" fill=\"#f5e6c8\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"210\" y=\"38\" text-anchor=\"middle\" font-size=\"13\" fill=\"#5a4a30\" font-weight=\"800\">Quarterly Compounding</text><text x=\"210\" y=\"56\" text-anchor=\"middle\" font-size=\"11\" fill=\"#8a7a5a\">Rate per quarter = 2%, Quarters = 4</text></g><g id=\"q3s1\" opacity=\"0\"><rect x=\"30\" y=\"75\" width=\"360\" height=\"44\" rx=\"10\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"210\" y=\"93\" text-anchor=\"middle\" font-size=\"13\" fill=\"#5a4a30\" font-weight=\"800\">Apply Formula</text><text x=\"210\" y=\"111\" text-anchor=\"middle\" font-size=\"11\" fill=\"#8a7a5a\">A = 12000 &times; (1 + 2/100)^4</text></g><g id=\"q3s2\" opacity=\"0\"><rect x=\"60\" y=\"128\" width=\"300\" height=\"32\" rx=\"10\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2.5\"/><text x=\"210\" y=\"149\" text-anchor=\"middle\" font-size=\"13\" fill=\"#7a8c6e\" font-weight=\"900\">A ≈ ₹12988.8</text></g><g id=\"q3ans\" opacity=\"0\"><rect x=\"110\" y=\"148\" width=\"200\" height=\"26\" rx=\"8\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"210\" y=\"165\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">CI = ₹988.8</text></g>"
+},
+{
+id:"q4",
+q:"A machine bought for ₹50,000 depreciates at 10% per annum compounded annually. Find its value after 3 years.",
+qs:"A machine bought for fifty thousand rupees depreciates at ten percent per annum compounded annually. Find its value after three years.",
+anim:"q4",
+steps:[{"t": "Use depreciation formula A = P(1 - r/100)^n", "s": "Use the formula for depreciation where amount equals principal times one minus rate over one hundred raised to power n."}, {"t": "Substitute P = 50000, r = 10, n = 3", "s": "Substitute principal as fifty thousand, rate as ten, and time as three years."}, {"t": "Calculate A = 50000 &times; (1 - 10/100)^3 = 50000 &times; (0.9)^3 = 36450", "s": "Calculate amount as fifty thousand times zero point nine to the power three, which equals thirty six thousand four hundred fifty rupees."}],
+cq:"What is the depreciation amount after 3 years?",
+cqs:"Subtract amount from principal to find depreciation.",
+ans:["₹36450", "₹13550"],
+nudges:["Remember to use minus sign for depreciation rate.", "Calculate (1 - r/100)^n carefully.", "Subtract amount from principal to find depreciation."],
+anim_svg:"<g id=\"q4s0\" opacity=\"0\"><rect x=\"30\" y=\"20\" width=\"360\" height=\"44\" rx=\"10\" fill=\"#f5e6c8\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"210\" y=\"38\" text-anchor=\"middle\" font-size=\"13\" fill=\"#5a4a30\" font-weight=\"800\">Depreciation Formula</text><text x=\"210\" y=\"56\" text-anchor=\"middle\" font-size=\"11\" fill=\"#8a7a5a\">A = P(1 - r/100)^n</text></g><g id=\"q4s1\" opacity=\"0\"><rect x=\"30\" y=\"75\" width=\"360\" height=\"44\" rx=\"10\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"210\" y=\"93\" text-anchor=\"middle\" font-size=\"13\" fill=\"#5a4a30\" font-weight=\"800\">Substitute Values</text><text x=\"210\" y=\"111\" text-anchor=\"middle\" font-size=\"11\" fill=\"#8a7a5a\">P=₹50000, r=10%, n=3</text></g><g id=\"q4s2\" opacity=\"0\"><rect x=\"60\" y=\"128\" width=\"300\" height=\"32\" rx=\"10\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2.5\"/><text x=\"210\" y=\"149\" text-anchor=\"middle\" font-size=\"13\" fill=\"#7a8c6e\" font-weight=\"900\">A = ₹36450</text></g><g id=\"q4ans\" opacity=\"0\"><rect x=\"110\" y=\"148\" width=\"200\" height=\"26\" rx=\"8\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"210\" y=\"165\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Depreciation = ₹13550</text></g>"
+},
+{
+id:"q5",
+q:"If the amount after 2 years is ₹11,025 on a principal of ₹10,000 at compound interest, find the rate of interest per annum.",
+qs:"If the amount after two years is eleven thousand twenty five rupees on a principal of ten thousand rupees at compound interest, find the rate of interest per annum.",
+anim:"q5",
+steps:[{"t": "Use formula A = P(1 + r/100)^n and substitute A=11025, P=10000, n=2", "s": "Use amount formula and substitute amount as eleven thousand twenty five, principal as ten thousand, and time as two years."}, {"t": "Calculate (1 + r/100)^2 = 11025/10000 = 1.1025", "s": "Divide amount by principal to get one point one zero two five."}, {"t": "Take square root: 1 + r/100 = &radic;1.1025 = 1.05, so r = 5%", "s": "Take square root of one point one zero two five to get one point zero five, then subtract one and multiply by 100 to find rate as five percent."}],
+cq:"What is the rate of interest?",
+cqs:"Calculate rate from the equation after taking root.",
+ans:["5%"],
+nudges:["Divide amount by principal first.", "Take the nth root depending on time.", "Subtract one and multiply by 100 to get rate."],
+anim_svg:"<g id=\"q5s0\" opacity=\"0\"><rect x=\"30\" y=\"20\" width=\"360\" height=\"44\" rx=\"10\" fill=\"#f5e6c8\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"210\" y=\"38\" text-anchor=\"middle\" font-size=\"13\" fill=\"#5a4a30\" font-weight=\"800\">Given Amount and Principal</text><text x=\"210\" y=\"56\" text-anchor=\"middle\" font-size=\"11\" fill=\"#8a7a5a\">A=₹11025, P=₹10000, n=2</text></g><g id=\"q5s1\" opacity=\"0\"><rect x=\"30\" y=\"75\" width=\"360\" height=\"44\" rx=\"10\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"210\" y=\"93\" text-anchor=\"middle\" font-size=\"13\" fill=\"#5a4a30\" font-weight=\"800\">Calculate (1 + r/100)^n</text><text x=\"210\" y=\"111\" text-anchor=\"middle\" font-size=\"11\" fill=\"#8a7a5a\">(1 + r/100)^2 = 1.1025</text></g><g id=\"q5s2\" opacity=\"0\"><rect x=\"60\" y=\"128\" width=\"300\" height=\"32\" rx=\"10\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2.5\"/><text x=\"210\" y=\"149\" text-anchor=\"middle\" font-size=\"13\" fill=\"#7a8c6e\" font-weight=\"900\">r = 5%</text></g><g id=\"q5ans\" opacity=\"0\"><rect x=\"110\" y=\"148\" width=\"200\" height=\"26\" rx=\"8\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"210\" y=\"165\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Rate = 5%</text></g>"
+},
+{
+id:"q6",
+q:"Find the principal if the amount after 4 years at 7% compound interest per annum is ₹15,000.",
+qs:"Find the principal if the amount after four years at seven percent compound interest per annum is fifteen thousand rupees.",
+anim:"q6",
+steps:[{"t": "Use formula A = P(1 + r/100)^n, substitute A=15000, r=7, n=4", "s": "Use amount formula and substitute amount as fifteen thousand, rate as seven, and time as four years."}, {"t": "Calculate P = A / (1 + 7/100)^4 = 15000 / (1.07)^4 = 15000 / 1.3108", "s": "Calculate principal as amount divided by one point zero seven to the power four."}, {"t": "P ≈ ₹11440.5", "s": "Principal is approximately eleven thousand four hundred forty rupees and fifty paise."}],
+cq:"What was the original principal invested?",
+cqs:"Divide amount by compound factor to find principal.",
+ans:["₹11440.5"],
+nudges:["Rearrange formula to find principal.", "Calculate compound factor (1 + r/100)^n carefully.", "Divide amount by compound factor."],
+anim_svg:"<g id=\"q6s0\" opacity=\"0\"><rect x=\"30\" y=\"20\" width=\"360\" height=\"44\" rx=\"10\" fill=\"#f5e6c8\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"210\" y=\"38\" text-anchor=\"middle\" font-size=\"13\" fill=\"#5a4a30\" font-weight=\"800\">Given Amount and Rate</text><text x=\"210\" y=\"56\" text-anchor=\"middle\" font-size=\"11\" fill=\"#8a7a5a\">A=₹15000, r=7%, n=4</text></g><g id=\"q6s1\" opacity=\"0\"><rect x=\"30\" y=\"75\" width=\"360\" height=\"44\" rx=\"10\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"210\" y=\"93\" text-anchor=\"middle\" font-size=\"13\" fill=\"#5a4a30\" font-weight=\"800\">Rearrange Formula</text><text x=\"210\" y=\"111\" text-anchor=\"middle\" font-size=\"11\" fill=\"#8a7a5a\">P = A / (1 + r/100)^n</text></g><g id=\"q6s2\" opacity=\"0\"><rect x=\"60\" y=\"128\" width=\"300\" height=\"32\" rx=\"10\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2.5\"/><text x=\"210\" y=\"149\" text-anchor=\"middle\" font-size=\"13\" fill=\"#7a8c6e\" font-weight=\"900\">P ≈ ₹11440.5</text></g><g id=\"q6ans\" opacity=\"0\"><rect x=\"110\" y=\"148\" width=\"200\" height=\"26\" rx=\"8\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"210\" y=\"165\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Principal ≈ ₹11440.5</text></g>"
+},
+{
+id:"q7",
+q:"The population of a town is 50,000 and grows at 4% per annum compounded annually. Find the population after 5 years.",
+qs:"The population of a town is fifty thousand and grows at four percent per annum compounded annually. Find the population after five years.",
+anim:"q7",
+steps:[{"t": "Use formula A = P(1 + r/100)^n with P=50000, r=4, n=5", "s": "Use formula with principal as fifty thousand, rate as four, and time as five years."}, {"t": "Calculate A = 50000 &times; (1 + 4/100)^5 = 50000 &times; (1.04)^5", "s": "Calculate amount as fifty thousand times one point zero four to the power five."}, {"t": "A = 50000 &times; 1.2167 = 60835", "s": "Population after five years is approximately sixty thousand eight hundred thirty five."}],
+cq:"What is the increase in population after 5 years?",
+cqs:"Subtract original population from new population.",
+ans:["60835", "10835"],
+nudges:["Apply compound interest formula for growth.", "Calculate compound factor (1 + r/100)^n.", "Subtract original population to find increase."],
+anim_svg:"<g id=\"q7s0\" opacity=\"0\"><rect x=\"30\" y=\"20\" width=\"360\" height=\"44\" rx=\"10\" fill=\"#f5e6c8\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"210\" y=\"38\" text-anchor=\"middle\" font-size=\"13\" fill=\"#5a4a30\" font-weight=\"800\">Population Growth</text><text x=\"210\" y=\"56\" text-anchor=\"middle\" font-size=\"11\" fill=\"#8a7a5a\">P=50000, r=4%, n=5</text></g><g id=\"q7s1\" opacity=\"0\"><rect x=\"30\" y=\"75\" width=\"360\" height=\"44\" rx=\"10\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"210\" y=\"93\" text-anchor=\"middle\" font-size=\"13\" fill=\"#5a4a30\" font-weight=\"800\">Calculate Population</text><text x=\"210\" y=\"111\" text-anchor=\"middle\" font-size=\"11\" fill=\"#8a7a5a\">A = 50000 &times; (1.04)^5</text></g><g id=\"q7s2\" opacity=\"0\"><rect x=\"60\" y=\"128\" width=\"300\" height=\"32\" rx=\"10\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2.5\"/><text x=\"210\" y=\"149\" text-anchor=\"middle\" font-size=\"13\" fill=\"#7a8c6e\" font-weight=\"900\">A ≈ 60835</text></g><g id=\"q7ans\" opacity=\"0\"><rect x=\"110\" y=\"148\" width=\"200\" height=\"26\" rx=\"8\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"210\" y=\"165\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Increase = 10835</text></g>"
+},
+{
+id:"q8",
+q:"A property worth ₹7,00,000 appreciates at 3% per annum compounded annually. Find its value after 6 years.",
+qs:"A property worth seven lakh rupees appreciates at three percent per annum compounded annually. Find its value after six years.",
+anim:"q8",
+steps:[{"t": "Use appreciation formula A = P(1 + r/100)^n", "s": "Use formula for appreciation where amount equals principal times one plus rate over one hundred raised to power n."}, {"t": "Substitute P=700000, r=3, n=6", "s": "Substitute principal as seven lakh, rate as three, and time as six years."}, {"t": "Calculate A = 700000 &times; (1.03)^6 = 700000 &times; 1.1941 = 835870", "s": "Calculate amount as seven lakh times one point zero three to the power six, approximately eight lakh thirty five thousand eight hundred seventy rupees."}],
+cq:"What is the increase in property value?",
+cqs:"Subtract original value from new value.",
+ans:["₹835870", "₹135870"],
+nudges:["Apply compound interest formula for appreciation.", "Calculate compound factor carefully.", "Subtract original value to find increase."],
+anim_svg:"<g id=\"q8s0\" opacity=\"0\"><rect x=\"30\" y=\"20\" width=\"360\" height=\"44\" rx=\"10\" fill=\"#f5e6c8\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"210\" y=\"38\" text-anchor=\"middle\" font-size=\"13\" fill=\"#5a4a30\" font-weight=\"800\">Property Appreciation</text><text x=\"210\" y=\"56\" text-anchor=\"middle\" font-size=\"11\" fill=\"#8a7a5a\">P=₹700000, r=3%, n=6</text></g><g id=\"q8s1\" opacity=\"0\"><rect x=\"30\" y=\"75\" width=\"360\" height=\"44\" rx=\"10\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"210\" y=\"93\" text-anchor=\"middle\" font-size=\"13\" fill=\"#5a4a30\" font-weight=\"800\">Calculate New Value</text><text x=\"210\" y=\"111\" text-anchor=\"middle\" font-size=\"11\" fill=\"#8a7a5a\">A = 700000 &times; (1.03)^6</text></g><g id=\"q8s2\" opacity=\"0\"><rect x=\"60\" y=\"128\" width=\"300\" height=\"32\" rx=\"10\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2.5\"/><text x=\"210\" y=\"149\" text-anchor=\"middle\" font-size=\"13\" fill=\"#7a8c6e\" font-weight=\"900\">A ≈ ₹835870</text></g><g id=\"q8ans\" opacity=\"0\"><rect x=\"110\" y=\"148\" width=\"200\" height=\"26\" rx=\"8\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"210\" y=\"165\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Increase = ₹135870</text></g>"
+},
+{
+id:"q9",
+q:"Find the time period if ₹20,000 invested at 5% compound interest amounts to ₹23,152.50.",
+qs:"Find the time period if twenty thousand rupees invested at five percent compound interest amounts to twenty three thousand one hundred fifty two rupees and fifty paise.",
+anim:"q9",
+steps:[{"t": "Use formula A = P(1 + r/100)^n and substitute A=23152.5, P=20000, r=5", "s": "Use amount formula and substitute amount as twenty three thousand one hundred fifty two point five, principal as twenty thousand, and rate as five."}, {"t": "Calculate (1 + 5/100)^n = 23152.5 / 20000 = 1.157625", "s": "Divide amount by principal to get one point one five seven six two five."}, {"t": "Find n such that (1.05)^n = 1.157625; n = 3 years", "s": "Find time n so that one point zero five to the power n equals one point one five seven six two five, which is three years."}],
+cq:"What is the time period of investment?",
+cqs:"Use logarithms or trial to find n.",
+ans:["3 years"],
+nudges:["Divide amount by principal first.", "Compare with powers of (1 + r/100).", "Find n that satisfies the equation."],
+anim_svg:"<g id=\"q9s0\" opacity=\"0\"><rect x=\"30\" y=\"20\" width=\"360\" height=\"44\" rx=\"10\" fill=\"#f5e6c8\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"210\" y=\"38\" text-anchor=\"middle\" font-size=\"13\" fill=\"#5a4a30\" font-weight=\"800\">Given Amount and Principal</text><text x=\"210\" y=\"56\" text-anchor=\"middle\" font-size=\"11\" fill=\"#8a7a5a\">A=₹23152.5, P=₹20000, r=5%</text></g><g id=\"q9s1\" opacity=\"0\"><rect x=\"30\" y=\"75\" width=\"360\" height=\"44\" rx=\"10\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"210\" y=\"93\" text-anchor=\"middle\" font-size=\"13\" fill=\"#5a4a30\" font-weight=\"800\">Calculate (1 + r/100)^n</text><text x=\"210\" y=\"111\" text-anchor=\"middle\" font-size=\"11\" fill=\"#8a7a5a\">(1.05)^n = 1.157625</text></g><g id=\"q9s2\" opacity=\"0\"><rect x=\"60\" y=\"128\" width=\"300\" height=\"32\" rx=\"10\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2.5\"/><text x=\"210\" y=\"149\" text-anchor=\"middle\" font-size=\"13\" fill=\"#7a8c6e\" font-weight=\"900\">n = 3 years</text></g><g id=\"q9ans\" opacity=\"0\"><rect x=\"110\" y=\"148\" width=\"200\" height=\"26\" rx=\"8\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"210\" y=\"165\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Time = 3 years</text></g>"
+},
+{
+id:"q10",
+q:"A sum of ₹15,000 is invested at 6% per annum compounded semi-annually. Calculate the amount after 2 years.",
+qs:"A sum of fifteen thousand rupees is invested at six percent per annum compounded semi annually. Calculate the amount after two years.",
+anim:"q10",
+steps:[{"t": "Semi-annual rate = 6/2 = 3%, number of periods = 2 &times; 2 = 4", "s": "Since compounding is semi-annual, rate per period is three percent and number of periods is four."}, {"t": "Calculate A = 15000 &times; (1 + 3/100)^4", "s": "Calculate amount as fifteen thousand times one point zero three to the power four."}, {"t": "A = 15000 &times; 1.1255 = 16882.5", "s": "Amount is approximately sixteen thousand eight hundred eighty two rupees and fifty paise."}],
+cq:"Find the compound interest earned.",
+cqs:"Subtract principal from amount to get compound interest.",
+ans:["₹16882.5", "₹1882.5"],
+nudges:["Adjust rate and time for semi-annual compounding.", "Calculate compound factor carefully.", "Subtract principal from amount."],
+anim_svg:"<g id=\"q10s0\" opacity=\"0\"><rect x=\"30\" y=\"20\" width=\"360\" height=\"44\" rx=\"10\" fill=\"#f5e6c8\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"210\" y=\"38\" text-anchor=\"middle\" font-size=\"13\" fill=\"#5a4a30\" font-weight=\"800\">Semi-Annual Compounding</text><text x=\"210\" y=\"56\" text-anchor=\"middle\" font-size=\"11\" fill=\"#8a7a5a\">Rate per period = 3%, Periods = 4</text></g><g id=\"q10s1\" opacity=\"0\"><rect x=\"30\" y=\"75\" width=\"360\" height=\"44\" rx=\"10\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"210\" y=\"93\" text-anchor=\"middle\" font-size=\"13\" fill=\"#5a4a30\" font-weight=\"800\">Apply Formula</text><text x=\"210\" y=\"111\" text-anchor=\"middle\" font-size=\"11\" fill=\"#8a7a5a\">A = 15000 &times; (1 + 3/100)^4</text></g><g id=\"q10s2\" opacity=\"0\"><rect x=\"60\" y=\"128\" width=\"300\" height=\"32\" rx=\"10\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2.5\"/><text x=\"210\" y=\"149\" text-anchor=\"middle\" font-size=\"13\" fill=\"#7a8c6e\" font-weight=\"900\">A ≈ ₹16882.5</text></g><g id=\"q10ans\" opacity=\"0\"><rect x=\"110\" y=\"148\" width=\"200\" height=\"26\" rx=\"8\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"210\" y=\"165\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">CI = ₹1882.5</text></g>"
+}
+];
+
+function getAnimSVG(t){
+var base='<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Nunito,sans-serif;background:#fffdf8"><rect width="420" height="178" fill="#fffdf8"/>';
+var svgs={
+"q1":base+"<g id=\"q1s0\" opacity=\"0\"><rect x=\"30\" y=\"20\" width=\"360\" height=\"44\" rx=\"10\" fill=\"#f5e6c8\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"210\" y=\"38\" text-anchor=\"middle\" font-size=\"13\" fill=\"#5a4a30\" font-weight=\"800\">Given Information</text><text x=\"210\" y=\"56\" text-anchor=\"middle\" font-size=\"11\" fill=\"#8a7a5a\">P = ₹10,000, r = 5%, n = 3 years</text></g><g id=\"q1s1\" opacity=\"0\"><rect x=\"30\" y=\"75\" width=\"360\" height=\"44\" rx=\"10\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"210\" y=\"93\" text-anchor=\"middle\" font-size=\"13\" fill=\"#5a4a30\" font-weight=\"800\">Apply the Formula</text><text x=\"210\" y=\"111\" text-anchor=\"middle\" font-size=\"11\" fill=\"#8a7a5a\">A = P(1 + r/100)^n</text></g><g id=\"q1s2\" opacity=\"0\"><rect x=\"60\" y=\"128\" width=\"300\" height=\"32\" rx=\"10\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2.5\"/><text x=\"210\" y=\"149\" text-anchor=\"middle\" font-size=\"13\" fill=\"#7a8c6e\" font-weight=\"900\">A = ₹11576.25</text></g><g id=\"q1ans\" opacity=\"0\"><rect x=\"110\" y=\"148\" width=\"200\" height=\"26\" rx=\"8\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"210\" y=\"165\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Amount = ₹11576.25</text></g>",
+"q2":base+"<g id=\"q2s0\" opacity=\"0\"><rect x=\"30\" y=\"20\" width=\"360\" height=\"44\" rx=\"10\" fill=\"#f5e6c8\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"210\" y=\"38\" text-anchor=\"middle\" font-size=\"13\" fill=\"#5a4a30\" font-weight=\"800\">Half-Yearly Compounding</text><text x=\"210\" y=\"56\" text-anchor=\"middle\" font-size=\"11\" fill=\"#8a7a5a\">Rate per half year = 3%, Periods = 4</text></g><g id=\"q2s1\" opacity=\"0\"><rect x=\"30\" y=\"75\" width=\"360\" height=\"44\" rx=\"10\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"210\" y=\"93\" text-anchor=\"middle\" font-size=\"13\" fill=\"#5a4a30\" font-weight=\"800\">Apply Formula</text><text x=\"210\" y=\"111\" text-anchor=\"middle\" font-size=\"11\" fill=\"#8a7a5a\">A = 8000 &times; (1 + 3/100)^4</text></g><g id=\"q2s2\" opacity=\"0\"><rect x=\"60\" y=\"128\" width=\"300\" height=\"32\" rx=\"10\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2.5\"/><text x=\"210\" y=\"149\" text-anchor=\"middle\" font-size=\"13\" fill=\"#7a8c6e\" font-weight=\"900\">A ≈ ₹9004</text></g><g id=\"q2ans\" opacity=\"0\"><rect x=\"110\" y=\"148\" width=\"200\" height=\"26\" rx=\"8\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"210\" y=\"165\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">CI = ₹1004</text></g>",
+"q3":base+"<g id=\"q3s0\" opacity=\"0\"><rect x=\"30\" y=\"20\" width=\"360\" height=\"44\" rx=\"10\" fill=\"#f5e6c8\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"210\" y=\"38\" text-anchor=\"middle\" font-size=\"13\" fill=\"#5a4a30\" font-weight=\"800\">Quarterly Compounding</text><text x=\"210\" y=\"56\" text-anchor=\"middle\" font-size=\"11\" fill=\"#8a7a5a\">Rate per quarter = 2%, Quarters = 4</text></g><g id=\"q3s1\" opacity=\"0\"><rect x=\"30\" y=\"75\" width=\"360\" height=\"44\" rx=\"10\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"210\" y=\"93\" text-anchor=\"middle\" font-size=\"13\" fill=\"#5a4a30\" font-weight=\"800\">Apply Formula</text><text x=\"210\" y=\"111\" text-anchor=\"middle\" font-size=\"11\" fill=\"#8a7a5a\">A = 12000 &times; (1 + 2/100)^4</text></g><g id=\"q3s2\" opacity=\"0\"><rect x=\"60\" y=\"128\" width=\"300\" height=\"32\" rx=\"10\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2.5\"/><text x=\"210\" y=\"149\" text-anchor=\"middle\" font-size=\"13\" fill=\"#7a8c6e\" font-weight=\"900\">A ≈ ₹12988.8</text></g><g id=\"q3ans\" opacity=\"0\"><rect x=\"110\" y=\"148\" width=\"200\" height=\"26\" rx=\"8\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"210\" y=\"165\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">CI = ₹988.8</text></g>",
+"q4":base+"<g id=\"q4s0\" opacity=\"0\"><rect x=\"30\" y=\"20\" width=\"360\" height=\"44\" rx=\"10\" fill=\"#f5e6c8\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"210\" y=\"38\" text-anchor=\"middle\" font-size=\"13\" fill=\"#5a4a30\" font-weight=\"800\">Depreciation Formula</text><text x=\"210\" y=\"56\" text-anchor=\"middle\" font-size=\"11\" fill=\"#8a7a5a\">A = P(1 - r/100)^n</text></g><g id=\"q4s1\" opacity=\"0\"><rect x=\"30\" y=\"75\" width=\"360\" height=\"44\" rx=\"10\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"210\" y=\"93\" text-anchor=\"middle\" font-size=\"13\" fill=\"#5a4a30\" font-weight=\"800\">Substitute Values</text><text x=\"210\" y=\"111\" text-anchor=\"middle\" font-size=\"11\" fill=\"#8a7a5a\">P=₹50000, r=10%, n=3</text></g><g id=\"q4s2\" opacity=\"0\"><rect x=\"60\" y=\"128\" width=\"300\" height=\"32\" rx=\"10\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2.5\"/><text x=\"210\" y=\"149\" text-anchor=\"middle\" font-size=\"13\" fill=\"#7a8c6e\" font-weight=\"900\">A = ₹36450</text></g><g id=\"q4ans\" opacity=\"0\"><rect x=\"110\" y=\"148\" width=\"200\" height=\"26\" rx=\"8\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"210\" y=\"165\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Depreciation = ₹13550</text></g>",
+"q5":base+"<g id=\"q5s0\" opacity=\"0\"><rect x=\"30\" y=\"20\" width=\"360\" height=\"44\" rx=\"10\" fill=\"#f5e6c8\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"210\" y=\"38\" text-anchor=\"middle\" font-size=\"13\" fill=\"#5a4a30\" font-weight=\"800\">Given Amount and Principal</text><text x=\"210\" y=\"56\" text-anchor=\"middle\" font-size=\"11\" fill=\"#8a7a5a\">A=₹11025, P=₹10000, n=2</text></g><g id=\"q5s1\" opacity=\"0\"><rect x=\"30\" y=\"75\" width=\"360\" height=\"44\" rx=\"10\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"210\" y=\"93\" text-anchor=\"middle\" font-size=\"13\" fill=\"#5a4a30\" font-weight=\"800\">Calculate (1 + r/100)^n</text><text x=\"210\" y=\"111\" text-anchor=\"middle\" font-size=\"11\" fill=\"#8a7a5a\">(1 + r/100)^2 = 1.1025</text></g><g id=\"q5s2\" opacity=\"0\"><rect x=\"60\" y=\"128\" width=\"300\" height=\"32\" rx=\"10\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2.5\"/><text x=\"210\" y=\"149\" text-anchor=\"middle\" font-size=\"13\" fill=\"#7a8c6e\" font-weight=\"900\">r = 5%</text></g><g id=\"q5ans\" opacity=\"0\"><rect x=\"110\" y=\"148\" width=\"200\" height=\"26\" rx=\"8\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"210\" y=\"165\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Rate = 5%</text></g>",
+"q6":base+"<g id=\"q6s0\" opacity=\"0\"><rect x=\"30\" y=\"20\" width=\"360\" height=\"44\" rx=\"10\" fill=\"#f5e6c8\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"210\" y=\"38\" text-anchor=\"middle\" font-size=\"13\" fill=\"#5a4a30\" font-weight=\"800\">Given Amount and Rate</text><text x=\"210\" y=\"56\" text-anchor=\"middle\" font-size=\"11\" fill=\"#8a7a5a\">A=₹15000, r=7%, n=4</text></g><g id=\"q6s1\" opacity=\"0\"><rect x=\"30\" y=\"75\" width=\"360\" height=\"44\" rx=\"10\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"210\" y=\"93\" text-anchor=\"middle\" font-size=\"13\" fill=\"#5a4a30\" font-weight=\"800\">Rearrange Formula</text><text x=\"210\" y=\"111\" text-anchor=\"middle\" font-size=\"11\" fill=\"#8a7a5a\">P = A / (1 + r/100)^n</text></g><g id=\"q6s2\" opacity=\"0\"><rect x=\"60\" y=\"128\" width=\"300\" height=\"32\" rx=\"10\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2.5\"/><text x=\"210\" y=\"149\" text-anchor=\"middle\" font-size=\"13\" fill=\"#7a8c6e\" font-weight=\"900\">P ≈ ₹11440.5</text></g><g id=\"q6ans\" opacity=\"0\"><rect x=\"110\" y=\"148\" width=\"200\" height=\"26\" rx=\"8\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"210\" y=\"165\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Principal ≈ ₹11440.5</text></g>",
+"q7":base+"<g id=\"q7s0\" opacity=\"0\"><rect x=\"30\" y=\"20\" width=\"360\" height=\"44\" rx=\"10\" fill=\"#f5e6c8\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"210\" y=\"38\" text-anchor=\"middle\" font-size=\"13\" fill=\"#5a4a30\" font-weight=\"800\">Population Growth</text><text x=\"210\" y=\"56\" text-anchor=\"middle\" font-size=\"11\" fill=\"#8a7a5a\">P=50000, r=4%, n=5</text></g><g id=\"q7s1\" opacity=\"0\"><rect x=\"30\" y=\"75\" width=\"360\" height=\"44\" rx=\"10\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"210\" y=\"93\" text-anchor=\"middle\" font-size=\"13\" fill=\"#5a4a30\" font-weight=\"800\">Calculate Population</text><text x=\"210\" y=\"111\" text-anchor=\"middle\" font-size=\"11\" fill=\"#8a7a5a\">A = 50000 &times; (1.04)^5</text></g><g id=\"q7s2\" opacity=\"0\"><rect x=\"60\" y=\"128\" width=\"300\" height=\"32\" rx=\"10\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2.5\"/><text x=\"210\" y=\"149\" text-anchor=\"middle\" font-size=\"13\" fill=\"#7a8c6e\" font-weight=\"900\">A ≈ 60835</text></g><g id=\"q7ans\" opacity=\"0\"><rect x=\"110\" y=\"148\" width=\"200\" height=\"26\" rx=\"8\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"210\" y=\"165\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Increase = 10835</text></g>",
+"q8":base+"<g id=\"q8s0\" opacity=\"0\"><rect x=\"30\" y=\"20\" width=\"360\" height=\"44\" rx=\"10\" fill=\"#f5e6c8\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"210\" y=\"38\" text-anchor=\"middle\" font-size=\"13\" fill=\"#5a4a30\" font-weight=\"800\">Property Appreciation</text><text x=\"210\" y=\"56\" text-anchor=\"middle\" font-size=\"11\" fill=\"#8a7a5a\">P=₹700000, r=3%, n=6</text></g><g id=\"q8s1\" opacity=\"0\"><rect x=\"30\" y=\"75\" width=\"360\" height=\"44\" rx=\"10\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"210\" y=\"93\" text-anchor=\"middle\" font-size=\"13\" fill=\"#5a4a30\" font-weight=\"800\">Calculate New Value</text><text x=\"210\" y=\"111\" text-anchor=\"middle\" font-size=\"11\" fill=\"#8a7a5a\">A = 700000 &times; (1.03)^6</text></g><g id=\"q8s2\" opacity=\"0\"><rect x=\"60\" y=\"128\" width=\"300\" height=\"32\" rx=\"10\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2.5\"/><text x=\"210\" y=\"149\" text-anchor=\"middle\" font-size=\"13\" fill=\"#7a8c6e\" font-weight=\"900\">A ≈ ₹835870</text></g><g id=\"q8ans\" opacity=\"0\"><rect x=\"110\" y=\"148\" width=\"200\" height=\"26\" rx=\"8\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"210\" y=\"165\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Increase = ₹135870</text></g>",
+"q9":base+"<g id=\"q9s0\" opacity=\"0\"><rect x=\"30\" y=\"20\" width=\"360\" height=\"44\" rx=\"10\" fill=\"#f5e6c8\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"210\" y=\"38\" text-anchor=\"middle\" font-size=\"13\" fill=\"#5a4a30\" font-weight=\"800\">Given Amount and Principal</text><text x=\"210\" y=\"56\" text-anchor=\"middle\" font-size=\"11\" fill=\"#8a7a5a\">A=₹23152.5, P=₹20000, r=5%</text></g><g id=\"q9s1\" opacity=\"0\"><rect x=\"30\" y=\"75\" width=\"360\" height=\"44\" rx=\"10\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"210\" y=\"93\" text-anchor=\"middle\" font-size=\"13\" fill=\"#5a4a30\" font-weight=\"800\">Calculate (1 + r/100)^n</text><text x=\"210\" y=\"111\" text-anchor=\"middle\" font-size=\"11\" fill=\"#8a7a5a\">(1.05)^n = 1.157625</text></g><g id=\"q9s2\" opacity=\"0\"><rect x=\"60\" y=\"128\" width=\"300\" height=\"32\" rx=\"10\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2.5\"/><text x=\"210\" y=\"149\" text-anchor=\"middle\" font-size=\"13\" fill=\"#7a8c6e\" font-weight=\"900\">n = 3 years</text></g><g id=\"q9ans\" opacity=\"0\"><rect x=\"110\" y=\"148\" width=\"200\" height=\"26\" rx=\"8\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"210\" y=\"165\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">Time = 3 years</text></g>",
+"q10":base+"<g id=\"q10s0\" opacity=\"0\"><rect x=\"30\" y=\"20\" width=\"360\" height=\"44\" rx=\"10\" fill=\"#f5e6c8\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"210\" y=\"38\" text-anchor=\"middle\" font-size=\"13\" fill=\"#5a4a30\" font-weight=\"800\">Semi-Annual Compounding</text><text x=\"210\" y=\"56\" text-anchor=\"middle\" font-size=\"11\" fill=\"#8a7a5a\">Rate per period = 3%, Periods = 4</text></g><g id=\"q10s1\" opacity=\"0\"><rect x=\"30\" y=\"75\" width=\"360\" height=\"44\" rx=\"10\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"210\" y=\"93\" text-anchor=\"middle\" font-size=\"13\" fill=\"#5a4a30\" font-weight=\"800\">Apply Formula</text><text x=\"210\" y=\"111\" text-anchor=\"middle\" font-size=\"11\" fill=\"#8a7a5a\">A = 15000 &times; (1 + 3/100)^4</text></g><g id=\"q10s2\" opacity=\"0\"><rect x=\"60\" y=\"128\" width=\"300\" height=\"32\" rx=\"10\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2.5\"/><text x=\"210\" y=\"149\" text-anchor=\"middle\" font-size=\"13\" fill=\"#7a8c6e\" font-weight=\"900\">A ≈ ₹16882.5</text></g><g id=\"q10ans\" opacity=\"0\"><rect x=\"110\" y=\"148\" width=\"200\" height=\"26\" rx=\"8\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"210\" y=\"165\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">CI = ₹1882.5</text></g>"
+};
+return svgs[t]||'<svg viewBox="0 0 420 178"><text x="210" y="89" text-anchor="middle" font-family="Nunito" font-size="14" fill="#5a4a30">Loading...</text></svg>';
+}
+
+function makeAnimPlay(id,steps,ansLabel){var gen=0;return function(done){var myGen=++gen;setStatus("Solving step by step...");function playStep(i){if(myGen!==gen)return;if(i>=steps.length){at(400,function(){if(myGen!==gen)return;fade(id+"ans",1);setStatus("Answer: "+ansLabel);at(2000,done);});return;}at(i===0?600:400,function(){if(myGen!==gen)return;fade(id+"s"+i,1);say(steps[i].s,function(){playStep(i+1);});});}playStep(0);}; }
+var ANIM_PLAYS={};
+QB.forEach(function(q){ANIM_PLAYS[q.id]=makeAnimPlay(q.id,q.steps,q.ans[0]);});
+function getAnimPlay(t){return ANIM_PLAYS[t]||function(done){done();};}
+
+var atTimers=[],session=[],idx=0,stepIdx=0,nudgeCount=0,completed=false,confirmShown=false,breakSecs=0,breakTmr=null,PER_SESSION=10;
+function G(id){return document.getElementById(id);}
+function clearAt(){for(var i=0;i<atTimers.length;i++)clearTimeout(atTimers[i]);atTimers=[];}
+function at(ms,fn){atTimers.push(setTimeout(fn,ms));}
+function fade(id,v){var e=G(id);if(e){e.style.transition="opacity .5s";e.style.opacity=v;}}
+function setStatus(t){var e=G("animStatus");if(e)e.textContent=t;}
+function startLesson(){var btn=G('startBtn');if(btn){btn.disabled=true;btn.textContent='▶ Starting...';}var done=false;function proceed(){if(!done){done=true;setTimeout(showQ,600);}}say(G('introText').innerText,proceed);setTimeout(proceed,8000);}
+function init(){
+  
+  var st=JSON.parse(localStorage.getItem("rishi_current_student")||"{}");
+  G("sName")&&(G("sName").textContent=st.studentName?st.studentName.split(" ")[0]:"there");
+  if(rishiIsExplainDone('ic9_3')){completed=true;G("doneBanner").classList.add("show");unlockNav();}
+  buildSession();rInit();
+  initVoices(function(){});
+}
+function buildSession(){session=QB.slice().sort(function(){return Math.random()-.5;}).slice(0,PER_SESSION);}
+function showQ(){
+  if(idx>=session.length){onComplete();return;}
+  var q=session[idx];stepIdx=0;nudgeCount=0;updateProg();G("qArea").innerHTML="";clearAt();
+  var qc=document.createElement("div");qc.className="q-card";
+  qc.innerHTML='<div class="q-label">Question '+(idx+1)+' of '+PER_SESSION+'</div><div class="q-text">'+q.q+'</div><button class="btn-speak" onclick="say(session[idx].qs)">&#128266; Hear</button>';
+  G("qArea").appendChild(qc);
+  var ap=document.createElement("div");ap.className="anim-panel";
+  ap.innerHTML='<div class="anim-header"><span class="anim-header-lbl">&#127909; Live Animation</span><button class="anim-replay" id="animReplay" onclick="replayAnim()">&#8635; Replay</button></div>'
+    +'<div class="anim-canvas" id="animCanvas">'+getAnimSVG(q.anim)+'</div>'
+    +'<div class="anim-status" id="animStatus">Tap Play to watch with narration!</div>'
+    +'<button class="anim-play-btn" id="animPlayBtn" onclick="startAnim()">&#9654; Play Animation</button>'
+    +'<button class="steps-btn" id="stepsBtn" onclick="beginSteps()">&#128214; See Step-by-Step</button>';
+  G("qArea").appendChild(ap);setTimeout(startAnim,800);
+}
+function startAnim(){var q=session[idx];var pb=G("animPlayBtn");if(pb){pb.disabled=true;pb.textContent="&#9654; Playing...";}getAnimPlay(q.anim)(function(){var sb=G("stepsBtn");if(sb)sb.style.display="block";var rb=G("animReplay");if(rb)rb.style.display="block";if(pb)pb.style.display="none";setTimeout(beginSteps,600);});}
+function replayAnim(){clearAt();window.speechSynthesis&&window.speechSynthesis.cancel();rStopTalk();var q=session[idx];G("animCanvas").innerHTML=getAnimSVG(q.anim);G("animReplay").style.display="none";G("stepsBtn").style.display="none";var pb=G("animPlayBtn");if(pb){pb.style.display="block";pb.disabled=false;pb.textContent="&#9654; Play Animation";}setStatus("Tap Play to watch with narration!");}
+function beginSteps(){var q=session[idx];var sc=document.createElement("div");sc.className="q-card";sc.innerHTML='<div class="q-label">&#128214; Step-by-Step</div><div id="stepsWrap"></div><button class="btn-speak" id="nxtStepBtn" onclick="nextStep()" style="margin-top:10px;">&#9654; Next Step</button>';G("qArea").appendChild(sc);sc.scrollIntoView({behavior:"smooth",block:"start"});G("stepsBtn").style.display="none";setTimeout(nextStep,350);}
+var nsGen=0;function nextStep(){var myGen=++nsGen;var q=session[idx];if(stepIdx>=q.steps.length){G("nxtStepBtn").style.display="none";var ib=document.createElement("button");ib.className="btn-speak";ib.innerHTML="&#9989; I Understand!";ib.style.cssText="margin-top:16px;width:100%;";ib.onclick=function(){ib.remove();showConfirm();};G("stepsWrap").appendChild(ib);ib.scrollIntoView({behavior:"smooth",block:"center"});return;}var s=q.steps[stepIdx];var wrap=G("stepsWrap");var d=document.createElement("div");d.className="step";d.innerHTML='<div class="step-num">'+(stepIdx+1)+'</div><div class="step-body">'+s.t+'</div>';wrap.appendChild(d);setTimeout(function(){d.classList.add("vis");},40);stepIdx++;say(s.s||s.t.replace(/<[^>]*>/g,""),function(){if(myGen===nsGen)nextStep();});}
+function showConfirm(){if(confirmShown)return;confirmShown=true;
+  var q=session[idx];var c=document.createElement("div");c.className="confirm-wrap";
+  c.innerHTML='<div class="confirm-title">&#127917; Rishika asks!</div>'
+    +'<div class="confirm-q">'+q.cq+'</div>'
+    +'<textarea id="rawAnswer" class="math-raw" rows="2" autocomplete="off" placeholder="Type your answer here..."></textarea>'
+    +'<div class="math-preview-label">Preview</div>'
+    +'<div class="math-preview" id="mathPreview"></div>'
+    +'<div class="sugg-chips" id="suggChips"></div>'
+    +'<button type="button" onclick="submitTyped()" style="width:100%;font-family:Nunito,sans-serif;font-size:14px;font-weight:900;padding:11px;border-radius:12px;border:none;background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;cursor:pointer;margin-bottom:8px;">Submit Answer</button>'
+    +'<div class="result-box" id="rbox"></div>'
+    +'<div class="nudge" id="nudgeBox"></div>'
+    +'<button type="button" class="btn-next" id="btnNext" onclick="goNext()">Next Question &#9654;</button>';
+  G("qArea").appendChild(c);c.scrollIntoView({behavior:"smooth",block:"center"});
+  var ra=G("rawAnswer");
+  if(ra){ra.addEventListener("input",mathUpdate);ra.addEventListener("keydown",function(ev){if(ev.key==="Enter"&&!ev.shiftKey){ev.preventDefault();submitTyped();}});setTimeout(function(){ra.focus();},300);}
+  buildSuggChips(q.ans);say(q.cqs);
+}
+function submitTyped(){var ra=G("rawAnswer");if(!ra)return;var val=String(ra.value||"").trim();if(!val){ra.focus();return;}handleAnswer(val.toLowerCase());}
+function goNext(){confirmShown=false;idx++;G("qArea").innerHTML="";showQ();window.scrollTo({top:0,behavior:"smooth"});}
+function updateProg(){var pct=Math.round((idx/PER_SESSION)*100);G("progFill").style.width=pct+"%";G("progLabel").textContent="Question "+(idx+1)+" of "+PER_SESSION;G("progPct").textContent=pct+"%";}
+function unlockNav(){G("btnPractice").classList.remove("locked");G("btnExam").classList.remove("locked");G("lockTip").style.display="none";}
+function onComplete(){
+  rishiMarkExplainDone('ic9_3');
+  completed=true;G("doneBanner").classList.add("show");unlockNav();
+  var st=JSON.parse(localStorage.getItem("rishi_current_student")||"{}");
+  var nm=st.studentName?st.studentName.split(" ")[0]:"champion";
+  var cel=document.createElement("div");cel.className="rishika-wrap";
+  cel.innerHTML='<div class="rishika-avatar">&#128105;&#8205;&#127979;</div>'
+    +'<div class="rishika-bubble"><div class="rishika-name">Rishika</div>'
+    +'<div class="rishika-text" id="celText">&#127881; <span class="hl">'+nm+'</span>, Fantastic work! You&#39;ve mastered Compound Interest (Using Formula)! 🎉</div>'
+    +'<button class="btn-speak" onclick="sayEl(\'celText\')">&#128266; Hear</button></div>';
+  G("qArea").appendChild(cel);setTimeout(function(){sayEl("celText");rHappy();},400);
+}
+function goPractice(){if(!completed){alert("Complete explanations first!");return;}location.href="/practice/icse/class9/arithmetic/compound-interest-formula.html";}
+function goExam(){if(!completed){alert("Complete explanations first!");return;}if(!rishiIsPracticeDone('ic9_3')){alert('Complete Practice with 5 in a row first!');return;}location.href="/exam.html?ch=ic9-03";}
+var CELEBRATIONS=[{word:"Magnifique!",lang:"French",meaning:"Magnificent!",speak:"Magnifique"},{word:"Bravissimo!",lang:"Italian",meaning:"Very well done!",speak:"Bravissimo"},{word:"Wunderbar!",lang:"German",meaning:"Wonderful!",speak:"Wunderbar"},{word:"Shabash!",lang:"Hindi",meaning:"Well done!",speak:"Shabash"},{word:"Felicitaciones!",lang:"Spanish",meaning:"Congratulations!",speak:"Felicitaciones"}];
+var lastCelIdx=-1;
+function celebrate(){var i;do{i=Math.floor(Math.random()*CELEBRATIONS.length);}while(i===lastCelIdx&&CELEBRATIONS.length>1);lastCelIdx=i;var c=CELEBRATIONS[i];var rb=G("rbox");rb.className="result-box ok";rb.innerHTML='<div style="font-size:18px;font-weight:900;">'+c.word+'</div><div style="font-size:11px;">'+c.lang+' &middot; <em>'+c.meaning+'</em></div>';G("nudgeBox").classList.remove("show");var nb=G("btnNext");if(nb)nb.classList.add("show");say(c.speak);rHappy();}
+function handleAnswer(text){var q=session[idx];var ok=q.ans.some(function(a){return text.includes(a.toLowerCase())||a.toLowerCase().includes(text);});var rb=G("rbox");if(ok){celebrate();}else{nudgeCount++;rb.className="result-box no";rb.textContent="\u2716 Not quite. Listen to my hint!";var nudge=q.nudges[Math.min(nudgeCount-1,q.nudges.length-1)];showNudge(nudge);say(nudge);rThink();if(nudgeCount>=3){var nb2=G("btnNext");if(nb2){nb2.classList.add("show");nb2.textContent="I Understand \u25b6";}}}}
+function showNudge(msg){var n=G("nudgeBox");if(n){n.textContent=msg;n.classList.add("show");}}
+function openBreak(){G("breakOv").classList.add("show");}
+function closeBreak(){G("breakOv").classList.remove("show");}
+function startBreak(r){closeBreak();breakSecs=0;G("timerLbl").textContent=r;G("timerNum").textContent="00:00";G("timerScreen").classList.add("show");breakTmr=setInterval(function(){breakSecs++;var m=String(Math.floor(breakSecs/60)).padStart(2,"0");var s=String(breakSecs%60).padStart(2,"0");G("timerNum").textContent=m+":"+s;},1000);}
+function endBreak(){clearInterval(breakTmr);G("timerScreen").classList.remove("show");}
+function mathUpdate(){var ra=G("rawAnswer");if(!ra)return;var v=ra.value.trim();var el=G("mathPreview");if(el)el.textContent=v||"";}
+function buildSuggChips(ans){var el=G("suggChips");if(!el)return;el.innerHTML="";(ans||[]).forEach(function(a){var btn=document.createElement("button");btn.className="schip";btn.textContent=a;btn.type="button";btn.addEventListener("click",function(){var ra=G("rawAnswer");if(ra){ra.value=a;mathUpdate();ra.focus();}});el.appendChild(btn);});}
+window.onload=init;
+</script>
+<script src="/explain-helper.js"></script>
+</body>
+</html>

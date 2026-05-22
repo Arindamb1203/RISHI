@@ -1047,6 +1047,31 @@ var ALL_CLASS_CHAPTERS = {
     ],
     explainBuilt: {1:1, 2:1, 3:1, 4:1, 5:1, 6:1, 7:1, 8:1, 9:1, 10:1}
   },
+  'ic9': {
+    chapters: [
+      {id:1,  name:"Rational and Irrational Numbers",         topic:"Arithmetic"},
+      {id:2,  name:"Compound Interest (Without Formula)",     topic:"Arithmetic"},
+      {id:3,  name:"Compound Interest (Using Formula)",       topic:"Arithmetic"},
+      {id:4,  name:"Expansions (Algebraic Identities)",       topic:"Algebra"},
+      {id:5,  name:"Factorisation",                           topic:"Algebra"},
+      {id:6,  name:"Simultaneous (Linear) Equations",         topic:"Algebra"},
+      {id:7,  name:"Indices (Exponents)",                     topic:"Algebra"},
+      {id:8,  name:"Logarithms",                              topic:"Algebra"},
+      {id:9,  name:"Triangles (Congruency)",                  topic:"Geometry"},
+      {id:10, name:"Isosceles Triangles",                     topic:"Geometry"},
+      {id:11, name:"Inequalities in Triangles",               topic:"Geometry"},
+      {id:12, name:"Mid-Point and Intercept Theorems",        topic:"Geometry"},
+      {id:13, name:"Pythagoras Theorem",                      topic:"Geometry"},
+      {id:14, name:"Rectilinear Figures (Quadrilaterals)",    topic:"Geometry"},
+      {id:15, name:"Construction of Polygons",                topic:"Geometry"},
+      {id:16, name:"Area Theorems",                           topic:"Mensuration"},
+      {id:17, name:"Circle",                                  topic:"Geometry"},
+      {id:18, name:"Statistics",                              topic:"Data Handling"},
+      {id:19, name:"Coordinate Geometry",                     topic:"Algebra"},
+      {id:20, name:"Mensuration",                             topic:"Mensuration"}
+    ],
+    explainBuilt: {1:1,2:1,3:1,4:1,5:1,6:1,7:1,8:1,9:1,10:1,11:1,12:1,13:1,14:1,15:1,16:1,17:1,18:1,19:1,20:1}
+  },
   'ic8': {
     chapters: [
       {id:1,  name:"Rational Numbers",                     topic:"Arithmetic"},
@@ -1128,6 +1153,7 @@ function getStudentClassKey() {
       var board = (regs[i].board || 'CBSE').toLowerCase();
       if (board === 'icse' && cls === 7) return 'ic7';
       if (board === 'icse' && cls === 8) return 'ic8';
+      if (board === 'icse' && cls === 9) return 'ic9';
       return cls;
     }
   }
@@ -1139,7 +1165,7 @@ function loadParentClassData() {
   var cd = ALL_CLASS_CHAPTERS[classKey] || ALL_CLASS_CHAPTERS[8];
   CHAPTERS     = cd.chapters;
   EXPLAIN_BUILT = cd.explainBuilt;
-  PROGRESS_KEY_PREFIX = (classKey === 'ic7') ? 'ic7_' : (classKey === 'ic8') ? 'ic8_' : '';
+  PROGRESS_KEY_PREFIX = (classKey === 'ic7') ? 'ic7_' : (classKey === 'ic8') ? 'ic8_' : (classKey === 'ic9') ? 'ic9_' : '';
 }
 
 
