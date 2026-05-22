@@ -1062,6 +1062,7 @@ function renderStudentRows(regs) {
     var pId    = r.parentUsername || r.parentId || '—';
     var mobile = r.primaryMobile || '—';
     var cls    = r.class || '8';
+    var brd    = (r.board || 'CBSE').toLowerCase();
     var sName  = r.studentName || sId;
 
     // Build URL helpers — each clickable button sets current_student then opens page
@@ -1083,9 +1084,9 @@ function renderStudentRows(regs) {
     // Chapter Exam
     html += '<td style="padding:8px 10px;"><button onclick="openAsStudent(' + idx + ',\'/syllabus.html#exam\')" style="padding:5px 10px;border:1.5px solid #c8922a;background:#fff;color:#c8922a;border-radius:6px;font-size:11px;font-weight:800;cursor:pointer;font-family:inherit;">Open</button></td>';
     // Topic Exam (defaults to algebra for current class)
-    html += '<td style="padding:8px 10px;"><button onclick="openAsStudent(' + idx + ',\'/topic-exam.html?topic=algebra&class=' + cls + '\')" style="padding:5px 10px;border:1.5px solid #1a7a4a;background:#fff;color:#1a7a4a;border-radius:6px;font-size:11px;font-weight:800;cursor:pointer;font-family:inherit;">Open</button></td>';
+    html += '<td style="padding:8px 10px;"><button onclick="openAsStudent(' + idx + ',\'/topic-exam.html?topic=algebra&class=' + cls + '&board=' + brd + '\')" style="padding:5px 10px;border:1.5px solid #1a7a4a;background:#fff;color:#1a7a4a;border-radius:6px;font-size:11px;font-weight:800;cursor:pointer;font-family:inherit;">Open</button></td>';
     // Sampurna
-    html += '<td style="padding:8px 10px;"><button onclick="openAsStudent(' + idx + ',\'/sampurna-pariksha.html?class=' + cls + '\')" style="padding:5px 10px;border:1.5px solid #c0392b;background:#fff;color:#c0392b;border-radius:6px;font-size:11px;font-weight:800;cursor:pointer;font-family:inherit;">Open</button></td>';
+    html += '<td style="padding:8px 10px;"><button onclick="openAsStudent(' + idx + ',\'/sampurna-pariksha.html?class=' + cls + '&board=' + brd + '\')" style="padding:5px 10px;border:1.5px solid #c0392b;background:#fff;color:#c0392b;border-radius:6px;font-size:11px;font-weight:800;cursor:pointer;font-family:inherit;">Open</button></td>';
     html += '</tr>';
   });
   html += '</tbody></table></div>';
