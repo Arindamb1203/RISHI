@@ -210,10 +210,15 @@ button{font-family:'Outfit',sans-serif;cursor:pointer;}
 /* ── MISC ── */
 .section-note{font-size:16px;color:var(--muted);line-height:1.8;padding:10px 0;margin-bottom:6px;font-weight:600;}
 .hidden{display:none!important;}
-.admin-class-bar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:10px 20px;background:#fff;border-bottom:2px solid var(--border);}
-.admin-class-tab{font-size:14px;font-weight:800;padding:6px 18px;border-radius:20px;border:2px solid var(--border);background:#fff;color:var(--muted);transition:all .15s;cursor:pointer;}
+.admin-class-bar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:10px 20px;background:#fff;border-bottom:2px solid var(--border);}
+.admin-class-tab{font-size:14px;font-weight:800;padding:6px 16px;border-radius:20px;border:2px solid var(--border);background:#fff;color:var(--muted);transition:all .15s;cursor:pointer;}
 .admin-class-tab:hover{border-color:var(--gold);color:var(--text);}
 .admin-class-tab.on{background:var(--gold);border-color:var(--gold);color:#fff;}
+.board-sep{width:1px;height:28px;background:var(--border);flex-shrink:0;}
+.board-tab{font-size:13px;font-weight:900;padding:5px 14px;border-radius:20px;border:2px solid var(--border);background:#fff;color:var(--muted);transition:all .15s;cursor:pointer;letter-spacing:.5px;text-transform:uppercase;}
+.board-tab:hover{border-color:var(--gold);color:var(--text);}
+.board-tab.on{background:var(--text);border-color:var(--text);color:#fff;}
+.class-group{display:flex;align-items:center;gap:6px;}
 
 /* ── USERS TAB ── */
 .users-top-bar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:18px;}
@@ -305,7 +310,7 @@ button{font-family:'Outfit',sans-serif;cursor:pointer;}
   <!-- Tabs -->
   <div class="tabs">
     <button class="tab on" id="tab-dash"      onclick="switchTab('dash')">📊 Dashboard</button>
-    <button class="tab"    id="tab-topics"    onclick="switchTab('topics')">🏅 Topic Exams</button>
+    <button class="tab"    id="tab-topics"    onclick="switchTab('topics')">🏅 Exams</button>
     <button class="tab"    id="tab-questions" onclick="switchTab('questions')">📚 Questions</button>
     <button class="tab"    id="tab-student"   onclick="switchTab('student')">👤 Student</button>
     <button class="tab"    id="tab-logs"      onclick="switchTab('logs')">📋 Logs</button>
@@ -314,15 +319,27 @@ button{font-family:'Outfit',sans-serif;cursor:pointer;}
   </div>
 
   <div class="admin-class-bar" id="admin-class-bar">
-    <span style="font-size:13px;font-weight:800;color:var(--muted);margin-right:4px;">Class:</span>
-    <button class="admin-class-tab" data-cls="6"   onclick="switchAdminClass(6)">Class 6</button>
-    <button class="admin-class-tab" data-cls="ic6" onclick="switchAdminClass('ic6')">Class 6 ICSE</button>
-    <button class="admin-class-tab" data-cls="7"   onclick="switchAdminClass(7)">Class 7</button>
-    <button class="admin-class-tab" data-cls="ic7" onclick="switchAdminClass('ic7')">Class 7 ICSE</button>
-    <button class="admin-class-tab on" data-cls="8" onclick="switchAdminClass(8)">Class 8</button>
-    <button class="admin-class-tab" data-cls="ic8" onclick="switchAdminClass('ic8')">Class 8 ICSE</button>
-    <button class="admin-class-tab" data-cls="9"   onclick="switchAdminClass(9)">Class 9</button>
-    <button class="admin-class-tab" data-cls="ic9" onclick="switchAdminClass('ic9')">Class 9 ICSE</button>
+    <!-- Board selector -->
+    <span style="font-size:12px;font-weight:900;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;flex-shrink:0;">Board:</span>
+    <button class="board-tab on" id="board-cbse" onclick="switchBoard('cbse')">CBSE</button>
+    <button class="board-tab"    id="board-icse" onclick="switchBoard('icse')">ICSE</button>
+    <div class="board-sep"></div>
+    <!-- CBSE classes -->
+    <div class="class-group" id="cbse-classes">
+      <span style="font-size:12px;font-weight:900;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;">Class:</span>
+      <button class="admin-class-tab" data-cls="6" onclick="switchAdminClass(6)">6</button>
+      <button class="admin-class-tab" data-cls="7" onclick="switchAdminClass(7)">7</button>
+      <button class="admin-class-tab on" data-cls="8" onclick="switchAdminClass(8)">8</button>
+      <button class="admin-class-tab" data-cls="9" onclick="switchAdminClass(9)">9</button>
+    </div>
+    <!-- ICSE classes -->
+    <div class="class-group" id="icse-classes" style="display:none;">
+      <span style="font-size:12px;font-weight:900;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;">Class:</span>
+      <button class="admin-class-tab" data-cls="ic6" onclick="switchAdminClass('ic6')">6</button>
+      <button class="admin-class-tab" data-cls="ic7" onclick="switchAdminClass('ic7')">7</button>
+      <button class="admin-class-tab" data-cls="ic8" onclick="switchAdminClass('ic8')">8</button>
+      <button class="admin-class-tab" data-cls="ic9" onclick="switchAdminClass('ic9')">9</button>
+    </div>
   </div>
   <div class="wrap">
 
@@ -350,7 +367,8 @@ button{font-family:'Outfit',sans-serif;cursor:pointer;}
       <div class="card">
         <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap;">
           <div class="card-ttl" style="margin-bottom:0;">👤 Registered Students</div>
-          <button onclick="loadTestData()" style="margin-left:auto;font-size:12px;padding:6px 14px;background:#7c3aed;color:#fff;border:none;border-radius:8px;cursor:pointer;font-family:Outfit,sans-serif;font-weight:700;">🧪 Load Test Data</button>
+          <button id="btn-load-d1" onclick="loadFromD1()" style="margin-left:auto;font-size:12px;padding:6px 14px;background:linear-gradient(135deg,var(--gold),var(--amber));color:#fff;border:none;border-radius:8px;cursor:pointer;font-family:Outfit,sans-serif;font-weight:700;">☁ Load from D1</button>
+          <button onclick="loadTestData()" style="font-size:12px;padding:6px 14px;background:#7c3aed;color:#fff;border:none;border-radius:8px;cursor:pointer;font-family:Outfit,sans-serif;font-weight:700;">🧪 Load Test Data</button>
           <button onclick="clearTestData()" style="font-size:12px;padding:6px 14px;background:var(--card2);color:var(--muted);border:1px solid var(--border);border-radius:8px;cursor:pointer;font-family:Outfit,sans-serif;font-weight:700;">🗑 Clear Test Data</button>
         </div>
         <input type="text" id="student-search" placeholder="🔍 Search by name, ID or mobile..."
@@ -449,12 +467,26 @@ button{font-family:'Outfit',sans-serif;cursor:pointer;}
     <!-- STUDENT TAB -->
     <div id="view-student" class="hidden">
       <div class="card">
-        <div class="card-ttl">👤 Current Student</div>
-        <div id="stu-info" class="stu-info-grid"></div>
+        <div class="card-ttl">👤 Select Student</div>
+        <div id="stu-picker" style="display:flex;flex-wrap:wrap;gap:10px;"></div>
       </div>
-      <div class="card">
-        <div class="card-ttl">📊 Chapter Progress</div>
-        <div style="overflow-x:auto;" id="stu-progress"></div>
+      <div id="stu-detail-wrap" style="display:none;">
+        <div class="card">
+          <div class="card-ttl">📋 Student Info</div>
+          <div id="stu-info" class="stu-info-grid"></div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:14px;">
+            <button id="stu-btn-syllabus" onclick="" class="btn btn-ghost" style="font-size:13px;padding:7px 14px;">📖 Open Syllabus</button>
+            <button id="stu-btn-parent"   onclick="" class="btn btn-ghost" style="font-size:13px;padding:7px 14px;">👪 Open Parent View</button>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-ttl" id="stu-progress-ttl">📊 Chapter Progress</div>
+          <div style="overflow-x:auto;" id="stu-progress"></div>
+        </div>
+        <div class="card">
+          <div class="card-ttl">🏅 Exams Progress</div>
+          <div id="stu-exams"></div>
+        </div>
       </div>
     </div>
 
@@ -487,6 +519,7 @@ button{font-family:'Outfit',sans-serif;cursor:pointer;}
     <div id="view-users" class="hidden">
       <div class="card">
         <div class="users-top-bar">
+          <button id="btn-load-d1-users" onclick="loadFromD1Users()" style="font-size:14px;font-weight:800;padding:9px 18px;border-radius:9px;border:none;background:linear-gradient(135deg,var(--gold),var(--amber));color:#fff;cursor:pointer;transition:all .2s;">☁ Load from D1</button>
           <button class="btn-ref-code" onclick="showAdminRefCode()">🎟 Admin Ref Code — ₹599 Full Recharge</button>
           <button class="btn-excel" onclick="downloadExcelReport()">⬇ Download Excel Report</button>
         </div>
@@ -533,15 +566,42 @@ button{font-family:'Outfit',sans-serif;cursor:pointer;}
 
 var ADMIN_PASS = 'rishi2025';
 var activeAdminClass = 8;
+var activeBoard = 'cbse';
+
 function adminClassLabel(cls) {
-  if (cls === 'ic6') return 'Class 6 ICSE';
-  if (cls === 'ic7') return 'Class 7 ICSE';
-  if (cls === 'ic8') return 'Class 8 ICSE';
-  if (cls === 'ic9') return 'Class 9 ICSE';
-  return 'Class ' + cls;
+  if (cls === 'ic6') return 'ICSE Class 6';
+  if (cls === 'ic7') return 'ICSE Class 7';
+  if (cls === 'ic8') return 'ICSE Class 8';
+  if (cls === 'ic9') return 'ICSE Class 9';
+  return 'CBSE Class ' + cls;
 }
+
+function switchBoard(board) {
+  activeBoard = board;
+  document.getElementById('cbse-classes').style.display = board === 'cbse' ? 'flex' : 'none';
+  document.getElementById('icse-classes').style.display = board === 'icse' ? 'flex' : 'none';
+  document.querySelectorAll('.board-tab').forEach(function(b){
+    b.classList.toggle('on', b.id === 'board-' + board);
+  });
+  /* Switch to default class for selected board */
+  switchAdminClass(board === 'cbse' ? 8 : 'ic8');
+}
+
 function switchAdminClass(cls) {
   activeAdminClass = cls;
+  /* Keep board tabs in sync */
+  var isIcse = String(cls).charAt(0) === 'i';
+  if (isIcse && activeBoard !== 'icse') {
+    activeBoard = 'icse';
+    document.getElementById('cbse-classes').style.display = 'none';
+    document.getElementById('icse-classes').style.display = 'flex';
+    document.querySelectorAll('.board-tab').forEach(function(b){ b.classList.toggle('on', b.id === 'board-icse'); });
+  } else if (!isIcse && activeBoard !== 'cbse') {
+    activeBoard = 'cbse';
+    document.getElementById('cbse-classes').style.display = 'flex';
+    document.getElementById('icse-classes').style.display = 'none';
+    document.querySelectorAll('.board-tab').forEach(function(b){ b.classList.toggle('on', b.id === 'board-cbse'); });
+  }
   loadAdminClassData(cls);
   qbActiveClass = cls; qbBankCache = {};
   var g = document.getElementById('qb-chapter-grid');
@@ -754,6 +814,104 @@ var ALL_CLASS_CH = {
     ALL_BUILT_CHS: [1,2,3,4,5,6,7,8,9,10]
   },
 
+  /* ── ICSE CLASS 6 (key='ic6') ── */
+  'ic6': {
+    CH: {
+      1: {n:'Number System',                     topic:'Arithmetic',    color:'#6C63FF', built:true,
+          ex:'/explain/icse/class6/arithmetic/number-system.html',
+          pr:'/practice/icse/class6/arithmetic/number-system.html',                   exam:'/exam.html?ch=ic6-01'},
+      2: {n:'Estimation',                        topic:'Arithmetic',    color:'#2563EB', built:true,
+          ex:'/explain/icse/class6/arithmetic/estimation.html',
+          pr:'/practice/icse/class6/arithmetic/estimation.html',                      exam:'/exam.html?ch=ic6-02'},
+      3: {n:'Playing with Numbers',              topic:'Arithmetic',    color:'#7C3AED', built:true,
+          ex:'/explain/icse/class6/arithmetic/playing-with-numbers.html',
+          pr:'/practice/icse/class6/arithmetic/playing-with-numbers.html',            exam:'/exam.html?ch=ic6-03'},
+      4: {n:'Natural Numbers and Whole Numbers', topic:'Arithmetic',    color:'#0891B2', built:true,
+          ex:'/explain/icse/class6/arithmetic/natural-numbers-and-whole-numbers.html',
+          pr:'/practice/icse/class6/arithmetic/natural-numbers-and-whole-numbers.html',exam:'/exam.html?ch=ic6-04'},
+      5: {n:'Negative Numbers and Integers',     topic:'Arithmetic',    color:'#DC2626', built:true,
+          ex:'/explain/icse/class6/arithmetic/negative-numbers-and-integers.html',
+          pr:'/practice/icse/class6/arithmetic/negative-numbers-and-integers.html',   exam:'/exam.html?ch=ic6-05'},
+      6: {n:'Number Line',                       topic:'Arithmetic',    color:'#059669', built:true,
+          ex:'/explain/icse/class6/arithmetic/number-line.html',
+          pr:'/practice/icse/class6/arithmetic/number-line.html',                     exam:'/exam.html?ch=ic6-06'},
+      7: {n:'HCF and LCM',                       topic:'Arithmetic',    color:'#D97706', built:true,
+          ex:'/explain/icse/class6/arithmetic/hcf-and-lcm.html',
+          pr:'/practice/icse/class6/arithmetic/hcf-and-lcm.html',                    exam:'/exam.html?ch=ic6-07'},
+      8: {n:'Ratio',                             topic:'Arithmetic',    color:'#B45309', built:true,
+          ex:'/explain/icse/class6/arithmetic/ratio.html',
+          pr:'/practice/icse/class6/arithmetic/ratio.html',                           exam:'/exam.html?ch=ic6-08'},
+      9: {n:'Proportion',                        topic:'Arithmetic',    color:'#0D9488', built:true,
+          ex:'/explain/icse/class6/arithmetic/proportion.html',
+          pr:'/practice/icse/class6/arithmetic/proportion.html',                      exam:'/exam.html?ch=ic6-09'},
+      10:{n:'Unitary Method',                    topic:'Arithmetic',    color:'#16A34A', built:true,
+          ex:'/explain/icse/class6/arithmetic/unitary-method.html',
+          pr:'/practice/icse/class6/arithmetic/unitary-method.html',                  exam:'/exam.html?ch=ic6-10'},
+      11:{n:'Fractions',                         topic:'Arithmetic',    color:'#4338CA', built:true,
+          ex:'/explain/icse/class6/arithmetic/fractions.html',
+          pr:'/practice/icse/class6/arithmetic/fractions.html',                       exam:'/exam.html?ch=ic6-11'},
+      12:{n:'Decimal Fractions',                 topic:'Arithmetic',    color:'#DB2777', built:true,
+          ex:'/explain/icse/class6/arithmetic/decimal-fractions.html',
+          pr:'/practice/icse/class6/arithmetic/decimal-fractions.html',               exam:'/exam.html?ch=ic6-12'},
+      13:{n:'Percent and Percentage',            topic:'Arithmetic',    color:'#65A30D', built:true,
+          ex:'/explain/icse/class6/arithmetic/percent-and-percentage.html',
+          pr:'/practice/icse/class6/arithmetic/percent-and-percentage.html',          exam:'/exam.html?ch=ic6-13'},
+      14:{n:'Speed, Distance and Time',          topic:'Arithmetic',    color:'#0284C7', built:true,
+          ex:'/explain/icse/class6/arithmetic/speed-distance-and-time.html',
+          pr:'/practice/icse/class6/arithmetic/speed-distance-and-time.html',         exam:'/exam.html?ch=ic6-14'},
+      15:{n:'Algebraic Expressions',             topic:'Algebra',       color:'#7E22CE', built:true,
+          ex:'/explain/icse/class6/algebra/algebraic-expressions.html',
+          pr:'/practice/icse/class6/algebra/algebraic-expressions.html',              exam:'/exam.html?ch=ic6-15'},
+      16:{n:'Substitution',                      topic:'Algebra',       color:'#4F46E5', built:true,
+          ex:'/explain/icse/class6/algebra/substitution.html',
+          pr:'/practice/icse/class6/algebra/substitution.html',                       exam:'/exam.html?ch=ic6-16'},
+      17:{n:'Framing Algebraic Expressions',     topic:'Algebra',       color:'#0E7490', built:true,
+          ex:'/explain/icse/class6/algebra/framing-algebraic-expressions.html',
+          pr:'/practice/icse/class6/algebra/framing-algebraic-expressions.html',      exam:'/exam.html?ch=ic6-17'},
+      18:{n:'Simple (Linear) Equations',         topic:'Algebra',       color:'#9333EA', built:true,
+          ex:'/explain/icse/class6/algebra/simple-linear-equations.html',
+          pr:'/practice/icse/class6/algebra/simple-linear-equations.html',            exam:'/exam.html?ch=ic6-18'},
+      19:{n:'Angles',                            topic:'Geometry',      color:'#059669', built:true,
+          ex:'/explain/icse/class6/geometry/angles.html',
+          pr:'/practice/icse/class6/geometry/angles.html',                            exam:'/exam.html?ch=ic6-19'},
+      20:{n:'Properties of Angles and Lines',    topic:'Geometry',      color:'#16A34A', built:true,
+          ex:'/explain/icse/class6/geometry/properties-of-angles-and-lines.html',
+          pr:'/practice/icse/class6/geometry/properties-of-angles-and-lines.html',    exam:'/exam.html?ch=ic6-20'},
+      21:{n:'Triangle and Its Properties',       topic:'Geometry',      color:'#0D9488', built:true,
+          ex:'/explain/icse/class6/geometry/triangle-and-its-properties.html',
+          pr:'/practice/icse/class6/geometry/triangle-and-its-properties.html',       exam:'/exam.html?ch=ic6-21'},
+      22:{n:'Quadrilateral',                     topic:'Geometry',      color:'#2563EB', built:true,
+          ex:'/explain/icse/class6/geometry/quadrilateral.html',
+          pr:'/practice/icse/class6/geometry/quadrilateral.html',                     exam:'/exam.html?ch=ic6-22'},
+      23:{n:'Polygons',                          topic:'Geometry',      color:'#0891B2', built:true,
+          ex:'/explain/icse/class6/geometry/polygons.html',
+          pr:'/practice/icse/class6/geometry/polygons.html',                          exam:'/exam.html?ch=ic6-23'},
+      24:{n:'The Circle',                        topic:'Geometry',      color:'#DC2626', built:true,
+          ex:'/explain/icse/class6/geometry/the-circle.html',
+          pr:'/practice/icse/class6/geometry/the-circle.html',                        exam:'/exam.html?ch=ic6-24'},
+      25:{n:'Symmetry (Reflection)',             topic:'Geometry',      color:'#B45309', built:true,
+          ex:'/explain/icse/class6/geometry/symmetry-reflection.html',
+          pr:'/practice/icse/class6/geometry/symmetry-reflection.html',               exam:'/exam.html?ch=ic6-25'},
+      26:{n:'Recognition of Solids',             topic:'Geometry',      color:'#6C63FF', built:true,
+          ex:'/explain/icse/class6/geometry/recognition-of-solids.html',
+          pr:'/practice/icse/class6/geometry/recognition-of-solids.html',             exam:'/exam.html?ch=ic6-26'},
+      27:{n:'Perimeter and Area',                topic:'Mensuration',   color:'#D97706', built:true,
+          ex:'/explain/icse/class6/mensuration/perimeter-and-area.html',
+          pr:'/practice/icse/class6/mensuration/perimeter-and-area.html',             exam:'/exam.html?ch=ic6-27'},
+      28:{n:'Data Handling',                     topic:'Data Handling', color:'#7C3AED', built:true,
+          ex:'/explain/icse/class6/data-handling/data-handling.html',
+          pr:'/practice/icse/class6/data-handling/data-handling.html',                exam:'/exam.html?ch=ic6-28'}
+    },
+    TOPICS: [
+      {id:'arithmetic',  name:'Arithmetic',   icon:'🔢', chs:[1,2,3,4,5,6,7,8,9,10,11,12,13,14]},
+      {id:'algebra',     name:'Algebra',      icon:'🔣', chs:[15,16,17,18]},
+      {id:'geometry',    name:'Geometry',     icon:'📐', chs:[19,20,21,22,23,24,25,26]},
+      {id:'mensuration', name:'Mensuration',  icon:'📏', chs:[27]},
+      {id:'datahandling',name:'Data Handling',icon:'📊', chs:[28]}
+    ],
+    ALL_BUILT_CHS: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28]
+  },
+
   /* ── ICSE CLASS 7 (key='ic7') ── */
   'ic7': {
     CH: {
@@ -832,6 +990,157 @@ var ALL_CLASS_CH = {
       {id:'datahandling',name:'Data Handling',icon:'📊', chs:[21,22]                   }
     ],
     ALL_BUILT_CHS: []
+  },
+
+  /* ── ICSE CLASS 8 (key='ic8') ── */
+  'ic8': {
+    CH: {
+      1: {n:'Rational Numbers',                      topic:'Arithmetic',    color:'#6C63FF', built:true,
+          ex:'/explain/icse/class8/arithmetic/rational-numbers.html',
+          pr:'/practice/icse/class8/arithmetic/rational-numbers.html',                        exam:'/exam.html?ch=ic8-01'},
+      2: {n:'Exponents (Powers)',                    topic:'Arithmetic',    color:'#2563EB', built:true,
+          ex:'/explain/icse/class8/arithmetic/exponents-powers.html',
+          pr:'/practice/icse/class8/arithmetic/exponents-powers.html',                        exam:'/exam.html?ch=ic8-02'},
+      3: {n:'Squares and Square Roots',              topic:'Arithmetic',    color:'#7C3AED', built:true,
+          ex:'/explain/icse/class8/arithmetic/squares-and-square-roots.html',
+          pr:'/practice/icse/class8/arithmetic/squares-and-square-roots.html',                exam:'/exam.html?ch=ic8-03'},
+      4: {n:'Cubes and Cube Roots',                  topic:'Arithmetic',    color:'#0891B2', built:true,
+          ex:'/explain/icse/class8/arithmetic/cubes-and-cube-roots.html',
+          pr:'/practice/icse/class8/arithmetic/cubes-and-cube-roots.html',                    exam:'/exam.html?ch=ic8-04'},
+      5: {n:'Playing with Numbers',                  topic:'Arithmetic',    color:'#DC2626', built:true,
+          ex:'/explain/icse/class8/arithmetic/playing-with-numbers.html',
+          pr:'/practice/icse/class8/arithmetic/playing-with-numbers.html',                    exam:'/exam.html?ch=ic8-05'},
+      6: {n:'Sets',                                  topic:'Arithmetic',    color:'#059669', built:true,
+          ex:'/explain/icse/class8/arithmetic/sets.html',
+          pr:'/practice/icse/class8/arithmetic/sets.html',                                    exam:'/exam.html?ch=ic8-06'},
+      7: {n:'Percent and Percentage',                topic:'Arithmetic',    color:'#D97706', built:true,
+          ex:'/explain/icse/class8/arithmetic/percent-and-percentage.html',
+          pr:'/practice/icse/class8/arithmetic/percent-and-percentage.html',                  exam:'/exam.html?ch=ic8-07'},
+      8: {n:'Profit, Loss and Discount',             topic:'Arithmetic',    color:'#B45309', built:true,
+          ex:'/explain/icse/class8/arithmetic/profit-loss-and-discount.html',
+          pr:'/practice/icse/class8/arithmetic/profit-loss-and-discount.html',                exam:'/exam.html?ch=ic8-08'},
+      9: {n:'Compound Interest',                     topic:'Arithmetic',    color:'#0D9488', built:true,
+          ex:'/explain/icse/class8/arithmetic/compound-interest.html',
+          pr:'/practice/icse/class8/arithmetic/compound-interest.html',                       exam:'/exam.html?ch=ic8-09'},
+      10:{n:'Direct and Inverse Variation',          topic:'Arithmetic',    color:'#16A34A', built:true,
+          ex:'/explain/icse/class8/arithmetic/direct-and-inverse-variation.html',
+          pr:'/practice/icse/class8/arithmetic/direct-and-inverse-variation.html',            exam:'/exam.html?ch=ic8-10'},
+      11:{n:'Time and Work',                         topic:'Arithmetic',    color:'#4338CA', built:true,
+          ex:'/explain/icse/class8/arithmetic/time-and-work.html',
+          pr:'/practice/icse/class8/arithmetic/time-and-work.html',                           exam:'/exam.html?ch=ic8-11'},
+      12:{n:'Distance, Speed and Time',              topic:'Arithmetic',    color:'#DB2777', built:true,
+          ex:'/explain/icse/class8/arithmetic/distance-speed-and-time.html',
+          pr:'/practice/icse/class8/arithmetic/distance-speed-and-time.html',                 exam:'/exam.html?ch=ic8-12'},
+      13:{n:'Linear Equations in One Variable',      topic:'Algebra',       color:'#65A30D', built:true,
+          ex:'/explain/icse/class8/algebra/linear-equations-in-one-variable.html',
+          pr:'/practice/icse/class8/algebra/linear-equations-in-one-variable.html',           exam:'/exam.html?ch=ic8-13'},
+      14:{n:'Linear Inequations',                    topic:'Algebra',       color:'#0284C7', built:true,
+          ex:'/explain/icse/class8/algebra/linear-inequations.html',
+          pr:'/practice/icse/class8/algebra/linear-inequations.html',                         exam:'/exam.html?ch=ic8-14'},
+      15:{n:'Polygons',                              topic:'Geometry',      color:'#7E22CE', built:true,
+          ex:'/explain/icse/class8/geometry/polygons.html',
+          pr:'/practice/icse/class8/geometry/polygons.html',                                  exam:'/exam.html?ch=ic8-15'},
+      16:{n:'Understanding Shapes (Quadrilaterals)', topic:'Geometry',      color:'#0E7490', built:true,
+          ex:'/explain/icse/class8/geometry/understanding-shapes-quadrilaterals.html',
+          pr:'/practice/icse/class8/geometry/understanding-shapes-quadrilaterals.html',       exam:'/exam.html?ch=ic8-16'},
+      17:{n:'Constructions of Quadrilaterals',       topic:'Geometry',      color:'#9333EA', built:true,
+          ex:'/explain/icse/class8/geometry/constructions-of-quadrilaterals.html',
+          pr:'/practice/icse/class8/geometry/constructions-of-quadrilaterals.html',           exam:'/exam.html?ch=ic8-17'},
+      18:{n:'Representing 3-D in 2-D',               topic:'Geometry',      color:'#1D4ED8', built:true,
+          ex:'/explain/icse/class8/geometry/representing-3d-in-2d.html',
+          pr:'/practice/icse/class8/geometry/representing-3d-in-2d.html',                    exam:'/exam.html?ch=ic8-18'},
+      19:{n:'Area of Trapezium and Polygon',         topic:'Mensuration',   color:'#B45309', built:true,
+          ex:'/explain/icse/class8/mensuration/area-of-trapezium-and-polygon.html',
+          pr:'/practice/icse/class8/mensuration/area-of-trapezium-and-polygon.html',          exam:'/exam.html?ch=ic8-19'},
+      20:{n:'Volume and Surface Area of Solids',     topic:'Mensuration',   color:'#6C63FF', built:true,
+          ex:'/explain/icse/class8/mensuration/volume-and-surface-area-of-solids.html',
+          pr:'/practice/icse/class8/mensuration/volume-and-surface-area-of-solids.html',      exam:'/exam.html?ch=ic8-20'},
+      21:{n:'Data Handling',                         topic:'Data Handling', color:'#DC2626', built:true,
+          ex:'/explain/icse/class8/data-handling/data-handling.html',
+          pr:'/practice/icse/class8/data-handling/data-handling.html',                        exam:'/exam.html?ch=ic8-21'}
+    },
+    TOPICS: [
+      {id:'arithmetic',  name:'Arithmetic',   icon:'🔢', chs:[1,2,3,4,5,6,7,8,9,10,11,12]},
+      {id:'algebra',     name:'Algebra',      icon:'🔣', chs:[13,14]},
+      {id:'geometry',    name:'Geometry',     icon:'📐', chs:[15,16,17,18]},
+      {id:'mensuration', name:'Mensuration',  icon:'📏', chs:[19,20]},
+      {id:'datahandling',name:'Data Handling',icon:'📊', chs:[21]}
+    ],
+    ALL_BUILT_CHS: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21]
+  },
+
+  /* ── ICSE CLASS 9 (key='ic9') ── */
+  'ic9': {
+    CH: {
+      1: {n:'Rational and Irrational Numbers',        topic:'Arithmetic',    color:'#6C63FF', built:true,
+          ex:'/explain/icse/class9/arithmetic/rational-and-irrational-numbers.html',
+          pr:'/practice/icse/class9/arithmetic/rational-and-irrational-numbers.html',         exam:'/exam.html?ch=ic9-01'},
+      2: {n:'Compound Interest (Without Formula)',    topic:'Arithmetic',    color:'#2563EB', built:true,
+          ex:'/explain/icse/class9/arithmetic/compound-interest-without-formula.html',
+          pr:'/practice/icse/class9/arithmetic/compound-interest-without-formula.html',       exam:'/exam.html?ch=ic9-02'},
+      3: {n:'Compound Interest (Using Formula)',      topic:'Arithmetic',    color:'#7C3AED', built:true,
+          ex:'/explain/icse/class9/arithmetic/compound-interest-using-formula.html',
+          pr:'/practice/icse/class9/arithmetic/compound-interest-using-formula.html',         exam:'/exam.html?ch=ic9-03'},
+      4: {n:'Expansions (Algebraic Identities)',      topic:'Algebra',       color:'#0891B2', built:true,
+          ex:'/explain/icse/class9/algebra/expansions-algebraic-identities.html',
+          pr:'/practice/icse/class9/algebra/expansions-algebraic-identities.html',            exam:'/exam.html?ch=ic9-04'},
+      5: {n:'Factorisation',                          topic:'Algebra',       color:'#DC2626', built:true,
+          ex:'/explain/icse/class9/algebra/factorisation.html',
+          pr:'/practice/icse/class9/algebra/factorisation.html',                              exam:'/exam.html?ch=ic9-05'},
+      6: {n:'Simultaneous (Linear) Equations',        topic:'Algebra',       color:'#059669', built:true,
+          ex:'/explain/icse/class9/algebra/simultaneous-linear-equations.html',
+          pr:'/practice/icse/class9/algebra/simultaneous-linear-equations.html',              exam:'/exam.html?ch=ic9-06'},
+      7: {n:'Indices (Exponents)',                    topic:'Algebra',       color:'#D97706', built:true,
+          ex:'/explain/icse/class9/algebra/indices-exponents.html',
+          pr:'/practice/icse/class9/algebra/indices-exponents.html',                          exam:'/exam.html?ch=ic9-07'},
+      8: {n:'Logarithms',                             topic:'Algebra',       color:'#B45309', built:true,
+          ex:'/explain/icse/class9/algebra/logarithms.html',
+          pr:'/practice/icse/class9/algebra/logarithms.html',                                 exam:'/exam.html?ch=ic9-08'},
+      9: {n:'Triangles (Congruency)',                 topic:'Geometry',      color:'#0D9488', built:true,
+          ex:'/explain/icse/class9/geometry/triangles-congruency.html',
+          pr:'/practice/icse/class9/geometry/triangles-congruency.html',                      exam:'/exam.html?ch=ic9-09'},
+      10:{n:'Isosceles Triangles',                    topic:'Geometry',      color:'#16A34A', built:true,
+          ex:'/explain/icse/class9/geometry/isosceles-triangles.html',
+          pr:'/practice/icse/class9/geometry/isosceles-triangles.html',                       exam:'/exam.html?ch=ic9-10'},
+      11:{n:'Inequalities in Triangles',              topic:'Geometry',      color:'#4338CA', built:true,
+          ex:'/explain/icse/class9/geometry/inequalities-in-triangles.html',
+          pr:'/practice/icse/class9/geometry/inequalities-in-triangles.html',                 exam:'/exam.html?ch=ic9-11'},
+      12:{n:'Mid-Point and Intercept Theorems',       topic:'Geometry',      color:'#DB2777', built:true,
+          ex:'/explain/icse/class9/geometry/mid-point-and-intercept-theorems.html',
+          pr:'/practice/icse/class9/geometry/mid-point-and-intercept-theorems.html',          exam:'/exam.html?ch=ic9-12'},
+      13:{n:'Pythagoras Theorem',                     topic:'Geometry',      color:'#65A30D', built:true,
+          ex:'/explain/icse/class9/geometry/pythagoras-theorem.html',
+          pr:'/practice/icse/class9/geometry/pythagoras-theorem.html',                        exam:'/exam.html?ch=ic9-13'},
+      14:{n:'Rectilinear Figures (Quadrilaterals)',    topic:'Geometry',      color:'#0284C7', built:true,
+          ex:'/explain/icse/class9/geometry/rectilinear-figures-quadrilaterals.html',
+          pr:'/practice/icse/class9/geometry/rectilinear-figures-quadrilaterals.html',        exam:'/exam.html?ch=ic9-14'},
+      15:{n:'Construction of Polygons',               topic:'Geometry',      color:'#7E22CE', built:true,
+          ex:'/explain/icse/class9/geometry/construction-of-polygons.html',
+          pr:'/practice/icse/class9/geometry/construction-of-polygons.html',                  exam:'/exam.html?ch=ic9-15'},
+      16:{n:'Area Theorems',                          topic:'Mensuration',   color:'#0E7490', built:true,
+          ex:'/explain/icse/class9/mensuration/area-theorems.html',
+          pr:'/practice/icse/class9/mensuration/area-theorems.html',                          exam:'/exam.html?ch=ic9-16'},
+      17:{n:'Circle',                                 topic:'Geometry',      color:'#9333EA', built:true,
+          ex:'/explain/icse/class9/geometry/circle.html',
+          pr:'/practice/icse/class9/geometry/circle.html',                                    exam:'/exam.html?ch=ic9-17'},
+      18:{n:'Statistics',                             topic:'Data Handling', color:'#1D4ED8', built:true,
+          ex:'/explain/icse/class9/data-handling/statistics.html',
+          pr:'/practice/icse/class9/data-handling/statistics.html',                           exam:'/exam.html?ch=ic9-18'},
+      19:{n:'Coordinate Geometry',                    topic:'Algebra',       color:'#B45309', built:true,
+          ex:'/explain/icse/class9/algebra/coordinate-geometry.html',
+          pr:'/practice/icse/class9/algebra/coordinate-geometry.html',                        exam:'/exam.html?ch=ic9-19'},
+      20:{n:'Mensuration',                            topic:'Mensuration',   color:'#6C63FF', built:true,
+          ex:'/explain/icse/class9/mensuration/mensuration.html',
+          pr:'/practice/icse/class9/mensuration/mensuration.html',                            exam:'/exam.html?ch=ic9-20'}
+    },
+    TOPICS: [
+      {id:'arithmetic',  name:'Arithmetic',   icon:'🔢', chs:[1,2,3]},
+      {id:'algebra',     name:'Algebra',      icon:'🔣', chs:[4,5,6,7,8,19]},
+      {id:'geometry',    name:'Geometry',     icon:'📐', chs:[9,10,11,12,13,14,15,17]},
+      {id:'mensuration', name:'Mensuration',  icon:'📏', chs:[16,20]},
+      {id:'datahandling',name:'Data Handling',icon:'📊', chs:[18]}
+    ],
+    ALL_BUILT_CHS: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
   }
 
 }; /* end ALL_CLASS_CH */
@@ -890,6 +1199,8 @@ function showAdmin() {
   document.getElementById('login').style.display = 'none';
   document.getElementById('admin').classList.add('show');
   refresh();
+  /* Auto-load all registrations from D1 on login */
+  setTimeout(loadFromD1, 800);
 }
 
 /* ── TABS ───────────────────────────────────────────────── */
@@ -1022,16 +1333,48 @@ function buildDashboard() {
 function buildStudentList() {
   var si = document.getElementById('student-search'); if (si) si.value = '';
   var saved = lsGet('rishi_registrations', []);
-  var cur   = lsGet('rishi_current_student', {});
-  if(!saved.length && cur.studentName) {
-    saved = [{ studentName: cur.studentName,
-      studentUsername: cur.studentId || cur.studentUsername || '—',
-      parentName: cur.parentName || '—',
-      parentUsername: cur.parentUsername || '—',
-      primaryMobile: '—', board: cur.board || 'CBSE', class: cur.class || '8' }];
-  }
   window._allRegs = saved;
   renderStudentRows(window._allRegs);
+}
+
+/* Load all registrations from D1 and merge into localStorage */
+async function loadFromD1() {
+  var btn = document.getElementById('btn-load-d1');
+  if (btn) { btn.disabled = true; btn.textContent = '⏳ Loading…'; }
+  try {
+    var res = await fetch('/d1-sync', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({action:'list_all'})
+    });
+    var data = await res.json();
+    if (!data.ok || !data.registrations) throw new Error(data.error || 'No data');
+    var d1Regs = data.registrations;
+    if (!d1Regs.length) { showToast('D1 has no registrations yet.'); if (btn) { btn.disabled = false; btn.textContent = '☁ Load from D1'; } return; }
+    /* Merge: keep localStorage entries not in D1, then add D1 entries */
+    var local = lsGet('rishi_registrations', []);
+    var merged = local.slice();
+    d1Regs.forEach(function(d1r) {
+      var exists = merged.findIndex(function(lr){ return (lr.studentUsername||'').toLowerCase() === (d1r.studentUsername||'').toLowerCase(); });
+      if (exists === -1) merged.push(d1r);
+      else merged[exists] = Object.assign({}, merged[exists], d1r); /* D1 wins for shared fields */
+    });
+    localStorage.setItem('rishi_registrations', JSON.stringify(merged));
+    window._allRegs = merged;
+    renderStudentRows(merged);
+    buildUsersTab();
+    showToast(d1Regs.length + ' records loaded from D1.');
+  } catch(e) {
+    showToast('D1 load failed: ' + e.message);
+  }
+  if (btn) { btn.disabled = false; btn.textContent = '☁ Load from D1'; }
+}
+
+async function loadFromD1Users() {
+  var btn = document.getElementById('btn-load-d1-users');
+  if (btn) { btn.disabled = true; btn.textContent = '⏳ Loading…'; }
+  await loadFromD1();
+  if (btn) { btn.disabled = false; btn.textContent = '☁ Load from D1'; }
 }
 
 function filterStudents(q) {
@@ -1441,50 +1784,176 @@ function resetChapter(cid) {
 }
 
 /* ── STUDENT ─────────────────────────────────────────────── */
-function buildStudent() {
-  var st = lsGet('rishi_current_student', {});
-  var fields = [
-    {l:'Student Name', v: st.studentName || '—'},
-    {l:'Class',        v: st.class       || '—'},
-    {l:'Board',        v: st.board       || '—'},
-    {l:'School',       v: st.school      || '—'}
-  ];
-  var fHtml = '';
-  for (var i = 0; i < fields.length; i++) {
-    fHtml += '<div class="stu-field"><div class="stu-lbl">' + fields[i].l + '</div><div class="stu-val">' + esc(String(fields[i].v)) + '</div></div>';
-  }
-  document.getElementById('stu-info').innerHTML = fHtml;
+var _selectedStudentIdx = -1;
 
-  /* Progress table */
+function buildStudent() {
+  var regs = window._allRegs || lsGet('rishi_registrations', []);
+  var picker = document.getElementById('stu-picker');
+  if (!picker) return;
+
+  if (!regs.length) {
+    picker.innerHTML = '<div class="empty"><div class="empty-ico">👥</div>No registered students. Use "Load from D1" or register a student first.</div>';
+    document.getElementById('stu-detail-wrap').style.display = 'none';
+    return;
+  }
+
+  var html = '';
+  regs.forEach(function(r, idx) {
+    var sId   = r.studentUsername || r.studentId || '—';
+    var sName = r.studentName || sId;
+    var cls   = r.class || '?';
+    var brd   = (r.board || 'CBSE').toUpperCase();
+    var isSelected = idx === _selectedStudentIdx;
+    html += '<button onclick="selectStudentForProgress(' + idx + ')" style="'
+          + 'padding:12px 18px;border-radius:12px;border:2px solid ' + (isSelected ? 'var(--gold)' : 'var(--border)') + ';'
+          + 'background:' + (isSelected ? 'rgba(200,146,42,.1)' : '#fff') + ';'
+          + 'cursor:pointer;font-family:Outfit,sans-serif;text-align:left;min-width:160px;transition:all .15s;">'
+          + '<div style="font-size:15px;font-weight:900;color:' + (isSelected ? 'var(--amber)' : 'var(--text)') + ';">' + esc(sName) + '</div>'
+          + '<div style="font-size:12px;color:var(--muted);margin-top:3px;">' + esc(sId) + '</div>'
+          + '<div style="font-size:11px;font-weight:800;margin-top:4px;color:var(--gold);">' + brd + ' · Class ' + cls + '</div>'
+          + '</button>';
+  });
+  picker.innerHTML = html;
+
+  if (_selectedStudentIdx >= 0 && regs[_selectedStudentIdx]) {
+    renderStudentProgress(regs[_selectedStudentIdx]);
+  } else {
+    document.getElementById('stu-detail-wrap').style.display = 'none';
+  }
+}
+
+function selectStudentForProgress(idx) {
+  _selectedStudentIdx = idx;
+  buildStudent();
+}
+
+function getClassKey(r) {
+  var brd = (r.board || 'CBSE').toUpperCase();
+  var cls = parseInt(r.class || 8);
+  if (brd === 'ICSE') {
+    if (cls === 6) return 'ic6';
+    if (cls === 7) return 'ic7';
+    if (cls === 8) return 'ic8';
+    if (cls === 9) return 'ic9';
+  }
+  return cls;
+}
+
+function getProgressPrefix(classKey) {
+  if (classKey === 'ic6') return 'ic6_';
+  if (classKey === 'ic7') return 'ic7_';
+  if (classKey === 'ic8') return 'ic8_';
+  if (classKey === 'ic9') return 'ic9_';
+  return '';
+}
+
+function renderStudentProgress(r) {
+  var detail = document.getElementById('stu-detail-wrap');
+  detail.style.display = 'block';
+
+  var classKey = getClassKey(r);
+  var prefix   = getProgressPrefix(classKey);
+  var cd       = ALL_CLASS_CH[classKey] || ALL_CLASS_CH[8];
+  var chData   = cd.CH;
+  var topics   = cd.TOPICS;
+  var brd      = (r.board || 'CBSE').toUpperCase();
+  var cls      = r.class || '8';
+
+  /* Info grid */
+  var fields = [
+    {l:'Student',v:r.studentName||'—'}, {l:'ID',v:r.studentUsername||r.studentId||'—'},
+    {l:'Board',v:brd}, {l:'Class',v:cls},
+    {l:'Parent',v:r.parentUsername||'—'}, {l:'Mobile',v:r.primaryMobile||'—'},
+    {l:'School',v:r.school||r.schoolName||'—'}, {l:'Status',v:r.subscriptionStatus||'—'}
+  ];
+  document.getElementById('stu-info').innerHTML = fields.map(function(f){
+    return '<div class="stu-field"><div class="stu-lbl">' + f.l + '</div><div class="stu-val">' + esc(String(f.v)) + '</div></div>';
+  }).join('');
+
+  /* Syllabus / Parent buttons */
+  var sId  = encodeURIComponent(r.studentUsername || r.studentId || '—');
+  var sNm  = encodeURIComponent(r.studentName || 'Student');
+  var syllUrl = '/syllabus.html?bypass=1' + (brd === 'ICSE' ? '&board=icse&class=' + cls : '');
+  document.getElementById('stu-btn-syllabus').onclick = function(){ openAsStudent(_selectedStudentIdx, '/syllabus.html' + (brd==='ICSE'?'?board=icse&class='+cls:'')); };
+  document.getElementById('stu-btn-parent').onclick   = function(){ window.open('/parent.html?bypass=1&sName=' + sNm + '&sId=' + sId, '_blank'); };
+
+  /* Chapter progress table — prefix-aware keys */
+  document.getElementById('stu-progress-ttl').textContent = '📊 ' + adminClassLabel(classKey) + ' — Chapter Progress';
   var prog = lsGet('rishi_chapter_progress', {});
-  var order = [2,9,14,15,3,4,10,11,112,1,8,12,13,16,5,17];
-  var tHtml = '<table class="log-table"><thead><tr>';
-  tHtml += '<th>Chapter</th><th>Explain</th><th>Practice</th><th>Exam</th><th>Ex Sessions</th><th>Pr Sessions</th><th>Accuracy</th><th>Qs Done</th>';
+  var order = [];
+  topics.forEach(function(t){ t.chs.forEach(function(c){ if (order.indexOf(c) === -1) order.push(c); }); });
+  /* Also add any chapters not in topics */
+  Object.keys(chData).forEach(function(k){ var n = isNaN(k)?k:parseInt(k); if (order.indexOf(n)===-1) order.push(n); });
+
+  var tHtml = '<table class="log-table" style="min-width:700px;"><thead><tr>';
+  tHtml += '<th>#</th><th>Chapter</th><th>Explain</th><th>Practice</th><th>Chapter Exam</th><th>Ex Sessions</th><th>Pr Sessions</th><th>Accuracy</th>';
   tHtml += '</tr></thead><tbody>';
-  for (var i = 0; i < order.length; i++) {
-    var cid  = order[i];
-    var ch   = CH[cid];
-    var p    = prog[cid] || prog[String(cid)] || {};
-    var exDone  = isExplainDone(cid);
-    var prDone  = isPracticeDone(cid);
-    var exaDone = isExamDone(cid);
-    var exSess  = getExplainSessions(cid);
-    var prSess  = getPracticeSessions(cid);
+
+  order.forEach(function(cid) {
+    var ch = chData[cid]; if (!ch) return;
+    var keyId = prefix + cid; /* e.g. ic8_1 or just 1 */
+    var exDone  = localStorage.getItem('rishi_explain_done_'  + keyId) === '1';
+    var prDone  = localStorage.getItem('rishi_practice_done_' + keyId) === '1';
+    /* Exam key format: ic8-01, ic9-02, or padded for CBSE */
+    var examKey = (function(){
+      if (prefix) {
+        var n = String(cid).padStart(2,'0');
+        return prefix.replace('_','') + '-' + n; /* ic8-01 */
+      }
+      if (cid === 11)  return '11a';
+      if (cid === 112) return '11b';
+      return String(cid).padStart(2,'0');
+    })();
+    var exaDone = localStorage.getItem('rishi_chapexam_done_' + examKey) === '1';
+
+    var esess = lsGet('rishi_explain_sessions',  {}); var exSess  = parseInt(esess[keyId]  || esess[String(cid)] || 0);
+    var psess = lsGet('rishi_practice_sessions', {}); var prSess  = parseInt(psess[keyId]  || psess[String(cid)] || 0);
+    var p     = prog[keyId] || prog[cid] || prog[String(cid)] || {};
     var displayNum = cid === 112 ? '11b' : cid;
 
     tHtml += '<tr>';
-    tHtml += '<td><span style="display:inline-block;font-size:16px;font-weight:700;padding:2px 6px;border-radius:4px;color:white;background:' + ch.color + ';margin-right:6px;">' + displayNum + '</span>' + esc(ch.n) + '</td>';
-    tHtml += '<td style="color:' + (exDone  ? 'var(--green)' : 'var(--muted)') + '">' + (exDone  ? '✓' : '—') + '</td>';
-    tHtml += '<td style="color:' + (prDone  ? 'var(--green)' : 'var(--muted)') + '">' + (prDone  ? '✓' : '—') + '</td>';
-    tHtml += '<td style="color:' + (exaDone ? 'var(--green)' : 'var(--muted)') + '">' + (exaDone ? '✓' : '—') + '</td>';
-    tHtml += '<td>' + (exSess  > 0 ? exSess  : '—') + '</td>';
-    tHtml += '<td>' + (prSess  > 0 ? prSess  : '—') + '</td>';
-    tHtml += '<td>' + (p.accuracy  ? p.accuracy  + '%' : '—') + '</td>';
-    tHtml += '<td>' + (p.completed ? p.completed + '/' + (p.total || 15) : '—') + '</td>';
+    tHtml += '<td><span style="display:inline-block;font-size:13px;font-weight:700;padding:2px 6px;border-radius:4px;color:white;background:' + ch.color + ';">' + displayNum + '</span></td>';
+    tHtml += '<td style="font-weight:700;">' + esc(ch.n) + '</td>';
+    tHtml += '<td style="color:' + (exDone  ? 'var(--green)' : 'var(--muted)') + ';font-weight:800;">' + (exDone  ? '✓' : '—') + '</td>';
+    tHtml += '<td style="color:' + (prDone  ? 'var(--green)' : 'var(--muted)') + ';font-weight:800;">' + (prDone  ? '✓' : '—') + '</td>';
+    tHtml += '<td style="color:' + (exaDone ? 'var(--green)' : 'var(--muted)') + ';font-weight:800;">' + (exaDone ? '✓' : '—') + '</td>';
+    tHtml += '<td>' + (exSess > 0 ? exSess : '—') + '</td>';
+    tHtml += '<td>' + (prSess > 0 ? prSess : '—') + '</td>';
+    tHtml += '<td>' + (p.accuracy ? p.accuracy + '%' : '—') + '</td>';
     tHtml += '</tr>';
-  }
+  });
   tHtml += '</tbody></table>';
   document.getElementById('stu-progress').innerHTML = tHtml;
+
+  /* Exams section — topic exams + sampurna */
+  var examList  = TOPIC_EXAMS_BY_CLASS[classKey] || [];
+  var sampurnaUrl = SAMPURNA_BY_CLASS[classKey]  || null;
+  var eHtml = '';
+  if (!examList.length && !sampurnaUrl) {
+    eHtml = '<div class="empty">No exam data for this class.</div>';
+  } else {
+    eHtml += '<div style="display:flex;flex-wrap:wrap;gap:10px;">';
+    examList.forEach(function(t) {
+      var done    = localStorage.getItem('rishi_topicexam_done_' + t.id) === '1';
+      var score   = localStorage.getItem('rishi_topicexam_score_' + t.id) || '—';
+      var attempts= localStorage.getItem('rishi_topicexam_attempts_' + t.id) || '0';
+      eHtml += '<div style="background:var(--s2);border:2px solid var(--border);border-radius:10px;padding:12px 16px;min-width:160px;">';
+      eHtml += '<div style="font-size:14px;font-weight:900;">' + t.icon + ' ' + t.name + '</div>';
+      eHtml += '<div style="font-size:12px;color:' + (done?'var(--green)':'var(--muted)') + ';font-weight:800;margin-top:4px;">' + (done ? '✓ Done · Score: ' + score : 'Not taken') + '</div>';
+      if (done) eHtml += '<div style="font-size:11px;color:var(--dim);">Attempts: ' + attempts + '</div>';
+      eHtml += '</div>';
+    });
+    if (sampurnaUrl) {
+      var spDone  = localStorage.getItem('rishi_sampurna_done') === '1';
+      var spScore = localStorage.getItem('rishi_sampurna_score') || '—';
+      eHtml += '<div style="background:rgba(200,146,42,.08);border:2px solid rgba(200,146,42,.3);border-radius:10px;padding:12px 16px;min-width:160px;">';
+      eHtml += '<div style="font-size:14px;font-weight:900;">🏆 Sampurna</div>';
+      eHtml += '<div style="font-size:12px;color:' + (spDone?'var(--green)':'var(--muted)') + ';font-weight:800;margin-top:4px;">' + (spDone ? '✓ Done · Score: ' + spScore : 'Not taken') + '</div>';
+      eHtml += '</div>';
+    }
+    eHtml += '</div>';
+  }
+  document.getElementById('stu-exams').innerHTML = eHtml;
 }
 
 /* ── LOGS ────────────────────────────────────────────────── */
@@ -1580,31 +2049,68 @@ function clearAllPlans() {
 /* -- TOPIC EXAMS TAB ----------------------------------------------- */
 var TOPIC_EXAMS_BY_CLASS = {
   6:[
-    {id:'t6-arithmetic',  name:'Arithmetic',   icon:'🔢',chs:[1,3,5,7,10],url:'/topic-exam.html?topic=arithmetic&class=6'},
-    {id:'t6-geometry',    name:'Geometry',     icon:'📐',chs:[2,8,9],      url:'/topic-exam.html?topic=geometry&class=6'},
-    {id:'t6-mensuration', name:'Mensuration',  icon:'📏',chs:[6],          url:'/topic-exam.html?topic=mensuration&class=6'},
-    {id:'t6-datahandling',name:'Data Handling',icon:'📊',chs:[4],          url:'/topic-exam.html?topic=datahandling&class=6'},
+    {id:'t6-arithmetic',  name:'Arithmetic',   icon:'🔢',chs:[1,3,5,7,10],url:'/topic-exam.html?topic=arithmetic&class=6&board=cbse'},
+    {id:'t6-geometry',    name:'Geometry',     icon:'📐',chs:[2,8,9],      url:'/topic-exam.html?topic=geometry&class=6&board=cbse'},
+    {id:'t6-mensuration', name:'Mensuration',  icon:'📏',chs:[6],          url:'/topic-exam.html?topic=mensuration&class=6&board=cbse'},
+    {id:'t6-datahandling',name:'Data Handling',icon:'📊',chs:[4],          url:'/topic-exam.html?topic=datahandling&class=6&board=cbse'},
   ],
   7:[
-    {id:'t7-arithmetic',name:'Arithmetic',  icon:'🔢',chs:[1,2,3,6,8], url:'/topic-exam.html?topic=arithmetic&class=7'},
-    {id:'t7-algebra',   name:'Algebra',     icon:'🔣',chs:[4],          url:'/topic-exam.html?topic=algebra&class=7'},
-    {id:'t7-geometry',  name:'Geometry',    icon:'📐',chs:[5,7],        url:'/topic-exam.html?topic=geometry&class=7'},
+    {id:'t7-arithmetic',name:'Arithmetic',  icon:'🔢',chs:[1,2,3,6,8], url:'/topic-exam.html?topic=arithmetic&class=7&board=cbse'},
+    {id:'t7-algebra',   name:'Algebra',     icon:'🔣',chs:[4],          url:'/topic-exam.html?topic=algebra&class=7&board=cbse'},
+    {id:'t7-geometry',  name:'Geometry',    icon:'📐',chs:[5,7],        url:'/topic-exam.html?topic=geometry&class=7&board=cbse'},
   ],
   8:[
-    {id:'algebra',     name:'Algebra',      icon:'🔣',chs:[2,9,14,15],  url:'/topic-exam.html?topic=algebra'},
-    {id:'geometry',    name:'Geometry',     icon:'📐',chs:[3,4,10],     url:'/topic-exam.html?topic=geometry'},
-    {id:'mensuration', name:'Mensuration',  icon:'📏',chs:[11,112],     url:'/topic-exam.html?topic=mensuration'},
-    {id:'arithmetic',  name:'Arithmetic',   icon:'🔢',chs:[1,8,12,13,16],url:'/topic-exam.html?topic=arithmetic'},
-    {id:'datahandling',name:'Data Handling',icon:'📊',chs:[5,17],       url:'/topic-exam.html?topic=datahandling'},
+    {id:'algebra',     name:'Algebra',      icon:'🔣',chs:[2,9,14,15],   url:'/topic-exam.html?topic=algebra&board=cbse'},
+    {id:'geometry',    name:'Geometry',     icon:'📐',chs:[3,4,10],      url:'/topic-exam.html?topic=geometry&board=cbse'},
+    {id:'mensuration', name:'Mensuration',  icon:'📏',chs:[11,112],      url:'/topic-exam.html?topic=mensuration&board=cbse'},
+    {id:'arithmetic',  name:'Arithmetic',   icon:'🔢',chs:[1,8,12,13,16],url:'/topic-exam.html?topic=arithmetic&board=cbse'},
+    {id:'datahandling',name:'Data Handling',icon:'📊',chs:[5,17],        url:'/topic-exam.html?topic=datahandling&board=cbse'},
   ],
   9:[
-    {id:'t9-algebra',    name:'Algebra',      icon:'🔣',chs:[2,3],      url:'/topic-exam.html?topic=algebra&class=9'},
-    {id:'t9-geometry',   name:'Geometry',     icon:'📐',chs:[5,6,7,8,9],url:'/topic-exam.html?topic=geometry&class=9'},
-    {id:'t9-mensuration',name:'Mensuration',  icon:'📏',chs:[10,11],    url:'/topic-exam.html?topic=mensuration&class=9'},
-    {id:'t9-data',       name:'Data Handling',icon:'📊',chs:[12],       url:'/topic-exam.html?topic=datahandling&class=9'},
+    {id:'t9-algebra',    name:'Algebra',      icon:'🔣',chs:[2,3],       url:'/topic-exam.html?topic=algebra&class=9&board=cbse'},
+    {id:'t9-geometry',   name:'Geometry',     icon:'📐',chs:[5,6,7,8,9], url:'/topic-exam.html?topic=geometry&class=9&board=cbse'},
+    {id:'t9-mensuration',name:'Mensuration',  icon:'📏',chs:[10,11],     url:'/topic-exam.html?topic=mensuration&class=9&board=cbse'},
+    {id:'t9-data',       name:'Data Handling',icon:'📊',chs:[12],        url:'/topic-exam.html?topic=datahandling&class=9&board=cbse'},
+  ],
+  'ic6':[
+    {id:'ic6-arithmetic', name:'Arithmetic',   icon:'🔢',chs:[1,2,3,4,5,6,7,8,9,10,11,12,13,14],url:'/topic-exam.html?topic=arithmetic&class=6&board=icse'},
+    {id:'ic6-algebra',    name:'Algebra',      icon:'🔣',chs:[15,16,17,18],                       url:'/topic-exam.html?topic=algebra&class=6&board=icse'},
+    {id:'ic6-geometry',   name:'Geometry',     icon:'📐',chs:[19,20,21,22,23,24,25,26],           url:'/topic-exam.html?topic=geometry&class=6&board=icse'},
+    {id:'ic6-mensuration',name:'Mensuration',  icon:'📏',chs:[27],                                url:'/topic-exam.html?topic=mensuration&class=6&board=icse'},
+    {id:'ic6-data',       name:'Data Handling',icon:'📊',chs:[28],                                url:'/topic-exam.html?topic=datahandling&class=6&board=icse'},
+  ],
+  'ic7':[
+    {id:'ic7-arithmetic', name:'Arithmetic',   icon:'🔢',chs:[1,2,3,4,5,6,7,8,9,10,11],url:'/topic-exam.html?topic=arithmetic&class=7&board=icse'},
+    {id:'ic7-algebra',    name:'Algebra',      icon:'🔣',chs:[12,13],                    url:'/topic-exam.html?topic=algebra&class=7&board=icse'},
+    {id:'ic7-geometry',   name:'Geometry',     icon:'📐',chs:[14,15,16,17,18,19],        url:'/topic-exam.html?topic=geometry&class=7&board=icse'},
+    {id:'ic7-mensuration',name:'Mensuration',  icon:'📏',chs:[20],                       url:'/topic-exam.html?topic=mensuration&class=7&board=icse'},
+    {id:'ic7-data',       name:'Data Handling',icon:'📊',chs:[21,22],                    url:'/topic-exam.html?topic=datahandling&class=7&board=icse'},
+  ],
+  'ic8':[
+    {id:'ic8-arithmetic', name:'Arithmetic',   icon:'🔢',chs:[1,2,3,4,5,6,7,8,9,10,11,12],url:'/topic-exam.html?topic=arithmetic&class=8&board=icse'},
+    {id:'ic8-algebra',    name:'Algebra',      icon:'🔣',chs:[13,14],                       url:'/topic-exam.html?topic=algebra&class=8&board=icse'},
+    {id:'ic8-geometry',   name:'Geometry',     icon:'📐',chs:[15,16,17,18],                 url:'/topic-exam.html?topic=geometry&class=8&board=icse'},
+    {id:'ic8-mensuration',name:'Mensuration',  icon:'📏',chs:[19,20],                       url:'/topic-exam.html?topic=mensuration&class=8&board=icse'},
+    {id:'ic8-data',       name:'Data Handling',icon:'📊',chs:[21],                          url:'/topic-exam.html?topic=datahandling&class=8&board=icse'},
+  ],
+  'ic9':[
+    {id:'ic9-arithmetic', name:'Arithmetic',   icon:'🔢',chs:[1,2,3],          url:'/topic-exam.html?topic=arithmetic&class=9&board=icse'},
+    {id:'ic9-algebra',    name:'Algebra',      icon:'🔣',chs:[4,5,6,7,8,19],   url:'/topic-exam.html?topic=algebra&class=9&board=icse'},
+    {id:'ic9-geometry',   name:'Geometry',     icon:'📐',chs:[9,10,11,12,13,14,15,17],url:'/topic-exam.html?topic=geometry&class=9&board=icse'},
+    {id:'ic9-mensuration',name:'Mensuration',  icon:'📏',chs:[16,20],          url:'/topic-exam.html?topic=mensuration&class=9&board=icse'},
+    {id:'ic9-data',       name:'Data Handling',icon:'📊',chs:[18],             url:'/topic-exam.html?topic=datahandling&class=9&board=icse'},
   ]
 };
-var SAMPURNA_BY_CLASS={6:'/sampurna-pariksha.html?class=6',7:'/sampurna-pariksha.html?class=7',8:'/sampurna-pariksha.html',9:'/sampurna-pariksha.html?class=9'};
+var SAMPURNA_BY_CLASS={
+  6:'/sampurna-pariksha.html?class=6&board=cbse',
+  7:'/sampurna-pariksha.html?class=7&board=cbse',
+  8:'/sampurna-pariksha.html?board=cbse',
+  9:'/sampurna-pariksha.html?class=9&board=cbse',
+  'ic6':'/sampurna-pariksha.html?class=6&board=icse',
+  'ic7':'/sampurna-pariksha.html?class=7&board=icse',
+  'ic8':'/sampurna-pariksha.html?class=8&board=icse',
+  'ic9':'/sampurna-pariksha.html?class=9&board=icse'
+};
 
 function isTopicExamDone(tid) {
   return localStorage.getItem('rishi_topicexam_done_' + tid) === '1';
@@ -1920,7 +2426,7 @@ async function qbGenerateChapter(chId) {
     var res = await fetch('/api/generate-questions', {
       method:'POST',
       headers:{'Content-Type':'application/json','Authorization':'Bearer ' + getToken()},
-      body: JSON.stringify({board: qbActiveClass === 'ic7' ? 'icse' : 'cbse', class: qbActiveClass === 'ic7' ? '7' : String(qbActiveClass), chId:chId, chapterName:ch.name, tag:tag, count:count, mode:mode})
+      body: JSON.stringify({board: String(qbActiveClass).charAt(0)==='i' ? 'icse' : 'cbse', class: String(qbActiveClass).charAt(0)==='i' ? String(qbActiveClass).slice(2) : String(qbActiveClass), chId:chId, chapterName:ch.name, tag:tag, count:count, mode:mode})
     });
     var data = await res.json();
     if (data.error) throw new Error(data.error);
@@ -2060,7 +2566,7 @@ async function qbDeleteChapter(chId) {
   try {
     var res = await fetch('/api/admin', {
       method:'POST', headers:{'Content-Type':'application/json','Authorization':'Bearer '+getToken()},
-      body: JSON.stringify({action:'delete',board:'cbse',class:String(qbActiveClass),ch:chId,type:'exam'})
+      body: JSON.stringify({action:'delete',board:String(qbActiveClass).charAt(0)==='i'?'icse':'cbse',class:String(qbActiveClass).charAt(0)==='i'?String(qbActiveClass).slice(2):String(qbActiveClass),ch:chId,type:'exam'})
     });
     var data = await res.json();
     var kb = document.getElementById('qb-kv-badge-' + chId);
@@ -2076,7 +2582,7 @@ async function qbSeedAll() {
   try {
     var res = await fetch('/api/admin', {
       method:'POST', headers:{'Content-Type':'application/json','Authorization':'Bearer '+getToken()},
-      body: JSON.stringify({action:'seed_all',board:'cbse',class:String(qbActiveClass),type:'exam'})
+      body: JSON.stringify({action:'seed_all',board:String(qbActiveClass).charAt(0)==='i'?'icse':'cbse',class:String(qbActiveClass).charAt(0)==='i'?String(qbActiveClass).slice(2):String(qbActiveClass),type:'exam'})
     });
     var data = await res.json();
     (data.results || []).forEach(function(r) {
@@ -2107,7 +2613,10 @@ async function qbListKeys() {
       var span = document.createElement('span');
       span.style.cssText = 'background:var(--s2);border:1px solid var(--border);border-radius:5px;padding:3px 9px;font-size:12px;color:var(--muted);font-family:Share Tech Mono,monospace;font-weight:700;';
       span.textContent = k; container.appendChild(span);
-      var match = k.match(new RegExp('cbse_' + qbActiveClass + '_ch(\\w+)_'));
+      var _isIcseKv = String(qbActiveClass).charAt(0)==='i';
+      var _boardKv  = _isIcseKv ? 'icse' : 'cbse';
+      var _clsKv    = _isIcseKv ? String(qbActiveClass).slice(2) : String(qbActiveClass);
+      var match = k.match(new RegExp(_boardKv + '_' + _clsKv + '_ch(\\w+)_'));
       if (match) {
         var kb = document.getElementById('qb-kv-badge-' + match[1]);
         if (kb) { kb.textContent = 'KV: ✓'; kb.style.background = 'rgba(26,122,74,.1)'; kb.style.color = 'var(--green)'; }

@@ -303,5 +303,20 @@ export async function onRequest(context) {
     }
   }
 
+  /* List all student registrations — for admin panel */
+  if (action === "list_all") {
+    try {
+      const result = await env.DB.prepare(
+        `SELECT data FROM rishi_accounts WHERE role = 'student' ORDER BY updated_at DESC`
+      ).all();
+      const registrations = (result.results || []).map(r => {
+        try { return JSON.parse(r.data); } catch(e) { return null; }
+      }).filter(Boolean);
+      return new Response(JSON.stringify({ ok: true, registrations }), { headers });
+    } catch(e) {
+      return new Response(JSON.stringify({ error: "List failed", detail: String(e) }), { status: 500, headers });
+    }
+  }
+
   return new Response(JSON.stringify({ error: "Unknown action: " + action }), { status: 400, headers });
 }
