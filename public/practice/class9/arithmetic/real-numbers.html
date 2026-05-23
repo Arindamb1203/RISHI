@@ -99,8 +99,10 @@ body{font-family:'Nunito',sans-serif;background:#0d0d1a;min-height:100vh;color:#
 .next-btn.show{display:block;}
 .right-panel{display:flex;flex-direction:column;gap:14px;}
 .rishika-card{display:none;}
-.rishika-float{position:fixed;bottom:24px;left:20px;z-index:150;pointer-events:none;width:108px;}
-.rishika-bubble-float{background:rgba(10,10,26,0.88);border:1px solid rgba(255,215,0,0.22);border-radius:10px;padding:7px 10px;font-size:11px;color:rgba(255,215,0,.9);font-family:'Nunito',sans-serif;font-weight:700;line-height:1.4;margin-bottom:6px;}
+.rishika-panel{display:flex;flex-direction:column;align-items:center;gap:10px;padding:14px 10px;}
+.rishika-speech{background:rgba(255,215,0,.08);border:1px solid rgba(255,215,0,.2);border-radius:14px 14px 14px 4px;padding:10px 14px;font-size:13px;font-weight:700;color:#ffd700;line-height:1.5;width:100%;box-sizing:border-box;min-height:42px;}
+.rishika-img{width:100%;max-width:220px;display:block;mix-blend-mode:screen;transition:opacity .3s;}
+.rough-note{text-align:center;font-size:12px;font-weight:800;color:rgba(255,255,255,.45);padding:10px 0;border-top:1px solid rgba(255,255,255,.07);width:100%;margin-top:4px;}
 .rough-card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:16px;flex:1;}
 .rough-title{font-size:12px;text-transform:uppercase;letter-spacing:2px;color:rgba(255,255,255,.3);margin-bottom:8px;}
 .rough-area{width:100%;min-height:280px;background:#f8f5ec;color:#333;border-radius:10px;padding:14px;font-family:'Courier New',monospace;font-size:14px;line-height:1.8;border:none;outline:none;resize:vertical;}
@@ -201,9 +203,10 @@ body{font-family:'Nunito',sans-serif;background:#0d0d1a;min-height:100vh;color:#
     <button class="next-btn" id="nextBtn" onclick="nextQ()">Next Question ▶</button>
   </div>
   <div class="right-panel">
-    <div class="rough-card">
-      <div class="rough-title">📝 Rough Work</div>
-      <textarea class="rough-area" placeholder="Do all working here..."></textarea>
+    <div class="rishika-panel">
+      <div class="rishika-speech" id="rishikaBubble">Ready for practice! 🎯</div>
+      <img class="rishika-img" id="rishika-img" src="/images/rishika/sprites/Observing.png" alt="Rishika">
+      <div class="rough-note">📝 Do rough work in your copy</div>
     </div>
   </div>
 </div>
@@ -394,21 +397,27 @@ var _origHandleWrong=handleWrong;
 handleWrong=function(q,u){_origHandleWrong(q,u);setTimeout(function(){var e2=G('streakNum');if(e2)e2.textContent=correctStreak;},100);};
 </script>
 <script>
-var RISHI_SPRITES={celebrate:{file:'/images/rishika/sprites/celebrate.jpeg',cols:4,rows:3,fw:384,fh:341,seq:[[0,0],[1,0],[2,0],[3,0],[0,1],[1,1],[2,1],[3,1],[0,2],[1,2],[2,2],[3,2],[3,2],[2,2],[3,2],[1,2],[2,2],[1,2],[2,2],[1,2],[0,2],[3,1],[2,1],[1,1],[0,1],[3,0],[2,0],[1,0],[0,0]],fps:8,loop:false,holdMs:3000,glow:'0 0 40px 12px rgba(245,158,11,0.6)',border:'#f59e0b'},praise:{file:'/images/rishika/sprites/praise.jpeg',cols:4,rows:3,fw:384,fh:341,seq:[[0,0],[1,0],[2,0],[3,0],[0,1],[1,1],[2,1],[3,1],[0,2],[1,2],[2,2],[3,2],[2,2],[1,2],[0,2],[1,1],[3,0],[1,0],[0,0]],fps:6,loop:false,holdMs:2000,glow:'0 0 28px 8px rgba(139,92,246,0.5)',border:'#a78bfa'},disappointed:{file:'/images/rishika/sprites/disappointed-s1.jpeg',cols:4,rows:3,fw:384,fh:341,seq:[[0,0],[1,0],[2,0],[0,0],[3,0],[2,0],[0,1],[1,1],[2,1],[1,1],[3,1],[0,2],[1,2],[0,2],[2,2],[3,2],[0,0]],fps:5,loop:false,holdMs:2000,glow:'0 0 25px 6px rgba(225,29,72,0.35)',border:'#f87171'},neutral:{file:'/images/rishika/sprites/neutral-talking.png',cols:6,rows:2,fw:256,fh:512,seq:[[0,0]],fps:1,loop:true,holdMs:0,glow:'none',border:'transparent'},talking:{file:'/images/rishika/sprites/neutral-talking.png',cols:6,rows:2,fw:256,fh:512,seq:[[0,0],[1,0],[2,0],[3,0],[4,0],[5,0],[5,0],[4,0],[3,0],[2,0],[1,0],[0,0],[0,1],[1,1],[2,1],[3,1],[4,1],[5,1],[4,1],[3,1],[2,1],[1,1],[0,1],[5,0]],fps:10,loop:true,holdMs:0,glow:'0 0 20px rgba(109,40,217,0.3)',border:'#7c3aed'}};
-var _rCanvas=null,_rCtx=null,_rCurName=null,_rSeqIdx=0,_rFrameTimer=null,_rImgs={},_rLoaded=0,_rTotal=0,_rDW=108,_rDH=118;
-function rInit(){var container=document.getElementById('rishika-avatar');if(!container||_rCanvas)return;_rCanvas=document.createElement('canvas');_rCanvas.width=_rDW;_rCanvas.height=_rDH;_rCanvas.style.cssText='border-radius:14px;display:block;width:100%;';container.appendChild(_rCanvas);_rCtx=_rCanvas.getContext('2d');var keys=Object.keys(RISHI_SPRITES);_rTotal=keys.length;_rLoaded=0;keys.forEach(function(k){var img=new Image();_rImgs[k]=img;img.onload=function(){_rLoaded++;if(_rLoaded===_rTotal)_rPlay('neutral');};img.onerror=function(){_rLoaded++;if(_rLoaded===_rTotal)_rPlay('neutral');};img.src=RISHI_SPRITES[k].file;});}
-function _rPlay(name){_rStop();if(!RISHI_SPRITES[name])return;_rCurName=name;_rSeqIdx=0;var s=RISHI_SPRITES[name];if(_rCanvas){_rCanvas.style.boxShadow=s.glow;_rCanvas.style.border='2px solid '+s.border;}_rDrawFrame();var interval=Math.round(1000/s.fps);_rFrameTimer=setInterval(function(){_rSeqIdx++;if(_rSeqIdx>=s.seq.length){if(s.loop){_rSeqIdx=0;}else{_rStop();if(name!=='talking'&&name!=='neutral')setTimeout(function(){_rPlay('neutral');},s.holdMs||1000);return;}}_rDrawFrame();},interval);}
-function _rDrawFrame(){if(!_rCtx||!_rCurName)return;var s=RISHI_SPRITES[_rCurName];var img=_rImgs[_rCurName];if(!img||!img.complete||img.naturalWidth===0)return;var frame=s.seq[_rSeqIdx]||[0,0];var sx=frame[0]*s.fw;var sy=frame[1]*s.fh;_rCtx.clearRect(0,0,_rDW,_rDH);_rCtx.drawImage(img,sx,sy,s.fw,s.fh,0,0,_rDW,_rDH);}
-function _rStop(){if(_rFrameTimer){clearInterval(_rFrameTimer);_rFrameTimer=null;}}
-function rHappy(){_rPlay('praise');}
-function rCelebrate(){_rPlay('celebrate');}
-function rThink(){}
-function rStartTalk(len){_rPlay('talking');}
-function rStopTalk(){}
+/* -- RISHIKA IMAGE AVATAR -- */
+var RISHIKA_IMGS = {
+  neutral:      'Observing.png',
+  celebrate:    'Celebrating.png',
+  praise:       'Naughty.png',
+  disappointed: 'Angry.png',
+  thinking:     'Good Morning.png'
+};
+var _rTimer = null;
+function _rSet(state) {
+  var el = document.getElementById('rishika-img');
+  if (!el) return;
+  el.src = '/images/rishika/sprites/' + (RISHIKA_IMGS[state] || RISHIKA_IMGS.neutral);
+}
+function rInit()         { _rSet('neutral'); }
+function rHappy()        { _rSet('praise');      clearTimeout(_rTimer); _rTimer = setTimeout(function(){ _rSet('neutral'); }, 3000); }
+function rCelebrate()    { _rSet('celebrate');   clearTimeout(_rTimer); _rTimer = setTimeout(function(){ _rSet('neutral'); }, 3000); }
+function rThink()        { _rSet('disappointed'); clearTimeout(_rTimer); _rTimer = setTimeout(function(){ _rSet('neutral'); }, 3000); }
+function rStartTalk(len) { /* TTS speaks */ }
+function rStopTalk()     { /* no-op */ }
 </script>
-<!-- Rishika floating observer -->
-<div class="rishika-float">
-  <div class="rishika-bubble-float" id="rishikaBubble">Ready! 🎯</div>
   <div id="rishika-avatar"></div>
 </div>
 </body>
