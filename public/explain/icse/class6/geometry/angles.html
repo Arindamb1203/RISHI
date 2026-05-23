@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="rishi-board" content="icse">
+<meta name="rishi-class" content="6">
+<title>RISHI -- Angles</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Nunito:wght@400;600;700;800;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<style>
+:root{--cream:#fdf6ec;--warm-white:#fffdf8;--gold:#c8922a;--gold-light:#e8b84b;--gold-pale:#f5e6c8;--amber:#d4870a;--sage:#7a8c6e;--sage-light:#a8b89a;--rust:#b85c2a;--charcoal:#2a2218;--mid:#5a4a30;--soft:#8a7a5a;--inactive:#c8b89a;--border-dark:#6b4c2a;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--cream);font-family:Nunito,sans-serif;min-height:100vh;color:var(--charcoal);}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(var(--gold-pale) 1px,transparent 1px),linear-gradient(90deg,var(--gold-pale) 1px,transparent 1px);background-size:40px 40px;opacity:.3;z-index:0;pointer-events:none;}
+.topbar{position:sticky;top:0;z-index:100;background:rgba(253,246,236,.97);border-bottom:2px solid var(--border-dark);backdrop-filter:blur(8px);padding:10px 18px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;}
+.logo-sm{font-family:'Orbitron',sans-serif;font-size:17px;font-weight:900;letter-spacing:4px;background:linear-gradient(135deg,var(--amber),var(--gold-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.topbar-center{font-family:'Orbitron',sans-serif;font-size:10px;letter-spacing:2px;color:var(--amber);text-transform:uppercase;}
+.topbar-right{display:flex;gap:8px;}
+.btn-topbar{font-family:Nunito,sans-serif;font-size:12px;font-weight:900;padding:6px 14px;border-radius:20px;border:2px solid var(--border-dark);background:var(--warm-white);color:var(--mid);cursor:pointer;}
+.btn-topbar.back{background:var(--gold-pale);}
+.prog-wrap{position:relative;z-index:10;padding:8px 18px;background:rgba(255,253,248,.9);border-bottom:1.5px solid var(--gold-pale);}
+.prog-info{display:flex;justify-content:space-between;font-size:11px;font-weight:800;color:var(--mid);margin-bottom:5px;}
+.prog-bar{height:6px;background:var(--gold-pale);border-radius:4px;overflow:hidden;}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--sage),var(--gold));border-radius:4px;transition:width .5s ease;}
+.main{position:relative;z-index:10;max-width:820px;margin:0 auto;padding:14px 14px 120px;}
+.rishika-wrap{display:flex;align-items:flex-start;gap:12px;margin-bottom:14px;}
+.rishika-avatar{width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,var(--sage),var(--sage-light));border:2px solid var(--border-dark);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;}
+.rishika-bubble{background:rgba(255,253,248,.97);border:2px solid var(--border-dark);border-radius:0 16px 16px 16px;padding:12px 16px;flex:1;box-shadow:0 4px 20px rgba(107,76,42,.1);}
+.rishika-name{font-size:10px;font-weight:900;color:var(--sage);letter-spacing:2px;text-transform:uppercase;margin-bottom:5px;}
+.rishika-text{font-size:14px;font-weight:700;color:var(--charcoal);line-height:1.6;}
+.hl{color:var(--amber);font-weight:900;}
+.btn-speak{display:inline-flex;align-items:center;gap:6px;font-family:Nunito,sans-serif;font-size:11px;font-weight:900;padding:5px 11px;border-radius:20px;border:2px solid var(--sage);background:#eef2eb;color:var(--sage);cursor:pointer;margin-top:8px;}
+.q-card{background:rgba(255,253,248,.97);border:2px solid var(--border-dark);border-radius:16px;padding:16px 18px;margin-bottom:12px;box-shadow:0 4px 20px rgba(107,76,42,.1);}
+.q-label{font-family:'Orbitron',sans-serif;font-size:10px;letter-spacing:3px;color:var(--amber);text-transform:uppercase;margin-bottom:8px;}
+.q-text{font-size:15px;font-weight:800;color:var(--charcoal);line-height:1.6;margin-bottom:10px;}
+.step{display:flex;gap:10px;margin-bottom:12px;opacity:0;transform:translateY(6px);transition:all .4s ease;}
+.step.vis{opacity:1;transform:translateY(0);}
+.step-num{width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;font-size:11px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:2px solid var(--border-dark);}
+.step-body{flex:1;font-size:13px;font-weight:700;color:var(--mid);line-height:1.6;padding-top:2px;}
+.anim-panel{background:#fffdf8;border:2px solid var(--border-dark);border-radius:14px;margin-bottom:12px;overflow:hidden;}
+.anim-header{background:linear-gradient(135deg,var(--charcoal),#3d2e1a);padding:7px 14px;display:flex;align-items:center;justify-content:space-between;}
+.anim-header-lbl{font-family:'Orbitron',sans-serif;font-size:9px;letter-spacing:2px;color:var(--gold-light);text-transform:uppercase;}
+.anim-replay{font-size:10px;font-weight:900;color:var(--gold-pale);background:none;border:1px solid var(--gold-pale);border-radius:20px;padding:2px 9px;cursor:pointer;display:none;}
+.anim-canvas{width:100%;max-height:195px;overflow:hidden;display:flex;align-items:center;justify-content:center;background:#fffdf8;}
+.anim-canvas svg{width:100%;max-height:195px;}
+.anim-status{padding:6px 14px;font-size:12px;font-weight:800;color:var(--mid);text-align:center;min-height:26px;border-top:1px solid var(--gold-pale);}
+.anim-play-btn{width:100%;padding:10px;font-family:Nunito,sans-serif;font-size:14px;font-weight:900;background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;border:none;cursor:pointer;}
+.anim-play-btn:disabled{background:var(--gold-pale);color:var(--inactive);cursor:not-allowed;}
+.steps-btn{width:100%;padding:10px;font-family:Nunito,sans-serif;font-size:14px;font-weight:900;background:linear-gradient(135deg,var(--sage),var(--sage-light));color:#fff;border:none;cursor:pointer;display:none;border-top:1px solid var(--gold-pale);}
+.confirm-wrap{margin-top:12px;background:linear-gradient(135deg,#eef2eb,#f5fbf2);border:2px solid var(--border-dark);border-radius:14px;padding:16px 18px;}
+.confirm-title{font-size:11px;font-weight:900;color:var(--sage);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;}
+.confirm-q{font-size:14px;font-weight:800;color:var(--charcoal);margin-bottom:12px;line-height:1.5;}
+.result-box{font-size:12px;font-weight:800;padding:9px 13px;border-radius:9px;display:none;line-height:1.4;}
+.result-box.ok{background:#eef2eb;border:2px solid var(--sage);color:var(--sage);display:block;}
+.result-box.no{background:#fff5f0;border:2px solid var(--rust);color:var(--rust);display:block;}
+.nudge{font-size:12px;font-weight:700;color:var(--mid);margin-top:7px;font-style:italic;display:none;}
+.nudge.show{display:block;}
+.btn-next{font-family:Nunito,sans-serif;font-size:14px;font-weight:900;padding:11px 22px;border-radius:12px;border:none;background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;cursor:pointer;display:none;margin-top:10px;width:100%;}
+.btn-next.show{display:block;}
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;z-index:100;background:rgba(253,246,236,.97);border-top:2px solid var(--border-dark);padding:10px 18px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap;align-items:center;}
+.btn-nav{font-family:Nunito,sans-serif;font-size:13px;font-weight:900;padding:10px 20px;border-radius:12px;border:2px solid var(--border-dark);cursor:pointer;}
+.btn-nav.practice{background:linear-gradient(135deg,var(--sage),var(--sage-light));color:#fff;border-color:var(--sage);}
+.btn-nav.exam{background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;border-color:var(--amber);}
+.btn-nav.locked{background:var(--gold-pale);color:var(--inactive);cursor:not-allowed;border-color:var(--inactive);}
+.lock-tip{font-size:10px;font-weight:700;color:var(--rust);width:100%;text-align:center;}
+.overlay{display:none;position:fixed;inset:0;background:rgba(42,34,24,.92);z-index:1000;flex-direction:column;align-items:center;justify-content:center;backdrop-filter:blur(6px);}
+.overlay.show{display:flex;}
+.break-box{background:var(--warm-white);border:2px solid var(--border-dark);border-radius:22px;padding:28px 32px;max-width:380px;width:90%;text-align:center;}
+.break-title{font-family:'Orbitron',sans-serif;font-size:14px;font-weight:900;color:var(--amber);letter-spacing:3px;margin-bottom:5px;}
+.break-sub{font-size:12px;font-weight:700;color:var(--soft);margin-bottom:16px;}
+.break-opts{display:flex;flex-direction:column;gap:8px;margin-bottom:12px;}
+.break-opt{font-family:Nunito,sans-serif;font-size:14px;font-weight:800;padding:11px;border-radius:11px;border:2px solid var(--border-dark);background:var(--warm-white);color:var(--mid);cursor:pointer;}
+.timer-screen{display:none;position:fixed;inset:0;background:#1a1208;z-index:1001;flex-direction:column;align-items:center;justify-content:center;}
+.timer-screen.show{display:flex;}
+.timer-reason{font-family:'Orbitron',sans-serif;font-size:12px;letter-spacing:4px;color:var(--gold-light);margin-bottom:16px;text-transform:uppercase;}
+.timer-num{font-family:'Orbitron',sans-serif;font-size:68px;font-weight:900;color:var(--gold-light);letter-spacing:6px;margin-bottom:30px;}
+.btn-end{font-family:Nunito,sans-serif;font-size:16px;font-weight:900;padding:13px 32px;border-radius:13px;border:2px solid var(--gold-light);background:transparent;color:var(--gold-light);cursor:pointer;}
+.done-banner{background:linear-gradient(135deg,#eef2eb,#f5fbf2);border:2px solid var(--border-dark);border-radius:14px;padding:14px 18px;text-align:center;margin-bottom:14px;display:none;}
+.done-banner.show{display:block;}
+.done-banner .dt{font-family:'Orbitron',sans-serif;font-size:12px;letter-spacing:2px;color:var(--sage);margin-bottom:4px;}
+.done-banner .ds{font-size:13px;font-weight:700;color:var(--mid);}
+.math-raw{width:100%;padding:10px 13px;border-radius:10px;border:2px solid var(--border-dark);background:var(--warm-white);color:var(--charcoal);font-size:1rem;font-family:'Share Tech Mono',monospace;resize:none;outline:none;min-height:48px;line-height:1.6;transition:border-color .2s;}
+.math-raw:focus{border-color:var(--amber);}
+.math-raw::placeholder{color:var(--inactive);font-family:Nunito,sans-serif;}
+.math-preview-label{font-size:0.68rem;text-transform:uppercase;letter-spacing:2px;color:var(--soft);margin:.5rem 0 .25rem;}
+.math-preview{min-height:44px;padding:.6rem 1rem;background:#f9f4ec;border-radius:8px;border:1.5px solid var(--gold-pale);font-size:1.1rem;color:var(--charcoal);overflow-x:auto;display:flex;align-items:center;justify-content:center;margin-bottom:10px;}
+.sugg-chips{display:flex;flex-wrap:wrap;gap:.35rem;margin-bottom:10px;}
+.schip{border:1.5px solid #1a6aaa;border-radius:20px;padding:.25rem .75rem;font-size:.78rem;cursor:pointer;background:#eef6ff;color:#0a5a9a;font-family:Nunito,sans-serif;font-weight:800;}
+#rWrap{position:fixed;bottom:68px;left:10px;z-index:200;width:82px;pointer-events:none;}
+#rChar{width:82px;filter:drop-shadow(0 4px 10px rgba(107,76,42,.3));}
+@keyframes rIn{from{transform:translateY(50px);opacity:0}to{transform:translateY(0);opacity:1}}
+@keyframes rBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+@media(max-width:600px){.main{padding:10px 10px 120px;}}
+</style>
+<script src="/rishi-sync.js"></script>
+<script src="/rishi-core.js"></script>
+<script src="/rishi-presence.js"></script>
+</head>
+<body>
+<div class="topbar">
+  <div class="logo-sm">RISHI</div>
+  <div class="topbar-center">∠ Angles</div>
+  <div class="topbar-right">
+    <button class="btn-topbar" onclick="openBreak()">&#9749; Break</button>
+    <button class="btn-topbar back" onclick="location.href='/syllabus.html?board=icse&class=6'">&#8592; Syllabus</button>
+  </div>
+</div>
+<div class="prog-wrap">
+  <div class="prog-info"><span id="progLabel">Question 1 of 10</span><span id="progPct">0%</span></div>
+  <div class="prog-bar"><div class="prog-fill" id="progFill" style="width:0%"></div></div>
+</div>
+<div class="main">
+  <div class="done-banner" id="doneBanner">
+    <div class="dt">&#10003; Explanation Completed!</div>
+    <div class="ds">Practice and Exam now unlocked.</div>
+  </div>
+  <div class="rishika-wrap">
+    <div class="rishika-avatar">&#128105;&#8205;&#127979;</div>
+    <div class="rishika-bubble">
+      <div class="rishika-name">Rishika</div>
+      <div class="rishika-text" id="introText">
+        Hi <span class="hl" id="sName">there</span>! I&#39;m Rishika! Today we learn <span class="hl">Angles</span>! ∠ Let&#39;s start!
+      </div>
+      <button class="btn-speak" onclick="startLesson()" id="startBtn">&#9654; Start Lesson</button>
+    </div>
+  </div>
+  <div id="qArea"></div>
+</div>
+<div class="bottom-nav">
+  <div class="lock-tip" id="lockTip">&#9757; Complete explanations to unlock Practice and Exam</div>
+  <button class="btn-nav practice locked" id="btnPractice" onclick="goPractice()">&#9999;&#65039; Practice</button>
+  <button class="btn-nav exam locked" id="btnExam" onclick="goExam()">&#128221; Exam</button>
+</div>
+<div class="overlay" id="breakOv">
+  <div class="break-box">
+    <div class="break-title">Break</div>
+    <div class="break-sub">Choose &mdash; timer starts</div>
+    <div class="break-opts">
+      <button class="break-opt" onclick="startBreak('Water')">&#128167; Water</button>
+      <button class="break-opt" onclick="startBreak('Washroom')">&#128701; Washroom</button>
+      <button class="break-opt" onclick="startBreak('Physical')">&#127939; Physical</button>
+    </div>
+    <button class="break-opt" style="color:var(--soft)" onclick="closeBreak()">Cancel</button>
+  </div>
+</div>
+<div class="timer-screen" id="timerScreen">
+  <div class="timer-reason" id="timerLbl">Break</div>
+  <div class="timer-num" id="timerNum">00:00</div>
+  <button class="btn-end" onclick="endBreak()">&#10003; End Break</button>
+</div>
+<div id="rWrap">
+<svg id="rChar" viewBox="0 0 100 110" xmlns="http://www.w3.org/2000/svg">
+  <ellipse cx="50" cy="68" rx="36" ry="28" fill="#5a8a60" stroke="#3d6b42" stroke-width="2"/>
+  <ellipse cx="50" cy="66" rx="22" ry="16" fill="#7ab87a" stroke="#5a8a60" stroke-width="1.5"/>
+  <line x1="50" y1="50" x2="50" y2="82" stroke="#5a8a60" stroke-width="1.5"/>
+  <line x1="28" y1="66" x2="72" y2="66" stroke="#5a8a60" stroke-width="1.5"/>
+  <ellipse cx="20" cy="82" rx="10" ry="7" fill="#7ab87a" stroke="#5a8a60" stroke-width="1.5" transform="rotate(-20,20,82)"/>
+  <ellipse cx="80" cy="82" rx="10" ry="7" fill="#7ab87a" stroke="#5a8a60" stroke-width="1.5" transform="rotate(20,80,82)"/>
+  <ellipse cx="22" cy="58" rx="9" ry="6" fill="#7ab87a" stroke="#5a8a60" stroke-width="1.5" transform="rotate(20,22,58)"/>
+  <ellipse cx="78" cy="58" rx="9" ry="6" fill="#7ab87a" stroke="#5a8a60" stroke-width="1.5" transform="rotate(-20,78,58)"/>
+  <ellipse cx="50" cy="42" rx="10" ry="14" fill="#8fba6a" stroke="#5a8a60" stroke-width="1.5"/>
+  <ellipse cx="50" cy="28" rx="18" ry="16" fill="#8fba6a" stroke="#5a8a60" stroke-width="2"/>
+  <ellipse cx="43" cy="24" rx="5" ry="5.5" fill="white"/><ellipse cx="57" cy="24" rx="5" ry="5.5" fill="white"/>
+  <ellipse cx="43" cy="25" rx="3" ry="3.5" fill="#1a3a1a"/><ellipse cx="57" cy="25" rx="3" ry="3.5" fill="#1a3a1a"/>
+  <circle cx="44" cy="23" r="1.2" fill="white"/><circle cx="58" cy="23" r="1.2" fill="white"/>
+  <ellipse id="rLid1" cx="43" cy="24" rx="5" ry="1" fill="#8fba6a" opacity="0"/>
+  <ellipse id="rLid2" cx="57" cy="24" rx="5" ry="1" fill="#8fba6a" opacity="0"/>
+  <path id="rMouth" d="M44,33 Q50,38 56,33" fill="none" stroke="#3d6b42" stroke-width="2" stroke-linecap="round"/>
+  <ellipse id="rBlush1" cx="36" cy="30" rx="7" ry="4" fill="#ff9999" opacity="0"/>
+  <ellipse id="rBlush2" cx="64" cy="30" rx="7" ry="4" fill="#ff9999" opacity="0"/>
+  <rect x="28" y="90" width="44" height="13" fill="#d4870a" rx="4"/>
+  <text x="50" y="100" text-anchor="middle" font-family="Nunito" font-size="7" font-weight="900" fill="white">RISHIKA</text>
+</svg>
+</div>
+<script>
+var voicesReady=false,selectedVoice=null,elAudio=null;
+function pickVoice(){var vs=window.speechSynthesis.getVoices();if(!vs||vs.length===0)return false;var fk=["heera","veena","priya","raveena","female","woman","zira","samantha","victoria","karen","moira","tessa","fiona"];for(var i=0;i<vs.length;i++){if(vs[i].lang.toLowerCase().indexOf("en-in")===0){var n=vs[i].name.toLowerCase();for(var k=0;k<fk.length;k++){if(n.indexOf(fk[k])>=0){selectedVoice=vs[i];return true;}}}}for(var i=0;i<vs.length;i++){if(vs[i].lang.toLowerCase().indexOf("en")===0){var n=vs[i].name.toLowerCase();for(var k=0;k<fk.length;k++){if(n.indexOf(fk[k])>=0){selectedVoice=vs[i];return true;}}}}return false;}
+function initVoices(cb){if(pickVoice()){voicesReady=true;cb();return;}window.speechSynthesis.onvoiceschanged=function(){window.speechSynthesis.onvoiceschanged=null;pickVoice();voicesReady=true;cb();};setTimeout(function(){if(!voicesReady){pickVoice();voicesReady=true;cb();}},2000);}
+function stopAllAudio(){if(elAudio){try{elAudio.onended=null;elAudio.onerror=null;elAudio.pause();elAudio.src="";}catch(x){}elAudio=null;}if(window.speechSynthesis)window.speechSynthesis.cancel();}
+function sayBrowser(text,onEnd){if(!window.speechSynthesis)return;window.speechSynthesis.cancel();rStartTalk(text.length);var u=new SpeechSynthesisUtterance(text);u.lang="en-IN";u.rate=0.88;u.pitch=1.15;if(selectedVoice)u.voice=selectedVoice;u.onend=function(){rStopTalk();if(onEnd)onEnd();};u.onerror=function(){rStopTalk();if(onEnd)onEnd();};window.speechSynthesis.speak(u);}
+function say(text,onEnd){stopAllAudio();rStartTalk(text.length);fetch("/tts",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({text:text})}).then(function(res){if(!res.ok)throw new Error("TTS "+res.status);return res.blob();}).then(function(blob){var url=URL.createObjectURL(blob);elAudio=new Audio(url);elAudio.onended=function(){URL.revokeObjectURL(url);elAudio=null;rStopTalk();if(onEnd)onEnd();};elAudio.onerror=function(){URL.revokeObjectURL(url);elAudio=null;rStopTalk();sayBrowser(text,onEnd);};var p=elAudio.play();if(p&&p.catch){p.catch(function(){URL.revokeObjectURL(url);elAudio=null;sayBrowser(text,onEnd);});}}).catch(function(err){sayBrowser(text,onEnd);});}
+function sayEl(id){var e=G(id);if(e)say(e.innerText||e.textContent);}
+window.addEventListener("beforeunload",function(){stopAllAudio();});window.addEventListener("pagehide",function(){stopAllAudio();});
+var mouthTmr=null,blinkTmr=null,mOpen=false;
+function rInit(){var c=G("rChar");if(c)c.style.animation="rIn .6s cubic-bezier(.34,1.56,.64,1) forwards";scheduleBlink();}
+function scheduleBlink(){blinkTmr=setTimeout(function(){rBlink();scheduleBlink();},2200+Math.random()*3000);}
+function rBlink(){var l=G("rLid1"),r=G("rLid2");if(!l||!r)return;l.setAttribute("ry","5.5");r.setAttribute("ry","5.5");setTimeout(function(){l.setAttribute("ry","1");r.setAttribute("ry","1");},120);}
+function rStartTalk(len){rStopTalk();G("rBlush1").style.opacity="0.7";G("rBlush2").style.opacity="0.7";mOpen=false;mouthTmr=setInterval(function(){mOpen=!mOpen;var m=G("rMouth");if(!m)return;if(mOpen){m.setAttribute("d","M42,33 Q50,42 58,33");m.setAttribute("fill","#1a3a1a");}else{m.setAttribute("d","M44,33 Q50,38 56,33");m.setAttribute("fill","none");}},160);setTimeout(rStopTalk,Math.max(1800,(len||20)*58));}
+function rStopTalk(){clearInterval(mouthTmr);mOpen=false;var m=G("rMouth");if(m){m.setAttribute("d","M44,33 Q50,38 56,33");m.setAttribute("fill","none");}G("rBlush1").style.opacity="0";G("rBlush2").style.opacity="0";}
+function rHappy(){var c=G("rChar");if(c)c.style.animation="rBounce .35s ease-in-out 5";G("rBlush1").style.opacity="1";G("rBlush2").style.opacity="1";setTimeout(function(){rStopTalk();var c=G("rChar");if(c)c.style.animation="none";},2500);}
+function rThink(){setTimeout(rStopTalk,1800);}
+
+var QB=[
+{
+id:"q1",
+q:"Look at the angle shown. Is it an acute, right, obtuse, or straight angle?",
+qs:"Look at the angle shown and tell me if it is acute, right, obtuse, or straight.",
+anim:"q1",
+steps:[{"t": "Step 1: See the angle is less than 90 degrees.", "s": "The angle is less than ninety degrees."}, {"t": "Step 2: Angles less than 90 degrees are acute.", "s": "Angles less than ninety degrees are called acute."}, {"t": "Step 3: So this angle is acute.", "s": "So this angle is acute."}],
+cq:"What is the name of an angle exactly 90 degrees?",
+cqs:"Tell me the name of an angle that is exactly ninety degrees.",
+ans:["acute angle", "right angle"],
+nudges:["Check if the angle is smaller or bigger than 90 degrees.", "Remember: right angle is exactly 90 degrees.", "This angle is less than 90 degrees so it is acute."],
+anim_svg:"<g id=\"q1s0\" opacity=\"0\"><rect x=\"30\" y=\"20\" width=\"360\" height=\"44\" rx=\"10\" fill=\"#f5e6c8\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"210\" y=\"38\" text-anchor=\"middle\" font-size=\"13\" fill=\"#5a4a30\" font-weight=\"800\">Look at the angle</text><text x=\"210\" y=\"56\" text-anchor=\"middle\" font-size=\"11\" fill=\"#8a7a5a\">Is it acute, right, obtuse, or straight?</text></g><g id=\"q1s1\" opacity=\"0\"><line x1=\"100\" y1=\"130\" x2=\"180\" y2=\"130\" stroke=\"#5a4a30\" stroke-width=\"3\"/><line x1=\"100\" y1=\"130\" x2=\"140\" y2=\"90\" stroke=\"#5a4a30\" stroke-width=\"3\"/><path d=\"M140 130 A40 40 0 0 1 180 130\" fill=\"none\" stroke=\"#c8922a\" stroke-width=\"3\"/><text x=\"150\" y=\"120\" font-size=\"14\" fill=\"#c8922a\" font-weight=\"700\">&lt; 90&deg;</text></g><g id=\"q1s2\" opacity=\"0\"><circle cx=\"100\" cy=\"130\" r=\"5\" fill=\"#c8922a\"/><text x=\"100\" y=\"160\" font-size=\"13\" fill=\"#7a8c6e\" font-weight=\"700\" text-anchor=\"middle\">Acute angle</text></g><g id=\"q1ans\" opacity=\"0\"><rect x=\"110\" y=\"148\" width=\"200\" height=\"26\" rx=\"8\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"210\" y=\"165\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">acute angle</text></g>"
+},
+{
+id:"q2",
+q:"Use the protractor shown to measure the angle ∠ABC. What is its size in degrees?",
+qs:"Use the protractor to find the size of angle A B C in degrees.",
+anim:"q2",
+steps:[{"t": "Step 1: Place the protractor center at point B.", "s": "Put the center of the protractor at point B."}, {"t": "Step 2: Align the base line of the protractor with line B C.", "s": "Make sure the base line matches line B C."}, {"t": "Step 3: Read the number where line B A crosses the protractor scale.", "s": "Look at the number where line B A meets the scale."}],
+cq:"What is the angle size shown by the protractor?",
+cqs:"Tell me the size of the angle shown by the protractor.",
+ans:["60°"],
+nudges:["Remember to place the protractor center on the angle vertex.", "Align the zero line with one side of the angle.", "Read the correct scale on the protractor."],
+anim_svg:"<g id=\"q2s0\" opacity=\"0\"><rect x=\"30\" y=\"20\" width=\"360\" height=\"44\" rx=\"10\" fill=\"#f5e6c8\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"210\" y=\"38\" text-anchor=\"middle\" font-size=\"13\" fill=\"#5a4a30\" font-weight=\"800\">Measure the angle</text><text x=\"210\" y=\"56\" text-anchor=\"middle\" font-size=\"11\" fill=\"#8a7a5a\">Use the protractor at point B</text></g><g id=\"q2s1\" opacity=\"0\"><circle cx=\"210\" cy=\"130\" r=\"5\" fill=\"#c8922a\"/><line x1=\"210\" y1=\"130\" x2=\"270\" y2=\"130\" stroke=\"#5a4a30\" stroke-width=\"3\"/><line x1=\"210\" y1=\"130\" x2=\"180\" y2=\"90\" stroke=\"#5a4a30\" stroke-width=\"3\"/><path d=\"M210 130 A60 60 0 0 1 270 130\" fill=\"none\" stroke=\"#c8922a\" stroke-width=\"3\"/><text x=\"230\" y=\"105\" font-size=\"14\" fill=\"#c8922a\" font-weight=\"700\">60&deg;</text></g><g id=\"q2s2\" opacity=\"0\"><image href=\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='60'><circle cx='60' cy='60' r='60' fill='none' stroke='%237a8c6e' stroke-width='2'/><line x1='60' y1='60' x2='120' y2='60' stroke='%237a8c6e' stroke-width='2'/><line x1='60' y1='60' x2='90' y2='30' stroke='%237a8c6e' stroke-width='2'/><text x='75' y='40' font-size='12' fill='%237a8c6e' font-weight='700'>60</text></svg>\" x=\"150\" y=\"110\" width=\"120\" height=\"60\"/></g><g id=\"q2ans\" opacity=\"0\"><rect x=\"110\" y=\"148\" width=\"200\" height=\"26\" rx=\"8\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"210\" y=\"165\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">60°</text></g>"
+},
+{
+id:"q3",
+q:"Draw an angle of 45° using the compass and protractor shown. Which steps should you follow?",
+qs:"Tell me the steps to draw a 45 degree angle with compass and protractor.",
+anim:"q3",
+steps:[{"t": "Step 1: Draw a base line and mark point O.", "s": "Draw a straight line and mark point O on it."}, {"t": "Step 2: Place the protractor center at O and mark 45° on the paper.", "s": "Put the protractor center on O and mark forty five degrees."}, {"t": "Step 3: Use the ruler to join O and the 45° mark to form the angle.", "s": "Draw a line from O to the mark to make the angle."}],
+cq:"What is the size of the angle you drew?",
+cqs:"Tell me the size of the angle you drew using the steps.",
+ans:["45°"],
+nudges:["Start with a straight baseline.", "Use the protractor carefully to mark the angle.", "Join the points with a ruler for a straight line."],
+anim_svg:"<g id=\"q3s0\" opacity=\"0\"><rect x=\"30\" y=\"20\" width=\"360\" height=\"44\" rx=\"10\" fill=\"#f5e6c8\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"210\" y=\"38\" text-anchor=\"middle\" font-size=\"13\" fill=\"#5a4a30\" font-weight=\"800\">Draw 45° angle</text><text x=\"210\" y=\"56\" text-anchor=\"middle\" font-size=\"11\" fill=\"#8a7a5a\">Steps with compass and protractor</text></g><g id=\"q3s1\" opacity=\"0\"><line x1=\"100\" y1=\"130\" x2=\"300\" y2=\"130\" stroke=\"#5a4a30\" stroke-width=\"3\"/><circle cx=\"100\" cy=\"130\" r=\"5\" fill=\"#c8922a\"/><text x=\"100\" y=\"150\" font-size=\"13\" fill=\"#7a8c6e\" font-weight=\"700\" text-anchor=\"middle\">O</text></g><g id=\"q3s2\" opacity=\"0\"><circle cx=\"100\" cy=\"130\" r=\"60\" fill=\"none\" stroke=\"#c8922a\" stroke-width=\"2\"/><line x1=\"100\" y1=\"130\" x2=\"135\" y2=\"95\" stroke=\"#c8922a\" stroke-width=\"3\"/><text x=\"120\" y=\"110\" font-size=\"14\" fill=\"#c8922a\" font-weight=\"700\">45&deg;</text></g><g id=\"q3ans\" opacity=\"0\"><rect x=\"110\" y=\"148\" width=\"200\" height=\"26\" rx=\"8\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"210\" y=\"165\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">45°</text></g>"
+},
+{
+id:"q4",
+q:"Two angles are 30° and 60°. Are they complementary or supplementary?",
+qs:"Tell me if two angles of thirty and sixty degrees are complementary or supplementary.",
+anim:"q4",
+steps:[{"t": "Step 1: Add the two angles: 30° + 60° = 90°.", "s": "Add thirty degrees and sixty degrees to get ninety degrees."}, {"t": "Step 2: Complementary angles add up to 90°.", "s": "Angles that add up to ninety degrees are complementary."}, {"t": "Step 3: So these angles are complementary.", "s": "So these two angles are complementary."}],
+cq:"What sum do supplementary angles have?",
+cqs:"Tell me what is the sum of supplementary angles.",
+ans:["complementary"],
+nudges:["Add the angles first.", "Remember complementary angles add to ninety degrees.", "These angles add to ninety degrees, so complementary."],
+anim_svg:"<g id=\"q4s0\" opacity=\"0\"><rect x=\"30\" y=\"20\" width=\"360\" height=\"44\" rx=\"10\" fill=\"#f5e6c8\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"210\" y=\"38\" text-anchor=\"middle\" font-size=\"13\" fill=\"#5a4a30\" font-weight=\"800\">Two angles: 30° and 60°</text><text x=\"210\" y=\"56\" text-anchor=\"middle\" font-size=\"11\" fill=\"#8a7a5a\">Are they complementary or supplementary?</text></g><g id=\"q4s1\" opacity=\"0\"><line x1=\"100\" y1=\"130\" x2=\"160\" y2=\"130\" stroke=\"#5a4a30\" stroke-width=\"3\"/><line x1=\"100\" y1=\"130\" x2=\"130\" y2=\"100\" stroke=\"#5a4a30\" stroke-width=\"3\"/><line x1=\"160\" y1=\"130\" x2=\"190\" y2=\"100\" stroke=\"#5a4a30\" stroke-width=\"3\"/><path d=\"M130 130 A30 30 0 0 1 160 130\" fill=\"none\" stroke=\"#c8922a\" stroke-width=\"3\"/><path d=\"M160 130 A30 30 0 0 1 190 130\" fill=\"none\" stroke=\"#c8922a\" stroke-width=\"3\"/><text x=\"140\" y=\"120\" font-size=\"14\" fill=\"#c8922a\" font-weight=\"700\">30&deg;</text><text x=\"175\" y=\"120\" font-size=\"14\" fill=\"#c8922a\" font-weight=\"700\">60&deg;</text></g><g id=\"q4s2\" opacity=\"0\"><text x=\"150\" y=\"150\" font-size=\"14\" fill=\"#7a8c6e\" font-weight=\"700\">30&deg; + 60&deg; = 90&deg;</text></g><g id=\"q4ans\" opacity=\"0\"><rect x=\"110\" y=\"148\" width=\"200\" height=\"26\" rx=\"8\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"210\" y=\"165\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">complementary</text></g>"
+},
+{
+id:"q5",
+q:"Look at the two adjacent angles sharing a line. If one angle is 40°, what is the other angle?",
+qs:"Two adjacent angles share a line. One is forty degrees. What is the other angle?",
+anim:"q5",
+steps:[{"t": "Step 1: Adjacent angles on a straight line add to 180°.", "s": "Angles next to each other on a straight line add to one hundred eighty degrees."}, {"t": "Step 2: Subtract the known angle from 180°: 180° &minus; 40° = 140°.", "s": "Subtract forty degrees from one hundred eighty degrees to get one hundred forty degrees."}, {"t": "Step 3: The other angle is 140°.", "s": "So the other angle is one hundred forty degrees."}],
+cq:"What do we call two angles that add to 180°?",
+cqs:"Tell me the name of two angles whose sum is one hundred eighty degrees.",
+ans:["140°", "supplementary angles"],
+nudges:["Remember adjacent angles on a straight line add to 180 degrees.", "Subtract the known angle from 180 degrees.", "The answer is 140 degrees."],
+anim_svg:"<g id=\"q5s0\" opacity=\"0\"><rect x=\"30\" y=\"20\" width=\"360\" height=\"44\" rx=\"10\" fill=\"#f5e6c8\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"210\" y=\"38\" text-anchor=\"middle\" font-size=\"13\" fill=\"#5a4a30\" font-weight=\"800\">Two adjacent angles on a line</text><text x=\"210\" y=\"56\" text-anchor=\"middle\" font-size=\"11\" fill=\"#8a7a5a\">One angle is 40°, find the other</text></g><g id=\"q5s1\" opacity=\"0\"><line x1=\"100\" y1=\"130\" x2=\"260\" y2=\"130\" stroke=\"#5a4a30\" stroke-width=\"3\"/><line x1=\"160\" y1=\"130\" x2=\"160\" y2=\"90\" stroke=\"#5a4a30\" stroke-width=\"3\"/><path d=\"M160 130 A40 40 0 0 1 260 130\" fill=\"none\" stroke=\"#c8922a\" stroke-width=\"3\"/><text x=\"140\" y=\"120\" font-size=\"14\" fill=\"#c8922a\" font-weight=\"700\">40&deg;</text></g><g id=\"q5s2\" opacity=\"0\"><text x=\"180\" y=\"150\" font-size=\"14\" fill=\"#7a8c6e\" font-weight=\"700\">180&deg; &minus; 40&deg; = 140&deg;</text></g><g id=\"q5ans\" opacity=\"0\"><rect x=\"110\" y=\"148\" width=\"200\" height=\"26\" rx=\"8\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"210\" y=\"165\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">140° (supplementary angles)</text></g>"
+},
+{
+id:"q6",
+q:"Find the vertically opposite angle to the 50° angle shown. What is its size?",
+qs:"Find the angle opposite to the fifty degrees angle. What is its size?",
+anim:"q6",
+steps:[{"t": "Step 1: Vertically opposite angles are equal.", "s": "Angles opposite each other when two lines cross are equal."}, {"t": "Step 2: The given angle is 50°.", "s": "The angle given is fifty degrees."}, {"t": "Step 3: So the vertically opposite angle is also 50°.", "s": "So the opposite angle is fifty degrees too."}],
+cq:"If one angle is 50°, what is the size of the angle vertically opposite to it?",
+cqs:"Tell me the size of the angle opposite to fifty degrees.",
+ans:["50°"],
+nudges:["Remember vertically opposite angles are equal.", "The given angle is fifty degrees.", "So the opposite angle is also fifty degrees."],
+anim_svg:"<g id=\"q6s0\" opacity=\"0\"><rect x=\"30\" y=\"20\" width=\"360\" height=\"44\" rx=\"10\" fill=\"#f5e6c8\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"210\" y=\"38\" text-anchor=\"middle\" font-size=\"13\" fill=\"#5a4a30\" font-weight=\"800\">Two lines cross</text><text x=\"210\" y=\"56\" text-anchor=\"middle\" font-size=\"11\" fill=\"#8a7a5a\">Find vertically opposite angle to 50°</text></g><g id=\"q6s1\" opacity=\"0\"><line x1=\"130\" y1=\"90\" x2=\"270\" y2=\"170\" stroke=\"#5a4a30\" stroke-width=\"3\"/><line x1=\"130\" y1=\"170\" x2=\"270\" y2=\"90\" stroke=\"#5a4a30\" stroke-width=\"3\"/><text x=\"150\" y=\"110\" font-size=\"14\" fill=\"#c8922a\" font-weight=\"700\">50&deg;</text></g><g id=\"q6s2\" opacity=\"0\"><circle cx=\"140\" cy=\"100\" r=\"10\" fill=\"#c8922a\" opacity=\"0.2\"/><circle cx=\"260\" cy=\"160\" r=\"10\" fill=\"#c8922a\" opacity=\"0.2\"/><text x=\"260\" y=\"160\" font-size=\"14\" fill=\"#c8922a\" font-weight=\"700\" text-anchor=\"middle\">50&deg;</text></g><g id=\"q6ans\" opacity=\"0\"><rect x=\"110\" y=\"148\" width=\"200\" height=\"26\" rx=\"8\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"210\" y=\"165\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">50°</text></g>"
+},
+{
+id:"q7",
+q:"What is the sum of all angles at a point? Look at the diagram and check.",
+qs:"Tell me the sum of all angles around a point.",
+anim:"q7",
+steps:[{"t": "Step 1: Angles at a point add up to 360°.", "s": "All angles around a point add up to three hundred sixty degrees."}, {"t": "Step 2: The diagram shows angles 90°, 120°, and 150°.", "s": "The angles shown are ninety, one hundred twenty, and one hundred fifty degrees."}, {"t": "Step 3: Add them: 90° + 120° + 150° = 360°.", "s": "Add the angles to get three hundred sixty degrees."}],
+cq:"If one angle is 100°, and another is 140°, what is the third angle at the point?",
+cqs:"Find the third angle if two angles are one hundred and one hundred forty degrees.",
+ans:["360°", "130°"],
+nudges:["Remember all angles at a point add to 360 degrees.", "Add the known angles and subtract from 360.", "The third angle is 130 degrees."],
+anim_svg:"<g id=\"q7s0\" opacity=\"0\"><rect x=\"30\" y=\"20\" width=\"360\" height=\"44\" rx=\"10\" fill=\"#f5e6c8\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"210\" y=\"38\" text-anchor=\"middle\" font-size=\"13\" fill=\"#5a4a30\" font-weight=\"800\">Angles at a point</text><text x=\"210\" y=\"56\" text-anchor=\"middle\" font-size=\"11\" fill=\"#8a7a5a\">What is their sum?</text></g><g id=\"q7s1\" opacity=\"0\"><circle cx=\"210\" cy=\"130\" r=\"60\" fill=\"none\" stroke=\"#5a4a30\" stroke-width=\"2\"/><line x1=\"210\" y1=\"130\" x2=\"270\" y2=\"130\" stroke=\"#c8922a\" stroke-width=\"3\"/><line x1=\"210\" y1=\"130\" x2=\"160\" y2=\"80\" stroke=\"#c8922a\" stroke-width=\"3\"/><line x1=\"210\" y1=\"130\" x2=\"130\" y2=\"130\" stroke=\"#c8922a\" stroke-width=\"3\"/><text x=\"240\" y=\"120\" font-size=\"14\" fill=\"#c8922a\" font-weight=\"700\">90&deg;</text><text x=\"180\" y=\"90\" font-size=\"14\" fill=\"#c8922a\" font-weight=\"700\">120&deg;</text><text x=\"160\" y=\"150\" font-size=\"14\" fill=\"#c8922a\" font-weight=\"700\">150&deg;</text></g><g id=\"q7s2\" opacity=\"0\"><text x=\"210\" y=\"160\" font-size=\"14\" fill=\"#7a8c6e\" font-weight=\"700\" text-anchor=\"middle\">90&deg; + 120&deg; + 150&deg; = 360&deg;</text></g><g id=\"q7ans\" opacity=\"0\"><rect x=\"110\" y=\"148\" width=\"200\" height=\"26\" rx=\"8\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"210\" y=\"165\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">360° (sum at a point)</text></g>"
+},
+{
+id:"q8",
+q:"Two angles form a linear pair. One angle is 110°. What is the other angle?",
+qs:"Two angles form a linear pair. One angle is one hundred ten degrees. Find the other angle.",
+anim:"q8",
+steps:[{"t": "Step 1: Linear pair angles add up to 180°.", "s": "Angles in a linear pair add to one hundred eighty degrees."}, {"t": "Step 2: Subtract the known angle from 180°: 180° &minus; 110° = 70°.", "s": "Subtract one hundred ten degrees from one hundred eighty degrees to get seventy degrees."}, {"t": "Step 3: The other angle is 70°.", "s": "So the other angle is seventy degrees."}],
+cq:"What is a linear pair of angles?",
+cqs:"Tell me what a linear pair of angles means.",
+ans:["70°", "two adjacent angles on a straight line that add to 180°"],
+nudges:["Remember linear pair angles add to 180 degrees.", "Subtract the known angle from 180.", "The answer is seventy degrees."],
+anim_svg:"<g id=\"q8s0\" opacity=\"0\"><rect x=\"30\" y=\"20\" width=\"360\" height=\"44\" rx=\"10\" fill=\"#f5e6c8\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"210\" y=\"38\" text-anchor=\"middle\" font-size=\"13\" fill=\"#5a4a30\" font-weight=\"800\">Linear pair angles</text><text x=\"210\" y=\"56\" text-anchor=\"middle\" font-size=\"11\" fill=\"#8a7a5a\">One angle is 110°, find the other</text></g><g id=\"q8s1\" opacity=\"0\"><line x1=\"100\" y1=\"130\" x2=\"260\" y2=\"130\" stroke=\"#5a4a30\" stroke-width=\"3\"/><line x1=\"160\" y1=\"130\" x2=\"160\" y2=\"90\" stroke=\"#5a4a30\" stroke-width=\"3\"/><path d=\"M160 130 A40 40 0 0 1 260 130\" fill=\"none\" stroke=\"#c8922a\" stroke-width=\"3\"/><text x=\"140\" y=\"120\" font-size=\"14\" fill=\"#c8922a\" font-weight=\"700\">110&deg;</text></g><g id=\"q8s2\" opacity=\"0\"><text x=\"180\" y=\"150\" font-size=\"14\" fill=\"#7a8c6e\" font-weight=\"700\">180&deg; &minus; 110&deg; = 70&deg;</text></g><g id=\"q8ans\" opacity=\"0\"><rect x=\"110\" y=\"148\" width=\"200\" height=\"26\" rx=\"8\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"210\" y=\"165\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">70° (linear pair)</text></g>"
+},
+{
+id:"q9",
+q:"Classify the angle shown as reflex or complete. The angle is 270°.",
+qs:"Tell me if the angle of two hundred seventy degrees is reflex or complete.",
+anim:"q9",
+steps:[{"t": "Step 1: Reflex angles are between 180° and 360°.", "s": "Reflex angles are bigger than one hundred eighty degrees but less than three hundred sixty degrees."}, {"t": "Step 2: Complete angle is exactly 360°.", "s": "Complete angle is a full turn and equals three hundred sixty degrees."}, {"t": "Step 3: Since 270° is between 180° and 360°, it is reflex.", "s": "Two hundred seventy degrees is between one hundred eighty and three hundred sixty, so reflex angle."}],
+cq:"What is the size of a complete angle?",
+cqs:"Tell me the size of a complete angle in degrees.",
+ans:["reflex angle"],
+nudges:["Remember reflex angles are more than 180 degrees.", "Complete angle is 360 degrees.", "270 degrees is reflex angle."],
+anim_svg:"<g id=\"q9s0\" opacity=\"0\"><rect x=\"30\" y=\"20\" width=\"360\" height=\"44\" rx=\"10\" fill=\"#f5e6c8\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"210\" y=\"38\" text-anchor=\"middle\" font-size=\"13\" fill=\"#5a4a30\" font-weight=\"800\">Angle of 270°</text><text x=\"210\" y=\"56\" text-anchor=\"middle\" font-size=\"11\" fill=\"#8a7a5a\">Is it reflex or complete?</text></g><g id=\"q9s1\" opacity=\"0\"><circle cx=\"210\" cy=\"130\" r=\"60\" fill=\"none\" stroke=\"#5a4a30\" stroke-width=\"2\"/><line x1=\"210\" y1=\"130\" x2=\"270\" y2=\"130\" stroke=\"#c8922a\" stroke-width=\"3\"/><line x1=\"210\" y1=\"130\" x2=\"130\" y2=\"70\" stroke=\"#c8922a\" stroke-width=\"3\"/><path d=\"M270 130 A150 150 0 0 1 130 70\" fill=\"none\" stroke=\"#c8922a\" stroke-width=\"3\"/><text x=\"230\" y=\"90\" font-size=\"14\" fill=\"#c8922a\" font-weight=\"700\">270&deg;</text></g><g id=\"q9s2\" opacity=\"0\"><text x=\"210\" y=\"160\" font-size=\"14\" fill=\"#7a8c6e\" font-weight=\"700\" text-anchor=\"middle\">270° is reflex angle</text></g><g id=\"q9ans\" opacity=\"0\"><rect x=\"110\" y=\"148\" width=\"200\" height=\"26\" rx=\"8\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"210\" y=\"165\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">reflex angle</text></g>"
+},
+{
+id:"q10",
+q:"Complete the sentence: Two angles are complementary if their sum is ________.",
+qs:"Complete the sentence: Two angles are complementary if their sum is what?",
+anim:"q10",
+steps:[{"t": "Step 1: Complementary angles add up to 90°.", "s": "Complementary angles always add up to ninety degrees."}, {"t": "Step 2: Example: 40° + 50° = 90°.", "s": "For example, forty degrees plus fifty degrees equals ninety degrees."}, {"t": "Step 3: So fill in the blank with 90°.", "s": "So the answer is ninety degrees."}],
+cq:"What is the sum of supplementary angles?",
+cqs:"Tell me the sum of supplementary angles in degrees.",
+ans:["90°"],
+nudges:["Remember complementary angles add to ninety degrees.", "Think of two angles that make a right angle.", "Fill in 90 degrees."],
+anim_svg:"<g id=\"q10s0\" opacity=\"0\"><rect x=\"30\" y=\"20\" width=\"360\" height=\"44\" rx=\"10\" fill=\"#f5e6c8\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"210\" y=\"38\" text-anchor=\"middle\" font-size=\"13\" fill=\"#5a4a30\" font-weight=\"800\">Complementary angles</text><text x=\"210\" y=\"56\" text-anchor=\"middle\" font-size=\"11\" fill=\"#8a7a5a\">Their sum is what?</text></g><g id=\"q10s1\" opacity=\"0\"><line x1=\"150\" y1=\"130\" x2=\"210\" y2=\"130\" stroke=\"#5a4a30\" stroke-width=\"3\"/><line x1=\"210\" y1=\"130\" x2=\"210\" y2=\"90\" stroke=\"#5a4a30\" stroke-width=\"3\"/><path d=\"M150 130 A60 60 0 0 1 210 130\" fill=\"none\" stroke=\"#c8922a\" stroke-width=\"3\"/><text x=\"180\" y=\"110\" font-size=\"14\" fill=\"#c8922a\" font-weight=\"700\">40&deg;</text><text x=\"190\" y=\"140\" font-size=\"14\" fill=\"#c8922a\" font-weight=\"700\">50&deg;</text></g><g id=\"q10s2\" opacity=\"0\"><text x=\"210\" y=\"160\" font-size=\"14\" fill=\"#7a8c6e\" font-weight=\"700\" text-anchor=\"middle\">40&deg; + 50&deg; = 90&deg;</text></g><g id=\"q10ans\" opacity=\"0\"><rect x=\"110\" y=\"148\" width=\"200\" height=\"26\" rx=\"8\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"210\" y=\"165\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">90°</text></g>"
+}
+];
+
+function getAnimSVG(t){
+var base='<svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg" style="font-family:Nunito,sans-serif;background:#fffdf8"><rect width="420" height="178" fill="#fffdf8"/>';
+var svgs={
+"q1":base+"<g id=\"q1s0\" opacity=\"0\"><rect x=\"30\" y=\"20\" width=\"360\" height=\"44\" rx=\"10\" fill=\"#f5e6c8\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"210\" y=\"38\" text-anchor=\"middle\" font-size=\"13\" fill=\"#5a4a30\" font-weight=\"800\">Look at the angle</text><text x=\"210\" y=\"56\" text-anchor=\"middle\" font-size=\"11\" fill=\"#8a7a5a\">Is it acute, right, obtuse, or straight?</text></g><g id=\"q1s1\" opacity=\"0\"><line x1=\"100\" y1=\"130\" x2=\"180\" y2=\"130\" stroke=\"#5a4a30\" stroke-width=\"3\"/><line x1=\"100\" y1=\"130\" x2=\"140\" y2=\"90\" stroke=\"#5a4a30\" stroke-width=\"3\"/><path d=\"M140 130 A40 40 0 0 1 180 130\" fill=\"none\" stroke=\"#c8922a\" stroke-width=\"3\"/><text x=\"150\" y=\"120\" font-size=\"14\" fill=\"#c8922a\" font-weight=\"700\">&lt; 90&deg;</text></g><g id=\"q1s2\" opacity=\"0\"><circle cx=\"100\" cy=\"130\" r=\"5\" fill=\"#c8922a\"/><text x=\"100\" y=\"160\" font-size=\"13\" fill=\"#7a8c6e\" font-weight=\"700\" text-anchor=\"middle\">Acute angle</text></g><g id=\"q1ans\" opacity=\"0\"><rect x=\"110\" y=\"148\" width=\"200\" height=\"26\" rx=\"8\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"210\" y=\"165\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">acute angle</text></g>",
+"q2":base+"<g id=\"q2s0\" opacity=\"0\"><rect x=\"30\" y=\"20\" width=\"360\" height=\"44\" rx=\"10\" fill=\"#f5e6c8\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"210\" y=\"38\" text-anchor=\"middle\" font-size=\"13\" fill=\"#5a4a30\" font-weight=\"800\">Measure the angle</text><text x=\"210\" y=\"56\" text-anchor=\"middle\" font-size=\"11\" fill=\"#8a7a5a\">Use the protractor at point B</text></g><g id=\"q2s1\" opacity=\"0\"><circle cx=\"210\" cy=\"130\" r=\"5\" fill=\"#c8922a\"/><line x1=\"210\" y1=\"130\" x2=\"270\" y2=\"130\" stroke=\"#5a4a30\" stroke-width=\"3\"/><line x1=\"210\" y1=\"130\" x2=\"180\" y2=\"90\" stroke=\"#5a4a30\" stroke-width=\"3\"/><path d=\"M210 130 A60 60 0 0 1 270 130\" fill=\"none\" stroke=\"#c8922a\" stroke-width=\"3\"/><text x=\"230\" y=\"105\" font-size=\"14\" fill=\"#c8922a\" font-weight=\"700\">60&deg;</text></g><g id=\"q2s2\" opacity=\"0\"><image href=\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='60'><circle cx='60' cy='60' r='60' fill='none' stroke='%237a8c6e' stroke-width='2'/><line x1='60' y1='60' x2='120' y2='60' stroke='%237a8c6e' stroke-width='2'/><line x1='60' y1='60' x2='90' y2='30' stroke='%237a8c6e' stroke-width='2'/><text x='75' y='40' font-size='12' fill='%237a8c6e' font-weight='700'>60</text></svg>\" x=\"150\" y=\"110\" width=\"120\" height=\"60\"/></g><g id=\"q2ans\" opacity=\"0\"><rect x=\"110\" y=\"148\" width=\"200\" height=\"26\" rx=\"8\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"210\" y=\"165\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">60°</text></g>",
+"q3":base+"<g id=\"q3s0\" opacity=\"0\"><rect x=\"30\" y=\"20\" width=\"360\" height=\"44\" rx=\"10\" fill=\"#f5e6c8\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"210\" y=\"38\" text-anchor=\"middle\" font-size=\"13\" fill=\"#5a4a30\" font-weight=\"800\">Draw 45° angle</text><text x=\"210\" y=\"56\" text-anchor=\"middle\" font-size=\"11\" fill=\"#8a7a5a\">Steps with compass and protractor</text></g><g id=\"q3s1\" opacity=\"0\"><line x1=\"100\" y1=\"130\" x2=\"300\" y2=\"130\" stroke=\"#5a4a30\" stroke-width=\"3\"/><circle cx=\"100\" cy=\"130\" r=\"5\" fill=\"#c8922a\"/><text x=\"100\" y=\"150\" font-size=\"13\" fill=\"#7a8c6e\" font-weight=\"700\" text-anchor=\"middle\">O</text></g><g id=\"q3s2\" opacity=\"0\"><circle cx=\"100\" cy=\"130\" r=\"60\" fill=\"none\" stroke=\"#c8922a\" stroke-width=\"2\"/><line x1=\"100\" y1=\"130\" x2=\"135\" y2=\"95\" stroke=\"#c8922a\" stroke-width=\"3\"/><text x=\"120\" y=\"110\" font-size=\"14\" fill=\"#c8922a\" font-weight=\"700\">45&deg;</text></g><g id=\"q3ans\" opacity=\"0\"><rect x=\"110\" y=\"148\" width=\"200\" height=\"26\" rx=\"8\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"210\" y=\"165\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">45°</text></g>",
+"q4":base+"<g id=\"q4s0\" opacity=\"0\"><rect x=\"30\" y=\"20\" width=\"360\" height=\"44\" rx=\"10\" fill=\"#f5e6c8\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"210\" y=\"38\" text-anchor=\"middle\" font-size=\"13\" fill=\"#5a4a30\" font-weight=\"800\">Two angles: 30° and 60°</text><text x=\"210\" y=\"56\" text-anchor=\"middle\" font-size=\"11\" fill=\"#8a7a5a\">Are they complementary or supplementary?</text></g><g id=\"q4s1\" opacity=\"0\"><line x1=\"100\" y1=\"130\" x2=\"160\" y2=\"130\" stroke=\"#5a4a30\" stroke-width=\"3\"/><line x1=\"100\" y1=\"130\" x2=\"130\" y2=\"100\" stroke=\"#5a4a30\" stroke-width=\"3\"/><line x1=\"160\" y1=\"130\" x2=\"190\" y2=\"100\" stroke=\"#5a4a30\" stroke-width=\"3\"/><path d=\"M130 130 A30 30 0 0 1 160 130\" fill=\"none\" stroke=\"#c8922a\" stroke-width=\"3\"/><path d=\"M160 130 A30 30 0 0 1 190 130\" fill=\"none\" stroke=\"#c8922a\" stroke-width=\"3\"/><text x=\"140\" y=\"120\" font-size=\"14\" fill=\"#c8922a\" font-weight=\"700\">30&deg;</text><text x=\"175\" y=\"120\" font-size=\"14\" fill=\"#c8922a\" font-weight=\"700\">60&deg;</text></g><g id=\"q4s2\" opacity=\"0\"><text x=\"150\" y=\"150\" font-size=\"14\" fill=\"#7a8c6e\" font-weight=\"700\">30&deg; + 60&deg; = 90&deg;</text></g><g id=\"q4ans\" opacity=\"0\"><rect x=\"110\" y=\"148\" width=\"200\" height=\"26\" rx=\"8\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"210\" y=\"165\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">complementary</text></g>",
+"q5":base+"<g id=\"q5s0\" opacity=\"0\"><rect x=\"30\" y=\"20\" width=\"360\" height=\"44\" rx=\"10\" fill=\"#f5e6c8\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"210\" y=\"38\" text-anchor=\"middle\" font-size=\"13\" fill=\"#5a4a30\" font-weight=\"800\">Two adjacent angles on a line</text><text x=\"210\" y=\"56\" text-anchor=\"middle\" font-size=\"11\" fill=\"#8a7a5a\">One angle is 40°, find the other</text></g><g id=\"q5s1\" opacity=\"0\"><line x1=\"100\" y1=\"130\" x2=\"260\" y2=\"130\" stroke=\"#5a4a30\" stroke-width=\"3\"/><line x1=\"160\" y1=\"130\" x2=\"160\" y2=\"90\" stroke=\"#5a4a30\" stroke-width=\"3\"/><path d=\"M160 130 A40 40 0 0 1 260 130\" fill=\"none\" stroke=\"#c8922a\" stroke-width=\"3\"/><text x=\"140\" y=\"120\" font-size=\"14\" fill=\"#c8922a\" font-weight=\"700\">40&deg;</text></g><g id=\"q5s2\" opacity=\"0\"><text x=\"180\" y=\"150\" font-size=\"14\" fill=\"#7a8c6e\" font-weight=\"700\">180&deg; &minus; 40&deg; = 140&deg;</text></g><g id=\"q5ans\" opacity=\"0\"><rect x=\"110\" y=\"148\" width=\"200\" height=\"26\" rx=\"8\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"210\" y=\"165\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">140° (supplementary angles)</text></g>",
+"q6":base+"<g id=\"q6s0\" opacity=\"0\"><rect x=\"30\" y=\"20\" width=\"360\" height=\"44\" rx=\"10\" fill=\"#f5e6c8\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"210\" y=\"38\" text-anchor=\"middle\" font-size=\"13\" fill=\"#5a4a30\" font-weight=\"800\">Two lines cross</text><text x=\"210\" y=\"56\" text-anchor=\"middle\" font-size=\"11\" fill=\"#8a7a5a\">Find vertically opposite angle to 50°</text></g><g id=\"q6s1\" opacity=\"0\"><line x1=\"130\" y1=\"90\" x2=\"270\" y2=\"170\" stroke=\"#5a4a30\" stroke-width=\"3\"/><line x1=\"130\" y1=\"170\" x2=\"270\" y2=\"90\" stroke=\"#5a4a30\" stroke-width=\"3\"/><text x=\"150\" y=\"110\" font-size=\"14\" fill=\"#c8922a\" font-weight=\"700\">50&deg;</text></g><g id=\"q6s2\" opacity=\"0\"><circle cx=\"140\" cy=\"100\" r=\"10\" fill=\"#c8922a\" opacity=\"0.2\"/><circle cx=\"260\" cy=\"160\" r=\"10\" fill=\"#c8922a\" opacity=\"0.2\"/><text x=\"260\" y=\"160\" font-size=\"14\" fill=\"#c8922a\" font-weight=\"700\" text-anchor=\"middle\">50&deg;</text></g><g id=\"q6ans\" opacity=\"0\"><rect x=\"110\" y=\"148\" width=\"200\" height=\"26\" rx=\"8\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"210\" y=\"165\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">50°</text></g>",
+"q7":base+"<g id=\"q7s0\" opacity=\"0\"><rect x=\"30\" y=\"20\" width=\"360\" height=\"44\" rx=\"10\" fill=\"#f5e6c8\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"210\" y=\"38\" text-anchor=\"middle\" font-size=\"13\" fill=\"#5a4a30\" font-weight=\"800\">Angles at a point</text><text x=\"210\" y=\"56\" text-anchor=\"middle\" font-size=\"11\" fill=\"#8a7a5a\">What is their sum?</text></g><g id=\"q7s1\" opacity=\"0\"><circle cx=\"210\" cy=\"130\" r=\"60\" fill=\"none\" stroke=\"#5a4a30\" stroke-width=\"2\"/><line x1=\"210\" y1=\"130\" x2=\"270\" y2=\"130\" stroke=\"#c8922a\" stroke-width=\"3\"/><line x1=\"210\" y1=\"130\" x2=\"160\" y2=\"80\" stroke=\"#c8922a\" stroke-width=\"3\"/><line x1=\"210\" y1=\"130\" x2=\"130\" y2=\"130\" stroke=\"#c8922a\" stroke-width=\"3\"/><text x=\"240\" y=\"120\" font-size=\"14\" fill=\"#c8922a\" font-weight=\"700\">90&deg;</text><text x=\"180\" y=\"90\" font-size=\"14\" fill=\"#c8922a\" font-weight=\"700\">120&deg;</text><text x=\"160\" y=\"150\" font-size=\"14\" fill=\"#c8922a\" font-weight=\"700\">150&deg;</text></g><g id=\"q7s2\" opacity=\"0\"><text x=\"210\" y=\"160\" font-size=\"14\" fill=\"#7a8c6e\" font-weight=\"700\" text-anchor=\"middle\">90&deg; + 120&deg; + 150&deg; = 360&deg;</text></g><g id=\"q7ans\" opacity=\"0\"><rect x=\"110\" y=\"148\" width=\"200\" height=\"26\" rx=\"8\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"210\" y=\"165\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">360° (sum at a point)</text></g>",
+"q8":base+"<g id=\"q8s0\" opacity=\"0\"><rect x=\"30\" y=\"20\" width=\"360\" height=\"44\" rx=\"10\" fill=\"#f5e6c8\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"210\" y=\"38\" text-anchor=\"middle\" font-size=\"13\" fill=\"#5a4a30\" font-weight=\"800\">Linear pair angles</text><text x=\"210\" y=\"56\" text-anchor=\"middle\" font-size=\"11\" fill=\"#8a7a5a\">One angle is 110°, find the other</text></g><g id=\"q8s1\" opacity=\"0\"><line x1=\"100\" y1=\"130\" x2=\"260\" y2=\"130\" stroke=\"#5a4a30\" stroke-width=\"3\"/><line x1=\"160\" y1=\"130\" x2=\"160\" y2=\"90\" stroke=\"#5a4a30\" stroke-width=\"3\"/><path d=\"M160 130 A40 40 0 0 1 260 130\" fill=\"none\" stroke=\"#c8922a\" stroke-width=\"3\"/><text x=\"140\" y=\"120\" font-size=\"14\" fill=\"#c8922a\" font-weight=\"700\">110&deg;</text></g><g id=\"q8s2\" opacity=\"0\"><text x=\"180\" y=\"150\" font-size=\"14\" fill=\"#7a8c6e\" font-weight=\"700\">180&deg; &minus; 110&deg; = 70&deg;</text></g><g id=\"q8ans\" opacity=\"0\"><rect x=\"110\" y=\"148\" width=\"200\" height=\"26\" rx=\"8\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"210\" y=\"165\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">70° (linear pair)</text></g>",
+"q9":base+"<g id=\"q9s0\" opacity=\"0\"><rect x=\"30\" y=\"20\" width=\"360\" height=\"44\" rx=\"10\" fill=\"#f5e6c8\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"210\" y=\"38\" text-anchor=\"middle\" font-size=\"13\" fill=\"#5a4a30\" font-weight=\"800\">Angle of 270°</text><text x=\"210\" y=\"56\" text-anchor=\"middle\" font-size=\"11\" fill=\"#8a7a5a\">Is it reflex or complete?</text></g><g id=\"q9s1\" opacity=\"0\"><circle cx=\"210\" cy=\"130\" r=\"60\" fill=\"none\" stroke=\"#5a4a30\" stroke-width=\"2\"/><line x1=\"210\" y1=\"130\" x2=\"270\" y2=\"130\" stroke=\"#c8922a\" stroke-width=\"3\"/><line x1=\"210\" y1=\"130\" x2=\"130\" y2=\"70\" stroke=\"#c8922a\" stroke-width=\"3\"/><path d=\"M270 130 A150 150 0 0 1 130 70\" fill=\"none\" stroke=\"#c8922a\" stroke-width=\"3\"/><text x=\"230\" y=\"90\" font-size=\"14\" fill=\"#c8922a\" font-weight=\"700\">270&deg;</text></g><g id=\"q9s2\" opacity=\"0\"><text x=\"210\" y=\"160\" font-size=\"14\" fill=\"#7a8c6e\" font-weight=\"700\" text-anchor=\"middle\">270° is reflex angle</text></g><g id=\"q9ans\" opacity=\"0\"><rect x=\"110\" y=\"148\" width=\"200\" height=\"26\" rx=\"8\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"210\" y=\"165\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">reflex angle</text></g>",
+"q10":base+"<g id=\"q10s0\" opacity=\"0\"><rect x=\"30\" y=\"20\" width=\"360\" height=\"44\" rx=\"10\" fill=\"#f5e6c8\" stroke=\"#c8922a\" stroke-width=\"2\"/><text x=\"210\" y=\"38\" text-anchor=\"middle\" font-size=\"13\" fill=\"#5a4a30\" font-weight=\"800\">Complementary angles</text><text x=\"210\" y=\"56\" text-anchor=\"middle\" font-size=\"11\" fill=\"#8a7a5a\">Their sum is what?</text></g><g id=\"q10s1\" opacity=\"0\"><line x1=\"150\" y1=\"130\" x2=\"210\" y2=\"130\" stroke=\"#5a4a30\" stroke-width=\"3\"/><line x1=\"210\" y1=\"130\" x2=\"210\" y2=\"90\" stroke=\"#5a4a30\" stroke-width=\"3\"/><path d=\"M150 130 A60 60 0 0 1 210 130\" fill=\"none\" stroke=\"#c8922a\" stroke-width=\"3\"/><text x=\"180\" y=\"110\" font-size=\"14\" fill=\"#c8922a\" font-weight=\"700\">40&deg;</text><text x=\"190\" y=\"140\" font-size=\"14\" fill=\"#c8922a\" font-weight=\"700\">50&deg;</text></g><g id=\"q10s2\" opacity=\"0\"><text x=\"210\" y=\"160\" font-size=\"14\" fill=\"#7a8c6e\" font-weight=\"700\" text-anchor=\"middle\">40&deg; + 50&deg; = 90&deg;</text></g><g id=\"q10ans\" opacity=\"0\"><rect x=\"110\" y=\"148\" width=\"200\" height=\"26\" rx=\"8\" fill=\"#eef2eb\" stroke=\"#7a8c6e\" stroke-width=\"2\"/><text x=\"210\" y=\"165\" text-anchor=\"middle\" font-family=\"Share Tech Mono\" font-size=\"12\" font-weight=\"bold\" fill=\"#7a8c6e\">90°</text></g>"
+};
+return svgs[t]||'<svg viewBox="0 0 420 178"><text x="210" y="89" text-anchor="middle" font-family="Nunito" font-size="14" fill="#5a4a30">Loading...</text></svg>';
+}
+
+function makeAnimPlay(id,steps,ansLabel){var gen=0;return function(done){var myGen=++gen;setStatus("Solving step by step...");function playStep(i){if(myGen!==gen)return;if(i>=steps.length){at(400,function(){if(myGen!==gen)return;fade(id+"ans",1);setStatus("Answer: "+ansLabel);at(2000,done);});return;}at(i===0?600:400,function(){if(myGen!==gen)return;fade(id+"s"+i,1);say(steps[i].s,function(){playStep(i+1);});});}playStep(0);}; }
+var ANIM_PLAYS={};
+QB.forEach(function(q){ANIM_PLAYS[q.id]=makeAnimPlay(q.id,q.steps,q.ans[0]);});
+function getAnimPlay(t){return ANIM_PLAYS[t]||function(done){done();};}
+
+var atTimers=[],session=[],idx=0,stepIdx=0,nudgeCount=0,completed=false,confirmShown=false,breakSecs=0,breakTmr=null,PER_SESSION=10;
+function G(id){return document.getElementById(id);}
+function clearAt(){for(var i=0;i<atTimers.length;i++)clearTimeout(atTimers[i]);atTimers=[];}
+function at(ms,fn){atTimers.push(setTimeout(fn,ms));}
+function fade(id,v){var e=G(id);if(e){e.style.transition="opacity .5s";e.style.opacity=v;}}
+function setStatus(t){var e=G("animStatus");if(e)e.textContent=t;}
+function startLesson(){var btn=G('startBtn');if(btn){btn.disabled=true;btn.textContent='▶ Starting...';}var done=false;function proceed(){if(!done){done=true;setTimeout(showQ,600);}}say(G('introText').innerText,proceed);setTimeout(proceed,8000);}
+function init(){
+  
+  var st=JSON.parse(localStorage.getItem("rishi_current_student")||"{}");
+  G("sName")&&(G("sName").textContent=st.studentName?st.studentName.split(" ")[0]:"there");
+  if(rishiIsExplainDone('ic6_19')){completed=true;G("doneBanner").classList.add("show");unlockNav();}
+  buildSession();rInit();
+  initVoices(function(){});
+}
+function buildSession(){session=QB.slice().sort(function(){return Math.random()-.5;}).slice(0,PER_SESSION);}
+function showQ(){
+  if(idx>=session.length){onComplete();return;}
+  var q=session[idx];stepIdx=0;nudgeCount=0;updateProg();G("qArea").innerHTML="";clearAt();
+  var qc=document.createElement("div");qc.className="q-card";
+  qc.innerHTML='<div class="q-label">Question '+(idx+1)+' of '+PER_SESSION+'</div><div class="q-text">'+q.q+'</div><button class="btn-speak" onclick="say(session[idx].qs)">&#128266; Hear</button>';
+  G("qArea").appendChild(qc);
+  var ap=document.createElement("div");ap.className="anim-panel";
+  ap.innerHTML='<div class="anim-header"><span class="anim-header-lbl">&#127909; Live Animation</span><button class="anim-replay" id="animReplay" onclick="replayAnim()">&#8635; Replay</button></div>'
+    +'<div class="anim-canvas" id="animCanvas">'+getAnimSVG(q.anim)+'</div>'
+    +'<div class="anim-status" id="animStatus">Tap Play to watch with narration!</div>'
+    +'<button class="anim-play-btn" id="animPlayBtn" onclick="startAnim()">&#9654; Play Animation</button>'
+    +'<button class="steps-btn" id="stepsBtn" onclick="beginSteps()">&#128214; See Step-by-Step</button>';
+  G("qArea").appendChild(ap);setTimeout(startAnim,800);
+}
+function startAnim(){var q=session[idx];var pb=G("animPlayBtn");if(pb){pb.disabled=true;pb.textContent="&#9654; Playing...";}getAnimPlay(q.anim)(function(){var sb=G("stepsBtn");if(sb)sb.style.display="block";var rb=G("animReplay");if(rb)rb.style.display="block";if(pb)pb.style.display="none";setTimeout(beginSteps,600);});}
+function replayAnim(){clearAt();window.speechSynthesis&&window.speechSynthesis.cancel();rStopTalk();var q=session[idx];G("animCanvas").innerHTML=getAnimSVG(q.anim);G("animReplay").style.display="none";G("stepsBtn").style.display="none";var pb=G("animPlayBtn");if(pb){pb.style.display="block";pb.disabled=false;pb.textContent="&#9654; Play Animation";}setStatus("Tap Play to watch with narration!");}
+function beginSteps(){var q=session[idx];var sc=document.createElement("div");sc.className="q-card";sc.innerHTML='<div class="q-label">&#128214; Step-by-Step</div><div id="stepsWrap"></div><button class="btn-speak" id="nxtStepBtn" onclick="nextStep()" style="margin-top:10px;">&#9654; Next Step</button>';G("qArea").appendChild(sc);sc.scrollIntoView({behavior:"smooth",block:"start"});G("stepsBtn").style.display="none";setTimeout(nextStep,350);}
+var nsGen=0;function nextStep(){var myGen=++nsGen;var q=session[idx];if(stepIdx>=q.steps.length){G("nxtStepBtn").style.display="none";var ib=document.createElement("button");ib.className="btn-speak";ib.innerHTML="&#9989; I Understand!";ib.style.cssText="margin-top:16px;width:100%;";ib.onclick=function(){ib.remove();showConfirm();};G("stepsWrap").appendChild(ib);ib.scrollIntoView({behavior:"smooth",block:"center"});return;}var s=q.steps[stepIdx];var wrap=G("stepsWrap");var d=document.createElement("div");d.className="step";d.innerHTML='<div class="step-num">'+(stepIdx+1)+'</div><div class="step-body">'+s.t+'</div>';wrap.appendChild(d);setTimeout(function(){d.classList.add("vis");},40);stepIdx++;say(s.s||s.t.replace(/<[^>]*>/g,""),function(){if(myGen===nsGen)nextStep();});}
+function showConfirm(){if(confirmShown)return;confirmShown=true;
+  var q=session[idx];var c=document.createElement("div");c.className="confirm-wrap";
+  c.innerHTML='<div class="confirm-title">&#127917; Rishika asks!</div>'
+    +'<div class="confirm-q">'+q.cq+'</div>'
+    +'<textarea id="rawAnswer" class="math-raw" rows="2" autocomplete="off" placeholder="Type your answer here..."></textarea>'
+    +'<div class="math-preview-label">Preview</div>'
+    +'<div class="math-preview" id="mathPreview"></div>'
+    +'<div class="sugg-chips" id="suggChips"></div>'
+    +'<button type="button" onclick="submitTyped()" style="width:100%;font-family:Nunito,sans-serif;font-size:14px;font-weight:900;padding:11px;border-radius:12px;border:none;background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;cursor:pointer;margin-bottom:8px;">Submit Answer</button>'
+    +'<div class="result-box" id="rbox"></div>'
+    +'<div class="nudge" id="nudgeBox"></div>'
+    +'<button type="button" class="btn-next" id="btnNext" onclick="goNext()">Next Question &#9654;</button>';
+  G("qArea").appendChild(c);c.scrollIntoView({behavior:"smooth",block:"center"});
+  var ra=G("rawAnswer");
+  if(ra){ra.addEventListener("input",mathUpdate);ra.addEventListener("keydown",function(ev){if(ev.key==="Enter"&&!ev.shiftKey){ev.preventDefault();submitTyped();}});setTimeout(function(){ra.focus();},300);}
+  buildSuggChips(q.ans);say(q.cqs);
+}
+function submitTyped(){var ra=G("rawAnswer");if(!ra)return;var val=String(ra.value||"").trim();if(!val){ra.focus();return;}handleAnswer(val.toLowerCase());}
+function goNext(){confirmShown=false;idx++;G("qArea").innerHTML="";showQ();window.scrollTo({top:0,behavior:"smooth"});}
+function updateProg(){var pct=Math.round((idx/PER_SESSION)*100);G("progFill").style.width=pct+"%";G("progLabel").textContent="Question "+(idx+1)+" of "+PER_SESSION;G("progPct").textContent=pct+"%";}
+function unlockNav(){G("btnPractice").classList.remove("locked");G("btnExam").classList.remove("locked");G("lockTip").style.display="none";}
+function onComplete(){
+  rishiMarkExplainDone('ic6_19');
+  completed=true;G("doneBanner").classList.add("show");unlockNav();
+  var st=JSON.parse(localStorage.getItem("rishi_current_student")||"{}");
+  var nm=st.studentName?st.studentName.split(" ")[0]:"champion";
+  var cel=document.createElement("div");cel.className="rishika-wrap";
+  cel.innerHTML='<div class="rishika-avatar">&#128105;&#8205;&#127979;</div>'
+    +'<div class="rishika-bubble"><div class="rishika-name">Rishika</div>'
+    +'<div class="rishika-text" id="celText">&#127881; <span class="hl">'+nm+'</span>, Fantastic work! You&#39;ve mastered Angles! 🎉</div>'
+    +'<button class="btn-speak" onclick="sayEl(\'celText\')">&#128266; Hear</button></div>';
+  G("qArea").appendChild(cel);setTimeout(function(){sayEl("celText");rHappy();},400);
+}
+function goPractice(){if(!completed){alert("Complete explanations first!");return;}location.href="/practice/icse/class6/geometry/angles.html";}
+function goExam(){if(!completed){alert("Complete explanations first!");return;}if(!rishiIsPracticeDone('ic6_19')){alert('Complete Practice with 5 in a row first!');return;}location.href="/exam.html?ch=ic6-19";}
+var CELEBRATIONS=[{word:"Magnifique!",lang:"French",meaning:"Magnificent!",speak:"Magnifique"},{word:"Bravissimo!",lang:"Italian",meaning:"Very well done!",speak:"Bravissimo"},{word:"Wunderbar!",lang:"German",meaning:"Wonderful!",speak:"Wunderbar"},{word:"Shabash!",lang:"Hindi",meaning:"Well done!",speak:"Shabash"},{word:"Felicitaciones!",lang:"Spanish",meaning:"Congratulations!",speak:"Felicitaciones"}];
+var lastCelIdx=-1;
+function celebrate(){var i;do{i=Math.floor(Math.random()*CELEBRATIONS.length);}while(i===lastCelIdx&&CELEBRATIONS.length>1);lastCelIdx=i;var c=CELEBRATIONS[i];var rb=G("rbox");rb.className="result-box ok";rb.innerHTML='<div style="font-size:18px;font-weight:900;">'+c.word+'</div><div style="font-size:11px;">'+c.lang+' &middot; <em>'+c.meaning+'</em></div>';G("nudgeBox").classList.remove("show");var nb=G("btnNext");if(nb)nb.classList.add("show");say(c.speak);rHappy();}
+function handleAnswer(text){var q=session[idx];var ok=q.ans.some(function(a){return text.includes(a.toLowerCase())||a.toLowerCase().includes(text);});var rb=G("rbox");if(ok){celebrate();}else{nudgeCount++;rb.className="result-box no";rb.textContent="\u2716 Not quite. Listen to my hint!";var nudge=q.nudges[Math.min(nudgeCount-1,q.nudges.length-1)];showNudge(nudge);say(nudge);rThink();if(nudgeCount>=3){var nb2=G("btnNext");if(nb2){nb2.classList.add("show");nb2.textContent="I Understand \u25b6";}}}}
+function showNudge(msg){var n=G("nudgeBox");if(n){n.textContent=msg;n.classList.add("show");}}
+function openBreak(){G("breakOv").classList.add("show");}
+function closeBreak(){G("breakOv").classList.remove("show");}
+function startBreak(r){closeBreak();breakSecs=0;G("timerLbl").textContent=r;G("timerNum").textContent="00:00";G("timerScreen").classList.add("show");breakTmr=setInterval(function(){breakSecs++;var m=String(Math.floor(breakSecs/60)).padStart(2,"0");var s=String(breakSecs%60).padStart(2,"0");G("timerNum").textContent=m+":"+s;},1000);}
+function endBreak(){clearInterval(breakTmr);G("timerScreen").classList.remove("show");}
+function mathUpdate(){var ra=G("rawAnswer");if(!ra)return;var v=ra.value.trim();var el=G("mathPreview");if(el)el.textContent=v||"";}
+function buildSuggChips(ans){var el=G("suggChips");if(!el)return;el.innerHTML="";(ans||[]).forEach(function(a){var btn=document.createElement("button");btn.className="schip";btn.textContent=a;btn.type="button";btn.addEventListener("click",function(){var ra=G("rawAnswer");if(ra){ra.value=a;mathUpdate();ra.focus();}});el.appendChild(btn);});}
+window.onload=init;
+</script>
+<script src="/explain-helper.js"></script>
+</body>
+</html>
