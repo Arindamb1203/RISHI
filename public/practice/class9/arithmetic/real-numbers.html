@@ -247,11 +247,11 @@ var QB=[
 /* TTS */
 var voices=[],selVoice=null;
 function initVoices(cb){
-  function load(){voices=window.speechSynthesis.getVoices();var pref=['Riya','Heera','Priya','Aditi','Zira','Samantha','Google UK English Female','Microsoft Zira','en-IN','en-GB','en-US'];for(var p of pref){for(var v of voices){if(v.name.includes(p)||v.lang.includes(p)){selVoice=v;break;}}if(selVoice)break;}if(!selVoice&&voices.length)selVoice=voices.find(function(v){return v.lang.startsWith('en');})||voices[0];if(cb)cb();}
+  function load(){voices=window.speechSynthesis.getVoices();var pref=['Riya','Heera','Priya','Aditi','Zira','Samantha','Google UK English Female','Microsoft Zira','Microsoft Heera','Neerja'];for(var p of pref){for(var v of voices){if(v.name.includes(p)){selVoice=v;break;}}if(selVoice)break;}if(!selVoice&&voices.length)selVoice=voices.find(function(v){return /female|zira|heera|priya|samantha|riya|neerja/i.test(v.name);})||voices.find(function(v){return v.lang.startsWith('en');})||voices[0];if(cb)cb();}
   if(window.speechSynthesis.getVoices().length>0)load();
   else{window.speechSynthesis.onvoiceschanged=load;setTimeout(function(){if(!selVoice)load();},1000);}
 }
-function say(txt,rate,pitch){_unlockTTS();window.speechSynthesis.cancel();var u=new SpeechSynthesisUtterance(txt);if(selVoice)u.voice=selVoice;u.rate=rate||0.88;u.pitch=pitch||1.05;u.lang='en-IN';window.speechSynthesis.speak(u);}
+function say(txt,rate,pitch){_unlockTTS();window.speechSynthesis.cancel();var u=new SpeechSynthesisUtterance(txt);if(selVoice)u.voice=selVoice;u.rate=rate||0.88;u.pitch=pitch||1.15;u.lang='en-IN';window.speechSynthesis.speak(u);}
 var _ttsUnlocked=false;
 function _unlockTTS(){if(_ttsUnlocked)return;_ttsUnlocked=true;var u=new SpeechSynthesisUtterance('');u.volume=0;window.speechSynthesis.speak(u);}
 document.addEventListener('click',_unlockTTS,{once:true});
@@ -399,11 +399,11 @@ handleWrong=function(q,u){_origHandleWrong(q,u);setTimeout(function(){var e2=G('
 <script>
 /* -- RISHIKA IMAGE AVATAR -- */
 var RISHIKA_IMGS = {
-  neutral:      'Observing.png',
-  celebrate:    'Celebrating.png',
-  praise:       'Naughty.png',
-  disappointed: 'Angry.png',
-  thinking:     'Good Morning.png'
+  neutral:   'Observing.png',
+  celebrate: 'Celebrating.png',
+  taunt:     'Naughty.png',
+  angry:     'Angry.png',
+  greeting:  'Good Morning.png'
 };
 var _rTimer = null;
 function _rSet(state) {
@@ -411,10 +411,11 @@ function _rSet(state) {
   if (!el) return;
   el.src = '/images/rishika/sprites/' + (RISHIKA_IMGS[state] || RISHIKA_IMGS.neutral);
 }
-function rInit()         { _rSet('neutral'); }
-function rHappy()        { _rSet('praise');      clearTimeout(_rTimer); _rTimer = setTimeout(function(){ _rSet('neutral'); }, 3000); }
-function rCelebrate()    { _rSet('celebrate');   clearTimeout(_rTimer); _rTimer = setTimeout(function(){ _rSet('neutral'); }, 3000); }
-function rThink()        { _rSet('disappointed'); clearTimeout(_rTimer); _rTimer = setTimeout(function(){ _rSet('neutral'); }, 3000); }
+function rInit()         { _rSet('greeting'); clearTimeout(_rTimer); _rTimer = setTimeout(function(){ _rSet('neutral'); }, 4000); }
+function rHappy()        { _rSet('celebrate');  clearTimeout(_rTimer); _rTimer = setTimeout(function(){ _rSet('neutral'); }, 3000); }
+function rCelebrate()    { _rSet('celebrate');  clearTimeout(_rTimer); _rTimer = setTimeout(function(){ _rSet('neutral'); }, 3000); }
+function rThink()        { _rSet('taunt');      clearTimeout(_rTimer); _rTimer = setTimeout(function(){ _rSet('neutral'); }, 3000); }
+function rAngry()        { _rSet('angry');      clearTimeout(_rTimer); _rTimer = setTimeout(function(){ _rSet('neutral'); }, 6000); }
 function rStartTalk(len) { /* TTS speaks */ }
 function rStopTalk()     { /* no-op */ }
 </script>

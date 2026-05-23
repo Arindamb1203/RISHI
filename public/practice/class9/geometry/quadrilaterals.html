@@ -203,8 +203,8 @@ var QB=[
 var DESTINATIONS=["Paris, France", "Bali, Indonesia", "Machu Picchu, Peru", "Santorini, Greece", "Kyoto, Japan", "Grand Canyon, USA", "Amalfi Coast, Italy", "Swiss Alps", "Maldives", "Rajasthan, India", "Cape Town, S. Africa", "New Zealand Fjords", "Amazon Rainforest", "Iceland Aurora", "Dubai City"];
 var PRAISES=[{word:'Magnifique!',lang:'French',mean:'Magnificent!'},{word:'Bravissimo!',lang:'Italian',mean:'Very well done!'},{word:'Wunderbar!',lang:'German',mean:'Wonderful!'},{word:'Shabash!',lang:'Hindi',mean:'Well done!'},{word:'Felicitaciones!',lang:'Spanish',mean:'Congratulations!'},{word:'Parabens!',lang:'Portuguese',mean:'Congratulations!'},{word:'Ottimo!',lang:'Italian',mean:'Excellent!'},{word:'Harika!',lang:'Turkish',mean:'Wonderful!'}];
 var voices=[],selVoice=null;
-function initVoices(cb){function load(){voices=window.speechSynthesis.getVoices();var pref=['Heera','Priya','Zira','Samantha','en-IN','en-GB','en-US'];for(var p of pref){for(var v of voices){if(v.name.includes(p)||v.lang.includes(p)){selVoice=v;break;}}if(selVoice)break;}if(!selVoice&&voices.length)selVoice=voices[0];if(cb)cb();}if(window.speechSynthesis.getVoices().length>0)load();else{window.speechSynthesis.onvoiceschanged=load;setTimeout(function(){if(!selVoice)load();},1000);}}
-function say(txt){window.speechSynthesis.cancel();var u=new SpeechSynthesisUtterance(txt);if(selVoice)u.voice=selVoice;u.rate=0.88;u.pitch=1.05;u.lang='en-IN';window.speechSynthesis.speak(u);}
+function initVoices(cb){function load(){voices=window.speechSynthesis.getVoices();var pref=['Riya','Heera','Priya','Aditi','Zira','Samantha','Google UK English Female','Microsoft Zira','Microsoft Heera','Neerja'];for(var p of pref){for(var v of voices){if(v.name.includes(p)){selVoice=v;break;}}if(selVoice)break;}if(!selVoice&&voices.length)selVoice=voices.find(function(v){return /female|zira|heera|priya|samantha|riya|neerja/i.test(v.name);})||voices.find(function(v){return v.lang.startsWith('en');})||voices[0];if(cb)cb();}if(window.speechSynthesis.getVoices().length>0)load();else{window.speechSynthesis.onvoiceschanged=load;setTimeout(function(){if(!selVoice)load();},1000);}}
+function say(txt){window.speechSynthesis.cancel();var u=new SpeechSynthesisUtterance(txt);if(selVoice)u.voice=selVoice;u.rate=0.88;u.pitch=1.15;u.lang='en-IN';window.speechSynthesis.speak(u);}
 var idx=0,attemptNo=0,correctStreak=0,totalCorrect=0,answered=[];
 var coins=parseInt(localStorage.getItem('rishi_coins')||'0');
 var breakInterval=null,sessionInterval=null,sessionSecs=0;
@@ -299,11 +299,11 @@ window.onload=function(){init();};
 <script>
 /* -- RISHIKA IMAGE AVATAR -- */
 var RISHIKA_IMGS = {
-  neutral:      'Observing.png',
-  celebrate:    'Celebrating.png',
-  praise:       'Naughty.png',
-  disappointed: 'Angry.png',
-  thinking:     'Good Morning.png'
+  neutral:   'Observing.png',
+  celebrate: 'Celebrating.png',
+  taunt:     'Naughty.png',
+  angry:     'Angry.png',
+  greeting:  'Good Morning.png'
 };
 var _rTimer = null;
 function _rSet(state) {
@@ -311,10 +311,11 @@ function _rSet(state) {
   if (!el) return;
   el.src = '/images/rishika/sprites/' + (RISHIKA_IMGS[state] || RISHIKA_IMGS.neutral);
 }
-function rInit()         { _rSet('neutral'); }
-function rHappy()        { _rSet('praise');      clearTimeout(_rTimer); _rTimer = setTimeout(function(){ _rSet('neutral'); }, 3000); }
-function rCelebrate()    { _rSet('celebrate');   clearTimeout(_rTimer); _rTimer = setTimeout(function(){ _rSet('neutral'); }, 3000); }
-function rThink()        { _rSet('disappointed'); clearTimeout(_rTimer); _rTimer = setTimeout(function(){ _rSet('neutral'); }, 3000); }
+function rInit()         { _rSet('greeting'); clearTimeout(_rTimer); _rTimer = setTimeout(function(){ _rSet('neutral'); }, 4000); }
+function rHappy()        { _rSet('celebrate');  clearTimeout(_rTimer); _rTimer = setTimeout(function(){ _rSet('neutral'); }, 3000); }
+function rCelebrate()    { _rSet('celebrate');  clearTimeout(_rTimer); _rTimer = setTimeout(function(){ _rSet('neutral'); }, 3000); }
+function rThink()        { _rSet('taunt');      clearTimeout(_rTimer); _rTimer = setTimeout(function(){ _rSet('neutral'); }, 3000); }
+function rAngry()        { _rSet('angry');      clearTimeout(_rTimer); _rTimer = setTimeout(function(){ _rSet('neutral'); }, 6000); }
 function rStartTalk(len) { /* TTS speaks */ }
 function rStopTalk()     { /* no-op */ }
 </script>
