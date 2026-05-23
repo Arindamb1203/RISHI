@@ -316,10 +316,13 @@ button{font-family:'Outfit',sans-serif;cursor:pointer;}
   <div class="admin-class-bar" id="admin-class-bar">
     <span style="font-size:13px;font-weight:800;color:var(--muted);margin-right:4px;">Class:</span>
     <button class="admin-class-tab" data-cls="6"   onclick="switchAdminClass(6)">Class 6</button>
+    <button class="admin-class-tab" data-cls="ic6" onclick="switchAdminClass('ic6')">Class 6 ICSE</button>
     <button class="admin-class-tab" data-cls="7"   onclick="switchAdminClass(7)">Class 7</button>
     <button class="admin-class-tab" data-cls="ic7" onclick="switchAdminClass('ic7')">Class 7 ICSE</button>
     <button class="admin-class-tab on" data-cls="8" onclick="switchAdminClass(8)">Class 8</button>
+    <button class="admin-class-tab" data-cls="ic8" onclick="switchAdminClass('ic8')">Class 8 ICSE</button>
     <button class="admin-class-tab" data-cls="9"   onclick="switchAdminClass(9)">Class 9</button>
+    <button class="admin-class-tab" data-cls="ic9" onclick="switchAdminClass('ic9')">Class 9 ICSE</button>
   </div>
   <div class="wrap">
 
@@ -531,7 +534,11 @@ button{font-family:'Outfit',sans-serif;cursor:pointer;}
 var ADMIN_PASS = 'rishi2025';
 var activeAdminClass = 8;
 function adminClassLabel(cls) {
-  return cls === 'ic7' ? 'Class 7 ICSE' : 'Class ' + cls;
+  if (cls === 'ic6') return 'Class 6 ICSE';
+  if (cls === 'ic7') return 'Class 7 ICSE';
+  if (cls === 'ic8') return 'Class 8 ICSE';
+  if (cls === 'ic9') return 'Class 9 ICSE';
+  return 'Class ' + cls;
 }
 function switchAdminClass(cls) {
   activeAdminClass = cls;
@@ -1690,6 +1697,36 @@ var QB_CHAPTERS = {
     {id:'07', name:'A Tale of Three Intersecting Lines',topic:'Geometry'},
     {id:'08', name:'Working with Fractions',            topic:'Arithmetic'}
   ],
+  'ic6': [
+    {id:'01', name:'Number System',                     topic:'Arithmetic'},
+    {id:'02', name:'Estimation',                        topic:'Arithmetic'},
+    {id:'03', name:'Playing with Numbers',              topic:'Arithmetic'},
+    {id:'04', name:'Natural Numbers and Whole Numbers', topic:'Arithmetic'},
+    {id:'05', name:'Negative Numbers and Integers',     topic:'Arithmetic'},
+    {id:'06', name:'Number Line',                       topic:'Arithmetic'},
+    {id:'07', name:'HCF and LCM',                       topic:'Arithmetic'},
+    {id:'08', name:'Ratio',                             topic:'Arithmetic'},
+    {id:'09', name:'Proportion',                        topic:'Arithmetic'},
+    {id:'10', name:'Unitary Method',                    topic:'Arithmetic'},
+    {id:'11', name:'Fractions',                         topic:'Arithmetic'},
+    {id:'12', name:'Decimal Fractions',                 topic:'Arithmetic'},
+    {id:'13', name:'Percent and Percentage',            topic:'Arithmetic'},
+    {id:'14', name:'Speed, Distance and Time',          topic:'Arithmetic'},
+    {id:'15', name:'Algebraic Expressions',             topic:'Algebra'},
+    {id:'16', name:'Substitution',                      topic:'Algebra'},
+    {id:'17', name:'Framing Algebraic Expressions',     topic:'Algebra'},
+    {id:'18', name:'Simple (Linear) Equations',         topic:'Algebra'},
+    {id:'19', name:'Angles',                            topic:'Geometry'},
+    {id:'20', name:'Properties of Angles and Lines',    topic:'Geometry'},
+    {id:'21', name:'Triangle and Its Properties',       topic:'Geometry'},
+    {id:'22', name:'Quadrilateral',                     topic:'Geometry'},
+    {id:'23', name:'Polygons',                          topic:'Geometry'},
+    {id:'24', name:'The Circle',                        topic:'Geometry'},
+    {id:'25', name:'Symmetry (Reflection)',             topic:'Geometry'},
+    {id:'26', name:'Recognition of Solids',             topic:'Geometry'},
+    {id:'27', name:'Perimeter and Area',                topic:'Mensuration'},
+    {id:'28', name:'Data Handling',                     topic:'Data Handling'}
+  ],
   'ic7': [
     {id:'01', name:'Integers',                   topic:'Arithmetic'},
     {id:'02', name:'Rational Numbers',            topic:'Arithmetic'},
@@ -1713,6 +1750,51 @@ var QB_CHAPTERS = {
     {id:'20', name:'Mensuration',                  topic:'Mensuration'},
     {id:'21', name:'Data Handling',                topic:'Data Handling'},
     {id:'22', name:'Probability',                  topic:'Data Handling'}
+  ],
+  'ic8': [
+    {id:'01', name:'Rational Numbers',                      topic:'Arithmetic'},
+    {id:'02', name:'Exponents (Powers)',                    topic:'Arithmetic'},
+    {id:'03', name:'Squares and Square Roots',              topic:'Arithmetic'},
+    {id:'04', name:'Cubes and Cube Roots',                  topic:'Arithmetic'},
+    {id:'05', name:'Playing with Numbers',                  topic:'Arithmetic'},
+    {id:'06', name:'Sets',                                  topic:'Arithmetic'},
+    {id:'07', name:'Percent and Percentage',                topic:'Arithmetic'},
+    {id:'08', name:'Profit, Loss and Discount',             topic:'Arithmetic'},
+    {id:'09', name:'Compound Interest',                     topic:'Arithmetic'},
+    {id:'10', name:'Direct and Inverse Variation',          topic:'Arithmetic'},
+    {id:'11', name:'Time and Work',                         topic:'Arithmetic'},
+    {id:'12', name:'Distance, Speed and Time',              topic:'Arithmetic'},
+    {id:'13', name:'Linear Equations in One Variable',      topic:'Algebra'},
+    {id:'14', name:'Linear Inequations',                    topic:'Algebra'},
+    {id:'15', name:'Polygons',                              topic:'Geometry'},
+    {id:'16', name:'Understanding Shapes (Quadrilaterals)', topic:'Geometry'},
+    {id:'17', name:'Constructions of Quadrilaterals',       topic:'Geometry'},
+    {id:'18', name:'Representing 3-D in 2-D',               topic:'Geometry'},
+    {id:'19', name:'Area of Trapezium and Polygon',         topic:'Mensuration'},
+    {id:'20', name:'Volume and Surface Area of Solids',     topic:'Mensuration'},
+    {id:'21', name:'Data Handling',                         topic:'Data Handling'}
+  ],
+  'ic9': [
+    {id:'01', name:'Rational and Irrational Numbers',        topic:'Arithmetic'},
+    {id:'02', name:'Compound Interest (Without Formula)',     topic:'Arithmetic'},
+    {id:'03', name:'Compound Interest (Using Formula)',       topic:'Arithmetic'},
+    {id:'04', name:'Expansions (Algebraic Identities)',       topic:'Algebra'},
+    {id:'05', name:'Factorisation',                          topic:'Algebra'},
+    {id:'06', name:'Simultaneous (Linear) Equations',         topic:'Algebra'},
+    {id:'07', name:'Indices (Exponents)',                     topic:'Algebra'},
+    {id:'08', name:'Logarithms',                             topic:'Algebra'},
+    {id:'09', name:'Triangles (Congruency)',                  topic:'Geometry'},
+    {id:'10', name:'Isosceles Triangles',                    topic:'Geometry'},
+    {id:'11', name:'Inequalities in Triangles',              topic:'Geometry'},
+    {id:'12', name:'Mid-Point and Intercept Theorems',        topic:'Geometry'},
+    {id:'13', name:'Pythagoras Theorem',                     topic:'Geometry'},
+    {id:'14', name:'Rectilinear Figures (Quadrilaterals)',    topic:'Geometry'},
+    {id:'15', name:'Construction of Polygons',               topic:'Geometry'},
+    {id:'16', name:'Area Theorems',                          topic:'Mensuration'},
+    {id:'17', name:'Circle',                                 topic:'Geometry'},
+    {id:'18', name:'Statistics',                             topic:'Data Handling'},
+    {id:'19', name:'Coordinate Geometry',                    topic:'Algebra'},
+    {id:'20', name:'Mensuration',                            topic:'Mensuration'}
   ],
   8: [
     {id:'01',  name:'Rational Numbers',              topic:'Arithmetic'},
