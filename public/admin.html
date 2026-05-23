@@ -1455,8 +1455,8 @@ function renderStudentRows(regs) {
     // Compute first built explain/practice URL for this student's class
     var _ck = brd === 'icse' ? 'ic' + cls : parseInt(cls);
     var _cd = ALL_CLASS_CH[_ck] || ALL_CLASS_CH[8];
-    var _firstEx = '/syllabus.html#explain', _firstPr = '/syllabus.html#practice';
-    (function(){ var ks=Object.keys(_cd.CH).map(Number).sort(function(a,b){return a-b;}); for(var i=0;i<ks.length;i++){var c=_cd.CH[ks[i]];if(c){if(c.ex&&_firstEx==='/syllabus.html#explain')_firstEx=c.ex;if(c.pr&&_firstPr==='/syllabus.html#practice')_firstPr=c.pr;}if(_firstEx!=='/syllabus.html#explain'&&_firstPr!=='/syllabus.html#practice')break;}})();
+    var _firstEx = '/syllabus.html#explain', _firstPr = '/syllabus.html#practice', _firstExam = '/syllabus.html#exam';
+    (function(){ var ks=Object.keys(_cd.CH).map(Number).sort(function(a,b){return a-b;}); for(var i=0;i<ks.length;i++){var c=_cd.CH[ks[i]];if(c){if(c.ex&&_firstEx==='/syllabus.html#explain')_firstEx=c.ex;if(c.pr&&_firstPr==='/syllabus.html#practice')_firstPr=c.pr;if(c.exam&&_firstExam==='/syllabus.html#exam')_firstExam=c.exam;}}})();
 
     html += '<tr style="border-bottom:1px solid var(--border);" onmouseover="this.style.background=\'var(--s2)\'" onmouseout="this.style.background=\'\'">';
     // Student ID — clickable, opens syllabus
@@ -1469,8 +1469,8 @@ function renderStudentRows(regs) {
     html += '<td style="padding:8px 10px;"><button onclick="openAsStudent(' + idx + ',\'' + _firstEx + '\')" style="padding:5px 10px;border:1.5px solid #7c3aed;background:#fff;color:#7c3aed;border-radius:6px;font-size:11px;font-weight:800;cursor:pointer;font-family:inherit;">Open</button></td>';
     // Practice — opens first built practice page for this student's class
     html += '<td style="padding:8px 10px;"><button onclick="openAsStudent(' + idx + ',\'' + _firstPr + '\')" style="padding:5px 10px;border:1.5px solid #0891b2;background:#fff;color:#0891b2;border-radius:6px;font-size:11px;font-weight:800;cursor:pointer;font-family:inherit;">Open</button></td>';
-    // Chapter Exam
-    html += '<td style="padding:8px 10px;"><button onclick="openAsStudent(' + idx + ',\'/syllabus.html#exam\')" style="padding:5px 10px;border:1.5px solid #c8922a;background:#fff;color:#c8922a;border-radius:6px;font-size:11px;font-weight:800;cursor:pointer;font-family:inherit;">Open</button></td>';
+    // Chapter Exam — opens first built exam for this student's class
+    html += '<td style="padding:8px 10px;"><button onclick="openAsStudent(' + idx + ',\'' + _firstExam + '\')" style="padding:5px 10px;border:1.5px solid #c8922a;background:#fff;color:#c8922a;border-radius:6px;font-size:11px;font-weight:800;cursor:pointer;font-family:inherit;">Open</button></td>';
     // Topic Exam (defaults to algebra for current class)
     html += '<td style="padding:8px 10px;"><button onclick="openAsStudent(' + idx + ',\'/topic-exam.html?topic=algebra&class=' + cls + '&board=' + brd + '\')" style="padding:5px 10px;border:1.5px solid #1a7a4a;background:#fff;color:#1a7a4a;border-radius:6px;font-size:11px;font-weight:800;cursor:pointer;font-family:inherit;">Open</button></td>';
     // Sampurna
