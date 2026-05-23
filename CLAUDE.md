@@ -56,7 +56,7 @@
 | ICSE | 8 | `'ic8'` | `ic8_` |
 | ICSE | 9 | `'ic9'` | `ic9_` |
 
-## Content Status (as of 22 May 2026)
+## Content Status (as of 23 May 2026)
 | Class | Explain+Practice | Chapter Exams |
 |-------|-----------------|---------------|
 | CBSE 6 | 10 chapters ✓ | KV banks pending (Admin → Generate All) |
@@ -64,17 +64,8 @@
 | CBSE 8 | 16 chapters ✓ (Ch6 Squares, Ch7 Cubes missing) | Done ✓ |
 | CBSE 9 | 12 chapters ✓ | Done ✓ |
 | ICSE 7 | 22 chapters ✓ | Done ✓ |
-| ICSE 8 | 21 chapters ✓ | **PENDING** |
-| ICSE 9 | 20 chapters ✓ | **PENDING** |
-
-### Pending exam generation commands
-```bash
-# ICSE Class 8 exams (~2 hrs)
-cd public && OPENAI_API_KEY='...' python build_icse_class8.py --all --skip-explain --skip-practice --workers 5
-
-# ICSE Class 9 exams (~2 hrs)
-cd public && OPENAI_API_KEY='...' python build_icse_class9.py --all --skip-explain --skip-practice --workers 5
-```
+| ICSE 8 | 21 chapters ✓ | Done ✓ |
+| ICSE 9 | 20 chapters ✓ | Done ✓ |
 
 ## Build Scripts (in public/)
 | Script | Class | Workers | Est. time (explain+practice) |
