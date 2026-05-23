@@ -208,18 +208,63 @@ function rishiChName(chId) {
 var _rishiBreakType = '';
 var _rishiBreakStart = 0;
 
+function _rishiGetStudentId() {
+  try {
+    var sel = localStorage.getItem('rishi_selected_student');
+    if (sel && sel.trim()) return sel.trim().toLowerCase();
+    var raw = localStorage.getItem('rishi_current_student');
+    if (raw) {
+      var obj = JSON.parse(raw);
+      var id = (obj.studentId || obj.studentUsername || obj.studentName || '').trim();
+      if (id) return id.toLowerCase();
+    }
+  } catch(e) {}
+  return 'unknown';
+}
+
 function rishiLogBreak(type, secs) {
-  if (!type || secs < 3) return; // ignore accidental clicks
+  if (!type || secs < 3) return;
   var log = [];
   try { log = JSON.parse(localStorage.getItem('rishi_break_log') || '[]'); } catch(e) {}
   log.push({
+    studentId: _rishiGetStudentId(),
     date: new Date().toISOString().slice(0, 10),
     time: new Date().toTimeString().slice(0, 5),
     type: type,
-    secs: secs
+    secs: secs,
+    page: location.pathname
   });
   localStorage.setItem('rishi_break_log', JSON.stringify(log));
 }
+
+/* ── ERROR LOGGING ──────────────────────────
+   Captures JS errors and unhandled rejections
+   and stores them in rishi_error_log.
+   ─────────────────────────────────────────── */
+function rishiLogError(msg, source, stack) {
+  try {
+    var log = [];
+    try { log = JSON.parse(localStorage.getItem('rishi_error_log') || '[]'); } catch(e) {}
+    log.push({
+      studentId: _rishiGetStudentId(),
+      date: new Date().toISOString().slice(0, 10),
+      time: new Date().toTimeString().slice(0, 5),
+      message: String(msg).slice(0, 300),
+      source: String(source || location.href).slice(0, 200),
+      page: location.pathname,
+      stack: String(stack || '').slice(0, 500)
+    });
+    if (log.length > 200) log = log.slice(-200);
+    localStorage.setItem('rishi_error_log', JSON.stringify(log));
+  } catch(e) {}
+}
+
+window.addEventListener('error', function(e) {
+  rishiLogError(e.message, e.filename + ':' + e.lineno, e.error && e.error.stack);
+});
+window.addEventListener('unhandledrejection', function(e) {
+  rishiLogError('Unhandled promise: ' + (e.reason && e.reason.message || e.reason), location.href, e.reason && e.reason.stack);
+});
 
 // Patch startBreak + endBreak after page fully loads
 window.addEventListener('load', function() {

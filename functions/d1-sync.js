@@ -303,6 +303,46 @@ export async function onRequest(context) {
     }
   }
 
+  /* Get break + error logs for all students — admin panel */
+  if (action === "get_logs") {
+    try {
+      const [breakRes, errorRes] = await Promise.all([
+        env.DB.prepare(`SELECT student_id, value FROM rishi_sync WHERE key = 'rishi_break_log' ORDER BY updated_at DESC`).all(),
+        env.DB.prepare(`SELECT student_id, value FROM rishi_sync WHERE key = 'rishi_error_log' ORDER BY updated_at DESC`).all()
+      ]);
+
+      const breakLogs = [];
+      (breakRes.results || []).forEach(r => {
+        try {
+          const entries = JSON.parse(r.value);
+          if (Array.isArray(entries)) {
+            entries.forEach(e => { if (!e.studentId) e.studentId = r.student_id; });
+            breakLogs.push(...entries);
+          }
+        } catch(e) {}
+      });
+
+      const errorLogs = [];
+      (errorRes.results || []).forEach(r => {
+        try {
+          const entries = JSON.parse(r.value);
+          if (Array.isArray(entries)) {
+            entries.forEach(e => { if (!e.studentId) e.studentId = r.student_id; });
+            errorLogs.push(...entries);
+          }
+        } catch(e) {}
+      });
+
+      /* Sort both by date+time descending */
+      breakLogs.sort((a,b) => (b.date+b.time).localeCompare(a.date+a.time));
+      errorLogs.sort((a,b) => (b.date+b.time).localeCompare(a.date+a.time));
+
+      return new Response(JSON.stringify({ ok: true, breakLogs, errorLogs }), { headers });
+    } catch(e) {
+      return new Response(JSON.stringify({ error: "get_logs failed", detail: String(e) }), { status: 500, headers });
+    }
+  }
+
   /* List all student registrations — for admin panel */
   if (action === "list_all") {
     try {

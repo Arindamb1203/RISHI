@@ -24,6 +24,7 @@
     'rishi_explain_sessions',
     'rishi_practice_sessions',
     'rishi_break_log',
+    'rishi_error_log',
     'rishi_hour_pattern',
     'rishi_heatmap',
     'rishi_exam_scores',

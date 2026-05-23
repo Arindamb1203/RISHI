@@ -492,14 +492,32 @@ button{font-family:'Outfit',sans-serif;cursor:pointer;}
 
     <!-- LOGS TAB -->
     <div id="view-logs" class="hidden">
+
+      <!-- Break Log -->
       <div class="card">
-        <div class="card-ttl">☕ Break Log</div>
-        <div id="break-log"><div class="empty"><div class="empty-ico">☕</div>No break sessions recorded yet.</div></div>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap;">
+          <div class="card-ttl" style="margin-bottom:0;">☕ Break Log</div>
+          <select id="break-student-filter" onchange="renderBreakLog()" style="margin-left:auto;padding:6px 10px;border:1.5px solid var(--border);border-radius:8px;font-family:Outfit,sans-serif;font-size:13px;font-weight:700;background:#fff;color:var(--text);">
+            <option value="all">All Students</option>
+          </select>
+          <button onclick="buildLogs()" style="font-size:13px;font-weight:800;padding:6px 14px;border-radius:8px;border:2px solid var(--border);background:#fff;color:var(--muted);cursor:pointer;">↺ Refresh</button>
+        </div>
+        <div id="break-log-today"></div>
+        <div id="break-log-history" style="margin-top:16px;"></div>
       </div>
+
+      <!-- Error Log -->
       <div class="card">
-        <div class="card-ttl">⚠ Error Log</div>
-        <div id="error-log"><div class="empty"><div class="empty-ico">✅</div>No errors logged yet.</div></div>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap;">
+          <div class="card-ttl" style="margin-bottom:0;">⚠ Error Log</div>
+          <select id="error-student-filter" onchange="renderErrorLog()" style="margin-left:auto;padding:6px 10px;border:1.5px solid var(--border);border-radius:8px;font-family:Outfit,sans-serif;font-size:13px;font-weight:700;background:#fff;color:var(--text);">
+            <option value="all">All Students</option>
+          </select>
+          <button onclick="buildLogs()" style="font-size:13px;font-weight:800;padding:6px 14px;border-radius:8px;border:2px solid var(--border);background:#fff;color:var(--muted);cursor:pointer;">↺ Refresh</button>
+        </div>
+        <div id="error-log"></div>
       </div>
+
     </div>
 
     <!-- DEPLOY TAB -->
@@ -1296,7 +1314,7 @@ function refresh() {
   else if (activeTab === 'student') { buildStudent(); }
   else if (activeTab === 'topics')    { buildTopics(); }
   else if (activeTab === 'questions') { buildQuestionsTab(); }
-  else if (activeTab === 'logs')      { buildLogs(); }
+  else if (activeTab === 'logs')      { buildLogs().catch(function(){}); }
   else if (activeTab === 'users')     { buildUsersTab(); }
 }
 
@@ -1957,30 +1975,211 @@ function renderStudentProgress(r) {
 }
 
 /* ── LOGS ────────────────────────────────────────────────── */
-function buildLogs() {
-  /* Break log */
-  var breakLog = lsGet('rishi_break_log', []);
-  var bCon = document.getElementById('break-log');
-  if (breakLog.length === 0) {
-    bCon.innerHTML = '<div class="empty"><div class="empty-ico">☕</div>No break sessions recorded yet.</div>';
-  } else {
-    var recent = breakLog.slice().reverse().slice(0, 100);
-    var html = '<table class="log-table"><thead><tr><th>#</th><th>Date</th><th>Time</th><th>Type</th><th>Duration</th></tr></thead><tbody>';
-    for (var i = 0; i < recent.length; i++) {
-      var b   = recent[i];
-      var num = breakLog.length - i;
-      var m   = Math.floor(b.secs / 60);
-      var s   = b.secs % 60;
-      var dur = (m > 0 ? m + 'm ' : '') + s + 's';
-      html += '<tr><td>' + num + '</td><td>' + esc(b.date || '—') + '</td><td>' + esc(b.time || '—') + '</td><td>' + esc(b.type || '—') + '</td><td>' + dur + '</td></tr>';
-    }
-    html += '</tbody></table>';
-    if (breakLog.length > 100) html += '<div style="font-size:17px;color:var(--muted);padding:8px 0;">Showing last 100 of ' + breakLog.length + ' entries.</div>';
-    bCon.innerHTML = html;
+var _breakLogsAll = [];
+var _errorLogsAll = [];
+
+async function buildLogs() {
+  /* Show loading state */
+  document.getElementById('break-log-today').innerHTML    = '<div class="empty"><div class="empty-ico">⏳</div>Loading from D1…</div>';
+  document.getElementById('break-log-history').innerHTML  = '';
+  document.getElementById('error-log').innerHTML          = '<div class="empty"><div class="empty-ico">⏳</div>Loading from D1…</div>';
+
+  try {
+    var res  = await fetch('/d1-sync', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({action:'get_logs'})});
+    var data = await res.json();
+    if (!data.ok) throw new Error(data.error || 'D1 error');
+    _breakLogsAll = data.breakLogs  || [];
+    _errorLogsAll = data.errorLogs  || [];
+  } catch(e) {
+    /* Fallback: try local localStorage (e.g. if D1 offline) */
+    _breakLogsAll = lsGet('rishi_break_log', []);
+    _errorLogsAll = lsGet('rishi_error_log',  []);
   }
 
-  /* Error log — placeholder until error system is built */
-  document.getElementById('error-log').innerHTML = '<div class="empty"><div class="empty-ico">✅</div>No errors logged yet.<br><small style="font-size:16px;">Error reporting will auto-populate here as the app is used.</small></div>';
+  /* Populate student filter dropdowns */
+  function populateFilter(selectId, logs) {
+    var sel = document.getElementById(selectId);
+    if (!sel) return;
+    var students = {};
+    logs.forEach(function(e){ if(e.studentId) students[e.studentId] = 1; });
+    var existing = sel.value;
+    sel.innerHTML = '<option value="all">All Students</option>';
+    Object.keys(students).sort().forEach(function(s){
+      sel.innerHTML += '<option value="' + esc(s) + '">' + esc(s) + '</option>';
+    });
+    if (existing !== 'all') sel.value = existing;
+  }
+  populateFilter('break-student-filter', _breakLogsAll);
+  populateFilter('error-student-filter', _errorLogsAll);
+
+  renderBreakLog();
+  renderErrorLog();
+}
+
+function fmtDur(secs) {
+  var m = Math.floor(secs / 60), s = secs % 60;
+  return (m > 0 ? m + 'm ' : '') + s + 's';
+}
+
+function renderBreakLog() {
+  var filter  = (document.getElementById('break-student-filter') || {value:'all'}).value;
+  var logs    = filter === 'all' ? _breakLogsAll : _breakLogsAll.filter(function(e){ return e.studentId === filter; });
+  var today   = new Date().toISOString().slice(0,10);
+
+  /* ── LIVE: Today ── */
+  var todayLogs = logs.filter(function(e){ return e.date === today; });
+  var todayCon  = document.getElementById('break-log-today');
+  if (!todayLogs.length) {
+    todayCon.innerHTML = '<div style="font-size:14px;color:var(--muted);font-weight:700;padding:6px 0;">No breaks today yet.</div>';
+  } else {
+    /* Group by student for today summary */
+    var byStudent = {};
+    todayLogs.forEach(function(e){
+      var sid = e.studentId || 'unknown';
+      if (!byStudent[sid]) byStudent[sid] = [];
+      byStudent[sid].push(e);
+    });
+    var liveHtml = '<div style="font-size:12px;font-weight:900;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px;">⚡ Live — Today ' + today + '</div>';
+    liveHtml += '<div style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:12px;">';
+    Object.keys(byStudent).forEach(function(sid){
+      var entries  = byStudent[sid];
+      var count    = entries.length;
+      var totalSec = entries.reduce(function(a,b){ return a+b.secs; }, 0);
+      var avgSec   = Math.round(totalSec / count);
+      var last     = entries[entries.length - 1];
+      liveHtml += '<div style="background:rgba(200,146,42,.08);border:2px solid rgba(200,146,42,.25);border-radius:10px;padding:12px 16px;min-width:200px;">'
+        + '<div style="font-size:13px;font-weight:900;color:var(--amber);">' + esc(sid) + '</div>'
+        + '<div style="font-size:12px;color:var(--muted);margin-top:4px;">' + count + ' break' + (count>1?'s':'') + ' &nbsp;·&nbsp; avg ' + fmtDur(avgSec) + ' &nbsp;·&nbsp; last at ' + esc(last.time||'—') + ' (' + esc(last.type||'—') + ')</div>'
+        + '</div>';
+    });
+    liveHtml += '</div>';
+    /* Recent entries table for today */
+    liveHtml += '<table class="log-table"><thead><tr><th>Student</th><th>Time</th><th>Type</th><th>Duration</th><th>Page</th></tr></thead><tbody>';
+    todayLogs.slice().reverse().forEach(function(b){
+      liveHtml += '<tr><td style="color:var(--amber);font-weight:800;">' + esc(b.studentId||'—') + '</td><td>' + esc(b.time||'—') + '</td><td>' + esc(b.type||'—') + '</td><td>' + fmtDur(b.secs) + '</td><td style="color:var(--dim);font-size:12px;">' + esc(b.page||'—') + '</td></tr>';
+    });
+    liveHtml += '</tbody></table>';
+    todayCon.innerHTML = liveHtml;
+  }
+
+  /* ── HISTORY: Day-wise ── */
+  var histCon = document.getElementById('break-log-history');
+  var pastLogs = logs.filter(function(e){ return e.date !== today; });
+  if (!pastLogs.length) {
+    histCon.innerHTML = '';
+    return;
+  }
+  /* Group by date */
+  var byDate = {};
+  pastLogs.forEach(function(e){
+    if (!byDate[e.date]) byDate[e.date] = [];
+    byDate[e.date].push(e);
+  });
+  var dates = Object.keys(byDate).sort().reverse().slice(0, 30);
+
+  var histHtml = '<div style="font-size:12px;font-weight:900;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px;">📅 History (last 30 days)</div>';
+  histHtml += '<table class="log-table"><thead><tr><th>Date</th><th>Student</th><th>Breaks</th><th>Avg Duration</th><th>Longest</th><th>Total Time</th></tr></thead><tbody>';
+  dates.forEach(function(date){
+    var dayLogs = byDate[date];
+    /* sub-group by student */
+    var byS = {};
+    dayLogs.forEach(function(e){ var s=e.studentId||'unknown'; if(!byS[s])byS[s]=[]; byS[s].push(e); });
+    Object.keys(byS).forEach(function(sid, si){
+      var entries   = byS[sid];
+      var count     = entries.length;
+      var totalSec  = entries.reduce(function(a,b){ return a+b.secs; },0);
+      var avgSec    = Math.round(totalSec / count);
+      var maxSec    = Math.max.apply(null, entries.map(function(e){ return e.secs; }));
+      histHtml += '<tr>'
+        + '<td style="font-weight:700;">' + (si===0 ? esc(date) : '') + '</td>'
+        + '<td style="color:var(--amber);font-weight:800;">' + esc(sid) + '</td>'
+        + '<td style="font-weight:800;">' + count + '</td>'
+        + '<td>' + fmtDur(avgSec) + '</td>'
+        + '<td>' + fmtDur(maxSec) + '</td>'
+        + '<td style="color:var(--amber);font-weight:700;">' + fmtDur(totalSec) + '</td>'
+        + '</tr>';
+    });
+  });
+  histHtml += '</tbody></table>';
+  histCon.innerHTML = histHtml;
+}
+
+function renderErrorLog() {
+  var filter = (document.getElementById('error-student-filter') || {value:'all'}).value;
+  var logs   = filter === 'all' ? _errorLogsAll : _errorLogsAll.filter(function(e){ return e.studentId === filter; });
+  var con    = document.getElementById('error-log');
+
+  if (!logs.length) {
+    con.innerHTML = '<div class="empty"><div class="empty-ico">✅</div>No errors logged yet.<br><small style="font-size:14px;color:var(--dim);">Errors captured from student sessions will appear here automatically.</small></div>';
+    return;
+  }
+
+  var html = '<table class="log-table" style="min-width:900px;"><thead><tr>'
+    + '<th>Student</th><th>Date / Time</th><th>Page</th><th>Error</th><th>Action</th>'
+    + '</tr></thead><tbody>';
+
+  logs.slice(0, 100).forEach(function(e, idx) {
+    var errId = 'err-' + idx;
+    html += '<tr id="' + errId + '-row">'
+      + '<td style="color:var(--amber);font-weight:800;white-space:nowrap;">' + esc(e.studentId||'—') + '</td>'
+      + '<td style="white-space:nowrap;color:var(--muted);">' + esc(e.date||'—') + ' ' + esc(e.time||'—') + '</td>'
+      + '<td style="font-family:Share Tech Mono,monospace;font-size:12px;color:var(--dim);">' + esc(e.page||'—') + '</td>'
+      + '<td style="font-size:13px;font-weight:700;color:var(--red);max-width:300px;">' + esc((e.message||'—').slice(0,120)) + '</td>'
+      + '<td style="white-space:nowrap;">'
+      + '<button id="' + errId + '-btn" onclick="fixError(' + idx + ')" '
+      + 'style="font-size:12px;font-weight:800;padding:5px 12px;border-radius:7px;border:2px solid rgba(124,58,237,.35);background:rgba(124,58,237,.08);color:#7c3aed;cursor:pointer;font-family:inherit;transition:all .2s;">'
+      + '✨ AI Fix</button></td>'
+      + '</tr>'
+      + '<tr id="' + errId + '-result" style="display:none;">'
+      + '<td colspan="5" style="padding:0 10px 14px;"><div id="' + errId + '-body" style="background:var(--s2);border:2px solid var(--border);border-radius:8px;padding:12px 16px;font-size:13px;line-height:1.7;white-space:pre-wrap;"></div></td>'
+      + '</tr>';
+  });
+  html += '</tbody></table>';
+  if (logs.length > 100) html += '<div style="font-size:14px;color:var(--muted);padding:8px 0;">Showing latest 100 of ' + logs.length + ' errors.</div>';
+  con.innerHTML = html;
+}
+
+async function fixError(idx) {
+  var e   = _errorLogsAll[idx];
+  if (!e) return;
+  var errId = 'err-' + idx;
+  var btn   = document.getElementById(errId + '-btn');
+  var resRow= document.getElementById(errId + '-result');
+  var body  = document.getElementById(errId + '-body');
+  if (!btn || !resRow || !body) return;
+
+  /* Turn red — working */
+  btn.style.background    = 'rgba(192,57,43,.12)';
+  btn.style.borderColor   = 'rgba(192,57,43,.5)';
+  btn.style.color         = 'var(--red)';
+  btn.textContent         = '⏳ Analysing…';
+  btn.disabled            = true;
+  resRow.style.display    = 'table-row';
+  body.textContent        = 'Sending to AI…';
+
+  try {
+    var res = await fetch('/api/fix-error', {
+      method:'POST',
+      headers:{'Content-Type':'application/json','Authorization':'Bearer ' + getToken()},
+      body: JSON.stringify({studentId:e.studentId, page:e.page, message:e.message, source:e.source, stack:e.stack})
+    });
+    var data = await res.json();
+    if (!data.ok) throw new Error(data.error || 'AI error');
+
+    /* Turn green — done */
+    btn.style.background  = 'rgba(26,122,74,.1)';
+    btn.style.borderColor = 'rgba(26,122,74,.4)';
+    btn.style.color       = 'var(--green)';
+    btn.textContent       = '✓ Done';
+    body.textContent      = data.suggestion;
+  } catch(err) {
+    btn.style.background  = 'rgba(192,57,43,.12)';
+    btn.style.borderColor = 'rgba(192,57,43,.5)';
+    btn.style.color       = 'var(--red)';
+    btn.textContent       = '✗ Failed';
+    btn.disabled          = false;
+    body.textContent      = 'Error: ' + err.message;
+  }
 }
 
 /* ── LOCAL STORAGE VIEWER ────────────────────────────────── */
