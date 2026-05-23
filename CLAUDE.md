@@ -26,7 +26,7 @@
 | `public/parent.html` | 2700+ lines — always Read before editing |
 | `public/syllabus.html` | Class-aware 6/7/8/9 + ICSE ic6/ic7/ic8/ic9 — has LOCAL done-check functions (NOT rishi-core.js) |
 | `public/register.html` | Registration + payment |
-| `public/exam.html` | Chapter exams, no voice |
+| `public/exam.html` | Chapter exams — no voice, no avatar (removed 24 May 2026) |
 | `public/topic-exam.html` | Reads board from URL params only |
 | `public/sampurna-pariksha.html` | Reads board from URL params only |
 | `functions/tts.js` | TTS at repo ROOT, not in public\ |
@@ -59,7 +59,7 @@
 | ICSE | 8 | `'ic8'` | `ic8_` |
 | ICSE | 9 | `'ic9'` | `ic9_` |
 
-## Content Status (as of 23 May 2026)
+## Content Status (as of 24 May 2026)
 | Class | Explain+Practice | Chapter Exams |
 |-------|-----------------|---------------|
 | CBSE 6 | 10 chapters ✓ | KV banks pending (Admin → Generate All) |
@@ -74,6 +74,7 @@
 ## Build Scripts (in public/)
 | Script | Class | Workers | Est. time (explain+practice) |
 |--------|-------|---------|------------------------------|
+| `build_class6.py` | CBSE 6 | — | — |
 | `build_icse_class6.py` | ICSE 6 | 5 parallel | ~20 min |
 | `build_icse_class7.py` | ICSE 7 | Sequential | ~5 hrs |
 | `build_icse_class8.py` | ICSE 8 | 5 parallel | ~18 min |
@@ -91,7 +92,8 @@
 ### Admin Panel Key Behaviours
 - **Board detection in Questions tab:** `String(qbActiveClass).charAt(0)==='i'` → icse, else cbse
 - **ICSE class number extraction:** `String(qbActiveClass).slice(2)` → '6','7','8','9'
-- **Student tab:** Shows picker of all registered students → click → dynamic progress display
+- **Student tab:** Shows picker of all registered students → click → dynamic progress display with per-chapter ↗ open buttons
+- **Users tab row buttons:** Explain/Practice/Chapter Exam "Open" buttons resolve to **first built page** for that student's class (via `ALL_CLASS_CH[classKey]`), NOT syllabus
 - **Users sync:** Auto-loads from D1 on login; "☁ Load from D1" button on Dashboard + Users tab
 - **Logs tab:** Fetches break + error logs from D1 (`get_logs` action); student filter dropdown
 
@@ -120,6 +122,16 @@
 ## Exam Pages (topic-exam, sampurna)
 - Both read `board` exclusively from URL params — never from localStorage
 - Admin buttons must include `&board=cbse` or `&board=icse` in the URL
+
+## Practice Pages — Rishika Avatar (all 137 pages, CBSE + ICSE)
+- Right panel: `rishika-panel` div with speech bubble + `<img id="rishika-img">` + copy note
+- Images in `/images/rishika/sprites/`: Good Morning.png, Observing.png, Naughty.png, Celebrating.png, Angry.png
+- **Image mapping:** greeting→Good Morning, neutral→Observing, taunt→Naughty, celebrate→Celebrating, angry→Angry
+- **Behaviour:** page load shows Good Morning 4s → Observing; correct→Celebrating 3s; wrong→Naughty 3s; 5-min break timeout→Angry 6s
+- `setRishika(expr, txt)`: `angry/break`→`rAngry()`, `celebrate/praise`→`rHappy()`, `thinking/disappointed`→`rThink()`
+- TTS: browser `speechSynthesis`, female voice list (`Riya,Heera,Priya...`), pitch 1.15, regex fallback for female voices
+- Class 7/9 use external `rishi-core.js` + minified inline TTS; Class 6/8/ICSE use multi-line inline TTS
+- **exam.html has NO avatar** (removed 24 May 2026) — 2-column layout only
 
 ## ICSE Explain/Practice Page Specifics
 - `CHAP_ID = 'ic6_N'` / `'ic7_N'` / `'ic8_N'` / `'ic9_N'` (string, not integer)
