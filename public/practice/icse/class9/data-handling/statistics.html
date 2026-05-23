@@ -110,10 +110,9 @@ body{font-family:'Nunito',sans-serif;background:#0d0d1a;min-height:100vh;color:#
 .next-btn.show{display:block;}
 /* ─ RIGHT PANEL ─ */
 .right-panel{display:flex;flex-direction:column;gap:14px;}
-.rishika-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:16px;text-align:center;}
-.rishika-face{font-size:72px;margin-bottom:8px;transition:.3s;display:inline-block;}
-.rishika-name-tag{font-size:11px;letter-spacing:2px;color:rgba(255,215,0,.7);text-transform:uppercase;margin-bottom:6px;}
-.rishika-bubble{background:rgba(255,215,0,.08);border-radius:12px;padding:10px 14px;font-size:13px;line-height:1.5;min-height:48px;border:1px solid rgba(255,215,0,.15);}
+.rishika-card{display:none;}
+.rishika-float{position:fixed;bottom:24px;left:20px;z-index:150;pointer-events:none;width:108px;}
+.rishika-bubble-float{background:rgba(10,10,26,0.88);border:1px solid rgba(255,215,0,0.22);border-radius:10px;padding:7px 10px;font-size:11px;color:rgba(255,215,0,.9);font-family:'Nunito',sans-serif;font-weight:700;line-height:1.4;margin-bottom:6px;}
 .rough-card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:16px;flex:1;}
 .rough-title{font-size:12px;text-transform:uppercase;letter-spacing:2px;color:rgba(255,255,255,.3);margin-bottom:8px;}
 .rough-area{width:100%;min-height:280px;background:#f8f5ec;color:#333;border-radius:10px;padding:14px;font-family:'Courier New',monospace;font-size:14px;line-height:1.8;border:none;outline:none;resize:vertical;}
@@ -231,11 +230,6 @@ body{font-family:'Nunito',sans-serif;background:#0d0d1a;min-height:100vh;color:#
 
   <!-- RIGHT PANEL -->
   <div class="right-panel">
-    <div class="rishika-card">
-      <div class="rishika-name-tag">Rishika</div>
-      <div id="rishika-avatar"></div>
-      <div class="rishika-bubble" id="rishikaBubble">Getting ready for your practice session! 🎯</div>
-    </div>
     <div class="rough-card">
       <div class="rough-title">📝 Rough Work</div>
       <textarea class="rough-area" placeholder="Do all working here..."></textarea>
@@ -934,6 +928,13 @@ var RISHI_SPRITES = {
     fps:5, loop:false, holdMs:2000,
     glow:'0 0 25px 6px rgba(225,29,72,0.35)', border:'#f87171'
   },
+  neutral: {
+    file: '/images/rishika/sprites/neutral-talking.png',
+    cols:6, rows:2, fw:256, fh:512,
+    seq:[[0,0]],
+    fps:1, loop:true, holdMs:0,
+    glow:'none', border:'transparent'
+  },
   talking: {
     file: '/images/rishika/sprites/neutral-talking.png',
     cols:6, rows:2, fw:256, fh:512,
@@ -948,7 +949,7 @@ var _rCanvas = null, _rCtx = null;
 var _rCurName = null, _rSeqIdx = 0, _rFrameTimer = null;
 var _rImgs = {};
 var _rLoaded = 0, _rTotal = 0;
-var _rDW = 200, _rDH = 220;
+var _rDW = 108, _rDH = 118;
 
 function rInit() {
   var container = document.getElementById('rishika-avatar');
@@ -957,7 +958,7 @@ function rInit() {
   _rCanvas = document.createElement('canvas');
   _rCanvas.width  = _rDW;
   _rCanvas.height = _rDH;
-  _rCanvas.style.cssText = 'border-radius:12px;transition:box-shadow .3s;display:block;margin:0 auto;';
+  _rCanvas.style.cssText = 'border-radius:14px;display:block;width:100%;';
   container.appendChild(_rCanvas);
   _rCtx = _rCanvas.getContext('2d');
 
@@ -972,13 +973,13 @@ function rInit() {
     img.onload = function() {
       _rLoaded++;
       if (_rLoaded === _rTotal) {
-        _rPlay('talking'); // All images ready — start
+        _rPlay('neutral'); // All images ready — start
       }
     };
     img.onerror = function() {
       _rLoaded++;
       if (_rLoaded === _rTotal) {
-        _rPlay('talking');
+        _rPlay('neutral');
       }
     };
     img.src = RISHI_SPRITES[k].file;
@@ -1004,8 +1005,8 @@ function _rPlay(name) {
         _rSeqIdx = 0;
       } else {
         _rStop();
-        if (name !== 'talking') {
-          setTimeout(function() { _rPlay('talking'); }, s.holdMs || 1000);
+        if (name !== 'talking' && name !== 'neutral') {
+          setTimeout(function() { _rPlay('neutral'); }, s.holdMs || 1000);
         }
         return;
       }
@@ -1034,9 +1035,14 @@ function _rStop() {
 function rHappy()        { _rPlay('praise'); }
 function rCelebrate()    { _rPlay('celebrate'); }
 function rThink()        { /* keep current */ }
-function rStartTalk(len) { _rPlay('talking'); }
+function rStartTalk(len) { /* TTS speaks — avatar stays still */ }
 function rStopTalk()     { /* keep talking loop */ }
 
 </script>
+<!-- Rishika floating observer -->
+<div class="rishika-float">
+  <div class="rishika-bubble-float" id="rishikaBubble">Ready! 🎯</div>
+  <div id="rishika-avatar"></div>
+</div>
 </body>
 </html>
