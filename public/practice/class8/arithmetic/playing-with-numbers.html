@@ -277,6 +277,7 @@ var RISHI_LEGACY_KEYS = {
    If chapter not in parent's plan → redirect to syllabus.
    ─────────────────────────────────────────── */
 function rishiCheckPlan(chId) {
+  if (sessionStorage.getItem('rishi_admin_bypass') === '1') return; /* Admin bypass */
   var active = {};
   try { active = JSON.parse(localStorage.getItem("rishi_active_chapters") || "{}"); } catch(e) {}
 
@@ -474,7 +475,7 @@ function G(id){return document.getElementById(id);}
 /* ── INIT ── */
 function init(){
   rishiCheckPlan(CHAP_ID);
-  if(localStorage.getItem('rishi_admin_bypass')!=='1' && !rishiIsExplainDone(CHAP_ID)){window.location.href='/syllabus.html';return;}
+  if(sessionStorage.getItem('rishi_admin_bypass')!=='1' && !rishiIsExplainDone(CHAP_ID)){window.location.href='/syllabus.html';return;}
   coins=parseInt(localStorage.getItem('rishi_coins')||'0');
   updateCoins();
   answered=new Array(QB.length).fill(null);
