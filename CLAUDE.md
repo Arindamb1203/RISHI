@@ -59,14 +59,14 @@
 | ICSE | 8 | `'ic8'` | `ic8_` |
 | ICSE | 9 | `'ic9'` | `ic9_` |
 
-## Content Status (as of 24 May 2026)
+## Content Status (as of 27 May 2026)
 | Class | Explain+Practice | Chapter Exams |
 |-------|-----------------|---------------|
-| CBSE 6 | 10 chapters ✓ | KV banks pending (Admin → Generate All) |
+| CBSE 6 | 10 chapters ✓ | Done ✓ (KV confirmed 27 May 2026) |
 | CBSE 7 | 8 chapters ✓ | Done ✓ |
 | CBSE 8 | 16 chapters ✓ (Ch6 Squares, Ch7 Cubes missing) | Done ✓ |
 | CBSE 9 | 12 chapters ✓ | Done ✓ |
-| ICSE 6 | 28 chapters ✓ | 22/28 done (6 pending quota refill: hcf-and-lcm, decimal-fractions, framing-algebraic-expressions, the-circle, symmetry, perimeter-and-area) |
+| ICSE 6 | 28 chapters ✓ | Done ✓ (all 28 in KV, confirmed 27 May 2026) |
 | ICSE 7 | 22 chapters ✓ | Done ✓ |
 | ICSE 8 | 21 chapters ✓ | Done ✓ |
 | ICSE 9 | 20 chapters ✓ | Done ✓ |
