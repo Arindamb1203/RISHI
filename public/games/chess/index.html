@@ -148,7 +148,6 @@ function showHint(){
   if(state.hints.indexOf(state.idx) === -1) state.hints.push(state.idx);
   saveState();
   setFeedback('Hint: ' + puz.hint, 'fb-hint');
-  highlightSquare(puz.move.slice(0,2));
 }
 
 function nextPuzzle(){
