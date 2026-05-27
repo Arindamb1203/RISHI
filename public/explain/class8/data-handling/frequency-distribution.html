@@ -168,8 +168,9 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
     <div class="break-opts">
       <button class="break-opt" onclick="startBreak('Water')">&#128167; Water</button>
       <button class="break-opt" onclick="startBreak('Washroom')">&#128701; Washroom</button>
-      <button class="break-opt" onclick="startBreak('Physical')">&#127939; Physical</button>
+      <button class="break-opt" onclick="startBreak('Offline Activity')">&#127939; Offline Activity</button>
     </div>
+      <button class="break-opt" onclick="openGames()">&#127918; Games</button>
     <button class="break-opt" style="color:var(--soft)" onclick="closeBreak()">Cancel</button>
   </div>
 </div>
@@ -614,5 +615,7 @@ function mathUpdate(){
 
 </script>
 <script src="/explain-helper.js"></script>
+
+function openGames(){closeBreak();var url='/games/games.html?from='+encodeURIComponent(location.pathname+location.search);location.href=url;}
 </body>
 </html>

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>2048 — RISHI Games</title>
+  <link href="style/main.css" rel="stylesheet" type="text/css">
+  <style>
+    body{background:#fdf6ec !important}
+    .container{max-width:520px}
+    h1.title{color:#b8860b !important}
+    .score-container,.best-container{background:#b8860b !important}
+    .game-container{background:#c9aa71 !important}
+    .grid-cell{background:rgba(238,228,218,.35) !important}
+    .tile-2{background:#eee4da;color:#776e65}
+    .tile-4{background:#ede0c8;color:#776e65}
+    .tile-8{background:#f2b179;color:#f9f6f2}
+    .tile-16{background:#f59563;color:#f9f6f2}
+    .tile-32{background:#f67c5f;color:#f9f6f2}
+    .tile-64{background:#f65e3b;color:#f9f6f2}
+    .tile-128,.tile-256,.tile-512{background:#edcf72;color:#f9f6f2}
+    .tile-1024,.tile-2048{background:#b8860b;color:#f9f6f2}
+    .coin-toast{position:fixed;top:60px;left:50%;transform:translateX(-50%);background:#fff8e8;border:2px solid #b8860b;border-radius:20px;padding:8px 20px;font-family:Nunito,sans-serif;font-weight:900;font-size:16px;color:#7a6000;z-index:9999;animation:fadeUp 2s forwards}
+    @keyframes fadeUp{0%{opacity:1;top:60px}80%{opacity:1}100%{opacity:0;top:20px}}
+  </style>
+  <link rel="shortcut icon" href="favicon.ico">
+  <link rel="apple-touch-icon" href="meta/apple-touch-icon.png">
+  <link rel="apple-touch-startup-image" href="meta/apple-touch-startup-image-640x1096.png" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)"> <!-- iPhone 5+ -->
+  <link rel="apple-touch-startup-image" href="meta/apple-touch-startup-image-640x920.png"  media="(device-width: 320px) and (device-height: 480px) and (-webkit-device-pixel-ratio: 2)"> <!-- iPhone, retina -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0, maximum-scale=1, user-scalable=no, minimal-ui">
+</head>
+<body>
+  <div class="container">
+    <div class="heading">
+      <h1 class="title">2048</h1>
+      <div class="scores-container">
+        <div class="score-container">0</div>
+        <div class="best-container">0</div>
+      </div>
+    </div>
+
+    <div class="above-game">
+      <p class="game-intro">Join the numbers and get to the <strong>2048 tile!</strong></p>
+      <a class="restart-button">New Game</a>
+    </div>
+
+    <div class="game-container">
+      <div class="game-message">
+        <p></p>
+        <div class="lower">
+	        <a class="keep-playing-button">Keep going</a>
+          <a class="retry-button">Try again</a>
+        </div>
+      </div>
+
+      <div class="grid-container">
+        <div class="grid-row">
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+        </div>
+        <div class="grid-row">
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+        </div>
+        <div class="grid-row">
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+        </div>
+        <div class="grid-row">
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+        </div>
+      </div>
+
+      <div class="tile-container">
+
+      </div>
+    </div>
+
+    <p class="game-explanation">
+      <strong class="important">How to play:</strong> Use your <strong>arrow keys</strong> to move the tiles. When two tiles with the same number touch, they <strong>merge into one!</strong>
+    </p>
+    <p style="text-align:center;font-family:Nunito,sans-serif;font-size:13px;color:#b8860b;margin-top:10px">
+      🪙 512 tile = +20 coins &nbsp;|&nbsp; 1024 = +50 coins &nbsp;|&nbsp; 2048 = +100 coins
+    </p>
+  </div>
+
+  <script src="js/bind_polyfill.js"></script>
+  <script src="js/classlist_polyfill.js"></script>
+  <script src="js/animframe_polyfill.js"></script>
+  <script src="js/keyboard_input_manager.js"></script>
+  <script src="js/html_actuator.js"></script>
+  <script src="js/grid.js"></script>
+  <script src="js/tile.js"></script>
+  <script src="js/local_storage_manager.js"></script>
+  <script src="js/game_manager.js"></script>
+  <script src="js/application.js"></script>
+  <script src="../../rishi-core.js"></script>
+  <script>
+  /* ── RISHI coin milestones ── */
+  var _2048milestones = {512:20, 1024:50, 2048:100};
+  var _2048earned = {};
+  try { _2048earned = JSON.parse(localStorage.getItem('rishi_2048_milestones')||'{}'); } catch(e){}
+
+  function _check2048Tile(val){
+    if(_2048milestones[val] && !_2048earned[val]){
+      _2048earned[val] = true;
+      localStorage.setItem('rishi_2048_milestones', JSON.stringify(_2048earned));
+      var coins = _2048milestones[val];
+      if(typeof rishiAddCoins==='function') rishiAddCoins(coins);
+      var t = document.createElement('div');
+      t.className = 'coin-toast';
+      t.textContent = val+' tile! +'+coins+' coins earned 🪙';
+      document.body.appendChild(t);
+      setTimeout(function(){ if(t.parentNode) t.parentNode.removeChild(t); }, 2200);
+    }
+  }
+
+  /* Observe DOM for new tiles reaching milestones */
+  var _obs = new MutationObserver(function(muts){
+    muts.forEach(function(m){
+      m.addedNodes.forEach(function(n){
+        if(n.classList && n.classList.contains('tile')){
+          var classes = Array.from(n.classList);
+          classes.forEach(function(c){
+            var m2 = c.match(/^tile-(\d+)$/);
+            if(m2) _check2048Tile(parseInt(m2[1]));
+          });
+        }
+      });
+    });
+  });
+  window.addEventListener('load', function(){
+    var tc = document.querySelector('.tile-container');
+    if(tc) _obs.observe(tc, {childList:true, subtree:true});
+  });
+  </script>
+</body>
+</html>

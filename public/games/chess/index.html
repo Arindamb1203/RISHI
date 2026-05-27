@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Chess Puzzles — RISHI</title>
+<link rel="stylesheet" href="chessboard.min.css">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#fdf6ec;font-family:'Nunito',sans-serif;color:#2d2a22;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:16px}
+h1{font-size:20px;font-weight:900;color:#b8860b;letter-spacing:1px;margin-bottom:4px}
+.sub{font-size:13px;color:#888;margin-bottom:16px}
+#board{width:min(360px,90vw);border:3px solid #b8860b;border-radius:4px;box-shadow:0 4px 20px rgba(0,0,0,.15)}
+.info-row{display:flex;gap:12px;align-items:center;margin:14px 0 8px;flex-wrap:wrap;justify-content:center}
+.pill{background:#fff8e8;border:1.5px solid #e2c96e;border-radius:20px;padding:5px 14px;font-size:13px;font-weight:700;color:#7a6000}
+#feedback{min-height:32px;font-size:15px;font-weight:800;text-align:center;padding:6px 12px;border-radius:10px;margin-bottom:8px;transition:all .3s}
+.fb-correct{background:#d4edda;color:#1a6b2a}
+.fb-wrong{background:#fde8e8;color:#8b1a1a}
+.fb-hint{background:#fff3cd;color:#7a5a00}
+.btn-row{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:8px}
+button{font-family:'Nunito',sans-serif;font-weight:800;font-size:14px;padding:9px 20px;border-radius:22px;border:none;cursor:pointer;transition:all .2s}
+#btnHint{background:#fff3cd;color:#7a5a00;border:2px solid #e2c96e}
+#btnNext{background:#b8860b;color:#fff}
+#btnNext:disabled{background:#ccc;cursor:not-allowed}
+.progress-bar{width:min(360px,90vw);height:8px;background:#f0e4c4;border-radius:4px;margin-bottom:4px;overflow:hidden}
+.progress-fill{height:100%;background:linear-gradient(90deg,#f0a500,#b8860b);border-radius:4px;transition:width .4s}
+.puzzle-counter{font-size:12px;color:#aaa;margin-bottom:12px}
+.turn-badge{font-size:12px;font-weight:700;padding:3px 10px;border-radius:10px;background:#e8f4ff;color:#1a5a8b;border:1px solid #90c0e8}
+#moveHist{font-size:12px;color:#999;min-height:18px;text-align:center;margin-bottom:6px}
+.solved-badge{display:inline-block;background:#d4edda;color:#1a6b2a;border:1.5px solid #a3d9b1;border-radius:20px;padding:4px 14px;font-size:12px;font-weight:800;margin-left:8px}
+</style>
+</head>
+<body>
+<h1>♟ Chess Puzzles</h1>
+<div class="sub">Find the best move — earn coins!</div>
+
+<div class="progress-bar"><div class="progress-fill" id="progFill"></div></div>
+<div class="puzzle-counter" id="puzzleCounter">Puzzle 1 of 30</div>
+
+<div id="board"></div>
+
+<div class="info-row">
+  <span class="pill" id="pillTurn">White to move</span>
+  <span class="pill" id="pillDiff">★☆☆ Beginner</span>
+  <span class="pill" id="pillCoins">+15 🪙</span>
+</div>
+
+<div id="feedback"></div>
+<div id="moveHist"></div>
+
+<div class="btn-row">
+  <button id="btnHint" onclick="showHint()">💡 Hint</button>
+  <button id="btnNext" onclick="nextPuzzle()" disabled>Next Puzzle ▶</button>
+</div>
+
+<script src="../../rishi-core.js"></script>
+<script src="chess.min.js"></script>
+<script src="chessboard.min.js"></script>
+<script>
+/* ── PUZZLE DATA ────────────────────────────────────────────
+   Each puzzle: { fen, moves (sequence of correct UCI moves),
+   turn ('w'|'b'), difficulty (1-3), hint }
+   Source: hand-curated beginner puzzles (mates in 1 or 2)
+   ─────────────────────────────────────────────────────────── */
+var PUZZLES = [
+  // Mates in 1 — beginner
+  {fen:'r1bqkb1r/pppp1ppp/2n2n2/4p2Q/2B1P3/8/PPPP1PPP/RNB1K1NR w KQkq - 4 4',moves:['h5f7'],turn:'w',difficulty:1,hint:'The queen and bishop aim at f7'},
+  {fen:'r1bqkbnr/pppp1ppp/2n5/4p3/2B1P3/5Q2/PPPP1PPP/RNB1K1NR w KQkq - 4 4',moves:['f3f7'],turn:'w',difficulty:1,hint:'Queen takes f7 — check and mate'},
+  {fen:'6k1/5ppp/8/8/8/8/5PPP/4R1K1 w - - 0 1',moves:['e1e8'],turn:'w',difficulty:1,hint:'Rook slides to the back rank'},
+  {fen:'4k3/4Q3/4K3/8/8/8/8/8 w - - 0 1',moves:['e7e8'],turn:'w',difficulty:1,hint:'Queen covers the escape square'},
+  {fen:'r5k1/5ppp/8/8/8/8/5PPP/3RR1K1 w - - 0 1',moves:['e1e8'],turn:'w',difficulty:1,hint:'Double rooks — one delivers the blow'},
+  {fen:'6k1/R7/6K1/8/8/8/8/8 w - - 0 1',moves:['a7a8'],turn:'w',difficulty:1,hint:'Rook to the back rank'},
+  {fen:'3k4/3Q4/3K4/8/8/8/8/8 w - - 0 1',moves:['d7d8'],turn:'w',difficulty:1,hint:'Queen delivers checkmate on d8'},
+  {fen:'2k5/2Q5/2K5/8/8/8/8/8 w - - 0 1',moves:['c7c8'],turn:'w',difficulty:1,hint:'Queen checkmates on c8'},
+  // Tactics — mates in 1 with pieces
+  {fen:'r1bk3r/ppp2ppp/2p5/4n3/2B5/8/PPP2PPP/RNB1K2R w KQ - 0 1',moves:['c4f7'],turn:'w',difficulty:1,hint:'Bishop check reveals the king'},
+  {fen:'5rk1/ppp2ppp/8/8/8/8/PPP2PPP/5RK1 w - - 0 1',moves:['f1f8'],turn:'w',difficulty:1,hint:'Rook swaps off and mates'},
+  // Intermediate — fork/pin
+  {fen:'r1b1kbnr/pppp1ppp/2n5/8/3qP3/5N2/PPP2PPP/RNBQKB1R w KQkq - 0 1',moves:['f3d4'],turn:'w',difficulty:2,hint:'Knight captures the queen — winning material'},
+  {fen:'r1bqk2r/pppp1ppp/2n2n2/2b1p3/2B1P3/2N2N2/PPPP1PPP/R1BQK2R w KQkq - 4 4',moves:['c4f7'],turn:'w',difficulty:2,hint:'Fried liver — bishop takes f7'},
+  {fen:'rnbqkb1r/ppp2ppp/4pn2/3p4/2PP4/5N2/PP2PPPP/RNBQKB1R w KQkq - 0 1',moves:['c4d5'],turn:'w',difficulty:2,hint:'Capture in the center — gain space and tempo'},
+  {fen:'r1bqkb1r/pppp1ppp/2n2n2/4p3/2B1P3/2N2N2/PPPP1PPP/R1BQK2R b KQkq - 3 3',moves:['f6e4'],turn:'b',difficulty:2,hint:'Knight fork — hits c3 and attacks center'},
+  {fen:'6k1/pp3ppp/2p5/8/8/2P3P1/PP3P1P/4R1K1 w - - 0 1',moves:['e1e8'],turn:'w',difficulty:2,hint:'Rook to the 8th rank wins immediately'},
+  {fen:'r3k2r/ppp2ppp/2n5/3q4/3P4/2P5/PP3PPP/R1BQK2R b KQkq - 0 1',moves:['d5h1'],turn:'b',difficulty:2,hint:'Queen swoops to the corner'},
+  {fen:'4r1k1/ppp2ppp/8/8/8/8/PPP2PPP/4R1K1 w - - 0 1',moves:['e1e8'],turn:'w',difficulty:2,hint:'Rook exchange on 8th rank'},
+  // Pins and skewers
+  {fen:'r1bqkb1r/pppp1ppp/2n5/4p3/4P3/5N2/PPPPBPPP/RNBQK2R b KQkq - 3 3',moves:['f8c5'],turn:'b',difficulty:2,hint:'Bishop develops and eyes the f2 square'},
+  {fen:'rnbqk2r/pppp1ppp/5n2/2b1p3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 4 4',moves:['c4f7'],turn:'w',difficulty:2,hint:'Traxler attack response — bishop sacs on f7'},
+  {fen:'r1b1kb1r/pppp1ppp/2n5/4p3/2B1P1n1/5N2/PPPP1PPP/RNBQK2R w KQkq - 6 4',moves:['c4f7'],turn:'w',difficulty:2,hint:'Sacrifice to expose the king'},
+  // Discovered attacks
+  {fen:'4k3/8/4K3/8/8/8/8/4R3 w - - 0 1',moves:['e1e8'],turn:'w',difficulty:1,hint:'Rook to 8th is checkmate with king support'},
+  {fen:'8/8/3k4/8/8/3K4/8/3R4 w - - 0 1',moves:['d1d6'],turn:'w',difficulty:1,hint:'Rook checks from d6'},
+  {fen:'8/8/8/4k3/4R3/4K3/8/8 w - - 0 1',moves:['e4e5'],turn:'w',difficulty:1,hint:'Rook checks, king has nowhere to go'},
+  // Endgame puzzles
+  {fen:'8/8/8/3k4/3P4/3K4/8/8 w - - 0 1',moves:['d4d5'],turn:'w',difficulty:2,hint:'Advance the pawn — king opposition matters'},
+  {fen:'8/5k2/8/8/8/8/5K2/5R2 w - - 0 1',moves:['f1f7'],turn:'w',difficulty:1,hint:'Rook drives the king back'},
+  {fen:'8/8/8/8/4k3/8/4PK2/8 w - - 0 1',moves:['e2e4'],turn:'w',difficulty:2,hint:'Advance the pawn with king in support'},
+  // More mates in 2
+  {fen:'r2qkb1r/ppp2ppp/2np1n2/4p3/2B1P3/2N2N2/PPPP1PPP/R1BQK2R w KQkq - 0 1',moves:['c4f7','e8f7'],turn:'w',difficulty:3,hint:'Sacrifice on f7 draws out the king — then what?'},
+  {fen:'r1bqkbnr/pppp1ppp/2n5/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq e6 0 3',moves:['f3g5','d8g5'],turn:'w',difficulty:3,hint:'Knight to g5 threatens f7 — how does black respond?'},
+  {fen:'rnb1kbnr/pppp1ppp/8/4p3/5PPq/8/PPPPP2P/RNBQKBNR w KQkq - 1 3',moves:['g2g3','h4e4'],turn:'w',difficulty:3,hint:'Drive the queen — but what does it land on?'},
+  {fen:'r1bqkb1r/pppp1Qpp/2n2n2/4p3/2B1P3/8/PPPP1PPP/RNB1K1NR b KQkq - 0 4',moves:['e8e7','f7e6'],turn:'b',difficulty:3,hint:'King moves, but the queen follows...'}
+];
+
+/* ── STATE ─── */
+var STATE_KEY = 'rishi_chess_state';
+var state = { idx: 0, solved: [], hintsUsed: [] };
+try { var s = JSON.parse(localStorage.getItem(STATE_KEY)||'null'); if(s&&s.idx!==undefined) state=s; } catch(e){}
+
+var chess, board, puz, moveSeq, moveStep, puzzleDone;
+
+function saveState(){ localStorage.setItem(STATE_KEY, JSON.stringify(state)); }
+
+/* ── INIT ─── */
+window.onload = function(){
+  loadPuzzle(state.idx);
+};
+
+function loadPuzzle(idx){
+  state.idx = idx;
+  saveState();
+  puz = PUZZLES[idx];
+  moveSeq = puz.moves.slice();
+  moveStep = 0;
+  puzzleDone = state.solved.indexOf(idx) !== -1;
+
+  chess = new Chess(puz.fen);
+
+  var cfg = {
+    draggable: !puzzleDone,
+    position: puz.fen,
+    pieceTheme: 'img/chesspieces/wikipedia/{piece}.png',
+    orientation: puz.turn === 'w' ? 'white' : 'black',
+    onDragStart: onDragStart,
+    onDrop: onDrop,
+    onSnapEnd: onSnapEnd
+  };
+  if(board) board.destroy();
+  board = Chessboard('board', cfg);
+
+  document.getElementById('pillTurn').textContent = puz.turn==='w' ? '⬜ White to move' : '⬛ Black to move';
+  var stars = puz.difficulty===1?'★☆☆ Beginner':puz.difficulty===2?'★★☆ Intermediate':'★★★ Advanced';
+  document.getElementById('pillDiff').textContent = stars;
+  var already = state.solved.indexOf(idx)!==-1;
+  document.getElementById('pillCoins').textContent = already ? '✓ Solved' : (puz.difficulty===3?'+30 🪙':'+15 🪙');
+  document.getElementById('progFill').style.width = (state.solved.length/PUZZLES.length*100)+'%';
+  document.getElementById('puzzleCounter').textContent = 'Puzzle '+(idx+1)+' of '+PUZZLES.length+' · Solved: '+state.solved.length;
+  document.getElementById('moveHist').textContent = '';
+  document.getElementById('btnNext').disabled = !puzzleDone;
+  setFeedback('', '');
+
+  if(puzzleDone){
+    setFeedback('Already solved! ✓', 'fb-correct');
+  }
+}
+
+function onDragStart(src, piece){
+  if(puzzleDone) return false;
+  if(chess.game_over()) return false;
+  if(puz.turn==='w' && piece.search(/^b/)!==-1) return false;
+  if(puz.turn==='b' && piece.search(/^w/)!==-1) return false;
+  if(chess.turn()==='w' && piece.search(/^b/)!==-1) return false;
+  if(chess.turn()==='b' && piece.search(/^w/)!==-1) return false;
+}
+
+function onDrop(src, tgt){
+  if(puzzleDone) return 'snapback';
+  var move = chess.move({from:src,to:tgt,promotion:'q'});
+  if(!move) return 'snapback';
+
+  var expected = moveSeq[moveStep];
+  var made = move.from+move.to+(move.promotion||'');
+
+  if(made===expected || made===expected.replace('q','')) {
+    moveStep++;
+    document.getElementById('moveHist').textContent = 'Move '+moveStep+': '+move.san;
+    if(moveStep >= moveSeq.length) {
+      puzzleSolved();
+    } else {
+      setFeedback('Correct! Now find the next move...', 'fb-hint');
+      setTimeout(function(){
+        var opp = chess.moves({verbose:true});
+        if(opp.length>0){
+          var oppUCI = moveSeq[moveStep];
+          var oppMove = chess.move({from:oppUCI.slice(0,2),to:oppUCI.slice(2,4),promotion:'q'});
+          if(oppMove){ board.position(chess.fen()); moveStep++; }
+        }
+      }, 600);
+    }
+  } else {
+    chess.undo();
+    setFeedback('Not quite — try again!', 'fb-wrong');
+    return 'snapback';
+  }
+}
+
+function onSnapEnd(){ board.position(chess.fen()); }
+
+function puzzleSolved(){
+  puzzleDone = true;
+  if(state.solved.indexOf(state.idx)===-1){
+    state.solved.push(state.idx);
+    saveState();
+    var coins = puz.difficulty===3?30:15;
+    if(typeof rishiAddCoins==='function') rishiAddCoins(coins);
+    setFeedback('Brilliant! +'+coins+' coins earned 🪙', 'fb-correct');
+  } else {
+    setFeedback('Solved! ✓', 'fb-correct');
+  }
+  board.draggable = false;
+  document.getElementById('btnNext').disabled = false;
+  document.getElementById('pillCoins').textContent = '✓ Solved';
+  document.getElementById('progFill').style.width = (state.solved.length/PUZZLES.length*100)+'%';
+  document.getElementById('puzzleCounter').textContent = 'Puzzle '+(state.idx+1)+' of '+PUZZLES.length+' · Solved: '+state.solved.length;
+}
+
+function showHint(){
+  if(state.hintsUsed.indexOf(state.idx)===-1) state.hintsUsed.push(state.idx);
+  saveState();
+  setFeedback('Hint: '+puz.hint, 'fb-hint');
+}
+
+function nextPuzzle(){
+  var next = (state.idx+1) % PUZZLES.length;
+  loadPuzzle(next);
+}
+
+function setFeedback(msg, cls){
+  var el = document.getElementById('feedback');
+  el.textContent = msg;
+  el.className = cls;
+}
+</script>
+</body>
+</html>

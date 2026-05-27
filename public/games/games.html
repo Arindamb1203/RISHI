@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Games — RISHI</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#fdf6ec;font-family:'Nunito',sans-serif;color:#2d2a22;min-height:100vh}
+
+/* ── GAME PICKER ── */
+#picker{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:24px;gap:16px}
+h1{font-size:22px;font-weight:900;color:#b8860b;letter-spacing:1px}
+.sub{font-size:13px;color:#888;margin-bottom:8px;text-align:center}
+.coins-row{background:#fff8e8;border:2px solid #e2c96e;border-radius:20px;padding:8px 20px;font-weight:900;font-size:16px;color:#7a6000;margin-bottom:4px}
+.timer-row{font-size:13px;color:#aaa;margin-bottom:12px;text-align:center}
+
+.game-cards{display:flex;flex-wrap:wrap;gap:16px;justify-content:center;max-width:700px}
+.game-card{background:#fff8e8;border:2.5px solid #e2c96e;border-radius:18px;padding:20px 24px;width:200px;text-align:center;cursor:pointer;transition:all .2s;position:relative}
+.game-card:hover{border-color:#b8860b;transform:translateY(-3px);box-shadow:0 6px 20px rgba(184,134,11,.2)}
+.game-card.locked{opacity:.6;cursor:not-allowed}
+.game-card.locked:hover{transform:none;box-shadow:none}
+.gc-icon{font-size:40px;margin-bottom:8px}
+.gc-name{font-size:16px;font-weight:900;color:#2d2a22;margin-bottom:4px}
+.gc-cost{font-size:12px;color:#b8860b;font-weight:700}
+.gc-desc{font-size:11px;color:#999;margin-top:4px}
+.lock-badge{position:absolute;top:10px;right:10px;background:#fee;border:1px solid #f88;border-radius:8px;padding:2px 7px;font-size:10px;font-weight:800;color:#c00}
+
+/* ── GAME FRAME ── */
+#gameView{display:none;flex-direction:column;height:100vh}
+.game-topbar{background:#fff8e8;border-bottom:2px solid #e2c96e;padding:8px 16px;display:flex;align-items:center;gap:12px;flex-shrink:0}
+.game-topbar-title{font-weight:900;font-size:15px;color:#2d2a22;flex:1}
+.timer-pill{background:#fdf3dc;border:1.5px solid #e2c96e;border-radius:20px;padding:4px 14px;font-size:14px;font-weight:900;color:#7a6000;font-family:'Courier New',monospace}
+.timer-pill.urgent{background:#fde8e8;border-color:#f88;color:#c00;animation:pulse .8s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.6}}
+.btn-end{background:#e74c3c;color:#fff;border:none;border-radius:20px;padding:6px 16px;font-family:Nunito,sans-serif;font-weight:800;font-size:13px;cursor:pointer}
+#gameFrame{flex:1;border:none;width:100%;background:#fdf6ec}
+
+/* ── TIME UP OVERLAY ── */
+#timeUp{display:none;position:fixed;inset:0;background:rgba(253,246,236,.97);z-index:999;flex-direction:column;align-items:center;justify-content:center;gap:16px;text-align:center;padding:24px}
+#timeUp h2{font-size:26px;font-weight:900;color:#b8860b}
+#timeUp p{font-size:15px;color:#666;max-width:340px}
+#timeUp button{background:#b8860b;color:#fff;border:none;border-radius:24px;padding:12px 32px;font-family:Nunito,sans-serif;font-weight:900;font-size:16px;cursor:pointer}
+
+/* ── NO COINS OVERLAY ── */
+#noCoins{display:none;position:fixed;inset:0;background:rgba(253,246,236,.97);z-index:999;flex-direction:column;align-items:center;justify-content:center;gap:14px;text-align:center;padding:24px}
+#noCoins h2{font-size:22px;font-weight:900;color:#c0392b}
+#noCoins p{font-size:14px;color:#666;max-width:340px}
+#noCoins button{background:#b8860b;color:#fff;border:none;border-radius:24px;padding:10px 28px;font-family:Nunito,sans-serif;font-weight:900;font-size:15px;cursor:pointer}
+</style>
+</head>
+<body>
+
+<!-- GAME PICKER -->
+<div id="picker">
+  <h1>🎮 Games</h1>
+  <div class="sub">Spend coins to play. Earn coins by solving practice questions.</div>
+  <div class="coins-row">🪙 You have <span id="coinDisplay">0</span> coins</div>
+  <div class="timer-row">⏱ Today&#39;s play time remaining: <strong id="timeDisplay">15:00</strong></div>
+  <div class="game-cards">
+    <div class="game-card" id="card-chess" onclick="tryPlay('chess')">
+      <div class="gc-icon">♟</div>
+      <div class="gc-name">Chess Puzzles</div>
+      <div class="gc-cost">15 coins per session</div>
+      <div class="gc-desc">Solve puzzles. Earn +15–30 coins for each solved puzzle.</div>
+    </div>
+    <div class="game-card" id="card-2048" onclick="tryPlay('2048')">
+      <div class="gc-icon">🔢</div>
+      <div class="gc-name">2048</div>
+      <div class="gc-cost">15 coins per session</div>
+      <div class="gc-desc">Merge tiles. Reach 512/1024/2048 for bonus coins!</div>
+    </div>
+    <div class="game-card" id="card-kingdom" onclick="tryPlay('kingdom')">
+      <div class="gc-icon">🏰</div>
+      <div class="gc-name">Kingdom Rush</div>
+      <div class="gc-cost">25 coins per session</div>
+      <div class="gc-desc">Tower defence strategy game.</div>
+    </div>
+  </div>
+  <div style="margin-top:8px">
+    <button onclick="goBack()" style="background:none;border:2px solid #e2c96e;border-radius:20px;padding:8px 20px;font-family:Nunito,sans-serif;font-weight:800;font-size:14px;color:#7a6000;cursor:pointer">&#8592; Back to Study</button>
+  </div>
+</div>
+
+<!-- GAME VIEW -->
+<div id="gameView">
+  <div class="game-topbar">
+    <span class="game-topbar-title" id="gameTitle">Game</span>
+    <span class="timer-pill" id="timerPill">15:00</span>
+    <button class="btn-end" onclick="endGame()">&#10005; End Game</button>
+  </div>
+  <iframe id="gameFrame" src="" allow="autoplay" sandbox="allow-scripts allow-same-origin allow-forms"></iframe>
+</div>
+
+<!-- TIME UP -->
+<div id="timeUp">
+  <div style="font-size:48px">⏰</div>
+  <h2>Time&#39;s Up!</h2>
+  <p>Your 15-minute daily play time is over. Come back tomorrow, or earn more coins and keep studying!</p>
+  <button onclick="goBack()">Back to Study &#8592;</button>
+</div>
+
+<!-- NOT ENOUGH COINS -->
+<div id="noCoins">
+  <div style="font-size:48px">🪙</div>
+  <h2>Not Enough Coins</h2>
+  <p id="noCoinsMsg">You need more coins to play. Answer practice questions correctly to earn coins!</p>
+  <button onclick="showPicker()">&#8592; Pick Another Game</button>
+</div>
+
+<script src="../rishi-core.js"></script>
+<script>
+var GAME_COSTS = {chess:15, '2048':15, kingdom:25};
+var GAME_URLS  = {
+  chess:   '/games/chess/index.html',
+  '2048':  '/games/2048/index.html',
+  kingdom: 'https://www.miniplay.com/embed/kingdom-rush'
+};
+var GAME_NAMES = {chess:'♟ Chess Puzzles', '2048':'🔢 2048', kingdom:'🏰 Kingdom Rush'};
+var DAILY_MAX  = 15 * 60; // 900 seconds
+
+var _timerInterval = null;
+var _secsLeft = 0;
+var _activeGame = null;
+
+/* ── daily time tracking ── */
+function todayKey(){ return 'rishi_game_time_' + new Date().toISOString().slice(0,10); }
+function getSecsUsedToday(){ return parseInt(localStorage.getItem(todayKey())||'0'); }
+function addSecsUsed(n){ var used = getSecsUsedToday()+n; localStorage.setItem(todayKey(), String(used)); }
+function getSecsRemaining(){ return Math.max(0, DAILY_MAX - getSecsUsedToday()); }
+
+/* ── init ── */
+window.onload = function(){
+  updatePickerUI();
+};
+
+function updatePickerUI(){
+  var coins = typeof rishiGetCoins==='function' ? rishiGetCoins() : parseInt(localStorage.getItem('rishi_coins')||'0');
+  document.getElementById('coinDisplay').textContent = coins;
+  var rem = getSecsRemaining();
+  document.getElementById('timeDisplay').textContent = fmtTime(rem);
+  // mark locked cards
+  ['chess','2048','kingdom'].forEach(function(g){
+    var card = document.getElementById('card-'+g);
+    var badge = card.querySelector('.lock-badge');
+    if(badge) badge.remove();
+    if(coins < GAME_COSTS[g]){
+      card.classList.add('locked');
+      var b = document.createElement('div'); b.className='lock-badge'; b.textContent='Need '+GAME_COSTS[g]+' 🪙';
+      card.appendChild(b);
+    } else {
+      card.classList.remove('locked');
+    }
+    if(rem<=0){
+      card.classList.add('locked');
+      var b2=document.createElement('div'); if(!card.querySelector('.lock-badge')){ b2.className='lock-badge'; b2.textContent='Time up'; card.appendChild(b2); }
+    }
+  });
+}
+
+function tryPlay(game){
+  var coins = typeof rishiGetCoins==='function' ? rishiGetCoins() : parseInt(localStorage.getItem('rishi_coins')||'0');
+  var cost = GAME_COSTS[game];
+  var rem = getSecsRemaining();
+
+  if(rem <= 0){
+    showTimeUp(); return;
+  }
+  if(coins < cost){
+    document.getElementById('noCoinsMsg').textContent = 'You need '+cost+' coins to play '+GAME_NAMES[game]+'. You have '+coins+' coins. Answer practice questions to earn more!';
+    document.getElementById('noCoins').style.display='flex';
+    return;
+  }
+
+  // deduct coins
+  var newCoins = coins - cost;
+  localStorage.setItem('rishi_coins', String(newCoins));
+
+  startGame(game, rem);
+}
+
+function startGame(game, secsAvail){
+  _activeGame = game;
+  _secsLeft = secsAvail;
+
+  document.getElementById('picker').style.display='none';
+  document.getElementById('gameView').style.display='flex';
+  document.getElementById('gameTitle').textContent = GAME_NAMES[game];
+  document.getElementById('gameFrame').src = GAME_URLS[game];
+  updateTimerPill();
+
+  _timerInterval = setInterval(function(){
+    _secsLeft--;
+    addSecsUsed(1);
+    updateTimerPill();
+    if(_secsLeft <= 0){
+      clearInterval(_timerInterval);
+      document.getElementById('gameFrame').src = 'about:blank';
+      document.getElementById('gameView').style.display='none';
+      showTimeUp();
+    }
+  }, 1000);
+}
+
+function updateTimerPill(){
+  var pill = document.getElementById('timerPill');
+  pill.textContent = fmtTime(_secsLeft);
+  pill.className = 'timer-pill' + (_secsLeft <= 120 ? ' urgent' : '');
+}
+
+function endGame(){
+  if(_timerInterval) clearInterval(_timerInterval);
+  document.getElementById('gameFrame').src = 'about:blank';
+  document.getElementById('gameView').style.display='none';
+  showPicker();
+}
+
+function showPicker(){
+  document.getElementById('noCoins').style.display='none';
+  document.getElementById('timeUp').style.display='none';
+  document.getElementById('picker').style.display='flex';
+  updatePickerUI();
+}
+
+function showTimeUp(){
+  document.getElementById('timeUp').style.display='flex';
+  document.getElementById('picker').style.display='none';
+  document.getElementById('gameView').style.display='none';
+}
+
+function goBack(){
+  if(_timerInterval) clearInterval(_timerInterval);
+  var ret = new URLSearchParams(location.search).get('from');
+  if(ret) location.href = decodeURIComponent(ret);
+  else history.back();
+}
+
+function fmtTime(s){
+  var m=Math.floor(s/60), sec=s%60;
+  return String(m).padStart(2,'0')+':'+String(sec).padStart(2,'0');
+}
+</script>
+</body>
+</html>

@@ -126,7 +126,8 @@ body{font-family:'Nunito',sans-serif;background:#0d0d1a;min-height:100vh;color:#
       <div class="break-menu" id="breakMenu">
         <div class="break-opt" onclick="startBreak('Water')">&#128167; Water</div>
         <div class="break-opt" onclick="startBreak('Washroom')">&#128701; Washroom</div>
-        <div class="break-opt" onclick="startBreak('Physical')">&#127939; Physical</div>
+        <div class="break-opt" onclick="startBreak('Offline Activity')">&#127939; Offline Activity</div>
+        <div class="break-opt" onclick="openGames()">&#127918; Games</div>
       </div>
     </div>
     <div class="coins-badge">&#129689; <span id="coinCount">0</span></div>
@@ -321,5 +322,7 @@ function rStopTalk()     { /* no-op */ }
 </script>
   <div id="rishika-avatar"></div>
 </div>
+
+function openGames(){if(typeof toggleBreakMenu==='function')toggleBreakMenu();var url='/games/games.html?from='+encodeURIComponent(location.pathname+location.search);location.href=url;}
 </body>
 </html>

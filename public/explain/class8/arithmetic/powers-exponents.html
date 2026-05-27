@@ -146,8 +146,9 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
     <div class="break-opts">
       <button class="break-opt" onclick="startBreak('Water')">&#128167; Water</button>
       <button class="break-opt" onclick="startBreak('Washroom')">&#128701; Washroom</button>
-      <button class="break-opt" onclick="startBreak('Physical')">&#127939; Physical</button>
+      <button class="break-opt" onclick="startBreak('Offline Activity')">&#127939; Offline Activity</button>
     </div>
+      <button class="break-opt" onclick="openGames()">&#127918; Games</button>
     <button class="break-opt" style="color:var(--soft)" onclick="closeBreak()">Cancel</button>
   </div>
 </div>
@@ -464,5 +465,7 @@ function mathUpdate(){var ra=G("rawAnswer");if(!ra)return;var v=ra.value.trim();
 function buildSuggChips(list){var el=G("suggChips");if(!el)return;var ra=G("rawAnswer");el.innerHTML="";list.forEach(function(c){var btn=document.createElement("button");btn.className="schip "+(c.type||"shortcut");btn.textContent=c.label;btn.type="button";btn.addEventListener("click",function(){if(c.ins&&ra){var s=ra.selectionStart,e=ra.selectionEnd;ra.value=ra.value.slice(0,s)+c.ins+ra.value.slice(e);ra.focus();mathUpdate();}});el.appendChild(btn);});}
 window.onload=init;
 </script>
+
+function openGames(){closeBreak();var url='/games/games.html?from='+encodeURIComponent(location.pathname+location.search);location.href=url;}
 </body>
 </html>
