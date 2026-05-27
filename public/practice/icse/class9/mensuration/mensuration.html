@@ -915,7 +915,7 @@ function rStopTalk()     { /* no-op */ }
 </div>
 
 <script>
-function openGames(){if(typeof toggleBreakMenu==='function')toggleBreakMenu();var url='/games/games.html?from='+encodeURIComponent(location.pathname+location.search);location.href=url;}
+function openGames(){if(typeof toggleBreakMenu==='function')toggleBreakMenu();var bp=sessionStorage.getItem('rishi_admin_bypass')==='1'?'&bypass=1':'';var url='/games/games.html?from='+encodeURIComponent(location.pathname+location.search)+bp;location.href=url;}
 </script>
 </body>
 </html>

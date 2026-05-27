@@ -123,59 +123,68 @@ var _timerInterval = null;
 var _secsLeft = 0;
 var _activeGame = null;
 
+/* ── bypass ── */
+function isAdminBypass(){ return sessionStorage.getItem('rishi_admin_bypass')==='1'; }
+var ADMIN_COINS = 1000;
+
 /* ── daily time tracking ── */
 function todayKey(){ return 'rishi_game_time_' + new Date().toISOString().slice(0,10); }
 function getSecsUsedToday(){ return parseInt(localStorage.getItem(todayKey())||'0'); }
 function addSecsUsed(n){ var used = getSecsUsedToday()+n; localStorage.setItem(todayKey(), String(used)); }
-function getSecsRemaining(){ return Math.max(0, DAILY_MAX - getSecsUsedToday()); }
+function getSecsRemaining(){ return isAdminBypass() ? DAILY_MAX : Math.max(0, DAILY_MAX - getSecsUsedToday()); }
 
 /* ── init ── */
 window.onload = function(){
+  if(isAdminBypass()) localStorage.setItem('rishi_coins', String(ADMIN_COINS));
   updatePickerUI();
 };
 
 function updatePickerUI(){
   var coins = typeof rishiGetCoins==='function' ? rishiGetCoins() : parseInt(localStorage.getItem('rishi_coins')||'0');
-  document.getElementById('coinDisplay').textContent = coins;
+  document.getElementById('coinDisplay').textContent = coins + (isAdminBypass() ? ' (admin)' : '');
   var rem = getSecsRemaining();
-  document.getElementById('timeDisplay').textContent = fmtTime(rem);
-  // mark locked cards
+  document.getElementById('timeDisplay').textContent = isAdminBypass() ? 'Unlimited (admin)' : fmtTime(rem);
   ['chess','2048','kingdom'].forEach(function(g){
     var card = document.getElementById('card-'+g);
     var badge = card.querySelector('.lock-badge');
     if(badge) badge.remove();
-    if(coins < GAME_COSTS[g]){
-      card.classList.add('locked');
-      var b = document.createElement('div'); b.className='lock-badge'; b.textContent='Need '+GAME_COSTS[g]+' 🪙';
-      card.appendChild(b);
+    if(!isAdminBypass()){
+      if(coins < GAME_COSTS[g]){
+        card.classList.add('locked');
+        var b = document.createElement('div'); b.className='lock-badge'; b.textContent='Need '+GAME_COSTS[g]+' 🪙';
+        card.appendChild(b);
+      } else {
+        card.classList.remove('locked');
+      }
+      if(rem<=0){
+        card.classList.add('locked');
+        var b2=document.createElement('div'); if(!card.querySelector('.lock-badge')){ b2.className='lock-badge'; b2.textContent='Time up'; card.appendChild(b2); }
+      }
     } else {
       card.classList.remove('locked');
-    }
-    if(rem<=0){
-      card.classList.add('locked');
-      var b2=document.createElement('div'); if(!card.querySelector('.lock-badge')){ b2.className='lock-badge'; b2.textContent='Time up'; card.appendChild(b2); }
     }
   });
 }
 
 function tryPlay(game){
+  var bypass = isAdminBypass();
+  if(bypass){
+    localStorage.setItem('rishi_coins', String(ADMIN_COINS));
+    startGame(game, DAILY_MAX);
+    return;
+  }
   var coins = typeof rishiGetCoins==='function' ? rishiGetCoins() : parseInt(localStorage.getItem('rishi_coins')||'0');
   var cost = GAME_COSTS[game];
   var rem = getSecsRemaining();
 
-  if(rem <= 0){
-    showTimeUp(); return;
-  }
+  if(rem <= 0){ showTimeUp(); return; }
   if(coins < cost){
     document.getElementById('noCoinsMsg').textContent = 'You need '+cost+' coins to play '+GAME_NAMES[game]+'. You have '+coins+' coins. Answer practice questions to earn more!';
     document.getElementById('noCoins').style.display='flex';
     return;
   }
 
-  // deduct coins
-  var newCoins = coins - cost;
-  localStorage.setItem('rishi_coins', String(newCoins));
-
+  localStorage.setItem('rishi_coins', String(coins - cost));
   startGame(game, rem);
 }
 
