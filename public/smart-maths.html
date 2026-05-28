@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Smart Mathematics — RISHI</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Nunito:wght@400;600;700;800;900&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#fdf6ec;
+  --l1:#0ea5e9;
+  --l2:#7c3aed;
+  --l3:#c8922a;
+  --l4:#dc2626;
+  --charcoal:#2a2218;
+  --mid:#5a4a30;
+  --soft:#8a7a5a;
+  --border:#e2c96e;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{
+  background:var(--bg);
+  font-family:'Nunito',sans-serif;
+  color:var(--charcoal);
+  min-height:100vh;
+  position:relative;
+  overflow-x:hidden;
+}
+/* dot-grid overlay */
+body::before{
+  content:'';
+  position:fixed;inset:0;
+  background-image:radial-gradient(circle,rgba(200,146,42,0.18) 1px,transparent 1px);
+  background-size:22px 22px;
+  pointer-events:none;
+  z-index:0;
+}
+/* scanline */
+body::after{
+  content:'';
+  position:fixed;inset:0;
+  background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(200,146,42,0.02) 3px,rgba(200,146,42,0.02) 4px);
+  pointer-events:none;
+  z-index:0;
+}
+
+/* ── TOP NAV ── */
+.topnav{
+  position:sticky;top:0;z-index:200;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:12px 24px;
+  background:rgba(253,246,236,.96);
+  border-bottom:1.5px solid var(--border);
+  backdrop-filter:blur(8px);
+}
+.nav-logo{font-family:'Orbitron',sans-serif;font-size:18px;font-weight:900;letter-spacing:5px;color:#c8922a;}
+.nav-back{font-family:'DM Mono',monospace;font-size:12px;font-weight:500;color:var(--soft);background:transparent;border:1.5px solid var(--border);border-radius:4px;padding:6px 14px;cursor:pointer;letter-spacing:1px;}
+.nav-back:hover{border-color:#c8922a;color:#c8922a;}
+
+/* ── PAGE HERO ── */
+.page-hero{
+  position:relative;z-index:10;
+  padding:32px 24px 24px;
+  max-width:960px;margin:0 auto;
+}
+.hero-label{
+  font-family:'DM Mono',monospace;font-size:10px;font-weight:500;
+  letter-spacing:4px;color:var(--soft);text-transform:uppercase;margin-bottom:8px;
+}
+.hero-title{
+  font-family:'Orbitron',sans-serif;font-size:26px;font-weight:900;
+  color:var(--charcoal);line-height:1.2;margin-bottom:10px;
+}
+.hero-title span{color:#c8922a;}
+.hero-sub{font-size:14px;font-weight:700;color:var(--soft);max-width:560px;line-height:1.6;}
+.assigned-count{
+  display:inline-block;
+  margin-top:14px;
+  font-family:'DM Mono',monospace;font-size:11px;letter-spacing:2px;
+  background:#fff8e8;border:1px solid var(--border);border-radius:4px;
+  padding:5px 14px;color:#c8922a;
+}
+
+/* ── MAIN CONTENT ── */
+.content{position:relative;z-index:10;max-width:960px;margin:0 auto;padding:0 24px 60px;}
+
+/* ── LAYER SECTION ── */
+.layer-section{margin-bottom:40px;}
+.layer-header{
+  display:flex;align-items:center;gap:10px;
+  font-family:'Orbitron',sans-serif;font-size:10px;font-weight:700;
+  letter-spacing:3px;text-transform:uppercase;
+  margin-bottom:16px;padding-bottom:10px;
+  border-bottom:1px solid;
+}
+.layer-header::before{content:'◈';font-size:12px;}
+
+/* ── TOOL CARD ── */
+.tool-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;}
+.tool-card{
+  position:relative;
+  background:#fffdf8;
+  border:1px solid;
+  border-radius:4px;
+  padding:18px 18px 16px;
+  clip-path:polygon(0 0,calc(100% - 12px) 0,100% 12px,100% 100%,12px 100%,0 calc(100% - 12px));
+  transition:box-shadow .2s;
+}
+/* corner bracket TL */
+.tool-card::before{
+  content:'';
+  position:absolute;top:4px;left:4px;
+  width:10px;height:10px;
+  border-top:2px solid;border-left:2px solid;
+  border-color:inherit;
+  opacity:.6;
+}
+/* corner bracket BR */
+.tool-card::after{
+  content:'';
+  position:absolute;bottom:4px;right:4px;
+  width:10px;height:10px;
+  border-bottom:2px solid;border-right:2px solid;
+  border-color:inherit;
+  opacity:.6;
+}
+
+.tool-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:8px;}
+.tool-name{font-family:'Orbitron',sans-serif;font-size:13px;font-weight:700;color:var(--charcoal);line-height:1.3;flex:1;}
+.class-badge{
+  font-family:'DM Mono',monospace;font-size:9px;font-weight:500;
+  letter-spacing:1.5px;white-space:nowrap;
+  border:1px solid;border-radius:3px;padding:3px 8px;flex-shrink:0;
+  margin-top:1px;
+}
+.tool-desc{font-size:12px;font-weight:700;color:var(--soft);line-height:1.6;margin-bottom:14px;}
+.tool-desc span{display:block;}
+
+.assign-btn{
+  font-family:'DM Mono',monospace;font-size:11px;font-weight:500;
+  letter-spacing:2px;text-transform:uppercase;
+  border-radius:4px;padding:7px 16px;cursor:pointer;
+  transition:all .2s;width:100%;
+  background:transparent;
+}
+.assign-btn.unassigned{color:inherit;border:1.5px solid;}
+.assign-btn.assigned{color:#fff;border:1.5px solid transparent;}
+@keyframes assigned-pulse{0%,100%{box-shadow:0 0 0 0 rgba(0,0,0,0)}50%{box-shadow:0 0 8px 2px currentColor}}
+.assign-btn.assigned{animation:assigned-pulse 2s ease-in-out infinite;}
+
+/* layer color bindings */
+[data-layer="1"] .tool-card{border-color:rgba(14,165,233,.35);box-shadow:0 0 12px rgba(14,165,233,.12),inset 0 0 6px rgba(14,165,233,.04);}
+[data-layer="1"] .tool-card::before,[data-layer="1"] .tool-card::after{border-color:rgba(14,165,233,.5);}
+[data-layer="1"] .class-badge{border-color:rgba(14,165,233,.4);color:#0ea5e9;}
+[data-layer="1"] .assign-btn.unassigned{border-color:rgba(14,165,233,.6);color:#0ea5e9;}
+[data-layer="1"] .assign-btn.assigned{background:#0ea5e9;}
+[data-layer="1"] .layer-header{color:#0ea5e9;border-color:rgba(14,165,233,.3);}
+
+[data-layer="2"] .tool-card{border-color:rgba(124,58,237,.35);box-shadow:0 0 12px rgba(124,58,237,.12),inset 0 0 6px rgba(124,58,237,.04);}
+[data-layer="2"] .tool-card::before,[data-layer="2"] .tool-card::after{border-color:rgba(124,58,237,.5);}
+[data-layer="2"] .class-badge{border-color:rgba(124,58,237,.4);color:#7c3aed;}
+[data-layer="2"] .assign-btn.unassigned{border-color:rgba(124,58,237,.6);color:#7c3aed;}
+[data-layer="2"] .assign-btn.assigned{background:#7c3aed;}
+[data-layer="2"] .layer-header{color:#7c3aed;border-color:rgba(124,58,237,.3);}
+
+[data-layer="3"] .tool-card{border-color:rgba(200,146,42,.35);box-shadow:0 0 12px rgba(200,146,42,.12),inset 0 0 6px rgba(200,146,42,.04);}
+[data-layer="3"] .tool-card::before,[data-layer="3"] .tool-card::after{border-color:rgba(200,146,42,.5);}
+[data-layer="3"] .class-badge{border-color:rgba(200,146,42,.4);color:#c8922a;}
+[data-layer="3"] .assign-btn.unassigned{border-color:rgba(200,146,42,.6);color:#c8922a;}
+[data-layer="3"] .assign-btn.assigned{background:#c8922a;}
+[data-layer="3"] .layer-header{color:#c8922a;border-color:rgba(200,146,42,.3);}
+
+[data-layer="4"] .tool-card{border-color:rgba(220,38,38,.35);box-shadow:0 0 12px rgba(220,38,38,.12),inset 0 0 6px rgba(220,38,38,.04);}
+[data-layer="4"] .tool-card::before,[data-layer="4"] .tool-card::after{border-color:rgba(220,38,38,.5);}
+[data-layer="4"] .class-badge{border-color:rgba(220,38,38,.4);color:#dc2626;}
+[data-layer="4"] .assign-btn.unassigned{border-color:rgba(220,38,38,.6);color:#dc2626;}
+[data-layer="4"] .assign-btn.assigned{background:#dc2626;}
+[data-layer="4"] .layer-header{color:#dc2626;border-color:rgba(220,38,38,.3);}
+
+@media(max-width:520px){
+  .tool-grid{grid-template-columns:1fr;}
+  .page-hero{padding:20px 16px 16px;}
+  .content{padding:0 16px 40px;}
+}
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="nav-logo">RISHI</div>
+  <button class="nav-back" onclick="history.back()">&#8592; BACK</button>
+</nav>
+
+<div class="page-hero">
+  <div class="hero-label">Parent Control Panel</div>
+  <h1 class="hero-title">&#129504; Smart <span>Mathematics</span></h1>
+  <div class="hero-sub">Assign supplementary math tools and competitions to your child's study plan. Assigned tools appear on the student's syllabus page for quick access.</div>
+  <div class="assigned-count" id="assignedCount">&#9632; 0 TOOLS ASSIGNED</div>
+</div>
+
+<div class="content" id="content"></div>
+
+<script>
+var TOOLS = [
+  {id:'prodigy',    layer:1, name:'Prodigy Math',      shortName:'Prodigy',      classRange:'CLASS 6–8', url:'https://www.prodigygame.com/main-en',
+   desc1:'Adaptive game-based math practice aligned to curriculum.',      desc2:'Students level up while solving problems — feels like an RPG.'},
+  {id:'dragonbox',  layer:1, name:'DragonBox Algebra',  shortName:'DragonBox',    classRange:'CLASS 6–8', url:'https://dragonbox.com/products/algebra-5',
+   desc1:'Teach algebra concepts through visual puzzle-solving.',          desc2:'Builds algebraic intuition before formal notation.'},
+  {id:'beastacademy',layer:1,name:'Beast Academy',      shortName:'BeastAcademy', classRange:'CLASS 6–8', url:'https://beastacademy.com/',
+   desc1:'Comic-book style curriculum by Art of Problem Solving.',        desc2:'Deep conceptual understanding, not just drill practice.'},
+  {id:'kangaroo',   layer:2, name:'Math Kangaroo',      shortName:'MathKangaroo', classRange:'CLASS 6–9', url:'https://mathkangaroo.org/mks/',
+   desc1:'Annual international competition with 6 million participants.', desc2:'Multiple choice format — builds speed and problem recognition.'},
+  {id:'caribou',    layer:2, name:'Caribou Contests',   shortName:'Caribou',      classRange:'CLASS 6–9', url:'https://www.cariboutests.com/',
+   desc1:'Online math contests every 6–8 weeks, instant results.',   desc2:'Great for consistent competitive exposure without pressure.'},
+  {id:'purplecomet',layer:2, name:'Purple Comet',       shortName:'PurpleComet',  classRange:'CLASS 7–9', url:'https://purplecomet.org/',
+   desc1:'Team online math competition — collaborative problem solving.', desc2:'Open-ended format builds deeper reasoning skills.'},
+  {id:'sof-imo',    layer:3, name:'SOF IMO',            shortName:'SOF-IMO',      classRange:'CLASS 6–9', url:'https://sofworld.org/imo',
+   desc1:'India\'s most widely attempted school-level math olympiad.',    desc2:'School and national rank — excellent for motivation and exposure.'},
+  {id:'sasmo',      layer:3, name:'SASMO',              shortName:'SASMO',        classRange:'CLASS 6–9', url:'https://www.sasmo.sg/',
+   desc1:'Singapore Asia Pacific Math Olympiad — higher-order thinking.', desc2:'Non-routine problems that develop deep mathematical insight.'},
+  {id:'ioqm',       layer:4, name:'IOQM',               shortName:'IOQM',         classRange:'CLASS 8–9', url:'https://ioqmexam.in/',
+   desc1:'India\'s national olympiad qualifier — gateway to IMO.',   desc2:'The most prestigious pre-college math competition in India.'}
+];
+
+var LAYERS = [
+  {id:1, label:'LAYER 01 — ENGAGEMENT SYSTEMS'},
+  {id:2, label:'LAYER 02 — FUN COMPETITIONS'},
+  {id:3, label:'LAYER 03 — OLYMPIAD FOUNDATION'},
+  {id:4, label:'LAYER 04 — PRESTIGE'}
+];
+
+var SK = 'rishi_smart_assigned';
+var assigned = [];
+try { assigned = JSON.parse(localStorage.getItem(SK) || '[]'); } catch(e){}
+
+function isAssigned(id){ return assigned.some(function(t){ return t.id === id; }); }
+
+function toggleAssign(id){
+  var tool = TOOLS.find(function(t){ return t.id === id; });
+  if(!tool) return;
+  if(isAssigned(id)){
+    assigned = assigned.filter(function(t){ return t.id !== id; });
+  } else {
+    assigned.push({id:tool.id, name:tool.name, shortName:tool.shortName, url:tool.url, layer:tool.layer, assignedAt:new Date().toISOString()});
+  }
+  localStorage.setItem(SK, JSON.stringify(assigned));
+  renderAll();
+}
+
+function renderAll(){
+  var html = '';
+  LAYERS.forEach(function(layer){
+    var tools = TOOLS.filter(function(t){ return t.layer === layer.id; });
+    html += '<div class="layer-section" data-layer="'+layer.id+'">';
+    html += '<div class="layer-header">'+layer.label+'</div>';
+    html += '<div class="tool-grid">';
+    tools.forEach(function(tool){
+      var on = isAssigned(tool.id);
+      html += '<div class="tool-card">';
+      html += '<div class="tool-top">';
+      html += '<div class="tool-name">'+tool.name+'</div>';
+      html += '<div class="class-badge">'+tool.classRange+'</div>';
+      html += '</div>';
+      html += '<div class="tool-desc"><span>'+tool.desc1+'</span><span>'+tool.desc2+'</span></div>';
+      html += '<button class="assign-btn '+(on?'assigned':'unassigned')+'" onclick="toggleAssign(\''+tool.id+'\')">'+(on?'[ &#10003; ASSIGNED ]':'[ ASSIGN ]')+'</button>';
+      html += '</div>';
+    });
+    html += '</div></div>';
+  });
+  document.getElementById('content').innerHTML = html;
+  var n = assigned.length;
+  document.getElementById('assignedCount').textContent = '■ '+n+' TOOL'+(n===1?'':'S')+' ASSIGNED';
+}
+
+renderAll();
+</script>
+</body>
+</html>

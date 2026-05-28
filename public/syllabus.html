@@ -135,6 +135,27 @@ body::after{content:'RISHI';position:fixed;bottom:-40px;right:-30px;font-family:
 .sampurna-sub{font-size:13px;font-weight:700;color:var(--soft);line-height:1.7;margin-bottom:8px;}
 .sampurna-prog{height:6px;background:var(--gold-pale);border-radius:3px;overflow:hidden;max-width:240px;margin:0 auto;}
 .sampurna-fill{height:100%;background:linear-gradient(90deg,var(--sage),var(--gold));border-radius:3px;transition:width .8s ease;}
+
+/* ── SMART MATHS BAR ── */
+.smart-bar{position:relative;z-index:10;padding:10px 20px;border-bottom:1.5px solid var(--gold-pale);background:rgba(255,253,248,.8);display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+.smart-bar-label{font-family:'Orbitron',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;color:var(--amber);white-space:nowrap;text-transform:uppercase;}
+.smart-bar-chips{display:flex;gap:8px;flex-wrap:wrap;}
+.smart-chip{
+  font-family:'Share Tech Mono',monospace;font-size:12px;font-weight:500;
+  padding:5px 14px;border-radius:4px;cursor:pointer;
+  text-decoration:none;color:inherit;
+  background:#fff8e8;border:1.5px solid var(--border);color:var(--mid);
+  transition:all .18s;white-space:nowrap;
+}
+.smart-chip:hover{border-color:var(--amber);color:var(--amber);box-shadow:0 0 8px rgba(200,146,42,.2);}
+.smart-chip[data-layer="1"]{border-color:rgba(14,165,233,.4);color:#0077b3;}
+.smart-chip[data-layer="1"]:hover{border-color:#0ea5e9;box-shadow:0 0 8px rgba(14,165,233,.25);}
+.smart-chip[data-layer="2"]{border-color:rgba(124,58,237,.4);color:#5b21b6;}
+.smart-chip[data-layer="2"]:hover{border-color:#7c3aed;box-shadow:0 0 8px rgba(124,58,237,.25);}
+.smart-chip[data-layer="3"]{border-color:rgba(200,146,42,.4);color:#92650a;}
+.smart-chip[data-layer="3"]:hover{border-color:#c8922a;box-shadow:0 0 8px rgba(200,146,42,.25);}
+.smart-chip[data-layer="4"]{border-color:rgba(220,38,38,.4);color:#991b1b;}
+.smart-chip[data-layer="4"]:hover{border-color:#dc2626;box-shadow:0 0 8px rgba(220,38,38,.25);}
 </style>
 <script src="/rishi-sync.js"></script>
 </head>
@@ -178,6 +199,12 @@ body::after{content:'RISHI';position:fixed;bottom:-40px;right:-30px;font-family:
   </div>
 </div>
 
+
+<!-- Smart Maths bar (hidden if nothing assigned) -->
+<div id="smartMathsBar" style="display:none;" class="smart-bar">
+  <div class="smart-bar-label">&#129504; Smart Maths</div>
+  <div class="smart-bar-chips" id="smartMathsChips"></div>
+</div>
 
   <!-- Stats bar -->
   <div id="statsBar" style="position:relative;z-index:10;display:flex;gap:0;border-bottom:2px solid var(--border-dark);background:var(--warm-white);"></div>
@@ -1186,7 +1213,43 @@ window.onload=function(){
   buildChapterList();
   renderSampurna();
   renderStats();
+  renderSmartMaths();
 };
+
+function renderSmartMaths(){
+  var tools = [];
+  try { tools = JSON.parse(localStorage.getItem('rishi_smart_assigned') || '[]'); } catch(e){}
+  if(!tools.length) return;
+  var bar = G('smartMathsBar');
+  var chips = G('smartMathsChips');
+  var html = '';
+  tools.forEach(function(tool){
+    html += '<a class="smart-chip" data-layer="'+tool.layer+'" href="#" onclick="openSmartTool(this,\''+tool.url+'\',\''+tool.shortName+'\');return false;">'+tool.name+'</a>';
+  });
+  chips.innerHTML = html;
+  bar.style.display = 'flex';
+}
+
+function openSmartTool(el, url, shortName){
+  window.open(url, '_blank');
+  var cs = {};
+  try { cs = JSON.parse(localStorage.getItem('rishi_current_student') || '{}'); } catch(e){}
+  var studentId = (cs.studentId || cs.studentUsername || cs.studentName || '').trim() || 'unknown';
+  var now = new Date();
+  var log = [];
+  try { log = JSON.parse(localStorage.getItem('rishi_break_log') || '[]'); } catch(e){}
+  log.push({
+    studentId: studentId,
+    date: now.toISOString().slice(0,10),
+    time: now.toTimeString().slice(0,5),
+    type: 'Smart',
+    reason: shortName,
+    secs: 0,
+    page: location.pathname
+  });
+  if(log.length > 200) log = log.slice(-200);
+  localStorage.setItem('rishi_break_log', JSON.stringify(log));
+}
 </script>
 <!-- LEADERBOARD MODAL -->
 <div id="lb-modal" style="display:none;position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,0.55);align-items:center;justify-content:center;">
