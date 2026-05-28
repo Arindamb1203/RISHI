@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="rishi-board" content="cbse">
+<meta name="rishi-class" content="8">
+<title>RISHI — Squares and Square Roots</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Nunito:wght@400;600;700;800;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<style>
+:root{--cream:#fdf6ec;--warm-white:#fffdf8;--gold:#c8922a;--gold-light:#e8b84b;--gold-pale:#f5e6c8;--amber:#d4870a;--sage:#7a8c6e;--sage-light:#a8b89a;--rust:#b85c2a;--charcoal:#2a2218;--mid:#5a4a30;--soft:#8a7a5a;--inactive:#c8b89a;--border-dark:#6b4c2a;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--cream);font-family:Nunito,sans-serif;min-height:100vh;color:var(--charcoal);}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(var(--gold-pale) 1px,transparent 1px),linear-gradient(90deg,var(--gold-pale) 1px,transparent 1px);background-size:40px 40px;opacity:.3;z-index:0;pointer-events:none;}
+.topbar{position:sticky;top:0;z-index:100;background:rgba(253,246,236,.97);border-bottom:2px solid var(--border-dark);backdrop-filter:blur(8px);padding:10px 18px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;}
+.logo-sm{font-family:'Orbitron',sans-serif;font-size:17px;font-weight:900;letter-spacing:4px;background:linear-gradient(135deg,var(--amber),var(--gold-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.topbar-center{font-family:'Orbitron',sans-serif;font-size:10px;letter-spacing:2px;color:var(--amber);text-transform:uppercase;}
+.topbar-right{display:flex;gap:8px;}
+.btn-topbar{font-family:Nunito,sans-serif;font-size:12px;font-weight:900;padding:6px 14px;border-radius:20px;border:2px solid var(--border-dark);background:var(--warm-white);color:var(--mid);cursor:pointer;}
+.btn-topbar.back{background:var(--gold-pale);}
+.prog-wrap{position:relative;z-index:10;padding:8px 18px;background:rgba(255,253,248,.9);border-bottom:1.5px solid var(--gold-pale);}
+.prog-info{display:flex;justify-content:space-between;font-size:11px;font-weight:800;color:var(--mid);margin-bottom:5px;}
+.prog-bar{height:6px;background:var(--gold-pale);border-radius:4px;overflow:hidden;}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--sage),var(--gold));border-radius:4px;transition:width .5s ease;}
+.main{position:relative;z-index:10;max-width:820px;margin:0 auto;padding:14px 14px 120px;}
+.rishika-wrap{display:flex;align-items:flex-start;gap:12px;margin-bottom:14px;}
+.rishika-avatar{width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,var(--sage),var(--sage-light));border:2px solid var(--border-dark);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;}
+.rishika-bubble{background:rgba(255,253,248,.97);border:2px solid var(--border-dark);border-radius:0 16px 16px 16px;padding:12px 16px;flex:1;box-shadow:0 4px 20px rgba(107,76,42,.1);}
+.rishika-name{font-size:10px;font-weight:900;color:var(--sage);letter-spacing:2px;text-transform:uppercase;margin-bottom:5px;}
+.rishika-text{font-size:14px;font-weight:700;color:var(--charcoal);line-height:1.6;}
+.hl{color:var(--amber);font-weight:900;}
+.btn-speak{display:inline-flex;align-items:center;gap:6px;font-family:Nunito,sans-serif;font-size:11px;font-weight:900;padding:5px 11px;border-radius:20px;border:2px solid var(--sage);background:#eef2eb;color:var(--sage);cursor:pointer;margin-top:8px;}
+.q-card{background:rgba(255,253,248,.97);border:2px solid var(--border-dark);border-radius:16px;padding:16px 18px;margin-bottom:12px;box-shadow:0 4px 20px rgba(107,76,42,.1);}
+.q-label{font-family:'Orbitron',sans-serif;font-size:10px;letter-spacing:3px;color:var(--amber);text-transform:uppercase;margin-bottom:8px;}
+.q-text{font-size:15px;font-weight:800;color:var(--charcoal);line-height:1.6;margin-bottom:10px;}
+.step{display:flex;gap:10px;margin-bottom:12px;opacity:0;transform:translateY(6px);transition:all .4s ease;}
+.step.vis{opacity:1;transform:translateY(0);}
+.step-num{width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;font-size:11px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:2px solid var(--border-dark);}
+.step-body{flex:1;font-size:13px;font-weight:700;color:var(--mid);line-height:1.6;padding-top:2px;}
+.anim-panel{background:#fffdf8;border:2px solid var(--border-dark);border-radius:14px;margin-bottom:12px;overflow:hidden;box-shadow:0 4px 16px rgba(107,76,42,.1);}
+.anim-header{background:linear-gradient(135deg,var(--charcoal),#3d2e1a);padding:7px 14px;display:flex;align-items:center;justify-content:space-between;}
+.anim-header-lbl{font-family:'Orbitron',sans-serif;font-size:9px;letter-spacing:2px;color:var(--gold-light);text-transform:uppercase;}
+.anim-replay{font-size:10px;font-weight:900;color:var(--gold-pale);background:none;border:1px solid var(--gold-pale);border-radius:20px;padding:2px 9px;cursor:pointer;display:none;}
+.anim-canvas{width:100%;max-height:195px;overflow:hidden;display:flex;align-items:center;justify-content:center;background:#fffdf8;}
+.anim-canvas svg{width:100%;max-height:195px;}
+.anim-status{padding:6px 14px;font-family:Nunito,sans-serif;font-size:12px;font-weight:800;color:var(--mid);text-align:center;min-height:26px;border-top:1px solid var(--gold-pale);}
+.anim-play-btn{width:100%;padding:10px;font-family:Nunito,sans-serif;font-size:14px;font-weight:900;background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;border:none;cursor:pointer;}
+.anim-play-btn:disabled{background:var(--gold-pale);color:var(--inactive);cursor:not-allowed;}
+.steps-btn{width:100%;padding:10px;font-family:Nunito,sans-serif;font-size:14px;font-weight:900;background:linear-gradient(135deg,var(--sage),var(--sage-light));color:#fff;border:none;cursor:pointer;display:none;border-top:1px solid var(--gold-pale);}
+.confirm-wrap{margin-top:12px;background:linear-gradient(135deg,#eef2eb,#f5fbf2);border:2px solid var(--border-dark);border-radius:14px;padding:16px 18px;}
+.confirm-title{font-size:11px;font-weight:900;color:var(--sage);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;}
+.confirm-q{font-size:14px;font-weight:800;color:var(--charcoal);margin-bottom:12px;line-height:1.5;}
+.result-box{font-size:12px;font-weight:800;padding:9px 13px;border-radius:9px;display:none;line-height:1.4;}
+.result-box.ok{background:#eef2eb;border:2px solid var(--sage);color:var(--sage);display:block;}
+.result-box.no{background:#fff5f0;border:2px solid var(--rust);color:var(--rust);display:block;}
+.nudge{font-size:12px;font-weight:700;color:var(--mid);margin-top:7px;font-style:italic;display:none;}
+.nudge.show{display:block;}
+.btn-next{font-family:Nunito,sans-serif;font-size:14px;font-weight:900;padding:11px 22px;border-radius:12px;border:none;background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;cursor:pointer;display:none;margin-top:10px;width:100%;}
+.btn-next.show{display:block;}
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;z-index:100;background:rgba(253,246,236,.97);border-top:2px solid var(--border-dark);padding:10px 18px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap;align-items:center;}
+.btn-nav{font-family:Nunito,sans-serif;font-size:13px;font-weight:900;padding:10px 20px;border-radius:12px;border:2px solid var(--border-dark);cursor:pointer;}
+.btn-nav.practice{background:linear-gradient(135deg,var(--sage),var(--sage-light));color:#fff;border-color:var(--sage);}
+.btn-nav.exam{background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;border-color:var(--amber);}
+.btn-nav.locked{background:var(--gold-pale);color:var(--inactive);cursor:not-allowed;border-color:var(--inactive);}
+.lock-tip{font-size:10px;font-weight:700;color:var(--rust);width:100%;text-align:center;}
+.overlay{display:none;position:fixed;inset:0;background:rgba(42,34,24,.92);z-index:1000;flex-direction:column;align-items:center;justify-content:center;backdrop-filter:blur(6px);}
+.overlay.show{display:flex;}
+.break-box{background:var(--warm-white);border:2px solid var(--border-dark);border-radius:22px;padding:28px 32px;max-width:380px;width:90%;text-align:center;}
+.break-title{font-family:'Orbitron',sans-serif;font-size:14px;font-weight:900;color:var(--amber);letter-spacing:3px;margin-bottom:5px;}
+.break-sub{font-size:12px;font-weight:700;color:var(--soft);margin-bottom:16px;}
+.break-opts{display:flex;flex-direction:column;gap:8px;margin-bottom:12px;}
+.break-opt{font-family:Nunito,sans-serif;font-size:14px;font-weight:800;padding:11px;border-radius:11px;border:2px solid var(--border-dark);background:var(--warm-white);color:var(--mid);cursor:pointer;}
+.timer-screen{display:none;position:fixed;inset:0;background:#1a1208;z-index:1001;flex-direction:column;align-items:center;justify-content:center;}
+.timer-screen.show{display:flex;}
+.timer-reason{font-family:'Orbitron',sans-serif;font-size:12px;letter-spacing:4px;color:var(--gold-light);margin-bottom:16px;text-transform:uppercase;}
+.timer-num{font-family:'Orbitron',sans-serif;font-size:68px;font-weight:900;color:var(--gold-light);letter-spacing:6px;margin-bottom:30px;}
+.btn-end{font-family:Nunito,sans-serif;font-size:16px;font-weight:900;padding:13px 32px;border-radius:13px;border:2px solid var(--gold-light);background:transparent;color:var(--gold-light);cursor:pointer;}
+.done-banner{background:linear-gradient(135deg,#eef2eb,#f5fbf2);border:2px solid var(--border-dark);border-radius:14px;padding:14px 18px;text-align:center;margin-bottom:14px;display:none;}
+.done-banner.show{display:block;}
+.done-banner .dt{font-family:'Orbitron',sans-serif;font-size:12px;letter-spacing:2px;color:var(--sage);margin-bottom:4px;}
+.done-banner .ds{font-size:13px;font-weight:700;color:var(--mid);}
+#rWrap{position:fixed;bottom:68px;left:10px;z-index:200;width:82px;pointer-events:none;}
+#rChar{width:82px;filter:drop-shadow(0 4px 10px rgba(107,76,42,.3));}
+@keyframes rIn{from{transform:translateY(50px);opacity:0}to{transform:translateY(0);opacity:1}}
+@keyframes rBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+@media(max-width:600px){.main{padding:10px 10px 120px;}.topbar,.prog-wrap{padding-left:10px;padding-right:10px;}.timer-num{font-size:48px;}}
+.math-input-wrap{margin-bottom:10px;}
+.math-raw{width:100%;padding:10px 13px;border-radius:10px;border:2px solid var(--border-dark);background:var(--warm-white);color:var(--charcoal);font-size:1rem;font-family:'Share Tech Mono',monospace;resize:none;outline:none;min-height:48px;line-height:1.6;transition:border-color .2s;}
+.math-raw:focus{border-color:var(--amber);box-shadow:0 0 0 3px rgba(212,135,10,.12);}
+.math-raw::placeholder{color:var(--inactive);font-family:Nunito,sans-serif;}
+.math-preview-label{font-size:0.68rem;text-transform:uppercase;letter-spacing:2px;color:var(--soft);margin:.5rem 0 .25rem;}
+.math-preview{min-height:44px;padding:.6rem 1rem;background:#f9f4ec;border-radius:8px;border:1.5px solid var(--gold-pale);font-size:1.1rem;color:var(--charcoal);overflow-x:auto;display:flex;align-items:center;justify-content:center;margin-bottom:10px;}
+.math-preview .mph{color:var(--inactive);font-style:italic;font-size:.85rem;}
+.sugg-strip{margin-bottom:10px;}
+.sugg-strip-head{font-size:.68rem;text-transform:uppercase;letter-spacing:1.5px;color:var(--soft);margin-bottom:.4rem;}
+.sugg-chips{display:flex;flex-wrap:wrap;gap:.35rem;}
+.schip{border:1.5px solid;border-radius:20px;padding:.25rem .75rem;font-size:.78rem;cursor:pointer;background:transparent;font-family:Nunito,sans-serif;font-weight:700;transition:all .15s;}
+.schip.shortcut{border-color:#7a4aaa;color:#6a3a9a;background:#f5f0ff;}
+.schip.confirm{border-color:#1a6aaa;color:#0a5a9a;background:#eef6ff;font-weight:800;}
+.cel-word{font-size:1.5rem;font-weight:900;letter-spacing:1px;line-height:1.2;margin-bottom:3px;}
+.cel-meta{font-size:0.75rem;font-weight:700;opacity:0.8;}
+</style>
+<script src="/rishi-sync.js"></script>
+<script src="/rishi-core.js"></script>
+<script src="/rishi-presence.js"></script>
+</head>
+<body>
+<nav class="topbar">
+  <div class="logo-sm">RISHI</div>
+  <div class="topbar-center">&#9744; Squares &amp; Square Roots</div>
+  <div class="topbar-right">
+    <button class="btn-topbar" onclick="openBreak()">&#9749; Break</button>
+    <button class="btn-topbar back" onclick="location.href='/syllabus.html'">&#8592; Syllabus</button>
+  </div>
+</nav>
+<div class="prog-wrap">
+  <div class="prog-info"><span id="progLabel">Question 1 of 10</span><span id="progPct">0%</span></div>
+  <div class="prog-bar"><div class="prog-fill" id="progFill" style="width:0%"></div></div>
+</div>
+<div class="main">
+  <div class="done-banner" id="doneBanner">
+    <div class="dt">&#10003; Explanation Completed!</div>
+    <div class="ds">Practice and Exam now unlocked.</div>
+  </div>
+  <div class="rishika-wrap">
+    <div class="rishika-avatar">&#128105;&#8205;&#127979;</div>
+    <div class="rishika-bubble">
+      <div class="rishika-name">Rishika</div>
+      <div class="rishika-text" id="introText">Hi <span class="hl" id="sName">there</span>! &#128522; Today we explore <span class="hl">Squares and Square Roots</span> — perfect squares, their fascinating properties, and how to find square roots step by step! &#9744;</div>
+      <button class="btn-speak" onclick="startLesson()" id="startBtn">&#9654; Start Lesson</button>
+    </div>
+  </div>
+  <div id="qArea"></div>
+</div>
+<div class="bottom-nav">
+  <div class="lock-tip" id="lockTip">&#9757; Complete explanations to unlock Practice and Exam</div>
+  <button class="btn-nav practice locked" id="btnPractice" onclick="goPractice()">&#9999;&#65039; Practice</button>
+  <button class="btn-nav exam locked" id="btnExam" onclick="goExam()">&#128221; Exam</button>
+</div>
+<div class="overlay" id="breakOv">
+  <div class="break-box">
+    <div class="break-title">Break</div>
+    <div class="break-sub">Choose &mdash; timer starts</div>
+    <div class="break-opts">
+      <button class="break-opt" onclick="startBreak('Water')">&#128167; Water</button>
+      <button class="break-opt" onclick="startBreak('Washroom')">&#128701; Washroom</button>
+      <button class="break-opt" onclick="startBreak('Offline Activity')">&#127939; Offline Activity</button>
+    </div>
+    <button class="break-opt" style="color:var(--soft)" onclick="closeBreak()">Cancel</button>
+  </div>
+</div>
+<div class="timer-screen" id="timerScreen">
+  <div class="timer-reason" id="timerLbl">Break</div>
+  <div class="timer-num" id="timerNum">00:00</div>
+  <button class="btn-end" onclick="endBreak()">&#10003; End Break</button>
+</div>
+<div id="rWrap">
+<svg id="rChar" viewBox="0 0 100 110" xmlns="http://www.w3.org/2000/svg">
+  <ellipse cx="50" cy="68" rx="36" ry="28" fill="#5a8a60" stroke="#3d6b42" stroke-width="2"/>
+  <ellipse cx="50" cy="66" rx="22" ry="16" fill="#7ab87a" stroke="#5a8a60" stroke-width="1.5"/>
+  <line x1="50" y1="50" x2="50" y2="82" stroke="#5a8a60" stroke-width="1.5"/>
+  <line x1="28" y1="66" x2="72" y2="66" stroke="#5a8a60" stroke-width="1.5"/>
+  <ellipse cx="20" cy="82" rx="10" ry="7" fill="#7ab87a" stroke="#5a8a60" stroke-width="1.5" transform="rotate(-20,20,82)"/>
+  <ellipse cx="80" cy="82" rx="10" ry="7" fill="#7ab87a" stroke="#5a8a60" stroke-width="1.5" transform="rotate(20,80,82)"/>
+  <ellipse cx="22" cy="58" rx="9" ry="6" fill="#7ab87a" stroke="#5a8a60" stroke-width="1.5" transform="rotate(20,22,58)"/>
+  <ellipse cx="78" cy="58" rx="9" ry="6" fill="#7ab87a" stroke="#5a8a60" stroke-width="1.5" transform="rotate(-20,78,58)"/>
+  <ellipse cx="50" cy="42" rx="10" ry="14" fill="#8fba6a" stroke="#5a8a60" stroke-width="1.5"/>
+  <ellipse cx="50" cy="28" rx="18" ry="16" fill="#8fba6a" stroke="#5a8a60" stroke-width="2"/>
+  <ellipse cx="43" cy="24" rx="5" ry="5.5" fill="white"/><ellipse cx="57" cy="24" rx="5" ry="5.5" fill="white"/>
+  <ellipse cx="43" cy="25" rx="3" ry="3.5" fill="#1a3a1a"/><ellipse cx="57" cy="25" rx="3" ry="3.5" fill="#1a3a1a"/>
+  <circle cx="44" cy="23" r="1.2" fill="white"/><circle cx="58" cy="23" r="1.2" fill="white"/>
+  <ellipse id="rLid1" cx="43" cy="24" rx="5" ry="1" fill="#8fba6a" opacity="0"/>
+  <ellipse id="rLid2" cx="57" cy="24" rx="5" ry="1" fill="#8fba6a" opacity="0"/>
+  <path id="rMouth" d="M44,33 Q50,38 56,33" fill="none" stroke="#3d6b42" stroke-width="2" stroke-linecap="round"/>
+  <ellipse id="rBlush1" cx="36" cy="30" rx="7" ry="4" fill="#ff9999" opacity="0"/>
+  <ellipse id="rBlush2" cx="64" cy="30" rx="7" ry="4" fill="#ff9999" opacity="0"/>
+  <rect x="28" y="90" width="44" height="13" fill="#d4870a" rx="4"/>
+  <text x="50" y="100" text-anchor="middle" font-family="Nunito" font-size="7" font-weight="900" fill="white">RISHIKA</text>
+</svg>
+</div>
+<script>
+var voicesReady=false,selectedVoice=null,elAudio=null;
+function pickVoice(){var vs=window.speechSynthesis.getVoices();if(!vs||vs.length===0)return false;var fk=["heera","veena","priya","raveena","female","woman","zira","samantha","victoria","karen","moira","tessa","fiona"];for(var i=0;i<vs.length;i++){if(vs[i].lang.toLowerCase().indexOf("en-in")===0){var n=vs[i].name.toLowerCase();for(var k=0;k<fk.length;k++){if(n.indexOf(fk[k])>=0){selectedVoice=vs[i];return true;}}}}for(var i=0;i<vs.length;i++){if(vs[i].lang.toLowerCase().indexOf("en")===0){var n=vs[i].name.toLowerCase();for(var k=0;k<fk.length;k++){if(n.indexOf(fk[k])>=0){selectedVoice=vs[i];return true;}}}}return false;}
+function initVoices(cb){if(pickVoice()){voicesReady=true;cb();return;}window.speechSynthesis.onvoiceschanged=function(){window.speechSynthesis.onvoiceschanged=null;pickVoice();voicesReady=true;cb();};setTimeout(function(){if(!voicesReady){pickVoice();voicesReady=true;cb();}},2000);}
+function stopAllAudio(){if(elAudio){try{elAudio.onended=null;elAudio.onerror=null;elAudio.pause();elAudio.src="";}catch(x){}elAudio=null;}if(window.speechSynthesis)window.speechSynthesis.cancel();}
+function sayBrowser(text,onEnd){if(!window.speechSynthesis)return;window.speechSynthesis.cancel();rStartTalk(text.length);var u=new SpeechSynthesisUtterance(text);u.lang="en-IN";u.rate=0.88;u.pitch=1.15;if(selectedVoice)u.voice=selectedVoice;u.onend=function(){rStopTalk();if(onEnd)onEnd();};u.onerror=function(){rStopTalk();if(onEnd)onEnd();};window.speechSynthesis.speak(u);}
+function say(text,onEnd){stopAllAudio();rStartTalk(text.length);fetch("/tts",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({text:text})}).then(function(res){if(!res.ok)throw new Error("TTS "+res.status);return res.blob();}).then(function(blob){var url=URL.createObjectURL(blob);elAudio=new Audio(url);elAudio.onended=function(){URL.revokeObjectURL(url);elAudio=null;rStopTalk();if(onEnd)onEnd();};elAudio.onerror=function(){URL.revokeObjectURL(url);elAudio=null;rStopTalk();sayBrowser(text,onEnd);};var p=elAudio.play();if(p&&p.catch){p.catch(function(){URL.revokeObjectURL(url);elAudio=null;sayBrowser(text,onEnd);});}}).catch(function(err){sayBrowser(text,onEnd);});}
+function sayEl(id){var e=G(id);if(e)say(e.innerText||e.textContent);}
+window.addEventListener("beforeunload",function(){stopAllAudio();});
+window.addEventListener("pagehide",function(){stopAllAudio();});
+var mouthTmr=null,blinkTmr=null,mOpen=false;
+function rInit(){var c=G("rChar");if(c)c.style.animation="rIn .6s cubic-bezier(.34,1.56,.64,1) forwards";scheduleBlink();}
+function scheduleBlink(){blinkTmr=setTimeout(function(){rBlink();scheduleBlink();},2200+Math.random()*3000);}
+function rBlink(){var l=G("rLid1"),r=G("rLid2");if(!l||!r)return;l.setAttribute("ry","5.5");r.setAttribute("ry","5.5");setTimeout(function(){l.setAttribute("ry","1");r.setAttribute("ry","1");},120);}
+function rStartTalk(len){rStopTalk();G("rBlush1").style.opacity="0.7";G("rBlush2").style.opacity="0.7";mOpen=false;mouthTmr=setInterval(function(){mOpen=!mOpen;var m=G("rMouth");if(!m)return;if(mOpen){m.setAttribute("d","M42,33 Q50,42 58,33");m.setAttribute("fill","#1a3a1a");}else{m.setAttribute("d","M44,33 Q50,38 56,33");m.setAttribute("fill","none");}},160);setTimeout(rStopTalk,Math.max(1800,(len||20)*58));}
+function rStopTalk(){clearInterval(mouthTmr);mOpen=false;var m=G("rMouth");if(m){m.setAttribute("d","M44,33 Q50,38 56,33");m.setAttribute("fill","none");}G("rBlush1").style.opacity="0";G("rBlush2").style.opacity="0";}
+function rHappy(){var c=G("rChar");if(c)c.style.animation="rBounce .35s ease-in-out 5";G("rBlush1").style.opacity="1";G("rBlush2").style.opacity="1";setTimeout(function(){rStopTalk();var c=G("rChar");if(c)c.style.animation="none";},2500);}
+function rThink(){setTimeout(rStopTalk,1800);}
+
+var QB=[
+{id:"sq1",q:"What makes a number a <strong>perfect square</strong>?",qs:"What makes a number a perfect square?",anim:"sq1",
+ steps:[{t:"A perfect square is simply a number you get when you multiply an integer by itself! Like 3×3 = 9, or 7×7 = 49.",s:"A perfect square is simply a number you get when you multiply an integer by itself! Like 3 times 3 = 9, or 7 times 7 = 49."},{t:"The first few perfect squares are 1, 4, 9, 16, 25, 36, 49, 64, 81, 100. Do you see the pattern?",s:"The first few perfect squares are 1, 4, 9, 16, 25, 36, 49, 64, 81, 100. Do you see the pattern?"},{t:"Visually, a perfect square can be arranged as a neat square grid of dots! 4 = 2×2 makes a 2-by-2 grid.",s:"Visually, a perfect square can be arranged as a neat square grid of dots! 4 = 2 times 2 makes a 2 by 2 grid."}],
+ cq:"Is 169 a perfect square? Type yes or no.",cqs:"Is 169 a perfect square? Type yes or no.",ans:["yes"],nudges:["Think: can you find a whole number n such that n×n = 169?","13×13 = 169. So yes!","The answer is Yes! 169 = 13²"]},
+{id:"sq2",q:"Find <strong>√196</strong> using prime factorisation.",qs:"Find the square root of 196 using prime factorisation.",anim:"sq2",
+ steps:[{t:"Start factorising 196: 196 = 2×98 = 2×2×49 = 2×2×7×7. We found the prime factorisation!",s:"Start factorising 196: 196 = 2 times 2 times 7 times 7. We found the prime factorisation!"},{t:"Now group the prime factors into pairs: (2×2) and (7×7). Each pair gives one factor for the square root.",s:"Now group the prime factors into pairs: 2 times 2, and 7 times 7. Each pair gives one factor for the square root."},{t:"Take one from each pair: 2×7 = 14. So √196 = 14! Check: 14×14 = 196 ✓",s:"Take one from each pair: 2 times 7 = 14. So the square root of 196 is 14! Check: 14 times 14 = 196."}],
+ cq:"Find √324 using prime factorisation.",cqs:"Find the square root of 324 using prime factorisation.",ans:["18"],nudges:["324 = 2²×3⁴. Try writing it as pairs of primes.","Pairs: (2×2) and (3×3) and (3×3). Take one from each: 2×3×3","The answer is 18! Because 18×18 = 324."]},
+{id:"sq3",q:"How many <strong>non-perfect-square</strong> numbers lie between 7² and 8²?",qs:"How many non-perfect-square numbers lie between 7 squared and 8 squared?",anim:"sq3",
+ steps:[{t:"7² = 49 and 8² = 64. The numbers between them are 50, 51, 52, ..., 63. Count them!",s:"7 squared = 49 and 8 squared = 64. The numbers between them are 50, 51, 52, up to 63. Count them!"},{t:"50 to 63 is 14 numbers. And there is a beautiful shortcut: between n² and (n+1)², there are always 2n non-perfect-squares!",s:"50 to 63 is 14 numbers. And there is a beautiful shortcut: between n squared and n+1 squared, there are always 2n non-perfect-squares!"},{t:"So between 7² and 8²: 2×7 = 14 numbers. The pattern is always 2n!",s:"So between 7 squared and 8 squared: 2 times 7 = 14 numbers. The pattern is always 2n!"}],
+ cq:"How many non-perfect-squares lie between 9² and 10²?",cqs:"How many non-perfect-squares lie between 9 squared and 10 squared?",ans:["18"],nudges:["Use the formula: between n² and (n+1)² there are 2n non-perfect-squares.","Here n=9, so the answer is 2×9 = ?","The answer is 18!"]},
+{id:"sq4",q:"What is <strong>1 + 3 + 5 + 7 + 9 + 11</strong> (sum of first 6 odd numbers)?",qs:"What is 1 plus 3 plus 5 plus 7 plus 9 plus 11, the sum of the first 6 odd numbers?",anim:"sq4",
+ steps:[{t:"Here is a magical property: the sum of the first n odd numbers is always equal to n²!",s:"Here is a magical property: the sum of the first n odd numbers is always equal to n squared!"},{t:"1=1², 1+3=4=2², 1+3+5=9=3², 1+3+5+7=16=4². The pattern holds every time!",s:"1 equals 1 squared. 1+3 equals 4 = 2 squared. 1+3+5 equals 9 = 3 squared. The pattern holds every time!"},{t:"For 6 odd numbers: sum = 6² = 36! So 1+3+5+7+9+11 = 36. No need to add one by one!",s:"For 6 odd numbers: sum = 6 squared = 36! So 1+3+5+7+9+11 = 36. No need to add one by one!"}],
+ cq:"Find 1 + 3 + 5 + 7 + 9 + 11 + 13 + 15 (first 8 odd numbers).",cqs:"Find the sum of the first 8 odd numbers.",ans:["64"],nudges:["Sum of first n odd numbers = n². Here n=8.","8² = 8 × 8 = ?","The answer is 64!"]},
+{id:"sq5",q:"Can a number ending in <strong>3</strong> be a perfect square?",qs:"Can a number ending in 3 be a perfect square?",anim:"sq5",
+ steps:[{t:"Perfect squares only end in certain digits: 0, 1, 4, 5, 6, or 9. That is it — just these six digits!",s:"Perfect squares only end in certain digits: 0, 1, 4, 5, 6, or 9. That is it — just these six digits!"},{t:"Numbers ending in 2, 3, 7, or 8 can NEVER be perfect squares — this is a strong elimination rule!",s:"Numbers ending in 2, 3, 7, or 8 can NEVER be perfect squares — this is a strong elimination rule!"},{t:"So any number ending in 3 is definitely NOT a perfect square. You can eliminate it instantly just by looking at the last digit!",s:"So any number ending in 3 is definitely NOT a perfect square. You can eliminate it instantly just by looking at the last digit!"}],
+ cq:"Can 873 be a perfect square? Answer yes or no.",cqs:"Can 873 be a perfect square? Answer yes or no.",ans:["no"],nudges:["Look at the last digit of 873. It ends in 3.","Perfect squares never end in 2, 3, 7, or 8.","The answer is No! 873 cannot be a perfect square."]},
+{id:"sq6",q:"Find <strong>√1225</strong> by prime factorisation.",qs:"Find the square root of 1225 by prime factorisation.",anim:"sq6",
+ steps:[{t:"Factorise 1225: 1225 ÷ 5 = 245, 245 ÷ 5 = 49, 49 ÷ 7 = 7. So 1225 = 5×5×7×7.",s:"Factorise 1225: 1225 divided by 5 is 245, 245 divided by 5 is 49, 49 divided by 7 is 7. So 1225 = 5 times 5 times 7 times 7."},{t:"Group into pairs: (5×5) and (7×7). Each pair contributes one factor.",s:"Group into pairs: 5 times 5, and 7 times 7. Each pair contributes one factor."},{t:"Take one from each pair: 5×7 = 35. So √1225 = 35! Verify: 35² = 1225 ✓",s:"Take one from each pair: 5 times 7 = 35. So the square root of 1225 is 35! Verify: 35 squared = 1225."}],
+ cq:"Find √2025 by prime factorisation.",cqs:"Find the square root of 2025 by prime factorisation.",ans:["45"],nudges:["2025 = 3×3×3×3×5×5. Write it as pairs.","Pairs: (3×3)(3×3)(5×5). One from each: 3×3×5 = ?","The answer is 45! 45² = 2025."]},
+{id:"sq7",q:"Find the <strong>smallest number</strong> to multiply 180 by to make it a perfect square.",qs:"Find the smallest number to multiply 180 by to make it a perfect square.",anim:"sq7",
+ steps:[{t:"Factorise 180: 180 = 2²×3²×5. Look at the prime factors — 5 appears only once, without a pair!",s:"Factorise 180: 180 = 2 squared times 3 squared times 5. Look at the prime factors — 5 appears only once, without a pair!"},{t:"For a perfect square, every prime factor must appear in pairs (even power). The lonely 5 needs a partner!",s:"For a perfect square, every prime factor must appear in pairs — even power. The lonely 5 needs a partner!"},{t:"Multiply by 5: 180×5 = 900 = 2²×3²×5². Now every factor is paired! √900 = 30. The answer is 5!",s:"Multiply by 5: 180 times 5 = 900 = 2 squared times 3 squared times 5 squared. Now every factor is paired! The square root of 900 is 30. The answer is 5!"}],
+ cq:"What is the smallest number to multiply 75 by to make it a perfect square?",cqs:"What is the smallest number to multiply 75 by to make it a perfect square?",ans:["3"],nudges:["Factorise 75 = 3×5×5. Which prime is unpaired?","The factor 3 appears only once — it needs a pair.","Multiply by 3! 75×3=225=15². The answer is 3."]},
+{id:"sq8",q:"Find <strong>√(49/81)</strong>.",qs:"Find the square root of 49 over 81.",anim:"sq8",
+ steps:[{t:"The square root of a fraction equals the square root of numerator divided by square root of denominator.",s:"The square root of a fraction equals the square root of numerator divided by square root of denominator."},{t:"√49 = 7 (because 7×7 = 49) and √81 = 9 (because 9×9 = 81).",s:"The square root of 49 is 7, because 7 times 7 = 49. And the square root of 81 is 9, because 9 times 9 = 81."},{t:"So √(49/81) = 7/9. Always apply square root to both top and bottom separately!",s:"So the square root of 49 over 81 = 7 over 9. Always apply square root to both top and bottom separately!"}],
+ cq:"Find √(25/144).",cqs:"Find the square root of 25 over 144.",ans:["5/12"],nudges:["Apply √ to numerator and denominator separately.","√25 = 5 and √144 = 12. So the answer is...","The answer is 5/12!"]},
+{id:"sq9",q:"Find <strong>√2.25</strong>.",qs:"Find the square root of 2.25.",anim:"sq9",
+ steps:[{t:"Convert the decimal to a fraction: 2.25 = 225/100. Now we can use prime factorisation on both!",s:"Convert the decimal to a fraction: 2.25 = 225 over 100. Now we can use prime factorisation on both!"},{t:"√225 = 15 (since 225 = 3×3×5×5 = 15²) and √100 = 10.",s:"The square root of 225 is 15, since 225 = 3 times 3 times 5 times 5 = 15 squared. And the square root of 100 is 10."},{t:"So √2.25 = 15/10 = 1.5! Always convert decimals to fractions first when finding square roots.",s:"So the square root of 2.25 = 15 over 10 = 1.5! Always convert decimals to fractions first when finding square roots."}],
+ cq:"Find √1.44.",cqs:"Find the square root of 1.44.",ans:["1.2"],nudges:["Convert: 1.44 = 144/100. Then find √144 and √100.","√144 = 12, √100 = 10. So the answer is 12/10 = ?","The answer is 1.2!"]},
+{id:"sq10",q:"What is the <strong>least number</strong> to be subtracted from 2000 to get a perfect square?",qs:"What is the least number to be subtracted from 2000 to get a perfect square?",anim:"sq10",
+ steps:[{t:"Find the perfect square just below 2000. Try 44² = 1936 and 45² = 2025. Since 2025 > 2000, the nearest square below is 1936.",s:"Find the perfect square just below 2000. 44 squared = 1936 and 45 squared = 2025. Since 2025 is greater than 2000, the nearest square below is 1936."},{t:"Subtract: 2000 − 1936 = 64. We must subtract 64 to reach 1936 = 44².",s:"Subtract: 2000 minus 1936 = 64. We must subtract 64 to reach 1936 = 44 squared."},{t:"So the least number to subtract from 2000 to get a perfect square is 64!",s:"So the least number to subtract from 2000 to get a perfect square is 64!"}],
+ cq:"What is the least number to subtract from 500 to make it a perfect square?",cqs:"What is the least number to subtract from 500 to make it a perfect square?",ans:["16"],nudges:["Find the perfect square just below 500. Try 22²=484 and 23²=529.","23²=529 > 500, so nearest is 22²=484. Subtract 500−484 = ?","The answer is 16! 500−16 = 484 = 22²."]},
+{id:"sq11",q:"Find <strong>√7056</strong> by prime factorisation.",qs:"Find the square root of 7056 by prime factorisation.",anim:"sq11",
+ steps:[{t:"Factorise 7056: 7056 = 2⁴×3²×7² (you get 2⁴×441 = 2⁴×21² = 84²). Let us verify step by step.",s:"Factorise 7056. Dividing repeatedly: 7056 = 2 to the 4th times 3 squared times 7 squared."},{t:"Group all primes in pairs: (2×2)(2×2)(3×3)(7×7). Take one from each pair.",s:"Group all primes in pairs: two twos, two twos, three times three, seven times seven. Take one from each pair."},{t:"One from each pair: 2×2×3×7 = 84. So √7056 = 84! Check: 84² = 7056 ✓",s:"One from each pair: 2 times 2 times 3 times 7 = 84. So the square root of 7056 is 84!"}],
+ cq:"Find √5929.",cqs:"Find the square root of 5929.",ans:["77"],nudges:["5929 = 7² × 11². Group in pairs.","√(7²×11²) = 7×11 = ?","The answer is 77! 77² = 5929."]},
+{id:"sq12",q:"Find <strong>√0.0064</strong>.",qs:"Find the square root of 0.0064.",anim:"sq12",
+ steps:[{t:"Write as a fraction: 0.0064 = 64/10000. Now find square roots of both numerator and denominator.",s:"Write as a fraction: 0.0064 = 64 over 10000. Now find square roots of both numerator and denominator."},{t:"√64 = 8 (since 8² = 64) and √10000 = 100 (since 100² = 10000).",s:"The square root of 64 is 8, since 8 squared = 64. And the square root of 10000 is 100."},{t:"So √0.0064 = 8/100 = 0.08! Count decimal places: 4 decimal places in original, 2 in square root.",s:"So the square root of 0.0064 = 8 over 100 = 0.08! Count decimal places: 4 decimal places in original, 2 in square root."}],
+ cq:"Find √0.0036.",cqs:"Find the square root of 0.0036.",ans:["0.06"],nudges:["0.0036 = 36/10000. Find √36 and √10000.","√36 = 6, √10000 = 100. So answer is 6/100 = ?","The answer is 0.06!"]},
+{id:"sq13",q:"Find <strong>√1764</strong> by long division method.",qs:"Find the square root of 1764 by the long division method.",anim:"sq13",
+ steps:[{t:"Group digits from right in pairs: 17 | 64. Start with the leftmost group: 17.",s:"Group digits from right in pairs: 17 and 64. Start with the leftmost group: 17."},{t:"Largest perfect square ≤ 17 is 16 = 4². Write 4. Remainder: 17−16 = 1. Bring down 64 → 164.",s:"Largest perfect square at most 17 is 16 = 4 squared. Write 4. Remainder: 17 minus 16 = 1. Bring down 64 to get 164."},{t:"Double the quotient: 2×4 = 8. Find digit d such that (80+d)×d ≤ 164. Try d=2: 82×2=164 ✓. Quotient = 42.",s:"Double the quotient: 2 times 4 = 8. Find digit d such that 80 plus d times d is at most 164. Try d=2: 82 times 2 = 164. Quotient = 42."}],
+ cq:"Find √2809 by long division.",cqs:"Find the square root of 2809 by the long division method.",ans:["53"],nudges:["Group: 28|09. Largest square ≤ 28 is 25=5². Remainder 3, bring down 09 → 309.","Double: 2×5=10. Find d: (100+d)×d ≤ 309. Try d=3: 103×3=309 ✓","The answer is 53! 53² = 2809."]},
+{id:"sq14",q:"A school hall seats students in rows where <strong>rows = students per row</strong>. If 1849 students are seated, find the number of rows.",qs:"A school hall seats students in rows where the number of rows equals the number of students per row. If 1849 students are seated, find the number of rows.",anim:"sq14",
+ steps:[{t:"Let n = number of rows = students per row. Then total students = n×n = n². So n² = 1849.",s:"Let n equal the number of rows, which also equals the students per row. Then total students = n times n = n squared. So n squared = 1849."},{t:"We need to find √1849. Factorise: 1849 = 43×43 = 43². So √1849 = 43!",s:"We need to find the square root of 1849. Factorising: 1849 = 43 times 43. So the square root of 1849 is 43!"},{t:"There are 43 rows, with 43 students in each row. 43×43 = 1849 ✓",s:"There are 43 rows, with 43 students in each row. 43 times 43 = 1849."}],
+ cq:"A field is planted with 2025 saplings in equal rows and columns. Find the number of rows.",cqs:"A field is planted with 2025 saplings in equal rows and columns. Find the number of rows.",ans:["45"],nudges:["n² = 2025. Find √2025.","2025 = 3⁴×5² = 81×25. √2025 = √81×√25 = 9×5 = ?","The answer is 45 rows!"]},
+{id:"sq15",q:"<strong>HOTS:</strong> Is the product of two perfect squares always a perfect square?",qs:"Higher Order Thinking: Is the product of two perfect squares always a perfect square?",anim:"sq15",
+ steps:[{t:"Let the two perfect squares be m² and n². Their product is m²×n².",s:"Let the two perfect squares be m squared and n squared. Their product is m squared times n squared."},{t:"m²×n² = (m×n)². This is itself a perfect square — the square of (m×n)!",s:"m squared times n squared = the quantity m times n, all squared. This is itself a perfect square!"},{t:"Example: 9×25 = 225. And √225 = 15 = 3×5. So yes — always a perfect square! This rule never fails.",s:"Example: 9 times 25 = 225. And the square root of 225 = 15 = 3 times 5. So yes, always a perfect square! This rule never fails."}],
+ cq:"Is 144 × 49 a perfect square? Type yes or no.",cqs:"Is 144 times 49 a perfect square? Type yes or no.",ans:["yes"],nudges:["144 = 12² and 49 = 7². What is 12²×7²?","(12×7)² = 84². So 144×49 = 84² = 7056.","The answer is Yes! The product of two perfect squares is always a perfect square."]}
+];
+
+function svgText(txt,y,col){col=col||"#5a4a30";return '<text x="22" y="'+y+'" font-size="12" font-weight="800" fill="'+col+'" font-family="Nunito,sans-serif">'+txt+'</text>';}
+function svgAns(lbl){return '<rect x="40" y="155" width="320" height="28" rx="7" fill="#eef2eb" stroke="#6b4c2a" stroke-width="1.5"/><text x="200" y="174" text-anchor="middle" font-family="Share Tech Mono" font-size="14" font-weight="bold" fill="#7a8c6e">'+lbl+'</text>';}
+function svgBase(){return '<svg viewBox="0 0 400 190" xmlns="http://www.w3.org/2000/svg" style="font-family:Nunito,sans-serif;background:#fffdf8"><rect width="400" height="190" fill="#fffdf8"/>';}
+
+function makeSVG(id,lines,ans,extraSvg){
+  var s=svgBase();
+  var ys=[28,68,108];
+  for(var i=0;i<lines.length;i++){
+    s+='<g id="'+id+'s'+i+'" opacity="0">'+svgText(lines[i],ys[i])+'</g>';
+  }
+  s+='<g id="'+id+'ans" opacity="0">'+svgAns(ans)+(extraSvg||'')+'</g>';
+  s+='</svg>';
+  return s;
+}
+
+function getAnimSVG(t){
+  var dots=function(n,cx,cy,fill,id){
+    var s='<g id="'+id+'" opacity="0">';
+    for(var r=0;r<n;r++)for(var c=0;c<n;c++)s+='<circle cx="'+(cx+c*14)+'" cy="'+(cy+r*14)+'" r="5" fill="'+fill+'"/>';
+    s+='</g>';return s;
+  };
+  var m={
+  "sq1":function(){return svgBase()+
+    '<g id="sq1s0" opacity="0">'+svgText("Perfect square = integer × itself",28)+
+    '<rect x="20" y="40" width="60" height="60" rx="4" fill="#f5e6c8" stroke="#c8922a" stroke-width="2"/>'+
+    '<text x="50" y="76" text-anchor="middle" font-size="18" font-weight="900" fill="#c8922a">n²</text>'+
+    '</g>'+
+    '<g id="sq1s1" opacity="0">'+svgText("1,4,9,16,25,36,49,64,81,100...",68)+
+    dots(3,200,40,"#7ab87a","sq1d3")+'</g>'+
+    '<g id="sq1s2" opacity="0">'+svgText("Arrange as square dot grid!",108)+
+    dots(4,200,35,"#d4870a","sq1d4")+'</g>'+
+    '<g id="sq1ans" opacity="0">'+svgAns("Yes! 169 = 13² ✓")+'</g></svg>';},
+  "sq2":function(){return svgBase()+
+    '<g id="sq2s0" opacity="0">'+svgText("196 = 2 × 2 × 7 × 7",28)+
+    '<text x="200" y="58" text-anchor="middle" font-size="13" font-weight="800" fill="#5a4a30">196 = 2² × 7²</text></g>'+
+    '<g id="sq2s1" opacity="0">'+svgText("Pair up: (2×2) and (7×7)",68)+
+    '<text x="200" y="98" text-anchor="middle" font-size="13" font-weight="800" fill="#7a8c6e">Take ONE from each pair</text></g>'+
+    '<g id="sq2s2" opacity="0">'+svgText("2 × 7 = 14  →  √196 = 14",108)+'</g>'+
+    '<g id="sq2ans" opacity="0">'+svgAns("√196 = 14")+'</g></svg>';},
+  "sq3":function(){return svgBase()+
+    '<g id="sq3s0" opacity="0">'+svgText("Between 7²=49 and 8²=64:",28)+
+    '<text x="200" y="58" text-anchor="middle" font-size="12" font-weight="800" fill="#c8922a">50,51,52,...,63  →  14 numbers</text></g>'+
+    '<g id="sq3s1" opacity="0">'+svgText("Formula: between n² and (n+1)²:",68)+
+    '<text x="200" y="98" text-anchor="middle" font-size="16" font-weight="900" fill="#d4870a">= 2n non-perfect-squares</text></g>'+
+    '<g id="sq3s2" opacity="0">'+svgText("n=7 → 2×7 = 14 ✓",108)+'</g>'+
+    '<g id="sq3ans" opacity="0">'+svgAns("2×9 = 18 non-perfect-squares")+'</g></svg>';},
+  "sq4":function(){return svgBase()+
+    '<g id="sq4s0" opacity="0">'+svgText("Sum of first n odd numbers = n²",28)+'</g>'+
+    '<g id="sq4s1" opacity="0">'+svgText("1=1, 1+3=4, 1+3+5=9, 1+3+5+7=16...",68)+
+    '<text x="200" y="98" text-anchor="middle" font-size="13" fill="#7a8c6e" font-weight="800">Pattern: n odd numbers → n²</text></g>'+
+    '<g id="sq4s2" opacity="0">'+svgText("First 6 odd: sum = 6² = 36",108)+'</g>'+
+    '<g id="sq4ans" opacity="0">'+svgAns("First 8 odd: 8² = 64")+'</g></svg>';},
+  "sq5":function(){return svgBase()+
+    '<g id="sq5s0" opacity="0">'+svgText("Perfect squares end in: 0,1,4,5,6,9",28)+'</g>'+
+    '<g id="sq5s1" opacity="0">'+svgText("NEVER end in: 2, 3, 7, 8",68)+
+    '<rect x="20" y="80" width="340" height="26" rx="6" fill="#fff5f0" stroke="#b85c2a" stroke-width="2"/>'+
+    '<text x="190" y="98" text-anchor="middle" font-size="13" font-weight="900" fill="#b85c2a">Ends in 2,3,7,8 → NOT a square!</text></g>'+
+    '<g id="sq5s2" opacity="0">'+svgText("873 ends in 3 → NOT a perfect square",108)+'</g>'+
+    '<g id="sq5ans" opacity="0">'+svgAns("No! 873 ends in 3")+'</g></svg>';},
+  "sq6":function(){return svgBase()+
+    '<g id="sq6s0" opacity="0">'+svgText("1225 = 5 × 5 × 7 × 7 = 5² × 7²",28)+'</g>'+
+    '<g id="sq6s1" opacity="0">'+svgText("Pairs: (5×5) and (7×7)",68)+
+    '<text x="200" y="98" text-anchor="middle" font-size="13" font-weight="800" fill="#7a8c6e">One from each pair: 5 and 7</text></g>'+
+    '<g id="sq6s2" opacity="0">'+svgText("√1225 = 5 × 7 = 35",108)+'</g>'+
+    '<g id="sq6ans" opacity="0">'+svgAns("√2025 = 3×3×5 = 45")+'</g></svg>';},
+  "sq7":function(){return svgBase()+
+    '<g id="sq7s0" opacity="0">'+svgText("180 = 2² × 3² × 5",28)+
+    '<text x="200" y="58" text-anchor="middle" font-size="13" fill="#c8922a" font-weight="800">5 has no pair!</text></g>'+
+    '<g id="sq7s1" opacity="0">'+svgText("Need: every prime in pairs",68)+
+    '<text x="200" y="98" text-anchor="middle" font-size="13" fill="#7a8c6e" font-weight="800">5 needs one more 5 → multiply by 5</text></g>'+
+    '<g id="sq7s2" opacity="0">'+svgText("180 × 5 = 900 = 30²  ✓",108)+'</g>'+
+    '<g id="sq7ans" opacity="0">'+svgAns("Multiply by 5")+'</g></svg>';},
+  "sq8":function(){return svgBase()+
+    '<g id="sq8s0" opacity="0">'+svgText("√(p/q) = √p ÷ √q",28)+'</g>'+
+    '<g id="sq8s1" opacity="0">'+svgText("√49 = 7  and  √81 = 9",68)+'</g>'+
+    '<g id="sq8s2" opacity="0">'+svgText("√(49/81) = 7/9",108)+'</g>'+
+    '<g id="sq8ans" opacity="0">'+svgAns("√(25/144) = 5/12")+'</g></svg>';},
+  "sq9":function(){return svgBase()+
+    '<g id="sq9s0" opacity="0">'+svgText("2.25 = 225/100",28)+'</g>'+
+    '<g id="sq9s1" opacity="0">'+svgText("√225 = 15  and  √100 = 10",68)+'</g>'+
+    '<g id="sq9s2" opacity="0">'+svgText("√2.25 = 15/10 = 1.5",108)+'</g>'+
+    '<g id="sq9ans" opacity="0">'+svgAns("√1.44 = 1.2")+'</g></svg>';},
+  "sq10":function(){return svgBase()+
+    '<g id="sq10s0" opacity="0">'+svgText("44² = 1936  45² = 2025",28)+
+    '<text x="200" y="58" text-anchor="middle" font-size="13" fill="#c8922a" font-weight="800">Nearest square below 2000 = 1936</text></g>'+
+    '<g id="sq10s1" opacity="0">'+svgText("2000 − 1936 = 64",68)+'</g>'+
+    '<g id="sq10s2" opacity="0">'+svgText("Subtract 64 → 1936 = 44²",108)+'</g>'+
+    '<g id="sq10ans" opacity="0">'+svgAns("Subtract 16 from 500 → 484=22²")+'</g></svg>';},
+  "sq11":function(){return svgBase()+
+    '<g id="sq11s0" opacity="0">'+svgText("7056 = 2⁴ × 3² × 7²",28)+'</g>'+
+    '<g id="sq11s1" opacity="0">'+svgText("Pairs: (2²)(2²)(3²)(7²)",68)+
+    '<text x="200" y="98" text-anchor="middle" font-size="13" fill="#7a8c6e" font-weight="800">One from each: 2×2×3×7 = 84</text></g>'+
+    '<g id="sq11s2" opacity="0">'+svgText("√7056 = 84  ✓",108)+'</g>'+
+    '<g id="sq11ans" opacity="0">'+svgAns("√5929 = 77")+'</g></svg>';},
+  "sq12":function(){return svgBase()+
+    '<g id="sq12s0" opacity="0">'+svgText("0.0064 = 64/10000",28)+'</g>'+
+    '<g id="sq12s1" opacity="0">'+svgText("√64 = 8   √10000 = 100",68)+'</g>'+
+    '<g id="sq12s2" opacity="0">'+svgText("√0.0064 = 8/100 = 0.08",108)+'</g>'+
+    '<g id="sq12ans" opacity="0">'+svgAns("√0.0036 = 0.06")+'</g></svg>';},
+  "sq13":function(){return svgBase()+
+    '<g id="sq13s0" opacity="0">'+svgText("Group digits: 17 | 64",28)+
+    '<text x="200" y="58" text-anchor="middle" font-size="13" fill="#c8922a" font-weight="800">Start with 17: largest square ≤17 is 16=4²</text></g>'+
+    '<g id="sq13s1" opacity="0">'+svgText("Remainder 1, bring down 64 → 164",68)+'</g>'+
+    '<g id="sq13s2" opacity="0">'+svgText("Double 4=8; find d: (80+d)×d≤164; d=2",108)+'</g>'+
+    '<g id="sq13ans" opacity="0">'+svgAns("√2809 = 53")+'</g></svg>';},
+  "sq14":function(){return svgBase()+
+    '<g id="sq14s0" opacity="0">'+svgText("rows = cols = n  →  n² = 1849",28)+'</g>'+
+    '<g id="sq14s1" opacity="0">'+svgText("√1849 = 43  (since 43² = 1849)",68)+'</g>'+
+    '<g id="sq14s2" opacity="0">'+svgText("43 rows × 43 students = 1849 ✓",108)+'</g>'+
+    '<g id="sq14ans" opacity="0">'+svgAns("√2025 = 45 rows")+'</g></svg>';},
+  "sq15":function(){return svgBase()+
+    '<g id="sq15s0" opacity="0">'+svgText("Product of m² and n² = m²×n²",28)+'</g>'+
+    '<g id="sq15s1" opacity="0">'+svgText("m²×n² = (m×n)²  →  always a perfect square!",68)+'</g>'+
+    '<g id="sq15s2" opacity="0">'+svgText("9×25 = 225 = 15²  ✓",108)+'</g>'+
+    '<g id="sq15ans" opacity="0">'+svgAns("Yes! 144×49 = 84² = 7056")+'</g></svg>';}
+  };
+  return m[t]?m[t]():'<svg viewBox="0 0 400 190"><text x="200" y="95" text-anchor="middle" font-family="Nunito" font-size="14" fill="#5a4a30">Loading...</text></svg>';
+}
+
+function makePlay(id,nSteps,ans,dur){
+  dur=dur||3000;
+  return function(done){
+    setStatus("Solving step by step...");
+    var total=0;
+    for(var i=0;i<nSteps;i++){
+      (function(ii){at(total+600,function(){fade(id+"s"+ii,1);});})(i);
+      total+=dur;
+    }
+    at(total+400,function(){fade(id+"ans",1);setStatus("Answer: "+ans);at(1800,done);});
+  };
+}
+
+function getAnimPlay(t){
+  var m={
+    "sq1": makePlay("sq1",3,"Yes! 169 = 13²"),
+    "sq2": makePlay("sq2",3,"√196 = 14"),
+    "sq3": makePlay("sq3",3,"2×9 = 18"),
+    "sq4": makePlay("sq4",3,"8² = 64"),
+    "sq5": makePlay("sq5",3,"No! Ends in 3"),
+    "sq6": makePlay("sq6",3,"√1225 = 35"),
+    "sq7": makePlay("sq7",3,"Multiply by 5"),
+    "sq8": makePlay("sq8",3,"7/9"),
+    "sq9": makePlay("sq9",3,"1.5"),
+    "sq10":makePlay("sq10",3,"Subtract 64"),
+    "sq11":makePlay("sq11",3,"√7056 = 84"),
+    "sq12":makePlay("sq12",3,"0.08"),
+    "sq13":makePlay("sq13",3,"√1764 = 42"),
+    "sq14":makePlay("sq14",3,"43 rows"),
+    "sq15":makePlay("sq15",3,"Yes!")
+  };
+  return m[t]||function(done){done();};
+}
+
+var atTimers=[],session=[],idx=0,stepIdx=0,nudgeCount=0,completed=false,confirmShown=false,breakSecs=0,breakTmr=null,PER_SESSION=10;
+function G(id){return document.getElementById(id);}
+function clearAt(){for(var i=0;i<atTimers.length;i++)clearTimeout(atTimers[i]);atTimers=[];}
+function at(ms,fn){atTimers.push(setTimeout(fn,ms));}
+function fade(id,v){var e=G(id);if(e){e.style.transition="opacity .5s";e.style.opacity=v;}}
+function setStatus(t){var e=G("animStatus");if(e)e.textContent=t;}
+
+function startLesson(){var btn=G('startBtn');if(btn){btn.disabled=true;btn.textContent='▶ Starting...';}var done=false;function proceed(){if(!done){done=true;setTimeout(showQ,600);}}say(G('introText').innerText,proceed);setTimeout(proceed,9000);}
+function init(){
+  rishiCheckPlan(6);
+  var st=JSON.parse(localStorage.getItem("rishi_current_student")||"{}");
+  G("sName").textContent=st.studentName?st.studentName.split(" ")[0]:"there";
+  if(localStorage.getItem("rishi_explain_done_6")==="1"){completed=true;G("doneBanner").classList.add("show");unlockNav();}
+  buildSession();rInit();
+  initVoices(function(){startLesson();});
+}
+function buildSession(){session=QB.slice().sort(function(){return Math.random()-.5;}).slice(0,PER_SESSION);}
+function showQ(){
+  if(idx>=session.length){onComplete();return;}
+  var q=session[idx];stepIdx=0;nudgeCount=0;confirmShown=false;updateProg();G("qArea").innerHTML="";clearAt();
+  var qc=document.createElement("div");qc.className="q-card";
+  qc.innerHTML='<div class="q-label">Question '+(idx+1)+' of '+PER_SESSION+'</div><div class="q-text">'+q.q+'</div><button class="btn-speak" onclick="say(session[idx].qs)">&#128266; Hear</button>';
+  G("qArea").appendChild(qc);
+  var ap=document.createElement("div");ap.className="anim-panel";
+  ap.innerHTML='<div class="anim-header"><span class="anim-header-lbl">&#127909; Live Animation</span><button class="anim-replay" id="animReplay" onclick="replayAnim()">&#8635; Replay</button></div>'
+    +'<div class="anim-canvas" id="animCanvas">'+getAnimSVG(q.anim)+'</div>'
+    +'<div class="anim-status" id="animStatus">Tap Play to watch with narration!</div>'
+    +'<button class="anim-play-btn" id="animPlayBtn" onclick="startAnim()">&#9654; Play Animation</button>'
+    +'<button class="steps-btn" id="stepsBtn" onclick="beginSteps()">&#128214; See Step-by-Step</button>';
+  G("qArea").appendChild(ap);setTimeout(startAnim,800);
+}
+function startAnim(){var q=session[idx];var pb=G("animPlayBtn");if(pb){pb.disabled=true;pb.textContent="&#9654; Playing...";}getAnimPlay(q.anim)(function(){var sb=G("stepsBtn");if(sb)sb.style.display="block";var rb=G("animReplay");if(rb)rb.style.display="block";if(pb)pb.style.display="none";setTimeout(beginSteps,600);});}
+function replayAnim(){clearAt();window.speechSynthesis&&window.speechSynthesis.cancel();rStopTalk();var q=session[idx];var canvas=G("animCanvas");if(canvas)canvas.innerHTML=getAnimSVG(q.anim);G("animReplay").style.display="none";G("stepsBtn").style.display="none";var pb=G("animPlayBtn");if(pb){pb.style.display="block";pb.disabled=false;pb.textContent="&#9654; Play Animation";}setStatus("Tap Play to watch with narration!");}
+function beginSteps(){var q=session[idx];var sc=document.createElement("div");sc.className="q-card";sc.innerHTML='<div class="q-label">&#128214; Step-by-Step</div><div id="stepsWrap"></div><button class="btn-speak" id="nxtStepBtn" onclick="nextStep()" style="margin-top:10px;">&#9654; Next Step</button>';G("qArea").appendChild(sc);sc.scrollIntoView({behavior:"smooth",block:"start"});G("stepsBtn").style.display="none";setTimeout(nextStep,350);}
+function nextStep(){var q=session[idx];if(stepIdx>=q.steps.length){G("nxtStepBtn").style.display="none";var ib=document.createElement("button");ib.className="btn-speak";ib.innerHTML="&#9989; I Understand!";ib.style.cssText="margin-top:16px;width:100%;";ib.onclick=function(){ib.remove();showConfirm();};G("stepsWrap").appendChild(ib);ib.scrollIntoView({behavior:"smooth",block:"center"});return;}var s=q.steps[stepIdx];var wrap=G("stepsWrap");var d=document.createElement("div");d.className="step";d.innerHTML='<div class="step-num">'+(stepIdx+1)+'</div><div class="step-body">'+s.t+'</div>';wrap.appendChild(d);setTimeout(function(){d.classList.add("vis");},40);say(s.s);setTimeout(nextStep,3500);stepIdx++;}
+function showConfirm(){if(confirmShown)return;confirmShown=true;
+  var q=session[idx];var c=document.createElement("div");c.className="confirm-wrap";
+  c.innerHTML='<div class="confirm-title">&#127917; Rishika asks!</div>'
+    +'<div class="confirm-q">'+q.cq+'</div>'
+    +'<div class="math-input-wrap"><textarea id="rawAnswer" class="math-raw" rows="2" autocomplete="off" placeholder="Type your answer here..."></textarea></div>'
+    +'<div class="math-preview-label">Your answer</div>'
+    +'<div class="math-preview" id="mathPreview"><span class="mph">your answer will appear here...</span></div>'
+    +'<div class="sugg-strip"><div class="sugg-strip-head">Quick chips</div><div class="sugg-chips" id="suggChips"></div></div>'
+    +'<button type="button" onclick="submitTyped()" style="width:100%;font-family:Nunito,sans-serif;font-size:14px;font-weight:900;padding:11px;border-radius:12px;border:none;background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;cursor:pointer;margin-bottom:8px;">Submit Answer</button>'
+    +'<div class="result-box" id="rbox"></div>'
+    +'<div class="nudge" id="nudgeBox"></div>'
+    +'<button type="button" class="btn-next" id="btnNext" onclick="goNext()">Next Question &#9654;</button>';
+  G("qArea").appendChild(c);c.scrollIntoView({behavior:"smooth",block:"center"});
+  var ra=G("rawAnswer");
+  if(ra){ra.addEventListener("input",mathUpdate);ra.addEventListener("keydown",function(ev){if(ev.key==="Enter"&&!ev.shiftKey){ev.preventDefault();submitTyped();}});setTimeout(function(){ra.focus();},300);}
+  buildSuggChips(makeChips(q));say(q.cqs);
+}
+function makeChips(q){var chips=[];(q.ans||[]).forEach(function(a){chips.push({label:a,ins:a,type:"confirm"});});return chips;}
+function submitTyped(){var ra=G("rawAnswer");if(!ra)return;var val=String(ra.value||"").trim();if(!val){ra.focus();return;}handleAnswer(val.toLowerCase());}
+function goNext(){idx++;G("qArea").innerHTML="";showQ();window.scrollTo({top:0,behavior:"smooth"});}
+function updateProg(){var pct=Math.round((idx/PER_SESSION)*100);G("progFill").style.width=pct+"%";G("progLabel").textContent="Question "+(idx+1)+" of "+PER_SESSION;G("progPct").textContent=pct+"%";}
+function unlockNav(){G("btnPractice").classList.remove("locked");G("btnExam").classList.remove("locked");G("lockTip").style.display="none";}
+function onComplete(){
+  rishiMarkExplainDone(6);
+  completed=true;G("doneBanner").classList.add("show");unlockNav();
+  var st=JSON.parse(localStorage.getItem("rishi_current_student")||"{}");
+  var nm=st.studentName?st.studentName.split(" ")[0]:"champion";
+  var cel=document.createElement("div");cel.className="rishika-wrap";
+  cel.innerHTML='<div class="rishika-avatar">&#128105;&#8205;&#127979;</div>'
+    +'<div class="rishika-bubble"><div class="rishika-name">Rishika</div>'
+    +'<div class="rishika-text" id="celText">&#127881; <span class="hl">'+nm+'</span>, you did it! You have mastered <span class="hl">Squares and Square Roots</span>! &#9744;&#128170;</div>'
+    +'<button class="btn-speak" onclick="sayEl(&apos;celText&apos;)">&#128266; Hear</button></div>';
+  G("qArea").appendChild(cel);setTimeout(function(){sayEl("celText");rHappy();},400);
+}
+function goPractice(){if(!completed){alert("Complete explanations first!");return;}location.href="/practice/class8/arithmetic/squares-and-square-roots.html";}
+function goExam(){if(!completed){alert("Complete explanations first!");return;}location.href="/exam.html?ch=06";}
+var CELEBRATIONS=[{word:"Magnifique !",lang:"French",meaning:"Magnificent!",speak:"Magnifique"},{word:"Brillante!",lang:"Spanish",meaning:"Brilliant!",speak:"Brillante"},{word:"Wunderbar!",lang:"German",meaning:"Wonderful!",speak:"Wunderbar"},{word:"Bravissimo!",lang:"Italian",meaning:"Very well done!",speak:"Bravissimo"},{word:"Shabash!",lang:"Hindi",meaning:"Well done!",speak:"Shabash"}];
+var lastCelIdx=-1;
+function celebrate(){var i;do{i=Math.floor(Math.random()*CELEBRATIONS.length);}while(i===lastCelIdx&&CELEBRATIONS.length>1);lastCelIdx=i;var c=CELEBRATIONS[i];var rb=G("rbox");rb.className="result-box ok";rb.innerHTML='<div class="cel-word">'+c.word+'</div><div class="cel-meta">'+c.lang+' &middot; <em>'+c.meaning+'</em></div>';G("nudgeBox").classList.remove("show");var nb=G("btnNext");if(nb)nb.classList.add("show");say(c.speak);rHappy();}
+function handleAnswer(text){var q=session[idx];var ok=q.ans.some(function(a){return text.includes(a.toLowerCase())||a.toLowerCase().includes(text);});var rb=G("rbox");if(ok){celebrate();}else{nudgeCount++;rb.className="result-box no";rb.textContent="&#10006; Not quite. Listen to my hint!";var nudge=q.nudges[Math.min(nudgeCount-1,q.nudges.length-1)];showNudge(nudge);say(nudge);rThink();if(nudgeCount>=3){var nb2=G("btnNext");if(nb2){nb2.classList.add("show");nb2.textContent="I Understand &#9654;";}};}}
+function showNudge(msg){var n=G("nudgeBox");if(n){n.textContent=msg;n.classList.add("show");}}
+function openBreak(){G("breakOv").classList.add("show");}
+function closeBreak(){G("breakOv").classList.remove("show");}
+function startBreak(r){closeBreak();breakSecs=0;G("timerLbl").textContent=r;G("timerNum").textContent="00:00";G("timerScreen").classList.add("show");breakTmr=setInterval(function(){breakSecs++;var m=String(Math.floor(breakSecs/60)).padStart(2,"0");var s=String(breakSecs%60).padStart(2,"0");G("timerNum").textContent=m+":"+s;},1000);if(breakSecs>2)rishiLogBreak(r,breakSecs);}
+function endBreak(){rishiLogBreak(G("timerLbl").textContent,breakSecs);clearInterval(breakTmr);G("timerScreen").classList.remove("show");}
+function mathUpdate(){var ra=G("rawAnswer");if(!ra)return;var v=ra.value.trim();var el=G("mathPreview");if(el)el.textContent=v||"";}
+function buildSuggChips(list){var el=G("suggChips");if(!el)return;var ra=G("rawAnswer");el.innerHTML="";list.forEach(function(c){var btn=document.createElement("button");btn.className="schip "+(c.type||"shortcut");btn.textContent=c.label;btn.type="button";btn.addEventListener("click",function(){if(c.ins&&ra){var s=ra.selectionStart,e=ra.selectionEnd;ra.value=ra.value.slice(0,s)+c.ins+ra.value.slice(e);ra.focus();mathUpdate();}});el.appendChild(btn);});}
+window.onload=init;
+</script>
+<script src="/explain-helper.js"></script>
+<script src="/error-reporter.js"></script>
+</body>
+</html>
