@@ -137,25 +137,40 @@ body::after{content:'RISHI';position:fixed;bottom:-40px;right:-30px;font-family:
 .sampurna-fill{height:100%;background:linear-gradient(90deg,var(--sage),var(--gold));border-radius:3px;transition:width .8s ease;}
 
 /* ── SMART MATHS BAR ── */
-.smart-bar{position:relative;z-index:10;padding:10px 20px;border-bottom:1.5px solid var(--gold-pale);background:rgba(255,253,248,.8);display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
-.smart-bar-label{font-family:'Orbitron',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;color:var(--amber);white-space:nowrap;text-transform:uppercase;}
-.smart-bar-chips{display:flex;gap:8px;flex-wrap:wrap;}
-.smart-chip{
-  font-family:'Share Tech Mono',monospace;font-size:12px;font-weight:500;
-  padding:5px 14px;border-radius:4px;cursor:pointer;
-  text-decoration:none;color:inherit;
-  background:#fff8e8;border:1.5px solid var(--border);color:var(--mid);
-  transition:all .18s;white-space:nowrap;
+.smart-bar{
+  position:relative;z-index:10;
+  margin:16px 20px;
+  padding:16px 20px;
+  background:linear-gradient(135deg,#fff8e8 0%,#fef3d0 100%);
+  border:2px solid #e2c96e;
+  border-radius:8px;
+  box-shadow:0 2px 12px rgba(200,146,42,.15);
+  display:flex;align-items:center;gap:14px;flex-wrap:wrap;
 }
-.smart-chip:hover{border-color:var(--amber);color:var(--amber);box-shadow:0 0 8px rgba(200,146,42,.2);}
-.smart-chip[data-layer="1"]{border-color:rgba(14,165,233,.4);color:#0077b3;}
-.smart-chip[data-layer="1"]:hover{border-color:#0ea5e9;box-shadow:0 0 8px rgba(14,165,233,.25);}
-.smart-chip[data-layer="2"]{border-color:rgba(124,58,237,.4);color:#5b21b6;}
-.smart-chip[data-layer="2"]:hover{border-color:#7c3aed;box-shadow:0 0 8px rgba(124,58,237,.25);}
-.smart-chip[data-layer="3"]{border-color:rgba(200,146,42,.4);color:#92650a;}
-.smart-chip[data-layer="3"]:hover{border-color:#c8922a;box-shadow:0 0 8px rgba(200,146,42,.25);}
-.smart-chip[data-layer="4"]{border-color:rgba(220,38,38,.4);color:#991b1b;}
-.smart-chip[data-layer="4"]:hover{border-color:#dc2626;box-shadow:0 0 8px rgba(220,38,38,.25);}
+.smart-bar-label{
+  font-family:'Orbitron',sans-serif;font-size:11px;font-weight:900;
+  letter-spacing:3px;color:#a0720a;white-space:nowrap;text-transform:uppercase;
+  display:flex;align-items:center;gap:6px;
+  border-right:2px solid #e2c96e;padding-right:14px;
+}
+.smart-bar-chips{display:flex;gap:10px;flex-wrap:wrap;}
+.smart-chip{
+  font-family:'Share Tech Mono',monospace;font-size:13px;font-weight:700;
+  padding:8px 18px;border-radius:6px;cursor:pointer;
+  text-decoration:none;
+  border:2px solid;
+  transition:all .18s;white-space:nowrap;
+  box-shadow:0 1px 4px rgba(0,0,0,.08);
+}
+.smart-chip:active{transform:scale(.97);}
+.smart-chip[data-layer="1"]{background:rgba(14,165,233,.1);border-color:#0ea5e9;color:#0077b3;}
+.smart-chip[data-layer="1"]:hover{background:#0ea5e9;color:#fff;box-shadow:0 0 12px rgba(14,165,233,.4);}
+.smart-chip[data-layer="2"]{background:rgba(124,58,237,.1);border-color:#7c3aed;color:#5b21b6;}
+.smart-chip[data-layer="2"]:hover{background:#7c3aed;color:#fff;box-shadow:0 0 12px rgba(124,58,237,.4);}
+.smart-chip[data-layer="3"]{background:rgba(200,146,42,.12);border-color:#c8922a;color:#92650a;}
+.smart-chip[data-layer="3"]:hover{background:#c8922a;color:#fff;box-shadow:0 0 12px rgba(200,146,42,.4);}
+.smart-chip[data-layer="4"]{background:rgba(220,38,38,.1);border-color:#dc2626;color:#991b1b;}
+.smart-chip[data-layer="4"]:hover{background:#dc2626;color:#fff;box-shadow:0 0 12px rgba(220,38,38,.4);}
 </style>
 <script src="/rishi-sync.js"></script>
 </head>
@@ -202,7 +217,7 @@ body::after{content:'RISHI';position:fixed;bottom:-40px;right:-30px;font-family:
 
 <!-- Smart Maths bar (hidden if nothing assigned) -->
 <div id="smartMathsBar" style="display:none;" class="smart-bar">
-  <div class="smart-bar-label">&#129504; Smart Maths</div>
+  <div class="smart-bar-label"><span style="font-size:20px;">&#129504;</span> Smart Maths</div>
   <div class="smart-bar-chips" id="smartMathsChips"></div>
 </div>
 
