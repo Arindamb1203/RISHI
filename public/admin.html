@@ -404,7 +404,7 @@ button{font-family:'Outfit',sans-serif;cursor:pointer;}
           <button class="btn btn-ghost" onclick="window.open('/landing.html','_blank')" style="border-color:rgba(74,124,89,0.5);color:#4a7c59;">🌐 Landing Page</button>
           <button class="btn btn-ghost" onclick="window.open('/register.html','_blank')" style="border-color:rgba(52,152,219,0.5);color:#2980b9;">📝 Registration Page</button>
           <button class="btn btn-ghost" onclick="window.open('/payment.html','_blank')" style="border-color:rgba(201,138,0,0.5);color:#c98a00;">💳 Payment Page</button>
-          <button class="btn btn-ghost" onclick="window.open('/syllabus.html','_blank')" style="border-color:rgba(124,58,237,0.5);color:#7c3aed;">📚 Syllabus Page</button>
+          <button class="btn btn-ghost" onclick="window.open('/login.html','_blank')" style="border-color:rgba(124,58,237,0.5);color:#7c3aed;">📚 Syllabus (via Login)</button>
         </div>
         <button class="btn btn-ghost" onclick="syncAllToD1()" style="border-color:rgba(22,163,74,0.5);color:#16a34a;">&#9650; Sync All Parents to D1</button>
         </div>
@@ -2966,6 +2966,11 @@ function buildUsersTab() {
     }
   });
 
+  var pwOv = {};
+  try { pwOv = JSON.parse(localStorage.getItem('rishi_pw_overrides') || '{}'); } catch(e){}
+  var DEF_S = 'Study@Rishi1';
+  var DEF_P = 'rishi2025';
+
   var html = '';
   regs.forEach(function(r, idx) {
     var pId    = esc(r.parentUsername || '—');
@@ -2976,6 +2981,11 @@ function buildUsersTab() {
     var school = esc(r.school || r.schoolName || '—');
     var board  = esc(r.board || 'CBSE');
     var referredCount = (refMap[r.parentUsername] || []).length;
+
+    var rawSId = r.studentUsername || r.studentId || '';
+    var rawPId = r.parentUsername || '';
+    var sPw = pwOv[rawSId] || pwOv[rawSId.toLowerCase()] || DEF_S;
+    var pPw = pwOv[rawPId] || pwOv[rawPId.toLowerCase()] || DEF_P;
 
     html += '<tr style="border-bottom:1px solid var(--border);" onmouseover="this.style.background=\'var(--s2)\'" onmouseout="this.style.background=\'\'">';
     html += '<td style="padding:9px 10px;font-weight:800;color:#0f2240;font-size:13px;">' + pId + '</td>';
@@ -2992,10 +3002,25 @@ function buildUsersTab() {
     } else {
       html += '<span class="ref-badge zero">0</span>';
     }
+    html += '<br><button onclick="toggleCredRow(' + idx + ')" style="margin-top:5px;font-size:10px;font-weight:800;padding:3px 8px;border-radius:4px;border:1.5px solid var(--border);background:var(--s2);cursor:pointer;color:var(--muted);letter-spacing:.5px;">🔐 CREDS</button>';
     html += '</td>';
     html += '</tr>';
+
+    /* Credentials detail row — hidden by default */
+    html += '<tr id="cred-row-' + idx + '" style="display:none;background:#fffdf6;">';
+    html += '<td colspan="8" style="padding:10px 16px;border-bottom:2px solid var(--border);">';
+    html += '<div style="display:flex;gap:24px;flex-wrap:wrap;align-items:center;">';
+    html += '<div style="font-size:12px;font-weight:900;color:var(--muted);letter-spacing:1px;text-transform:uppercase;">Credentials</div>';
+    html += '<div style="display:flex;gap:8px;align-items:center;"><span style="font-size:11px;font-weight:700;color:var(--dim);">Student ID:</span><code style="font-size:13px;font-weight:800;background:#f0f0f0;padding:2px 8px;border-radius:4px;color:#7c3aed;">' + esc(rawSId) + '</code><span style="font-size:11px;font-weight:700;color:var(--dim);">Password:</span><code style="font-size:13px;font-weight:800;background:#f0f0f0;padding:2px 8px;border-radius:4px;color:#1a7a4a;">' + esc(sPw) + '</code></div>';
+    html += '<div style="display:flex;gap:8px;align-items:center;"><span style="font-size:11px;font-weight:700;color:var(--dim);">Parent ID:</span><code style="font-size:13px;font-weight:800;background:#f0f0f0;padding:2px 8px;border-radius:4px;color:#0f2240;">' + esc(rawPId) + '</code><span style="font-size:11px;font-weight:700;color:var(--dim);">Password:</span><code style="font-size:13px;font-weight:800;background:#f0f0f0;padding:2px 8px;border-radius:4px;color:#1a7a4a;">' + esc(pPw) + '</code></div>';
+    html += '</div></td></tr>';
   });
   tbody.innerHTML = html;
+}
+
+function toggleCredRow(idx) {
+  var row = document.getElementById('cred-row-' + idx);
+  if (row) row.style.display = row.style.display === 'none' ? '' : 'none';
 }
 
 function buildMonthStrip(r) {
