@@ -287,7 +287,7 @@ var TOPIC_MAP_CLASS8 = {
   algebra:     { name:'Algebra',       icon:'&#128291;', chapters:['02','09','14','15'] },
   geometry:    { name:'Geometry',      icon:'&#128208;', chapters:['03','04','10']      },
   mensuration: { name:'Mensuration',   icon:'&#128207;', chapters:['11a','11b']         },
-  arithmetic:  { name:'Arithmetic',    icon:'&#128290;', chapters:['01','08','12','13','16'] },
+  arithmetic:  { name:'Arithmetic',    icon:'&#128290;', chapters:['01','06','07','08','12','13','16','18'] },
   datahandling:{ name:'Data Handling', icon:'&#128202;', chapters:['05','17']           }
 };
 
@@ -383,7 +383,7 @@ window.addEventListener('load', function () {
   document.title = TOPIC_INFO.name + ' Topic Exam | RISHI';
 
   /* Gate: all chapter exams must be done */
-  var bypass = localStorage.getItem('rishi_admin_bypass') === '1';
+  var bypass = sessionStorage.getItem('rishi_admin_bypass') === '1';
   if (!bypass) {
     var chs = TOPIC_INFO.chapters;
     var locked = [];
