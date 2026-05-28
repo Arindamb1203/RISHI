@@ -316,6 +316,7 @@ button{font-family:'Outfit',sans-serif;cursor:pointer;}
     <button class="tab"    id="tab-logs"      onclick="switchTab('logs')">📋 Logs</button>
     <button class="tab"    id="tab-deploy"    onclick="switchTab('deploy')">🚀 Deploy</button>
     <button class="tab"    id="tab-users"     onclick="switchTab('users')">👥 Users</button>
+    <button class="tab"    id="tab-reports"   onclick="switchTab('reports')">🐞 Reports</button>
   </div>
 
   <div class="admin-class-bar" id="admin-class-bar">
@@ -590,6 +591,23 @@ button{font-family:'Outfit',sans-serif;cursor:pointer;}
         <span style="display:flex;align-items:center;gap:5px;font-size:12px;font-weight:700;color:var(--muted);"><span style="width:14px;height:14px;border-radius:2px;background:#c0392b;display:inline-block;"></span>Admin</span>
         <span style="display:flex;align-items:center;gap:5px;font-size:12px;font-weight:700;color:var(--muted);"><span style="width:14px;height:14px;border-radius:2px;background:var(--s3);border:1px solid var(--border);display:inline-block;"></span>Not paid</span>
         <span style="font-size:12px;font-weight:700;color:var(--amber);">★ = Referral used</span>
+      </div>
+    </div>
+
+    <!-- REPORTS TAB -->
+    <div id="view-reports" class="hidden">
+      <div class="card">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+          <div class="card-ttl">🐞 Error Reports</div>
+          <button class="btn btn-ghost" onclick="loadReports()" style="font-size:13px;padding:6px 14px;">↺ Refresh</button>
+        </div>
+        <div id="reports-list"><div style="color:var(--dim);font-size:14px;">Click Refresh to load reports.</div></div>
+      </div>
+
+      <!-- Lightbox for screenshot expand -->
+      <div id="reports-lightbox" onclick="this.style.display='none'"
+        style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:99999;align-items:center;justify-content:center;cursor:zoom-out;">
+        <img id="reports-lb-img" src="" style="max-width:92vw;max-height:88vh;border-radius:8px;box-shadow:0 8px 40px rgba(0,0,0,.5);">
       </div>
     </div>
 
@@ -1247,7 +1265,7 @@ var activeTab = (_storedTab === 'tree') ? 'dash' : _storedTab;
 function switchTab(t) {
   activeTab = t;
   localStorage.setItem('rishi_admin_tab', t);
-  ['dash','topics','questions','student','logs','deploy','users'].forEach(function(id) {
+  ['dash','topics','questions','student','logs','deploy','users','reports'].forEach(function(id) {
     var tabEl  = document.getElementById('tab-'  + id);
     var viewEl = document.getElementById('view-' + id);
     if (tabEl)  tabEl.classList.toggle('on', id === t);
@@ -1336,6 +1354,7 @@ function refresh() {
   else if (activeTab === 'questions') { buildQuestionsTab(); }
   else if (activeTab === 'logs')      { buildLogs().catch(function(){}); }
   else if (activeTab === 'users')     { buildUsersTab(); }
+  else if (activeTab === 'reports')   { loadReports(); }
 }
 
 /* ── DASHBOARD ──────────────────────────────────────────── */
@@ -3023,6 +3042,70 @@ function toggleCredRow(idx) {
   if (row) row.style.display = row.style.display === 'none' ? '' : 'none';
 }
 
+/* ── REPORTS TAB ──────────────────────────────────────────── */
+function loadReports() {
+  var list = document.getElementById('reports-list');
+  if (!list) return;
+  list.innerHTML = '<div style="color:var(--dim);font-size:14px;">Loading...</div>';
+  fetch('/api/admin-reports')
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      var reports = data.reports || [];
+      if (!reports.length) {
+        list.innerHTML = '<div style="color:var(--dim);font-size:14px;padding:20px 0;">No reports yet.</div>';
+        return;
+      }
+      var html = '';
+      reports.forEach(function(rpt) {
+        var isFixed = rpt.status === 'fixed';
+        var statusBadge = isFixed
+          ? '<span style="background:#d4edda;color:#1a6b2a;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:900;">✓ Fixed</span>'
+          : '<span style="background:#fff3cd;color:#856404;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:900;">⏳ Pending</span>';
+        var fixBtn = isFixed ? '' :
+          '<button onclick="markFixed(\'' + esc(rpt.id) + '\')" style="margin-left:10px;padding:4px 14px;border-radius:20px;border:1.5px solid var(--green);background:#f0fdf6;color:var(--green);font-size:11px;font-weight:900;cursor:pointer;">Mark as Fixed</button>';
+        var ssHtml = rpt.screenshot
+          ? '<img src="' + rpt.screenshot + '" style="max-width:200px;border-radius:4px;border:1px solid var(--border);cursor:zoom-in;margin-top:6px;" onclick="rishiOpenLightbox(this.src)">'
+          : '<span style="font-size:12px;color:var(--dim);">No screenshot</span>';
+        var dt = rpt.submitted_at ? new Date(rpt.submitted_at).toLocaleString('en-IN') : '—';
+        html += '<div id="rpt-' + esc(rpt.id) + '" style="border:1.5px solid var(--border);border-radius:10px;padding:16px;margin-bottom:14px;background:var(--s2);">';
+        html += '<div style="display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:8px;">';
+        html += '<span style="font-weight:900;font-size:14px;color:var(--text);">' + esc(rpt.name || '—') + '</span>';
+        html += '<span style="font-size:12px;color:var(--muted);">Class ' + esc(rpt.class || '—') + ' · ' + esc(rpt.board || '—') + '</span>';
+        html += '<span style="font-size:12px;color:var(--muted);">📱 ' + esc(rpt.phone || '—') + '</span>';
+        html += '<span style="font-size:11px;color:var(--dim);margin-left:auto;">' + dt + '</span>';
+        html += '</div>';
+        html += '<div style="margin-bottom:6px;"><a href="' + esc(rpt.page_url || '#') + '" target="_blank" style="font-size:12px;color:#2563eb;word-break:break-all;">' + esc(rpt.page_url || '—') + '</a></div>';
+        html += '<div style="font-size:13px;font-weight:700;color:var(--text);background:#fffdf8;border:1px solid var(--border);border-radius:6px;padding:10px;margin-bottom:8px;white-space:pre-wrap;">' + esc(rpt.description || '') + '</div>';
+        html += '<div>' + ssHtml + '</div>';
+        html += '<div style="margin-top:10px;display:flex;align-items:center;">' + statusBadge + fixBtn + '</div>';
+        html += '</div>';
+      });
+      list.innerHTML = html;
+    })
+    .catch(function(e) {
+      list.innerHTML = '<div style="color:var(--red);font-size:13px;">Failed to load reports: ' + e + '</div>';
+    });
+}
+
+function markFixed(id) {
+  fetch('/api/admin-mark-fixed', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ id: id })
+  })
+  .then(function(r) { return r.json(); })
+  .then(function(data) {
+    if (data.success) loadReports();
+  })
+  .catch(function() {});
+}
+
+function rishiOpenLightbox(src) {
+  var lb = document.getElementById('reports-lightbox');
+  document.getElementById('reports-lb-img').src = src;
+  lb.style.display = 'flex';
+}
+
 function buildMonthStrip(r) {
   /* Show last 12 months ending this month */
   var now = new Date();
@@ -3309,5 +3392,6 @@ window.onload = function() { checkAuth(); };
   </div>
 </div>
 
+<script src="/error-reporter.js"></script>
 </body>
 </html>
