@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="rishi-board" content="cbse">
+<meta name="rishi-class" content="8">
+<title>RISHI — The Story of Numbers</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Nunito:wght@400;600;700;800;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<style>
+:root{--cream:#fdf6ec;--warm-white:#fffdf8;--gold:#c8922a;--gold-light:#e8b84b;--gold-pale:#f5e6c8;--amber:#d4870a;--sage:#7a8c6e;--sage-light:#a8b89a;--rust:#b85c2a;--charcoal:#2a2218;--mid:#5a4a30;--soft:#8a7a5a;--inactive:#c8b89a;--border-dark:#6b4c2a;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--cream);font-family:Nunito,sans-serif;min-height:100vh;color:var(--charcoal);}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(var(--gold-pale) 1px,transparent 1px),linear-gradient(90deg,var(--gold-pale) 1px,transparent 1px);background-size:40px 40px;opacity:.3;z-index:0;pointer-events:none;}
+.topbar{position:sticky;top:0;z-index:100;background:rgba(253,246,236,.97);border-bottom:2px solid var(--border-dark);backdrop-filter:blur(8px);padding:10px 18px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;}
+.logo-sm{font-family:'Orbitron',sans-serif;font-size:17px;font-weight:900;letter-spacing:4px;background:linear-gradient(135deg,var(--amber),var(--gold-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.topbar-center{font-family:'Orbitron',sans-serif;font-size:10px;letter-spacing:2px;color:var(--amber);text-transform:uppercase;}
+.topbar-right{display:flex;gap:8px;}
+.btn-topbar{font-family:Nunito,sans-serif;font-size:12px;font-weight:900;padding:6px 14px;border-radius:20px;border:2px solid var(--border-dark);background:var(--warm-white);color:var(--mid);cursor:pointer;}
+.btn-topbar.back{background:var(--gold-pale);}
+.prog-wrap{position:relative;z-index:10;padding:8px 18px;background:rgba(255,253,248,.9);border-bottom:1.5px solid var(--gold-pale);}
+.prog-info{display:flex;justify-content:space-between;font-size:11px;font-weight:800;color:var(--mid);margin-bottom:5px;}
+.prog-bar{height:6px;background:var(--gold-pale);border-radius:4px;overflow:hidden;}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--sage),var(--gold));border-radius:4px;transition:width .5s ease;}
+.main{position:relative;z-index:10;max-width:820px;margin:0 auto;padding:14px 14px 120px;}
+.rishika-wrap{display:flex;align-items:flex-start;gap:12px;margin-bottom:14px;}
+.rishika-avatar{width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,var(--sage),var(--sage-light));border:2px solid var(--border-dark);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;}
+.rishika-bubble{background:rgba(255,253,248,.97);border:2px solid var(--border-dark);border-radius:0 16px 16px 16px;padding:12px 16px;flex:1;box-shadow:0 4px 20px rgba(107,76,42,.1);}
+.rishika-name{font-size:10px;font-weight:900;color:var(--sage);letter-spacing:2px;text-transform:uppercase;margin-bottom:5px;}
+.rishika-text{font-size:14px;font-weight:700;color:var(--charcoal);line-height:1.6;}
+.hl{color:var(--amber);font-weight:900;}
+.btn-speak{display:inline-flex;align-items:center;gap:6px;font-family:Nunito,sans-serif;font-size:11px;font-weight:900;padding:5px 11px;border-radius:20px;border:2px solid var(--sage);background:#eef2eb;color:var(--sage);cursor:pointer;margin-top:8px;}
+.q-card{background:rgba(255,253,248,.97);border:2px solid var(--border-dark);border-radius:16px;padding:16px 18px;margin-bottom:12px;box-shadow:0 4px 20px rgba(107,76,42,.1);}
+.q-label{font-family:'Orbitron',sans-serif;font-size:10px;letter-spacing:3px;color:var(--amber);text-transform:uppercase;margin-bottom:8px;}
+.q-text{font-size:15px;font-weight:800;color:var(--charcoal);line-height:1.6;margin-bottom:10px;}
+.step{display:flex;gap:10px;margin-bottom:12px;opacity:0;transform:translateY(6px);transition:all .4s ease;}
+.step.vis{opacity:1;transform:translateY(0);}
+.step-num{width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;font-size:11px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:2px solid var(--border-dark);}
+.step-body{flex:1;font-size:13px;font-weight:700;color:var(--mid);line-height:1.6;padding-top:2px;}
+.anim-panel{background:#fffdf8;border:2px solid var(--border-dark);border-radius:14px;margin-bottom:12px;overflow:hidden;box-shadow:0 4px 16px rgba(107,76,42,.1);}
+.anim-header{background:linear-gradient(135deg,var(--charcoal),#3d2e1a);padding:7px 14px;display:flex;align-items:center;justify-content:space-between;}
+.anim-header-lbl{font-family:'Orbitron',sans-serif;font-size:9px;letter-spacing:2px;color:var(--gold-light);text-transform:uppercase;}
+.anim-replay{font-size:10px;font-weight:900;color:var(--gold-pale);background:none;border:1px solid var(--gold-pale);border-radius:20px;padding:2px 9px;cursor:pointer;display:none;}
+.anim-canvas{width:100%;max-height:195px;overflow:hidden;display:flex;align-items:center;justify-content:center;background:#fffdf8;}
+.anim-canvas svg{width:100%;max-height:195px;}
+.anim-status{padding:6px 14px;font-family:Nunito,sans-serif;font-size:12px;font-weight:800;color:var(--mid);text-align:center;min-height:26px;border-top:1px solid var(--gold-pale);}
+.anim-play-btn{width:100%;padding:10px;font-family:Nunito,sans-serif;font-size:14px;font-weight:900;background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;border:none;cursor:pointer;}
+.anim-play-btn:disabled{background:var(--gold-pale);color:var(--inactive);cursor:not-allowed;}
+.steps-btn{width:100%;padding:10px;font-family:Nunito,sans-serif;font-size:14px;font-weight:900;background:linear-gradient(135deg,var(--sage),var(--sage-light));color:#fff;border:none;cursor:pointer;display:none;border-top:1px solid var(--gold-pale);}
+.confirm-wrap{margin-top:12px;background:linear-gradient(135deg,#eef2eb,#f5fbf2);border:2px solid var(--border-dark);border-radius:14px;padding:16px 18px;}
+.confirm-title{font-size:11px;font-weight:900;color:var(--sage);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;}
+.confirm-q{font-size:14px;font-weight:800;color:var(--charcoal);margin-bottom:12px;line-height:1.5;}
+.result-box{font-size:12px;font-weight:800;padding:9px 13px;border-radius:9px;display:none;line-height:1.4;}
+.result-box.ok{background:#eef2eb;border:2px solid var(--sage);color:var(--sage);display:block;}
+.result-box.no{background:#fff5f0;border:2px solid var(--rust);color:var(--rust);display:block;}
+.nudge{font-size:12px;font-weight:700;color:var(--mid);margin-top:7px;font-style:italic;display:none;}
+.nudge.show{display:block;}
+.btn-next{font-family:Nunito,sans-serif;font-size:14px;font-weight:900;padding:11px 22px;border-radius:12px;border:none;background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;cursor:pointer;display:none;margin-top:10px;width:100%;}
+.btn-next.show{display:block;}
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;z-index:100;background:rgba(253,246,236,.97);border-top:2px solid var(--border-dark);padding:10px 18px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap;align-items:center;}
+.btn-nav{font-family:Nunito,sans-serif;font-size:13px;font-weight:900;padding:10px 20px;border-radius:12px;border:2px solid var(--border-dark);cursor:pointer;}
+.btn-nav.practice{background:linear-gradient(135deg,var(--sage),var(--sage-light));color:#fff;border-color:var(--sage);}
+.btn-nav.exam{background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;border-color:var(--amber);}
+.btn-nav.locked{background:var(--gold-pale);color:var(--inactive);cursor:not-allowed;border-color:var(--inactive);}
+.lock-tip{font-size:10px;font-weight:700;color:var(--rust);width:100%;text-align:center;}
+.overlay{display:none;position:fixed;inset:0;background:rgba(42,34,24,.92);z-index:1000;flex-direction:column;align-items:center;justify-content:center;backdrop-filter:blur(6px);}
+.overlay.show{display:flex;}
+.break-box{background:var(--warm-white);border:2px solid var(--border-dark);border-radius:22px;padding:28px 32px;max-width:380px;width:90%;text-align:center;}
+.break-title{font-family:'Orbitron',sans-serif;font-size:14px;font-weight:900;color:var(--amber);letter-spacing:3px;margin-bottom:5px;}
+.break-sub{font-size:12px;font-weight:700;color:var(--soft);margin-bottom:16px;}
+.break-opts{display:flex;flex-direction:column;gap:8px;margin-bottom:12px;}
+.break-opt{font-family:Nunito,sans-serif;font-size:14px;font-weight:800;padding:11px;border-radius:11px;border:2px solid var(--border-dark);background:var(--warm-white);color:var(--mid);cursor:pointer;}
+.timer-screen{display:none;position:fixed;inset:0;background:#1a1208;z-index:1001;flex-direction:column;align-items:center;justify-content:center;}
+.timer-screen.show{display:flex;}
+.timer-reason{font-family:'Orbitron',sans-serif;font-size:12px;letter-spacing:4px;color:var(--gold-light);margin-bottom:16px;text-transform:uppercase;}
+.timer-num{font-family:'Orbitron',sans-serif;font-size:68px;font-weight:900;color:var(--gold-light);letter-spacing:6px;margin-bottom:30px;}
+.btn-end{font-family:Nunito,sans-serif;font-size:16px;font-weight:900;padding:13px 32px;border-radius:13px;border:2px solid var(--gold-light);background:transparent;color:var(--gold-light);cursor:pointer;}
+.done-banner{background:linear-gradient(135deg,#eef2eb,#f5fbf2);border:2px solid var(--border-dark);border-radius:14px;padding:14px 18px;text-align:center;margin-bottom:14px;display:none;}
+.done-banner.show{display:block;}
+.done-banner .dt{font-family:'Orbitron',sans-serif;font-size:12px;letter-spacing:2px;color:var(--sage);margin-bottom:4px;}
+.done-banner .ds{font-size:13px;font-weight:700;color:var(--mid);}
+#rWrap{position:fixed;bottom:68px;left:10px;z-index:200;width:82px;pointer-events:none;}
+#rChar{width:82px;filter:drop-shadow(0 4px 10px rgba(107,76,42,.3));}
+@keyframes rIn{from{transform:translateY(50px);opacity:0}to{transform:translateY(0);opacity:1}}
+@keyframes rBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+@media(max-width:600px){.main{padding:10px 10px 120px;}.topbar,.prog-wrap{padding-left:10px;padding-right:10px;}.timer-num{font-size:48px;}}
+.math-input-wrap{margin-bottom:10px;}
+.math-raw{width:100%;padding:10px 13px;border-radius:10px;border:2px solid var(--border-dark);background:var(--warm-white);color:var(--charcoal);font-size:1rem;font-family:'Share Tech Mono',monospace;resize:none;outline:none;min-height:48px;line-height:1.6;transition:border-color .2s;}
+.math-raw:focus{border-color:var(--amber);box-shadow:0 0 0 3px rgba(212,135,10,.12);}
+.math-raw::placeholder{color:var(--inactive);font-family:Nunito,sans-serif;}
+.math-preview-label{font-size:0.68rem;text-transform:uppercase;letter-spacing:2px;color:var(--soft);margin:.5rem 0 .25rem;}
+.math-preview{min-height:44px;padding:.6rem 1rem;background:#f9f4ec;border-radius:8px;border:1.5px solid var(--gold-pale);font-size:1.1rem;color:var(--charcoal);overflow-x:auto;display:flex;align-items:center;justify-content:center;margin-bottom:10px;}
+.math-preview .mph{color:var(--inactive);font-style:italic;font-size:.85rem;}
+.sugg-strip{margin-bottom:10px;}
+.sugg-strip-head{font-size:.68rem;text-transform:uppercase;letter-spacing:1.5px;color:var(--soft);margin-bottom:.4rem;}
+.sugg-chips{display:flex;flex-wrap:wrap;gap:.35rem;}
+.schip{border:1.5px solid;border-radius:20px;padding:.25rem .75rem;font-size:.78rem;cursor:pointer;background:transparent;font-family:Nunito,sans-serif;font-weight:700;transition:all .15s;}
+.schip.shortcut{border-color:#7a4aaa;color:#6a3a9a;background:#f5f0ff;}
+.schip.confirm{border-color:#1a6aaa;color:#0a5a9a;background:#eef6ff;font-weight:800;}
+.cel-word{font-size:1.5rem;font-weight:900;letter-spacing:1px;line-height:1.2;margin-bottom:3px;}
+.cel-meta{font-size:0.75rem;font-weight:700;opacity:0.8;}
+</style>
+<script src="/rishi-sync.js"></script>
+<script src="/rishi-core.js"></script>
+<script src="/rishi-presence.js"></script>
+</head>
+<body>
+<nav class="topbar">
+  <div class="logo-sm">RISHI</div>
+  <div class="topbar-center">&#128218; The Story of Numbers</div>
+  <div class="topbar-right">
+    <button class="btn-topbar" onclick="openBreak()">&#9749; Break</button>
+    <button class="btn-topbar back" onclick="location.href='/syllabus.html'">&#8592; Syllabus</button>
+  </div>
+</nav>
+<div class="prog-wrap">
+  <div class="prog-info"><span id="progLabel">Question 1 of 10</span><span id="progPct">0%</span></div>
+  <div class="prog-bar"><div class="prog-fill" id="progFill" style="width:0%"></div></div>
+</div>
+<div class="main">
+  <div class="done-banner" id="doneBanner">
+    <div class="dt">&#10003; Explanation Completed!</div>
+    <div class="ds">Practice and Exam now unlocked.</div>
+  </div>
+  <div class="rishika-wrap">
+    <div class="rishika-avatar">&#128105;&#8205;&#127979;</div>
+    <div class="rishika-bubble">
+      <div class="rishika-name">Rishika</div>
+      <div class="rishika-text" id="introText">Hi <span class="hl" id="sName">there</span>! &#128522; Today we travel through time to discover <span class="hl">The Story of Numbers</span> — from cave tally marks to the Hindu-Arabic system that rules the world today! &#128218;</div>
+      <button class="btn-speak" onclick="startLesson()" id="startBtn">&#9654; Start Lesson</button>
+    </div>
+  </div>
+  <div id="qArea"></div>
+</div>
+<div class="bottom-nav">
+  <div class="lock-tip" id="lockTip">&#9757; Complete explanations to unlock Practice and Exam</div>
+  <button class="btn-nav practice locked" id="btnPractice" onclick="goPractice()">&#9999;&#65039; Practice</button>
+  <button class="btn-nav exam locked" id="btnExam" onclick="goExam()">&#128221; Exam</button>
+</div>
+<div class="overlay" id="breakOv">
+  <div class="break-box">
+    <div class="break-title">Break</div>
+    <div class="break-sub">Choose &mdash; timer starts</div>
+    <div class="break-opts">
+      <button class="break-opt" onclick="startBreak('Water')">&#128167; Water</button>
+      <button class="break-opt" onclick="startBreak('Washroom')">&#128701; Washroom</button>
+      <button class="break-opt" onclick="startBreak('Offline Activity')">&#127939; Offline Activity</button>
+    </div>
+    <button class="break-opt" style="color:var(--soft)" onclick="closeBreak()">Cancel</button>
+  </div>
+</div>
+<div class="timer-screen" id="timerScreen">
+  <div class="timer-reason" id="timerLbl">Break</div>
+  <div class="timer-num" id="timerNum">00:00</div>
+  <button class="btn-end" onclick="endBreak()">&#10003; End Break</button>
+</div>
+<div id="rWrap">
+<svg id="rChar" viewBox="0 0 100 110" xmlns="http://www.w3.org/2000/svg">
+  <ellipse cx="50" cy="68" rx="36" ry="28" fill="#5a8a60" stroke="#3d6b42" stroke-width="2"/>
+  <ellipse cx="50" cy="66" rx="22" ry="16" fill="#7ab87a" stroke="#5a8a60" stroke-width="1.5"/>
+  <line x1="50" y1="50" x2="50" y2="82" stroke="#5a8a60" stroke-width="1.5"/>
+  <line x1="28" y1="66" x2="72" y2="66" stroke="#5a8a60" stroke-width="1.5"/>
+  <ellipse cx="20" cy="82" rx="10" ry="7" fill="#7ab87a" stroke="#5a8a60" stroke-width="1.5" transform="rotate(-20,20,82)"/>
+  <ellipse cx="80" cy="82" rx="10" ry="7" fill="#7ab87a" stroke="#5a8a60" stroke-width="1.5" transform="rotate(20,80,82)"/>
+  <ellipse cx="22" cy="58" rx="9" ry="6" fill="#7ab87a" stroke="#5a8a60" stroke-width="1.5" transform="rotate(20,22,58)"/>
+  <ellipse cx="78" cy="58" rx="9" ry="6" fill="#7ab87a" stroke="#5a8a60" stroke-width="1.5" transform="rotate(-20,78,58)"/>
+  <ellipse cx="50" cy="42" rx="10" ry="14" fill="#8fba6a" stroke="#5a8a60" stroke-width="1.5"/>
+  <ellipse cx="50" cy="28" rx="18" ry="16" fill="#8fba6a" stroke="#5a8a60" stroke-width="2"/>
+  <ellipse cx="43" cy="24" rx="5" ry="5.5" fill="white"/><ellipse cx="57" cy="24" rx="5" ry="5.5" fill="white"/>
+  <ellipse cx="43" cy="25" rx="3" ry="3.5" fill="#1a3a1a"/><ellipse cx="57" cy="25" rx="3" ry="3.5" fill="#1a3a1a"/>
+  <circle cx="44" cy="23" r="1.2" fill="white"/><circle cx="58" cy="23" r="1.2" fill="white"/>
+  <ellipse id="rLid1" cx="43" cy="24" rx="5" ry="1" fill="#8fba6a" opacity="0"/>
+  <ellipse id="rLid2" cx="57" cy="24" rx="5" ry="1" fill="#8fba6a" opacity="0"/>
+  <path id="rMouth" d="M44,33 Q50,38 56,33" fill="none" stroke="#3d6b42" stroke-width="2" stroke-linecap="round"/>
+  <ellipse id="rBlush1" cx="36" cy="30" rx="7" ry="4" fill="#ff9999" opacity="0"/>
+  <ellipse id="rBlush2" cx="64" cy="30" rx="7" ry="4" fill="#ff9999" opacity="0"/>
+  <rect x="28" y="90" width="44" height="13" fill="#d4870a" rx="4"/>
+  <text x="50" y="100" text-anchor="middle" font-family="Nunito" font-size="7" font-weight="900" fill="white">RISHIKA</text>
+</svg>
+</div>
+<script>
+var voicesReady=false,selectedVoice=null,elAudio=null;
+function pickVoice(){var vs=window.speechSynthesis.getVoices();if(!vs||vs.length===0)return false;var fk=["heera","veena","priya","raveena","female","woman","zira","samantha","victoria","karen","moira","tessa","fiona"];for(var i=0;i<vs.length;i++){if(vs[i].lang.toLowerCase().indexOf("en-in")===0){var n=vs[i].name.toLowerCase();for(var k=0;k<fk.length;k++){if(n.indexOf(fk[k])>=0){selectedVoice=vs[i];return true;}}}}for(var i=0;i<vs.length;i++){if(vs[i].lang.toLowerCase().indexOf("en")===0){var n=vs[i].name.toLowerCase();for(var k=0;k<fk.length;k++){if(n.indexOf(fk[k])>=0){selectedVoice=vs[i];return true;}}}}return false;}
+function initVoices(cb){if(pickVoice()){voicesReady=true;cb();return;}window.speechSynthesis.onvoiceschanged=function(){window.speechSynthesis.onvoiceschanged=null;pickVoice();voicesReady=true;cb();};setTimeout(function(){if(!voicesReady){pickVoice();voicesReady=true;cb();}},2000);}
+function stopAllAudio(){if(elAudio){try{elAudio.onended=null;elAudio.onerror=null;elAudio.pause();elAudio.src="";}catch(x){}elAudio=null;}if(window.speechSynthesis)window.speechSynthesis.cancel();}
+function sayBrowser(text,onEnd){if(!window.speechSynthesis)return;window.speechSynthesis.cancel();rStartTalk(text.length);var u=new SpeechSynthesisUtterance(text);u.lang="en-IN";u.rate=0.88;u.pitch=1.15;if(selectedVoice)u.voice=selectedVoice;u.onend=function(){rStopTalk();if(onEnd)onEnd();};u.onerror=function(){rStopTalk();if(onEnd)onEnd();};window.speechSynthesis.speak(u);}
+function say(text,onEnd){stopAllAudio();rStartTalk(text.length);fetch("/tts",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({text:text})}).then(function(res){if(!res.ok)throw new Error("TTS "+res.status);return res.blob();}).then(function(blob){var url=URL.createObjectURL(blob);elAudio=new Audio(url);elAudio.onended=function(){URL.revokeObjectURL(url);elAudio=null;rStopTalk();if(onEnd)onEnd();};elAudio.onerror=function(){URL.revokeObjectURL(url);elAudio=null;rStopTalk();sayBrowser(text,onEnd);};var p=elAudio.play();if(p&&p.catch){p.catch(function(){URL.revokeObjectURL(url);elAudio=null;sayBrowser(text,onEnd);});}}).catch(function(err){sayBrowser(text,onEnd);});}
+function sayEl(id){var e=G(id);if(e)say(e.innerText||e.textContent);}
+window.addEventListener("beforeunload",function(){stopAllAudio();});
+window.addEventListener("pagehide",function(){stopAllAudio();});
+var mouthTmr=null,blinkTmr=null,mOpen=false;
+function rInit(){var c=G("rChar");if(c)c.style.animation="rIn .6s cubic-bezier(.34,1.56,.64,1) forwards";scheduleBlink();}
+function scheduleBlink(){blinkTmr=setTimeout(function(){rBlink();scheduleBlink();},2200+Math.random()*3000);}
+function rBlink(){var l=G("rLid1"),r=G("rLid2");if(!l||!r)return;l.setAttribute("ry","5.5");r.setAttribute("ry","5.5");setTimeout(function(){l.setAttribute("ry","1");r.setAttribute("ry","1");},120);}
+function rStartTalk(len){rStopTalk();G("rBlush1").style.opacity="0.7";G("rBlush2").style.opacity="0.7";mOpen=false;mouthTmr=setInterval(function(){mOpen=!mOpen;var m=G("rMouth");if(!m)return;if(mOpen){m.setAttribute("d","M42,33 Q50,42 58,33");m.setAttribute("fill","#1a3a1a");}else{m.setAttribute("d","M44,33 Q50,38 56,33");m.setAttribute("fill","none");}},160);setTimeout(rStopTalk,Math.max(1800,(len||20)*58));}
+function rStopTalk(){clearInterval(mouthTmr);mOpen=false;var m=G("rMouth");if(m){m.setAttribute("d","M44,33 Q50,38 56,33");m.setAttribute("fill","none");}G("rBlush1").style.opacity="0";G("rBlush2").style.opacity="0";}
+function rHappy(){var c=G("rChar");if(c)c.style.animation="rBounce .35s ease-in-out 5";G("rBlush1").style.opacity="1";G("rBlush2").style.opacity="1";setTimeout(function(){rStopTalk();var c=G("rChar");if(c)c.style.animation="none";},2500);}
+function rThink(){setTimeout(rStopTalk,1800);}
+
+var QB=[
+{id:"sn1",q:"What is a <strong>Number System</strong>? What are its 3 essential requirements?",qs:"What is a Number System and what are its three essential requirements?",anim:"sn1",
+ steps:[{t:"A Number System is a well-defined writing system for expressing numbers using digits or other symbols in a consistent manner.",s:"A Number System is a well-defined writing system for expressing numbers using digits or other symbols in a consistent manner."},{t:"Requirement 1: It should contain a set of symbols and digits to give every written number a unique representation.",s:"Requirement 1: It should contain a set of symbols and digits to give every written number a unique representation."},{t:"Requirement 2: It should support or enable an unending standard sequence of numbers easy to count with. Requirement 3: Every possible number can be expressed using the defined symbols — with no limitation on size!",s:"Requirement 2: It should support an unending standard sequence of numbers easy to count with. Requirement 3: Every possible number can be expressed using the defined symbols."}],
+ cq:"What is another name for the collection of symbols and rules used to express numbers called?",cqs:"What is another name for the collection of symbols and rules used to express numbers?",ans:["number system","a number system"],nudges:["It is a well-defined writing system using digits or symbols.","The word we are looking for has 'number' and 'system' in it.","The answer is: Number System!"]},
+{id:"sn2",q:"What were the <strong>three basic reasons</strong> early humans needed to count?",qs:"What were the three basic reasons early humans needed to count during the Stone Age?",anim:"sn2",
+ steps:[{t:"As early humans settled down in civilisations during the Stone Age, they felt the need for counting for three basic purposes!",s:"As early humans settled down in civilisations during the Stone Age, they felt the need for counting for three basic purposes!"},{t:"First: To keep track of prey animals, livestock or stored goods.",s:"First: To keep track of prey animals, livestock or stored goods."},{t:"Second: To count members of a tribe living at one place or a smaller group while shifting from one place to another. Third: To track time by following up with the cycles of the moon or the change of seasons.",s:"Second: To count members of a tribe living at one place. Third: To track time by following up with cycles of the moon or change of seasons."}],
+ cq:"Name one of the earliest methods of counting used by humans (give any one).",cqs:"Name one of the earliest methods of counting used by humans.",ans:["fingers","body parts","tally marks","pebbles","sticks","objects"],nudges:["Think about what a person has on their body that can count things easily.","Humans first counted using parts of their own body!","Any of these are correct: fingers, body parts, tally marks, pebbles, or sticks!"]},
+{id:"sn3",q:"What is the <strong>Oksapmin counting system</strong> from Papua New Guinea?",qs:"What is the Oksapmin counting system from Papua New Guinea?",anim:"sn3",
+ steps:[{t:"The people of Papua New Guinea used a 27-part system using body parts for counting — called the Oksapmin system!",s:"The people of Papua New Guinea used a 27-part system using body parts for counting, called the Oksapmin system!"},{t:"They begin counting from the thumb of one hand, followed by identified points on the arm, neck and head.",s:"They begin counting from the thumb of one hand, followed by identified points on the arm, neck and head."},{t:"Then they move down the other side of the body to the little finger of the other hand, as shown in the diagram. This gives 27 distinct body points!",s:"Then they move down the other side of the body to the little finger of the other hand. This gives 27 distinct body points!"}],
+ cq:"How many body parts does the Oksapmin counting system use?",cqs:"How many body parts does the Oksapmin counting system use?",ans:["27"],nudges:["It is the 27-part system from Papua New Guinea.","They count from thumb on one side all the way to little finger on the other side.","The answer is 27!"]},
+{id:"sn4",q:"What is the <strong>Ishango Bone</strong> and why is it significant?",qs:"What is the Ishango Bone and why is it significant?",anim:"sn4",
+ steps:[{t:"The Ishango Bone was found in the Democratic Republic of Congo. It has 29 distinct notches arranged in three columns.",s:"The Ishango Bone was found in the Democratic Republic of Congo. It has 29 distinct notches arranged in three columns."},{t:"Archaeologists have dated it to more than 20,000 years old — one of the oldest known tally bones! It possibly served as a tally stick or a lunar calendar.",s:"Archaeologists have dated it to more than 20,000 years old — one of the oldest known tally bones! It possibly served as a tally stick or a lunar calendar."},{t:"Tally marks were a primitive method of counting: marks etched on a bone or cave wall, with one mark for each object being counted. The total marks = total count!",s:"Tally marks were a primitive method of counting: marks etched on a bone or cave wall, with one mark for each object being counted."}],
+ cq:"How old is the Ishango Bone (approximately)?",cqs:"How old is the Ishango Bone approximately?",ans:["20000","more than 20000","over 20000","20,000 years"],nudges:["The Ishango Bone dates back more than 20,000 years.","It is found in Congo and has 29 notches.","The answer is more than 20,000 years old!"]},
+{id:"sn5",q:"What is the <strong>Lebombo Bone</strong> and what makes it special?",qs:"What is the Lebombo Bone and what makes it special?",anim:"sn5",
+ steps:[{t:"The Lebombo Bone was discovered in South Africa. It is a baboon bone about 44,000 years old — making it possibly the oldest known tally stick!",s:"The Lebombo Bone was discovered in South Africa. It is a baboon bone about 44,000 years old, making it possibly the oldest known tally stick!"},{t:"It has 29 distinct notches arranged in three columns, possibly indicating a lunar calendar.",s:"It has 29 distinct notches arranged in three columns, possibly indicating a lunar calendar."},{t:"This shows that humans were recording numerical information at least 44,000 years ago — long before any formal number system existed!",s:"This shows that humans were recording numerical information at least 44,000 years ago, long before any formal number system existed!"}],
+ cq:"Which is older — the Ishango Bone or the Lebombo Bone?",cqs:"Which is older, the Ishango Bone or the Lebombo Bone?",ans:["lebombo","lebombo bone","the lebombo bone"],nudges:["The Ishango Bone is about 20,000 years old. The Lebombo Bone is about 44,000 years old.","44,000 is greater than 20,000. Which one is older?","The Lebombo Bone is older, at about 44,000 years!"]},
+{id:"sn6",q:"Explain the <strong>Gumulgal counting system</strong> from Australia.",qs:"Explain the Gumulgal counting system from Australia.",anim:"sn6",
+ steps:[{t:"The Gumulgal system refers to an indigenous group of people in Australia who are known for their number system based on counting in twos!",s:"The Gumulgal system refers to an indigenous group of people in Australia who are known for their number system based on counting in twos!"},{t:"They use the symbol 'urapon' for one and 'ukasar' for two. All other numbers were written using combinations of these two!",s:"They use the symbol urapon for one and ukasar for two. All other numbers were written using combinations of these two!"},{t:"For example: 3 = urapon + ukasar, 4 = ukasar + ukasar. This is an additive system — very different from our place-value system!",s:"For example: 3 = urapon + ukasar, 4 = ukasar + ukasar. This is an additive system, very different from our place-value system!"}],
+ cq:"In the Gumulgal system, what is the symbol for 'two'?",cqs:"In the Gumulgal system, what is the symbol for two?",ans:["ukasar"],nudges:["The Gumulgal system counts in twos using two symbols.","'Urapon' means one. What does 'ukasar' mean?","The answer is ukasar! It means two in the Gumulgal system."]},
+{id:"sn7",q:"What are the <strong>Yajurveda Samhita</strong> names for powers of 10 up to 10¹²?",qs:"What are the Yajurveda Samhita names for powers of 10 from one to one trillion?",anim:"sn7",
+ steps:[{t:"Ancient Indian texts such as the Yajurveda Samhita mentioned names of numbers based on powers of 10, going up to 10¹² (one trillion)!",s:"Ancient Indian texts such as the Yajurveda Samhita mentioned names of numbers based on powers of 10, going up to 10 to the power 12, which is one trillion!"},{t:"The names are: Eka (1), Dasha (10), Shatha (100), Sahasra (1000), Ayuta (10,000), Niyuta (10⁵), Prayuta (10⁶).",s:"The names are: Eka = 1, Dasha = 10, Shatha = 100, Sahasra = 1000, Ayuta = 10 thousand, Niyuta = 10 to the 5, Prayuta = 10 to the 6."},{t:"Continuing: Arbuda (10⁷), Nyarbuda (10⁸), Samudra (10⁹), Madhya (10¹⁰), Anta (10¹¹), and Pararddha (10¹²)!",s:"Continuing: Arbuda = 10 to the 7, Nyarbuda = 10 to the 8, Samudra = 10 to the 9, Madhya = 10 to the 10, Anta = 10 to the 11, and Pararddha = 10 to the 12!"}],
+ cq:"What is the Yajurveda Samhita name for 1000 (10³)?",cqs:"What is the Yajurveda Samhita name for 1000?",ans:["sahasra"],nudges:["The sequence goes: Eka(1), Dasha(10), Shatha(100), ...?","The 4th name in the sequence is for 1000.","The answer is Sahasra! It means 1000 or 10³."]},
+{id:"sn8",q:"How did the <strong>modern Hindu number system</strong> develop in India?",qs:"How did the modern Hindu number system develop in India?",anim:"sn8",
+ steps:[{t:"The modern number system, based on the digits 0–9, was developed in India around 3rd century CE. An early example is found in the Bakshali manuscript!",s:"The modern number system, based on the digits 0 to 9, was developed in India around 3rd century CE. An early example is found in the Bakshali manuscript!"},{t:"This system was a place-value system with a dot to denote zero (called shunyasthana). This is the key innovation — the position of a digit changes its value!",s:"This system was a place-value system with a dot to denote zero. This is the key innovation — the position of a digit changes its value!"},{t:"By the end of the 7th century CE, decimal numbers began to appear in inscriptions in South-East Asia as well as in India.",s:"By the end of the 7th century CE, decimal numbers began to appear in inscriptions in South-East Asia as well as in India."}],
+ cq:"What was the Bakshali manuscript significant for?",cqs:"What was the Bakshali manuscript significant for?",ans:["zero","place value","early example","digits 0 to 9","place-value system"],nudges:["The Bakshali manuscript is an early example of the modern number system.","It contains an early use of zero as a dot (shunyasthana) in a place-value system.","It is significant for being an early example of the place-value system using digits 0–9 with zero!"]},
+{id:"sn9",q:"What did <strong>Brahmagupta</strong> contribute to mathematics in 628 CE?",qs:"What did Brahmagupta contribute to mathematics in 628 CE?",anim:"sn9",
+ steps:[{t:"In 628 CE, astronomer-mathematician Brahmagupta wrote Brahmasphuta-siddhanta — a monumental mathematical text!",s:"In 628 CE, astronomer-mathematician Brahmagupta wrote Brahmasphuta-siddhanta, a monumental mathematical text!"},{t:"It was the result of subtracting a number from itself and postulated negative numbers. In other words, it formalised the concept of zero and arithmetic with negative numbers!",s:"It was the result of subtracting a number from itself and postulated negative numbers. In other words, it formalised the concept of zero and arithmetic with negative numbers!"},{t:"This text had a huge influence on later mathematicians in India, the Arab world, and ultimately all of Europe!",s:"This text had a huge influence on later mathematicians in India, the Arab world, and ultimately all of Europe!"}],
+ cq:"Who wrote the Brahmasphuta-siddhanta in 628 CE?",cqs:"Who wrote the Brahmasphuta-siddhanta in 628 CE?",ans:["brahmagupta"],nudges:["He was an astronomer-mathematician who lived in 7th century India.","He formalised the concept of zero and negative numbers.","The answer is Brahmagupta!"]},
+{id:"sn10",q:"How did Hindu numerals <strong>spread to the Arab world</strong>?",qs:"How did Hindu numerals spread to the Arab world?",anim:"sn10",
+ steps:[{t:"The Indian number system was transmitted to the Arab world by around 800 CE. It gained popularity through the work of the Persian mathematician Al-Khwarizmi.",s:"The Indian number system was transmitted to the Arab world by around 800 CE. It gained popularity through the work of the Persian mathematician Al-Khwarizmi."},{t:"Al-Khwarizmi titled a book 'On the Calculation with Hindu Numerals', in four volumes. He also worked with the Arab mathematician Al-Kindi who wrote 'On the Use of the Indian Numerals'.",s:"Al-Khwarizmi titled a book On the Calculation with Hindu Numerals, in four volumes. He also worked with the Arab mathematician Al-Kindi who wrote On the Use of the Indian Numerals."},{t:"With the translation of Al-Khwarizmi's work into Latin, the Hindu numerals were transmitted to Europe. But Fibonacci, an Italian mathematician, also promoted them in Europe with his book Liber Abaci in 1202 CE!",s:"With the translation of Al-Khwarizmi's work into Latin, the Hindu numerals were transmitted to Europe. Fibonacci also promoted them with his book Liber Abaci in 1202 CE!"}],
+ cq:"What was the name of Al-Khwarizmi's book about the Hindu numeral system?",cqs:"What was the name of Al-Khwarizmi's book about the Hindu numeral system?",ans:["on the calculation with hindu numerals","liber abaci","hindu numerals"],nudges:["Al-Khwarizmi wrote this book in four volumes about Hindu numerals.","The title starts with 'On the Calculation...'","The book is called 'On the Calculation with Hindu Numerals'!"]},
+{id:"sn11",q:"What was <strong>Fibonacci's</strong> contribution to the spread of Hindu numerals in Europe?",qs:"What was Fibonacci's contribution to the spread of Hindu numerals in Europe?",anim:"sn11",
+ steps:[{t:"Fibonacci (Leonardo of Pisa) was an Italian mathematician who promoted the Hindu numerals in Europe with his book Liber Abaci, published in 1202 CE.",s:"Fibonacci, also known as Leonardo of Pisa, was an Italian mathematician who promoted the Hindu numerals in Europe with his book Liber Abaci, published in 1202 CE."},{t:"Liber Abaci made Hindu-Arabic numerals so popular in Europe that they eventually replaced the Roman numerals, which did not come into wide use until the invention of printing!",s:"Liber Abaci made Hindu-Arabic numerals so popular in Europe that they eventually replaced the Roman numerals, which did not come into wide use until the invention of printing!"},{t:"However, with the adoption of Indian numerals in Europe, their use spread to all the continents around the world — uniting everyone under one number system!",s:"However, with the adoption of Indian numerals in Europe, their use spread to all the continents around the world, uniting everyone under one number system!"}],
+ cq:"What was the name of Fibonacci's famous book that helped spread Hindu-Arabic numerals in Europe?",cqs:"What was the name of Fibonacci's famous book?",ans:["liber abaci"],nudges:["Fibonacci published this book in 1202 CE.","The Latin title means 'Book of Calculation'.","The book is called Liber Abaci!"]},
+{id:"sn12",q:"Why are our digits called <strong>'Arabic numerals'</strong> when they were invented in India?",qs:"Why are our digits called Arabic numerals when they were invented in India?",anim:"sn12",
+ steps:[{t:"Arab scholars like Al-Khwarizmi and Al-Kindi called the Indian numerals 'Al Hind' — meaning 'from India'. They correctly knew the origin!",s:"Arab scholars like Al-Khwarizmi and Al-Kindi called the Indian numerals Al Hind, meaning from India. They correctly knew the origin!"},{t:"European scholars called them 'Arabic numerals' because they had learned them from the Arab world. They did not realise the numerals actually came from India!",s:"European scholars called them Arabic numerals because they had learned them from the Arab world. They did not realise the numerals actually came from India!"},{t:"As the use of Indian numerals spread to every continent, the recent textbooks and documents around the world renamed them as 'Hindu-Arabic Numerals' — giving credit to their true origin!",s:"As the use of Indian numerals spread to every continent, recent textbooks and documents renamed them as Hindu-Arabic Numerals, giving credit to their true origin!"}],
+ cq:"What is the more accurate modern name for the numerals 0–9 that we use today?",cqs:"What is the more accurate modern name for the numerals 0 to 9 that we use today?",ans:["hindu-arabic numerals","hindu arabic numerals","hindu-arabic"],nudges:["These numerals were invented in India and spread through the Arab world.","The name combines the words 'Hindu' and 'Arabic'.","The correct name is Hindu-Arabic Numerals!"]},
+{id:"sn13",q:"What is the Yajurveda Samhita name for <strong>10⁷ (ten million)</strong>?",qs:"What is the Yajurveda Samhita name for 10 to the power 7?",anim:"sn13",
+ steps:[{t:"Let us recall the Yajurveda sequence: Eka(1), Dasha(10), Shatha(100), Sahasra(1000), Ayuta(10,000), Niyuta(10⁵), Prayuta(10⁶)...",s:"Let us recall the Yajurveda sequence: Eka = 1, Dasha = 10, Shatha = 100, Sahasra = 1000, Ayuta = 10 thousand, Niyuta = 10 to the 5, Prayuta = 10 to the 6."},{t:"Then: Arbuda(10⁷)! Ten million is called Arbuda in the Yajurveda Samhita.",s:"Then: Arbuda = 10 to the 7! Ten million is called Arbuda in the Yajurveda Samhita."},{t:"Continuing after Arbuda: Nyarbuda(10⁸), Samudra(10⁹), Madhya(10¹⁰), Anta(10¹¹), Pararddha(10¹²).",s:"Continuing after Arbuda: Nyarbuda = 10 to the 8, Samudra = 10 to the 9, Madhya = 10 to the 10, Anta = 10 to the 11, Pararddha = 10 to the 12."}],
+ cq:"What is the Yajurveda Samhita name for 10⁹ (one billion)?",cqs:"What is the Yajurveda Samhita name for 10 to the power 9?",ans:["samudra"],nudges:["The sequence after Prayuta(10⁶) is: Arbuda(10⁷), Nyarbuda(10⁸), ...?","One billion = 10⁹. Check the Yajurveda table.","The answer is Samudra! 10⁹ is called Samudra."]},
+{id:"sn14",q:"What is <strong>place value system</strong> and why was it a revolutionary invention?",qs:"What is a place value system and why was it a revolutionary invention?",anim:"sn14",
+ steps:[{t:"In a place-value system, the value of a digit depends on its POSITION in the number! The same digit '3' means different things in different positions.",s:"In a place-value system, the value of a digit depends on its position in the number! The same digit 3 means different things in different positions."},{t:"For example: in 333, the first '3' is 300, the second is 30, and the third is 3. This is the key innovation of the Hindu numeral system!",s:"For example: in 333, the first 3 is 300, the second is 30, and the third is 3. This is the key innovation of the Hindu numeral system!"},{t:"With just 10 symbols (0–9), ANY number in the universe can be written! Earlier systems like Roman numerals needed new symbols for larger numbers, making them very limited.",s:"With just 10 symbols, 0 to 9, any number in the universe can be written! Earlier systems like Roman numerals needed new symbols for larger numbers."}],
+ cq:"How many symbols does the modern Hindu-Arabic place-value system use to write any number?",cqs:"How many symbols does the modern Hindu-Arabic place-value system use to write any number?",ans:["10","ten"],nudges:["The symbols are 0, 1, 2, 3, 4, 5, 6, 7, 8, 9. Count them!","With just these symbols and place value, any number can be written.","The answer is 10 symbols (digits 0 through 9)!"]},
+{id:"sn15",q:"<strong>HOTS:</strong> The Gumulgal system counts in twos, using only 'urapon'(1) and 'ukasar'(2). How would they write the number 5?",qs:"Higher Order Thinking: In the Gumulgal additive system using urapon for 1 and ukasar for 2, how would they write the number 5?",anim:"sn15",
+ steps:[{t:"The Gumulgal system is additive and counts in twos. They only have urapon (1) and ukasar (2). To make any number they add these repeatedly.",s:"The Gumulgal system is additive and counts in twos. They only have urapon meaning 1 and ukasar meaning 2. To make any number they add these repeatedly."},{t:"5 = 2 + 2 + 1. In their language: ukasar + ukasar + urapon. Two twos and one one!",s:"5 = 2 + 2 + 1. In their language: ukasar + ukasar + urapon. Two twos and one one!"},{t:"This shows the limitation of additive systems — you need many symbols to make large numbers. Our place-value system is far more efficient: just 10 symbols, any number!",s:"This shows the limitation of additive systems. You need many symbols to make large numbers. Our place-value system is far more efficient: just 10 symbols for any number!"}],
+ cq:"Using the Gumulgal system, how would you represent the number 4?",cqs:"Using the Gumulgal system, how would you represent the number 4?",ans:["ukasar ukasar","ukasar+ukasar","two twos","2+2"],nudges:["4 = 2 + 2. What is the Gumulgal word for 2?","Ukasar means 2. So 4 = ukasar + ukasar.","The answer is ukasar + ukasar (two twos)!"]}
+];
+
+function svgText(txt,y,col){col=col||"#5a4a30";return '<text x="22" y="'+y+'" font-size="11" font-weight="800" fill="'+col+'" font-family="Nunito,sans-serif">'+txt+'</text>';}
+function svgAns(lbl){return '<rect x="40" y="155" width="320" height="28" rx="7" fill="#eef2eb" stroke="#6b4c2a" stroke-width="1.5"/><text x="200" y="174" text-anchor="middle" font-family="Share Tech Mono" font-size="13" font-weight="bold" fill="#7a8c6e">'+lbl+'</text>';}
+function svgBase(){return '<svg viewBox="0 0 400 190" xmlns="http://www.w3.org/2000/svg" style="font-family:Nunito,sans-serif;background:#fffdf8"><rect width="400" height="190" fill="#fffdf8"/>';}
+
+function getAnimSVG(t){
+  var m={
+  "sn1":function(){return svgBase()+
+    '<g id="sn1s0" opacity="0">'+svgText("Number System = consistent writing system",28)+
+    '<text x="200" y="58" text-anchor="middle" font-size="11" fill="#c8922a" font-weight="800">for expressing numbers with digits/symbols</text></g>'+
+    '<g id="sn1s1" opacity="0">'+svgText("Req 1: Unique representation for each number",68)+'</g>'+
+    '<g id="sn1s2" opacity="0">'+svgText("Req 2: Unending count  |  Req 3: Express any size",108)+'</g>'+
+    '<g id="sn1ans" opacity="0">'+svgAns("Number System")+'</g></svg>';},
+  "sn2":function(){return svgBase()+
+    '<g id="sn2s0" opacity="0">'+svgText("3 reasons early humans needed to count:",28)+'</g>'+
+    '<g id="sn2s1" opacity="0">'+svgText("Track animals/livestock/stored goods",68)+'</g>'+
+    '<g id="sn2s2" opacity="0">'+svgText("Count tribe members  |  Track moon/seasons",108)+'</g>'+
+    '<g id="sn2ans" opacity="0">'+svgAns("Fingers / body parts / tally marks")+'</g></svg>';},
+  "sn3":function(){return svgBase()+
+    '<g id="sn3s0" opacity="0">'+svgText("Oksapmin System — Papua New Guinea",28)+
+    '<text x="200" y="58" text-anchor="middle" font-size="11" fill="#c8922a" font-weight="800">Uses 27 body parts to count</text></g>'+
+    '<g id="sn3s1" opacity="0">'+svgText("Starts from thumb → arm → neck → head...",68)+'</g>'+
+    '<g id="sn3s2" opacity="0">'+svgText("...then back down other side → 27 points",108)+'</g>'+
+    '<g id="sn3ans" opacity="0">'+svgAns("27 body parts")+'</g></svg>';},
+  "sn4":function(){return svgBase()+
+    '<g id="sn4s0" opacity="0">'+svgText("Ishango Bone — Congo, Africa",28)+
+    '<text x="200" y="58" text-anchor="middle" font-size="11" fill="#c8922a" font-weight="800">29 notches, 3 columns</text></g>'+
+    '<g id="sn4s1" opacity="0">'+svgText("Over 20,000 years old  |  Lunar calendar",68)+'</g>'+
+    '<g id="sn4s2" opacity="0">'+svgText("One of the oldest known tally bones",108)+'</g>'+
+    '<g id="sn4ans" opacity="0">'+svgAns("More than 20,000 years old")+'</g></svg>';},
+  "sn5":function(){return svgBase()+
+    '<g id="sn5s0" opacity="0">'+svgText("Lebombo Bone — South Africa",28)+
+    '<text x="200" y="58" text-anchor="middle" font-size="11" fill="#c8922a" font-weight="800">Baboon bone, ~44,000 years old!</text></g>'+
+    '<g id="sn5s1" opacity="0">'+svgText("29 notches, possibly a lunar calendar",68)+'</g>'+
+    '<g id="sn5s2" opacity="0">'+svgText("Possibly the OLDEST known tally bone",108)+'</g>'+
+    '<g id="sn5ans" opacity="0">'+svgAns("Lebombo Bone (44,000 years old)")+'</g></svg>';},
+  "sn6":function(){return svgBase()+
+    '<g id="sn6s0" opacity="0">'+svgText("Gumulgal System — Australia",28)+
+    '<text x="200" y="58" text-anchor="middle" font-size="11" fill="#c8922a" font-weight="800">Counts in TWOS — additive system</text></g>'+
+    '<g id="sn6s1" opacity="0">'+svgText("Urapon = 1  |  Ukasar = 2",68)+'</g>'+
+    '<g id="sn6s2" opacity="0">'+svgText("3 = urapon+ukasar  |  4 = ukasar+ukasar",108)+'</g>'+
+    '<g id="sn6ans" opacity="0">'+svgAns("Ukasar = 2")+'</g></svg>';},
+  "sn7":function(){return svgBase()+
+    '<g id="sn7s0" opacity="0">'+svgText("Yajurveda Samhita — Powers of 10",28)+'</g>'+
+    '<g id="sn7s1" opacity="0">'+svgText("Eka(1) Dasha(10) Shatha(100) Sahasra(1000)",68)+'</g>'+
+    '<g id="sn7s2" opacity="0">'+svgText("...Arbuda(10⁷)...Samudra(10⁹)...Pararddha(10¹²)",108)+'</g>'+
+    '<g id="sn7ans" opacity="0">'+svgAns("Sahasra = 1000 = 10³  |  Samudra = 10⁹")+'</g></svg>';},
+  "sn8":function(){return svgBase()+
+    '<g id="sn8s0" opacity="0">'+svgText("Hindu Number System — India ~3rd century CE",28)+'</g>'+
+    '<g id="sn8s1" opacity="0">'+svgText("Bakshali Manuscript — early example",68)+
+    '<text x="200" y="98" text-anchor="middle" font-size="11" fill="#7a8c6e" font-weight="800">Zero as dot (shunyasthana) in place-value</text></g>'+
+    '<g id="sn8s2" opacity="0">'+svgText("Digits 0-9 with PLACE VALUE = any number!",108)+'</g>'+
+    '<g id="sn8ans" opacity="0">'+svgAns("Bakshali: early place-value with zero")+'</g></svg>';},
+  "sn9":function(){return svgBase()+
+    '<g id="sn9s0" opacity="0">'+svgText("Brahmagupta — 628 CE",28)+'</g>'+
+    '<g id="sn9s1" opacity="0">'+svgText("Wrote Brahmasphuta-siddhanta",68)+
+    '<text x="200" y="98" text-anchor="middle" font-size="11" fill="#c8922a" font-weight="800">Formalised zero & negative numbers</text></g>'+
+    '<g id="sn9s2" opacity="0">'+svgText("Hugely influential in India, Arab world, Europe",108)+'</g>'+
+    '<g id="sn9ans" opacity="0">'+svgAns("Brahmagupta")+'</g></svg>';},
+  "sn10":function(){return svgBase()+
+    '<g id="sn10s0" opacity="0">'+svgText("Hindu numerals → Arab world by ~800 CE",28)+'</g>'+
+    '<g id="sn10s1" opacity="0">'+svgText("Al-Khwarizmi: On the Calculation with Hindu Numerals",68)+'</g>'+
+    '<g id="sn10s2" opacity="0">'+svgText("Al-Kindi: On the Use of the Indian Numerals",108)+'</g>'+
+    '<g id="sn10ans" opacity="0">'+svgAns("On the Calculation with Hindu Numerals")+'</g></svg>';},
+  "sn11":function(){return svgBase()+
+    '<g id="sn11s0" opacity="0">'+svgText("Fibonacci (Leonardo of Pisa) — Italian",28)+'</g>'+
+    '<g id="sn11s1" opacity="0">'+svgText("Liber Abaci — 1202 CE",68)+
+    '<text x="200" y="98" text-anchor="middle" font-size="11" fill="#c8922a" font-weight="800">Spread Hindu-Arabic numerals across Europe</text></g>'+
+    '<g id="sn11s2" opacity="0">'+svgText("Replaced Roman numerals eventually",108)+'</g>'+
+    '<g id="sn11ans" opacity="0">'+svgAns("Liber Abaci (1202 CE)")+'</g></svg>';},
+  "sn12":function(){return svgBase()+
+    '<g id="sn12s0" opacity="0">'+svgText("Arabs called them: Al Hind (from India) ✓",28)+'</g>'+
+    '<g id="sn12s1" opacity="0">'+svgText("Europeans called them: Arabic numerals ✗",68)+
+    '<text x="200" y="98" text-anchor="middle" font-size="11" fill="#c8922a" font-weight="800">(learned from Arabs, unaware of Indian origin)</text></g>'+
+    '<g id="sn12s2" opacity="0">'+svgText("Correct name: Hindu-Arabic Numerals",108)+'</g>'+
+    '<g id="sn12ans" opacity="0">'+svgAns("Hindu-Arabic Numerals")+'</g></svg>';},
+  "sn13":function(){return svgBase()+
+    '<g id="sn13s0" opacity="0">'+svgText("Yajurveda Table: Prayuta=10⁶, then...",28)+'</g>'+
+    '<g id="sn13s1" opacity="0">'+svgText("Arbuda=10⁷  →  10 million",68)+'</g>'+
+    '<g id="sn13s2" opacity="0">'+svgText("Nyarbuda(10⁸) Samudra(10⁹) Madhya(10¹⁰)",108)+'</g>'+
+    '<g id="sn13ans" opacity="0">'+svgAns("Samudra = 10⁹ = one billion")+'</g></svg>';},
+  "sn14":function(){return svgBase()+
+    '<g id="sn14s0" opacity="0">'+svgText("Place Value: digit VALUE depends on POSITION",28)+'</g>'+
+    '<g id="sn14s1" opacity="0">'+svgText("333 = 300 + 30 + 3  (same digit, different values)",68)+'</g>'+
+    '<g id="sn14s2" opacity="0">'+svgText("Only 10 symbols (0-9) can express ANY number!",108)+'</g>'+
+    '<g id="sn14ans" opacity="0">'+svgAns("10 symbols (0 to 9)")+'</g></svg>';},
+  "sn15":function(){return svgBase()+
+    '<g id="sn15s0" opacity="0">'+svgText("Gumulgal: urapon=1, ukasar=2 (additive)",28)+'</g>'+
+    '<g id="sn15s1" opacity="0">'+svgText("5 = 2+2+1 = ukasar+ukasar+urapon",68)+'</g>'+
+    '<g id="sn15s2" opacity="0">'+svgText("4 = 2+2 = ukasar+ukasar",108)+'</g>'+
+    '<g id="sn15ans" opacity="0">'+svgAns("ukasar + ukasar  (2 + 2 = 4)")+'</g></svg>';}
+  };
+  return m[t]?m[t]():'<svg viewBox="0 0 400 190"><text x="200" y="95" text-anchor="middle" font-family="Nunito" font-size="14" fill="#5a4a30">Loading...</text></svg>';
+}
+
+function makePlay(id,nSteps,ans,dur){
+  dur=dur||3000;
+  return function(done){
+    setStatus("Exploring the story...");
+    var total=0;
+    for(var i=0;i<nSteps;i++){
+      (function(ii){at(total+600,function(){fade(id+"s"+ii,1);});})(i);
+      total+=dur;
+    }
+    at(total+400,function(){fade(id+"ans",1);setStatus("Answer: "+ans);at(1800,done);});
+  };
+}
+
+function getAnimPlay(t){
+  var m={
+    "sn1": makePlay("sn1",3,"Number System"),
+    "sn2": makePlay("sn2",3,"Body parts / tally marks"),
+    "sn3": makePlay("sn3",3,"27 body parts"),
+    "sn4": makePlay("sn4",3,">20,000 years old"),
+    "sn5": makePlay("sn5",3,"Lebombo (44,000 yrs)"),
+    "sn6": makePlay("sn6",3,"Ukasar = 2"),
+    "sn7": makePlay("sn7",3,"Sahasra=1000"),
+    "sn8": makePlay("sn8",3,"Bakshali, place-value"),
+    "sn9": makePlay("sn9",3,"Brahmagupta"),
+    "sn10":makePlay("sn10",3,"Al-Khwarizmi"),
+    "sn11":makePlay("sn11",3,"Liber Abaci"),
+    "sn12":makePlay("sn12",3,"Hindu-Arabic Numerals"),
+    "sn13":makePlay("sn13",3,"Samudra = 10⁹"),
+    "sn14":makePlay("sn14",3,"10 symbols"),
+    "sn15":makePlay("sn15",3,"ukasar+ukasar")
+  };
+  return m[t]||function(done){done();};
+}
+
+var atTimers=[],session=[],idx=0,stepIdx=0,nudgeCount=0,completed=false,confirmShown=false,breakSecs=0,breakTmr=null,PER_SESSION=10;
+function G(id){return document.getElementById(id);}
+function clearAt(){for(var i=0;i<atTimers.length;i++)clearTimeout(atTimers[i]);atTimers=[];}
+function at(ms,fn){atTimers.push(setTimeout(fn,ms));}
+function fade(id,v){var e=G(id);if(e){e.style.transition="opacity .5s";e.style.opacity=v;}}
+function setStatus(t){var e=G("animStatus");if(e)e.textContent=t;}
+
+function startLesson(){var btn=G('startBtn');if(btn){btn.disabled=true;btn.textContent='▶ Starting...';}var done=false;function proceed(){if(!done){done=true;setTimeout(showQ,600);}}say(G('introText').innerText,proceed);setTimeout(proceed,9000);}
+function init(){
+  rishiCheckPlan(18);
+  var st=JSON.parse(localStorage.getItem("rishi_current_student")||"{}");
+  G("sName").textContent=st.studentName?st.studentName.split(" ")[0]:"there";
+  if(localStorage.getItem("rishi_explain_done_18")==="1"){completed=true;G("doneBanner").classList.add("show");unlockNav();}
+  buildSession();rInit();
+  initVoices(function(){startLesson();});
+}
+function buildSession(){session=QB.slice().sort(function(){return Math.random()-.5;}).slice(0,PER_SESSION);}
+function showQ(){
+  if(idx>=session.length){onComplete();return;}
+  var q=session[idx];stepIdx=0;nudgeCount=0;confirmShown=false;updateProg();G("qArea").innerHTML="";clearAt();
+  var qc=document.createElement("div");qc.className="q-card";
+  qc.innerHTML='<div class="q-label">Question '+(idx+1)+' of '+PER_SESSION+'</div><div class="q-text">'+q.q+'</div><button class="btn-speak" onclick="say(session[idx].qs)">&#128266; Hear</button>';
+  G("qArea").appendChild(qc);
+  var ap=document.createElement("div");ap.className="anim-panel";
+  ap.innerHTML='<div class="anim-header"><span class="anim-header-lbl">&#127909; Live Animation</span><button class="anim-replay" id="animReplay" onclick="replayAnim()">&#8635; Replay</button></div>'
+    +'<div class="anim-canvas" id="animCanvas">'+getAnimSVG(q.anim)+'</div>'
+    +'<div class="anim-status" id="animStatus">Tap Play to watch with narration!</div>'
+    +'<button class="anim-play-btn" id="animPlayBtn" onclick="startAnim()">&#9654; Play Animation</button>'
+    +'<button class="steps-btn" id="stepsBtn" onclick="beginSteps()">&#128214; See Step-by-Step</button>';
+  G("qArea").appendChild(ap);setTimeout(startAnim,800);
+}
+function startAnim(){var q=session[idx];var pb=G("animPlayBtn");if(pb){pb.disabled=true;pb.textContent="&#9654; Playing...";}getAnimPlay(q.anim)(function(){var sb=G("stepsBtn");if(sb)sb.style.display="block";var rb=G("animReplay");if(rb)rb.style.display="block";if(pb)pb.style.display="none";setTimeout(beginSteps,600);});}
+function replayAnim(){clearAt();window.speechSynthesis&&window.speechSynthesis.cancel();rStopTalk();var q=session[idx];var canvas=G("animCanvas");if(canvas)canvas.innerHTML=getAnimSVG(q.anim);G("animReplay").style.display="none";G("stepsBtn").style.display="none";var pb=G("animPlayBtn");if(pb){pb.style.display="block";pb.disabled=false;pb.textContent="&#9654; Play Animation";}setStatus("Tap Play to watch with narration!");}
+function beginSteps(){var q=session[idx];var sc=document.createElement("div");sc.className="q-card";sc.innerHTML='<div class="q-label">&#128214; Step-by-Step</div><div id="stepsWrap"></div><button class="btn-speak" id="nxtStepBtn" onclick="nextStep()" style="margin-top:10px;">&#9654; Next Step</button>';G("qArea").appendChild(sc);sc.scrollIntoView({behavior:"smooth",block:"start"});G("stepsBtn").style.display="none";setTimeout(nextStep,350);}
+function nextStep(){var q=session[idx];if(stepIdx>=q.steps.length){G("nxtStepBtn").style.display="none";var ib=document.createElement("button");ib.className="btn-speak";ib.innerHTML="&#9989; I Understand!";ib.style.cssText="margin-top:16px;width:100%;";ib.onclick=function(){ib.remove();showConfirm();};G("stepsWrap").appendChild(ib);ib.scrollIntoView({behavior:"smooth",block:"center"});return;}var s=q.steps[stepIdx];var wrap=G("stepsWrap");var d=document.createElement("div");d.className="step";d.innerHTML='<div class="step-num">'+(stepIdx+1)+'</div><div class="step-body">'+s.t+'</div>';wrap.appendChild(d);setTimeout(function(){d.classList.add("vis");},40);say(s.s);setTimeout(nextStep,3500);stepIdx++;}
+function showConfirm(){if(confirmShown)return;confirmShown=true;
+  var q=session[idx];var c=document.createElement("div");c.className="confirm-wrap";
+  c.innerHTML='<div class="confirm-title">&#127917; Rishika asks!</div>'
+    +'<div class="confirm-q">'+q.cq+'</div>'
+    +'<div class="math-input-wrap"><textarea id="rawAnswer" class="math-raw" rows="2" autocomplete="off" placeholder="Type your answer here..."></textarea></div>'
+    +'<div class="math-preview-label">Your answer</div>'
+    +'<div class="math-preview" id="mathPreview"><span class="mph">your answer will appear here...</span></div>'
+    +'<div class="sugg-strip"><div class="sugg-strip-head">Quick chips</div><div class="sugg-chips" id="suggChips"></div></div>'
+    +'<button type="button" onclick="submitTyped()" style="width:100%;font-family:Nunito,sans-serif;font-size:14px;font-weight:900;padding:11px;border-radius:12px;border:none;background:linear-gradient(135deg,var(--amber),var(--gold-light));color:#fff;cursor:pointer;margin-bottom:8px;">Submit Answer</button>'
+    +'<div class="result-box" id="rbox"></div>'
+    +'<div class="nudge" id="nudgeBox"></div>'
+    +'<button type="button" class="btn-next" id="btnNext" onclick="goNext()">Next Question &#9654;</button>';
+  G("qArea").appendChild(c);c.scrollIntoView({behavior:"smooth",block:"center"});
+  var ra=G("rawAnswer");
+  if(ra){ra.addEventListener("input",mathUpdate);ra.addEventListener("keydown",function(ev){if(ev.key==="Enter"&&!ev.shiftKey){ev.preventDefault();submitTyped();}});setTimeout(function(){ra.focus();},300);}
+  buildSuggChips(makeChips(q));say(q.cqs);
+}
+function makeChips(q){var chips=[];(q.ans||[]).forEach(function(a){chips.push({label:a,ins:a,type:"confirm"});});return chips;}
+function submitTyped(){var ra=G("rawAnswer");if(!ra)return;var val=String(ra.value||"").trim();if(!val){ra.focus();return;}handleAnswer(val.toLowerCase());}
+function goNext(){idx++;G("qArea").innerHTML="";showQ();window.scrollTo({top:0,behavior:"smooth"});}
+function updateProg(){var pct=Math.round((idx/PER_SESSION)*100);G("progFill").style.width=pct+"%";G("progLabel").textContent="Question "+(idx+1)+" of "+PER_SESSION;G("progPct").textContent=pct+"%";}
+function unlockNav(){G("btnPractice").classList.remove("locked");G("btnExam").classList.remove("locked");G("lockTip").style.display="none";}
+function onComplete(){
+  rishiMarkExplainDone(18);
+  completed=true;G("doneBanner").classList.add("show");unlockNav();
+  var st=JSON.parse(localStorage.getItem("rishi_current_student")||"{}");
+  var nm=st.studentName?st.studentName.split(" ")[0]:"champion";
+  var cel=document.createElement("div");cel.className="rishika-wrap";
+  cel.innerHTML='<div class="rishika-avatar">&#128105;&#8205;&#127979;</div>'
+    +'<div class="rishika-bubble"><div class="rishika-name">Rishika</div>'
+    +'<div class="rishika-text" id="celText">&#127881; <span class="hl">'+nm+'</span>, amazing! You have journeyed through <span class="hl">The Story of Numbers</span> — from cave bones to the digital age! &#128218;&#128170;</div>'
+    +'<button class="btn-speak" onclick="sayEl(&apos;celText&apos;)">&#128266; Hear</button></div>';
+  G("qArea").appendChild(cel);setTimeout(function(){sayEl("celText");rHappy();},400);
+}
+function goPractice(){if(!completed){alert("Complete explanations first!");return;}location.href="/practice/class8/arithmetic/story-of-numbers.html";}
+function goExam(){if(!completed){alert("Complete explanations first!");return;}location.href="/exam.html?ch=18";}
+var CELEBRATIONS=[{word:"Magnifique !",lang:"French",meaning:"Magnificent!",speak:"Magnifique"},{word:"Brillante!",lang:"Spanish",meaning:"Brilliant!",speak:"Brillante"},{word:"Wunderbar!",lang:"German",meaning:"Wonderful!",speak:"Wunderbar"},{word:"Bravissimo!",lang:"Italian",meaning:"Very well done!",speak:"Bravissimo"},{word:"Shabash!",lang:"Hindi",meaning:"Well done!",speak:"Shabash"}];
+var lastCelIdx=-1;
+function celebrate(){var i;do{i=Math.floor(Math.random()*CELEBRATIONS.length);}while(i===lastCelIdx&&CELEBRATIONS.length>1);lastCelIdx=i;var c=CELEBRATIONS[i];var rb=G("rbox");rb.className="result-box ok";rb.innerHTML='<div class="cel-word">'+c.word+'</div><div class="cel-meta">'+c.lang+' &middot; <em>'+c.meaning+'</em></div>';G("nudgeBox").classList.remove("show");var nb=G("btnNext");if(nb)nb.classList.add("show");say(c.speak);rHappy();}
+function handleAnswer(text){var q=session[idx];var ok=q.ans.some(function(a){return text.includes(a.toLowerCase())||a.toLowerCase().includes(text);});var rb=G("rbox");if(ok){celebrate();}else{nudgeCount++;rb.className="result-box no";rb.textContent="&#10006; Not quite. Listen to my hint!";var nudge=q.nudges[Math.min(nudgeCount-1,q.nudges.length-1)];showNudge(nudge);say(nudge);rThink();if(nudgeCount>=3){var nb2=G("btnNext");if(nb2){nb2.classList.add("show");nb2.textContent="I Understand &#9654;";}};}}
+function showNudge(msg){var n=G("nudgeBox");if(n){n.textContent=msg;n.classList.add("show");}}
+function openBreak(){G("breakOv").classList.add("show");}
+function closeBreak(){G("breakOv").classList.remove("show");}
+function startBreak(r){closeBreak();breakSecs=0;G("timerLbl").textContent=r;G("timerNum").textContent="00:00";G("timerScreen").classList.add("show");breakTmr=setInterval(function(){breakSecs++;var m=String(Math.floor(breakSecs/60)).padStart(2,"0");var s=String(breakSecs%60).padStart(2,"0");G("timerNum").textContent=m+":"+s;},1000);}
+function endBreak(){rishiLogBreak(G("timerLbl").textContent,breakSecs);clearInterval(breakTmr);G("timerScreen").classList.remove("show");}
+function mathUpdate(){var ra=G("rawAnswer");if(!ra)return;var v=ra.value.trim();var el=G("mathPreview");if(el)el.textContent=v||"";}
+function buildSuggChips(list){var el=G("suggChips");if(!el)return;var ra=G("rawAnswer");el.innerHTML="";list.forEach(function(c){var btn=document.createElement("button");btn.className="schip "+(c.type||"shortcut");btn.textContent=c.label;btn.type="button";btn.addEventListener("click",function(){if(c.ins&&ra){var s=ra.selectionStart,e=ra.selectionEnd;ra.value=ra.value.slice(0,s)+c.ins+ra.value.slice(e);ra.focus();mathUpdate();}});el.appendChild(btn);});}
+window.onload=init;
+</script>
+<script src="/explain-helper.js"></script>
+<script src="/error-reporter.js"></script>
+</body>
+</html>
