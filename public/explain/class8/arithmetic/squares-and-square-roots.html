@@ -263,105 +263,267 @@ function makeSVG(id,lines,ans,extraSvg){
 }
 
 function getAnimSVG(t){
-  var dots=function(n,cx,cy,fill,id){
-    var s='<g id="'+id+'" opacity="0">';
-    for(var r=0;r<n;r++)for(var c=0;c<n;c++)s+='<circle cx="'+(cx+c*14)+'" cy="'+(cy+r*14)+'" r="5" fill="'+fill+'"/>';
-    s+='</g>';return s;
-  };
+  var B=svgBase;
+  /* dot grid helper */
+  function dots(n,cx,cy,fill,id){var s='<g id="'+id+'" opacity="0">';for(var r=0;r<n;r++)for(var c=0;c<n;c++)s+='<circle cx="'+(cx+c*16)+'" cy="'+(cy+r*16)+'" r="6" fill="'+fill+'"/>';return s+'</g>';}
+  /* colored pill label */
+  function pill(x,y,w,txt,bg,tc){return '<rect x="'+x+'" y="'+(y-14)+'" width="'+w+'" height="22" rx="8" fill="'+bg+'"/><text x="'+(x+w/2)+'" y="'+y+'" text-anchor="middle" font-family="Share Tech Mono" font-size="13" font-weight="bold" fill="'+(tc||'#fff')+'">'+txt+'</text>';}
+  /* factor pair box */
+  function pairBox(x,y,a,b,paired){var bc=paired?'#7a8c6e':'#b85c2a';return '<rect x="'+x+'" y="'+y+'" width="38" height="26" rx="6" fill="'+bc+'" opacity=".9"/><text x="'+(x+19)+'" y="'+(y+18)+'" text-anchor="middle" font-family="Share Tech Mono" font-size="13" font-weight="bold" fill="#fff">'+a+'</text>'+'<rect x="'+(x+42)+'" y="'+y+'" width="38" height="26" rx="6" fill="'+bc+'" opacity=".9"/><text x="'+(x+61)+'" y="'+(y+18)+'" text-anchor="middle" font-family="Share Tech Mono" font-size="13" font-weight="bold" fill="#fff">'+b+'</text>'+'<rect x="'+(x+10)+'" y="'+(y+28)+'" width="60" height="3" rx="2" fill="'+bc+'"/>';}
   var m={
-  "sq1":function(){return svgBase()+
-    '<g id="sq1s0" opacity="0">'+svgText("Perfect square = integer × itself",28)+
-    '<rect x="20" y="40" width="60" height="60" rx="4" fill="#f5e6c8" stroke="#c8922a" stroke-width="2"/>'+
-    '<text x="50" y="76" text-anchor="middle" font-size="18" font-weight="900" fill="#c8922a">n²</text>'+
+  /* sq1 — perfect squares as dot grids */
+  "sq1":function(){return B()+
+    '<g id="sq1s0" opacity="0">'+
+      '<text x="200" y="22" text-anchor="middle" font-family="Nunito" font-size="13" font-weight="800" fill="#5a4a30">A perfect square fills a square grid exactly</text>'+
+      dots(3,30,36,'#d4870a','sq1a')+
+      '<text x="78" y="96" text-anchor="middle" font-family="Share Tech Mono" font-size="12" fill="#5a4a30">3×3=9</text>'+
+      dots(4,120,30,'#7a8c6e','sq1b')+
+      '<text x="178" y="96" text-anchor="middle" font-family="Share Tech Mono" font-size="12" fill="#5a4a30">4×4=16</text>'+
+      dots(5,224,24,'#c8922a','sq1c')+
+      '<text x="304" y="96" text-anchor="middle" font-family="Share Tech Mono" font-size="12" fill="#5a4a30">5×5=25</text>'+
     '</g>'+
-    '<g id="sq1s1" opacity="0">'+svgText("1,4,9,16,25,36,49,64,81,100...",68)+
-    dots(3,200,40,"#7ab87a","sq1d3")+'</g>'+
-    '<g id="sq1s2" opacity="0">'+svgText("Arrange as square dot grid!",108)+
-    dots(4,200,35,"#d4870a","sq1d4")+'</g>'+
-    '<g id="sq1ans" opacity="0">'+svgAns("Yes! 169 = 13² ✓")+'</g></svg>';},
-  "sq2":function(){return svgBase()+
-    '<g id="sq2s0" opacity="0">'+svgText("196 = 2 × 2 × 7 × 7",28)+
-    '<text x="200" y="58" text-anchor="middle" font-size="13" font-weight="800" fill="#5a4a30">196 = 2² × 7²</text></g>'+
-    '<g id="sq2s1" opacity="0">'+svgText("Pair up: (2×2) and (7×7)",68)+
-    '<text x="200" y="98" text-anchor="middle" font-size="13" font-weight="800" fill="#7a8c6e">Take ONE from each pair</text></g>'+
-    '<g id="sq2s2" opacity="0">'+svgText("2 × 7 = 14  →  √196 = 14",108)+'</g>'+
+    '<g id="sq1s1" opacity="0">'+
+      '<text x="200" y="118" text-anchor="middle" font-family="Nunito" font-size="13" font-weight="800" fill="#5a4a30">Perfect squares: 1, 4, 9, 16, 25, 36, 49...</text>'+
+    '</g>'+
+    '<g id="sq1s2" opacity="0">'+
+      '<text x="200" y="140" text-anchor="middle" font-family="Nunito" font-size="13" font-weight="800" fill="#7a8c6e">Is 169 a perfect square? → 13×13=169 ✓</text>'+
+    '</g>'+
+    '<g id="sq1ans" opacity="0">'+svgAns("Yes! 169 = 13²")+'</g></svg>';},
+  /* sq2 — prime factorisation pairs */
+  "sq2":function(){return B()+
+    '<g id="sq2s0" opacity="0">'+
+      '<text x="200" y="18" text-anchor="middle" font-family="Nunito" font-size="13" font-weight="800" fill="#5a4a30">196 — find prime factors</text>'+
+      pill(120,46,60,'196','#5a4a30')+
+      '<line x1="150" y1="50" x2="110" y2="72" stroke="#5a4a30" stroke-width="2"/><line x1="150" y1="50" x2="192" y2="72" stroke="#5a4a30" stroke-width="2"/>'+
+      pill(80,82,44,'2','#d4870a')+pill(170,82,44,'98','#5a4a30')+
+      '<line x1="192" y1="86" x2="168" y2="106" stroke="#5a4a30" stroke-width="2"/><line x1="192" y1="86" x2="218" y2="106" stroke="#5a4a30" stroke-width="2"/>'+
+      pill(138,112,44,'2','#d4870a')+pill(205,112,44,'49','#5a4a30')+
+      '<line x1="227" y1="116" x2="210" y2="136" stroke="#5a4a30" stroke-width="2"/><line x1="227" y1="116" x2="244" y2="136" stroke="#5a4a30" stroke-width="2"/>'+
+      pill(188,142,28,'7','#7a8c6e')+pill(228,142,28,'7','#7a8c6e')+
+    '</g>'+
+    '<g id="sq2s1" opacity="0">'+
+      '<text x="200" y="168" text-anchor="middle" font-family="Nunito" font-size="13" font-weight="800" fill="#c8922a">196 = 2×2 × 7×7 = 2² × 7²  — all in pairs ✓</text>'+
+    '</g>'+
+    '<g id="sq2s2" opacity="0">'+svgAns("√196 = 2×7 = 14")+'</g>'+
     '<g id="sq2ans" opacity="0">'+svgAns("√196 = 14")+'</g></svg>';},
-  "sq3":function(){return svgBase()+
-    '<g id="sq3s0" opacity="0">'+svgText("Between 7²=49 and 8²=64:",28)+
-    '<text x="200" y="58" text-anchor="middle" font-size="12" font-weight="800" fill="#c8922a">50,51,52,...,63  →  14 numbers</text></g>'+
-    '<g id="sq3s1" opacity="0">'+svgText("Formula: between n² and (n+1)²:",68)+
-    '<text x="200" y="98" text-anchor="middle" font-size="16" font-weight="900" fill="#d4870a">= 2n non-perfect-squares</text></g>'+
-    '<g id="sq3s2" opacity="0">'+svgText("n=7 → 2×7 = 14 ✓",108)+'</g>'+
-    '<g id="sq3ans" opacity="0">'+svgAns("2×9 = 18 non-perfect-squares")+'</g></svg>';},
-  "sq4":function(){return svgBase()+
-    '<g id="sq4s0" opacity="0">'+svgText("Sum of first n odd numbers = n²",28)+'</g>'+
-    '<g id="sq4s1" opacity="0">'+svgText("1=1, 1+3=4, 1+3+5=9, 1+3+5+7=16...",68)+
-    '<text x="200" y="98" text-anchor="middle" font-size="13" fill="#7a8c6e" font-weight="800">Pattern: n odd numbers → n²</text></g>'+
-    '<g id="sq4s2" opacity="0">'+svgText("First 6 odd: sum = 6² = 36",108)+'</g>'+
-    '<g id="sq4ans" opacity="0">'+svgAns("First 8 odd: 8² = 64")+'</g></svg>';},
-  "sq5":function(){return svgBase()+
-    '<g id="sq5s0" opacity="0">'+svgText("Perfect squares end in: 0,1,4,5,6,9",28)+'</g>'+
-    '<g id="sq5s1" opacity="0">'+svgText("NEVER end in: 2, 3, 7, 8",68)+
-    '<rect x="20" y="80" width="340" height="26" rx="6" fill="#fff5f0" stroke="#b85c2a" stroke-width="2"/>'+
-    '<text x="190" y="98" text-anchor="middle" font-size="13" font-weight="900" fill="#b85c2a">Ends in 2,3,7,8 → NOT a square!</text></g>'+
-    '<g id="sq5s2" opacity="0">'+svgText("873 ends in 3 → NOT a perfect square",108)+'</g>'+
-    '<g id="sq5ans" opacity="0">'+svgAns("No! 873 ends in 3")+'</g></svg>';},
-  "sq6":function(){return svgBase()+
-    '<g id="sq6s0" opacity="0">'+svgText("1225 = 5 × 5 × 7 × 7 = 5² × 7²",28)+'</g>'+
-    '<g id="sq6s1" opacity="0">'+svgText("Pairs: (5×5) and (7×7)",68)+
-    '<text x="200" y="98" text-anchor="middle" font-size="13" font-weight="800" fill="#7a8c6e">One from each pair: 5 and 7</text></g>'+
-    '<g id="sq6s2" opacity="0">'+svgText("√1225 = 5 × 7 = 35",108)+'</g>'+
-    '<g id="sq6ans" opacity="0">'+svgAns("√2025 = 3×3×5 = 45")+'</g></svg>';},
-  "sq7":function(){return svgBase()+
-    '<g id="sq7s0" opacity="0">'+svgText("180 = 2² × 3² × 5",28)+
-    '<text x="200" y="58" text-anchor="middle" font-size="13" fill="#c8922a" font-weight="800">5 has no pair!</text></g>'+
-    '<g id="sq7s1" opacity="0">'+svgText("Need: every prime in pairs",68)+
-    '<text x="200" y="98" text-anchor="middle" font-size="13" fill="#7a8c6e" font-weight="800">5 needs one more 5 → multiply by 5</text></g>'+
-    '<g id="sq7s2" opacity="0">'+svgText("180 × 5 = 900 = 30²  ✓",108)+'</g>'+
+  /* sq3 — numbers between consecutive squares on a number line */
+  "sq3":function(){return B()+
+    '<g id="sq3s0" opacity="0">'+
+      '<text x="200" y="18" text-anchor="middle" font-family="Nunito" font-size="13" font-weight="800" fill="#5a4a30">Consecutive perfect squares: 49 and 64</text>'+
+      '<line x1="30" y1="70" x2="370" y2="70" stroke="#c8922a" stroke-width="3" stroke-linecap="round"/>'+
+      '<circle cx="40" cy="70" r="8" fill="#d4870a"/><text x="40" y="55" text-anchor="middle" font-family="Share Tech Mono" font-size="11" font-weight="bold" fill="#d4870a">7²=49</text>'+
+      '<circle cx="360" cy="70" r="8" fill="#d4870a"/><text x="360" y="55" text-anchor="middle" font-family="Share Tech Mono" font-size="11" font-weight="bold" fill="#d4870a">8²=64</text>'+
+    '</g>'+
+    '<g id="sq3s1" opacity="0">'+
+      '<text x="200" y="96" text-anchor="middle" font-family="Nunito" font-size="13" font-weight="800" fill="#7a8c6e">50, 51, 52 ... 63 — non-perfect-squares in between</text>'+
+      '<rect x="52" y="62" width="296" height="16" rx="4" fill="rgba(122,140,110,.25)" stroke="#7a8c6e" stroke-width="1.5"/>'+
+    '</g>'+
+    '<g id="sq3s2" opacity="0">'+
+      '<text x="200" y="120" text-anchor="middle" font-family="Nunito" font-size="14" font-weight="900" fill="#c8922a">Between n² and (n+1)² → exactly 2n numbers</text>'+
+      '<text x="200" y="144" text-anchor="middle" font-family="Nunito" font-size="13" font-weight="800" fill="#5a4a30">n=7 → 2×7 = 14 numbers  ✓</text>'+
+    '</g>'+
+    '<g id="sq3ans" opacity="0">'+svgAns("Between 9² and 10² → 2×9 = 18")+'</g></svg>';},
+  /* sq4 — L-shaped gnomons building a square */
+  "sq4":function(){
+    function sq(n,x,y,fill){var s='';for(var r=0;r<n;r++)for(var c=0;c<n;c++)s+='<rect x="'+(x+c*14)+'" y="'+(y+r*14)+'" width="12" height="12" rx="2" fill="'+fill+'"/>';return s;}
+    return B()+
+    '<g id="sq4s0" opacity="0">'+
+      '<text x="200" y="16" text-anchor="middle" font-family="Nunito" font-size="13" font-weight="800" fill="#5a4a30">Add odd numbers in L-shapes to build squares</text>'+
+      '<rect x="30" y="28" width="12" height="12" rx="2" fill="#d4870a"/><text x="58" y="40" font-family="Share Tech Mono" font-size="11" fill="#d4870a">1 → 1²=1</text>'+
+    '</g>'+
+    '<g id="sq4s1" opacity="0">'+
+      sq(2,30,54,'#7a8c6e')+'<rect x="30" y="54" width="12" height="12" rx="2" fill="#d4870a"/>'+
+      '<text x="70" y="66" font-family="Share Tech Mono" font-size="11" fill="#7a8c6e">+3 → 2²=4</text>'+
+      sq(3,30,84,'#c8922a')+sq(2,30,84,'#7a8c6e')+'<rect x="30" y="84" width="12" height="12" rx="2" fill="#d4870a"/>'+
+      '<text x="80" y="97" font-family="Share Tech Mono" font-size="11" fill="#c8922a">+5 → 3²=9</text>'+
+    '</g>'+
+    '<g id="sq4s2" opacity="0">'+
+      '<text x="200" y="136" text-anchor="middle" font-family="Nunito" font-size="14" font-weight="900" fill="#c8922a">Sum of first n odd numbers = n²</text>'+
+      '<text x="200" y="158" text-anchor="middle" font-family="Nunito" font-size="13" font-weight="800" fill="#5a4a30">1+3+5+7+9+11 = 6² = 36</text>'+
+    '</g>'+
+    '<g id="sq4ans" opacity="0">'+svgAns("First 8 odd numbers: 8² = 64")+'</g></svg>';},
+  /* sq5 — last digit table */
+  "sq5":function(){
+    var ok=['0','1','4','5','6','9'],bad=['2','3','7','8'];
+    var s=B()+'<g id="sq5s0" opacity="0"><text x="200" y="16" text-anchor="middle" font-family="Nunito" font-size="13" font-weight="800" fill="#5a4a30">Last digits of perfect squares:</text>';
+    var dx=30;
+    ['1²=1','2²=4','3²=9','4²=16','5²=25'].forEach(function(t,i){s+='<rect x="'+(dx+i*66)+'" y="24" width="58" height="24" rx="6" fill="#eef2eb"/><text x="'+(dx+29+i*66)+'" y="41" text-anchor="middle" font-family="Share Tech Mono" font-size="11" font-weight="bold" fill="#5a4a30">'+t+'</text>';});
+    dx=14;
+    ['6²=36','7²=49','8²=64','9²=81','10²=100'].forEach(function(t,i){s+='<rect x="'+(dx+i*74)+'" y="54" width="66" height="24" rx="6" fill="#eef2eb"/><text x="'+(dx+33+i*74)+'" y="71" text-anchor="middle" font-family="Share Tech Mono" font-size="11" font-weight="bold" fill="#5a4a30">'+t+'</text>';});
+    s+='</g><g id="sq5s1" opacity="0"><text x="200" y="96" text-anchor="middle" font-family="Nunito" font-size="13" font-weight="800" fill="#7a8c6e">Valid last digits: 0,1,4,5,6,9</text>';
+    ['2','3','7','8'].forEach(function(d,i){s+='<rect x="'+(60+i*70)+'" y="104" width="44" height="28" rx="8" fill="#fde8e8"/><text x="'+(82+i*70)+'" y="123" text-anchor="middle" font-family="Share Tech Mono" font-size="16" font-weight="bold" fill="#b85c2a">'+d+'</text><line x1="'+(58+i*70)+'" y1="102" x2="'+(106+i*70)+'" y2="134" stroke="#b85c2a" stroke-width="2.5"/>';});
+    s+='<text x="200" y="144" text-anchor="middle" font-family="Nunito" font-size="12" font-weight="800" fill="#b85c2a">These can NEVER be last digits of a perfect square</text></g>';
+    s+='<g id="sq5s2" opacity="0"><text x="200" y="162" text-anchor="middle" font-family="Nunito" font-size="13" font-weight="800" fill="#c8922a">873 ends in 3 → NOT a perfect square!</text></g>';
+    s+='<g id="sq5ans" opacity="0">'+svgAns("No — 873 ends in 3")+'</g></svg>';
+    return s;},
+  /* sq6 — find √1225 by pairing prime factors */
+  "sq6":function(){return B()+
+    '<g id="sq6s0" opacity="0">'+
+      '<text x="200" y="16" text-anchor="middle" font-family="Nunito" font-size="13" font-weight="800" fill="#5a4a30">Find √1225 — prime factorise first</text>'+
+      pill(176,36,48,'1225','#5a4a30')+
+      '<line x1="200" y1="40" x2="160" y2="60" stroke="#5a4a30" stroke-width="2"/><line x1="200" y1="40" x2="240" y2="60" stroke="#5a4a30" stroke-width="2"/>'+
+      pill(140,68,32,'5','#d4870a')+pill(220,68,44,'245','#5a4a30')+
+      '<line x1="242" y1="72" x2="218" y2="92" stroke="#5a4a30" stroke-width="2"/><line x1="242" y1="72" x2="266" y2="92" stroke="#5a4a30" stroke-width="2"/>'+
+      pill(200,98,32,'5','#d4870a')+pill(250,98,32,'49','#5a4a30')+
+      '<line x1="265" y1="102" x2="248" y2="122" stroke="#5a4a30" stroke-width="2"/><line x1="265" y1="102" x2="282" y2="122" stroke="#5a4a30" stroke-width="2"/>'+
+      pill(232,128,28,'7','#7a8c6e')+pill(266,128,28,'7','#7a8c6e')+
+    '</g>'+
+    '<g id="sq6s1" opacity="0">'+
+      '<text x="200" y="156" text-anchor="middle" font-family="Nunito" font-size="13" font-weight="800" fill="#c8922a">1225 = 5×5 × 7×7  — all factors in pairs ✓</text>'+
+    '</g>'+
+    '<g id="sq6s2" opacity="0">'+svgAns("√1225 = 5×7 = 35")+'</g>'+
+    '<g id="sq6ans" opacity="0">'+svgAns("√1225 = 35")+'</g></svg>';},
+  /* sq7 — multiply to make perfect square */
+  "sq7":function(){return B()+
+    '<g id="sq7s0" opacity="0">'+
+      '<text x="200" y="16" text-anchor="middle" font-family="Nunito" font-size="13" font-weight="800" fill="#5a4a30">180 = 2×2 × 3×3 × 5</text>'+
+      pairBox(30,28,'2','2',true)+pairBox(120,28,'3','3',true)+
+      '<rect x="220" y="28" width="38" height="26" rx="6" fill="#b85c2a" opacity=".9"/>'+
+      '<text x="239" y="46" text-anchor="middle" font-family="Share Tech Mono" font-size="16" font-weight="bold" fill="#fff">5</text>'+
+      '<text x="239" y="68" text-anchor="middle" font-family="Nunito" font-size="11" font-weight="800" fill="#b85c2a">unpaired!</text>'+
+    '</g>'+
+    '<g id="sq7s1" opacity="0">'+
+      '<text x="200" y="96" text-anchor="middle" font-family="Nunito" font-size="13" font-weight="800" fill="#7a8c6e">Every prime factor must appear in pairs</text>'+
+      '<text x="200" y="116" text-anchor="middle" font-family="Nunito" font-size="13" font-weight="800" fill="#c8922a">5 has no pair → multiply by 5</text>'+
+    '</g>'+
+    '<g id="sq7s2" opacity="0">'+
+      '<text x="200" y="140" text-anchor="middle" font-family="Nunito" font-size="13" font-weight="800" fill="#7a8c6e">180 × 5 = 900 = 30²  ✓</text>'+
+    '</g>'+
     '<g id="sq7ans" opacity="0">'+svgAns("Multiply by 5")+'</g></svg>';},
-  "sq8":function(){return svgBase()+
-    '<g id="sq8s0" opacity="0">'+svgText("√(p/q) = √p ÷ √q",28)+'</g>'+
-    '<g id="sq8s1" opacity="0">'+svgText("√49 = 7  and  √81 = 9",68)+'</g>'+
-    '<g id="sq8s2" opacity="0">'+svgText("√(49/81) = 7/9",108)+'</g>'+
-    '<g id="sq8ans" opacity="0">'+svgAns("√(25/144) = 5/12")+'</g></svg>';},
-  "sq9":function(){return svgBase()+
-    '<g id="sq9s0" opacity="0">'+svgText("2.25 = 225/100",28)+'</g>'+
-    '<g id="sq9s1" opacity="0">'+svgText("√225 = 15  and  √100 = 10",68)+'</g>'+
-    '<g id="sq9s2" opacity="0">'+svgText("√2.25 = 15/10 = 1.5",108)+'</g>'+
-    '<g id="sq9ans" opacity="0">'+svgAns("√1.44 = 1.2")+'</g></svg>';},
-  "sq10":function(){return svgBase()+
-    '<g id="sq10s0" opacity="0">'+svgText("44² = 1936  45² = 2025",28)+
-    '<text x="200" y="58" text-anchor="middle" font-size="13" fill="#c8922a" font-weight="800">Nearest square below 2000 = 1936</text></g>'+
-    '<g id="sq10s1" opacity="0">'+svgText("2000 − 1936 = 64",68)+'</g>'+
-    '<g id="sq10s2" opacity="0">'+svgText("Subtract 64 → 1936 = 44²",108)+'</g>'+
-    '<g id="sq10ans" opacity="0">'+svgAns("Subtract 16 from 500 → 484=22²")+'</g></svg>';},
-  "sq11":function(){return svgBase()+
-    '<g id="sq11s0" opacity="0">'+svgText("7056 = 2⁴ × 3² × 7²",28)+'</g>'+
-    '<g id="sq11s1" opacity="0">'+svgText("Pairs: (2²)(2²)(3²)(7²)",68)+
-    '<text x="200" y="98" text-anchor="middle" font-size="13" fill="#7a8c6e" font-weight="800">One from each: 2×2×3×7 = 84</text></g>'+
-    '<g id="sq11s2" opacity="0">'+svgText("√7056 = 84  ✓",108)+'</g>'+
-    '<g id="sq11ans" opacity="0">'+svgAns("√5929 = 77")+'</g></svg>';},
-  "sq12":function(){return svgBase()+
-    '<g id="sq12s0" opacity="0">'+svgText("0.0064 = 64/10000",28)+'</g>'+
-    '<g id="sq12s1" opacity="0">'+svgText("√64 = 8   √10000 = 100",68)+'</g>'+
-    '<g id="sq12s2" opacity="0">'+svgText("√0.0064 = 8/100 = 0.08",108)+'</g>'+
-    '<g id="sq12ans" opacity="0">'+svgAns("√0.0036 = 0.06")+'</g></svg>';},
-  "sq13":function(){return svgBase()+
-    '<g id="sq13s0" opacity="0">'+svgText("Group digits: 17 | 64",28)+
-    '<text x="200" y="58" text-anchor="middle" font-size="13" fill="#c8922a" font-weight="800">Start with 17: largest square ≤17 is 16=4²</text></g>'+
-    '<g id="sq13s1" opacity="0">'+svgText("Remainder 1, bring down 64 → 164",68)+'</g>'+
-    '<g id="sq13s2" opacity="0">'+svgText("Double 4=8; find d: (80+d)×d≤164; d=2",108)+'</g>'+
-    '<g id="sq13ans" opacity="0">'+svgAns("√2809 = 53")+'</g></svg>';},
-  "sq14":function(){return svgBase()+
-    '<g id="sq14s0" opacity="0">'+svgText("rows = cols = n  →  n² = 1849",28)+'</g>'+
-    '<g id="sq14s1" opacity="0">'+svgText("√1849 = 43  (since 43² = 1849)",68)+'</g>'+
-    '<g id="sq14s2" opacity="0">'+svgText("43 rows × 43 students = 1849 ✓",108)+'</g>'+
-    '<g id="sq14ans" opacity="0">'+svgAns("√2025 = 45 rows")+'</g></svg>';},
-  "sq15":function(){return svgBase()+
-    '<g id="sq15s0" opacity="0">'+svgText("Product of m² and n² = m²×n²",28)+'</g>'+
-    '<g id="sq15s1" opacity="0">'+svgText("m²×n² = (m×n)²  →  always a perfect square!",68)+'</g>'+
-    '<g id="sq15s2" opacity="0">'+svgText("9×25 = 225 = 15²  ✓",108)+'</g>'+
-    '<g id="sq15ans" opacity="0">'+svgAns("Yes! 144×49 = 84² = 7056")+'</g></svg>';}
+  /* sq8 — square root of a fraction */
+  "sq8":function(){return B()+
+    '<g id="sq8s0" opacity="0">'+
+      '<text x="200" y="16" text-anchor="middle" font-family="Nunito" font-size="13" font-weight="800" fill="#5a4a30">√(p/q) = √p ÷ √q — root top and bottom separately</text>'+
+      '<text x="200" y="44" text-anchor="middle" font-family="Share Tech Mono" font-size="20" font-weight="bold" fill="#5a4a30">√(49/81)</text>'+
+      '<line x1="160" y1="52" x2="120" y2="72" stroke="#5a4a30" stroke-width="2"/><line x1="240" y1="52" x2="280" y2="72" stroke="#5a4a30" stroke-width="2"/>'+
+      pill(90,86,52,'√49','#d4870a')+pill(258,86,52,'√81','#7a8c6e')+
+    '</g>'+
+    '<g id="sq8s1" opacity="0">'+
+      pill(90,114,52,'= 7','#d4870a')+pill(258,114,52,'= 9','#7a8c6e')+
+    '</g>'+
+    '<g id="sq8s2" opacity="0">'+
+      '<text x="200" y="140" text-anchor="middle" font-family="Share Tech Mono" font-size="18" font-weight="bold" fill="#c8922a">7/9</text>'+
+    '</g>'+
+    '<g id="sq8ans" opacity="0">'+svgAns("√(49/81) = 7/9")+'</g></svg>';},
+  /* sq9 — decimal square root */
+  "sq9":function(){return B()+
+    '<g id="sq9s0" opacity="0">'+
+      '<text x="200" y="16" text-anchor="middle" font-family="Nunito" font-size="13" font-weight="800" fill="#5a4a30">Convert decimal to fraction first</text>'+
+      pill(140,40,120,'2.25 = 225/100','#5a4a30')+
+    '</g>'+
+    '<g id="sq9s1" opacity="0">'+
+      '<line x1="200" y1="46" x2="140" y2="68" stroke="#5a4a30" stroke-width="2"/><line x1="200" y1="46" x2="260" y2="68" stroke="#5a4a30" stroke-width="2"/>'+
+      pill(80,82,88,'√225 = 15','#d4870a')+pill(200,82,88,'√100 = 10','#7a8c6e')+
+    '</g>'+
+    '<g id="sq9s2" opacity="0">'+
+      '<text x="200" y="112" text-anchor="middle" font-family="Share Tech Mono" font-size="18" font-weight="bold" fill="#c8922a">15/10 = 1.5</text>'+
+      '<text x="200" y="136" text-anchor="middle" font-family="Nunito" font-size="13" font-weight="800" fill="#7a8c6e">√2.25 = 1.5  ✓</text>'+
+    '</g>'+
+    '<g id="sq9ans" opacity="0">'+svgAns("√2.25 = 1.5")+'</g></svg>';},
+  /* sq10 — subtract to make perfect square (number line) */
+  "sq10":function(){return B()+
+    '<g id="sq10s0" opacity="0">'+
+      '<text x="200" y="16" text-anchor="middle" font-family="Nunito" font-size="13" font-weight="800" fill="#5a4a30">Find nearest perfect square below 2000</text>'+
+      '<line x1="30" y1="60" x2="370" y2="60" stroke="#ccc" stroke-width="2"/>'+
+      '<circle cx="80" cy="60" r="9" fill="#7a8c6e"/><text x="80" y="42" text-anchor="middle" font-family="Share Tech Mono" font-size="10" font-weight="bold" fill="#7a8c6e">1936=44²</text>'+
+      '<circle cx="220" cy="60" r="9" fill="#b85c2a"/><text x="220" y="42" text-anchor="middle" font-family="Share Tech Mono" font-size="10" font-weight="bold" fill="#b85c2a">2000</text>'+
+      '<circle cx="340" cy="60" r="9" fill="#7a8c6e"/><text x="340" y="42" text-anchor="middle" font-family="Share Tech Mono" font-size="10" font-weight="bold" fill="#7a8c6e">2025=45²</text>'+
+    '</g>'+
+    '<g id="sq10s1" opacity="0">'+
+      '<text x="200" y="90" text-anchor="middle" font-family="Nunito" font-size="13" font-weight="800" fill="#c8922a">2000 is between 44²=1936 and 45²=2025</text>'+
+      '<line x1="80" y1="60" x2="220" y2="60" stroke="#b85c2a" stroke-width="3" stroke-dasharray="6,3" marker-end="url(#arx)"/>'+
+    '</g>'+
+    '<g id="sq10s2" opacity="0">'+
+      '<text x="200" y="116" text-anchor="middle" font-family="Nunito" font-size="14" font-weight="900" fill="#7a8c6e">2000 − 1936 = 64</text>'+
+      '<text x="200" y="140" text-anchor="middle" font-family="Nunito" font-size="13" font-weight="800" fill="#5a4a30">Subtract 64 → 1936 = 44²  ✓</text>'+
+    '</g>'+
+    '<g id="sq10ans" opacity="0">'+svgAns("Subtract 64 to get 1936 = 44²")+'</g></svg>';},
+  /* sq11 — long division for √7056 */
+  "sq11":function(){return B()+
+    '<g id="sq11s0" opacity="0">'+
+      '<text x="200" y="16" text-anchor="middle" font-family="Nunito" font-size="13" font-weight="800" fill="#5a4a30">Long Division: pair digits from right → 70|56</text>'+
+      '<rect x="30" y="28" width="340" height="50" rx="8" fill="#fffdf8" stroke="#c8922a" stroke-width="2"/>'+
+      '<text x="50" y="44" font-family="Share Tech Mono" font-size="12" fill="#5a4a30">Step 1: Group  →  70 | 56</text>'+
+      '<text x="50" y="64" font-family="Share Tech Mono" font-size="12" fill="#d4870a">Largest square ≤ 70: 64 = 8²  → quotient = 8</text>'+
+    '</g>'+
+    '<g id="sq11s1" opacity="0">'+
+      '<rect x="30" y="82" width="340" height="50" rx="8" fill="#fffdf8" stroke="#7a8c6e" stroke-width="2"/>'+
+      '<text x="50" y="98" font-family="Share Tech Mono" font-size="12" fill="#5a4a30">Remainder: 70−64 = 6, bring down 56 → 656</text>'+
+      '<text x="50" y="118" font-family="Share Tech Mono" font-size="12" fill="#7a8c6e">Double quotient: 2×8=16. Try d: 164×d ≤ 656</text>'+
+    '</g>'+
+    '<g id="sq11s2" opacity="0">'+
+      '<text x="200" y="148" text-anchor="middle" font-family="Nunito" font-size="14" font-weight="900" fill="#c8922a">d=4 → 164×4 = 656 ✓  →  √7056 = 84</text>'+
+    '</g>'+
+    '<g id="sq11ans" opacity="0">'+svgAns("√7056 = 84")+'</g></svg>';},
+  /* sq12 — decimal √0.0064 */
+  "sq12":function(){return B()+
+    '<g id="sq12s0" opacity="0">'+
+      '<text x="200" y="16" text-anchor="middle" font-family="Nunito" font-size="13" font-weight="800" fill="#5a4a30">0.0064 — write as fraction</text>'+
+      pill(110,44,180,'0.0064 = 64 / 10000','#5a4a30')+
+    '</g>'+
+    '<g id="sq12s1" opacity="0">'+
+      '<line x1="200" y1="52" x2="140" y2="74" stroke="#5a4a30" stroke-width="2"/><line x1="200" y1="52" x2="260" y2="74" stroke="#5a4a30" stroke-width="2"/>'+
+      pill(72,88,104,'√64 = 8','#d4870a')+pill(208,88,104,'√10000 = 100','#7a8c6e')+
+    '</g>'+
+    '<g id="sq12s2" opacity="0">'+
+      '<text x="200" y="118" text-anchor="middle" font-family="Share Tech Mono" font-size="18" font-weight="bold" fill="#c8922a">8 / 100 = 0.08</text>'+
+      '<text x="200" y="144" text-anchor="middle" font-family="Nunito" font-size="13" font-weight="800" fill="#7a8c6e">√0.0064 = 0.08  ✓</text>'+
+    '</g>'+
+    '<g id="sq12ans" opacity="0">'+svgAns("√0.0064 = 0.08")+'</g></svg>';},
+  /* sq13 — word problem square area → side */
+  "sq13":function(){
+    function dot2(n,x,y){var s='';for(var r=0;r<n;r++)for(var c=0;c<n;c++)s+='<circle cx="'+(x+c*10)+'" cy="'+(y+r*10)+'" r="3.5" fill="#7a8c6e"/>';return s;}
+    return B()+
+    '<g id="sq13s0" opacity="0">'+
+      '<text x="200" y="16" text-anchor="middle" font-family="Nunito" font-size="13" font-weight="800" fill="#5a4a30">Students sit in a square formation: n² = 1849</text>'+
+      dot2(5,30,28)+
+      '<rect x="110" y="28" width="100" height="100" rx="4" fill="rgba(212,135,10,.15)" stroke="#d4870a" stroke-width="2" stroke-dasharray="6,3"/>'+
+      '<text x="160" y="82" text-anchor="middle" font-family="Share Tech Mono" font-size="12" fill="#d4870a">n×n</text>'+
+      '<text x="160" y="98" text-anchor="middle" font-family="Nunito" font-size="11" fill="#c8922a">= 1849</text>'+
+    '</g>'+
+    '<g id="sq13s1" opacity="0">'+
+      '<text x="200" y="142" text-anchor="middle" font-family="Nunito" font-size="13" font-weight="800" fill="#7a8c6e">√1849 = 43  (43×43 = 1849)</text>'+
+    '</g>'+
+    '<g id="sq13s2" opacity="0">'+
+      '<text x="200" y="164" text-anchor="middle" font-family="Nunito" font-size="14" font-weight="900" fill="#c8922a">43 rows × 43 students = 1849 ✓</text>'+
+    '</g>'+
+    '<g id="sq13ans" opacity="0">'+svgAns("43 students per row")+'</g></svg>';},
+  /* sq14 — perfect square word problem */
+  "sq14":function(){return B()+
+    '<g id="sq14s0" opacity="0">'+
+      '<text x="200" y="16" text-anchor="middle" font-family="Nunito" font-size="13" font-weight="800" fill="#5a4a30">Is 1000 a perfect square? Factorise!</text>'+
+      pill(130,38,140,'1000 = 2³ × 5³','#5a4a30')+
+    '</g>'+
+    '<g id="sq14s1" opacity="0">'+
+      pairBox(30,60,'2','2',true)+
+      '<rect x="116" y="60" width="38" height="26" rx="6" fill="#b85c2a" opacity=".9"/><text x="135" y="78" text-anchor="middle" font-family="Share Tech Mono" font-size="16" font-weight="bold" fill="#fff">2</text>'+
+      '<text x="135" y="100" text-anchor="middle" font-family="Nunito" font-size="11" font-weight="800" fill="#b85c2a">leftover!</text>'+
+      pairBox(180,60,'5','5',true)+
+      '<rect x="266" y="60" width="38" height="26" rx="6" fill="#b85c2a" opacity=".9"/><text x="285" y="78" text-anchor="middle" font-family="Share Tech Mono" font-size="16" font-weight="bold" fill="#fff">5</text>'+
+      '<text x="285" y="100" text-anchor="middle" font-family="Nunito" font-size="11" font-weight="800" fill="#b85c2a">leftover!</text>'+
+    '</g>'+
+    '<g id="sq14s2" opacity="0">'+
+      '<text x="200" y="120" text-anchor="middle" font-family="Nunito" font-size="13" font-weight="800" fill="#c8922a">Not all factors come in pairs → NOT a perfect square</text>'+
+    '</g>'+
+    '<g id="sq14ans" opacity="0">'+svgAns("No — 1000 = 2³×5³ has unpaired primes")+'</g></svg>';},
+  /* sq15 — product of two perfect squares */
+  "sq15":function(){return B()+
+    '<g id="sq15s0" opacity="0">'+
+      '<text x="200" y="16" text-anchor="middle" font-family="Nunito" font-size="13" font-weight="800" fill="#5a4a30">Product of two perfect squares</text>'+
+      pill(30,44,100,'m² = a²','#d4870a')+
+      '<text x="168" y="48" text-anchor="middle" font-family="Nunito" font-size="18" font-weight="900" fill="#5a4a30">×</text>'+
+      pill(196,44,100,'n² = b²','#7a8c6e')+
+    '</g>'+
+    '<g id="sq15s1" opacity="0">'+
+      '<text x="200" y="80" text-anchor="middle" font-family="Nunito" font-size="14" font-weight="900" fill="#c8922a">m² × n² = a² × b² = (a×b)²</text>'+
+      '<text x="200" y="104" text-anchor="middle" font-family="Nunito" font-size="13" font-weight="800" fill="#7a8c6e">Always a perfect square!</text>'+
+    '</g>'+
+    '<g id="sq15s2" opacity="0">'+
+      pill(30,134,100,'4 × 9 = 36','#d4870a')+
+      pill(200,134,120,'36 = 6²  ✓','#7a8c6e')+
+      '<text x="200" y="162" text-anchor="middle" font-family="Nunito" font-size="12" font-weight="800" fill="#5a4a30">Also: 25×16=400=20²  ✓</text>'+
+    '</g>'+
+    '<g id="sq15ans" opacity="0">'+svgAns("Yes! m²×n² = (mn)² always")+'</g></svg>';}
   };
   return m[t]?m[t]():'<svg viewBox="0 0 400 190"><text x="200" y="95" text-anchor="middle" font-family="Nunito" font-size="14" fill="#5a4a30">Loading...</text></svg>';
 }
