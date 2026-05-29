@@ -2155,7 +2155,9 @@ function renderBreakLog() {
 
 /* ── ERROR FIX TRACKING ──────────────────────────────────── */
 function errFingerprint(e) {
-  return (e.studentId||'') + '||' + (e.date||'') + '||' + (e.time||'') + '||' + (e.message||'').slice(0,60);
+  /* page + message only — same bug on same page = same fingerprint,
+     so fixing one row marks all identical rows fixed automatically */
+  return (e.page||'') + '||' + (e.message||'').slice(0,80);
 }
 function getFixedErrors() {
   try { return JSON.parse(localStorage.getItem('rishi_fixed_errors') || '{}'); } catch(e) { return {}; }
