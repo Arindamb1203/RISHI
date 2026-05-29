@@ -198,6 +198,7 @@ body::after{content:'RISHI';position:fixed;bottom:-40px;right:-30px;font-family:
   <div class="hdr-logo">RISHI</div>
   <div class="hdr-right">
     <div class="hdr-name" id="hdrName"></div>
+    <button class="btn-logout" onclick="openGamesFromSyllabus()" style="margin-right:4px;background:rgba(255,215,0,.15);border-color:rgba(255,215,0,.4);color:#b8860b;">🎮 Games</button>
     <button class="btn-logout" onclick="showLeaderboard()" style="margin-right:4px;">🏆 Leaderboard</button>
     <button class="btn-logout" onclick="logout()">← Logout</button>
   </div>
@@ -879,6 +880,15 @@ var STUDENT_BOARD = 'cbse'; /* set in init */
 
 function G(id){return document.getElementById(id);}
 function logout(){localStorage.removeItem('rishi_current_student');window.location.href='/login.html';}
+function openGamesFromSyllabus(){
+  var coins=parseInt(localStorage.getItem('rishi_coins')||'0');
+  if(coins<5){
+    alert('You need at least 5 coins to play games. Earn coins by completing Explain and Practice sessions!');
+    return;
+  }
+  var bp=sessionStorage.getItem('rishi_admin_bypass')==='1'?'&bypass=1':'';
+  window.location.href='/games/games.html?from='+encodeURIComponent(location.pathname+location.search)+bp;
+}
 
 /* Admin bypass URL detection */
 (function(){
