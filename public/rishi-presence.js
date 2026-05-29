@@ -56,6 +56,13 @@
   function isExplainPage()   { return location.pathname.indexOf('/explain/')   !== -1; }
   function isPracticePage()  { return location.pathname.indexOf('/practice/')  !== -1; }
   function isLessonPage()    { return isExplainPage() || isPracticePage(); }
+  function isInputPage() {
+    var p = location.pathname;
+    return p.indexOf('/practice/') !== -1 ||
+           p.indexOf('exam.html')   !== -1 ||
+           p.indexOf('topic-exam')  !== -1 ||
+           p.indexOf('sampurna')    !== -1;
+  }
 
   /* ── SLOT LOCK OVERLAY ───────────────────────────────── */
   function showSlotLock() {
@@ -278,8 +285,8 @@
   /* ── MAIN INIT ───────────────────────────────────────── */
   window.addEventListener('load', function () {
 
-    /* Math toolbar runs for everyone — must be before any early return */
-    if (isPracticePage()) setTimeout(rishiInitMathToolbar, 900);
+    /* Math toolbar — practice AND exam pages, before any early return */
+    if (isInputPage()) setTimeout(rishiInitMathToolbar, 900);
 
     /* Admin bypass — sessionStorage ONLY (not localStorage) */
     if (sessionStorage.getItem('rishi_admin_bypass') === '1') {
@@ -362,8 +369,20 @@
      Injected on every practice page below #answerInput.
      Lets students type ² ³ √ × ÷ ½ π ° etc. with one tap.
      ─────────────────────────────────────────────────────── */
+  function normalizeMathInput(val) {
+    return val
+      .replace(/²/g,'^2').replace(/³/g,'^3').replace(/⁴/g,'^4')
+      .replace(/½/g,'1/2').replace(/⅓/g,'1/3').replace(/¼/g,'1/4')
+      .replace(/¾/g,'3/4').replace(/⅔/g,'2/3')
+      .replace(/×/g,'x').replace(/÷/g,'/').replace(/π/g,'pi')
+      .replace(/°/g,' degrees').replace(/∠/g,'angle ')
+      .replace(/≤/g,'<=').replace(/≥/g,'>=').replace(/≠/g,'!=')
+      .replace(/√/g,'sqrt').replace(/∛/g,'cbrt').replace(/∞/g,'infinity');
+  }
+
   function rishiInitMathToolbar() {
-    var inp = document.getElementById('answerInput');
+    /* Works for practice pages (answerInput) and exam pages (ans-input) */
+    var inp = document.getElementById('answerInput') || document.getElementById('ans-input');
     if (!inp || document.getElementById('rishi-math-toolbar')) return;
 
     var SYMS = [
@@ -428,6 +447,12 @@
 
     /* Insert between input and submit button */
     inp.parentNode.insertBefore(toolbar, inp.nextSibling);
+
+    /* Normalise Unicode math before submission so answer-matching works */
+    function doNorm() { inp.value = normalizeMathInput(inp.value); }
+    var sub = document.getElementById('submitBtn') || document.getElementById('submit-btn');
+    if (sub) sub.addEventListener('click', doNorm, true); /* capture — runs before onclick */
+    inp.addEventListener('keydown', function(e){ if(e.key==='Enter') doNorm(); }, true);
   }
 
 })();
