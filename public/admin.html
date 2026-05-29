@@ -2024,8 +2024,10 @@ function renderStudentProgress(r) {
 /* ── LOGS ────────────────────────────────────────────────── */
 var _breakLogsAll = [];
 var _errorLogsAll = [];
+var _logsFixBusy  = false; /* true while AI Fix fetch is in flight — blocks auto-refresh */
 
 async function buildLogs() {
+  if (_logsFixBusy) return; /* don't wipe the table while AI Fix is running */
   /* Show loading state */
   document.getElementById('break-log-today').innerHTML    = '<div class="empty"><div class="empty-ico">⏳</div>Loading from D1…</div>';
   document.getElementById('break-log-history').innerHTML  = '';
@@ -2195,7 +2197,8 @@ async function fixError(idx) {
   var body  = document.getElementById(errId + '-body');
   if (!btn || !resRow || !body) return;
 
-  /* Turn red — working */
+  /* Turn red — working; block auto-refresh */
+  _logsFixBusy            = true;
   btn.style.background    = 'rgba(192,57,43,.12)';
   btn.style.borderColor   = 'rgba(192,57,43,.5)';
   btn.style.color         = 'var(--red)';
@@ -2226,6 +2229,8 @@ async function fixError(idx) {
     btn.textContent       = '✗ Failed';
     btn.disabled          = false;
     body.textContent      = 'Error: ' + err.message;
+  } finally {
+    _logsFixBusy = false; /* allow auto-refresh again */
   }
 }
 
