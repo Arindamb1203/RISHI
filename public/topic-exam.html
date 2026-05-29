@@ -362,6 +362,25 @@ var breakActive = false;
 var breakTimer  = null;
 var breakSecs   = 0;
 
+/* ── PLAN FILTER ─────────────────────────────────────────────
+   Restricts chapter list to whatever the parent has locked
+   (Unit 1 / Half Yearly / Annual etc.) via rishi_active_chapters.
+   Keys in that object are integer chapter IDs (1, 6, 18 …).
+   Special map: '11b' → 112 (Mensuration Part B).
+   ICSE chapters ('ic7-01' etc.) are always included unchanged.
+─────────────────────────────────────────────────────────── */
+function filterByActivePlan(chapters, bypass) {
+  if (bypass) return chapters;
+  var active = {};
+  try { active = JSON.parse(localStorage.getItem('rishi_active_chapters') || '{}'); } catch(e) {}
+  if (!Object.keys(active).length) return chapters; /* no plan set — use all */
+  return chapters.filter(function(ch) {
+    var n = (ch === '11b') ? 112 : parseInt(ch, 10);
+    if (isNaN(n)) return true; /* ICSE / non-numeric — always include */
+    return !!(active[n] || active[String(n)]);
+  });
+}
+
 /* ── INIT ─────────────────────────────────────────────────── */
 window.addEventListener('load', function () {
   var params = new URLSearchParams(window.location.search);
@@ -382,13 +401,16 @@ window.addEventListener('load', function () {
 
   document.title = TOPIC_INFO.name + ' Topic Exam | RISHI';
 
-  /* Gate: all chapter exams must be done */
   var bypass = sessionStorage.getItem('rishi_admin_bypass') === '1';
+  /* Scope chapters to parent-locked plan (Unit 1 / Half Yearly / Annual etc.) */
+  var planChs = filterByActivePlan(TOPIC_INFO.chapters, bypass);
+  TOPIC_INFO = Object.assign({}, TOPIC_INFO, { chapters: planChs });
+
+  /* Gate: all chapter exams in current plan must be done */
   if (!bypass) {
-    var chs = TOPIC_INFO.chapters;
     var locked = [];
-    for (var i = 0; i < chs.length; i++) {
-      if (!rishiIsChapExamDone(chs[i])) locked.push(chs[i]);
+    for (var i = 0; i < planChs.length; i++) {
+      if (!rishiIsChapExamDone(planChs[i])) locked.push(planChs[i]);
     }
     if (locked.length > 0) {
       document.getElementById('loading-screen').classList.add('hidden');

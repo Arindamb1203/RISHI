@@ -324,6 +324,25 @@ var breakActive = false;
 var breakTimer  = null;
 var breakSecs   = 0;
 
+/* ── PLAN FILTER ─────────────────────────────────────────────
+   Restricts chapter list to whatever the parent has locked
+   (Unit 1 / Half Yearly / Annual etc.) via rishi_active_chapters.
+   Keys in that object are integer chapter IDs (1, 6, 18 …).
+   Special map: '11b' → 112 (Mensuration Part B).
+   ICSE chapters ('ic7-01' etc.) are always included unchanged.
+─────────────────────────────────────────────────────────── */
+function filterByActivePlan(chapters, bypass) {
+  if (bypass) return chapters;
+  var active = {};
+  try { active = JSON.parse(localStorage.getItem('rishi_active_chapters') || '{}'); } catch(e) {}
+  if (!Object.keys(active).length) return chapters; /* no plan set — use all */
+  return chapters.filter(function(ch) {
+    var n = (ch === '11b') ? 112 : parseInt(ch, 10);
+    if (isNaN(n)) return true; /* ICSE / non-numeric — always include */
+    return !!(active[n] || active[String(n)]);
+  });
+}
+
 /* ── INIT ─────────────────────────────────────────────────── */
 window.addEventListener('load', function () {
   var params = new URLSearchParams(window.location.search);
@@ -334,10 +353,13 @@ window.addEventListener('load', function () {
               : (STUDENT_CLASS === 7) ? ALL_CHAPTERS_CLASS7
               : (STUDENT_CLASS === 9) ? ALL_CHAPTERS_CLASS9
               : ALL_CHAPTERS_CLASS8;
+
+  /* Scope to parent-locked plan (Unit 1 / Half Yearly / Annual etc.) */
+  var bypass = sessionStorage.getItem('rishi_admin_bypass') === '1';
+  ALL_CHAPTERS = filterByActivePlan(ALL_CHAPTERS, bypass);
   var totalCh   = ALL_CHAPTERS.length;
 
-  /* Gate: all chapter exams done */
-  var bypass = sessionStorage.getItem('rishi_admin_bypass') === '1';
+  /* Gate: all chapter exams in current plan done */
   if (!bypass) {
     var locked = [];
     for (var i = 0; i < ALL_CHAPTERS.length; i++) {
