@@ -325,6 +325,11 @@
       setTimeout(checkPageResume, 1500);
       watchCompletion();
     }
+
+    /* Math symbol toolbar — practice pages only */
+    if (isPracticePage()) {
+      setTimeout(rishiInitMathToolbar, 900);
+    }
   });
 
   /* ══ EXAM RESUME PUBLIC API ══════════════════════════════
@@ -353,5 +358,77 @@
   window.rishiClearExamResume = function (chIdStr) {
     localStorage.removeItem('rishi_exam_resume_' + chIdStr);
   };
+
+  /* ══ MATH SYMBOL TOOLBAR ═════════════════════════════════
+     Injected on every practice page below #answerInput.
+     Lets students type ² ³ √ × ÷ ½ π ° etc. with one tap.
+     ─────────────────────────────────────────────────────── */
+  function rishiInitMathToolbar() {
+    var inp = document.getElementById('answerInput');
+    if (!inp || document.getElementById('rishi-math-toolbar')) return;
+
+    var SYMS = [
+      {s:'²',  t:'Squared (x²)'},
+      {s:'³',  t:'Cubed (x³)'},
+      {s:'⁴',  t:'Power 4'},
+      {s:'√',  t:'Square root'},
+      {s:'∛',  t:'Cube root'},
+      {s:'×',  t:'Multiply'},
+      {s:'÷',  t:'Divide'},
+      {s:'±',  t:'Plus-minus'},
+      {s:'½',  t:'One half'},
+      {s:'⅓',  t:'One third'},
+      {s:'¼',  t:'One quarter'},
+      {s:'¾',  t:'Three quarters'},
+      {s:'⅔',  t:'Two thirds'},
+      {s:'π',  t:'Pi'},
+      {s:'°',  t:'Degrees'},
+      {s:'∞',  t:'Infinity'},
+      {s:'≤',  t:'Less than or equal'},
+      {s:'≥',  t:'Greater than or equal'},
+      {s:'≠',  t:'Not equal'},
+      {s:'∠',  t:'Angle'}
+    ];
+
+    /* Inject styles once */
+    if (!document.getElementById('rishi-math-style')) {
+      var st = document.createElement('style');
+      st.id  = 'rishi-math-style';
+      st.textContent =
+        '#rishi-math-toolbar{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px;padding:6px 2px;}' +
+        '#rishi-math-toolbar .rmt-lbl{width:100%;font-size:10px;font-weight:800;letter-spacing:1.5px;color:rgba(255,215,0,.45);font-family:Nunito,sans-serif;margin-bottom:1px;}' +
+        '#rishi-math-toolbar button{padding:5px 11px;border-radius:8px;border:1.5px solid rgba(255,215,0,.28);background:rgba(255,215,0,.07);color:#ffd700;font-size:17px;font-weight:700;cursor:pointer;font-family:inherit;transition:background .12s;min-width:38px;line-height:1.2;}' +
+        '#rishi-math-toolbar button:hover{background:rgba(255,215,0,.22);}' +
+        '#rishi-math-toolbar button:active{background:rgba(255,215,0,.35);}';
+      document.head.appendChild(st);
+    }
+
+    var toolbar = document.createElement('div');
+    toolbar.id  = 'rishi-math-toolbar';
+
+    var lbl = document.createElement('div');
+    lbl.className   = 'rmt-lbl';
+    lbl.textContent = '⌨ MATH SYMBOLS — tap to insert';
+    toolbar.appendChild(lbl);
+
+    SYMS.forEach(function(item) {
+      var btn   = document.createElement('button');
+      btn.type  = 'button';
+      btn.title = item.t;
+      btn.textContent = item.s;
+      btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        var start = inp.selectionStart || inp.value.length;
+        var end   = inp.selectionEnd   || inp.value.length;
+        inp.value = inp.value.slice(0, start) + item.s + inp.value.slice(end);
+        inp.setSelectionRange(start + item.s.length, start + item.s.length);
+        inp.focus();
+      });
+      toolbar.appendChild(btn);
+    });
+
+    /* Insert between input and submit button */
+    inp.parentNode.insertBefore(toolbar, inp.nextSibling);
+  }
 
 })();
