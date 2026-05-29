@@ -2153,6 +2153,22 @@ function renderBreakLog() {
   histCon.innerHTML = histHtml;
 }
 
+/* ── ERROR FIX TRACKING ──────────────────────────────────── */
+function errFingerprint(e) {
+  return (e.studentId||'') + '||' + (e.date||'') + '||' + (e.time||'') + '||' + (e.message||'').slice(0,60);
+}
+function getFixedErrors() {
+  try { return JSON.parse(localStorage.getItem('rishi_fixed_errors') || '{}'); } catch(e) { return {}; }
+}
+function markErrorFixed(e) {
+  var fixed = getFixedErrors();
+  fixed[errFingerprint(e)] = 1;
+  localStorage.setItem('rishi_fixed_errors', JSON.stringify(fixed));
+}
+function isErrorFixed(e) {
+  return !!getFixedErrors()[errFingerprint(e)];
+}
+
 function renderErrorLog() {
   var filter = (document.getElementById('error-student-filter') || {value:'all'}).value;
   var logs   = filter === 'all' ? _errorLogsAll : _errorLogsAll.filter(function(e){ return e.studentId === filter; });
@@ -2163,28 +2179,55 @@ function renderErrorLog() {
     return;
   }
 
-  var html = '<table class="log-table" style="min-width:900px;"><thead><tr>'
+  var total   = logs.length;
+  var fixedCt = logs.filter(function(e){ return isErrorFixed(e); }).length;
+  var pending = total - fixedCt;
+
+  /* Summary bar */
+  var summaryHtml = '<div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:12px;padding:10px 14px;background:var(--s2);border:1px solid var(--border);border-radius:10px;">'
+    + '<span style="font-size:13px;font-weight:800;color:var(--muted);">&#128202; Total: <strong>' + total + '</strong></span>'
+    + '<span style="font-size:13px;font-weight:800;color:var(--green);">&#10003; Fixed: <strong>' + fixedCt + '</strong></span>'
+    + '<span style="font-size:13px;font-weight:800;color:var(--red);">&#9888; Pending: <strong>' + pending + '</strong></span>'
+    + '<label style="margin-left:auto;display:flex;align-items:center;gap:6px;font-size:12px;font-weight:700;color:var(--muted);cursor:pointer;">'
+    + '<input type="checkbox" id="hide-fixed-chk" ' + (pending < total ? 'checked' : '') + ' onchange="renderErrorLog()" style="cursor:pointer;"> Hide fixed</label>'
+    + '</div>';
+
+  var hideFix = document.getElementById('hide-fixed-chk') ? document.getElementById('hide-fixed-chk').checked : (pending < total);
+
+  var html = summaryHtml + '<table class="log-table" style="min-width:900px;"><thead><tr>'
     + '<th>Student</th><th>Date / Time</th><th>Page</th><th>Error</th><th>Action</th>'
     + '</tr></thead><tbody>';
 
-  logs.slice(0, 100).forEach(function(e, idx) {
+  var shown = 0;
+  logs.slice(0, 200).forEach(function(e, idx) {
+    var fixed = isErrorFixed(e);
+    if (hideFix && fixed) return;
+    shown++;
     var errId = 'err-' + idx;
-    html += '<tr id="' + errId + '-row">'
+    var rowStyle = fixed ? 'opacity:.45;' : '';
+    var errStyle = fixed ? 'text-decoration:line-through;color:var(--green);' : 'color:var(--red);';
+    html += '<tr id="' + errId + '-row" style="' + rowStyle + '">'
       + '<td style="color:var(--amber);font-weight:800;white-space:nowrap;">' + esc(e.studentId||'—') + '</td>'
       + '<td style="white-space:nowrap;color:var(--muted);">' + esc(e.date||'—') + ' ' + esc(e.time||'—') + '</td>'
       + '<td style="font-family:Share Tech Mono,monospace;font-size:12px;color:var(--dim);">' + esc(e.page||'—') + '</td>'
-      + '<td style="font-size:13px;font-weight:700;color:var(--red);max-width:300px;">' + esc((e.message||'—').slice(0,120)) + '</td>'
-      + '<td style="white-space:nowrap;">'
-      + '<button id="' + errId + '-btn" onclick="fixError(' + idx + ')" '
-      + 'style="font-size:12px;font-weight:800;padding:5px 12px;border-radius:7px;border:2px solid rgba(124,58,237,.35);background:rgba(124,58,237,.08);color:#7c3aed;cursor:pointer;font-family:inherit;transition:all .2s;">'
-      + '✨ AI Fix</button></td>'
-      + '</tr>'
+      + '<td style="font-size:13px;font-weight:700;max-width:300px;' + errStyle + '">' + esc((e.message||'—').slice(0,120)) + '</td>'
+      + '<td style="white-space:nowrap;">';
+    if (fixed) {
+      html += '<span style="font-size:12px;font-weight:800;color:var(--green);">&#10003; Fixed</span>';
+    } else {
+      html += '<button id="' + errId + '-btn" onclick="fixError(' + idx + ')" '
+        + 'style="font-size:12px;font-weight:800;padding:5px 12px;border-radius:7px;border:2px solid rgba(124,58,237,.35);background:rgba(124,58,237,.08);color:#7c3aed;cursor:pointer;font-family:inherit;transition:all .2s;">'
+        + '&#10024; AI Fix</button>';
+    }
+    html += '</td></tr>'
       + '<tr id="' + errId + '-result" style="display:none;">'
       + '<td colspan="5" style="padding:0 10px 14px;"><div id="' + errId + '-body" style="background:var(--s2);border:2px solid var(--border);border-radius:8px;padding:12px 16px;font-size:13px;line-height:1.7;white-space:pre-wrap;"></div></td>'
       + '</tr>';
   });
+  if (!shown) {
+    html += '<tr><td colspan="5" style="text-align:center;padding:20px;color:var(--green);font-weight:800;">&#10003; All errors fixed!</td></tr>';
+  }
   html += '</tbody></table>';
-  if (logs.length > 100) html += '<div style="font-size:14px;color:var(--muted);padding:8px 0;">Showing latest 100 of ' + logs.length + ' errors.</div>';
   con.innerHTML = html;
 }
 
@@ -2216,7 +2259,8 @@ async function fixError(idx) {
     var data = await res.json();
     if (!data.ok) throw new Error(data.error || 'AI error');
 
-    /* Turn green — done; keep _logsFixBusy=true so result stays visible */
+    /* Turn green — done; mark fixed; keep _logsFixBusy=true so result stays */
+    markErrorFixed(e);
     btn.style.background  = 'rgba(26,122,74,.1)';
     btn.style.borderColor = 'rgba(26,122,74,.4)';
     btn.style.color       = 'var(--green)';
