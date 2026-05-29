@@ -278,6 +278,9 @@
   /* ── MAIN INIT ───────────────────────────────────────── */
   window.addEventListener('load', function () {
 
+    /* Math toolbar runs for everyone — must be before any early return */
+    if (isPracticePage()) setTimeout(rishiInitMathToolbar, 900);
+
     /* Admin bypass — sessionStorage ONLY (not localStorage) */
     if (sessionStorage.getItem('rishi_admin_bypass') === '1') {
       heartbeat();
@@ -326,10 +329,6 @@
       watchCompletion();
     }
 
-    /* Math symbol toolbar — practice pages only */
-    if (isPracticePage()) {
-      setTimeout(rishiInitMathToolbar, 900);
-    }
   });
 
   /* ══ EXAM RESUME PUBLIC API ══════════════════════════════
