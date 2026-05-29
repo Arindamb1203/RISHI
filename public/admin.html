@@ -521,7 +521,7 @@ button{font-family:'Outfit',sans-serif;cursor:pointer;}
           <select id="break-student-filter" onchange="renderBreakLog()" style="margin-left:auto;padding:6px 10px;border:1.5px solid var(--border);border-radius:8px;font-family:Outfit,sans-serif;font-size:13px;font-weight:700;background:#fff;color:var(--text);">
             <option value="all">All Students</option>
           </select>
-          <button onclick="buildLogs()" style="font-size:13px;font-weight:800;padding:6px 14px;border-radius:8px;border:2px solid var(--border);background:#fff;color:var(--muted);cursor:pointer;">↺ Refresh</button>
+          <button onclick="_logsFixBusy=false;buildLogs()" style="font-size:13px;font-weight:800;padding:6px 14px;border-radius:8px;border:2px solid var(--border);background:#fff;color:var(--muted);cursor:pointer;">↺ Refresh</button>
         </div>
         <div id="break-log-today"></div>
         <div id="break-log-history" style="margin-top:16px;"></div>
@@ -534,7 +534,7 @@ button{font-family:'Outfit',sans-serif;cursor:pointer;}
           <select id="error-student-filter" onchange="renderErrorLog()" style="margin-left:auto;padding:6px 10px;border:1.5px solid var(--border);border-radius:8px;font-family:Outfit,sans-serif;font-size:13px;font-weight:700;background:#fff;color:var(--text);">
             <option value="all">All Students</option>
           </select>
-          <button onclick="buildLogs()" style="font-size:13px;font-weight:800;padding:6px 14px;border-radius:8px;border:2px solid var(--border);background:#fff;color:var(--muted);cursor:pointer;">↺ Refresh</button>
+          <button onclick="_logsFixBusy=false;buildLogs()" style="font-size:13px;font-weight:800;padding:6px 14px;border-radius:8px;border:2px solid var(--border);background:#fff;color:var(--muted);cursor:pointer;">↺ Refresh</button>
         </div>
         <div id="error-log"></div>
       </div>
@@ -2216,12 +2216,13 @@ async function fixError(idx) {
     var data = await res.json();
     if (!data.ok) throw new Error(data.error || 'AI error');
 
-    /* Turn green — done */
+    /* Turn green — done; keep _logsFixBusy=true so result stays visible */
     btn.style.background  = 'rgba(26,122,74,.1)';
     btn.style.borderColor = 'rgba(26,122,74,.4)';
     btn.style.color       = 'var(--green)';
     btn.textContent       = '✓ Done';
     body.textContent      = data.suggestion;
+    /* result stays until user manually clicks ↺ Refresh */
   } catch(err) {
     btn.style.background  = 'rgba(192,57,43,.12)';
     btn.style.borderColor = 'rgba(192,57,43,.5)';
@@ -2229,8 +2230,7 @@ async function fixError(idx) {
     btn.textContent       = '✗ Failed';
     btn.disabled          = false;
     body.textContent      = 'Error: ' + err.message;
-  } finally {
-    _logsFixBusy = false; /* allow auto-refresh again */
+    _logsFixBusy = false; /* allow retry on failure */
   }
 }
 
