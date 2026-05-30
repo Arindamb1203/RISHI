@@ -18,9 +18,17 @@ export async function onRequest(context) {
     return new Response(JSON.stringify({ error: 'Invalid JSON' }), { status: 400, headers });
   }
 
-  const { name, class: cls, board, phone, pageURL, pageName, description, screenshot } = body;
+  const { name, class: cls, board, phone, pageURL, pageName, description } = body;
+  let { screenshot } = body;
+
   if (!description) return new Response(JSON.stringify({ error: 'description required' }), { status: 400, headers });
 
+  /* Truncate screenshot to stay well under D1's 1 MB column limit */
+  if (screenshot && screenshot.length > 700000) {
+    screenshot = screenshot.slice(0, 700000);
+  }
+
+  /* Ensure table exists */
   try {
     await env.DB.exec(`CREATE TABLE IF NOT EXISTS rishi_error_reports (
       id TEXT PRIMARY KEY,
@@ -28,16 +36,23 @@ export async function onRequest(context) {
       page_url TEXT, page_name TEXT, description TEXT, screenshot TEXT,
       status TEXT DEFAULT 'pending', submitted_at TEXT
     )`);
-  } catch(e) {}
+  } catch(e) {
+    /* Table likely already exists — continue */
+  }
 
   const id = crypto.randomUUID();
   const submittedAt = new Date().toISOString();
 
   try {
-    await env.DB.prepare(
+    const result = await env.DB.prepare(
       `INSERT INTO rishi_error_reports (id, name, class, board, phone, page_url, page_name, description, screenshot, status, submitted_at)
        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 'pending', ?)`
     ).bind(id, name || '', cls || '', board || '', phone || '', pageURL || '', pageName || '', description, screenshot || '', submittedAt).run();
+
+    /* D1 .run() does NOT throw on failure — check the result explicitly */
+    if (!result.success) {
+      return new Response(JSON.stringify({ error: 'DB insert failed', detail: result.error || 'unknown' }), { status: 500, headers });
+    }
 
     return new Response(JSON.stringify({ success: true, reportId: id }), { headers });
   } catch(e) {
