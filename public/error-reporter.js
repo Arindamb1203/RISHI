@@ -14,7 +14,7 @@
     document.head.appendChild(s);
   }
 
-  /* ── Ensure Google Fonts for Orbitron + Nunito ── */
+  /* ── Ensure Google Fonts ── */
   if (!document.querySelector('link[href*="Orbitron"]')) {
     var lnk = document.createElement('link');
     lnk.rel = 'stylesheet';
@@ -129,9 +129,7 @@
 
   .rishi-ov-body { padding: 14px 16px; }
 
-  .rishi-field {
-    margin-bottom: 10px;
-  }
+  .rishi-field { margin-bottom: 10px; }
   .rishi-field label {
     display: block;
     font-size: 10px;
@@ -151,6 +149,38 @@
     padding: 6px 10px;
     width: 100%;
   }
+
+  /* ── Category buttons ── */
+  .rishi-cat-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+    margin-bottom: 10px;
+  }
+  .rishi-cat-btn {
+    padding: 7px 6px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 11px;
+    font-weight: 900;
+    border: 1.5px solid #e0c97f;
+    border-radius: 7px;
+    background: #fffdf8;
+    color: #7a5a00;
+    cursor: pointer;
+    text-align: center;
+    transition: all .15s;
+    line-height: 1.3;
+  }
+  .rishi-cat-btn:hover { border-color: #c8922a; background: #fff8e8; }
+  .rishi-cat-btn.selected {
+    background: linear-gradient(135deg, #c8922a, #d4870a);
+    border-color: #c8922a;
+    color: #fff;
+  }
+
+  /* ── Description (hidden until category selected) ── */
+  #rishi-desc-section { display: none; }
+  #rishi-desc-section.visible { display: block; }
 
   .rishi-thumb-row {
     display: flex;
@@ -230,11 +260,8 @@
 
   /* ── Fix banner ── */
   #rishi-fix-banner {
-    display: none;
     position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
+    top: 0; left: 0; right: 0;
     z-index: 99999;
     background: linear-gradient(135deg, #e8b84b, #c8922a);
     padding: 12px 20px;
@@ -276,58 +303,55 @@
   /* ── Float button DOM ── */
   var floatBtn = document.createElement('div');
   floatBtn.id = 'rishi-float-btn';
-  floatBtn.innerHTML = `
-    <div id="rishi-float-wrap">
-      <img id="rishi-float-img" src="/images/rishika-float.png" alt="Rishika">
-      <div id="rishi-float-blink"></div>
-      <div id="rishi-float-dot"></div>
-    </div>
-    <div id="rishi-float-label">Report Issue</div>
-  `;
+  floatBtn.innerHTML =
+    '<div id="rishi-float-wrap">' +
+      '<img id="rishi-float-img" src="/images/rishika-float.png" alt="Rishika">' +
+      '<div id="rishi-float-blink"></div>' +
+      '<div id="rishi-float-dot"></div>' +
+    '</div>' +
+    '<div id="rishi-float-label">Report Issue</div>';
   document.body.appendChild(floatBtn);
 
   /* ── Overlay DOM ── */
   var overlay = document.createElement('div');
   overlay.id = 'rishi-report-overlay';
-  overlay.innerHTML = `
-    <div class="rishi-ov-head">
-      <span class="rishi-ov-title">&#129504; Report an Issue</span>
-      <button class="rishi-ov-close" id="rishi-ov-close">&#10005;</button>
-    </div>
-    <div class="rishi-ov-body" id="rishi-ov-body">
-      <div class="rishi-field">
-        <label>Name</label>
-        <div class="rishi-ro" id="rishi-f-name">—</div>
-      </div>
-      <div class="rishi-field">
-        <label>Class &amp; Board</label>
-        <div class="rishi-ro" id="rishi-f-class">—</div>
-      </div>
-      <div class="rishi-field">
-        <label>Phone</label>
-        <div class="rishi-ro" id="rishi-f-phone">—</div>
-      </div>
-      <div class="rishi-field">
-        <label>Page</label>
-        <div class="rishi-ro" id="rishi-f-page" style="font-size:10px;word-break:break-all;">—</div>
-      </div>
-      <div class="rishi-thumb-row">
-        <img id="rishi-ss-thumb" src="" alt="screenshot">
-        <span id="rishi-ss-status">&#128247; Capturing screenshot...</span>
-      </div>
-      <div class="rishi-field">
-        <label>Describe your issue *</label>
-        <textarea id="rishi-desc" placeholder="What went wrong? What did you expect?"></textarea>
-        <div id="rishi-desc-err">Please describe the issue before submitting.</div>
-      </div>
-      <button id="rishi-submit-btn" onclick="rishiSubmitReport()">&#9654; SEND REPORT</button>
-      <div class="rishi-msg" id="rishi-msg"></div>
-    </div>
-  `;
+  overlay.innerHTML =
+    '<div class="rishi-ov-head">' +
+      '<span class="rishi-ov-title">&#129504; Report an Issue</span>' +
+      '<button class="rishi-ov-close" id="rishi-ov-close">&#10005;</button>' +
+    '</div>' +
+    '<div class="rishi-ov-body" id="rishi-ov-body">' +
+      '<div class="rishi-field"><label>Name</label><div class="rishi-ro" id="rishi-f-name">—</div></div>' +
+      '<div class="rishi-field"><label>Class &amp; Board</label><div class="rishi-ro" id="rishi-f-class">—</div></div>' +
+      '<div class="rishi-field"><label>Phone</label><div class="rishi-ro" id="rishi-f-phone">—</div></div>' +
+      '<div class="rishi-field"><label>Page</label><div class="rishi-ro" id="rishi-f-page" style="font-size:10px;word-break:break-all;">—</div></div>' +
+      '<div class="rishi-field"><label>What is the issue?</label>' +
+        '<div class="rishi-cat-grid">' +
+          '<button class="rishi-cat-btn" data-cat="Not in Syllabus" onclick="rishiSelectCat(this)">📚 Not in<br>Syllabus</button>' +
+          '<button class="rishi-cat-btn" data-cat="Wrong Answer" onclick="rishiSelectCat(this)">❌ Wrong<br>Answer</button>' +
+          '<button class="rishi-cat-btn" data-cat="Wrong Question" onclick="rishiSelectCat(this)">❓ Wrong<br>Question</button>' +
+          '<button class="rishi-cat-btn" data-cat="Others" onclick="rishiSelectCat(this)">💬 Others</button>' +
+        '</div>' +
+      '</div>' +
+      '<div id="rishi-desc-section">' +
+        '<div class="rishi-thumb-row">' +
+          '<img id="rishi-ss-thumb" src="" alt="screenshot">' +
+          '<span id="rishi-ss-status">&#128247; Capturing screenshot...</span>' +
+        '</div>' +
+        '<div class="rishi-field">' +
+          '<label>More details (optional for tagged issues)</label>' +
+          '<textarea id="rishi-desc" placeholder="What went wrong? What did you expect?"></textarea>' +
+          '<div id="rishi-desc-err">Please describe the issue before submitting.</div>' +
+        '</div>' +
+        '<button id="rishi-submit-btn" onclick="rishiSubmitReport()">&#9654; SEND REPORT</button>' +
+      '</div>' +
+      '<div class="rishi-msg" id="rishi-msg"></div>' +
+    '</div>';
   document.body.appendChild(overlay);
 
   /* ── State ── */
   var screenshotB64 = '';
+  var selectedCategory = '';
   var pollTimer = null;
 
   /* ── Blink animation ── */
@@ -346,10 +370,28 @@
   }
   scheduleBlink();
 
+  /* ── Category selection ── */
+  window.rishiSelectCat = function(btn) {
+    var btns = overlay.querySelectorAll('.rishi-cat-btn');
+    btns.forEach(function(b) { b.classList.remove('selected'); });
+    btn.classList.add('selected');
+    selectedCategory = btn.getAttribute('data-cat');
+
+    var descSection = document.getElementById('rishi-desc-section');
+    descSection.classList.add('visible');
+
+    /* For "Others" — description is required; for others it's optional */
+    var desc = document.getElementById('rishi-desc');
+    if (selectedCategory === 'Others') {
+      desc.placeholder = 'Please describe the issue in detail.';
+    } else {
+      desc.placeholder = 'Any additional details? (optional)';
+    }
+  };
+
   /* ── Toggle overlay ── */
   floatBtn.addEventListener('click', function() {
-    var isOpen = overlay.classList.contains('open');
-    if (isOpen) {
+    if (overlay.classList.contains('open')) {
       overlay.classList.remove('open');
     } else {
       openOverlay();
@@ -360,7 +402,6 @@
   });
 
   function openOverlay() {
-    /* Pre-fill fields */
     var name  = localStorage.getItem('rishi_student_name') || '—';
     var cls   = localStorage.getItem('rishi_class') || '—';
     var board = localStorage.getItem('rishi_board') || '—';
@@ -371,7 +412,10 @@
     document.getElementById('rishi-f-phone').textContent = phone;
     document.getElementById('rishi-f-page').textContent  = window.location.href;
 
-    /* Reset form state */
+    /* Reset */
+    selectedCategory = '';
+    overlay.querySelectorAll('.rishi-cat-btn').forEach(function(b) { b.classList.remove('selected'); });
+    document.getElementById('rishi-desc-section').classList.remove('visible');
     document.getElementById('rishi-desc').value = '';
     document.getElementById('rishi-desc-err').style.display = 'none';
     document.getElementById('rishi-msg').className = 'rishi-msg';
@@ -379,7 +423,6 @@
     document.getElementById('rishi-submit-btn').disabled = false;
     document.getElementById('rishi-submit-btn').textContent = '▶ SEND REPORT';
 
-    /* Screenshot status reset */
     screenshotB64 = '';
     document.getElementById('rishi-ss-thumb').style.display = 'none';
     document.getElementById('rishi-ss-status').textContent = '📷 Capturing screenshot...';
@@ -392,7 +435,6 @@
         document.getElementById('rishi-ss-status').textContent = 'Screenshot unavailable';
         return;
       }
-      /* Hide overlay briefly to get clean shot */
       overlay.style.visibility = 'hidden';
       floatBtn.style.visibility = 'hidden';
       html2canvas(document.body, { useCORS: true, scale: 0.5, logging: false }).then(function(canvas) {
@@ -413,8 +455,13 @@
 
   /* ── Submit ── */
   window.rishiSubmitReport = function() {
+    if (!selectedCategory) {
+      showMsg('error', 'Please select an issue type first.');
+      return;
+    }
     var desc = document.getElementById('rishi-desc').value.trim();
-    if (!desc) {
+    /* Description required only for "Others" */
+    if (selectedCategory === 'Others' && !desc) {
       document.getElementById('rishi-desc-err').style.display = 'block';
       return;
     }
@@ -431,7 +478,8 @@
       phone:       localStorage.getItem('rishi_phone') || localStorage.getItem('rishi_registered_phone') || '',
       pageURL:     window.location.href,
       pageName:    document.title,
-      description: desc,
+      reportType:  selectedCategory,
+      description: desc || selectedCategory,
       screenshot:  screenshotB64
     };
 
@@ -444,7 +492,7 @@
     .then(function(data) {
       if (data.success && data.reportId) {
         sessionStorage.setItem('rishi_report_id', data.reportId);
-        showMsg('success', '✅ Thank you! We’re looking into it.');
+        showMsg('success', '✅ Thank you! We\'re looking into it.');
         btn.textContent = '✓ Sent';
         startPolling(data.reportId);
       } else {
@@ -485,7 +533,6 @@
     }, 30000);
   }
 
-  /* Resume polling if there's a stored reportId from a previous submit */
   var storedId = sessionStorage.getItem('rishi_report_id');
   if (storedId) startPolling(storedId);
 

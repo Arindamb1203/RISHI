@@ -3,7 +3,38 @@
     "allow": [
       "Bash(git add *)",
       "Bash(git commit -m ' *)",
-      "Bash(git push *)"
+      "Bash(git push *)",
+      "Bash(git rm *)",
+      "Bash(git ls-files *)",
+      "Bash(Remove-Item \"D:\\\\rishi\\\\public\\\\patch_rishika_practice.py\",\"D:\\\\rishi\\\\public\\\\patch_rishika_minified.py\",\"D:\\\\rishi\\\\public\\\\patch_bypass_fix.py\",\"D:\\\\rishi\\\\public\\\\patch_rishika_redesign.py\" -ErrorAction SilentlyContinue)",
+      "Bash(grep \"\\\\.html$\")",
+      "Bash(mkdir -p \"D:/rishi/public/games/chess\" \"D:/rishi/public/games/2048\" && echo \"dirs created\")",
+      "Bash(curl -sL \"https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js\" -o chess.min.js)",
+      "Bash(curl -sL \"https://cdnjs.cloudflare.com/ajax/libs/chessboard-js/1.0.0/chessboard-1.0.0.min.js\" -o chessboard.min.js)",
+      "Bash(curl -sL \"https://cdnjs.cloudflare.com/ajax/libs/chessboard-js/1.0.0/chessboard-1.0.0.min.css\" -o chessboard.min.css)",
+      "Bash(curl -sL \"https://github.com/gabrielecirulli/2048/archive/refs/heads/master.zip\" -o 2048.zip)",
+      "Bash(unzip -q 2048.zip)",
+      "Bash(python patch_games.py)",
+      "Bash(python3 -)",
+      "Bash(git commit *)",
+      "Bash(python inject_error_reporter.py)",
+      "Bash(python -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\(json.dumps\\(d[0], indent=2\\)\\)\")",
+      "Bash(python -c \"import json; d=json.load\\(open\\('D:/rishi/public/data/cbse/class8/ch01/ch01-exam.json','r',encoding='utf-8'\\)\\); print\\(json.dumps\\(d[:1], indent=2\\)\\)\")",
+      "Bash(python -c \"import json; d=json.load\\(open\\('D:/rishi/public/data/cbse/class8/ch01/ch01-exam.json','r',encoding='utf-8'\\)\\); print\\(type\\(d\\)\\); k=list\\(d.keys\\(\\)\\)[:3]; print\\(k\\); print\\(json.dumps\\(d[k[0]], indent=2\\)\\)\")",
+      "Bash(python -c \"import json; d=json.load\\(open\\('D:/rishi/public/data/cbse/class8/ch01/ch01-exam.json','r',encoding='utf-8'\\)\\); secs=d['sections']; print\\([s['type'] for s in secs]\\); print\\(json.dumps\\(secs[0]['questions'][0], indent=2\\)\\)\")",
+      "WebSearch",
+      "WebFetch(domain:www.tiwariacademy.com)",
+      "WebFetch(domain:www.learncbse.in)",
+      "WebFetch(domain:ncert.nic.in)",
+      "Bash(git -C D:/rishi log --oneline --follow -- \"public/explain/class8/arithmetic/rational-numbers.html\")",
+      "Bash(git -C D:/rishi show 9e37122 --stat)",
+      "Bash(python patch_nextstep.py)",
+      "Bash(python -c ' *)",
+      "Bash(python patch_anim_cubes.py)",
+      "Bash(python patch_anim_story.py)"
+    ],
+    "additionalDirectories": [
+      "D:\\rishi\\public\\games"
     ]
   }
 }

@@ -3,7 +3,32 @@
     "allow": [
       "Bash(git commit -m ' *)",
       "Bash(python build_icse_class7.py --estimate)",
-      "Bash(python build_icse_class7.py --chapter integers)"
+      "Bash(python build_icse_class7.py --chapter integers)",
+      "WebFetch(domain:rishi-ewh.pages.dev)",
+      "Bash(python fix_class6_bugs.py)",
+      "Bash(python3 -c ' *)",
+      "Bash(python3)",
+      "Bash(python patch_integers_anim.py)",
+      "Bash(Remove-Item public\\\\patch_integers_anim.py -ErrorAction SilentlyContinue)",
+      "Bash(git commit -m 'Fix stray ;} syntax error left by patch regex in getAnimPlay *)",
+      "Bash(python build_icse_class7.py --chapter integers --skip-explain --skip-exam)",
+      "PowerShell($env:OPENAI_API_KEY)",
+      "Bash(python public/build_icse_class7.py --all)",
+      "Bash(python -c ' *)",
+      "Bash(python)",
+      "Bash(python -c \"import sys; [print\\(l.encode\\('ascii','replace'\\).decode\\(\\)\\) for l in sys.stdin]\")",
+      "Bash(# Check openAsStudent - does it pass board for ICSE students? *)",
+      "Bash(grep -v \"//\")",
+      "Bash(python build_icse_class8.py --estimate --skip-exam)",
+      "Bash(git commit -m 'Update CLAUDE.md: ic6, admin panel, error/break logging, fix-error API *)",
+      "Bash(git commit -m 'Admin Dashboard: add API Credits panel \\(OpenAI, ElevenLabs, Gemini\\) *)",
+      "Bash(python patch_rishika_practice.py)",
+      "Bash(python patch_rishika_minified.py)",
+      "Bash(git commit -m 'Practice pages: Rishika moves to fixed bottom-left, no lip sync, no mobile frame *)",
+      "Bash(python patch_bypass_fix.py)"
+    ],
+    "additionalDirectories": [
+      "d:\\rishi\\public"
     ]
   }
 }

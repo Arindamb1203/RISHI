@@ -10,7 +10,6 @@ export async function onRequest(context) {
 
   if (request.method === 'OPTIONS') return new Response(null, { status: 204, headers });
   if (request.method !== 'POST') return new Response(JSON.stringify({ error: 'POST only' }), { status: 405, headers });
-
   if (!env.DB) return new Response(JSON.stringify({ error: 'D1 not configured' }), { status: 500, headers });
 
   let body;
@@ -18,26 +17,27 @@ export async function onRequest(context) {
     return new Response(JSON.stringify({ error: 'Invalid JSON' }), { status: 400, headers });
   }
 
-  const { name, class: cls, board, phone, pageURL, pageName, description } = body;
+  const { name, class: cls, board, phone, pageURL, pageName, description, reportType } = body;
   let { screenshot } = body;
 
   if (!description) return new Response(JSON.stringify({ error: 'description required' }), { status: 400, headers });
 
-  /* Truncate screenshot to stay well under D1's 1 MB column limit */
+  /* Truncate screenshot to stay well under D1 1MB column limit */
   if (screenshot && screenshot.length > 700000) {
     screenshot = screenshot.slice(0, 700000);
   }
 
-  /* Ensure table exists */
+  /* Force table creation via prepare().run() — exec() can fail silently on D1 */
   try {
-    await env.DB.exec(`CREATE TABLE IF NOT EXISTS rishi_error_reports (
+    await env.DB.prepare(`CREATE TABLE IF NOT EXISTS rishi_error_reports (
       id TEXT PRIMARY KEY,
       name TEXT, class TEXT, board TEXT, phone TEXT,
-      page_url TEXT, page_name TEXT, description TEXT, screenshot TEXT,
+      page_url TEXT, page_name TEXT, report_type TEXT,
+      description TEXT, screenshot TEXT,
       status TEXT DEFAULT 'pending', submitted_at TEXT
-    )`);
+    )`).run();
   } catch(e) {
-    /* Table likely already exists — continue */
+    /* Table already exists — continue */
   }
 
   const id = crypto.randomUUID();
@@ -45,11 +45,23 @@ export async function onRequest(context) {
 
   try {
     const result = await env.DB.prepare(
-      `INSERT INTO rishi_error_reports (id, name, class, board, phone, page_url, page_name, description, screenshot, status, submitted_at)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 'pending', ?)`
-    ).bind(id, name || '', cls || '', board || '', phone || '', pageURL || '', pageName || '', description, screenshot || '', submittedAt).run();
+      `INSERT INTO rishi_error_reports
+        (id, name, class, board, phone, page_url, page_name, report_type, description, screenshot, status, submitted_at)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'pending', ?)`
+    ).bind(
+      id,
+      name || '',
+      cls || '',
+      board || '',
+      phone || '',
+      pageURL || '',
+      pageName || '',
+      reportType || 'Others',
+      description,
+      screenshot || '',
+      submittedAt
+    ).run();
 
-    /* D1 .run() does NOT throw on failure — check the result explicitly */
     if (!result.success) {
       return new Response(JSON.stringify({ error: 'DB insert failed', detail: result.error || 'unknown' }), { status: 500, headers });
     }
