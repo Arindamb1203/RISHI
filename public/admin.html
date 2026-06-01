@@ -3188,48 +3188,83 @@ function loadReports() {
         list.innerHTML = '<div style="color:var(--dim);font-size:14px;padding:20px 0;">No reports yet.</div>';
         return;
       }
-      var html = '';
-      reports.forEach(function(rpt) {
+      var pending = reports.filter(function(r){ return r.status !== 'fixed'; }).length;
+      var html = '<div style="margin-bottom:10px;font-size:13px;font-weight:800;color:var(--muted);">'
+        + '&#128202; Total: <strong>' + reports.length + '</strong>'
+        + ' &nbsp;&#9888; Pending: <strong style="color:var(--red)">' + pending + '</strong>'
+        + ' &nbsp;&#10003; Fixed: <strong style="color:var(--green)">' + (reports.length - pending) + '</strong>'
+        + '</div>';
+      html += '<div style="overflow-x:auto"><table class="log-table" style="min-width:820px"><thead><tr>'
+        + '<th>Status</th><th>Category</th><th>Student</th><th>Page</th><th>Description</th><th>Date</th><th>Actions</th>'
+        + '</tr></thead><tbody>';
+
+      var typeColors = {'Not in Syllabus':'#dc2626','Wrong Answer':'#ea580c','Wrong Question':'#d97706','Others':'#6b7280'};
+
+      reports.forEach(function(rpt, i) {
         var isFixed = rpt.status === 'fixed';
-        var statusBadge = isFixed
-          ? '<span style="background:#d4edda;color:#1a6b2a;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:900;">&#10003; Fixed</span>'
-          : '<span style="background:#fff3cd;color:#856404;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:900;">&#9203; Pending</span>';
-        var typeBadgeColor = {
-          'Not in Syllabus':'#dc2626','Wrong Answer':'#ea580c','Wrong Question':'#d97706','Others':'#6b7280'
-        }[rpt.report_type] || '#6b7280';
-        var typeBadge = rpt.report_type
-          ? '<span style="background:' + typeBadgeColor + ';color:#fff;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:900;">' + esc(rpt.report_type) + '</span>'
-          : '';
+        var rowOp   = isFixed ? 'opacity:.5;' : '';
+        var tc      = typeColors[rpt.report_type] || '#6b7280';
+        var dt      = rpt.submitted_at ? new Date(rpt.submitted_at).toLocaleString('en-IN', {day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'}) : '—';
+        var descFull = rpt.description || '—';
+        var descShort = descFull.length > 70 ? descFull.slice(0,70) + '…' : descFull;
+        var rptId   = 'rpt-' + i;
+
+        /* Status badge */
+        var statusCell = isFixed
+          ? '<span style="background:#d4edda;color:#1a6b2a;padding:2px 8px;border-radius:12px;font-size:12px;font-weight:900;white-space:nowrap;">&#10003; Fixed</span>'
+          : '<span style="background:#fff3cd;color:#856404;padding:2px 8px;border-radius:12px;font-size:12px;font-weight:900;white-space:nowrap;">&#9203; Pending</span>';
+
+        /* Category badge */
+        var catCell = rpt.report_type
+          ? '<span style="background:' + tc + ';color:#fff;padding:2px 8px;border-radius:12px;font-size:11px;font-weight:900;white-space:nowrap;">' + esc(rpt.report_type) + '</span>'
+          : '<span style="color:var(--dim);">—</span>';
+
+        /* Page — short */
+        var pageShort = (rpt.page_url || '—').replace(/^https?:\/\/[^/]+/, '').slice(0, 45) || '—';
+
+        /* Actions */
         var fixBtn = isFixed ? '' :
-          '<button onclick="markFixed(\'' + esc(rpt.id) + '\')" style="margin-left:8px;padding:4px 12px;border-radius:20px;border:1.5px solid var(--green);background:#f0fdf6;color:var(--green);font-size:11px;font-weight:900;cursor:pointer;">&#10003; Mark Fixed</button>';
-        var copyRptBtn = '<button onclick="copyReport(' + JSON.stringify({
-          name: rpt.name, class: rpt.class, board: rpt.board,
-          type: rpt.report_type, page: rpt.page_url,
-          desc: rpt.description, date: rpt.submitted_at
-        }).replace(/"/g, '&quot;') + ')" style="margin-left:8px;padding:4px 12px;border-radius:20px;border:1.5px solid #2563eb;background:rgba(37,99,235,.07);color:#2563eb;font-size:11px;font-weight:900;cursor:pointer;">&#128203; Copy</button>';
-        var ssHtml = rpt.screenshot
-          ? '<img src="' + rpt.screenshot + '" style="max-width:200px;border-radius:4px;border:1px solid var(--border);cursor:zoom-in;margin-top:6px;" onclick="rishiOpenLightbox(this.src)">'
-          : '<span style="font-size:12px;color:var(--dim);">No screenshot</span>';
-        var dt = rpt.submitted_at ? new Date(rpt.submitted_at).toLocaleString('en-IN') : '—';
-        html += '<div id="rpt-' + esc(rpt.id) + '" style="border:1.5px solid var(--border);border-radius:10px;padding:16px;margin-bottom:14px;background:var(--s2);">';
-        html += '<div style="display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:8px;">';
-        html += '<span style="font-weight:900;font-size:14px;color:var(--text);">' + esc(rpt.name || '—') + '</span>';
-        html += typeBadge;
-        html += '<span style="font-size:12px;color:var(--muted);">Class ' + esc(rpt.class || '—') + ' · ' + esc(rpt.board || '—') + '</span>';
-        html += '<span style="font-size:12px;color:var(--muted);">&#128241; ' + esc(rpt.phone || '—') + '</span>';
-        html += '<span style="font-size:11px;color:var(--dim);margin-left:auto;">' + dt + '</span>';
-        html += '</div>';
-        html += '<div style="margin-bottom:6px;"><a href="' + esc(rpt.page_url || '#') + '" target="_blank" style="font-size:12px;color:#2563eb;word-break:break-all;">' + esc(rpt.page_url || '—') + '</a></div>';
-        html += '<div style="font-size:13px;font-weight:700;color:var(--text);background:#fffdf8;border:1px solid var(--border);border-radius:6px;padding:10px;margin-bottom:8px;white-space:pre-wrap;">' + esc(rpt.description || '') + '</div>';
-        html += '<div>' + ssHtml + '</div>';
-        html += '<div style="margin-top:10px;display:flex;align-items:center;">' + statusBadge + fixBtn + copyRptBtn + '</div>';
-        html += '</div>';
+          '<button onclick="markFixed(\'' + esc(rpt.id) + '\')" style="padding:3px 10px;border-radius:6px;border:1.5px solid var(--green);background:#f0fdf6;color:var(--green);font-size:11px;font-weight:900;cursor:pointer;font-family:inherit;">&#10003;</button> ';
+        var cpBtn = '<button onclick="copyReport(' + JSON.stringify({
+            name:rpt.name,class:rpt.class,board:rpt.board,
+            type:rpt.report_type,page:rpt.page_url,
+            desc:rpt.description,date:rpt.submitted_at
+          }).replace(/"/g,'&quot;') + ')" style="padding:3px 10px;border-radius:6px;border:1.5px solid #2563eb;background:rgba(37,99,235,.07);color:#2563eb;font-size:11px;font-weight:900;cursor:pointer;font-family:inherit;">&#128203;</button>';
+
+        html += '<tr style="' + rowOp + 'cursor:pointer;" onclick="toggleRptDetail(' + i + ')">'
+          + '<td>' + statusCell + '</td>'
+          + '<td>' + catCell + '</td>'
+          + '<td style="font-weight:800;font-size:13px;color:var(--text);white-space:nowrap;">' + esc(rpt.name||'—') + '<br><span style="font-size:11px;font-weight:600;color:var(--muted);">Cl.' + esc(rpt.class||'?') + ' ' + esc(rpt.board||'') + '</span></td>'
+          + '<td style="font-family:Share Tech Mono,monospace;font-size:11px;color:var(--dim);max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">' + esc(pageShort) + '</td>'
+          + '<td style="font-size:13px;font-weight:700;color:var(--text);max-width:220px;">' + esc(descShort) + '</td>'
+          + '<td style="font-size:12px;color:var(--muted);white-space:nowrap;">' + dt + '</td>'
+          + '<td style="white-space:nowrap;" onclick="event.stopPropagation()">' + fixBtn + cpBtn + '</td>'
+          + '</tr>'
+          /* Expandable detail row */
+          + '<tr id="' + rptId + '-detail" style="display:none;background:var(--s2);">'
+          + '<td colspan="7" style="padding:10px 16px;">'
+          + '<div style="display:flex;gap:14px;align-items:flex-start;flex-wrap:wrap;">'
+          + '<div style="flex:1;min-width:200px;">'
+          + '<div style="font-size:11px;font-weight:900;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px;">Full Description</div>'
+          + '<div style="font-size:13px;font-weight:700;color:var(--text);white-space:pre-wrap;background:var(--card);border:1px solid var(--border);border-radius:6px;padding:8px 10px;">' + esc(descFull) + '</div>'
+          + '<div style="font-size:12px;color:var(--muted);margin-top:6px;"><a href="' + esc(rpt.page_url||'#') + '" target="_blank" style="color:#2563eb;">' + esc(rpt.page_url||'—') + '</a></div>'
+          + '</div>'
+          + (rpt.screenshot ? '<img src="' + rpt.screenshot + '" style="max-width:160px;border-radius:6px;border:1px solid var(--border);cursor:zoom-in;flex-shrink:0;" onclick="rishiOpenLightbox(this.src)">' : '')
+          + '</div>'
+          + '</td></tr>';
       });
+
+      html += '</tbody></table></div>';
       list.innerHTML = html;
     })
     .catch(function(e) {
       list.innerHTML = '<div style="color:var(--red);font-size:13px;">Failed to load reports: ' + e + '</div>';
     });
+}
+
+function toggleRptDetail(i) {
+  var row = document.getElementById('rpt-' + i + '-detail');
+  if (row) row.style.display = row.style.display === 'none' ? 'table-row' : 'none';
 }
 
 function copyReport(rpt) {
