@@ -241,15 +241,23 @@ function rishiLogBreak(type, secs) {
    Captures JS errors and unhandled rejections
    and stores them in rishi_error_log.
    ─────────────────────────────────────────── */
+/* Session-level dedup: same error on same page only logged once per page load */
+var _rishiLoggedErrors = {};
+
 function rishiLogError(msg, source, stack) {
   try {
+    var msgTrunc = String(msg).slice(0, 300);
+    var dedupKey = msgTrunc + '||' + location.pathname;
+    if (_rishiLoggedErrors[dedupKey]) return;
+    _rishiLoggedErrors[dedupKey] = 1;
+
     var log = [];
     try { log = JSON.parse(localStorage.getItem('rishi_error_log') || '[]'); } catch(e) {}
     log.push({
       studentId: _rishiGetStudentId(),
       date: new Date().toISOString().slice(0, 10),
       time: new Date().toTimeString().slice(0, 5),
-      message: String(msg).slice(0, 300),
+      message: msgTrunc,
       source: String(source || location.href).slice(0, 200),
       page: location.pathname,
       stack: String(stack || '').slice(0, 500)

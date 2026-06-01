@@ -2053,10 +2053,10 @@ function renderStudentProgress(r) {
 /* ── LOGS ────────────────────────────────────────────────── */
 var _breakLogsAll = [];
 var _errorLogsAll = [];
-var _logsFixBusy  = false; /* true while AI Fix fetch is in flight — blocks auto-refresh */
+var _logsFixBusy  = false;
 
 async function buildLogs() {
-  if (_logsFixBusy) return; /* don't wipe the table while AI Fix is running */
+  if (_logsFixBusy) return;
   /* Show loading state */
   document.getElementById('break-log-today').innerHTML    = '<div class="empty"><div class="empty-ico">⏳</div>Loading from D1…</div>';
   document.getElementById('break-log-history').innerHTML  = '';
@@ -2246,14 +2246,29 @@ function renderErrorLog() {
     if (fixed) {
       html += '<span style="font-size:12px;font-weight:800;color:var(--green);">&#10003; Fixed</span>';
     } else {
-      html += '<button id="' + errId + '-btn" onclick="fixError(' + idx + ')" '
-        + 'style="font-size:12px;font-weight:800;padding:5px 12px;border-radius:7px;border:2px solid rgba(124,58,237,.35);background:rgba(124,58,237,.08);color:#7c3aed;cursor:pointer;font-family:inherit;transition:all .2s;">'
-        + '&#10024; AI Fix</button>';
+      html += '<button onclick="toggleErrDetail(' + idx + ')" '
+        + 'style="font-size:11px;font-weight:800;padding:4px 9px;border-radius:6px;border:1.5px solid var(--border);background:var(--s2);color:var(--muted);cursor:pointer;font-family:inherit;margin-right:4px;">'
+        + 'Details &#9660;</button>'
+        + '<button onclick="copyError(' + idx + ')" '
+        + 'style="font-size:11px;font-weight:800;padding:4px 9px;border-radius:6px;border:1.5px solid #2563eb;background:rgba(37,99,235,.07);color:#2563eb;cursor:pointer;font-family:inherit;margin-right:4px;">'
+        + '&#128203; Copy</button>'
+        + '<button onclick="markFixed2(' + idx + ')" '
+        + 'style="font-size:11px;font-weight:800;padding:4px 9px;border-radius:6px;border:1.5px solid var(--green);background:rgba(5,150,105,.07);color:var(--green);cursor:pointer;font-family:inherit;">'
+        + '&#10003; Mark Fixed</button>';
     }
+    /* Detail row — shows full error info for copy-pasting to Claude */
+    var detailText = 'Student: ' + (e.studentId||'—')
+      + '\nDate: ' + (e.date||'—') + ' ' + (e.time||'—')
+      + '\nPage: ' + (e.page||'—')
+      + '\nError: ' + (e.message||'—')
+      + '\nSource: ' + (e.source||'—')
+      + (e.stack ? '\nStack:\n' + e.stack : '');
     html += '</td></tr>'
       + '<tr id="' + errId + '-result" style="display:none;">'
-      + '<td colspan="5" style="padding:0 10px 14px;"><div id="' + errId + '-body" style="background:var(--s2);border:2px solid var(--border);border-radius:8px;padding:12px 16px;font-size:13px;line-height:1.7;white-space:pre-wrap;"></div></td>'
-      + '</tr>';
+      + '<td colspan="5" style="padding:0 10px 14px;">'
+      + '<div style="background:var(--s2);border:2px solid var(--border);border-radius:8px;padding:12px 16px;font-size:12px;font-family:Share Tech Mono,monospace;line-height:1.7;white-space:pre-wrap;color:var(--text);">'
+      + esc(detailText)
+      + '</div></td></tr>';
   });
   if (!shown) {
     html += '<tr><td colspan="5" style="text-align:center;padding:20px;color:var(--green);font-weight:800;">&#10003; All errors fixed!</td></tr>';
@@ -2262,51 +2277,33 @@ function renderErrorLog() {
   con.innerHTML = html;
 }
 
-async function fixError(idx) {
-  var e   = _errorLogsAll[idx];
+function toggleErrDetail(idx) {
+  var row = document.getElementById('err-' + idx + '-result');
+  if (row) row.style.display = row.style.display === 'none' ? 'table-row' : 'none';
+}
+
+function copyError(idx) {
+  var e = _errorLogsAll[idx];
   if (!e) return;
-  var errId = 'err-' + idx;
-  var btn   = document.getElementById(errId + '-btn');
-  var resRow= document.getElementById(errId + '-result');
-  var body  = document.getElementById(errId + '-body');
-  if (!btn || !resRow || !body) return;
+  var text = 'RISHI Error Report\n==================\n'
+    + 'Student: ' + (e.studentId||'—') + '\n'
+    + 'Date: ' + (e.date||'—') + ' ' + (e.time||'—') + '\n'
+    + 'Page: ' + (e.page||'—') + '\n'
+    + 'Error: ' + (e.message||'—') + '\n'
+    + 'Source: ' + (e.source||'—') + '\n'
+    + (e.stack ? 'Stack:\n' + e.stack : '');
+  navigator.clipboard.writeText(text).then(function() {
+    alert('Error details copied! Paste to Claude to fix.');
+  }).catch(function() {
+    prompt('Copy this:', text);
+  });
+}
 
-  /* Turn red — working; block auto-refresh */
-  _logsFixBusy            = true;
-  btn.style.background    = 'rgba(192,57,43,.12)';
-  btn.style.borderColor   = 'rgba(192,57,43,.5)';
-  btn.style.color         = 'var(--red)';
-  btn.textContent         = '⏳ Analysing…';
-  btn.disabled            = true;
-  resRow.style.display    = 'table-row';
-  body.textContent        = 'Sending to AI…';
-
-  try {
-    var res = await fetch('/api/fix-error', {
-      method:'POST',
-      headers:{'Content-Type':'application/json','Authorization':'Bearer ' + getToken()},
-      body: JSON.stringify({studentId:e.studentId, page:e.page, message:e.message, source:e.source, stack:e.stack})
-    });
-    var data = await res.json();
-    if (!data.ok) throw new Error(data.error || 'AI error');
-
-    /* Turn green — done; mark fixed; keep _logsFixBusy=true so result stays */
-    markErrorFixed(e);
-    btn.style.background  = 'rgba(26,122,74,.1)';
-    btn.style.borderColor = 'rgba(26,122,74,.4)';
-    btn.style.color       = 'var(--green)';
-    btn.textContent       = '✓ Done';
-    body.textContent      = data.suggestion;
-    /* result stays until user manually clicks ↺ Refresh */
-  } catch(err) {
-    btn.style.background  = 'rgba(192,57,43,.12)';
-    btn.style.borderColor = 'rgba(192,57,43,.5)';
-    btn.style.color       = 'var(--red)';
-    btn.textContent       = '✗ Failed';
-    btn.disabled          = false;
-    body.textContent      = 'Error: ' + err.message;
-    _logsFixBusy = false; /* allow retry on failure */
-  }
+function markFixed2(idx) {
+  var e = _errorLogsAll[idx];
+  if (!e) return;
+  markErrorFixed(e);
+  renderErrorLog();
 }
 
 /* ── LOCAL STORAGE VIEWER ────────────────────────────────── */
@@ -3195,10 +3192,21 @@ function loadReports() {
       reports.forEach(function(rpt) {
         var isFixed = rpt.status === 'fixed';
         var statusBadge = isFixed
-          ? '<span style="background:#d4edda;color:#1a6b2a;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:900;">✓ Fixed</span>'
-          : '<span style="background:#fff3cd;color:#856404;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:900;">⏳ Pending</span>';
+          ? '<span style="background:#d4edda;color:#1a6b2a;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:900;">&#10003; Fixed</span>'
+          : '<span style="background:#fff3cd;color:#856404;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:900;">&#9203; Pending</span>';
+        var typeBadgeColor = {
+          'Not in Syllabus':'#dc2626','Wrong Answer':'#ea580c','Wrong Question':'#d97706','Others':'#6b7280'
+        }[rpt.report_type] || '#6b7280';
+        var typeBadge = rpt.report_type
+          ? '<span style="background:' + typeBadgeColor + ';color:#fff;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:900;">' + esc(rpt.report_type) + '</span>'
+          : '';
         var fixBtn = isFixed ? '' :
-          '<button onclick="markFixed(\'' + esc(rpt.id) + '\')" style="margin-left:10px;padding:4px 14px;border-radius:20px;border:1.5px solid var(--green);background:#f0fdf6;color:var(--green);font-size:11px;font-weight:900;cursor:pointer;">Mark as Fixed</button>';
+          '<button onclick="markFixed(\'' + esc(rpt.id) + '\')" style="margin-left:8px;padding:4px 12px;border-radius:20px;border:1.5px solid var(--green);background:#f0fdf6;color:var(--green);font-size:11px;font-weight:900;cursor:pointer;">&#10003; Mark Fixed</button>';
+        var copyRptBtn = '<button onclick="copyReport(' + JSON.stringify({
+          name: rpt.name, class: rpt.class, board: rpt.board,
+          type: rpt.report_type, page: rpt.page_url,
+          desc: rpt.description, date: rpt.submitted_at
+        }).replace(/"/g, '&quot;') + ')" style="margin-left:8px;padding:4px 12px;border-radius:20px;border:1.5px solid #2563eb;background:rgba(37,99,235,.07);color:#2563eb;font-size:11px;font-weight:900;cursor:pointer;">&#128203; Copy</button>';
         var ssHtml = rpt.screenshot
           ? '<img src="' + rpt.screenshot + '" style="max-width:200px;border-radius:4px;border:1px solid var(--border);cursor:zoom-in;margin-top:6px;" onclick="rishiOpenLightbox(this.src)">'
           : '<span style="font-size:12px;color:var(--dim);">No screenshot</span>';
@@ -3206,14 +3214,15 @@ function loadReports() {
         html += '<div id="rpt-' + esc(rpt.id) + '" style="border:1.5px solid var(--border);border-radius:10px;padding:16px;margin-bottom:14px;background:var(--s2);">';
         html += '<div style="display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:8px;">';
         html += '<span style="font-weight:900;font-size:14px;color:var(--text);">' + esc(rpt.name || '—') + '</span>';
+        html += typeBadge;
         html += '<span style="font-size:12px;color:var(--muted);">Class ' + esc(rpt.class || '—') + ' · ' + esc(rpt.board || '—') + '</span>';
-        html += '<span style="font-size:12px;color:var(--muted);">📱 ' + esc(rpt.phone || '—') + '</span>';
+        html += '<span style="font-size:12px;color:var(--muted);">&#128241; ' + esc(rpt.phone || '—') + '</span>';
         html += '<span style="font-size:11px;color:var(--dim);margin-left:auto;">' + dt + '</span>';
         html += '</div>';
         html += '<div style="margin-bottom:6px;"><a href="' + esc(rpt.page_url || '#') + '" target="_blank" style="font-size:12px;color:#2563eb;word-break:break-all;">' + esc(rpt.page_url || '—') + '</a></div>';
         html += '<div style="font-size:13px;font-weight:700;color:var(--text);background:#fffdf8;border:1px solid var(--border);border-radius:6px;padding:10px;margin-bottom:8px;white-space:pre-wrap;">' + esc(rpt.description || '') + '</div>';
         html += '<div>' + ssHtml + '</div>';
-        html += '<div style="margin-top:10px;display:flex;align-items:center;">' + statusBadge + fixBtn + '</div>';
+        html += '<div style="margin-top:10px;display:flex;align-items:center;">' + statusBadge + fixBtn + copyRptBtn + '</div>';
         html += '</div>';
       });
       list.innerHTML = html;
@@ -3221,6 +3230,20 @@ function loadReports() {
     .catch(function(e) {
       list.innerHTML = '<div style="color:var(--red);font-size:13px;">Failed to load reports: ' + e + '</div>';
     });
+}
+
+function copyReport(rpt) {
+  var text = 'User Report\n===========\n'
+    + 'Student: ' + (rpt.name||'—') + '\n'
+    + 'Date: ' + (rpt.date||rpt.submitted_at||'—') + '\n'
+    + 'Page: ' + (rpt.page||rpt.page_url||'—') + '\n'
+    + 'Category: ' + (rpt.type||rpt.report_type||'—') + '\n'
+    + 'Description: ' + (rpt.desc||rpt.description||'—');
+  navigator.clipboard.writeText(text).then(function() {
+    alert('Report copied! Paste to Claude to fix.');
+  }).catch(function() {
+    prompt('Copy this:', text);
+  });
 }
 
 function markFixed(id) {
