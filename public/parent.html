@@ -869,6 +869,11 @@ button{font-family:'Outfit',sans-serif;}
     <!-- ===== PERFORMANCE TAB ===== -->
     <div id="view-perf" class="hidden">
 
+      <div style="padding:4px 0 12px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+        <button class="btn btn-ghost btn-sm" onclick="refreshFromCloud()">&#9729; Load from Cloud</button>
+        <span id="cloud-sync-status" style="font-size:13px;color:var(--muted);display:none;">Loading&hellip;</span>
+      </div>
+
       <!-- Practice Stats -->
       <div class="card perf-sec">
         <div class="card-title">&#128221; Practice Statistics — Chapter-wise</div>
@@ -1678,13 +1683,15 @@ function initMainPortal() {
   var sName = sessionStorage.getItem('rishi_parent_student_name') || 'Student';
   var sId   = getStudentId();
   var badge = document.getElementById('student-name-badge');
-  if(badge) badge.textContent = '\uD83C\uDF93 ' + (sName.split(' ')[0] || sName);
+  if(badge) badge.textContent = (sName.split(' ')[0] || sName) + ' \u00B7 ' + sId;
   loadPlans();
   var now = new Date();
   calYear = now.getFullYear();
   calMonth = now.getMonth();
   renderExamGrid();
   renderActivePlans();
+  /* Auto-pull student data from D1 on login */
+  loadStudentFromD1(function(){ loadPlans(); renderActivePlans(); });
   /* Poll live status every 10s */
   setInterval(function() {
     var liveView = document.getElementById('view-live');
@@ -1709,7 +1716,48 @@ function loadPlans() {
 }
 
 function savePlans() {
-  localStorage.setItem('rishi_plans_' + getStudentId(), JSON.stringify(plans));
+  var key = 'rishi_plans_' + getStudentId();
+  var val = JSON.stringify(plans);
+  localStorage.setItem(key, val);
+  var sid = getStudentId();
+  if (sid && sid !== 'default') {
+    fetch('/d1-sync', {method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({action:'set', studentId: sid, key: key, value: val})
+    }).catch(function(){});
+  }
+}
+
+// ===========================
+// D1 STUDENT DATA LOADER
+// ===========================
+function loadStudentFromD1(callback) {
+  var sid = getStudentId();
+  if (!sid || sid === 'default') { if (callback) callback(); return; }
+  var st = document.getElementById('cloud-sync-status');
+  if (st) { st.textContent = 'Loading from cloud…'; st.style.display = 'inline'; }
+  fetch('/d1-sync', {method:'POST', headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({action:'get', studentId: sid})
+  }).then(function(r){ return r.json(); }).then(function(data){
+    if (data.ok && data.data && data.data.length > 0) {
+      var rawSet = Storage.prototype.setItem;
+      data.data.forEach(function(row){
+        try { rawSet.call(localStorage, row.key, row.value); } catch(e){}
+      });
+    }
+    if (st) st.style.display = 'none';
+    if (callback) callback();
+  }).catch(function(){
+    if (st) st.style.display = 'none';
+    if (callback) callback();
+  });
+}
+
+function refreshFromCloud() {
+  loadStudentFromD1(function(){
+    loadPlans();
+    renderActivePlans();
+    renderPerformance();
+  });
 }
 
 // ===========================
@@ -1726,7 +1774,7 @@ function switchTab(tab) {
   document.getElementById('view-dash').className  = tab === 'dash'  ? '' : 'hidden';
   document.getElementById('view-slots').className = tab === 'slots' ? '' : 'hidden';
   document.getElementById('view-live').className  = tab === 'live'  ? '' : 'hidden';
-  if (tab === 'perf')  renderPerformance();
+  if (tab === 'perf')  loadStudentFromD1(function(){ renderPerformance(); });
   if (tab === 'slots') renderSlots();
   if (tab === 'live')  renderLive();
 }
@@ -1890,16 +1938,6 @@ function selectExam(examId) {
   selChIds = [];
   chDates = {};
   calManual = false;
-  _topicsForceOpen = true;
-
-  /* Pre-tick all chapters */
-  for (var i = 0; i < CHAPTERS.length; i++) {
-    var cid = CHAPTERS[i].id;
-    selChIds.push(cid);
-    chDates[cid] = {start:'', target:'', mode:'explain'};
-  }
-  _topicsForceOpen = false;
-
   renderExamGrid();
   renderChapterList();
   show('step-chs');
