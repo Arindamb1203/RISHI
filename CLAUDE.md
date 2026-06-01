@@ -186,6 +186,15 @@ Notable corrections (29 May 2026):
 - Both keys sync to D1 via rishi-sync.js
 - Admin Logs tab fetches all students' data from D1 via `get_logs` action
 
+## Rishika Chat Box (exam.html only, Phase 1 — 01 Jun 2026)
+- **Endpoint:** `functions/api/chat.js` → `/api/chat` (POST)
+- **Frontend:** `public/rishi-chat.js` — injected into left panel below score box
+- **Included in:** exam.html only (practice pages = Phase 2 via patch script)
+- **Daily limit:** 20 messages per student per day, tracked in D1 table `rishi_chat_usage`
+- **Context passed:** chapter name, topic, class, board, current question text + options (from `window.CH_INFO` + `window.allQ[currentIdx]`)
+- **System prompt:** explains concepts, refuses direct answer reveals, max 3 sentences
+- **UI:** dark theme (gold accents), collapsible toggle, 180px scrollable messages area
+
 ## Critical Rules
 1. NEVER assume file path/content — always Read the actual current file first
 2. NEVER deliver partial patches — always complete files or targeted edits
