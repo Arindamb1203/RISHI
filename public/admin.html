@@ -1897,7 +1897,26 @@ function buildStudent() {
 
 function selectStudentForProgress(idx) {
   _selectedStudentIdx = idx;
-  buildStudent();
+  var regs = window._allRegs || lsGet('rishi_registrations', []);
+  var r = regs[idx];
+  if (!r) { buildStudent(); return; }
+  var sid = (r.studentUsername || r.studentId || '').toLowerCase();
+  if (!sid) { buildStudent(); return; }
+
+  /* Pull student's latest data from D1, then render */
+  document.getElementById('stu-progress').innerHTML = '<div style="padding:16px;color:var(--muted);font-size:14px;">Loading from cloud&#8230;</div>';
+  document.getElementById('stu-detail-wrap').style.display = 'block';
+  fetch('/d1-sync', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ action: 'get', studentId: sid })
+  }).then(function(res) { return res.json(); }).then(function(data) {
+    if (data.ok && data.data && data.data.length > 0) {
+      var rawSet = Storage.prototype.setItem;
+      data.data.forEach(function(row) {
+        try { rawSet.call(localStorage, row.key, row.value); } catch(e) {}
+      });
+    }
+    buildStudent();
+  }).catch(function() { buildStudent(); });
 }
 
 function getClassKey(r) {
