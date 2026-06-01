@@ -454,4 +454,28 @@
   var storedId = sessionStorage.getItem('rishi_report_id');
   if (storedId) startPolling(storedId);
 
+  /* ── QUEUE REORDER ─────────────────────────────────────────
+     Placed here (not rishi-core.js) because error-reporter.js
+     is included on ALL practice pages across every class/board.
+     rishi-core.js is absent on Class 6/8/ICSE practice pages.
+  ──────────────────────────────────────────────────────────── */
+  window.addEventListener('rishi-report-submitted', function() {
+    if (window.location.pathname.indexOf('/practice/') === -1) return;
+    if (!Array.isArray(window.QB) || window.QB.length === 0) return;
+    if (typeof window.idx === 'undefined' || typeof window.loadQ !== 'function') return;
+
+    var i = window.idx;
+    if (i < 0 || i >= window.QB.length) return;
+
+    var flagged = window.QB.splice(i, 1)[0];
+    window.QB.push(flagged);
+
+    if (Array.isArray(window.answered)) {
+      window.answered.splice(i, 1);
+      window.answered.push(null);
+    }
+
+    window.loadQ(i);
+  });
+
 })();

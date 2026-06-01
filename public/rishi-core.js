@@ -358,30 +358,5 @@ window.addEventListener('load', function() {
   rishiResetIdleTimer(); // start on load
 });
 
-/* ── REPORT-ISSUE QUEUE REORDER ─────────────────────────────
-   Fires when student reports Not in Syllabus / Wrong Answer /
-   Wrong Question. Moves the flagged question to the end of QB
-   so the student continues uninterrupted.
-   Only active on /practice/ pages that have QB + loadQ.
-   ─────────────────────────────────────────────────────────── */
-window.addEventListener('rishi-report-submitted', function(e) {
-  if (window.location.pathname.indexOf('/practice/') === -1) return;
-  if (!Array.isArray(window.QB) || window.QB.length === 0) return;
-  if (typeof window.idx === 'undefined' || typeof window.loadQ !== 'function') return;
-
-  var i = window.idx;
-  if (i < 0 || i >= window.QB.length) return;
-
-  /* Move reported question to end of queue */
-  var flagged = window.QB.splice(i, 1)[0];
-  window.QB.push(flagged);
-
-  /* Reset its answered slot (mark as unanswered at new position) */
-  if (Array.isArray(window.answered)) {
-    window.answered.splice(i, 1);
-    window.answered.push(null);
-  }
-
-  /* Load whatever is now at idx (the next question) */
-  window.loadQ(i);
-});
+/* Queue reorder listener moved to error-reporter.js
+   (error-reporter.js is included on ALL pages; rishi-core.js is not) */
