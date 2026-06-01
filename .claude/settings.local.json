@@ -33,7 +33,9 @@
       "Bash(python -c ' *)",
       "Bash(python patch_anim_cubes.py)",
       "Bash(python patch_anim_story.py)",
-      "Bash(git stash *)"
+      "Bash(git stash *)",
+      "Bash(cat)",
+      "Bash(FILTER_BRANCH_SQUELCH_WARNING=1 git filter-branch --force --tree-filter 'python3 /tmp/clean_local_settings.py' origin/main..HEAD)"
     ],
     "additionalDirectories": [
       "D:\\rishi\\public\\games"
