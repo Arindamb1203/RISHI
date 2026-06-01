@@ -1683,7 +1683,7 @@ function initMainPortal() {
   var sName = sessionStorage.getItem('rishi_parent_student_name') || 'Student';
   var sId   = getStudentId();
   var badge = document.getElementById('student-name-badge');
-  if(badge) badge.textContent = (sName.split(' ')[0] || sName) + ' \u00B7 ' + sId;
+  if(badge) badge.innerHTML = (sName.split(' ')[0] || sName) + '<br><span style="font-size:9px;opacity:.65;letter-spacing:.3px">' + sId + '</span>';
   loadPlans();
   var now = new Date();
   calYear = now.getFullYear();
@@ -2864,40 +2864,35 @@ function renderPracticeStats() {
 
 function renderPerfExamScores() {
   var con = document.getElementById('perf-exam-con');
-  var examScores = [];
-  try { examScores = JSON.parse(localStorage.getItem('rishi_exam_scores') || '[]'); } catch(e) {}
+  var rows = [];
 
-  if (examScores.length === 0) {
+  for (var i = 0; i < CHAPTERS.length; i++) {
+    var ch = CHAPTERS[i];
+    var chStr = PROGRESS_KEY_PREFIX + ch.id;
+    if (localStorage.getItem('rishi_chapexam_done_' + chStr) !== '1') continue;
+    var score    = parseInt(localStorage.getItem('rishi_exam_score_'    + chStr) || '0');
+    var attempts = parseInt(localStorage.getItem('rishi_exam_attempts_' + chStr) || '1');
+    rows.push({name: 'Ch ' + ch.id + '. ' + ch.name, score: score, attempts: attempts});
+  }
+
+  if (rows.length === 0) {
     con.innerHTML = '<div class="empty"><div class="empty-ico">&#127941;</div><div class="empty-txt">No exam scores recorded yet.</div></div>';
     return;
   }
 
   var html = '<div style="overflow-x:auto"><table class="perf-tbl"><thead><tr>';
-  html += '<th>Chapter / Exam</th><th>Score</th><th>Max</th><th>%</th><th>Attempts</th><th>Date</th>';
+  html += '<th>Chapter</th><th>Best Score</th><th>%</th><th>Attempts</th>';
   html += '</tr></thead><tbody>';
 
-  // Group by chapter/examId
-  var grouped = {};
-  for (var i = 0; i < examScores.length; i++) {
-    var s = examScores[i];
-    var key = s.examId || ('ch_' + s.chapterId);
-    if (!grouped[key]) grouped[key] = [];
-    grouped[key].push(s);
-  }
-
-  for (var key2 in grouped) {
-    var scores = grouped[key2];
-    var best = scores[scores.length - 1]; // most recent
-    var pct = Math.round((best.score / (best.maxScore || 100)) * 100);
-    var accCls2 = pct >= 75 ? 'background:#ECFDF5;color:#065F46' : pct >= 50 ? 'background:#FFFBEB;color:#92400E' : 'background:#FEF2F2;color:#991B1B';
-    var label = best.chapterName || best.examName || key2;
+  for (var j = 0; j < rows.length; j++) {
+    var r = rows[j];
+    var pct = r.score;
+    var accCls = pct >= 75 ? 'background:#ECFDF5;color:#065F46' : pct >= 50 ? 'background:#FFFBEB;color:#92400E' : 'background:#FEF2F2;color:#991B1B';
     html += '<tr>';
-    html += '<td style="font-size:15px;font-weight:600">' + label + '</td>';
-    html += '<td style="font-size:16px;font-weight:800;text-align:center">' + best.score + '</td>';
-    html += '<td style="font-size:15px;color:var(--muted);text-align:center">' + (best.maxScore || 100) + '</td>';
-    html += '<td><span class="acc-badge" style="' + accCls2 + '">' + pct + '%</span></td>';
-    html += '<td style="font-size:15px;font-weight:700;text-align:center">' + scores.length + '</td>';
-    html += '<td style="font-size:16px;color:var(--muted)">' + (best.date || '—') + '</td>';
+    html += '<td style="font-size:15px;font-weight:600">' + r.name + '</td>';
+    html += '<td style="font-size:16px;font-weight:800;text-align:center">' + r.score + ' / 100</td>';
+    html += '<td><span class="acc-badge" style="' + accCls + '">' + pct + '%</span></td>';
+    html += '<td style="font-size:15px;font-weight:700;text-align:center">' + r.attempts + '</td>';
     html += '</tr>';
   }
   html += '</tbody></table></div>';
@@ -2910,7 +2905,7 @@ function renderBreakStats() {
 
   var totalBreaks = breakLog.length;
   var totalMins = 0;
-  for (var i = 0; i < breakLog.length; i++) totalMins += parseInt(breakLog[i].duration || 0);
+  for (var i = 0; i < breakLog.length; i++) totalMins += Math.round(parseInt(breakLog[i].secs || 0) / 60);
   var avgMins = totalBreaks > 0 ? Math.round(totalMins / totalBreaks) : 0;
 
   document.getElementById('perf-break-stats').innerHTML =
@@ -2924,15 +2919,17 @@ function renderBreakStats() {
   }
 
   var html = '<div style="overflow-x:auto;margin-top:4px"><table class="perf-tbl"><thead><tr>';
-  html += '<th>#</th><th>Chapter</th><th>Duration (min)</th><th>Time</th>';
+  html += '<th>#</th><th>Reason</th><th>Duration (min)</th><th>Date</th><th>Time</th>';
   html += '</tr></thead><tbody>';
   var recentBreaks = breakLog.slice(-20).reverse();
   for (var j = 0; j < recentBreaks.length; j++) {
     var b = recentBreaks[j];
+    var bMins = b.secs ? Math.round(parseInt(b.secs) / 60) : '—';
     html += '<tr><td style="font-size:16px;color:var(--muted)">' + (breakLog.length - j) + '</td>';
-    html += '<td style="font-size:15px;font-weight:600">' + (b.chapter || '—') + '</td>';
-    html += '<td style="font-size:15px;font-weight:700;text-align:center">' + (b.duration || '—') + '</td>';
-    html += '<td style="font-size:16px;color:var(--muted)">' + (b.time || '—') + '</td></tr>';
+    html += '<td style="font-size:15px;font-weight:600">' + (b.type || '—') + '</td>';
+    html += '<td style="font-size:15px;font-weight:700;text-align:center">' + bMins + '</td>';
+    html += '<td style="font-size:14px;color:var(--muted)">' + (b.date || '—') + '</td>';
+    html += '<td style="font-size:14px;color:var(--muted)">' + (b.time || '—') + '</td></tr>';
   }
   html += '</tbody></table></div>';
   document.getElementById('perf-break-log').innerHTML = html;

@@ -30,13 +30,16 @@
     'rishi_exam_scores',
     'rishi_progress',
     'rishi_active_chapters',
-    'rishi_plans'
+    'rishi_plans',
+    'rishi_coins'
   ];
 
   var SYNC_PREFIX = [
     'rishi_explain_done_',
     'rishi_practice_done_',
     'rishi_chapexam_done_',
+    'rishi_exam_score_',
+    'rishi_exam_attempts_',
     'rishi_plans_'
   ];
 
