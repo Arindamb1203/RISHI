@@ -281,7 +281,7 @@ button{font-family:'Outfit',sans-serif;cursor:pointer;}
     <div class="l-field">
       <label class="l-lbl">Admin Password</label>
       <input class="l-inp" type="password" id="l-pass" placeholder="Enter password"
-        onkeydown="if(event.key==='Enter')tryLogin()" autocomplete="current-password">
+        onkeydown="if(event.key==='Enter')tryLogin()" autocomplete="off">
     </div>
     <div class="l-err" id="l-err">Incorrect password. Try again.</div>
     <button class="l-btn" onclick="tryLogin()">Enter Admin Panel →</button>
