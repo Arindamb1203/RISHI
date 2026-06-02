@@ -287,13 +287,13 @@
   });
 
   function openOverlay() {
-    var name  = localStorage.getItem('rishi_student_name') || '&#8212;';
-    var cls   = localStorage.getItem('rishi_class') || '&#8212;';
-    var board = localStorage.getItem('rishi_board') || '&#8212;';
-    var phone = localStorage.getItem('rishi_phone') || localStorage.getItem('rishi_registered_phone') || '&#8212;';
+    var name  = localStorage.getItem('rishi_student_name') || '—';
+    var cls   = localStorage.getItem('rishi_class') || '—';
+    var board = localStorage.getItem('rishi_board') || '';
+    var phone = localStorage.getItem('rishi_phone') || localStorage.getItem('rishi_registered_phone') || '—';
 
     document.getElementById('rishi-f-name').textContent  = name;
-    document.getElementById('rishi-f-class').textContent = 'Class ' + cls + ' \xB7 ' + (board === '&#8212;' ? board : board.toUpperCase());
+    document.getElementById('rishi-f-class').textContent = 'Class ' + (cls || '—') + ' \xB7 ' + (board ? board.toUpperCase() : '—');
     document.getElementById('rishi-f-phone').textContent = phone;
     document.getElementById('rishi-f-page').textContent  = window.location.href;
 
@@ -310,14 +310,14 @@
     document.getElementById('rishi-msg').textContent = '';
     document.getElementById('rishi-submit-btn').disabled = false;
     document.getElementById('rishi-submit-btn').style.display = 'block';
-    document.getElementById('rishi-submit-btn').textContent = '&#9654; SEND REPORT';
+    document.getElementById('rishi-submit-btn').innerHTML = '&#9654; SEND REPORT';
     document.getElementById('rishi-chat-area').innerHTML = '';
     document.getElementById('rishi-next-q-btn').className = 'next-btn';
     screenshotB64 = '';
     var thumbEl = document.getElementById('rishi-ss-thumb');
     var ssStatusEl = document.getElementById('rishi-ss-status');
     if (thumbEl) thumbEl.style.display = 'none';
-    if (ssStatusEl) ssStatusEl.textContent = '&#128247; Capturing screenshot...';
+    if (ssStatusEl) ssStatusEl.textContent = '📷 Capturing screenshot...';
 
     overlay.classList.add('open');
 
@@ -334,7 +334,7 @@
           floatBtn.style.visibility = '';
           screenshotB64 = canvas.toDataURL('image/png');
           if (thumbEl) { thumbEl.src = screenshotB64; thumbEl.style.display = 'block'; }
-          if (ssStatusEl) ssStatusEl.textContent = '&#10003; Screenshot captured';
+          if (ssStatusEl) ssStatusEl.textContent = '✓ Screenshot captured';
         }).catch(function() {
           overlay.style.visibility = '';
           floatBtn.style.visibility = '';
@@ -476,7 +476,7 @@
       if (data.success && data.reportId) {
         _submitted = true;
         sessionStorage.setItem('rishi_report_id', data.reportId);
-        btn.textContent = '&#10003; Sent';
+        btn.innerHTML = '&#10003; Sent';
         btn.style.display = 'none';
 
         /* Hide form fields */
@@ -519,13 +519,13 @@
       } else {
         showMsg('error', 'Could not send. Please try again.');
         btn.disabled = false;
-        btn.textContent = '&#9654; SEND REPORT';
+        btn.innerHTML = '&#9654; SEND REPORT';
       }
     })
     .catch(function() {
       showMsg('error', 'Could not send. Please try again.');
       btn.disabled = false;
-      btn.textContent = '&#9654; SEND REPORT';
+      btn.innerHTML = '&#9654; SEND REPORT';
     });
   };
 
