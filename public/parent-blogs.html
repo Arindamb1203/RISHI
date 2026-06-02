@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RISHI — Educational Blogs</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0F2240;--navy2:#1A3560;--gold:#F59E0B;--gold2:#FDE68A;
+  --green:#059669;--red:#DC2626;
+  --bg:#EEF2F7;--card:#FFFFFF;--border:#E2E8F0;
+  --text:#1E293B;--muted:#64748B;--light:#F8FAFC;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+
+/* HEADER */
+.hdr{background:var(--navy);color:white;padding:0 16px;
+  display:flex;align-items:center;gap:10px;min-height:58px;
+  box-shadow:0 2px 12px rgba(0,0,0,.2);flex-wrap:nowrap;}
+.hdr-logo{font-size:20px;font-weight:900;letter-spacing:3px;flex-shrink:0;}
+.hdr-logo span{color:var(--gold);}
+.hdr-sep{width:1px;height:26px;background:rgba(255,255,255,.2);flex-shrink:0;}
+.hdr-title{font-size:16px;font-weight:600;color:rgba(255,255,255,.8);}
+.hdr-r{margin-left:auto;flex-shrink:0;}
+.btn-back{font-size:15px;font-weight:700;padding:6px 14px;border-radius:8px;
+  background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);
+  color:rgba(255,255,255,.75);cursor:pointer;transition:all .2s;white-space:nowrap;}
+.btn-back:hover{background:rgba(255,255,255,.15);color:white;}
+
+/* WRAP */
+.wrap{max-width:1080px;margin:0 auto;padding:28px 16px 60px;}
+
+/* COMING SOON BANNER */
+.cs-banner{
+  background:linear-gradient(135deg,#0a1628 0%,var(--navy) 50%,var(--navy2) 100%);
+  border-radius:20px;padding:36px 32px;margin-bottom:32px;
+  display:flex;align-items:center;gap:24px;
+  position:relative;overflow:hidden;
+}
+.cs-banner::before{content:'';position:absolute;width:350px;height:350px;
+  background:radial-gradient(circle,rgba(245,158,11,.13) 0%,transparent 70%);
+  top:-120px;right:-80px;pointer-events:none;}
+.cs-banner::after{content:'';position:absolute;width:200px;height:200px;
+  background:radial-gradient(circle,rgba(245,158,11,.07) 0%,transparent 70%);
+  bottom:-60px;left:80px;pointer-events:none;}
+.cs-icon{font-size:52px;flex-shrink:0;position:relative;z-index:1;}
+.cs-text{position:relative;z-index:1;}
+.cs-text h2{font-size:22px;font-weight:900;color:white;margin-bottom:8px;line-height:1.3;}
+.cs-text p{font-size:15px;color:rgba(255,255,255,.6);line-height:1.7;max-width:540px;}
+.cs-pills{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap;}
+.cs-pill{display:inline-block;padding:5px 14px;
+  background:rgba(245,158,11,.18);border:1px solid rgba(245,158,11,.4);
+  border-radius:20px;font-size:13px;font-weight:800;color:var(--gold);letter-spacing:.5px;}
+.cs-pill.wh{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.2);color:rgba(255,255,255,.7);}
+
+/* SECTION LABEL */
+.sec-lbl{font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:1.8px;
+  color:var(--muted);margin-bottom:16px;display:flex;align-items:center;gap:10px;}
+.sec-lbl::after{content:'';flex:1;height:1px;background:var(--border);}
+
+/* SHIMMER */
+@keyframes shimmer{0%,100%{opacity:.45;}50%{opacity:.9;}}
+.ph{background:#E2E8F0;border-radius:6px;animation:shimmer 2s infinite;}
+.ph.h18{height:18px;} .ph.h14{height:14px;} .ph.h12{height:12px;} .ph.h11{height:11px;}
+.ph.w90{width:90%;} .ph.w75{width:75%;} .ph.w60{width:60%;} .ph.w45{width:45%;}
+
+@keyframes pulse-dot{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.3;transform:scale(.8);}}
+
+/* FEATURED CARD */
+.featured-card{
+  background:var(--card);border-radius:20px;border:1px solid var(--border);
+  overflow:hidden;margin-bottom:32px;
+  box-shadow:0 4px 24px rgba(0,0,0,.09);
+  display:grid;grid-template-columns:1.1fr 1fr;
+}
+.feat-thumb{
+  background:linear-gradient(160deg,#0a1628 0%,var(--navy) 60%,#1e3a5f 100%);
+  min-height:260px;position:relative;
+  display:flex;align-items:center;justify-content:center;
+}
+.feat-top-bar{position:absolute;top:0;left:0;right:0;height:4px;
+  background:linear-gradient(90deg,var(--gold),#F97316,#EC4899);}
+.feat-play{width:68px;height:68px;border-radius:50%;
+  background:rgba(245,158,11,.15);border:2px solid rgba(245,158,11,.45);
+  display:flex;align-items:center;justify-content:center;
+  font-size:28px;color:rgba(255,255,255,.7);position:relative;z-index:1;}
+.feat-play::after{content:'';position:absolute;width:90px;height:90px;border-radius:50%;
+  border:1px solid rgba(245,158,11,.2);animation:ripple 2.5s infinite;}
+@keyframes ripple{0%{transform:scale(.8);opacity:1;}100%{transform:scale(1.4);opacity:0;}}
+.feat-cs-badge{position:absolute;top:14px;right:14px;
+  background:var(--gold);color:var(--navy);
+  font-size:11px;font-weight:900;padding:4px 11px;border-radius:20px;letter-spacing:1px;}
+.feat-dots{position:absolute;bottom:14px;left:0;right:0;
+  display:flex;justify-content:center;gap:6px;}
+.feat-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.3);}
+.feat-dot.a{background:var(--gold);width:18px;border-radius:3px;}
+
+.feat-body{padding:30px 26px;display:flex;flex-direction:column;justify-content:center;gap:0;}
+.feat-tag{display:inline-block;font-size:12px;font-weight:800;
+  padding:4px 12px;border-radius:20px;margin-bottom:14px;
+  background:rgba(245,158,11,.1);color:var(--gold);border:1px solid rgba(245,158,11,.25);
+  letter-spacing:.5px;text-transform:uppercase;}
+.feat-lines{display:flex;flex-direction:column;gap:8px;margin-bottom:20px;}
+.feat-live{display:flex;align-items:center;gap:10px;margin-top:4px;}
+.live-dot{width:8px;height:8px;border-radius:50%;background:var(--gold);
+  animation:pulse-dot 1.6s infinite;flex-shrink:0;}
+.live-txt{font-size:14px;font-weight:700;color:var(--muted);}
+
+/* SPECIAL 2-COL */
+.special-row{display:grid;grid-template-columns:1.35fr 1fr;gap:18px;margin-bottom:32px;}
+.tall-card{background:var(--card);border-radius:16px;border:1px solid var(--border);
+  overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.06);}
+.tall-thumb{height:210px;position:relative;display:flex;align-items:center;justify-content:center;}
+.tall-body{padding:18px 16px;}
+.side-stack{display:flex;flex-direction:column;gap:18px;}
+
+/* BLOG CARD */
+.blog-card{background:var(--card);border-radius:14px;border:1px solid var(--border);
+  overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.05);transition:transform .2s,box-shadow .2s;}
+.blog-card:hover{transform:translateY(-3px);box-shadow:0 8px 28px rgba(0,0,0,.1);}
+.bc-thumb{position:relative;display:flex;align-items:center;justify-content:center;}
+.bc-play{border-radius:50%;background:rgba(255,255,255,.18);border:2px solid rgba(255,255,255,.35);
+  display:flex;align-items:center;justify-content:center;color:white;}
+.bc-cat{position:absolute;bottom:10px;left:12px;
+  font-size:11px;font-weight:800;padding:3px 10px;border-radius:12px;
+  color:white;letter-spacing:.5px;}
+.bc-soon{position:absolute;top:10px;right:10px;
+  background:rgba(0,0,0,.5);color:rgba(255,255,255,.85);
+  font-size:10px;font-weight:900;padding:3px 8px;border-radius:10px;letter-spacing:.8px;}
+.bc-body{padding:14px 14px 16px;}
+
+/* BOTTOM GRID — 3 cards */
+.blog-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:18px;margin-bottom:32px;}
+
+/* NOTIFY BAR */
+.notify-bar{
+  background:white;border:2px dashed var(--border);border-radius:16px;
+  padding:32px 24px;text-align:center;
+}
+.notify-bar h3{font-size:18px;font-weight:800;color:var(--navy);margin-bottom:8px;}
+.notify-bar p{font-size:15px;color:var(--muted);margin-bottom:20px;line-height:1.6;}
+.notify-row{display:flex;gap:10px;max-width:400px;margin:0 auto;justify-content:center;}
+.notify-inp{flex:1;padding:11px 14px;border:2px solid var(--border);border-radius:10px;
+  font-size:15px;font-family:'Outfit',sans-serif;color:var(--muted);
+  background:var(--light);cursor:not-allowed;opacity:.6;}
+.btn-notify{padding:11px 20px;background:var(--navy);color:white;border:none;
+  border-radius:10px;font-size:15px;font-weight:800;opacity:.45;cursor:not-allowed;
+  white-space:nowrap;}
+.notify-note{font-size:13px;color:#94A3B8;margin-top:12px;}
+
+/* RESPONSIVE */
+@media(max-width:720px){
+  .featured-card{grid-template-columns:1fr;}
+  .feat-thumb{min-height:200px;}
+  .special-row{grid-template-columns:1fr;}
+  .cs-banner{flex-direction:column;gap:14px;padding:24px 18px;}
+  .cs-icon{font-size:36px;}
+  .notify-row{flex-direction:column;}
+  .wrap{padding:20px 12px 48px;}
+}
+</style>
+</head>
+<body>
+
+<div class="hdr">
+  <div class="hdr-logo">R<span>I</span>SHI</div>
+  <div class="hdr-sep"></div>
+  <div class="hdr-title">Educational Blogs</div>
+  <div class="hdr-r">
+    <button class="btn-back" onclick="location.href='/parent.html'">&#8592; Parent Portal</button>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <!-- BANNER -->
+  <div class="cs-banner">
+    <div class="cs-icon">&#127909;</div>
+    <div class="cs-text">
+      <h2>Expert Insights &amp; Video Lessons</h2>
+      <p>Curated educational videos, math concept breakdowns, study strategies, and expert parent guides — hand-picked by the RISHI team. Coming to your portal soon.</p>
+      <div class="cs-pills">
+        <div class="cs-pill">COMING SOON</div>
+        <div class="cs-pill wh">Math Concepts</div>
+        <div class="cs-pill wh">Study Tips</div>
+        <div class="cs-pill wh">Parent Guides</div>
+        <div class="cs-pill wh">Expert Interviews</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FEATURED -->
+  <div class="sec-lbl">Featured Video</div>
+  <div class="featured-card">
+    <div class="feat-thumb">
+      <div class="feat-top-bar"></div>
+      <div class="feat-play">&#9654;</div>
+      <div class="feat-cs-badge">COMING SOON</div>
+      <div class="feat-dots">
+        <div class="feat-dot a"></div>
+        <div class="feat-dot"></div>
+        <div class="feat-dot"></div>
+      </div>
+    </div>
+    <div class="feat-body">
+      <div class="feat-tag">Math Concepts</div>
+      <div class="feat-lines">
+        <div class="ph h18 w90"></div>
+        <div class="ph h14 w75"></div>
+        <div style="height:4px;"></div>
+        <div class="ph h12 w60"></div>
+        <div class="ph h11 w45"></div>
+      </div>
+      <div class="feat-live">
+        <div class="live-dot"></div>
+        <div class="live-txt">First video dropping soon &mdash; stay tuned</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SPECIAL ROW -->
+  <div class="sec-lbl">Study Tips &amp; Parent Corner</div>
+  <div class="special-row">
+
+    <div class="tall-card">
+      <div class="tall-thumb" style="height:210px;background:linear-gradient(150deg,#064e3b,#065f46,#047857);">
+        <div class="bc-play" style="width:52px;height:52px;font-size:20px;">&#9654;</div>
+        <div class="bc-cat" style="background:rgba(4,120,87,.85);">Study Tips</div>
+        <div class="bc-soon">COMING SOON</div>
+      </div>
+      <div class="tall-body" style="display:flex;flex-direction:column;gap:8px;">
+        <div class="ph h16 w90" style="height:16px;width:90%;"></div>
+        <div class="ph h13 w70" style="height:13px;width:70%;"></div>
+        <div class="ph h11 w55" style="height:11px;width:55%;margin-top:4px;"></div>
+      </div>
+    </div>
+
+    <div class="side-stack">
+      <div class="blog-card" style="flex:1;">
+        <div class="bc-thumb" style="height:118px;background:linear-gradient(135deg,#1e1b4b,#312e81,#3730a3);">
+          <div class="bc-play" style="width:38px;height:38px;font-size:14px;">&#9654;</div>
+          <div class="bc-cat" style="background:rgba(79,70,229,.85);">Parent Guide</div>
+          <div class="bc-soon">SOON</div>
+        </div>
+        <div class="bc-body" style="display:flex;flex-direction:column;gap:6px;">
+          <div class="ph h14 w80" style="height:14px;width:80%;"></div>
+          <div class="ph h11 w60" style="height:11px;width:60%;"></div>
+        </div>
+      </div>
+      <div class="blog-card" style="flex:1;">
+        <div class="bc-thumb" style="height:118px;background:linear-gradient(135deg,#7c2d12,#92400e,#b45309);">
+          <div class="bc-play" style="width:38px;height:38px;font-size:14px;">&#9654;</div>
+          <div class="bc-cat" style="background:rgba(180,83,9,.85);">Expert Interview</div>
+          <div class="bc-soon">SOON</div>
+        </div>
+        <div class="bc-body" style="display:flex;flex-direction:column;gap:6px;">
+          <div class="ph h14 w80" style="height:14px;width:80%;"></div>
+          <div class="ph h11 w60" style="height:11px;width:60%;"></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- BOTTOM GRID -->
+  <div class="sec-lbl">More from the Blog</div>
+  <div class="blog-grid">
+
+    <div class="blog-card">
+      <div class="bc-thumb" style="height:158px;background:linear-gradient(145deg,#0c4a6e,#075985,#0284c7);">
+        <div class="bc-play" style="width:46px;height:46px;font-size:18px;">&#9654;</div>
+        <div class="bc-cat" style="background:rgba(2,132,199,.85);">Math Tricks</div>
+        <div class="bc-soon">COMING SOON</div>
+      </div>
+      <div class="bc-body" style="display:flex;flex-direction:column;gap:7px;">
+        <div class="ph h15 w90" style="height:15px;width:90%;"></div>
+        <div class="ph h12 w70" style="height:12px;width:70%;"></div>
+        <div class="ph h11 w50" style="height:11px;width:50%;"></div>
+      </div>
+    </div>
+
+    <div class="blog-card">
+      <div class="bc-thumb" style="height:158px;background:linear-gradient(145deg,#4a044e,#6b21a8,#7e22ce);">
+        <div class="bc-play" style="width:46px;height:46px;font-size:18px;">&#9654;</div>
+        <div class="bc-cat" style="background:rgba(126,34,206,.85);">Exam Strategy</div>
+        <div class="bc-soon">COMING SOON</div>
+      </div>
+      <div class="bc-body" style="display:flex;flex-direction:column;gap:7px;">
+        <div class="ph h15 w90" style="height:15px;width:90%;"></div>
+        <div class="ph h12 w70" style="height:12px;width:70%;"></div>
+        <div class="ph h11 w50" style="height:11px;width:50%;"></div>
+      </div>
+    </div>
+
+    <div class="blog-card">
+      <div class="bc-thumb" style="height:158px;background:linear-gradient(145deg,#052e16,#14532d,#166534);">
+        <div class="bc-play" style="width:46px;height:46px;font-size:18px;">&#9654;</div>
+        <div class="bc-cat" style="background:rgba(22,101,52,.85);">Student Life</div>
+        <div class="bc-soon">COMING SOON</div>
+      </div>
+      <div class="bc-body" style="display:flex;flex-direction:column;gap:7px;">
+        <div class="ph h15 w90" style="height:15px;width:90%;"></div>
+        <div class="ph h12 w70" style="height:12px;width:70%;"></div>
+        <div class="ph h11 w50" style="height:11px;width:50%;"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- NOTIFY -->
+  <div class="notify-bar">
+    <h3>&#128276; Get notified when videos go live</h3>
+    <p>New content will appear here automatically as soon as it is published. No action needed &mdash; just check back soon.</p>
+    <div class="notify-row">
+      <input class="notify-inp" placeholder="Notification via parent portal" disabled>
+      <button class="btn-notify">Notify Me</button>
+    </div>
+    <div class="notify-note">Notifications will appear in your parent portal dashboard</div>
+  </div>
+
+</div>
+
+<script>
+(function(){
+  var pid = sessionStorage.getItem('rishi_parent_student_id');
+  if(!pid){ location.href = '/parent.html'; }
+})();
+</script>
+</body>
+</html>

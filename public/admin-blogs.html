@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RISHI — Admin Blogs</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#fdf6ec;--s1:#ffffff;--s2:#fef9f2;--s3:#f5ede0;
+  --border:#e8d9c4;--border2:#d4b896;
+  --gold:#c8922a;--gold2:#e8b84b;
+  --red:#c0392b;--red2:#e74c3c;--red-dim:rgba(192,57,43,.1);
+  --green:#1a7a4a;--green2:#27ae60;
+  --amber:#d4870a;
+  --text:#1a1208;--muted:#6b5a3e;--dim:#a08060;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+button{font-family:'Outfit',sans-serif;cursor:pointer;}
+
+/* LOGIN */
+#login-screen{min-height:100vh;display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(140deg,#fdf0dc 0%,#fdf6ec 55%,#fff9f0 100%);padding:20px;}
+.lbox{background:#fff;border:2px solid var(--border);border-radius:20px;
+  padding:40px 36px;max-width:380px;width:100%;
+  box-shadow:0 12px 48px rgba(180,130,60,.15);}
+.l-logo{font-family:'Orbitron',sans-serif;font-size:24px;font-weight:900;letter-spacing:5px;
+  background:linear-gradient(135deg,var(--gold),var(--amber));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.l-tag{display:inline-block;font-size:13px;font-weight:900;padding:3px 9px;
+  border-radius:4px;letter-spacing:1.5px;text-transform:uppercase;margin:6px 0 4px;
+  background:var(--red-dim);color:var(--red);border:1px solid rgba(192,57,43,.25);}
+.l-sub{font-size:15px;color:var(--muted);margin-bottom:24px;font-weight:600;}
+.l-lbl{display:block;font-size:14px;font-weight:800;text-transform:uppercase;
+  letter-spacing:1px;color:var(--muted);margin-bottom:6px;}
+.l-field{margin-bottom:14px;}
+.l-inp{width:100%;padding:12px 14px;background:var(--s2);border:2px solid var(--border);
+  border-radius:10px;font-size:16px;color:var(--text);outline:none;
+  font-family:'Outfit',sans-serif;transition:border .2s;}
+.l-inp:focus{border-color:var(--gold);}
+.l-err{font-size:14px;color:var(--red);margin-top:6px;font-weight:700;display:none;}
+.l-err.show{display:block;}
+.l-btn{width:100%;padding:13px;
+  background:linear-gradient(135deg,var(--gold),var(--amber));
+  border:none;border-radius:10px;font-size:17px;font-weight:800;
+  color:#fff;cursor:pointer;margin-top:6px;transition:all .2s;}
+.l-btn:hover{transform:translateY(-1px);box-shadow:0 8px 24px rgba(200,146,42,.35);}
+
+/* MAIN */
+#main{display:none;}
+#main.show{display:block;}
+
+/* HEADER */
+.hdr{position:sticky;top:0;z-index:100;background:#fff;
+  border-bottom:2px solid var(--border);
+  display:flex;align-items:center;gap:12px;padding:0 20px;height:56px;
+  box-shadow:0 2px 12px rgba(180,130,60,.1);}
+.hdr-logo{font-family:'Orbitron',sans-serif;font-size:20px;font-weight:900;letter-spacing:4px;
+  background:linear-gradient(135deg,var(--gold),var(--amber));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.hdr-tag{font-size:13px;font-weight:900;padding:3px 9px;border-radius:5px;
+  letter-spacing:1.5px;text-transform:uppercase;
+  background:var(--red-dim);color:var(--red);border:1.5px solid rgba(192,57,43,.3);}
+.hdr-sep{width:1px;height:22px;background:var(--border);}
+.hdr-page{font-size:15px;font-weight:700;color:var(--muted);}
+.hdr-r{margin-left:auto;display:flex;align-items:center;gap:8px;}
+.btn-back{font-size:14px;font-weight:800;padding:7px 14px;border-radius:8px;
+  background:transparent;border:2px solid var(--border);color:var(--muted);transition:all .2s;}
+.btn-back:hover{border-color:var(--gold);color:var(--text);}
+.btn-out{font-size:14px;font-weight:700;padding:7px 14px;border-radius:8px;
+  background:transparent;border:2px solid var(--border2);color:var(--muted);transition:all .2s;}
+.btn-out:hover{border-color:var(--red);color:var(--red);}
+
+/* WRAP */
+.wrap{max-width:1100px;margin:0 auto;padding:24px 18px 60px;}
+
+/* CS BANNER */
+.cs-banner{
+  background:linear-gradient(135deg,#1a0a02,#2d1505,#3d1f07);
+  border-radius:16px;padding:32px 28px;margin-bottom:28px;
+  display:flex;align-items:center;gap:22px;
+  position:relative;overflow:hidden;
+  border:2px solid rgba(200,146,42,.2);
+}
+.cs-banner::before{content:'';position:absolute;width:280px;height:280px;
+  background:radial-gradient(circle,rgba(200,146,42,.12) 0%,transparent 70%);
+  top:-100px;right:-60px;pointer-events:none;}
+.cs-icon{font-size:48px;flex-shrink:0;position:relative;z-index:1;}
+.cs-body{position:relative;z-index:1;}
+.cs-body h2{font-size:20px;font-weight:900;color:#f5d9a0;margin-bottom:6px;}
+.cs-body p{font-size:14px;color:rgba(245,217,160,.6);line-height:1.7;max-width:560px;}
+.cs-pill{display:inline-block;margin-top:12px;padding:5px 14px;
+  background:rgba(200,146,42,.2);border:1px solid rgba(200,146,42,.4);
+  border-radius:20px;font-size:12px;font-weight:900;color:var(--gold2);letter-spacing:.8px;}
+
+/* STATS ROW */
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px;}
+.stat-box{background:#fff;border:2px solid var(--border);border-radius:12px;padding:16px 18px;}
+.stat-n{font-family:'Orbitron',sans-serif;font-size:24px;font-weight:900;
+  color:var(--gold);line-height:1;margin-bottom:5px;}
+.stat-l{font-size:12px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;}
+
+/* MAIN LAYOUT */
+.main-grid{display:grid;grid-template-columns:1fr 1.6fr;gap:20px;}
+
+/* ADD FORM CARD */
+.card{background:#fff;border:2px solid var(--border);border-radius:14px;
+  padding:22px;margin-bottom:20px;box-shadow:0 2px 8px rgba(180,130,60,.07);}
+.card-ttl{font-size:16px;font-weight:900;text-transform:uppercase;letter-spacing:1px;
+  color:var(--text);margin-bottom:18px;display:flex;align-items:center;gap:8px;
+  border-bottom:1.5px solid var(--border);padding-bottom:12px;}
+.cs-overlay{opacity:.45;pointer-events:none;user-select:none;}
+.form-lbl{display:block;font-size:13px;font-weight:800;text-transform:uppercase;
+  letter-spacing:.8px;color:var(--muted);margin-bottom:6px;}
+.form-field{margin-bottom:14px;}
+.form-inp{width:100%;padding:11px 13px;background:var(--s2);border:2px solid var(--border);
+  border-radius:9px;font-size:15px;color:var(--text);outline:none;
+  font-family:'Outfit',sans-serif;}
+.form-inp:focus{border-color:var(--gold);}
+.form-sel{width:100%;padding:11px 13px;background:var(--s2);border:2px solid var(--border);
+  border-radius:9px;font-size:15px;color:var(--text);outline:none;
+  font-family:'Outfit',sans-serif;appearance:none;}
+textarea.form-inp{min-height:80px;resize:vertical;}
+.btn-add{width:100%;padding:12px;
+  background:linear-gradient(135deg,var(--gold),var(--amber));
+  border:none;border-radius:9px;font-size:16px;font-weight:800;
+  color:#fff;transition:all .2s;}
+.cs-note{font-size:13px;font-weight:700;color:var(--red);
+  text-align:center;margin-top:10px;padding:8px;
+  background:var(--red-dim);border-radius:8px;border:1px solid rgba(192,57,43,.2);}
+
+/* VIDEO LIBRARY */
+.lib-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
+.lib-ttl{font-size:15px;font-weight:900;text-transform:uppercase;letter-spacing:1px;color:var(--text);}
+.lib-count{font-size:13px;font-weight:700;color:var(--muted);}
+
+/* SHIMMER */
+@keyframes shimmer{0%,100%{opacity:.35;}50%{opacity:.7;}}
+.ph{background:#e8d9c4;border-radius:5px;animation:shimmer 2s infinite;}
+
+.vid-list{display:flex;flex-direction:column;gap:12px;}
+.vid-card{background:var(--s2);border:2px solid var(--border);border-radius:12px;
+  overflow:hidden;display:grid;grid-template-columns:120px 1fr;
+  opacity:.5;}
+.vid-thumb{height:80px;display:flex;align-items:center;justify-content:center;
+  font-size:22px;}
+.vid-body{padding:12px 14px;display:flex;flex-direction:column;gap:6px;justify-content:center;}
+.vid-empty{text-align:center;padding:48px 24px;color:var(--dim);}
+.vid-empty-icon{font-size:40px;margin-bottom:12px;}
+.vid-empty-txt{font-size:15px;font-weight:700;}
+.vid-empty-sub{font-size:13px;margin-top:4px;color:var(--dim);opacity:.7;}
+
+/* CATEGORY BADGES */
+.cat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:20px;}
+.cat-chip{background:var(--s3);border:2px solid var(--border);border-radius:10px;
+  padding:10px;text-align:center;}
+.cat-chip-n{font-family:'Orbitron',sans-serif;font-size:18px;font-weight:900;color:var(--gold);}
+.cat-chip-l{font-size:11px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-top:3px;}
+
+@media(max-width:800px){
+  .stats-row{grid-template-columns:repeat(2,1fr);}
+  .main-grid{grid-template-columns:1fr;}
+  .cs-banner{flex-direction:column;gap:14px;padding:22px 16px;}
+  .cs-icon{font-size:36px;}
+  .wrap{padding:18px 12px 48px;}
+}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="login-screen">
+  <div class="lbox">
+    <div class="l-logo">RISHI</div>
+    <div class="l-tag">ADMIN</div>
+    <div class="l-sub">Blogs Management</div>
+    <div class="l-field">
+      <label class="l-lbl">Admin Password</label>
+      <input class="l-inp" type="password" id="pw-inp" autocomplete="off" placeholder="Enter password" onkeydown="if(event.key==='Enter')doLogin()">
+      <div class="l-err" id="l-err">Incorrect password</div>
+    </div>
+    <button class="l-btn" onclick="doLogin()">Enter Admin</button>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div id="main">
+
+  <div class="hdr">
+    <div class="hdr-logo">RISHI</div>
+    <div class="hdr-tag">ADMIN</div>
+    <div class="hdr-sep"></div>
+    <div class="hdr-page">Blogs Management</div>
+    <div class="hdr-r">
+      <button class="btn-back" onclick="location.href='/admin.html'">&#8592; Admin Panel</button>
+      <button class="btn-out" onclick="doLogout()">Log Out</button>
+    </div>
+  </div>
+
+  <div class="wrap">
+
+    <!-- CS BANNER -->
+    <div class="cs-banner">
+      <div class="cs-icon">&#127909;</div>
+      <div class="cs-body">
+        <h2>Blog Management — Coming Soon</h2>
+        <p>This panel will let you add YouTube video links, assign categories, write descriptions, and manage what parents see in the Educational Blogs section. All fields are ready — activation pending.</p>
+        <div class="cs-pill">FEATURE INACTIVE &mdash; PLACEHOLDER MODE</div>
+      </div>
+    </div>
+
+    <!-- STATS -->
+    <div class="stats-row">
+      <div class="stat-box">
+        <div class="stat-n">0</div>
+        <div class="stat-l">Videos Added</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-n">0</div>
+        <div class="stat-l">Categories</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-n">0</div>
+        <div class="stat-l">Parent Views</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-n">&mdash;</div>
+        <div class="stat-l">Last Added</div>
+      </div>
+    </div>
+
+    <div class="main-grid">
+
+      <!-- LEFT: ADD FORM -->
+      <div>
+        <div class="card">
+          <div class="card-ttl">&#10133; Add New Video</div>
+          <div class="cs-overlay">
+            <div class="form-field">
+              <label class="form-lbl">YouTube Video URL</label>
+              <input class="form-inp" placeholder="https://youtube.com/watch?v=..." disabled>
+            </div>
+            <div class="form-field">
+              <label class="form-lbl">Video Title</label>
+              <input class="form-inp" placeholder="e.g. Understanding Fractions — Class 6" disabled>
+            </div>
+            <div class="form-field">
+              <label class="form-lbl">Category</label>
+              <select class="form-sel" disabled>
+                <option>Math Concepts</option>
+                <option>Study Tips</option>
+                <option>Parent Guide</option>
+                <option>Expert Interview</option>
+                <option>Exam Strategy</option>
+                <option>Student Life</option>
+              </select>
+            </div>
+            <div class="form-field">
+              <label class="form-lbl">Short Description</label>
+              <textarea class="form-inp" placeholder="Brief description shown below the video card..." disabled></textarea>
+            </div>
+            <button class="btn-add" disabled>Add to Blog Library</button>
+          </div>
+          <div class="cs-note">&#9888; Form inactive &mdash; feature coming soon</div>
+        </div>
+
+        <div class="card">
+          <div class="card-ttl">&#127991; Categories</div>
+          <div class="cat-grid">
+            <div class="cat-chip"><div class="cat-chip-n">0</div><div class="cat-chip-l">Math</div></div>
+            <div class="cat-chip"><div class="cat-chip-n">0</div><div class="cat-chip-l">Study Tips</div></div>
+            <div class="cat-chip"><div class="cat-chip-n">0</div><div class="cat-chip-l">Parent</div></div>
+            <div class="cat-chip"><div class="cat-chip-n">0</div><div class="cat-chip-l">Interview</div></div>
+            <div class="cat-chip"><div class="cat-chip-n">0</div><div class="cat-chip-l">Exam</div></div>
+            <div class="cat-chip"><div class="cat-chip-n">0</div><div class="cat-chip-l">Student</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: VIDEO LIBRARY -->
+      <div>
+        <div class="card" style="min-height:460px;">
+          <div class="card-ttl">
+            &#127916; Video Library
+            <span style="font-size:13px;font-weight:700;color:var(--muted);margin-left:auto;text-transform:none;letter-spacing:0;">0 videos</span>
+          </div>
+
+          <div class="vid-empty">
+            <div class="vid-empty-icon">&#127909;</div>
+            <div class="vid-empty-txt">No videos yet</div>
+            <div class="vid-empty-sub">Videos added via the form will appear here</div>
+          </div>
+
+          <!-- Placeholder skeleton cards (what it will look like) -->
+          <div class="vid-list" style="margin-top:24px;border-top:1.5px solid var(--border);padding-top:20px;">
+            <div style="font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:var(--dim);margin-bottom:10px;">Preview &mdash; what video rows will look like</div>
+
+            <div class="vid-card" style="background:linear-gradient(135deg,#0c4a6e22,#075985110);">
+              <div class="vid-thumb" style="background:linear-gradient(135deg,#0c4a6e,#075985);">&#9654;</div>
+              <div class="vid-body">
+                <div class="ph" style="height:14px;width:80%;"></div>
+                <div class="ph" style="height:11px;width:55%;"></div>
+                <div style="display:flex;gap:6px;margin-top:4px;">
+                  <div class="ph" style="height:20px;width:70px;border-radius:10px;"></div>
+                  <div class="ph" style="height:20px;width:50px;border-radius:10px;"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="vid-card" style="background:linear-gradient(135deg,#06453022,#06463011);">
+              <div class="vid-thumb" style="background:linear-gradient(135deg,#064e3b,#065f46);">&#9654;</div>
+              <div class="vid-body">
+                <div class="ph" style="height:14px;width:75%;"></div>
+                <div class="ph" style="height:11px;width:50%;"></div>
+                <div style="display:flex;gap:6px;margin-top:4px;">
+                  <div class="ph" style="height:20px;width:70px;border-radius:10px;"></div>
+                  <div class="ph" style="height:20px;width:60px;border-radius:10px;"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="vid-card">
+              <div class="vid-thumb" style="background:linear-gradient(135deg,#4a044e,#6b21a8);">&#9654;</div>
+              <div class="vid-body">
+                <div class="ph" style="height:14px;width:85%;"></div>
+                <div class="ph" style="height:11px;width:60%;"></div>
+                <div style="display:flex;gap:6px;margin-top:4px;">
+                  <div class="ph" style="height:20px;width:65px;border-radius:10px;"></div>
+                  <div class="ph" style="height:20px;width:55px;border-radius:10px;"></div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+var ADMIN_PW = 'rishi2025';
+
+function doLogin(){
+  var v = document.getElementById('pw-inp').value;
+  var err = document.getElementById('l-err');
+  if(v === ADMIN_PW){
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('main').classList.add('show');
+    sessionStorage.setItem('rishi_admin_blogs_auth','1');
+    err.classList.remove('show');
+  } else {
+    err.classList.add('show');
+    document.getElementById('pw-inp').value = '';
+  }
+}
+
+function doLogout(){
+  sessionStorage.removeItem('rishi_admin_blogs_auth');
+  location.reload();
+}
+
+(function(){
+  if(sessionStorage.getItem('rishi_admin_blogs_auth') === '1'){
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('main').classList.add('show');
+  }
+})();
+</script>
+</body>
+</html>

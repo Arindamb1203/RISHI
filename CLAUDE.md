@@ -50,6 +50,8 @@
 | `functions/api/report-error.js` | Saves user error reports to D1 `rishi_error_reports` table |
 | `functions/api/admin-reports.js` | Returns all error reports including ai_verdict + ai_status |
 | `functions/api/admin-mark-fixed.js` | Sets report status = 'fixed' |
+| `public/parent-blogs.html` | Standalone blogs page for parents — placeholder "Coming Soon" layout with video card skeletons; auth guard checks `rishi_parent_student_id` |
+| `public/admin-blogs.html` | Standalone admin blogs management page — placeholder mode; has own password login (same rishi2025); form + video library skeleton |
 
 ## Content Structure
 ### CBSE (no board prefix in paths)
