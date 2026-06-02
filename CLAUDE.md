@@ -39,11 +39,17 @@
 | `public/exam.html` | Chapter exams — no voice, no avatar (removed 24 May 2026) |
 | `public/topic-exam.html` | Reads board from URL params only |
 | `public/sampurna-pariksha.html` | Reads board from URL params only |
+| `public/landing.html` | 6-slide pre-launch page (r0–r5); slides 0-5 navigated by Continue; "Skip to Register" = go(5) |
 | `functions/tts.js` | TTS at repo ROOT, not in public\ |
 | `public/rishi-core.js` | Shared logic, IIFE detects `?bypass=1`; captures JS errors to `rishi_error_log`; logs breaks with studentId |
 | `public/rishi-sync.js` | Syncs rishi_* keys to D1 |
 | `public/rishi-presence.js` | Session resume for explain + practice |
-| `functions/api/fix-error.js` | AI error diagnosis endpoint — calls gpt-4.1-mini with error context |
+| `public/error-reporter.js` | Floating Rishika "Report Issue" widget — injected on all pages except /admin and /landing |
+| `functions/api/fix-error.js` | AI error diagnosis — plain English output for non-technical admin |
+| `functions/api/verify-question.js` | AI question verifier — checks if reported question is correct; returns replacement Q if wrong; stores verdict in D1 |
+| `functions/api/report-error.js` | Saves user error reports to D1 `rishi_error_reports` table |
+| `functions/api/admin-reports.js` | Returns all error reports including ai_verdict + ai_status |
+| `functions/api/admin-mark-fixed.js` | Sets report status = 'fixed' |
 
 ## Content Structure
 ### CBSE (no board prefix in paths)
@@ -128,6 +134,9 @@ Notable corrections (29 May 2026):
 - **Users tab row buttons:** Explain/Practice/Chapter Exam "Open" buttons resolve to **first built page** for that student's class (via `ALL_CLASS_CH[classKey]`), NOT syllabus
 - **Users sync:** Auto-loads from D1 on login; "☁ Load from D1" button on Dashboard + Users tab
 - **Logs tab:** Fetches break + error logs from D1 (`get_logs` action); student filter dropdown
+- **Reports tab (Logs):** Shows user-submitted error reports; clicking a row expands detail with `ai_verdict` (AI plain-language check result) in green/red box; `typeColors` includes `Wrong Question/Answer` and `Registration Issue`
+- **Error log detail:** "Details" button now auto-calls `/api/fix-error` and shows plain English explanation (not raw stack trace); "Explain Again" button re-triggers the call
+- **AI verdict status values:** `confirmed_correct` (green), `confirmed_wrong` (red), null (not yet checked)
 
 ### d1-sync.js Actions
 | Action | Purpose |
@@ -186,6 +195,39 @@ Notable corrections (29 May 2026):
 - Both keys sync to D1 via rishi-sync.js
 - Admin Logs tab fetches all students' data from D1 via `get_logs` action
 
+## Error Reporter Widget — error-reporter.js (02 Jun 2026)
+Injected on all pages **except** `/admin` and `/landing`. Behaviour varies by page type:
+
+| Page type | Form fields | Category buttons |
+|-----------|-------------|-----------------|
+| `/register` (+ payment) | Editable name + phone inputs (10-digit limit on phone) | None — just description box |
+| `/parent` | Auto-fill from `rishi_current_student` JSON (read-only) | None — just description box |
+| Student pages (explain, practice, exam, syllabus) | Auto-fill from `rishi_current_student` JSON (read-only) | Not in Syllabus / Wrong Answer / Wrong Question/Answer / Others |
+
+**Student data source:** `localStorage.getItem('rishi_current_student')` → JSON with `studentName`, `class`, `board`. NOT flat keys.
+
+**Exam page AI verify flow:** When student submits "Wrong Question/Answer" or "Not in Syllabus" on exam.html:
+1. Calls `/api/verify-question` with current question data from `window.allQ[currentIdx]` + `window.CH_INFO`
+2. If AI says **correct** → shows green bubble "This question is correct — [reason]"; no skip
+3. If AI says **wrong** → shows message, auto-skips to next question (`window.nextQuestion()`), pushes replacement question to `window.allQ`; verdict saved in D1
+
+**Practice page flow:** unchanged — fires `rishi-report-submitted` event → queue reorder (flagged question moves to end)
+
+**D1 table:** `rishi_error_reports` — columns: id, name, class, board, phone, page_url, page_name, report_type, description, screenshot, status, submitted_at, `ai_verdict` TEXT, `ai_status` TEXT
+
+## verify-question.js — /api/verify-question (02 Jun 2026)
+- POST: `{ reportId, questionText, optionA-D, correctOption, chapter, cls, board, reportType }`
+- Calls gpt-4.1-mini to verify question correctness; if wrong → also generates replacement MCQ
+- Updates D1 report with `ai_verdict` (plain language) + `ai_status` (`confirmed_correct` | `confirmed_wrong`)
+- Returns: `{ isCorrect, plainReason, replacementQ }` — replacementQ has `{ text, a, b, c, d, correct }`
+
+## Landing Page — landing.html (02 Jun 2026)
+- **6 slides** (r0–r5): r0=headphones, r1=Rishika intro, r2=RISHI name, r3=features carousel, r4=affordability, r5=founder letter/register
+- Navigation: `goNext()` allows `cur<5`; `getHashPage()` accepts 0–5; counter shows `01/06`–`06/06`; 6 dots
+- `render()`: cur 0→r0, 1→r1, 2→r2, 3→r3, 4→r4, 5→r5
+- "Skip to Register" button = `go(5)` → jumps to slide 5 (r5 with register button)
+- `error-reporter.js` is NOT included on landing.html
+
 ## Rishika Chat Box (exam.html only, Phase 1 — 01 Jun 2026)
 - **Endpoint:** `functions/api/chat.js` → `/api/chat` (POST)
 - **Frontend:** `public/rishi-chat.js` — injected into left panel below score box
@@ -194,6 +236,11 @@ Notable corrections (29 May 2026):
 - **Context passed:** chapter name, topic, class, board, current question text + options (from `window.CH_INFO` + `window.allQ[currentIdx]`)
 - **System prompt:** explains concepts, refuses direct answer reveals, max 3 sentences
 - **UI:** dark theme (gold accents), collapsible toggle, 180px scrollable messages area
+
+## Chess Puzzles — public/games/chess/index.html (02 Jun 2026)
+- 10 puzzles, all "White to move, checkmate in 1"
+- Puzzle 3 FEN was broken (Rh1 gave check to Kh8 at start — chess.js blocked all moves). Fixed to `7k/6R1/6K1/8/8/8/8/8` — White King g6 covers h7, Rg8 is checkmate
+- All other 9 puzzles verified correct
 
 ## Critical Rules
 1. NEVER assume file path/content — always Read the actual current file first
@@ -215,3 +262,7 @@ Notable corrections (29 May 2026):
 17. `syllabus.html` classKey must include ic6: `(STUDENT_BOARD==='icse'&&STUDENT_CLASS===6)?'ic6':...`
 18. Never commit API keys — API key goes in Cloudflare env vars, not in any file
 19. Parent portal plans use explicit D1 push (not rishi-sync.js) — rishi-sync.js uses wrong student ID on parent device
+20. `error-reporter.js` reads student identity from `rishi_current_student` JSON — NEVER flat keys like `rishi_student_name`
+21. `error-reporter.js` excluded from `/landing` entirely — never add it back there
+22. `fix-error.js` prompt is plain English for non-technical admin — do not revert to tech/developer language
+23. `verify-question.js` defaults to `isCorrect: true` on AI failure — prevents wrongly skipping valid questions
