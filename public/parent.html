@@ -625,12 +625,23 @@ button{font-family:'Outfit',sans-serif;}
   .tab-bar::-webkit-scrollbar{display:none;}
   .tab-btn{font-size:13px;padding:12px 10px;white-space:nowrap;}
   .wrap{padding:12px 10px 60px;}
+  .card{padding:16px 12px;}
+  .login-box{padding:28px 20px;}
+  .ch-stats-row{grid-template-columns:1fr 1fr;}
+  .ex-mini-grid{grid-template-columns:1fr 1fr;}
+  .break-stat-row{grid-template-columns:1fr 1fr;}
+  #live-stats{grid-template-columns:1fr 1fr!important;}
+  #prof-grid2{grid-template-columns:1fr!important;}
+  .instr-cols{gap:14px;}
+  .cal-months{grid-template-columns:1fr;}
+  .exam-grid{grid-template-columns:repeat(2,1fr);}
 }
 @media(max-width:380px){
   .hdr-title{display:none;}
-  .hdr-badge{max-width:110px;}
-}
   .hdr-badge{max-width:100px;}
+  .ch-stats-row{grid-template-columns:1fr;}
+  .break-stat-row{grid-template-columns:1fr;}
+  #live-stats{grid-template-columns:1fr!important;}
 }
 </style>
 <script src="/rishi-sync.js">
@@ -1407,7 +1418,7 @@ function showProfilePanel() {
         +'<label style="'+lbl+'">Mobile Number</label>'
         +'<input id="prof-mobile" type="tel" value="'+(reg.primaryMobile||'')+'" style="'+inp+'" onfocus="this.style.borderColor=\'#0f2240\'" onblur="this.style.borderColor=\'#e2e8f0\'">'
       +'</div>'
-      +'<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;">'
+      +'<div id="prof-grid2" style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;">'
         +'<div>'
           +'<label style="'+lbl+'">Class</label>'
           +'<select id="prof-class" style="'+inp+'cursor:pointer;">'
