@@ -209,7 +209,7 @@
       (isEditableFields
         /* Register/payment: editable inputs */
         ? '<div class="rishi-field"><label>Your Name</label><input class="rishi-ro rishi-input" id="rishi-f-name" type="text" placeholder="Enter your name" autocomplete="name"></div>' +
-          '<div class="rishi-field"><label>Mobile Number</label><input class="rishi-ro rishi-input" id="rishi-f-phone" type="tel" placeholder="Enter your mobile number" autocomplete="tel"></div>'
+          '<div class="rishi-field"><label>Mobile Number (10 digits)</label><input class="rishi-ro rishi-input" id="rishi-f-phone" type="tel" placeholder="10-digit mobile number" maxlength="10" inputmode="numeric" oninput="this.value=this.value.replace(/\\D/g,\'\').slice(0,10)" autocomplete="tel"></div>'
         /* Student/parent: auto-filled read-only */
         : '<div class="rishi-field"><label>Name</label><div class="rishi-ro" id="rishi-f-name">—</div></div>' +
           '<div class="rishi-field"><label>Class &amp; Board</label><div class="rishi-ro" id="rishi-f-class">—</div></div>' +
@@ -308,13 +308,15 @@
       /* Register/payment: just set page URL; name/phone are user-typed inputs */
       document.getElementById('rishi-f-page').textContent = window.location.href;
     } else {
-      /* Student/parent: auto-fill from localStorage */
-      var name  = localStorage.getItem('rishi_student_name') || '—';
-      var cls   = localStorage.getItem('rishi_class') || '—';
-      var board = localStorage.getItem('rishi_board') || '';
-      var phone = localStorage.getItem('rishi_phone') || localStorage.getItem('rishi_registered_phone') || '—';
+      /* Student/parent: auto-fill from rishi_current_student JSON */
+      var cs = {};
+      try { cs = JSON.parse(localStorage.getItem('rishi_current_student') || '{}'); } catch(e) {}
+      var name  = cs.studentName || '—';
+      var cls   = cs.class       || '—';
+      var board = cs.board       || '';
+      var phone = cs.phone || localStorage.getItem('rishi_phone') || localStorage.getItem('rishi_registered_phone') || '—';
       document.getElementById('rishi-f-name').textContent  = name;
-      document.getElementById('rishi-f-class').textContent = 'Class ' + (cls || '—') + ' \xB7 ' + (board ? board.toUpperCase() : '—');
+      document.getElementById('rishi-f-class').textContent = 'Class ' + cls + ' \xB7 ' + (board ? board.toUpperCase() : '—');
       document.getElementById('rishi-f-phone').textContent = phone;
       document.getElementById('rishi-f-page').textContent  = window.location.href;
     }
@@ -476,15 +478,17 @@
     btn.disabled = true;
     btn.textContent = 'Sending...';
 
+    var _cs = {};
+    try { _cs = JSON.parse(localStorage.getItem('rishi_current_student') || '{}'); } catch(e) {}
     var payload = {
       name:        isEditableFields
                      ? (document.getElementById('rishi-f-name').value || '').trim()
-                     : (localStorage.getItem('rishi_student_name') || ''),
-      class:       localStorage.getItem('rishi_class') || '',
-      board:       localStorage.getItem('rishi_board') || '',
+                     : (_cs.studentName || ''),
+      class:       _cs.class  || '',
+      board:       _cs.board  || '',
       phone:       isEditableFields
                      ? (document.getElementById('rishi-f-phone').value || '').trim()
-                     : (localStorage.getItem('rishi_phone') || localStorage.getItem('rishi_registered_phone') || ''),
+                     : (_cs.phone || localStorage.getItem('rishi_phone') || localStorage.getItem('rishi_registered_phone') || ''),
       pageURL:     window.location.href,
       pageName:    document.title,
       reportType:  selectedCategory,
