@@ -3,6 +3,13 @@
 
   if (window.location.pathname.startsWith('/admin')) return;
 
+  /* Skip entirely on landing pages */
+  if (window.location.pathname === '/landing' ||
+      window.location.pathname.startsWith('/landing')) return;
+
+  var isRegisterPage = window.location.pathname.indexOf('/register') !== -1;
+  var isExamPage     = window.location.pathname.indexOf('/exam') !== -1;
+
   function loadHtml2Canvas(cb) {
     if (window.html2canvas) { cb(); return; }
     var s = document.createElement('script');
@@ -109,6 +116,13 @@
   @keyframes bubbleIn { from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:none;} }
   .rishi-chat-time { font-size:10px;color:#a08060;margin-top:4px; }
 
+  /* Verified-correct bubble */
+  .rishi-correct-bubble {
+    background:#d4edda;border:1.5px solid #82c898;border-radius:10px;
+    padding:10px 12px;margin-top:10px;font-size:12px;font-weight:800;color:#1a6b2a;
+    line-height:1.5;animation:bubbleIn .3s ease;
+  }
+
   /* Move to next button */
   #rishi-next-q-btn {
     width:100%;padding:10px;background:linear-gradient(135deg,#059669,#10b981);
@@ -164,6 +178,15 @@
     '<div id="rishi-float-label">Report Issue</div>';
   document.body.appendChild(floatBtn);
 
+  /* Category grid: hidden on register page, shown everywhere else */
+  var catGridHtml = isRegisterPage ? '' :
+    '<div class="rishi-cat-grid">' +
+      '<button class="rishi-cat-btn" data-cat="Not in Syllabus" onclick="rishiSelectCat(this)">&#128218; Not in<br>Syllabus</button>' +
+      '<button class="rishi-cat-btn" data-cat="Wrong Answer" onclick="rishiSelectCat(this)">&#10060; Wrong<br>Answer</button>' +
+      '<button class="rishi-cat-btn" data-cat="Wrong Question/Answer" onclick="rishiSelectCat(this)">&#10067; Wrong<br>Question/Answer</button>' +
+      '<button class="rishi-cat-btn" data-cat="Others" onclick="rishiSelectCat(this)">&#128172; Others</button>' +
+    '</div>';
+
   /* Overlay */
   var overlay = document.createElement('div');
   overlay.id = 'rishi-report-overlay';
@@ -177,26 +200,29 @@
       '<div class="rishi-field"><label>Class &amp; Board</label><div class="rishi-ro" id="rishi-f-class">&#8212;</div></div>' +
       '<div class="rishi-field"><label>Phone</label><div class="rishi-ro" id="rishi-f-phone">&#8212;</div></div>' +
       '<div class="rishi-field"><label>Page</label><div class="rishi-ro" id="rishi-f-page" style="font-size:10px;word-break:break-all;">&#8212;</div></div>' +
-      '<div class="rishi-field"><label>What is the issue?</label>' +
-        '<div class="rishi-cat-grid">' +
-          '<button class="rishi-cat-btn" data-cat="Not in Syllabus" onclick="rishiSelectCat(this)">&#128218; Not in<br>Syllabus</button>' +
-          '<button class="rishi-cat-btn" data-cat="Wrong Answer" onclick="rishiSelectCat(this)">&#10060; Wrong<br>Answer</button>' +
-          '<button class="rishi-cat-btn" data-cat="Wrong Question" onclick="rishiSelectCat(this)">&#10067; Wrong<br>Question</button>' +
-          '<button class="rishi-cat-btn" data-cat="Others" onclick="rishiSelectCat(this)">&#128172; Others</button>' +
-        '</div>' +
-      '</div>' +
-      '<div id="rishi-desc-section">' +
-        '<div class="rishi-thumb-row">' +
-          '<img id="rishi-ss-thumb" src="" alt="screenshot">' +
-          '<span id="rishi-ss-status">&#128247; Capturing screenshot...</span>' +
-        '</div>' +
-        '<div class="rishi-field">' +
-          '<label id="rishi-desc-label">More details (optional)</label>' +
-          '<textarea id="rishi-desc" placeholder="Any additional details? (optional)"></textarea>' +
-          '<div id="rishi-desc-err">Please describe the issue before submitting.</div>' +
-        '</div>' +
-        '<button id="rishi-submit-btn" onclick="rishiSubmitReport()">&#9654; SEND REPORT</button>' +
-      '</div>' +
+      (isRegisterPage
+        ? '<div class="rishi-field"><label>Describe the issue</label></div>' +
+          '<div id="rishi-desc-section" class="visible">' +
+            '<div class="rishi-field">' +
+              '<textarea id="rishi-desc" placeholder="Please describe the issue you are facing."></textarea>' +
+              '<div id="rishi-desc-err">Please describe the issue before submitting.</div>' +
+            '</div>' +
+            '<button id="rishi-submit-btn" onclick="rishiSubmitReport()">&#9654; SEND REPORT</button>' +
+          '</div>'
+        : '<div class="rishi-field"><label>What is the issue?</label>' + catGridHtml + '</div>' +
+          '<div id="rishi-desc-section">' +
+            '<div class="rishi-thumb-row">' +
+              '<img id="rishi-ss-thumb" src="" alt="screenshot">' +
+              '<span id="rishi-ss-status">&#128247; Capturing screenshot...</span>' +
+            '</div>' +
+            '<div class="rishi-field">' +
+              '<label id="rishi-desc-label">More details (optional)</label>' +
+              '<textarea id="rishi-desc" placeholder="Any additional details? (optional)"></textarea>' +
+              '<div id="rishi-desc-err">Please describe the issue before submitting.</div>' +
+            '</div>' +
+            '<button id="rishi-submit-btn" onclick="rishiSubmitReport()">&#9654; SEND REPORT</button>' +
+          '</div>'
+      ) +
       '<div id="rishi-chat-area"></div>' +
       '<button id="rishi-next-q-btn" onclick="rishiMoveToNextQ()">&#9654; Move to Next Question</button>' +
       '<div class="rishi-msg" id="rishi-msg"></div>' +
@@ -205,7 +231,7 @@
 
   /* State */
   var screenshotB64 = '';
-  var selectedCategory = '';
+  var selectedCategory = isRegisterPage ? 'Registration Issue' : '';
   var pollTimer = null;
   var fiveMinTimer = null;
   var _submitted = false;
@@ -272,10 +298,12 @@
     document.getElementById('rishi-f-page').textContent  = window.location.href;
 
     /* Reset */
-    selectedCategory = '';
+    if (!isRegisterPage) { selectedCategory = ''; }
     _submitted = false;
     overlay.querySelectorAll('.rishi-cat-btn').forEach(function(b) { b.classList.remove('selected'); });
-    document.getElementById('rishi-desc-section').classList.remove('visible');
+    if (!isRegisterPage) {
+      document.getElementById('rishi-desc-section').classList.remove('visible');
+    }
     document.getElementById('rishi-desc').value = '';
     document.getElementById('rishi-desc-err').style.display = 'none';
     document.getElementById('rishi-msg').className = 'rishi-msg';
@@ -286,40 +314,42 @@
     document.getElementById('rishi-chat-area').innerHTML = '';
     document.getElementById('rishi-next-q-btn').className = 'next-btn';
     screenshotB64 = '';
-    document.getElementById('rishi-ss-thumb').style.display = 'none';
-    document.getElementById('rishi-ss-status').textContent = '&#128247; Capturing screenshot...';
+    var thumbEl = document.getElementById('rishi-ss-thumb');
+    var ssStatusEl = document.getElementById('rishi-ss-status');
+    if (thumbEl) thumbEl.style.display = 'none';
+    if (ssStatusEl) ssStatusEl.textContent = '&#128247; Capturing screenshot...';
 
     overlay.classList.add('open');
 
-    loadHtml2Canvas(function(err) {
-      if (err || !window.html2canvas) {
-        document.getElementById('rishi-ss-status').textContent = 'Screenshot unavailable';
-        return;
-      }
-      overlay.style.visibility = 'hidden';
-      floatBtn.style.visibility = 'hidden';
-      html2canvas(document.body, { useCORS: true, scale: 0.5, logging: false }).then(function(canvas) {
-        overlay.style.visibility = '';
-        floatBtn.style.visibility = '';
-        screenshotB64 = canvas.toDataURL('image/png');
-        var thumb = document.getElementById('rishi-ss-thumb');
-        thumb.src = screenshotB64;
-        thumb.style.display = 'block';
-        document.getElementById('rishi-ss-status').textContent = '&#10003; Screenshot captured';
-      }).catch(function() {
-        overlay.style.visibility = '';
-        floatBtn.style.visibility = '';
-        document.getElementById('rishi-ss-status').textContent = 'Screenshot unavailable';
+    if (!isRegisterPage) {
+      loadHtml2Canvas(function(err) {
+        if (err || !window.html2canvas) {
+          if (ssStatusEl) ssStatusEl.textContent = 'Screenshot unavailable';
+          return;
+        }
+        overlay.style.visibility = 'hidden';
+        floatBtn.style.visibility = 'hidden';
+        html2canvas(document.body, { useCORS: true, scale: 0.5, logging: false }).then(function(canvas) {
+          overlay.style.visibility = '';
+          floatBtn.style.visibility = '';
+          screenshotB64 = canvas.toDataURL('image/png');
+          if (thumbEl) { thumbEl.src = screenshotB64; thumbEl.style.display = 'block'; }
+          if (ssStatusEl) ssStatusEl.textContent = '&#10003; Screenshot captured';
+        }).catch(function() {
+          overlay.style.visibility = '';
+          floatBtn.style.visibility = '';
+          if (ssStatusEl) ssStatusEl.textContent = 'Screenshot unavailable';
+        });
       });
-    });
+    }
   }
 
-  function addChatBubble(text, extraHtml) {
+  function addChatBubble(text, extraHtml, isCorrect) {
     var area = document.getElementById('rishi-chat-area');
     var now = new Date();
     var t = now.getHours() + ':' + String(now.getMinutes()).padStart(2, '0');
     var d = document.createElement('div');
-    d.className = 'rishi-chat-bubble';
+    d.className = isCorrect ? 'rishi-correct-bubble' : 'rishi-chat-bubble';
     d.innerHTML = text + (extraHtml || '') + '<div class="rishi-chat-time">' + t + '</div>';
     area.appendChild(d);
     d.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
@@ -329,6 +359,83 @@
   window.rishiMoveToNextQ = function() {
     closeOverlay();
   };
+
+  /* ── EXAM AI VERIFICATION ────────────────────────────── */
+  function runExamVerification(reportId) {
+    var q = (window.allQ && window.currentIdx !== undefined) ? window.allQ[window.currentIdx] : null;
+    var chInfo = window.CH_INFO || null;
+
+    if (!q || !chInfo) {
+      /* No question context — fall through to normal polling */
+      addChatBubble('&#128640; We\'ve received your report. Our team is on it.');
+      startPolling(reportId);
+      return;
+    }
+
+    document.getElementById('rishi-chat-area').innerHTML =
+      '<div style="font-size:12px;font-weight:700;color:#a08060;padding:8px 0;">&#128269; Checking this question...</div>';
+
+    var payload = {
+      reportId:     reportId,
+      questionText: q.text || '',
+      optionA:      q.a || '',
+      optionB:      q.b || '',
+      optionC:      q.c || '',
+      optionD:      q.d || '',
+      correctOption: q.correct || '',
+      chapter:      chInfo.name || '',
+      cls:          String(chInfo.cls || ''),
+      board:        chInfo.board || 'cbse',
+      reportType:   selectedCategory
+    };
+
+    fetch('/api/verify-question', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    })
+    .then(function(r) { return r.json(); })
+    .then(function(vd) {
+      document.getElementById('rishi-chat-area').innerHTML = '';
+
+      if (vd.isCorrect) {
+        /* Question is fine — student was mistaken */
+        addChatBubble(
+          '&#10003; We checked — this question and answer are correct.<br>' + (vd.plainReason || ''),
+          '', true
+        );
+        /* Show a close button, no skip */
+        var closeNote = document.createElement('div');
+        closeNote.style.cssText = 'font-size:11px;color:#a08060;text-align:center;margin-top:8px;';
+        closeNote.textContent = 'You can close this panel and continue the exam.';
+        document.getElementById('rishi-chat-area').appendChild(closeNote);
+      } else {
+        /* Question has an issue — skip + replacement */
+        addChatBubble(
+          '&#128680; We found an issue with this question. ' + (vd.plainReason || '') +
+          '<br>Moving you to the next question now.'
+        );
+
+        /* Add replacement question at end */
+        if (vd.replacementQ && Array.isArray(window.allQ)) {
+          window.allQ.push(Object.assign({}, vd.replacementQ, { section: 'A', marks: 1 }));
+        }
+
+        /* Skip after 1.5 s so student can read the message */
+        setTimeout(function() {
+          closeOverlay();
+          if (typeof window.nextQuestion === 'function') {
+            window.nextQuestion();
+          }
+        }, 1500);
+      }
+    })
+    .catch(function() {
+      document.getElementById('rishi-chat-area').innerHTML = '';
+      addChatBubble('&#128640; We\'ve received your report. Our team will look into it shortly.');
+      startPolling(reportId);
+    });
+  }
 
   /* Submit */
   window.rishiSubmitReport = function() {
@@ -372,13 +479,20 @@
         btn.textContent = '&#10003; Sent';
         btn.style.display = 'none';
 
-        /* Hide form fields, keep only chat area visible */
+        /* Hide form fields */
         document.getElementById('rishi-desc-section').classList.remove('visible');
 
-        /* Task 1: queue reorder for tagged categories */
         var isTagged = (selectedCategory === 'Not in Syllabus' ||
                         selectedCategory === 'Wrong Answer' ||
-                        selectedCategory === 'Wrong Question');
+                        selectedCategory === 'Wrong Question/Answer');
+
+        /* Exam page: run AI verification instead of normal flow */
+        if (isExamPage && isTagged) {
+          runExamVerification(data.reportId);
+          return;
+        }
+
+        /* Practice / other pages: queue reorder event */
         if (isTagged) {
           window.dispatchEvent(new CustomEvent('rishi-report-submitted', {
             detail: { type: selectedCategory }
@@ -386,7 +500,7 @@
           document.getElementById('rishi-next-q-btn').className = 'next-btn show';
         }
 
-        /* Task 2: first chat bubble */
+        /* First chat bubble */
         addChatBubble('&#128640; We\'ve received your report. Our team is working on it. Please refresh after 5 minutes.');
 
         /* Start polling */
@@ -394,7 +508,6 @@
 
         /* 5-minute second bubble */
         fiveMinTimer = setTimeout(function() {
-          /* Check if still pending — if fixed, polling would have cleared already */
           if (_submitted && pollTimer) {
             addChatBubble(
               '&#128336; We\'re still working on it. It may take a little more time. Please bear with us. Meanwhile, you can take a break.',
@@ -416,7 +529,7 @@
     });
   };
 
-  /* System Issue break — fires the existing break system with label "System Issue" */
+  /* System Issue break */
   window.rishiSysBreak = function() {
     closeOverlay();
     if (typeof window.startBreak === 'function') {
@@ -454,10 +567,9 @@
   var storedId = sessionStorage.getItem('rishi_report_id');
   if (storedId) startPolling(storedId);
 
-  /* ── QUEUE REORDER ─────────────────────────────────────────
-     Placed here (not rishi-core.js) because error-reporter.js
-     is included on ALL practice pages across every class/board.
-     rishi-core.js is absent on Class 6/8/ICSE practice pages.
+  /* ── QUEUE REORDER (practice pages only) ──────────────────
+     Placed here so it covers all practice pages across every
+     class/board (rishi-core.js is absent on some pages).
   ──────────────────────────────────────────────────────────── */
   window.addEventListener('rishi-report-submitted', function() {
     if (window.location.pathname.indexOf('/practice/') === -1) return;

@@ -36,34 +36,20 @@ export async function onRequest(context) {
     return new Response(JSON.stringify({ error: "OPENAI_API_KEY not configured" }), { status: 500, headers });
   }
 
-  const prompt = `You are a debugging assistant for RISHI, an educational app for Indian school students (Classes 6-9, CBSE and ICSE boards).
+  const prompt = `You are helping the owner of RISHI, an educational app. The owner is not a programmer. A technical error was recorded in the app.
 
-An error was reported in the app:
+Student affected: ${studentId || "unknown"}
+Page where it happened: ${page || "unknown"}
+Error code: ${message}
+${stack ? "Technical detail:\n" + stack.slice(0, 600) : ""}
 
-Student: ${studentId || "unknown"}
-Page: ${page || "unknown"}
-Source: ${source || "unknown"}
-Error: ${message}
-${stack ? "Stack trace:\n" + stack : ""}
+Write a plain English explanation that a non-technical parent or business owner can understand. No programming words. Keep it to 3 short points:
 
-The app is built with:
-- Pure HTML / CSS / Vanilla JS (no frameworks)
-- Cloudflare Pages hosting
-- Cloudflare D1 database
-- Cloudflare KV for question banks
-- OpenAI gpt-4.1-mini for AI features
+What happened: (one sentence — what the student experienced)
+Why it happened: (one sentence — simple cause, no code terms)
+What to do: (one sentence — what the app owner should check or fix)
 
-Please:
-1. Diagnose what likely caused this error (be specific, reference the page/source if possible)
-2. Give a clear fix in 2-4 bullet points
-3. Rate severity: LOW / MEDIUM / HIGH
-
-Keep your response under 200 words. Format:
-**Diagnosis:** ...
-**Fix:**
-• ...
-• ...
-**Severity:** ...`;
+Severity: Low / Medium / High (one word only at the end)`;
 
   try {
     const res = await fetch("https://api.openai.com/v1/chat/completions", {

@@ -2256,19 +2256,17 @@ function renderErrorLog() {
         + 'style="font-size:11px;font-weight:800;padding:4px 9px;border-radius:6px;border:1.5px solid var(--green);background:rgba(5,150,105,.07);color:var(--green);cursor:pointer;font-family:inherit;">'
         + '&#10003; Mark Fixed</button>';
     }
-    /* Detail row — shows full error info for copy-pasting to Claude */
-    var detailText = 'Student: ' + (e.studentId||'—')
-      + '\nDate: ' + (e.date||'—') + ' ' + (e.time||'—')
-      + '\nPage: ' + (e.page||'—')
-      + '\nError: ' + (e.message||'—')
-      + '\nSource: ' + (e.source||'—')
-      + (e.stack ? '\nStack:\n' + e.stack : '');
+    /* Detail row — plain language AI explanation */
     html += '</td></tr>'
       + '<tr id="' + errId + '-result" style="display:none;">'
       + '<td colspan="5" style="padding:0 10px 14px;">'
-      + '<div style="background:var(--s2);border:2px solid var(--border);border-radius:8px;padding:12px 16px;font-size:12px;font-family:Share Tech Mono,monospace;line-height:1.7;white-space:pre-wrap;color:var(--text);">'
-      + esc(detailText)
-      + '</div></td></tr>';
+      + '<div id="' + errId + '-explain" style="background:#fff8e8;border:2px solid #e0c97f;border-radius:8px;padding:12px 16px;font-size:13px;font-family:Nunito,sans-serif;font-weight:700;line-height:1.8;color:#3a2e1a;">'
+      + '<span style="color:#a08060;">&#128269; Loading plain-English explanation...</span>'
+      + '</div>'
+      + '<div style="margin-top:8px;">'
+      + '<button onclick="loadErrExplain(' + idx + ')" style="font-size:11px;font-weight:800;padding:4px 10px;border-radius:6px;border:1.5px solid #e0c97f;background:#fffdf8;color:#7a5a00;cursor:pointer;font-family:inherit;">&#129302; Explain Again</button>'
+      + '</div>'
+      + '</td></tr>';
   });
   if (!shown) {
     html += '<tr><td colspan="5" style="text-align:center;padding:20px;color:var(--green);font-weight:800;">&#10003; All errors fixed!</td></tr>';
@@ -2279,7 +2277,34 @@ function renderErrorLog() {
 
 function toggleErrDetail(idx) {
   var row = document.getElementById('err-' + idx + '-result');
-  if (row) row.style.display = row.style.display === 'none' ? 'table-row' : 'none';
+  if (!row) return;
+  var nowVisible = row.style.display !== 'none';
+  row.style.display = nowVisible ? 'none' : 'table-row';
+  if (!nowVisible) loadErrExplain(idx);
+}
+
+function loadErrExplain(idx) {
+  var e = _errorLogsAll[idx];
+  if (!e) return;
+  var box = document.getElementById('err-' + idx + '-explain');
+  if (!box) return;
+  box.innerHTML = '<span style="color:#a08060;">&#128269; Asking AI to explain in plain language...</span>';
+  fetch('/api/fix-error', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer rishi2025' },
+    body: JSON.stringify({ message: e.message||'', source: e.source||'', page: e.page||'', stack: e.stack||'', studentId: e.studentId||'' })
+  })
+  .then(function(r) { return r.json(); })
+  .then(function(data) {
+    if (data.suggestion) {
+      box.innerHTML = data.suggestion.replace(/\n/g, '<br>');
+    } else {
+      box.innerHTML = '<span style="color:var(--red);">Could not get explanation.</span>';
+    }
+  })
+  .catch(function() {
+    box.innerHTML = '<span style="color:var(--red);">Could not reach AI. Check your connection.</span>';
+  });
 }
 
 function copyError(idx) {
@@ -3198,7 +3223,7 @@ function loadReports() {
         + '<th>Status</th><th>Category</th><th>Student</th><th>Page</th><th>Description</th><th>Date</th><th>Actions</th>'
         + '</tr></thead><tbody>';
 
-      var typeColors = {'Not in Syllabus':'#dc2626','Wrong Answer':'#ea580c','Wrong Question':'#d97706','Others':'#6b7280'};
+      var typeColors = {'Not in Syllabus':'#dc2626','Wrong Answer':'#ea580c','Wrong Question/Answer':'#d97706','Wrong Question':'#d97706','Others':'#6b7280','Registration Issue':'#2563eb'};
 
       reports.forEach(function(rpt, i) {
         var isFixed = rpt.status === 'fixed';
@@ -3240,14 +3265,26 @@ function loadReports() {
           + '<td style="font-size:12px;color:var(--muted);white-space:nowrap;">' + dt + '</td>'
           + '<td style="white-space:nowrap;" onclick="event.stopPropagation()">' + fixBtn + cpBtn + '</td>'
           + '</tr>'
+          /* AI verdict badge */
+          var aiVerdictHtml = '';
+          if (rpt.ai_verdict) {
+            var aiColor = rpt.ai_status === 'confirmed_correct' ? '#16a34a' : rpt.ai_status === 'confirmed_wrong' ? '#dc2626' : '#a08060';
+            var aiBg    = rpt.ai_status === 'confirmed_correct' ? '#d4edda' : rpt.ai_status === 'confirmed_wrong' ? '#fde8e8' : '#fff8e8';
+            aiVerdictHtml = '<div style="margin-top:10px;background:' + aiBg + ';border:1.5px solid ' + aiColor + ';border-radius:8px;padding:8px 12px;">'
+              + '<div style="font-size:11px;font-weight:900;color:' + aiColor + ';text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px;">&#129302; AI Check Result</div>'
+              + '<div style="font-size:13px;font-weight:700;color:#3a2e1a;">' + esc(rpt.ai_verdict) + '</div>'
+              + '</div>';
+          }
+
           /* Expandable detail row */
-          + '<tr id="' + rptId + '-detail" style="display:none;background:var(--s2);">'
+          html += '<tr id="' + rptId + '-detail" style="display:none;background:var(--s2);">'
           + '<td colspan="7" style="padding:10px 16px;">'
           + '<div style="display:flex;gap:14px;align-items:flex-start;flex-wrap:wrap;">'
           + '<div style="flex:1;min-width:200px;">'
           + '<div style="font-size:11px;font-weight:900;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px;">Full Description</div>'
           + '<div style="font-size:13px;font-weight:700;color:var(--text);white-space:pre-wrap;background:var(--card);border:1px solid var(--border);border-radius:6px;padding:8px 10px;">' + esc(descFull) + '</div>'
           + '<div style="font-size:12px;color:var(--muted);margin-top:6px;"><a href="' + esc(rpt.page_url||'#') + '" target="_blank" style="color:#2563eb;">' + esc(rpt.page_url||'—') + '</a></div>'
+          + aiVerdictHtml
           + '</div>'
           + (rpt.screenshot ? '<img src="' + rpt.screenshot + '" style="max-width:160px;border-radius:6px;border:1px solid var(--border);cursor:zoom-in;flex-shrink:0;" onclick="rishiOpenLightbox(this.src)">' : '')
           + '</div>'

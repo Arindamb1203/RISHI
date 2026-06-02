@@ -34,11 +34,14 @@ export async function onRequest(context) {
       name TEXT, class TEXT, board TEXT, phone TEXT,
       page_url TEXT, page_name TEXT, report_type TEXT,
       description TEXT, screenshot TEXT,
-      status TEXT DEFAULT 'pending', submitted_at TEXT
+      status TEXT DEFAULT 'pending', submitted_at TEXT,
+      ai_verdict TEXT, ai_status TEXT
     )`).run();
   } catch(e) {
     /* Table already exists — continue */
   }
+  try { await env.DB.prepare(`ALTER TABLE rishi_error_reports ADD COLUMN ai_verdict TEXT`).run(); } catch(e) {}
+  try { await env.DB.prepare(`ALTER TABLE rishi_error_reports ADD COLUMN ai_status TEXT`).run(); } catch(e) {}
 
   const id = crypto.randomUUID();
   const submittedAt = new Date().toISOString();

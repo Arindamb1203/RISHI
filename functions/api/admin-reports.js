@@ -25,13 +25,17 @@ export async function onRequest(context) {
     /* Add report_type column if missing (migration for existing tables) */
     try {
       await env.DB.prepare(`ALTER TABLE rishi_error_reports ADD COLUMN report_type TEXT`).run();
-    } catch(e) {
-      /* Column already exists — ignore */
-    }
+    } catch(e) { /* Column already exists */ }
+    try {
+      await env.DB.prepare(`ALTER TABLE rishi_error_reports ADD COLUMN ai_verdict TEXT`).run();
+    } catch(e) { /* Column already exists */ }
+    try {
+      await env.DB.prepare(`ALTER TABLE rishi_error_reports ADD COLUMN ai_status TEXT`).run();
+    } catch(e) { /* Column already exists */ }
 
     const result = await env.DB.prepare(
       `SELECT id, name, class, board, phone, page_url, page_name, report_type,
-              description, screenshot, status, submitted_at
+              description, screenshot, status, submitted_at, ai_verdict, ai_status
        FROM rishi_error_reports ORDER BY submitted_at DESC`
     ).all();
 
