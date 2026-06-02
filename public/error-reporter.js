@@ -7,8 +7,10 @@
   if (window.location.pathname === '/landing' ||
       window.location.pathname.startsWith('/landing')) return;
 
-  var isRegisterPage = window.location.pathname.indexOf('/register') !== -1;
-  var isExamPage     = window.location.pathname.indexOf('/exam') !== -1;
+  /* Simplified form (no question categories) on register + payment + parent pages */
+  var isSimplifiedPage = window.location.pathname.indexOf('/register') !== -1 ||
+                         window.location.pathname.indexOf('/parent') !== -1;
+  var isExamPage = window.location.pathname.indexOf('/exam') !== -1;
 
   function loadHtml2Canvas(cb) {
     if (window.html2canvas) { cb(); return; }
@@ -179,7 +181,7 @@
   document.body.appendChild(floatBtn);
 
   /* Category grid: hidden on register page, shown everywhere else */
-  var catGridHtml = isRegisterPage ? '' :
+  var catGridHtml = isSimplifiedPage ? '' :
     '<div class="rishi-cat-grid">' +
       '<button class="rishi-cat-btn" data-cat="Not in Syllabus" onclick="rishiSelectCat(this)">&#128218; Not in<br>Syllabus</button>' +
       '<button class="rishi-cat-btn" data-cat="Wrong Answer" onclick="rishiSelectCat(this)">&#10060; Wrong<br>Answer</button>' +
@@ -200,8 +202,8 @@
       '<div class="rishi-field"><label>Class &amp; Board</label><div class="rishi-ro" id="rishi-f-class">&#8212;</div></div>' +
       '<div class="rishi-field"><label>Phone</label><div class="rishi-ro" id="rishi-f-phone">&#8212;</div></div>' +
       '<div class="rishi-field"><label>Page</label><div class="rishi-ro" id="rishi-f-page" style="font-size:10px;word-break:break-all;">&#8212;</div></div>' +
-      (isRegisterPage
-        ? '<div class="rishi-field"><label>Describe the issue</label></div>' +
+      (isSimplifiedPage
+        ? '<div class="rishi-field"><label>What is the problem?</label></div>' +
           '<div id="rishi-desc-section" class="visible">' +
             '<div class="rishi-field">' +
               '<textarea id="rishi-desc" placeholder="Please describe the issue you are facing."></textarea>' +
@@ -231,7 +233,8 @@
 
   /* State */
   var screenshotB64 = '';
-  var selectedCategory = isRegisterPage ? 'Registration Issue' : '';
+  var isParentPage = window.location.pathname.indexOf('/parent') !== -1;
+  var selectedCategory = isSimplifiedPage ? (isParentPage ? 'Parent Portal Issue' : 'Registration Issue') : '';
   var pollTimer = null;
   var fiveMinTimer = null;
   var _submitted = false;
@@ -298,10 +301,10 @@
     document.getElementById('rishi-f-page').textContent  = window.location.href;
 
     /* Reset */
-    if (!isRegisterPage) { selectedCategory = ''; }
+    if (!isSimplifiedPage) { selectedCategory = ''; }
     _submitted = false;
     overlay.querySelectorAll('.rishi-cat-btn').forEach(function(b) { b.classList.remove('selected'); });
-    if (!isRegisterPage) {
+    if (!isSimplifiedPage) {
       document.getElementById('rishi-desc-section').classList.remove('visible');
     }
     document.getElementById('rishi-desc').value = '';
@@ -321,7 +324,7 @@
 
     overlay.classList.add('open');
 
-    if (!isRegisterPage) {
+    if (!isSimplifiedPage) {
       loadHtml2Canvas(function(err) {
         if (err || !window.html2canvas) {
           if (ssStatusEl) ssStatusEl.textContent = 'Screenshot unavailable';
