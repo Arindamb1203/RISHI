@@ -7,8 +7,10 @@
   if (window.location.pathname === '/landing' ||
       window.location.pathname.startsWith('/landing')) return;
 
-  /* Simplified form (no question categories) on register + payment + parent pages */
-  var isSimplifiedPage = window.location.pathname.indexOf('/register') !== -1 ||
+  /* Editable name/phone inputs — register & payment (no localStorage yet) */
+  var isEditableFields = window.location.pathname.indexOf('/register') !== -1;
+  /* Simplified form (no question categories) — register, payment, parent */
+  var isSimplifiedPage = isEditableFields ||
                          window.location.pathname.indexOf('/parent') !== -1;
   var isExamPage = window.location.pathname.indexOf('/exam') !== -1;
 
@@ -79,7 +81,13 @@
   .rishi-field .rishi-ro {
     font-size:12px;font-weight:700;color:#5a4a30;background:#fffcf0;
     border:1px solid #e8d9c0;border-radius:6px;padding:6px 10px;width:100%;
+    box-sizing:border-box;
   }
+  .rishi-field .rishi-input {
+    background:#fff;border-color:#c8922a;cursor:text;outline:none;
+    font-family:'Nunito',sans-serif;
+  }
+  .rishi-field .rishi-input:focus { border-color:#a06010;box-shadow:0 0 0 2px rgba(200,146,42,.18); }
   .rishi-cat-grid { display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:10px; }
   .rishi-cat-btn {
     padding:7px 6px;font-family:'Nunito',sans-serif;font-size:11px;font-weight:900;
@@ -198,10 +206,16 @@
       '<button class="rishi-ov-close" id="rishi-ov-close">&#10005;</button>' +
     '</div>' +
     '<div class="rishi-ov-body" id="rishi-ov-body">' +
-      '<div class="rishi-field"><label>Name</label><div class="rishi-ro" id="rishi-f-name">&#8212;</div></div>' +
-      '<div class="rishi-field"><label>Class &amp; Board</label><div class="rishi-ro" id="rishi-f-class">&#8212;</div></div>' +
-      '<div class="rishi-field"><label>Phone</label><div class="rishi-ro" id="rishi-f-phone">&#8212;</div></div>' +
-      '<div class="rishi-field"><label>Page</label><div class="rishi-ro" id="rishi-f-page" style="font-size:10px;word-break:break-all;">&#8212;</div></div>' +
+      (isEditableFields
+        /* Register/payment: editable inputs */
+        ? '<div class="rishi-field"><label>Your Name</label><input class="rishi-ro rishi-input" id="rishi-f-name" type="text" placeholder="Enter your name" autocomplete="name"></div>' +
+          '<div class="rishi-field"><label>Mobile Number</label><input class="rishi-ro rishi-input" id="rishi-f-phone" type="tel" placeholder="Enter your mobile number" autocomplete="tel"></div>'
+        /* Student/parent: auto-filled read-only */
+        : '<div class="rishi-field"><label>Name</label><div class="rishi-ro" id="rishi-f-name">—</div></div>' +
+          '<div class="rishi-field"><label>Class &amp; Board</label><div class="rishi-ro" id="rishi-f-class">—</div></div>' +
+          '<div class="rishi-field"><label>Phone</label><div class="rishi-ro" id="rishi-f-phone">—</div></div>'
+      ) +
+      '<div class="rishi-field"><label>Page</label><div class="rishi-ro" id="rishi-f-page" style="font-size:10px;word-break:break-all;">—</div></div>' +
       (isSimplifiedPage
         ? '<div class="rishi-field"><label>What is the problem?</label></div>' +
           '<div id="rishi-desc-section" class="visible">' +
@@ -290,15 +304,20 @@
   });
 
   function openOverlay() {
-    var name  = localStorage.getItem('rishi_student_name') || '—';
-    var cls   = localStorage.getItem('rishi_class') || '—';
-    var board = localStorage.getItem('rishi_board') || '';
-    var phone = localStorage.getItem('rishi_phone') || localStorage.getItem('rishi_registered_phone') || '—';
-
-    document.getElementById('rishi-f-name').textContent  = name;
-    document.getElementById('rishi-f-class').textContent = 'Class ' + (cls || '—') + ' \xB7 ' + (board ? board.toUpperCase() : '—');
-    document.getElementById('rishi-f-phone').textContent = phone;
-    document.getElementById('rishi-f-page').textContent  = window.location.href;
+    if (isEditableFields) {
+      /* Register/payment: just set page URL; name/phone are user-typed inputs */
+      document.getElementById('rishi-f-page').textContent = window.location.href;
+    } else {
+      /* Student/parent: auto-fill from localStorage */
+      var name  = localStorage.getItem('rishi_student_name') || '—';
+      var cls   = localStorage.getItem('rishi_class') || '—';
+      var board = localStorage.getItem('rishi_board') || '';
+      var phone = localStorage.getItem('rishi_phone') || localStorage.getItem('rishi_registered_phone') || '—';
+      document.getElementById('rishi-f-name').textContent  = name;
+      document.getElementById('rishi-f-class').textContent = 'Class ' + (cls || '—') + ' \xB7 ' + (board ? board.toUpperCase() : '—');
+      document.getElementById('rishi-f-phone').textContent = phone;
+      document.getElementById('rishi-f-page').textContent  = window.location.href;
+    }
 
     /* Reset */
     if (!isSimplifiedPage) { selectedCategory = ''; }
@@ -458,10 +477,14 @@
     btn.textContent = 'Sending...';
 
     var payload = {
-      name:        localStorage.getItem('rishi_student_name') || '',
+      name:        isEditableFields
+                     ? (document.getElementById('rishi-f-name').value || '').trim()
+                     : (localStorage.getItem('rishi_student_name') || ''),
       class:       localStorage.getItem('rishi_class') || '',
       board:       localStorage.getItem('rishi_board') || '',
-      phone:       localStorage.getItem('rishi_phone') || localStorage.getItem('rishi_registered_phone') || '',
+      phone:       isEditableFields
+                     ? (document.getElementById('rishi-f-phone').value || '').trim()
+                     : (localStorage.getItem('rishi_phone') || localStorage.getItem('rishi_registered_phone') || ''),
       pageURL:     window.location.href,
       pageName:    document.title,
       reportType:  selectedCategory,
