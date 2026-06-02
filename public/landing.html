@@ -556,11 +556,12 @@ function startMathRain(){
       const step=Math.max(4,Math.floor(Math.sqrt(W*H)/90));
       for(let y=0;y<H;y+=step)for(let x=0;x<W;x+=step)
         if(d[(y*W+x)*4+3]>110)pts.push({x,y});
+      curFs=fs;curAng=ang||0;curOy=oy||0;
       return pts;
     }
 
     const VARS=[{sc:1,ang:0,oy:-H*.06},{sc:.82,ang:-7,oy:0},{sc:1.06,ang:5,oy:H*.05},{sc:.88,ang:0,oy:-H*.09}];
-    let vi=0,tgts=getRishiPts(VARS[0].sc,VARS[0].ang,VARS[0].oy);
+    let vi=0,curFs=0,curAng=0,curOy=0,tgts=getRishiPts(VARS[0].sc,VARS[0].ang,VARS[0].oy);
     const NP=Math.max(tgts.length+80,isMob?160:270);
 
     const P=Array.from({length:NP},(_,i)=>({
@@ -591,14 +592,14 @@ function startMathRain(){
         pi=(pi+1)%PH.length;ps=now;
       }
       const t=Math.min(el/PD[pi],1);
-      ctx.fillStyle='rgba(8,4,0,'+(ph==='formed'?.04:ph==='converge'?.06:.09)+')';
+      ctx.fillStyle='rgba(8,4,0,'+(ph==='formed'?.04:ph==='converge'?.13:.09)+')';
       ctx.fillRect(0,0,W,H);
 
       P.forEach((p,i)=>{
         const hasT=i<tgts.length;
         ctx.shadowBlur=0;
         if(ph==='converge'){
-          if(hasT){const tg=tgts[i];p.x+=(tg.x-p.x)*.055;p.y+=(tg.y-p.y)*.055;p.vx*=.88;p.vy*=.88;const a=.35+t*.6;ctx.fillStyle=t>.65?'rgba(255,215,70,'+a+')':'rgba(201,138,0,'+a+')';}
+          if(hasT){const tg=tgts[i];p.x+=(tg.x-p.x)*.09;p.y+=(tg.y-p.y)*.09;p.vx*=.88;p.vy*=.88;const a=.35+t*.6;ctx.fillStyle=t>.65?'rgba(255,215,70,'+a+')':'rgba(201,138,0,'+a+')';}
           else{p.x+=p.vx*.15;p.y+=p.vy*.4;if(p.y>H+20){p.y=-20;p.x=Math.random()*W;}ctx.fillStyle='rgba(201,138,0,'+(p.al*.22)+')';}
         } else if(ph==='formed'){
           if(hasT){const tg=tgts[i];p.x=tg.x+(Math.random()-.5)*1.2;p.y=tg.y+(Math.random()-.5)*1.2;const g=.7+Math.sin(now/280+i*.13)*.22;ctx.fillStyle='rgba(255,215,60,'+g+')';ctx.shadowColor='rgba(255,200,50,.45)';ctx.shadowBlur=5;}
@@ -619,6 +620,33 @@ function startMathRain(){
         ctx.fillText(p.ch,p.x,p.y);
         ctx.shadowBlur=0;
       });
+      /* text overlay: RISHI + tagline — fades in at end of converge, holds during formed, fades out in distort */
+      if(ph==='formed'||ph==='distort'||(ph==='converge'&&t>.6)){
+        const ta=ph==='formed'?.82:ph==='converge'?Math.max(0,(t-.6)/.4*.82):Math.max(0,.82*(1-t*2));
+        if(ta>0){
+          const pulse=ta*(.82+Math.sin(now/420)*.16);
+          ctx.save();
+          ctx.translate(W/2,H/2+curOy);
+          ctx.rotate(curAng*Math.PI/180);
+          ctx.textBaseline='middle';
+          /* RISHI */
+          ctx.font='900 '+curFs+'px "Orbitron",monospace';
+          ctx.shadowColor='rgba(255,200,50,.7)';ctx.shadowBlur=32;
+          ctx.fillStyle='rgba(255,215,60,'+pulse+')';
+          const tw2=ctx.measureText('RISHI').width;
+          ctx.fillText('RISHI',-tw2/2,0);
+          /* tagline below */
+          const tagFs=Math.max(10,curFs*.22);
+          ctx.font='600 '+tagFs+'px "Nunito",sans-serif';
+          ctx.shadowColor='rgba(255,180,40,.4)';ctx.shadowBlur=10;
+          ctx.fillStyle='rgba(224,160,60,'+(ta*.72)+')';
+          const tag='Not a Math Tutor. A Math Companion.';
+          const tw3=ctx.measureText(tag).width;
+          ctx.fillText(tag,-tw3/2,curFs*.62);
+          ctx.shadowBlur=0;
+          ctx.restore();
+        }
+      }
       requestAnimationFrame(frame);
     }
     requestAnimationFrame(frame);
