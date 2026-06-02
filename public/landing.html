@@ -633,11 +633,11 @@ function startMathRain(){
           ctx.font='900 '+curFs+'px "Orbitron",monospace';
           ctx.shadowBlur=0;
           const tw2=ctx.measureText('RISHI').width;
+          ctx.strokeStyle='rgba(140,0,0,0.95)';
+          ctx.lineWidth=3;
+          ctx.strokeText('RISHI',-tw2/2,0);
           ctx.fillStyle='rgba(255,220,75,'+ta+')';
           ctx.fillText('RISHI',-tw2/2,0);
-          ctx.strokeStyle='rgba(201,138,0,'+(ta*.55)+')';
-          ctx.lineWidth=1.5;
-          ctx.strokeText('RISHI',-tw2/2,0);
           /* tagline below — smaller, no blur */
           const tagFs=Math.max(10,curFs*.21);
           ctx.font='700 '+tagFs+'px "Nunito",sans-serif';
