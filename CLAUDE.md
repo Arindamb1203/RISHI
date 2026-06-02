@@ -261,6 +261,13 @@ Injected on all pages **except** `/admin` and `/landing`. Behaviour varies by pa
 - Payment options: 2-column (was 1); card padding 20px 16px; buttons full-width
 - OTP button and main `.btn` resize on small screens
 
+### Parent Portal Header + Profile Fixes (03 Jun 2026)
+- **Blogs tab added** to tab-bar — links to `/parent-blogs.html`
+- **Header title** dynamically shows parent login ID (e.g. `parent-priyanka-002`) when logged in via parent credentials; saved as `rishi_parent_login_user` in sessionStorage during Step 2 login
+- **Badge fallback**: if `rishi_parent_student_name` is empty or 'Student', tries `rishi_registrations` by `parentUsername` before falling back to 'Student'
+- **showProfilePanel reg lookup**: now tries `studentUsername` first, then `parentUsername` match
+- **showProfilePanel D1 refetch**: if `reg.studentName` empty on open, silently calls `find-account` on D1, populates fields, and refreshes localStorage
+
 ### Responsive Design — parent.html (03 Jun 2026)
 - Already had `@media(max-width:700px)` and `@media(max-width:380px)` — enhanced + bug fixed:
 - **Bug fixed:** stray `.hdr-badge{max-width:100px;}` and orphan `}` were outside any media query — removed

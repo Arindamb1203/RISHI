@@ -803,6 +803,7 @@ button{font-family:'Outfit',sans-serif;}
     <button class="tab-btn" id="tab-live" onclick="switchTab('live')">&#128241; Live Status</button>
     <button class="tab-btn" id="tab-smart" onclick="window.location.href='/smart-maths.html'">&#129504; Smart Maths</button>
     <button class="tab-btn" id="tab-refer" onclick="window.location.href='/referral.html'" style="color:#39FF14;">&#127873; Refer &amp; Earn</button>
+    <button class="tab-btn" id="tab-blogs" onclick="window.location.href='/parent-blogs.html'" style="color:var(--gold);">&#127909; Blogs</button>
   </div>
 
   <div class="wrap">
@@ -1299,6 +1300,7 @@ function tryLogin() {
         sessionStorage.setItem('rishi_parent_auth','1');
         sessionStorage.setItem('rishi_parent_student_id',   rd.studentUsername||'default');
         sessionStorage.setItem('rishi_parent_student_name', rd.studentName||'Student');
+        sessionStorage.setItem('rishi_parent_login_user',   userLC);
         enterPortal();
       } else { enterWithCurrentStudent(); }
     })
@@ -1387,7 +1389,9 @@ function showProfilePanel() {
   var sid = sessionStorage.getItem('rishi_parent_student_id') || 'default';
   var regs = [];
   try { regs = JSON.parse(localStorage.getItem('rishi_registrations') || '[]'); } catch(e) {}
-  var reg = regs.find(function(r) { return r.studentUsername === sid; }) || {};
+  var reg = regs.find(function(r) { return r.studentUsername === sid; })
+         || regs.find(function(r) { return (r.parentUsername||'').toLowerCase() === (sid||'').toLowerCase(); })
+         || {};
 
   var inp = 'width:100%;padding:12px 14px;border:2px solid #e2e8f0;border-radius:10px;font-size:15px;font-family:Outfit,sans-serif;outline:none;color:#1e293b;background:#fff;box-sizing:border-box;transition:border .2s;';
   var lbl = 'display:block;font-size:11px;font-weight:800;color:#64748b;text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px;';
@@ -1458,6 +1462,26 @@ function showProfilePanel() {
     +'</div>';
 
   document.body.appendChild(panel);
+
+  /* If profile fields appear empty, silently fetch from D1 and populate */
+  if (!reg.studentName && sid && sid !== 'default') {
+    fetch('/d1-sync', {method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({action:'find-account', username: sid})
+    }).then(function(r){ return r.json(); }).then(function(resp){
+      if (!resp.ok || !resp.found || !resp.data) return;
+      var d = resp.data;
+      var sn = document.getElementById('prof-student-name'); if(sn && d.studentName) sn.value = d.studentName;
+      var pn = document.getElementById('prof-parent-name');  if(pn && d.parentName)  pn.value = d.parentName;
+      var pm = document.getElementById('prof-mobile');        if(pm && d.primaryMobile) pm.value = d.primaryMobile;
+      var pc = document.getElementById('prof-class');         if(pc && d.class)  pc.value = String(d.class);
+      var pb = document.getElementById('prof-board');         if(pb && d.board)  pb.value = d.board;
+      /* Refresh localStorage so next open doesn't re-fetch */
+      var allR = []; try { allR = JSON.parse(localStorage.getItem('rishi_registrations')||'[]'); } catch(e) {}
+      var ix = allR.findIndex(function(r2){ return r2.studentUsername===sid || (r2.parentUsername||'').toLowerCase()===sid.toLowerCase(); });
+      if (ix >= 0) { allR[ix] = Object.assign(allR[ix], d); } else { allR.push(d); }
+      localStorage.setItem('rishi_registrations', JSON.stringify(allR));
+    }).catch(function(){});
+  }
 }
 
 function saveProfile() {
@@ -1691,8 +1715,22 @@ function getStudentId(){
 function initMainPortal() {
   loadParentClassData();
   document.getElementById('main-portal').className = '';
-  var sName = sessionStorage.getItem('rishi_parent_student_name') || 'Student';
+  /* Show parent login ID in header title */
+  var parentLoginUser = sessionStorage.getItem('rishi_parent_login_user') || '';
+  if (parentLoginUser) {
+    var titleEl = document.getElementById('hdr-menu-trigger');
+    if (titleEl) titleEl.innerHTML = parentLoginUser + ' <span id="hdr-menu-arrow" style="font-size:11px;opacity:.7;">&#9662;</span>';
+  }
+  /* Badge: student name + student ID */
+  var sName = sessionStorage.getItem('rishi_parent_student_name') || '';
   var sId   = getStudentId();
+  if (!sName || sName === 'Student') {
+    var regsB = [];
+    try { regsB = JSON.parse(localStorage.getItem('rishi_registrations')||'[]'); } catch(e) {}
+    var regB = regsB.find(function(r){ return r.studentUsername===sId || (r.parentUsername||'').toLowerCase()===sId.toLowerCase(); }) || {};
+    if (regB.studentName) sName = regB.studentName;
+  }
+  sName = sName || 'Student';
   var badge = document.getElementById('student-name-badge');
   if(badge) badge.innerHTML = (sName.split(' ')[0] || sName) + '<br><span style="font-size:9px;opacity:.65;letter-spacing:.3px">' + sId + '</span>';
   loadPlans();
