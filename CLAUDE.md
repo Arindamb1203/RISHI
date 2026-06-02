@@ -221,12 +221,36 @@ Injected on all pages **except** `/admin` and `/landing`. Behaviour varies by pa
 - Updates D1 report with `ai_verdict` (plain language) + `ai_status` (`confirmed_correct` | `confirmed_wrong`)
 - Returns: `{ isCorrect, plainReason, replacementQ }` — replacementQ has `{ text, a, b, c, d, correct }`
 
-## Landing Page — landing.html (02 Jun 2026)
-- **6 slides** (r0–r5): r0=headphones, r1=Rishika intro, r2=RISHI name, r3=features carousel, r4=affordability, r5=founder letter/register
+## Landing Page — landing.html (03 Jun 2026)
+- **6 slides** (r0–r5): r0=Math particle animation, r1=Rishika intro, r2=RISHI name, r3=features carousel, r4=affordability, r5=founder letter/register
 - Navigation: `goNext()` allows `cur<5`; `getHashPage()` accepts 0–5; counter shows `01/06`–`06/06`; 6 dots
 - `render()`: cur 0→r0, 1→r1, 2→r2, 3→r3, 4→r4, 5→r5
 - "Skip to Register" button = `go(5)` → jumps to slide 5 (r5 with register button)
 - `error-reporter.js` is NOT included on landing.html
+
+### Slide 0 — Math Particle Animation (03 Jun 2026)
+- **Full dark canvas** (`#080400`) fills `#content` area; `#content` padding set to 0, `alignItems:stretch` for slide 0 only
+- **Particle system:** 160 (mobile) / 270 (desktop) math char particles — digits, operators, Greek symbols (π,∑,∫,θ,α,√), expressions (sin θ, dy/dx, log n, b²-4ac, etc.)
+- **Phase cycle (~16s loop):** `converge(2.5s) → formed(2.5s) → distort(2.2s) → explode(0.9s) → free rain(8s) → repeat`
+  - **converge:** particles fly from random positions and assemble into RISHI letters (ease 0.09/frame via RAF)
+  - **formed:** particles hold at RISHI targets with micro-jitter; bright RISHI text overlay drawn on top (gold fill + 8px dark red `rgb(180,0,0)` stroke — NO shadowBlur)
+  - **distort:** sine-wave displacement pulls RISHI apart; text overlay fades out
+  - **explode:** all particles shoot outward from canvas centre
+  - **free rain:** Matrix-style rain before next formation
+- **RISHI text overlay:** drawn with `ctx.strokeText` (red border, 8px) FIRST, then `ctx.fillText` (gold fill) — ensures sharp readable letters. Tagline **"Not a Math Tutor. A Math Companion."** drawn below RISHI at ~21% font size
+- **4 formation variations** (different scale/angle/offsetY) cycle on each explode→free transition
+- **Pixel sampling:** `getRishiPts(sc, ang, oy)` draws RISHI on offscreen canvas with Orbitron font, samples filled pixels at step `Math.max(4, √(W×H)/90)` — runs inside `document.fonts.ready.then()`
+- **Animation control:** RAF + token pattern (`rainInterval = myToken` object; `if(rainInterval!==myToken)return`). `render()` stops animation by setting `rainInterval=null`
+- **Topbar RISHI logo:** `opacity:0` on slide 0 (fades via CSS `transition:opacity 0.5s`), restored on all other slides
+- **Bottom overlay:** "headphones recommended" label + two compact buttons (`🎧 Headphones On — Begin` / `Continue Without →`) both call `startAudio();go(1)`
+- **Mobile:** particle count 160, larger font scale (`W*0.22` vs `W*0.17` desktop)
+- **NO shadowBlur anywhere** — was causing unreadable glow smear; removed from all phases
+
+### Responsive Design — landing.html (03 Jun 2026)
+- **Mobile ≤640px:** feat carousel collapses to single card (`.fl`, `.fr` hidden), Rishika image stacks above text (`.r1-row` flex-direction:column, `.r1-img-wrap` full width), topbar tagline hidden (`.topbar-sub`), padding tightened, action buttons wrap to 2 rows
+- **Tablet 641–900px:** feat carousel side panels narrow 160px→110px, content/card padding reduced
+- **Class hooks added to JS-rendered elements:** `r1-row`, `r1-img-wrap`, `r5-inner`, `topbar-sub` — targeted by media queries
+- **`#content` padding cleared inline** in `render()` so media queries take effect on slides 1–5
 
 ## Rishika Chat Box (exam.html only, Phase 1 — 01 Jun 2026)
 - **Endpoint:** `functions/api/chat.js` → `/api/chat` (POST)
