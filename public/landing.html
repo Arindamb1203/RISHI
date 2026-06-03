@@ -147,6 +147,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);}
   <div style="display:flex;align-items:center;gap:0.7rem;">
     <div id="counter" class="fm">01 / 06</div>
     <div id="dots"><div class="dot on"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+    <button id="music-btn" onclick="toggleMusic()" title="Toggle background music" style="font-size:0.62rem;background:rgba(201,138,0,0.1);border:1px solid rgba(201,138,0,0.28);color:rgba(201,138,0,0.65);border-radius:10px;padding:2px 7px;cursor:pointer;font-family:'Share Tech Mono',monospace;letter-spacing:0.08em;transition:all 0.3s;line-height:1.4;">&#9835;</button>
   </div>
 </div>
 
@@ -757,6 +758,51 @@ if(!window.location.hash||window.location.hash==='#0'){}else{window.location.has
 render();
 setTimeout(()=>{document.getElementById('dL').style.transform='scaleX(0)';document.getElementById('dR').style.transform='scaleX(0)';},100);
 for(let i=0;i<18;i++){const s=document.createElement('div');s.className='spark';const sz=i%4===0?4:2;s.style.cssText=`width:${sz}px;height:${sz}px;left:${4+i*5.2}%;bottom:${8+Math.sin(i)*20}%;background:rgba(201,138,0,${0.25+i%3*0.15});animation-duration:${2.5+i*0.4}s;animation-delay:${i*0.25}s;`;document.getElementById('bg').appendChild(s);}
+
+/* ── Background music ── */
+(function(){
+  var audio=new Audio('/audio/bg-music.mp3');
+  audio.loop=true;audio.volume=0;audio.preload='auto';
+  var playing=false,muted=false;
+  var TARGET=0.13; // soft background volume
+
+  function fadeIn(){
+    var steps=0;
+    var iv=setInterval(function(){
+      steps++;audio.volume=Math.min(TARGET*steps/25,TARGET);
+      if(steps>=25)clearInterval(iv);
+    },80); // ~2s fade
+  }
+
+  function tryPlay(){
+    var p=audio.play();
+    if(p!==undefined){
+      p.then(function(){playing=true;fadeIn();updateBtn(true);})
+       .catch(function(){updateBtn(false);});
+    }
+  }
+
+  function updateBtn(on){
+    var b=document.getElementById('music-btn');if(!b)return;
+    b.innerHTML=on&&!muted?'&#9835;':'&#9834;';
+    b.style.opacity=on&&!muted?'1':'0.38';
+    b.style.color=on&&!muted?'rgba(201,138,0,0.85)':'rgba(201,138,0,0.4)';
+  }
+
+  window.toggleMusic=function(){
+    var b=document.getElementById('music-btn');
+    if(!playing){tryPlay();return;}
+    muted=!muted;
+    audio.volume=muted?0:TARGET;
+    updateBtn(!muted);
+  };
+
+  /* Try autoplay immediately; on first interaction as fallback */
+  setTimeout(tryPlay,600);
+  document.addEventListener('click',function(){if(!playing)tryPlay();},{once:true});
+})();
 </script>
+
+<audio id="bg-audio-preload" src="/audio/bg-music.mp3" preload="auto" style="display:none;"></audio>
 </body>
 </html>
