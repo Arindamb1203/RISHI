@@ -597,7 +597,7 @@ function startMathRain(){
     function assignExplode(){const cx=W/2,cy=RY;TP.forEach(p=>{const dx=p.x-cx,dy=p.y-cy,d=Math.sqrt(dx*dx+dy*dy)||1;p.vx=(dx/d)*(3+Math.random()*6);p.vy=(dy/d)*(2+Math.random()*5);});}
 
     /* ── Phases: 0=start,1=l0in,2=l0hold,3=l1in,4=l1hold,5=l2in,6=l2hold,7=l3in,8=l3hold,9=rin,10=rhold,11=rdist,12=rexpl,13=rfree */
-    const PD=[1400,2800,1000,2400,800,2200,800,2200,800,2500,2500,2200,900,8000];
+    const PD=[2000,9000,5000,7000,4000,7000,4000,8000,4000,8000,10000,2200,900,8000];
     const WRAP=9;
     let pi=0,ps=Date.now(),doneL=0;
 
@@ -778,13 +778,8 @@ for(let i=0;i<18;i++){const s=document.createElement('div');s.className='spark';
     if(a.paused){a.volume=0.3;a.play().then(function(){console.log('[AUDIO] playing OK');}).catch(function(e){console.error('[AUDIO] play failed:',e.message);started=false;});}
     else{console.log('[AUDIO] was already playing muted — now unmuted');}
   }
-  a.play().then(function(){
-    console.log('[AUDIO] muted autoplay SUCCESS — will unmute at first letter');
-    window.bgMusicUnmute=start;
-  }).catch(function(err){
-    console.warn('[AUDIO] muted autoplay BLOCKED by Chrome:', err.message);
-    console.log('[AUDIO] fallback armed — will start on mousemove/scroll/touch');
-    window.bgMusicUnmute=start;
+  window.bgMusicUnmute=start;
+  a.play().catch(function(){
     ['mousemove','touchstart','touchmove','scroll','click','keydown'].forEach(function(ev){
       document.addEventListener(ev,start,{once:true,passive:true,capture:true});
     });
