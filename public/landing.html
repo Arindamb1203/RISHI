@@ -287,7 +287,6 @@ function updateNav(){
 function render(){
   rainInterval=null;
   updateNav();
-  if(window.bgMusicSetSlide)bgMusicSetSlide(cur===0);
   const c=document.getElementById('content');
   c.style.padding='';
   const logo=document.querySelector('.logo-name');
@@ -641,6 +640,7 @@ function startMathRain(){
         if(pi===5)assignT(linePts[2].pts);
         if(pi===7)assignT(linePts[3].pts);
         if(pi===9)assignT(rishiPts);
+        if(pi===10&&window.bgMusicFadeOut)bgMusicFadeOut();
         if(pi===12)assignExplode();
       }
 
@@ -760,17 +760,16 @@ render();
 setTimeout(()=>{document.getElementById('dL').style.transform='scaleX(0)';document.getElementById('dR').style.transform='scaleX(0)';},100);
 for(let i=0;i<18;i++){const s=document.createElement('div');s.className='spark';const sz=i%4===0?4:2;s.style.cssText=`width:${sz}px;height:${sz}px;left:${4+i*5.2}%;bottom:${8+Math.sin(i)*20}%;background:rgba(201,138,0,${0.25+i%3*0.15});animation-duration:${2.5+i*0.4}s;animation-delay:${i*0.25}s;`;document.getElementById('bg').appendChild(s);}
 
-/* ── Background music ── */
+/* ── Background music — plays during story reveal, fades when RISHI forms ── */
 (function(){
   var audio=new Audio('/audio/bg-music.mp3');
-  audio.loop=true;audio.preload='auto';
-  var TARGET=0.32,silenced=false,unmuteStarted=false;
+  audio.loop=false;audio.preload='auto';
+  var TARGET=0.32,silenced=false,unmuteStarted=false,ended=false;
 
-  /* Muted autoplay works in ALL browsers — no permission needed */
+  /* Muted autoplay — works in all browsers */
   audio.muted=true;audio.volume=TARGET;
   audio.play().catch(function(){});
 
-  /* Fade volume from 0 → TARGET once unmuted */
   function fadeIn(){
     audio.volume=0;
     var iv=setInterval(function(){
@@ -779,9 +778,8 @@ for(let i=0;i<18;i++){const s=document.createElement('div');s.className='spark';
     },65);
   }
 
-  /* Unmute on first user interaction — user clicks Begin/Continue anyway */
   function doUnmute(){
-    if(unmuteStarted||silenced)return;
+    if(unmuteStarted||silenced||ended)return;
     unmuteStarted=true;
     audio.muted=false;
     fadeIn();
@@ -793,39 +791,29 @@ for(let i=0;i<18;i++){const s=document.createElement('div');s.className='spark';
   function setBtn(on){
     var b=document.getElementById('music-btn');if(!b)return;
     b.innerHTML=on?'&#9835;':'&#9834;';
-    b.style.opacity=on?'1':'0.4';
+    b.style.opacity=on?'1':'0.38';
     b.title=on?'Mute music':'Unmute music';
   }
 
   window.toggleMusic=function(){
+    if(ended)return;
     silenced=!silenced;
     if(silenced){audio.volume=0;setBtn(false);}
-    else{if(!unmuteStarted){doUnmute();}else{audio.volume=TARGET;setBtn(true);}}
+    else{if(!unmuteStarted)doUnmute();else{audio.volume=TARGET;setBtn(true);}}
   };
 
-  /* Called by render() — play only on slide 0 */
-  var fadeIv=null;
-  window.bgMusicSetSlide=function(isSlide0){
-    if(fadeIv){clearInterval(fadeIv);fadeIv=null;}
-    var btn=document.getElementById('music-btn');
-    if(isSlide0){
-      if(btn)btn.style.display='';
-      if(!audio.paused&&!silenced){
-        /* fade back in */
-        fadeIv=setInterval(function(){audio.volume=Math.min(audio.volume+TARGET/20,TARGET);if(audio.volume>=TARGET){clearInterval(fadeIv);fadeIv=null;}},65);
-      } else if(!silenced&&unmuteStarted){
-        audio.play().catch(function(){});
-        fadeIv=setInterval(function(){audio.volume=Math.min(audio.volume+TARGET/20,TARGET);if(audio.volume>=TARGET){clearInterval(fadeIv);fadeIv=null;}},65);
+  /* Called by startMathRain when RISHI reaches formed phase */
+  window.bgMusicFadeOut=function(){
+    if(ended)return;ended=true;
+    var iv=setInterval(function(){
+      audio.volume=Math.max(audio.volume-0.012,0);
+      if(audio.volume<=0){
+        clearInterval(iv);
+        audio.pause();
+        var b=document.getElementById('music-btn');
+        if(b)b.style.display='none';
       }
-    } else {
-      if(btn)btn.style.display='none';
-      /* fade out then pause */
-      var vol=audio.volume;
-      fadeIv=setInterval(function(){
-        vol=Math.max(vol-TARGET/15,0);audio.volume=vol;
-        if(vol<=0){clearInterval(fadeIv);fadeIv=null;audio.pause();}
-      },55);
-    }
+    },55); /* ~1.5s fade out */
   };
 })();
 </script>
