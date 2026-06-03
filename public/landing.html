@@ -287,6 +287,7 @@ function updateNav(){
 function render(){
   rainInterval=null;
   updateNav();
+  if(window.bgMusicSetSlide)bgMusicSetSlide(cur===0);
   const c=document.getElementById('content');
   c.style.padding='';
   const logo=document.querySelector('.logo-name');
@@ -800,6 +801,31 @@ for(let i=0;i<18;i++){const s=document.createElement('div');s.className='spark';
     silenced=!silenced;
     if(silenced){audio.volume=0;setBtn(false);}
     else{if(!unmuteStarted){doUnmute();}else{audio.volume=TARGET;setBtn(true);}}
+  };
+
+  /* Called by render() — play only on slide 0 */
+  var fadeIv=null;
+  window.bgMusicSetSlide=function(isSlide0){
+    if(fadeIv){clearInterval(fadeIv);fadeIv=null;}
+    var btn=document.getElementById('music-btn');
+    if(isSlide0){
+      if(btn)btn.style.display='';
+      if(!audio.paused&&!silenced){
+        /* fade back in */
+        fadeIv=setInterval(function(){audio.volume=Math.min(audio.volume+TARGET/20,TARGET);if(audio.volume>=TARGET){clearInterval(fadeIv);fadeIv=null;}},65);
+      } else if(!silenced&&unmuteStarted){
+        audio.play().catch(function(){});
+        fadeIv=setInterval(function(){audio.volume=Math.min(audio.volume+TARGET/20,TARGET);if(audio.volume>=TARGET){clearInterval(fadeIv);fadeIv=null;}},65);
+      }
+    } else {
+      if(btn)btn.style.display='none';
+      /* fade out then pause */
+      var vol=audio.volume;
+      fadeIv=setInterval(function(){
+        vol=Math.max(vol-TARGET/15,0);audio.volume=vol;
+        if(vol<=0){clearInterval(fadeIv);fadeIv=null;audio.pause();}
+      },55);
+    }
   };
 })();
 </script>
