@@ -27,9 +27,7 @@ export async function onRequest(context) {
       student_name TEXT, class TEXT, board TEXT, logged_at INTEGER NOT NULL
     )`).run();
 
-    const todayStart = new Date();
-    todayStart.setHours(0, 0, 0, 0);
-    const todayTs = todayStart.getTime();
+    const cutoff7d = Date.now() - (7 * 24 * 60 * 60 * 1000); // last 7 days
 
     const [reportsRes, sessionsRes, sysErrRes, syncActRes, allAccsRes] = await Promise.all([
       env.DB.prepare(
@@ -40,7 +38,7 @@ export async function onRequest(context) {
       env.DB.prepare(
         `SELECT username, role, student_name, class, board, logged_at
          FROM rishi_sessions WHERE logged_at > ? ORDER BY logged_at DESC`
-      ).bind(todayTs).all(),
+      ).bind(cutoff7d).all(),
       env.DB.prepare(
         `SELECT student_id, value, updated_at FROM rishi_sync
          WHERE key = 'rishi_error_log' ORDER BY updated_at DESC LIMIT 30`
@@ -52,7 +50,7 @@ export async function onRequest(context) {
                  ORDER BY updated_at DESC LIMIT 1) AS last_key
          FROM rishi_sync s1 WHERE s1.updated_at > ?
          GROUP BY s1.student_id ORDER BY last_active DESC LIMIT 100`
-      ).bind(todayTs).all(),
+      ).bind(cutoff7d).all(),
       env.DB.prepare(
         `SELECT username, data FROM rishi_accounts WHERE role = 'student'`
       ).all()

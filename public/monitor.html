@@ -7,6 +7,9 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="RISHI Monitor">
+<link rel="manifest" href="/monitor-manifest.json">
+<link rel="apple-touch-icon" href="/monitor-icon.svg">
+<link rel="icon" type="image/svg+xml" href="/monitor-icon.svg">
 <title>RISHI Monitor</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
@@ -493,10 +496,9 @@ function renderActive() {
   document.getElementById('badge-active').textContent = totalSt + totalPr;
 
   // Summary bar
-  var today = new Date().toLocaleDateString([], {weekday:'short',day:'numeric',month:'short'});
   document.getElementById('active-summary').innerHTML =
     '<div class="active-summary">' +
-      '<div class="active-summary-item"><div class="active-summary-num">' + (totalSt+totalPr) + '</div><div class="active-summary-lbl">Today (' + today + ')</div></div>' +
+      '<div class="active-summary-item"><div class="active-summary-num">' + (totalSt+totalPr) + '</div><div class="active-summary-lbl">Last 7 Days</div></div>' +
       '<div class="active-summary-item"><div class="active-summary-num" style="color:var(--blue)">' + totalSt + '</div><div class="active-summary-lbl">Students</div></div>' +
       '<div class="active-summary-item"><div class="active-summary-num" style="color:var(--purple)">' + totalPr + '</div><div class="active-summary-lbl">Parents</div></div>' +
     '</div>';
@@ -642,7 +644,14 @@ function timeAgo(iso) {
 
 function tsToTime(ts) {
   if (!ts) return '—';
-  return new Date(ts).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});
+  var d = new Date(ts);
+  var now = new Date();
+  var todayStr = now.toDateString();
+  var yestStr = new Date(now - 86400000).toDateString();
+  var timeStr = d.toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});
+  if (d.toDateString() === todayStr) return 'Today ' + timeStr;
+  if (d.toDateString() === yestStr) return 'Yesterday ' + timeStr;
+  return d.toLocaleDateString([], {day:'numeric',month:'short'}) + ' ' + timeStr;
 }
 
 function esc(s) {
