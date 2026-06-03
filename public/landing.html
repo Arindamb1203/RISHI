@@ -773,12 +773,17 @@ for(let i=0;i<18;i++){const s=document.createElement('div');s.className='spark';
   var started=false;
   function start(){
     if(started)return;started=true;
+    console.log('[AUDIO] start() called — unmuting and playing');
     a.muted=false;
-    if(a.paused){a.volume=0.3;a.play().catch(function(){started=false;});}
+    if(a.paused){a.volume=0.3;a.play().then(function(){console.log('[AUDIO] playing OK');}).catch(function(e){console.error('[AUDIO] play failed:',e.message);started=false;});}
+    else{console.log('[AUDIO] was already playing muted — now unmuted');}
   }
   a.play().then(function(){
+    console.log('[AUDIO] muted autoplay SUCCESS — will unmute at first letter');
     window.bgMusicUnmute=start;
-  }).catch(function(){
+  }).catch(function(err){
+    console.warn('[AUDIO] muted autoplay BLOCKED by Chrome:', err.message);
+    console.log('[AUDIO] fallback armed — will start on mousemove/scroll/touch');
     window.bgMusicUnmute=start;
     ['mousemove','touchstart','touchmove','scroll','click','keydown'].forEach(function(ev){
       document.addEventListener(ev,start,{once:true,passive:true,capture:true});
