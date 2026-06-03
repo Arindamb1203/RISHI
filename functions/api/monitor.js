@@ -31,7 +31,7 @@ export async function onRequest(context) {
     todayStart.setHours(0, 0, 0, 0);
     const todayTs = todayStart.getTime();
 
-    const [reportsRes, sessionsRes, sysErrRes, syncActRes] = await Promise.all([
+    const [reportsRes, sessionsRes, sysErrRes, syncActRes, allAccsRes] = await Promise.all([
       env.DB.prepare(
         `SELECT id, name, class, board, phone, page_url, page_name, report_type,
                 description, status, submitted_at, ai_verdict, ai_status
@@ -45,13 +45,39 @@ export async function onRequest(context) {
         `SELECT student_id, value, updated_at FROM rishi_sync
          WHERE key = 'rishi_error_log' ORDER BY updated_at DESC LIMIT 30`
       ).all(),
+      /* last_key = most recently synced key per student, tells us what they were doing */
       env.DB.prepare(
-        `SELECT student_id, MAX(updated_at) as last_active
-         FROM rishi_sync WHERE updated_at > ?
-         GROUP BY student_id ORDER BY last_active DESC LIMIT 100`
-      ).bind(todayTs).all()
+        `SELECT s1.student_id, MAX(s1.updated_at) AS last_active,
+                (SELECT key FROM rishi_sync WHERE student_id = s1.student_id
+                 ORDER BY updated_at DESC LIMIT 1) AS last_key
+         FROM rishi_sync s1 WHERE s1.updated_at > ?
+         GROUP BY s1.student_id ORDER BY last_active DESC LIMIT 100`
+      ).bind(todayTs).all(),
+      env.DB.prepare(
+        `SELECT username, data FROM rishi_accounts WHERE role = 'student'`
+      ).all()
     ]);
 
+    /* Build account lookup for enriching syncActivity */
+    const accs = {};
+    (allAccsRes.results || []).forEach(r => {
+      try { accs[r.username] = JSON.parse(r.data); } catch(e) {}
+    });
+
+    /* Enrich syncActivity with name / class / board */
+    const syncActivity = (syncActRes.results || []).map(s => {
+      const acc = accs[s.student_id] || {};
+      return {
+        student_id: s.student_id,
+        last_active: s.last_active,
+        last_key: s.last_key || '',
+        student_name: acc.studentName || acc.firstName || '',
+        class: acc.class || '',
+        board: acc.board || ''
+      };
+    });
+
+    /* Process system errors */
     const systemErrors = [];
     (sysErrRes.results || []).forEach(r => {
       try {
@@ -68,7 +94,7 @@ export async function onRequest(context) {
       reports: reportsRes.results || [],
       sessions: sessionsRes.results || [],
       systemErrors: systemErrors.slice(0, 80),
-      syncActivity: syncActRes.results || [],
+      syncActivity,
       serverTime: new Date().toISOString()
     }), { headers });
   } catch(e) {

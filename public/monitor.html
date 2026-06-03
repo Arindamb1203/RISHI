@@ -101,15 +101,23 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:-apple-
 .stat-box.yellow .stat-num{color:var(--yellow)}
 
 /* ── ACTIVE TAB ──────────────────────────────────────── */
-.active-cols{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.col-hdr{font-size:11px;font-weight:700;color:var(--text3);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;display:flex;align-items:center;gap:6px}
-.col-hdr span{background:var(--bg3);border:1px solid var(--border);border-radius:10px;font-size:10px;padding:2px 7px;color:var(--text2)}
-.ucard{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:10px;margin-bottom:8px}
-.ucard-name{font-size:12px;font-weight:700;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.ucard-id{font-size:10px;color:var(--text3);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.ucard-meta{font-size:10px;color:var(--text2);margin-top:3px}
-.ucard-time{font-size:10px;color:var(--green2);margin-top:2px;font-weight:600}
-.no-data{font-size:12px;color:var(--text3);text-align:center;padding:20px 0;font-style:italic}
+.sec-hdr{display:flex;align-items:center;gap:8px;margin:12px 0 8px;padding-bottom:6px;border-bottom:1px solid var(--border)}
+.sec-hdr-label{font-size:11px;font-weight:700;color:var(--text3);letter-spacing:1.5px;text-transform:uppercase}
+.sec-hdr-count{background:var(--bg3);border:1px solid var(--border);border-radius:10px;font-size:11px;font-weight:700;padding:2px 9px;color:var(--green2)}
+.active-summary{background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:10px 14px;margin-bottom:12px;display:flex;gap:20px;align-items:center}
+.active-summary-item{text-align:center}
+.active-summary-num{font-size:22px;font-weight:800;color:var(--green);line-height:1}
+.active-summary-lbl{font-size:10px;color:var(--text3);margin-top:2px}
+.ucard{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:12px 14px;margin-bottom:8px;display:flex;align-items:flex-start;gap:12px}
+.ucard-avatar{width:36px;height:36px;border-radius:50%;background:var(--bg3);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;font-weight:700;color:var(--green2)}
+.ucard-body{flex:1;min-width:0}
+.ucard-name{font-size:14px;font-weight:700;color:var(--text);line-height:1.2}
+.ucard-id{font-size:11px;color:var(--text3);margin-top:2px}
+.ucard-cls{font-size:11px;color:var(--text2);margin-top:3px}
+.ucard-activity{font-size:11px;color:var(--green2);margin-top:4px;font-weight:500}
+.ucard-time{font-size:11px;color:var(--text3);margin-top:2px}
+.ucard-source{font-size:10px;color:var(--text3);background:var(--bg3);border:1px solid var(--border);border-radius:6px;padding:1px 6px;display:inline-block;margin-top:3px}
+.no-data{font-size:12px;color:var(--text3);padding:16px 0 8px;font-style:italic}
 
 /* ── SYSTEM TAB ──────────────────────────────────────── */
 .scard{background:var(--card);border:1px solid var(--border);border-radius:10px;margin-bottom:8px;overflow:hidden}
@@ -169,16 +177,17 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:-apple-
     </div>
 
     <div class="panel" id="panel-active">
-      <div class="active-cols">
-        <div>
-          <div class="col-hdr">Students <span id="st-count">0</span></div>
-          <div id="students-list"></div>
-        </div>
-        <div>
-          <div class="col-hdr">Parents <span id="pr-count">0</span></div>
-          <div id="parents-list"></div>
-        </div>
+      <div id="active-summary"></div>
+      <div class="sec-hdr">
+        <span class="sec-hdr-label">Students</span>
+        <span class="sec-hdr-count" id="st-count">0</span>
       </div>
+      <div id="students-list"></div>
+      <div class="sec-hdr" style="margin-top:16px">
+        <span class="sec-hdr-label">Parents</span>
+        <span class="sec-hdr-count" id="pr-count">0</span>
+      </div>
+      <div id="parents-list"></div>
     </div>
 
     <div class="panel" id="panel-system">
@@ -472,9 +481,9 @@ function renderActive() {
   var stud = sessions.filter(function(s){ return s.role === 'student'; });
   var par  = sessions.filter(function(s){ return s.role === 'parent'; });
 
-  // Merge sync activity for students not already in sessions
-  var sessionIds = new Set(stud.map(function(s){ return s.username; }));
-  var syncExtra = sync.filter(function(s){ return !sessionIds.has(s.student_id); });
+  // Merge sync activity for students not already in sessions (logged in before new code)
+  var sessionIds = new Set(stud.map(function(s){ return s.username.toLowerCase(); }));
+  var syncExtra = sync.filter(function(s){ return !sessionIds.has(s.student_id.toLowerCase()); });
 
   var totalSt = stud.length + syncExtra.length;
   var totalPr = par.length;
@@ -483,26 +492,70 @@ function renderActive() {
   document.getElementById('pr-count').textContent = totalPr;
   document.getElementById('badge-active').textContent = totalSt + totalPr;
 
-  // Students
+  // Summary bar
+  var today = new Date().toLocaleDateString([], {weekday:'short',day:'numeric',month:'short'});
+  document.getElementById('active-summary').innerHTML =
+    '<div class="active-summary">' +
+      '<div class="active-summary-item"><div class="active-summary-num">' + (totalSt+totalPr) + '</div><div class="active-summary-lbl">Today (' + today + ')</div></div>' +
+      '<div class="active-summary-item"><div class="active-summary-num" style="color:var(--blue)">' + totalSt + '</div><div class="active-summary-lbl">Students</div></div>' +
+      '<div class="active-summary-item"><div class="active-summary-num" style="color:var(--purple)">' + totalPr + '</div><div class="active-summary-lbl">Parents</div></div>' +
+    '</div>';
+
+  // Students — session-logged first, then sync-only
   var stHTML = stud.map(function(s) {
-    return userCard(s.student_name || s.username, s.username, 'Cl '+s.class+' '+s.board.toUpperCase(), s.logged_at, true);
+    return userCard({
+      name: s.student_name, id: s.username,
+      cls: s.class, board: s.board,
+      ts: s.logged_at, source: 'login', role: 'student'
+    });
   }).join('') + syncExtra.map(function(s) {
-    return userCard('', s.student_id, 'Active today', s.last_active, false);
+    return userCard({
+      name: s.student_name, id: s.student_id,
+      cls: s.class, board: s.board,
+      ts: s.last_active, source: 'activity', role: 'student',
+      lastKey: s.last_key
+    });
   }).join('');
 
-  document.getElementById('students-list').innerHTML = stHTML || noData('No sessions today');
+  document.getElementById('students-list').innerHTML = stHTML || noData('No student activity today');
   document.getElementById('parents-list').innerHTML = par.map(function(p) {
-    return userCard(p.student_name || '', p.username, 'Parent', p.logged_at, true);
+    return userCard({
+      name: p.student_name, id: p.username,
+      cls: p.class, board: p.board,
+      ts: p.logged_at, source: 'login', role: 'parent'
+    });
   }).join('') || noData('No parent logins today');
 }
 
-function userCard(name, id, meta, ts, isLogin) {
+function userCard(o) {
+  var initials = (o.name || o.id || '?').slice(0,1).toUpperCase();
+  var avatarColor = o.role === 'parent' ? 'color:var(--purple)' : 'color:var(--green2)';
+  var clsLine = [o.cls ? 'Class ' + esc(o.cls) : '', o.board ? esc((o.board||'').toUpperCase()) : ''].filter(Boolean).join(' · ');
+  var activity = o.lastKey ? lastKeyLabel(o.lastKey) : '';
+  var sourceLabel = o.source === 'login' ? '&#9679; Logged in' : '&#8635; Active';
   return '<div class="ucard">' +
-    (name ? '<div class="ucard-name">' + esc(name) + '</div>' : '') +
-    '<div class="ucard-id">' + esc(id) + '</div>' +
-    '<div class="ucard-meta">' + esc(meta) + '</div>' +
-    '<div class="ucard-time">' + (isLogin ? '&#9679; ' : '&#9632; ') + tsToTime(ts) + '</div>' +
+    '<div class="ucard-avatar" style="' + avatarColor + '">' + initials + '</div>' +
+    '<div class="ucard-body">' +
+      (o.name ? '<div class="ucard-name">' + esc(o.name) + '</div>' : '<div class="ucard-name" style="color:var(--text3)">' + esc(o.id) + '</div>') +
+      (o.name ? '<div class="ucard-id">' + esc(o.id) + '</div>' : '') +
+      (clsLine ? '<div class="ucard-cls">' + clsLine + '</div>' : '') +
+      (activity ? '<div class="ucard-activity">' + activity + '</div>' : '') +
+      '<div class="ucard-time">' + sourceLabel + ' &bull; ' + tsToTime(o.ts) + '</div>' +
+    '</div>' +
   '</div>';
+}
+
+function lastKeyLabel(key) {
+  if (!key) return '';
+  var k = key.toLowerCase();
+  if (k.includes('explain')) return '&#128214; Explain';
+  if (k.includes('practice')) return '&#9998; Practice';
+  if (k.includes('exam') || k.includes('chapexam')) return '&#128221; Exam';
+  if (k.includes('progress')) return '&#128202; Progress';
+  if (k.includes('break')) return '&#9209; Break log';
+  if (k.includes('coin')) return '&#11088; Coins';
+  if (k.includes('plan')) return '&#128203; Plans';
+  return '&#128190; Syncing';
 }
 
 function noData(msg) {
