@@ -522,6 +522,11 @@ async function handleLogin(){
     username: account.username
   }));
 
+  fetch('/d1-sync',{method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({action:'log-session',username:account.username,
+      role:isParent?'parent':'student',studentName:account.studentName,
+      class:account.class,board:account.board})}).catch(function(){});
+
   goToDestination(account);
 }
 

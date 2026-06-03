@@ -49,6 +49,8 @@
 | `functions/api/verify-question.js` | AI question verifier — checks if reported question is correct; returns replacement Q if wrong; stores verdict in D1 |
 | `functions/api/report-error.js` | Saves user error reports to D1 `rishi_error_reports` table |
 | `functions/api/admin-reports.js` | Returns all error reports including ai_verdict + ai_status |
+| `functions/api/monitor.js` | Mobile monitor API — POST with {pw}; returns reports + sessions + systemErrors + syncActivity |
+| `public/monitor.html` | Mobile PWA monitoring app — password gated, auto-polls /api/monitor every 30s, browser notifications on new reports, Reports/Active/System tabs |
 | `functions/api/admin-mark-fixed.js` | Sets report status = 'fixed' |
 | `public/parent-blogs.html` | Standalone blogs page for parents — placeholder "Coming Soon" layout with video card skeletons; auth guard checks `rishi_parent_student_id` |
 | `public/admin-blogs.html` | Standalone admin blogs management page — placeholder mode; has own password login (same rishi2025); form + video library skeleton |
@@ -155,6 +157,7 @@ Notable corrections (29 May 2026):
 | `store-referral` | Save parent referral code |
 | `validate-referral` | Check if code is valid/unused |
 | `redeem-referral` | Mark code as used |
+| `log-session` | Log a login event to `rishi_sessions` table — called fire-and-forget from login.html on every successful login |
 
 ## Parent Portal — Architecture (parent.html)
 - **Auth:** sessionStorage `rishi_parent_student_id` = student's ID (e.g. RISHI-DABEET-001)

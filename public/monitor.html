@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="theme-color" content="#000a02">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="RISHI Monitor">
+<title>RISHI Monitor</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+:root{
+  --bg:#000a02;--bg2:#0a1a08;--bg3:#112010;
+  --green:#00e060;--green2:#00a040;
+  --text:#dff0d8;--text2:#7aab7a;--text3:#4a7a4a;
+  --red:#ff4040;--orange:#ff9900;--blue:#44aaff;--yellow:#ffcc00;--purple:#cc88ff;
+  --border:#1a3a18;--card:#0c1c0a;
+  --hdr:52px;--tabs:58px;
+}
+html,body{height:100%;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;overflow:hidden}
+
+/* ── AUTH ─────────────────────────────────────────────── */
+#auth-wrap{display:flex;align-items:center;justify-content:center;height:100vh;background:var(--bg)}
+.auth-box{width:min(320px,90vw);text-align:center;padding:40px 28px;background:var(--bg2);border:1px solid var(--border);border-radius:16px}
+.auth-logo{font-size:32px;font-weight:900;letter-spacing:6px;color:var(--green);text-shadow:0 0 20px var(--green2)}
+.auth-sub{font-size:13px;color:var(--text2);margin:6px 0 28px;letter-spacing:3px;text-transform:uppercase}
+.auth-input{width:100%;background:#0f200c;border:1px solid var(--border);border-radius:10px;color:var(--text);font-size:17px;padding:14px 16px;outline:none;text-align:center;letter-spacing:3px}
+.auth-input:focus{border-color:var(--green2)}
+.auth-btn{width:100%;margin-top:14px;background:var(--green2);color:#000;font-size:15px;font-weight:700;padding:14px;border:none;border-radius:10px;cursor:pointer;letter-spacing:1px}
+.auth-btn:active{background:var(--green);transform:scale(.98)}
+.auth-err{color:var(--red);font-size:13px;margin-top:10px;min-height:18px}
+
+/* ── APP SHELL ────────────────────────────────────────── */
+#app{display:flex;flex-direction:column;height:100vh}
+#app[hidden]{display:none}
+
+/* header */
+.hdr{height:var(--hdr);display:flex;align-items:center;justify-content:space-between;padding:0 14px;background:var(--bg2);border-bottom:1px solid var(--border);flex-shrink:0}
+.hdr-left{display:flex;flex-direction:column}
+.hdr-title{font-size:14px;font-weight:800;letter-spacing:3px;color:var(--green)}
+.hdr-sub{font-size:10px;color:var(--text3);margin-top:1px}
+.hdr-right{display:flex;align-items:center;gap:10px}
+.hdr-btn{background:transparent;border:1px solid var(--border);border-radius:8px;color:var(--text2);font-size:14px;padding:6px 10px;cursor:pointer;line-height:1}
+.hdr-btn:active{background:var(--bg3)}
+.hdr-btn.active{border-color:var(--green2);color:var(--green)}
+#countdown{font-size:13px;color:var(--text3);min-width:36px;text-align:right;font-variant-numeric:tabular-nums}
+
+/* tab bar */
+.tabs{height:var(--tabs);display:flex;align-items:stretch;background:var(--bg2);border-top:1px solid var(--border);flex-shrink:0;order:99}
+.tab{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;background:transparent;border:none;color:var(--text2);font-size:11px;cursor:pointer;gap:2px;position:relative;padding:0}
+.tab.active{color:var(--green)}
+.tab-icon{font-size:18px;line-height:1}
+.tab-label{font-size:10px;letter-spacing:.5px}
+.tab .badge{position:absolute;top:6px;right:calc(50% - 18px);min-width:18px;height:18px;background:var(--red);color:#fff;font-size:10px;font-weight:700;border-radius:9px;display:flex;align-items:center;justify-content:center;padding:0 4px}
+.tab .badge.hidden{display:none}
+
+/* panels */
+.panels{flex:1;overflow:hidden;position:relative}
+.panel{position:absolute;inset:0;overflow-y:auto;padding:10px 10px 20px;display:none}
+.panel.active{display:block}
+
+/* status bar */
+.status-bar{background:var(--bg2);border-top:1px solid var(--border);font-size:11px;color:var(--text3);padding:4px 14px;flex-shrink:0;display:flex;align-items:center;gap:6px}
+.status-dot{width:7px;height:7px;border-radius:50%;background:var(--green2);flex-shrink:0}
+.status-dot.error{background:var(--red)}
+
+/* ── FILTER ROW ──────────────────────────────────────── */
+.filter-row{display:flex;gap:8px;margin-bottom:10px}
+.fbtn{background:var(--bg3);border:1px solid var(--border);border-radius:20px;color:var(--text2);font-size:12px;padding:5px 14px;cursor:pointer}
+.fbtn.active{background:var(--green2);border-color:var(--green2);color:#000;font-weight:700}
+
+/* ── REPORT CARD ─────────────────────────────────────── */
+.rcard{background:var(--card);border:1px solid var(--border);border-radius:12px;margin-bottom:10px;overflow:hidden;cursor:pointer}
+.rcard.card-new{border-color:#335533;box-shadow:0 0 0 1px #335533}
+.rcard-head{display:flex;align-items:center;gap:8px;padding:10px 12px 6px;flex-wrap:wrap}
+.type-badge{font-size:10px;font-weight:700;padding:3px 9px;border-radius:10px;letter-spacing:.3px}
+.status-badge{font-size:10px;padding:3px 8px;border-radius:10px;border:1px solid;font-weight:600;margin-left:auto}
+.status-badge.status-pending{color:var(--yellow);border-color:var(--yellow)}
+.status-badge.status-fixed{color:var(--green2);border-color:var(--green2)}
+.new-dot{width:8px;height:8px;border-radius:50%;background:var(--red);flex-shrink:0}
+.rcard-name{padding:0 12px;font-size:13px;font-weight:600;color:var(--text)}
+.rcard-meta{padding:3px 12px 6px;font-size:11px;color:var(--text3)}
+.rcard-desc{padding:6px 12px;font-size:12px;color:var(--text2);border-top:1px solid var(--border);max-height:52px;overflow:hidden;transition:max-height .3s}
+.rcard-desc.expanded{max-height:400px}
+.ai-verdict{margin:6px 12px;font-size:11px;padding:6px 10px;border-radius:8px;line-height:1.4}
+.ai-verdict.ai-confirmed_correct{background:#0a2a0a;color:#66dd66;border:1px solid #1a4a1a}
+.ai-verdict.ai-confirmed_wrong{background:#2a0a0a;color:#ff7777;border:1px solid #4a1a1a}
+.ai-verdict:not(.ai-confirmed_correct):not(.ai-confirmed_wrong){background:#1a1a0a;color:var(--yellow);border:1px solid #3a3a1a}
+.rcard-foot{padding:8px 12px;border-top:1px solid var(--border);display:flex;gap:8px}
+.fix-btn{background:transparent;border:1px solid var(--green2);color:var(--green2);font-size:11px;padding:5px 14px;border-radius:8px;cursor:pointer;font-weight:600}
+.fix-btn:active{background:var(--green2);color:#000}
+.fix-btn.fixing{opacity:.5;pointer-events:none}
+.expand-hint{font-size:10px;color:var(--text3);padding:4px 12px 8px;text-align:right}
+
+.stats-row{display:flex;gap:8px;margin-bottom:12px}
+.stat-box{flex:1;background:var(--card);border:1px solid var(--border);border-radius:10px;text-align:center;padding:10px 6px}
+.stat-num{font-size:20px;font-weight:800;color:var(--green)}
+.stat-lbl{font-size:10px;color:var(--text3);margin-top:2px}
+.stat-box.red .stat-num{color:var(--red)}
+.stat-box.yellow .stat-num{color:var(--yellow)}
+
+/* ── ACTIVE TAB ──────────────────────────────────────── */
+.active-cols{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.col-hdr{font-size:11px;font-weight:700;color:var(--text3);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.col-hdr span{background:var(--bg3);border:1px solid var(--border);border-radius:10px;font-size:10px;padding:2px 7px;color:var(--text2)}
+.ucard{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:10px;margin-bottom:8px}
+.ucard-name{font-size:12px;font-weight:700;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ucard-id{font-size:10px;color:var(--text3);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ucard-meta{font-size:10px;color:var(--text2);margin-top:3px}
+.ucard-time{font-size:10px;color:var(--green2);margin-top:2px;font-weight:600}
+.no-data{font-size:12px;color:var(--text3);text-align:center;padding:20px 0;font-style:italic}
+
+/* ── SYSTEM TAB ──────────────────────────────────────── */
+.scard{background:var(--card);border:1px solid var(--border);border-radius:10px;margin-bottom:8px;overflow:hidden}
+.scard-head{display:flex;align-items:center;gap:8px;padding:8px 10px}
+.scard-sid{font-size:11px;font-weight:700;color:var(--orange);flex-shrink:0}
+.scard-page{font-size:10px;color:var(--text3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.scard-time{font-size:10px;color:var(--text3);margin-left:auto;flex-shrink:0}
+.scard-msg{padding:6px 10px;font-size:11px;color:var(--red);font-family:monospace;word-break:break-all;border-top:1px solid var(--border)}
+
+/* ── EMPTY / LOADING ─────────────────────────────────── */
+.empty-state{text-align:center;padding:50px 20px;color:var(--text3)}
+.empty-state .icon{font-size:36px;margin-bottom:10px}
+.empty-state p{font-size:13px}
+.loading-ring{width:30px;height:30px;border:3px solid var(--border);border-top-color:var(--green2);border-radius:50%;animation:spin .8s linear infinite;margin:40px auto}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ── TOAST ───────────────────────────────────────────── */
+.toast{position:fixed;bottom:calc(var(--tabs) + 12px);left:50%;transform:translateX(-50%);background:#1a3a1a;border:1px solid var(--green2);color:var(--green);font-size:12px;padding:8px 18px;border-radius:20px;z-index:999;opacity:0;transition:opacity .3s;pointer-events:none;white-space:nowrap}
+.toast.show{opacity:1}
+</style>
+</head>
+<body>
+
+<div id="auth-wrap">
+  <div class="auth-box">
+    <div class="auth-logo">RISHI</div>
+    <div class="auth-sub">Monitor</div>
+    <input class="auth-input" type="password" id="pw-input" placeholder="Admin password"
+           autocomplete="current-password" enterkeyhint="go">
+    <button class="auth-btn" id="pw-btn">Enter Monitor</button>
+    <div class="auth-err" id="pw-err"></div>
+  </div>
+</div>
+
+<div id="app" hidden>
+  <div class="hdr">
+    <div class="hdr-left">
+      <span class="hdr-title">&#9651; RISHI MONITOR</span>
+      <span class="hdr-sub" id="hdr-sub">Loading…</span>
+    </div>
+    <div class="hdr-right">
+      <button class="hdr-btn" id="notif-btn" title="Enable notifications">&#128276;</button>
+      <button class="hdr-btn" id="refresh-btn" title="Refresh now">&#8635;</button>
+      <span id="countdown">30</span>
+    </div>
+  </div>
+
+  <div class="panels">
+    <div class="panel active" id="panel-reports">
+      <div class="stats-row" id="stats-row"></div>
+      <div class="filter-row" id="filter-row">
+        <button class="fbtn active" data-f="all">All</button>
+        <button class="fbtn" data-f="pending">Pending</button>
+        <button class="fbtn" data-f="fixed">Fixed</button>
+      </div>
+      <div id="reports-list"><div class="loading-ring"></div></div>
+    </div>
+
+    <div class="panel" id="panel-active">
+      <div class="active-cols">
+        <div>
+          <div class="col-hdr">Students <span id="st-count">0</span></div>
+          <div id="students-list"></div>
+        </div>
+        <div>
+          <div class="col-hdr">Parents <span id="pr-count">0</span></div>
+          <div id="parents-list"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel" id="panel-system">
+      <div id="system-list"><div class="loading-ring"></div></div>
+    </div>
+  </div>
+
+  <div class="status-bar">
+    <div class="status-dot" id="status-dot"></div>
+    <span id="status-text">Connecting…</span>
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" data-tab="reports">
+      <span class="tab-icon">&#9888;</span>
+      <span class="tab-label">Reports</span>
+      <span class="badge hidden" id="badge-reports">0</span>
+    </button>
+    <button class="tab" data-tab="active">
+      <span class="tab-icon">&#128100;</span>
+      <span class="tab-label">Active</span>
+      <span class="badge" id="badge-active">0</span>
+    </button>
+    <button class="tab" data-tab="system">
+      <span class="tab-icon">&#9889;</span>
+      <span class="tab-label">System</span>
+      <span class="badge hidden" id="badge-system">0</span>
+    </button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+(function(){
+'use strict';
+
+var PW_KEY = 'mtr_pw';
+var SEEN_KEY = 'mtr_seen';
+var FILTER_KEY = 'mtr_filter';
+
+var S = {
+  pw: sessionStorage.getItem(PW_KEY) || '',
+  data: null,
+  seen: new Set(jsonParse(localStorage.getItem(SEEN_KEY), [])),
+  filter: localStorage.getItem(FILTER_KEY) || 'all',
+  tab: 'reports',
+  secs: 30,
+  timer: null,
+  loading: false,
+  notifEnabled: Notification && Notification.permission === 'granted'
+};
+
+// ── INIT ────────────────────────────────────────────────
+function init() {
+  if (S.pw) { tryAuth(); }
+  else { showAuth(); }
+}
+
+function showAuth() {
+  document.getElementById('auth-wrap').style.display = '';
+  document.getElementById('app').hidden = true;
+  var inp = document.getElementById('pw-input');
+  inp.addEventListener('keydown', function(e){ if(e.key==='Enter') doAuth(); });
+  document.getElementById('pw-btn').addEventListener('click', doAuth);
+}
+
+async function doAuth() {
+  var v = document.getElementById('pw-input').value.trim();
+  if (!v) return;
+  document.getElementById('pw-err').textContent = '';
+  document.getElementById('pw-btn').textContent = 'Checking…';
+  S.pw = v;
+  var ok = await fetchData(true);
+  document.getElementById('pw-btn').textContent = 'Enter Monitor';
+  if (ok) {
+    sessionStorage.setItem(PW_KEY, v);
+    document.getElementById('auth-wrap').style.display = 'none';
+    document.getElementById('app').hidden = false;
+    setupApp();
+  } else {
+    S.pw = '';
+    document.getElementById('pw-err').textContent = 'Wrong password';
+  }
+}
+
+async function tryAuth() {
+  var ok = await fetchData(true);
+  if (ok) {
+    document.getElementById('auth-wrap').style.display = 'none';
+    document.getElementById('app').hidden = false;
+    setupApp();
+  } else {
+    S.pw = '';
+    sessionStorage.removeItem(PW_KEY);
+    showAuth();
+  }
+}
+
+function setupApp() {
+  setupTabs();
+  setupFilters();
+  setupButtons();
+  render();
+  startCountdown();
+  requestNotifPermission();
+}
+
+// ── FETCH ────────────────────────────────────────────────
+async function fetchData(silent) {
+  if (S.loading) return true;
+  S.loading = true;
+  if (!silent) setStatus('Refreshing…', false);
+  try {
+    var res = await fetch('/api/monitor', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({pw: S.pw})
+    });
+    if (res.status === 401) { S.loading = false; return false; }
+    var d = await res.json();
+    if (!d.ok) { S.loading = false; setStatus('Error: ' + (d.error||'unknown'), true); return true; }
+
+    if (S.data) detectNew(d.reports);
+    S.data = d;
+    render();
+    var t = new Date(d.serverTime);
+    setStatus('Updated ' + t.toLocaleTimeString([], {hour:'2-digit',minute:'2-digit',second:'2-digit'}), false);
+    S.loading = false;
+    return true;
+  } catch(e) {
+    S.loading = false;
+    if (!silent) setStatus('Network error', true);
+    return true;
+  }
+}
+
+// ── NOTIFICATIONS ─────────────────────────────────────────
+function detectNew(reports) {
+  var newOnes = reports.filter(function(r){ return !S.seen.has(r.id) && r.status === 'pending'; });
+  if (!newOnes.length) return;
+  if (S.notifEnabled && Notification.permission === 'granted') {
+    newOnes.slice(0, 3).forEach(function(r) {
+      try {
+        new Notification('RISHI: New Report', {
+          body: (r.report_type||'Error') + ' — ' + (r.name||'Unknown') + ' • ' + (r.page_name||r.page_url||''),
+          tag: r.id,
+          icon: '/images/rishika/sprites/Angry.png'
+        });
+      } catch(e) {}
+    });
+  }
+}
+
+function requestNotifPermission() {
+  if (!('Notification' in window)) return;
+  if (Notification.permission === 'granted') {
+    S.notifEnabled = true;
+    document.getElementById('notif-btn').classList.add('active');
+    return;
+  }
+  document.getElementById('notif-btn').addEventListener('click', function() {
+    Notification.requestPermission().then(function(p) {
+      S.notifEnabled = p === 'granted';
+      document.getElementById('notif-btn').classList.toggle('active', p === 'granted');
+      showToast(p === 'granted' ? 'Notifications enabled' : 'Notifications blocked');
+    });
+  });
+}
+
+// ── COUNTDOWN ────────────────────────────────────────────
+function startCountdown() {
+  S.secs = 30;
+  clearInterval(S.timer);
+  updateCountdown();
+  S.timer = setInterval(function() {
+    S.secs--;
+    updateCountdown();
+    if (S.secs <= 0) {
+      S.secs = 30;
+      fetchData(false);
+    }
+  }, 1000);
+}
+
+function updateCountdown() {
+  document.getElementById('countdown').textContent = S.secs + 's';
+}
+
+// ── SETUP UI ──────────────────────────────────────────────
+function setupTabs() {
+  document.querySelectorAll('.tab').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var t = btn.dataset.tab;
+      S.tab = t;
+      document.querySelectorAll('.tab').forEach(function(b){ b.classList.toggle('active', b.dataset.tab===t); });
+      document.querySelectorAll('.panel').forEach(function(p){ p.classList.toggle('active', p.id==='panel-'+t); });
+    });
+  });
+}
+
+function setupFilters() {
+  document.querySelectorAll('.fbtn').forEach(function(btn) {
+    btn.classList.toggle('active', btn.dataset.f === S.filter);
+    btn.addEventListener('click', function() {
+      S.filter = btn.dataset.f;
+      localStorage.setItem(FILTER_KEY, S.filter);
+      document.querySelectorAll('.fbtn').forEach(function(b){ b.classList.toggle('active', b.dataset.f===S.filter); });
+      if (S.data) renderReports();
+    });
+  });
+}
+
+function setupButtons() {
+  document.getElementById('refresh-btn').addEventListener('click', function() {
+    S.secs = 30;
+    fetchData(false);
+  });
+}
+
+// ── RENDER ────────────────────────────────────────────────
+function render() {
+  if (!S.data) return;
+  renderReports();
+  renderActive();
+  renderSystem();
+}
+
+// Reports
+function renderReports() {
+  var reports = S.data.reports || [];
+  var pending = reports.filter(function(r){ return r.status==='pending'; });
+  var total = reports.length;
+  var fixed = reports.filter(function(r){ return r.status==='fixed'; });
+
+  // Stats
+  document.getElementById('stats-row').innerHTML =
+    statBox(total, 'Total', '') +
+    statBox(pending.length, 'Pending', 'red') +
+    statBox(fixed.length, 'Fixed', '');
+
+  // Badge
+  var badge = document.getElementById('badge-reports');
+  if (pending.length) { badge.textContent = pending.length; badge.classList.remove('hidden'); }
+  else badge.classList.add('hidden');
+
+  // Filter
+  var filtered = S.filter === 'all' ? reports : reports.filter(function(r){ return r.status === S.filter; });
+
+  var list = document.getElementById('reports-list');
+  if (!filtered.length) {
+    list.innerHTML = '<div class="empty-state"><div class="icon">&#10003;</div><p>No ' + S.filter + ' reports</p></div>';
+    return;
+  }
+
+  list.innerHTML = filtered.map(function(r) {
+    var isNew = !S.seen.has(r.id);
+    var tc = typeColor(r.report_type);
+    var foot = (r.status === 'pending') ? '<div class="rcard-foot"><button class="fix-btn" onclick="markFixed(event,\'' + esc(r.id) + '\')">Mark Fixed</button></div>' : '';
+    var ai = r.ai_verdict ? '<div class="ai-verdict ai-' + esc(r.ai_status||'') + '">' +
+      (r.ai_status==='confirmed_correct'?'&#10003; ':'&#9888; ') + esc(r.ai_verdict) + '</div>' : '';
+    return '<div class="rcard' + (isNew?' card-new':'') + '" onclick="toggleDesc(this)">' +
+      '<div class="rcard-head">' +
+        '<span class="type-badge" style="background:' + tc.bg + ';color:' + tc.fg + '">' + esc(r.report_type||'Error') + '</span>' +
+        '<span class="status-badge status-' + esc(r.status||'pending') + '">' + (r.status||'pending') + '</span>' +
+        (isNew ? '<span class="new-dot"></span>' : '') +
+      '</div>' +
+      '<div class="rcard-name">' + esc(r.name||'Unknown') + (r.class?' &bull; Cl '+esc(r.class):'')+((r.board&&r.class)?' '+esc(r.board.toUpperCase()):'') + '</div>' +
+      '<div class="rcard-meta">&#128196; ' + esc(r.page_name||r.page_url||'—') + ' &nbsp;&bull;&nbsp; ' + timeAgo(r.submitted_at) + '</div>' +
+      '<div class="rcard-desc">' + esc(r.description||'') + '</div>' +
+      (r.phone ? '<div class="rcard-meta" style="padding-top:0">&nbsp;&#9990; '+esc(r.phone)+'</div>' : '') +
+      ai + foot +
+      '<div class="expand-hint">tap to expand</div>' +
+    '</div>';
+  }).join('');
+
+  // Mark as seen
+  filtered.forEach(function(r){ S.seen.add(r.id); });
+  saveSeen();
+}
+
+function statBox(n, lbl, cls) {
+  return '<div class="stat-box ' + cls + '"><div class="stat-num">' + n + '</div><div class="stat-lbl">' + lbl + '</div></div>';
+}
+
+// Active users
+function renderActive() {
+  var sessions = S.data.sessions || [];
+  var sync = S.data.syncActivity || [];
+
+  var stud = sessions.filter(function(s){ return s.role === 'student'; });
+  var par  = sessions.filter(function(s){ return s.role === 'parent'; });
+
+  // Merge sync activity for students not already in sessions
+  var sessionIds = new Set(stud.map(function(s){ return s.username; }));
+  var syncExtra = sync.filter(function(s){ return !sessionIds.has(s.student_id); });
+
+  var totalSt = stud.length + syncExtra.length;
+  var totalPr = par.length;
+
+  document.getElementById('st-count').textContent = totalSt;
+  document.getElementById('pr-count').textContent = totalPr;
+  document.getElementById('badge-active').textContent = totalSt + totalPr;
+
+  // Students
+  var stHTML = stud.map(function(s) {
+    return userCard(s.student_name || s.username, s.username, 'Cl '+s.class+' '+s.board.toUpperCase(), s.logged_at, true);
+  }).join('') + syncExtra.map(function(s) {
+    return userCard('', s.student_id, 'Active today', s.last_active, false);
+  }).join('');
+
+  document.getElementById('students-list').innerHTML = stHTML || noData('No sessions today');
+  document.getElementById('parents-list').innerHTML = par.map(function(p) {
+    return userCard(p.student_name || '', p.username, 'Parent', p.logged_at, true);
+  }).join('') || noData('No parent logins today');
+}
+
+function userCard(name, id, meta, ts, isLogin) {
+  return '<div class="ucard">' +
+    (name ? '<div class="ucard-name">' + esc(name) + '</div>' : '') +
+    '<div class="ucard-id">' + esc(id) + '</div>' +
+    '<div class="ucard-meta">' + esc(meta) + '</div>' +
+    '<div class="ucard-time">' + (isLogin ? '&#9679; ' : '&#9632; ') + tsToTime(ts) + '</div>' +
+  '</div>';
+}
+
+function noData(msg) {
+  return '<div class="no-data">' + msg + '</div>';
+}
+
+// System errors
+function renderSystem() {
+  var errs = S.data.systemErrors || [];
+  var badge = document.getElementById('badge-system');
+  if (errs.length) { badge.textContent = errs.length; badge.classList.remove('hidden'); }
+  else badge.classList.add('hidden');
+
+  var list = document.getElementById('system-list');
+  if (!errs.length) {
+    list.innerHTML = '<div class="empty-state"><div class="icon">&#9889;</div><p>No system errors</p></div>';
+    return;
+  }
+
+  list.innerHTML = errs.map(function(e) {
+    return '<div class="scard">' +
+      '<div class="scard-head">' +
+        '<span class="scard-sid">' + esc(e.studentId||'?') + '</span>' +
+        '<span class="scard-page">' + esc(e.page||'') + '</span>' +
+        '<span class="scard-time">' + esc((e.date||'') + ' ' + (e.time||'')) + '</span>' +
+      '</div>' +
+      '<div class="scard-msg">' + esc((e.message||'') + (e.stack ? '\n'+e.stack.slice(0,200) : '')) + '</div>' +
+    '</div>';
+  }).join('');
+}
+
+// ── ACTIONS ───────────────────────────────────────────────
+window.toggleDesc = function(card) {
+  var desc = card.querySelector('.rcard-desc');
+  if (desc) desc.classList.toggle('expanded');
+};
+
+window.markFixed = function(evt, id) {
+  evt.stopPropagation();
+  var btn = evt.target;
+  btn.classList.add('fixing');
+  btn.textContent = 'Fixing…';
+  fetch('/api/admin-mark-fixed', {
+    method: 'POST',
+    headers: {'Content-Type':'application/json'},
+    body: JSON.stringify({id: id})
+  }).then(function(r){ return r.json(); }).then(function(d) {
+    if (d.success) {
+      showToast('Marked as fixed');
+      var report = (S.data.reports||[]).find(function(r){ return r.id===id; });
+      if (report) report.status = 'fixed';
+      renderReports();
+    } else {
+      btn.classList.remove('fixing');
+      btn.textContent = 'Mark Fixed';
+      showToast('Failed to mark');
+    }
+  }).catch(function() {
+    btn.classList.remove('fixing');
+    btn.textContent = 'Mark Fixed';
+    showToast('Network error');
+  });
+};
+
+// ── HELPERS ───────────────────────────────────────────────
+function typeColor(t) {
+  if (!t) return {bg:'#1a1a2a',fg:'#8888cc'};
+  var tl = t.toLowerCase();
+  if (tl.includes('wrong')) return {bg:'#2a0808',fg:'#ff6666'};
+  if (tl.includes('syllabus')) return {bg:'#2a1800',fg:'#ff9900'};
+  if (tl.includes('registration')) return {bg:'#08102a',fg:'#4499ff'};
+  return {bg:'#1a1a1a',fg:'#999'};
+}
+
+function timeAgo(iso) {
+  if (!iso) return '—';
+  var d = new Date(iso);
+  var diff = Math.round((Date.now() - d.getTime()) / 1000);
+  if (diff < 60) return diff + 's ago';
+  if (diff < 3600) return Math.floor(diff/60) + 'm ago';
+  if (diff < 86400) return Math.floor(diff/3600) + 'h ago';
+  return Math.floor(diff/86400) + 'd ago';
+}
+
+function tsToTime(ts) {
+  if (!ts) return '—';
+  return new Date(ts).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});
+}
+
+function esc(s) {
+  if (typeof s !== 'string') s = String(s||'');
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function jsonParse(s, def) {
+  try { return JSON.parse(s||''); } catch(e) { return def; }
+}
+
+function saveSeen() {
+  var arr = Array.from(S.seen).slice(-500);
+  localStorage.setItem(SEEN_KEY, JSON.stringify(arr));
+}
+
+function setStatus(msg, isErr) {
+  document.getElementById('status-text').textContent = msg;
+  document.getElementById('hdr-sub').textContent = msg;
+  document.getElementById('status-dot').classList.toggle('error', !!isErr);
+}
+
+function showToast(msg) {
+  var t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(function(){ t.classList.remove('show'); }, 2200);
+}
+
+init();
+})();
+</script>
+</body>
+</html>

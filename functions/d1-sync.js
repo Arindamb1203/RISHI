@@ -358,5 +358,25 @@ export async function onRequest(context) {
     }
   }
 
+  /* Log a login session — called fire-and-forget from login.html */
+  if (action === "log-session") {
+    const { username, role, studentName, class: cls, board } = body;
+    if (!username || !role) return new Response(JSON.stringify({ error: "username and role required" }), { status: 400, headers });
+    try {
+      await env.DB.prepare(`CREATE TABLE IF NOT EXISTS rishi_sessions (
+        id TEXT PRIMARY KEY, username TEXT NOT NULL, role TEXT NOT NULL,
+        student_name TEXT, class TEXT, board TEXT, logged_at INTEGER NOT NULL
+      )`).run();
+      const sid = username.toLowerCase() + '_' + Date.now();
+      await env.DB.prepare(
+        `INSERT INTO rishi_sessions (id, username, role, student_name, class, board, logged_at)
+         VALUES (?, ?, ?, ?, ?, ?, ?)`
+      ).bind(sid, username.toLowerCase(), role, studentName || '', cls || '', board || '', Date.now()).run();
+      return new Response(JSON.stringify({ ok: true }), { headers });
+    } catch(e) {
+      return new Response(JSON.stringify({ error: "log-session failed", detail: String(e) }), { status: 500, headers });
+    }
+  }
+
   return new Response(JSON.stringify({ error: "Unknown action: " + action }), { status: 400, headers });
 }
