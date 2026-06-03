@@ -230,22 +230,29 @@ Injected on all pages **except** `/admin` and `/landing`. Behaviour varies by pa
 - "Skip to Register" button = `go(5)` → jumps to slide 5 (r5 with register button)
 - `error-reporter.js` is NOT included on landing.html
 
-### Slide 0 — Story Reveal + Math Particle Animation (03 Jun 2026)
-- **Background:** pitch dark green-black (`#000a03`) fills canvas; bottom overlay gradient `rgba(0,10,3,0.94)`
+### Slide 0 — Story Reveal + Math Particle Animation (03 Jun 2026, updated 03 Jun 2026)
+- **Background:** pitch dark green-black (`#000a03`); background fade alpha `(pi>=9?.10:.44)` — high alpha keeps rain chars readable as individual glyphs
 - **Story reveal before RISHI:** 4 lines assemble sequentially via particle animation, then RISHI forms bigger in center
-  - Line 1: "It's a Father's Promise" — fluorescent green (#39FF14) stroke + black border + glow; most prominent
-  - Line 2: "who can go to any extent for his child."
-  - Line 3: "18,100 lines of coding"
-  - Line 4: "6 months + 12 days of struggle & pain."
-  - Line 5 → RISHI: assembles bigger at Y=76% of canvas height
-- **Phase sequence (14 phases):** rain_start(1.4s) → l0in(2.8s) → l0hold(1s) → l1in(2.4s) → l1hold(0.8s) → l2in(2.2s) → l2hold(0.8s) → l3in(2.2s) → l3hold(0.8s) → rin(2.5s) → rhold(2.5s) → rdist(2.2s) → rexpl(0.9s) → rfree(8s) → wraps to rin
-- **Particle system:** NR (130/200 mobile/desktop) always-rain green particles + NT assembly particles (sized to largest text pts count). Assembly particles scatter to canvas edges on phase transition, fly inward to form each text
-- **Permanent lines:** after each `_hold` phase, line is drawn as crisp canvas text every frame; particles freed for next line. Line 1 uses `strokeText` double-pass (black 5px + green 2.5px) + `shadowBlur:18` glow
-- **Math rain:** green-tinted (`rgba(0,195,75,α)`) throughout; `rainAlpha` gradually increases each phase (`0.07 + pi*0.02`)
-- **RISHI:** `Math.min(W*0.21, H*0.27, 165)` desktop — bigger than before. Same gold+red-stroke overlay during formed/distort. 3 formation variations cycle on each explode→rfree
-- **Pixel sampler:** `samplePts(txt, fs, cx, cy)` — generic, works for any text. `step = Math.max(3, √(W×H)/110)`
-- **Mobile:** line 2+4 text shortened to fit; smaller font scales; 130 rain particles
-- **Animation control:** RAF + token pattern unchanged (`rainInterval = myToken`)
+  - Line 1: "It's a Father's Promise" — black thick stroke + green inner stroke + white fill + green glow
+  - Lines 2-4: white fill + dark stroke (6px black + 2px green) + white glow — NOT pale green
+  - RISHI: black stroke + bright gold fill + gold shadowBlur=28 glow. NO red stroke.
+  - Tagline "Not a Tutor. A Companion." — white fill + gold glow
+- **Phase sequence (14 phases, SLOW — ~68s total):** rain_start(2s) → l0in(9s) → l0hold(5s) → l1in(7s) → l1hold(4s) → l2in(7s) → l2hold(4s) → l3in(8s) → l3hold(4s) → rin(8s) → rhold(10s) → rdist(2.2s) → rexpl(0.9s) → rfree(8s) → wraps to rin
+- **PD array:** `[2000,9000,5000,7000,4000,7000,4000,8000,4000,8000,10000,2200,900,8000]`
+- **Particle system:** NR rain particles (sz 15-22px, vy 0.28-1.13), TP assembly particles (sz 18-26px). Rain alpha base 0.22.
+- **Hold phases (pi=2,4,6,8):** TP particles with targets are invisible (return early) — drawLine renders crisp text only, no smudge
+- **RISHI assembly:** lerp 0.065 (slower than default 0.085)
+- **Pixel sampler:** `samplePts(txt, fs, cx, cy)` — `step = Math.max(3, √(W×H)/110)`
+- **Mobile:** smaller font scales; 130 rain particles
+- **Animation control:** RAF + token pattern (`rainInterval = myToken`)
+
+### Background Music — landing.html (03 Jun 2026)
+- **File:** `/audio/bg-music.mp3` (~2.9MB, ~90-180s)
+- **CRITICAL:** `<audio>` element is AFTER `</script>` tag — `getElementById` returns null. Audio element MUST be created via `new Audio()` in the IIFE, not looked up from DOM.
+- **Flow:** IIFE creates `new Audio()`, sets `muted=true`, calls `a.play()`. Chrome blocks `<audio>` muted autoplay (muted exception is VIDEO only, not audio). Falls back to `mousemove/touchstart/scroll/click` event listeners.
+- **`bgMusicUnmute`** set SYNCHRONOUSLY (not inside `.then()`) — unmutes + plays at pi===1 (first letter)
+- **`bgMusicFadeOut`** called at pi===10 (rhold) — fades volume over ~1.4s then pauses; resets `started=false` for next cycle
+- **Click required on Chrome** — this is a hard browser limitation, not a code bug. Cannot be fixed without user gesture.
 
 ### Responsive Design — landing.html (03 Jun 2026)
 - **Mobile ≤640px:** feat carousel collapses to single card (`.fl`, `.fr` hidden), Rishika image stacks above text (`.r1-row` flex-direction:column, `.r1-img-wrap` full width), topbar tagline hidden (`.topbar-sub`), padding tightened, action buttons wrap to 2 rows
