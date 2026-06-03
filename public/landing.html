@@ -762,44 +762,45 @@ for(let i=0;i<18;i++){const s=document.createElement('div');s.className='spark';
 /* ── Background music ── */
 (function(){
   var audio=new Audio('/audio/bg-music.mp3');
-  audio.loop=true;audio.volume=0;audio.preload='auto';
-  var playing=false,muted=false;
-  var TARGET=0.13; // soft background volume
+  audio.loop=true;audio.preload='auto';
+  var TARGET=0.32,silenced=false,unmuteStarted=false;
 
+  /* Muted autoplay works in ALL browsers — no permission needed */
+  audio.muted=true;audio.volume=TARGET;
+  audio.play().catch(function(){});
+
+  /* Fade volume from 0 → TARGET once unmuted */
   function fadeIn(){
-    var steps=0;
+    audio.volume=0;
     var iv=setInterval(function(){
-      steps++;audio.volume=Math.min(TARGET*steps/25,TARGET);
-      if(steps>=25)clearInterval(iv);
-    },80); // ~2s fade
+      audio.volume=Math.min(audio.volume+TARGET/30,TARGET);
+      if(audio.volume>=TARGET)clearInterval(iv);
+    },65);
   }
 
-  function tryPlay(){
-    var p=audio.play();
-    if(p!==undefined){
-      p.then(function(){playing=true;fadeIn();updateBtn(true);})
-       .catch(function(){updateBtn(false);});
-    }
+  /* Unmute on first user interaction — user clicks Begin/Continue anyway */
+  function doUnmute(){
+    if(unmuteStarted||silenced)return;
+    unmuteStarted=true;
+    audio.muted=false;
+    fadeIn();
+    setBtn(true);
   }
+  document.addEventListener('click',doUnmute,{once:true});
+  document.addEventListener('touchstart',doUnmute,{once:true});
 
-  function updateBtn(on){
+  function setBtn(on){
     var b=document.getElementById('music-btn');if(!b)return;
-    b.innerHTML=on&&!muted?'&#9835;':'&#9834;';
-    b.style.opacity=on&&!muted?'1':'0.38';
-    b.style.color=on&&!muted?'rgba(201,138,0,0.85)':'rgba(201,138,0,0.4)';
+    b.innerHTML=on?'&#9835;':'&#9834;';
+    b.style.opacity=on?'1':'0.4';
+    b.title=on?'Mute music':'Unmute music';
   }
 
   window.toggleMusic=function(){
-    var b=document.getElementById('music-btn');
-    if(!playing){tryPlay();return;}
-    muted=!muted;
-    audio.volume=muted?0:TARGET;
-    updateBtn(!muted);
+    silenced=!silenced;
+    if(silenced){audio.volume=0;setBtn(false);}
+    else{if(!unmuteStarted){doUnmute();}else{audio.volume=TARGET;setBtn(true);}}
   };
-
-  /* Try autoplay immediately; on first interaction as fallback */
-  setTimeout(tryPlay,600);
-  document.addEventListener('click',function(){if(!playing)tryPlay();},{once:true});
 })();
 </script>
 
