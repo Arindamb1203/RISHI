@@ -230,23 +230,22 @@ Injected on all pages **except** `/admin` and `/landing`. Behaviour varies by pa
 - "Skip to Register" button = `go(5)` → jumps to slide 5 (r5 with register button)
 - `error-reporter.js` is NOT included on landing.html
 
-### Slide 0 — Math Particle Animation (03 Jun 2026)
-- **Full dark canvas** (`#080400`) fills `#content` area; `#content` padding set to 0, `alignItems:stretch` for slide 0 only
-- **Particle system:** 160 (mobile) / 270 (desktop) math char particles — digits, operators, Greek symbols (π,∑,∫,θ,α,√), expressions (sin θ, dy/dx, log n, b²-4ac, etc.)
-- **Phase cycle (~16s loop):** `converge(2.5s) → formed(2.5s) → distort(2.2s) → explode(0.9s) → free rain(8s) → repeat`
-  - **converge:** particles fly from random positions and assemble into RISHI letters (ease 0.09/frame via RAF)
-  - **formed:** particles hold at RISHI targets with micro-jitter; bright RISHI text overlay drawn on top (gold fill + 8px dark red `rgb(180,0,0)` stroke — NO shadowBlur)
-  - **distort:** sine-wave displacement pulls RISHI apart; text overlay fades out
-  - **explode:** all particles shoot outward from canvas centre
-  - **free rain:** Matrix-style rain before next formation
-- **RISHI text overlay:** drawn with `ctx.strokeText` (red border, 8px) FIRST, then `ctx.fillText` (gold fill) — ensures sharp readable letters. Tagline **"Not a Math Tutor. A Math Companion."** drawn below RISHI at ~21% font size
-- **4 formation variations** (different scale/angle/offsetY) cycle on each explode→free transition
-- **Pixel sampling:** `getRishiPts(sc, ang, oy)` draws RISHI on offscreen canvas with Orbitron font, samples filled pixels at step `Math.max(4, √(W×H)/90)` — runs inside `document.fonts.ready.then()`
-- **Animation control:** RAF + token pattern (`rainInterval = myToken` object; `if(rainInterval!==myToken)return`). `render()` stops animation by setting `rainInterval=null`
-- **Topbar RISHI logo:** `opacity:0` on slide 0 (fades via CSS `transition:opacity 0.5s`), restored on all other slides
-- **Bottom overlay:** "headphones recommended" label + two compact buttons (`🎧 Headphones On — Begin` / `Continue Without →`) both call `startAudio();go(1)`
-- **Mobile:** particle count 160, larger font scale (`W*0.22` vs `W*0.17` desktop)
-- **NO shadowBlur anywhere** — was causing unreadable glow smear; removed from all phases
+### Slide 0 — Story Reveal + Math Particle Animation (03 Jun 2026)
+- **Background:** pitch dark green-black (`#000a03`) fills canvas; bottom overlay gradient `rgba(0,10,3,0.94)`
+- **Story reveal before RISHI:** 4 lines assemble sequentially via particle animation, then RISHI forms bigger in center
+  - Line 1: "It's a Father's Promise" — fluorescent green (#39FF14) stroke + black border + glow; most prominent
+  - Line 2: "who can go to any extent for his child."
+  - Line 3: "18,100 lines of coding"
+  - Line 4: "6 months + 12 days of struggle & pain."
+  - Line 5 → RISHI: assembles bigger at Y=76% of canvas height
+- **Phase sequence (14 phases):** rain_start(1.4s) → l0in(2.8s) → l0hold(1s) → l1in(2.4s) → l1hold(0.8s) → l2in(2.2s) → l2hold(0.8s) → l3in(2.2s) → l3hold(0.8s) → rin(2.5s) → rhold(2.5s) → rdist(2.2s) → rexpl(0.9s) → rfree(8s) → wraps to rin
+- **Particle system:** NR (130/200 mobile/desktop) always-rain green particles + NT assembly particles (sized to largest text pts count). Assembly particles scatter to canvas edges on phase transition, fly inward to form each text
+- **Permanent lines:** after each `_hold` phase, line is drawn as crisp canvas text every frame; particles freed for next line. Line 1 uses `strokeText` double-pass (black 5px + green 2.5px) + `shadowBlur:18` glow
+- **Math rain:** green-tinted (`rgba(0,195,75,α)`) throughout; `rainAlpha` gradually increases each phase (`0.07 + pi*0.02`)
+- **RISHI:** `Math.min(W*0.21, H*0.27, 165)` desktop — bigger than before. Same gold+red-stroke overlay during formed/distort. 3 formation variations cycle on each explode→rfree
+- **Pixel sampler:** `samplePts(txt, fs, cx, cy)` — generic, works for any text. `step = Math.max(3, √(W×H)/110)`
+- **Mobile:** line 2+4 text shortened to fit; smaller font scales; 130 rain particles
+- **Animation control:** RAF + token pattern unchanged (`rainInterval = myToken`)
 
 ### Responsive Design — landing.html (03 Jun 2026)
 - **Mobile ≤640px:** feat carousel collapses to single card (`.fl`, `.fr` hidden), Rishika image stacks above text (`.r1-row` flex-direction:column, `.r1-img-wrap` full width), topbar tagline hidden (`.topbar-sub`), padding tightened, action buttons wrap to 2 rows
