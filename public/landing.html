@@ -768,7 +768,7 @@ for(let i=0;i<18;i++){const s=document.createElement('div');s.className='spark';
 /* ── Background music ── */
 (function(){
   var a=document.getElementById('bg-audio-preload');
-  if(!a)return;
+  if(!a){a=new Audio('/audio/bg-music.mp3');a.id='bg-audio-preload';a.loop=true;a.preload='auto';document.body.appendChild(a);}
   a.loop=true;a.volume=0.3;a.muted=true;
   var started=false;
   function start(){
