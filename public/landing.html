@@ -546,24 +546,24 @@ function startMathRain(){
     const ALL=[...CHARS,...EXPRS];
 
     /* ── Text lines (story before RISHI) */
-    const L0FS=Math.min(W*(isMob?.055:.048),H*.072,isMob?28:44);
-    const LFS=Math.min(W*(isMob?.038:.034),H*.055,isMob?20:30);
+    const L0FS=Math.min(W*(isMob?.056:.050),H*.074,isMob?28:46);
+    const LFS=Math.min(W*(isMob?.028:.034),H*.055,isMob?13:30);
     const STORY=[
-      {s:"It's a Father's Promise",       y:H*.19,fs:L0FS},
-      {s:isMob?"who can go to any extent":"who can go to any extent for his child.", y:H*.32,fs:LFS},
-      {s:"18,100 lines of coding",         y:H*.45,fs:LFS},
-      {s:isMob?"6 months + 12 days of pain.":"6 months + 12 days of struggle & pain.", y:H*.58,fs:LFS},
+      {s:"It's a Father's Promise",                                              y:H*.11,fs:L0FS,font:'Orbitron'},
+      {s:"who can go to any extent for his child.",                              y:H*.23,fs:LFS, font:isMob?'Share Tech Mono':'Orbitron'},
+      {s:"18,100 lines of coding",                                               y:H*.35,fs:LFS, font:'Orbitron'},
+      {s:isMob?"6 months + 12 days, hours of pain.":"6 months + 12 days, hours of struggle & pain.", y:H*.47,fs:LFS,font:isMob?'Share Tech Mono':'Orbitron'},
     ];
 
-    /* ── RISHI: bigger, horizontally centered */
-    const RFS=Math.min(W*(isMob?.26:.21),H*.27,165);
-    const RY=H*.76;
+    /* ── RISHI: horizontally centered, vertical center */
+    const RFS=Math.min(W*(isMob?.26:.22),H*.30,175);
+    const RY=H*.64;
 
     /* ── Pixel sampler */
-    function samplePts(txt,fs,cx,cy){
+    function samplePts(txt,fs,cx,cy,fontFamily){
       const o=document.createElement('canvas');o.width=W;o.height=H;
       const oc=o.getContext('2d');
-      oc.font='900 '+Math.round(fs)+'px "Orbitron",monospace';
+      oc.font='900 '+Math.round(fs)+'px "'+(fontFamily||'Orbitron')+'",monospace';
       oc.textBaseline='middle';oc.fillStyle='#fff';
       const tw=oc.measureText(txt).width;oc.fillText(txt,cx-tw/2,cy);
       const d=oc.getImageData(0,0,W,H).data,pts=[];
@@ -573,10 +573,10 @@ function startMathRain(){
       return pts;
     }
 
-    const linePts=STORY.map(t=>({...t,pts:samplePts(t.s,t.fs,W/2,t.y)}));
-    const RVARS=[{sc:1,ang:0},{sc:.85,ang:-6},{sc:1.05,ang:5}];
-    let rvi=0,curRFs=RFS,curAng=0;
-    function getRPts(v){curRFs=RFS*(v.sc||1);curAng=v.ang||0;return samplePts('RISHI',curRFs,W/2,RY);}
+    const linePts=STORY.map(t=>({...t,pts:samplePts(t.s,t.fs,W/2,t.y,t.font)}));
+    const RVARS=[{sc:1,ang:0},{sc:.88,ang:0},{sc:1.05,ang:0}];
+    let rvi=0,curRFs=RFS;
+    function getRPts(v){curRFs=RFS*(v.sc||1);return samplePts('RISHI',curRFs,W/2,RY);}
     let rishiPts=getRPts(RVARS[0]);
 
     /* ── Particle pool */
@@ -602,11 +602,14 @@ function startMathRain(){
     /* ── Draw a permanent line as crisp text */
     function drawLine(i){
       const L=linePts[i];ctx.save();
-      ctx.textBaseline='middle';ctx.font='900 '+Math.round(L.fs)+'px "Orbitron",monospace';
+      ctx.textBaseline='middle';ctx.font='900 '+Math.round(L.fs)+'px "'+(L.font||'Orbitron')+'",monospace';
       const tw=ctx.measureText(L.s).width,x=W/2-tw/2,y=L.y;
       if(i===0){
-        ctx.lineWidth=5;ctx.strokeStyle='#000';ctx.strokeText(L.s,x,y);
+        /* 1st border: dark brown (outer/thick) */
+        ctx.lineWidth=7;ctx.strokeStyle='#3d1200';ctx.strokeText(L.s,x,y);
+        /* 2nd border: fluorescent green (inner) */
         ctx.lineWidth=2.5;ctx.strokeStyle='#39FF14';ctx.strokeText(L.s,x,y);
+        /* Fill: white with green glow */
         ctx.shadowBlur=18;ctx.shadowColor='#39FF14';
         ctx.fillStyle='#ffffff';ctx.fillText(L.s,x,y);ctx.shadowBlur=0;
       }else{
@@ -677,7 +680,7 @@ function startMathRain(){
           if(hasT){const wv=t*26;p.x=p.tx+Math.sin(now/160+i*.5)*wv;p.y=p.ty+Math.cos(now/130+i*.38)*wv;ctx.fillStyle=`rgba(255,180,50,${.76-t*.46})`;}
           else{p.x+=p.vx*.25;p.y+=p.vy*.4;if(p.y>H+20){p.y=-20;p.x=Math.random()*W;}ctx.fillStyle=`rgba(201,138,0,${p.al*.15})`;}
         }else if(pi===12){
-          p.x+=p.vx*(1.5+t*4);p.y+=p.vy*(1.5+t*4);ctx.fillStyle=`rgba(255,170,40,${.85-t*.85})`;
+          p.x+=p.vx*(1.5+t*4);p.y+=p.vy*(1.5+t*4);ctx.fillStyle=`rgba(255,255,255,${.9-t*.9})`;
         }else{
           p.x+=p.vx*.3;p.y+=p.vy;if(p.y>H+20){p.y=-20;p.x=Math.random()*W;p.vx=(Math.random()-.5)*1.8;p.vy=.65+Math.random()*2.3;p.ch=ALL[Math.floor(Math.random()*ALL.length)];}
           if(p.x<-10)p.x=W;if(p.x>W+10)p.x=0;
@@ -690,7 +693,7 @@ function startMathRain(){
       if(pi===10||pi===11||(pi===9&&t>.6)){
         const ta=pi===10?.82:pi===9?Math.max(0,(t-.6)/.4*.82):Math.max(0,.82*(1-t*2));
         if(ta>0){
-          ctx.save();ctx.translate(W/2,RY);ctx.rotate(curAng*Math.PI/180);ctx.textBaseline='middle';
+          ctx.save();ctx.translate(W/2,RY);ctx.textBaseline='middle';
           ctx.font='900 '+Math.round(curRFs)+'px "Orbitron",monospace';ctx.shadowBlur=0;
           const tw2=ctx.measureText('RISHI').width;
           ctx.strokeStyle='rgb(180,0,0)';ctx.lineWidth=8;ctx.strokeText('RISHI',-tw2/2,0);
