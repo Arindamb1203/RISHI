@@ -25,7 +25,7 @@
 
 ## Test Accounts
 - Student: Dabeet Bhowmik — ID: `RISHI-DABEET-001`
-- Parent: Priyanka — ID: `PARENT-PRIYANKA-002`, password: `rishi2025`
+- Parent: Priyanka — ID: `PARENT-PRIYANKA-002`, password: `rishi2026` (pw_override set in D1)
 - Admin password: `rishi2025`
 - Admin code prefix: `ARISHI-*` (activates pay button for free registration)
 

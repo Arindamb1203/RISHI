@@ -131,19 +131,20 @@
   <!-- LOGIN FIELDS -->
   <div class="field">
     <label>Username</label>
-    <input type="text" id="username" placeholder="Enter your username" oninput="this.classList.add('filled'); stopCountdown();">
+    <input type="text" id="username" placeholder="Enter your username" oninput="this.classList.add('filled'); this.classList.remove('err'); stopCountdown(); var b=document.getElementById('login-error-banner'); if(b)b.style.display='none';">
     <div class="val-msg" id="err-username">Please enter your username</div>
   </div>
 
   <div class="field">
     <label>Password</label>
     <div class="pw-wrap">
-      <input type="password" id="password" placeholder="Enter your password" oninput="this.classList.add('filled'); stopCountdown();">
+      <input type="password" id="password" placeholder="Enter your password" oninput="this.classList.add('filled'); this.classList.remove('err'); stopCountdown(); var b=document.getElementById('login-error-banner'); if(b)b.style.display='none';">
       <button class="pw-eye" type="button" id="pwEyeBtn" onclick="togglePw()" tabindex="-1">👁</button>
     </div>
     <div class="val-msg" id="err-password">Please enter your password</div>
   </div>
 
+  <div id="login-error-banner" style="display:none;background:#fef2f2;border:1.5px solid #fca5a5;border-radius:10px;padding:12px 14px;margin-bottom:10px;font-size:14px;font-weight:700;color:#991b1b;text-align:center;"></div>
   <button class="btn-login" onclick="handleLogin()">✦ Login — Enter RISHI</button>
 
   <div class="links-row">
@@ -494,11 +495,17 @@ async function handleLogin(){
   btn.disabled = false;
 
   if(!account){
-    setErr('username','Username or password is incorrect');
+    var errBanner = document.getElementById('login-error-banner');
+    if(errBanner){ errBanner.textContent = '✗ Incorrect username or password. Please try again.'; errBanner.style.display = 'block'; }
+    setErr('username',' ');
     document.getElementById('username').classList.add('err');
     document.getElementById('password').classList.add('err');
+    document.getElementById('password').value = '';
     return;
   }
+  /* Clear error on success */
+  var errBanner2 = document.getElementById('login-error-banner');
+  if(errBanner2) errBanner2.style.display = 'none';
 
   var isParent = account.role === 'parent';
 

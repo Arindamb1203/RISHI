@@ -2826,7 +2826,7 @@ function modifyPlan(planId) {
   var chHtml = CHAPTERS.map(function(ch) {
     var checked = currentChIds.indexOf(ch.id) > -1;
     var existing = plan.chapters.find(function(c) { return c.id === ch.id; });
-    return '<label style="display:flex;align-items:center;gap:8px;padding:8px 10px;border:1.5px solid '+(checked?'var(--navy)':'var(--border)');border-radius:8px;cursor:pointer;margin-bottom:5px;background:'+(checked?'#eff6ff':'white')+';font-size:14px;font-weight:600;">'
+    return '<label style="display:flex;align-items:center;gap:8px;padding:8px 10px;border:1.5px solid '+(checked?'var(--navy)':'var(--border)')+';border-radius:8px;cursor:pointer;margin-bottom:5px;background:'+(checked?'#eff6ff':'white')+';font-size:14px;font-weight:600;">'
       + '<input type="checkbox" data-chid="'+ch.id+'" '+(checked?'checked':'')+' style="width:15px;height:15px;accent-color:var(--navy);cursor:pointer;">'
       + '<span>Ch '+ch.id+': '+ch.name+'</span>'
       + '</label>';
