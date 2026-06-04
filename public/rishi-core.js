@@ -52,6 +52,7 @@ function rishiMarkChapExamDone(chIdStr) {
   localStorage.setItem('rishi_chapexam_done_' + chIdStr, '1');
   var n = parseInt(localStorage.getItem('rishi_exam_attempts_' + chIdStr) || '0') + 1;
   localStorage.setItem('rishi_exam_attempts_' + chIdStr, String(n));
+  _rishiPushExamKeys(chIdStr);
 }
 function rishiExamAttemptCount(chIdStr) {
   return parseInt(localStorage.getItem('rishi_exam_attempts_' + chIdStr) || '0');
@@ -59,7 +60,36 @@ function rishiExamAttemptCount(chIdStr) {
 function rishiSaveExamScore(chIdStr, score) {
   var prev = parseInt(localStorage.getItem('rishi_exam_score_' + chIdStr) || '0');
   if (score > prev) localStorage.setItem('rishi_exam_score_' + chIdStr, String(score));
+  _rishiPushExamKeys(chIdStr);
   return prev;
+}
+function _rishiPushExamKeys(chIdStr) {
+  /* Push exam keys directly to D1 regardless of whether rishi-sync.js is loaded.
+     keepalive:true so the request survives immediate page navigation. */
+  var sid = (function(){
+    try {
+      var cs = JSON.parse(localStorage.getItem('rishi_current_student') || '{}');
+      return (cs.studentId || cs.studentName || '').toLowerCase() || null;
+    } catch(e) { return null; }
+  })();
+  if (!sid) return;
+  var keys = [
+    'rishi_chapexam_done_' + chIdStr,
+    'rishi_exam_score_'    + chIdStr,
+    'rishi_exam_attempts_' + chIdStr
+  ];
+  keys.forEach(function(k) {
+    var v = localStorage.getItem(k);
+    if (v === null) return;
+    try {
+      fetch('/d1-sync', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        keepalive: true,
+        body: JSON.stringify({ action: 'set', studentId: sid, key: k, value: v })
+      }).catch(function(){});
+    } catch(e){}
+  });
 }
 function rishiGetExamHighScore(chIdStr) {
   return parseInt(localStorage.getItem('rishi_exam_score_' + chIdStr) || '0');
