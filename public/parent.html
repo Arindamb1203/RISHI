@@ -3139,9 +3139,11 @@ function renderBreakStats() {
 }
 
 function renderCoins() {
-  var coins = parseInt(localStorage.getItem('rishi_coins') || '0');
-  var earned = parseInt(localStorage.getItem('rishi_coins_earned_total') || '0');
+  var coins    = parseInt(localStorage.getItem('rishi_coins') || '0');
   var redeemed = parseInt(localStorage.getItem('rishi_coins_redeemed_total') || '0');
+  /* rishi_coins is the running lifetime total — each correct answer adds 5.
+     "Total Earned" = current balance + whatever was already redeemed. */
+  var earned = coins + redeemed;
 
   document.getElementById('perf-coins-con').innerHTML =
     '<div class="coin-row"><div class="coin-lbl">&#129689; Current Balance</div><div class="coin-val">' + coins + ' coins</div></div>' +
