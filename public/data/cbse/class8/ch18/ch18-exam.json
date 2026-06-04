@@ -1,169 +1,487 @@
 {
   "meta": {
+    "board": "cbse",
     "class": 8,
-    "chapter": 18,
-    "title": "The Story of Numbers",
-    "subject": "Mathematics",
-    "board": "CBSE",
-    "totalMarks": 40,
-    "duration": 45
+    "chapter_id": "ch18",
+    "chapter_name": "The Story of Numbers",
+    "topic_group": "arithmetic",
+    "total_marks": 100,
+    "total_questions": 52,
+    "version": 2,
+    "generated": "2026-06"
   },
   "sections": {
     "A": {
       "type": "mcq",
-      "title": "Section A — Multiple Choice Questions",
-      "marks": 1,
+      "label": "Conceptual",
+      "marks_per_q": 1,
+      "count": 20,
       "questions": [
         {
-          "id": "A1",
-          "q": "The Babylonian number system uses which base?",
-          "opts": ["10", "20", "60", "100"],
-          "ans": "60",
-          "hint": "60 seconds per minute is a Babylonian legacy"
+          "id": "cbse_8_ch18_A_001",
+          "text": "The Babylonian number system is based on which base?",
+          "options": { "a": "10", "b": "20", "c": "60", "d": "12" },
+          "correct": "c",
+          "difficulty": "easy",
+          "explanation": "The ancient Babylonians used a sexagesimal (base-60) number system."
         },
         {
-          "id": "A2",
-          "q": "Which symbol does the Mayan number system use for zero?",
-          "opts": ["Dot", "Bar", "Shell", "Cross"],
-          "ans": "Shell",
-          "hint": "A hollow shell represents nothing = zero"
+          "id": "cbse_8_ch18_A_002",
+          "text": "The Mayan number system is based on which base?",
+          "options": { "a": "10", "b": "20", "c": "60", "d": "16" },
+          "correct": "b",
+          "difficulty": "easy",
+          "explanation": "The ancient Mayans used a vigesimal (base-20) number system."
         },
         {
-          "id": "A3",
-          "q": "25 written in base-5 is:",
-          "opts": ["25", "100", "250", "55"],
-          "ans": "100",
-          "hint": "25 = 5² = 1×25 + 0×5 + 0"
+          "id": "cbse_8_ch18_A_003",
+          "text": "The decimal (Hindu-Arabic) number system is based on which base?",
+          "options": { "a": "2", "b": "8", "c": "10", "d": "16" },
+          "correct": "c",
+          "difficulty": "easy",
+          "explanation": "The Hindu-Arabic number system that we use today is base-10 (decimal)."
         },
         {
-          "id": "A4",
-          "q": "The word 'algorithm' is derived from the name of:",
-          "opts": ["Fibonacci", "Brahmagupta", "Al-Khwarizmi", "Euclid"],
-          "ans": "Al-Khwarizmi",
-          "hint": "His latinised name Algoritmi gave us 'algorithm'"
+          "id": "cbse_8_ch18_A_004",
+          "text": "The binary number system uses only digits:",
+          "options": { "a": "0, 1, 2", "b": "0 and 1", "c": "1 and 2", "d": "0, 1, 2, 3" },
+          "correct": "b",
+          "difficulty": "easy",
+          "explanation": "Binary (base-2) uses only two digits: 0 and 1."
         },
         {
-          "id": "A5",
-          "q": "Roman numeral CCCII equals:",
-          "opts": ["202", "302", "322", "402"],
-          "ans": "302",
-          "hint": "CCC = 300, II = 2"
+          "id": "cbse_8_ch18_A_005",
+          "text": "Which Roman numeral represents 4?",
+          "options": { "a": "IIII", "b": "IIV", "c": "IV", "d": "VI" },
+          "correct": "c",
+          "difficulty": "easy",
+          "explanation": "In Roman numerals, IV = 5 − 1 = 4. The subtractive notation is used."
         },
         {
-          "id": "A6",
-          "q": "13 written in binary (base-2) is:",
-          "opts": ["110", "1011", "1101", "1111"],
-          "ans": "1101",
-          "hint": "13 = 8+4+1 = 1×8 + 1×4 + 0×2 + 1×1"
+          "id": "cbse_8_ch18_A_006",
+          "text": "What does the Roman numeral XLVII represent?",
+          "options": { "a": "37", "b": "47", "c": "57", "d": "67" },
+          "correct": "b",
+          "difficulty": "easy",
+          "explanation": "XL = 40, VII = 7. XLVII = 40 + 7 = 47."
         },
         {
-          "id": "A7",
-          "q": "The Lebombo Bone (world's oldest tally bone) is approximately how old?",
-          "opts": ["10,000 years", "20,000 years", "44,000 years", "1,00,000 years"],
-          "ans": "44,000 years",
-          "hint": "Found in South Africa, older than the Ishango Bone"
+          "id": "cbse_8_ch18_A_007",
+          "text": "Natural numbers start from:",
+          "options": { "a": "−∞", "b": "0", "c": "1", "d": "−1" },
+          "correct": "c",
+          "difficulty": "easy",
+          "explanation": "Natural numbers are {1, 2, 3, 4, ...}. They start from 1."
         },
         {
-          "id": "A8",
-          "q": "The Hindu-Arabic numeral system needs how many symbols (digits)?",
-          "opts": ["7", "9", "10", "26"],
-          "ans": "10",
-          "hint": "The digits 0, 1, 2, 3, 4, 5, 6, 7, 8, 9"
+          "id": "cbse_8_ch18_A_008",
+          "text": "Whole numbers include:",
+          "options": { "a": "Negative integers too", "b": "Fractions and decimals", "c": "0 and all natural numbers", "d": "Only odd numbers" },
+          "correct": "c",
+          "difficulty": "easy",
+          "explanation": "Whole numbers = {0, 1, 2, 3, ...} = 0 along with all natural numbers."
         },
         {
-          "id": "A9",
-          "q": "Brahmagupta wrote the Brahmasphuta-siddhanta in:",
-          "opts": ["500 CE", "628 CE", "800 CE", "1202 CE"],
-          "ans": "628 CE",
-          "hint": "Indian mathematician and astronomer, 7th century CE"
+          "id": "cbse_8_ch18_A_009",
+          "text": "Which of the following is an integer but NOT a natural number?",
+          "options": { "a": "5", "b": "0", "c": "−3", "d": "Both b and c" },
+          "correct": "d",
+          "difficulty": "medium",
+          "explanation": "Integers include ..., −3, −2, −1, 0, 1, 2, 3, ... Both 0 and −3 are integers but not natural numbers."
         },
         {
-          "id": "A10",
-          "q": "In Roman numerals, XC equals:",
-          "opts": ["40", "90", "110", "91"],
-          "ans": "90",
-          "hint": "X(10) before C(100): subtractive rule gives 100−10 = 90"
+          "id": "cbse_8_ch18_A_010",
+          "text": "A rational number is a number that can be written as p/q where:",
+          "options": { "a": "p and q are integers, q ≠ 0", "b": "p and q are natural numbers", "c": "p > q always", "d": "q must be positive" },
+          "correct": "a",
+          "difficulty": "easy",
+          "explanation": "A rational number is of the form p/q, where p and q are integers and q ≠ 0."
+        },
+        {
+          "id": "cbse_8_ch18_A_011",
+          "text": "Which of the following is an irrational number?",
+          "options": { "a": "√4", "b": "√9", "c": "√2", "d": "0.5" },
+          "correct": "c",
+          "difficulty": "easy",
+          "explanation": "√2 cannot be expressed as p/q (an exact fraction). Its decimal expansion never terminates or repeats."
+        },
+        {
+          "id": "cbse_8_ch18_A_012",
+          "text": "Which of the following sets of numbers is correctly ordered from smallest to largest?",
+          "options": { "a": "Natural ⊂ Integers ⊂ Whole ⊂ Rational", "b": "Natural ⊂ Whole ⊂ Integers ⊂ Rational", "c": "Whole ⊂ Natural ⊂ Integers ⊂ Rational", "d": "Natural ⊂ Whole ⊂ Rational ⊂ Integers" },
+          "correct": "b",
+          "difficulty": "medium",
+          "explanation": "Natural ⊂ Whole ⊂ Integers ⊂ Rational ⊂ Real. Each set contains the previous one."
+        },
+        {
+          "id": "cbse_8_ch18_A_013",
+          "text": "Every natural number is:",
+          "options": { "a": "A prime number", "b": "An even number", "c": "A whole number", "d": "A perfect square" },
+          "correct": "c",
+          "difficulty": "easy",
+          "explanation": "Natural numbers are {1, 2, 3, ...}. Whole numbers are {0, 1, 2, 3, ...}. Every natural number is a whole number."
+        },
+        {
+          "id": "cbse_8_ch18_A_014",
+          "text": "The number π (pi) is:",
+          "options": { "a": "A rational number", "b": "An integer", "c": "An irrational number", "d": "A whole number" },
+          "correct": "c",
+          "difficulty": "easy",
+          "explanation": "π = 3.14159... is a non-terminating, non-repeating decimal. It is an irrational number."
+        },
+        {
+          "id": "cbse_8_ch18_A_015",
+          "text": "The number 0 belongs to which of the following sets?",
+          "options": { "a": "Whole numbers only", "b": "Natural and whole numbers", "c": "Whole numbers, integers and rational numbers", "d": "Only integers" },
+          "correct": "c",
+          "difficulty": "medium",
+          "explanation": "0 is a whole number (W), an integer (Z), and a rational number (0 = 0/1). It is not a natural number."
+        },
+        {
+          "id": "cbse_8_ch18_A_016",
+          "text": "Which is the Roman numeral for 90?",
+          "options": { "a": "LXXXX", "b": "XC", "c": "CX", "d": "LXL" },
+          "correct": "b",
+          "difficulty": "medium",
+          "explanation": "XC = 100 − 10 = 90. Roman numerals use subtractive notation."
+        },
+        {
+          "id": "cbse_8_ch18_A_017",
+          "text": "The decimal number 13 in binary is:",
+          "options": { "a": "1011", "b": "1101", "c": "1110", "d": "1100" },
+          "correct": "b",
+          "difficulty": "medium",
+          "explanation": "13 = 8 + 4 + 1 = 2³ + 2² + 2⁰ = 1101 in binary."
+        },
+        {
+          "id": "cbse_8_ch18_A_018",
+          "text": "Which ancient civilisation is credited with introducing zero as a numeral?",
+          "options": { "a": "Romans", "b": "Babylonians", "c": "Mayans", "d": "Indians" },
+          "correct": "d",
+          "difficulty": "easy",
+          "explanation": "The concept of zero as a numeral and placeholder was developed and formalised in ancient India."
+        },
+        {
+          "id": "cbse_8_ch18_A_019",
+          "text": "The binary equivalent of the decimal number 8 is:",
+          "options": { "a": "1000", "b": "0100", "c": "1100", "d": "1010" },
+          "correct": "a",
+          "difficulty": "medium",
+          "explanation": "8 = 2³ = 1000 in binary."
+        },
+        {
+          "id": "cbse_8_ch18_A_020",
+          "text": "Which of the following is NOT a real number?",
+          "options": { "a": "√−9", "b": "√9", "c": "−5", "d": "π" },
+          "correct": "a",
+          "difficulty": "medium",
+          "explanation": "√−9 is an imaginary number, not a real number. It cannot be placed on the real number line."
         }
       ]
     },
     "B": {
-      "type": "short1",
-      "title": "Section B — Short Answer I (2 marks each)",
-      "marks": 2,
+      "type": "mcq",
+      "label": "Application",
+      "marks_per_q": 2,
+      "count": 10,
       "questions": [
         {
-          "id": "B1",
-          "q": "Write 715 in Roman numerals.",
-          "ans": "700 = DCC (D=500, CC=200); 10 = X; 5 = V. 715 = DCCXV",
-          "hint": "D=500, C=100, X=10, V=5"
+          "id": "cbse_8_ch18_B_001",
+          "text": "Convert the Roman numeral MCMXCIX to decimal.",
+          "options": { "a": "1989", "b": "1999", "c": "2001", "d": "2099" },
+          "correct": "b",
+          "difficulty": "medium",
+          "explanation": "M = 1000, CM = 900, XC = 90, IX = 9. MCMXCIX = 1000 + 900 + 90 + 9 = 1999."
         },
         {
-          "id": "B2",
-          "q": "Write 50 in base-5.",
-          "ans": "50÷5=10r0 → 10÷5=2r0 → 2÷5=0r2. Read bottom to top: 2,0,0. So 50 in base-5 = 200.",
-          "hint": "Divide by 5 repeatedly; read remainders bottom to top"
+          "id": "cbse_8_ch18_B_002",
+          "text": "What is the decimal number 25 written in binary?",
+          "options": { "a": "10011", "b": "11001", "c": "10101", "d": "11010" },
+          "correct": "b",
+          "difficulty": "medium",
+          "explanation": "25 = 16 + 8 + 1 = 2⁴ + 2³ + 2⁰ = 11001 in binary."
         },
         {
-          "id": "B3",
-          "q": "What is MMCMXCIX in decimal? Show your working.",
-          "ans": "MM=2000; CM=900 (subtractive: 1000−100); XC=90 (subtractive: 100−10); IX=9 (subtractive: 10−1). Total = 2000+900+90+9 = 2999.",
-          "hint": "Subtractive rule: smaller value before larger means subtract"
+          "id": "cbse_8_ch18_B_003",
+          "text": "Write the decimal number 2026 in Roman numerals.",
+          "options": { "a": "MMXXVI", "b": "MMXXIV", "c": "MMXXVII", "d": "MMXVII" },
+          "correct": "a",
+          "difficulty": "medium",
+          "explanation": "2026 = 2000 + 20 + 6 = MM + XX + VI = MMXXVI."
         },
         {
-          "id": "B4",
-          "q": "Name the three symbols of the Mayan number system and their values.",
-          "ans": "Dot (•) = 1; Horizontal bar (—) = 5; Shell shape = 0 (zero). The system is base-20.",
-          "hint": "Three symbols: one for 1, one for 5, one for 0"
+          "id": "cbse_8_ch18_B_004",
+          "text": "The binary number 1010 equals which decimal number?",
+          "options": { "a": "8", "b": "10", "c": "12", "d": "14" },
+          "correct": "b",
+          "difficulty": "medium",
+          "explanation": "1010 in binary = 1×2³ + 0×2² + 1×2¹ + 0×2⁰ = 8 + 0 + 2 + 0 = 10."
         },
         {
-          "id": "B5",
-          "q": "Who were the Oksapmin people and how did they count?",
-          "ans": "The Oksapmin are from Papua New Guinea. They used 27 body parts for counting — starting from the thumb of one hand, going up the arm, across the face, and down to the other hand.",
-          "hint": "Body-tally system using 27 body parts"
+          "id": "cbse_8_ch18_B_005",
+          "text": "Which of the following is a rational number between √2 and √3?",
+          "options": { "a": "1.5", "b": "√6 / 2", "c": "1.3", "d": "Both a and c" },
+          "correct": "d",
+          "difficulty": "medium",
+          "explanation": "√2 ≈ 1.414 and √3 ≈ 1.732. Both 1.5 and 1.3 lie in this range. Both are rational (terminating decimals)."
+        },
+        {
+          "id": "cbse_8_ch18_B_006",
+          "text": "The sum of three consecutive even numbers is 78. What is the smallest even number?",
+          "options": { "a": "24", "b": "26", "c": "28", "d": "30" },
+          "correct": "a",
+          "difficulty": "medium",
+          "explanation": "Let the numbers be n, n+2, n+4. Sum = 3n + 6 = 78. 3n = 72. n = 24."
+        },
+        {
+          "id": "cbse_8_ch18_B_007",
+          "text": "In base 5, how would you write the decimal number 17?",
+          "options": { "a": "32", "b": "23", "c": "12", "d": "41" },
+          "correct": "a",
+          "difficulty": "hard",
+          "explanation": "17 = 3×5 + 2 = 32 in base 5. (3 fives and 2 ones.)"
+        },
+        {
+          "id": "cbse_8_ch18_B_008",
+          "text": "The binary number 11111 equals which decimal number?",
+          "options": { "a": "25", "b": "30", "c": "31", "d": "32" },
+          "correct": "c",
+          "difficulty": "medium",
+          "explanation": "11111 = 16+8+4+2+1 = 31."
+        },
+        {
+          "id": "cbse_8_ch18_B_009",
+          "text": "Which of these is NOT an example of an irrational number?",
+          "options": { "a": "√5", "b": "π", "c": "√36", "d": "∛2" },
+          "correct": "c",
+          "difficulty": "medium",
+          "explanation": "√36 = 6, which is a rational integer. The others (√5, π, ∛2) are irrational."
+        },
+        {
+          "id": "cbse_8_ch18_B_010",
+          "text": "The Roman numeral for 1776 is:",
+          "options": { "a": "MDCCLXXVI", "b": "MDCCXLVI", "c": "MLXXVI", "d": "MCCCLXXVI" },
+          "correct": "a",
+          "difficulty": "hard",
+          "explanation": "1776 = 1000 + 700 + 70 + 6 = M + DCC + LXX + VI = MDCCLXXVI."
         }
       ]
     },
     "C": {
-      "type": "short2",
-      "title": "Section C — Short Answer II (3 marks each)",
-      "marks": 3,
+      "type": "mcq",
+      "label": "Higher Order",
+      "marks_per_q": 3,
+      "count": 6,
       "questions": [
         {
-          "id": "C1",
-          "q": "Convert 137 to base-5. Show all steps.",
-          "ans": "137÷5=27 r2 | 27÷5=5 r2 | 5÷5=1 r0 | 1÷5=0 r1. Read remainders bottom to top: 1,0,2,2. So 137 in base-5 = 1022. Check: 1×125 + 0×25 + 2×5 + 2×1 = 125+0+10+2 = 137 ✓",
-          "hint": "Divide by 5 repeatedly and read remainders from bottom to top"
+          "id": "cbse_8_ch18_C_001",
+          "text": "The sum of two binary numbers 1101 and 1011 in decimal is:",
+          "options": { "a": "21", "b": "24", "c": "28", "d": "30" },
+          "correct": "b",
+          "difficulty": "hard",
+          "explanation": "1101 = 13, 1011 = 11 in decimal. 13 + 11 = 24."
         },
         {
-          "id": "C2",
-          "q": "Convert 25 to binary (base-2). Show all steps.",
-          "ans": "25÷2=12 r1 | 12÷2=6 r0 | 6÷2=3 r0 | 3÷2=1 r1 | 1÷2=0 r1. Read remainders bottom to top: 1,1,0,0,1. So 25 in binary = 11001. Check: 16+8+0+0+1 = 25 ✓",
-          "hint": "Divide by 2 repeatedly and read remainders from bottom to top"
+          "id": "cbse_8_ch18_C_002",
+          "text": "Between which two consecutive integers does √50 lie?",
+          "options": { "a": "6 and 7", "b": "7 and 8", "c": "8 and 9", "d": "49 and 51" },
+          "correct": "b",
+          "difficulty": "medium",
+          "explanation": "7² = 49 and 8² = 64. Since 49 < 50 < 64, √50 lies between 7 and 8."
         },
         {
-          "id": "C3",
-          "q": "Write 302 and 1222 in Roman numerals.",
-          "ans": "302: 300=CCC, 2=II → CCCII. 1222: 1000=M, 200=CC, 20=XX, 2=II → MCCXXII.",
-          "hint": "Break each number into thousands, hundreds, tens, units"
+          "id": "cbse_8_ch18_C_003",
+          "text": "The Babylonian number system writing uses groups of symbols. 60 minutes in an hour comes from which ancient base system?",
+          "options": { "a": "Base 20 (Mayan)", "b": "Base 10 (Hindu-Arabic)", "c": "Base 60 (Babylonian)", "d": "Base 2 (Binary)" },
+          "correct": "c",
+          "difficulty": "medium",
+          "explanation": "Our system of 60 seconds in a minute and 60 minutes in an hour comes from the Babylonian base-60 system."
+        },
+        {
+          "id": "cbse_8_ch18_C_004",
+          "text": "Is 0.333... (recurring) a rational or irrational number? Why?",
+          "options": { "a": "Irrational — non-terminating decimal", "b": "Rational — it equals 1/3", "c": "Neither — it is undefined", "d": "Irrational — it is infinite" },
+          "correct": "b",
+          "difficulty": "medium",
+          "explanation": "0.333... = 1/3, which is of the form p/q. Recurring (repeating) decimals are always rational numbers."
+        },
+        {
+          "id": "cbse_8_ch18_C_005",
+          "text": "In which number system does the number 1024 have a special significance?",
+          "options": { "a": "Base 10 (decimal)", "b": "Base 60 (sexagesimal)", "c": "Base 2 (binary)", "d": "Base 20 (Mayan)" },
+          "correct": "c",
+          "difficulty": "hard",
+          "explanation": "1024 = 2¹⁰. It is a power of 2, making it especially significant in the binary (base-2) number system used in computers."
+        },
+        {
+          "id": "cbse_8_ch18_C_006",
+          "text": "How many digits are needed to write the number 100 in base 2 (binary)?",
+          "options": { "a": "5 digits", "b": "6 digits", "c": "7 digits", "d": "10 digits" },
+          "correct": "c",
+          "difficulty": "hard",
+          "explanation": "100 in binary = 1100100. Let's verify: 64+32+4 = 100. That's 7 digits (1100100)."
         }
       ]
     },
     "D": {
-      "type": "long",
-      "title": "Section D — Long Answer (5 marks each)",
-      "marks": 5,
+      "type": "mcq",
+      "label": "Numerical",
+      "marks_per_q": 3,
+      "count": 10,
       "questions": [
         {
-          "id": "D1",
-          "q": "Compare the Egyptian, Roman, and Hindu-Arabic number systems. Which is most advanced? Give reasons.",
-          "ans": "Egyptian: additive base-10 hieroglyphic system; no zero; no place value; needs many symbols. Roman: additive/subtractive; seven symbols (I,V,X,L,C,D,M); no zero; not positional; arithmetic is cumbersome. Hindu-Arabic: place-value system (base-10); has zero; only 10 symbols (0–9); all arithmetic easy. Hindu-Arabic is MOST ADVANCED: (1) zero included, (2) place value means position decides the digit's value, (3) only 10 symbols represent any number, (4) arithmetic operations are efficient.",
-          "hint": "Compare on: zero, place value, number of symbols needed"
+          "id": "cbse_8_ch18_D_001",
+          "text": "Convert CDXLVIII (Roman) to decimal.",
+          "options": { "a": "398", "b": "428", "c": "448", "d": "488" },
+          "correct": "c",
+          "difficulty": "hard",
+          "explanation": "CD = 400, XL = 40, VIII = 8. CDXLVIII = 400 + 40 + 8 = 448."
         },
         {
-          "id": "D2",
-          "q": "Trace the journey of Hindu numerals from India to the rest of the world. Name all key people and dates.",
-          "ans": "1. Origin: Brahmi numerals in ancient India. 2. Bakshali Manuscript (3rd century CE): zero used as dot placeholder. 3. Brahmagupta (628 CE): Brahmasphuta-siddhanta — formally defined zero as number; rules for negative numbers. 4. Al-Khwarizmi (~820 CE): 'On the Calculation with Hindu Numerals' — spread system to Arab world; his name gave 'algorithm'. 5. Fibonacci (1202 CE): Liber Abaci — introduced Hindu-Arabic numerals to Europe. Arabs called them 'Al Hind' numerals; Europeans called them 'Arabic'. Correct name: Hindu-Arabic Numerals.",
-          "hint": "India to Arab world to Europe, via Brahmagupta, Al-Khwarizmi, Fibonacci"
+          "id": "cbse_8_ch18_D_002",
+          "text": "Add the binary numbers 10110 and 01101.",
+          "options": { "a": "100001", "b": "100011", "c": "110011", "d": "100110" },
+          "correct": "b",
+          "difficulty": "hard",
+          "explanation": "10110 = 22, 01101 = 13 in decimal. 22 + 13 = 35 = 100011 in binary."
+        },
+        {
+          "id": "cbse_8_ch18_D_003",
+          "text": "How many rational numbers lie between 1/4 and 1/2?",
+          "options": { "a": "1", "b": "3", "c": "Finite", "d": "Infinitely many" },
+          "correct": "d",
+          "difficulty": "medium",
+          "explanation": "Between any two distinct rational numbers, there are infinitely many rational numbers."
+        },
+        {
+          "id": "cbse_8_ch18_D_004",
+          "text": "Write 2024 in Roman numerals.",
+          "options": { "a": "MMXXIV", "b": "MMXXVI", "c": "MMCXXIV", "d": "MMXCIV" },
+          "correct": "a",
+          "difficulty": "medium",
+          "explanation": "2024 = 2000 + 20 + 4 = MM + XX + IV = MMXXIV."
+        },
+        {
+          "id": "cbse_8_ch18_D_005",
+          "text": "What is the decimal equivalent of the binary number 110101?",
+          "options": { "a": "45", "b": "51", "c": "53", "d": "61" },
+          "correct": "c",
+          "difficulty": "hard",
+          "explanation": "110101 = 32+16+4+1 = 53."
+        },
+        {
+          "id": "cbse_8_ch18_D_006",
+          "text": "If today is the year 2026, the Roman numeral for this year is:",
+          "options": { "a": "MMXXV", "b": "MMXXVII", "c": "MMXXVI", "d": "MMCXXVI" },
+          "correct": "c",
+          "difficulty": "medium",
+          "explanation": "2026 = 2000 + 20 + 6 = MM + XX + VI = MMXXVI."
+        },
+        {
+          "id": "cbse_8_ch18_D_007",
+          "text": "Which of these decimals is irrational?",
+          "options": { "a": "0.625", "b": "0.142857142857... (recurring)", "c": "0.101001000100001...(no pattern)", "d": "0.75" },
+          "correct": "c",
+          "difficulty": "hard",
+          "explanation": "A non-terminating, non-recurring decimal is irrational. 0.101001000... has no repeating pattern, so it is irrational."
+        },
+        {
+          "id": "cbse_8_ch18_D_008",
+          "text": "How many real numbers are there between 0 and 1?",
+          "options": { "a": "Exactly 100", "b": "Exactly 1000", "c": "Finite", "d": "Infinitely many" },
+          "correct": "d",
+          "difficulty": "medium",
+          "explanation": "The real number line is continuous. There are infinitely many real numbers between any two distinct real numbers."
+        },
+        {
+          "id": "cbse_8_ch18_D_009",
+          "text": "The product of a binary number 11 (in binary) and its decimal equivalent is:",
+          "options": { "a": "6", "b": "9", "c": "12", "d": "33" },
+          "correct": "b",
+          "difficulty": "hard",
+          "explanation": "Binary 11 = decimal 3. Product = 3 × 3 = 9."
+        },
+        {
+          "id": "cbse_8_ch18_D_010",
+          "text": "Categorise the following — π, −7, 0, √2, 5/3. How many are rational numbers?",
+          "options": { "a": "1", "b": "2", "c": "3", "d": "4" },
+          "correct": "c",
+          "difficulty": "medium",
+          "explanation": "Rational: −7 (= −7/1), 0 (= 0/1), 5/3. Irrational: π, √2. Total rational = 3."
+        }
+      ]
+    },
+    "E": {
+      "type": "case_study",
+      "label": "Case Study",
+      "marks_per_q": 2,
+      "count": 2,
+      "cases": [
+        {
+          "id": "cbse_8_ch18_E_case1",
+          "case_text": "Meera is helping her school celebrate its 125th anniversary. The principal asks students to write the year in different number systems. The school was founded in the year 1899 CE. The current year for the anniversary is 2024 CE.",
+          "subparts": [
+            {
+              "id": "cbse_8_ch18_E_case1_q1",
+              "text": "Write the founding year 1899 in Roman numerals.",
+              "type": "mcq",
+              "options": { "a": "MCMXCIX", "b": "MDCCCXCIX", "c": "MCMXLIX", "d": "MDCCXCIX" },
+              "correct": "b",
+              "marks": 2,
+              "explanation": "1899 = 1000 + 800 + 90 + 9 = M + DCCC + XC + IX = MDCCCXCIX."
+            },
+            {
+              "id": "cbse_8_ch18_E_case1_q2",
+              "text": "Write the anniversary year 2024 in Roman numerals.",
+              "type": "mcq",
+              "options": { "a": "MMXXVI", "b": "MMXIV", "c": "MMXXIV", "d": "MMCXXIV" },
+              "correct": "c",
+              "marks": 2,
+              "explanation": "2024 = 2000 + 20 + 4 = MM + XX + IV = MMXXIV."
+            },
+            {
+              "id": "cbse_8_ch18_E_case1_q3",
+              "text": "Express the number of years (125) in binary.",
+              "type": "mcq",
+              "options": { "a": "1110101", "b": "1111101", "c": "1001101", "d": "1101101" },
+              "correct": "b",
+              "marks": 2,
+              "explanation": "125 = 64+32+16+8+4+1 = 1111101 in binary. Verify: 64+32+16+8+4+1 = 125 ✓."
+            }
+          ]
+        },
+        {
+          "id": "cbse_8_ch18_E_case2",
+          "case_text": "Ravi is learning about number systems in his science class. He reads that computers use binary, that ancient astronomers used base-60, and that modern mathematics classifies all numbers into sets. He makes a chart to compare different types of numbers.",
+          "subparts": [
+            {
+              "id": "cbse_8_ch18_E_case2_q1",
+              "text": "Ravi finds that the number 7/0 cannot be classified. Why?",
+              "type": "mcq",
+              "options": { "a": "It is irrational", "b": "Division by zero is undefined", "c": "It equals infinity and is real", "d": "It is a negative number" },
+              "correct": "b",
+              "marks": 2,
+              "explanation": "Division by zero is undefined in mathematics. 7/0 has no value and cannot be classified as any type of number."
+            },
+            {
+              "id": "cbse_8_ch18_E_case2_q2",
+              "text": "Ravi charts: Natural ⊂ Whole ⊂ Integers ⊂ Rational ⊂ Real. Which number belongs to Integers but NOT to Whole numbers?",
+              "type": "mcq",
+              "options": { "a": "5", "b": "0", "c": "−4", "d": "1/2" },
+              "correct": "c",
+              "marks": 2,
+              "explanation": "−4 is an integer but not a whole number (whole numbers are 0, 1, 2, 3, ...)."
+            },
+            {
+              "id": "cbse_8_ch18_E_case2_q3",
+              "text": "In the binary system, what is 15 + 1?",
+              "type": "mcq",
+              "options": { "a": "16 in decimal = 10000 in binary", "b": "16 in decimal = 1111 in binary", "c": "16 in decimal = 100 in binary", "d": "16 in decimal = 10001 in binary" },
+              "correct": "a",
+              "marks": 2,
+              "explanation": "15 in decimal = 1111 in binary. Adding 1: 1111 + 1 = 10000 in binary = 16 in decimal. So the answer is 10000 in binary."
+            }
+          ]
         }
       ]
     }

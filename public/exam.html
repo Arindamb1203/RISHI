@@ -38,22 +38,32 @@ body{font-family:'Nunito',sans-serif;background:#0d0d1a;min-height:100vh;color:#
 /* ─ LEFT PANEL ─ */
 .left-panel{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:16px;height:fit-content;position:sticky;top:70px;}
 .lp-chapter{font-size:11px;text-transform:uppercase;letter-spacing:2px;color:rgba(255,255,255,.4);margin-bottom:4px;}
-.lp-title{font-size:14px;font-weight:800;color:#ffd700;margin-bottom:14px;line-height:1.4;}
-.lp-stat{margin-bottom:12px;}
-.lp-stat-label{font-size:11px;color:rgba(255,255,255,.4);margin-bottom:3px;}
-.lp-stat-val{font-size:22px;font-weight:900;color:#fff;}
-.prog-wrap{margin-top:4px;}
-.pb-label{font-size:11px;color:rgba(255,255,255,.4);margin-bottom:5px;}
-.pb-track{background:rgba(255,255,255,.1);border-radius:6px;height:6px;overflow:hidden;}
+.lp-title{font-size:13px;font-weight:800;color:#ffd700;margin-bottom:10px;line-height:1.4;}
+/* Big Q counter */
+.lp-counter-wrap{text-align:center;padding:10px 0 8px;border-bottom:1px solid rgba(255,255,255,.07);margin-bottom:10px;}
+.lp-counter-big{font-size:52px;font-weight:900;color:#ffd700;font-family:'Orbitron',sans-serif;line-height:1;}
+.lp-counter-of{font-size:13px;color:rgba(255,255,255,.4);font-weight:700;margin-top:2px;}
+/* Progress dots */
+.q-dots-wrap{margin:6px 0 10px;}
+.q-dots-lbl{font-size:10px;color:rgba(255,255,255,.3);margin-bottom:5px;text-transform:uppercase;letter-spacing:1px;}
+.q-dots{display:flex;flex-wrap:wrap;gap:3px;}
+.q-dot{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);transition:.2s;flex-shrink:0;}
+.q-dot.correct{background:#2ecc71;border-color:#2ecc71;}
+.q-dot.wrong{background:#e74c3c;border-color:#e74c3c;}
+.q-dot.cur{border:2px solid #ffd700;background:rgba(255,215,0,.18);}
+/* Prominent score box */
+.score-box-big{background:rgba(255,215,0,.07);border:1px solid rgba(255,215,0,.2);border-radius:14px;padding:12px 8px;text-align:center;margin:8px 0;}
+.score-num{font-size:44px;font-weight:900;color:#ffd700;font-family:'Orbitron',sans-serif;line-height:1;}
+.score-of-big{font-size:11px;color:rgba(255,255,255,.35);margin-top:2px;}
+.score-tally{display:flex;gap:10px;justify-content:center;margin-top:6px;}
+.score-correct{font-size:12px;font-weight:800;color:#2ecc71;}
+.score-wrong{font-size:12px;font-weight:800;color:#e74c3c;}
+/* Ask Rishika + Break */
+.rishika-btn-lp{width:100%;padding:9px;background:rgba(255,215,0,.1);border:1px solid rgba(255,215,0,.25);color:#ffd700;border-radius:10px;font-family:'Nunito',sans-serif;font-weight:800;font-size:13px;cursor:pointer;margin-top:6px;transition:.15s;}
+.rishika-btn-lp:hover{background:rgba(255,215,0,.18);}
+.break-btn-lp{width:100%;padding:8px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.5);border-radius:10px;font-family:'Nunito',sans-serif;font-weight:700;font-size:12px;cursor:pointer;margin-top:4px;}
+/* progress bar kept for reference, hidden */
 .pb-fill{height:100%;background:linear-gradient(90deg,#ffd700,#2ecc71);border-radius:6px;transition:width .4s;}
-.section-list{margin-top:12px;}
-.sec-item{display:flex;justify-content:space-between;align-items:center;padding:7px 10px;border-radius:8px;margin-bottom:4px;font-size:12px;font-weight:700;background:rgba(255,255,255,.04);color:rgba(255,255,255,.35);}
-.sec-item.active{background:rgba(255,215,0,.12);color:#ffd700;border:1px solid rgba(255,215,0,.25);}
-.sec-item.done{background:rgba(46,204,113,.08);color:#2ecc71;}
-.sec-marks{font-size:10px;opacity:.7;}
-.score-box{margin-top:12px;background:rgba(255,215,0,.06);border-radius:12px;padding:10px;text-align:center;border:1px solid rgba(255,215,0,.15);}
-.score-big{font-size:28px;font-weight:900;color:#ffd700;font-family:'Orbitron',sans-serif;}
-.score-of-txt{font-size:11px;color:rgba(255,255,255,.4);margin-top:2px;}
 
 /* ─ QUESTION AREA ─ */
 .q-area{display:flex;flex-direction:column;gap:12px;}
@@ -172,6 +182,21 @@ body{font-family:'Nunito',sans-serif;background:#0d0d1a;min-height:100vh;color:#
 .comp-btns{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;}
 .btn-primary{padding:12px 30px;background:linear-gradient(135deg,#ffd700,#f39c12);color:#1a1a2e;border:none;border-radius:22px;font-size:15px;font-weight:900;cursor:pointer;font-family:'Nunito',sans-serif;}
 .btn-sec{padding:12px 22px;background:rgba(255,255,255,.07);color:rgba(255,255,255,.75);border:1px solid rgba(255,255,255,.14);border-radius:22px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Nunito',sans-serif;}
+/* ─ RESULT STATS ─ */
+.comp-stats-row{display:flex;gap:8px;justify-content:center;margin:10px 0;}
+.comp-stat-item{flex:1;background:rgba(255,255,255,.05);border-radius:10px;padding:10px 6px;text-align:center;}
+.comp-stat-n{font-size:26px;font-weight:900;font-family:'Orbitron',sans-serif;line-height:1;}
+.comp-stat-lbl{font-size:10px;color:rgba(255,255,255,.4);margin-top:3px;text-transform:uppercase;letter-spacing:.5px;}
+.comp-correct-n{color:#2ecc71;}.comp-wrong-n{color:#e74c3c;}.comp-skip-n{color:rgba(255,255,255,.4);}
+.comp-eligible{font-size:13px;font-weight:800;padding:8px 18px;border-radius:20px;margin:6px 0 12px;display:inline-block;}
+.comp-eligible.yes{background:rgba(46,204,113,.15);color:#2ecc71;border:1px solid rgba(46,204,113,.3);}
+.comp-eligible.no{background:rgba(231,76,60,.1);color:#e74c3c;border:1px solid rgba(231,76,60,.2);}
+/* ─ EXTRA BREAK BLOCKED ─ */
+.eb-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.93);z-index:800;flex-direction:column;align-items:center;justify-content:center;gap:14px;text-align:center;padding:24px;}
+.eb-overlay.show{display:flex;}
+.eb-title{font-size:22px;font-weight:900;color:#e74c3c;}
+.eb-msg{font-size:14px;color:rgba(255,255,255,.6);max-width:360px;line-height:1.7;}
+.eb-btn{padding:12px 32px;background:#e74c3c;color:#fff;border:none;border-radius:24px;font-family:'Nunito',sans-serif;font-weight:900;font-size:15px;cursor:pointer;}
 </style>
 </head>
 <body>
@@ -208,31 +233,36 @@ body{font-family:'Nunito',sans-serif;background:#0d0d1a;min-height:100vh;color:#
 
   <!-- LEFT PANEL -->
   <div class="left-panel">
-    <div class="lp-chapter">CBSE · Class 8</div>
+    <div class="lp-chapter" id="lp-chapter-label">CBSE · Class 8</div>
     <div class="lp-title" id="lp-title">Chapter Exam</div>
 
-    <div class="lp-stat">
-      <div class="lp-stat-label">Question</div>
-      <div class="lp-stat-val"><span id="q-current">1</span><span style="font-size:13px;color:rgba(255,255,255,.3);">/52</span></div>
+    <!-- Big Q counter -->
+    <div class="lp-counter-wrap">
+      <div class="lp-counter-big"><span id="q-current">1</span></div>
+      <div class="lp-counter-of">/ <span id="q-total">52</span> questions</div>
     </div>
 
-    <div class="prog-wrap">
-      <div class="pb-label">Progress</div>
-      <div class="pb-track"><div class="pb-fill" id="pb-fill" style="width:2%;"></div></div>
+    <!-- Attempt dots -->
+    <div class="q-dots-wrap">
+      <div class="q-dots-lbl">Attempt History</div>
+      <div class="q-dots" id="q-dots"></div>
     </div>
 
-    <div class="section-list">
-      <div class="sec-item active" id="sec-tab-A"><span>A · Conceptual</span><span class="sec-marks">×1 mark</span></div>
-      <div class="sec-item" id="sec-tab-B"><span>B · Application</span><span class="sec-marks">×2 marks</span></div>
-      <div class="sec-item" id="sec-tab-C"><span>C · Higher Order</span><span class="sec-marks">×3 marks</span></div>
-      <div class="sec-item" id="sec-tab-D"><span>D · Numerical</span><span class="sec-marks">×3 marks</span></div>
-      <div class="sec-item" id="sec-tab-E"><span>E · Case Study</span><span class="sec-marks">×2 marks</span></div>
+    <!-- Prominent score -->
+    <div class="score-box-big">
+      <div class="score-num" id="score-display">0</div>
+      <div class="score-of-big">/ 100 marks earned</div>
+      <div class="score-tally">
+        <span class="score-correct" id="lp-correct">✓ 0</span>
+        <span class="score-wrong" id="lp-wrong">✗ 0</span>
+      </div>
     </div>
 
-    <div class="score-box">
-      <div class="score-big" id="score-display">0</div>
-      <div class="score-of-txt">marks earned</div>
-    </div>
+    <!-- Ask Rishika -->
+    <button class="rishika-btn-lp" onclick="document.getElementById('chat-toggle-btn') && document.getElementById('chat-toggle-btn').click()">💬 Ask Rishika</button>
+
+    <!-- Break -->
+    <button class="break-btn-lp" onclick="startBreak()">☕ Take a Break</button>
   </div>
 
   <!-- CENTER QUESTION AREA -->
@@ -293,7 +323,15 @@ body{font-family:'Nunito',sans-serif;background:#0d0d1a;min-height:100vh;color:#
   <div class="break-lbl">☕ Break Time</div>
   <div class="break-clock" id="break-clock">0:00</div>
   <div class="break-warn">⚠ Exam timer keeps running during breaks</div>
-  <button class="resume-btn" onclick="endBreak()">I'm Back — Continue Exam</button>
+  <button class="resume-btn" onclick="endBreak()">I&#39;m Back — Continue Exam</button>
+</div>
+
+<!-- ─ EXTRA BREAK BLOCKED ─ -->
+<div class="eb-overlay" id="eb-overlay">
+  <div style="font-size:48px">⛔</div>
+  <div class="eb-title">Break Not Allowed</div>
+  <div class="eb-msg">You already took a break less than an hour ago.<br>Only 1 break is allowed per hour.<br><strong>Your parent has been notified.</strong></div>
+  <button class="eb-btn" onclick="document.getElementById('eb-overlay').classList.remove('show')">Continue Exam</button>
 </div>
 
 <!-- ─ COMPLETION MODAL ─ -->
@@ -303,7 +341,24 @@ body{font-family:'Nunito',sans-serif;background:#0d0d1a;min-height:100vh;color:#
     <div class="comp-grade" id="comp-grade">GRADE</div>
     <div class="comp-score" id="comp-score">0</div>
     <div class="comp-of">/ 100 marks</div>
-    <div class="comp-badge" id="comp-badge">⭐ Chapter Topper</div>
+    <!-- Stats row -->
+    <div class="comp-stats-row">
+      <div class="comp-stat-item">
+        <div class="comp-stat-n comp-correct-n" id="comp-correct">0</div>
+        <div class="comp-stat-lbl">Correct</div>
+      </div>
+      <div class="comp-stat-item">
+        <div class="comp-stat-n comp-wrong-n" id="comp-wrong">0</div>
+        <div class="comp-stat-lbl">Wrong</div>
+      </div>
+      <div class="comp-stat-item">
+        <div class="comp-stat-n comp-skip-n" id="comp-skipped">0</div>
+        <div class="comp-stat-lbl">Unanswered</div>
+      </div>
+    </div>
+    <!-- Topic exam eligibility -->
+    <div class="comp-eligible" id="comp-eligible"></div>
+    <div class="comp-badge" id="comp-badge"></div>
     <div class="comp-coins-row">
       <span style="font-size:24px;">🪙</span>
       <div>
@@ -506,12 +561,16 @@ var answered   = false;
 var sectionScores  = { A:0, B:0, C:0, D:0, E:0 };
 var wrongAttempts  = 0;
 var sectionACorrect = 0;
+var correctCount = 0;
+var wrongCount   = 0;
+var questionResults = [];  /* 'correct' | 'wrong' | '' per question index */
 var timerSecs  = 90 * 60;  /* 90 minutes */
 var timerInt   = null;
 var examDone   = false;
 var breakActive = false;
 var breakTimer  = null;
 var breakSecs   = 0;
+var lastBreakTimestamp = 0;  /* ms epoch — for 1-break-per-hour enforcement */
 
 /* ─ INIT ──────────────────────────────────────────────── */
 window.addEventListener('load', function () {
@@ -602,6 +661,38 @@ function buildFlatList(data) {
       });
     }
   });
+  /* init per-question results array */
+  questionResults = allQ.map(function(){ return ''; });
+  initDots();
+}
+
+/* ─ DOTS ─ */
+function initDots() {
+  var el = document.getElementById('q-dots');
+  if (!el) return;
+  el.innerHTML = '';
+  document.getElementById('q-total').textContent = allQ.length;
+  allQ.forEach(function(_, i) {
+    var d = document.createElement('div');
+    d.className = 'q-dot';
+    d.id = 'qdot-' + i;
+    el.appendChild(d);
+  });
+  updateDotCurrent(0);
+}
+
+function updateDot(idx, result) {
+  var d = document.getElementById('qdot-' + idx);
+  if (!d) return;
+  d.className = 'q-dot ' + (result === 'correct' ? 'correct' : result === 'wrong' ? 'wrong' : '');
+}
+
+function updateDotCurrent(idx) {
+  /* remove 'cur' from old current (if any) */
+  var old = document.querySelector('.q-dot.cur');
+  if (old) old.classList.remove('cur');
+  var d = document.getElementById('qdot-' + idx);
+  if (d && !d.classList.contains('correct') && !d.classList.contains('wrong')) d.classList.add('cur');
 }
 
 /* ─ START ─────────────────────────────────────────────── */
@@ -655,8 +746,7 @@ function showQuestion(idx) {
 
   /* Left panel */
   document.getElementById('q-current').textContent = idx + 1;
-  document.getElementById('pb-fill').style.width = Math.round((idx + 1) / 52 * 100) + '%';
-  updateSectionTabs(sec);
+  updateDotCurrent(idx);
 
   /* Section header */
   document.getElementById('sh-tag').textContent  = 'SECTION ' + sec;
@@ -782,17 +872,24 @@ function handleResult(q, ok) {
   if (ok) {
     sectionScores[sec] += q.marks;
     if (sec === 'A') sectionACorrect++;
+    correctCount++;
     showFeedback(true, q.explanation || '');
     spawnCoin();
   } else {
     wrongAttempts++;
+    wrongCount++;
     showFeedback(false, q.explanation || '');
   }
 
-  /* Update score */
+  /* Record in dots array */
+  questionResults[currentIdx] = ok ? 'correct' : 'wrong';
+  updateDot(currentIdx, questionResults[currentIdx]);
+
+  /* Update score + tallies */
   var total = Object.keys(sectionScores).reduce(function (a, k) { return a + sectionScores[k]; }, 0);
-  document.getElementById('score-display').textContent  = total;
-  var _scEl = document.getElementById('sc-' + sec); if (_scEl) _scEl.textContent = sectionScores[sec] + ' / ' + SECTION_INFO[sec].maxScore;
+  document.getElementById('score-display').textContent = total;
+  document.getElementById('lp-correct').textContent = '✓ ' + correctCount;
+  document.getElementById('lp-wrong').textContent   = '✗ ' + wrongCount;
   document.getElementById('coins-display').textContent = rishiGetCoins();
 
   /* Next button */
@@ -857,17 +954,33 @@ function submitExam() {
     wrongAttempts === 0
   );
   var newTotal = rishiAddCoins(coinResult.total);
+  var skippedCount = allQ.length - correctCount - wrongCount;
 
-  showModal(score, coinResult, prevHigh, newTotal);
+  showModal(score, coinResult, prevHigh, newTotal, correctCount, wrongCount, skippedCount);
 }
 
-function showModal(score, cr, prevHigh, totalCoins) {
+function showModal(score, cr, prevHigh, totalCoins, cCorrect, cWrong, cSkipped) {
   var icons = { Outstanding:'🏆', Excellent:'🌟', Good:'🎯', Pass:'✅', Retry:'🔁' };
   document.getElementById('comp-ico').textContent    = icons[cr.grade] || '🎉';
   document.getElementById('comp-grade').textContent  = cr.grade.toUpperCase();
   document.getElementById('comp-score').textContent  = score;
   document.getElementById('comp-badge').textContent  = cr.badge;
   document.getElementById('comp-coins-n').textContent = '+' + cr.total;
+
+  /* Stats row */
+  document.getElementById('comp-correct').textContent  = cCorrect  || 0;
+  document.getElementById('comp-wrong').textContent    = cWrong    || 0;
+  document.getElementById('comp-skipped').textContent  = cSkipped  || 0;
+
+  /* Topic exam eligibility */
+  var elEl = document.getElementById('comp-eligible');
+  if (score >= 60) {
+    elEl.textContent = '✓ Eligible for Topic Exam';
+    elEl.className = 'comp-eligible yes';
+  } else {
+    elEl.textContent = '✗ Need 60+ marks for Topic Exam';
+    elEl.className = 'comp-eligible no';
+  }
 
   var parts = [];
   if (cr.base)  parts.push('Base: 🪙 ' + cr.base);
@@ -876,7 +989,7 @@ function showModal(score, cr, prevHigh, totalCoins) {
   document.getElementById('comp-breakdown').textContent = parts.join('  ·  ');
 
   var hiTxt = prevHigh > 0
-    ? (score > prevHigh ? '📈 New personal best! Previous: ' + prevHigh + '/100' : 'Your best: ' + prevHigh + '/100')
+    ? (score > prevHigh ? '📈 New best! Previous: ' + prevHigh + '/100' : 'Your best: ' + prevHigh + '/100')
     : 'First attempt!';
   document.getElementById('comp-hi').textContent = hiTxt;
 
@@ -895,8 +1008,21 @@ function confirmLeave() {
 
 /* ─ BREAK ─────────────────────────────────────────────── */
 function startBreak() {
+  if (examDone) return;
+  var now = Date.now();
+  var bypass = sessionStorage.getItem('rishi_admin_bypass') === '1';
+  /* 1-break-per-hour enforcement (skip for admin bypass) */
+  if (!bypass && lastBreakTimestamp > 0 && (now - lastBreakTimestamp) < 3600000) {
+    /* Block and notify parent */
+    document.getElementById('eb-overlay').classList.add('show');
+    notifyParentExtraBreak();
+    return;
+  }
+  lastBreakTimestamp = now;
   breakActive = true;
   breakSecs   = 0;
+  /* Log break start via rishi-core */
+  if (typeof rishiLogBreak === 'function') rishiLogBreak('Break Start', 0);
   document.getElementById('break-overlay').classList.add('show');
   breakTimer = setInterval(function () {
     breakSecs++;
@@ -908,7 +1034,27 @@ function startBreak() {
 function endBreak() {
   breakActive = false;
   clearInterval(breakTimer);
+  if (typeof rishiLogBreak === 'function') rishiLogBreak('Break End', breakSecs);
   document.getElementById('break-overlay').classList.remove('show');
+}
+
+function notifyParentExtraBreak() {
+  /* Log to D1 as a break entry with distinctive type — parent portal will see it */
+  if (typeof rishiLogBreak === 'function') rishiLogBreak('Extra Break Attempt (Blocked)', 0);
+  /* Also push directly to D1 for immediate parent visibility */
+  var sid = (typeof rishiGetStudentId === 'function') ? rishiGetStudentId() : '';
+  if (!sid) return;
+  fetch('/d1-sync', {
+    method: 'POST',
+    keepalive: true,
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      action: 'set',
+      studentId: sid,
+      key: 'rishi_extra_break_flag',
+      value: JSON.stringify({ ts: Date.now(), page: window.location.href, chapter: CH_INFO ? CH_INFO.name : '' })
+    })
+  }).catch(function(){});
 }
 </script>
 

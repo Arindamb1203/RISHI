@@ -52,7 +52,10 @@ const FOLDER_MAP = {
     "11b": "ch11",
     "15":  "ch15",
     "16":  "ch16",
+    "06":  "ch06",
+    "07":  "ch07",
     "17":  "ch17",
+    "18":  "ch18",
   },
   "9": {
     "01": "ch01",
@@ -136,7 +139,27 @@ export async function onRequestGet(context) {
   const kvKey = `${board}_${cls}_ch${chIdPadded}_${type}`;
 
   try {
-    // 1. Try KV first (try both _exam and _chapter_exam tags)
+    const classMap = FOLDER_MAP[cls] || {};
+    const folder   = classMap[chIdPadded];
+
+    // For exam type: if a static file exists in FOLDER_MAP, try it FIRST.
+    // This prevents stale KV bank-format data (Section A only) from overriding
+    // the authoritative 52-question static exam files.
+    if (type === "exam" && folder) {
+      const fileName  = `ch${chIdPadded}-exam.json`;
+      const staticPath = `/data/${board}/class${cls}/${folder}/${fileName}`;
+      const staticUrl  = new URL(staticPath, request.url);
+      const staticRes  = await fetch(staticUrl.toString());
+      if (staticRes.ok) {
+        const text = await staticRes.text();
+        return new Response(text, {
+          status: 200,
+          headers: corsHeaders("application/json"),
+        });
+      }
+    }
+
+    // 1. Try KV (try both _exam and _chapter_exam tags)
     if (env.RISHI_QUESTIONS) {
       const kvKey2 = `${board}_${cls}_ch${chIdPadded}_chapter_exam`;
       let kvData = await env.RISHI_QUESTIONS.get(kvKey);
@@ -153,7 +176,7 @@ export async function onRequestGet(context) {
             });
           }
         } catch(e) {}
-        // Old format — return as-is
+        // Old sections format — return as-is
         return new Response(kvData, {
           status: 200,
           headers: corsHeaders("application/json"),
@@ -161,10 +184,8 @@ export async function onRequestGet(context) {
       }
     }
 
-    // 2. Fall back to static JSON using class-aware folder map
-    const classMap = FOLDER_MAP[cls] || FOLDER_MAP["8"];
-    const folder   = classMap[chIdPadded];
-
+    // 2. Fall back to static JSON using class-aware folder map (for non-exam type
+    //    or when static exam file was not found above)
     if (!folder) {
       return new Response(
         JSON.stringify({ error: `Unknown chapter id: ${ch} for class ${cls}` }),

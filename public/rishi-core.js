@@ -105,11 +105,11 @@ function rishiGetCoins() {
 }
 function rishiExamCoins(score, prevHigh, attemptNum, sectionAAllCorrect, zeroWrong) {
   var base, grade, badge;
-  if (score >= 90)      { base=500; grade='Outstanding'; badge='&#11088; Chapter Topper'; }
-  else if (score >= 75) { base=300; grade='Excellent';   badge='&#129352; Chapter Star';  }
-  else if (score >= 60) { base=175; grade='Good';        badge='&#129353; Chapter Pass';  }
-  else if (score >= 40) { base=75;  grade='Pass';        badge='&#10003; Cleared';        }
-  else                  { base=20;  grade='Retry';       badge='&#128257; Try Again';     }
+  if (score >= 90)      { base=500; grade='Outstanding'; badge='⭐ Chapter Topper'; }
+  else if (score >= 75) { base=300; grade='Excellent';   badge='🥈 Chapter Star'; }
+  else if (score >= 60) { base=175; grade='Good';        badge='🎯 Chapter Pass'; }
+  else if (score >= 40) { base=75;  grade='Pass';        badge='✓ Cleared';            }
+  else                  { base=20;  grade='Retry';       badge='🔁 Try Again';    }
   var bonus = 0;
   if (score >= 40) {
     if (attemptNum === 0) bonus += 50;
@@ -147,10 +147,10 @@ function rishiGetTopicExamHighScore(topic) {
 function rishiTopicExamCoins(pct, prevHighPct, attemptNum) {
   /* pct = Math.round(score/60*100) */
   var base, grade, badge;
-  if (pct >= 90)      { base=750; grade='Topic Master'; badge='&#127942; Topic Master';  }
-  else if (pct >= 75) { base=450; grade='Topic Star';   badge='&#11088; Topic Star';     }
-  else if (pct >= 60) { base=250; grade='Topic Pass';   badge='&#129353; Topic Pass';    }
-  else                { base=50;  grade='Try Again';    badge='&#128257; Try Again';     }
+  if (pct >= 90)      { base=750; grade='Topic Master'; badge='🏆 Topic Master'; }
+  else if (pct >= 75) { base=450; grade='Topic Star';   badge='⭐ Topic Star';   }
+  else if (pct >= 60) { base=250; grade='Topic Pass';   badge='🎯 Topic Pass';   }
+  else                { base=50;  grade='Try Again';    badge='🔁 Try Again';    }
   var bonus = 0;
   if (pct >= 60) {
     if (attemptNum === 0) bonus += 100;

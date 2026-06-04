@@ -47,6 +47,16 @@ h1{font-size:22px;font-weight:900;color:#b8860b;letter-spacing:1px}
 #noCoins h2{font-size:22px;font-weight:900;color:#c0392b}
 #noCoins p{font-size:14px;color:#666;max-width:340px}
 #noCoins button{background:#b8860b;color:#fff;border:none;border-radius:24px;padding:10px 28px;font-family:Nunito,sans-serif;font-weight:900;font-size:15px;cursor:pointer}
+/* ── START CONFIRM ── */
+#startConfirm{display:none;position:fixed;inset:0;background:rgba(253,246,236,.98);z-index:999;flex-direction:column;align-items:center;justify-content:center;gap:12px;text-align:center;padding:24px}
+.sc-title{font-size:20px;font-weight:900;color:#2d2a22}
+.sc-box{background:#fff8e8;border:2px solid #e2c96e;border-radius:18px;padding:18px 24px;width:100%;max-width:360px}
+.sc-row{display:flex;justify-content:space-between;font-size:14px;padding:6px 0;border-bottom:1px solid #f0e4b0}
+.sc-row:last-child{border:none;font-weight:900;font-size:16px;color:#7a6000}
+.sc-label{color:#888}
+.sc-val{font-weight:800;color:#2d2a22}
+.sc-confirm{background:#b8860b;color:#fff;border:none;border-radius:24px;padding:12px 36px;font-family:Nunito,sans-serif;font-weight:900;font-size:16px;cursor:pointer}
+.sc-cancel{background:none;border:2px solid #e2c96e;border-radius:24px;padding:10px 28px;font-family:Nunito,sans-serif;font-weight:800;font-size:14px;color:#7a6000;cursor:pointer}
 </style>
 </head>
 <body>
@@ -108,16 +118,32 @@ h1{font-size:22px;font-weight:900;color:#b8860b;letter-spacing:1px}
   <button onclick="showPicker()">&#8592; Pick Another Game</button>
 </div>
 
+<!-- START CONFIRM -->
+<div id="startConfirm">
+  <div style="font-size:44px" id="sc-icon">🎮</div>
+  <div class="sc-title" id="sc-game-name">Chess Puzzles</div>
+  <div class="sc-box">
+    <div class="sc-row"><span class="sc-label">Your coins</span><span class="sc-val" id="sc-coins">0 🪙</span></div>
+    <div class="sc-row"><span class="sc-label">Cost to play</span><span class="sc-val" id="sc-cost">15 🪙</span></div>
+    <div class="sc-row"><span class="sc-label">Time available</span><span class="sc-val" id="sc-time">15:00</span></div>
+    <div class="sc-row"><span class="sc-label">Coins after</span><span class="sc-val" id="sc-after">0 🪙</span></div>
+  </div>
+  <button class="sc-confirm" id="sc-confirm-btn" onclick="confirmStart()">Play Now ▶</button>
+  <button class="sc-cancel" onclick="document.getElementById('startConfirm').style.display='none'">Cancel</button>
+</div>
+
 <script src="../rishi-core.js"></script>
 <script>
-var GAME_COSTS = {chess:15, '2048':15, kingdom:25};
-var GAME_URLS  = {
+var GAME_COSTS  = {chess:15, '2048':15, kingdom:25};
+var GAME_ICONS  = {chess:'♟', '2048':'🔢', kingdom:'🏰'};
+var GAME_URLS   = {
   chess:   '/games/chess/index.html',
   '2048':  '/games/2048/index.html',
   kingdom: 'https://www.miniplay.com/embed/kingdom-rush'
 };
-var GAME_NAMES = {chess:'♟ Chess Puzzles', '2048':'🔢 2048', kingdom:'🏰 Kingdom Rush'};
-var DAILY_MAX  = 15 * 60; // 900 seconds
+var GAME_NAMES  = {chess:'Chess Puzzles', '2048':'2048', kingdom:'Kingdom Rush'};
+var DAILY_MAX   = 15 * 60; // 900 seconds — shared across all games per break session
+var _pendingGame = null;   // game selected in confirmation dialog
 
 var _timerInterval = null;
 var _secsLeft = 0;
@@ -127,11 +153,28 @@ var _activeGame = null;
 function isAdminBypass(){ return sessionStorage.getItem('rishi_admin_bypass')==='1'; }
 var ADMIN_COINS = 1000;
 
-/* ── daily time tracking ── */
+/* ── daily time tracking (localStorage + D1 cloud sync) ── */
 function todayKey(){ return 'rishi_game_time_' + new Date().toISOString().slice(0,10); }
 function getSecsUsedToday(){ return parseInt(localStorage.getItem(todayKey())||'0'); }
-function addSecsUsed(n){ var used = getSecsUsedToday()+n; localStorage.setItem(todayKey(), String(used)); }
+function addSecsUsed(n){
+  var used = getSecsUsedToday() + n;
+  localStorage.setItem(todayKey(), String(used));
+  /* Cloud sync every 30s via rishi-sync.js interception of rishi_game_time_ key */
+}
 function getSecsRemaining(){ return isAdminBypass() ? DAILY_MAX : Math.max(0, DAILY_MAX - getSecsUsedToday()); }
+
+/* ── D1 sync helper ── */
+function syncGameTimeToCloud(secsUsed){
+  var sid = localStorage.getItem('rishi_current_student');
+  try { sid = JSON.parse(sid).studentId || ''; } catch(e){ sid = ''; }
+  if(!sid) return;
+  var payload = { date: new Date().toISOString().slice(0,10), secsUsed: secsUsed, lastGame: _activeGame || '' };
+  fetch('/d1-sync', {
+    method:'POST', keepalive:true,
+    headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({ action:'set', studentId:sid, key:'rishi_game_sessions', value: JSON.stringify(payload) })
+  }).catch(function(){});
+}
 
 /* ── init ── */
 window.onload = function(){
@@ -158,7 +201,7 @@ function updatePickerUI(){
       }
       if(rem<=0){
         card.classList.add('locked');
-        var b2=document.createElement('div'); if(!card.querySelector('.lock-badge')){ b2.className='lock-badge'; b2.textContent='Time up'; card.appendChild(b2); }
+        if(!card.querySelector('.lock-badge')){ var b2=document.createElement('div'); b2.className='lock-badge'; b2.textContent='Time up'; card.appendChild(b2); }
       }
     } else {
       card.classList.remove('locked');
@@ -184,8 +227,28 @@ function tryPlay(game){
     return;
   }
 
+  /* Show confirmation dialog */
+  _pendingGame = game;
+  document.getElementById('sc-icon').textContent = GAME_ICONS[game];
+  document.getElementById('sc-game-name').textContent = GAME_NAMES[game];
+  document.getElementById('sc-coins').textContent = coins + ' 🪙';
+  document.getElementById('sc-cost').textContent  = cost + ' 🪙';
+  document.getElementById('sc-time').textContent  = fmtTime(rem);
+  document.getElementById('sc-after').textContent = (coins - cost) + ' 🪙';
+  document.getElementById('startConfirm').style.display='flex';
+}
+
+function confirmStart(){
+  if(!_pendingGame) return;
+  document.getElementById('startConfirm').style.display='none';
+  var coins = typeof rishiGetCoins==='function' ? rishiGetCoins() : parseInt(localStorage.getItem('rishi_coins')||'0');
+  var cost = GAME_COSTS[_pendingGame];
+  var rem  = getSecsRemaining();
+  /* Deduct coins */
   localStorage.setItem('rishi_coins', String(coins - cost));
-  startGame(game, rem);
+  if(typeof window.rishiSync !== 'undefined') window.rishiSync(); // trigger rishi-sync if available
+  startGame(_pendingGame, rem);
+  _pendingGame = null;
 }
 
 function startGame(game, secsAvail){
@@ -194,7 +257,7 @@ function startGame(game, secsAvail){
 
   document.getElementById('picker').style.display='none';
   document.getElementById('gameView').style.display='flex';
-  document.getElementById('gameTitle').textContent = GAME_NAMES[game];
+  document.getElementById('gameTitle').textContent = GAME_ICONS[game] + ' ' + GAME_NAMES[game];
   document.getElementById('gameFrame').src = GAME_URLS[game];
   updateTimerPill();
 
@@ -202,8 +265,11 @@ function startGame(game, secsAvail){
     _secsLeft--;
     addSecsUsed(1);
     updateTimerPill();
+    /* Sync to cloud every 30 seconds */
+    if(_secsLeft % 30 === 0) syncGameTimeToCloud(getSecsUsedToday());
     if(_secsLeft <= 0){
       clearInterval(_timerInterval);
+      syncGameTimeToCloud(getSecsUsedToday());
       document.getElementById('gameFrame').src = 'about:blank';
       document.getElementById('gameView').style.display='none';
       showTimeUp();
@@ -219,6 +285,7 @@ function updateTimerPill(){
 
 function endGame(){
   if(_timerInterval) clearInterval(_timerInterval);
+  syncGameTimeToCloud(getSecsUsedToday());
   document.getElementById('gameFrame').src = 'about:blank';
   document.getElementById('gameView').style.display='none';
   showPicker();

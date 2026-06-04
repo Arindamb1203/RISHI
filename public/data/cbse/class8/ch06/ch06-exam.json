@@ -1,169 +1,487 @@
 {
   "meta": {
+    "board": "cbse",
     "class": 8,
-    "chapter": 6,
-    "title": "Squares and Square Roots",
-    "subject": "Mathematics",
-    "board": "CBSE",
-    "totalMarks": 40,
-    "duration": 45
+    "chapter_id": "ch06",
+    "chapter_name": "Squares and Square Roots",
+    "topic_group": "arithmetic",
+    "total_marks": 100,
+    "total_questions": 52,
+    "version": 2,
+    "generated": "2026-06"
   },
   "sections": {
     "A": {
       "type": "mcq",
-      "title": "Section A — Multiple Choice Questions",
-      "marks": 1,
+      "label": "Conceptual",
+      "marks_per_q": 1,
+      "count": 20,
       "questions": [
         {
-          "id": "A1",
-          "q": "Which of the following is NOT a perfect square?",
-          "opts": ["121", "169", "250", "196"],
-          "ans": "250",
-          "hint": "Check last digit and prime factorization"
+          "id": "cbse_8_ch06_A_001",
+          "text": "Which of the following is NOT a perfect square?",
+          "options": { "a": "441", "b": "625", "c": "750", "d": "2025" },
+          "correct": "c",
+          "difficulty": "easy",
+          "explanation": "750 = 2 × 3 × 5³. The primes 2 and 3 are unpaired, so 750 is not a perfect square."
         },
         {
-          "id": "A2",
-          "q": "The square root of 2.25 is:",
-          "opts": ["0.15", "1.5", "15", "0.5"],
-          "ans": "1.5",
-          "hint": "2.25 = 225/100"
+          "id": "cbse_8_ch06_A_002",
+          "text": "The square root of 225 is:",
+          "options": { "a": "13", "b": "14", "c": "15", "d": "16" },
+          "correct": "c",
+          "difficulty": "easy",
+          "explanation": "15 × 15 = 225."
         },
         {
-          "id": "A3",
-          "q": "How many non-perfect-square numbers lie between 5² and 6²?",
-          "opts": ["8", "10", "11", "5"],
-          "ans": "10",
-          "hint": "Between n² and (n+1)² there are 2n numbers"
+          "id": "cbse_8_ch06_A_003",
+          "text": "A perfect square number can never end in the digit:",
+          "options": { "a": "0", "b": "4", "c": "8", "d": "9" },
+          "correct": "c",
+          "difficulty": "easy",
+          "explanation": "Perfect squares end only in 0, 1, 4, 5, 6, or 9. A number ending in 8 cannot be a perfect square."
         },
         {
-          "id": "A4",
-          "q": "The sum of first 9 odd numbers is:",
-          "opts": ["81", "72", "64", "100"],
-          "ans": "81",
-          "hint": "Sum of first n odd numbers = n²"
+          "id": "cbse_8_ch06_A_004",
+          "text": "The sum of first 9 odd numbers equals:",
+          "options": { "a": "64", "b": "81", "c": "72", "d": "100" },
+          "correct": "b",
+          "difficulty": "easy",
+          "explanation": "Sum of first n odd numbers = n². For n = 9: 9² = 81."
         },
         {
-          "id": "A5",
-          "q": "Which number must be multiplied by 50 to make it a perfect square?",
-          "opts": ["2", "5", "8", "10"],
-          "ans": "2",
-          "hint": "50 = 2×5². Which prime is unpaired?"
+          "id": "cbse_8_ch06_A_005",
+          "text": "How many non-perfect-square numbers lie between 7² and 8²?",
+          "options": { "a": "7", "b": "8", "c": "14", "d": "15" },
+          "correct": "c",
+          "difficulty": "easy",
+          "explanation": "Between n² and (n+1)², there are 2n non-perfect-square numbers. For n = 7: 2 × 7 = 14."
         },
         {
-          "id": "A6",
-          "q": "√(49/81) equals:",
-          "opts": ["7/81", "49/9", "7/9", "9/7"],
-          "ans": "7/9",
-          "hint": "√(p/q) = √p/√q"
+          "id": "cbse_8_ch06_A_006",
+          "text": "√(9/25) = ?",
+          "options": { "a": "9/5", "b": "3/25", "c": "3/5", "d": "9/25" },
+          "correct": "c",
+          "difficulty": "easy",
+          "explanation": "√(9/25) = √9 / √25 = 3/5."
         },
         {
-          "id": "A7",
-          "q": "The least number to subtract from 170 to make it a perfect square is:",
-          "opts": ["1", "2", "3", "4"],
-          "ans": "1",
-          "hint": "13² = 169. 170 − 169 = 1"
+          "id": "cbse_8_ch06_A_007",
+          "text": "Which of these is a Pythagorean triplet?",
+          "options": { "a": "(2, 4, 5)", "b": "(6, 8, 10)", "c": "(3, 5, 7)", "d": "(4, 6, 8)" },
+          "correct": "b",
+          "difficulty": "easy",
+          "explanation": "6² + 8² = 36 + 64 = 100 = 10². So (6, 8, 10) is a Pythagorean triplet."
         },
         {
-          "id": "A8",
-          "q": "A number ending in which digit cannot be a perfect square?",
-          "opts": ["1", "5", "8", "9"],
-          "ans": "8",
-          "hint": "Perfect squares only end in 0,1,4,5,6,9"
+          "id": "cbse_8_ch06_A_008",
+          "text": "15² − 14² = ?",
+          "options": { "a": "1", "b": "28", "c": "29", "d": "30" },
+          "correct": "c",
+          "difficulty": "easy",
+          "explanation": "(n+1)² − n² = 2n + 1. For n = 14: 2(14) + 1 = 29."
         },
         {
-          "id": "A9",
-          "q": "√7056 equals:",
-          "opts": ["82", "84", "86", "88"],
-          "ans": "84",
-          "hint": "7056 = 2⁴×3²×7²"
+          "id": "cbse_8_ch06_A_009",
+          "text": "√0.0081 = ?",
+          "options": { "a": "0.009", "b": "0.09", "c": "0.9", "d": "9" },
+          "correct": "b",
+          "difficulty": "easy",
+          "explanation": "0.09 × 0.09 = 0.0081. So √0.0081 = 0.09."
         },
         {
-          "id": "A10",
-          "q": "If the area of a square is 1764 cm², its perimeter is:",
-          "opts": ["168 cm", "164 cm", "172 cm", "176 cm"],
-          "ans": "168 cm",
-          "hint": "√1764 = 42, perimeter = 4×42 = 168 cm"
+          "id": "cbse_8_ch06_A_010",
+          "text": "The square of an odd number is always:",
+          "options": { "a": "Even", "b": "Divisible by 4", "c": "Odd", "d": "Prime" },
+          "correct": "c",
+          "difficulty": "easy",
+          "explanation": "Odd × Odd = Odd. The square of any odd number is always odd."
+        },
+        {
+          "id": "cbse_8_ch06_A_011",
+          "text": "What is the least number to add to 200 to get the nearest perfect square?",
+          "options": { "a": "14", "b": "24", "c": "25", "d": "36" },
+          "correct": "c",
+          "difficulty": "medium",
+          "explanation": "14² = 196, 15² = 225. Nearest perfect square above 200 is 225. Add 225 − 200 = 25."
+        },
+        {
+          "id": "cbse_8_ch06_A_012",
+          "text": "If the area of a square field is 1156 m², its side length is:",
+          "options": { "a": "32 m", "b": "36 m", "c": "38 m", "d": "34 m" },
+          "correct": "d",
+          "difficulty": "easy",
+          "explanation": "34² = 1156. So the side is 34 m."
+        },
+        {
+          "id": "cbse_8_ch06_A_013",
+          "text": "1 + 3 + 5 + 7 + 9 + 11 = ?",
+          "options": { "a": "35", "b": "36", "c": "42", "d": "49" },
+          "correct": "b",
+          "difficulty": "easy",
+          "explanation": "Sum of first 6 odd numbers = 6² = 36."
+        },
+        {
+          "id": "cbse_8_ch06_A_014",
+          "text": "A perfect square always has an __ number of factors.",
+          "options": { "a": "Even", "b": "Odd", "c": "Prime", "d": "Composite" },
+          "correct": "b",
+          "difficulty": "medium",
+          "explanation": "Perfect squares have an odd number of factors because one factor is repeated (the square root)."
+        },
+        {
+          "id": "cbse_8_ch06_A_015",
+          "text": "√1600 = ?",
+          "options": { "a": "400", "b": "4", "c": "0.4", "d": "40" },
+          "correct": "d",
+          "difficulty": "easy",
+          "explanation": "40 × 40 = 1600. So √1600 = 40."
+        },
+        {
+          "id": "cbse_8_ch06_A_016",
+          "text": "The numbers (8, 15, 17) form a Pythagorean triplet. Which check confirms this?",
+          "options": { "a": "8 + 15 = 17 × 1.35", "b": "8² + 15² = 17²", "c": "8 × 15 = 17²", "d": "8² − 15² = 17" },
+          "correct": "b",
+          "difficulty": "easy",
+          "explanation": "64 + 225 = 289 = 17². The sum of squares of the two smaller numbers equals the square of the largest."
+        },
+        {
+          "id": "cbse_8_ch06_A_017",
+          "text": "√(4 × 2025) = ?",
+          "options": { "a": "2025", "b": "90", "c": "180", "d": "45" },
+          "correct": "b",
+          "difficulty": "easy",
+          "explanation": "√4 × √2025 = 2 × 45 = 90."
+        },
+        {
+          "id": "cbse_8_ch06_A_018",
+          "text": "Which number must be multiplied to 12 to make it a perfect square?",
+          "options": { "a": "12", "b": "4", "c": "6", "d": "3" },
+          "correct": "d",
+          "difficulty": "medium",
+          "explanation": "12 = 2² × 3. Factor 3 is unpaired. Multiply by 3 → 36 = 6²."
+        },
+        {
+          "id": "cbse_8_ch06_A_019",
+          "text": "√81 + √49 = ?",
+          "options": { "a": "18", "b": "14", "c": "16", "d": "13" },
+          "correct": "c",
+          "difficulty": "easy",
+          "explanation": "√81 = 9, √49 = 7. Sum = 9 + 7 = 16."
+        },
+        {
+          "id": "cbse_8_ch06_A_020",
+          "text": "If √x = 13/5, then x equals:",
+          "options": { "a": "169/25", "b": "26/10", "c": "13/5", "d": "225/169" },
+          "correct": "a",
+          "difficulty": "medium",
+          "explanation": "x = (13/5)² = 169/25."
         }
       ]
     },
     "B": {
-      "type": "short1",
-      "title": "Section B — Short Answer I (2 marks each)",
-      "marks": 2,
+      "type": "mcq",
+      "label": "Application",
+      "marks_per_q": 2,
+      "count": 10,
       "questions": [
         {
-          "id": "B1",
-          "q": "Find √1225 using prime factorisation.",
-          "ans": "1225 = 5² × 7². √1225 = 5 × 7 = 35",
-          "hint": "Group prime factors in pairs"
+          "id": "cbse_8_ch06_B_001",
+          "text": "The smallest number by which 2028 must be multiplied to make it a perfect square is:",
+          "options": { "a": "2", "b": "3", "c": "7", "d": "13" },
+          "correct": "b",
+          "difficulty": "medium",
+          "explanation": "2028 = 2² × 3 × 13². Factor 3 is unpaired. Multiply by 3 to get 2028 × 3 = 6084 = 78²."
         },
         {
-          "id": "B2",
-          "q": "Find the smallest number by which 180 must be multiplied to make it a perfect square.",
-          "ans": "180 = 2²×3²×5. Factor 5 is unpaired. Multiply by 5. Answer: 5",
-          "hint": "Find the unpaired prime factor"
+          "id": "cbse_8_ch06_B_002",
+          "text": "Find the smallest number to subtract from 5607 to make it a perfect square.",
+          "options": { "a": "131", "b": "81", "c": "7", "d": "31" },
+          "correct": "a",
+          "difficulty": "medium",
+          "explanation": "74² = 5476, 75² = 5625. 5607 > 5476 but < 5625. Subtract 5607 − 5476 = 131 to get 74² = 5476."
         },
         {
-          "id": "B3",
-          "q": "Is 1000 a perfect square? Give reason.",
-          "ans": "No. 1000 = 2³×5³. Factor 2 appears 3 times (odd power), so it cannot be paired completely. Not a perfect square.",
-          "hint": "Check if all prime factors appear in pairs"
+          "id": "cbse_8_ch06_B_003",
+          "text": "Find √4096.",
+          "options": { "a": "48", "b": "56", "c": "64", "d": "72" },
+          "correct": "c",
+          "difficulty": "medium",
+          "explanation": "4096 = 2¹². √4096 = 2⁶ = 64."
         },
         {
-          "id": "B4",
-          "q": "Find √0.0064.",
-          "ans": "0.0064 = 64/10000. √64=8, √10000=100. √0.0064 = 8/100 = 0.08",
-          "hint": "Convert to fraction first"
+          "id": "cbse_8_ch06_B_004",
+          "text": "The area of a square is 5329 cm². Find its perimeter.",
+          "options": { "a": "280 cm", "b": "288 cm", "c": "292 cm", "d": "276 cm" },
+          "correct": "c",
+          "difficulty": "medium",
+          "explanation": "73² = 5329. Side = 73 cm. Perimeter = 4 × 73 = 292 cm."
         },
         {
-          "id": "B5",
-          "q": "Write 81 as the sum of consecutive odd numbers.",
-          "ans": "81 = 9². Sum of first 9 odd numbers: 1+3+5+7+9+11+13+15+17 = 81",
-          "hint": "n² = sum of first n odd numbers"
+          "id": "cbse_8_ch06_B_005",
+          "text": "The product of two numbers is 2916 and one of them is 36. The square root of the other number is:",
+          "options": { "a": "9", "b": "81", "c": "3", "d": "6" },
+          "correct": "a",
+          "difficulty": "medium",
+          "explanation": "Other number = 2916 ÷ 36 = 81. √81 = 9."
+        },
+        {
+          "id": "cbse_8_ch06_B_006",
+          "text": "What is the smallest 4-digit perfect square?",
+          "options": { "a": "1000", "b": "1024", "c": "1089", "d": "1156" },
+          "correct": "b",
+          "difficulty": "medium",
+          "explanation": "31² = 961 (3 digits), 32² = 1024 (4 digits). So 1024 is the smallest 4-digit perfect square."
+        },
+        {
+          "id": "cbse_8_ch06_B_007",
+          "text": "√(256/441) = ?",
+          "options": { "a": "16/21", "b": "8/21", "c": "4/21", "d": "32/42" },
+          "correct": "a",
+          "difficulty": "medium",
+          "explanation": "√256 = 16, √441 = 21. So √(256/441) = 16/21."
+        },
+        {
+          "id": "cbse_8_ch06_B_008",
+          "text": "Which of the following is NOT a Pythagorean triplet?",
+          "options": { "a": "(3, 4, 5)", "b": "(5, 12, 13)", "c": "(4, 6, 8)", "d": "(8, 15, 17)" },
+          "correct": "c",
+          "difficulty": "medium",
+          "explanation": "4² + 6² = 16 + 36 = 52 ≠ 64 = 8². So (4, 6, 8) is not a Pythagorean triplet."
+        },
+        {
+          "id": "cbse_8_ch06_B_009",
+          "text": "What number must be added to 1000 to get the nearest perfect square?",
+          "options": { "a": "39", "b": "24", "c": "64", "d": "25" },
+          "correct": "b",
+          "difficulty": "medium",
+          "explanation": "31² = 961, 32² = 1024. Add 1024 − 1000 = 24 to get 32² = 1024."
+        },
+        {
+          "id": "cbse_8_ch06_B_010",
+          "text": "101² = ?",
+          "options": { "a": "10021", "b": "10101", "c": "10201", "d": "10210" },
+          "correct": "c",
+          "difficulty": "medium",
+          "explanation": "(100 + 1)² = 100² + 2(100)(1) + 1² = 10000 + 200 + 1 = 10201."
         }
       ]
     },
     "C": {
-      "type": "short2",
-      "title": "Section C — Short Answer II (3 marks each)",
-      "marks": 3,
+      "type": "mcq",
+      "label": "Higher Order",
+      "marks_per_q": 3,
+      "count": 6,
       "questions": [
         {
-          "id": "C1",
-          "q": "Find √1764 using the long division method.",
-          "ans": "Pair digits: 17|64. Largest square ≤17 is 16=4². Remainder=1, bring down 64→164. Double quotient: 8. Find d: 82×2=164. √1764 = 42.",
-          "hint": "Group digits in pairs from right"
+          "id": "cbse_8_ch06_C_001",
+          "text": "Using long division, √5329 = ?",
+          "options": { "a": "71", "b": "73", "c": "77", "d": "79" },
+          "correct": "b",
+          "difficulty": "hard",
+          "explanation": "73² = 5329. Verify: 70² = 4900, 3² = 9, 2 × 70 × 3 = 420. Total = 4900 + 420 + 9 = 5329 ✓"
         },
         {
-          "id": "C2",
-          "q": "Find the smallest number to be subtracted from 500 to make it a perfect square. Also find the square root of the resulting number.",
-          "ans": "22²=484, 23²=529. 529>500, so nearest below is 484. Subtract 500−484=16. √484=22.",
-          "hint": "Find the perfect square just below 500"
+          "id": "cbse_8_ch06_C_002",
+          "text": "The smallest number by which 1458 must be divided to make it a perfect square is:",
+          "options": { "a": "3", "b": "2", "c": "6", "d": "9" },
+          "correct": "b",
+          "difficulty": "hard",
+          "explanation": "1458 = 2 × 3⁶. Factor 2 is unpaired. Divide by 2 → 3⁶ = 729 = 27²."
         },
         {
-          "id": "C3",
-          "q": "A school arranges 2025 students in a square array. Find the number of rows.",
-          "ans": "n² = 2025. √2025: 2025=3⁴×5²=(3²×5)²=45². √2025=45. So 45 rows with 45 students each.",
-          "hint": "Find √2025"
+          "id": "cbse_8_ch06_C_003",
+          "text": "768 students must stand in a square formation. What is the minimum number of students who should leave to make this possible?",
+          "options": { "a": "29", "b": "32", "c": "39", "d": "57" },
+          "correct": "c",
+          "difficulty": "hard",
+          "explanation": "27² = 729, 28² = 784. 768 − 729 = 39 students should leave to form a 27 × 27 square."
+        },
+        {
+          "id": "cbse_8_ch06_C_004",
+          "text": "A ladder 25 m long leans against a wall with its foot 7 m from the wall. How high on the wall does the ladder reach?",
+          "options": { "a": "18 m", "b": "20 m", "c": "22 m", "d": "24 m" },
+          "correct": "d",
+          "difficulty": "hard",
+          "explanation": "Height = √(25² − 7²) = √(625 − 49) = √576 = 24 m."
+        },
+        {
+          "id": "cbse_8_ch06_C_005",
+          "text": "Three squares have areas 225 cm², 900 cm², and 2025 cm². Find the sum of their perimeters.",
+          "options": { "a": "300 cm", "b": "360 cm", "c": "420 cm", "d": "480 cm" },
+          "correct": "b",
+          "difficulty": "hard",
+          "explanation": "Sides: √225 = 15, √900 = 30, √2025 = 45. Perimeters: 60 + 120 + 180 = 360 cm."
+        },
+        {
+          "id": "cbse_8_ch06_C_006",
+          "text": "√(176.89) = ?",
+          "options": { "a": "1.33", "b": "12.3", "c": "13.3", "d": "133" },
+          "correct": "c",
+          "difficulty": "hard",
+          "explanation": "176.89 = 17689/100. √17689 = 133 (133² = 17689). So √176.89 = 133/10 = 13.3."
         }
       ]
     },
     "D": {
-      "type": "long",
-      "title": "Section D — Long Answer (5 marks each)",
-      "marks": 5,
+      "type": "mcq",
+      "label": "Numerical",
+      "marks_per_q": 3,
+      "count": 10,
       "questions": [
         {
-          "id": "D1",
-          "q": "Using the long division method, find √7056. Also verify your answer.",
-          "ans": "Group: 70|56. Largest square ≤70 is 64=8². Remainder=6, bring down 56→656. Double quotient: 16. Try d=4: 164×4=656 ✓. √7056=84. Verify: 84²=84×84=7056 ✓.",
-          "hint": "Long division method for square root"
+          "id": "cbse_8_ch06_D_001",
+          "text": "Find √7921.",
+          "options": { "a": "83", "b": "87", "c": "89", "d": "91" },
+          "correct": "c",
+          "difficulty": "hard",
+          "explanation": "89² = 7921. Verify: 80² = 6400, 9² = 81, 2 × 80 × 9 = 1440. Total = 6400 + 1440 + 81 = 7921 ✓"
         },
         {
-          "id": "D2",
-          "q": "Prove that the product of two perfect squares is always a perfect square. Give two examples to verify.",
-          "ans": "Let m=a² and n=b². Then m×n=a²×b²=(ab)², which is a perfect square (square of ab). Example 1: 4×9=36=6² ✓. Example 2: 25×16=400=20² ✓. Hence proved.",
-          "hint": "Use algebraic proof with variables"
+          "id": "cbse_8_ch06_D_002",
+          "text": "The area of a square field is 72.25 m². Find its perimeter.",
+          "options": { "a": "28 m", "b": "32 m", "c": "34 m", "d": "36 m" },
+          "correct": "c",
+          "difficulty": "hard",
+          "explanation": "8.5² = 72.25. Side = 8.5 m. Perimeter = 4 × 8.5 = 34 m."
+        },
+        {
+          "id": "cbse_8_ch06_D_003",
+          "text": "√9801 + √1024 = ?",
+          "options": { "a": "121", "b": "131", "c": "141", "d": "151" },
+          "correct": "b",
+          "difficulty": "hard",
+          "explanation": "√9801 = 99, √1024 = 32. Sum = 99 + 32 = 131."
+        },
+        {
+          "id": "cbse_8_ch06_D_004",
+          "text": "1 + 3 + 5 + 7 + ... + 39 = ?",
+          "options": { "a": "361", "b": "380", "c": "400", "d": "441" },
+          "correct": "c",
+          "difficulty": "medium",
+          "explanation": "39 = 2(20) − 1, so there are 20 odd numbers. Sum = 20² = 400."
+        },
+        {
+          "id": "cbse_8_ch06_D_005",
+          "text": "Find √(36 × 2025).",
+          "options": { "a": "540", "b": "2700", "c": "270", "d": "27" },
+          "correct": "c",
+          "difficulty": "medium",
+          "explanation": "√36 × √2025 = 6 × 45 = 270."
+        },
+        {
+          "id": "cbse_8_ch06_D_006",
+          "text": "What is the smallest number by which 3645 must be multiplied to get a perfect square?",
+          "options": { "a": "3", "b": "5", "c": "9", "d": "15" },
+          "correct": "b",
+          "difficulty": "hard",
+          "explanation": "3645 = 3⁶ × 5. Factor 5 is unpaired. Multiply by 5 → 3645 × 5 = 18225 = 135²."
+        },
+        {
+          "id": "cbse_8_ch06_D_007",
+          "text": "A square garden has area 30625 m². Find the cost of fencing at ₹25 per metre.",
+          "options": { "a": "₹14000", "b": "₹15000", "c": "₹17500", "d": "₹20000" },
+          "correct": "c",
+          "difficulty": "hard",
+          "explanation": "√30625 = 175. Side = 175 m. Perimeter = 700 m. Cost = 700 × 25 = ₹17500."
+        },
+        {
+          "id": "cbse_8_ch06_D_008",
+          "text": "99² = ?",
+          "options": { "a": "9801", "b": "9821", "c": "9881", "d": "9901" },
+          "correct": "a",
+          "difficulty": "medium",
+          "explanation": "(100 − 1)² = 10000 − 200 + 1 = 9801."
+        },
+        {
+          "id": "cbse_8_ch06_D_009",
+          "text": "If the product of a number and its square root is 512, what is the number?",
+          "options": { "a": "16", "b": "32", "c": "64", "d": "128" },
+          "correct": "c",
+          "difficulty": "hard",
+          "explanation": "Let the number be n. n × √n = n^(3/2) = 512 = 8³. So n = 8² = 64."
+        },
+        {
+          "id": "cbse_8_ch06_D_010",
+          "text": "Find √176400 using prime factorisation.",
+          "options": { "a": "42", "b": "4200", "c": "420", "d": "4.2" },
+          "correct": "c",
+          "difficulty": "hard",
+          "explanation": "176400 = 42² × 100 = (42 × 10)². √176400 = 420."
+        }
+      ]
+    },
+    "E": {
+      "type": "case_study",
+      "label": "Case Study",
+      "marks_per_q": 2,
+      "count": 2,
+      "cases": [
+        {
+          "id": "cbse_8_ch06_E_case1",
+          "case_text": "Riya is designing a floor mosaic using square tiles. She has exactly 5929 identical square tiles and wants to arrange them all in a perfect square pattern. Her teacher tells her to verify the arrangement using prime factorisation.",
+          "subparts": [
+            {
+              "id": "cbse_8_ch06_E_case1_q1",
+              "text": "What is the side length of Riya's square arrangement?",
+              "type": "mcq",
+              "options": { "a": "71", "b": "73", "c": "77", "d": "79" },
+              "correct": "c",
+              "marks": 2,
+              "explanation": "77² = 5929. Verify: 7 × 7 = 49, 11 × 11 = 121, 7² × 11² = 5929 ✓. √5929 = 77."
+            },
+            {
+              "id": "cbse_8_ch06_E_case1_q2",
+              "text": "Express 5929 as a product of prime factors.",
+              "type": "mcq",
+              "options": { "a": "7 × 11²", "b": "7² × 11", "c": "7² × 11²", "d": "7 × 77" },
+              "correct": "c",
+              "marks": 2,
+              "explanation": "5929 = 49 × 121 = 7² × 11². Both factors are perfect squares, confirming 5929 is a perfect square."
+            },
+            {
+              "id": "cbse_8_ch06_E_case1_q3",
+              "text": "Riya later gets a batch of 7744 tiles to make a larger square. What is the side of that square?",
+              "type": "mcq",
+              "options": { "a": "84", "b": "86", "c": "88", "d": "92" },
+              "correct": "c",
+              "marks": 2,
+              "explanation": "88² = 7744. Verify: 80² = 6400, 8² = 64, 2 × 80 × 8 = 1280. Total = 6400 + 1280 + 64 = 7744 ✓."
+            }
+          ]
+        },
+        {
+          "id": "cbse_8_ch06_E_case2",
+          "case_text": "Arjun discovered that for any integer m > 1, the set (2m, m² − 1, m² + 1) always forms a Pythagorean triplet. He verified this for several values of m and noted it in his maths journal.",
+          "subparts": [
+            {
+              "id": "cbse_8_ch06_E_case2_q1",
+              "text": "Using the formula, what is the Pythagorean triplet when m = 5?",
+              "type": "mcq",
+              "options": { "a": "(5, 10, 26)", "b": "(10, 24, 26)", "c": "(5, 24, 25)", "d": "(10, 25, 26)" },
+              "correct": "b",
+              "marks": 2,
+              "explanation": "m = 5: 2m = 10, m² − 1 = 24, m² + 1 = 26. Triplet: (10, 24, 26). Check: 100 + 576 = 676 = 26² ✓."
+            },
+            {
+              "id": "cbse_8_ch06_E_case2_q2",
+              "text": "When m = 6, what is the largest number in the Pythagorean triplet?",
+              "type": "mcq",
+              "options": { "a": "35", "b": "36", "c": "37", "d": "38" },
+              "correct": "c",
+              "marks": 2,
+              "explanation": "m = 6: 2m = 12, m² − 1 = 35, m² + 1 = 37. Largest number = 37. Check: 144 + 1225 = 1369 = 37² ✓."
+            },
+            {
+              "id": "cbse_8_ch06_E_case2_q3",
+              "text": "For m = 4, which of the following is the Pythagorean triplet?",
+              "type": "mcq",
+              "options": { "a": "(4, 8, 15)", "b": "(8, 15, 17)", "c": "(4, 15, 17)", "d": "(8, 16, 17)" },
+              "correct": "b",
+              "marks": 2,
+              "explanation": "m = 4: 2m = 8, m² − 1 = 15, m² + 1 = 17. Triplet: (8, 15, 17). Check: 64 + 225 = 289 = 17² ✓."
+            }
+          ]
         }
       ]
     }
