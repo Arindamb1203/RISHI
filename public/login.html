@@ -336,6 +336,13 @@ window.onload = function(){
     return;
   }
   // Auto-redirect removed
+
+  /* Show error if redirected back from parent.html with bad auth */
+  if(params.get('err') === 'auth'){
+    var b = document.getElementById('login-error-banner');
+    if(b){ b.textContent = '✗ Session error — please log in again.'; b.style.display = 'block'; }
+    history.replaceState(null, '', '/login.html');
+  }
 };
 
 function stopCountdown(){
@@ -435,60 +442,55 @@ async function handleLogin(){
   /* Step 1 — check localStorage */
   var account = findAccount(u, p);
 
-  /* For parent accounts: ALWAYS fetch D1 to get correct studentId regardless of local cache */
   var isParentLogin = u.trim().toLowerCase().indexOf('parent-') === 0;
 
-  /* Step 2 — not found locally OR parent account (needs correct studentId from D1) */
-  if(!account || (account && account.role === 'parent')){
+  /* Step 2 — always check D1 for parents; also for students not found locally */
+  if(!account || isParentLogin){
     try {
       var res = await fetch('/d1-sync', {
         method: 'POST',
         headers: {'Content-Type':'application/json'},
-        body: JSON.stringify({action:'find-account', username: u})
+        body: JSON.stringify({action:'find-account', username: u.trim().toLowerCase()})
       });
       var json = await res.json();
       if(json.ok && json.found){
-        /* Merge/update registration in localStorage — D1 data wins for shared fields */
         var d = json.data;
+        /* Update localStorage registration with D1 data */
         var existing = [];
         try { existing = JSON.parse(localStorage.getItem('rishi_registrations')||'[]'); } catch(e){}
         var existIdx = existing.findIndex(function(r){ return (r.studentUsername||'').toLowerCase() === (d.studentUsername||'').toLowerCase(); });
-        if(existIdx === -1){ existing.push(d); }
-        else { existing[existIdx] = Object.assign({}, existing[existIdx], d); }
+        if(existIdx === -1){ existing.push(d); } else { existing[existIdx] = Object.assign({}, existing[existIdx], d); }
         localStorage.setItem('rishi_registrations', JSON.stringify(existing));
-        /* If cloud has a pw override, sync it locally */
-        if(json.pw_override){
+        /* Sync pw_override locally */
+        var d1Pw = json.pw_override || null;
+        if(d1Pw){
           var ov = {};
           try { ov = JSON.parse(localStorage.getItem('rishi_pw_overrides')||'{}'); } catch(e){}
-          ov[u.toLowerCase()] = json.pw_override;
+          ov[u.trim().toLowerCase()] = d1Pw;
           localStorage.setItem('rishi_pw_overrides', JSON.stringify(ov));
         }
-        /* Re-find with correct registration now in localStorage */
-        var reFound = findAccount(u, p);
-        if(reFound) account = reFound;
+        /* Verify password against D1's override, then construct account directly from D1 data.
+           DO NOT call findAccount() for parents — its PARENT-xxx path ignores rishi_registrations
+           and returns wrong studentId when rishi_current_student has no student cached. */
+        if(json.role === 'parent'){
+          var expectedD1Pw = d1Pw || PARENT_PASS;
+          if(p === expectedD1Pw){
+            account = {username:u, role:'parent',
+              board:       d.board        || 'CBSE',
+              class:       d.class        || '8',
+              studentId:   d.studentUsername,          /* ← always correct from D1 */
+              studentName: d.studentName  || 'Student',
+              parentName:  d.parentName   || '',
+              parentUsername: u};
+          }
+          /* wrong password → account stays null → error shown below */
+        } else {
+          /* Student — findAccount() works correctly for student login path */
+          var reFound = findAccount(u, p);
+          if(reFound) account = reFound;
+        }
       }
-    } catch(e){ /* network error — keep locally found account if any */ }
-  }
-
-  /* Step 2.5 — PARENT-xxx not in D1 at all: last-resort fallback */
-  if(!account && isParentLogin){
-    var uLC2 = u.trim().toLowerCase();
-    var ov2 = {};
-    try { ov2 = JSON.parse(localStorage.getItem('rishi_pw_overrides')||'{}'); } catch(e){}
-    var expectedPw = ov2[uLC2] || ov2[u.trim()] || PARENT_PASS;
-    if(p === expectedPw){
-      var cs3 = {};
-      try { cs3 = JSON.parse(localStorage.getItem('rishi_current_student')||'{}'); } catch(e){}
-      /* Only use cached studentId if it's clearly a student ID (not a parent username) */
-      var safeId = (cs3.studentId && cs3.studentId.toLowerCase().indexOf('parent-') === -1)
-                   ? cs3.studentId : null;
-      if(safeId){
-        account = {username:u, role:'parent', board:cs3.board||'CBSE', class:cs3.class||'8',
-          studentId:safeId, studentName:cs3.studentName||'Student',
-          parentName:cs3.parentName||'', parentUsername:u};
-      }
-      /* If no valid studentId: account stays null → login fails with error below */
-    }
+    } catch(e){ /* network error — fall through to error */ }
   }
 
   btn.textContent = '✦ Login — Enter RISHI';

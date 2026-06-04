@@ -1371,7 +1371,7 @@ function checkAuth() {
     if(storedSid && storedSid.toLowerCase().indexOf('parent-') === 0){
       sessionStorage.removeItem('rishi_parent_auth');
       sessionStorage.removeItem('rishi_parent_student_id');
-      window.location.href = '/login.html';
+      window.location.href = '/login.html?err=auth';
       return;
     }
     enterPortal(); return;
