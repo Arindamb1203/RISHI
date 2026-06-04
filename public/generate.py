@@ -199,7 +199,7 @@ body::before{{content:'';position:fixed;inset:0;background-image:linear-gradient
 @keyframes rBounce{{0%,100%{{transform:translateY(0)}}50%{{transform:translateY(-9px)}}}}
 @media(max-width:600px){{.main{{padding:10px 10px 120px;}}}}
 </style>
-<script src="/rishi-sync.js"></script>
+<script src="/rishi-sync.js?v=2"></script>
 <script src="/rishi-core.js"></script>
 <script src="/rishi-presence.js"></script>
 </head>
@@ -512,7 +512,7 @@ body{{font-family:'Nunito',sans-serif;background:#0d0d1a;min-height:100vh;color:
 @keyframes streakToast{{0%{{transform:translateX(120%);opacity:0;}}20%{{transform:translateX(0);opacity:1;}}80%{{transform:translateX(0);opacity:1;}}100%{{transform:translateX(120%);opacity:0;}}}}
 .streak-toast{{position:fixed;bottom:30px;right:20px;background:#2ecc71;color:#fff;padding:14px 22px;border-radius:14px;font-weight:900;font-size:15px;z-index:700;animation:streakToast 3.5s ease forwards;pointer-events:none;}}
 </style>
-<script src="/rishi-sync.js"></script>
+<script src="/rishi-sync.js?v=2"></script>
 <script src="/rishi-core.js"></script>
 <script src="/rishi-presence.js"></script>
 </head>

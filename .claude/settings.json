@@ -1,4 +1,19 @@
 {
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "if": "Bash(git push*)",
+            "command": "Write-Output '{\"systemMessage\": \"REMINDER: Update CLAUDE.md with any new files, fixes, or architecture changes before this push.\"}'",
+            "shell": "powershell"
+          }
+        ]
+      }
+    ]
+  },
   "permissions": {
     "allow": [
       "Bash(git commit -m ' *)",

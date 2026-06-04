@@ -35,7 +35,15 @@
       "Bash(python patch_anim_story.py)",
       "Bash(git stash *)",
       "Bash(cat)",
-      "Bash(FILTER_BRANCH_SQUELCH_WARNING=1 git filter-branch --force --tree-filter 'python3 /tmp/clean_local_settings.py' origin/main..HEAD)"
+      "Bash(FILTER_BRANCH_SQUELCH_WARNING=1 git filter-branch --force --tree-filter 'python3 /tmp/clean_local_settings.py' origin/main..HEAD)",
+      "Skill(update-config)",
+      "Skill(update-config:*)",
+      "Bash(grep -E \"\\\\.\\(html|js|css|py|json|sql\\)$\")",
+      "Bash(xargs wc -l)",
+      "Bash(ffprobe -v quiet -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 \"d:/rishi/public/audio/bg-music.mp3\")",
+      "Bash(python3 -c ' *)",
+      "Bash(cat public/manifest.json)",
+      "Bash(ls D:/rishi/manifest.json)"
     ],
     "additionalDirectories": [
       "D:\\rishi\\public\\games"
