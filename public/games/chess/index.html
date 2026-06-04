@@ -3,173 +3,409 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Chess Puzzles — RISHI</title>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<title>Chess vs Stockfish — RISHI</title>
 <link rel="stylesheet" href="chessboard.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{background:#fdf6ec;font-family:'Nunito',sans-serif;color:#2d2a22;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:16px}
-h1{font-size:20px;font-weight:900;color:#b8860b;letter-spacing:1px;margin-bottom:4px}
-.sub{font-size:13px;color:#888;margin-bottom:12px}
-#board{width:min(360px,90vw);border:3px solid #b8860b;border-radius:4px;box-shadow:0 4px 20px rgba(0,0,0,.15)}
-.info-row{display:flex;gap:10px;align-items:center;margin:12px 0 6px;flex-wrap:wrap;justify-content:center}
-.pill{background:#fff8e8;border:1.5px solid #e2c96e;border-radius:20px;padding:5px 14px;font-size:13px;font-weight:700;color:#7a6000}
-#feedback{min-height:28px;font-size:15px;font-weight:800;text-align:center;padding:5px 12px;border-radius:10px;margin-bottom:6px;transition:all .3s}
-.fb-correct{background:#d4edda;color:#1a6b2a}
-.fb-wrong{background:#fde8e8;color:#8b1a1a}
-.fb-hint{background:#fff3cd;color:#7a5a00}
-.btn-row{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:6px}
-button{font-family:'Nunito',sans-serif;font-weight:800;font-size:14px;padding:8px 18px;border-radius:22px;border:none;cursor:pointer;transition:all .2s}
-#btnHint{background:#fff3cd;color:#7a5a00;border:2px solid #e2c96e}
-#btnNext{background:#b8860b;color:#fff}
-#btnNext:disabled{background:#ccc;cursor:not-allowed}
-.progress-bar{width:min(360px,90vw);height:7px;background:#f0e4c4;border-radius:4px;margin-bottom:4px;overflow:hidden}
-.progress-fill{height:100%;background:linear-gradient(90deg,#f0a500,#b8860b);border-radius:4px;transition:width .4s}
-.puzzle-counter{font-size:12px;color:#aaa;margin-bottom:10px}
+body{background:#fdf6ec;font-family:'Nunito',sans-serif;color:#2d2a22;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:12px 16px;gap:10px}
+
+h1{font-size:18px;font-weight:900;color:#b8860b;letter-spacing:1px}
+
+/* Board */
+#board{width:min(380px,92vw)}
+
+/* Status bar */
+.status-bar{width:min(380px,92vw);background:#fff8e8;border:1.5px solid #e2c96e;border-radius:12px;padding:8px 14px;display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.status-txt{font-size:14px;font-weight:800;color:#2d2a22}
+.status-txt.thinking{color:#b8860b;animation:blink 1s infinite}
+.status-txt.check{color:#c0392b}
+.status-txt.mate{color:#1a6b2a;font-size:16px}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.45}}
+.turn-dot{width:12px;height:12px;border-radius:50%;flex-shrink:0}
+.turn-dot.white{background:#fff;border:2px solid #888}
+.turn-dot.black{background:#2d2a22;border:2px solid #2d2a22}
+
+/* Difficulty */
+.diff-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:center}
+.diff-lbl{font-size:12px;color:#888;font-weight:700}
+.diff-btn{padding:5px 14px;border-radius:20px;border:2px solid #e2c96e;background:#fff8e8;font-family:'Nunito',sans-serif;font-weight:800;font-size:12px;color:#7a6000;cursor:pointer;transition:.15s}
+.diff-btn.active{background:#b8860b;border-color:#b8860b;color:#fff}
+
+/* Controls */
+.ctrl-row{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+button.ctrl{font-family:'Nunito',sans-serif;font-weight:800;font-size:13px;padding:8px 18px;border-radius:22px;border:none;cursor:pointer;transition:.15s}
+.ctrl-new{background:#b8860b;color:#fff}
+.ctrl-new:hover{background:#9a7208}
+.ctrl-flip{background:#fff8e8;color:#7a6000;border:2px solid #e2c96e}
+.ctrl-flip:hover{background:#fff0d0}
+.ctrl-undo{background:#fde8e8;color:#8b1a1a;border:2px solid #f5c6c6}
+.ctrl-undo:hover{background:#fcd4d4}
+
+/* Resume banner */
+.resume-banner{width:min(380px,92vw);background:#d4edda;border:1.5px solid #8ec49a;border-radius:10px;padding:10px 14px;font-size:13px;font-weight:800;color:#1a6b2a;display:none;align-items:center;justify-content:space-between;gap:8px}
+.rb-yes{background:#1a6b2a;color:#fff;border:none;border-radius:16px;padding:5px 14px;font-family:'Nunito',sans-serif;font-weight:800;font-size:12px;cursor:pointer}
+.rb-no{background:none;border:1.5px solid #8ec49a;border-radius:16px;padding:5px 12px;font-family:'Nunito',sans-serif;font-weight:700;font-size:12px;color:#1a6b2a;cursor:pointer}
+
+/* Move list */
+.moves-wrap{width:min(380px,92vw)}
+.moves-lbl{font-size:11px;color:#aaa;margin-bottom:4px;text-transform:uppercase;letter-spacing:1px}
+.moves-list{background:#fff8e8;border:1px solid #e2c96e;border-radius:10px;padding:8px 10px;font-size:12px;font-family:'Courier New',monospace;color:#5a4a00;max-height:72px;overflow-y:auto;line-height:1.7;min-height:28px}
+
+/* Loading overlay */
+#engineLoad{position:fixed;inset:0;background:rgba(253,246,236,.92);z-index:99;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;text-align:center}
+.spin{width:36px;height:36px;border:4px solid #e2c96e;border-top-color:#b8860b;border-radius:50%;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.load-msg{font-size:14px;font-weight:700;color:#7a6000}
 </style>
 </head>
 <body>
-<h1>♟ Chess Puzzles</h1>
-<div class="sub">White to move — find checkmate in 1</div>
 
-<div class="progress-bar"><div class="progress-fill" id="progFill"></div></div>
-<div class="puzzle-counter" id="puzzleCounter">Puzzle 1 of 10</div>
+<!-- Loading overlay -->
+<div id="engineLoad">
+  <div class="spin"></div>
+  <div class="load-msg">Loading Stockfish engine…</div>
+</div>
 
+<!-- Resume banner -->
+<div class="resume-banner" id="resumeBanner">
+  <span>♟ Resume your last game?</span>
+  <div style="display:flex;gap:6px">
+    <button class="rb-yes" onclick="resumeGame()">Resume</button>
+    <button class="rb-no" onclick="newGame()">New Game</button>
+  </div>
+</div>
+
+<h1>♟ Chess vs Stockfish</h1>
+
+<!-- Difficulty -->
+<div class="diff-row">
+  <span class="diff-lbl">Difficulty:</span>
+  <button class="diff-btn active" id="diff-easy" onclick="setDifficulty('easy')">Easy</button>
+  <button class="diff-btn" id="diff-medium" onclick="setDifficulty('medium')">Medium</button>
+  <button class="diff-btn" id="diff-hard" onclick="setDifficulty('hard')">Hard</button>
+</div>
+
+<!-- Status -->
+<div class="status-bar">
+  <div class="turn-dot white" id="turnDot"></div>
+  <span class="status-txt" id="statusTxt">Your turn (White)</span>
+</div>
+
+<!-- Board -->
 <div id="board"></div>
 
-<div class="info-row">
-  <span class="pill" id="pillTurn">⬜ White to move</span>
-  <span class="pill" id="pillCoins">+15 🪙</span>
+<!-- Controls -->
+<div class="ctrl-row">
+  <button class="ctrl ctrl-new" onclick="confirmNewGame()">+ New Game</button>
+  <button class="ctrl ctrl-flip" onclick="flipBoard()">⇅ Flip</button>
+  <button class="ctrl ctrl-undo" onclick="undoMove()">↩ Undo</button>
 </div>
 
-<div id="feedback"></div>
-
-<div class="btn-row">
-  <button id="btnHint" onclick="showHint()">💡 Hint</button>
-  <button id="btnNext" onclick="nextPuzzle()" disabled>Next Puzzle ▶</button>
+<!-- Move history -->
+<div class="moves-wrap">
+  <div class="moves-lbl">Move History</div>
+  <div class="moves-list" id="moveList">—</div>
 </div>
 
-<script src="../../rishi-core.js"></script>
 <script src="chess.min.js"></script>
 <script src="chessboard.min.js"></script>
 <script>
-/* All positions verified: white to move, black king NOT in check at start, move delivers checkmate */
-var PUZZLES = [
-  {fen:'6k1/5ppp/8/8/8/8/5PPP/4R1K1 w - - 0 1', move:'e1e8', hint:'Rook slides to the back rank — king is trapped by its own pawns'},
-  {fen:'7k/R7/6K1/8/8/8/8/8 w - - 0 1',         move:'a7a8', hint:'Rook to the back rank — white king covers the escape squares'},
-  {fen:'7k/6R1/6K1/8/8/8/8/8 w - - 0 1',        move:'g7g8', hint:'Rook slides to g8 — king on h8 is trapped, white king on g6 covers h7'},
-  {fen:'k7/2Q5/4K3/8/8/8/8/8 w - - 0 1',        move:'c7b7', hint:'Queen steps one square left — king is cornered on a8'},
-  {fen:'7k/8/3K4/6Q1/8/8/8/8 w - - 0 1',        move:'g5g7', hint:'Queen slides up two squares — king has nowhere to run'},
-  {fen:'k7/8/K7/8/7Q/8/8/8 w - - 0 1',          move:'h4h8', hint:'Queen sweeps all the way across the back rank'},
-  {fen:'8/8/8/3Q4/8/3K4/8/k7 w - - 0 1',        move:'d5a2', hint:'Queen checks on a2 — king is boxed in the corner'},
-  {fen:'6k1/R7/8/8/8/8/8/1R4K1 w - - 0 1',      move:'b1b8', hint:'Second rook delivers the back rank mate — first rook covers rank 7'},
-  {fen:'k7/8/K7/8/8/3Q4/8/8 w - - 0 1',         move:'d3d8', hint:'Queen swings to the back rank — king is trapped in the corner'},
-  {fen:'7k/5R2/8/8/8/6K1/8/6R1 w - - 0 1',      move:'g1g8', hint:'Rook mates on g8 — the rank-7 rook cuts off every escape'}
-];
+'use strict';
 
-var STATE_KEY = 'rishi_chess_state';
-var state = {idx:0, solved:[], hints:[]};
-try { var _s = JSON.parse(localStorage.getItem(STATE_KEY)||'null'); if(_s && _s.idx !== undefined) state = _s; } catch(e){}
+/* ── CONFIG ── */
+var SKILL_MAP = {
+  easy:   { level: 2,  movetime: 150  },
+  medium: { level: 10, movetime: 600  },
+  hard:   { level: 20, movetime: 1500 }
+};
+var PIECE_THEME = '/games/chess/img/chesspieces/wikipedia/{piece}.png';
+var SAVE_KEY    = 'rishi_chess_state';
 
-var chess, board, puz, puzzleDone;
+/* ── STATE ── */
+var game       = new Chess();
+var board      = null;
+var engine     = null;          // Stockfish Web Worker
+var engineReady = false;
+var playerColor = 'w';          // student always starts as white
+var difficulty  = 'easy';
+var gameOver    = false;
+var pendingMove = false;        // true while engine is thinking
 
-function saveState(){ localStorage.setItem(STATE_KEY, JSON.stringify(state)); }
+/* ── INIT ── */
+window.onload = function () {
+  initBoard();
+  loadEngine();
+  checkSavedState();
+};
 
-window.onload = function(){ loadPuzzle(state.idx); };
-
-function loadPuzzle(idx){
-  clearHighlight();
-  state.idx = idx; saveState();
-  puz = PUZZLES[idx];
-  puzzleDone = state.solved.indexOf(idx) !== -1;
-
-  chess = new Chess(puz.fen);
-
-  if(board) board.destroy();
-  board = Chessboard('board', {
-    draggable: !puzzleDone,
-    position: puz.fen,
-    pieceTheme: 'img/chesspieces/wikipedia/{piece}.png',
-    orientation: 'white',
-    onDragStart: onDragStart,
-    onDrop: onDrop,
-    onSnapEnd: function(){ board.position(chess.fen()); }
-  });
-
-  document.getElementById('pillCoins').textContent = puzzleDone ? '✓ Solved' : '+15 🪙';
-  document.getElementById('progFill').style.width = (state.solved.length / PUZZLES.length * 100) + '%';
-  document.getElementById('puzzleCounter').textContent = 'Puzzle ' + (idx+1) + ' of ' + PUZZLES.length + ' · Solved: ' + state.solved.length;
-  document.getElementById('btnNext').disabled = !puzzleDone;
-  setFeedback('', '');
-  if(puzzleDone) setFeedback('Already solved! ✓', 'fb-correct');
+function initBoard(fen) {
+  var cfg = {
+    position:     fen || 'start',
+    draggable:    true,
+    pieceTheme:   PIECE_THEME,
+    onDragStart:  onDragStart,
+    onDrop:       onDrop,
+    onSnapEnd:    onSnapEnd
+  };
+  board = Chessboard('board', cfg);
+  if (fen) game.load(fen);
+  updateStatus();
 }
 
-function onDragStart(src, piece){
-  if(puzzleDone || chess.game_over()) return false;
-  if(chess.turn() === 'w' && piece.search(/^b/) !== -1) return false;
-  if(chess.turn() === 'b' && piece.search(/^w/) !== -1) return false;
-}
-
-function onDrop(src, tgt){
-  if(puzzleDone) return 'snapback';
-  var move = chess.move({from:src, to:tgt, promotion:'q'});
-  if(!move) return 'snapback';
-
-  var made = move.from + move.to;
-  var expected = puz.move.slice(0,4);
-
-  if(made === expected){
-    clearHighlight();
-    puzzleSolved();
-  } else {
-    chess.undo();
-    setFeedback('Not the right move — try again!', 'fb-wrong');
-    return 'snapback';
+/* ── ENGINE LOAD ── */
+function loadEngine() {
+  var sfUrl = 'https://cdn.jsdelivr.net/npm/stockfish.js@10.0.2/stockfish.js';
+  /* Load Stockfish as a blob Web Worker to handle cross-origin */
+  try {
+    var code = 'importScripts("' + sfUrl + '")';
+    var blob = new Blob([code], { type: 'text/javascript' });
+    engine = new Worker(URL.createObjectURL(blob));
+    engine.onmessage = onEngineMessage;
+    engine.postMessage('uci');
+  } catch (e) {
+    document.getElementById('engineLoad').innerHTML =
+      '<div style="font-size:32px">⚠️</div><div class="load-msg">Could not load chess engine.<br>Please check your internet connection.</div>';
   }
 }
 
-function puzzleSolved(){
-  puzzleDone = true;
-  if(state.solved.indexOf(state.idx) === -1){
-    state.solved.push(state.idx);
-    saveState();
-    if(typeof rishiAddCoins === 'function') rishiAddCoins(15);
-    setFeedback('Brilliant! Checkmate! +15 coins 🪙', 'fb-correct');
-  } else {
-    setFeedback('Solved! ✓', 'fb-correct');
+function onEngineMessage(evt) {
+  var line = evt.data;
+  if (line === 'uciok') {
+    engine.postMessage('setoption name Skill Level value ' + SKILL_MAP[difficulty].level);
+    engine.postMessage('isready');
   }
-  document.getElementById('btnNext').disabled = false;
-  document.getElementById('pillCoins').textContent = '✓ Solved';
-  document.getElementById('progFill').style.width = (state.solved.length / PUZZLES.length * 100) + '%';
-  document.getElementById('puzzleCounter').textContent = 'Puzzle ' + (state.idx+1) + ' of ' + PUZZLES.length + ' · Solved: ' + state.solved.length;
+  if (line === 'readyok') {
+    engineReady = true;
+    document.getElementById('engineLoad').style.display = 'none';
+  }
+  if (line.startsWith('bestmove')) {
+    var parts = line.split(' ');
+    var move  = parts[1];
+    if (move && move !== '(none)') {
+      var result = game.move({ from: move.slice(0,2), to: move.slice(2,4), promotion: move[4] || 'q' });
+      if (result) {
+        board.position(game.fen(), false);
+        saveState();
+        updateStatus();
+        updateMoveList();
+      }
+    }
+    pendingMove = false;
+    if (!game.game_over()) setStatus(false);
+  }
 }
 
-function showHint(){
-  if(state.hints.indexOf(state.idx) === -1) state.hints.push(state.idx);
+/* ── DRAG HANDLERS ── */
+function onDragStart(source, piece) {
+  if (gameOver || pendingMove || !engineReady) return false;
+  /* Only allow the student's colour to move */
+  if (playerColor === 'w' && piece.startsWith('b')) return false;
+  if (playerColor === 'b' && piece.startsWith('w')) return false;
+  /* Only allow moves when it's the student's turn */
+  if (game.turn() !== playerColor) return false;
+  return true;
+}
+
+function onDrop(source, target) {
+  /* Try the move */
+  var moveObj = {
+    from: source,
+    to:   target,
+    promotion: 'q'   /* always promote to queen for simplicity */
+  };
+  var move = game.move(moveObj);
+  if (move === null) return 'snapback';  /* illegal */
+
   saveState();
-  setFeedback('Hint: ' + puz.hint, 'fb-hint');
+  updateMoveList();
+  updateStatus();
+
+  if (!game.game_over()) {
+    pendingMove = true;
+    setStatus(true);
+    setTimeout(requestEngineMove, 100);
+  }
 }
 
-function nextPuzzle(){
-  loadPuzzle((state.idx + 1) % PUZZLES.length);
+function onSnapEnd() {
+  board.position(game.fen());
 }
 
-function highlightSquare(sq){
-  clearHighlight();
-  var el = document.querySelector('[data-square="' + sq + '"]');
-  if(el) el.style.cssText += ';background:rgba(255,215,0,0.65) !important';
+/* ── ENGINE MOVE ── */
+function requestEngineMove() {
+  if (!engineReady || game.game_over()) return;
+  engine.postMessage('position fen ' + game.fen());
+  engine.postMessage('go movetime ' + SKILL_MAP[difficulty].movetime);
 }
 
-function clearHighlight(){
-  document.querySelectorAll('[data-square]').forEach(function(el){ el.style.background = ''; });
+/* ── STATUS ── */
+function updateStatus() {
+  var txt = document.getElementById('statusTxt');
+  var dot = document.getElementById('turnDot');
+
+  if (game.in_checkmate()) {
+    var winner = game.turn() === 'w' ? 'Black' : 'White';
+    gameOver = true;
+    txt.textContent = (game.turn() !== playerColor ? '🏆 You win! Checkmate!' : '😔 Checkmate — you lost');
+    txt.className = 'status-txt mate';
+    clearSavedState();
+    return;
+  }
+  if (game.in_stalemate() || game.insufficient_material() || game.in_draw()) {
+    gameOver = true;
+    txt.textContent = '🤝 Draw!';
+    txt.className = 'status-txt mate';
+    clearSavedState();
+    return;
+  }
+  if (game.in_check()) {
+    txt.textContent = '⚡ Check!';
+    txt.className = 'status-txt check';
+  } else {
+    gameOver = false;
+  }
+  dot.className = 'turn-dot ' + (game.turn() === 'w' ? 'white' : 'black');
 }
 
-function setFeedback(msg, cls){
-  var el = document.getElementById('feedback');
-  el.textContent = msg;
-  el.className = cls;
+function setStatus(thinking) {
+  var txt = document.getElementById('statusTxt');
+  if (game.game_over()) return;
+  if (thinking) {
+    txt.textContent = '⏳ Stockfish is thinking…';
+    txt.className   = 'status-txt thinking';
+  } else {
+    var isYourTurn = (game.turn() === playerColor);
+    txt.textContent = isYourTurn ? 'Your turn' : 'Computer\'s turn';
+    txt.className   = 'status-txt';
+  }
+}
+
+/* ── MOVES LIST ── */
+function updateMoveList() {
+  var history = game.history();
+  var el = document.getElementById('moveList');
+  if (history.length === 0) { el.textContent = '—'; return; }
+  var pairs = [];
+  for (var i = 0; i < history.length; i += 2) {
+    var n = Math.floor(i / 2) + 1;
+    var pair = n + '. ' + history[i];
+    if (history[i + 1]) pair += ' ' + history[i + 1];
+    pairs.push(pair);
+  }
+  el.textContent = pairs.join('   ');
+  el.scrollLeft = el.scrollWidth;
+}
+
+/* ── CONTROLS ── */
+function setDifficulty(d) {
+  difficulty = d;
+  ['easy','medium','hard'].forEach(function (k) {
+    document.getElementById('diff-' + k).className = 'diff-btn' + (k === d ? ' active' : '');
+  });
+  if (engineReady) {
+    engine.postMessage('setoption name Skill Level value ' + SKILL_MAP[d].level);
+  }
+}
+
+function flipBoard() {
+  board.flip();
+  playerColor = (playerColor === 'w') ? 'b' : 'w';
+  /* If it's now engine's turn after flip, trigger engine move */
+  if (!gameOver && !pendingMove && game.turn() !== playerColor && engineReady) {
+    pendingMove = true;
+    setStatus(true);
+    setTimeout(requestEngineMove, 200);
+  }
+}
+
+function undoMove() {
+  if (pendingMove || gameOver) return;
+  /* Undo two moves (player + engine) */
+  game.undo();
+  game.undo();
+  board.position(game.fen(), false);
+  updateMoveList();
+  updateStatus();
+  setStatus(false);
+  saveState();
+}
+
+function confirmNewGame() {
+  if (game.history().length > 0) {
+    if (!confirm('Start a new game? Current game will be lost.')) return;
+  }
+  newGame();
+}
+
+function newGame() {
+  document.getElementById('resumeBanner').style.display = 'none';
+  game  = new Chess();
+  board.start(false);
+  gameOver    = false;
+  pendingMove = false;
+  playerColor = 'w';
+  clearSavedState();
+  updateMoveList();
+  updateStatus();
+  setStatus(false);
+  if (engineReady) {
+    engine.postMessage('ucinewgame');
+    engine.postMessage('setoption name Skill Level value ' + SKILL_MAP[difficulty].level);
+  }
+}
+
+/* ── SAVE / RESTORE STATE ── */
+function saveState() {
+  var state = {
+    fen:        game.fen(),
+    pgn:        game.pgn(),
+    playerColor: playerColor,
+    difficulty:  difficulty,
+    ts:         Date.now()
+  };
+  localStorage.setItem(SAVE_KEY, JSON.stringify(state));
+}
+
+function clearSavedState() {
+  localStorage.removeItem(SAVE_KEY);
+}
+
+function checkSavedState() {
+  var raw = localStorage.getItem(SAVE_KEY);
+  if (!raw) return;
+  try {
+    var s = JSON.parse(raw);
+    if (!s.fen || s.fen === 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1') {
+      clearSavedState(); return;
+    }
+    document.getElementById('resumeBanner').style.display = 'flex';
+    window._savedState = s;
+  } catch(e) { clearSavedState(); }
+}
+
+function resumeGame() {
+  var s = window._savedState;
+  if (!s) { newGame(); return; }
+  document.getElementById('resumeBanner').style.display = 'none';
+  game = new Chess();
+  game.load_pgn(s.pgn || '');
+  if (s.fen) game.load(s.fen);
+  difficulty  = s.difficulty || 'easy';
+  playerColor = s.playerColor || 'w';
+  board.position(game.fen(), false);
+  setDifficulty(difficulty);
+  updateMoveList();
+  updateStatus();
+  /* If it's the engine's turn, trigger it */
+  if (!gameOver && game.turn() !== playerColor && engineReady) {
+    pendingMove = true;
+    setStatus(true);
+    setTimeout(requestEngineMove, 500);
+  } else {
+    setStatus(false);
+  }
 }
 </script>
-<script src="/error-reporter.js"></script>
 </body>
 </html>
