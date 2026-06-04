@@ -108,20 +108,34 @@ Notable corrections (29 May 2026):
 | `build_icse_class8.py` | ICSE 8 | 5 parallel | ~18 min |
 | `build_icse_class9.py` | ICSE 9 | 5 parallel | ~13 min |
 
-## D1 Sync — rishi-sync.js
+## D1 Sync — rishi-sync.js (updated 04 Jun 2026)
 **SYNC_EXACT** (full key synced):
 `rishi_chapter_progress`, `rishi_explain_sessions`, `rishi_practice_sessions`, `rishi_break_log`, `rishi_error_log`, `rishi_hour_pattern`, `rishi_heatmap`, `rishi_exam_scores`, `rishi_progress`, `rishi_active_chapters`, `rishi_plans`, `rishi_coins`
 
 **SYNC_PREFIX** (key prefix synced):
 `rishi_explain_done_`, `rishi_practice_done_`, `rishi_chapexam_done_`, `rishi_exam_score_`, `rishi_exam_attempts_`, `rishi_plans_`
 
-## Exam Score Storage (rishi-core.js)
+**Sync reliability (04 Jun 2026):**
+- All fetch calls use `keepalive: true` — requests survive page navigation/browser close
+- Periodic `pushAll()` every 30s — catches any failed individual pushKey calls
+- `beforeunload` pushAll — last-chance push on tab/browser close
+- `?v=2` added to `src="/rishi-sync.js"` across all 363 HTML pages — forces cache bust on student devices
+- `public/_headers` file sets `Cache-Control: no-cache` for rishi-sync.js, rishi-core.js, rishi-presence.js, error-reporter.js
+
+**Auto practice session logging:**
+When `rishi_practice_done_{chId}` is first set to "1", the interceptor auto-creates/updates `rishi_practice_sessions[chId] = {count, lastDate}` and pushes to D1.
+
+**NOTE:** `rishi_chapter_progress` is NEVER written by any practice or explain page. `renderPracticeStats()` in parent.html reads `rishi_explain_sessions` (explain session counts) and `rishi_practice_sessions` (practice session counts + lastDate) — NOT `rishi_chapter_progress`.
+
+## Exam Score Storage (rishi-core.js — updated 04 Jun 2026)
 - Best score: `rishi_exam_score_{chIdStr}` (number, out of 100)
 - Attempt count: `rishi_exam_attempts_{chIdStr}` (number)
 - Done flag: `rishi_chapexam_done_{chIdStr}` = "1"
 - Break log entry format: `{date, time, type, secs}` — "type" = reason (Water/Washroom/etc), "secs" = duration
+- **`_rishiPushExamKeys(chIdStr)`** — called by both `rishiSaveExamScore` and `rishiMarkChapExamDone`; pushes all 3 exam keys directly to D1 with keepalive, independent of rishi-sync.js. This is the PRIMARY push for exam scores.
+- `exam.html` now includes `rishi-sync.js?v=2` as first script — was missing entirely before 04 Jun 2026 (exam scores NEVER reached D1 before this fix)
 
-## Admin Panel Structure (as of 23 May 2026)
+## Admin Panel Structure (updated 04 Jun 2026)
 - **Tabs:** Dashboard | Exams | Questions | Student | Logs | Deploy | Users
 - **Class bar:** Board toggle (CBSE / ICSE) → then class buttons 6/7/8/9 grouped by board
 - `activeAdminClass` + `activeBoard` drive all tabs
@@ -141,6 +155,9 @@ Notable corrections (29 May 2026):
 - **Reports tab (Logs):** Shows user-submitted error reports; clicking a row expands detail with `ai_verdict` (AI plain-language check result) in green/red box; `typeColors` includes `Wrong Question/Answer` and `Registration Issue`
 - **Error log detail:** "Details" button now auto-calls `/api/fix-error` and shows plain English explanation (not raw stack trace); "Explain Again" button re-triggers the call
 - **AI verdict status values:** `confirmed_correct` (green), `confirmed_wrong` (red), null (not yet checked)
+- **Dashboard Registered Students (04 Jun 2026):** Student ID and Parent ID are plain text — NOT clickable links. Open buttons (Explain/Practice/Exam) remain.
+- **Quick Actions (04 Jun 2026):** Two primary buttons — "Student Login Page" and "Parent Login Page" (both → /login.html). Secondary: Landing, Register, Sync All to D1.
+- **buildDashboard auto-loads from D1** if registrations list is empty on load.
 
 ### d1-sync.js Actions
 | Action | Purpose |
@@ -159,12 +176,23 @@ Notable corrections (29 May 2026):
 | `redeem-referral` | Mark code as used |
 | `log-session` | Log a login event to `rishi_sessions` table — called fire-and-forget from login.html on every successful login |
 
-## Parent Portal — Architecture (parent.html)
+## Parent Portal — Architecture (parent.html — updated 04 Jun 2026)
 - **Auth:** sessionStorage `rishi_parent_student_id` = student's ID (e.g. RISHI-DABEET-001)
+- **Login flow:** ALL parent logins go through `login.html`. `parent.html`'s built-in `#login-screen` is dead code — `checkAuth()` always redirects to `/login.html` when not authenticated.
+- **Login fix (04 Jun 2026):** For PARENT-xxx accounts, `handleLogin()` in login.html ALWAYS calls D1 `find-account` to get the correct `studentUsername` from D1 registration data — bypasses `findAccount()` retry which had a hardcoded PARENT-xxx path that returned parent's own username as studentId on clean devices.
+- **Bad studentId guard:** `checkAuth()` detects if `rishi_parent_student_id` starts with `'parent-'` → clears session → redirects to `/login.html?err=auth`
 - **Plans:** saved via explicit `fetch('/d1-sync', {action:'set', studentId, key, value})` — NOT via rishi-sync.js interception (wrong identity on parent device)
-- **Data load:** `loadStudentFromD1(callback)` — fetches ALL keys for student from D1 on every login and tab switch; uses `Storage.prototype.setItem` to write to localStorage without triggering sync back
-- **Performance tab:** auto-loads from D1 on tab switch; manual "☁ Load from Cloud" button also available
-- **Exam scores display:** reads `rishi_chapexam_done_` + `rishi_exam_score_` + `rishi_exam_attempts_` per chapter (NOT `rishi_exam_scores` array — that key is never written)
+- **Data load (04 Jun 2026):** `initMainPortal()` shows "Loading from cloud…" then calls `loadStudentFromD1` FIRST before rendering — cloud-first, no stale localStorage paint
+- **10s poll:** re-fetches D1 on every tick (was just re-rendering from stale localStorage before)
+- **Performance tab reads (04 Jun 2026):**
+  - Explain done/practice done/exam done: from `rishi_explain_done_`, `rishi_practice_done_`, `rishi_chapexam_done_` ✅
+  - Explain sessions: from `rishi_explain_sessions[chId]` ✅
+  - Practice sessions + last date: from `rishi_practice_sessions[chId]` ✅
+  - Exam score inline: from `rishi_exam_score_` ✅
+  - `rishi_chapter_progress` is NOT used — it's never written by student pages
+- **Coins display:** Current balance from `rishi_coins`; Total Earned = balance + redeemed (calculated); Redeemed = written only when parent clicks Reset Coins
+- **Study plan Modify button:** Opens modal to add/remove chapters from locked plan; saves to D1 + updates student activation in real time
+- **Mobile notifications:** Requests Notification API permission on load; fires browser notifications for student online/offline, break taken, new chapter/page
 - **Badge:** shows student first name + ID in two-line format
 
 ## Bypass System
@@ -194,11 +222,12 @@ Notable corrections (29 May 2026):
 - TTS-chained animation (not fixed timers)
 - `rishiCheckPlan()` removed from ICSE pages
 
-## Error & Break Logging (rishi-core.js)
+## Error & Break Logging (rishi-core.js — updated 04 Jun 2026)
 - `rishiLogBreak(type, secs)` — logs to `rishi_break_log`; entry: `{date, time, type, secs}`
 - `window.onerror` + `unhandledrejection` → logs to `rishi_error_log` with studentId, page, message, stack
 - Both keys sync to D1 via rishi-sync.js
 - Admin Logs tab fetches all students' data from D1 via `get_logs` action
+- **`openGames()` patch (04 Jun 2026):** rishi-core.js `load` listener now also patches `openGames()` — logs break with type `'Reason (Games)'` BEFORE navigating to `/games/games.html`. Previously `endBreak()` was never called when student chose games from break menu, so no break entry was ever written.
 
 ## Error Reporter Widget — error-reporter.js (02 Jun 2026)
 Injected on all pages **except** `/admin` and `/landing`. Behaviour varies by page type:
@@ -323,3 +352,8 @@ Injected on all pages **except** `/admin` and `/landing`. Behaviour varies by pa
 21. `error-reporter.js` excluded from `/landing` entirely — never add it back there
 22. `fix-error.js` prompt is plain English for non-technical admin — do not revert to tech/developer language
 23. `verify-question.js` defaults to `isCorrect: true` on AI failure — prevents wrongly skipping valid questions
+24. `exam.html` MUST have `<script src="/rishi-sync.js?v=2"></script>` as FIRST script — was missing entirely before 04 Jun 2026; exam scores never reached D1 without it
+25. When bumping rishi-sync.js version, update `?v=N` across all 363 pages via: `find public -name "*.html" -exec sed -i 's|rishi-sync.js?v=OLD|rishi-sync.js?v=NEW|g' {} \;`
+26. `rishi_chapter_progress` is NEVER written by student pages — do NOT use it as a data source in parent performance tab or anywhere else
+27. `login.html` `findAccount()` PARENT-xxx path has a hardcoded bug (returns parent username as studentId when no student cached) — for parent logins, ALWAYS build account directly from D1 `find-account` response data, never call `findAccount()` retry for parents
+28. `parent-blogs.html` has `error-reporter.js` — keep it there
