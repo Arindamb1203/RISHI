@@ -188,7 +188,7 @@
 
   /* Inject HTML into left panel */
   function inject() {
-    var scoreBox = document.querySelector('.score-box');
+    var scoreBox = document.querySelector('.score-box-big') || document.querySelector('.score-box');
     if (!scoreBox) return;
 
     var wrap = document.createElement('div');

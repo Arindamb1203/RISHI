@@ -108,12 +108,40 @@ Notable corrections (29 May 2026):
 | `build_icse_class8.py` | ICSE 8 | 5 parallel | ~18 min |
 | `build_icse_class9.py` | ICSE 9 | 5 parallel | ~13 min |
 
-## Exam Page — Key Fixes (05 Jun 2026)
-- **ch06, ch07, ch18 exams** were ending at 15 questions: their JSONs were in old format (q/opts/ans) and missing from FOLDER_MAP. Fixed: proper 52-question MCQ JSONs written; "06","07","18" added to FOLDER_MAP; questions.js now tries static file FIRST for type=exam (prevents stale KV bank data overriding full exam files).
-- **Result modal** badge HTML entities (&#128257; etc) were showing as literal text → fixed to actual Unicode in rishi-core.js. Modal now shows: correct count, wrong count, unanswered count, topic exam eligibility (score>=60 = eligible).
-- **Left panel** redesigned: replaced section tabs A/B/C/D/E with big question counter (Q15/52), 52 green/red attempt dots, prominent score, correct/wrong tally, Ask Rishika + Break buttons.
-- **Break limit**: 1 break per hour enforced in exam.html. Extra break attempt shows "Extra Break Not Allowed" overlay + logs to D1 (`rishi_extra_break_flag`) + logs to break_log with type 'Extra Break Attempt (Blocked)'.
-- **Games cloud sync**: game time now syncs to D1 (`rishi_game_sessions`) every 30s and on end. Confirmation dialog shows coins/cost/time before starting a game; coins deducted at that point.
+## Exam Page — Architecture (updated 05 Jun 2026)
+
+### Left Panel (redesigned 05 Jun 2026)
+- Big question counter: `Q15 / 52` in Orbitron font (replaced old section tabs A/B/C/D/E)
+- 52 attempt dots: green=correct, red=wrong, gold border=current question. `id="qdot-N"` per dot.
+- Prominent score box: `.score-box-big` with score number, `/100 marks`, correct tally (✓ N), wrong tally (✗ N)
+- "💬 Ask Rishika" button calls `rcToggle()` (from rishi-chat.js)
+- "☕ Take a Break" button calls `startBreak()` (1-hour limit enforced)
+- **rishi-chat.js injection**: looks for `.score-box-big` first (fallback `.score-box`); inserts below it
+
+### Result Modal (updated 05 Jun 2026)
+- Stats row: correct / wrong / unanswered counts (tracked via `correctCount`, `wrongCount` variables)
+- Topic exam eligibility: score ≥ 60 → green "✓ Eligible for Topic Exam"; <60 → red "✗ Need 60+ marks"
+- Badge text fixed: rishi-core.js badges now use actual Unicode chars (⭐🥈🎯✓🔁) not HTML entities
+
+### Break Limit (added 05 Jun 2026)
+- `lastBreakTimestamp` variable in exam.html tracks last break time (ms epoch)
+- Extra break within 1 hour → `.eb-overlay` shown ("Break Not Allowed"), NOT the break timer
+- Extra break logged to D1: `rishiLogBreak('Extra Break Attempt (Blocked)', 0)` + direct push to `rishi_extra_break_flag` key
+- Admin bypass (`rishi_admin_bypass=1`) skips the 1-hour check
+
+### Exam JSON Format (critical — do not use old format)
+- Working format: `text`, `options: {a,b,c,d}`, `correct: 'a'/'b'/'c'/'d'`, `explanation`
+- questions.js FOLDER_MAP for class 8 now includes: 01,02,03,04,05,**06,07**,08,09,10,11a,11b,12,13,14,15,16,17,**18**
+- questions.js exam priority: **static file FIRST** (if in FOLDER_MAP), then KV fallback — prevents stale KV bank data
+- ch06, ch07, ch18 exam JSONs: fully rewritten to 52-question format (05 Jun 2026)
+- ch07: 5 additional errors fixed (B_003, B_009, C_002 wrong correct field, C_003 wrong correct field, D_004 question/answer mismatch)
+
+## Games (updated 05 Jun 2026)
+- **Confirmation dialog**: before starting any game, shows coins owned / cost / time remaining / coins after — student must confirm
+- **Game time D1 sync**: `rishi_game_sessions` key pushed to D1 every 30s during play and on end/time-up
+- **Chess**: see Chess section above (Stockfish AI, not puzzles)
+- DAILY_MAX = 900 seconds (15 minutes) shared across all games per day
+- `todayKey()` = `rishi_game_time_YYYY-MM-DD` in localStorage
 
 ## D1 Sync — rishi-sync.js (updated 04 Jun 2026)
 **SYNC_EXACT** (full key synced):
@@ -330,10 +358,14 @@ Injected on all pages **except** `/admin` and `/landing`. Behaviour varies by pa
 - **System prompt:** explains concepts, refuses direct answer reveals, max 3 sentences
 - **UI:** dark theme (gold accents), collapsible toggle, 180px scrollable messages area
 
-## Chess Puzzles — public/games/chess/index.html (02 Jun 2026)
-- 10 puzzles, all "White to move, checkmate in 1"
-- Puzzle 3 FEN was broken (Rh1 gave check to Kh8 at start — chess.js blocked all moves). Fixed to `7k/6R1/6K1/8/8/8/8/8` — White King g6 covers h7, Rg8 is checkmate
-- All other 9 puzzles verified correct
+## Chess — public/games/chess/index.html (05 Jun 2026)
+- **REPLACED**: Puzzle-based game replaced with full **Stockfish AI chess** (world #1 open-source engine)
+- Loads Stockfish 10.0.2 from CDN via blob Web Worker (cross-origin safe): `cdn.jsdelivr.net/npm/stockfish.js@10.0.2/stockfish.js`
+- Uses existing `chess.js` (move validation) + `chessboard.js` (visual board) already in the folder
+- 3 difficulty levels: Easy (skill 2, 150ms), Medium (skill 10, 600ms), Hard (skill 20, 1500ms)
+- **Game state persistence**: saves `rishi_chess_state` to localStorage on every move. On next load, "Resume your last game?" banner appears. 15-min timer managed by parent `games.html` as before.
+- Undo button undoes both player move + engine response
+- Flip board switches player colour; engine responds if it's now engine's turn
 
 ## Critical Rules
 1. NEVER assume file path/content — always Read the actual current file first
@@ -364,3 +396,8 @@ Injected on all pages **except** `/admin` and `/landing`. Behaviour varies by pa
 26. `rishi_chapter_progress` is NEVER written by student pages — do NOT use it as a data source in parent performance tab or anywhere else
 27. `login.html` `findAccount()` PARENT-xxx path has a hardcoded bug (returns parent username as studentId when no student cached) — for parent logins, ALWAYS build account directly from D1 `find-account` response data, never call `findAccount()` retry for parents
 28. `parent-blogs.html` has `error-reporter.js` — keep it there
+29. Exam left panel uses `.score-box-big` (not `.score-box`) — rishi-chat.js injection checks `.score-box-big` first
+30. `rishi-chat.js` toggle button id = `rc-toggle`; exam.html left panel "Ask Rishika" button calls `rcToggle()` directly
+31. Exam JSON format: all sections must use `text`/`options {a,b,c,d}`/`correct`/`explanation` — old format `q`/`opts`/`ans` breaks the exam engine
+32. questions.js: for `type=exam`, static file is tried FIRST (if chapter is in FOLDER_MAP), then KV — never change this priority back
+33. ch07 exam had 5 wrong questions (05 Jun 2026): always verify `correct` field matches computed answer INDEPENDENTLY after writing JSON content
