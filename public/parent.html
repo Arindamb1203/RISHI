@@ -2981,10 +2981,14 @@ function renderPerformance() {
 
 function renderPracticeStats() {
   var con = document.getElementById('perf-practice-con');
-  var progress = {};
-  try { progress = JSON.parse(localStorage.getItem('rishi_chapter_progress') || '{}'); } catch(e) {}
 
-  // Collect all chapters that have any progress OR are in a plan
+  /* Read from keys that practice pages actually write */
+  var explainSessions = {};
+  try { explainSessions = JSON.parse(localStorage.getItem('rishi_explain_sessions') || '{}'); } catch(e) {}
+  var practiceSessions = {};
+  try { practiceSessions = JSON.parse(localStorage.getItem('rishi_practice_sessions') || '{}'); } catch(e) {}
+
+  /* Collect chapters: those in a plan + those with any done flag */
   var chIds = [];
   var inPlan = {};
   for (var p = 0; p < plans.length; p++) {
@@ -2994,47 +2998,67 @@ function renderPracticeStats() {
       if (chIds.indexOf(pid) === -1) chIds.push(pid);
     }
   }
-  for (var cid in progress) {
-    if (chIds.indexOf(parseInt(cid)) === -1) chIds.push(parseInt(cid));
+  /* Also add any chapter with a done flag in localStorage */
+  for (var ei in explainSessions) {
+    var eid = parseInt(ei); if (!isNaN(eid) && chIds.indexOf(eid) === -1) chIds.push(eid);
+  }
+  for (var pi in practiceSessions) {
+    var pid2 = parseInt(pi); if (!isNaN(pid2) && chIds.indexOf(pid2) === -1) chIds.push(pid2);
+  }
+  /* Add chapters with explain_done or practice_done flags */
+  for (var ci = 0; ci < CHAPTERS.length; ci++) {
+    var cck = CHAPTERS[ci].id;
+    var prefix = PROGRESS_KEY_PREFIX;
+    if (localStorage.getItem('rishi_explain_done_' + prefix + cck) ||
+        localStorage.getItem('rishi_practice_done_' + prefix + cck) ||
+        localStorage.getItem('rishi_chapexam_done_' + prefix + cck)) {
+      if (chIds.indexOf(cck) === -1) chIds.push(cck);
+    }
   }
   chIds.sort(function(a,b){return a-b;});
 
   if (chIds.length === 0) {
-    con.innerHTML = '<div class="empty"><div class="empty-ico">&#128202;</div><div class="empty-txt">No practice data yet.</div></div>';
+    con.innerHTML = '<div class="empty"><div class="empty-ico">&#128202;</div><div class="empty-txt">No activity yet — data appears here once student starts studying.</div></div>';
     return;
   }
 
   var html = '<div style="overflow-x:auto"><table class="perf-tbl"><thead><tr>';
-  html += '<th>Chapter</th><th>Explain</th><th>Practice</th><th>Questions</th><th>Accuracy</th><th>Sessions</th><th>Streak</th><th>Last Active</th>';
+  html += '<th>Chapter</th><th>Explain</th><th>Practice</th><th>Exam</th><th>Explain Sessions</th><th>Practice Sessions</th><th>Last Practice</th>';
   html += '</tr></thead><tbody>';
 
   for (var i = 0; i < chIds.length; i++) {
     var cid2 = chIds[i];
     var ch = getCh(cid2);
     if (!ch) continue;
-    var pr = progress[cid2] || {};
     var color = getChColor(cid2);
+    var pfx = PROGRESS_KEY_PREFIX;
 
-    var explainDone = localStorage.getItem('rishi_explain_done_' + PROGRESS_KEY_PREFIX + cid2) ? '&#9989;' : '&#9899;';
-    var practiceDone = localStorage.getItem('rishi_practice_done_' + PROGRESS_KEY_PREFIX + cid2) ? '&#9989;' : '&#9899;';
-    var completed = parseInt(pr.completed || 0);
-    var total = parseInt(pr.total || 15);
-    var accuracy = parseFloat(pr.accuracy || 0);
-    var sessions = parseInt(pr.sessions || 0);
-    var streak = parseInt(pr.streak || 0);
-    var lastActive = pr.lastActive ? pr.lastActive : '—';
+    var explainDone  = localStorage.getItem('rishi_explain_done_'  + pfx + cid2) ? '&#9989;' : '&#9899;';
+    var practiceDone = localStorage.getItem('rishi_practice_done_' + pfx + cid2) ? '&#9989;' : '&#9899;';
+    var examDone     = localStorage.getItem('rishi_chapexam_done_' + pfx + cid2) === '1';
+    var examScore    = examDone ? parseInt(localStorage.getItem('rishi_exam_score_' + pfx + cid2) || '0') : null;
 
-    var accCls = accuracy >= 75 ? 'background:#ECFDF5;color:#065F46' : accuracy >= 50 ? 'background:#FFFBEB;color:#92400E' : accuracy > 0 ? 'background:#FEF2F2;color:#991B1B' : 'background:var(--light);color:var(--muted)';
+    var exSessCount  = parseInt(explainSessions[cid2] || explainSessions[String(cid2)] || 0);
+    var prSessData   = practiceSessions[cid2] || practiceSessions[String(cid2)] || null;
+    var prSessCount  = prSessData ? (prSessData.count || 0) : 0;
+    var lastPractice = prSessData ? (prSessData.lastDate || '—') : '—';
+
+    var examCell;
+    if (examDone) {
+      var eCls = examScore >= 75 ? 'background:#ECFDF5;color:#065F46' : examScore >= 50 ? 'background:#FFFBEB;color:#92400E' : 'background:#FEF2F2;color:#991B1B';
+      examCell = '<span class="acc-badge" style="' + eCls + '">' + examScore + '%</span>';
+    } else {
+      examCell = '&#9899;';
+    }
 
     html += '<tr>';
-    html += '<td><div style="display:flex;align-items:center;gap:6px"><span style="width:8px;height:8px;border-radius:50%;background:' + color + ';display:inline-block;flex-shrink:0"></span><span style="font-size:15px;font-weight:600">Ch ' + cid2 + '. ' + ch.name + '</span></div></td>';
+    html += '<td><div style="display:flex;align-items:center;gap:6px"><span style="width:8px;height:8px;border-radius:50%;background:' + color + ';display:inline-block;flex-shrink:0;"></span><span style="font-size:14px;font-weight:600">Ch ' + cid2 + '. ' + ch.name + '</span></div></td>';
     html += '<td style="text-align:center;font-size:16px">' + explainDone + '</td>';
     html += '<td style="text-align:center;font-size:16px">' + practiceDone + '</td>';
-    html += '<td style="font-size:15px;font-weight:700;text-align:center">' + completed + '/' + total + '</td>';
-    html += '<td><span class="acc-badge" style="' + accCls + '">' + (accuracy > 0 ? accuracy + '%' : '—') + '</span></td>';
-    html += '<td style="font-size:15px;font-weight:700;text-align:center">' + (sessions || '—') + '</td>';
-    html += '<td style="font-size:15px;font-weight:700;text-align:center">' + (streak > 0 ? '&#128293; ' + streak : '—') + '</td>';
-    html += '<td style="font-size:16px;color:var(--muted)">' + lastActive + '</td>';
+    html += '<td style="text-align:center;font-size:15px">' + examCell + '</td>';
+    html += '<td style="font-size:15px;font-weight:700;text-align:center">' + (exSessCount > 0 ? exSessCount : '—') + '</td>';
+    html += '<td style="font-size:15px;font-weight:700;text-align:center">' + (prSessCount > 0 ? prSessCount : '—') + '</td>';
+    html += '<td style="font-size:14px;color:var(--muted)">' + lastPractice + '</td>';
     html += '</tr>';
   }
   html += '</tbody></table></div>';

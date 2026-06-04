@@ -77,15 +77,18 @@
      (so our overridden setItem doesn't cause infinite loop) */
   var _origSet = localStorage.setItem.bind(localStorage);
 
-  /* ── Push one key to D1 (fire and forget) ── */
+  /* ── Push one key to D1 (fire and forget, keepalive survives navigation) ── */
   function pushKey(key, value, studentId) {
     var sid = studentId || getStudentId();
     if (!sid) return;
-    fetch(ENDPOINT, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ action: 'set', studentId: sid, key: key, value: value })
-    }).catch(function () {}); /* Silent — offline is fine */
+    try {
+      fetch(ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        keepalive: true,
+        body: JSON.stringify({ action: 'set', studentId: sid, key: key, value: value })
+      }).catch(function () {});
+    } catch(e) { /* keepalive may fail for large payloads — silently ignore */ }
   }
 
   /* ── Pull all keys for a student from D1 ── */
@@ -124,12 +127,45 @@
   localStorage.setItem = function (key, value) {
     _origSet(key, value);
     if (shouldSync(key)) pushKey(key, value);
+
+    /* Auto-log practice session when practice_done is first set */
+    if (key.indexOf('rishi_practice_done_') === 0 && value === '1') {
+      var chId = key.replace('rishi_practice_done_', '');
+      var pSess = {};
+      try { pSess = JSON.parse(localStorage.getItem('rishi_practice_sessions') || '{}'); } catch(e) {}
+      if (!pSess[chId]) pSess[chId] = { count: 0, lastDate: '' };
+      pSess[chId].count = (pSess[chId].count || 0) + 1;
+      pSess[chId].lastDate = new Date().toISOString().slice(0, 10);
+      var pSessStr = JSON.stringify(pSess);
+      _origSet('rishi_practice_sessions', pSessStr);
+      pushKey('rishi_practice_sessions', pSessStr);
+    }
   };
 
   /* ── Auto-pull on page load ── */
   document.addEventListener('DOMContentLoaded', function () {
     var sid = getStudentId();
     if (sid) pullForStudent(sid);
+  });
+
+  /* ── Periodic push every 30s to catch any missed syncs ── */
+  setInterval(function () {
+    var sid = getStudentId();
+    if (!sid) return;
+    for (var i = 0; i < localStorage.length; i++) {
+      var k = localStorage.key(i);
+      if (shouldSync(k)) { var v = localStorage.getItem(k); if (v !== null) pushKey(k, v, sid); }
+    }
+  }, 30000);
+
+  /* ── Push all on page unload (best effort) ── */
+  window.addEventListener('beforeunload', function () {
+    var sid = getStudentId();
+    if (!sid) return;
+    for (var i = 0; i < localStorage.length; i++) {
+      var k2 = localStorage.key(i);
+      if (shouldSync(k2)) { var v2 = localStorage.getItem(k2); if (v2 !== null) pushKey(k2, v2, sid); }
+    }
   });
 
   /* ── Public API ── */
