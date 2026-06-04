@@ -108,6 +108,13 @@ Notable corrections (29 May 2026):
 | `build_icse_class8.py` | ICSE 8 | 5 parallel | ~18 min |
 | `build_icse_class9.py` | ICSE 9 | 5 parallel | ~13 min |
 
+## Exam Page — Key Fixes (05 Jun 2026)
+- **ch06, ch07, ch18 exams** were ending at 15 questions: their JSONs were in old format (q/opts/ans) and missing from FOLDER_MAP. Fixed: proper 52-question MCQ JSONs written; "06","07","18" added to FOLDER_MAP; questions.js now tries static file FIRST for type=exam (prevents stale KV bank data overriding full exam files).
+- **Result modal** badge HTML entities (&#128257; etc) were showing as literal text → fixed to actual Unicode in rishi-core.js. Modal now shows: correct count, wrong count, unanswered count, topic exam eligibility (score>=60 = eligible).
+- **Left panel** redesigned: replaced section tabs A/B/C/D/E with big question counter (Q15/52), 52 green/red attempt dots, prominent score, correct/wrong tally, Ask Rishika + Break buttons.
+- **Break limit**: 1 break per hour enforced in exam.html. Extra break attempt shows "Extra Break Not Allowed" overlay + logs to D1 (`rishi_extra_break_flag`) + logs to break_log with type 'Extra Break Attempt (Blocked)'.
+- **Games cloud sync**: game time now syncs to D1 (`rishi_game_sessions`) every 30s and on end. Confirmation dialog shows coins/cost/time before starting a game; coins deducted at that point.
+
 ## D1 Sync — rishi-sync.js (updated 04 Jun 2026)
 **SYNC_EXACT** (full key synced):
 `rishi_chapter_progress`, `rishi_explain_sessions`, `rishi_practice_sessions`, `rishi_break_log`, `rishi_error_log`, `rishi_hour_pattern`, `rishi_heatmap`, `rishi_exam_scores`, `rishi_progress`, `rishi_active_chapters`, `rishi_plans`, `rishi_coins`
