@@ -1356,13 +1356,24 @@ function checkAuth() {
   if(!sessionStorage.getItem('rishi_parent_student_id')){
     var cs = {};
     try { cs = JSON.parse(localStorage.getItem('rishi_current_student')||'{}'); } catch(e){}
-    if(cs.role === 'parent' && cs.studentId){
+    /* Only auto-login if role=parent AND studentId is a real student ID (not parent username) */
+    var csStudentId = cs.studentId || '';
+    var validStudentId = csStudentId && csStudentId.toLowerCase().indexOf('parent-') === -1;
+    if(cs.role === 'parent' && validStudentId){
       sessionStorage.setItem('rishi_parent_auth','1');
-      sessionStorage.setItem('rishi_parent_student_id', cs.studentId);
+      sessionStorage.setItem('rishi_parent_student_id', csStudentId);
       sessionStorage.setItem('rishi_parent_student_name', cs.studentName || 'Student');
     }
   }
   if(sessionStorage.getItem('rishi_parent_auth') === '1'){
+    /* Validate stored studentId isn't a parent username */
+    var storedSid = sessionStorage.getItem('rishi_parent_student_id') || '';
+    if(storedSid && storedSid.toLowerCase().indexOf('parent-') === 0){
+      sessionStorage.removeItem('rishi_parent_auth');
+      sessionStorage.removeItem('rishi_parent_student_id');
+      window.location.href = '/login.html';
+      return;
+    }
     enterPortal(); return;
   }
   /* Admin bypass flag fallback */
@@ -1733,19 +1744,41 @@ function initMainPortal() {
   sName = sName || 'Student';
   var badge = document.getElementById('student-name-badge');
   if(badge) badge.innerHTML = (sName.split(' ')[0] || sName) + '<br><span style="font-size:9px;opacity:.65;letter-spacing:.3px">' + sId + '</span>';
-  loadPlans();
-  var now = new Date();
-  calYear = now.getFullYear();
-  calMonth = now.getMonth();
+  var now2 = new Date();
+  calYear = now2.getFullYear();
+  calMonth = now2.getMonth();
   renderExamGrid();
-  renderActivePlans();
-  /* Auto-pull student data from D1 on login */
-  loadStudentFromD1(function(){ loadPlans(); renderActivePlans(); });
-  /* Poll live status every 10s */
+  /* Show loading state while D1 fetches */
+  var planCon = document.getElementById('active-plans-con');
+  if (planCon) planCon.innerHTML = '<div style="text-align:center;padding:24px;color:var(--muted);font-size:14px;">&#9729; Loading from cloud…</div>';
+  /* Cloud-first: always load from D1 before rendering any data */
+  loadStudentFromD1(function(){
+    loadPlans();
+    renderActivePlans();
+    /* Also refresh badge name after D1 data loaded */
+    if (!sName || sName === 'Student') {
+      var regsC = [];
+      try { regsC = JSON.parse(localStorage.getItem('rishi_registrations')||'[]'); } catch(e) {}
+      var regC = regsC.find(function(r){ return r.studentUsername===sId || (r.parentUsername||'').toLowerCase()===sId.toLowerCase(); }) || {};
+      if (regC.studentName) {
+        var badge2 = document.getElementById('student-name-badge');
+        if(badge2) badge2.innerHTML = (regC.studentName.split(' ')[0] || regC.studentName) + '<br><span style="font-size:9px;opacity:.65;letter-spacing:.3px">' + sId + '</span>';
+      }
+    }
+  });
+  /* Poll every 10s: fetch fresh D1 data + re-render live status + check for notifications */
   setInterval(function() {
     var liveView = document.getElementById('view-live');
-    if (liveView && !liveView.classList.contains('hidden')) renderLive();
+    var planView = document.getElementById('view-plan');
+    /* Always re-fetch from D1 in background for real-time updates */
+    loadStudentFromD1(function(){
+      if (liveView && !liveView.classList.contains('hidden')) renderLive();
+      if (planView && !planView.classList.contains('hidden')) { loadPlans(); renderActivePlans(); }
+      checkStudentActivityNotifications();
+    });
   }, 10000);
+  /* Request notification permission for mobile real-time alerts */
+  requestNotificationPermission();
 }
 
 // ===========================
@@ -2780,6 +2813,102 @@ function deletePlan(planId) {
   renderProgress();
 }
 
+function modifyPlan(planId) {
+  var plan = plans.find(function(p) { return p.id === planId; });
+  if (!plan) return;
+  var currentChIds = plan.chapters.map(function(c) { return c.id; });
+
+  /* Build modal */
+  var overlay = document.createElement('div');
+  overlay.id = 'modify-plan-modal';
+  overlay.style.cssText = 'position:fixed;inset:0;z-index:99999;background:rgba(15,34,64,.7);display:flex;align-items:center;justify-content:center;padding:16px;';
+
+  var chHtml = CHAPTERS.map(function(ch) {
+    var checked = currentChIds.indexOf(ch.id) > -1;
+    var existing = plan.chapters.find(function(c) { return c.id === ch.id; });
+    return '<label style="display:flex;align-items:center;gap:8px;padding:8px 10px;border:1.5px solid '+(checked?'var(--navy)':'var(--border)');border-radius:8px;cursor:pointer;margin-bottom:5px;background:'+(checked?'#eff6ff':'white')+';font-size:14px;font-weight:600;">'
+      + '<input type="checkbox" data-chid="'+ch.id+'" '+(checked?'checked':'')+' style="width:15px;height:15px;accent-color:var(--navy);cursor:pointer;">'
+      + '<span>Ch '+ch.id+': '+ch.name+'</span>'
+      + '</label>';
+  }).join('');
+
+  overlay.innerHTML =
+    '<div style="background:white;border-radius:20px;max-width:480px;width:100%;max-height:90vh;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.3);">'
+    +'<div style="background:linear-gradient(135deg,#0f2240,#1a3560);padding:18px 20px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;">'
+      +'<div><div style="font-size:16px;font-weight:900;color:white;">&#9998; Modify Plan: '+plan.examName+'</div>'
+      +'<div style="font-size:12px;color:rgba(255,255,255,.5);margin-top:2px;">Check/uncheck chapters. Dates for new chapters default to today +14 days.</div></div>'
+      +'<button onclick="document.getElementById(\'modify-plan-modal\').remove()" style="background:rgba(255,255,255,.15);border:none;color:white;width:32px;height:32px;border-radius:50%;font-size:16px;cursor:pointer;">&#10005;</button>'
+    +'</div>'
+    +'<div style="padding:16px 20px;overflow-y:auto;flex:1;">'
+      +'<div style="font-size:11px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;">Select chapters for this plan:</div>'
+      + chHtml
+    +'</div>'
+    +'<div style="padding:14px 20px;border-top:1px solid var(--border);display:flex;gap:10px;flex-shrink:0;">'
+      +'<button onclick="saveModifiedPlan(\''+planId+'\')" style="flex:1;padding:12px;background:var(--navy);color:white;border:none;border-radius:10px;font-size:15px;font-weight:800;cursor:pointer;font-family:Outfit,sans-serif;">&#10003; Save Changes</button>'
+      +'<button onclick="document.getElementById(\'modify-plan-modal\').remove()" style="padding:12px 20px;background:var(--light);border:1.5px solid var(--border);border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;font-family:Outfit,sans-serif;color:var(--muted);">Cancel</button>'
+    +'</div>'
+    +'</div>';
+
+  document.body.appendChild(overlay);
+
+  /* Style checkboxes to update row highlight on change */
+  overlay.querySelectorAll('input[type=checkbox]').forEach(function(cb) {
+    cb.addEventListener('change', function() {
+      var lbl = cb.closest('label');
+      if(cb.checked){ lbl.style.borderColor='var(--navy)'; lbl.style.background='#eff6ff'; }
+      else { lbl.style.borderColor='var(--border)'; lbl.style.background='white'; }
+    });
+  });
+}
+
+function saveModifiedPlan(planId) {
+  var modal = document.getElementById('modify-plan-modal');
+  if (!modal) return;
+  var plan = plans.find(function(p) { return p.id === planId; });
+  if (!plan) { modal.remove(); return; }
+
+  var checkboxes = modal.querySelectorAll('input[type=checkbox]');
+  var newChIds = [];
+  checkboxes.forEach(function(cb) {
+    if (cb.checked) newChIds.push(parseInt(cb.getAttribute('data-chid')));
+  });
+
+  if (newChIds.length === 0) {
+    alert('Please select at least one chapter.');
+    return;
+  }
+
+  var exam = getExam(plan.examId);
+  var today = toDateStr(new Date());
+  var defaultTarget = toDateStr(new Date(Date.now() + 14*86400000));
+  var color = plan.examColor || '#6C63FF';
+
+  /* Keep existing chapters' dates; assign defaults for new ones */
+  var updatedChapters = newChIds.map(function(chId) {
+    var existing = plan.chapters.find(function(c) { return c.id === chId; });
+    if (existing) return existing;
+    return {
+      id: chId,
+      startDate: today,
+      targetDate: defaultTarget,
+      color: color,
+      examId: plan.examId
+    };
+  });
+
+  plan.chapters = updatedChapters;
+  savePlans();
+  updateStudentActivation();
+  renderActivePlans();
+  modal.remove();
+
+  var alertsBox = document.getElementById('alerts-box');
+  if (alertsBox) {
+    alertsBox.innerHTML = '<div class="alert a-ok"><span class="a-ico">&#9989;</span><span>Plan updated! Student\'s active chapters updated in real time.</span></div>';
+    setTimeout(function() { alertsBox.innerHTML = ''; }, 4000);
+  }
+}
+
 // ===========================
 // ACTIVE PLANS
 // ===========================
@@ -2813,6 +2942,7 @@ function renderActivePlans() {
     html += '<div class="plan-name">' + plan.examName + '</div>';
     html += '<div class="plan-actions">';
     html += '<span class="p-badge ' + badgeCls + '">' + status + '</span>';
+    html += '<button class="btn btn-sm" onclick="modifyPlan(\'' + plan.id + '\')" style="background:white;border:1.5px solid var(--navy);color:var(--navy);">&#9998; Modify</button>';
     html += '<button class="btn btn-del btn-sm" onclick="deletePlan(\'' + plan.id + '\')">&#128465; Delete</button>';
     html += '</div></div>';
     html += '<div class="plan-meta">&#128197; ' + formatDate(minStart) + ' &rarr; ' + formatDate(maxTarget) + ' &nbsp;|&nbsp; ' + plan.chapters.length + ' chapter' + (plan.chapters.length > 1 ? 's' : '') + '</div>';
@@ -3011,6 +3141,74 @@ function resetCoins() {
 /* EXPLAIN_BUILT now loaded dynamically via loadParentClassData() */
 
 var dashFilter = 'all';
+
+// ===========================
+// NOTIFICATIONS
+// ===========================
+var _lastNotifState = { onlineTs: 0, page: '', breakCount: 0, sessionKey: '' };
+
+function requestNotificationPermission() {
+  if (!('Notification' in window)) return;
+  if (Notification.permission === 'default') {
+    Notification.requestPermission();
+  }
+}
+
+function sendNotification(title, body, icon) {
+  if (!('Notification' in window) || Notification.permission !== 'granted') return;
+  try {
+    var n = new Notification(title, { body: body, icon: icon || '/icons/icon-192.png', badge: '/icons/icon-192.png' });
+    setTimeout(function(){ n.close(); }, 8000);
+  } catch(e) {}
+}
+
+function checkStudentActivityNotifications() {
+  var sid = getStudentId();
+  if (!sid || sid === 'default') return;
+  var sName = (sessionStorage.getItem('rishi_parent_student_name') || 'Student').split(' ')[0];
+
+  var onlineTs  = parseInt(localStorage.getItem('rishi_presence_online')  || '0', 10);
+  var offlineTs = parseInt(localStorage.getItem('rishi_presence_offline') || '0', 10);
+  var page      = localStorage.getItem('rishi_presence_page') || '';
+  var breakLog  = [];
+  try { breakLog = JSON.parse(localStorage.getItem('rishi_break_log') || '[]'); } catch(e) {}
+
+  var now = Date.now();
+  var isOnline = onlineTs > 0 && (now - onlineTs) < 90000 && !(offlineTs > onlineTs);
+
+  /* Notify: student came online */
+  if (onlineTs > _lastNotifState.onlineTs && isOnline) {
+    var pageName = page ? page.replace(/^\//, '').replace(/\?.*$/, '') : 'RISHI';
+    sendNotification(sName + ' is online', 'Currently on: ' + (pageName || 'Home'));
+  }
+
+  /* Notify: student went offline */
+  if (!isOnline && _lastNotifState.onlineTs > 0 && offlineTs > _lastNotifState.onlineTs && offlineTs !== _lastNotifState.offlineTs) {
+    sendNotification(sName + ' went offline', 'Last seen just now');
+  }
+
+  /* Notify: new break entry */
+  if (breakLog.length > _lastNotifState.breakCount && _lastNotifState.breakCount > 0) {
+    var latest = breakLog[breakLog.length - 1];
+    var mins = latest.secs ? Math.ceil(latest.secs / 60) : '?';
+    sendNotification(sName + ' took a break', (latest.type || 'Break') + ' · ' + mins + ' min');
+  }
+
+  /* Notify: new page (chapter start) */
+  var pageKey = page + '|' + onlineTs;
+  if (page && pageKey !== _lastNotifState.sessionKey && isOnline && _lastNotifState.sessionKey) {
+    var pn = page.replace(/^\//, '').replace(/\?.*$/, '');
+    if (pn.indexOf('explain') > -1 || pn.indexOf('practice') > -1 || pn.indexOf('exam') > -1) {
+      sendNotification(sName + ' started studying', pn.replace(/-/g,' ').replace(/\//g,' › '));
+    }
+  }
+
+  _lastNotifState.onlineTs   = onlineTs;
+  _lastNotifState.offlineTs  = offlineTs;
+  _lastNotifState.page       = page;
+  _lastNotifState.breakCount = breakLog.length;
+  _lastNotifState.sessionKey = pageKey;
+}
 
 function getChapterData() {
   var progress = {};

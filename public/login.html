@@ -434,8 +434,11 @@ async function handleLogin(){
   /* Step 1 — check localStorage */
   var account = findAccount(u, p);
 
-  /* Step 2 — not found locally, check D1 cloud */
-  if(!account){
+  /* For parent accounts: ALWAYS fetch D1 to get correct studentId regardless of local cache */
+  var isParentLogin = u.trim().toLowerCase().indexOf('parent-') === 0;
+
+  /* Step 2 — not found locally OR parent account (needs correct studentId from D1) */
+  if(!account || (account && account.role === 'parent')){
     try {
       var res = await fetch('/d1-sync', {
         method: 'POST',
@@ -444,15 +447,14 @@ async function handleLogin(){
       });
       var json = await res.json();
       if(json.ok && json.found){
-        /* Merge registration into localStorage so future logins are instant */
+        /* Merge/update registration in localStorage — D1 data wins for shared fields */
         var d = json.data;
         var existing = [];
         try { existing = JSON.parse(localStorage.getItem('rishi_registrations')||'[]'); } catch(e){}
-        var alreadyThere = existing.find(function(r){ return r.studentUsername===d.studentUsername; });
-        if(!alreadyThere){
-          existing.push(d);
-          localStorage.setItem('rishi_registrations', JSON.stringify(existing));
-        }
+        var existIdx = existing.findIndex(function(r){ return (r.studentUsername||'').toLowerCase() === (d.studentUsername||'').toLowerCase(); });
+        if(existIdx === -1){ existing.push(d); }
+        else { existing[existIdx] = Object.assign({}, existing[existIdx], d); }
+        localStorage.setItem('rishi_registrations', JSON.stringify(existing));
         /* If cloud has a pw override, sync it locally */
         if(json.pw_override){
           var ov = {};
@@ -460,42 +462,31 @@ async function handleLogin(){
           ov[u.toLowerCase()] = json.pw_override;
           localStorage.setItem('rishi_pw_overrides', JSON.stringify(ov));
         }
-        /* Now try again */
-        account = findAccount(u, p);
+        /* Re-find with correct registration now in localStorage */
+        var reFound = findAccount(u, p);
+        if(reFound) account = reFound;
       }
-    } catch(e){}
+    } catch(e){ /* network error — keep locally found account if any */ }
   }
 
-  /* Step 2.5 — PARENT-xxx hardcoded accounts not in localStorage or D1 */
-  if(!account && u.trim().toLowerCase().indexOf('parent-') === 0){
+  /* Step 2.5 — PARENT-xxx not in D1 at all: last-resort fallback */
+  if(!account && isParentLogin){
     var uLC2 = u.trim().toLowerCase();
     var ov2 = {};
     try { ov2 = JSON.parse(localStorage.getItem('rishi_pw_overrides')||'{}'); } catch(e){}
     var expectedPw = ov2[uLC2] || ov2[u.trim()] || PARENT_PASS;
     if(p === expectedPw){
-      var d1Hit = false;
-      try {
-        var r2 = await fetch('/d1-sync',{method:'POST',headers:{'Content-Type':'application/json'},
-          body:JSON.stringify({action:'find-account',username:uLC2})});
-        var j2 = await r2.json();
-        if(j2.ok && j2.found && j2.role==='parent'){
-          var d2pw = j2.pw_override || PARENT_PASS;
-          if(p === d2pw){
-            var rd2 = j2.data||{};
-            account = {username:u,role:'parent',board:rd2.board||'CBSE',class:rd2.class||'8',
-              studentId:rd2.studentUsername||uLC2,studentName:rd2.studentName||'Student',
-              parentName:rd2.parentName||'',parentUsername:u};
-            d1Hit = true;
-          }
-        }
-      } catch(e){}
-      if(!d1Hit){
-        var cs3 = {};
-        try { cs3 = JSON.parse(localStorage.getItem('rishi_current_student')||'{}'); } catch(e){}
-        account = {username:u,role:'parent',board:cs3.board||'CBSE',class:cs3.class||'8',
-          studentId:cs3.studentId||uLC2,studentName:cs3.studentName||'Student',
-          parentName:cs3.parentName||'',parentUsername:u};
+      var cs3 = {};
+      try { cs3 = JSON.parse(localStorage.getItem('rishi_current_student')||'{}'); } catch(e){}
+      /* Only use cached studentId if it's clearly a student ID (not a parent username) */
+      var safeId = (cs3.studentId && cs3.studentId.toLowerCase().indexOf('parent-') === -1)
+                   ? cs3.studentId : null;
+      if(safeId){
+        account = {username:u, role:'parent', board:cs3.board||'CBSE', class:cs3.class||'8',
+          studentId:safeId, studentName:cs3.studentName||'Student',
+          parentName:cs3.parentName||'', parentUsername:u};
       }
+      /* If no valid studentId: account stays null → login fails with error below */
     }
   }
 
