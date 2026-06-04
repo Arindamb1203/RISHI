@@ -299,6 +299,20 @@ window.addEventListener('load', function() {
     };
   }
 
+  // Patch openGames — log break BEFORE navigating away so it isn't lost
+  if (typeof window.openGames === 'function') {
+    var _origOpenGames = window.openGames;
+    window.openGames = function() {
+      if (_rishiBreakType) {
+        var secs = Math.floor(Date.now() / 1000) - _rishiBreakStart;
+        rishiLogBreak(_rishiBreakType + ' (Games)', secs);
+        _rishiBreakType = '';
+        _rishiBreakStart = 0;
+      }
+      _origOpenGames();
+    };
+  }
+
   // ── IDLE BREAK DETECTOR ──────────────────────
   var IDLE_LIMIT = 5 * 60 * 1000; // 5 minutes
   var _idleTimer = null;
