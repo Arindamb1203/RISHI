@@ -34,53 +34,42 @@
  *   ch12/ → ch12  (Statistics)
  */
 
-// Class-aware folder maps: FOLDER_MAP[class][chId] → folder name
+// Helper: build a 1:1 chXX→chXX map for a range of chapter numbers
+function _chMap(nums) {
+  const m = {};
+  nums.forEach(function(n) {
+    const k = String(n).padStart(2,'0');
+    m[k] = 'ch' + k;
+  });
+  return m;
+}
+function _range(a, b) { const r=[]; for(let i=a;i<=b;i++) r.push(i); return r; }
+
+// FOLDER_MAP[key][chId] → folder name
+// Keys: plain class number (CBSE default), or "icse_N" for ICSE-specific overrides.
+// Lookup order (in code below): "${board}_${cls}" → "${cls}" → {}
 const FOLDER_MAP = {
-  "8": {
-    "01":  "ch01",
-    "08":  "ch01",
-    "12":  "ch01",
-    "13":  "ch01",
-    "02":  "ch02",
-    "09":  "ch02",
-    "14":  "ch02",
-    "03":  "ch03",
-    "04":  "ch03",
-    "10":  "ch03",
+  // CBSE class 8 — some chapters share topic folders (non-1:1)
+  "cbse_8": {
+    "01":  "ch01", "08": "ch01", "12": "ch01", "13": "ch01",
+    "02":  "ch02", "09": "ch02", "14": "ch02",
+    "03":  "ch03", "04": "ch03", "10": "ch03",
     "05":  "ch05",
-    "11a": "ch11",
-    "11b": "ch11",
-    "15":  "ch15",
-    "16":  "ch16",
-    "06":  "ch06",
-    "07":  "ch07",
-    "17":  "ch17",
-    "18":  "ch18",
+    "06":  "ch06", "07": "ch07",
+    "11a": "ch11", "11b": "ch11",
+    "15":  "ch15", "16": "ch16", "17": "ch17", "18": "ch18",
   },
-  "9": {
-    "01": "ch01",
-    "02": "ch02",
-    "03": "ch03",
-    "04": "ch04",
-    "05": "ch05",
-    "06": "ch06",
-    "07": "ch07",
-    "08": "ch08",
-    "09": "ch09",
-    "10": "ch10",
-    "11": "ch11",
-    "12": "ch12",
-  },
-  "7": {
-    "01": "ch01",
-    "02": "ch02",
-    "03": "ch03",
-    "04": "ch04",
-    "05": "ch05",
-    "06": "ch06",
-    "07": "ch07",
-    "08": "ch08",
-  },
+  // ICSE class 8 — 1:1 mapping, ch01-ch21
+  "icse_8": _chMap(_range(1, 21)),
+  // CBSE class 9 — 1:1 ch01-ch12
+  "9": _chMap(_range(1, 12)),
+  // Class 7 — CBSE ch01-ch08, ICSE ch01-ch22 (1:1 for all)
+  "7": _chMap(_range(1, 22)),
+  // Class 6 — CBSE ch01-ch10, ICSE up to ch28; gaps (ch07,ch12,ch17,ch24,ch25,ch27) may not exist but won't error
+  "6": Object.assign(_chMap(_range(1, 28)), {
+    // ICSE class 6 has gaps — known present: 01-06,08-11,13-16,18-23,26,28
+    // Missing folders gracefully return 404 and fall to KV
+  }),
 };
 
 
@@ -139,7 +128,7 @@ export async function onRequestGet(context) {
   const kvKey = `${board}_${cls}_ch${chIdPadded}_${type}`;
 
   try {
-    const classMap = FOLDER_MAP[cls] || {};
+    const classMap = FOLDER_MAP[`${board}_${cls}`] || FOLDER_MAP[cls] || {};
     const folder   = classMap[chIdPadded];
 
     // For exam type: if a static file exists in FOLDER_MAP, try it FIRST.
