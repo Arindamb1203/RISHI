@@ -1741,6 +1741,8 @@ function getStudentId(){
 function initMainPortal() {
   loadParentClassData();
   document.getElementById('main-portal').className = '';
+  if (history.scrollRestoration) history.scrollRestoration = 'manual';
+  window.scrollTo(0, 0);
   /* Show parent login ID in header title */
   var parentLoginUser = sessionStorage.getItem('rishi_parent_login_user') || '';
   if (parentLoginUser) {
