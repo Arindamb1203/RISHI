@@ -260,6 +260,15 @@ When `rishi_practice_done_{chId}` is first set to "1", the interceptor auto-crea
 - `savedTab === 'slots'` in sessionStorage is redirected to `'plan'` automatically (handles old sessions)
 - `initMainPortal()` calls `window.scrollTo(0,0)` + sets `history.scrollRestoration='manual'` — prevents browser scroll restoration from landing at bottom of page
 
+## Question Shuffle Behaviour (audited 06 Jun 2026 — PENDING CHANGE)
+| Page | Behaviour |
+|------|-----------|
+| **Explain** | `QB[0]` always first; remaining 9 shuffled randomly from rest of QB each attempt |
+| **Practice** | Full QB, same questions, same order every attempt — **no shuffle** |
+| **Exam** | Static JSON sections A→E, same 52 questions, same order every attempt — **no shuffle** |
+
+**TODO (next session):** Add shuffle to Practice and/or Exam so repeat attempts feel fresh.
+
 ## Bypass System
 - Key: `rishi_admin_bypass` — **sessionStorage ONLY** (never localStorage)
 - Flow: admin `openPage()` appends `?bypass=1` → `rishi-core.js` IIFE detects → sets sessionStorage
