@@ -97,6 +97,9 @@ Ch1 Rational Numbers, Ch2 Linear Equations, Ch3 Understanding Quadrilaterals, Ch
 
 Notable corrections (29 May 2026):
 - Squares practice Q10: answer corrected to 64 (2000 − 1936 = 64)
+
+Bug fixes (06 Jun 2026):
+- `explain/class8/arithmetic/playing-with-numbers.html` — `confirmShown` variable was missing from declarations; caused crash when student clicked "I Understand!" button
 - Squares exam A7: "from 170" (not 190); A10: fixed all-same options
 - Ch18 Story of Numbers: full practice QB + exam JSON rewritten from NCERT
 
@@ -180,7 +183,7 @@ When `rishi_practice_done_{chId}` is first set to "1", the interceptor auto-crea
 - **`_rishiPushExamKeys(chIdStr)`** — called by both `rishiSaveExamScore` and `rishiMarkChapExamDone`; pushes all 3 exam keys directly to D1 with keepalive, independent of rishi-sync.js. This is the PRIMARY push for exam scores.
 - `exam.html` now includes `rishi-sync.js?v=2` as first script — was missing entirely before 04 Jun 2026 (exam scores NEVER reached D1 before this fix)
 
-## Admin Panel Structure (updated 04 Jun 2026)
+## Admin Panel Structure (updated 06 Jun 2026)
 - **Tabs:** Dashboard | Exams | Questions | Student | Logs | Deploy | Users
 - **Class bar:** Board toggle (CBSE / ICSE) → then class buttons 6/7/8/9 grouped by board
 - `activeAdminClass` + `activeBoard` drive all tabs
@@ -190,7 +193,7 @@ When `rishi_practice_done_{chId}` is first set to "1", the interceptor auto-crea
 - `SAMPURNA_BY_CLASS` — includes board param: `/sampurna-pariksha.html?class=X&board=Y`
 - Admin login: `autocomplete="off"` on password field (prevents Windows password manager prompt)
 
-### Admin Panel Key Behaviours
+### Admin Panel Key Behaviours (updated 06 Jun 2026)
 - **Board detection in Questions tab:** `String(qbActiveClass).charAt(0)==='i'` → icse, else cbse
 - **ICSE class number extraction:** `String(qbActiveClass).slice(2)` → '6','7','8','9'
 - **Student tab:** Shows picker of all registered students → click → dynamic progress display with per-chapter ↗ open buttons
@@ -200,6 +203,8 @@ When `rishi_practice_done_{chId}` is first set to "1", the interceptor auto-crea
 - **Reports tab (Logs):** Shows user-submitted error reports; clicking a row expands detail with `ai_verdict` (AI plain-language check result) in green/red box; `typeColors` includes `Wrong Question/Answer` and `Registration Issue`
 - **Error log detail:** "Details" button now auto-calls `/api/fix-error` and shows plain English explanation (not raw stack trace); "Explain Again" button re-triggers the call
 - **AI verdict status values:** `confirmed_correct` (green), `confirmed_wrong` (red), null (not yet checked)
+- **Auto-refresh pause (06 Jun 2026):** Clicking Details or Copy in System Errors OR User Reports pauses the 10s auto-refresh. Pulse dot in header turns amber. Clicking any `↺ Refresh` button resumes auto-refresh + triggers immediate refresh.
+- **User Reports list (06 Jun 2026):** Fixed reports are hidden from the list — only pending shown. Summary counts (Total/Pending/Fixed) still shown at top. "All reports marked fixed!" shown when none pending.
 - **Dashboard Registered Students (04 Jun 2026):** Student ID and Parent ID are plain text — NOT clickable links. Open buttons (Explain/Practice/Exam) remain.
 - **Quick Actions (04 Jun 2026):** Two primary buttons — "Student Login Page" and "Parent Login Page" (both → /login.html). Secondary: Landing, Register, Sync All to D1.
 - **buildDashboard auto-loads from D1** if registrations list is empty on load.
@@ -248,6 +253,12 @@ When `rishi_practice_done_{chId}` is first set to "1", the interceptor auto-crea
 - **`renderActivePlans()`** — plan header shows `minStart → maxTarget` across all chapters. Chapter name: reads `pch.name` from stored data, falls back to `CHAPTERS.find(x.id==pch.id).name` when stored name is missing/undefined (self-heals corrupted plan data)
 - **Plan chapter data structure:** `{id, name, topic, color, examId, mode, startDate, targetDate}` — ALL fields must be preserved on modify; missing name/topic → look up from `CHAPTERS` array
 - **CHAPTERS global** (line ~1185): `var CHAPTERS = []` set in `initMainPortal` from `ALL_CLASS_CHAPTERS[classKey]` — always populated before any plan render
+
+### Study Slots — merged into Study Plan tab (06 Jun 2026)
+- **No separate "Study Slots" tab** — slots section lives at the bottom of the Study Plan tab, below Active Plans
+- `switchTab('plan')` calls `renderSlots()` — slots render whenever plan tab is opened
+- `savedTab === 'slots'` in sessionStorage is redirected to `'plan'` automatically (handles old sessions)
+- `initMainPortal()` calls `window.scrollTo(0,0)` + sets `history.scrollRestoration='manual'` — prevents browser scroll restoration from landing at bottom of page
 
 ## Bypass System
 - Key: `rishi_admin_bypass` — **sessionStorage ONLY** (never localStorage)
