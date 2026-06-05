@@ -652,8 +652,8 @@ function renderChGrid(d) {
       var r = 27, circ = 2 * Math.PI * r, off = circ - (circ * sc / 100);
 
       /* Explain metric */
-      var exVal = cd.explainSessions > 0 ? cd.explainSessions : (cd.explainDone ? '&#10003;' : '0');
-      var exCol = cd.explainDone ? '#22C97D' : '#fff';
+      var exVal = cd.explainSessions > 0 ? cd.explainSessions : (cd.explainDone ? '&#10003;' : '&mdash;');
+      var exCol = cd.explainDone ? '#22C97D' : (cd.explainSessions > 0 ? '#fff' : 'rgba(255,255,255,.3)');
 
       /* Practice metric */
       var prVal, prCol;
@@ -664,7 +664,7 @@ function renderChGrid(d) {
       } else if (cd.practiceSessions > 0) {
         prVal = cd.practiceSessions; prCol = '#fff';
       } else {
-        prVal = '0'; prCol = 'rgba(255,255,255,.4)';
+        prVal = '&mdash;'; prCol = 'rgba(255,255,255,.3)';
       }
       var prTick = cd.practiceDone && cd.practiceSessions > 0;
 
