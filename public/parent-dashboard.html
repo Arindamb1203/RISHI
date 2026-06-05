@@ -528,7 +528,7 @@ function renderAll() {
 /* ══ HERO ══ */
 function renderHero(d) {
   var total = 0, count = 0;
-  var totalEx = 0, totalPr = 0, examDoneCount = 0, examScoreSum = 0, examScoreCount = 0;
+  var totalEx = 0, totalPr = 0, examDoneCount = 0, examScoreSum = 0, examScoreCount = 0, practiceDoneCount = 0;
 
   for (var i = 0; i < CHAPTERS.length; i++) {
     var cd = d.chData[CHAPTERS[i].id];
@@ -537,6 +537,7 @@ function renderHero(d) {
     if (cd.examDone) examDoneCount++;
     if (cd.examAttempts > 0) { examScoreSum += cd.examScore; examScoreCount++; }
     if (isStarted(cd)) { total += chReadiness(cd); count++; }
+    if (cd.practiceDone) practiceDoneCount++;
   }
 
   var overall = count ? Math.round(total / count) : 0;
@@ -563,11 +564,11 @@ function renderHero(d) {
   document.getElementById('grade-band').textContent = g.band;
   document.getElementById('grade-band').style.color = g.col;
 
-  /* 5 KPIs in hero — no separate stat row */
+  /* 5 KPIs — all from same reliable source as chapter cards */
   document.getElementById('hero-meta').innerHTML = [
-    {n: totalEx,   l: 'Explain Sessions'},
-    {n: totalPr,   l: 'Practice Sessions'},
-    {n: examDoneCount, l: 'Exams Done'},
+    {n: totalEx,          l: 'Explain Sessions'},
+    {n: practiceDoneCount, l: 'Practice Done'},
+    {n: examDoneCount,    l: 'Exams Done'},
     {n: avgExam ? avgExam + '%' : '—', l: 'Avg Exam Score'},
     {n: planCount || count, l: 'Chapters Active'}
   ].map(function(k) {
