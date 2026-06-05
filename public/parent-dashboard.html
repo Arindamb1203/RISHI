@@ -25,7 +25,6 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-si
 /* HDR */
 .hdr{position:sticky;top:0;z-index:100;background:var(--bg3);border-bottom:1px solid rgba(255,255,255,.1);display:flex;align-items:center;gap:12px;padding:12px 20px;}
 .hdr-logo{font-family:var(--font-head);font-size:22px;font-weight:800;color:var(--gold);}
-.hdr-logo span{color:var(--text);}
 .hdr-div{width:1px;height:24px;background:rgba(255,255,255,.15);}
 .hdr-tag{font-size:13px;font-weight:600;color:var(--muted);}
 .hdr-r{display:flex;align-items:center;gap:12px;margin-left:auto;}
@@ -49,40 +48,33 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-si
 .main{max-width:1200px;margin:0 auto;padding:24px 20px;}
 
 /* HERO */
-.hero-band{background:var(--panel);border:1px solid var(--border);border-radius:var(--r);padding:28px;display:grid;grid-template-columns:180px 1fr 290px;gap:24px;margin-bottom:24px;align-items:start;}
+.hero-band{background:var(--panel);border:1px solid var(--border);border-radius:var(--r);padding:28px;display:grid;grid-template-columns:180px 1fr 290px;gap:24px;margin-bottom:28px;align-items:start;}
 @media(max-width:860px){.hero-band{grid-template-columns:1fr;}}
 .ring-wrap{position:relative;width:150px;height:150px;margin:0 auto;}
 .ring-svg{width:150px;height:150px;}
 .ring-inner{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;}
-.ring-pct{font-family:var(--font-head);font-size:34px;font-weight:800;color:var(--text);}
+.ring-pct{font-family:var(--font-head);font-size:34px;font-weight:800;color:#fff;}
 .ring-lbl{font-size:12px;color:var(--muted);margin-top:2px;}
-.hero-headline{font-family:var(--font-head);font-size:26px;font-weight:800;margin-bottom:10px;}
-.hero-grade{display:flex;align-items:center;gap:14px;margin-bottom:16px;}
+.hero-headline{font-family:var(--font-head);font-size:26px;font-weight:800;margin-bottom:10px;color:#fff;}
+.hero-grade{display:flex;align-items:center;gap:14px;margin-bottom:20px;}
 .grade-letter{font-family:var(--font-head);font-size:54px;font-weight:800;line-height:1;}
-.grade-band{font-size:20px;font-weight:700;}
+.grade-band{font-size:20px;font-weight:700;color:#fff;}
 .grade-sub{font-size:13px;color:var(--muted);margin-top:4px;}
-.hero-meta{display:flex;gap:24px;flex-wrap:wrap;}
-.hmeta-n{font-family:var(--font-head);font-size:24px;font-weight:800;}
-.hmeta-l{font-size:13px;color:var(--muted);margin-top:3px;}
-.alerts-title{font-size:16px;font-weight:700;margin-bottom:12px;}
+.hero-meta{display:flex;gap:20px;flex-wrap:wrap;}
+.hmeta{display:flex;flex-direction:column;}
+.hmeta-n{font-family:var(--font-head);font-size:26px;font-weight:800;color:#fff;}
+.hmeta-l{font-size:13px;color:rgba(255,255,255,.55);margin-top:3px;}
+.alerts-title{font-size:16px;font-weight:700;margin-bottom:12px;color:#fff;}
 .alert-item{display:flex;align-items:flex-start;gap:10px;padding:11px 13px;border-radius:10px;margin-bottom:8px;font-size:14px;line-height:1.5;}
 .ai-danger{background:rgba(242,76,106,.12);border:1px solid rgba(242,76,106,.25);}
 .ai-warn{background:rgba(245,166,35,.1);border:1px solid rgba(245,166,35,.2);}
 .ai-ok{background:rgba(34,201,125,.1);border:1px solid rgba(34,201,125,.2);}
 .ai-ico{flex-shrink:0;font-size:15px;}
 
-/* STATS */
-.stat-row{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:28px;}
-@media(max-width:700px){.stat-row{grid-template-columns:repeat(2,1fr);}}
-.stat-panel{background:var(--panel);border:1px solid var(--border);border-radius:var(--r);padding:20px;display:flex;align-items:center;gap:16px;}
-.stat-ico{font-size:26px;padding:12px;border-radius:12px;flex-shrink:0;}
-.stat-n{font-family:var(--font-head);font-size:30px;font-weight:800;}
-.stat-l{font-size:14px;color:var(--muted);margin-top:4px;}
-
 /* SEC */
 .sec{margin-bottom:32px;}
 .sec-hdr{display:flex;align-items:center;gap:14px;margin-bottom:20px;}
-.sec-title{font-family:var(--font-head);font-size:22px;font-weight:800;white-space:nowrap;}
+.sec-title{font-family:var(--font-head);font-size:22px;font-weight:800;white-space:nowrap;color:#fff;}
 .sec-line{flex:1;height:1px;background:var(--border);}
 .sec-badge{font-family:var(--font-mono);font-size:12px;color:var(--muted);background:var(--panel2);border:1px solid var(--border);padding:4px 12px;border-radius:20px;white-space:nowrap;}
 
@@ -91,22 +83,22 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-si
 .ch-card{background:var(--panel);border:1px solid var(--border);border-left:4px solid var(--gold);border-radius:var(--r);padding:22px;}
 .ch-card-top{display:flex;align-items:flex-start;gap:14px;margin-bottom:16px;}
 .ch-card-info{flex:1;}
-.ch-num{font-family:var(--font-mono);font-size:12px;color:var(--muted);margin-bottom:5px;}
-.ch-name{font-size:18px;font-weight:700;color:var(--text);margin-bottom:8px;line-height:1.3;}
+.ch-num{font-family:var(--font-mono);font-size:12px;color:rgba(255,255,255,.45);margin-bottom:5px;}
+.ch-name{font-size:18px;font-weight:700;color:#fff;margin-bottom:8px;line-height:1.3;}
 .ch-readiness{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:700;padding:5px 12px;border-radius:20px;}
 .ch-donut{position:relative;width:68px;height:68px;flex-shrink:0;}
 .ch-donut svg{width:68px;height:68px;}
 .ch-donut-inner{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;}
-.ch-donut-pct{font-family:var(--font-head);font-size:16px;font-weight:800;}
-.ch-donut-sub{font-size:9px;color:var(--muted);}
-.ch-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px;}
-.ch-metric{background:var(--panel2);border-radius:10px;padding:12px;text-align:center;}
-.ch-metric-n{font-family:var(--font-head);font-size:22px;font-weight:800;}
-.ch-metric-l{font-size:12px;color:var(--muted);margin-top:3px;line-height:1.3;}
-.ch-exam-row{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;background:var(--panel2);border-radius:10px;}
-.ch-exam-score{font-family:var(--font-head);font-size:24px;font-weight:800;}
-.ch-exam-label{font-size:13px;color:var(--muted);margin-top:2px;}
-.ch-exam-att{font-family:var(--font-mono);font-size:13px;color:var(--muted);}
+.ch-donut-pct{font-family:var(--font-head);font-size:16px;font-weight:800;color:#fff;}
+.ch-donut-sub{font-size:9px;color:rgba(255,255,255,.45);}
+
+/* CHAPTER METRICS — 3 cols */
+.ch-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:4px;}
+.ch-metric{background:var(--panel2);border-radius:10px;padding:12px 8px;text-align:center;}
+.ch-metric-top{display:flex;align-items:center;justify-content:center;gap:5px;margin-bottom:4px;}
+.ch-metric-n{font-family:var(--font-head);font-size:22px;font-weight:800;color:#fff;line-height:1;}
+.ch-metric-tick{font-size:15px;color:#22C97D;font-weight:900;line-height:1;}
+.ch-metric-l{font-size:13px;color:rgba(255,255,255,.6);font-weight:600;}
 
 /* NOT STARTED BUTTONS */
 .ch-not-done-wrap{margin-top:4px;}
@@ -119,11 +111,11 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-si
 .two-col{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:32px;}
 @media(max-width:800px){.two-col{grid-template-columns:1fr;}}
 .panel{background:var(--panel);border:1px solid var(--border);border-radius:var(--r);padding:24px;}
-.ptitle{font-family:var(--font-head);font-size:20px;font-weight:800;margin-bottom:20px;}
+.ptitle{font-family:var(--font-head);font-size:20px;font-weight:800;margin-bottom:20px;color:#fff;}
 
 /* TOPIC BARS */
 .topic-row{display:flex;align-items:center;gap:14px;margin-bottom:16px;}
-.topic-name{font-size:15px;font-weight:600;width:130px;flex-shrink:0;}
+.topic-name{font-size:15px;font-weight:700;color:#fff;width:130px;flex-shrink:0;}
 .topic-track{flex:1;height:12px;background:var(--panel2);border-radius:6px;overflow:hidden;}
 .topic-fill{height:100%;border-radius:6px;transition:width 1.2s ease;}
 .topic-pct{font-family:var(--font-mono);font-size:15px;font-weight:700;width:42px;text-align:right;}
@@ -132,10 +124,10 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-si
 .exam-summary{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:12px;margin-bottom:22px;}
 .exam-kpi{background:var(--panel2);border:1px solid var(--border);border-radius:12px;padding:18px;text-align:center;}
 .exam-kpi-n{font-family:var(--font-head);font-size:30px;font-weight:800;color:var(--gold);}
-.exam-kpi-l{font-size:13px;color:var(--muted);margin-top:5px;}
+.exam-kpi-l{font-size:13px;color:rgba(255,255,255,.55);margin-top:5px;}
 .exam-table{width:100%;border-collapse:collapse;}
 .exam-table th{font-size:13px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;padding:10px 12px;border-bottom:1px solid var(--border);text-align:left;}
-.exam-table td{padding:13px 12px;border-bottom:1px solid rgba(255,255,255,.04);font-size:15px;}
+.exam-table td{padding:13px 12px;border-bottom:1px solid rgba(255,255,255,.04);font-size:15px;color:#fff;}
 .exam-table tr:last-child td{border-bottom:none;}
 .exam-table tr:hover td{background:rgba(255,255,255,.02);}
 .ex-score-big{font-family:var(--font-head);font-size:20px;font-weight:800;}
@@ -149,11 +141,11 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-si
 @media(max-width:600px){.break-kpis{grid-template-columns:repeat(2,1fr);}}
 .bk-card{background:var(--panel2);border:1px solid var(--border);border-radius:12px;padding:18px;text-align:center;}
 .bk-n{font-family:var(--font-head);font-size:28px;font-weight:800;color:var(--gold);}
-.bk-l{font-size:13px;color:var(--muted);margin-top:5px;}
+.bk-l{font-size:13px;color:rgba(255,255,255,.55);margin-top:5px;}
 .break-date-block{background:var(--panel2);border:1px solid var(--border);border-radius:12px;margin-bottom:10px;overflow:hidden;}
 .break-date-hdr{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;cursor:pointer;}
 .break-date-hdr:hover{background:rgba(255,255,255,.03);}
-.break-date-lbl{font-size:16px;font-weight:700;}
+.break-date-lbl{font-size:16px;font-weight:700;color:#fff;}
 .break-date-meta{font-size:14px;color:var(--muted);}
 .break-date-arrow{font-size:14px;color:var(--muted);transition:transform .2s;}
 .break-date-arrow.open{transform:rotate(180deg);}
@@ -166,6 +158,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-si
 .bt-water{background:rgba(74,158,255,.15);color:#4A9EFF;}
 .bt-washroom{background:rgba(162,135,250,.15);color:#A78BFA;}
 .bt-physical{background:rgba(34,201,125,.15);color:var(--green);}
+.bt-games{background:rgba(255,165,0,.15);color:#FFA500;}
 .bt-other{background:rgba(255,255,255,.08);color:var(--muted);}
 .break-dur-cell{font-family:var(--font-mono);color:var(--gold);margin-left:auto;font-size:14px;}
 .no-breaks{text-align:center;padding:36px;color:var(--muted);font-size:15px;background:var(--panel2);border:1px dashed var(--border);border-radius:12px;}
@@ -176,9 +169,9 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-si
 .suc-btn.on{background:var(--gold);border-color:var(--gold);color:#000;}
 .suc-detail{display:none;background:var(--panel2);border:1px solid var(--border);border-radius:14px;padding:28px;}
 .suc-detail.on{display:block;}
-.suc-detail-title{font-family:var(--font-head);font-size:22px;font-weight:800;margin-bottom:6px;}
+.suc-detail-title{font-family:var(--font-head);font-size:22px;font-weight:800;margin-bottom:6px;color:#fff;}
 .suc-detail-weight{font-family:var(--font-mono);font-size:16px;color:var(--gold);margin-bottom:14px;}
-.suc-detail-desc{font-size:16px;color:var(--text);line-height:1.75;}
+.suc-detail-desc{font-size:16px;color:#fff;line-height:1.75;}
 
 /* MISC */
 .no-data{text-align:center;padding:36px;color:var(--muted);font-size:15px;background:var(--panel2);border:1px solid var(--border);border-radius:12px;}
@@ -218,6 +211,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-si
 
 <div class="main">
 
+  <!-- HERO: ring | grade+KPIs | alerts -->
   <div class="hero-band" id="hero-band">
     <div style="display:flex;justify-content:center;">
       <div class="ring-wrap">
@@ -255,8 +249,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-si
     </div>
   </div>
 
-  <div class="stat-row" id="stats-row"></div>
-
+  <!-- CHAPTER INTELLIGENCE -->
   <div class="sec">
     <div class="sec-hdr">
       <div class="sec-title">Chapter Intelligence</div>
@@ -270,9 +263,10 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-si
     </div>
   </div>
 
+  <!-- TOPIC INTELLIGENCE + EXAM -->
   <div class="two-col">
     <div class="panel">
-      <div class="ptitle">&#127919; Topic Performance</div>
+      <div class="ptitle">&#127919; Topic Intelligence</div>
       <div id="topic-grid"></div>
     </div>
     <div class="panel">
@@ -282,21 +276,24 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-si
     </div>
   </div>
 
+  <!-- BREAK ANALYTICS -->
   <div class="sec">
     <div class="sec-hdr">
       <div class="sec-title">&#9749; Break Analytics</div>
       <div class="sec-line"></div>
     </div>
-    <div class="break-filter" id="break-filter">
-      <button class="bfbtn on" onclick="setBreakFilter('all')">All Breaks</button>
-      <button class="bfbtn" onclick="setBreakFilter('Water')">&#128167; Water</button>
-      <button class="bfbtn" onclick="setBreakFilter('Washroom')">&#128698; Washroom</button>
-      <button class="bfbtn" onclick="setBreakFilter('Physical')">&#127939; Physical</button>
+    <div class="break-filter">
+      <button class="bfbtn on" data-filter="all" onclick="setBreakFilter('all')">All Breaks</button>
+      <button class="bfbtn" data-filter="Water" onclick="setBreakFilter('Water')">&#128167; Water</button>
+      <button class="bfbtn" data-filter="Washroom" onclick="setBreakFilter('Washroom')">&#128698; Washroom</button>
+      <button class="bfbtn" data-filter="Physical" onclick="setBreakFilter('Physical')">&#127939; Physical</button>
+      <button class="bfbtn" data-filter="Games" onclick="setBreakFilter('Games')">&#127918; Games</button>
     </div>
     <div class="break-kpis" id="break-kpis"></div>
     <div id="break-log-wrap"></div>
   </div>
 
+  <!-- HOW SUCCESS IS CALCULATED -->
   <div class="sec">
     <div class="sec-hdr">
       <div class="sec-title">How Success % is Calculated</div>
@@ -311,84 +308,70 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-si
 <script>
 /* ══ CHAPTER DATA ══ */
 var ALL_CLASS_CHAPTERS = {
-  8: {
-    chapters:[
-      {id:1,  name:'Rational Numbers',             topic:'Arithmetic'},
-      {id:2,  name:'Linear Equations',             topic:'Algebra'},
-      {id:3,  name:'Understanding Quadrilaterals', topic:'Geometry'},
-      {id:4,  name:'Practical Geometry',           topic:'Geometry'},
-      {id:5,  name:'Data Handling',                topic:'Data Handling'},
-      {id:6,  name:'Squares & Square Roots',       topic:'Arithmetic'},
-      {id:7,  name:'Cubes & Cube Roots',           topic:'Arithmetic'},
-      {id:8,  name:'Comparing Quantities',         topic:'Arithmetic'},
-      {id:9,  name:'Algebraic Expressions',        topic:'Algebra'},
-      {id:10, name:'Visualising Solid Shapes',     topic:'Geometry'},
-      {id:11, name:'Mensuration (Area)',            topic:'Mensuration'},
-      {id:112,name:'Mensuration (Surface & Vol)',  topic:'Mensuration'},
-      {id:12, name:'Exponents and Powers',         topic:'Arithmetic'},
-      {id:13, name:'Direct & Inverse Proportions', topic:'Arithmetic'},
-      {id:14, name:'Factorisation',                topic:'Algebra'},
-      {id:15, name:'Introduction to Graphs',       topic:'Algebra'},
-      {id:16, name:'Playing with Numbers',         topic:'Arithmetic'},
-      {id:18, name:'Story of Numbers',             topic:'Arithmetic'}
-    ],
-    explainBuilt:{1:1,2:1,3:1,4:1,5:1,8:1,9:1,10:1,11:1,112:1,12:1,13:1,14:1,15:1,16:1}
-  },
-  9:{
-    chapters:[
-      {id:1,name:'Real Numbers',topic:'Arithmetic'},
-      {id:2,name:'Polynomials',topic:'Algebra'},
-      {id:3,name:'Linear Equations in Two Variables',topic:'Algebra'},
-      {id:4,name:'Coordinate Geometry',topic:'Geometry'},
-      {id:5,name:"Euclid's Geometry",topic:'Geometry'},
-      {id:6,name:'Lines and Angles',topic:'Geometry'},
-      {id:7,name:'Triangles',topic:'Geometry'},
-      {id:8,name:'Quadrilaterals',topic:'Geometry'},
-      {id:9,name:'Circles',topic:'Geometry'},
-      {id:10,name:"Heron's Formula",topic:'Mensuration'},
-      {id:11,name:'Surface Areas and Volumes',topic:'Mensuration'},
-      {id:12,name:'Statistics',topic:'Data Handling'}
-    ],
-    explainBuilt:{}
-  },
-  7:{
-    chapters:[
-      {id:1,name:'Large Numbers Around Us',topic:'Arithmetic'},
-      {id:2,name:'Arithmetic Expressions',topic:'Arithmetic'},
-      {id:3,name:'A Peek Beyond the Point',topic:'Arithmetic'},
-      {id:4,name:'Expressions using Letter-Numbers',topic:'Algebra'},
-      {id:5,name:'Parallel and Intersecting Lines',topic:'Geometry'},
-      {id:6,name:'Number Play',topic:'Arithmetic'},
-      {id:7,name:'A Tale of Three Intersecting Lines',topic:'Geometry'},
-      {id:8,name:'Working with Fractions',topic:'Arithmetic'}
-    ],
-    explainBuilt:{}
-  },
-  6:{
-    chapters:[
-      {id:1,name:'Patterns in Mathematics',topic:'Arithmetic'},
-      {id:2,name:'Lines and Angles',topic:'Geometry'},
-      {id:3,name:'Number Play',topic:'Arithmetic'},
-      {id:4,name:'Data Handling and Presentation',topic:'Data Handling'},
-      {id:5,name:'Prime Time',topic:'Arithmetic'},
-      {id:6,name:'Perimeter and Area',topic:'Mensuration'},
-      {id:7,name:'Fractions',topic:'Arithmetic'},
-      {id:8,name:'Playing with Constructions',topic:'Geometry'},
-      {id:9,name:'Symmetry',topic:'Geometry'},
-      {id:10,name:'The Other Side of Zero',topic:'Arithmetic'}
-    ],
-    explainBuilt:{}
-  }
+  8:{chapters:[
+    {id:1,  name:'Rational Numbers',             topic:'Arithmetic'},
+    {id:2,  name:'Linear Equations',             topic:'Algebra'},
+    {id:3,  name:'Understanding Quadrilaterals', topic:'Geometry'},
+    {id:4,  name:'Practical Geometry',           topic:'Geometry'},
+    {id:5,  name:'Data Handling',                topic:'Data Handling'},
+    {id:6,  name:'Squares & Square Roots',       topic:'Arithmetic'},
+    {id:7,  name:'Cubes & Cube Roots',           topic:'Arithmetic'},
+    {id:8,  name:'Comparing Quantities',         topic:'Arithmetic'},
+    {id:9,  name:'Algebraic Expressions',        topic:'Algebra'},
+    {id:10, name:'Visualising Solid Shapes',     topic:'Geometry'},
+    {id:11, name:'Mensuration (Area)',            topic:'Mensuration'},
+    {id:112,name:'Mensuration (Surface & Vol)',  topic:'Mensuration'},
+    {id:12, name:'Exponents and Powers',         topic:'Arithmetic'},
+    {id:13, name:'Direct & Inverse Proportions', topic:'Arithmetic'},
+    {id:14, name:'Factorisation',                topic:'Algebra'},
+    {id:15, name:'Introduction to Graphs',       topic:'Algebra'},
+    {id:16, name:'Playing with Numbers',         topic:'Arithmetic'},
+    {id:18, name:'Story of Numbers',             topic:'Arithmetic'}
+  ], explainBuilt:{1:1,2:1,3:1,4:1,5:1,8:1,9:1,10:1,11:1,112:1,12:1,13:1,14:1,15:1,16:1}},
+  9:{chapters:[
+    {id:1,name:'Real Numbers',topic:'Arithmetic'},
+    {id:2,name:'Polynomials',topic:'Algebra'},
+    {id:3,name:'Linear Equations in Two Variables',topic:'Algebra'},
+    {id:4,name:'Coordinate Geometry',topic:'Geometry'},
+    {id:5,name:"Euclid's Geometry",topic:'Geometry'},
+    {id:6,name:'Lines and Angles',topic:'Geometry'},
+    {id:7,name:'Triangles',topic:'Geometry'},
+    {id:8,name:'Quadrilaterals',topic:'Geometry'},
+    {id:9,name:'Circles',topic:'Geometry'},
+    {id:10,name:"Heron's Formula",topic:'Mensuration'},
+    {id:11,name:'Surface Areas and Volumes',topic:'Mensuration'},
+    {id:12,name:'Statistics',topic:'Data Handling'}
+  ], explainBuilt:{}},
+  7:{chapters:[
+    {id:1,name:'Large Numbers Around Us',topic:'Arithmetic'},
+    {id:2,name:'Arithmetic Expressions',topic:'Arithmetic'},
+    {id:3,name:'A Peek Beyond the Point',topic:'Arithmetic'},
+    {id:4,name:'Expressions using Letter-Numbers',topic:'Algebra'},
+    {id:5,name:'Parallel and Intersecting Lines',topic:'Geometry'},
+    {id:6,name:'Number Play',topic:'Arithmetic'},
+    {id:7,name:'A Tale of Three Intersecting Lines',topic:'Geometry'},
+    {id:8,name:'Working with Fractions',topic:'Arithmetic'}
+  ], explainBuilt:{}},
+  6:{chapters:[
+    {id:1,name:'Patterns in Mathematics',topic:'Arithmetic'},
+    {id:2,name:'Lines and Angles',topic:'Geometry'},
+    {id:3,name:'Number Play',topic:'Arithmetic'},
+    {id:4,name:'Data Handling and Presentation',topic:'Data Handling'},
+    {id:5,name:'Prime Time',topic:'Arithmetic'},
+    {id:6,name:'Perimeter and Area',topic:'Mensuration'},
+    {id:7,name:'Fractions',topic:'Arithmetic'},
+    {id:8,name:'Playing with Constructions',topic:'Geometry'},
+    {id:9,name:'Symmetry',topic:'Geometry'},
+    {id:10,name:'The Other Side of Zero',topic:'Arithmetic'}
+  ], explainBuilt:{}}
 };
 
-/* Generate ICSE chapter arrays */
+/* Generate ICSE chapters */
 (function(){
-  var counts = {ic6:28, ic7:22, ic8:21, ic9:20};
+  var counts = {ic6:28,ic7:22,ic8:21,ic9:20};
   for (var key in counts) {
     var arr = [];
-    for (var n = 1; n <= counts[key]; n++) {
-      arr.push({id: key+'_'+n, name:'Chapter '+n, topic:'General'});
-    }
+    for (var n = 1; n <= counts[key]; n++) arr.push({id:key+'_'+n, name:'Chapter '+n, topic:'General'});
     ALL_CLASS_CHAPTERS[key] = {chapters:arr, explainBuilt:{}};
   }
 })();
@@ -408,9 +391,9 @@ var SUCCESS_FACTORS = [
    desc:'Each time your child watches or revisits an explain session, points are added (max 15). Understanding the concept before practising leads to stronger, more durable memory.'},
   {ico:'&#128200;', label:'Session Consistency', weight:'10 pts',
    desc:'2 points per practice session, capped at 10. Returning to a chapter regularly — even for short bursts — builds far stronger retention than a single long session.'},
-  {ico:'&#128293;', label:'Recency Bonus', weight:'up to +5 pts',
+  {ico:'&#128293;', label:'Recency Bonus', weight:'+5 pts',
    desc:'5 points if studied today or yesterday, 3 points within a week, 1 point within a fortnight. Recency equals retention. -3 points if the chapter has not been visited in 14+ days.'},
-  {ico:'&#9200;', label:'Exam Score Boost', weight:'up to +35 pts',
+  {ico:'&#9200;', label:'Exam Score Boost', weight:'+35 pts',
    desc:'If your child has taken the chapter exam, their score (out of 100) contributes up to 35 points. A high exam score is the strongest confirmation of real readiness.'}
 ];
 
@@ -419,30 +402,25 @@ function getStudentInfo() {
   var sid = sessionStorage.getItem('rishi_parent_student_id') || localStorage.getItem('rishi_selected_student');
   var board = 'cbse', cls = 8;
   if (!sid) return {id:null, cls:cls, board:board};
-
   var regs = [];
   try { regs = JSON.parse(localStorage.getItem('rishi_registrations') || '[]'); } catch(e) {}
   for (var i = 0; i < regs.length; i++) {
     var r = regs[i];
     var uname = (r.studentUsername || r.studentId || '').toLowerCase();
     if (uname === sid.toLowerCase()) {
-      cls = parseInt(r.class || 8);
-      board = (r.board || 'CBSE').toLowerCase();
-      return {id:sid, cls:cls, board:board};
+      return {id:sid, cls:parseInt(r.class||8), board:(r.board||'CBSE').toLowerCase()};
     }
   }
-
-  /* Fallback: rishi_current_student */
   var cs = {};
   try { cs = JSON.parse(localStorage.getItem('rishi_current_student') || '{}'); } catch(e) {}
   if (cs.class) cls = parseInt(cs.class);
-  if (cs.board) board = (cs.board || 'CBSE').toLowerCase();
+  if (cs.board) board = (cs.board||'CBSE').toLowerCase();
   return {id:sid, cls:cls, board:board};
 }
 
 function loadParentClassData() {
   var info = getStudentInfo();
-  var key = info.board === 'icse' ? ('ic' + info.cls) : info.cls;
+  var key = info.board === 'icse' ? ('ic'+info.cls) : info.cls;
   var cd = ALL_CLASS_CHAPTERS[key] || ALL_CLASS_CHAPTERS[8];
   CHAPTERS = cd.chapters;
   EXPLAIN_BUILT = cd.explainBuilt || {};
@@ -450,48 +428,39 @@ function loadParentClassData() {
 
 /* ══ DATA LOADING ══ */
 function loadAll() {
-  var exSess = {}, prSess = {}, hm = {};
+  var exSess = {}, prSess = {}, hm = {}, ac = {};
   try { exSess = JSON.parse(localStorage.getItem('rishi_explain_sessions') || '{}'); } catch(e) {}
   try { prSess = JSON.parse(localStorage.getItem('rishi_practice_sessions') || '{}'); } catch(e) {}
-  try { hm = JSON.parse(localStorage.getItem('rishi_heatmap') || '{}'); } catch(e) {}
+  try { hm    = JSON.parse(localStorage.getItem('rishi_heatmap') || '{}'); } catch(e) {}
+  try { ac    = JSON.parse(localStorage.getItem('rishi_active_chapters') || '{}'); } catch(e) {}
 
   var chData = {};
   for (var i = 0; i < CHAPTERS.length; i++) {
-    var ch = CHAPTERS[i];
-    var cid = ch.id;
-    var exSessCount = parseInt(exSess[cid] || 0);
+    var ch = CHAPTERS[i], cid = ch.id;
     var prSessObj = prSess[cid] || {};
-    var prSessCount = parseInt(prSessObj.count || 0);
-    var prLastDate = prSessObj.lastDate || '';
-    var examScore = parseFloat(localStorage.getItem('rishi_exam_score_' + cid) || '0') || 0;
-    var examAttempts = parseInt(localStorage.getItem('rishi_exam_attempts_' + cid) || '0') || 0;
-    var explainDone = localStorage.getItem('rishi_explain_done_' + cid) === '1';
-    var practiceDone = localStorage.getItem('rishi_practice_done_' + cid) === '1';
-    var examDone = localStorage.getItem('rishi_chapexam_done_' + cid) === '1';
-
     chData[cid] = {
-      explainDone:explainDone, practiceDone:practiceDone, examDone:examDone,
-      examScore:examScore, examAttempts:examAttempts,
-      explainSessions:exSessCount, practiceSessions:prSessCount,
-      practiceLastDate:prLastDate
+      explainDone:   localStorage.getItem('rishi_explain_done_'+cid) === '1',
+      practiceDone:  localStorage.getItem('rishi_practice_done_'+cid) === '1',
+      examDone:      localStorage.getItem('rishi_chapexam_done_'+cid) === '1',
+      examScore:     parseFloat(localStorage.getItem('rishi_exam_score_'+cid) || '0') || 0,
+      examAttempts:  parseInt(localStorage.getItem('rishi_exam_attempts_'+cid) || '0') || 0,
+      explainSessions: parseInt(exSess[cid] || 0),
+      practiceSessions: parseInt(prSessObj.count || 0),
+      practiceLastDate: prSessObj.lastDate || '',
+      inPlan: !!ac[cid]
     };
   }
-
-  return {chData:chData, heatmap:hm};
+  return {chData:chData, heatmap:hm, activeChapters:ac};
 }
 
 /* ══ SCORING ══ */
 function chReadiness(cd) {
   var score = 0;
-  /* Explain: max 15 */
   if (cd.explainDone) score += 10;
   score += Math.min(cd.explainSessions * 3, 15);
-  /* Practice: max 40 */
   if (cd.practiceDone) score += 30;
   else if (cd.practiceSessions > 0) score += Math.min(cd.practiceSessions * 8, 20);
-  /* Session consistency: max 10 */
   score += Math.min((cd.explainSessions + cd.practiceSessions) * 2, 10);
-  /* Exam: max 35 */
   if (cd.examScore > 0) score += Math.round(cd.examScore * 0.35);
   return Math.min(100, Math.round(score));
 }
@@ -542,14 +511,13 @@ function fmtSecs(s) {
 }
 
 function dispNum(ch, idx) {
-  return typeof ch.id === 'string' && ch.id.indexOf('_') !== -1 ? (idx + 1) : ch.id;
+  return (typeof ch.id === 'string' && ch.id.indexOf('_') !== -1) ? (idx + 1) : ch.id;
 }
 
 /* ══ RENDER ALL ══ */
 function renderAll() {
   var d = loadAll();
   renderHero(d);
-  renderStats(d);
   renderChGrid(d);
   renderTopics(d);
   renderExamDash(d);
@@ -559,18 +527,27 @@ function renderAll() {
 
 /* ══ HERO ══ */
 function renderHero(d) {
-  var total = 0, count = 0, startedCount = 0;
+  var total = 0, count = 0;
+  var totalEx = 0, totalPr = 0, examDoneCount = 0, examScoreSum = 0, examScoreCount = 0;
+
   for (var i = 0; i < CHAPTERS.length; i++) {
     var cd = d.chData[CHAPTERS[i].id];
-    if (isStarted(cd)) { total += chReadiness(cd); count++; startedCount++; }
+    totalEx += cd.explainSessions;
+    totalPr += cd.practiceSessions;
+    if (cd.examDone) examDoneCount++;
+    if (cd.examAttempts > 0) { examScoreSum += cd.examScore; examScoreCount++; }
+    if (isStarted(cd)) { total += chReadiness(cd); count++; }
   }
-  var overall = count ? Math.round(total / count) : 0;
 
+  var overall = count ? Math.round(total / count) : 0;
+  var avgExam = examScoreCount ? Math.round(examScoreSum / examScoreCount) : 0;
+  var planCount = Object.keys(d.activeChapters).length;
+
+  /* Ring */
   var circ = 339.3;
   setTimeout(function() {
     document.getElementById('hero-ring').style.strokeDashoffset = circ - (circ * overall / 100);
   }, 200);
-
   var cur = 0, step = Math.max(1, Math.ceil(overall / 50));
   var t = setInterval(function() {
     cur = Math.min(cur + step, overall);
@@ -580,58 +557,67 @@ function renderHero(d) {
 
   var g = gradeFromPct(overall);
   document.getElementById('hero-headline').textContent =
-    overall >= 75 ? 'Student is on track!' : overall >= 50 ? 'Progress is building.' : startedCount > 0 ? 'Needs more practice.' : 'No activity yet.';
+    overall >= 75 ? 'Student is on track!' : overall >= 50 ? 'Progress is building.' : count > 0 ? 'Needs more practice.' : 'No activity yet.';
   document.getElementById('grade-letter').textContent = g.letter;
   document.getElementById('grade-letter').style.color = g.col;
   document.getElementById('grade-band').textContent = g.band;
   document.getElementById('grade-band').style.color = g.col;
 
-  /* KPI meta */
-  var totalExSess = 0, totalPrSess = 0, examDoneCount = 0;
-  for (var i = 0; i < CHAPTERS.length; i++) {
-    var cd = d.chData[CHAPTERS[i].id];
-    totalExSess += cd.explainSessions;
-    totalPrSess += cd.practiceSessions;
-    if (cd.examDone) examDoneCount++;
-  }
+  /* 5 KPIs in hero — no separate stat row */
   document.getElementById('hero-meta').innerHTML = [
-    {n: totalExSess, l: 'Explain Sessions'},
-    {n: totalPrSess, l: 'Practice Sessions'},
-    {n: startedCount, l: 'Chapters Active'},
-    {n: examDoneCount, l: 'Exams Done'}
+    {n: totalEx,   l: 'Explain Sessions'},
+    {n: totalPr,   l: 'Practice Sessions'},
+    {n: examDoneCount, l: 'Exams Done'},
+    {n: avgExam ? avgExam + '%' : '—', l: 'Avg Exam Score'},
+    {n: planCount || count, l: 'Chapters Active'}
   ].map(function(k) {
-    return '<div><div class="hmeta-n">' + k.n + '</div><div class="hmeta-l">' + k.l + '</div></div>';
+    return '<div class="hmeta"><div class="hmeta-n">' + k.n + '</div><div class="hmeta-l">' + k.l + '</div></div>';
   }).join('');
 
   renderAlerts(d);
 }
 
+/* ══ ALERTS — only for chapters with activity, ties handled ══ */
 function renderAlerts(d) {
   var alerts = [];
   var today = toDateStr(new Date());
-  var bestName = '', bestSc = 0;
 
+  /* Find best readiness score among started chapters */
+  var bestSc = 0;
+  for (var i = 0; i < CHAPTERS.length; i++) {
+    var cd = d.chData[CHAPTERS[i].id];
+    if (!isStarted(cd)) continue;
+    var sc = chReadiness(cd);
+    if (sc > bestSc) bestSc = sc;
+  }
+
+  /* Collect ALL chapters at best score (handle ties) */
+  var bestNames = [];
+  for (var i = 0; i < CHAPTERS.length; i++) {
+    var cd = d.chData[CHAPTERS[i].id];
+    if (!isStarted(cd)) continue;
+    if (chReadiness(cd) === bestSc) bestNames.push(CHAPTERS[i].name);
+  }
+
+  /* Inactive warnings (only started chapters) */
   for (var i = 0; i < CHAPTERS.length; i++) {
     var ch = CHAPTERS[i], cd = d.chData[ch.id];
     if (!isStarted(cd)) continue;
-
-    var sc = chReadiness(cd);
-    if (sc > bestSc) { bestSc = sc; bestName = ch.name; }
-
-    /* Inactive warning (started but no practice in 7+ days) */
     if (cd.practiceLastDate) {
       var dInactive = daysBetween(cd.practiceLastDate, today);
-      if (dInactive >= 7) {
-        alerts.push({type:'warn', txt: ch.name + ': no practice in ' + dInactive + ' days.'});
-      }
+      if (dInactive >= 7) alerts.push({type:'warn', txt: ch.name + ': no practice in ' + dInactive + ' days.'});
     }
-    /* Explain done but practice not done */
     if (cd.explainDone && !cd.practiceDone && cd.explainSessions >= 2) {
-      alerts.push({type:'warn', txt: ch.name + ': explain done — encourage practice now.'});
+      alerts.push({type:'warn', txt: ch.name + ': explain done — time to start practice!'});
     }
   }
 
-  if (bestName) alerts.unshift({type:'ok', txt: bestName + ' is the strongest chapter at ' + bestSc + '% readiness.'});
+  /* Best chapter(s) — positive alert */
+  if (bestNames.length === 1) {
+    alerts.unshift({type:'ok', txt: bestNames[0] + ' is the strongest chapter at ' + bestSc + '% readiness.'});
+  } else if (bestNames.length > 1 && bestSc > 0) {
+    alerts.unshift({type:'ok', txt: bestNames.slice(0,3).join(', ') + ' are all at ' + bestSc + '% — your top chapters.'});
+  }
 
   var anyStarted = false;
   for (var i = 0; i < CHAPTERS.length; i++) { if (isStarted(d.chData[CHAPTERS[i].id])) { anyStarted = true; break; } }
@@ -643,43 +629,10 @@ function renderAlerts(d) {
   for (var i = 0; i < alerts.length; i++) {
     var a = alerts[i];
     var cls = a.type === 'ok' ? 'ai-ok' : a.type === 'danger' ? 'ai-danger' : 'ai-warn';
-    var ico = a.type === 'ok' ? '&#128994;' : a.type === 'danger' ? '&#128308;' : '&#128993;';
+    var ico = a.type === 'ok' ? '&#128994;' : '&#128993;';
     html += '<div class="alert-item ' + cls + '"><span class="ai-ico">' + ico + '</span><span>' + a.txt + '</span></div>';
   }
   document.getElementById('alerts-list').innerHTML = html;
-}
-
-/* ══ STATS ══ */
-function renderStats(d) {
-  var totalEx = 0, totalPr = 0, examCount = 0, examScoreSum = 0;
-  for (var i = 0; i < CHAPTERS.length; i++) {
-    var cd = d.chData[CHAPTERS[i].id];
-    totalEx += cd.explainSessions;
-    totalPr += cd.practiceSessions;
-    if (cd.examAttempts > 0) { examCount++; examScoreSum += cd.examScore; }
-  }
-  var avgExam = examCount ? Math.round(examScoreSum / examCount) : 0;
-
-  /* Streak */
-  var streak = 0;
-  for (var s = 0; s < 84; s++) {
-    var ds = toDateStr(new Date(Date.now() - s * 86400000));
-    if (d.heatmap[ds]) streak++; else break;
-  }
-
-  var items = [
-    {ico:'&#127908;', bg:'rgba(34,201,125,.12)',  n:totalEx,    l:'Explain Sessions'},
-    {ico:'&#128200;', bg:'rgba(74,158,255,.12)',   n:totalPr,    l:'Practice Sessions'},
-    {ico:'&#128221;', bg:'rgba(245,166,35,.12)',   n:avgExam ? avgExam + '%' : '—', l:'Avg Exam Score'},
-    {ico:'&#128293;', bg:'rgba(162,135,250,.12)',  n:streak + 'd', l:'Study Streak'}
-  ];
-  var html = '';
-  for (var i = 0; i < items.length; i++) {
-    var s = items[i];
-    html += '<div class="stat-panel"><div class="stat-ico" style="background:' + s.bg + '">' + s.ico + '</div>';
-    html += '<div><div class="stat-n">' + s.n + '</div><div class="stat-l">' + s.l + '</div></div></div>';
-  }
-  document.getElementById('stats-row').innerHTML = html;
 }
 
 /* ══ CHAPTER GRID ══ */
@@ -698,18 +651,36 @@ function renderChGrid(d) {
       var borderCol = sc >= 75 ? '#22C97D' : sc >= 40 ? '#F5A623' : '#F24C6A';
       var r = 27, circ = 2 * Math.PI * r, off = circ - (circ * sc / 100);
 
-      var examHtml = '';
-      if (cd.examAttempts > 0) {
-        var eCol = cd.examScore >= 70 ? '#22C97D' : cd.examScore >= 50 ? '#F5A623' : '#F24C6A';
-        examHtml = '<div class="ch-exam-row">'
-          + '<div><div class="ch-exam-score" style="color:' + eCol + '">' + cd.examScore
-          + '<span style="font-size:13px;color:var(--muted)">/100</span></div>'
-          + '<div class="ch-exam-label">Exam Score</div></div>'
-          + '<div class="ch-exam-att">' + cd.examAttempts + ' attempt' + (cd.examAttempts !== 1 ? 's' : '') + '</div>'
-          + '</div>';
+      /* Explain metric */
+      var exVal = cd.explainSessions > 0 ? cd.explainSessions : (cd.explainDone ? '&#10003;' : '0');
+      var exCol = cd.explainDone ? '#22C97D' : '#fff';
+
+      /* Practice metric */
+      var prVal, prCol;
+      if (cd.practiceDone && cd.practiceSessions > 0) {
+        prVal = cd.practiceSessions; prCol = '#22C97D';
+      } else if (cd.practiceDone) {
+        prVal = '&#10003;'; prCol = '#22C97D';
+      } else if (cd.practiceSessions > 0) {
+        prVal = cd.practiceSessions; prCol = '#fff';
+      } else {
+        prVal = '0'; prCol = 'rgba(255,255,255,.4)';
       }
+      var prTick = cd.practiceDone && cd.practiceSessions > 0;
+
+      /* Exam metric */
+      var exmVal, exmCol;
+      if (cd.examAttempts > 0) {
+        exmVal = cd.examScore + '%';
+        exmCol = cd.examScore >= 70 ? '#22C97D' : cd.examScore >= 50 ? '#F5A623' : '#F24C6A';
+      } else {
+        exmVal = '&mdash;'; exmCol = 'rgba(255,255,255,.3)';
+      }
+      var exmTick = cd.examDone && cd.examAttempts > 0;
 
       doneHtml += '<div class="ch-card" style="border-left-color:' + borderCol + '">';
+
+      /* Top: info + donut */
       doneHtml += '<div class="ch-card-top">';
       doneHtml += '<div class="ch-card-info">';
       doneHtml += '<div class="ch-num">Chapter ' + dn + ' &middot; ' + ch.topic + '</div>';
@@ -722,21 +693,37 @@ function renderChGrid(d) {
       doneHtml += '</svg><div class="ch-donut-inner"><div class="ch-donut-pct">' + sc + '%</div><div class="ch-donut-sub">Ready</div></div></div>';
       doneHtml += '</div>';
 
+      /* 3-column metrics: Explain | Practice | Exam */
       doneHtml += '<div class="ch-metrics">';
-      doneHtml += '<div class="ch-metric"><div class="ch-metric-n">' + cd.explainSessions + '</div><div class="ch-metric-l">Explain<br>Sessions</div></div>';
-      doneHtml += '<div class="ch-metric"><div class="ch-metric-n">' + cd.practiceSessions + '</div><div class="ch-metric-l">Practice<br>Sessions</div></div>';
-      doneHtml += '<div class="ch-metric"><div class="ch-metric-n" style="color:' + (cd.practiceDone ? '#22C97D' : 'var(--muted)') + '">' + (cd.practiceDone ? '&#10003;' : '&mdash;') + '</div><div class="ch-metric-l">Practice<br>Done</div></div>';
-      doneHtml += '</div>';
-      doneHtml += examHtml;
-      doneHtml += '</div>';
+
+      /* Explain */
+      doneHtml += '<div class="ch-metric"><div class="ch-metric-top">';
+      doneHtml += '<div class="ch-metric-n" style="color:' + exCol + '">' + exVal + '</div>';
+      if (cd.explainDone && cd.explainSessions > 0) doneHtml += '<div class="ch-metric-tick">&#10003;</div>';
+      doneHtml += '</div><div class="ch-metric-l">Explain</div></div>';
+
+      /* Practice */
+      doneHtml += '<div class="ch-metric"><div class="ch-metric-top">';
+      doneHtml += '<div class="ch-metric-n" style="color:' + prCol + '">' + prVal + '</div>';
+      if (prTick) doneHtml += '<div class="ch-metric-tick">&#10003;</div>';
+      doneHtml += '</div><div class="ch-metric-l">Practice</div></div>';
+
+      /* Exam */
+      doneHtml += '<div class="ch-metric"><div class="ch-metric-top">';
+      doneHtml += '<div class="ch-metric-n" style="color:' + exmCol + ';font-size:' + (cd.examAttempts > 0 ? '20' : '22') + 'px">' + exmVal + '</div>';
+      if (exmTick) doneHtml += '<div class="ch-metric-tick">&#10003;</div>';
+      doneHtml += '</div><div class="ch-metric-l">Exam</div></div>';
+
+      doneHtml += '</div>'; /* /ch-metrics */
+      doneHtml += '</div>'; /* /ch-card */
     } else {
       notDoneCount++;
       notDoneHtml += '<div class="ch-btn"><span class="ch-btn-num">Ch' + dn + '</span>' + ch.name + '</div>';
     }
   }
 
-  document.getElementById('ch-done-badge').textContent = doneCount + ' of ' + CHAPTERS.length + ' active';
-  document.getElementById('ch-done-grid').innerHTML = doneHtml || '<div class="no-data">No chapters started yet. Data will appear here as your student studies.</div>';
+  document.getElementById('ch-done-badge').textContent = doneCount + ' of ' + CHAPTERS.length + ' started';
+  document.getElementById('ch-done-grid').innerHTML = doneHtml || '<div class="no-data">No chapters started yet. Data appears here as your student studies.</div>';
 
   var notWrap = document.getElementById('ch-not-done-wrap');
   if (notDoneCount > 0) {
@@ -747,7 +734,7 @@ function renderChGrid(d) {
   }
 }
 
-/* ══ TOPICS ══ */
+/* ══ TOPIC INTELLIGENCE ══ */
 function renderTopics(d) {
   var topics = {};
   for (var i = 0; i < CHAPTERS.length; i++) {
@@ -763,8 +750,7 @@ function renderTopics(d) {
     document.getElementById('topic-grid').innerHTML = '<div class="no-data" style="padding:20px;font-size:14px;">No data yet.</div>';
     return;
   }
-  keys.sort(function(a,b){ return (topics[b].total/topics[b].count) - (topics[a].total/topics[a].count); });
-  var colors = ['#22C97D','#4A9EFF','#F5A623','#A78BFA','#F24C6A','#FB923C','#6C63FF'];
+  keys.sort(function(a,b) { return (topics[b].total/topics[b].count) - (topics[a].total/topics[a].count); });
   var html = '';
   for (var i = 0; i < keys.length; i++) {
     var t = keys[i], td = topics[t];
@@ -782,7 +768,6 @@ function renderTopics(d) {
 /* ══ EXAM DASHBOARD ══ */
 function renderExamDash(d) {
   var rows = [], totalAttempts = 0, scoreSum = 0, bestScore = 0;
-
   for (var i = 0; i < CHAPTERS.length; i++) {
     var ch = CHAPTERS[i], cd = d.chData[ch.id];
     if (cd.examAttempts <= 0) continue;
@@ -791,21 +776,19 @@ function renderExamDash(d) {
     scoreSum += cd.examScore;
     if (cd.examScore > bestScore) bestScore = cd.examScore;
   }
-
   var avgScore = rows.length ? Math.round(scoreSum / rows.length) : 0;
 
-  var summaryHtml = [
-    {n:rows.length, l:'Exams Taken'},
+  document.getElementById('exam-summary').innerHTML = [
+    {n:rows.length,   l:'Exams Taken'},
     {n:totalAttempts, l:'Total Attempts'},
-    {n:avgScore ? avgScore + '%' : '—', l:'Avg Score'},
-    {n:bestScore ? bestScore + '%' : '—', l:'Best Score'}
+    {n:avgScore ? avgScore+'%' : '&#8212;', l:'Avg Score'},
+    {n:bestScore ? bestScore+'%' : '&#8212;', l:'Best Score'}
   ].map(function(k) {
-    return '<div class="exam-kpi"><div class="exam-kpi-n">' + k.n + '</div><div class="exam-kpi-l">' + k.l + '</div></div>';
+    return '<div class="exam-kpi"><div class="exam-kpi-n">'+k.n+'</div><div class="exam-kpi-l">'+k.l+'</div></div>';
   }).join('');
-  document.getElementById('exam-summary').innerHTML = summaryHtml;
 
   if (!rows.length) {
-    document.getElementById('exam-table-wrap').innerHTML = '<div class="no-data" style="padding:20px;font-size:14px;">No exam scores yet.</div>';
+    document.getElementById('exam-table-wrap').innerHTML = '<div class="no-data" style="padding:20px;font-size:14px;">No exam scores yet. They will appear here after chapter exams are attempted.</div>';
     return;
   }
 
@@ -814,17 +797,16 @@ function renderExamDash(d) {
   var tableHtml = '<table class="exam-table"><thead><tr>'
     + '<th>Chapter</th><th>Score</th><th>Grade</th><th>Attempts</th>'
     + '</tr></thead><tbody>';
-
   for (var i = 0; i < rows.length; i++) {
     var row = rows[i], ch = row.ch, cd = row.cd;
     var dn = dispNum(ch, row.idx);
     var g = gradeFromPct(cd.examScore);
     var eCol = cd.examScore >= 70 ? '#22C97D' : cd.examScore >= 50 ? '#F5A623' : '#F24C6A';
     tableHtml += '<tr>';
-    tableHtml += '<td><span style="font-family:var(--font-mono);font-size:12px;color:var(--muted)">Ch' + dn + '</span> ' + ch.name + '</td>';
-    tableHtml += '<td><span class="ex-score-big" style="color:' + eCol + '">' + cd.examScore + '</span><span style="color:var(--muted);font-size:13px">/100</span></td>';
-    tableHtml += '<td><span class="grade-badge" style="background:' + g.col + '22;color:' + g.col + '">' + g.letter + ' &mdash; ' + g.band + '</span></td>';
-    tableHtml += '<td style="font-family:var(--font-mono);color:var(--muted)">' + cd.examAttempts + '</td>';
+    tableHtml += '<td><span style="font-family:var(--font-mono);font-size:12px;color:var(--muted)">Ch'+dn+'</span> '+ch.name+'</td>';
+    tableHtml += '<td><span class="ex-score-big" style="color:'+eCol+'">'+cd.examScore+'</span><span style="color:var(--muted);font-size:13px">/100</span></td>';
+    tableHtml += '<td><span class="grade-badge" style="background:'+g.col+'22;color:'+g.col+'">'+g.letter+' &mdash; '+g.band+'</span></td>';
+    tableHtml += '<td style="font-family:var(--font-mono);color:var(--muted)">'+cd.examAttempts+'</td>';
     tableHtml += '</tr>';
   }
   tableHtml += '</tbody></table>';
@@ -835,16 +817,33 @@ function renderExamDash(d) {
 function setBreakFilter(f) {
   breakFilter = f;
   var btns = document.querySelectorAll('.bfbtn');
-  for (var i = 0; i < btns.length; i++) btns[i].classList.remove('on');
-  event.target.classList.add('on');
+  for (var i = 0; i < btns.length; i++) {
+    btns[i].classList.toggle('on', btns[i].getAttribute('data-filter') === f);
+  }
   renderBreakDash();
+}
+
+function getBreakTypeCls(type) {
+  if (!type) return 'bt-other';
+  if (type === 'Water') return 'bt-water';
+  if (type === 'Washroom') return 'bt-washroom';
+  if (type === 'Physical') return 'bt-physical';
+  if (type.indexOf('Games') !== -1) return 'bt-games';
+  return 'bt-other';
+}
+
+function getBreakTypeIco(type) {
+  if (!type) return '&#9749;';
+  if (type === 'Water') return '&#128167;';
+  if (type === 'Washroom') return '&#128698;';
+  if (type === 'Physical') return '&#127939;';
+  if (type.indexOf('Games') !== -1) return '&#127918;';
+  return '&#9749;';
 }
 
 function renderBreakDash() {
   var log = [];
   try { log = JSON.parse(localStorage.getItem('rishi_break_log') || '[]'); } catch(e) {}
-
-  var filtered = breakFilter === 'all' ? log : log.filter(function(e) { return e.type === breakFilter; });
 
   if (!log.length) {
     document.getElementById('break-kpis').innerHTML = '';
@@ -852,33 +851,41 @@ function renderBreakDash() {
     return;
   }
 
-  /* KPIs from filtered */
-  var totalSecs = 0, typeCounts = {Water:0, Washroom:0, Physical:0};
+  var filtered;
+  if (breakFilter === 'all') {
+    filtered = log;
+  } else if (breakFilter === 'Games') {
+    filtered = log.filter(function(e) { return e.type && e.type.indexOf('Games') !== -1; });
+  } else {
+    filtered = log.filter(function(e) { return e.type === breakFilter; });
+  }
+
+  /* KPIs */
+  var totalSecs = 0, typeSecs = {};
   for (var i = 0; i < filtered.length; i++) {
     totalSecs += filtered[i].secs || 0;
-    var tp = filtered[i].type;
-    if (typeCounts[tp] !== undefined) typeCounts[tp]++; else typeCounts[tp] = (typeCounts[tp] || 0) + 1;
   }
+  /* For max-type (all breaks only) */
+  var tMap = {Water:0, Washroom:0, Physical:0, Games:0};
+  for (var i = 0; i < log.length; i++) {
+    var tp = log[i].type || '';
+    if (tp === 'Water') tMap.Water++;
+    else if (tp === 'Washroom') tMap.Washroom++;
+    else if (tp === 'Physical') tMap.Physical++;
+    else if (tp.indexOf('Games') !== -1) tMap.Games++;
+  }
+  var maxType = 'Water', maxV = 0;
+  var tLabels = {Water:'&#128167; Water', Washroom:'&#128698; Washroom', Physical:'&#127939; Physical', Games:'&#127918; Games'};
+  for (var k in tMap) { if (tMap[k] > maxV) { maxV = tMap[k]; maxType = k; } }
   var avgSecs = filtered.length ? Math.round(totalSecs / filtered.length) : 0;
 
-  /* Max type (only for 'all' filter) */
-  var maxType = '—';
-  if (breakFilter === 'all') {
-    var mx = 0;
-    var tMap = {Water:'&#128167; Water', Washroom:'&#128698; Washroom', Physical:'&#127939; Physical'};
-    for (var tp in typeCounts) {
-      if ((typeCounts[tp] || 0) > mx) { mx = typeCounts[tp]; maxType = tMap[tp] || tp; }
-    }
-  }
-
-  var kpiItems = [
+  document.getElementById('break-kpis').innerHTML = [
     {n: filtered.length, l: 'Total Breaks'},
-    {n: filtered.length ? fmtSecs(totalSecs) : '—', l: 'Total Time'},
-    {n: filtered.length ? fmtSecs(avgSecs) : '—', l: 'Avg per Break'},
-    {n: maxType, l: 'Most Frequent', small: breakFilter !== 'all'}
-  ];
-  document.getElementById('break-kpis').innerHTML = kpiItems.map(function(k) {
-    return '<div class="bk-card"><div class="bk-n"' + (k.small ? ' style="font-size:16px"' : '') + '>' + k.n + '</div><div class="bk-l">' + k.l + '</div></div>';
+    {n: filtered.length ? fmtSecs(totalSecs) : '&#8212;', l: 'Total Time'},
+    {n: filtered.length ? fmtSecs(avgSecs) : '&#8212;', l: 'Avg per Break'},
+    {n: breakFilter === 'all' ? (tLabels[maxType] || maxType) : '&#8212;', l: 'Most Frequent', sm: breakFilter === 'all'}
+  ].map(function(k) {
+    return '<div class="bk-card"><div class="bk-n"'+(k.sm ? ' style="font-size:16px"':'')+'>'+k.n+'</div><div class="bk-l">'+k.l+'</div></div>';
   }).join('');
 
   if (!filtered.length) {
@@ -893,7 +900,6 @@ function renderBreakDash() {
     if (!byDate[dt]) byDate[dt] = [];
     byDate[dt].push(filtered[i]);
   }
-
   var dates = Object.keys(byDate).sort().reverse();
   var MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
   var html = '';
@@ -902,43 +908,38 @@ function renderBreakDash() {
     var date = dates[di], entries = byDate[date];
     var dayTotal = 0;
     for (var j = 0; j < entries.length; j++) dayTotal += entries[j].secs || 0;
-
     var dp = date.split('-');
-    var dateLabel = dp.length === 3 ? (parseInt(dp[2]) + ' ' + MONTHS[parseInt(dp[1])-1] + ' ' + dp[0]) : date;
-    var safeDate = date.replace(/-/g,'');
+    var dateLabel = dp.length === 3 ? (parseInt(dp[2])+' '+MONTHS[parseInt(dp[1])-1]+' '+dp[0]) : date;
+    var safeId = date.replace(/-/g,'') + '_' + di;
 
     html += '<div class="break-date-block">';
-    html += '<div class="break-date-hdr" onclick="toggleBreakDate(\'' + safeDate + '\')">';
-    html += '<div class="break-date-lbl">' + dateLabel + '</div>';
+    html += '<div class="break-date-hdr" onclick="toggleBreakDate(\''+safeId+'\')">';
+    html += '<div class="break-date-lbl">'+dateLabel+'</div>';
     html += '<div style="display:flex;align-items:center;gap:12px;">';
-    html += '<div class="break-date-meta">' + entries.length + ' break' + (entries.length > 1 ? 's' : '') + ' &middot; ' + fmtSecs(dayTotal) + '</div>';
-    html += '<div class="break-date-arrow" id="barrow-' + safeDate + '">&#9660;</div>';
+    html += '<div class="break-date-meta">'+entries.length+' break'+(entries.length>1?'s':'')+' &middot; '+fmtSecs(dayTotal)+'</div>';
+    html += '<div class="break-date-arrow" id="barrow-'+safeId+'">&#9660;</div>';
     html += '</div></div>';
-    html += '<div class="break-rows" id="brows-' + safeDate + '">';
+    html += '<div class="break-rows" id="brows-'+safeId+'">';
 
     for (var j = 0; j < entries.length; j++) {
       var e = entries[j];
-      var typeCls = e.type === 'Water' ? 'bt-water' : e.type === 'Washroom' ? 'bt-washroom' : e.type === 'Physical' ? 'bt-physical' : 'bt-other';
-      var typeIco = e.type === 'Water' ? '&#128167;' : e.type === 'Washroom' ? '&#128698;' : e.type === 'Physical' ? '&#127939;' : '&#9749;';
       html += '<div class="break-row">';
-      html += '<div class="break-time-cell">' + (e.time || '—') + '</div>';
-      html += '<div><span class="break-type-badge ' + typeCls + '">' + typeIco + ' ' + e.type + '</span></div>';
-      html += '<div class="break-dur-cell">' + fmtSecs(e.secs || 0) + '</div>';
+      html += '<div class="break-time-cell">'+(e.time||'&mdash;')+'</div>';
+      html += '<div><span class="break-type-badge '+getBreakTypeCls(e.type)+'">'+getBreakTypeIco(e.type)+' '+(e.type||'Break')+'</span></div>';
+      html += '<div class="break-dur-cell">'+fmtSecs(e.secs||0)+'</div>';
       html += '</div>';
     }
     html += '</div></div>';
   }
-
   document.getElementById('break-log-wrap').innerHTML = html;
 }
 
-function toggleBreakDate(safeDate) {
-  var rows = document.getElementById('brows-' + safeDate);
-  var arrow = document.getElementById('barrow-' + safeDate);
+function toggleBreakDate(safeId) {
+  var rows = document.getElementById('brows-'+safeId);
+  var arrow = document.getElementById('barrow-'+safeId);
   if (!rows) return;
-  var isOpen = rows.classList.contains('open');
-  rows.classList.toggle('open', !isOpen);
-  if (arrow) arrow.classList.toggle('open', !isOpen);
+  var open = rows.classList.toggle('open');
+  if (arrow) arrow.classList.toggle('open', open);
 }
 
 /* ══ SUCCESS EXPLANATION ══ */
@@ -946,11 +947,11 @@ function renderSuccessExplain() {
   var btnsHtml = '', detailHtml = '';
   for (var i = 0; i < SUCCESS_FACTORS.length; i++) {
     var f = SUCCESS_FACTORS[i];
-    btnsHtml += '<button class="suc-btn" onclick="toggleSucFactor(' + i + ')">' + f.ico + ' ' + f.label + '</button>';
-    detailHtml += '<div class="suc-detail" id="suc-d-' + i + '">'
-      + '<div class="suc-detail-title">' + f.ico + ' ' + f.label + '</div>'
-      + '<div class="suc-detail-weight">' + f.weight + '</div>'
-      + '<div class="suc-detail-desc">' + f.desc + '</div>'
+    btnsHtml += '<button class="suc-btn" onclick="toggleSucFactor('+i+')">'+f.ico+' '+f.label+'</button>';
+    detailHtml += '<div class="suc-detail" id="suc-d-'+i+'">'
+      + '<div class="suc-detail-title">'+f.ico+' '+f.label+'</div>'
+      + '<div class="suc-detail-weight">'+f.weight+'</div>'
+      + '<div class="suc-detail-desc">'+f.desc+'</div>'
       + '</div>';
   }
   document.getElementById('suc-btns').innerHTML = btnsHtml;
@@ -961,7 +962,6 @@ function toggleSucFactor(idx) {
   var btns = document.querySelectorAll('.suc-btn');
   var details = document.querySelectorAll('.suc-detail');
   if (sucActive === idx) {
-    /* Close */
     btns[idx].classList.remove('on');
     details[idx].classList.remove('on');
     sucActive = -1;
@@ -977,7 +977,7 @@ function toggleSucFactor(idx) {
 function renderTimestamp() {
   var now = new Date();
   document.getElementById('ts-lbl').textContent =
-    now.toLocaleDateString('en-IN',{day:'numeric',month:'short'}) + ' ' +
+    now.toLocaleDateString('en-IN',{day:'numeric',month:'short'})+' '+
     now.toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'});
 }
 
@@ -1009,11 +1009,10 @@ window.onload = function() {
   if (info.id) {
     input.value = info.id;
     loadParentClassData();
-
     if (window.rishiSync) {
       rishiSync.selectStudent(info.id, function() {
         input.classList.add('synced');
-        loadParentClassData(); /* refresh after D1 pull may populate registrations */
+        loadParentClassData();
         renderAll();
       });
     } else {
@@ -1022,16 +1021,13 @@ window.onload = function() {
   } else {
     loadParentClassData();
     renderAll();
-    /* Show a hint */
-    document.getElementById('hero-headline').textContent = 'Type student name above';
+    document.getElementById('hero-headline').textContent = 'Type student name above to load';
   }
 
   /* Auto-refresh from cloud every 60s */
   setInterval(function() {
     renderTimestamp();
-    if (window.rishiSync) {
-      rishiSync.pull(function() { renderAll(); });
-    }
+    if (window.rishiSync) rishiSync.pull(function() { renderAll(); });
   }, 60000);
 };
 </script>
