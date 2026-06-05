@@ -2840,30 +2840,37 @@ function modifyPlan(planId) {
   var plan = plans.find(function(p) { return p.id === planId; });
   if (!plan) return;
   var currentChIds = plan.chapters.map(function(c) { return c.id; });
+  var defaultTarget = toDateStr(new Date(Date.now() + 14*86400000));
+
+  /* Build chapter rows with checkbox + date picker */
+  var chHtml = CHAPTERS.map(function(ch) {
+    var checked = currentChIds.indexOf(ch.id) > -1;
+    var existing = plan.chapters.find(function(c) { return c.id === ch.id; });
+    var dateVal = existing ? existing.targetDate : defaultTarget;
+    return '<div id="planrow-'+ch.id+'" style="display:flex;align-items:center;gap:10px;padding:10px 12px;border:1.5px solid '+(checked?'var(--navy)':'var(--border)')+';border-radius:10px;margin-bottom:6px;background:'+(checked?'#eff6ff':'white')+'">'
+      + '<input type="checkbox" data-chid="'+ch.id+'" '+(checked?'checked':'')+' onchange="onPlanChToggle(this)" style="width:16px;height:16px;accent-color:var(--navy);cursor:pointer;flex-shrink:0;">'
+      + '<span style="font-size:14px;font-weight:700;flex:1;cursor:pointer;" onclick="this.previousElementSibling.click()">Ch '+ch.id+': '+ch.name+'</span>'
+      + '<div id="plandate-'+ch.id+'" style="display:'+(checked?'flex':'none')+';align-items:center;gap:6px;flex-shrink:0;">'
+      + '<span style="font-size:11px;color:#666;font-weight:600;white-space:nowrap;">Target:</span>'
+      + '<input type="date" data-date-chid="'+ch.id+'" value="'+dateVal+'" style="border:1.5px solid var(--navy);border-radius:6px;padding:5px 8px;font-size:13px;color:var(--navy);cursor:pointer;">'
+      + '</div>'
+      + '</div>';
+  }).join('');
 
   /* Build modal */
   var overlay = document.createElement('div');
   overlay.id = 'modify-plan-modal';
   overlay.style.cssText = 'position:fixed;inset:0;z-index:99999;background:rgba(15,34,64,.7);display:flex;align-items:center;justify-content:center;padding:16px;';
 
-  var chHtml = CHAPTERS.map(function(ch) {
-    var checked = currentChIds.indexOf(ch.id) > -1;
-    var existing = plan.chapters.find(function(c) { return c.id === ch.id; });
-    return '<label style="display:flex;align-items:center;gap:8px;padding:8px 10px;border:1.5px solid '+(checked?'var(--navy)':'var(--border)')+';border-radius:8px;cursor:pointer;margin-bottom:5px;background:'+(checked?'#eff6ff':'white')+';font-size:14px;font-weight:600;">'
-      + '<input type="checkbox" data-chid="'+ch.id+'" '+(checked?'checked':'')+' style="width:15px;height:15px;accent-color:var(--navy);cursor:pointer;">'
-      + '<span>Ch '+ch.id+': '+ch.name+'</span>'
-      + '</label>';
-  }).join('');
-
   overlay.innerHTML =
-    '<div style="background:white;border-radius:20px;max-width:480px;width:100%;max-height:90vh;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.3);">'
+    '<div style="background:white;border-radius:20px;max-width:520px;width:100%;max-height:90vh;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.3);">'
     +'<div style="background:linear-gradient(135deg,#0f2240,#1a3560);padding:18px 20px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;">'
       +'<div><div style="font-size:16px;font-weight:900;color:white;">&#9998; Modify Plan: '+plan.examName+'</div>'
-      +'<div style="font-size:12px;color:rgba(255,255,255,.5);margin-top:2px;">Check/uncheck chapters. Dates for new chapters default to today +14 days.</div></div>'
+      +'<div style="font-size:12px;color:rgba(255,255,255,.55);margin-top:3px;">Check chapters to include &bull; Edit target date for each chapter</div></div>'
       +'<button onclick="document.getElementById(\'modify-plan-modal\').remove()" style="background:rgba(255,255,255,.15);border:none;color:white;width:32px;height:32px;border-radius:50%;font-size:16px;cursor:pointer;">&#10005;</button>'
     +'</div>'
     +'<div style="padding:16px 20px;overflow-y:auto;flex:1;">'
-      +'<div style="font-size:11px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;">Select chapters for this plan:</div>'
+      +'<div style="font-size:11px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;">&#10003; Include chapter &nbsp;&nbsp; &#128197; Set target date</div>'
       + chHtml
     +'</div>'
     +'<div style="padding:14px 20px;border-top:1px solid var(--border);display:flex;gap:10px;flex-shrink:0;">'
@@ -2873,15 +2880,21 @@ function modifyPlan(planId) {
     +'</div>';
 
   document.body.appendChild(overlay);
+}
 
-  /* Style checkboxes to update row highlight on change */
-  overlay.querySelectorAll('input[type=checkbox]').forEach(function(cb) {
-    cb.addEventListener('change', function() {
-      var lbl = cb.closest('label');
-      if(cb.checked){ lbl.style.borderColor='var(--navy)'; lbl.style.background='#eff6ff'; }
-      else { lbl.style.borderColor='var(--border)'; lbl.style.background='white'; }
-    });
-  });
+function onPlanChToggle(cb) {
+  var chId = cb.getAttribute('data-chid');
+  var row = document.getElementById('planrow-' + chId);
+  var dateWrap = document.getElementById('plandate-' + chId);
+  if (cb.checked) {
+    row.style.borderColor = 'var(--navy)';
+    row.style.background = '#eff6ff';
+    if (dateWrap) dateWrap.style.display = 'flex';
+  } else {
+    row.style.borderColor = 'var(--border)';
+    row.style.background = 'white';
+    if (dateWrap) dateWrap.style.display = 'none';
+  }
 }
 
 function saveModifiedPlan(planId) {
@@ -2906,14 +2919,15 @@ function saveModifiedPlan(planId) {
   var defaultTarget = toDateStr(new Date(Date.now() + 14*86400000));
   var color = plan.examColor || '#6C63FF';
 
-  /* Keep existing chapters' dates; assign defaults for new ones */
+  /* Build updated chapters reading date inputs from modal */
   var updatedChapters = newChIds.map(function(chId) {
     var existing = plan.chapters.find(function(c) { return c.id === chId; });
-    if (existing) return existing;
+    var dateInput = modal.querySelector('input[data-date-chid="' + chId + '"]');
+    var pickedDate = dateInput && dateInput.value ? dateInput.value : '';
     return {
       id: chId,
-      startDate: today,
-      targetDate: defaultTarget,
+      startDate: existing ? existing.startDate : today,
+      targetDate: pickedDate || (existing ? existing.targetDate : defaultTarget),
       color: color,
       examId: plan.examId
     };
