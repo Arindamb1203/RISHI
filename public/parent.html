@@ -2931,11 +2931,12 @@ function saveModifiedPlan(planId) {
     var startInput = modal.querySelector('input[data-start-chid="' + chId + '"]');
     var pickedTarget = dateInput  && dateInput.value  ? dateInput.value  : '';
     var pickedStart  = startInput && startInput.value ? startInput.value : '';
+    var chInfo = CHAPTERS.find(function(c) { return c.id == chId; });
     if (existing) {
       return {
         id:         existing.id,
-        name:       existing.name,
-        topic:      existing.topic,
+        name:       (existing.name && existing.name !== 'undefined') ? existing.name : (chInfo ? chInfo.name : ''),
+        topic:      (existing.topic && existing.topic !== 'undefined') ? existing.topic : (chInfo ? chInfo.topic : ''),
         color:      existing.color || color,
         examId:     existing.examId || plan.examId,
         mode:       existing.mode || 'explain',
@@ -2943,7 +2944,6 @@ function saveModifiedPlan(planId) {
         targetDate: pickedTarget || existing.targetDate
       };
     }
-    var chInfo = CHAPTERS.find(function(c) { return c.id == chId; });
     return {
       id:         chId,
       name:       chInfo ? chInfo.name  : '',
@@ -3018,9 +3018,10 @@ function renderActivePlans() {
       else if (dLeft <= 7) { dlText = dLeft + 'd left'; dlCls = 'dl-warn'; }
       else { dlText = dLeft + 'd left'; dlCls = 'dl-good'; }
 
+      var pchName = (pch.name && pch.name !== 'undefined') ? pch.name : (function(){ var c = CHAPTERS.find(function(x){ return x.id == pch.id; }); return c ? c.name : 'Ch '+pch.id; })();
       html += '<div class="plan-ch-row">';
       html += '<span class="ch-chip" style="background:' + pch.color + '">Ch ' + pch.id + '</span>';
-      html += '<span class="ch-chip-name">' + pch.name + '</span>';
+      html += '<span class="ch-chip-name">' + pchName + '</span>';
       html += '<span class="dl-badge ' + dlCls + '">' + dlText + '</span>';
       html += '</div>';
     }
