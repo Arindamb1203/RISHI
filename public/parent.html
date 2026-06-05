@@ -903,6 +903,9 @@ button{font-family:'Outfit',sans-serif;}
         <div class="card-title">&#9749; Break Statistics</div>
         <div class="break-stat-row" id="perf-break-stats"></div>
         <div id="perf-break-log"></div>
+        <div style="margin-top:14px">
+          <button class="btn btn-ghost btn-sm" onclick="resetBreaks()">&#128260; Reset Break History</button>
+        </div>
       </div>
 
       <!-- Coins -->
@@ -3150,6 +3153,19 @@ function renderBreakStats() {
   }
   html += '</tbody></table></div>';
   document.getElementById('perf-break-log').innerHTML = html;
+}
+
+function resetBreaks() {
+  if (!confirm('Reset break history to 0? This clears all recorded breaks for this student.')) return;
+  var sid = getStudentId();
+  localStorage.setItem('rishi_break_log', '[]');
+  if (sid && sid !== 'default') {
+    fetch('/d1-sync', {method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({action:'set', studentId: sid, key: 'rishi_break_log', value: '[]'})
+    }).catch(function(){});
+  }
+  renderBreakStats();
+  alert('Break history reset.');
 }
 
 function renderCoins() {
