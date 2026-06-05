@@ -131,10 +131,19 @@ Notable corrections (29 May 2026):
 
 ### Exam JSON Format (critical — do not use old format)
 - Working format: `text`, `options: {a,b,c,d}`, `correct: 'a'/'b'/'c'/'d'`, `explanation`
-- questions.js FOLDER_MAP for class 8 now includes: 01,02,03,04,05,**06,07**,08,09,10,11a,11b,12,13,14,15,16,17,**18**
-- questions.js exam priority: **static file FIRST** (if in FOLDER_MAP), then KV fallback — prevents stale KV bank data
-- ch06, ch07, ch18 exam JSONs: fully rewritten to 52-question format (05 Jun 2026)
-- ch07: 5 additional errors fixed (B_003, B_009, C_002 wrong correct field, C_003 wrong correct field, D_004 question/answer mismatch)
+- Section D uses `answer_type` / `correct_answer` / `accepted_forms` (direct text input) — this is intentional, not a bug
+- questions.js exam priority: **static file FIRST** (if chapter is in FOLDER_MAP), then KV fallback — never revert
+- CBSE ch06, ch07, ch18: fully rewritten to 52-question format (05 Jun 2026)
+- CBSE ch07: 5 additional errors fixed (B_003, B_009, C_002, C_003 wrong correct fields, D_004 mismatch)
+- ICSE class8/ch07: Section A had 6 stray strings + wrong correct field — fixed (05 Jun 2026)
+
+### questions.js FOLDER_MAP (updated 05 Jun 2026)
+- Lookup order: `FOLDER_MAP["${board}_${cls}"]` → `FOLDER_MAP["${cls}"]` → `{}`
+- `"cbse_8"` key: CBSE class 8 grouped folders (ch08/12/13 in ch01 folder, ch09/14 in ch02, etc.)
+- `"icse_8"` key: ICSE class 8 — 1:1 mapping ch01-ch21 (separate from CBSE class 8 due to folder grouping conflict)
+- `"9"` key: CBSE + ICSE class 9, ch01-ch12
+- `"7"` key: CBSE ch01-ch08 + ICSE ch01-ch22 (expanded 05 Jun 2026)
+- `"6"` key: CBSE ch01-ch10 + ICSE ch01-ch28 (added 05 Jun 2026; CBSE class 6 was missing entirely)
 
 ## Games (updated 05 Jun 2026)
 - **Confirmation dialog**: before starting any game, shows coins owned / cost / time remaining / coins after — student must confirm
