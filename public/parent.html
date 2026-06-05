@@ -900,12 +900,12 @@ button{font-family:'Outfit',sans-serif;}
 
       <!-- Break Stats -->
       <div class="card perf-sec">
-        <div class="card-title">&#9749; Break Statistics</div>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:8px;">
+          <div class="card-title" style="margin-bottom:0">&#9749; Break Statistics</div>
+          <button class="btn btn-ghost btn-sm" onclick="resetBreaks()">&#128260; Reset</button>
+        </div>
         <div class="break-stat-row" id="perf-break-stats"></div>
         <div id="perf-break-log"></div>
-        <div style="margin-top:14px">
-          <button class="btn btn-ghost btn-sm" onclick="resetBreaks()">&#128260; Reset Break History</button>
-        </div>
       </div>
 
       <!-- Coins -->
@@ -1782,6 +1782,11 @@ function initMainPortal() {
         if(badge2) badge2.innerHTML = (regC.studentName.split(' ')[0] || regC.studentName) + '<br><span style="font-size:9px;opacity:.65;letter-spacing:.3px">' + sId + '</span>';
       }
     }
+    /* Restore last active tab (skip ?tab= URL param which is handled separately) */
+    var savedTab = sessionStorage.getItem('rishi_parent_tab');
+    if (savedTab && !new URLSearchParams(window.location.search).get('tab')) {
+      switchTab(savedTab);
+    }
   });
   /* Poll every 10s: fetch fresh D1 data + re-render live status + check for notifications */
   setInterval(function() {
@@ -1863,6 +1868,7 @@ function refreshFromCloud() {
 // TABS
 // ===========================
 function switchTab(tab) {
+  sessionStorage.setItem('rishi_parent_tab', tab);
   document.getElementById('tab-plan').className = 'tab-btn' + (tab === 'plan' ? ' on' : '');
   document.getElementById('tab-perf').className = 'tab-btn' + (tab === 'perf' ? ' on' : '');
   document.getElementById('tab-dash').className = 'tab-btn' + (tab === 'dash' ? ' on' : '');
