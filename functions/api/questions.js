@@ -8,68 +8,79 @@
  * Key pattern: {board}_{class}_ch{id}_{type}
  * e.g. cbse_8_ch01_exam, cbse_9_ch01_exam
  *
- * Falls back to static JSON file if KV key not found.
+ * Priority: KV first, static file fallback.
+ * Exception: if KV returns bank-format data (questions array, Section A only)
+ * for type=exam, skip it and use the static file — this handles CBSE class 8
+ * chapters 06/07/18 which had stale 15-question bank data in KV.
  *
  * Class 8 — JSON files grouped by topic folder:
  *   ch01/ → ch01, ch08, ch12, ch13  (Arithmetic)
  *   ch02/ → ch02, ch09, ch14        (Algebra)
  *   ch03/ → ch03, ch04, ch10        (Geometry)
  *   ch05/ → ch05                    (Data Handling)
+ *   ch06/ → ch06  (Squares & Square Roots)
+ *   ch07/ → ch07  (Cubes & Cube Roots)
  *   ch11/ → ch11a, ch11b            (Mensuration)
  *   ch15/ → ch15                    (Intro to Graphs)
  *   ch16/ → ch16                    (Playing with Numbers)
+ *   ch17/ → ch17
+ *   ch18/ → ch18  (Story of Numbers)
  *
  * Class 9 — one chapter per folder (1:1 mapping):
- *   ch01/ → ch01  (Real Numbers)
- *   ch02/ → ch02  (Polynomials)
- *   ch03/ → ch03  (Linear Equations in Two Variables)
- *   ch04/ → ch04  (Coordinate Geometry)
- *   ch05/ → ch05  (Euclid's Geometry)
- *   ch06/ → ch06  (Lines and Angles)
- *   ch07/ → ch07  (Triangles)
- *   ch08/ → ch08  (Quadrilaterals)
- *   ch09/ → ch09  (Circles)
- *   ch10/ → ch10  (Heron's Formula)
- *   ch11/ → ch11  (Surface Areas and Volumes)
- *   ch12/ → ch12  (Statistics)
+ *   ch01–ch12
+ *
+ * Class 7 — one chapter per folder:
+ *   ch01–ch08
  */
 
-// Helper: build a 1:1 chXX→chXX map for a range of chapter numbers
-function _chMap(nums) {
-  const m = {};
-  nums.forEach(function(n) {
-    const k = String(n).padStart(2,'0');
-    m[k] = 'ch' + k;
-  });
-  return m;
-}
-function _range(a, b) { const r=[]; for(let i=a;i<=b;i++) r.push(i); return r; }
-
-// FOLDER_MAP[key][chId] → folder name
-// Keys: plain class number (CBSE default), or "icse_N" for ICSE-specific overrides.
-// Lookup order (in code below): "${board}_${cls}" → "${cls}" → {}
+// Class-aware folder maps: FOLDER_MAP[class][chId] → folder name
+// Only CBSE class 8 has non-1:1 groupings. All other classes served from KV.
 const FOLDER_MAP = {
-  // CBSE class 8 — some chapters share topic folders (non-1:1)
-  "cbse_8": {
-    "01":  "ch01", "08": "ch01", "12": "ch01", "13": "ch01",
-    "02":  "ch02", "09": "ch02", "14": "ch02",
-    "03":  "ch03", "04": "ch03", "10": "ch03",
+  "8": {
+    "01":  "ch01",
+    "08":  "ch01",
+    "12":  "ch01",
+    "13":  "ch01",
+    "02":  "ch02",
+    "09":  "ch02",
+    "14":  "ch02",
+    "03":  "ch03",
+    "04":  "ch03",
+    "10":  "ch03",
     "05":  "ch05",
-    "06":  "ch06", "07": "ch07",
-    "11a": "ch11", "11b": "ch11",
-    "15":  "ch15", "16": "ch16", "17": "ch17", "18": "ch18",
+    "06":  "ch06",
+    "07":  "ch07",
+    "11a": "ch11",
+    "11b": "ch11",
+    "15":  "ch15",
+    "16":  "ch16",
+    "17":  "ch17",
+    "18":  "ch18",
   },
-  // ICSE class 8 — 1:1 mapping, ch01-ch21
-  "icse_8": _chMap(_range(1, 21)),
-  // CBSE class 9 — 1:1 ch01-ch12
-  "9": _chMap(_range(1, 12)),
-  // Class 7 — CBSE ch01-ch08, ICSE ch01-ch22 (1:1 for all)
-  "7": _chMap(_range(1, 22)),
-  // Class 6 — CBSE ch01-ch10, ICSE up to ch28; gaps (ch07,ch12,ch17,ch24,ch25,ch27) may not exist but won't error
-  "6": Object.assign(_chMap(_range(1, 28)), {
-    // ICSE class 6 has gaps — known present: 01-06,08-11,13-16,18-23,26,28
-    // Missing folders gracefully return 404 and fall to KV
-  }),
+  "9": {
+    "01": "ch01",
+    "02": "ch02",
+    "03": "ch03",
+    "04": "ch04",
+    "05": "ch05",
+    "06": "ch06",
+    "07": "ch07",
+    "08": "ch08",
+    "09": "ch09",
+    "10": "ch10",
+    "11": "ch11",
+    "12": "ch12",
+  },
+  "7": {
+    "01": "ch01",
+    "02": "ch02",
+    "03": "ch03",
+    "04": "ch04",
+    "05": "ch05",
+    "06": "ch06",
+    "07": "ch07",
+    "08": "ch08",
+  },
 };
 
 
@@ -128,56 +139,45 @@ export async function onRequestGet(context) {
   const kvKey = `${board}_${cls}_ch${chIdPadded}_${type}`;
 
   try {
-    const classMap = FOLDER_MAP[`${board}_${cls}`] || FOLDER_MAP[cls] || {};
-    const folder   = classMap[chIdPadded];
-
-    // For exam type: if a static file exists in FOLDER_MAP, try it FIRST.
-    // This prevents stale KV bank-format data (Section A only) from overriding
-    // the authoritative 52-question static exam files.
-    if (type === "exam" && folder) {
-      const fileName  = `ch${chIdPadded}-exam.json`;
-      const staticPath = `/data/${board}/class${cls}/${folder}/${fileName}`;
-      const staticUrl  = new URL(staticPath, request.url);
-      const staticRes  = await fetch(staticUrl.toString());
-      if (staticRes.ok) {
-        const text = await staticRes.text();
-        return new Response(text, {
-          status: 200,
-          headers: corsHeaders("application/json"),
-        });
-      }
-    }
-
-    // 1. Try KV (try both _exam and _chapter_exam tags)
+    // 1. Try KV first (authoritative for all OpenAI-generated content)
     if (env.RISHI_QUESTIONS) {
       const kvKey2 = `${board}_${cls}_ch${chIdPadded}_chapter_exam`;
       let kvData = await env.RISHI_QUESTIONS.get(kvKey);
       if (!kvData) kvData = await env.RISHI_QUESTIONS.get(kvKey2);
       if (kvData) {
-        // Parse and check if it's the new bank format (has questions array)
         try {
           const parsed = JSON.parse(kvData);
           if (parsed.questions && Array.isArray(parsed.questions)) {
-            // New bank format → convert to sections format
-            return new Response(JSON.stringify(bankToSections(parsed)), {
+            // Bank format (Section A only) — for exam type, this is incomplete.
+            // Skip and fall through to static file which has full 52-question exam.
+            if (type === "exam") {
+              // fall through to static below
+            } else {
+              return new Response(JSON.stringify(bankToSections(parsed)), {
+                status: 200,
+                headers: corsHeaders("application/json"),
+              });
+            }
+          } else {
+            // Proper sections format — return as-is
+            return new Response(kvData, {
               status: 200,
               headers: corsHeaders("application/json"),
             });
           }
-        } catch(e) {}
-        // Old sections format — return as-is
-        return new Response(kvData, {
-          status: 200,
-          headers: corsHeaders("application/json"),
-        });
+        } catch(e) {
+          // Unparseable KV data — fall through to static
+        }
       }
     }
 
-    // 2. Fall back to static JSON using class-aware folder map (for non-exam type
-    //    or when static exam file was not found above)
+    // 2. Fall back to static JSON using class-aware folder map
+    const classMap = FOLDER_MAP[cls] || {};
+    const folder   = classMap[chIdPadded];
+
     if (!folder) {
       return new Response(
-        JSON.stringify({ error: `Unknown chapter id: ${ch} for class ${cls}` }),
+        JSON.stringify({ error: `Questions not found for class ${cls} ch ${ch}` }),
         { status: 404, headers: corsHeaders("application/json") }
       );
     }
