@@ -720,7 +720,7 @@ button{font-family:'Outfit',sans-serif;}
 
       <div class="instr-slab"><div class="instr-slab-num">STEP 2</div><div class="instr-slab-txt"><b>Set the Date Range</b> — RISHI will suggest ideal timelines. You can change them, but it won't allow less than the minimum time needed per chapter.</div></div>
 
-      <div class="instr-slab"><div class="instr-slab-num">STEP 3</div><div class="instr-slab-txt"><b>Set Study Time Slots</b> — Go to the Study Slots tab. Change the predefined times to suit your child's schedule. Times are in <b>24-hour format</b>.</div></div>
+      <div class="instr-slab"><div class="instr-slab-num">STEP 3</div><div class="instr-slab-txt"><b>Set Study Time Slots</b> — Scroll down inside the Study Plan tab. Change the predefined times to suit your child's schedule. Times are in <b>24-hour format</b>.</div></div>
 
       <div class="instr-slab"><div class="instr-slab-num">STEP 4</div><div class="instr-slab-txt"><b>Watch the Dashboard</b> — It shows your child's activity, scores, chapter completion, and progress trends — all in one place.</div></div>
 
@@ -799,7 +799,6 @@ button{font-family:'Outfit',sans-serif;}
     <button class="tab-btn on" id="tab-plan" onclick="switchTab('plan')">&#128203; Study Plan</button>
     <button class="tab-btn" id="tab-perf" onclick="switchTab('perf')">&#128202; Performance</button>
     <button class="tab-btn" id="tab-dash" onclick="window.location.href='/parent-dashboard.html'">&#9889; Analytics</button>
-    <button class="tab-btn" id="tab-slots" onclick="switchTab('slots')">&#9201; Study Slots</button>
     <button class="tab-btn" id="tab-live" onclick="switchTab('live')">&#128241; Live Status</button>
     <button class="tab-btn" id="tab-smart" onclick="window.location.href='/smart-maths.html'">&#129504; Smart Maths</button>
     <button class="tab-btn" id="tab-refer" onclick="window.location.href='/referral.html'" style="color:#39FF14;">&#127873; Refer &amp; Earn</button>
@@ -876,6 +875,37 @@ button{font-family:'Outfit',sans-serif;}
       <div class="sec-hdr">Active Study Plans</div>
       <div id="active-plans-con"></div>
 
+      <!-- Study Slots (merged into Plan tab) -->
+      <div class="sec-hdr">&#9201; Study Time Slots</div>
+      <div class="card">
+        <div style="font-size:15px;color:var(--muted);margin-bottom:20px;line-height:1.6;">
+          Set the hours when the student is allowed to study. Outside these hours, RISHI will show a lock screen.
+          Leave empty to allow study at any time.
+        </div>
+
+        <!-- Add slot form -->
+        <div style="display:flex;gap:12px;align-items:flex-end;flex-wrap:wrap;margin-bottom:24px;">
+          <div>
+            <label class="login-lbl" style="font-size:13px;">From</label>
+            <input type="time" id="slot-start" class="login-inp" style="width:130px;padding:10px 12px;" value="09:00">
+          </div>
+          <div>
+            <label class="login-lbl" style="font-size:13px;">To</label>
+            <input type="time" id="slot-end" class="login-inp" style="width:130px;padding:10px 12px;" value="12:00">
+          </div>
+          <button class="btn btn-pri btn-sm" onclick="addSlot()" style="padding:10px 22px;font-size:14px;">&#43; Add Slot</button>
+        </div>
+
+        <div id="slots-err" style="color:var(--red);font-size:14px;font-weight:600;display:none;margin-bottom:12px;"></div>
+
+        <!-- Slots list -->
+        <div id="slots-list"></div>
+
+        <div id="slots-empty" style="text-align:center;padding:24px;color:var(--muted);font-size:14px;display:none;">
+          No slots set — student can study at any time.
+        </div>
+      </div>
+
     </div><!-- /view-plan -->
 
     <!-- ===== PERFORMANCE TAB ===== -->
@@ -922,38 +952,6 @@ button{font-family:'Outfit',sans-serif;}
     <!-- ===== ANALYTICS TAB ===== -->
     <div id="view-dash" class="hidden"></div>
 
-    <!-- ===== SLOTS TAB ===== -->
-    <div id="view-slots" class="hidden">
-      <div class="card">
-        <div class="card-title">&#9201; Allowed Study Time Slots</div>
-        <div style="font-size:15px;color:var(--muted);margin-bottom:20px;line-height:1.6;">
-          Set the hours when the student is allowed to study. Outside these hours, RISHI will show a lock screen.
-          Leave empty to allow study at any time.
-        </div>
-
-        <!-- Add slot form -->
-        <div style="display:flex;gap:12px;align-items:flex-end;flex-wrap:wrap;margin-bottom:24px;">
-          <div>
-            <label class="login-lbl" style="font-size:13px;">From</label>
-            <input type="time" id="slot-start" class="login-inp" style="width:130px;padding:10px 12px;" value="09:00">
-          </div>
-          <div>
-            <label class="login-lbl" style="font-size:13px;">To</label>
-            <input type="time" id="slot-end" class="login-inp" style="width:130px;padding:10px 12px;" value="12:00">
-          </div>
-          <button class="btn btn-pri btn-sm" onclick="addSlot()" style="padding:10px 22px;font-size:14px;">&#43; Add Slot</button>
-        </div>
-
-        <div id="slots-err" style="color:var(--red);font-size:14px;font-weight:600;display:none;margin-bottom:12px;"></div>
-
-        <!-- Slots list -->
-        <div id="slots-list"></div>
-
-        <div id="slots-empty" style="text-align:center;padding:24px;color:var(--muted);font-size:14px;display:none;">
-          No slots set — student can study at any time.
-        </div>
-      </div>
-    </div><!-- /view-slots -->
 
     <!-- ===== LIVE STATUS TAB ===== -->
     <div id="view-live" class="hidden">
@@ -1784,8 +1782,11 @@ function initMainPortal() {
     }
     /* Restore last active tab (skip ?tab= URL param which is handled separately) */
     var savedTab = sessionStorage.getItem('rishi_parent_tab');
+    if (savedTab === 'slots') savedTab = 'plan';
     if (savedTab && !new URLSearchParams(window.location.search).get('tab')) {
       switchTab(savedTab);
+    } else {
+      renderSlots();
     }
   });
   /* Poll every 10s: fetch fresh D1 data + re-render live status + check for notifications */
@@ -1872,15 +1873,13 @@ function switchTab(tab) {
   document.getElementById('tab-plan').className = 'tab-btn' + (tab === 'plan' ? ' on' : '');
   document.getElementById('tab-perf').className = 'tab-btn' + (tab === 'perf' ? ' on' : '');
   document.getElementById('tab-dash').className = 'tab-btn' + (tab === 'dash' ? ' on' : '');
-  document.getElementById('tab-slots').className = 'tab-btn' + (tab === 'slots' ? ' on' : '');
   document.getElementById('tab-live').className  = 'tab-btn' + (tab === 'live'  ? ' on' : '');
   document.getElementById('view-plan').className  = tab === 'plan'  ? '' : 'hidden';
   document.getElementById('view-perf').className  = tab === 'perf'  ? '' : 'hidden';
   document.getElementById('view-dash').className  = tab === 'dash'  ? '' : 'hidden';
-  document.getElementById('view-slots').className = tab === 'slots' ? '' : 'hidden';
   document.getElementById('view-live').className  = tab === 'live'  ? '' : 'hidden';
   if (tab === 'perf')  loadStudentFromD1(function(){ renderPerformance(); });
-  if (tab === 'slots') renderSlots();
+  if (tab === 'plan')  renderSlots();
   if (tab === 'live')  renderLive();
 }
 
