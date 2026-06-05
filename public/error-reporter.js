@@ -33,21 +33,21 @@
 
   var css = `
   #rishi-float-btn {
-    position:fixed;bottom:24px;right:20px;z-index:9999;
+    position:fixed;bottom:16px;right:14px;z-index:9999;
     display:flex;flex-direction:column;align-items:center;cursor:pointer;user-select:none;
   }
-  #rishi-float-wrap { position:relative;width:90px; }
+  #rishi-float-wrap { position:relative;width:58px; }
   #rishi-float-img {
-    width:90px;height:auto;display:block;
+    width:58px;height:auto;display:block;
     filter:drop-shadow(0 4px 12px rgba(200,146,42,.35));transition:transform .2s;
   }
   #rishi-float-btn:hover #rishi-float-img { transform:translateY(-3px); }
   #rishi-float-blink {
-    position:absolute;top:28px;left:14px;width:62px;height:10px;
+    position:absolute;top:18px;left:9px;width:40px;height:7px;
     background:#f0c8a0;border-radius:3px;opacity:0;pointer-events:none;
   }
   #rishi-float-dot {
-    position:absolute;top:2px;left:2px;width:13px;height:13px;
+    position:absolute;top:1px;left:1px;width:11px;height:11px;
     background:#e53935;border:2px solid #fff;border-radius:50%;
     animation:rishi-dot-pulse 1.6s ease-in-out infinite;
   }
@@ -56,13 +56,14 @@
     50%{box-shadow:0 0 0 5px rgba(229,57,53,0);}
   }
   #rishi-float-label {
-    margin-top:5px;font-family:'Nunito',sans-serif;font-size:11px;
+    margin-top:3px;font-family:'Nunito',sans-serif;font-size:10px;
     font-weight:800;color:#8a7a5a;letter-spacing:.5px;text-align:center;
   }
   #rishi-report-overlay {
-    display:none;position:fixed;bottom:130px;right:20px;z-index:10000;
-    width:320px;background:#fdf6ec;border:1.5px solid #e0c97f;border-radius:12px;
-    box-shadow:0 8px 40px rgba(180,130,60,.22);font-family:'Nunito',sans-serif;overflow:hidden;
+    display:none;position:fixed;bottom:90px;right:14px;z-index:10000;
+    width:min(300px,calc(100vw - 28px));max-height:calc(100vh - 110px);overflow-y:auto;
+    background:#fdf6ec;border:1.5px solid #e0c97f;border-radius:12px;
+    box-shadow:0 8px 40px rgba(180,130,60,.22);font-family:'Nunito',sans-serif;
   }
   #rishi-report-overlay.open { display:block; }
   .rishi-ov-head {

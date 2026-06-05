@@ -522,6 +522,15 @@ async function handleLogin(){
     username: account.username
   }));
 
+  /* For parent login: pre-set sessionStorage so parent.html checkAuth works
+     even if stale rishi_parent_student_id exists from a previous session */
+  if(isParent && account.studentId){
+    sessionStorage.setItem('rishi_parent_auth', '1');
+    sessionStorage.setItem('rishi_parent_student_id', account.studentId);
+    sessionStorage.setItem('rishi_parent_student_name', account.studentName || 'Student');
+    if(account.parentUsername) sessionStorage.setItem('rishi_parent_login_user', account.parentUsername.toLowerCase());
+  }
+
   fetch('/d1-sync',{method:'POST',headers:{'Content-Type':'application/json'},
     body:JSON.stringify({action:'log-session',username:account.username,
       role:isParent?'parent':'student',studentName:account.studentName,

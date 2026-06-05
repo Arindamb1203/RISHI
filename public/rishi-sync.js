@@ -145,7 +145,16 @@
   /* ── Auto-pull on page load ── */
   document.addEventListener('DOMContentLoaded', function () {
     var sid = getStudentId();
-    if (sid) pullForStudent(sid);
+    if (!sid) return;
+    /* Push all existing local data to D1 immediately (catches any missed syncs) */
+    for (var _i = 0; _i < localStorage.length; _i++) {
+      var _k = localStorage.key(_i);
+      if (shouldSync(_k)) {
+        var _v = localStorage.getItem(_k);
+        if (_v !== null) pushKey(_k, _v, sid);
+      }
+    }
+    pullForStudent(sid);
   });
 
   /* ── Periodic push every 30s to catch any missed syncs ── */
