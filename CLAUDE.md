@@ -54,6 +54,7 @@
 | `functions/api/admin-mark-fixed.js` | Sets report status = 'fixed' |
 | `public/parent-blogs.html` | Standalone blogs page for parents — placeholder "Coming Soon" layout with video card skeletons; auth guard checks `rishi_parent_student_id` |
 | `public/admin-blogs.html` | Standalone admin blogs management page — placeholder mode; has own password login (same rishi2025); form + video library skeleton |
+| `public/parent-dashboard.html` | Analytics dashboard for parent portal — auto-detects student from sessionStorage `rishi_parent_student_id`; hero readiness ring + KPIs; Chapter Intelligence cards; Topic Intelligence; Break Analytics with Games filter; collapsible Success factors |
 
 ## Content Structure
 ### CBSE (no board prefix in paths)
@@ -220,7 +221,7 @@ When `rishi_practice_done_{chId}` is first set to "1", the interceptor auto-crea
 | `redeem-referral` | Mark code as used |
 | `log-session` | Log a login event to `rishi_sessions` table — called fire-and-forget from login.html on every successful login |
 
-## Parent Portal — Architecture (parent.html — updated 04 Jun 2026)
+## Parent Portal — Architecture (parent.html — updated 06 Jun 2026)
 - **Auth:** sessionStorage `rishi_parent_student_id` = student's ID (e.g. RISHI-DABEET-001)
 - **Login flow:** ALL parent logins go through `login.html`. `parent.html`'s built-in `#login-screen` is dead code — `checkAuth()` always redirects to `/login.html` when not authenticated.
 - **Login fix (04 Jun 2026):** For PARENT-xxx accounts, `handleLogin()` in login.html ALWAYS calls D1 `find-account` to get the correct `studentUsername` from D1 registration data — bypasses `findAccount()` retry which had a hardcoded PARENT-xxx path that returned parent's own username as studentId on clean devices.
@@ -235,9 +236,18 @@ When `rishi_practice_done_{chId}` is first set to "1", the interceptor auto-crea
   - Exam score inline: from `rishi_exam_score_` ✅
   - `rishi_chapter_progress` is NOT used — it's never written by student pages
 - **Coins display:** Current balance from `rishi_coins`; Total Earned = balance + redeemed (calculated); Redeemed = written only when parent clicks Reset Coins
-- **Study plan Modify button:** Opens modal to add/remove chapters from locked plan; saves to D1 + updates student activation in real time
 - **Mobile notifications:** Requests Notification API permission on load; fires browser notifications for student online/offline, break taken, new chapter/page
 - **Badge:** shows student first name + ID in two-line format
+
+### Study Plan — Modify Modal (updated 06 Jun 2026)
+- **`modifyPlan(planId)`** — opens modal with:
+  - One **Plan Start Date** input at top (`#plan-global-start`) — applied to ALL chapters' `startDate` on save
+  - Per-chapter rows: checkbox (include/exclude) + **Deadline** date input (`data-date-chid`) — shown only when checked
+  - `onPlanChToggle(cb)` — toggles row highlight and shows/hides the deadline input
+- **`saveModifiedPlan(planId)`** — reads `#plan-global-start` for `startDate`; reads `data-date-chid` per chapter for `targetDate`; PRESERVES all existing chapter fields: `id`, `name`, `topic`, `color`, `examId`, `mode` — never rebuilds bare object
+- **`renderActivePlans()`** — plan header shows `minStart → maxTarget` across all chapters. Chapter name: reads `pch.name` from stored data, falls back to `CHAPTERS.find(x.id==pch.id).name` when stored name is missing/undefined (self-heals corrupted plan data)
+- **Plan chapter data structure:** `{id, name, topic, color, examId, mode, startDate, targetDate}` — ALL fields must be preserved on modify; missing name/topic → look up from `CHAPTERS` array
+- **CHAPTERS global** (line ~1185): `var CHAPTERS = []` set in `initMainPortal` from `ALL_CLASS_CHAPTERS[classKey]` — always populated before any plan render
 
 ## Bypass System
 - Key: `rishi_admin_bypass` — **sessionStorage ONLY** (never localStorage)
@@ -410,3 +420,5 @@ Injected on all pages **except** `/admin` and `/landing`. Behaviour varies by pa
 31. Exam JSON format: all sections must use `text`/`options {a,b,c,d}`/`correct`/`explanation` — old format `q`/`opts`/`ans` breaks the exam engine
 32. questions.js: for `type=exam`, static file is tried FIRST (if chapter is in FOLDER_MAP), then KV — never change this priority back
 33. ch07 exam had 5 wrong questions (05 Jun 2026): always verify `correct` field matches computed answer INDEPENDENTLY after writing JSON content
+34. Plan chapter objects MUST preserve all fields: `{id, name, topic, color, examId, mode, startDate, targetDate}` — never rebuild as bare `{id, startDate, targetDate, color, examId}`; missing name/topic must be looked up from `CHAPTERS` array not left as undefined
+35. `renderActivePlans` reads `pch.name` from stored plan data — if that name is ever `undefined` or the string `"undefined"`, fall back to `CHAPTERS.find(x.id==pch.id).name`; never trust stored plan name blindly
