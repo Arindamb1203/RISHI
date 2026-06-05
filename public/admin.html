@@ -521,7 +521,7 @@ button{font-family:'Outfit',sans-serif;cursor:pointer;}
           <select id="break-student-filter" onchange="renderBreakLog()" style="margin-left:auto;padding:6px 10px;border:1.5px solid var(--border);border-radius:8px;font-family:Outfit,sans-serif;font-size:13px;font-weight:700;background:#fff;color:var(--text);">
             <option value="all">All Students</option>
           </select>
-          <button onclick="_logsFixBusy=false;buildLogs()" style="font-size:13px;font-weight:800;padding:6px 14px;border-radius:8px;border:2px solid var(--border);background:#fff;color:var(--muted);cursor:pointer;">↺ Refresh</button>
+          <button onclick="resumeAutoRefresh();_logsFixBusy=false;buildLogs()" style="font-size:13px;font-weight:800;padding:6px 14px;border-radius:8px;border:2px solid var(--border);background:#fff;color:var(--muted);cursor:pointer;">↺ Refresh</button>
         </div>
         <div id="break-log-today"></div>
         <div id="break-log-history" style="margin-top:16px;"></div>
@@ -594,7 +594,7 @@ button{font-family:'Outfit',sans-serif;cursor:pointer;}
           <select id="error-student-filter" onchange="renderErrorLog()" style="margin-left:auto;padding:6px 10px;border:1.5px solid var(--border);border-radius:8px;font-family:Outfit,sans-serif;font-size:13px;font-weight:700;background:#fff;color:var(--text);">
             <option value="all">All Students</option>
           </select>
-          <button onclick="_logsFixBusy=false;refreshReportsTab()" style="font-size:13px;font-weight:800;padding:6px 14px;border-radius:8px;border:2px solid var(--border);background:#fff;color:var(--muted);cursor:pointer;">↺ Refresh</button>
+          <button onclick="resumeAutoRefresh();_logsFixBusy=false;refreshReportsTab()" style="font-size:13px;font-weight:800;padding:6px 14px;border-radius:8px;border:2px solid var(--border);background:#fff;color:var(--muted);cursor:pointer;">↺ Refresh</button>
         </div>
         <div id="error-log"></div>
       </div>
@@ -604,7 +604,7 @@ button{font-family:'Outfit',sans-serif;cursor:pointer;}
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
           <div class="card-ttl">🐞 User Reports</div>
           <span style="font-size:12px;color:var(--muted);font-weight:600;">Manually submitted by students</span>
-          <button class="btn btn-ghost" onclick="loadReports()" style="font-size:13px;padding:6px 14px;">↺ Refresh</button>
+          <button class="btn btn-ghost" onclick="resumeAutoRefresh();loadReports()" style="font-size:13px;padding:6px 14px;">↺ Refresh</button>
         </div>
         <div id="reports-list"><div style="color:var(--dim);font-size:14px;">Click Refresh to load reports.</div></div>
       </div>
@@ -2282,7 +2282,7 @@ function toggleErrDetail(idx) {
   if (!row) return;
   var nowVisible = row.style.display !== 'none';
   row.style.display = nowVisible ? 'none' : 'table-row';
-  if (!nowVisible) loadErrExplain(idx);
+  if (!nowVisible) { pauseAutoRefresh(); loadErrExplain(idx); }
 }
 
 function loadErrExplain(idx) {
@@ -2309,7 +2309,7 @@ function loadErrExplain(idx) {
   });
 }
 
-function copyError(idx) {
+function copyError(idx) { pauseAutoRefresh();
   var e = _errorLogsAll[idx];
   if (!e) return;
   var text = 'RISHI Error Report\n==================\n'
@@ -3116,7 +3116,18 @@ async function triggerDeploy() {
 }
 
 /* ── AUTO-REFRESH ────────────────────────────────────────── */
-setInterval(function() { if (sessionStorage.getItem('rishi_admin_auth') === '1') refresh(); }, 10000);
+var _autoRefreshPaused = false;
+function pauseAutoRefresh() {
+  _autoRefreshPaused = true;
+  var p = document.querySelector('.pulse');
+  if (p) { p.style.background = '#f59e0b'; p.title = 'Auto-refresh paused — click ↺ Refresh to resume'; }
+}
+function resumeAutoRefresh() {
+  _autoRefreshPaused = false;
+  var p = document.querySelector('.pulse');
+  if (p) { p.style.background = ''; p.title = 'Auto-refreshes every 10 seconds'; }
+}
+setInterval(function() { if (!_autoRefreshPaused && sessionStorage.getItem('rishi_admin_auth') === '1') refresh(); }, 10000);
 
 /* ── INIT ────────────────────────────────────────────────── */
 /* ── USERS TAB ───────────────────────────────────────────── */
@@ -3215,20 +3226,26 @@ function loadReports() {
         list.innerHTML = '<div style="color:var(--dim);font-size:14px;padding:20px 0;">No reports yet.</div>';
         return;
       }
-      var pending = reports.filter(function(r){ return r.status !== 'fixed'; }).length;
+      var pending = reports.filter(function(r){ return r.status !== 'fixed'; });
+      var fixedCount = reports.length - pending.length;
       var html = '<div style="margin-bottom:10px;font-size:13px;font-weight:800;color:var(--muted);">'
         + '&#128202; Total: <strong>' + reports.length + '</strong>'
-        + ' &nbsp;&#9888; Pending: <strong style="color:var(--red)">' + pending + '</strong>'
-        + ' &nbsp;&#10003; Fixed: <strong style="color:var(--green)">' + (reports.length - pending) + '</strong>'
+        + ' &nbsp;&#9888; Pending: <strong style="color:var(--red)">' + pending.length + '</strong>'
+        + ' &nbsp;&#10003; Fixed: <strong style="color:var(--green)">' + fixedCount + '</strong>'
         + '</div>';
+      if (!pending.length) {
+        html += '<div style="color:var(--green);font-size:14px;font-weight:800;padding:20px 0;">&#10003; All reports marked fixed!</div>';
+        list.innerHTML = html;
+        return;
+      }
       html += '<div style="overflow-x:auto"><table class="log-table" style="min-width:820px"><thead><tr>'
         + '<th>Status</th><th>Category</th><th>Student</th><th>Page</th><th>Description</th><th>Date</th><th>Actions</th>'
         + '</tr></thead><tbody>';
 
       var typeColors = {'Not in Syllabus':'#dc2626','Wrong Answer':'#ea580c','Wrong Question/Answer':'#d97706','Wrong Question':'#d97706','Others':'#6b7280','Registration Issue':'#2563eb'};
 
-      reports.forEach(function(rpt, i) {
-        var isFixed = rpt.status === 'fixed';
+      pending.forEach(function(rpt, i) {
+        var isFixed = false;
         var rowOp   = isFixed ? 'opacity:.5;' : '';
         var tc      = typeColors[rpt.report_type] || '#6b7280';
         var dt      = rpt.submitted_at ? new Date(rpt.submitted_at).toLocaleString('en-IN', {day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'}) : '—';
@@ -3303,10 +3320,13 @@ function loadReports() {
 
 function toggleRptDetail(i) {
   var row = document.getElementById('rpt-' + i + '-detail');
-  if (row) row.style.display = row.style.display === 'none' ? 'table-row' : 'none';
+  if (!row) return;
+  var opening = row.style.display === 'none';
+  row.style.display = opening ? 'table-row' : 'none';
+  if (opening) pauseAutoRefresh();
 }
 
-function copyReport(rpt) {
+function copyReport(rpt) { pauseAutoRefresh();
   var text = 'User Report\n===========\n'
     + 'Student: ' + (rpt.name||'—') + '\n'
     + 'Date: ' + (rpt.date||rpt.submitted_at||'—') + '\n'
