@@ -1209,6 +1209,17 @@ function getStudentClassKey() {
       return cls;
     }
   }
+  /* Fallback: read from rishi_current_student set by login.html */
+  try {
+    var cs = JSON.parse(localStorage.getItem('rishi_current_student') || '{}');
+    var cls2 = parseInt(cs.class || 8);
+    var board2 = (cs.board || 'CBSE').toLowerCase();
+    if (board2 === 'icse' && cls2 === 6) return 'ic6';
+    if (board2 === 'icse' && cls2 === 7) return 'ic7';
+    if (board2 === 'icse' && cls2 === 8) return 'ic8';
+    if (board2 === 'icse' && cls2 === 9) return 'ic9';
+    if (cls2 >= 6 && cls2 <= 9) return cls2;
+  } catch(e) {}
   return 8;
 }
 
@@ -1335,6 +1346,9 @@ function showLoginError(){
 
 function logout() {
   sessionStorage.removeItem('rishi_parent_auth');
+  sessionStorage.removeItem('rishi_parent_student_id');
+  sessionStorage.removeItem('rishi_parent_student_name');
+  sessionStorage.removeItem('rishi_parent_login_user');
   window.location.href = '/login.html';
 }
 

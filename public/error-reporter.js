@@ -9,9 +9,10 @@
 
   /* Editable name/phone inputs — register & payment (no localStorage yet) */
   var isEditableFields = window.location.pathname.indexOf('/register') !== -1;
-  /* Simplified form (no question categories) — register, payment, parent */
+  /* Simplified form (no question categories) — register, payment, parent, login */
   var isSimplifiedPage = isEditableFields ||
-                         window.location.pathname.indexOf('/parent') !== -1;
+                         window.location.pathname.indexOf('/parent') !== -1 ||
+                         window.location.pathname.indexOf('/login') !== -1;
   var isExamPage = window.location.pathname.indexOf('/exam') !== -1;
 
   function loadHtml2Canvas(cb) {
@@ -248,7 +249,8 @@
   /* State */
   var screenshotB64 = '';
   var isParentPage = window.location.pathname.indexOf('/parent') !== -1;
-  var selectedCategory = isSimplifiedPage ? (isParentPage ? 'Parent Portal Issue' : 'Registration Issue') : '';
+  var isLoginPage = window.location.pathname.indexOf('/login') !== -1;
+  var selectedCategory = isSimplifiedPage ? (isParentPage ? 'Parent Portal Issue' : isLoginPage ? 'Login Issue' : 'Registration Issue') : '';
   var pollTimer = null;
   var fiveMinTimer = null;
   var _submitted = false;
