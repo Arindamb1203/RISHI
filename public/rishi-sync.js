@@ -31,7 +31,11 @@
     'rishi_progress',
     'rishi_active_chapters',
     'rishi_plans',
-    'rishi_coins'
+    'rishi_coins',
+    'rishi_presence_online',
+    'rishi_presence_offline',
+    'rishi_presence_page',
+    'rishi_presence_log'
   ];
 
   var SYNC_PREFIX = [

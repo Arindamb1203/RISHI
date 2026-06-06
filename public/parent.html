@@ -1184,6 +1184,21 @@ var CHAPTERS = [];
 var EXPLAIN_BUILT = {};
 var PROGRESS_KEY_PREFIX = ''; /* 'ic7_' for ICSE Class 7, '' for CBSE */
 
+/* Build the CH_ID_STR used by exam.html for a given chapter integer id.
+   Exam keys: class8='07', class9='c9-07', icse6='ic6-07', etc. */
+function examChIdStr(chId) {
+  var ck = getStudentClassKey();
+  var n  = ('0' + chId).slice(-2);
+  if (ck === 'ic6') return 'ic6-' + n;
+  if (ck === 'ic7') return 'ic7-' + n;
+  if (ck === 'ic8') return 'ic8-' + n;
+  if (ck === 'ic9') return 'ic9-' + n;
+  if (ck === 9)     return 'c9-'  + n;
+  if (ck === 6)     return 'c6-'  + n;
+  if (ck === 7)     return 'c7-'  + n;
+  return n; /* class 8 CBSE default */
+}
+
 function getStudentClass() {
   var sid = sessionStorage.getItem('rishi_parent_student_id') || '';
   if (!sid) return 8;
@@ -3109,8 +3124,8 @@ function renderPracticeStats() {
 
     var explainDone  = localStorage.getItem('rishi_explain_done_'  + pfx + cid2) ? '&#9989;' : '&#9899;';
     var practiceDone = localStorage.getItem('rishi_practice_done_' + pfx + cid2) ? '&#9989;' : '&#9899;';
-    var examDone     = localStorage.getItem('rishi_chapexam_done_' + pfx + cid2) === '1';
-    var examScore    = examDone ? parseInt(localStorage.getItem('rishi_exam_score_' + pfx + cid2) || '0') : null;
+    var examDone     = localStorage.getItem('rishi_chapexam_done_' + examChIdStr(cid2)) === '1';
+    var examScore    = examDone ? parseInt(localStorage.getItem('rishi_exam_score_' + examChIdStr(cid2)) || '0') : null;
 
     var exSessCount  = parseInt(explainSessions[cid2] || explainSessions[String(cid2)] || 0);
     var prSessData   = practiceSessions[cid2] || practiceSessions[String(cid2)] || null;
@@ -3145,7 +3160,7 @@ function renderPerfExamScores() {
 
   for (var i = 0; i < CHAPTERS.length; i++) {
     var ch = CHAPTERS[i];
-    var chStr = PROGRESS_KEY_PREFIX + ch.id;
+    var chStr = examChIdStr(ch.id);
     if (localStorage.getItem('rishi_chapexam_done_' + chStr) !== '1') continue;
     var score    = parseInt(localStorage.getItem('rishi_exam_score_'    + chStr) || '0');
     var attempts = parseInt(localStorage.getItem('rishi_exam_attempts_' + chStr) || '1');
