@@ -798,7 +798,7 @@ button{font-family:'Outfit',sans-serif;}
   <div class="tab-bar">
     <button class="tab-btn on" id="tab-plan" onclick="switchTab('plan')">&#128203; Study Plan</button>
     <button class="tab-btn" id="tab-perf" onclick="switchTab('perf')">&#128202; Performance</button>
-    <button class="tab-btn" id="tab-dash" onclick="window.location.href='/parent-dashboard.html'">&#9889; Analytics</button>
+    <button class="tab-btn" id="tab-dash" onclick="switchTab('dash')">&#9889; Analytics</button>
     <button class="tab-btn" id="tab-live" onclick="switchTab('live')">&#128241; Live Status</button>
     <button class="tab-btn" id="tab-smart" onclick="window.location.href='/smart-maths.html'">&#129504; Smart Maths</button>
     <button class="tab-btn" id="tab-refer" onclick="window.location.href='/referral.html'" style="color:#39FF14;">&#127873; Refer &amp; Earn</button>
@@ -949,8 +949,49 @@ button{font-family:'Outfit',sans-serif;}
 
     </div>
 
-    <!-- ===== ANALYTICS TAB ===== -->
-    <div id="view-dash" class="hidden"></div>
+    <!-- ===== ANALYTICS TAB (folded in — same live data as Performance) ===== -->
+    <div id="view-dash" class="hidden">
+
+      <div style="padding:4px 0 12px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+        <button class="btn btn-ghost btn-sm" onclick="refreshDash()">&#9729; Load from Cloud</button>
+        <span style="font-size:13px;color:var(--muted)">Live &mdash; updates automatically every few seconds</span>
+      </div>
+
+      <!-- HERO readiness -->
+      <div class="dash-hero">
+        <div class="hero-left">
+          <div class="hero-ring-wrap">
+            <svg class="hero-ring" viewBox="0 0 120 120">
+              <circle cx="60" cy="60" r="50" fill="none" stroke="rgba(255,255,255,.12)" stroke-width="9"></circle>
+              <circle id="dash-hero-arc" cx="60" cy="60" r="50" fill="none" stroke="#F59E0B" stroke-width="9" stroke-linecap="round" stroke-dasharray="314" stroke-dashoffset="314" transform="rotate(-90 60 60)" style="transition:stroke-dashoffset 1.2s cubic-bezier(.4,0,.2,1)"></circle>
+            </svg>
+            <div class="hero-ring-inner"><div class="hero-pct" id="dash-hero-pct">0%</div><div class="hero-pct-lbl">Ready</div></div>
+          </div>
+        </div>
+        <div class="hero-right">
+          <div class="hero-title" id="dash-grade-line">Overall Readiness</div>
+          <div class="hero-sub" id="dash-grade-sub">Across active chapters &mdash; from explain, practice &amp; exam activity. Updates live.</div>
+          <div class="hero-kpis" id="dash-hero-kpis"></div>
+        </div>
+      </div>
+
+      <!-- Chapter Intelligence -->
+      <div class="dash-sec-hdr">&#129504; Chapter Intelligence <span id="dash-ch-count" style="font-weight:600;color:var(--muted);text-transform:none;letter-spacing:0;"></span></div>
+      <div class="ch-intel-grid" id="dash-ch-grid"></div>
+
+      <!-- Exam Dashboard -->
+      <div class="dash-sec-hdr">&#128221; Exam Dashboard</div>
+      <div class="break-stat-row" id="dash-exam-kpis" style="margin-bottom:14px;"></div>
+      <div id="dash-exam-cards"></div>
+
+      <!-- Break Analytics -->
+      <div class="dash-sec-hdr" style="margin-top:18px;">&#9749; Break Analytics
+        <button class="btn btn-ghost btn-sm" onclick="resetBreaks()" style="font-weight:700;">&#128260; Reset</button>
+      </div>
+      <div class="break-stat-row" id="dash-break-kpis" style="grid-template-columns:repeat(2,1fr);"></div>
+      <div id="dash-break-note" style="font-size:13px;color:var(--muted);margin-top:8px;"></div>
+
+    </div>
 
 
     <!-- ===== LIVE STATUS TAB ===== -->
@@ -1810,10 +1851,14 @@ function initMainPortal() {
   setInterval(function() {
     var liveView = document.getElementById('view-live');
     var planView = document.getElementById('view-plan');
+    var dashView = document.getElementById('view-dash');
+    var perfView = document.getElementById('view-perf');
     /* Always re-fetch from D1 in background for real-time updates */
     loadStudentFromD1(function(){
       if (liveView && !liveView.classList.contains('hidden')) renderLive();
       if (planView && !planView.classList.contains('hidden')) { loadPlans(); renderActivePlans(); }
+      if (dashView && !dashView.classList.contains('hidden')) renderDash();
+      if (perfView && !perfView.classList.contains('hidden')) renderPerformance();
       checkStudentActivityNotifications();
     });
   }, 10000);
@@ -1896,6 +1941,7 @@ function switchTab(tab) {
   document.getElementById('view-dash').className  = tab === 'dash'  ? '' : 'hidden';
   document.getElementById('view-live').className  = tab === 'live'  ? '' : 'hidden';
   if (tab === 'perf')  loadStudentFromD1(function(){ renderPerformance(); });
+  if (tab === 'dash')  loadStudentFromD1(function(){ renderDash(); });
   if (tab === 'plan')  renderSlots();
   if (tab === 'live')  renderLive();
 }
@@ -3061,6 +3107,183 @@ function renderActivePlans() {
 // ===========================
 // PERFORMANCE
 // ===========================
+// ===========================
+// ANALYTICS (folded-in dashboard) — same live data + keys as Performance
+// ===========================
+function getFilteredBreakLog() {
+  var log = [];
+  try { log = JSON.parse(localStorage.getItem('rishi_break_log') || '[]'); } catch(e) {}
+  if (!Array.isArray(log)) log = [];
+  var cutRaw = localStorage.getItem('rishi_break_reset_at');
+  var cutoff = cutRaw ? parseInt(cutRaw, 10) : 0;
+  if (cutoff > 0) {
+    log = log.filter(function(b){ return b && typeof b.ts === 'number' && b.ts >= cutoff; });
+  }
+  return log;
+}
+
+function fmtDur(secs) {
+  secs = parseInt(secs || 0, 10); if (isNaN(secs) || secs < 0) secs = 0;
+  var m = Math.floor(secs / 60), s = secs % 60;
+  if (m > 0 && s > 0) return m + 'm ' + s + 's';
+  if (m > 0) return m + 'm';
+  return s + 's';
+}
+
+function dashChData() {
+  var exSess = {}, prSess = {}, ac = {};
+  try { exSess = JSON.parse(localStorage.getItem('rishi_explain_sessions') || '{}'); } catch(e) {}
+  try { prSess = JSON.parse(localStorage.getItem('rishi_practice_sessions') || '{}'); } catch(e) {}
+  try { ac    = JSON.parse(localStorage.getItem('rishi_active_chapters') || '{}'); } catch(e) {}
+  var pfx = PROGRESS_KEY_PREFIX;
+  var out = [];
+  for (var i = 0; i < CHAPTERS.length; i++) {
+    var ch = CHAPTERS[i], id = ch.id, exStr = examChIdStr(id);
+    var prData = prSess[id] || prSess[String(id)] || {};
+    out.push({
+      id: id, name: ch.name, topic: ch.topic, color: getChColor(id),
+      explainDone:  !!localStorage.getItem('rishi_explain_done_'  + pfx + id),
+      practiceDone: !!localStorage.getItem('rishi_practice_done_' + pfx + id),
+      examDone:     localStorage.getItem('rishi_chapexam_done_' + exStr) === '1',
+      examScore:    parseInt(localStorage.getItem('rishi_exam_score_'    + exStr) || '0', 10) || 0,
+      examAttempts: parseInt(localStorage.getItem('rishi_exam_attempts_' + exStr) || '0', 10) || 0,
+      explainSessions:  parseInt(exSess[id] || exSess[String(id)] || 0, 10) || 0,
+      practiceSessions: (prData.count || 0),
+      inPlan: !!(ac[id] || ac[String(id)])
+    });
+  }
+  return out;
+}
+
+function chReadiness(c) {
+  var s = 0;
+  if (c.explainDone) s += 10;
+  s += Math.min(c.explainSessions * 3, 15);
+  if (c.practiceDone) s += 30; else if (c.practiceSessions > 0) s += Math.min(c.practiceSessions * 8, 20);
+  s += Math.min((c.explainSessions + c.practiceSessions) * 2, 10);
+  if (c.examScore > 0) s += Math.round(c.examScore * 0.35);
+  return Math.min(100, Math.round(s));
+}
+function chHasActivity(c) {
+  return c.explainDone || c.practiceDone || c.examDone ||
+         c.explainSessions > 0 || c.practiceSessions > 0 || c.examAttempts > 0 || c.inPlan;
+}
+function dashGradeBand(p) {
+  if (p >= 85) return { l:'A', b:'Excellent',    col:'#059669' };
+  if (p >= 70) return { l:'B', b:'Good',         col:'#0D9488' };
+  if (p >= 55) return { l:'C', b:'Fair',         col:'#D97706' };
+  if (p >= 35) return { l:'D', b:'Needs Work',   col:'#DC2626' };
+  return            { l:'E', b:'Just Started', col:'#94A3B8' };
+}
+
+function renderDash() {
+  if (!document.getElementById('dash-hero-pct')) return;
+  var data = dashChData();
+  var active = data.filter(chHasActivity);
+
+  /* Overall readiness = average across active chapters */
+  var overall = 0;
+  if (active.length) { var sum = 0; for (var i = 0; i < active.length; i++) sum += chReadiness(active[i]); overall = Math.round(sum / active.length); }
+
+  var arc = document.getElementById('dash-hero-arc');
+  if (arc) arc.setAttribute('stroke-dashoffset', String(Math.round(314 * (1 - overall / 100))));
+  document.getElementById('dash-hero-pct').textContent = overall + '%';
+  var g = dashGradeBand(overall);
+  document.getElementById('dash-grade-line').innerHTML =
+    'Predicted Grade Band: <span style="color:' + g.col + '">' + g.l + ' &mdash; ' + g.b + '</span>';
+
+  /* KPIs */
+  var explainTot = 0, practiceDoneCount = 0, examDoneCount = 0, examScoreSum = 0, examScoreCount = 0;
+  for (var j = 0; j < data.length; j++) {
+    var c = data[j];
+    explainTot += c.explainSessions;
+    if (c.practiceDone) practiceDoneCount++;
+    if (c.examDone) examDoneCount++;
+    if (c.examAttempts > 0 && c.examScore > 0) { examScoreSum += c.examScore; examScoreCount++; }
+  }
+  var avgExam = examScoreCount ? Math.round(examScoreSum / examScoreCount) : 0;
+  function hk(n, l) { return '<div class="hero-kpi"><div class="hkpi-n">' + n + '</div><div class="hkpi-l">' + l + '</div></div>'; }
+  document.getElementById('dash-hero-kpis').innerHTML =
+    hk(explainTot, 'Explain') + '<div class="hkpi-sep"></div>' +
+    hk(practiceDoneCount, 'Practice') + '<div class="hkpi-sep"></div>' +
+    hk(examDoneCount, 'Exams') + '<div class="hkpi-sep"></div>' +
+    hk(examScoreCount ? avgExam + '%' : '&mdash;', 'Avg Score') + '<div class="hkpi-sep"></div>' +
+    hk(active.length, 'Active');
+
+  /* Chapter Intelligence cards */
+  document.getElementById('dash-ch-count').textContent = active.length ? ('(' + active.length + ' active)') : '';
+  var grid = document.getElementById('dash-ch-grid');
+  if (!active.length) {
+    grid.innerHTML = '<div class="no-exams">No chapter activity yet &mdash; analytics fill in as the student studies.</div>';
+  } else {
+    active.sort(function(a, b){ return chReadiness(b) - chReadiness(a); });
+    var h = '';
+    for (var k = 0; k < active.length; k++) {
+      var x = active[k], r = chReadiness(x), off = Math.round(157 * (1 - r / 100)), col = x.color;
+      h += '<div class="ch-card" style="--ccc:' + col + ';--ccb:' + col + '22;--ccl:' + col + '66;">';
+      h += '<div class="ch-card-top"><div class="ch-card-info">'
+         + '<div class="ch-num">Ch ' + x.id + '</div>'
+         + '<div class="ch-card-name">' + x.name + '</div>'
+         + '<span class="ch-topic-tag">' + x.topic + '</span></div>'
+         + '<div class="ch-ring-wrap"><svg class="ch-ring" viewBox="0 0 60 60">'
+         + '<circle cx="30" cy="30" r="25" fill="none" stroke="var(--border)" stroke-width="5"></circle>'
+         + '<circle cx="30" cy="30" r="25" fill="none" stroke="' + col + '" stroke-width="5" stroke-linecap="round" stroke-dasharray="157" stroke-dashoffset="' + off + '" transform="rotate(-90 30 30)"></circle>'
+         + '</svg><div class="ch-ring-inner"><div class="ch-ring-pct">' + r + '%</div></div></div></div>';
+      h += '<div class="ch-badges">';
+      h += x.explainDone ? '<span class="ch-badge b-explain-yes">&#10003; Explain</span>' : '<span class="ch-badge b-explain-no">Explain</span>';
+      h += x.practiceDone ? '<span class="ch-badge b-explain-yes">&#10003; Practice</span>'
+                          : (x.practiceSessions > 0 ? '<span class="ch-badge b-streak">Practice &times;' + x.practiceSessions + '</span>'
+                                                     : '<span class="ch-badge b-explain-no">Practice</span>');
+      h += x.examDone ? '<span class="ch-badge b-explain-yes">Exam ' + x.examScore + '%</span>' : '<span class="ch-badge b-explain-no">Exam</span>';
+      if (x.inPlan) h += '<span class="ch-badge b-scheduled">Scheduled</span>';
+      h += '</div></div>';
+    }
+    grid.innerHTML = h;
+  }
+
+  /* Exam Dashboard */
+  var exams = data.filter(function(c){ return c.examDone; });
+  var totAtt = 0, best = 0;
+  for (var e = 0; e < exams.length; e++) { totAtt += exams[e].examAttempts || 1; if (exams[e].examScore > best) best = exams[e].examScore; }
+  function bk(n, l) { return '<div class="break-stat"><div class="break-stat-n">' + n + '</div><div class="break-stat-l">' + l + '</div></div>'; }
+  document.getElementById('dash-exam-kpis').innerHTML =
+    bk(exams.length, 'Exams Taken') + bk(totAtt, 'Attempts') + bk(examScoreCount ? avgExam + '%' : '&mdash;', 'Avg Score');
+  var ec = document.getElementById('dash-exam-cards');
+  if (!exams.length) {
+    ec.innerHTML = '<div class="no-exams">No exam scores yet. They appear here after chapter exams are attempted.</div>';
+  } else {
+    exams.sort(function(a, b){ return b.examScore - a.examScore; });
+    var eh = '<div class="exam-score-grid">';
+    for (var f = 0; f < exams.length; f++) {
+      var q = exams[f], pc = q.examScore;
+      var col2 = pc >= 75 ? '#059669' : pc >= 50 ? '#D97706' : '#DC2626';
+      var pcb  = pc >= 75 ? 'background:#ECFDF5;color:#065F46' : pc >= 50 ? 'background:#FFFBEB;color:#92400E' : 'background:#FEF2F2;color:#991B1B';
+      eh += '<div class="ex-score-card" style="--exc:' + col2 + ';"><div class="ex-score-top"><div class="ex-score-name">Ch ' + q.id + '. ' + q.name + '</div></div>';
+      eh += '<div><span class="ex-score-n">' + q.examScore + '</span><span class="ex-score-den"> / 100</span></div>';
+      eh += '<span class="ex-score-pct" style="' + pcb + '">' + pc + '%</span>';
+      eh += '<div class="ex-mini-grid"><div class="ex-mini"><div class="ex-mini-n">' + (q.examAttempts || 1) + '</div><div class="ex-mini-l">Attempts</div></div>'
+          + '<div class="ex-mini"><div class="ex-mini-n">' + q.examScore + '%</div><div class="ex-mini-l">Best</div></div>'
+          + '<div class="ex-mini"><div class="ex-mini-n">' + (pc >= 60 ? '&#10003;' : '&mdash;') + '</div><div class="ex-mini-l">Pass 60</div></div></div>';
+      eh += '</div>';
+    }
+    eh += '</div>'; ec.innerHTML = eh;
+  }
+
+  /* Break Analytics — uses the same reset-cutoff filter as Break Statistics */
+  var bl = getFilteredBreakLog();
+  var tb = bl.length, totSec = 0, typeCount = {};
+  for (var bi = 0; bi < bl.length; bi++) { totSec += parseInt(bl[bi].secs || 0, 10) || 0; var ty = (bl[bi].type || 'Other'); typeCount[ty] = (typeCount[ty] || 0) + 1; }
+  var avgSec = tb ? Math.round(totSec / tb) : 0;
+  var mostT = '&mdash;', mostN = 0;
+  for (var tk in typeCount) { if (typeCount[tk] > mostN) { mostN = typeCount[tk]; mostT = tk; } }
+  var mostBox = '<div class="break-stat"><div class="break-stat-n" style="font-size:16px;">' + mostT + '</div><div class="break-stat-l">Most Frequent</div></div>';
+  document.getElementById('dash-break-kpis').innerHTML =
+    bk(tb, 'Total Breaks') + bk(fmtDur(totSec), 'Total Time') + bk(fmtDur(avgSec), 'Avg / Break') + mostBox;
+  document.getElementById('dash-break-note').textContent = tb ? '' : 'No breaks recorded since the last reset.';
+}
+
+function refreshDash() { loadStudentFromD1(function(){ renderDash(); }); }
+
 function renderPerformance() {
   renderPracticeStats();
   renderPerfExamScores();
@@ -3192,34 +3415,32 @@ function renderPerfExamScores() {
 }
 
 function renderBreakStats() {
-  var breakLog = [];
-  try { breakLog = JSON.parse(localStorage.getItem('rishi_break_log') || '[]'); } catch(e) {}
+  var breakLog = getFilteredBreakLog();
 
   var totalBreaks = breakLog.length;
-  var totalMins = 0;
-  for (var i = 0; i < breakLog.length; i++) totalMins += Math.round(parseInt(breakLog[i].secs || 0) / 60);
-  var avgMins = totalBreaks > 0 ? Math.round(totalMins / totalBreaks) : 0;
+  var totalSecs = 0;
+  for (var i = 0; i < breakLog.length; i++) totalSecs += parseInt(breakLog[i].secs || 0, 10) || 0;
+  var avgSecs = totalBreaks > 0 ? Math.round(totalSecs / totalBreaks) : 0;
 
   document.getElementById('perf-break-stats').innerHTML =
     '<div class="break-stat"><div class="break-stat-n">' + totalBreaks + '</div><div class="break-stat-l">Total Breaks</div></div>' +
-    '<div class="break-stat"><div class="break-stat-n">' + totalMins + '</div><div class="break-stat-l">Total Minutes</div></div>' +
-    '<div class="break-stat"><div class="break-stat-n">' + avgMins + '</div><div class="break-stat-l">Avg per Break</div></div>';
+    '<div class="break-stat"><div class="break-stat-n">' + fmtDur(totalSecs) + '</div><div class="break-stat-l">Total Time</div></div>' +
+    '<div class="break-stat"><div class="break-stat-n">' + fmtDur(avgSecs) + '</div><div class="break-stat-l">Avg / Break</div></div>';
 
   if (breakLog.length === 0) {
-    document.getElementById('perf-break-log').innerHTML = '<div style="font-size:15px;color:var(--muted);padding-top:4px">No break history recorded yet.</div>';
+    document.getElementById('perf-break-log').innerHTML = '<div style="font-size:15px;color:var(--muted);padding-top:4px">No break history recorded since the last reset.</div>';
     return;
   }
 
   var html = '<div style="overflow-x:auto;margin-top:4px"><table class="perf-tbl"><thead><tr>';
-  html += '<th>#</th><th>Reason</th><th>Duration (min)</th><th>Date</th><th>Time</th>';
+  html += '<th>#</th><th>Reason</th><th>Duration</th><th>Date</th><th>Time</th>';
   html += '</tr></thead><tbody>';
   var recentBreaks = breakLog.slice(-20).reverse();
   for (var j = 0; j < recentBreaks.length; j++) {
     var b = recentBreaks[j];
-    var bMins = b.secs ? Math.round(parseInt(b.secs) / 60) : '—';
     html += '<tr><td style="font-size:16px;color:var(--muted)">' + (breakLog.length - j) + '</td>';
     html += '<td style="font-size:15px;font-weight:600">' + (b.type || '—') + '</td>';
-    html += '<td style="font-size:15px;font-weight:700;text-align:center">' + bMins + '</td>';
+    html += '<td style="font-size:15px;font-weight:700;text-align:center">' + fmtDur(b.secs) + '</td>';
     html += '<td style="font-size:14px;color:var(--muted)">' + (b.date || '—') + '</td>';
     html += '<td style="font-size:14px;color:var(--muted)">' + (b.time || '—') + '</td></tr>';
   }
@@ -3228,16 +3449,23 @@ function renderBreakStats() {
 }
 
 function resetBreaks() {
-  if (!confirm('Reset break history to 0? This clears all recorded breaks for this student.')) return;
+  if (!confirm('Reset break history to 0? This permanently clears all breaks recorded up to now for this student.')) return;
   var sid = getStudentId();
+  var cutoff = String(Date.now());
   localStorage.setItem('rishi_break_log', '[]');
+  localStorage.setItem('rishi_break_reset_at', cutoff);
   if (sid && sid !== 'default') {
+    /* Cloud: set the cutoff FIRST so the server drops any re-uploaded old breaks, then clear the log */
+    fetch('/d1-sync', {method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({action:'set', studentId: sid, key: 'rishi_break_reset_at', value: cutoff})
+    }).catch(function(){});
     fetch('/d1-sync', {method:'POST', headers:{'Content-Type':'application/json'},
       body: JSON.stringify({action:'set', studentId: sid, key: 'rishi_break_log', value: '[]'})
     }).catch(function(){});
   }
   renderBreakStats();
-  alert('Break history reset.');
+  if (typeof renderDash === 'function' && document.getElementById('dash-hero-pct')) renderDash();
+  alert('Break history reset. Old breaks will not return.');
 }
 
 function renderCoins() {

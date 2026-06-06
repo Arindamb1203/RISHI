@@ -47,13 +47,37 @@ export async function onRequest(context) {
     if (!studentId || !key || value === undefined) {
       return new Response(JSON.stringify({ error: "studentId, key, value required" }), { status: 400, headers });
     }
+    const sid = studentId.trim().toLowerCase();
+    let toStore = String(value);
+
+    /* ── BREAK RESET ENFORCEMENT ──
+       When any device pushes rishi_break_log, drop entries from before the
+       parent's last reset cutoff (rishi_break_reset_at). This makes a parent
+       reset survive the student device re-uploading its full local history. */
+    if (key === "rishi_break_log") {
+      try {
+        const cut = await env.DB.prepare(
+          `SELECT value FROM rishi_sync WHERE student_id = ? AND key = 'rishi_break_reset_at'`
+        ).bind(sid).first();
+        const cutoff = cut && cut.value ? parseInt(cut.value, 10) : 0;
+        if (cutoff > 0) {
+          let arr = [];
+          try { arr = JSON.parse(toStore); } catch(e) { arr = []; }
+          if (Array.isArray(arr)) {
+            const kept = arr.filter(e => e && typeof e.ts === "number" && e.ts >= cutoff);
+            toStore = JSON.stringify(kept);
+          }
+        }
+      } catch(e) { /* on any failure, store as-is — never lose a push */ }
+    }
+
     try {
       await env.DB.prepare(
         `INSERT INTO rishi_sync (student_id, key, value, updated_at)
          VALUES (?, ?, ?, ?)
          ON CONFLICT(student_id, key)
          DO UPDATE SET value = excluded.value, updated_at = excluded.updated_at`
-      ).bind(studentId.trim().toLowerCase(), key, String(value), Date.now()).run();
+      ).bind(sid, key, toStore, Date.now()).run();
       return new Response(JSON.stringify({ ok: true }), { headers });
     } catch(e) {
       return new Response(JSON.stringify({ error: "DB write failed", detail: String(e) }), { status: 500, headers });

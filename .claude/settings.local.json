@@ -43,7 +43,13 @@
       "Bash(ffprobe -v quiet -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 \"d:/rishi/public/audio/bg-music.mp3\")",
       "Bash(python3 -c ' *)",
       "Bash(cat public/manifest.json)",
-      "Bash(ls D:/rishi/manifest.json)"
+      "Bash(ls D:/rishi/manifest.json)",
+      "Bash(python3 -c \"import json; d=json.load\\(open\\('D:/rishi/public/data/cbse/class8/ch01/ch01-exam.json'\\)\\); e=d['sections'].get\\('E',{}\\); print\\(json.dumps\\(e, indent=2\\)[:3000]\\)\")",
+      "Bash(python3 -c \"import json; d=json.load\\(open\\('D:/rishi/public/data/cbse/class8/ch18/ch18-exam.json'\\)\\); [print\\(sec, len\\(d['sections'][sec].get\\('questions',[]\\)\\)\\) for sec in d['sections']]\")",
+      "Bash(python3 -c \"import json; d=json.load\\(open\\('D:/rishi/public/data/cbse/class8/ch07/ch07-exam.json'\\)\\); [print\\(sec, len\\(d['sections'][sec].get\\('questions',[]\\)\\)\\) for sec in d['sections']]\")",
+      "Bash(python3 -c \"import json; d=json.load\\(open\\('D:/rishi/public/data/cbse/class8/ch07/ch07-exam.json', encoding='utf-8'\\)\\); [print\\(sec, len\\(d['sections'][sec].get\\('questions',[]\\)\\)\\) for sec in d['sections']]\")",
+      "Bash(Get-Content \"D:\\\\rishi\\\\public\\\\parent-dashboard.html\")",
+      "Bash(Measure-Object -Line)"
     ],
     "additionalDirectories": [
       "D:\\rishi\\public\\games"
