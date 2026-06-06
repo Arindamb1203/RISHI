@@ -638,10 +638,12 @@ async function loadQuestions() {
 
 function buildFlatList(data) {
   allQ = [];
+  var _examShuffle = rishiExamAttemptCount(CH_ID_STR) > 0;
   ['A','B','C','D','E'].forEach(function (sec) {
     var s = data.sections[sec];
     if (!s) return;
     if (sec === 'E') {
+      /* Case-study subparts must stay in order — never shuffle E */
       (s.cases || []).forEach(function (c) {
         (c.subparts || []).forEach(function (sub) {
           allQ.push(Object.assign({}, sub, {
@@ -653,7 +655,14 @@ function buildFlatList(data) {
         });
       });
     } else {
-      (s.questions || []).forEach(function (q) {
+      var qs = (s.questions || []).slice();
+      if (_examShuffle) {
+        for (var _i = qs.length - 1; _i > 0; _i--) {
+          var _j = Math.floor(Math.random() * (_i + 1));
+          var _t = qs[_i]; qs[_i] = qs[_j]; qs[_j] = _t;
+        }
+      }
+      qs.forEach(function (q) {
         allQ.push(Object.assign({}, q, {
           section: sec,
           marks:   s.marks_per_q || 1

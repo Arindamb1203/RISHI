@@ -404,3 +404,19 @@ window.addEventListener('load', function() {
 
 /* Queue reorder listener moved to error-reporter.js
    (error-reporter.js is included on ALL pages; rishi-core.js is not) */
+
+/* ── PRACTICE QB SHUFFLE ─────────────────────────────────────
+   On 2nd+ attempt, shuffle window.QB in-place before init() runs.
+   Fires before window.onload=init because this addEventListener
+   is registered first (rishi-core.js loads before inline scripts).
+   Safe guard: QB undefined → not a practice page → skip.
+   ─────────────────────────────────────────────────────────── */
+window.addEventListener('load', function() {
+  if (typeof QB === 'undefined' || typeof CHAP_ID === 'undefined') return;
+  if (sessionStorage.getItem('rishi_admin_bypass') === '1') return;
+  if (localStorage.getItem('rishi_practice_done_' + CHAP_ID) !== '1') return;
+  for (var _i = QB.length - 1; _i > 0; _i--) {
+    var _j = Math.floor(Math.random() * (_i + 1));
+    var _t = QB[_i]; QB[_i] = QB[_j]; QB[_j] = _t;
+  }
+});
