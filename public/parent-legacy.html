@@ -643,137 +643,6 @@ button{font-family:'Outfit',sans-serif;}
   .break-stat-row{grid-template-columns:1fr;}
   #live-stats{grid-template-columns:1fr!important;}
 }
-
-/* ============================================================
-   2026 REDESIGN — reimagined landing, mobile nav shell, menu page
-   Mobile shell (top bar + menu) only renders at <=820px so the
-   desktop/laptop layout is completely unchanged.
-   ============================================================ */
-
-/* ---- Reimagined landing (replaces text-wall) ---- */
-#instr-screen{background:var(--navy)!important;background-image:
-   radial-gradient(circle at 85% 6%,rgba(245,158,11,.16),transparent 46%),
-   linear-gradient(165deg,#0B1A33,#13294B 60%,#1C3A66)!important;
-   padding:0!important;color:#fff;}
-.nl-wrap{position:relative;max-width:560px;margin:0 auto;padding:36px 22px 30px;}
-.nl-grid{position:absolute;inset:0;opacity:.45;pointer-events:none;
-  background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);
-  background-size:30px 30px;-webkit-mask-image:linear-gradient(180deg,#000,transparent 70%);mask-image:linear-gradient(180deg,#000,transparent 70%);}
-.nl-in{position:relative;}
-.nl-tag{display:inline-block;font-size:11px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;
-  color:var(--gold2);background:rgba(245,158,11,.13);border:1px solid rgba(245,158,11,.35);padding:6px 13px;border-radius:30px;margin-bottom:22px;}
-.nl-orb{width:92px;height:92px;border-radius:50%;margin:0 auto 18px;display:flex;align-items:center;justify-content:center;font-size:44px;
-  background:radial-gradient(circle at 35% 30%,#FDE68A,#F5A623 55%,#b9770f);
-  box-shadow:0 0 0 10px rgba(245,158,11,.10),0 0 40px rgba(245,158,11,.45);animation:nlfloat 4s ease-in-out infinite;}
-@keyframes nlfloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
-.nl-h{font-size:34px;font-weight:900;line-height:1.05;text-align:center;margin-bottom:10px;letter-spacing:-.5px;}
-.nl-h .y{color:var(--gold);}
-.nl-sub{text-align:center;font-size:15px;color:rgba(255,255,255,.62);line-height:1.55;margin-bottom:26px;}
-.nl-pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-bottom:22px;}
-.nl-pill{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);border-radius:16px;padding:15px 8px;text-align:center;}
-.nl-pill .ic{font-size:24px;display:block;margin-bottom:7px;}
-.nl-pill .t{font-size:13px;font-weight:800;color:#fff;}
-.nl-pill .s{font-size:10.5px;color:rgba(255,255,255,.5);margin-top:3px;line-height:1.3;}
-.nl-flbl{font-size:11px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:9px;}
-.nl-flow{display:flex;align-items:center;gap:6px;margin-bottom:24px;}
-.nl-flow .st{flex:1;background:linear-gradient(135deg,rgba(245,158,11,.16),rgba(245,158,11,.05));border:1px solid rgba(245,158,11,.3);border-radius:12px;padding:10px 4px;text-align:center;}
-.nl-flow .st .n{font-size:11px;color:var(--gold2);font-weight:800;}
-.nl-flow .st .l{font-size:12px;font-weight:700;color:#fff;margin-top:2px;}
-.nl-flow .ar{color:rgba(255,255,255,.35);font-size:14px;}
-.nl-acc{border:1px solid rgba(255,255,255,.1);border-radius:14px;margin-bottom:11px;overflow:hidden;background:rgba(255,255,255,.03);}
-.nl-ah{display:flex;align-items:center;gap:10px;padding:14px 16px;cursor:pointer;}
-.nl-ah .gi{width:30px;height:30px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;}
-.nl-ah .gt{font-size:14px;font-weight:800;color:#fff;flex:1;}
-.nl-ah .gc{font-size:11px;color:rgba(255,255,255,.4);}
-.nl-ah .gx{color:var(--gold);font-size:18px;transition:transform .3s;}
-.nl-acc.open .gx{transform:rotate(45deg);}
-.nl-ab{max-height:0;overflow:hidden;transition:max-height .4s ease;}
-.nl-acc.open .nl-ab{max-height:900px;}
-.nl-ab ul{list-style:none;padding:0 16px 14px;margin:0;}
-.nl-ab li{display:flex;gap:9px;font-size:12.5px;color:rgba(255,255,255,.72);line-height:1.45;padding:7px 0;border-top:1px solid rgba(255,255,255,.06);}
-.nl-ab li .d{color:var(--gold);flex-shrink:0;font-weight:800;}
-.nl-cta{width:100%;margin-top:18px;background:linear-gradient(135deg,#F5A623,#e08e0c);color:#1a1205;border:none;
-  font-family:inherit;font-weight:800;font-size:16px;padding:16px;border-radius:16px;cursor:pointer;box-shadow:0 10px 30px rgba(245,158,11,.4);letter-spacing:.3px;}
-.nl-foot{text-align:center;font-size:11px;color:rgba(255,255,255,.35);margin-top:16px;line-height:1.5;}
-
-/* ---- Mobile top bar (title + dots + hamburger) ---- */
-#m-topbar{display:none;}
-.m-swipe-hint{display:none;}
-@media(max-width:820px){
-  .tab-bar{display:none!important;}
-  .hdr{display:none!important;}
-  #m-topbar{display:block;position:sticky;top:0;z-index:50;
-    background:linear-gradient(120deg,#0B1A33,#16294a 70%,#1d3a66);color:#fff;box-shadow:0 6px 22px rgba(11,26,51,.28);}
-  .m-tb-row{display:flex;align-items:center;gap:12px;padding:14px 16px 13px;}
-  .m-burger{width:40px;height:40px;border-radius:12px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.14);
-    display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;}
-  .m-burger span,.m-burger span::before,.m-burger span::after{display:block;width:17px;height:2px;background:#fff;border-radius:2px;position:relative;content:'';}
-  .m-burger span::before{position:absolute;left:0;top:-5px;}.m-burger span::after{position:absolute;left:0;top:5px;}
-  .m-tb-mid{flex:1;min-width:0;}
-  .m-eyebrow{font-size:10px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;color:var(--gold);}
-  .m-title{font-size:21px;font-weight:900;line-height:1.1;margin-top:1px;}
-  .m-dots{display:flex;gap:5px;flex-shrink:0;}
-  .m-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.25);transition:.25s;}
-  .m-dot.on{background:var(--gold);width:18px;border-radius:4px;}
-  .m-swipe-hint{display:flex;align-items:center;justify-content:space-between;padding:7px 16px;
-    background:#fff;border-bottom:1px solid var(--border);font-size:11px;color:var(--muted);font-weight:600;}
-  .m-swipe-hint b{color:var(--navy);}
-  /* mobile content polish for Study Plan + Performance */
-  .wrap{padding:12px 12px 70px;}
-  .card{padding:15px 14px;border-radius:16px;}
-  .perf-tbl th{font-size:12px;}
-  .perf-tbl td{font-size:13px!important;}
-  .exam-pills,.chip-pills{gap:8px;}
-  .qd-btn{font-size:13px;padding:9px 12px;}
-  .plan-date-row{flex-wrap:wrap;}
-  .plan-study-btn{width:100%;}
-  .dash-hero{padding:20px 16px;}
-}
-@media(max-width:380px){
-  .m-title{font-size:18px;}
-}
-
-/* ---- Slide-in menu page ---- */
-#mn-scrim{position:fixed;inset:0;background:rgba(5,8,15,.55);opacity:0;pointer-events:none;transition:.3s;z-index:9998;}
-#mn-scrim.on{opacity:1;pointer-events:auto;}
-#mn-page{position:fixed;top:0;bottom:0;left:0;width:88%;max-width:380px;transform:translateX(-100%);
-  transition:transform .38s cubic-bezier(.5,0,.2,1);z-index:9999;color:#fff;overflow-y:auto;
-  background:var(--navy);background-image:radial-gradient(circle at 80% 4%,rgba(245,158,11,.16),transparent 50%),linear-gradient(165deg,#0B1A33,#13294B);}
-#mn-page.on{transform:none;}
-.mn-in{position:relative;padding:22px 20px 30px;}
-.mn-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;}
-.mn-logo{font-size:22px;font-weight:900;letter-spacing:2px;}
-.mn-logo span{color:var(--gold);}
-.mn-close{width:38px;height:38px;border-radius:11px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.14);color:#fff;font-size:20px;cursor:pointer;}
-.mn-profile{background:linear-gradient(135deg,rgba(245,158,11,.16),rgba(255,255,255,.04));border:1px solid rgba(245,158,11,.28);border-radius:18px;padding:16px;display:flex;align-items:center;gap:13px;margin-bottom:14px;}
-.mn-av{width:52px;height:52px;border-radius:14px;background:radial-gradient(circle at 35% 30%,#FDE68A,#F5A623 60%);display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;}
-.mn-pe{font-size:10px;letter-spacing:1.2px;text-transform:uppercase;color:var(--gold2);font-weight:800;}
-.mn-pn{font-size:18px;font-weight:800;color:#fff;line-height:1.1;margin-top:1px;}
-.mn-pid{font-size:11px;color:rgba(255,255,255,.5);margin-top:2px;font-family:monospace;}
-.mn-quick{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-bottom:22px;}
-.mn-q{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:13px 6px;text-align:center;cursor:pointer;}
-.mn-q .qi{font-size:20px;}
-.mn-q .ql{font-size:11px;font-weight:700;color:rgba(255,255,255,.8);margin-top:5px;}
-.mn-sec{font-size:11px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:12px;}
-.mn-blocks{display:grid;grid-template-columns:1fr 1fr;gap:11px;}
-.mn-b{border-radius:18px;padding:15px;cursor:pointer;position:relative;overflow:hidden;min-height:104px;display:flex;flex-direction:column;justify-content:space-between;border:1px solid rgba(255,255,255,.1);transition:transform .15s;}
-.mn-b:active{transform:scale(.96);}
-.mn-b .bg{position:absolute;right:-8px;bottom:-12px;font-size:60px;opacity:.13;}
-.mn-b .bi{font-size:23px;}
-.mn-b .bn{font-size:15px;font-weight:800;color:#fff;line-height:1.15;}
-.mn-b .bd{font-size:10.5px;color:rgba(255,255,255,.55);margin-top:3px;line-height:1.3;}
-.mn-b.wide{grid-column:span 2;min-height:auto;flex-direction:row;align-items:center;gap:12px;}
-.mb-plan{background:linear-gradient(140deg,#1e3a8a,#1e40af);}
-.mb-perf{background:linear-gradient(140deg,#0f766e,#0d9488);}
-.mb-ana{background:linear-gradient(140deg,#b45309,#d97706);}
-.mb-live{background:linear-gradient(140deg,#7c2d92,#9333ea);}
-.mb-smart{background:linear-gradient(140deg,#155e75,#0891b2);}
-.mb-refer{background:linear-gradient(140deg,#166534,#16a34a);}
-.mb-blog{background:linear-gradient(140deg,#9f1239,#be123c);}
-.mn-foot{margin-top:18px;display:flex;gap:10px;}
-.mn-foot button{flex:1;border:none;border-radius:13px;padding:13px;font-family:inherit;font-weight:800;font-size:13px;cursor:pointer;}
-.mf-sync{background:rgba(16,185,129,.16);color:#34d399;border:1px solid rgba(16,185,129,.3)!important;}
-.mf-out{background:rgba(239,68,68,.14);color:#f87171;border:1px solid rgba(239,68,68,.3)!important;}
 </style>
 <script src="/rishi-sync.js?v=2">
   var d = document.getElementById('hdr-menu-dropdown');
@@ -833,67 +702,73 @@ button{font-family:'Outfit',sans-serif;}
 <!-- ===== INSTRUCTION SCREEN ===== -->
 <div id="instr-screen" class="hidden">
 
-  <div class="nl-wrap">
-    <div class="nl-grid"></div>
-    <div class="nl-in">
-      <span class="nl-tag">✦ Welcome to RISHI</span>
-      <div class="nl-orb">🪔</div>
-      <div class="nl-h">Hello, and<br>welcome <span class="y">aboard.</span></div>
-      <div class="nl-sub">RISHI isn't just a tutor app — it's a companion that sits beside your child like a trusted family member.</div>
+  <!-- Welcome -->
+  <div class="instr-welcome">
+    <div class="instr-welcome-tag">✨ Welcome to RISHI Parent Portal</div>
+    <h1>Hello, and welcome aboard! 🙏</h1>
+    <p>RISHI is not just a tutorial app — it's a warm companion that sits beside your child, just like a trusted family member. Here's everything you and your child need to know.</p>
+  </div>
 
-      <div class="nl-pillars">
-        <div class="nl-pill"><span class="ic">🗂️</span><div class="t">You Plan</div><div class="s">Pick chapters &amp; times</div></div>
-        <div class="nl-pill"><span class="ic">🎓</span><div class="t">They Learn</div><div class="s">Guided, step by step</div></div>
-        <div class="nl-pill"><span class="ic">👁️</span><div class="t">You See All</div><div class="s">Live, honest progress</div></div>
-      </div>
+  <!-- Two columns -->
+  <div class="instr-cols">
 
-      <div class="nl-flbl">Every chapter follows</div>
-      <div class="nl-flow">
-        <div class="st"><div class="n">01</div><div class="l">Explain</div></div>
-        <div class="ar">→</div>
-        <div class="st"><div class="n">02</div><div class="l">Practice</div></div>
-        <div class="ar">→</div>
-        <div class="st"><div class="n">03</div><div class="l">Exam</div></div>
-      </div>
+    <!-- LEFT: Parent To-Do -->
+    <div>
+      <div class="instr-col-head parent">📋 Your To-Do as a Parent</div>
 
-      <div class="nl-flbl">Full guide — tap to open</div>
+      <div class="instr-slab"><div class="instr-slab-num">STEP 1</div><div class="instr-slab-txt"><b>Create a Study Plan</b> — Go to Study Plan tab. Pick one or more chapters from any topic you want your child to focus on.</div></div>
 
-      <div class="nl-acc" onclick="nlToggle(this,event)">
-        <div class="nl-ah"><div class="gi" style="background:rgba(245,158,11,.18)">📋</div><div class="gt">Your To-Do as a Parent</div><div class="gc">10 steps</div><div class="gx">+</div></div>
-        <div class="nl-ab"><ul>
-          <li><span class="d">›</span><span><b>Create a Study Plan</b> — pick chapters in the Study Plan tab.</span></li>
-          <li><span class="d">›</span><span><b>Set date range</b> — RISHI suggests timelines; adjust within limits.</span></li>
-          <li><span class="d">›</span><span><b>Set study time slots</b> — 24-hour format; outside these, RISHI locks.</span></li>
-          <li><span class="d">›</span><span><b>Watch Analytics</b> — scores, completion &amp; trends in one place.</span></li>
-          <li><span class="d">›</span><span><b>Monitor breaks</b> — count, length &amp; type (water / washroom / idle).</span></li>
-          <li><span class="d">›</span><span><b>Idle 5 min = auto break</b> — idle time can't be hidden.</span></li>
-          <li><span class="d">›</span><span><b>Live Status</b> — online/offline in real time, even incognito.</span></li>
-          <li><span class="d">›</span><span><b>Lock the plan</b> — student portal updates instantly; unlock to revise.</span></li>
-          <li><span class="d">›</span><span><b>Brief your child</b> — chapters, times &amp; rules. Informed = better.</span></li>
-          <li><span class="d">›</span><span><b>Leaderboard</b> — coins from correct answers &amp; streaks drive rank.</span></li>
-        </ul></div>
-      </div>
+      <div class="instr-slab"><div class="instr-slab-num">STEP 2</div><div class="instr-slab-txt"><b>Set the Date Range</b> — RISHI will suggest ideal timelines. You can change them, but it won't allow less than the minimum time needed per chapter.</div></div>
 
-      <div class="nl-acc" onclick="nlToggle(this,event)">
-        <div class="nl-ah"><div class="gi" style="background:rgba(16,185,129,.18)">🎓</div><div class="gt">Please Inform Your Child</div><div class="gc">10 points</div><div class="gx">+</div></div>
-        <div class="nl-ab"><ul>
-          <li><span class="d">›</span><span>Only assigned chapters open, only within set time slots.</span></li>
-          <li><span class="d">›</span><span>Correct answers &amp; streaks earn <b>coins</b> → real rewards.</span></li>
-          <li><span class="d">›</span><span>Strict order: <b>Explain → Practice → Exam</b>. No skipping.</span></li>
-          <li><span class="d">›</span><span>Practice needs <b>5 correct in a row</b> to unlock the exam.</span></li>
-          <li><span class="d">›</span><span>Finish all chapter exams in a topic → Topic Exam unlocks.</span></li>
-          <li><span class="d">›</span><span>Pass all topics → grand <b>Sampurna Pariksha</b> unlocks.</span></li>
-          <li><span class="d">›</span><span>Leaderboard shows your rank; brain games coming soon.</span></li>
-          <li><span class="d">›</span><span>Questions aligned with NCERT, RD Sharma, Olympiad &amp; more.</span></li>
-          <li><span class="d">›</span><span>Every break is recorded — <b>parent sees everything.</b></span></li>
-          <li><span class="d">›</span><span>Trouble? Refresh 2–3× (30s gap), else WhatsApp your admin.</span></li>
-        </ul></div>
-      </div>
+      <div class="instr-slab"><div class="instr-slab-num">STEP 3</div><div class="instr-slab-txt"><b>Set Study Time Slots</b> — Scroll down inside the Study Plan tab. Change the predefined times to suit your child's schedule. Times are in <b>24-hour format</b>.</div></div>
 
-      <button class="nl-cta" onclick="skipInstructions()">Enter Dashboard →</button>
-      <div class="nl-foot">🤝 A warm companion that guides, encourages &amp; holds your child accountable.</div>
+      <div class="instr-slab"><div class="instr-slab-num">STEP 4</div><div class="instr-slab-txt"><b>Watch the Dashboard</b> — It shows your child's activity, scores, chapter completion, and progress trends — all in one place.</div></div>
+
+      <div class="instr-slab"><div class="instr-slab-num">STEP 5</div><div class="instr-slab-txt"><b>Monitor Breaks</b> — You'll see how many breaks your child took, how long each lasted, and what type — water, washroom, or just idle.</div></div>
+
+      <div class="instr-slab"><div class="instr-slab-num">STEP 6</div><div class="instr-slab-txt">If the screen is <b>inactive for 5 minutes</b>, RISHI automatically marks it as a break and starts recording time — your child can't hide idle time.</div></div>
+
+      <div class="instr-slab"><div class="instr-slab-num">STEP 7</div><div class="instr-slab-txt">The <b>Live Status tab</b> shows you in real time whether your child is online or offline — even if they close the browser, shut down the machine, or go incognito.</div></div>
+
+      <div class="instr-slab"><div class="instr-slab-num">STEP 8</div><div class="instr-slab-txt"><b>Lock the Plan</b> — Once you're satisfied, lock it. The student portal updates in real time the moment you lock. Unlock anytime to revise.</div></div>
+
+      <div class="instr-slab"><div class="instr-slab-num">STEP 9</div><div class="instr-slab-txt">After locking, <b>brief your child</b> on what they need to know — what chapters, what time, and what the rules are. Informed students perform better.</div></div>
+
+      <div class="instr-slab"><div class="instr-slab-num">STEP 10</div><div class="instr-slab-txt">Check the <b>Leaderboard</b> to see how your child ranks against others — coins earned through correct answers and streaks drive the ranking.</div></div>
+    </div>
+
+    <!-- RIGHT: Student Must Know -->
+    <div>
+      <div class="instr-col-head student">🎓 Please Inform Your Child</div>
+
+      <div class="instr-slab student-slab"><div class="instr-slab-num">KNOW 1</div><div class="instr-slab-txt">You can <b>only access the chapters assigned to you</b>, and only within the time slots your parent has set. Outside that — RISHI stays locked.</div></div>
+
+      <div class="instr-slab student-slab"><div class="instr-slab-num">KNOW 2</div><div class="instr-slab-txt">Every correct answer and every streak earns you <b>coins</b>. These can be redeemed for real rewards — your parent can cash them out for you!</div></div>
+
+      <div class="instr-slab student-slab"><div class="instr-slab-num">KNOW 3</div><div class="instr-slab-txt">Every chapter follows a strict order: <b>Explain → Practice → Exam</b>. You cannot skip ahead. Each step unlocks the next.</div></div>
+
+      <div class="instr-slab student-slab"><div class="instr-slab-num">KNOW 4</div><div class="instr-slab-txt">Explain must be completed before Practice opens. Practice requires <b>5 correct answers in a row</b> before the Chapter Exam becomes available.</div></div>
+
+      <div class="instr-slab student-slab"><div class="instr-slab-num">KNOW 5</div><div class="instr-slab-txt">Every chapter has its own exam. <b>Complete all chapter exams in a topic</b> to unlock the Topic Exam.</div></div>
+
+      <div class="instr-slab student-slab"><div class="instr-slab-num">KNOW 6</div><div class="instr-slab-txt">Pass all Topic Exams and the grand <b>Sampurna Pariksha</b> unlocks — the ultimate test of everything you've learned.</div></div>
+
+      <div class="instr-slab student-slab"><div class="instr-slab-num">KNOW 7</div><div class="instr-slab-txt">Check the <b>Leaderboard</b> to see your rank among peers. Mental boosting games are coming soon to keep your brain sharp between chapters.</div></div>
+
+      <div class="instr-slab student-slab"><div class="instr-slab-num">KNOW 8</div><div class="instr-slab-txt">Questions are <b>inspired by and aligned with</b> RD Sharma, RS Aggarwal, NCERT Exemplar, CBSE past papers, and Olympiad syllabi — reworded and adapted fresh for RISHI.</div></div>
+
+      <div class="instr-slab student-slab"><div class="instr-slab-num">KNOW 9</div><div class="instr-slab-txt">Every break you take is recorded. Screen idle for 5 minutes = automatic break. <b>Your parent can see everything.</b> Study honestly!</div></div>
+
+      <div class="instr-slab student-slab"><div class="instr-slab-num">KNOW 10</div><div class="instr-slab-txt">Beyond your set time, RISHI won't open. If something feels wrong, <b>refresh 2–3 times with a 30-second gap</b>. Still broken? Screenshot + WhatsApp your ID and registered number to your admin.</div></div>
     </div>
   </div>
+
+  <!-- Companion note -->
+  <div class="instr-companion">
+    <span>🤝</span>Remember — RISHI is not just a tutorial app. It is a <strong>companion</strong> that sits beside your child like a warm, knowledgeable family member — guiding, encouraging, and holding them accountable every step of the way.
+  </div>
+
+  <button class="btn-instr-go" onclick="skipInstructions()">✅ Got It — Take Me to the Dashboard</button>
 
 </div>
 
@@ -920,26 +795,10 @@ button{font-family:'Outfit',sans-serif;}
     </div>
   </div>
 
-  <!-- Mobile top bar (renders <=820px; desktop keeps the tab row below) -->
-  <div id="m-topbar">
-    <div class="m-tb-row">
-      <div class="m-burger" onclick="openMenu()"><span></span></div>
-      <div class="m-tb-mid">
-        <div class="m-eyebrow">Parent Portal</div>
-        <div class="m-title" id="m-title">Study Plan</div>
-      </div>
-      <div class="m-dots" id="m-dots"></div>
-    </div>
-    <div class="m-swipe-hint">
-      <div>⟵ <b>swipe</b> next tab</div>
-      <div>menu <b>swipe</b> ⟶</div>
-    </div>
-  </div>
-
   <div class="tab-bar">
     <button class="tab-btn on" id="tab-plan" onclick="switchTab('plan')">&#128203; Study Plan</button>
     <button class="tab-btn" id="tab-perf" onclick="switchTab('perf')">&#128202; Performance</button>
-    <button class="tab-btn" id="tab-dash" onclick="switchTab('dash')">&#9889; Analytics</button>
+    <button class="tab-btn" id="tab-dash" onclick="window.location.href='/parent-dashboard.html'">&#9889; Analytics</button>
     <button class="tab-btn" id="tab-live" onclick="switchTab('live')">&#128241; Live Status</button>
     <button class="tab-btn" id="tab-smart" onclick="window.location.href='/smart-maths.html'">&#129504; Smart Maths</button>
     <button class="tab-btn" id="tab-refer" onclick="window.location.href='/referral.html'" style="color:#39FF14;">&#127873; Refer &amp; Earn</button>
@@ -1090,49 +949,8 @@ button{font-family:'Outfit',sans-serif;}
 
     </div>
 
-    <!-- ===== ANALYTICS TAB (folded in — same live data as Performance) ===== -->
-    <div id="view-dash" class="hidden">
-
-      <div style="padding:4px 0 12px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
-        <button class="btn btn-ghost btn-sm" onclick="refreshDash()">&#9729; Load from Cloud</button>
-        <span style="font-size:13px;color:var(--muted)">Live &mdash; updates automatically every few seconds</span>
-      </div>
-
-      <!-- HERO readiness -->
-      <div class="dash-hero">
-        <div class="hero-left">
-          <div class="hero-ring-wrap">
-            <svg class="hero-ring" viewBox="0 0 120 120">
-              <circle cx="60" cy="60" r="50" fill="none" stroke="rgba(255,255,255,.12)" stroke-width="9"></circle>
-              <circle id="dash-hero-arc" cx="60" cy="60" r="50" fill="none" stroke="#F59E0B" stroke-width="9" stroke-linecap="round" stroke-dasharray="314" stroke-dashoffset="314" transform="rotate(-90 60 60)" style="transition:stroke-dashoffset 1.2s cubic-bezier(.4,0,.2,1)"></circle>
-            </svg>
-            <div class="hero-ring-inner"><div class="hero-pct" id="dash-hero-pct">0%</div><div class="hero-pct-lbl">Ready</div></div>
-          </div>
-        </div>
-        <div class="hero-right">
-          <div class="hero-title" id="dash-grade-line">Overall Readiness</div>
-          <div class="hero-sub" id="dash-grade-sub">Across active chapters &mdash; from explain, practice &amp; exam activity. Updates live.</div>
-          <div class="hero-kpis" id="dash-hero-kpis"></div>
-        </div>
-      </div>
-
-      <!-- Chapter Intelligence -->
-      <div class="dash-sec-hdr">&#129504; Chapter Intelligence <span id="dash-ch-count" style="font-weight:600;color:var(--muted);text-transform:none;letter-spacing:0;"></span></div>
-      <div class="ch-intel-grid" id="dash-ch-grid"></div>
-
-      <!-- Exam Dashboard -->
-      <div class="dash-sec-hdr">&#128221; Exam Dashboard</div>
-      <div class="break-stat-row" id="dash-exam-kpis" style="margin-bottom:14px;"></div>
-      <div id="dash-exam-cards"></div>
-
-      <!-- Break Analytics -->
-      <div class="dash-sec-hdr" style="margin-top:18px;">&#9749; Break Analytics
-        <button class="btn btn-ghost btn-sm" onclick="resetBreaks()" style="font-weight:700;">&#128260; Reset</button>
-      </div>
-      <div class="break-stat-row" id="dash-break-kpis" style="grid-template-columns:repeat(2,1fr);"></div>
-      <div id="dash-break-note" style="font-size:13px;color:var(--muted);margin-top:8px;"></div>
-
-    </div>
+    <!-- ===== ANALYTICS TAB ===== -->
+    <div id="view-dash" class="hidden"></div>
 
 
     <!-- ===== LIVE STATUS TAB ===== -->
@@ -1157,49 +975,6 @@ button{font-family:'Outfit',sans-serif;}
     </div><!-- /view-live -->
 
   </div><!-- /wrap -->
-  <!-- ===== SLIDE-IN MENU PAGE (mobile nav) ===== -->
-  <div id="mn-scrim" onclick="closeMenu()"></div>
-  <div id="mn-page">
-    <div class="mn-in">
-      <div class="mn-top">
-        <div class="mn-logo">RISHI<span>.</span></div>
-        <button class="mn-close" onclick="closeMenu()">✕</button>
-      </div>
-
-      <div class="mn-profile">
-        <div class="mn-av">🧑‍🎓</div>
-        <div>
-          <div class="mn-pe">Parent Portal</div>
-          <div class="mn-pn" id="mn-pn">Student</div>
-          <div class="mn-pid" id="mn-pid"></div>
-        </div>
-      </div>
-
-      <div class="mn-quick">
-        <div class="mn-q" onclick="showProfilePanel();closeMenu()"><div class="qi">👤</div><div class="ql">Profile</div></div>
-        <div class="mn-q" onclick="syncToCloud();closeMenu()"><div class="qi">☁️</div><div class="ql">Sync</div></div>
-        <div class="mn-q" onclick="showInstructions();closeMenu()"><div class="qi">❓</div><div class="ql">Guide</div></div>
-      </div>
-
-      <div class="mn-sec">Jump to a section</div>
-      <div class="mn-blocks">
-        <div class="mn-b mb-plan" onclick="goTabM('plan')"><span class="bg">🗂️</span><div class="bi">🗂️</div><div><div class="bn">Study Plan</div><div class="bd">Chapters, dates &amp; slots</div></div></div>
-        <div class="mn-b mb-perf" onclick="goTabM('perf')"><span class="bg">📊</span><div class="bi">📊</div><div><div class="bn">Performance</div><div class="bd">Scores &amp; breaks</div></div></div>
-        <div class="mn-b mb-ana" onclick="goTabM('dash')"><span class="bg">⚡</span><div class="bi">⚡</div><div><div class="bn">Analytics</div><div class="bd">Readiness &amp; intel</div></div></div>
-        <div class="mn-b mb-live" onclick="goTabM('live')"><span class="bg">📱</span><div class="bi">📱</div><div><div class="bn">Live Status</div><div class="bd">Online now?</div></div></div>
-        <div class="mn-b mb-smart" onclick="window.location.href='/smart-maths.html'"><span class="bg">🧠</span><div class="bi">🧠</div><div><div class="bn">Smart Maths</div><div class="bd">Assign brain tools</div></div></div>
-        <div class="mn-b mb-refer" onclick="window.location.href='/referral.html'"><span class="bg">🎁</span><div class="bi">🎁</div><div><div class="bn">Refer &amp; Earn</div><div class="bd">₹100 per code</div></div></div>
-        <div class="mn-b mb-blog" onclick="window.location.href='/parent-blogs.html'"><span class="bg">🎬</span><div class="bi">🎬</div><div><div class="bn">Blogs</div><div class="bd">Tips &amp; updates</div></div></div>
-        <div class="mn-b mb-ana" onclick="showLeaderboard();closeMenu()" style="background:linear-gradient(140deg,#7c5e10,#a87a14)"><span class="bg">🏆</span><div class="bi">🏆</div><div><div class="bn">Leaderboard</div><div class="bd">Your child's rank</div></div></div>
-      </div>
-
-      <div class="mn-foot">
-        <button class="mf-sync" onclick="syncToCloud();closeMenu()">☁ Sync now</button>
-        <button class="mf-out" onclick="logout()">← Sign out</button>
-      </div>
-    </div>
-  </div>
-
 </div><!-- /main-portal -->
 
 <!-- Lock Modal -->
@@ -2035,14 +1810,10 @@ function initMainPortal() {
   setInterval(function() {
     var liveView = document.getElementById('view-live');
     var planView = document.getElementById('view-plan');
-    var dashView = document.getElementById('view-dash');
-    var perfView = document.getElementById('view-perf');
     /* Always re-fetch from D1 in background for real-time updates */
     loadStudentFromD1(function(){
       if (liveView && !liveView.classList.contains('hidden')) renderLive();
       if (planView && !planView.classList.contains('hidden')) { loadPlans(); renderActivePlans(); }
-      if (dashView && !dashView.classList.contains('hidden')) renderDash();
-      if (perfView && !perfView.classList.contains('hidden')) renderPerformance();
       checkStudentActivityNotifications();
     });
   }, 10000);
@@ -2125,10 +1896,8 @@ function switchTab(tab) {
   document.getElementById('view-dash').className  = tab === 'dash'  ? '' : 'hidden';
   document.getElementById('view-live').className  = tab === 'live'  ? '' : 'hidden';
   if (tab === 'perf')  loadStudentFromD1(function(){ renderPerformance(); });
-  if (tab === 'dash')  loadStudentFromD1(function(){ renderDash(); });
   if (tab === 'plan')  renderSlots();
   if (tab === 'live')  renderLive();
-  updateMobileTabUI(tab);
 }
 
 // ===========================
@@ -3292,183 +3061,6 @@ function renderActivePlans() {
 // ===========================
 // PERFORMANCE
 // ===========================
-// ===========================
-// ANALYTICS (folded-in dashboard) — same live data + keys as Performance
-// ===========================
-function getFilteredBreakLog() {
-  var log = [];
-  try { log = JSON.parse(localStorage.getItem('rishi_break_log') || '[]'); } catch(e) {}
-  if (!Array.isArray(log)) log = [];
-  var cutRaw = localStorage.getItem('rishi_break_reset_at');
-  var cutoff = cutRaw ? parseInt(cutRaw, 10) : 0;
-  if (cutoff > 0) {
-    log = log.filter(function(b){ return b && typeof b.ts === 'number' && b.ts >= cutoff; });
-  }
-  return log;
-}
-
-function fmtDur(secs) {
-  secs = parseInt(secs || 0, 10); if (isNaN(secs) || secs < 0) secs = 0;
-  var m = Math.floor(secs / 60), s = secs % 60;
-  if (m > 0 && s > 0) return m + 'm ' + s + 's';
-  if (m > 0) return m + 'm';
-  return s + 's';
-}
-
-function dashChData() {
-  var exSess = {}, prSess = {}, ac = {};
-  try { exSess = JSON.parse(localStorage.getItem('rishi_explain_sessions') || '{}'); } catch(e) {}
-  try { prSess = JSON.parse(localStorage.getItem('rishi_practice_sessions') || '{}'); } catch(e) {}
-  try { ac    = JSON.parse(localStorage.getItem('rishi_active_chapters') || '{}'); } catch(e) {}
-  var pfx = PROGRESS_KEY_PREFIX;
-  var out = [];
-  for (var i = 0; i < CHAPTERS.length; i++) {
-    var ch = CHAPTERS[i], id = ch.id, exStr = examChIdStr(id);
-    var prData = prSess[id] || prSess[String(id)] || {};
-    out.push({
-      id: id, name: ch.name, topic: ch.topic, color: getChColor(id),
-      explainDone:  !!localStorage.getItem('rishi_explain_done_'  + pfx + id),
-      practiceDone: !!localStorage.getItem('rishi_practice_done_' + pfx + id),
-      examDone:     localStorage.getItem('rishi_chapexam_done_' + exStr) === '1',
-      examScore:    parseInt(localStorage.getItem('rishi_exam_score_'    + exStr) || '0', 10) || 0,
-      examAttempts: parseInt(localStorage.getItem('rishi_exam_attempts_' + exStr) || '0', 10) || 0,
-      explainSessions:  parseInt(exSess[id] || exSess[String(id)] || 0, 10) || 0,
-      practiceSessions: (prData.count || 0),
-      inPlan: !!(ac[id] || ac[String(id)])
-    });
-  }
-  return out;
-}
-
-function chReadiness(c) {
-  var s = 0;
-  if (c.explainDone) s += 10;
-  s += Math.min(c.explainSessions * 3, 15);
-  if (c.practiceDone) s += 30; else if (c.practiceSessions > 0) s += Math.min(c.practiceSessions * 8, 20);
-  s += Math.min((c.explainSessions + c.practiceSessions) * 2, 10);
-  if (c.examScore > 0) s += Math.round(c.examScore * 0.35);
-  return Math.min(100, Math.round(s));
-}
-function chHasActivity(c) {
-  return c.explainDone || c.practiceDone || c.examDone ||
-         c.explainSessions > 0 || c.practiceSessions > 0 || c.examAttempts > 0 || c.inPlan;
-}
-function dashGradeBand(p) {
-  if (p >= 85) return { l:'A', b:'Excellent',    col:'#059669' };
-  if (p >= 70) return { l:'B', b:'Good',         col:'#0D9488' };
-  if (p >= 55) return { l:'C', b:'Fair',         col:'#D97706' };
-  if (p >= 35) return { l:'D', b:'Needs Work',   col:'#DC2626' };
-  return            { l:'E', b:'Just Started', col:'#94A3B8' };
-}
-
-function renderDash() {
-  if (!document.getElementById('dash-hero-pct')) return;
-  var data = dashChData();
-  var active = data.filter(chHasActivity);
-
-  /* Overall readiness = average across active chapters */
-  var overall = 0;
-  if (active.length) { var sum = 0; for (var i = 0; i < active.length; i++) sum += chReadiness(active[i]); overall = Math.round(sum / active.length); }
-
-  var arc = document.getElementById('dash-hero-arc');
-  if (arc) arc.setAttribute('stroke-dashoffset', String(Math.round(314 * (1 - overall / 100))));
-  document.getElementById('dash-hero-pct').textContent = overall + '%';
-  var g = dashGradeBand(overall);
-  document.getElementById('dash-grade-line').innerHTML =
-    'Predicted Grade Band: <span style="color:' + g.col + '">' + g.l + ' &mdash; ' + g.b + '</span>';
-
-  /* KPIs */
-  var explainTot = 0, practiceDoneCount = 0, examDoneCount = 0, examScoreSum = 0, examScoreCount = 0;
-  for (var j = 0; j < data.length; j++) {
-    var c = data[j];
-    explainTot += c.explainSessions;
-    if (c.practiceDone) practiceDoneCount++;
-    if (c.examDone) examDoneCount++;
-    if (c.examAttempts > 0 && c.examScore > 0) { examScoreSum += c.examScore; examScoreCount++; }
-  }
-  var avgExam = examScoreCount ? Math.round(examScoreSum / examScoreCount) : 0;
-  function hk(n, l) { return '<div class="hero-kpi"><div class="hkpi-n">' + n + '</div><div class="hkpi-l">' + l + '</div></div>'; }
-  document.getElementById('dash-hero-kpis').innerHTML =
-    hk(explainTot, 'Explain') + '<div class="hkpi-sep"></div>' +
-    hk(practiceDoneCount, 'Practice') + '<div class="hkpi-sep"></div>' +
-    hk(examDoneCount, 'Exams') + '<div class="hkpi-sep"></div>' +
-    hk(examScoreCount ? avgExam + '%' : '&mdash;', 'Avg Score') + '<div class="hkpi-sep"></div>' +
-    hk(active.length, 'Active');
-
-  /* Chapter Intelligence cards */
-  document.getElementById('dash-ch-count').textContent = active.length ? ('(' + active.length + ' active)') : '';
-  var grid = document.getElementById('dash-ch-grid');
-  if (!active.length) {
-    grid.innerHTML = '<div class="no-exams">No chapter activity yet &mdash; analytics fill in as the student studies.</div>';
-  } else {
-    active.sort(function(a, b){ return chReadiness(b) - chReadiness(a); });
-    var h = '';
-    for (var k = 0; k < active.length; k++) {
-      var x = active[k], r = chReadiness(x), off = Math.round(157 * (1 - r / 100)), col = x.color;
-      h += '<div class="ch-card" style="--ccc:' + col + ';--ccb:' + col + '22;--ccl:' + col + '66;">';
-      h += '<div class="ch-card-top"><div class="ch-card-info">'
-         + '<div class="ch-num">Ch ' + x.id + '</div>'
-         + '<div class="ch-card-name">' + x.name + '</div>'
-         + '<span class="ch-topic-tag">' + x.topic + '</span></div>'
-         + '<div class="ch-ring-wrap"><svg class="ch-ring" viewBox="0 0 60 60">'
-         + '<circle cx="30" cy="30" r="25" fill="none" stroke="var(--border)" stroke-width="5"></circle>'
-         + '<circle cx="30" cy="30" r="25" fill="none" stroke="' + col + '" stroke-width="5" stroke-linecap="round" stroke-dasharray="157" stroke-dashoffset="' + off + '" transform="rotate(-90 30 30)"></circle>'
-         + '</svg><div class="ch-ring-inner"><div class="ch-ring-pct">' + r + '%</div></div></div></div>';
-      h += '<div class="ch-badges">';
-      h += x.explainDone ? '<span class="ch-badge b-explain-yes">&#10003; Explain</span>' : '<span class="ch-badge b-explain-no">Explain</span>';
-      h += x.practiceDone ? '<span class="ch-badge b-explain-yes">&#10003; Practice</span>'
-                          : (x.practiceSessions > 0 ? '<span class="ch-badge b-streak">Practice &times;' + x.practiceSessions + '</span>'
-                                                     : '<span class="ch-badge b-explain-no">Practice</span>');
-      h += x.examDone ? '<span class="ch-badge b-explain-yes">Exam ' + x.examScore + '%</span>' : '<span class="ch-badge b-explain-no">Exam</span>';
-      if (x.inPlan) h += '<span class="ch-badge b-scheduled">Scheduled</span>';
-      h += '</div></div>';
-    }
-    grid.innerHTML = h;
-  }
-
-  /* Exam Dashboard */
-  var exams = data.filter(function(c){ return c.examDone; });
-  var totAtt = 0, best = 0;
-  for (var e = 0; e < exams.length; e++) { totAtt += exams[e].examAttempts || 1; if (exams[e].examScore > best) best = exams[e].examScore; }
-  function bk(n, l) { return '<div class="break-stat"><div class="break-stat-n">' + n + '</div><div class="break-stat-l">' + l + '</div></div>'; }
-  document.getElementById('dash-exam-kpis').innerHTML =
-    bk(exams.length, 'Exams Taken') + bk(totAtt, 'Attempts') + bk(examScoreCount ? avgExam + '%' : '&mdash;', 'Avg Score');
-  var ec = document.getElementById('dash-exam-cards');
-  if (!exams.length) {
-    ec.innerHTML = '<div class="no-exams">No exam scores yet. They appear here after chapter exams are attempted.</div>';
-  } else {
-    exams.sort(function(a, b){ return b.examScore - a.examScore; });
-    var eh = '<div class="exam-score-grid">';
-    for (var f = 0; f < exams.length; f++) {
-      var q = exams[f], pc = q.examScore;
-      var col2 = pc >= 75 ? '#059669' : pc >= 50 ? '#D97706' : '#DC2626';
-      var pcb  = pc >= 75 ? 'background:#ECFDF5;color:#065F46' : pc >= 50 ? 'background:#FFFBEB;color:#92400E' : 'background:#FEF2F2;color:#991B1B';
-      eh += '<div class="ex-score-card" style="--exc:' + col2 + ';"><div class="ex-score-top"><div class="ex-score-name">Ch ' + q.id + '. ' + q.name + '</div></div>';
-      eh += '<div><span class="ex-score-n">' + q.examScore + '</span><span class="ex-score-den"> / 100</span></div>';
-      eh += '<span class="ex-score-pct" style="' + pcb + '">' + pc + '%</span>';
-      eh += '<div class="ex-mini-grid"><div class="ex-mini"><div class="ex-mini-n">' + (q.examAttempts || 1) + '</div><div class="ex-mini-l">Attempts</div></div>'
-          + '<div class="ex-mini"><div class="ex-mini-n">' + q.examScore + '%</div><div class="ex-mini-l">Best</div></div>'
-          + '<div class="ex-mini"><div class="ex-mini-n">' + (pc >= 60 ? '&#10003;' : '&mdash;') + '</div><div class="ex-mini-l">Pass 60</div></div></div>';
-      eh += '</div>';
-    }
-    eh += '</div>'; ec.innerHTML = eh;
-  }
-
-  /* Break Analytics — uses the same reset-cutoff filter as Break Statistics */
-  var bl = getFilteredBreakLog();
-  var tb = bl.length, totSec = 0, typeCount = {};
-  for (var bi = 0; bi < bl.length; bi++) { totSec += parseInt(bl[bi].secs || 0, 10) || 0; var ty = (bl[bi].type || 'Other'); typeCount[ty] = (typeCount[ty] || 0) + 1; }
-  var avgSec = tb ? Math.round(totSec / tb) : 0;
-  var mostT = '&mdash;', mostN = 0;
-  for (var tk in typeCount) { if (typeCount[tk] > mostN) { mostN = typeCount[tk]; mostT = tk; } }
-  var mostBox = '<div class="break-stat"><div class="break-stat-n" style="font-size:16px;">' + mostT + '</div><div class="break-stat-l">Most Frequent</div></div>';
-  document.getElementById('dash-break-kpis').innerHTML =
-    bk(tb, 'Total Breaks') + bk(fmtDur(totSec), 'Total Time') + bk(fmtDur(avgSec), 'Avg / Break') + mostBox;
-  document.getElementById('dash-break-note').textContent = tb ? '' : 'No breaks recorded since the last reset.';
-}
-
-function refreshDash() { loadStudentFromD1(function(){ renderDash(); }); }
-
 function renderPerformance() {
   renderPracticeStats();
   renderPerfExamScores();
@@ -3600,32 +3192,34 @@ function renderPerfExamScores() {
 }
 
 function renderBreakStats() {
-  var breakLog = getFilteredBreakLog();
+  var breakLog = [];
+  try { breakLog = JSON.parse(localStorage.getItem('rishi_break_log') || '[]'); } catch(e) {}
 
   var totalBreaks = breakLog.length;
-  var totalSecs = 0;
-  for (var i = 0; i < breakLog.length; i++) totalSecs += parseInt(breakLog[i].secs || 0, 10) || 0;
-  var avgSecs = totalBreaks > 0 ? Math.round(totalSecs / totalBreaks) : 0;
+  var totalMins = 0;
+  for (var i = 0; i < breakLog.length; i++) totalMins += Math.round(parseInt(breakLog[i].secs || 0) / 60);
+  var avgMins = totalBreaks > 0 ? Math.round(totalMins / totalBreaks) : 0;
 
   document.getElementById('perf-break-stats').innerHTML =
     '<div class="break-stat"><div class="break-stat-n">' + totalBreaks + '</div><div class="break-stat-l">Total Breaks</div></div>' +
-    '<div class="break-stat"><div class="break-stat-n">' + fmtDur(totalSecs) + '</div><div class="break-stat-l">Total Time</div></div>' +
-    '<div class="break-stat"><div class="break-stat-n">' + fmtDur(avgSecs) + '</div><div class="break-stat-l">Avg / Break</div></div>';
+    '<div class="break-stat"><div class="break-stat-n">' + totalMins + '</div><div class="break-stat-l">Total Minutes</div></div>' +
+    '<div class="break-stat"><div class="break-stat-n">' + avgMins + '</div><div class="break-stat-l">Avg per Break</div></div>';
 
   if (breakLog.length === 0) {
-    document.getElementById('perf-break-log').innerHTML = '<div style="font-size:15px;color:var(--muted);padding-top:4px">No break history recorded since the last reset.</div>';
+    document.getElementById('perf-break-log').innerHTML = '<div style="font-size:15px;color:var(--muted);padding-top:4px">No break history recorded yet.</div>';
     return;
   }
 
   var html = '<div style="overflow-x:auto;margin-top:4px"><table class="perf-tbl"><thead><tr>';
-  html += '<th>#</th><th>Reason</th><th>Duration</th><th>Date</th><th>Time</th>';
+  html += '<th>#</th><th>Reason</th><th>Duration (min)</th><th>Date</th><th>Time</th>';
   html += '</tr></thead><tbody>';
   var recentBreaks = breakLog.slice(-20).reverse();
   for (var j = 0; j < recentBreaks.length; j++) {
     var b = recentBreaks[j];
+    var bMins = b.secs ? Math.round(parseInt(b.secs) / 60) : '—';
     html += '<tr><td style="font-size:16px;color:var(--muted)">' + (breakLog.length - j) + '</td>';
     html += '<td style="font-size:15px;font-weight:600">' + (b.type || '—') + '</td>';
-    html += '<td style="font-size:15px;font-weight:700;text-align:center">' + fmtDur(b.secs) + '</td>';
+    html += '<td style="font-size:15px;font-weight:700;text-align:center">' + bMins + '</td>';
     html += '<td style="font-size:14px;color:var(--muted)">' + (b.date || '—') + '</td>';
     html += '<td style="font-size:14px;color:var(--muted)">' + (b.time || '—') + '</td></tr>';
   }
@@ -3634,23 +3228,16 @@ function renderBreakStats() {
 }
 
 function resetBreaks() {
-  if (!confirm('Reset break history to 0? This permanently clears all breaks recorded up to now for this student.')) return;
+  if (!confirm('Reset break history to 0? This clears all recorded breaks for this student.')) return;
   var sid = getStudentId();
-  var cutoff = String(Date.now());
   localStorage.setItem('rishi_break_log', '[]');
-  localStorage.setItem('rishi_break_reset_at', cutoff);
   if (sid && sid !== 'default') {
-    /* Cloud: set the cutoff FIRST so the server drops any re-uploaded old breaks, then clear the log */
-    fetch('/d1-sync', {method:'POST', headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({action:'set', studentId: sid, key: 'rishi_break_reset_at', value: cutoff})
-    }).catch(function(){});
     fetch('/d1-sync', {method:'POST', headers:{'Content-Type':'application/json'},
       body: JSON.stringify({action:'set', studentId: sid, key: 'rishi_break_log', value: '[]'})
     }).catch(function(){});
   }
   renderBreakStats();
-  if (typeof renderDash === 'function' && document.getElementById('dash-hero-pct')) renderDash();
-  alert('Break history reset. Old breaks will not return.');
+  alert('Break history reset.');
 }
 
 function renderCoins() {
@@ -4236,64 +3823,6 @@ function showLeaderboard() {
 
 
 <script>
-/* ===== Mobile navigation: title bar, swipe, slide-in menu ===== */
-var MTABS = [
-  { id:'plan', title:'Study Plan' },
-  { id:'perf', title:'Performance' },
-  { id:'dash', title:'Analytics' },
-  { id:'live', title:'Live Status' }
-];
-(function initMDots(){
-  var d = document.getElementById('m-dots');
-  if (d && !d.childElementCount) {
-    for (var i=0;i<MTABS.length;i++){ var s=document.createElement('div'); s.className='m-dot'+(i===0?' on':''); d.appendChild(s); }
-  }
-})();
-function mTabIndex(tab){ for (var i=0;i<MTABS.length;i++) if (MTABS[i].id===tab) return i; return -1; }
-function updateMobileTabUI(tab){
-  var idx = mTabIndex(tab); if (idx<0) return;
-  var t = document.getElementById('m-title'); if (t) t.textContent = MTABS[idx].title;
-  var d = document.getElementById('m-dots');
-  if (d) for (var k=0;k<d.children.length;k++) d.children[k].className = 'm-dot'+(k===idx?' on':'');
-}
-function mCurrentIndex(){
-  var cur = sessionStorage.getItem('rishi_parent_tab') || 'plan';
-  var i = mTabIndex(cur); return i<0 ? 0 : i;
-}
-function openMenu(){
-  var sId = (typeof getStudentId==='function') ? getStudentId() : '';
-  var sName = sessionStorage.getItem('rishi_parent_student_name') || '';
-  if (!sName || sName==='Student'){
-    var badge = document.getElementById('student-name-badge');
-    if (badge && badge.textContent && badge.textContent.indexOf('Parent')<0) sName = badge.textContent.split('\n')[0];
-  }
-  var pn = document.getElementById('mn-pn'); if (pn) pn.textContent = (sName && sName!=='Student') ? sName.split(' ')[0] : 'Student';
-  var pid = document.getElementById('mn-pid'); if (pid) pid.textContent = sId || '';
-  document.getElementById('mn-page').classList.add('on');
-  document.getElementById('mn-scrim').classList.add('on');
-}
-function closeMenu(){
-  document.getElementById('mn-page').classList.remove('on');
-  document.getElementById('mn-scrim').classList.remove('on');
-}
-function goTabM(tab){ closeMenu(); if (typeof switchTab==='function') switchTab(tab); }
-function nlToggle(el,e){ if(e&&e.stopPropagation)e.stopPropagation(); el.classList.toggle('open'); }
-
-/* swipe: left = next tab, right = open menu */
-(function initSwipe(){
-  var wrap = document.querySelector('.wrap');
-  if (!wrap) return;
-  var sx=0, sy=0, tracking=false;
-  wrap.addEventListener('touchstart', function(e){ sx=e.touches[0].clientX; sy=e.touches[0].clientY; tracking=true; }, {passive:true});
-  wrap.addEventListener('touchend', function(e){
-    if(!tracking) return; tracking=false;
-    var dx=e.changedTouches[0].clientX - sx, dy=e.changedTouches[0].clientY - sy;
-    if (Math.abs(dx)<50 || Math.abs(dx)<Math.abs(dy)) return;
-    if (dx<0){ var ni=mCurrentIndex()+1; if (ni<=MTABS.length-1 && typeof switchTab==='function') switchTab(MTABS[ni].id); }
-    else { openMenu(); }
-  }, {passive:true});
-})();
-
 function toggleHdrMenu(e) {
   if (e) { e.stopPropagation(); e.preventDefault(); }
   var d = document.getElementById('hdr-menu-dropdown');
