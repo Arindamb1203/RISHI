@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>RISHI — Smart AI Tutor</title>
+<title>RISHI — Smart AI Companion</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Nunito:wght@400;600;700;800;900&family=Share+Tech+Mono&display=swap" rel="stylesheet"/>
 <style>
 :root{--bg:#faf8f4;--bg2:#f3efe8;--panel:rgba(255,255,255,0.96);--text:#1c1208;--muted:rgba(28,18,8,0.65);--faint:rgba(28,18,8,0.32);--gold:#c98a00;--goldL:#f0a800;--goldBg:rgba(201,138,0,0.1);--amber:#e06b10;--amberBg:rgba(224,107,16,0.1);--sage:#4a7c59;--sageBg:rgba(74,124,89,0.1);--red:#c0392b;--cream:#fff8ee;}
@@ -789,6 +789,10 @@ for(let i=0;i<18;i++){const s=document.createElement('div');s.className='spark';
     var iv=setInterval(function(){a.volume=Math.max(a.volume-.012,0);if(a.volume<=0){clearInterval(iv);a.pause();a.volume=0.3;var b=document.getElementById('music-btn');if(b)b.style.display='none';}},55);
   };
   window.toggleMusic=function(){if(a.paused){a.muted=false;a.volume=0.3;a.play().catch(function(){});}else if(a.volume>0)a.volume=0;else a.volume=0.3;};
+  function stopAudio(){a.pause();a.currentTime=0;}
+  window.addEventListener('beforeunload',stopAudio);
+  document.addEventListener('pagehide',stopAudio);
+  document.addEventListener('visibilitychange',function(){if(document.visibilityState==='hidden')stopAudio();});
 })();
 </script>
 
