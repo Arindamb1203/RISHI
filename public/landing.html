@@ -789,9 +789,9 @@ for(let i=0;i<18;i++){const s=document.createElement('div');s.className='spark';
     var iv=setInterval(function(){a.volume=Math.max(a.volume-.012,0);if(a.volume<=0){clearInterval(iv);a.pause();a.volume=0.3;var b=document.getElementById('music-btn');if(b)b.style.display='none';}},55);
   };
   window.toggleMusic=function(){if(a.paused){a.muted=false;a.volume=0.3;a.play().catch(function(){});}else if(a.volume>0)a.volume=0;else a.volume=0.3;};
-  function stopAudio(){a.pause();a.currentTime=0;}
+  function stopAudio(){a.pause();a.currentTime=0;if(window.stopFatherVoice)stopFatherVoice();}
   window.addEventListener('beforeunload',stopAudio);
-  document.addEventListener('pagehide',stopAudio);
+  window.addEventListener('pagehide',stopAudio);
   document.addEventListener('visibilitychange',function(){if(document.visibilityState==='hidden')stopAudio();});
 })();
 </script>
