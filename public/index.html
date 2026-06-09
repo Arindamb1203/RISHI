@@ -1,16 +1,22 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <!-- RISHI-FAVICON-GANESHA -->
+  <!-- RISHI-FAVICON-GANESHA-V2 -->
   <script>
   (function(){
-    document.querySelectorAll('link[rel~="icon"],link[rel="shortcut icon"]').forEach(function(e){e.parentNode.removeChild(e);});
-    var l=document.createElement('link');
-    l.rel='icon'; l.type='image/png';
-    l.href='/icons/fav-'+(1+Math.floor(Math.random()*8))+'.png';
-    document.head.appendChild(l);
+    function setFav(){
+      document.querySelectorAll('link[rel~="icon"],link[rel="shortcut icon"],link[rel="apple-touch-icon"]')
+        .forEach(function(e){e.parentNode.removeChild(e);});
+      var l=document.createElement('link');
+      l.rel='icon'; l.type='image/png';
+      l.href='/icons/fav-'+(1+Math.floor(Math.random()*8))+'.png?v=2';
+      document.head.appendChild(l);
+    }
+    if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',setFav);}
+    else{setFav();}
   })();
   </script>
+
 
   <meta charset="UTF-8">
   <meta http-equiv="refresh" content="0;url=/landing.html">
