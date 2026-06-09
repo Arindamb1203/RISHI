@@ -365,6 +365,10 @@ Injected on all pages **except** `/admin` and `/landing`. Behaviour varies by pa
 - **`bgMusicUnmute`** set SYNCHRONOUSLY (not inside `.then()`) — unmutes + plays at pi===1 (first letter)
 - **`bgMusicFadeOut`** called at pi===10 (rhold) — fades volume over ~1.4s then pauses; resets `started=false` for next cycle
 - **Click required on Chrome** — this is a hard browser limitation, not a code bug. Cannot be fixed without user gesture.
+- **Stop-on-navigate (09 Jun 2026):** music IIFE adds `stopAudio()` (pauses + resets `currentTime=0`, also calls `stopFatherVoice()`) on `window.beforeunload`, `window.pagehide`, and `document.visibilitychange`(hidden). FIX detail: `pagehide` is a **window** event — was wrongly attached to `document` first (never fired); must be `window.addEventListener('pagehide',...)`. Prevents bg-music continuing onto the next page.
+
+### Title — landing.html (09 Jun 2026)
+- `<title>` = **"RISHI — Smart AI Companion"** (was "Smart AI Tutor"). Brand line everywhere is Companion, not Tutor.
 
 ### Responsive Design — landing.html (03 Jun 2026)
 - **Mobile ≤640px:** feat carousel collapses to single card (`.fl`, `.fr` hidden), Rishika image stacks above text (`.r1-row` flex-direction:column, `.r1-img-wrap` full width), topbar tagline hidden (`.topbar-sub`), padding tightened, action buttons wrap to 2 rows
