@@ -412,6 +412,8 @@ Injected on all pages **except** `/admin` and `/landing`. Behaviour varies by pa
 
 ## Critical Rules
 0. **STANDING INSTRUCTION (09 Jun 2026 — owner's explicit order):** NEVER state what a file does, or claim a feature is missing/removed/present, without reading that exact file in the CURRENT session. NEVER generalize one file's behaviour to other files — each explain/practice/exam page is independently built. When asked "who/when changed X," answer from `git log`/`git blame`, NEVER from assumption. If something is not verified, say "I haven't checked" — do not assert. Stating an assumption as fact is the single worst failure mode here.
+   - **NEVER ASSUME ANYTHING** — not the feature's name (search the owner's paraphrase AND real button text), not its location (a feature may live in a SHARED js like `explain-helper.js`, not the page HTML), not the model version. Search the WHOLE repo (shared JS/CSS too), not just the obvious folder. Absence of results under one search term is NOT proof the feature doesn't exist — broaden the search before concluding.
+   - **BE CONCISE / TO THE POINT.** No unnecessary detail, no padding, no restating. Answer what was asked, in the order asked.
 1. NEVER assume file path/content — always Read the actual current file first
 2. NEVER deliver partial patches — always complete files or targeted edits
 3. `git add .` from `D:\rishi` (NOT `D:\rishi\public`)
