@@ -374,7 +374,8 @@ Injected on all pages **except** `/admin` and `/landing`. Behaviour varies by pa
 - Tab icon = **random one of 8 Ganesha PNGs** (`public/icons/fav-1.png`…`fav-8.png`, 64×64 RGB), chosen fresh per page load. NO "R" mark, NO bolt, nothing added to page body.
 - Injector block `RISHI-FAVICON-GANESHA-V2` (inline `<script>` in `<head>` of 303 pages): on `DOMContentLoaded` removes ALL existing icon links, then appends one random `/icons/fav-N.png?v=2` LAST so nothing overrides it.
 - **Root-cause of the long-running "globe" bug (fixed 09 Jun):** the 8 PNGs were sitting in `public/rishi-ganesha-favicon/icons/` but the injector references `/icons/fav-N.png` → 404 → globe. Fix = copied the 8 files into `public/icons/`. Injector was always correct; only the file location was wrong.
-- No `/favicon.ico` or `/favicon.svg` at deploy root (would re-introduce a default/bolt). Redundant source folders `public/rishi-ganesha-favicon/`, `public/rishi-icons/` can be deleted for tidiness (not served at root, harmless).
+- No `/favicon.ico` or `/favicon.svg` at deploy root (would re-introduce a default/bolt).
+- **Cleanup (09 Jun 2026):** deleted redundant `public/rishi-ganesha-favicon.zip`, `public/rishi-icons.zip`, and source folders `public/rishi-ganesha-favicon/`, `public/rishi-icons/` (old rejected "R" set + 1254px source logos — recoverable from git history). Also purged 103 stray `*.bak` files from disk (they were gitignored) and the generated `audit_explain_report.txt`. The 8 live favicons in `public/icons/` are the only favicon assets kept.
 
 ### Responsive Design — landing.html (03 Jun 2026)
 - **Mobile ≤640px:** feat carousel collapses to single card (`.fl`, `.fr` hidden), Rishika image stacks above text (`.r1-row` flex-direction:column, `.r1-img-wrap` full width), topbar tagline hidden (`.topbar-sub`), padding tightened, action buttons wrap to 2 rows
