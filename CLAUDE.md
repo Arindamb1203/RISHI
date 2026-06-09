@@ -103,6 +103,12 @@ Bug fixes (06 Jun 2026):
 - Squares exam A7: "from 170" (not 190); A10: fixed all-same options
 - Ch18 Story of Numbers: full practice QB + exam JSON rewritten from NCERT
 
+Voice / TTS facts + emoji fix (09 Jun 2026):
+- **VERIFIED direction (do not get this backwards):** EXPLAIN pages call ElevenLabs via `say()`→`fetch('/tts')` (140/140) with a `sayBrowser()` speechSynthesis FALLBACK. PRACTICE pages use `window.speechSynthesis` ONLY (140/140; 0 use /tts/elevenlabs/mp3/Audio). Practice has NEVER used ElevenLabs.
+- **Why explain sounded robotic (09 Jun):** live `/tts` returns 502 — ElevenLabs `quota_exceeded` ("0 credits remaining"). The ElevenLabs account ran out of credits, so explain falls back to the system voice. NOT a code regression — fix = top up the ElevenLabs plan (`ELEVENLABS_API_KEY`/`ELEVENLABS_VOICE_ID` in Cloudflare env). When credits return, explain auto-recovers.
+- **`/tts` = `functions/tts.js`** → ElevenLabs `eleven_multilingual_v2`, voice from `ELEVENLABS_VOICE_ID`. Returns 502 `{error:"ElevenLabs error",detail:...}` when ElevenLabs rejects (e.g. quota); 500 "TTS not configured" if env vars missing.
+- **Emoji-in-speech fix (`fix_emoji_speech.py`, repo ROOT):** system voice read emoji aloud (intro `Hi <name>! &#128522;` → "smiling face"). Injected idempotent `<script>` marker `RISHI-STRIP-EMOJI-SPEECH` before `</body>` on all 280 explain+practice pages — monkey-patches `speechSynthesis.speak()` to strip emoji/symbol/ZWJ/VS16 from the utterance text. ONLY affects the system-voice path; ElevenLabs (`/tts`) still gets full text. Run `python fix_emoji_speech.py --apply`.
+
 Practice voice fix (09 Jun 2026):
 - **All 140 practice pages narrate via `window.speechSynthesis` but had NO exit handler** → voice kept talking after leaving the page (Syllabus/Back/Games/tab close), because speechSynthesis is a browser-global that survives navigation. Fixed via `fix_practice_voice.py` (repo ROOT): injects an idempotent `<script>` marked `RISHI-STOP-VOICE-ON-EXIT` before `</body>` that calls `speechSynthesis.cancel()` on `pagehide`/`beforeunload`/`visibilitychange(hidden)`. Run `python fix_practice_voice.py --apply` (dry-run without `--apply`). 140/140 now carry the marker. (Practice pages use speechSynthesis only — NONE use `/tts` audio, unlike explain pages.)
 

@@ -371,5 +371,17 @@ window.onload=init;
 </script>
 <script src="/explain-helper.js"></script>
 <script src="/error-reporter.js"></script>
+<script>
+/* RISHI-STRIP-EMOJI-SPEECH */
+(function(){
+  if(!window.speechSynthesis||!window.SpeechSynthesisUtterance)return;
+  var _speak=window.speechSynthesis.speak.bind(window.speechSynthesis);
+  var EMO=/[\u{1F000}-\u{1FAFF}\u{2600}-\u{27BF}\u{2B00}-\u{2BFF}\u{1F1E6}-\u{1F1FF}\u{FE00}-\u{FE0F}\u{200D}]/gu;
+  window.speechSynthesis.speak=function(u){
+    try{ if(u&&typeof u.text==='string'){ u.text=u.text.replace(EMO,' ').replace(/\s+/g,' ').trim(); } }catch(e){}
+    return _speak(u);
+  };
+})();
+</script>
 </body>
 </html>
