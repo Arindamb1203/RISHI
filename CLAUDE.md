@@ -103,6 +103,9 @@ Bug fixes (06 Jun 2026):
 - Squares exam A7: "from 170" (not 190); A10: fixed all-same options
 - Ch18 Story of Numbers: full practice QB + exam JSON rewritten from NCERT
 
+Practice voice fix (09 Jun 2026):
+- **All 140 practice pages narrate via `window.speechSynthesis` but had NO exit handler** → voice kept talking after leaving the page (Syllabus/Back/Games/tab close), because speechSynthesis is a browser-global that survives navigation. Fixed via `fix_practice_voice.py` (repo ROOT): injects an idempotent `<script>` marked `RISHI-STOP-VOICE-ON-EXIT` before `</body>` that calls `speechSynthesis.cancel()` on `pagehide`/`beforeunload`/`visibilitychange(hidden)`. Run `python fix_practice_voice.py --apply` (dry-run without `--apply`). 140/140 now carry the marker. (Practice pages use speechSynthesis only — NONE use `/tts` audio, unlike explain pages.)
+
 Chapter wiring (09 Jun 2026):
 - **CBSE Class 8 Ch18 "The Story of Numbers"** was MISSING from `parent.html` Class-8 chapter list (it stopped at id:17 Chance & Probability) → parents never saw it. Added `{id:18, name:"The Story of Numbers", topic:"Arithmetic"}` + `18:1` to `explainBuilt`. It was already correct everywhere else (syllabus id18, admin id18, explain+practice pages, `data/cbse/class8/ch18/ch18-exam.json`, `questions.js` maps "18"→ch18). Owner decision: KEEP Ch16 "Playing with Numbers" (divisibility/general-form) AND Ch18 "The Story of Numbers" (number-systems history: bones, Gumulgal, Egyptian/Roman/Babylonian, Hindu numerals — matches the printed book chapter "The Story of Numbers"). Name stays "The Story of Numbers", NOT "Number Play". (NOTE: parent.html `explainBuilt` for class 8 still omits 6,7,112 — pre-existing, not touched.)
 

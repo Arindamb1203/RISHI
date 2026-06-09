@@ -443,5 +443,14 @@ function rStopTalk()     { /* no-op */ }
 function openGames(){if(typeof toggleBreakMenu==='function')toggleBreakMenu();var bp=sessionStorage.getItem('rishi_admin_bypass')==='1'?'&bypass=1':'';var url='/games/games.html?from='+encodeURIComponent(location.pathname+location.search)+bp;location.href=url;}
 </script>
 <script src="/error-reporter.js"></script>
+<script>
+/* RISHI-STOP-VOICE-ON-EXIT */
+(function(){
+  function stopVoice(){ try{ if(window.speechSynthesis) window.speechSynthesis.cancel(); }catch(e){} }
+  window.addEventListener('pagehide', stopVoice);
+  window.addEventListener('beforeunload', stopVoice);
+  document.addEventListener('visibilitychange', function(){ if(document.visibilityState==='hidden') stopVoice(); });
+})();
+</script>
 </body>
 </html>
