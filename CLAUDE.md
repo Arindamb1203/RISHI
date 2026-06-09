@@ -103,6 +103,10 @@ Bug fixes (06 Jun 2026):
 - Squares exam A7: "from 170" (not 190); A10: fixed all-same options
 - Ch18 Story of Numbers: full practice QB + exam JSON rewritten from NCERT
 
+Bug fixes (09 Jun 2026):
+- `confirmShown` missing-declaration crash also fixed in 6 more class8 explain pages: comparing-quantities, direct-inverse-proportions, rational-numbers, chance-probability, frequency-distribution, visualising-solid-shapes
+- **Explain "Live Animation" rewritten — powers-exponents.html** (TEMPLATE for rollout). OLD system: `getAnimSVG()` returned SVGs containing ONLY `<text>` lines (narration sentences) and `play_peN()` faded them in silently → animation was just text, then step-by-step repeated the same text. NEW system: appended override `getAnimSVG`/`getAnimPlay` (later function decls win) + `_scene()`/`_wrap()`/`_t()`/`_tile()`/`_bar()`/`_line()` builders + `ANIM_CSS` (CSS keyframes pop/fup/grow/drw, self-animating on insert so replay works) + `ANIM_CFG` (per-anim duration+caption). 14 genuine visual scenes (doubling chain+bars, tiles combining, cancellation strikes, decimal hops, compare bars, power ladder). Old `play_pe1..14` + old `getAnimSVG`/`getAnimPlay` left as dead code (overridden). Other explain pages still use the old text-only system — same rewrite pending rollout.
+
 ## Build Scripts (in public/)
 | Script | Class | Workers | Est. time |
 |--------|-------|---------|-----------|
