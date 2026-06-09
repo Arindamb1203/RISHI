@@ -103,6 +103,9 @@ Bug fixes (06 Jun 2026):
 - Squares exam A7: "from 170" (not 190); A10: fixed all-same options
 - Ch18 Story of Numbers: full practice QB + exam JSON rewritten from NCERT
 
+Chapter wiring (09 Jun 2026):
+- **CBSE Class 8 Ch18 "The Story of Numbers"** was MISSING from `parent.html` Class-8 chapter list (it stopped at id:17 Chance & Probability) → parents never saw it. Added `{id:18, name:"The Story of Numbers", topic:"Arithmetic"}` + `18:1` to `explainBuilt`. It was already correct everywhere else (syllabus id18, admin id18, explain+practice pages, `data/cbse/class8/ch18/ch18-exam.json`, `questions.js` maps "18"→ch18). Owner decision: KEEP Ch16 "Playing with Numbers" (divisibility/general-form) AND Ch18 "The Story of Numbers" (number-systems history: bones, Gumulgal, Egyptian/Roman/Babylonian, Hindu numerals — matches the printed book chapter "The Story of Numbers"). Name stays "The Story of Numbers", NOT "Number Play". (NOTE: parent.html `explainBuilt` for class 8 still omits 6,7,112 — pre-existing, not touched.)
+
 Bug fixes (09 Jun 2026):
 - `confirmShown` missing-declaration crash also fixed in 6 more class8 explain pages: comparing-quantities, direct-inverse-proportions, rational-numbers, chance-probability, frequency-distribution, visualising-solid-shapes
 - **Explain "Live Animation" rewritten — powers-exponents.html** (TEMPLATE). OLD system: `getAnimSVG()` returned SVGs containing ONLY `<text>` lines (narration sentences) and `play_peN()` faded them in silently → animation was just text, then step-by-step repeated the same text. NEW system: appended override `getAnimSVG`/`getAnimPlay` (later function decls win) + `_scene()`/`_wrap()`/`_t()`/`_tile()`/`_bar()`/`_line()` builders + `ANIM_CSS` (CSS keyframes pop/fup/grow/drw, self-animating on insert so replay works) + `ANIM_CFG` (per-anim duration+caption). 14 genuine visual scenes. Old `play_pe1..14` + old `getAnimSVG`/`getAnimPlay` left as dead code (overridden).
