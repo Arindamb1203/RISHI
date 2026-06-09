@@ -370,6 +370,12 @@ Injected on all pages **except** `/admin` and `/landing`. Behaviour varies by pa
 ### Title — landing.html (09 Jun 2026)
 - `<title>` = **"RISHI — Smart AI Companion"** (was "Smart AI Tutor"). Brand line everywhere is Companion, not Tutor.
 
+### Favicon — random Ganesha (09 Jun 2026)
+- Tab icon = **random one of 8 Ganesha PNGs** (`public/icons/fav-1.png`…`fav-8.png`, 64×64 RGB), chosen fresh per page load. NO "R" mark, NO bolt, nothing added to page body.
+- Injector block `RISHI-FAVICON-GANESHA-V2` (inline `<script>` in `<head>` of 303 pages): on `DOMContentLoaded` removes ALL existing icon links, then appends one random `/icons/fav-N.png?v=2` LAST so nothing overrides it.
+- **Root-cause of the long-running "globe" bug (fixed 09 Jun):** the 8 PNGs were sitting in `public/rishi-ganesha-favicon/icons/` but the injector references `/icons/fav-N.png` → 404 → globe. Fix = copied the 8 files into `public/icons/`. Injector was always correct; only the file location was wrong.
+- No `/favicon.ico` or `/favicon.svg` at deploy root (would re-introduce a default/bolt). Redundant source folders `public/rishi-ganesha-favicon/`, `public/rishi-icons/` can be deleted for tidiness (not served at root, harmless).
+
 ### Responsive Design — landing.html (03 Jun 2026)
 - **Mobile ≤640px:** feat carousel collapses to single card (`.fl`, `.fr` hidden), Rishika image stacks above text (`.r1-row` flex-direction:column, `.r1-img-wrap` full width), topbar tagline hidden (`.topbar-sub`), padding tightened, action buttons wrap to 2 rows
 - **Tablet 641–900px:** feat carousel side panels narrow 160px→110px, content/card padding reduced
