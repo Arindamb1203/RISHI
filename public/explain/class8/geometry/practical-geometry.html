@@ -1129,7 +1129,7 @@ function buildSession(){
 function showQ(){
   if(idx>=session.length){onComplete();return;}
   var q=session[idx];
-  stepIdx=0;nudgeCount=0; confirmShown=false;
+  stepIdx=0;nudgeCount=0;confirmShown=false; confirmShown=false;
   updateProg();
   G("qArea").innerHTML="";
   clearAt();
@@ -1266,8 +1266,8 @@ function onComplete(){
   setTimeout(function(){sayEl("celText");rHappy();},400);
 }
 
-function goPractice(){if(!completed){alert("Complete explanations first!");return;}location.href="/practice.html?chapter=practical_geometry";}
-function goExam(){if(!completed){alert("Complete explanations first!");return;}location.href="/exam.html?chapter=practical_geometry";}
+function goPractice(){if(!completed){alert("Complete explanations first!");return;}location.href="/practice/class8/geometry/practical-geometry.html";}
+function goExam(){if(!completed){alert("Complete explanations first!");return;}location.href="/exam.html?ch=04";}
 
 var CELEBRATIONS=[
   {word:"Magnifique !",lang:"French",meaning:"Magnificent!",speak:"Magnifique"},

@@ -1079,7 +1079,7 @@ function buildSession(){
 }
 function showQ(){
   if(idx>=session.length){onComplete();return;}
-  var q=session[idx];stepIdx=0;nudgeCount=0; confirmShown=false;
+  var q=session[idx];stepIdx=0;nudgeCount=0;confirmShown=false; confirmShown=false;
   updateProg();G("qArea").innerHTML="";clearAt();
   var qc=document.createElement("div");qc.className="q-card";
   qc.innerHTML='<div class="q-label">Question '+(idx+1)+' of '+PER_SESSION+'</div>'
@@ -1179,8 +1179,8 @@ function onComplete(){
     +'<button class="btn-speak" onclick="sayEl(\'celText\')">&#128266; Hear</button></div>';
   G("qArea").appendChild(cel);setTimeout(function(){sayEl("celText");rHappy();},400);
 }
-function goPractice(){if(!completed){alert("Complete explanations first!");return;}location.href="/practice.html?chapter=introduction_to_graphs";}
-function goExam(){if(!completed){alert("Complete explanations first!");return;}location.href="/exam.html?chapter=introduction_to_graphs";}
+function goPractice(){if(!completed){alert("Complete explanations first!");return;}location.href="/practice/class8/algebra/introduction-to-graphs.html";}
+function goExam(){if(!completed){alert("Complete explanations first!");return;}location.href="/exam.html?ch=15";}
 function setupRecog(){
   var SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR)return;
   recog=new SR();recog.lang="en-IN";recog.continuous=false;recog.interimResults=false;

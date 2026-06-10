@@ -582,7 +582,7 @@ function init(){
 function buildSession(){var first=QB[0];var rest=QB.slice(1).sort(function(){return Math.random()-.5;});session=[first].concat(rest.slice(0,PER_SESSION-1));}
 function showQ(){
   if(idx>=session.length){onComplete();return;}
-  var q=session[idx];stepIdx=0;nudgeCount=0; confirmShown=false;updateProg();G("qArea").innerHTML="";clearAt();
+  var q=session[idx];stepIdx=0;nudgeCount=0;confirmShown=false; confirmShown=false;updateProg();G("qArea").innerHTML="";clearAt();
   var qc=document.createElement("div");qc.className="q-card";
   qc.innerHTML='<div class="q-label">Question '+(idx+1)+' of '+PER_SESSION+'</div><div class="q-text">'+q.q+'</div><button class="btn-speak" onclick="say(session[idx].qs)">&#128266; Hear</button>';
   G("qArea").appendChild(qc);
@@ -709,8 +709,8 @@ function onComplete(){
     +'<button class="btn-speak" onclick="sayEl(\'celText\')">&#128266; Hear</button></div>';
   G("qArea").appendChild(cel);setTimeout(function(){sayEl("celText");rHappy();},400);
 }
-function goPractice(){if(!completed){alert("Complete explanations first!");return;}location.href="/practice.html?chapter=factorisation";}
-function goExam(){if(!completed){alert("Complete explanations first!");return;}location.href="/exam.html?chapter=factorisation";}
+function goPractice(){if(!completed){alert("Complete explanations first!");return;}location.href="/practice/class8/algebra/factorisation.html";}
+function goExam(){if(!completed){alert("Complete explanations first!");return;}location.href="/exam.html?ch=14";}
 
 
 

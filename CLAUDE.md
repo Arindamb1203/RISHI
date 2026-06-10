@@ -103,6 +103,12 @@ Bug fixes (06 Jun 2026):
 - Squares exam A7: "from 170" (not 190); A10: fixed all-same options
 - Ch18 Story of Numbers: full practice QB + exam JSON rewritten from NCERT
 
+Explain-page bugs — site-wide fix (10 Jun 2026, `fix_explain_bugs.py`):
+- **(a) "Go to Practice" landed on the RISHI landing page:** `goPractice()` on 15 class-8 explain pages pointed to `/practice.html?chapter=SLUG` — that page doesn't exist → 404 → landing. Correct = the page's own practice file (deterministic `/explain/…`→`/practice/…`). Fixed on all 15.
+- **(b) Exam button wrong param:** `goExam()` used `/exam.html?chapter=SLUG` instead of `/exam.html?ch=NN`. Fixed on all 15 using authoritative ch from syllabus (incl. 11→`11a`, 112→`11b`).
+- **(c) Confirm question only showed on Q1:** `showQ()` reset `stepIdx`/`nudgeCount` but NOT `confirmShown`, so Q2+ hit `if(confirmShown)return` and showed nothing until refresh. **135 explain pages** were missing the reset (working pages like squares had `stepIdx=0;nudgeCount=0;confirmShown=false;`). Inserted the reset on all 135 (same safe transform; `confirmShown` is already declared in each page's var line).
+- `fix_explain_bugs.py` (repo ROOT): `--apply` to run; dry-run by default. Validated — 0 new JS parse failures (4 files had PRE-EXISTING parser quirks at HEAD, unrelated — likely smart-apostrophes; not touched). powers-exponents was fixed manually first so the script correctly skipped it.
+
 Plan revert / not-reflecting-on-student — ROOT FIX (10 Jun 2026):
 - **Symptom:** parent changes Unit-Test plan (e.g. swap Ch16→Ch18); parent portal shows it, but (a) it reverts to old after a few minutes, and (b) the student (Dabeet) syllabus still shows the OLD plan.
 - **Root cause:** `rishi_active_chapters` (and `rishi_plans`) are **parent-authored**, but they were in `rishi-sync.js` `SYNC_EXACT`, so the STUDENT device pushed its **stale** local copy back to D1 — on every page load (it pushes BEFORE it pulls, lines ~153-161), every 30s, and on unload. That overwrote the parent's fresh value in D1 → revert + student sees old. (Pull side already said "cloud wins" but push destroyed cloud first.)

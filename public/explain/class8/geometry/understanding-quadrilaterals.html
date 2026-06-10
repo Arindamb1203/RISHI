@@ -931,7 +931,7 @@ function buildSession(){
 function showQ(){
   if(idx>=session.length){onComplete();return;}
   var q=session[idx];
-  stepIdx=0;nudgeCount=0; confirmShown=false;
+  stepIdx=0;nudgeCount=0;confirmShown=false; confirmShown=false;
   updateProg();G("qArea").innerHTML="";clearAt();
   var qc=document.createElement("div");
   qc.className="q-card";
@@ -1047,8 +1047,8 @@ function onComplete(){
   G("qArea").appendChild(cel);
   setTimeout(function(){sayEl("celText");rHappy();},400);
 }
-function goPractice(){if(!completed){alert("Complete explanations first!");return;}location.href="/practice.html?chapter=understanding_quadrilaterals";}
-function goExam(){if(!completed){alert("Complete explanations first!");return;}location.href="/exam.html?chapter=understanding_quadrilaterals";}
+function goPractice(){if(!completed){alert("Complete explanations first!");return;}location.href="/practice/class8/geometry/understanding-quadrilaterals.html";}
+function goExam(){if(!completed){alert("Complete explanations first!");return;}location.href="/exam.html?ch=03";}
 var CELEBRATIONS=[
   {word:"Magnifique !",lang:"French",meaning:"Magnificent!",speak:"Magnifique"},
   {word:"Brillante!",lang:"Spanish",meaning:"Brilliant!",speak:"Brillante"},

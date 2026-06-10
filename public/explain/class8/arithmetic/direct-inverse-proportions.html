@@ -426,7 +426,7 @@ function init(){
 function buildSession(){session=QB.slice().sort(function(){return Math.random()-.5;}).slice(0,PER_SESSION);}
 function showQ(){
   if(idx>=session.length){onComplete();return;}
-  var q=session[idx];stepIdx=0;nudgeCount=0;updateProg();G("qArea").innerHTML="";clearAt();
+  var q=session[idx];stepIdx=0;nudgeCount=0;confirmShown=false;updateProg();G("qArea").innerHTML="";clearAt();
   var qc=document.createElement("div");qc.className="q-card";
   qc.innerHTML='<div class="q-label">Question '+(idx+1)+' of '+PER_SESSION+'</div><div class="q-text">'+q.q+'</div><button class="btn-speak" onclick="say(session[idx].qs)">&#128266; Hear</button>';
   G("qArea").appendChild(qc);
@@ -482,8 +482,8 @@ function onComplete(){
     +'<button class="btn-speak" onclick="sayEl(&apos;celText&apos;)">&#128266; Hear</button></div>';
   G("qArea").appendChild(cel);setTimeout(function(){sayEl("celText");rHappy();},400);
 }
-function goPractice(){if(!completed){alert("Complete explanations first!");return;}location.href="/practice.html?chapter=direct_inverse_proportions";}
-function goExam(){if(!completed){alert("Complete explanations first!");return;}location.href="/exam.html?chapter=direct_inverse_proportions";}
+function goPractice(){if(!completed){alert("Complete explanations first!");return;}location.href="/practice/class8/arithmetic/direct-inverse-proportions.html";}
+function goExam(){if(!completed){alert("Complete explanations first!");return;}location.href="/exam.html?ch=13";}
 var CELEBRATIONS=[
   {word:"Magnifique !",lang:"French",meaning:"Magnificent!",speak:"Magnifique"},
   {word:"Brillante!",lang:"Spanish",meaning:"Brilliant!",speak:"Brillante"},
