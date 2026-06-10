@@ -624,5 +624,26 @@ function mathUpdate(){
   };
 })();
 </script>
+<script>
+/* RISHI-AUDIO-STOP-ON-EXIT-V2 — stop ALL narration (ElevenLabs audio + speechSynthesis) when the page is left or hidden */
+(function(){
+  if(window.__rishiAudioStopV2)return; window.__rishiAudioStopV2=1;
+  var tracked=[];
+  try{
+    var _play=HTMLMediaElement.prototype.play;
+    HTMLMediaElement.prototype.play=function(){ if(tracked.indexOf(this)<0)tracked.push(this); return _play.apply(this,arguments); };
+  }catch(e){}
+  function stopAll(){
+    try{ if(window.speechSynthesis) window.speechSynthesis.cancel(); }catch(e){}
+    for(var i=0;i<tracked.length;i++){ try{ tracked[i].pause(); tracked[i].currentTime=0; }catch(e){} }
+    try{ var n=document.querySelectorAll('audio,video'); for(var j=0;j<n.length;j++){ try{ n[j].pause(); n[j].currentTime=0; }catch(e){} } }catch(e){}
+    try{ if(typeof window.stopAllAudio==='function') window.stopAllAudio(); }catch(e){}
+  }
+  window.__rishiStopAllAudio=stopAll;
+  window.addEventListener('pagehide', stopAll);
+  window.addEventListener('beforeunload', stopAll);
+  document.addEventListener('visibilitychange', function(){ if(document.visibilityState==='hidden') stopAll(); });
+})();
+</script>
 </body>
 </html>
