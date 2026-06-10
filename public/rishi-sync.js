@@ -56,6 +56,22 @@
     return false;
   }
 
+  /* ── Parent-authored keys: the STUDENT device PULLS them but must NEVER PUSH
+     them back, otherwise a stale local copy overwrites the parent's fresh plan
+     assignment in D1 (causes the "plan reverts after a few minutes" bug). ── */
+  var READ_ONLY_EXACT  = ['rishi_active_chapters', 'rishi_plans'];
+  var READ_ONLY_PREFIX = ['rishi_plans_'];
+  function isReadOnly(key) {
+    if (!key) return false;
+    if (READ_ONLY_EXACT.indexOf(key) !== -1) return true;
+    for (var i = 0; i < READ_ONLY_PREFIX.length; i++) {
+      if (key.indexOf(READ_ONLY_PREFIX[i]) === 0) return true;
+    }
+    return false;
+  }
+  /* push only if syncable AND not a parent-authored read-only key */
+  function shouldPush(key) { return shouldSync(key) && !isReadOnly(key); }
+
   /* ── Resolve student identity ──
      Priority:
      1. rishi_selected_student  (parent portal sets this)
@@ -130,7 +146,7 @@
   /* ── Intercept localStorage.setItem ── */
   localStorage.setItem = function (key, value) {
     _origSet(key, value);
-    if (shouldSync(key)) pushKey(key, value);
+    if (shouldPush(key)) pushKey(key, value);
 
     /* Auto-log practice session when practice_done is first set */
     if (key.indexOf('rishi_practice_done_') === 0 && value === '1') {
@@ -153,7 +169,7 @@
     /* Push all existing local data to D1 immediately (catches any missed syncs) */
     for (var _i = 0; _i < localStorage.length; _i++) {
       var _k = localStorage.key(_i);
-      if (shouldSync(_k)) {
+      if (shouldPush(_k)) {
         var _v = localStorage.getItem(_k);
         if (_v !== null) pushKey(_k, _v, sid);
       }
@@ -167,7 +183,7 @@
     if (!sid) return;
     for (var i = 0; i < localStorage.length; i++) {
       var k = localStorage.key(i);
-      if (shouldSync(k)) { var v = localStorage.getItem(k); if (v !== null) pushKey(k, v, sid); }
+      if (shouldPush(k)) { var v = localStorage.getItem(k); if (v !== null) pushKey(k, v, sid); }
     }
   }, 30000);
 
@@ -177,7 +193,7 @@
     if (!sid) return;
     for (var i = 0; i < localStorage.length; i++) {
       var k2 = localStorage.key(i);
-      if (shouldSync(k2)) { var v2 = localStorage.getItem(k2); if (v2 !== null) pushKey(k2, v2, sid); }
+      if (shouldPush(k2)) { var v2 = localStorage.getItem(k2); if (v2 !== null) pushKey(k2, v2, sid); }
     }
   });
 
@@ -210,7 +226,7 @@
       if (!sid) return;
       for (var i = 0; i < localStorage.length; i++) {
         var k = localStorage.key(i);
-        if (shouldSync(k)) {
+        if (shouldPush(k)) {
           var v = localStorage.getItem(k);
           if (v !== null) pushKey(k, v, sid);
         }
