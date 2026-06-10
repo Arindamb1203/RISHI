@@ -3191,8 +3191,10 @@ function buildUsersTab() {
 
     var rawSId = r.studentUsername || r.studentId || '';
     var rawPId = r.parentUsername || '';
-    var sPw = pwOv[rawSId] || pwOv[rawSId.toLowerCase()] || DEF_S;
-    var pPw = pwOv[rawPId] || pwOv[rawPId.toLowerCase()] || DEF_P;
+    /* Prefer the AUTHORITATIVE password from D1 (_studentPw/_parentPw via list_all);
+       fall back to this browser's local override map, then the system default. */
+    var sPw = r._studentPw || pwOv[rawSId] || pwOv[rawSId.toLowerCase()] || DEF_S;
+    var pPw = r._parentPw  || pwOv[rawPId] || pwOv[rawPId.toLowerCase()] || DEF_P;
 
     html += '<tr style="border-bottom:1px solid var(--border);" onmouseover="this.style.background=\'var(--s2)\'" onmouseout="this.style.background=\'\'">';
     html += '<td style="padding:9px 10px;font-weight:800;color:#0f2240;font-size:13px;">' + pId + '</td>';

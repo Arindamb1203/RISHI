@@ -371,10 +371,19 @@ export async function onRequest(context) {
   if (action === "list_all") {
     try {
       const result = await env.DB.prepare(
-        `SELECT data FROM rishi_accounts WHERE role = 'student' ORDER BY updated_at DESC`
+        `SELECT username, role, data, pw_override, updated_at FROM rishi_accounts ORDER BY updated_at DESC`
       ).all();
-      const registrations = (result.results || []).map(r => {
-        try { return JSON.parse(r.data); } catch(e) { return null; }
+      const rows = result.results || [];
+      /* Map every account's real password override (username → pw_override) */
+      const pwMap = {};
+      rows.forEach(r => { pwMap[(r.username || '').toLowerCase()] = r.pw_override || null; });
+      const registrations = rows.filter(r => r.role === 'student').map(r => {
+        let d; try { d = JSON.parse(r.data); } catch(e) { return null; }
+        if (!d) return null;
+        /* Attach the AUTHORITATIVE passwords from D1 so admin shows the truth, not a default guess */
+        d._studentPw = r.pw_override || null;
+        d._parentPw  = pwMap[(d.parentUsername || '').toLowerCase()] || null;
+        return d;
       }).filter(Boolean);
       return new Response(JSON.stringify({ ok: true, registrations }), { headers });
     } catch(e) {

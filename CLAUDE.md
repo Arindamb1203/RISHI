@@ -236,7 +236,10 @@ When `rishi_practice_done_{chId}` is first set to "1", the interceptor auto-crea
 - `SAMPURNA_BY_CLASS` — includes board param: `/sampurna-pariksha.html?class=X&board=Y`
 - Admin login: `autocomplete="off"` on password field (prevents Windows password manager prompt)
 
-### Admin Panel Key Behaviours (updated 06 Jun 2026)
+### Admin Credentials Display — REAL password fix (10 Jun 2026)
+- **Bug:** Users-tab CREDS row showed student password `Study@Rishi1` (the hardcoded default `DEF_S`/`STUDENT_PASS`) even when the student had changed their password → admin saw a WRONG password. Same risk for parent (`DEF_P`=`rishi2025`).
+- **Root cause:** the real password lives in D1 column `pw_override` (written on first-login/change via `save-pw`), but `list_all` (`d1-sync.js`) returned only the `data` JSON — never `pw_override`. admin.html then read overrides only from the admin browser's LOCAL `rishi_pw_overrides`, falling back to the hardcoded default when (as usual) there was no cached entry.
+- **Fix:** `list_all` now selects `username, role, data, pw_override`, builds a username→pw_override map, and attaches `_studentPw` + `_parentPw` (parent override looked up from the parent's own row) to each student registration. admin.html `buildUsers` now does `r._studentPw || pwOv[...] || DEF_S` (and `_parentPw` for parent) so D1's authoritative password wins. After deploy: click **Load from D1** to see true passwords.
 - **Board detection in Questions tab:** `String(qbActiveClass).charAt(0)==='i'` → icse, else cbse
 - **ICSE class number extraction:** `String(qbActiveClass).slice(2)` → '6','7','8','9'
 - **Student tab:** Shows picker of all registered students → click → dynamic progress display with per-chapter ↗ open buttons
