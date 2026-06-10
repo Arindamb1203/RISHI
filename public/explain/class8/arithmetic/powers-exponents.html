@@ -510,7 +510,7 @@ function showQ(){
 function startAnim(){var q=session[idx];var pb=G("animPlayBtn");if(pb){pb.disabled=true;pb.textContent="&#9654; Playing...";}getAnimPlay(q.anim)(function(){var sb=G("stepsBtn");if(sb)sb.style.display="block";var rb=G("animReplay");if(rb)rb.style.display="block";if(pb)pb.style.display="none";setTimeout(beginSteps,600);});}
 function replayAnim(){clearAt();window.speechSynthesis&&window.speechSynthesis.cancel();rStopTalk();var q=session[idx];var canvas=G("animCanvas");if(canvas)canvas.innerHTML=getAnimSVG(q.anim);G("animReplay").style.display="none";G("stepsBtn").style.display="none";var pb=G("animPlayBtn");if(pb){pb.style.display="block";pb.disabled=false;pb.textContent="&#9654; Play Animation";}setStatus("Tap Play to watch with narration!");}
 function beginSteps(){var q=session[idx];var sc=document.createElement("div");sc.className="q-card";sc.innerHTML='<div class="q-label">&#128214; Step-by-Step</div><div id="stepsWrap"></div><button class="btn-speak" id="nxtStepBtn" onclick="nextStep()" style="margin-top:10px;">&#9654; Next Step</button>';G("qArea").appendChild(sc);sc.scrollIntoView({behavior:"smooth",block:"start"});G("stepsBtn").style.display="none";setTimeout(nextStep,350);}
-var nsGen=0;function nextStep(){var myGen=++nsGen;var q=session[idx];if(stepIdx>=q.steps.length){G("nxtStepBtn").style.display="none";var ib=document.createElement("button");ib.className="btn-speak";ib.innerHTML="&#9989; I Understand!";ib.style.cssText="margin-top:16px;width:100%;";ib.onclick=function(){ib.remove();showConfirm();};G("stepsWrap").appendChild(ib);ib.scrollIntoView({behavior:"smooth",block:"center"});return;}var s=q.steps[stepIdx];var wrap=G("stepsWrap");var d=document.createElement("div");d.className="step";d.innerHTML='<div class="step-num">'+(stepIdx+1)+'</div><div class="step-body">'+s.t+'</div>';wrap.appendChild(d);setTimeout(function(){d.classList.add("vis");},40);stepIdx++;say(s.s||s.t.replace(/<[^>]*>/g,""),function(){if(myGen===nsGen)nextStep();});}
+var nsGen=0;function nextStep(){var myGen=++nsGen;var q=session[idx];if(stepIdx>=q.steps.length){G("nxtStepBtn").style.display="none";var ib=document.createElement("button");ib.className="btn-speak";ib.innerHTML="&#9989; I Understand!";ib.style.cssText="margin-top:16px;width:100%;";ib.onclick=function(){ib.remove();showConfirm();};G("stepsWrap").appendChild(ib);ib.scrollIntoView({behavior:"smooth",block:"center"});return;}var s=q.steps[stepIdx];var wrap=G("stepsWrap");var d=document.createElement("div");d.className="step";d.innerHTML='<div class="step-num">'+(stepIdx+1)+'</div><div class="step-body">'+s.t+'</div>';wrap.appendChild(d);setTimeout(function(){d.classList.add("vis");},40);stepIdx++;var _spk=s.s||s.t.replace(/<[^>]*>/g,"");var _adv=false;function _go(){if(_adv||myGen!==nsGen)return;_adv=true;nextStep();}say(_spk,_go);setTimeout(_go,Math.max(4500,_spk.length*95));}
 function showConfirm(){if(confirmShown)return;confirmShown=true;
   var q=session[idx];var c=document.createElement("div");c.className="confirm-wrap";
   c.innerHTML='<div class="confirm-title">&#127917; Rishika asks!</div>'
@@ -526,7 +526,7 @@ function showConfirm(){if(confirmShown)return;confirmShown=true;
   G("qArea").appendChild(c);c.scrollIntoView({behavior:"smooth",block:"center"});
   var ra=G("rawAnswer");
   if(ra){ra.addEventListener("input",mathUpdate);ra.addEventListener("keydown",function(ev){if(ev.key==="Enter"&&!ev.shiftKey){ev.preventDefault();submitTyped();}});setTimeout(function(){ra.focus();},300);}
-  buildSuggChips(makeChips(q));say(q.cqs);
+  mathUpdate();say(q.cqs);
 }
 function makeChips(q){
   var chips=[];
@@ -568,7 +568,51 @@ function openBreak(){G("breakOv").classList.add("show");}
 function closeBreak(){G("breakOv").classList.remove("show");}
 function startBreak(r){closeBreak();breakSecs=0;G("timerLbl").textContent=r;G("timerNum").textContent="00:00";G("timerScreen").classList.add("show");breakTmr=setInterval(function(){breakSecs++;var m=String(Math.floor(breakSecs/60)).padStart(2,"0");var s=String(breakSecs%60).padStart(2,"0");G("timerNum").textContent=m+":"+s;},1000);}
 function endBreak(){clearInterval(breakTmr);G("timerScreen").classList.remove("show");}
-function mathUpdate(){var ra=G("rawAnswer");if(!ra)return;var v=ra.value.trim();var el=G("mathPreview");if(el)el.textContent=v||"";}
+/* ── Math typing helper: live-render what the student types + shortcut chips ── */
+function mathNormalise(raw){
+  var s=raw,fixes=[];
+  if(/sq[\.\s_-]*r[\.\s_-]*t|square[\s_-]*root|squrt|squroot|sqroot/i.test(s)){
+    s=s.replace(/square[\s_-]*root[\s_-]*(of[\s_-]*)?/gi,"sqrt ");
+    s=s.replace(/sq[\.\s_-]*r[\.\s_-]*t[\.\s_-]*/gi,"sqrt ");
+    s=s.replace(/\b(squrt|squroot|sqroot)\b/gi,"sqrt ");
+    fixes.push({label:"Did you mean: √ (sqrt)?",type:"fuzzy"});
+  }
+  /* x2 -> x^2 (LETTER followed by digits only — numeric answers like 32 stay 32) */
+  s=s.replace(/([a-zA-Z])(\d+)/g,function(m,l,d){return l+"^"+d;});
+  return {normalised:s.trim(),fixes:fixes};
+}
+function mathToLatex(s){
+  s=s.replace(/sqrt\s*\(([^)]*)\)/g,"\\sqrt{$1}");
+  s=s.replace(/sqrt\s+([^\s+\-*\/\^]+)/g,"\\sqrt{$1}");
+  s=s.replace(/\(([^)]+)\)\/\(([^)]+)\)/g,"\\frac{$1}{$2}");
+  s=s.replace(/([A-Za-z0-9\^\{\}]+)\/([A-Za-z0-9\^\{\}]+)/g,"\\frac{$1}{$2}");
+  s=s.replace(/\*/g,"\\times");
+  s=s.replace(/>=/g,"\\geq").replace(/<=/g,"\\leq").replace(/!=/g,"\\neq");
+  return s;
+}
+function mathRender(latex){
+  var el=G("mathPreview"); if(!el)return;
+  if(!latex.trim()){el.innerHTML='<span class="mph">your answer will render here…</span>';return;}
+  try{ katex.render(latex,el,{throwOnError:false,displayMode:true}); }
+  catch(e){ el.textContent=latex; }
+}
+var MATH_DEFAULTS=[
+  {label:"x²",ins:"^2",type:"shortcut"},
+  {label:"x³",ins:"^3",type:"shortcut"},
+  {label:"xⁿ",ins:"^n",type:"shortcut"},
+  {label:"x⁻¹",ins:"^-1",type:"shortcut"},
+  {label:"√ sqrt()",ins:"sqrt()",type:"shortcut"},
+  {label:"×10ⁿ",ins:"*10^n",type:"shortcut"},
+  {label:"a/b",ins:"(a)/(b)",type:"shortcut"}
+];
+function mathUpdate(){
+  var ra=G("rawAnswer"); if(!ra)return;
+  var res=mathNormalise(ra.value);
+  mathRender(mathToLatex(res.normalised));
+  var chips=[]; res.fixes.forEach(function(f){chips.push(f);});
+  MATH_DEFAULTS.forEach(function(c){chips.push(c);});
+  buildSuggChips(chips);
+}
 function buildSuggChips(list){var el=G("suggChips");if(!el)return;var ra=G("rawAnswer");el.innerHTML="";list.forEach(function(c){var btn=document.createElement("button");btn.className="schip "+(c.type||"shortcut");btn.textContent=c.label;btn.type="button";btn.addEventListener("click",function(){if(c.ins&&ra){var s=ra.selectionStart,e=ra.selectionEnd;ra.value=ra.value.slice(0,s)+c.ins+ra.value.slice(e);ra.focus();mathUpdate();}});el.appendChild(btn);});}
 window.onload=init;
 </script>

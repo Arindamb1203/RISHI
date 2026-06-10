@@ -2090,9 +2090,13 @@ function savePlans() {
   localStorage.setItem(key, val);
   var sid = getStudentId();
   if (sid && sid !== 'default') {
+    /* Protect this fresh local edit from being clobbered by the 10s D1 poll
+       until the write has propagated (D1 read-after-write can lag). */
+    window._planDirtyUntil = Date.now() + 25000;
     fetch('/d1-sync', {method:'POST', headers:{'Content-Type':'application/json'},
       body: JSON.stringify({action:'set', studentId: sid, key: key, value: val})
-    }).catch(function(){});
+    }).then(function(){ window._planDirtyUntil = Date.now() + 4000; })  // write done → release guard soon
+      .catch(function(){ window._planDirtyUntil = Date.now() + 25000; }); // write failed → keep protecting local copy
   }
 }
 
@@ -2109,7 +2113,10 @@ function loadStudentFromD1(callback) {
   }).then(function(r){ return r.json(); }).then(function(data){
     if (data.ok && data.data && data.data.length > 0) {
       var rawSet = Storage.prototype.setItem;
+      var plansKey = 'rishi_plans_' + sid;
       data.data.forEach(function(row){
+        /* Don't clobber a just-saved local plan edit while its D1 write is still propagating */
+        if (row.key === plansKey && Date.now() < (window._planDirtyUntil || 0)) return;
         try { rawSet.call(localStorage, row.key, row.value); } catch(e){}
       });
     }
