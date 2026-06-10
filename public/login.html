@@ -145,6 +145,12 @@
     <button class="btn-login" onclick="handleSetFirstPassword()">✦ Set Password &amp; Enter RISHI</button>
   </div>
 
+  <!-- ROLE TOGGLE (explicit student vs parent — no more guessing from the ID) -->
+  <div id="roleToggle" style="display:flex;gap:8px;margin-bottom:18px;">
+    <button type="button" id="roleStudent" onclick="setLoginMode('student')" style="flex:1;padding:11px;border-radius:10px;border:2px solid var(--border-dark);background:var(--gold-pale);color:var(--mid);font-family:'Nunito',sans-serif;font-weight:900;font-size:14px;cursor:pointer;">🎓 Student</button>
+    <button type="button" id="roleParent" onclick="setLoginMode('parent')" style="flex:1;padding:11px;border-radius:10px;border:2px solid var(--border-dark);background:var(--warm-white);color:var(--mid);font-family:'Nunito',sans-serif;font-weight:900;font-size:14px;cursor:pointer;">👪 Parent</button>
+  </div>
+
   <!-- LOGIN FIELDS -->
   <div class="field">
     <label>Username</label>
@@ -344,8 +350,12 @@ window.onload = function(){
       document.querySelector('.btn-login:not(#firstLoginPanel .btn-login)').style.display = 'none';
       document.querySelector('.links-row').style.display = 'none';
       document.getElementById('firstLoginPanel').style.display = 'block';
+      var rt = document.getElementById('roleToggle'); if(rt) rt.style.display = 'none';
     }
     document.getElementById('redirectBanner').style.display = 'none';
+
+    // Preselect the role toggle from the redirect (?role=parent|student)
+    setLoginMode(pRole === 'parent' ? 'parent' : 'student');
 
     // Show "Pin on Home Page" for parent role
     if(pRole === 'parent') showPinButton();
@@ -443,6 +453,20 @@ function goToSyllabus(){
 }
 
 // ── LOGIN ─────────────────────────────────────────────────────────────────────
+/* ── ROLE TOGGLE (explicit student vs parent) ─────────────────────────────── */
+window._loginMode = 'student';
+function setLoginMode(m){
+  window._loginMode = (m === 'parent') ? 'parent' : 'student';
+  var s = document.getElementById('roleStudent'), pa = document.getElementById('roleParent');
+  if(s)  s.style.background  = (window._loginMode === 'student') ? 'var(--gold-pale)' : 'var(--warm-white)';
+  if(pa) pa.style.background = (window._loginMode === 'parent')  ? 'var(--gold-pale)' : 'var(--warm-white)';
+  var inp = document.getElementById('username');
+  if(inp) inp.placeholder = (window._loginMode === 'parent')
+    ? 'Enter your Parent ID (PARENT-…)'
+    : 'Enter your Student ID / username';
+  var b = document.getElementById('login-error-banner'); if(b) b.style.display = 'none';
+}
+
 async function handleLogin(){
   var u = document.getElementById('username').value.trim();
   var p = document.getElementById('password').value.trim();
@@ -459,7 +483,7 @@ async function handleLogin(){
   /* Step 1 — check localStorage */
   var account = findAccount(u, p);
 
-  var isParentLogin = u.trim().toLowerCase().indexOf('parent-') === 0;
+  var isParentLogin = (window._loginMode === 'parent') || (u.trim().toLowerCase().indexOf('parent-') === 0);
 
   /* Step 2 — always check D1 for parents; also for students not found locally */
   if(!account || isParentLogin){
@@ -522,6 +546,16 @@ async function handleLogin(){
     document.getElementById('password').value = '';
     return;
   }
+  /* Role-toggle guard — stop wrong-portal logins (the old source of parent confusion) */
+  if(window._loginMode && account.role && account.role !== window._loginMode){
+    var isAcc = account.role === 'parent' ? 'Parent' : 'Student';
+    var em = document.getElementById('login-error-banner');
+    if(em){ em.textContent = '✗ This is a ' + isAcc + ' account. Please tap the “' + isAcc + '” tab above, then log in.'; em.style.display = 'block'; }
+    setLoginMode(account.role);
+    document.getElementById('password').value = '';
+    return;
+  }
+
   /* Clear error on success */
   var errBanner2 = document.getElementById('login-error-banner');
   if(errBanner2) errBanner2.style.display = 'none';

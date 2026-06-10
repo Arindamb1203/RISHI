@@ -244,6 +244,14 @@ When `rishi_practice_done_{chId}` is first set to "1", the interceptor auto-crea
 | `redeem-referral` | Mark code as used |
 | `log-session` | Log a login event to `rishi_sessions` table — called fire-and-forget from login.html on every successful login |
 
+## Login — Student/Parent toggle (login.html — 10 Jun 2026)
+- **One shared `login.html`** for both roles, **Username + Password** (the username IS the ID: student `RISHI-…`, parent `PARENT-…`). There is no separate parent login page.
+- **Explicit role toggle added** (was: role guessed from `parent-` prefix → the old source of parent-portal confusion). Two buttons `#roleStudent` / `#roleParent` set `window._loginMode`. Default `student`.
+- `setLoginMode(m)` highlights the active button (gold-pale bg) + swaps the username placeholder. `handleLogin()`'s `isParentLogin` now = `(_loginMode==='parent') || (id starts 'parent-')` — toggle is authoritative, prefix is a safety net.
+- **Mismatch guard:** after the account resolves, if `account.role !== _loginMode` → error "This is a {Student/Parent} account, tap that tab" + auto-switches the toggle + clears password. Stops wrong-portal logins.
+- Redirects with `?role=parent|student` preselect the toggle; first-login (set-password) panel hides the toggle.
+- Routing unchanged: parent → `/parent.html`, student → `/syllabus.html`. Parent path still builds the account from D1 `find-account` (Rule 27).
+
 ## Parent Portal — Architecture (parent.html — updated 06 Jun 2026)
 - **Auth:** sessionStorage `rishi_parent_student_id` = student's ID (e.g. RISHI-DABEET-001)
 - **Login flow:** ALL parent logins go through `login.html`. `parent.html`'s built-in `#login-screen` is dead code — `checkAuth()` always redirects to `/login.html` when not authenticated.
