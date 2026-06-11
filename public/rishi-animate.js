@@ -1,46 +1,37 @@
 /* ============================================================================
  * rishi-animate.js  —  RISHI shared "daily-life" explain-animation engine
- * Version 2  (no-cache via public/_headers — bump ?v=N on every page when changed)
+ * Version 3  (no-cache via public/_headers — bump ?v=N on every page when changed)
  * ----------------------------------------------------------------------------
- * WHAT THIS IS
- *   A small SVG scene engine for the EXPLAIN pages. It turns a maths step into a
- *   real-life scene a student can picture and gives Rishika conversational,
- *   question-first narration.
+ * v3 is a ground-up rethink for 12–16 year olds (owner feedback: v1/v2 were
+ * too fast, abstract, boring and repetitive).
  *
- *   v2 CHANGE: every skin now draws its OWN real item artwork (a chair, a floor
- *   tile, an LED dot, a laddoo box, a sapling, a stadium seat, a solar panel…)
- *   instead of just recolouring the same square. So two square-root questions
- *   shown back-to-back look like genuinely different real-life scenes.
- *
- *   Every scene is built from real shapes + CSS @keyframes (stays "REAL" in
- *   audit_explain.py) and is SELF-ANIMATING (plays on DOM insert) so Replay
- *   just re-renders with a freshly picked skin.
+ *   • STORY + MOTION  — the scene is a small real-life story that PLAYS OUT:
+ *     items slide into rows, the square fills up, a counter ticks. Not a wall
+ *     of tiny labels popping in.
+ *   • SLOW & NARRATED — the picture is drawn ONE PHASE AT A TIME, each phase
+ *     spoken in full by Rishika with a pause before the next. ~20–25s total.
+ *   • MERGED — the animation IS the teaching. No separate repeated text steps.
+ *     After it finishes the page shows the "I Understand!" button → question.
  *
  * ----------------------------------------------------------------------------
- * HOW A PAGE USES IT  (kept tiny so a Python generator can emit it)
- *   1. <head>:  <script src="/rishi-animate.js?v=2"></script>
- *   2. Each QB question carries a CONCEPT + a maths-data object m:
- *        { id:"sq2", concept:"arrange",
- *          m:{ total:196, side:14, method:"pair",
- *              pairHtml:"2×2 and 7×7", pairSpk:"two twos and two sevens" },
- *          q,qs,cq,cqs,ans,nudges }   // assessment text — untouched
+ * HOW A PAGE USES IT
+ *   1. <head>:  <script src="/rishi-animate.js?v=3"></script>
+ *   2. Each QB question carries CONCEPT + maths-data m (q/qs/cq/cqs/ans/nudges
+ *      are the page's own assessment — untouched).
  *   3. At show-time:
- *        q._skin = RishiAnim.pickSkin(q.concept, q.m);     // random per load
- *        q.steps = RishiAnim.steps(q.concept, q.m, q._skin); // skin-aware voice
- *        html    = RishiAnim.svg(q.concept, q.m, q._skin);   // the scene
- *        caption = RishiAnim.caption(q.concept, q.m, q._skin);
- *      Replay just re-calls pickSkin (re-randomises the scene).
+ *        q._skin  = RishiAnim.pickSkin(q.concept, q.m);   // random per load
+ *        var sc   = RishiAnim.scene(q.concept, q.m, q._skin);  // {base, phases}
+ *        q.steps  = sc.phases.map(p=>({t:p.say,s:p.say}));     // for "I Don't
+ *                                                              //  Understand" API
+ *      Insert sc.base into the canvas, then play the phases: for each phase,
+ *      append phase.frag into <g id="rzStage"> (its CSS entrance animation plays
+ *      on insert) and say(phase.say); advance when narration ends + phase.pause.
+ *      Replay just re-calls pickSkin + scene (fresh skin, fresh play).
  *
- * ----------------------------------------------------------------------------
- * CONCEPTS (v2, square / square-root family):
- *   arrange   N items form a perfect square; side = √N  (+ concept mode)
- *   gap       counts between n² and (n+1)²  (always 2n)
- *   oddlayers sum of first n odd numbers = n²  (L-shaped layers)
- *   lastdigit ending 2/3/7/8 → never a perfect square
- *   areaSide  a square's AREA (fraction or decimal) → its SIDE
- *   adjust    add/remove a few items to reach the nearest perfect square
- *   product   product of two perfect squares is a perfect square
- *   New chapter? add an entry to R below. Skins (with artwork) are shared.
+ * scene(concept,m,skin) -> { base:<svg…with <g id="rzStage">>, phases:[ {
+ *        say  : spoken + on-screen narration for this beat,
+ *        frag : SVG markup appended into #rzStage this beat (self-animating),
+ *        cap  : short status caption, ms:min duration floor, pause:gap after } ] }
  * ==========================================================================*/
 (function(){
 "use strict";
@@ -49,43 +40,43 @@ var P={bg:"#fffdf8",ink:"#2a2218",mid:"#5a4a30",gold:"#c8922a",amber:"#d4870a",
        sage:"#7a8c6e",rust:"#b85c2a",pale:"#eef7e9",line:"#6b4c2a"};
 var DK="#2a2218", LT="#ffffffcc", SH="#00000022";
 
-/* ---- daily-life skins, each with its OWN drawn artwork (`art`) ------------ */
+/* ---- daily-life skins, each with its own drawn artwork + a story verb ----- */
 var SKINS=[
- {item:"chairs",          one:"chair",  place:"hall",          color:"#d98a3a", art:"chair"},
- {item:"floor tiles",     one:"tile",   place:"room",          color:"#6f9e8f", art:"tile"},
- {item:"LED pixels",      one:"pixel",  place:"display panel", color:"#c8922a", art:"led"},
- {item:"laddoo boxes",    one:"box",    place:"sweet shop",    color:"#d4870a", art:"box"},
- {item:"photos",          one:"photo",  place:"phone gallery", color:"#9a6fb0", art:"photo"},
- {item:"badges",          one:"badge",  place:"pinboard",      color:"#b85c2a", art:"badge"},
- {item:"saplings",        one:"sapling",place:"garden plot",   color:"#5a8a60", art:"sapling"},
- {item:"stadium seats",   one:"seat",   place:"cricket stand", color:"#4a7fb0", art:"seat"},
- {item:"solar panels",    one:"panel",  place:"rooftop",       color:"#3a6b8a", art:"panel"},
- {item:"chocolate squares",one:"square",place:"chocolate bar", color:"#8a5a2a", art:"choco"},
- {item:"mosaic tiles",    one:"tile",   place:"wall mural",    color:"#b07a3a", art:"mosaic"},
- {item:"postage stamps",  one:"stamp",  place:"album page",    color:"#a04a4a", art:"stamp"},
- {item:"parking slots",   one:"slot",   place:"parking lot",   color:"#6a6a7a", art:"parking"},
- {item:"carrom coins",    one:"coin",   place:"carrom board",  color:"#c8992f", art:"coin"}
+ {item:"chairs",          one:"chair",  place:"hall",          color:"#d98a3a", art:"chair",   verb:"set out"},
+ {item:"floor tiles",     one:"tile",   place:"room",          color:"#6f9e8f", art:"tile",    verb:"lay"},
+ {item:"LED lights",      one:"light",  place:"display board", color:"#c8922a", art:"led",     verb:"fit"},
+ {item:"laddoo boxes",    one:"box",    place:"sweet shop",    color:"#d4870a", art:"box",     verb:"stack"},
+ {item:"photos",          one:"photo",  place:"photo wall",    color:"#9a6fb0", art:"photo",   verb:"hang"},
+ {item:"medals",          one:"medal",  place:"trophy board",  color:"#b85c2a", art:"badge",   verb:"pin"},
+ {item:"saplings",        one:"sapling",place:"garden plot",   color:"#5a8a60", art:"sapling", verb:"plant"},
+ {item:"stadium seats",   one:"seat",   place:"cricket stand", color:"#4a7fb0", art:"seat",    verb:"fit"},
+ {item:"solar panels",    one:"panel",  place:"rooftop",       color:"#3a6b8a", art:"panel",   verb:"fix"},
+ {item:"chocolates",      one:"piece",  place:"chocolate box", color:"#8a5a2a", art:"choco",   verb:"pack"},
+ {item:"mosaic tiles",    one:"tile",   place:"wall mural",    color:"#b07a3a", art:"mosaic",  verb:"set"},
+ {item:"stamps",          one:"stamp",  place:"album page",    color:"#a04a4a", art:"stamp",   verb:"stick"},
+ {item:"cars",            one:"car",    place:"parking lot",   color:"#6a6a7a", art:"parking", verb:"park"},
+ {item:"carrom coins",    one:"coin",   place:"carrom board",  color:"#c8992f", art:"coin",    verb:"place"}
 ];
 
-/* ---- CSS (self-animating) ------------------------------------------------ */
+/* ---- CSS (self-animating; entrance plays when a frag is inserted) --------- */
 var CSS='<style>'
 +'.sc text{font-family:Nunito,Arial,sans-serif}.sc *{transform-box:fill-box}'
-+'@keyframes rzPop{0%{opacity:0;transform:scale(.2)}60%{opacity:1;transform:scale(1.18)}100%{opacity:1;transform:scale(1)}}'
-+'@keyframes rzFup{0%{opacity:0;transform:translateY(12px)}100%{opacity:1;transform:translateY(0)}}'
-+'@keyframes rzDrw{0%{opacity:0;transform:scaleX(0)}100%{opacity:1;transform:scaleX(1)}}'
-+'@keyframes rzZoom{0%{opacity:0;transform:scale(.25)}70%{opacity:1;transform:scale(1.06)}100%{opacity:1;transform:scale(1)}}'
-+'@keyframes rzCross{0%{opacity:0;transform:scaleX(0)}100%{opacity:1;transform:scaleX(1)}}'
-+'.pop{opacity:0;animation:rzPop .5s ease forwards;transform-origin:center}'
-+'.fup{opacity:0;animation:rzFup .5s ease forwards}'
-+'.strk{animation:rzDrw .45s ease forwards;transform-origin:left center}'
-+'.zoom{opacity:0;animation:rzZoom .6s ease forwards;transform-origin:center}'
-+'.crs{opacity:0;animation:rzCross .4s ease forwards;transform-origin:center}'
++'@keyframes rzIn{0%{opacity:0;transform:translateY(14px) scale(.8)}70%{opacity:1;transform:translateY(0) scale(1.08)}100%{opacity:1;transform:scale(1)}}'
++'@keyframes rzSl{0%{opacity:0;transform:translateX(-46px)}100%{opacity:1;transform:translateX(0)}}'
++'@keyframes rzPl{0%{opacity:0;transform:scale(.5)}65%{opacity:1;transform:scale(1.18)}100%{opacity:1;transform:scale(1)}}'
++'@keyframes rzCr{0%{opacity:0;transform:scaleX(0)}100%{opacity:1;transform:scaleX(1)}}'
++'@keyframes rzTw{0%{opacity:0;transform:scale(0) rotate(0)}60%{opacity:1;transform:scale(1.3) rotate(35deg)}100%{opacity:.9;transform:scale(1) rotate(0)}}'
++'.rin{opacity:0;animation:rzIn .55s ease forwards}'
++'.rsl{opacity:0;animation:rzSl .5s ease forwards}'
++'.rpl{opacity:0;animation:rzPl .6s ease forwards;transform-origin:center}'
++'.rcr{opacity:0;animation:rzCr .4s ease forwards;transform-origin:center}'
++'.rtw{opacity:0;animation:rzTw .7s ease forwards;transform-origin:center}'
 +'</style>';
 
 /* ---- primitive builders -------------------------------------------------- */
 function T(x,y,s,d,cls,fs,col,anchor){
   return '<text x="'+x+'" y="'+y+'" text-anchor="'+(anchor||"middle")+'" font-size="'+(fs||13)
-    +'" font-weight="800" fill="'+(col||P.ink)+'" class="'+(cls||"pop")+'" style="animation-delay:'+(d||0)+'s">'+s+'</text>';
+    +'" font-weight="800" fill="'+(col||P.ink)+'" class="'+(cls||"rin")+'" style="animation-delay:'+(d||0)+'s">'+s+'</text>';
 }
 function RC(x,y,w,h,r,fill,stk,sw,dash){
   return '<rect x="'+x+'" y="'+y+'" width="'+w+'" height="'+h+'" rx="'+(r||0)+'" fill="'+(fill||"none")
@@ -95,331 +86,263 @@ function CI(cx,cy,r,fill,stk,sw){
   return '<circle cx="'+cx+'" cy="'+cy+'" r="'+r+'" fill="'+(fill||"none")
     +'"'+(stk?(' stroke="'+stk+'" stroke-width="'+(sw||1)+'"'):"")+'/>';
 }
-function PG(pts,fill,stk,sw){
-  return '<polygon points="'+pts+'" fill="'+(fill||"none")+'"'+(stk?(' stroke="'+stk+'" stroke-width="'+(sw||1)+'"'):"")+'/>';
-}
+function PG(pts,fill,stk,sw){ return '<polygon points="'+pts+'" fill="'+(fill||"none")+'"'+(stk?(' stroke="'+stk+'" stroke-width="'+(sw||1)+'"'):"")+'/>'; }
 function LN(x1,y1,x2,y2,col,sw,cls,d){
   return '<line x1="'+x1+'" y1="'+y1+'" x2="'+x2+'" y2="'+y2+'" stroke="'+(col||P.line)+'" stroke-width="'+(sw||2)
     +'" stroke-linecap="round" class="'+(cls||"")+'" style="animation-delay:'+(d||0)+'s"/>';
 }
 
-/* ---- ITEM ARTWORK: draw one real-life item in an s-box at top-left x,y ---- */
+/* ---- ITEM ARTWORK: one real item in an s-box at top-left x,y -------------- */
 function drawItem(art,x,y,s,c){
   var cx=x+s/2, cy=y+s/2;
   switch(art){
-   case "chair":   return RC(x+s*0.16,y,s*0.68,s*0.55,2,c)            /* backrest */
-                        +RC(x,y+s*0.5,s,s*0.34,2,c)                   /* seat */
-                        +RC(x+s*0.18,y+s*0.12,s*0.44,s*0.06,1,LT);    /* highlight */
+   case "chair":   return RC(x+s*0.16,y,s*0.68,s*0.55,2,c)+RC(x,y+s*0.5,s,s*0.34,2,c)+RC(x+s*0.18,y+s*0.12,s*0.44,s*0.06,1,LT);
    case "tile":    return RC(x,y,s,s,3,c)+RC(x+s*0.16,y+s*0.16,s*0.68,s*0.68,2,"none",LT,1.3);
    case "led":     return CI(cx,cy,s*0.46,c)+CI(cx,cy,s*0.3,LT)+CI(cx,cy,s*0.13,c);
-   case "box":     return RC(x,y+s*0.28,s,s*0.56,2,c)
-                        +LN(x+s*0.06,y+s*0.46,x+s*0.94,y+s*0.46,DK,1.2)
-                        +CI(cx,y+s*0.22,s*0.16,c);                    /* laddoo on top */
-   case "photo":   return RC(x,y,s,s,2,c)+RC(x+s*0.12,y+s*0.12,s*0.76,s*0.76,1,LT)
-                        +CI(x+s*0.34,y+s*0.34,s*0.09,c)
-                        +PG((x+s*0.2)+","+(y+s*0.78)+" "+(x+s*0.46)+","+(y+s*0.46)+" "+(x+s*0.8)+","+(y+s*0.78),c);
-   case "badge":   return CI(cx,cy,s*0.44,c)+CI(cx,cy,s*0.22,LT)
-                        +PG(cx+","+(y+s*0.7)+" "+(x+s*0.3)+","+(y+s)+" "+(x+s*0.7)+","+(y+s),c);
+   case "box":     return RC(x,y+s*0.28,s,s*0.56,2,c)+LN(x+s*0.06,y+s*0.46,x+s*0.94,y+s*0.46,DK,1.2)+CI(cx,y+s*0.22,s*0.16,c);
+   case "photo":   return RC(x,y,s,s,2,c)+RC(x+s*0.12,y+s*0.12,s*0.76,s*0.76,1,LT)+CI(x+s*0.34,y+s*0.34,s*0.09,c)+PG((x+s*0.2)+","+(y+s*0.78)+" "+(x+s*0.46)+","+(y+s*0.46)+" "+(x+s*0.8)+","+(y+s*0.78),c);
+   case "badge":   return CI(cx,cy,s*0.44,c)+CI(cx,cy,s*0.22,LT)+PG(cx+","+(y+s*0.7)+" "+(x+s*0.3)+","+(y+s)+" "+(x+s*0.7)+","+(y+s),c);
    case "sapling": return PG((x+s*0.32)+","+(y+s*0.6)+" "+(x+s*0.68)+","+(y+s*0.6)+" "+(x+s*0.6)+","+(y+s*0.92)+" "+(x+s*0.4)+","+(y+s*0.92),c)
                         +LN(cx,y+s*0.6,cx,y+s*0.2,c,1.6)
                         +'<ellipse cx="'+(cx-s*0.16)+'" cy="'+(y+s*0.28)+'" rx="'+(s*0.16)+'" ry="'+(s*0.1)+'" fill="'+c+'"/>'
                         +'<ellipse cx="'+(cx+s*0.16)+'" cy="'+(y+s*0.28)+'" rx="'+(s*0.16)+'" ry="'+(s*0.1)+'" fill="'+c+'"/>';
-   case "seat":    return RC(x,y+s*0.52,s,s*0.3,2,c)                  /* seat base */
-                        +PG(x+","+(y+s*0.52)+" "+(x+s*0.22)+","+(y+s*0.08)+" "+(x+s*0.42)+","+(y+s*0.08)+" "+(x+s*0.2)+","+(y+s*0.52),c); /* slanted back */
-   case "panel":   return RC(x,y+s*0.06,s,s*0.78,2,c)
-                        +LN(x+s/3,y+s*0.08,x+s/3,y+s*0.82,LT,1)+LN(x+2*s/3,y+s*0.08,x+2*s/3,y+s*0.82,LT,1)
-                        +LN(x+s*0.04,cy,x+s*0.96,cy,LT,1);
-   case "choco":   return RC(x,y,s,s,2,c)+RC(x+s*0.1,y+s*0.1,s*0.8,s*0.8,1,SH)
-                        +LN(x+s*0.16,y+s*0.16,x+s*0.5,y+s*0.5,LT,1.4);
-   case "mosaic":  return PG(cx+","+y+" "+(x+s)+","+cy+" "+cx+","+(y+s)+" "+x+","+cy,c)
-                        +PG(cx+","+(y+s*0.22)+" "+(x+s*0.78)+","+cy+" "+cx+","+(y+s*0.78)+" "+(x+s*0.22)+","+cy,LT);
+   case "seat":    return RC(x,y+s*0.52,s,s*0.3,2,c)+PG(x+","+(y+s*0.52)+" "+(x+s*0.22)+","+(y+s*0.08)+" "+(x+s*0.42)+","+(y+s*0.08)+" "+(x+s*0.2)+","+(y+s*0.52),c);
+   case "panel":   return RC(x,y+s*0.06,s,s*0.78,2,c)+LN(x+s/3,y+s*0.08,x+s/3,y+s*0.82,LT,1)+LN(x+2*s/3,y+s*0.08,x+2*s/3,y+s*0.82,LT,1)+LN(x+s*0.04,cy,x+s*0.96,cy,LT,1);
+   case "choco":   return RC(x,y,s,s,2,c)+RC(x+s*0.1,y+s*0.1,s*0.8,s*0.8,1,SH)+LN(x+s*0.16,y+s*0.16,x+s*0.5,y+s*0.5,LT,1.4);
+   case "mosaic":  return PG(cx+","+y+" "+(x+s)+","+cy+" "+cx+","+(y+s)+" "+x+","+cy,c)+PG(cx+","+(y+s*0.22)+" "+(x+s*0.78)+","+cy+" "+cx+","+(y+s*0.78)+" "+(x+s*0.22)+","+cy,LT);
    case "stamp":   return RC(x,y,s,s,1,c,LT,1.4,"2,2")+RC(x+s*0.2,y+s*0.2,s*0.6,s*0.6,1,LT);
-   case "parking": return RC(x+s*0.12,y,s*0.76,s,3,c)
-                        +RC(x+s*0.24,y+s*0.18,s*0.52,s*0.4,2,LT)      /* roof */
-                        +RC(x+s*0.24,y+s*0.64,s*0.52,s*0.16,1,LT);    /* windshield */
+   case "parking": return RC(x+s*0.12,y,s*0.76,s,3,c)+RC(x+s*0.24,y+s*0.18,s*0.52,s*0.4,2,LT)+RC(x+s*0.24,y+s*0.64,s*0.52,s*0.16,1,LT);
    case "coin":    return CI(cx,cy,s*0.44,c)+CI(cx,cy,s*0.3,"none",LT,1.6)+CI(cx,cy,s*0.1,LT);
    default:        return RC(x,y,s,s,3,c);
   }
 }
-/* a square block of real items, disp×disp shown (disp=min(side,cap)) -------- */
-function itemSquare(sk,side,x,y,box,cap,d0,step){
-  cap=cap||6; var disp=Math.min(side,cap), gp=2, cs=(box-(disp-1)*gp)/disp, s="",i=0,r,c;
-  for(r=0;r<disp;r++)for(c=0;c<disp;c++){
-    s+='<g class="pop" style="animation-delay:'+(d0+i*step)+'s">'
-       +drawItem(sk.art,x+c*(cs+gp),y+r*(cs+gp),cs,sk.color)+'</g>';
-    i++;
-  }
-  return {svg:s,cs:cs,disp:disp,partial:side>disp};
+/* a row of items that slide in one after another (the "marching in" motion) */
+function rowItems(sk,count,x,y,cs,gp,d0,step,color){
+  var s="",i; for(i=0;i<count;i++) s+='<g class="rsl" style="animation-delay:'+(d0+i*step)+'s">'+drawItem(sk.art,x+i*(cs+gp),y,cs,color||sk.color)+'</g>';
+  return s;
 }
-function wrap(inner){
-  return '<svg viewBox="0 0 420 200" xmlns="http://www.w3.org/2000/svg"><rect width="420" height="200" fill="'+P.bg+'"/>'
-    +CSS+'<g class="sc">'+inner+'</g></svg>';
+/* a disp×disp block of items (each pops in) */
+function block(sk,side,x,y,box,cap,d0,step,color){
+  var disp=Math.min(side,cap||5),gp=2,cs=(box-(disp-1)*gp)/disp,s="",i=0,r,c;
+  for(r=0;r<disp;r++)for(c=0;c<disp;c++){ s+='<g class="rin" style="animation-delay:'+(d0+i*step)+'s">'+drawItem(sk.art,x+c*(cs+gp),y+r*(cs+gp),cs,color||sk.color)+'</g>'; i++; }
+  return s;
+}
+function chip(x,y,txt,d,col){
+  return '<g class="rpl" style="animation-delay:'+d+'s"><rect x="'+(x-48)+'" y="'+(y-13)+'" width="96" height="26" rx="13" fill="'+col+'"/><text x="'+x+'" y="'+(y+5)+'" text-anchor="middle" font-size="13" font-weight="900" fill="#fff">'+txt+'</text></g>';
+}
+function answerBox(cx,cy,txt,d){
+  return '<g class="rpl" style="animation-delay:'+d+'s"><rect x="'+(cx-98)+'" y="'+(cy-25)+'" width="196" height="50" rx="14" fill="'+P.pale+'" stroke="'+P.sage+'" stroke-width="2.5"/><text x="'+cx+'" y="'+(cy+9)+'" text-anchor="middle" font-size="24" font-weight="900" fill="'+P.sage+'">'+txt+'</text></g>';
+}
+function spark(cx,cy,d){
+  var s="",pts=[[-118,-6],[118,-2],[-96,30],[100,28],[0,-40]],i,x,y;
+  for(i=0;i<pts.length;i++){ x=cx+pts[i][0]; y=cy+pts[i][1];
+    s+='<g class="rtw" style="animation-delay:'+(d+i*0.12)+'s">'+PG(x+","+(y-7)+" "+(x+2)+","+(y-2)+" "+(x+7)+","+y+" "+(x+2)+","+(y+2)+" "+x+","+(y+7)+" "+(x-2)+","+(y+2)+" "+(x-7)+","+y+" "+(x-2)+","+(y-2),P.gold)+'</g>'; }
+  return s;
+}
+function braceH(x1,x2,y,label,d,col){
+  return LN(x1,y,x2,y,col,2.5,"rsl",d)+LN(x1,y-5,x1,y+5,col,2,"rsl",d)+LN(x2,y-5,x2,y+5,col,2,"rsl",d)+T((x1+x2)/2,y-8,label,d+0.3,"rin",13,col);
+}
+function braceV(x,y1,y2,label,d,col){
+  var my=(y1+y2)/2;
+  return LN(x,y1,x,y2,col,2.5,"rsl",d)+LN(x-5,y1,x+5,y1,col,2,"rsl",d)+LN(x-5,y2,x+5,y2,col,2,"rsl",d)
+    +'<text x="'+(x-11)+'" y="'+my+'" text-anchor="middle" font-size="13" font-weight="800" fill="'+col+'" transform="rotate(-90,'+(x-11)+','+my+')" class="rin" style="animation-delay:'+(d+0.3)+'s">'+label+'</text>';
+}
+function stage(backdrop){
+  return '<svg viewBox="0 0 440 210" xmlns="http://www.w3.org/2000/svg"><rect width="440" height="210" fill="'+P.bg+'"/>'
+    +CSS+'<g class="sc" id="rzStage">'+(backdrop||"")+'</g></svg>';
 }
 
-/* ---- concept registry ---------------------------------------------------- */
+/* ---- concept registry: scene(m,skin) -> {base,phases} -------------------- */
 var R={};
 
-/* ===== arrange : N items make a perfect square; side = √N ================== */
+/* ===== arrange : N items fill a perfect square; side = √N  (THE SHOWCASE) == */
 R.arrange={
-  svg:function(m,sk){
+  scene:function(m,sk){
     if(m.mode==="concept"){
-      var ex=m.examples||[3,4,5],s=T(210,16,"When do "+sk.item+" make a perfect square?",0,"pop",13,P.mid),xs=[44,176,300],i,n,blk;
-      for(i=0;i<ex.length;i++){
-        n=ex[i]; blk=itemSquare(sk,n,xs[i],36,Math.min(96,n*20),n,.4+i*0.55,.05);
-        s+=blk.svg+T(xs[i]+Math.min(96,n*20)/2,36+Math.min(96,n*20)+18,n+"×"+n+"="+(n*n),1.3+i*0.5,"fup",12,sk.color);
-      }
-      s+=T(210,190,"Exact square counts (1,4,9,16,25…) are perfect squares",2.6,"fup",12,P.mid);
-      return s;
+      var base0=stage("");
+      return {base:base0,phases:[
+        {cap:"What is a perfect square?", ms:5200, pause:1000,
+         say:"When can "+sk.item+" make a perfect square? Only when they fill a full square with none left over.",
+         frag:T(220,30,"When do "+sk.item+" make a perfect square?",0,"rin",14,P.mid)},
+        {cap:"3×3, 4×4, 5×5…", ms:5600, pause:1000,
+         say:"Nine "+sk.item+" make a three by three square. Sixteen make four by four. Twenty five make five by five.",
+         frag:block(sk,3,40,70,70,3,.3,.08)+T(75,156,"3×3=9",1.2,"rin",12,sk.color)
+             +block(sk,4,170,62,86,4,.9,.06)+T(213,162,"4×4=16",1.8,"rin",12,P.sage)
+             +block(sk,5,310,56,98,5,1.5,.05)+T(359,166,"5×5=25",2.4,"rin",12,P.amber)},
+        {cap:"…are perfect squares", ms:5200, pause:1300,
+         say:"So one, four, nine, sixteen, twenty five are perfect squares. Is 169? Yes — thirteen rows of thirteen!",
+         frag:answerBox(220,120,"1, 4, 9, 16, 25 …",.2)+spark(220,120,.6)}
+      ]};
     }
-    var box=120,x=150,y=30,blk=itemSquare(sk,m.side,x,y,box,6,.4,.04);
-    var s=T(210,16,"Arrange all "+m.total+" "+sk.item+" in one square "+sk.place,0,"pop",12,P.mid);
-    s+=RC(x-8,y-6,box+16,box+16,10,sk.color+"14",sk.color+"55",1.5);    /* place backdrop */
-    s+=blk.svg;
-    s+=T(x+box/2,y-12,m.side+" per row",1.2,"fup",12,sk.color);
-    s+='<text x="'+(x-16)+'" y="'+(y+box/2)+'" text-anchor="middle" font-size="12" font-weight="800" fill="'+sk.color
-       +'" transform="rotate(-90,'+(x-16)+','+(y+box/2)+')" class="fup" style="animation-delay:1.4s">'+m.side+" rows</text>";
-    s+=T(x+box+44,y+34,m.total+"",1.0,"pop",16,P.ink)+T(x+box+44,y+52,"in all",1.2,"fup",11,P.mid);
-    if(blk.partial)s+=T(x+box+44,y+88,"(a corner of",2.0,"fup",10,P.soft||P.mid)+T(x+box+44,y+101,"the "+m.side+"×"+m.side+")",2.1,"fup",10,P.mid);
-    s+=T(210,190,"√"+m.total+" = "+m.side,2.2,"pop",18,P.sage);
-    return s;
+    var total=m.total, side=m.side, item=sk.item, one=sk.one;
+    var cols=Math.min(side,14), cs=22, gp=4, rowW=cols*(cs+gp)-gp, X=Math.round((440-rowW)/2);
+    var rowY=[150,124,98,72], capped=side>cols;
+    var base=stage(RC(X-14,58,rowW+50,124,12,sk.color+"12",sk.color+"33",1.5));   // the place / floor
+    return {base:base,phases:[
+      {cap:total+" "+item+" → a square?", ms:5000, pause:800,
+       say:"Let us "+sk.verb+" "+total+" "+item+" as a perfect square "+sk.place+". How many "+one+"s in each row?",
+       frag:T(220,28,sk.verb.charAt(0).toUpperCase()+sk.verb.slice(1)+" "+total+" "+item+" as a perfect square",0,"rin",14,P.mid)
+           +T(220,50,"How many in each row?",0,"rin",13,sk.color)},
+      {cap:"Row 1…", ms:5400, pause:900,
+       say:"Let us line them up. Here comes the first row — count them: "+cols+(capped?" so far":"")+" "+item+" in one row.",
+       frag:rowItems(sk,cols,X,rowY[0],cs,gp,.3,.16)+chip(388,40,"ROW 1",2.8,sk.color)},
+      {cap:"…more rows", ms:5400, pause:900,
+       say:"Now the next row, and the next — each row exactly the same size. The "+sk.place+" is filling up.",
+       frag:rowItems(sk,cols,X,rowY[1],cs,gp,.2,.1)+rowItems(sk,cols,X,rowY[2],cs,gp,.7,.1)+rowItems(sk,cols,X,rowY[3],cs,gp,1.2,.1)
+           +chip(388,40,"ROWS 4…",1.8,sk.color)+(capped?T(220,66,"… and more rows",1.9,"rin",11,P.mid):"")},
+      {cap:side+" rows of "+side, ms:5800, pause:1000,
+       say:"When it is full there are "+side+" rows, and every single row has "+side+". "+side+" rows of "+side+".",
+       frag:braceH(X,X+rowW,rowY[3]-12,side+" across",.3,sk.color)+braceV(X-16,rowY[3],rowY[0]+cs,side+" down",.5,sk.color)
+           +T(220,200,side+" rows × "+side+" = "+total,1.3,"rin",15,P.ink)},
+      {cap:"√"+total+" = "+side, ms:5200, pause:1500,
+       say:side+" times "+side+" is "+total+". So the square root of "+total+" is "+side+"!",
+       frag:answerBox(220,108,"√"+total+" = "+side,.2)+spark(220,108,.6)}
+    ]};
   },
-  steps:function(m,sk){
-    if(m.mode==="concept"){
-      return [
-       {t:"When can "+sk.item+" form a <b>perfect</b> square in the "+sk.place+"? Only when the count fills a full square grid with none left over.",
-        s:"When can these items form a perfect square? Only when the count fills a full square grid with none left over."},
-       {t:"9 "+sk.item+" make a 3×3 square, 16 make 4×4, 25 make 5×5. Those exact counts — 1, 4, 9, 16, 25 — are the <b>perfect squares</b>.",
-        s:"9 items make a 3 by 3 square. 16 make 4 by 4. 25 make 5 by 5. Those exact counts, 1, 4, 9, 16, 25, are the perfect squares."},
-       {t:"So is 169 a perfect square? Picture 13 rows of 13 "+sk.item+" — yes, 13×13 = 169!",
-        s:"So is 169 a perfect square? Picture 13 rows of 13. Yes, 13 times 13 equals 169."}
-      ];
-    }
-    var st=[{t:"Imagine arranging all <b>"+m.total+"</b> "+sk.item+" into one perfect square "+sk.place+". How many "+sk.one+"s go in each row?",
-             s:"Imagine arranging all "+m.total+" "+sk.item+" into one perfect square. How many go in each row?"}];
-    if(m.method==="pair")
-      st.push({t:"Trick: break "+m.total+" into equal pairs of factors — "+m.pairHtml+" — then take just one "+sk.one+" from each pair.",
-               s:"Here is the trick. Break "+m.total+" into equal pairs of factors, "+m.pairSpk+", then take just one from each pair."});
-    else
-      st.push({t:"We just need a number that, times itself, gives "+m.total+".",
-               s:"We just need a number that, times itself, gives "+m.total+"."});
-    st.push({t:"Each row holds <b>"+m.side+"</b> "+sk.item+", and there are "+m.side+" rows — because "+m.side+"×"+m.side+" = "+m.total+". So √"+m.total+" = <b>"+m.side+"</b>.",
-             s:"Each row holds "+m.side+", and there are "+m.side+" rows, because "+m.side+" times "+m.side+" equals "+m.total+". So the square root of "+m.total+" is "+m.side+"."});
-    return st;
-  },
-  caption:function(m,sk){return m.mode==="concept"?"When do "+sk.item+" form a perfect square?":"Arranging "+m.total+" "+sk.item+" into a square…";}
+  caption:function(m,sk){return "Arranging "+(m.total||"")+" "+sk.item+"…";}
 };
 
 /* ===== gap : counts between n² and (n+1)²  (always 2n) ===================== */
 R.gap={
-  svg:function(m,sk){
-    var s=T(210,16,sk.place+": "+m.lo+" "+sk.item+"  vs  "+m.hi+" "+sk.item,0,"pop",12,P.mid);
-    var a=itemSquare(sk,m.n,40,34,72,5,.4,.04), b=itemSquare(sk,m.n+1,296,30,84,5,.7,.04);
-    s+=a.svg+T(76,124,m.n+"×"+m.n+"="+m.lo,1.5,"fup",12,sk.color);
-    s+=b.svg+T(338,124,(m.n+1)+"×"+(m.n+1)+"="+m.hi,1.8,"fup",12,P.sage);
-    s+=LN(150,150,270,150,P.rust,3,"strk",1.9);
-    s+=T(210,144,m.lo+"+1 … "+(m.hi-1),2.1,"fup",12,P.rust);
-    s+=T(210,178,"None of these form a square. Count = 2×"+m.n+" = <b>"+m.gap+"</b>",2.5,"pop",14,P.gold);
-    return s;
-  },
-  steps:function(m,sk){
-    return [
-     {t:"The "+sk.place+" can seat "+m.lo+" "+sk.item+" as a "+m.n+"×"+m.n+" square, or "+m.hi+" as a "+(m.n+1)+"×"+(m.n+1)+" square. How many crowd sizes <b>in between</b> can NOT form a perfect square?",
-      s:"The "+sk.place+" can seat "+m.lo+" as a "+m.n+" by "+m.n+" square, or "+m.hi+" as a "+(m.n+1)+" by "+(m.n+1)+" square. How many sizes in between can not form a perfect square?"},
-     {t:"Every size from "+(m.lo+1)+" up to "+(m.hi-1)+" is stuck between the two squares — not one of them makes a full square.",
-      s:"Every size from "+(m.lo+1)+" up to "+(m.hi-1)+" is stuck between the two squares. Not one of them makes a full square."},
-     {t:"There are always <b>2n</b> such sizes between n² and (n+1)². Here 2×"+m.n+" = <b>"+m.gap+"</b>.",
-      s:"There are always 2 n such sizes between n squared and the next square. Here 2 times "+m.n+" equals "+m.gap+"."}
-    ];
-  },
-  caption:function(m,sk){return "Between "+m.lo+" and "+m.hi+" "+sk.item+"…";}
+  scene:function(m,sk){
+    return {base:stage(""),phases:[
+      {cap:m.lo+" vs "+m.hi+" "+sk.item, ms:6000, pause:1000,
+       say:"The "+sk.place+" can hold "+m.lo+" "+sk.item+" as a "+m.n+" by "+m.n+" square, or "+m.hi+" as a "+(m.n+1)+" by "+(m.n+1)+" square. How many sizes in between can NOT make a perfect square?",
+       frag:block(sk,m.n,46,46,70,5,.3,.05)+T(81,128,m.n+"×"+m.n+"="+m.lo,1.4,"rin",12,sk.color)
+           +T(220,90,"…?",1.0,"rpl",26,P.rust)
+           +block(sk,m.n+1,300,40,84,5,.6,.05)+T(342,134,(m.n+1)+"×"+(m.n+1)+"="+m.hi,1.7,"rin",12,P.sage)},
+      {cap:"stuck in between", ms:5200, pause:900,
+       say:"Every size from "+(m.lo+1)+" up to "+(m.hi-1)+" is stuck between them. Not one of them makes a full square.",
+       frag:LN(150,158,290,158,P.rust,3,"rsl",.2)+T(220,150,m.lo+"+1  …  "+(m.hi-1),.6,"rin",13,P.rust)},
+      {cap:"2 × "+m.n+" = "+m.gap, ms:5000, pause:1400,
+       say:"There are always two-n such sizes. Here, two times "+m.n+" is "+m.gap+".",
+       frag:answerBox(220,190,"2 × "+m.n+" = "+m.gap,.2)}
+    ]};
+  }
 };
 
 /* ===== oddlayers : sum of first n odd numbers = n²  (L-shaped layers) ====== */
 R.oddlayers={
-  svg:function(m,sk){
-    var n=m.n,box=118,gp=2,cs=(box-(n-1)*gp)/n,x=151,y=24,s="",r,c,layer,col,odds=[];
-    for(r=0;r<n;r++)for(c=0;c<n;c++){
-      layer=Math.max(r,c); col=(layer%2===0)?sk.color:P.sage;
-      s+='<g class="pop" style="animation-delay:'+(.3+layer*0.5+(r+c)*0.015)+'s">'+drawItem(sk.art,x+c*(cs+gp),y+r*(cs+gp),cs,col)+'</g>';
-    }
-    for(layer=0;layer<n;layer++)odds.push(2*layer+1);
-    s+=T(210,y+box+18,"1 + 3 + 5 + … = "+odds.join(" + "),1.0,"fup",12,P.mid);
-    s+=T(210,y+box+38,"= "+n+"² = <b>"+m.sum+"</b>",2.4,"pop",15,P.gold);
-    return s;
-  },
-  steps:function(m,sk){
-    return [
-     {t:"Lay "+sk.item+" in growing L-shaped layers: first 1, then 3, then 5… each layer keeps the shape a perfect square. What is 1+3+5+7+9+11?",
-      s:"Lay the items in growing L shaped layers. First 1, then 3, then 5, and so on. Each layer keeps the shape a perfect square. What is 1 plus 3 plus 5 plus 7 plus 9 plus 11?"},
-     {t:"After "+m.n+" odd layers, the "+sk.item+" sit in a perfect "+m.n+"×"+m.n+" square.",
-      s:"After "+m.n+" odd layers, the items sit in a perfect "+m.n+" by "+m.n+" square."},
-     {t:"So the sum of the first "+m.n+" odd numbers = "+m.n+"² = <b>"+m.sum+"</b> — no need to add one by one!",
-      s:"So the sum of the first "+m.n+" odd numbers equals "+m.n+" squared, which is "+m.sum+". No need to add them one by one."}
-    ];
-  },
-  caption:function(m,sk){return "Stacking odd layers of "+sk.item+"…";}
+  scene:function(m,sk){
+    var n=m.n,box=120,gp=2,cs=(box-(n-1)*gp)/n,x=160,y=20,full="",r,c,layer,col;
+    for(r=0;r<n;r++)for(c=0;c<n;c++){ layer=Math.max(r,c); col=(layer%2===0)?sk.color:P.sage;
+      full+='<g class="rin" style="animation-delay:'+(.2+layer*0.55+(r+c)*0.02)+'s">'+drawItem(sk.art,x+c*(cs+gp),y+r*(cs+gp),cs,col)+'</g>'; }
+    return {base:stage(""),phases:[
+      {cap:"odd layers", ms:6000, pause:1000,
+       say:"Lay "+sk.item+" in L-shaped layers — first 1, then 3, then 5, and so on. Each layer keeps the shape a perfect square. What is 1 plus 3 plus 5 plus 7 plus 9 plus 11?",
+       frag:'<g class="rpl" style="animation-delay:.3s">'+drawItem(sk.art,x,y,cs,sk.color)+'</g>'+T(220,150,"start with 1",1.0,"rin",13,P.mid)},
+      {cap:"wrap around", ms:5400, pause:900,
+       say:"Add the next odd layer, and the next — they wrap around and the square keeps growing.",
+       frag:full},
+      {cap:n+"² = "+m.sum, ms:5200, pause:1400,
+       say:"After "+n+" odd layers we have a "+n+" by "+n+" square. So the sum of the first "+n+" odd numbers is "+n+" squared, which is "+m.sum+".",
+       frag:answerBox(220,178,n+"² = "+m.sum,.2)}
+    ]};
+  }
 };
 
 /* ===== lastdigit : ending 2/3/7/8 → never a perfect square ================= */
 R.lastdigit={
-  svg:function(m,sk){
-    var ok={0:1,1:1,4:1,5:1,6:1,9:1},x=24,d,i,s="";
-    s+=T(210,16,"Look only at the LAST digit of "+m.num,0,"pop",13,P.mid);
-    for(i=0;i<=9;i++){
-      d=x+i*38; var good=ok[i];
-      s+='<g class="pop" style="animation-delay:'+(.3+i*0.1)+'s">'+RC(d,38,30,30,7,good?P.pale:"#fde8e8",good?P.sage:P.rust,1.5)
-        +T(d+15,59,i+"",0,"",16,good?P.sage:P.rust)+'</g>';
-      if(!good)s+=LN(d+3,41,d+27,65,P.rust,2.5,"crs",1.4+i*0.05);
-    }
-    s+=T(210,94,"Squares end only in 0,1,4,5,6,9 — never 2,3,7,8",1.7,"fup",12,P.mid);
-    s+=RC(150,116,120,40,8,sk.color+"14",sk.color+"55",1.5);
-    s+='<g class="pop" style="animation-delay:2.2s">'+drawItem(sk.art,160,120,30,sk.color)+'</g>';
-    s+=T(248,140,m.num,2.3,"pop",16,P.ink);
-    s+=T(210,182,m.num+" ends in "+m.digit+" → "+(m.ok?"could be":"<b>NOT</b>")+" a perfect square",2.6,"pop",14,m.ok?P.sage:P.rust);
-    return s;
-  },
-  steps:function(m,sk){
-    return [
-     {t:"Quick check before any hard work: look at the <b>last digit</b> of "+m.num+". Can a perfect square ever end in "+m.digit+"?",
-      s:"Quick check before any hard work. Look at the last digit of "+m.num+". Can a perfect square ever end in "+m.digit+"?"},
-     {t:"Perfect squares only ever end in 0, 1, 4, 5, 6 or 9. Ending in 2, 3, 7 or 8 is impossible.",
-      s:"Perfect squares only ever end in 0, 1, 4, 5, 6 or 9. Ending in 2, 3, 7 or 8 is impossible."},
-     {t:""+m.num+" ends in "+m.digit+", so it can <b>never</b> be a perfect square — you spotted it just from the last digit!",
-      s:""+m.num+" ends in "+m.digit+", so it can never be a perfect square. You spotted it just from the last digit."}
-    ];
-  },
-  caption:function(m,sk){return "Checking the last digit of "+m.num+"…";}
+  scene:function(m,sk){
+    var ok={0:1,1:1,4:1,5:1,6:1,9:1},x0=24,row="",i,d,good;
+    for(i=0;i<=9;i++){ d=x0+i*38; good=ok[i];
+      row+='<g class="rin" style="animation-delay:'+(.2+i*0.12)+'s">'+RC(d,86,30,30,7,good?P.pale:"#fde8e8",good?P.sage:P.rust,1.5)+T(d+15,107,i+"",0,"",16,good?P.sage:P.rust)+'</g>';
+      if(!good) row+=LN(d+3,89,d+27,113,P.rust,2.6,"rcr",1.4+i*0.05); }
+    return {base:stage(""),phases:[
+      {cap:"look at the last digit", ms:5400, pause:1000,
+       say:"Before any hard work, look only at the LAST digit of "+m.num+". Can a perfect square ever end in "+m.digit+"?",
+       frag:T(220,40,m.num,0,"rpl",34,P.ink)+T(330,40,"ends in "+m.digit,.6,"rin",14,P.rust)},
+      {cap:"only 0,1,4,5,6,9", ms:5600, pause:900,
+       say:"Perfect squares only ever end in 0, 1, 4, 5, 6 or 9. Ending in 2, 3, 7 or 8 is impossible.",
+       frag:row+T(220,140,"red digits can never end a perfect square",2.0,"rin",12,P.mid)},
+      {cap:m.num+" → not a square", ms:5000, pause:1400,
+       say:m.num+" ends in "+m.digit+", so it can never be a perfect square. You spotted it just from the last digit!",
+       frag:answerBox(220,182,m.num+" ends in "+m.digit+" → "+(m.ok?"maybe":"NO"),.2)}
+    ]};
+  }
 };
 
 /* ===== areaSide : a square's AREA (fraction or decimal) → its SIDE ========= */
 R.areaSide={
-  svg:function(m,sk){
-    var x=30,y=44,box=104, blk=itemSquare(sk,4,x,y,box,4,.3,.05);
-    var s=T(210,18,"A square "+sk.one+" — area = "+m.disp+(m.kind==="dec"?" m²":""),0,"pop",13,P.mid);
-    s+=RC(x-6,y-6,box+12,box+12,8,sk.color+"14",sk.color+"55",1.5)+blk.svg;
-    s+=T(x+box/2,y+box/2+5,m.disp+"",1.4,"pop",15,P.ink)+T(x+box/2,y-12,"area",1.2,"fup",11,sk.color);
+  scene:function(m,sk){
+    var x=34,y=58,box=96, base=stage(RC(x-6,y-6,box+12,box+12,8,sk.color+"14",sk.color+"40",1.5));
+    var p0={cap:"area "+m.disp, ms:5400, pause:1000,
+            say:"A square "+sk.one+" has area "+m.disp+(m.kind==="dec"?" square metres":" of the "+sk.place)+". How long is each side?",
+            frag:block(sk,3,x,y,box,3,.3,.07)+T(x+box/2,y+box/2+5,m.disp,1.2,"rpl",16,P.ink)+T(x+box/2,y-12,"area",1.0,"rin",11,sk.color)};
+    var p1,p2;
     if(m.kind==="frac"){
-      s+=T(258,62,"√"+m.top+" = "+m.rtop,1.6,"pop",16,P.amber);
-      s+=LN(232,76,335,76,P.line,2.5,"strk",2.0);
-      s+=T(258,96,"√"+m.bot+" = "+m.rbot,2.2,"pop",16,P.sage);
+      p1={cap:"root top & bottom", ms:5400, pause:900,
+          say:"Take the square root of the top and the bottom on their own. Root "+m.top+" is "+m.rtop+", and root "+m.bot+" is "+m.rbot+".",
+          frag:T(290,70,"√"+m.top+" = "+m.rtop,.2,"rin",17,P.amber)+LN(250,84,340,84,P.line,2.5,"rsl",.6)+T(290,104,"√"+m.bot+" = "+m.rbot,.8,"rin",17,P.sage)};
+      p2={cap:"side = "+m.resultHtml, ms:5000, pause:1400, say:"So each side is "+m.resultSpk+".",
+          frag:answerBox(290,160,"side = "+m.resultHtml,.2)};
     }else{
-      s+=T(288,68,"side × side",1.6,"fup",12,P.mid)+T(288,92,"= "+m.disp,2.0,"pop",15,P.mid);
+      p1={cap:"square the answer", ms:5400, pause:900,
+          say:"Find the number that, times itself, gives "+m.disp+". Line up the decimal point neatly.",
+          frag:T(290,80,m.resultHtml+" × "+m.resultHtml,.2,"rin",16,P.mid)+T(290,108,"= "+m.disp,.8,"rin",16,P.mid)};
+      p2={cap:"side = "+m.resultHtml+" m", ms:5000, pause:1400, say:"So each side is "+m.resultSpk+" metres.",
+          frag:answerBox(290,160,"side = "+m.resultHtml+" m",.2)};
     }
-    s+=T(288,140,"side = <b>"+m.resultHtml+"</b>"+(m.kind==="dec"?" m":""),2.5,"pop",18,P.sage);
-    s+=T(x+box/2,y+box+18,"side = "+m.resultHtml,2.7,"fup",12,sk.color);
-    return s;
-  },
-  steps:function(m,sk){
-    if(m.kind==="frac"){
-      return [
-       {t:"A square "+sk.one+" covers <b>"+m.disp+"</b> of the "+sk.place+" — that fraction is its area. How long is each side?",
-        s:"A square covers "+m.rtop+" over "+m.rbot+" of the area. How long is each side?"},
-       {t:"Square-root the top and the bottom separately: √"+m.top+" = "+m.rtop+", and √"+m.bot+" = "+m.rbot+".",
-        s:"Take the square root of the top and the bottom separately. Square root of "+m.top+" is "+m.rtop+", and square root of "+m.bot+" is "+m.rbot+"."},
-       {t:"So the side = <b>"+m.resultHtml+"</b>. Always root the numerator and denominator on their own!",
-        s:"So the side is "+m.resultSpk+". Always root the top and the bottom on their own."}
-      ];
-    }
-    return [
-     {t:"A square "+sk.one+" has area <b>"+m.disp+" m²</b>. How long is each side?",
-      s:"A square "+sk.one+" has area "+m.disp+" square metres. How long is each side?"},
-     {t:"Turn the decimal into a fraction, then square-root the top and the bottom — the decimal point lines up neatly.",
-      s:"Turn the decimal into a fraction, then square root the top and the bottom. The decimal point lines up neatly."},
-     {t:"The side is <b>"+m.resultHtml+" m</b>, because "+m.resultHtml+"×"+m.resultHtml+" = "+m.disp+".",
-      s:"The side is "+m.resultSpk+" metres, because "+m.resultSpk+" times "+m.resultSpk+" equals "+m.disp+"."}
-    ];
-  },
-  caption:function(m,sk){return "Area "+m.disp+" → side of the square "+sk.one+"…";}
+    return {base:base,phases:[p0,p1,p2]};
+  }
 };
 
 /* ===== adjust : add/remove a few items to reach the nearest square ========= */
 R.adjust={
-  svg:function(m,sk){
-    var x=36,y=42,box=104, blk=itemSquare(sk,m.root,x,y,box,5,.3,.04);
-    var s=T(210,16,(m.kind==="sub"?"Too many: ":"Almost a square: ")+m.start+" "+sk.item,0,"pop",13,P.mid);
-    s+=RC(x-6,y-6,box+12,box+12,8,sk.color+"14",sk.color+"55",1.5)+blk.svg;
-    s+=T(x+box/2,y+box+16,m.square+" = "+m.root+"²",2.2,"fup",12,sk.color);
-    /* a few "spare" items off to the side */
-    var k,sp=Math.min(m.kind==="mul"?4:Math.min(m.change,4),4);
-    for(k=0;k<sp;k++)s+='<g class="pop" style="animation-delay:'+(1.4+k*0.18)+'s">'+drawItem(sk.art,250+ (k%2)*30, 46+Math.floor(k/2)*30, 24, m.kind==="sub"?P.rust:P.sage)+'</g>';
-    if(m.kind==="sub"){
-      s+=T(330,60,m.start+" − "+m.square,2.0,"pop",15,P.rust);
-      s+=T(330,84,"= "+m.change,2.5,"pop",17,P.rust);
-      s+=T(310,150,"remove <b>"+m.change+"</b> "+sk.item,3.0,"fup",13,P.mid);
-    }else{
-      s+=T(330,60,m.start+" × "+m.change,2.0,"pop",15,P.amber);
-      s+=T(330,84,"= "+m.square,2.5,"pop",17,P.sage);
-      s+=T(310,150,"multiply by <b>"+m.change+"</b>",3.0,"fup",13,P.mid);
-    }
-    return s;
-  },
-  steps:function(m,sk){
-    if(m.kind==="sub"){
-      return [
-       {t:"You try to arrange "+m.start+" "+sk.item+" into a square, but a few are left over. The nearest perfect square below is "+m.square+" ("+m.root+"×"+m.root+"). How many "+sk.item+" must you take away?",
-        s:"You try to arrange "+m.start+" "+sk.item+" into a square, but a few are left over. The nearest perfect square below is "+m.square+", which is "+m.root+" times "+m.root+". How many must you take away?"},
-       {t:"Just subtract: "+m.start+" − "+m.square+" = <b>"+m.change+"</b>.",
-        s:"Just subtract. "+m.start+" minus "+m.square+" equals "+m.change+"."},
-       {t:"Remove "+m.change+" "+sk.item+" and exactly "+m.square+" = "+m.root+"² remain. Least number to subtract = <b>"+m.change+"</b>.",
-        s:"Remove "+m.change+" and exactly "+m.square+", which is "+m.root+" squared, remain. The least number to subtract is "+m.change+"."}
-      ];
-    }
-    return [
-     {t:""+m.start+" "+sk.item+" almost form a square, but one group has no partner. What is the <b>smallest</b> number to multiply by so they fit a perfect square?",
-      s:""+m.start+" "+sk.item+" almost form a square, but one group has no partner. What is the smallest number to multiply by so they fit a perfect square?"},
-     {t:"Supply the missing partner — multiply by "+m.change+": "+m.start+" × "+m.change+" = "+m.square+".",
-      s:"Supply the missing partner. Multiply by "+m.change+". "+m.start+" times "+m.change+" equals "+m.square+"."},
-     {t:""+m.square+" = "+m.root+"² ✓ — now every group is paired. The answer is <b>"+m.change+"</b>.",
-      s:""+m.square+" equals "+m.root+" squared. Now every group is paired. The answer is "+m.change+"."}
-    ];
-  },
-  caption:function(m,sk){return (m.kind==="sub"?"Trimming ":"Topping up ")+m.start+" "+sk.item+" to a square…";}
+  scene:function(m,sk){
+    var x=40,y=54,box=96, base=stage(RC(x-6,y-6,box+12,box+12,8,sk.color+"14",sk.color+"40",1.5));
+    var k,sp=Math.min(m.kind==="sub"?Math.min(m.change,4):4,4),spare="";
+    for(k=0;k<sp;k++) spare+='<g class="rin" style="animation-delay:'+(.3+k*0.2)+'s">'+drawItem(sk.art,250+(k%2)*32,60+Math.floor(k/2)*32,26,m.kind==="sub"?P.rust:P.sage)+'</g>';
+    var p0={cap:m.start+" "+sk.item, ms:5800, pause:1000,
+            say:(m.kind==="sub"
+              ? "You try to "+sk.verb+" "+m.start+" "+sk.item+" in a square, but a few are left over. The nearest perfect square below is "+m.square+", which is "+m.root+" times "+m.root+". How many must you take away?"
+              : m.start+" "+sk.item+" almost make a square, but one group has no partner. What is the smallest number to multiply by so they fit a perfect square?"),
+            frag:block(sk,m.root,x,y,box,5,.3,.04)+spare+T(x+box/2,y+box+16,m.square+" = "+m.root+"²",2.0,"rin",12,sk.color)};
+    var p1={cap:(m.kind==="sub"?"subtract":"multiply"), ms:5200, pause:900,
+            say:(m.kind==="sub"? "Just subtract. "+m.start+" minus "+m.square+" is "+m.change+"."
+                               : "Supply the missing partner — multiply by "+m.change+". "+m.start+" times "+m.change+" is "+m.square+"."),
+            frag:(m.kind==="sub"? T(320,80,m.start+" − "+m.square+" = "+m.change,.2,"rin",16,P.rust)
+                                : T(320,80,m.start+" × "+m.change+" = "+m.square,.2,"rin",16,P.amber))};
+    var p2={cap:"answer = "+m.change, ms:5000, pause:1400,
+            say:(m.kind==="sub"? "Remove "+m.change+" and exactly "+m.square+" remain — a perfect square. The least number to subtract is "+m.change+"."
+                               : m.square+" is "+m.root+" squared — now every group is paired. The answer is "+m.change+"."),
+            frag:answerBox(290,160,(m.kind==="sub"?"subtract ":"multiply by ")+m.change,.2)};
+    return {base:base,phases:[p0,p1,p2]};
+  }
 };
 
 /* ===== product : product of two perfect squares is a perfect square ======== */
 R.product={
-  svg:function(m,sk){
-    var a=itemSquare(sk,m.aRoot,34,40,54,5,.4,.05), b=itemSquare(sk,m.bRoot,150,32,68,5,.7,.04), cc=itemSquare(sk,Math.min(m.root,6),300,28,80,6,1.2,.03);
-    var s=T(210,16,"Two square mats of "+sk.item,0,"pop",13,P.mid);
-    s+=a.svg+T(61,112,m.aSq+"="+m.aRoot+"²",1.4,"fup",11,sk.color);
-    s+=T(128,80,"×",1.6,"pop",22,P.rust);
-    s+=b.svg+T(184,112,m.bSq+"="+m.bRoot+"²",1.8,"fup",11,sk.color);
-    s+=T(268,80,"=",2.2,"pop",22,P.rust);
-    s+=cc.svg+T(340,116,m.prod+"="+m.root+"²",2.6,"fup",12,P.gold);
-    s+=T(210,184,m.aSq+" × "+m.bSq+" = "+m.prod+" = <b>"+m.root+"²</b> — still a perfect square!",3.0,"fup",12,P.mid);
-    return s;
-  },
-  steps:function(m,sk){
-    return [
-     {t:"One mat holds "+m.aSq+" "+sk.item+" in a square, another holds "+m.bSq+". If you combine them into a single square, will it still be <b>perfect</b>?",
-      s:"One mat holds "+m.aSq+" "+sk.item+" in a square, another holds "+m.bSq+". If you combine them into a single square, will it still be perfect?"},
-     {t:""+m.aSq+" = "+m.aRoot+"² and "+m.bSq+" = "+m.bRoot+"². Their product = ("+m.aRoot+"×"+m.bRoot+")² = "+m.root+"².",
-      s:""+m.aSq+" equals "+m.aRoot+" squared, and "+m.bSq+" equals "+m.bRoot+" squared. Their product equals "+m.aRoot+" times "+m.bRoot+", all squared, which is "+m.root+" squared."},
-     {t:"So "+m.aSq+" × "+m.bSq+" = "+m.prod+" = "+m.root+"². Yes — the product of two perfect squares is <b>always</b> a perfect square!",
-      s:"So "+m.aSq+" times "+m.bSq+" equals "+m.prod+", which is "+m.root+" squared. Yes. The product of two perfect squares is always a perfect square."}
-    ];
-  },
-  caption:function(m,sk){return "Combining two square mats of "+sk.item+"…";}
+  scene:function(m,sk){
+    return {base:stage(""),phases:[
+      {cap:"two square mats", ms:5800, pause:1000,
+       say:"One mat holds "+m.aSq+" "+sk.item+" in a square, another holds "+m.bSq+". If you join them into one big square, will it still be perfect?",
+       frag:block(sk,m.aRoot,40,54,60,5,.3,.06)+T(70,128,m.aSq+"="+m.aRoot+"²",1.2,"rin",12,sk.color)
+           +T(150,90,"×",1.4,"rpl",24,P.rust)
+           +block(sk,m.bRoot,180,46,76,5,.6,.05)+T(218,130,m.bSq+"="+m.bRoot+"²",1.6,"rin",12,P.sage)},
+      {cap:"(a×b)²", ms:5400, pause:900,
+       say:m.aSq+" is "+m.aRoot+" squared, and "+m.bSq+" is "+m.bRoot+" squared. Their product is "+m.aRoot+" times "+m.bRoot+", all squared.",
+       frag:T(330,90,"("+m.aRoot+"×"+m.bRoot+")²",.2,"rin",18,P.mid)+T(330,118,"= "+m.root+"²",.8,"rin",18,P.gold)},
+      {cap:m.prod+" = "+m.root+"²", ms:5000, pause:1400,
+       say:"So "+m.aSq+" times "+m.bSq+" is "+m.prod+", which is "+m.root+" squared. Yes — the product of two perfect squares is always a perfect square!",
+       frag:answerBox(220,180,m.aSq+" × "+m.bSq+" = "+m.root+"²",.2)}
+    ]};
+  }
 };
 
 /* ---- skin picker (random; avoids the immediate repeat) -------------------- */
 var _last={};
-function pickSkin(concept){
-  var n=SKINS.length,i;
-  do{ i=Math.floor(Math.random()*n); }while(n>1 && i===_last[concept]);
-  _last[concept]=i; return SKINS[i];
-}
+function pickSkin(concept){ var n=SKINS.length,i; do{ i=Math.floor(Math.random()*n); }while(n>1 && i===_last[concept]); _last[concept]=i; return SKINS[i]; }
 
 /* ---- public API ---------------------------------------------------------- */
-function fallbackSVG(){
-  return '<svg viewBox="0 0 420 200" xmlns="http://www.w3.org/2000/svg"><rect width="420" height="200" fill="'+P.bg
-    +'"/><text x="210" y="100" text-anchor="middle" font-family="Nunito,Arial,sans-serif" font-size="14" fill="'+P.mid+'">Loading…</text></svg>';
-}
+function fallback(){ return {base:'<svg viewBox="0 0 440 210" xmlns="http://www.w3.org/2000/svg"><rect width="440" height="210" fill="'+P.bg+'"/><text x="220" y="105" text-anchor="middle" font-family="Nunito,Arial,sans-serif" font-size="14" fill="'+P.mid+'">Loading…</text></svg>',phases:[]}; }
 window.RishiAnim={
-  version:2, skins:SKINS,
+  version:3, skins:SKINS,
   pickSkin:function(concept,m){ return pickSkin(concept); },
-  svg:function(concept,m,skin){ var r=R[concept]; if(!r)return fallbackSVG(); try{ return wrap(r.svg(m,skin||pickSkin(concept))); }catch(e){ return fallbackSVG(); } },
-  steps:function(concept,m,skin){ var r=R[concept]; if(!r)return []; try{ return r.steps(m,skin||pickSkin(concept)); }catch(e){ return []; } },
-  caption:function(concept,m,skin){ var r=R[concept]; if(!r)return "Watch closely…"; try{ return r.caption(m,skin||pickSkin(concept)); }catch(e){ return "Watch closely…"; } }
+  scene:function(concept,m,skin){ var r=R[concept]; if(!r)return fallback(); try{ return r.scene(m,skin||pickSkin(concept)); }catch(e){ return fallback(); } },
+  /* legacy single-shot helpers (kept so an un-migrated page still renders something) */
+  svg:function(concept,m,skin){ try{ return this.scene(concept,m,skin).base; }catch(e){ return fallback().base; } },
+  steps:function(concept,m,skin){ try{ return this.scene(concept,m,skin).phases.map(function(p){return {t:p.say,s:p.say};}); }catch(e){ return []; } },
+  caption:function(concept,m,skin){ var r=R[concept]; try{ return r.caption?r.caption(m,skin):"Watch closely…"; }catch(e){ return "Watch closely…"; } }
 };
 })();

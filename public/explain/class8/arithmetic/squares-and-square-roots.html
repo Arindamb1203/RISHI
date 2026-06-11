@@ -122,7 +122,7 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 <script src="/rishi-sync.js?v=2"></script>
 <script src="/rishi-core.js"></script>
 <script src="/rishi-presence.js"></script>
-<script src="/rishi-animate.js?v=2"></script>
+<script src="/rishi-animate.js?v=3"></script>
 </head>
 <body>
 <nav class="topbar">
@@ -580,12 +580,41 @@ function getAnimPlay(t){
   return m[t]||function(done){done();};
 }
 
-/* ===== Daily-life scene engine override (shared rishi-animate.js) =====
- * Replaces the old abstract getAnimSVG/getAnimPlay. These later declarations
- * win by hoisting. Scenes + skin-aware narration come from RishiAnim; the
- * skin is chosen per question in showQ (and re-chosen on Replay).            */
-function getAnimSVG(q){return window.RishiAnim?RishiAnim.svg(q.concept,q.m,q._skin):'<svg viewBox="0 0 420 196"></svg>';}
-function getAnimPlay(q){return function(done){var cap=(window.RishiAnim?RishiAnim.caption(q.concept,q.m,q._skin):"Watch closely…");setStatus(cap);at(5200,function(){setStatus("Now let us break it into steps!");at(700,done);});};}
+/* ===== Daily-life NARRATED scene engine (shared rishi-animate.js v3) =====
+ * The animation IS the teaching: the scene is drawn ONE phase at a time, each
+ * phase spoken in full by Rishika, with a pause — then the "I Understand!"
+ * button → the question. No separate repeated text steps. */
+function buildScene(q){q._skin=RishiAnim.pickSkin(q.concept,q.m);q._scene=RishiAnim.scene(q.concept,q.m,q._skin);q.steps=q._scene.phases.map(function(p){return {t:p.say,s:p.say};});return q._scene;}
+function playScene(){
+  var q=session[idx];if(!q||!q._scene)return;var phases=q._scene.phases,i=0;
+  var rb=G("animReplay");if(rb)rb.style.display="none";
+  function run(){
+    if(i>=phases.length){setStatus("Did that make sense?");var r2=G("animReplay");if(r2)r2.style.display="block";at(500,finishAnim);return;}
+    var ph=phases[i];setStatus(ph.cap||"");
+    var stage=G("rzStage");if(stage&&ph.frag){try{stage.insertAdjacentHTML("beforeend",ph.frag);}catch(e){}}
+    /* Advance only when BOTH the narration has ended AND a minimum dwell has
+       passed — so even with TTS down (instant fallback) each beat stays slow.
+       A hard cap guarantees we never stall if narration never reports "ended". */
+    var spk=ph.say,adv=false,ended=false,minMet=false;
+    function step(){if(adv||!ended||!minMet)return;adv=true;i++;at(ph.pause||900,run);}
+    var minMs=Math.max(ph.min||3800,spk.length*55);
+    var capMs=Math.max(minMs+1600,spk.length*115);
+    say(spk,function(){ended=true;step();});
+    setTimeout(function(){minMet=true;step();},minMs);
+    setTimeout(function(){ended=true;minMet=true;step();},capMs);
+  }
+  run();
+}
+function finishAnim(){
+  if(G("stepsWrap"))return;
+  var sc=document.createElement("div");sc.className="q-card";
+  sc.innerHTML='<div class="q-label">&#128172; Your turn</div><div id="stepsWrap"></div>';
+  G("qArea").appendChild(sc);
+  var ib=document.createElement("button");ib.className="btn-speak";ib.innerHTML="&#9989; I Understand!";ib.style.cssText="margin-top:6px;width:100%;";
+  ib.onclick=function(){ib.remove();showConfirm();};
+  G("stepsWrap").appendChild(ib);
+  setTimeout(function(){ib.scrollIntoView({behavior:"smooth",block:"center"});},250);
+}
 
 var atTimers=[],session=[],idx=0,stepIdx=0,nudgeCount=0,completed=false,confirmShown=false,breakSecs=0,breakTmr=null,PER_SESSION=10;
 function G(id){return document.getElementById(id);}
@@ -603,23 +632,22 @@ function init(){
   buildSession();rInit();
   initVoices(function(){startLesson();});
 }
-function buildSession(){session=QB.slice().sort(function(){return Math.random()-.5;}).slice(0,PER_SESSION);}
+function buildSession(){session=QB.slice().sort(function(){return Math.random()-.5;}).slice(0,PER_SESSION);
+  /* PROTOTYPE: show an "arrange" (√N) showcase question first so the new style is seen immediately */
+  session.sort(function(a,b){return (a.concept==="arrange"?0:1)-(b.concept==="arrange"?0:1);});}
 function showQ(){
   if(idx>=session.length){onComplete();return;}
-  var q=session[idx];stepIdx=0;nudgeCount=0;confirmShown=false;q._skin=RishiAnim.pickSkin(q.concept,q.m);q.steps=RishiAnim.steps(q.concept,q.m,q._skin);updateProg();G("qArea").innerHTML="";clearAt();
+  var q=session[idx];stepIdx=0;nudgeCount=0;confirmShown=false;buildScene(q);updateProg();G("qArea").innerHTML="";clearAt();
   var qc=document.createElement("div");qc.className="q-card";
   qc.innerHTML='<div class="q-label">Question '+(idx+1)+' of '+PER_SESSION+'</div><div class="q-text">'+q.q+'</div><button class="btn-speak" onclick="say(session[idx].qs)">&#128266; Hear</button>';
   G("qArea").appendChild(qc);
   var ap=document.createElement("div");ap.className="anim-panel";
-  ap.innerHTML='<div class="anim-header"><span class="anim-header-lbl">&#127909; Live Animation</span><button class="anim-replay" id="animReplay" onclick="replayAnim()">&#8635; Replay</button></div>'
-    +'<div class="anim-canvas" id="animCanvas">'+getAnimSVG(q)+'</div>'
-    +'<div class="anim-status" id="animStatus">Tap Play to watch with narration!</div>'
-    +'<button class="anim-play-btn" id="animPlayBtn" onclick="startAnim()">&#9654; Play Animation</button>'
-    +'<button class="steps-btn" id="stepsBtn" onclick="beginSteps()">&#128214; See Step-by-Step</button>';
-  G("qArea").appendChild(ap);setTimeout(startAnim,800);
+  ap.innerHTML='<div class="anim-header"><span class="anim-header-lbl">&#127909; Watch &amp; Learn</span><button class="anim-replay" id="animReplay" onclick="replayAnim()">&#8635; Replay</button></div>'
+    +'<div class="anim-canvas" id="animCanvas">'+q._scene.base+'</div>'
+    +'<div class="anim-status" id="animStatus">Watch&hellip;</div>';
+  G("qArea").appendChild(ap);setTimeout(playScene,700);
 }
-function startAnim(){var q=session[idx];var pb=G("animPlayBtn");if(pb){pb.disabled=true;pb.textContent="&#9654; Playing...";}getAnimPlay(q)(function(){var sb=G("stepsBtn");if(sb)sb.style.display="block";var rb=G("animReplay");if(rb)rb.style.display="block";if(pb)pb.style.display="none";setTimeout(beginSteps,600);});}
-function replayAnim(){clearAt();window.speechSynthesis&&window.speechSynthesis.cancel();rStopTalk();var q=session[idx];q._skin=RishiAnim.pickSkin(q.concept,q.m);var canvas=G("animCanvas");if(canvas)canvas.innerHTML=getAnimSVG(q);G("animReplay").style.display="none";G("stepsBtn").style.display="none";var pb=G("animPlayBtn");if(pb){pb.style.display="block";pb.disabled=false;pb.textContent="&#9654; Play Animation";}setStatus("Tap Play to watch with narration!");}
+function replayAnim(){clearAt();window.speechSynthesis&&window.speechSynthesis.cancel();rStopTalk();var q=session[idx];buildScene(q);var canvas=G("animCanvas");if(canvas)canvas.innerHTML=q._scene.base;var rb=G("animReplay");if(rb)rb.style.display="none";setStatus("Watch…");setTimeout(playScene,400);}
 function beginSteps(){var q=session[idx];var sc=document.createElement("div");sc.className="q-card";sc.innerHTML='<div class="q-label">&#128214; Step-by-Step</div><div id="stepsWrap"></div><button class="btn-speak" id="nxtStepBtn" onclick="nextStep()" style="margin-top:10px;">&#9654; Next Step</button>';G("qArea").appendChild(sc);sc.scrollIntoView({behavior:"smooth",block:"start"});G("stepsBtn").style.display="none";setTimeout(nextStep,350);}
 var nsGen=0;function nextStep(){var myGen=++nsGen;var q=session[idx];if(stepIdx>=q.steps.length){G("nxtStepBtn").style.display="none";var ib=document.createElement("button");ib.className="btn-speak";ib.innerHTML="&#9989; I Understand!";ib.style.cssText="margin-top:16px;width:100%;";ib.onclick=function(){ib.remove();showConfirm();};G("stepsWrap").appendChild(ib);ib.scrollIntoView({behavior:"smooth",block:"center"});return;}var s=q.steps[stepIdx];var wrap=G("stepsWrap");var d=document.createElement("div");d.className="step";d.innerHTML='<div class="step-num">'+(stepIdx+1)+'</div><div class="step-body">'+s.t+'</div>';wrap.appendChild(d);setTimeout(function(){d.classList.add("vis");},40);stepIdx++;var _spk=s.s||s.t.replace(/<[^>]*>/g,"");var _adv=false;function _go(){if(_adv||myGen!==nsGen)return;_adv=true;nextStep();}say(_spk,_go);setTimeout(_go,Math.max(4500,_spk.length*95));}
 function showConfirm(){if(confirmShown)return;confirmShown=true;
