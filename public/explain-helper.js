@@ -25,8 +25,12 @@
   'use strict';
 
   var methodCount = 0;   // how many alternate methods fetched so far
-  var injected    = false; // guard against double injection
   var prevSteps   = [];  // accumulates all previous step texts for the API
+  /* NOTE: no global "injected" flag. Each question builds a fresh #stepsWrap,
+     so we guard against double-injection per-question via parent.querySelector
+     ('.btn-dont'). The old global flag never reset between questions (goNext
+     wipes+refills #qArea synchronously, so the async reset-observer never saw
+     the empty state) — which is why the button only appeared on Q1. */
 
   /* ── Boot ─────────────────────────────────────────────── */
   if (document.readyState === 'loading') {
@@ -38,19 +42,6 @@
   function boot() {
     var qArea = document.getElementById('qArea');
     if (!qArea) { setTimeout(boot, 400); return; }
-
-    /* Reset state whenever qArea is wiped (new question) */
-    var lastLen = qArea.innerHTML.length;
-    var resetObs = new MutationObserver(function () {
-      var nowLen = qArea.innerHTML.length;
-      if (nowLen < 200 && nowLen < lastLen) {
-        methodCount = 0;
-        injected    = false;
-        prevSteps   = [];
-      }
-      lastLen = nowLen;
-    });
-    resetObs.observe(qArea, { childList: true });
 
     /* Watch for "I Understand!" being added */
     var obs = new MutationObserver(function (mutations) {
@@ -95,9 +86,12 @@
       }
     }
 
-    /* Avoid double injection */
-    if (injected || parent.querySelector('.btn-dont')) return;
-    injected = true;
+    /* Avoid double injection within the SAME question (fresh #stepsWrap per Q) */
+    if (parent.querySelector('.btn-dont')) return;
+
+    /* New question — reset the alternate-method cycle */
+    methodCount = 0;
+    prevSteps   = [];
 
     /* Capture original steps for the API */
     try {
