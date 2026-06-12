@@ -547,6 +547,224 @@ R.cubeScale={
   }
 };
 
+/* ==========================================================================
+ * EXPONENT FAMILY (chapter 3: Exponents & Powers)
+ *   Mostly algebraic laws → clean 3-beat narrated reveals. Showcase = expGrow,
+ *   the "explosive doubling" story (the real-life hook for powers).
+ * ========================================================================== */
+function eTile(cx,cy,txt,fill,d){
+  var w=Math.max(26,String(txt).length*10+10);
+  return '<g class="rin" style="animation-delay:'+d+'s">'+RC(cx-w/2,cy-14,w,28,5,fill||"#fff6e0",DK,0.8)+T(cx,cy+5,txt,d,"",15,P.ink)+'</g>';
+}
+R.expGrow={
+  scene:function(m,sk){
+    var b=m.base, seq=[1], v=1, i; for(i=1;i<=m.power;i++){ v*=b; seq.push(v); }
+    var n=seq.length, x0=40, x1=400, gap=(x1-x0)/(n>1?n-1:1);
+    var tiles="", arr="";
+    for(i=0;i<n;i++){ var x=x0+i*gap; tiles+=eTile(x,108,""+seq[i],(i===n-1?"#eef7e9":"#fff6e0"),.3+i*0.35);
+      if(i>0) arr+=T((x-gap/2),100,"×"+b,.3+i*0.35,"rin",10,P.rust); }
+    return {base:stage(""),phases:[
+      {cap:b+"^"+m.power+" = ?", ms:5000, pause:900,
+       say:b+" to the power "+m.power+" means multiplying "+b+" by itself "+m.power+" times. Watch how fast it grows!",
+       frag:T(220,44,b+"^"+m.power+" = ?",0,"rpl",28,P.gold)+T(220,76,"multiply "+b+" by itself "+m.power+" times",.6,"rin",13,P.mid)},
+      {cap:"multiply each step…", ms:5600, pause:900,
+       say:"Start at 1 and multiply by "+b+" each step: "+seq.slice(1,Math.min(4,n)).join(", ")+(n>4?", and it keeps growing.":"."),
+       frag:tiles+arr},
+      {cap:b+"^"+m.power+" = "+m.result, ms:5000, pause:1500,
+       say:"After "+m.power+" steps we reach "+m.result+". So "+b+" to the power "+m.power+" is "+m.result+". Powers grow explosively!",
+       frag:answerBox(220,165,b+"^"+m.power+" = "+m.result,.2)+spark(220,165,.6)}
+    ]};
+  }
+};
+R.expProduct={
+  scene:function(m,sk){
+    var a=m.a,x,i,top="";
+    for(i=0;i<m.m1;i++){ x=70+i*30; top+=eTile(x,90,a,"#fff6e0",.3+i*0.12); }
+    top+=T(70+m.m1*30,96,"×",.9,"rin",20,P.rust);
+    for(i=0;i<m.m2;i++){ x=70+m.m1*30+26+i*30; top+=eTile(x,90,a,"#eef7e9",.9+i*0.12); }
+    return {base:stage(""),phases:[
+      {cap:a+m.m1+" × "+a+m.m2, ms:5200, pause:900,
+       say:a+" to the "+m.m1+", times "+a+" to the "+m.m2+". The base is the same — what happens to the powers?",
+       frag:T(220,46,a+"^"+m.m1+" × "+a+"^"+m.m2+" = ?",0,"rin",20,P.mid)},
+      {cap:m.m1+" + "+m.m2+" copies", ms:5400, pause:900,
+       say:a+" to the "+m.m1+" is "+m.m1+" copies of "+a+". "+a+" to the "+m.m2+" is "+m.m2+" more. Together that is "+m.m1+" plus "+m.m2+" = "+m.sum+" copies.",
+       frag:top},
+      {cap:"= "+a+m.sum, ms:5000, pause:1400, say:"So the same base means ADD the powers: "+a+" to the "+m.sum+".",
+       frag:answerBox(220,160,"= "+a+"^"+m.sum,.2)}
+    ]};
+  }
+};
+R.expQuotient={
+  scene:function(m,sk){
+    return {base:stage(""),phases:[
+      {cap:m.a+m.m1+" ÷ "+m.a+m.m2, ms:5200, pause:900,
+       say:m.a+" to the "+m.m1+", divided by "+m.a+" to the "+m.m2+". Same base, but dividing this time.",
+       frag:T(220,50,m.a+"^"+m.m1+" ÷ "+m.a+"^"+m.m2+" = ?",0,"rin",20,P.mid)},
+      {cap:"cancel pairs", ms:5400, pause:900,
+       say:m.m1+" copies on top, "+m.m2+" below. Cancel "+m.m2+" pairs and "+(m.m1-m.m2)+" are left.",
+       frag:T(220,108,m.a+" · "+m.a+" … ("+m.m1+" on top)",.2,"rin",14,P.mid)+T(220,134,"cancel "+m.m2+" → "+(m.m1-m.m2)+" left",.6,"rin",14,P.sage)},
+      {cap:"= "+m.a+(m.m1-m.m2), ms:5000, pause:1400, say:"Same base means SUBTRACT the powers: "+m.m1+" minus "+m.m2+" = "+(m.m1-m.m2)+".",
+       frag:answerBox(220,172,"= "+m.a+"^"+(m.m1-m.m2),.2)}
+    ]};
+  }
+};
+R.expZero={
+  scene:function(m,sk){
+    return {base:stage(""),phases:[
+      {cap:m.base+"⁰ = ?", ms:5000, pause:900,
+       say:"What is "+m.base+" to the power zero? The answer surprises everyone.",
+       frag:T(220,56,m.base+"^0 = ?",0,"rpl",30,P.gold)},
+      {cap:"any number ÷ itself", ms:5400, pause:900,
+       say:m.base+" to the 1 divided by "+m.base+" to the 1 is "+m.base+" to the power zero. But any number divided by itself is 1.",
+       frag:T(220,112,m.base+"^1 ÷ "+m.base+"^1 = "+m.base+"^0 = 1",.2,"rin",16,P.sage)},
+      {cap:"= 1", ms:5000, pause:1400, say:"So "+m.base+" to the power zero is 1. In fact ANY non-zero number to the power zero is 1.",
+       frag:answerBox(220,172,m.base+"^0 = 1",.2)}
+    ]};
+  }
+};
+R.expPower={
+  scene:function(m,sk){
+    return {base:stage(""),phases:[
+      {cap:"("+m.base+m.m1+")"+m.m2, ms:5200, pause:900,
+       say:m.base+" to the "+m.m1+", all raised to the "+m.m2+". A power of a power.",
+       frag:T(220,54,"("+m.base+"^"+m.m1+")^"+m.m2+" = ?",0,"rin",22,P.mid)},
+      {cap:m.m1+" × "+m.m2+" = "+m.prod, ms:5400, pause:900,
+       say:"That means "+m.base+" to the "+m.m1+", "+m.m2+" times over — so multiply the powers: "+m.m1+" times "+m.m2+" = "+m.prod+".",
+       frag:T(220,112,m.m1+" × "+m.m2+" = "+m.prod,.2,"rin",18,P.sage)},
+      {cap:"= "+m.base+m.prod, ms:5000, pause:1400, say:"So it is "+m.base+" to the "+m.prod+", which is "+m.result+". Power of a power means MULTIPLY.",
+       frag:answerBox(220,172,"= "+m.base+"^"+m.prod+" = "+m.result,.2)}
+    ]};
+  }
+};
+R.expNeg={
+  scene:function(m,sk){
+    return {base:stage(""),phases:[
+      {cap:m.base+"⁻"+m.power, ms:5200, pause:900,
+       say:m.base+" to the power minus "+m.power+". A negative power flips the number upside down.",
+       frag:T(220,56,m.base+"^(−"+m.power+") = ?",0,"rin",22,P.mid)},
+      {cap:"flip it: 1 over", ms:5400, pause:900,
+       say:"A minus power means one over the positive power. So "+m.base+" to the minus "+m.power+" is 1 over "+m.base+" to the "+m.power+".",
+       frag:T(220,112,m.base+"^(−"+m.power+") = 1 ⁄ "+m.base+"^"+m.power,.2,"rin",17,P.sage)},
+      {cap:"= "+m.result, ms:5000, pause:1400, say:"And "+m.base+" to the "+m.power+" is "+(Math.pow(m.base,m.power))+", so the answer is "+m.result+".",
+       frag:answerBox(220,172,m.base+"^(−"+m.power+") = "+m.result,.2)}
+    ]};
+  }
+};
+R.expProd={
+  scene:function(m,sk){
+    return {base:stage(""),phases:[
+      {cap:"(ab)"+m.n, ms:5000, pause:900,
+       say:"a times b, all to the power "+m.n+". The power spreads to each factor inside.",
+       frag:T(220,56,"(a·b)^"+m.n+" = ?",0,"rin",22,P.mid)},
+      {cap:"power to each", ms:5400, pause:900,
+       say:"Give the power to a, and to b, separately: a to the "+m.n+", times b to the "+m.n+".",
+       frag:T(220,112,"= a^"+m.n+" · b^"+m.n,.2,"rin",18,P.sage)},
+      {cap:"= a"+m.n+"b"+m.n, ms:5000, pause:1400, say:"So the power of a product is the product of the powers.",
+       frag:answerBox(220,172,"(ab)^"+m.n+" = a^"+m.n+"b^"+m.n,.2)}
+    ]};
+  }
+};
+R.expQuot={
+  scene:function(m,sk){
+    return {base:stage(""),phases:[
+      {cap:"(a/b)"+m.n, ms:5000, pause:900,
+       say:"a over b, all to the power "+m.n+". The power goes to BOTH top and bottom.",
+       frag:T(220,56,"(a ⁄ b)^"+m.n+" = ?",0,"rin",22,P.mid)},
+      {cap:"top and bottom", ms:5400, pause:900,
+       say:"Raise the top to the "+m.n+", and the bottom to the "+m.n+". Never forget the denominator.",
+       frag:T(220,112,"= a^"+m.n+" ⁄ b^"+m.n,.2,"rin",18,P.sage)},
+      {cap:"done", ms:5000, pause:1400, say:"So the power of a quotient is the quotient of the powers.",
+       frag:answerBox(220,172,"(a/b)^"+m.n+" = a^"+m.n+"/b^"+m.n,.2)}
+    ]};
+  }
+};
+R.stdFormSmall={
+  scene:function(m,sk){
+    return {base:stage(""),phases:[
+      {cap:"into standard form", ms:5200, pause:900,
+       say:"Write "+m.disp+" in standard form. Count how many places the decimal must move to reach 1.",
+       frag:T(220,56,m.disp,0,"rin",24,P.ink)},
+      {cap:m.power+" places", ms:5400, pause:900,
+       say:"The decimal moves "+m.power+" places to the right to become 1. A small number means a negative power of ten.",
+       frag:T(220,112,"move "+m.power+" places →  10^(−"+m.power+")",.2,"rin",16,P.sage)},
+      {cap:"= 10⁻"+m.power, ms:5000, pause:1400, say:"So "+m.disp+" equals 10 to the power minus "+m.power+".",
+       frag:answerBox(220,172,m.disp+" = 10^(−"+m.power+")",.2)}
+    ]};
+  }
+};
+R.stdFormBig={
+  scene:function(m,sk){
+    return {base:stage(""),phases:[
+      {cap:m.coef+" × 10"+m.power, ms:5200, pause:900,
+       say:m.coef+" times 10 to the power "+m.power+". Turn it back into a normal number.",
+       frag:T(220,56,m.coef+" × 10^"+m.power,0,"rin",22,P.mid)},
+      {cap:"move right "+m.power, ms:5400, pause:900,
+       say:"Multiplying by 10 to the "+m.power+" moves the decimal point "+m.power+" places to the right.",
+       frag:T(220,112,m.coef+"  →  "+m.result,.2,"rpl",22,P.sage)},
+      {cap:"= "+m.result, ms:5000, pause:1400, say:"So the answer is "+m.result+".",
+       frag:answerBox(220,172,"= "+m.result,.2)}
+    ]};
+  }
+};
+R.expNegBase={
+  scene:function(m,sk){
+    return {base:stage(""),phases:[
+      {cap:"(−"+m.base+")"+m.power, ms:5200, pause:900,
+       say:"Minus "+m.base+", to the power "+m.power+". Watch the sign carefully.",
+       frag:T(220,56,"(−"+m.base+")^"+m.power+" = ?",0,"rin",22,P.mid)},
+      {cap:"even power → +", ms:5400, pause:900,
+       say:"The minus signs pair up: minus times minus is plus. An even power makes the result positive.",
+       frag:T(150,112,"(−)(−) = +",.2,"rin",15,P.sage)+T(300,112,"(−)(−) = +",.5,"rin",15,P.sage)},
+      {cap:"= +"+m.result, ms:5000, pause:1400, say:"So minus "+m.base+" to the power "+m.power+" is positive "+m.result+".",
+       frag:answerBox(220,172,"(−"+m.base+")^"+m.power+" = +"+m.result,.2)}
+    ]};
+  }
+};
+R.expSameExp={
+  scene:function(m,sk){
+    return {base:stage(""),phases:[
+      {cap:m.a+m.n+" × "+m.b+m.n, ms:5200, pause:900,
+       say:m.a+" to the "+m.n+", times "+m.b+" to the "+m.n+". Same power, different bases.",
+       frag:T(220,54,m.a+"^"+m.n+" × "+m.b+"^"+m.n+" = ?",0,"rin",20,P.mid)},
+      {cap:"combine the bases", ms:5400, pause:900,
+       say:"When the power is the same, combine the bases first: "+m.a+" times "+m.b+" = "+m.ab+", all to the "+m.n+".",
+       frag:T(220,112,"= ("+m.a+"×"+m.b+")^"+m.n+" = "+m.ab+"^"+m.n,.2,"rin",18,P.sage)},
+      {cap:"= "+m.result, ms:5000, pause:1400, say:m.ab+" to the "+m.n+" is "+m.result+".",
+       frag:answerBox(220,172,"= "+m.ab+"^"+m.n+" = "+m.result,.2)}
+    ]};
+  }
+};
+R.expCompare={
+  scene:function(m,sk){
+    return {base:stage(""),phases:[
+      {cap:"2¹⁰  vs  10²", ms:5200, pause:900,
+       say:"Which is bigger: 2 to the power 10, or 10 squared? Take a guess before you calculate.",
+       frag:T(140,70,"2^10",0,"rpl",24,P.amber)+T(220,70,"vs",.4,"rin",18,P.mid)+T(300,70,"10^2",0,"rpl",24,P.sage)},
+      {cap:"100  vs  1024", ms:5400, pause:900,
+       say:"10 squared is just 100. But 2 doubles ten times — 2, 4, 8, all the way to 1024!",
+       frag:T(140,120,"= 1024",.2,"rin",18,P.amber)+T(300,120,"= 100",.5,"rin",18,P.sage)},
+      {cap:"2¹⁰ wins", ms:5000, pause:1400, say:"So 2 to the power 10 is more than ten times bigger. Powers of 2 grow faster than you expect!",
+       frag:answerBox(220,176,"2^10 = 1024  ≫  100",.2)}
+    ]};
+  }
+};
+R.expSolve={
+  scene:function(m,sk){
+    var steps=[],v=1,i; for(i=1;v<m.target;i++){ v*=m.base; steps.push(m.base+"^"+i+"="+v); }
+    return {base:stage(""),phases:[
+      {cap:m.base+"ˣ = "+m.target, ms:5200, pause:900,
+       say:m.base+" to the power x equals "+m.target+". What is x?",
+       frag:T(220,60,m.base+"^x = "+m.target,0,"rin",24,P.mid)},
+      {cap:"climb the powers", ms:5600, pause:900,
+       say:"Climb the powers of "+m.base+" until you hit "+m.target+": "+steps.slice(0,Math.min(4,steps.length)).join(", ")+"…",
+       frag:T(220,118,steps.join("   "),.2,"rin",12,P.sage)},
+      {cap:"x = "+m.x, ms:5000, pause:1400, say:m.base+" to the "+m.x+" equals "+m.target+". So x is "+m.x+".",
+       frag:answerBox(220,172,"x = "+m.x,.2)}
+    ]};
+  }
+};
+var EXP_CONCEPTS={expGrow:1,expProduct:1,expQuotient:1,expZero:1,expPower:1,expNeg:1,expProd:1,expQuot:1,stdFormSmall:1,stdFormBig:1,expNegBase:1,expSameExp:1,expCompare:1,expSolve:1};
+
 /* ---- skin picker (random; avoids the immediate repeat) -------------------- */
 var _last={};
 function pickSkin(concept){
