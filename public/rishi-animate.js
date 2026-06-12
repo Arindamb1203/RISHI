@@ -330,9 +330,230 @@ R.product={
   }
 };
 
+/* ==========================================================================
+ * CUBE FAMILY (chapter 2: Cubes & Cube Roots) — items stack into a 3-D cube
+ * ========================================================================== */
+var CUBE_SKINS=[
+ {item:"sugar cubes",   one:"cube",  place:"sugar box",     color:"#c9a24b", mark:"plain"},
+ {item:"dice",          one:"die",   place:"game tray",     color:"#b85c2a", mark:"pips"},
+ {item:"ice cubes",     one:"cube",  place:"ice tray",      color:"#5b9bd5", mark:"shine"},
+ {item:"gift boxes",    one:"box",   place:"shelf",         color:"#9a6fb0", mark:"ribbon"},
+ {item:"bricks",        one:"brick", place:"wall",          color:"#b06a3a", mark:"lines"},
+ {item:"toy blocks",    one:"block", place:"playroom",      color:"#d4870a", mark:"dot"},
+ {item:"laddoo boxes",  one:"box",   place:"sweet shop",    color:"#d98a3a", mark:"dot"},
+ {item:"cheese cubes",  one:"cube",  place:"platter",       color:"#e0b341", mark:"plain"},
+ {item:"soap bars",     one:"bar",   place:"store rack",    color:"#6f9e8f", mark:"plain"},
+ {item:"storage bins",  one:"bin",   place:"godown",        color:"#4a7fb0", mark:"lines"},
+ {item:"chocolate cubes",one:"cube", place:"chocolate box", color:"#8a5a2a", mark:"plain"},
+ {item:"Rubik blocks",  one:"block", place:"table",         color:"#3a8a5a", mark:"lines"}
+];
+var CUBE_CONCEPTS={cubeArrange:1,cubeConcept:1,cubeCheck:1,cubeNeg:1,cubeAdjust:1,cubeFrac:1,hardyRamanujan:1,cubeDiff:1,cubeParity:1,cubeScale:1};
+
+/* one isometric small box (3 visible faces, shaded) + a per-skin top mark */
+function isoPt(i,j,k,ox,oy,A,B,H){ return { x:ox+(i-j)*A, y:oy+(i+j)*B-k*H }; }
+function drawBox(cx,cy,u,color,mark,d,cls){
+  var A=u, B=u*0.5, H=u*0.92;
+  var top=cx+","+(cy-B)+" "+(cx+A)+","+cy+" "+cx+","+(cy+B)+" "+(cx-A)+","+cy;
+  var left=(cx-A)+","+cy+" "+cx+","+(cy+B)+" "+cx+","+(cy+B+H)+" "+(cx-A)+","+(cy+H);
+  var right=(cx+A)+","+cy+" "+cx+","+(cy+B)+" "+cx+","+(cy+B+H)+" "+(cx+A)+","+(cy+H);
+  var s='<g class="'+(cls||"rin")+'" style="animation-delay:'+(d||0)+'s">';
+  s+=PG(left,color,DK,0.6)+PG(left,"#00000026");
+  s+=PG(right,color,DK,0.6)+PG(right,"#0000004d");
+  s+=PG(top,color,DK,0.6);
+  if(mark==="pips")        s+=CI(cx,cy,1.4,LT)+CI(cx-A*0.42,cy-B*0.2,1.4,LT)+CI(cx+A*0.42,cy+B*0.2,1.4,LT);
+  else if(mark==="dot")    s+=CI(cx,cy,2,LT);
+  else if(mark==="ribbon") s+=LN(cx,cy-B,cx,cy+B,LT,1.4)+LN(cx-A,cy,cx+A,cy,LT,1.4);
+  else if(mark==="lines")  s+=LN(cx-A*0.55,cy-B*0.27,cx+A*0.55,cy+B*0.27,"#00000033",1);
+  else if(mark==="shine")  s+=PG(cx+","+(cy-B*0.55)+" "+(cx+A*0.38)+","+(cy-B*0.18)+" "+cx+","+(cy+B*0.18)+" "+(cx-A*0.38)+","+(cy-B*0.18),LT);
+  return s+'</g>';
+}
+/* a flat n×n layer of boxes at height k, painter-sorted back→front, staggered */
+function cubeLayer(n,k,ox,oy,u,color,mark,d0,step){
+  var A=u,B=u*0.5,H=u*0.92,cells=[],i,j,t,s="";
+  for(i=0;i<n;i++)for(j=0;j<n;j++)cells.push([i,j]);
+  cells.sort(function(a,b){return (a[0]+a[1])-(b[0]+b[1]);});
+  for(t=0;t<cells.length;t++){ var p=isoPt(cells[t][0],cells[t][1],k,ox,oy,A,B,H); s+=drawBox(p.x,p.y,u,color,mark,d0+t*step,"rin"); }
+  return s;
+}
+function cubeModel(n,ox,oy,u,color,mark,d0){           /* whole n×n×n cube at once */
+  var s="",k; for(k=0;k<n;k++) s+=cubeLayer(n,k,ox,oy,u,color,mark,d0+k*0.5,0.06); return s;
+}
+
+R.cubeArrange={
+  scene:function(m,sk){
+    var total=m.total, side=m.side, vol=(m.mode==="volume");
+    var disp=Math.min(side,3), u=15, ox=205, oy=58, capped=side>disp;
+    var base=stage(RC(150,150,150,34,8,sk.color+"12",sk.color+"33",1.5));
+    var lead = vol ? ("A cube-shaped "+sk.place+" holds "+total+" "+sk.item+", a volume of "+total+". How many "+sk.one+"s lie along each edge?")
+                   : ("Let us stack "+total+" "+sk.item+" into one perfect cube — the same number across, deep and tall. How many "+sk.one+"s along each edge?");
+    return {base:base, phases:[
+      {cap:total+" "+sk.item+" → a cube?", ms:5200, pause:900, say:lead,
+       frag:T(220,24,(vol?"Volume ":"Stack ")+total+" "+sk.item+" as a perfect cube",0,"rin",13,P.mid)+T(220,46,"How many along each edge?",0,"rin",13,sk.color)},
+      {cap:"bottom layer", ms:5400, pause:900,
+       say:"First the bottom layer: "+side+" across and "+side+" deep — that is "+side+" times "+side+" = "+(side*side)+" "+sk.item+" in one layer.",
+       frag:cubeLayer(disp,0,ox,oy,u,sk.color,sk.mark,.3,.12)+chip(384,38,"LAYER 1",2.4,sk.color)},
+      {cap:"stack the layers", ms:5400, pause:900,
+       say:"Now stack layer upon layer until it is "+side+" layers tall. It grows into a solid cube.",
+       frag:cubeLayer(disp,1,ox,oy,u,sk.color,sk.mark,.2,.1)+cubeLayer(disp,2,ox,oy,u,sk.color,sk.mark,.9,.1)+chip(384,38,"LAYERS "+side,1.6,sk.color)+(capped?T(108,150,"(a model of the",1.8,"rin",10,P.mid)+T(108,162,side+"×"+side+"×"+side+" cube)",1.9,"rin",10,P.mid):"")},
+      {cap:side+"×"+side+"×"+side, ms:5600, pause:1000,
+       say:side+" across, "+side+" deep, "+side+" tall. So "+side+" times "+side+" times "+side+" = "+total+".",
+       frag:T(220,196,side+" × "+side+" × "+side+" = "+total,.2,"rin",15,P.ink)},
+      {cap:"∛"+total+" = "+side, ms:5000, pause:1500,
+       say:"So the cube root of "+total+" is "+side+"!",
+       frag:answerBox(220,110,"∛"+total+" = "+side,.2)+spark(220,110,.6)}
+    ]};
+  }
+};
+R.cubeConcept={
+  scene:function(m,sk){
+    return {base:stage(""),phases:[
+      {cap:"what is a perfect cube?", ms:5200, pause:900,
+       say:"When do "+sk.item+" make a perfect cube? Only when they fill a solid cube — the same number across, deep and tall.",
+       frag:T(220,26,"When do "+sk.item+" make a perfect cube?",0,"rin",13,P.mid)},
+      {cap:"1, 8, 27 …", ms:5600, pause:900,
+       say:"One "+sk.one+" is 1 by 1 by 1. Eight make 2 by 2 by 2. Twenty seven make 3 by 3 by 3.",
+       frag:cubeModel(1,70,112,13,sk.color,sk.mark,.3)+T(70,152,"1³=1",1.2,"rin",12,sk.color)
+           +cubeModel(2,165,106,12,sk.color,sk.mark,.7)+T(165,154,"2³=8",1.8,"rin",12,P.sage)
+           +cubeModel(3,295,98,11,sk.color,sk.mark,1.3)+T(305,158,"3³=27",2.4,"rin",12,P.amber)},
+      {cap:"1,8,27,64,125 …", ms:5000, pause:1400,
+       say:"So 1, 8, 27, 64, 125 are the perfect cubes. Is 216? Yes — 6 times 6 times 6!",
+       frag:answerBox(220,178,"1, 8, 27, 64, 125 …",.2)}
+    ]};
+  }
+};
+R.cubeCheck={
+  scene:function(m,sk){
+    return {base:stage(""),phases:[
+      {cap:"group in threes", ms:5400, pause:900,
+       say:"Is "+m.n+" a perfect cube? Break it into prime factors and group them in THREES.",
+       frag:T(220,40,"Is "+m.n+" a perfect cube?",0,"rin",14,P.mid)+T(220,78,m.n+" = "+(m.facHtml||""),.6,"rin",15,sk.color)},
+      {cap:(m.yes?"all in threes":"a leftover"), ms:5200, pause:900,
+       say:(m.yes? "Every prime comes in a complete group of three — so it IS a perfect cube."
+                 : "One prime is left over without a group of three — so it is NOT a perfect cube."),
+       frag:T(220,118,(m.yes?"every factor forms a triple ✓":"a factor has no triple ✗"),.2,"rin",13,(m.yes?P.sage:P.rust))},
+      {cap:(m.yes?"∛"+m.n+" = "+m.root:"not a cube"), ms:5000, pause:1400,
+       say:(m.yes? "Take one from each triple — the cube root is "+m.root+"." : "So "+m.n+" is not a perfect cube."),
+       frag:answerBox(220,176,(m.yes?"∛"+m.n+" = "+m.root:m.n+" is NOT a cube"),.2)}
+    ]};
+  }
+};
+R.cubeNeg={
+  scene:function(m,sk){
+    return {base:stage(""),phases:[
+      {cap:"a cube keeps its sign", ms:5200, pause:900,
+       say:"What is the cube root of minus "+m.n+"? A cube has three equal factors, so minus times minus times minus stays minus.",
+       frag:T(220,40,"∛(−"+m.n+") = ?",0,"rin",18,P.mid)+T(220,80,"(−)(−)(−) = −",.6,"rin",14,P.rust)},
+      {cap:"∛"+m.n+" = "+m.root, ms:5000, pause:900,
+       say:"The cube root of "+m.n+" is "+m.root+". So we just keep the minus sign.",
+       frag:T(220,120,"∛"+m.n+" = "+m.root,.2,"rin",16,P.sage)},
+      {cap:"= −"+m.root, ms:5000, pause:1400,
+       say:"So the cube root of minus "+m.n+" is minus "+m.root+".",
+       frag:answerBox(220,176,"∛(−"+m.n+") = −"+m.root,.2)}
+    ]};
+  }
+};
+R.cubeAdjust={
+  scene:function(m,sk){
+    var mul=(m.kind==="mul");
+    return {base:stage(""),phases:[
+      {cap:m.start+" "+sk.item, ms:5600, pause:900,
+       say:(mul? m.start+" "+sk.item+" cannot form a cube — a prime is missing partners. What is the smallest number to MULTIPLY by so they fit a perfect cube?"
+               : m.start+" "+sk.item+" cannot form a cube — a prime is in excess. What is the smallest number to DIVIDE by so they fit a perfect cube?"),
+       frag:T(220,40,m.start+" = "+(m.facHtml||""),0,"rin",15,P.mid)+T(220,74,"factors must come in threes",.6,"rin",12,sk.color)},
+      {cap:(mul?"× "+m.change:"÷ "+m.change), ms:5200, pause:900,
+       say:(mul? "Multiply by "+m.change+": "+m.start+" times "+m.change+" = "+m.cube+"."
+               : "Divide by "+m.change+": "+m.start+" divided by "+m.change+" = "+m.cube+"."),
+       frag:T(220,118,(mul? m.start+" × "+m.change+" = "+m.cube : m.start+" ÷ "+m.change+" = "+m.cube),.2,"rin",16,(mul?P.amber:P.rust))},
+      {cap:"= "+m.root+"³", ms:5000, pause:1400,
+       say:m.cube+" is "+m.root+" cubed — now every factor forms a triple. The answer is "+m.change+".",
+       frag:answerBox(220,176,(mul?"multiply by ":"divide by ")+m.change,.2)}
+    ]};
+  }
+};
+R.cubeFrac={
+  scene:function(m,sk){
+    var frac=(m.kind==="frac");
+    var p1 = frac
+      ? {cap:"root top & bottom", ms:5200, pause:900, say:"Cube-root the top and the bottom on their own. Cube root of "+m.top+" is "+m.rtop+", and cube root of "+m.bot+" is "+m.rbot+".",
+         frag:T(220,118,"∛"+m.top+" = "+m.rtop+"   ,   ∛"+m.bot+" = "+m.rbot,.2,"rin",16,P.sage)}
+      : {cap:"as a fraction", ms:5200, pause:900, say:"Write the decimal as a fraction, then cube-root the top and the bottom.",
+         frag:T(220,118,m.resultHtml+" × "+m.resultHtml+" × "+m.resultHtml+" = "+m.disp,.2,"rin",15,P.mid)};
+    return {base:stage(""),phases:[
+      {cap:"∛"+m.disp, ms:5200, pause:900,
+       say:"Find the cube root of "+m.disp+(frac?". Cube root works on the top and the bottom separately.":". First turn it into a fraction."),
+       frag:T(220,56,"∛"+m.disp+" = ?",0,"rin",20,P.mid)},
+      p1,
+      {cap:"= "+m.resultHtml, ms:5000, pause:1400, say:"So the cube root is "+m.resultSpk+".",
+       frag:answerBox(220,176,"∛"+m.disp+" = "+m.resultHtml,.2)}
+    ]};
+  }
+};
+R.hardyRamanujan={
+  scene:function(m,sk){
+    return {base:stage(""),phases:[
+      {cap:"1729 — an ordinary number?", ms:5600, pause:900,
+       say:"1729 looks like an ordinary taxi number. But Ramanujan instantly saw something hidden in it.",
+       frag:T(220,46,"1729",0,"rpl",34,P.gold)+T(220,80,"the Hardy–Ramanujan number",.6,"rin",13,P.mid)},
+      {cap:"two cubes, two ways", ms:6000, pause:900,
+       say:"It is the smallest number that is a sum of two cubes in two different ways. One cubed plus twelve cubed, and also nine cubed plus ten cubed.",
+       frag:T(140,120,"1³ + 12³",.2,"rin",16,P.amber)+T(140,142,"= 1 + 1728",.5,"rin",12,P.mid)
+           +T(300,120,"9³ + 10³",.8,"rin",16,P.sage)+T(300,142,"= 729 + 1000",1.1,"rin",12,P.mid)},
+      {cap:"both = 1729", ms:5200, pause:1400, say:"Both add up to exactly 1729. That is what made it special!",
+       frag:answerBox(220,178,"1³+12³ = 9³+10³ = 1729",.2)+spark(220,178,.6)}
+    ]};
+  }
+};
+R.cubeDiff={
+  scene:function(m,sk){
+    return {base:stage(""),phases:[
+      {cap:"gaps between cubes", ms:5600, pause:900,
+       say:"Look at the cubes 1, 8, 27, 64. The gaps between them are 7, then 19, then 37. What is the rule?",
+       frag:T(220,46,"1   8   27   64 …",0,"rin",18,P.mid)+T(220,80,"gaps:  7,  19,  37 …",.6,"rin",14,P.rust)},
+      {cap:"3n² + 3n + 1", ms:5400, pause:900,
+       say:"Between n cubed and the next cube, the gap is three n squared, plus three n, plus one.",
+       frag:T(220,124,"(n+1)³ − n³ = 3n² + 3n + 1",.2,"rin",16,P.sage)},
+      {cap:"5³ − 4³ = 61", ms:5000, pause:1400,
+       say:"For example, 5 cubed minus 4 cubed is 125 minus 64, which is 61.",
+       frag:answerBox(220,178,"5³ − 4³ = 61",.2)}
+    ]};
+  }
+};
+R.cubeParity={
+  scene:function(m,sk){
+    return {base:stage(""),phases:[
+      {cap:"even or odd?", ms:5200, pause:900,
+       say:"Is the cube of an even number always even? A cube multiplies the number by itself three times.",
+       frag:T(220,50,"(even)³ = ?",0,"rin",18,P.mid)},
+      {cap:"a cube keeps parity", ms:5400, pause:900,
+       say:"Even times even times even stays even. And odd times odd times odd stays odd. A cube keeps the parity.",
+       frag:T(150,110,"even³ = even",.2,"rin",15,P.sage)+T(300,110,"odd³ = odd",.6,"rin",15,P.amber)},
+      {cap:"even³ = even", ms:5000, pause:1400, say:"So yes — the cube of an even number is always even.",
+       frag:answerBox(220,176,"even³ is always even",.2)}
+    ]};
+  }
+};
+R.cubeScale={
+  scene:function(m,sk){
+    return {base:stage(""),phases:[
+      {cap:"∛x = 4", ms:5200, pause:900,
+       say:"Here is a thinking one. If the cube root of x is 4, what is the cube root of 8 x?",
+       frag:T(220,50,"∛x = 4   →   ∛(8x) = ?",0,"rin",17,P.mid)},
+      {cap:"split the cube root", ms:5400, pause:900,
+       say:"The cube root of 8 x equals the cube root of 8 times the cube root of x. The cube root of 8 is 2.",
+       frag:T(220,114,"∛(8x) = ∛8 × ∛x = 2 × 4",.2,"rin",16,P.sage)},
+      {cap:"= 8", ms:5000, pause:1400, say:"Two times four is eight. So the answer is 8.",
+       frag:answerBox(220,176,"∛(8x) = 8",.2)}
+    ]};
+  }
+};
+
 /* ---- skin picker (random; avoids the immediate repeat) -------------------- */
 var _last={};
-function pickSkin(concept){ var n=SKINS.length,i; do{ i=Math.floor(Math.random()*n); }while(n>1 && i===_last[concept]); _last[concept]=i; return SKINS[i]; }
+function pickSkin(concept){
+  var pool=CUBE_CONCEPTS[concept]?CUBE_SKINS:SKINS, n=pool.length,i;
+  do{ i=Math.floor(Math.random()*n); }while(n>1 && i===_last[concept]);
+  _last[concept]=i; return pool[i];
+}
 
 /* ---- public API ---------------------------------------------------------- */
 function fallback(){ return {base:'<svg viewBox="0 0 440 210" xmlns="http://www.w3.org/2000/svg"><rect width="440" height="210" fill="'+P.bg+'"/><text x="220" y="105" text-anchor="middle" font-family="Nunito,Arial,sans-serif" font-size="14" fill="'+P.mid+'">Loading…</text></svg>',phases:[]}; }

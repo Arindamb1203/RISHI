@@ -122,6 +122,7 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 <script src="/rishi-sync.js?v=2"></script>
 <script src="/rishi-core.js"></script>
 <script src="/rishi-presence.js"></script>
+<script src="/rishi-animate.js?v=4"></script>
 </head>
 <body>
 <nav class="topbar">
@@ -217,49 +218,49 @@ function rHappy(){var c=G("rChar");if(c)c.style.animation="rBounce .35s ease-in-
 function rThink(){setTimeout(rStopTalk,1800);}
 
 var QB=[
-{id:"cb1",q:"What is a <strong>perfect cube</strong>? List the first five.",qs:"What is a perfect cube? List the first five.",anim:"cb1",
+{id:"cb1",q:"What is a <strong>perfect cube</strong>? List the first five.",qs:"What is a perfect cube? List the first five.",concept:"cubeConcept",m:{},
  steps:[{t:"A perfect cube is a number you get by multiplying an integer by itself three times! Like 2×2×2 = 8, or 3×3×3 = 27.",s:"A perfect cube is a number you get by multiplying an integer by itself three times! Like 2 times 2 times 2 = 8, or 3 times 3 times 3 = 27."},{t:"The first five perfect cubes: 1³=1, 2³=8, 3³=27, 4³=64, 5³=125. Notice they grow very quickly!",s:"The first five perfect cubes: 1 cubed = 1, 2 cubed = 8, 3 cubed = 27, 4 cubed = 64, 5 cubed = 125. Notice they grow very quickly!"},{t:"Visually, a cube number fills a 3D cube shape — 8 balls arrange into a 2×2×2 cube, 27 into a 3×3×3 cube!",s:"Visually, a cube number fills a 3D cube shape — 8 balls arrange into a 2 by 2 by 2 cube, 27 into a 3 by 3 by 3 cube!"}],
  cq:"What is 6³? (Six cubed)",cqs:"What is 6 cubed?",ans:["216"],nudges:["Cube means multiply by itself 3 times: 6×6×6","6×6 = 36, and 36×6 = ?","The answer is 216! 6³ = 216."]},
-{id:"cb2",q:"Find the cube root of <strong>512</strong> by prime factorisation.",qs:"Find the cube root of 512 by prime factorisation.",anim:"cb2",
+{id:"cb2",q:"Find the cube root of <strong>512</strong> by prime factorisation.",qs:"Find the cube root of 512 by prime factorisation.",concept:"cubeArrange",m:{total:512,side:8},
  steps:[{t:"Factorise 512: 512 = 2×256 = 2×2×128 = 2×2×2×64 = ... continuing: 512 = 2⁹.",s:"Factorise 512: dividing by 2 repeatedly gives 512 = 2 to the power 9."},{t:"Group the prime factors in triples: (2×2×2)(2×2×2)(2×2×2) — three groups of 2!",s:"Group the prime factors in triples: three groups of 2 times 2 times 2. Three equal groups!"},{t:"Take one factor from each group: 2×2×2 = 8. So ∛512 = 8! Check: 8×8×8 = 512 ✓",s:"Take one factor from each group: 2 times 2 times 2 = 8. So the cube root of 512 is 8! Check: 8 times 8 times 8 = 512."}],
  cq:"Find the cube root of 343.",cqs:"Find the cube root of 343.",ans:["7"],nudges:["343 = 7×7×7. Try dividing by 7.","343 = 7³. Take one factor from the triple.","The answer is 7! ∛343 = 7."]},
-{id:"cb3",q:"What is the <strong>cube root of −125</strong>?",qs:"What is the cube root of negative 125?",anim:"cb3",
+{id:"cb3",q:"What is the <strong>cube root of −125</strong>?",qs:"What is the cube root of negative 125?",concept:"cubeNeg",m:{n:125,root:5},
  steps:[{t:"Cube roots of negative numbers are negative! If n³ is negative, then n must be negative (odd power preserves sign).",s:"Cube roots of negative numbers are negative! If n cubed is negative, then n must be negative, since odd power preserves sign."},{t:"Find ∛125 first: 125 = 5×5×5 = 5³. So ∛125 = 5.",s:"Find the cube root of 125 first: 125 = 5 times 5 times 5 = 5 cubed. So the cube root of 125 is 5."},{t:"Therefore ∛(−125) = −5. Check: (−5)×(−5)×(−5) = 25×(−5) = −125 ✓",s:"Therefore the cube root of negative 125 = negative 5. Check: negative 5 times negative 5 times negative 5 = negative 125."}],
  cq:"Find ∛(−216).",cqs:"Find the cube root of negative 216.",ans:["-6","minus 6","negative 6"],nudges:["216 = 6×6×6. So ∛216 = 6.","Since the number is negative, the cube root is also negative.","The answer is −6! (−6)³ = −216."]},
-{id:"cb4",q:"Is <strong>1000</strong> a perfect cube? Verify.",qs:"Is 1000 a perfect cube? Verify.",anim:"cb4",
+{id:"cb4",q:"Is <strong>1000</strong> a perfect cube? Verify.",qs:"Is 1000 a perfect cube? Verify.",concept:"cubeCheck",m:{n:1000,yes:true,root:10,facHtml:"2³ × 5³"},
  steps:[{t:"Factorise 1000: 1000 = 10×100 = 10×10×10 = 2³×5³.",s:"Factorise 1000: 1000 = 10 times 10 times 10 = 2 cubed times 5 cubed."},{t:"Group into triples: (2×2×2) and (5×5×5). Every prime appears in groups of 3!",s:"Group into triples: 2 times 2 times 2, and 5 times 5 times 5. Every prime appears in groups of 3!"},{t:"Take one from each group: 2×5 = 10. So ∛1000 = 10. Yes, 1000 is a perfect cube!",s:"Take one from each group: 2 times 5 = 10. So the cube root of 1000 is 10. Yes, 1000 is a perfect cube!"}],
  cq:"Is 729 a perfect cube? If yes, find its cube root.",cqs:"Is 729 a perfect cube? If yes, find its cube root.",ans:["yes, 9","yes 9","9","cube root is 9","729 is a perfect cube"],nudges:["Factorise: 729 = 3×3×3×3×3×3 = 3⁶.","Group in triples: (3³)(3³). One from each: 3×3 = ?","The answer is Yes! ∛729 = 9."]},
-{id:"cb5",q:"The <strong>Hardy–Ramanujan number</strong> is 1729. Why is it special?",qs:"The Hardy Ramanujan number is 1729. Why is it special?",anim:"cb5",
+{id:"cb5",q:"The <strong>Hardy–Ramanujan number</strong> is 1729. Why is it special?",qs:"The Hardy Ramanujan number is 1729. Why is it special?",concept:"hardyRamanujan",m:{},
  steps:[{t:"1729 is the smallest number expressible as the sum of two cubes in TWO different ways!",s:"1729 is the smallest number expressible as the sum of two cubes in TWO different ways!"},{t:"First way: 1³ + 12³ = 1 + 1728 = 1729. And second way: 9³ + 10³ = 729 + 1000 = 1729!",s:"First way: 1 cubed plus 12 cubed = 1 + 1728 = 1729. And second way: 9 cubed plus 10 cubed = 729 + 1000 = 1729!"},{t:"When G. H. Hardy visited Ramanujan in hospital and mentioned his taxi number 1729 was dull, Ramanujan immediately said — No, it is very interesting for this reason!",s:"When G. H. Hardy visited Ramanujan in hospital and mentioned his taxi number 1729 was dull, Ramanujan immediately said — No, it is very interesting for this reason!"}],
  cq:"Verify: Is 1³ + 12³ = 1729?",cqs:"Verify: Is 1 cubed plus 12 cubed equal to 1729?",ans:["yes","yes it is","true","correct","1+1728=1729"],nudges:["12³ = 12×12×12. What is 12×12?","12×12 = 144, then 144×12 = 1728. Add 1³ = 1.","Yes! 1 + 1728 = 1729. The Hardy-Ramanujan number is verified!"]},
-{id:"cb6",q:"Find the smallest number to <strong>multiply</strong> 72 by to make it a perfect cube.",qs:"Find the smallest number to multiply 72 by to make it a perfect cube.",anim:"cb6",
+{id:"cb6",q:"Find the smallest number to <strong>multiply</strong> 72 by to make it a perfect cube.",qs:"Find the smallest number to multiply 72 by to make it a perfect cube.",concept:"cubeAdjust",m:{kind:"mul",start:72,change:3,cube:216,root:6,facHtml:"2³ × 3²"},
  steps:[{t:"Factorise 72: 72 = 2×36 = 2×2×18 = 2×2×2×9 = 2³×3².",s:"Factorise 72: 72 = 2 cubed times 3 squared."},{t:"For a perfect cube, every prime factor must appear in groups of 3. Here 2 appears 3 times (good!), but 3 appears only 2 times (needs one more 3)!",s:"For a perfect cube, every prime factor must appear in groups of 3. Here 2 appears 3 times, which is good. But 3 appears only 2 times and needs one more 3!"},{t:"Multiply by 3: 72×3 = 216 = 2³×3³ = 6³. Perfect cube! The answer is 3.",s:"Multiply by 3: 72 times 3 = 216 = 2 cubed times 3 cubed = 6 cubed. Perfect cube! The answer is 3."}],
  cq:"Find the smallest number to multiply 200 by to make it a perfect cube.",cqs:"Find the smallest number to multiply 200 by to make it a perfect cube.",ans:["5"],nudges:["200 = 2³ × 5². Which prime lacks a group of three?","5 appears only twice. It needs one more 5.","Multiply by 5! 200×5=1000=10³. The answer is 5."]},
-{id:"cb7",q:"Find the smallest number to <strong>divide</strong> 192 by to make it a perfect cube.",qs:"Find the smallest number to divide 192 by to make it a perfect cube.",anim:"cb7",
+{id:"cb7",q:"Find the smallest number to <strong>divide</strong> 192 by to make it a perfect cube.",qs:"Find the smallest number to divide 192 by to make it a perfect cube.",concept:"cubeAdjust",m:{kind:"div",start:192,change:3,cube:64,root:4,facHtml:"2⁶ × 3"},
  steps:[{t:"Factorise 192: 192 = 2×96 = 2×2×48 = 2×2×2×24 = 2×2×2×2×12 = 2×2×2×2×2×6 = 2×2×2×2×2×2×3 = 2⁶×3.",s:"Factorise 192: 192 = 2 to the power 6 times 3."},{t:"Group in triples: (2×2×2)(2×2×2) — the two 2s are fine! But 3 appears only once, not in a complete triple.",s:"Group in triples: two groups of 2 times 2 times 2 — the twos are fine! But 3 appears only once, not in a complete triple."},{t:"To remove the lone 3, divide by 3: 192÷3 = 64 = 2⁶ = (2²)³ = 4³. So divide by 3.",s:"To remove the lone 3, divide by 3: 192 divided by 3 = 64 = 4 cubed. So the answer is divide by 3."}],
  cq:"Find the smallest number to divide 81 by to make it a perfect cube.",cqs:"Find the smallest number to divide 81 by to make it a perfect cube.",ans:["3"],nudges:["81 = 3⁴ = 3×3×3×3. Group in triples: (3×3×3) and one extra 3.","The extra 3 does not form a triple. Divide it away.","Divide by 3! 81÷3 = 27 = 3³. The answer is 3."]},
-{id:"cb8",q:"Find <strong>∛(27/64)</strong>.",qs:"Find the cube root of 27 over 64.",anim:"cb8",
+{id:"cb8",q:"Find <strong>∛(27/64)</strong>.",qs:"Find the cube root of 27 over 64.",concept:"cubeFrac",m:{kind:"frac",disp:"27/64",top:27,bot:64,rtop:3,rbot:4,resultHtml:"3/4",resultSpk:"3 over 4"},
  steps:[{t:"Cube root of a fraction = cube root of numerator ÷ cube root of denominator.",s:"Cube root of a fraction = cube root of numerator divided by cube root of denominator."},{t:"∛27 = 3 (because 3×3×3 = 27) and ∛64 = 4 (because 4×4×4 = 64).",s:"The cube root of 27 is 3, because 3 times 3 times 3 = 27. And the cube root of 64 is 4, because 4 times 4 times 4 = 64."},{t:"So ∛(27/64) = 3/4. Always take cube roots of top and bottom separately!",s:"So the cube root of 27 over 64 = 3 over 4. Always take cube roots of top and bottom separately!"}],
  cq:"Find ∛(8/125).",cqs:"Find the cube root of 8 over 125.",ans:["2/5","2 over 5"],nudges:["Apply ∛ separately: ∛8 = ? and ∛125 = ?","∛8 = 2 and ∛125 = 5.","The answer is 2/5!"]},
-{id:"cb9",q:"Find <strong>∛0.008</strong>.",qs:"Find the cube root of 0.008.",anim:"cb9",
+{id:"cb9",q:"Find <strong>∛0.008</strong>.",qs:"Find the cube root of 0.008.",concept:"cubeFrac",m:{kind:"dec",disp:"0.008",resultHtml:"0.2",resultSpk:"0.2"},
  steps:[{t:"Convert to fraction: 0.008 = 8/1000. Now apply cube roots to numerator and denominator.",s:"Convert to fraction: 0.008 = 8 over 1000. Now apply cube roots to numerator and denominator."},{t:"∛8 = 2 and ∛1000 = 10.",s:"The cube root of 8 is 2 and the cube root of 1000 is 10."},{t:"So ∛0.008 = 2/10 = 0.2! Count decimal places: 3 places in original → 1 place in cube root.",s:"So the cube root of 0.008 = 2 over 10 = 0.2! Count decimal places: 3 places in original gives 1 place in cube root."}],
  cq:"Find ∛0.125.",cqs:"Find the cube root of 0.125.",ans:["0.5","one half","1/2"],nudges:["0.125 = 125/1000. Find ∛125 and ∛1000.","∛125 = 5 and ∛1000 = 10. So the answer is 5/10 = ?","The answer is 0.5!"]},
-{id:"cb10",q:"Observe the pattern: 1, 8, 27, 64... The <strong>difference</strong> between consecutive cubes follows what rule?",qs:"Observe the pattern: 1, 8, 27, 64. The difference between consecutive cubes follows what rule?",anim:"cb10",
+{id:"cb10",q:"Observe the pattern: 1, 8, 27, 64... The <strong>difference</strong> between consecutive cubes follows what rule?",qs:"Observe the pattern: 1, 8, 27, 64. The difference between consecutive cubes follows what rule?",concept:"cubeDiff",m:{},
  steps:[{t:"Differences: 8−1=7, 27−8=19, 64−27=37, 125−64=61. Let us look at second differences!",s:"Differences: 8 minus 1 = 7, 27 minus 8 = 19, 64 minus 27 = 37, 125 minus 64 = 61."},{t:"Second differences: 19−7=12, 37−19=18, 61−37=24. These increase by 6 each time!",s:"Second differences: 19 minus 7 = 12, 37 minus 19 = 18, 61 minus 37 = 24. These increase by 6 each time!"},{t:"The formula: (n+1)³ − n³ = 3n² + 3n + 1. This is always a sequence of odd numbers starting from 7!",s:"The formula: n+1 all cubed minus n cubed = 3 n squared + 3n + 1. This generates a structured pattern in the differences!"}],
  cq:"What is 5³ − 4³?",cqs:"What is 5 cubed minus 4 cubed?",ans:["61"],nudges:["5³ = 125 and 4³ = 64. Subtract.","125 − 64 = ?","The answer is 61!"]},
-{id:"cb11",q:"Find ∛<strong>13824</strong> by prime factorisation.",qs:"Find the cube root of 13824 by prime factorisation.",anim:"cb11",
+{id:"cb11",q:"Find ∛<strong>13824</strong> by prime factorisation.",qs:"Find the cube root of 13824 by prime factorisation.",concept:"cubeArrange",m:{total:13824,side:24},
  steps:[{t:"Factorise 13824: 13824 = 2×6912 = 2×2×3456 = ... continuing: 13824 = 2⁷×108 — let us try more carefully.",s:"Factorise 13824 step by step by dividing by primes."},{t:"13824 = 2⁶ × 216 = 2⁶ × 6³ = (2²)³ × 6³ = 4³ × 6³ = (4×6)³ = 24³.",s:"13824 = 2 to the 6 times 216 = 4 cubed times 6 cubed = 24 cubed."},{t:"So ∛13824 = 24. Verify: 24³ = 24×24×24 = 576×24 = 13824 ✓",s:"So the cube root of 13824 is 24. Verify: 24 cubed = 13824."}],
  cq:"Find ∛15625.",cqs:"Find the cube root of 15625.",ans:["25"],nudges:["15625 = 5×5×5×5×5×5 = 5⁶. Group in triples.","(5³)(5³) → one from each: 5×5 = ?","The answer is 25! 25³ = 15625."]},
-{id:"cb12",q:"A cube has a volume of <strong>2744 cm³</strong>. Find its side length.",qs:"A cube has a volume of 2744 cubic centimetres. Find its side length.",anim:"cb12",
+{id:"cb12",q:"A cube has a volume of <strong>2744 cm³</strong>. Find its side length.",qs:"A cube has a volume of 2744 cubic centimetres. Find its side length.",concept:"cubeArrange",m:{total:2744,side:14,mode:"volume"},
  steps:[{t:"Volume of a cube = side³. If volume = 2744, then side = ∛2744.",s:"Volume of a cube = side cubed. If volume = 2744, then side = cube root of 2744."},{t:"Factorise: 2744 = 2×1372 = 2×2×686 = 2×2×2×343 = 8×343 = 2³×7³.",s:"Factorise: 2744 = 2 cubed times 7 cubed."},{t:"∛2744 = ∛(2³×7³) = 2×7 = 14. The side length is 14 cm!",s:"Cube root of 2744 = cube root of 2 cubed times 7 cubed = 2 times 7 = 14. The side length is 14 centimetres!"}],
  cq:"A cube has volume 3375 cm³. Find its side.",cqs:"A cube has volume 3375 cubic centimetres. Find its side.",ans:["15","15 cm"],nudges:["Find ∛3375. Factorise: 3375 = 3³ × 5³.","∛(3³×5³) = 3×5 = ?","The side is 15 cm! 15³ = 3375."]},
-{id:"cb13",q:"Is the cube of an <strong>even</strong> number always even?",qs:"Is the cube of an even number always even?",anim:"cb13",
+{id:"cb13",q:"Is the cube of an <strong>even</strong> number always even?",qs:"Is the cube of an even number always even?",concept:"cubeParity",m:{},
  steps:[{t:"Let n be any even number. Then n = 2k for some integer k.",s:"Let n be any even number. Then n = 2 times k for some integer k."},{t:"n³ = (2k)³ = 8k³ = 2×(4k³). Since 8k³ is divisible by 2, n³ is even!",s:"n cubed = 2k, all cubed = 8 k cubed = 2 times 4k cubed. Since this is divisible by 2, n cubed is even!"},{t:"Similarly, the cube of an odd number is always odd (odd×odd×odd = odd). The parity is always preserved!",s:"Similarly, the cube of an odd number is always odd: odd times odd times odd = odd. The parity is always preserved!"}],
  cq:"Is 17³ odd or even?",cqs:"Is 17 cubed odd or even?",ans:["odd"],nudges:["17 is an odd number. What does cubing do to parity?","Odd × Odd × Odd = Odd always.","The answer is Odd! 17³ = 4913 which is odd."]},
-{id:"cb14",q:"Find ∛<strong>(−729)</strong> and verify.",qs:"Find the cube root of negative 729 and verify.",anim:"cb14",
+{id:"cb14",q:"Find ∛<strong>(−729)</strong> and verify.",qs:"Find the cube root of negative 729 and verify.",concept:"cubeNeg",m:{n:729,root:9},
  steps:[{t:"For negative numbers: ∛(−m) = −∛m. So ∛(−729) = −∛729.",s:"For negative numbers: the cube root of negative m = negative cube root of m. So cube root of negative 729 = negative cube root of 729."},{t:"Factorise 729: 729 = 3⁶ = (3²)³ = 9³. So ∛729 = 9.",s:"Factorise 729: 729 = 3 to the 6 = 9 cubed. So cube root of 729 = 9."},{t:"Therefore ∛(−729) = −9. Verify: (−9)³ = −9×−9×−9 = 81×(−9) = −729 ✓",s:"Therefore cube root of negative 729 = negative 9. Verify: negative 9 cubed = negative 729."}],
  cq:"Find ∛(−1000).",cqs:"Find the cube root of negative 1000.",ans:["-10","minus 10","negative 10"],nudges:["∛1000 = ∛(10³) = 10. Now apply the negative.","The cube root of a negative number is negative.","The answer is −10! (−10)³ = −1000."]},
-{id:"cb15",q:"<strong>HOTS:</strong> If ∛x = 4, what is ∛(8x)?",qs:"Higher Order Thinking: If the cube root of x is 4, what is the cube root of 8x?",anim:"cb15",
+{id:"cb15",q:"<strong>HOTS:</strong> If ∛x = 4, what is ∛(8x)?",qs:"Higher Order Thinking: If the cube root of x is 4, what is the cube root of 8x?",concept:"cubeScale",m:{},
  steps:[{t:"Given: ∛x = 4, which means x = 4³ = 64.",s:"Given: cube root of x = 4, which means x = 4 cubed = 64."},{t:"Now find ∛(8x) = ∛(8×64) = ∛512.",s:"Now find the cube root of 8x = cube root of 8 times 64 = cube root of 512."},{t:"∛512 = ∛(2³×64) = ∛(2³×4³) = 2×4 = 8. Or use: ∛(8x) = ∛8 × ∛x = 2×4 = 8!",s:"Cube root of 512 = cube root of 2 cubed times 4 cubed = 2 times 4 = 8. Or use: cube root of 8x = cube root of 8 times cube root of x = 2 times 4 = 8!"}],
  cq:"If ∛y = 3, find ∛(27y).",cqs:"If the cube root of y is 3, find the cube root of 27y.",ans:["9"],nudges:["y = 3³ = 27. So 27y = 27×27 = ?","Or use: ∛(27y) = ∛27 × ∛y = 3 × 3 = ?","The answer is 9!"]}
 ];
@@ -336,6 +337,40 @@ function getAnimPlay(t){
   return m[t]||function(done){done();};
 }
 
+/* ===== Daily-life NARRATED scene engine (shared rishi-animate.js v3+) =====
+ * The animation IS the teaching: scene drawn ONE phase at a time, each phase
+ * spoken in full + a pause, then the "I Understand!" button → question.
+ * No separate repeated text steps. */
+function buildScene(q){q._skin=RishiAnim.pickSkin(q.concept,q.m);q._scene=RishiAnim.scene(q.concept,q.m,q._skin);q.steps=q._scene.phases.map(function(p){return {t:p.say,s:p.say};});return q._scene;}
+var _playGen=0;
+function playScene(){
+  var q=session[idx];if(!q||!q._scene)return;var phases=q._scene.phases,i=0,myGen=++_playGen;
+  var rb=G("animReplay");if(rb)rb.style.display="none";
+  function run(){
+    if(myGen!==_playGen)return;
+    if(i>=phases.length){setStatus("Did that make sense?");var r2=G("animReplay");if(r2)r2.style.display="block";at(500,finishAnim);return;}
+    var ph=phases[i];setStatus(ph.cap||"");
+    var stage=G("rzStage");if(stage&&ph.frag){try{stage.insertAdjacentHTML("beforeend",ph.frag);}catch(e){}}
+    var spk=ph.say,adv=false,ended=false,minMet=false;
+    function go(){if(adv||myGen!==_playGen||!ended||!minMet)return;adv=true;i++;at(ph.pause||900,run);}
+    var minMs=Math.max(ph.min||3800,spk.length*55),capMs=Math.max(minMs+1600,spk.length*115);
+    say(spk,function(){ended=true;go();});
+    setTimeout(function(){minMet=true;go();},minMs);
+    setTimeout(function(){ended=true;minMet=true;go();},capMs);
+  }
+  run();
+}
+function finishAnim(){
+  if(G("stepsWrap"))return;
+  var sc=document.createElement("div");sc.className="q-card";
+  sc.innerHTML='<div class="q-label">&#128172; Your turn</div><div id="stepsWrap"></div>';
+  G("qArea").appendChild(sc);
+  var ib=document.createElement("button");ib.className="btn-speak";ib.innerHTML="&#9989; I Understand!";ib.style.cssText="margin-top:6px;width:100%;";
+  ib.onclick=function(){ib.remove();showConfirm();};
+  G("stepsWrap").appendChild(ib);
+  setTimeout(function(){ib.scrollIntoView({behavior:"smooth",block:"center"});},250);
+}
+
 var atTimers=[],session=[],idx=0,stepIdx=0,nudgeCount=0,completed=false,confirmShown=false,breakSecs=0,breakTmr=null,PER_SESSION=10;
 function G(id){return document.getElementById(id);}
 function clearAt(){for(var i=0;i<atTimers.length;i++)clearTimeout(atTimers[i]);atTimers=[];}
@@ -352,23 +387,22 @@ function init(){
   buildSession();rInit();
   initVoices(function(){startLesson();});
 }
-function buildSession(){session=QB.slice().sort(function(){return Math.random()-.5;}).slice(0,PER_SESSION);}
+function buildSession(){session=QB.slice().sort(function(){return Math.random()-.5;}).slice(0,PER_SESSION);
+  /* PROTOTYPE: show a cube-stacking (∛N) showcase question first */
+  session.sort(function(a,b){return (a.concept==="cubeArrange"?0:1)-(b.concept==="cubeArrange"?0:1);});}
 function showQ(){
   if(idx>=session.length){onComplete();return;}
-  var q=session[idx];stepIdx=0;nudgeCount=0;confirmShown=false;updateProg();G("qArea").innerHTML="";clearAt();
+  var q=session[idx];stepIdx=0;nudgeCount=0;confirmShown=false;buildScene(q);updateProg();G("qArea").innerHTML="";clearAt();
   var qc=document.createElement("div");qc.className="q-card";
   qc.innerHTML='<div class="q-label">Question '+(idx+1)+' of '+PER_SESSION+'</div><div class="q-text">'+q.q+'</div><button class="btn-speak" onclick="say(session[idx].qs)">&#128266; Hear</button>';
   G("qArea").appendChild(qc);
   var ap=document.createElement("div");ap.className="anim-panel";
-  ap.innerHTML='<div class="anim-header"><span class="anim-header-lbl">&#127909; Live Animation</span><button class="anim-replay" id="animReplay" onclick="replayAnim()">&#8635; Replay</button></div>'
-    +'<div class="anim-canvas" id="animCanvas">'+getAnimSVG(q.anim)+'</div>'
-    +'<div class="anim-status" id="animStatus">Tap Play to watch with narration!</div>'
-    +'<button class="anim-play-btn" id="animPlayBtn" onclick="startAnim()">&#9654; Play Animation</button>'
-    +'<button class="steps-btn" id="stepsBtn" onclick="beginSteps()">&#128214; See Step-by-Step</button>';
-  G("qArea").appendChild(ap);setTimeout(startAnim,800);
+  ap.innerHTML='<div class="anim-header"><span class="anim-header-lbl">&#127909; Watch &amp; Learn</span><button class="anim-replay" id="animReplay" onclick="replayAnim()">&#8635; Replay</button></div>'
+    +'<div class="anim-canvas" id="animCanvas">'+q._scene.base+'</div>'
+    +'<div class="anim-status" id="animStatus">Watch&hellip;</div>';
+  G("qArea").appendChild(ap);setTimeout(playScene,700);
 }
-function startAnim(){var q=session[idx];var pb=G("animPlayBtn");if(pb){pb.disabled=true;pb.textContent="&#9654; Playing...";}getAnimPlay(q.anim)(function(){var sb=G("stepsBtn");if(sb)sb.style.display="block";var rb=G("animReplay");if(rb)rb.style.display="block";if(pb)pb.style.display="none";setTimeout(beginSteps,600);});}
-function replayAnim(){clearAt();window.speechSynthesis&&window.speechSynthesis.cancel();rStopTalk();var q=session[idx];var canvas=G("animCanvas");if(canvas)canvas.innerHTML=getAnimSVG(q.anim);G("animReplay").style.display="none";G("stepsBtn").style.display="none";var pb=G("animPlayBtn");if(pb){pb.style.display="block";pb.disabled=false;pb.textContent="&#9654; Play Animation";}setStatus("Tap Play to watch with narration!");}
+function replayAnim(){clearAt();window.speechSynthesis&&window.speechSynthesis.cancel();rStopTalk();var q=session[idx];buildScene(q);var canvas=G("animCanvas");if(canvas)canvas.innerHTML=q._scene.base;var rb=G("animReplay");if(rb)rb.style.display="none";setStatus("Watch…");setTimeout(playScene,400);}
 function beginSteps(){var q=session[idx];var sc=document.createElement("div");sc.className="q-card";sc.innerHTML='<div class="q-label">&#128214; Step-by-Step</div><div id="stepsWrap"></div><button class="btn-speak" id="nxtStepBtn" onclick="nextStep()" style="margin-top:10px;">&#9654; Next Step</button>';G("qArea").appendChild(sc);sc.scrollIntoView({behavior:"smooth",block:"start"});G("stepsBtn").style.display="none";setTimeout(nextStep,350);}
 var nsGen=0;function nextStep(){var myGen=++nsGen;var q=session[idx];if(stepIdx>=q.steps.length){G("nxtStepBtn").style.display="none";var ib=document.createElement("button");ib.className="btn-speak";ib.innerHTML="&#9989; I Understand!";ib.style.cssText="margin-top:16px;width:100%;";ib.onclick=function(){ib.remove();showConfirm();};G("stepsWrap").appendChild(ib);ib.scrollIntoView({behavior:"smooth",block:"center"});return;}var s=q.steps[stepIdx];var wrap=G("stepsWrap");var d=document.createElement("div");d.className="step";d.innerHTML='<div class="step-num">'+(stepIdx+1)+'</div><div class="step-body">'+s.t+'</div>';wrap.appendChild(d);setTimeout(function(){d.classList.add("vis");},40);stepIdx++;say(s.s||s.t.replace(/<[^>]*>/g,""),function(){if(myGen===nsGen)nextStep();});}
 function showConfirm(){if(confirmShown)return;confirmShown=true;
