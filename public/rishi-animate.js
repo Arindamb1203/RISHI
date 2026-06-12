@@ -765,10 +765,247 @@ R.expSolve={
 };
 var EXP_CONCEPTS={expGrow:1,expProduct:1,expQuotient:1,expZero:1,expPower:1,expNeg:1,expProd:1,expQuot:1,stdFormSmall:1,stdFormBig:1,expNegBase:1,expSameExp:1,expCompare:1,expSolve:1};
 
+/* ==========================================================================
+ * COMPARING QUANTITIES FAMILY (chapter 8: % , profit/loss, interest, GST)
+ *   Money math → bar models + rupee labels. Showcase = profitPct (shopkeeper).
+ * ========================================================================== */
+var MONEY_SKINS=[
+ {item:"shirt",      place:"clothes shop",  color:"#b85c2a"},
+ {item:"cycle",      place:"bike shop",     color:"#4a7fb0"},
+ {item:"phone",      place:"electronics store", color:"#6a6a7a"},
+ {item:"watch",      place:"watch shop",    color:"#c8922a"},
+ {item:"pair of shoes", place:"shoe shop",  color:"#8a5a2a"},
+ {item:"bag",        place:"bag store",     color:"#9a6fb0"},
+ {item:"book",       place:"bookstore",     color:"#5a8a60"},
+ {item:"toy",        place:"toy shop",      color:"#d4870a"},
+ {item:"cricket bat",place:"sports shop",   color:"#6f9e8f"},
+ {item:"lamp",       place:"home store",    color:"#b07a3a"},
+ {item:"headphones", place:"gadget shop",   color:"#3a6b8a"},
+ {item:"sunglasses", place:"optical shop",  color:"#a04a4a"}
+];
+var MONEY_CONCEPTS={profitPct:1,lossSP:1,percentOf:1,pctChange:1,simpleInterest:1,compoundInterest:1,discountSP:1,profitSP:1,gstTotal:1,markedPrice:1,siVsCi:1,netChange:1,siRate:1,ciRate:1};
+
+function mBar(x,y,w,fill,d,label,lcol){
+  return '<g class="rsl" style="animation-delay:'+d+'s">'+RC(x,y,Math.max(w,2),22,4,fill,DK,1)+'</g>'+T(x+Math.max(w,2)+8,y+16,label||"",d+0.2,"rin",12,lcol||P.ink,"start");
+}
+function pctStrip(x,y,w,pct,fill,d){
+  var fw=w*Math.min(Math.max(pct,0),100)/100;
+  return RC(x,y,w,22,4,"#f3ecdd",DK,1)+'<g class="rsl" style="animation-delay:'+d+'s">'+RC(x,y,Math.max(fw,1),22,4,fill)+'</g>';
+}
+
+R.profitPct={
+  scene:function(m,sk){
+    var sc=230/m.sp, wCP=m.cp*sc, wSP=m.sp*sc, x0=70;
+    return {base:stage(""),phases:[
+      {cap:"buy low, sell high", ms:5400, pause:900,
+       say:"A shopkeeper buys a "+sk.item+" for "+m.cp+" rupees and sells it for "+m.sp+" rupees. What is his profit percent?",
+       frag:T(220,30,"Buy a "+sk.item+" ₹"+m.cp+"  →  sell ₹"+m.sp,0,"rin",14,P.mid)},
+      {cap:"the cost", ms:5000, pause:800,
+       say:"He paid "+m.cp+" rupees — that is his cost price.",
+       frag:mBar(x0,74,wCP,sk.color,.2,"Cost ₹"+m.cp,sk.color)},
+      {cap:"the profit gap", ms:5400, pause:900,
+       say:"He sold it for more. The extra "+m.profit+" rupees is his profit.",
+       frag:mBar(x0,110,wSP,P.sage,.2,"Sold ₹"+m.sp,P.sage)+braceH(x0+wCP,x0+wSP,104,"+₹"+m.profit,.7,P.rust)},
+      {cap:"profit ÷ cost × 100", ms:5600, pause:900,
+       say:"Profit percent is profit divided by cost, times 100. So "+m.profit+" divided by "+m.cp+", times 100, is "+m.pct+".",
+       frag:T(220,160,"₹"+m.profit+" ÷ ₹"+m.cp+" × 100 = "+m.pct+"%",.2,"rin",16,P.ink)},
+      {cap:"profit = "+m.pct+"%", ms:5000, pause:1400, say:"So his profit is "+m.pct+" percent.",
+       frag:answerBox(220,96,"Profit = "+m.pct+"%",.2)+spark(220,96,.6)}
+    ]};
+  }
+};
+R.lossSP={
+  scene:function(m,sk){
+    return {base:stage(""),phases:[
+      {cap:m.lossPct+"% loss", ms:5400, pause:900,
+       say:"A "+sk.item+" bought for "+m.cp+" rupees is sold at "+m.lossPct+" percent loss. What is the selling price?",
+       frag:T(220,46,"Cost ₹"+m.cp+",  loss "+m.lossPct+"%",0,"rin",15,P.mid)},
+      {cap:"keep "+(100-m.lossPct)+"%", ms:5400, pause:900,
+       say:"A loss of "+m.lossPct+" percent means he gets only "+(100-m.lossPct)+" percent of the cost back.",
+       frag:pctStrip(90,104,240,100-m.lossPct,P.rust,.2)+T(220,150,(100-m.lossPct)+"% of ₹"+m.cp,.6,"rin",13,P.mid)},
+      {cap:"SP = ₹"+m.sp, ms:5000, pause:1400, say:(100-m.lossPct)+" percent of "+m.cp+" is "+m.sp+". So the selling price is "+m.sp+" rupees.",
+       frag:answerBox(220,180,"Selling price = ₹"+m.sp,.2)}
+    ]};
+  }
+};
+R.percentOf={
+  scene:function(m,sk){
+    return {base:stage(""),phases:[
+      {cap:m.pct+"% of "+m.n, ms:5000, pause:900,
+       say:"What is "+m.pct+" percent of "+m.n+"? Percent means out of a hundred.",
+       frag:T(220,50,m.pct+"% of "+m.n+" = ?",0,"rin",22,P.mid)},
+      {cap:"shade "+m.pct+" of 100", ms:5400, pause:900,
+       say:m.pct+" percent means "+m.pct+" hundredths. Multiply: "+m.pct+" over 100, times "+m.n+".",
+       frag:pctStrip(90,100,240,m.pct,sk.color,.2)+T(220,146,m.pct+"/100 × "+m.n,.6,"rin",15,P.mid)},
+      {cap:"= "+m.ans, ms:5000, pause:1400, say:"That gives "+m.ans+".",
+       frag:answerBox(220,178,m.pct+"% of "+m.n+" = "+m.ans,.2)}
+    ]};
+  }
+};
+R.pctChange={
+  scene:function(m,sk){
+    var ch=Math.abs(m.b-m.a);
+    return {base:stage(""),phases:[
+      {cap:m.a+" → "+m.b, ms:5400, pause:900,
+       say:"A town's population went from "+m.a+" to "+m.b+". What is the percentage "+m.dir+"?",
+       frag:T(220,50,m.a+"  →  "+m.b,0,"rin",20,P.mid)},
+      {cap:"change ÷ original", ms:5400, pause:900,
+       say:"The change is "+ch+". Percentage change is change divided by the ORIGINAL, times 100.",
+       frag:T(220,108,ch+" ÷ "+m.a+" × 100",.2,"rin",16,P.sage)},
+      {cap:"= "+m.pct+"%", ms:5000, pause:1400, say:"That is a "+m.pct+" percent "+m.dir+".",
+       frag:answerBox(220,172,m.pct+"% "+m.dir,.2)}
+    ]};
+  }
+};
+R.simpleInterest={
+  scene:function(m,sk){
+    return {base:stage(""),phases:[
+      {cap:"Simple Interest", ms:5400, pause:900,
+       say:"Find the simple interest on "+m.p+" rupees at "+m.r+" percent per year, for "+m.t+" years.",
+       frag:T(220,50,"₹"+m.p+" · "+m.r+"% · "+m.t+" yrs",0,"rin",18,P.mid)},
+      {cap:"P × R × T ÷ 100", ms:5600, pause:900,
+       say:"Simple interest is principal times rate times time, divided by 100. The same interest is added each year.",
+       frag:T(220,108,m.p+" × "+m.r+" × "+m.t+" ÷ 100",.2,"rin",16,P.sage)},
+      {cap:"SI = ₹"+m.si, ms:5000, pause:1400, say:"That comes to "+m.si+" rupees.",
+       frag:answerBox(220,172,"Interest = ₹"+m.si,.2)}
+    ]};
+  }
+};
+R.compoundInterest={
+  scene:function(m,sk){
+    var coins="",k; for(k=0;k<=m.t;k++){ var cx=80+k*100; coins+=RC(cx-22,150-k*8,44,18+k*12,3,(k===m.t?P.sage:P.gold),DK,1)+T(cx,170,(k===0?"₹"+m.p:"yr "+k),(k*0.4),"rin",11,P.mid); }
+    return {base:stage(""),phases:[
+      {cap:"interest on interest", ms:5600, pause:900,
+       say:"Find the compound interest on "+m.p+" rupees at "+m.r+" percent per year, for "+m.t+" years. Each year the interest itself earns interest.",
+       frag:T(220,40,"₹"+m.p+" · "+m.r+"% · "+m.t+" yrs (compound)",0,"rin",14,P.mid)},
+      {cap:"grows each year", ms:5800, pause:900,
+       say:"Multiply by 1 plus the rate, each year. After "+m.t+" years the amount is "+m.amount+" rupees.",
+       frag:'<g class="rsl" style="animation-delay:.2s">'+coins+'</g>'},
+      {cap:(m.showAmount?"Amount ₹"+m.amount:"CI ₹"+m.ci), ms:5000, pause:1400,
+       say:(m.showAmount? "So the amount after "+m.t+" years is "+m.amount+" rupees." : "Subtract the principal: the compound interest is "+m.ci+" rupees."),
+       frag:answerBox(220,96,(m.showAmount?"Amount = ₹"+m.amount:"CI = ₹"+m.ci),.2)}
+    ]};
+  }
+};
+R.discountSP={
+  scene:function(m,sk){
+    return {base:stage(""),phases:[
+      {cap:m.discPct+"% off", ms:5400, pause:900,
+       say:"A "+sk.item+" is marked at "+m.mp+" rupees with a "+m.discPct+" percent discount. What is the selling price?",
+       frag:T(220,46,"Marked ₹"+m.mp+",  "+m.discPct+"% off",0,"rin",15,P.mid)},
+      {cap:"pay "+(100-m.discPct)+"%", ms:5400, pause:900,
+       say:"A "+m.discPct+" percent discount means you pay only "+(100-m.discPct)+" percent of the marked price.",
+       frag:pctStrip(90,104,240,100-m.discPct,P.sage,.2)+T(220,150,(100-m.discPct)+"% of ₹"+m.mp,.6,"rin",13,P.mid)},
+      {cap:"SP = ₹"+m.sp, ms:5000, pause:1400, say:"That is "+m.sp+" rupees.",
+       frag:answerBox(220,180,"Selling price = ₹"+m.sp,.2)}
+    ]};
+  }
+};
+R.profitSP={
+  scene:function(m,sk){
+    return {base:stage(""),phases:[
+      {cap:m.profitPct+"% profit", ms:5400, pause:900,
+       say:"A "+sk.item+" costs "+m.cp+" rupees and is sold at "+m.profitPct+" percent profit. What is the selling price?",
+       frag:T(220,46,"Cost ₹"+m.cp+",  profit "+m.profitPct+"%",0,"rin",15,P.mid)},
+      {cap:"add the profit", ms:5400, pause:900,
+       say:"Selling price is the cost plus "+m.profitPct+" percent of it — that is "+(100+m.profitPct)+" percent of the cost.",
+       frag:T(220,108,(100+m.profitPct)+"% of ₹"+m.cp,.2,"rin",16,P.sage)},
+      {cap:"SP = ₹"+m.sp, ms:5000, pause:1400, say:"That comes to "+m.sp+" rupees.",
+       frag:answerBox(220,172,"Selling price = ₹"+m.sp,.2)}
+    ]};
+  }
+};
+R.gstTotal={
+  scene:function(m,sk){
+    return {base:stage(""),phases:[
+      {cap:m.gstPct+"% GST", ms:5400, pause:900,
+       say:"A bill is "+m.bill+" rupees, and "+m.gstPct+" percent GST is added. What is the total to pay?",
+       frag:T(220,50,"Bill ₹"+m.bill+"  +  "+m.gstPct+"% GST",0,"rin",16,P.mid)},
+      {cap:"add the tax", ms:5400, pause:900,
+       say:m.gstPct+" percent of "+m.bill+" is "+m.gst+" rupees of tax. Add it to the bill.",
+       frag:mBar(90,100,150,sk.color,.2,"₹"+m.bill,P.ink)+mBar(90,128,Math.max(150*m.gst/m.bill,14),P.rust,.5,"+₹"+m.gst+" tax",P.rust)},
+      {cap:"Total ₹"+m.total, ms:5000, pause:1400, say:"So the total amount paid is "+m.total+" rupees.",
+       frag:answerBox(220,178,"Total = ₹"+m.total,.2)}
+    ]};
+  }
+};
+R.markedPrice={
+  scene:function(m,sk){
+    return {base:stage(""),phases:[
+      {cap:"discount AND profit", ms:5800, pause:900,
+       say:"A dealer gives "+m.discPct+" percent discount but still earns "+m.profitPct+" percent profit on a "+sk.item+" costing "+m.cp+" rupees. Find the marked price.",
+       frag:T(220,44,"CP ₹"+m.cp+",  +"+m.profitPct+"% profit,  −"+m.discPct+"% off",0,"rin",13,P.mid)},
+      {cap:"first the selling price", ms:5400, pause:900,
+       say:"First the selling price: "+(100+m.profitPct)+" percent of cost is "+m.sp+" rupees.",
+       frag:T(220,104,"SP = "+(100+m.profitPct)+"% of "+m.cp+" = ₹"+m.sp,.2,"rin",15,P.sage)},
+      {cap:"work back to MP", ms:5400, pause:1400,
+       say:"That "+m.sp+" is "+(100-m.discPct)+" percent of the marked price. Work backwards: the marked price is "+m.mp+" rupees.",
+       frag:answerBox(220,170,"Marked price = ₹"+m.mp,.2)}
+    ]};
+  }
+};
+R.siVsCi={
+  scene:function(m,sk){
+    return {base:stage(""),phases:[
+      {cap:"SI vs CI", ms:5600, pause:900,
+       say:"On "+m.p+" rupees at "+m.r+" percent for "+m.t+" years, what is the difference between simple and compound interest?",
+       frag:T(220,46,"₹"+m.p+" · "+m.r+"% · "+m.t+" yrs",0,"rin",16,P.mid)},
+      {cap:"CI is a little more", ms:5600, pause:900,
+       say:"Simple interest is "+m.si+" rupees. Compound interest is "+m.ci+" rupees — a little more, because interest earns interest.",
+       frag:mBar(90,98,150,P.gold,.2,"SI ₹"+m.si,P.ink)+mBar(90,126,150*m.ci/m.si,P.sage,.5,"CI ₹"+m.ci,P.sage)},
+      {cap:"difference ₹"+m.diff, ms:5000, pause:1400, say:"The difference is "+m.diff+" rupees.",
+       frag:answerBox(220,178,"Difference = ₹"+m.diff,.2)}
+    ]};
+  }
+};
+R.netChange={
+  scene:function(m,sk){
+    return {base:stage(""),phases:[
+      {cap:"+"+m.pct+"% then −"+m.pct+"%", ms:5600, pause:900,
+       say:"A number is increased by "+m.pct+" percent, then decreased by "+m.pct+" percent. Is it back to the start?",
+       frag:T(220,54,"+"+m.pct+"%   then   −"+m.pct+"%",0,"rin",18,P.mid)},
+      {cap:"not the same!", ms:5600, pause:900,
+       say:"No! The decrease is taken from the bigger amount, so you lose a little. The net change is minus "+m.pct+" squared over 100.",
+       frag:T(220,112,"net = −("+m.pct+"²/100) %",.2,"rin",16,P.rust)},
+      {cap:m.net+"% net", ms:5000, pause:1400, say:"So the net change is a "+m.net+" percent decrease.",
+       frag:answerBox(220,172,m.net+"% (a decrease)",.2)}
+    ]};
+  }
+};
+R.siRate={
+  scene:function(m,sk){
+    return {base:stage(""),phases:[
+      {cap:"find the rate", ms:5400, pause:900,
+       say:"What rate of simple interest gives "+m.si+" rupees on "+m.p+" rupees in "+m.t+" years?",
+       frag:T(220,50,"₹"+m.si+" on ₹"+m.p+" in "+m.t+" yrs",0,"rin",16,P.mid)},
+      {cap:"rearrange the formula", ms:5600, pause:900,
+       say:"Rate is interest times 100, divided by principal times time. So "+m.si+" times 100, over "+m.p+" times "+m.t+".",
+       frag:T(220,108,"R = "+m.si+"×100 ÷ ("+m.p+"×"+m.t+")",.2,"rin",15,P.sage)},
+      {cap:"R = "+m.r+"%", ms:5000, pause:1400, say:"That gives "+m.r+" percent per year.",
+       frag:answerBox(220,172,"Rate = "+m.r+"% per year",.2)}
+    ]};
+  }
+};
+R.ciRate={
+  scene:function(m,sk){
+    return {base:stage(""),phases:[
+      {cap:"double in 2 years?", ms:5600, pause:900,
+       say:"At what compound interest rate does money roughly double in 2 years?",
+       frag:T(220,54,"₹1  →  ₹2  in 2 years",0,"rin",18,P.mid)},
+      {cap:"(1+r)² = 2", ms:5600, pause:900,
+       say:"Doubling means 1 plus the rate, squared, equals 2. So 1 plus the rate is the square root of 2, about 1 point 4 1.",
+       frag:T(220,112,"(1 + r)² = 2  →  1+r ≈ 1.41",.2,"rin",15,P.sage)},
+      {cap:"≈ 41%", ms:5000, pause:1400, say:"So the rate is about 41 percent per year.",
+       frag:answerBox(220,172,"Rate ≈ 41% per year",.2)}
+    ]};
+  }
+};
+
 /* ---- skin picker (random; avoids the immediate repeat) -------------------- */
 var _last={};
 function pickSkin(concept){
-  var pool=CUBE_CONCEPTS[concept]?CUBE_SKINS:SKINS, n=pool.length,i;
+  var pool = CUBE_CONCEPTS[concept]?CUBE_SKINS : (MONEY_CONCEPTS[concept]?MONEY_SKINS:SKINS);
+  var n=pool.length,i;
   do{ i=Math.floor(Math.random()*n); }while(n>1 && i===_last[concept]);
   _last[concept]=i; return pool[i];
 }
