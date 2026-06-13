@@ -1163,6 +1163,54 @@ R.findDigit={ scene:function(m,sk){ return {base:stage(""),phases:[
    frag:answerBox(220,172,m.digit+" = "+m.ans,.2)} ]}; } };
 var NUM_CONCEPTS={genForm2:1,genForm3:1,divRule:1,reverseSum:1,reverseDiff:1,findDigit:1};
 
+/* ==========================================================================
+ * PROPORTION FAMILY (chapter 13: Direct & Inverse Proportions)
+ *   directProp = unitary method (grow together); inverseProp = product constant.
+ * ========================================================================== */
+R.directProp={ scene:function(m,sk){ return {base:stage(""),phases:[
+  {cap:m.qa+" ⇡ "+m.qb+" ⇡", ms:5600, pause:900, say:"When "+m.qa+" and "+m.qb+" are in DIRECT proportion, growing one grows the other in the same ratio. More "+m.qa+", proportionally more "+m.qb+".",
+   frag:mBar(80,80,70,P.gold,.2,m.qa,P.ink)+mBar(80,116,140,P.gold,.5,"more "+m.qa,P.ink)+T(330,98,"so "+m.qb+" grows too",.9,"rin",12,P.sage)},
+  {cap:"value of one", ms:5400, pause:900, say:"Use the unitary method — find the value of just one. Here that is "+m.perStr+".",
+   frag:T(220,150,"one unit  →  "+m.perStr,.2,"rin",16,P.mid)},
+  {cap:"scale up", ms:5200, pause:1500, say:"Now scale it to the answer: "+m.ansStr+".",
+   frag:answerBox(220,96,m.ansStr,.2)+spark(220,96,.6)} ]}; } };
+R.inverseProp={ scene:function(m,sk){ return {base:stage(""),phases:[
+  {cap:m.qa+" ⇡ "+m.qb+" ⇣", ms:5600, pause:900, say:m.qa+" and "+m.qb+" are in INVERSE proportion — more of one means less of the other.",
+   frag:mBar(80,80,150,P.gold,.2,"more "+m.qa,P.ink)+mBar(80,116,60,P.sage,.5,"less "+m.qb,P.ink)},
+  {cap:"product stays the same", ms:5600, pause:900, say:"Their product stays constant. Here, "+m.prodStr+".",
+   frag:T(220,150,m.qa+" × "+m.qb+" = "+m.k,.2,"rin",16,P.sage)},
+  {cap:"so…", ms:5200, pause:1500, say:"So "+m.ansStr+".",
+   frag:answerBox(220,96,m.ansStr,.2)+spark(220,96,.6)} ]}; } };
+R.directRule={ scene:function(m,sk){ return {base:stage(""),phases:[
+  {cap:"direct: x "+m.change, ms:5200, pause:900, say:"In direct proportion, if x "+m.change+", what happens to y?",
+   frag:T(220,60,"x "+m.change+"   →   y = ?",0,"rin",18,P.mid)},
+  {cap:"y "+m.result, ms:5200, pause:900, say:"They move together in the same ratio, so y "+m.result+".",
+   frag:T(220,118,"y "+m.result,.2,"rpl",20,P.sage)},
+  {cap:"same ratio", ms:5000, pause:1400, say:"In direct proportion both change by the same factor.",
+   frag:answerBox(220,172,"y "+m.result,.2)} ]}; } };
+R.inverseRule={ scene:function(m,sk){ return {base:stage(""),phases:[
+  {cap:"inverse: x "+m.change, ms:5200, pause:900, say:"In inverse proportion, if x "+m.change+", what happens to y?",
+   frag:T(220,60,"x "+m.change+"   →   y = ?",0,"rin",18,P.mid)},
+  {cap:"y "+m.result, ms:5200, pause:900, say:"To keep the product constant, y "+m.result+".",
+   frag:T(220,118,"y "+m.result,.2,"rpl",18,P.sage)},
+  {cap:"product constant", ms:5000, pause:1400, say:"In inverse proportion, when one grows the other shrinks to keep the product the same.",
+   frag:answerBox(220,172,"y "+m.result,.2)} ]}; } };
+R.directFormula={ scene:function(m,sk){ return {base:stage(""),phases:[
+  {cap:"direct proportion", ms:5200, pause:900, say:"What is the formula for direct proportion?",
+   frag:T(220,60,"direct proportion: ?",0,"rin",18,P.mid)},
+  {cap:"x/y = constant", ms:5400, pause:900, say:"The ratio x over y stays constant. The two are linked by y equals k times x.",
+   frag:T(150,120,"x ⁄ y = k",.2,"rpl",20,P.sage)+T(300,120,"y = kx",.5,"rpl",20,P.amber)},
+  {cap:"x/y = k", ms:5000, pause:1400, say:"So x over y equals a constant k.",
+   frag:answerBox(220,172,"x ⁄ y = k   (y = kx)",.2)} ]}; } };
+R.inverseFormula={ scene:function(m,sk){ return {base:stage(""),phases:[
+  {cap:"inverse proportion", ms:5200, pause:900, say:"What is the formula for inverse proportion?",
+   frag:T(220,60,"inverse proportion: ?",0,"rin",18,P.mid)},
+  {cap:"x × y = constant", ms:5400, pause:900, say:"This time the PRODUCT x times y stays constant.",
+   frag:T(220,120,"x × y = k",.2,"rpl",22,P.sage)},
+  {cap:"xy = k", ms:5000, pause:1400, say:"So x times y equals a constant k.",
+   frag:answerBox(220,172,"x × y = k",.2)} ]}; } };
+var PROP_CONCEPTS={directProp:1,inverseProp:1,directRule:1,inverseRule:1,directFormula:1,inverseFormula:1};
+
 /* ---- skin picker (random; avoids the immediate repeat) -------------------- */
 var _last={};
 function pickSkin(concept){
