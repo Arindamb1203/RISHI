@@ -1,3 +1,5 @@
+import { pushToAllAdmins } from './_push.js';
+
 export async function onRequest(context) {
   const { request, env } = context;
 
@@ -68,6 +70,14 @@ export async function onRequest(context) {
     if (!result.success) {
       return new Response(JSON.stringify({ error: 'DB insert failed', detail: result.error || 'unknown' }), { status: 500, headers });
     }
+
+    /* Fire a Web Push to the admin's phone (non-blocking) */
+    context.waitUntil(pushToAllAdmins(env, {
+      title: '⚠️ New Report — ' + (reportType || 'Issue'),
+      body: (name || 'A user') + (cls ? ' (Cl ' + cls + ')' : '') + ': ' + String(description).slice(0, 120),
+      url: '/monitor.html',
+      tag: 'report-' + id
+    }));
 
     return new Response(JSON.stringify({ success: true, reportId: id }), { headers });
   } catch(e) {

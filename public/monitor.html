@@ -248,6 +248,9 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:-apple-
 var PW_KEY = 'mtr_pw';
 var SEEN_KEY = 'mtr_seen';
 var FILTER_KEY = 'mtr_filter';
+var SYS_CUTOFF_KEY = 'mtr_sys_cutoff';
+var VAPID_PUBLIC = 'BGX3EMcMCcbfns0OnEPZmY_jzcslwOKyipESDGFKWL3eGU5ZSyzEocMKggPumDZ56RWkFYXCYhRQCF5piQHeQUM';
+var POLL_SECS = 20;
 
 var S = {
   pw: sessionStorage.getItem(PW_KEY) || '',
@@ -255,10 +258,13 @@ var S = {
   seen: new Set(jsonParse(localStorage.getItem(SEEN_KEY), [])),
   filter: localStorage.getItem(FILTER_KEY) || 'all',
   tab: 'reports',
-  secs: 30,
+  secs: POLL_SECS,
   timer: null,
   loading: false,
-  notifEnabled: Notification && Notification.permission === 'granted'
+  swReg: null,
+  sysSeen: new Set(),
+  sysCutoff: parseInt(localStorage.getItem(SYS_CUTOFF_KEY) || '0', 10),
+  notifEnabled: ('Notification' in window) && Notification.permission === 'granted'
 };
 
 // ── INIT ────────────────────────────────────────────────
@@ -313,7 +319,16 @@ function setupApp() {
   setupButtons();
   render();
   startCountdown();
-  requestNotifPermission();
+  setupPush();
+  setupVisibility();
+}
+
+/* Refresh instantly when the app is reopened / brought to foreground */
+function setupVisibility() {
+  document.addEventListener('visibilitychange', function() {
+    if (!document.hidden) { S.secs = POLL_SECS; fetchData(true); }
+  });
+  window.addEventListener('focus', function() { S.secs = POLL_SECS; fetchData(true); });
 }
 
 // ── FETCH ────────────────────────────────────────────────
@@ -332,6 +347,7 @@ async function fetchData(silent) {
     if (!d.ok) { S.loading = false; setStatus('Error: ' + (d.error||'unknown'), true); return true; }
 
     if (S.data) detectNew(d.reports);
+    detectNewSystem(d.systemErrors || []);
     S.data = d;
     render();
     var t = new Date(d.serverTime);
@@ -345,49 +361,124 @@ async function fetchData(silent) {
   }
 }
 
-// ── NOTIFICATIONS ─────────────────────────────────────────
-function detectNew(reports) {
-  var newOnes = reports.filter(function(r){ return !S.seen.has(r.id) && r.status === 'pending'; });
-  if (!newOnes.length) return;
-  if (S.notifEnabled && Notification.permission === 'granted') {
-    newOnes.slice(0, 3).forEach(function(r) {
-      try {
-        new Notification('RISHI: New Report', {
-          body: (r.report_type||'Error') + ' — ' + (r.name||'Unknown') + ' • ' + (r.page_name||r.page_url||''),
-          tag: r.id,
-          icon: '/images/rishika/sprites/Angry.png'
-        });
-      } catch(e) {}
-    });
+// ── NOTIFICATIONS / WEB PUSH ──────────────────────────────
+/* Fire a local notification (works while the app is open). Uses the service
+   worker on Android (where `new Notification()` is forbidden), else falls back. */
+function notifyUser(title, bodyText, tag) {
+  if (!('Notification' in window) || Notification.permission !== 'granted') return;
+  if (S.swReg && S.swReg.showNotification) {
+    try {
+      S.swReg.showNotification(title, {
+        body: bodyText, tag: tag, renotify: true,
+        icon: '/icons/fav-1.png?v=2', badge: '/icons/fav-1.png?v=2',
+        vibrate: [120, 60, 120], data: { url: '/monitor.html' }
+      });
+      return;
+    } catch(e) {}
   }
+  try { new Notification(title, { body: bodyText, tag: tag }); } catch(e) {}
 }
 
-function requestNotifPermission() {
-  if (!('Notification' in window)) return;
-  if (Notification.permission === 'granted') {
-    S.notifEnabled = true;
-    document.getElementById('notif-btn').classList.add('active');
+function detectNew(reports) {
+  var newOnes = reports.filter(function(r){ return !S.seen.has(r.id) && r.status === 'pending'; });
+  newOnes.slice(0, 3).forEach(function(r) {
+    notifyUser('RISHI: New Report',
+      (r.report_type||'Error') + ' — ' + (r.name||'Unknown') + ' • ' + (r.page_name||r.page_url||''),
+      r.id);
+  });
+}
+
+/* Notify on brand-new system (JS) errors seen while the app is open */
+function detectNewSystem(errs) {
+  if (!S.sysInit) { /* first load: remember current set, don't alert */
+    errs.forEach(function(e){ S.sysSeen.add(sysSig(e)); });
+    S.sysInit = true;
     return;
   }
-  document.getElementById('notif-btn').addEventListener('click', function() {
+  errs.forEach(function(e) {
+    var sig = sysSig(e);
+    if (!S.sysSeen.has(sig)) {
+      S.sysSeen.add(sig);
+      notifyUser('⚡ Student error — ' + (e.studentId||'?'),
+        String(e.message||'JS error').slice(0,120) + (e.page ? (' • ' + e.page) : ''), sig);
+    }
+  });
+}
+function sysSig(e) { return (e.studentId||'') + '|' + (e.date||'') + (e.time||'') + '|' + (e.message||'').slice(0,40); }
+
+/* Register the service worker + subscribe to Web Push (closed-app alerts) */
+async function setupPush() {
+  var btn = document.getElementById('notif-btn');
+  if (!('serviceWorker' in navigator)) { btn.style.opacity = '.4'; return; }
+  try {
+    S.swReg = await navigator.serviceWorker.register('/monitor-sw.js');
+    await navigator.serviceWorker.ready;
+  } catch(e) { /* SW failed — fall back to in-page only */ }
+
+  if ('Notification' in window && Notification.permission === 'granted') {
+    btn.classList.add('active');
+    subscribePush(); /* refresh subscription silently */
+  }
+
+  btn.addEventListener('click', function() {
+    if (!('Notification' in window)) { showToast('Notifications not supported'); return; }
+    if (Notification.permission === 'granted') { sendTestPush(); return; }
     Notification.requestPermission().then(function(p) {
       S.notifEnabled = p === 'granted';
-      document.getElementById('notif-btn').classList.toggle('active', p === 'granted');
-      showToast(p === 'granted' ? 'Notifications enabled' : 'Notifications blocked');
+      btn.classList.toggle('active', p === 'granted');
+      if (p === 'granted') { subscribePush(); showToast('Notifications enabled'); }
+      else showToast('Notifications blocked — allow them in browser settings');
     });
   });
 }
 
+function urlB64ToUint8(base64) {
+  var pad = '='.repeat((4 - base64.length % 4) % 4);
+  var b64 = (base64 + pad).replace(/-/g, '+').replace(/_/g, '/');
+  var raw = atob(b64);
+  var arr = new Uint8Array(raw.length);
+  for (var i = 0; i < raw.length; i++) arr[i] = raw.charCodeAt(i);
+  return arr;
+}
+
+async function subscribePush() {
+  if (!S.swReg || !S.swReg.pushManager) return;
+  try {
+    var sub = await S.swReg.pushManager.getSubscription();
+    if (!sub) {
+      sub = await S.swReg.pushManager.subscribe({
+        userVisibleOnly: true,
+        applicationServerKey: urlB64ToUint8(VAPID_PUBLIC)
+      });
+    }
+    await fetch('/api/push-subscribe', {
+      method: 'POST', headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({ pw: S.pw, action: 'subscribe', subscription: sub.toJSON() })
+    });
+  } catch(e) { showToast('Push subscribe failed'); }
+}
+
+function sendTestPush() {
+  showToast('Sending test…');
+  fetch('/api/push-subscribe', {
+    method: 'POST', headers: {'Content-Type':'application/json'},
+    body: JSON.stringify({ pw: S.pw, action: 'test' })
+  }).then(function(r){ return r.json(); }).then(function(d) {
+    showToast(d.ok ? 'Test sent — check your notifications' : 'Test failed');
+  }).catch(function(){ showToast('Test failed'); });
+}
+
 // ── COUNTDOWN ────────────────────────────────────────────
 function startCountdown() {
-  S.secs = 30;
+  S.secs = POLL_SECS;
   clearInterval(S.timer);
   updateCountdown();
   S.timer = setInterval(function() {
+    if (document.hidden) return; /* don't burn polls while backgrounded — push covers that */
     S.secs--;
     updateCountdown();
     if (S.secs <= 0) {
-      S.secs = 30;
+      S.secs = POLL_SECS;
       fetchData(false);
     }
   }, 1000);
@@ -423,7 +514,7 @@ function setupFilters() {
 
 function setupButtons() {
   document.getElementById('refresh-btn').addEventListener('click', function() {
-    S.secs = 30;
+    S.secs = POLL_SECS;
     fetchData(false);
   });
 }
@@ -582,19 +673,42 @@ function noData(msg) {
 }
 
 // System errors
+function sysErrTime(e) {
+  /* parse "date time" into ms epoch for cutoff comparison; 0 if unparseable */
+  var t = new Date(((e.date||'') + ' ' + (e.time||'')).trim()).getTime();
+  return isNaN(t) ? 0 : t;
+}
+
+window.clearSystem = function() {
+  S.sysCutoff = Date.now();
+  localStorage.setItem(SYS_CUTOFF_KEY, String(S.sysCutoff));
+  /* mark everything currently shown as seen so it won't re-alert */
+  (S.data.systemErrors || []).forEach(function(e){ S.sysSeen.add(sysSig(e)); });
+  renderSystem();
+  showToast('Cleared — showing only new errors');
+};
+
 function renderSystem() {
-  var errs = S.data.systemErrors || [];
+  var allErrs = S.data.systemErrors || [];
+  /* hide anything logged at/before the user's last "Clear" */
+  var errs = S.sysCutoff ? allErrs.filter(function(e){ var t = sysErrTime(e); return t === 0 || t > S.sysCutoff; }) : allErrs;
+
   var badge = document.getElementById('badge-system');
   if (errs.length) { badge.textContent = errs.length; badge.classList.remove('hidden'); }
   else badge.classList.add('hidden');
 
   var list = document.getElementById('system-list');
   if (!errs.length) {
-    list.innerHTML = '<div class="empty-state"><div class="icon">&#9889;</div><p>No system errors</p></div>';
+    list.innerHTML = '<div class="empty-state"><div class="icon">&#10003;</div><p>No new system errors</p>'
+      + (allErrs.length ? '<p style="margin-top:6px;font-size:11px">' + allErrs.length + ' older error(s) hidden</p>' : '')
+      + '</div>';
     return;
   }
 
-  list.innerHTML = errs.map(function(e) {
+  var clearBar = '<div style="display:flex;justify-content:flex-end;margin-bottom:10px">'
+    + '<button onclick="clearSystem()" style="background:var(--bg3);border:1px solid var(--border);color:var(--text2);font-size:12px;padding:6px 14px;border-radius:20px;cursor:pointer">&#10005; Clear (' + errs.length + ')</button></div>';
+
+  list.innerHTML = clearBar + errs.map(function(e) {
     return '<div class="scard">' +
       '<div class="scard-head">' +
         '<span class="scard-sid">' + esc(e.studentId||'?') + '</span>' +

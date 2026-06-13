@@ -4,6 +4,18 @@
 
 ---
 
+## Monitor Web Push — real-time closed-app notifications (13 Jun 2026)
+- **Goal:** owner wanted `monitor.html` to behave like a real Android app — alert his phone the moment a student hits a JS error or files a report, even when the app is fully closed.
+- **Why mobile got NO notifications before:** the old code used `new Notification(...)`, which **Android Chrome forbids** (must use `ServiceWorkerRegistration.showNotification()`), and `monitor.html` registered no service worker → silent failure every time.
+- **New pieces:**
+  - `public/monitor-sw.js` — service worker: `push` → `showNotification`, `notificationclick` → focus/open `/monitor.html`.
+  - `functions/api/_vapid.js` — VAPID keypair (P-256). Public key also embedded in monitor.html. Env overrides: `VAPID_PUBLIC_KEY / VAPID_PRIVATE_D / _X / _Y / VAPID_SUBJECT`. **Keys are embedded** (zero-config for owner); override via Cloudflare env if repo ever goes public. `_`-prefixed → not a route, but importable by other functions.
+  - `functions/api/_push.js` — pure-WebCrypto Web Push sender: VAPID JWT (ES256, RFC 8292) + aes128gcm payload encryption (RFC 8188/8291). `sendOne()` + `pushToAllAdmins()` (prunes 404/410 dead subs). **Validated by a Node round-trip test:** server-encrypt → browser-decrypt PASS, JWT sign/verify PASS (64-byte raw sig).
+  - `functions/api/push-subscribe.js` — admin-pw-gated; actions `subscribe`/`unsubscribe`/`test`. Table `rishi_push_subs(endpoint PK, sub, created_at)`.
+  - **Triggers:** `report-error.js` pushes on every new user report; `d1-sync.js` `set` pushes when a student's `rishi_error_log` array grows (a new JS error) — both via `context.waitUntil(pushToAllAdmins(...))`, never blocking the response.
+- **monitor.html client changes:** registers `/monitor-sw.js`; bell button → request permission + `pushManager.subscribe(applicationServerKey=VAPID_PUBLIC)` → POST to `/api/push-subscribe`; tapping bell when already enabled → sends a **test push**. Foreground notifications now go through `swReg.showNotification` (Android-safe) via `notifyUser()`. Poll cut to **20s**, paused while backgrounded (push covers that), and **instant refresh on focus/visibility**. New **System-tab "Clear"** button sets a localStorage cutoff (`mtr_sys_cutoff`) so resolved/old red errors hide and only new ones show + alert.
+- **Note:** push must be verified on the owner's real phone (the only true test) — install to home screen, tap the bell to allow + subscribe, then tap the bell again for a test notification.
+
 ## Bug fix (13 Jun 2026)
 - **`explain/class8/arithmetic/rational-numbers.html` — `showQ` crashed** `Uncaught TypeError: Cannot read properties of undefined (reading 'base')` at `q._scene.base`. Root cause: `showQ` never called `buildScene(q)` (only `replayAnim` did), so `q._scene` was undefined on first render of every question. Fix: added `buildScene(q);` after `confirmShown=false;` in `showQ` — identical to the other 7 rich pages. Verified: only rational-numbers was missing it (other 7 rich pages each have 3 `buildScene(q)` calls; rational had 2).
 

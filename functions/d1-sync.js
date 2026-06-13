@@ -4,6 +4,8 @@
    Requires D1 binding named "DB".
    ═══════════════════════════════════════════ */
 
+import { pushToAllAdmins } from './api/_push.js';
+
 export async function onRequest(context) {
   const { request, env } = context;
 
@@ -69,6 +71,29 @@ export async function onRequest(context) {
           }
         }
       } catch(e) { /* on any failure, store as-is — never lose a push */ }
+    }
+
+    /* ── SYSTEM ERROR PUSH ──
+       When a student device uploads a LONGER rishi_error_log than we already
+       have, a new JS error just happened → push it to the admin's phone. */
+    if (key === "rishi_error_log") {
+      try {
+        const prev = await env.DB.prepare(
+          `SELECT value FROM rishi_sync WHERE student_id = ? AND key = 'rishi_error_log'`
+        ).bind(sid).first();
+        let oldArr = [], newArr = [];
+        try { oldArr = JSON.parse((prev && prev.value) || "[]"); } catch(e) {}
+        try { newArr = JSON.parse(toStore); } catch(e) {}
+        if (Array.isArray(newArr) && Array.isArray(oldArr) && newArr.length > oldArr.length) {
+          const latest = newArr[newArr.length - 1] || {};
+          context.waitUntil(pushToAllAdmins(env, {
+            title: "⚡ Student error — " + sid,
+            body: String(latest.message || "JS error").slice(0, 140) + (latest.page ? (" • " + latest.page) : ""),
+            url: "/monitor.html",
+            tag: "syserr-" + sid + "-" + newArr.length
+          }));
+        }
+      } catch(e) { /* never block the sync write on push */ }
     }
 
     try {
