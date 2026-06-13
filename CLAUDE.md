@@ -4,6 +4,9 @@
 
 ---
 
+## Bug fix (13 Jun 2026)
+- **`explain/class8/arithmetic/rational-numbers.html` — `showQ` crashed** `Uncaught TypeError: Cannot read properties of undefined (reading 'base')` at `q._scene.base`. Root cause: `showQ` never called `buildScene(q)` (only `replayAnim` did), so `q._scene` was undefined on first render of every question. Fix: added `buildScene(q);` after `confirmShown=false;` in `showQ` — identical to the other 7 rich pages. Verified: only rational-numbers was missing it (other 7 rich pages each have 3 `buildScene(q)` calls; rational had 2).
+
 ## Dev Notice Banner (13 Jun 2026)
 - Red "⚠️ DEVELOPMENT NOTICE … testing purposes only … no monetary transaction system" banner injected as the FIRST child of `<body>` on 5 pages only: `index.html`, `landing.html`, `register.html`, `payment.html`, `referral.html`. Inline-styled `<div>` (bg `#b91c1c`, z-index 9999). No other pages touched. (index.html immediately redirects to landing, so its copy is not visible — landing carries the real one.)
 

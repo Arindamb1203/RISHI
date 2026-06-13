@@ -454,7 +454,7 @@ function buildSession(){session=QB.slice().sort(function(){return Math.random()-
   session.sort(function(a,b){return (a.concept==="betweenRationals"?0:1)-(b.concept==="betweenRationals"?0:1);});}
 function showQ(){
   if(idx>=session.length){onComplete();return;}
-  var q=session[idx];stepIdx=0;nudgeCount=0;confirmShown=false;updateProg();G("qArea").innerHTML="";clearAt();
+  var q=session[idx];stepIdx=0;nudgeCount=0;confirmShown=false;buildScene(q);updateProg();G("qArea").innerHTML="";clearAt();
   var qc=document.createElement("div");qc.className="q-card";
   qc.innerHTML='<div class="q-label">Question '+(idx+1)+' of '+PER_SESSION+'</div><div class="q-text">'+q.q+'</div><button class="btn-speak" onclick="say(session[idx].qs)">&#128266; Hear</button>';
   G("qArea").appendChild(qc);
