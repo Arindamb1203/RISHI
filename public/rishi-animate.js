@@ -1001,6 +1001,117 @@ R.ciRate={
   }
 };
 
+/* ==========================================================================
+ * RATIONAL NUMBERS FAMILY (chapter 1) — number line + fraction arithmetic
+ *   Showcase = betweenRationals (infinitely many between two; take the middle).
+ *   Concepts are abstract (no skin). Reusable numLine() helper.
+ * ========================================================================== */
+function sayFrac(s){ return String(s).replace(/[–−-]/g,"minus ").replace(/\//g," over ").replace(/\s+/g," ").trim(); }
+function numLine(x,w,y,lo,hi,pts,d){
+  var s=LN(x-12,y,x+w+12,y,P.line,2.5,"rsl",d)
+    +PG((x-12)+","+y+" "+(x-3)+","+(y-4)+" "+(x-3)+","+(y+4),P.line)
+    +PG((x+w+12)+","+y+" "+(x+w+3)+","+(y-4)+" "+(x+w+3)+","+(y+4),P.line);
+  (pts||[]).forEach(function(p,i){
+    var px=x+w*(p.v-lo)/((hi-lo)||1), c=p.col||P.line, dd=d+0.3+i*0.25;
+    s+=LN(px,y-7,px,y+7,c,2,"rsl",dd)+'<g class="rpl" style="animation-delay:'+(dd+0.2)+'s">'+CI(px,y,4.5,p.fill||c)+'</g>'
+      +T(px,(p.below?y+24:y-14),p.label,dd+0.2,"rin",12,c);
+  });
+  return s;
+}
+
+R.rationalConcept={ scene:function(m,sk){ return {base:stage(""),phases:[
+  {cap:"what is a rational number?", ms:5400, pause:900, say:"A rational number is any number you can write as p over q, where p and q are whole numbers and q is not zero.",
+   frag:T(220,60,"p ⁄ q ,   q ≠ 0",0,"rpl",24,P.mid)},
+  {cap:"lots of them", ms:5400, pause:900, say:"So 3 over 4, minus 5 over 7, and even 2, written as 2 over 1, are all rational.",
+   frag:T(120,120,"3⁄4",.2,"rin",18,sk.color)+T(220,120,"−5⁄7",.5,"rin",18,P.sage)+T(310,120,"2 = 2⁄1",.8,"rin",16,P.amber)},
+  {cap:"p/q form", ms:5000, pause:1400, say:"If it fits the p over q form with a non-zero bottom, it is rational.",
+   frag:answerBox(220,176,"rational = p ⁄ q  (q ≠ 0)",.2)} ]}; } };
+R.addInverse={ scene:function(m,sk){ return {base:stage(""),phases:[
+  {cap:"additive inverse", ms:5200, pause:900, say:"What is the additive inverse of "+sayFrac(m.val)+"?",
+   frag:T(220,56,"additive inverse of "+m.val+" = ?",0,"rin",18,P.mid)},
+  {cap:"flip the sign", ms:5200, pause:900, say:"The additive inverse just flips the sign, so the two add up to zero.",
+   frag:T(220,112,m.val+"   +   "+m.inv+"   =   0",.2,"rin",16,P.sage)},
+  {cap:"= "+m.inv, ms:5000, pause:1400, say:"So the additive inverse is "+sayFrac(m.inv)+".",
+   frag:answerBox(220,172,"additive inverse = "+m.inv,.2)} ]}; } };
+R.addInverseSum={ scene:function(m,sk){ return {base:stage(""),phases:[
+  {cap:"number + its inverse", ms:5200, pause:900, say:"What do you get when you add a rational number to its additive inverse?",
+   frag:T(220,60,"a  +  (−a)  =  ?",0,"rin",20,P.mid)},
+  {cap:"they cancel", ms:5200, pause:900, say:"The additive inverse is the same number with the opposite sign, so they cancel out completely.",
+   frag:T(220,118,"+a and −a cancel",.2,"rin",16,P.sage)},
+  {cap:"= 0", ms:5000, pause:1400, say:"The sum is always zero.",
+   frag:answerBox(220,172,"sum = 0",.2)} ]}; } };
+R.mulInverse={ scene:function(m,sk){ return {base:stage(""),phases:[
+  {cap:"multiplicative inverse", ms:5200, pause:900, say:"What is the multiplicative inverse, or reciprocal, of "+sayFrac(m.val)+"?",
+   frag:T(220,56,"reciprocal of "+m.val+" = ?",0,"rin",18,P.mid)},
+  {cap:"flip it over", ms:5200, pause:900, say:"The reciprocal just turns the fraction upside down. A number times its reciprocal is 1.",
+   frag:T(220,112,m.val+"   ×   "+m.inv+"   =   1",.2,"rin",16,P.sage)},
+  {cap:"= "+m.inv, ms:5000, pause:1400, say:"So the reciprocal is "+sayFrac(m.inv)+".",
+   frag:answerBox(220,172,"reciprocal = "+m.inv,.2)} ]}; } };
+R.mulInverseProd={ scene:function(m,sk){ return {base:stage(""),phases:[
+  {cap:"a number × its reciprocal", ms:5200, pause:900, say:"What is "+sayFrac(m.val)+" times "+sayFrac(m.inv)+"?",
+   frag:T(220,60,m.val+"  ×  "+m.inv+"  =  ?",0,"rin",18,P.mid)},
+  {cap:"they are reciprocals", ms:5200, pause:900, say:"These two are reciprocals of each other — one is the other flipped over. And the minus signs cancel too.",
+   frag:T(220,116,"reciprocals → product is 1",.2,"rin",16,P.sage)},
+  {cap:"= 1", ms:5000, pause:1400, say:"So the product is 1.",
+   frag:answerBox(220,172,"= 1",.2)} ]}; } };
+R.property={ scene:function(m,sk){ return {base:stage(""),phases:[
+  {cap:m.name+" property", ms:5400, pause:900, say:"Look at this. It shows the "+m.name+" property — "+m.desc+".",
+   frag:T(220,70,m.line,0,"rin",16,P.mid)},
+  {cap:m.name, ms:5200, pause:900, say:"That is the "+m.name+" property of rational numbers.",
+   frag:T(220,124,m.name,.2,"rpl",22,P.sage)},
+  {cap:"answer", ms:5000, pause:1400, say:"So the property shown is "+m.name+".",
+   frag:answerBox(220,176,m.name,.2)} ]}; } };
+R.addFrac={ scene:function(m,sk){ return {base:stage(""),phases:[
+  {cap:"add the fractions", ms:5200, pause:900, say:"Add "+sayFrac(m.a)+" and "+sayFrac(m.b)+".",
+   frag:T(220,60,m.a+"  +  "+m.b+"  =  ?",0,"rin",18,P.mid)},
+  {cap:"same bottom → add tops", ms:5400, pause:900, say:"The bottoms are the same, so just add the tops and keep the bottom "+m.den+".",
+   frag:T(220,118,"tops add, bottom stays "+m.den,.2,"rin",15,P.sage)},
+  {cap:"= "+m.ans, ms:5000, pause:1400, say:"That gives "+sayFrac(m.ans)+".",
+   frag:answerBox(220,172,"= "+m.ans,.2)} ]}; } };
+R.betweenInts={ scene:function(m,sk){ return {base:stage(RC(40,80,360,60,8,P.gold+"10",P.gold+"33",1.5)),phases:[
+  {cap:m.val+" on the line", ms:5400, pause:900, say:"Between which two whole numbers does "+sayFrac(m.val)+" lie?",
+   frag:T(220,40,"where is "+m.val+" ?",0,"rin",18,P.mid)+numLine(60,320,110,m.lo-1,m.hi+1,[{v:m.lo-1,label:""+(m.lo-1),below:true},{v:m.lo,label:""+m.lo,below:true},{v:m.hi,label:""+m.hi,below:true},{v:m.hi+1,label:""+(m.hi+1),below:true}],.4)},
+  {cap:"it sits in this gap", ms:5400, pause:900, say:sayFrac(m.val)+" is about "+m.dec+", so it sits between "+m.lo+" and "+m.hi+".",
+   frag:numLine(60,320,110,m.lo-1,m.hi+1,[{v:m.dec,label:m.val,col:P.rust,fill:P.rust}],.2)},
+  {cap:m.lo+" and "+m.hi, ms:5000, pause:1400, say:"So it lies between "+m.lo+" and "+m.hi+".",
+   frag:answerBox(220,180,"between "+m.lo+" and "+m.hi,.2)} ]}; } };
+R.mulFrac={ scene:function(m,sk){ return {base:stage(""),phases:[
+  {cap:"multiply", ms:5200, pause:900, say:"Multiply "+sayFrac(m.a)+" by "+sayFrac(m.b)+".",
+   frag:T(220,60,m.a+"  ×  "+m.b+"  =  ?",0,"rin",18,P.mid)},
+  {cap:"tops × tops, bottoms × bottoms", ms:5400, pause:900, say:"Multiply the tops together and the bottoms together, then simplify. Remember the sign rule.",
+   frag:T(220,118,"top × top  ⁄  bottom × bottom",.2,"rin",15,P.sage)},
+  {cap:"= "+m.ans, ms:5000, pause:1400, say:"That simplifies to "+sayFrac(m.ans)+".",
+   frag:answerBox(220,172,"= "+m.ans,.2)} ]}; } };
+R.divFrac={ scene:function(m,sk){ return {base:stage(""),phases:[
+  {cap:"divide fractions", ms:5200, pause:900, say:"Work out "+sayFrac(m.a)+" divided by "+sayFrac(m.b)+".",
+   frag:T(220,60,m.a+"  ÷  "+m.b+"  =  ?",0,"rin",18,P.mid)},
+  {cap:"flip & multiply", ms:5400, pause:900, say:"Dividing by a fraction is the same as multiplying by its reciprocal. So flip the second one and multiply.",
+   frag:T(220,118,"÷  →  × (flip the 2nd)",.2,"rin",15,P.sage)},
+  {cap:"= "+m.ans, ms:5000, pause:1400, say:"That gives "+sayFrac(m.ans)+".",
+   frag:answerBox(220,172,"= "+m.ans,.2)} ]}; } };
+R.betweenRationals={ scene:function(m,sk){ return {base:stage(RC(40,86,360,56,8,P.sage+"10",P.sage+"33",1.5)),phases:[
+  {cap:"between "+m.lo+" and "+m.hi, ms:5600, pause:900, say:"Between any two rational numbers there are infinitely many more. Find one between "+sayFrac(m.lo)+" and "+sayFrac(m.hi)+".",
+   frag:T(220,40,"a number between "+m.lo+" and "+m.hi+" ?",0,"rin",15,P.mid)+numLine(70,300,112,m.loD,m.hiD,[{v:m.loD,label:m.lo,below:true},{v:m.hiD,label:m.hi,below:true}],.4)},
+  {cap:"take the middle", ms:5600, pause:900, say:"The simplest one is right in the middle — their average. Halfway between "+sayFrac(m.lo)+" and "+sayFrac(m.hi)+" is "+sayFrac(m.mid)+".",
+   frag:numLine(70,300,112,m.loD,m.hiD,[{v:m.midD,label:m.mid,col:P.rust,fill:P.rust}],.2)},
+  {cap:m.mid, ms:5000, pause:1500, say:"So "+sayFrac(m.mid)+" lies between them — and you could find endlessly many more.",
+   frag:answerBox(220,182,m.mid+" lies between",.2)+spark(220,182,.6)} ]}; } };
+R.findX={ scene:function(m,sk){ return {base:stage(""),phases:[
+  {cap:"find x", ms:5200, pause:900, say:"Find x, if "+sayFrac(m.a)+" times x equals "+sayFrac(m.res)+".",
+   frag:T(220,60,m.a+"  ×  x  =  "+m.res,0,"rin",18,P.mid)},
+  {cap:"divide both sides", ms:5400, pause:900, say:"To get x alone, divide both sides by "+sayFrac(m.a)+" — that is, multiply by its reciprocal.",
+   frag:T(220,116,"x = "+m.res+"  ÷  "+m.a,.2,"rin",16,P.sage)},
+  {cap:"x = "+m.x, ms:5000, pause:1400, say:"So x is "+sayFrac(m.x)+".",
+   frag:answerBox(220,172,"x = "+m.x,.2)} ]}; } };
+R.standardForm={ scene:function(m,sk){ return {base:stage(""),phases:[
+  {cap:"standard form", ms:5200, pause:900, say:"Write "+sayFrac(m.val)+" in standard form.",
+   frag:T(220,60,m.val+"  →  ?",0,"rin",20,P.mid)},
+  {cap:"divide by the HCF", ms:5400, pause:900, say:"Standard form means the lowest terms with a positive bottom. Divide top and bottom by their highest common factor, "+m.g+".",
+   frag:T(220,116,"÷ "+m.g+" on top and bottom",.2,"rin",15,P.sage)},
+  {cap:"= "+m.ans, ms:5000, pause:1400, say:"That gives "+sayFrac(m.ans)+".",
+   frag:answerBox(220,172,m.val+" = "+m.ans,.2)} ]}; } };
+var RAT_CONCEPTS={rationalConcept:1,addInverse:1,addInverseSum:1,mulInverse:1,mulInverseProd:1,property:1,addFrac:1,betweenInts:1,mulFrac:1,divFrac:1,betweenRationals:1,findX:1,standardForm:1};
+
 /* ---- skin picker (random; avoids the immediate repeat) -------------------- */
 var _last={};
 function pickSkin(concept){
