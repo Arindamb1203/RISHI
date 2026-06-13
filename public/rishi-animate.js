@@ -1211,6 +1211,112 @@ R.inverseFormula={ scene:function(m,sk){ return {base:stage(""),phases:[
    frag:answerBox(220,172,"x × y = k",.2)} ]}; } };
 var PROP_CONCEPTS={directProp:1,inverseProp:1,directRule:1,inverseRule:1,directFormula:1,inverseFormula:1};
 
+/* ==========================================================================
+ * STORY OF NUMBERS FAMILY (chapter 18) — history of number systems
+ *   Illustrative narrated scenes (ancient symbols + timeline). No skin.
+ * ========================================================================== */
+R.tallyBones={ scene:function(m,sk){
+  var notch="",i; for(i=0;i<14;i++) notch+=LN(138+i*13,96,138+i*13,118,"#5a4a30",2.2,"rsl",.4+i*0.12);
+  return {base:stage(""),phases:[
+    {cap:"the first numbers", ms:5600, pause:900, say:"Long before digits, people counted by carving notches into bone. The Lebombo and Ishango bones are the oldest known mathematical objects.",
+     frag:T(220,40,"the very first counting",0,"rin",15,P.mid)},
+    {cap:"notches on a bone", ms:5800, pause:900, say:"The Lebombo bone from Africa has 29 notches and is about 44 thousand years old. The Ishango bone is about 20 thousand years old.",
+     frag:RC(120,88,210,34,16,"#ece0c4","#9a8a6a",1.5)+notch},
+    {cap:"one notch = one thing", ms:5200, pause:1500, say:"Each notch stood for one thing counted — the very first number system!",
+     frag:answerBox(220,170,"tally marks = the first numbers",.2)+spark(220,170,.6)} ]}; } };
+R.bodyCount={ scene:function(m,sk){ return {base:stage(""),phases:[
+  {cap:"counting without digits", ms:5400, pause:900, say:"Some peoples counted using the body, or in pairs.",
+   frag:T(220,56,"counting by body & pairs",0,"rin",15,P.mid)},
+  {cap:"body & pairs", ms:6000, pause:900, say:"The Oksapmin of Papua New Guinea pointed to 27 body parts in order. The Gumulgal of Australia counted in pairs: one, two, two-and-one, two-and-two.",
+   frag:T(150,116,"Oksapmin: 27 body parts",.2,"rin",13,P.sage)+T(150,138,"Gumulgal: count in pairs",.5,"rin",13,P.amber)},
+  {cap:"4 = two-and-two", ms:5000, pause:1400, say:"So in the Gumulgal system, four is two-and-two.",
+   frag:answerBox(220,176,"Gumulgal 4 = two-and-two",.2)} ]}; } };
+R.egyptian={ scene:function(m,sk){ return {base:stage(""),phases:[
+  {cap:"Egyptian numerals", ms:5400, pause:900, say:"Over 5000 years ago the Egyptians used a picture symbol for each power of ten.",
+   frag:T(220,46,"Ancient Egyptian numbers",0,"rin",15,P.mid)},
+  {cap:"a symbol per power of 10", ms:6000, pause:900, say:"A stroke was 1, a heel-bone 10, a coiled rope 100, and a lotus flower 1000. You repeated symbols to build a number.",
+   frag:T(80,116,"| = 1",.2,"rin",15,P.ink)+T(170,116,"∩ = 10",.4,"rin",15,P.ink)+T(265,116,"◉ = 100",.6,"rin",15,P.ink)+T(360,116,"❀ = 1000",.8,"rin",14,P.ink)},
+  {cap:"no place value", ms:5200, pause:1400, say:"But with no place value, large numbers needed many, many symbols.",
+   frag:answerBox(220,172,"picture symbols, no place value",.2)} ]}; } };
+R.roman={ scene:function(m,sk){ return {base:stage(""),phases:[
+  {cap:"Roman numerals", ms:5200, pause:900, say:"The Romans wrote numbers with letters.",
+   frag:T(220,48,"I  V  X  L  C  D  M",0,"rpl",22,P.mid)},
+  {cap:"the values", ms:6000, pause:900, say:"I is 1, V is 5, X is 10, L is 50, C is 100, D is 500, M is 1000. A smaller letter before a bigger one means subtract — I before V is 4.",
+   frag:T(220,108,"I=1 V=5 X=10 L=50",.2,"rin",14,P.sage)+T(220,132,"C=100 D=500 M=1000",.5,"rin",14,P.sage)},
+  {cap:"no zero", ms:5200, pause:1400, say:"But there is no zero and no place value — its big limitation.",
+   frag:answerBox(220,176,"no zero, no place value",.2)} ]}; } };
+R.romanConvert={ scene:function(m,sk){ return {base:stage(""),phases:[
+  {cap:"1222 → Roman", ms:5200, pause:900, say:"Let us convert 1222 to Roman numerals.",
+   frag:T(220,56,"1222  =  ?",0,"rin",22,P.mid)},
+  {cap:"break it up", ms:5800, pause:900, say:"1000 is M, 200 is C C, 20 is X X, and 2 is I I. Put them together.",
+   frag:T(220,112,"M + CC + XX + II",.2,"rin",18,P.sage)},
+  {cap:"= MCCXXII", ms:5200, pause:1400, say:"So 1222 is M C C X X I I. And going back, M M C M X C I X is 2999.",
+   frag:answerBox(220,172,"1222 = MCCXXII",.2)} ]}; } };
+R.babylonian={ scene:function(m,sk){ return {base:stage(""),phases:[
+  {cap:"Babylonian base 60", ms:5400, pause:900, say:"The Babylonians, 4000 years ago, used base 60 — sixty, not ten!",
+   frag:T(220,56,"base 60",0,"rpl",24,P.mid)},
+  {cap:"wedges in clay", ms:5800, pause:900, say:"They pressed wedge shapes into wet clay — a thin wedge for 1, a corner wedge for 10 — and they used place value in base 60.",
+   frag:PG("150,104 158,98 158,118",P.ink)+T(180,116,"= 1",.4,"rin",13,P.ink)+PG("250,100 262,100 250,116",P.ink)+T(285,116,"= 10",.6,"rin",13,P.ink)},
+  {cap:"why 60 minutes!", ms:5400, pause:1400, say:"That is why we still have 60 minutes in an hour and 360 degrees in a circle!",
+   frag:answerBox(220,170,"base 60 → 60 min, 360°",.2)} ]}; } };
+R.mayan={ scene:function(m,sk){ return {base:stage(""),phases:[
+  {cap:"Mayan base 20", ms:5400, pause:900, say:"The Maya of Central America used base 20 — and they had a symbol for zero.",
+   frag:T(220,52,"base 20, with ZERO",0,"rin",16,P.mid)},
+  {cap:"dots, bars, a shell", ms:5800, pause:900, say:"A dot was 1, a bar was 5, and a shell shape meant zero. They stacked the symbols vertically.",
+   frag:CI(120,112,5,P.ink)+CI(140,112,5,P.ink)+CI(160,112,5,P.ink)+T(135,134,"dots = 1s",.4,"rin",12,P.sage)+RC(240,108,60,8,2,P.ink)+T(270,134,"bar = 5",.6,"rin",12,P.sage)+RC(338,104,26,16,9,"none",P.amber,2)+T(384,116,"= 0",.8,"rin",13,P.amber)+T(351,134,"shell",.8,"rin",11,P.amber)},
+  {cap:"zero was a leap", ms:5200, pause:1400, say:"Having a zero was revolutionary for their calendar and astronomy.",
+   frag:answerBox(220,172,"base 20 + a zero",.2)} ]}; } };
+R.chineseRod={ scene:function(m,sk){ return {base:stage(""),phases:[
+  {cap:"Chinese counting rods", ms:5400, pause:900, say:"Ancient China laid little counting rods on a board.",
+   frag:T(220,52,"Zong & Heng rods",0,"rin",16,P.mid)},
+  {cap:"vertical & horizontal", ms:6000, pause:900, say:"Zong rods stood vertical and Heng rods lay flat. They alternated between place columns so the digits never blurred together.",
+   frag:LN(120,100,120,128,P.ink,3,"rsl",.2)+LN(134,100,134,128,P.ink,3,"rsl",.3)+T(127,144,"Zong",.4,"rin",12,P.sage)+LN(250,108,290,108,P.ink,3,"rsl",.5)+LN(250,118,290,118,P.ink,3,"rsl",.6)+T(270,144,"Heng",.7,"rin",12,P.amber)},
+  {cap:"kept places clear", ms:5200, pause:1400, say:"Alternating Zong and Heng kept the place values clear.",
+   frag:answerBox(220,172,"vertical / horizontal by column",.2)} ]}; } };
+R.baseConcept={ scene:function(m,sk){ return {base:stage(""),phases:[
+  {cap:"what is a BASE?", ms:5400, pause:900, say:"What is the base of a number system?",
+   frag:T(220,56,"the BASE",0,"rpl",24,P.mid)},
+  {cap:"symbols before carrying", ms:6000, pause:900, say:"The base is how many symbols you use before carrying over. Base 10 uses 0 to 9. Landmark numbers are the powers of the base — in base 5 they are 1, 5, 25, 125.",
+   frag:T(220,116,"base 5 landmarks: 1, 5, 25, 125",.2,"rin",15,P.sage)},
+  {cap:"5² = 25", ms:5000, pause:1400, say:"So the third landmark in base 5 is 5 squared, which is 25.",
+   frag:answerBox(220,172,"landmarks = powers of the base",.2)} ]}; } };
+R.baseConvert={ scene:function(m,sk){ return {base:stage(""),phases:[
+  {cap:"→ base "+m.base, ms:5400, pause:900, say:"How do you convert a number to base "+m.base+"? Let us convert "+m.n1+" and "+m.n2+".",
+   frag:T(220,56,m.n1+" , "+m.n2+"  →  base "+m.base,0,"rin",18,P.mid)},
+  {cap:"divide & read remainders", ms:5800, pause:900, say:"Keep dividing by "+m.base+", and read the remainders from the bottom up.",
+   frag:T(220,116,"divide by "+m.base+", read remainders ↑",.2,"rin",15,P.sage)},
+  {cap:m.n1+" = "+m.r1, ms:5200, pause:1400, say:m.n1+" becomes "+m.r1+", and "+m.n2+" becomes "+m.r2+", in base "+m.base+".",
+   frag:answerBox(220,172,m.n1+" = "+m.r1+" (base "+m.base+")",.2)} ]}; } };
+R.hindu={ scene:function(m,sk){ return {base:stage(""),phases:[
+  {cap:"the Indian numerals", ms:5400, pause:900, say:"Our modern numbers began in India with the Brahmi numerals.",
+   frag:T(220,52,"0 1 2 3 4 5 6 7 8 9",0,"rpl",22,P.gold)},
+  {cap:"place value + zero", ms:6000, pause:900, say:"Indian mathematicians created place value — the same digit means different amounts in different columns — and a symbol for zero to hold an empty place.",
+   frag:T(220,118,"same digit, different column = different value",.2,"rin",13,P.sage)},
+  {cap:"zero as placeholder", ms:5200, pause:1400, say:"The Bakhshali manuscript shows an early use of zero as a placeholder.",
+   frag:answerBox(220,172,"place value + zero (India)",.2)} ]}; } };
+R.brahmagupta={ scene:function(m,sk){ return {base:stage(""),phases:[
+  {cap:"628 CE", ms:5400, pause:900, say:"In 628 CE, the Indian mathematician Brahmagupta wrote the Brahmasphuta-siddhanta.",
+   frag:T(220,56,"Brahmagupta, 628 CE",0,"rin",16,P.mid)},
+  {cap:"rules for zero", ms:5800, pause:900, say:"He gave the first clear rules for using zero in arithmetic — and he even worked with negative numbers.",
+   frag:T(220,116,"first rules for zero & negatives",.2,"rin",15,P.sage)},
+  {cap:"a turning point", ms:5200, pause:1400, say:"Treating zero as a real number was revolutionary.",
+   frag:answerBox(220,172,"Brahmagupta → rules for zero",.2)} ]}; } };
+R.spread={ scene:function(m,sk){ return {base:stage(""),phases:[
+  {cap:"India → Arabia → Europe", ms:5400, pause:900, say:"How did the Indian numerals reach the whole world?",
+   frag:T(220,56,"India → Arab world → Europe",0,"rin",15,P.mid)},
+  {cap:"Al-Khwarizmi, Fibonacci", ms:6000, pause:900, say:"Arab scholars like Al-Khwarizmi adopted them. Then Fibonacci's book, the Liber Abaci, spread them across Europe.",
+   frag:T(150,116,"Al-Khwarizmi (Arabia)",.2,"rin",13,P.sage)+T(150,138,"Fibonacci — Liber Abaci",.5,"rin",13,P.amber)},
+  {cap:"Hindu-Arabic numerals", ms:5000, pause:1400, say:"That is why we call them the Hindu-Arabic numerals.",
+   frag:answerBox(220,176,"Fibonacci's Liber Abaci",.2)} ]}; } };
+R.compareSystem={ scene:function(m,sk){ return {base:stage(""),phases:[
+  {cap:"compare the systems", ms:5400, pause:900, say:"Compare the Egyptian, Roman and Hindu-Arabic systems.",
+   frag:T(220,52,"Egyptian · Roman · Hindu-Arabic",0,"rin",15,P.mid)},
+  {cap:"only one has both", ms:6000, pause:900, say:"Only the Hindu-Arabic system has BOTH place value and a zero. The Egyptian and Roman systems have neither.",
+   frag:T(220,114,"place value + zero → only Hindu-Arabic",.2,"rin",14,P.sage)},
+  {cap:"10 symbols, any number", ms:5400, pause:1500, say:"And it needs just 10 symbols to write any number at all — that is why the whole world uses it today.",
+   frag:answerBox(220,172,"10 symbols · place value · zero",.2)+spark(220,172,.6)} ]}; } };
+var STORY_CONCEPTS={tallyBones:1,bodyCount:1,egyptian:1,roman:1,romanConvert:1,babylonian:1,mayan:1,chineseRod:1,baseConcept:1,baseConvert:1,hindu:1,brahmagupta:1,spread:1,compareSystem:1};
+
 /* ---- skin picker (random; avoids the immediate repeat) -------------------- */
 var _last={};
 function pickSkin(concept){
