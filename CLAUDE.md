@@ -16,6 +16,15 @@
 - **monitor.html client changes:** registers `/monitor-sw.js`; bell button → request permission + `pushManager.subscribe(applicationServerKey=VAPID_PUBLIC)` → POST to `/api/push-subscribe`; tapping bell when already enabled → sends a **test push**. Foreground notifications now go through `swReg.showNotification` (Android-safe) via `notifyUser()`. Poll cut to **20s**, paused while backgrounded (push covers that), and **instant refresh on focus/visibility**. New **System-tab "Clear"** button sets a localStorage cutoff (`mtr_sys_cutoff`) so resolved/old red errors hide and only new ones show + alert.
 - **Note:** push must be verified on the owner's real phone (the only true test) — install to home screen, tap the bell to allow + subscribe, then tap the bell again for a test notification.
 
+## Monitor System errors — server-side Pending/Fixed (13 Jun 2026, later)
+- **Problem:** owner reinstalled the app but the same System (JS) errors kept showing; the old "Clear" was **device-only** (localStorage cutoff) so it didn't sync to his laptop and was wiped on reinstall. Also the System tab had no All/Pending/Fixed filter or Mark-Fixed buttons (only the user-Reports tab did).
+- **Root cause:** system errors are entries inside per-student `rishi_error_log` arrays in `rishi_sync` — they have no status of their own.
+- **Fix — server-side resolution keyed by signature:**
+  - New table `rishi_sys_resolved(sig PK, resolved_at)`. `sig = studentId|date+time|message[:40]` (computed identically in `monitor.js` and the client).
+  - `functions/api/monitor.js` now creates the table, queries resolved sigs, and attaches `sig` + `status` (pending/fixed) to every systemError it returns.
+  - New `functions/api/sys-resolve.js` (admin-pw gated): `action 'fix'|'unfix'` with `sigs:[…]`, uses `DB.batch`.
+  - `monitor.html` System tab: added stats row + **All/Pending/Fixed** filter (`.sfbtn`, state `mtr_sys_filter`), per-error **Mark Fixed** / **Reopen** buttons, and a **"Mark all N fixed"** bar. Badge now = pending count. Removed the localStorage `mtr_sys_cutoff` approach entirely. Notifications only fire for still-pending new errors. Because status lives in D1, it now **syncs across devices and survives reinstall**.
+
 ## Bug fix (13 Jun 2026)
 - **`explain/class8/arithmetic/rational-numbers.html` — `showQ` crashed** `Uncaught TypeError: Cannot read properties of undefined (reading 'base')` at `q._scene.base`. Root cause: `showQ` never called `buildScene(q)` (only `replayAnim` did), so `q._scene` was undefined on first render of every question. Fix: added `buildScene(q);` after `confirmShown=false;` in `showQ` — identical to the other 7 rich pages. Verified: only rational-numbers was missing it (other 7 rich pages each have 3 `buildScene(q)` calls; rational had 2).
 

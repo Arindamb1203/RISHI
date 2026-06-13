@@ -87,8 +87,17 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:-apple-
 
 /* ── FILTER ROW ──────────────────────────────────────── */
 .filter-row{display:flex;gap:8px;margin-bottom:10px}
-.fbtn{background:var(--bg3);border:1px solid var(--border);border-radius:20px;color:var(--text2);font-size:12px;padding:5px 14px;cursor:pointer}
-.fbtn.active{background:var(--green2);border-color:var(--green2);color:#000;font-weight:700}
+.fbtn,.sfbtn{background:var(--bg3);border:1px solid var(--border);border-radius:20px;color:var(--text2);font-size:12px;padding:5px 14px;cursor:pointer}
+.fbtn.active,.sfbtn.active{background:var(--green2);border-color:var(--green2);color:#000;font-weight:700}
+.sys-clear-bar{display:flex;justify-content:flex-end;margin-bottom:10px}
+.sys-clear-btn{background:var(--bg3);border:1px solid var(--border);color:var(--text2);font-size:12px;padding:6px 14px;border-radius:20px;cursor:pointer}
+.scard-foot{padding:8px 10px;border-top:1px solid var(--border);display:flex;gap:8px;align-items:center}
+.sfix-btn{background:transparent;border:1px solid var(--green2);color:var(--green2);font-size:11px;padding:5px 14px;border-radius:8px;cursor:pointer;font-weight:600}
+.sfix-btn:active{background:var(--green2);color:#000}
+.sfix-btn.reopen{border-color:var(--text3);color:var(--text3)}
+.sstatus{font-size:10px;padding:3px 8px;border-radius:10px;border:1px solid;font-weight:600;margin-left:auto}
+.sstatus.pending{color:var(--yellow);border-color:var(--yellow)}
+.sstatus.fixed{color:var(--green2);border-color:var(--green2)}
 
 /* ── REPORT CARD ─────────────────────────────────────── */
 .rcard{background:var(--card);border:1px solid var(--border);border-radius:12px;margin-bottom:10px;overflow:hidden;cursor:pointer}
@@ -211,6 +220,12 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:-apple-
     </div>
 
     <div class="panel" id="panel-system">
+      <div class="stats-row" id="sys-stats-row"></div>
+      <div class="filter-row" id="sys-filter-row">
+        <button class="sfbtn active" data-sf="all">All</button>
+        <button class="sfbtn" data-sf="pending">Pending</button>
+        <button class="sfbtn" data-sf="fixed">Fixed</button>
+      </div>
       <div id="system-list"><div class="loading-ring"></div></div>
     </div>
   </div>
@@ -248,7 +263,7 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:-apple-
 var PW_KEY = 'mtr_pw';
 var SEEN_KEY = 'mtr_seen';
 var FILTER_KEY = 'mtr_filter';
-var SYS_CUTOFF_KEY = 'mtr_sys_cutoff';
+var SYS_FILTER_KEY = 'mtr_sys_filter';
 var VAPID_PUBLIC = 'BGX3EMcMCcbfns0OnEPZmY_jzcslwOKyipESDGFKWL3eGU5ZSyzEocMKggPumDZ56RWkFYXCYhRQCF5piQHeQUM';
 var POLL_SECS = 20;
 
@@ -263,7 +278,7 @@ var S = {
   loading: false,
   swReg: null,
   sysSeen: new Set(),
-  sysCutoff: parseInt(localStorage.getItem(SYS_CUTOFF_KEY) || '0', 10),
+  sysFilter: localStorage.getItem(SYS_FILTER_KEY) || 'all',
   notifEnabled: ('Notification' in window) && Notification.permission === 'granted'
 };
 
@@ -316,6 +331,7 @@ async function tryAuth() {
 function setupApp() {
   setupTabs();
   setupFilters();
+  setupSysFilters();
   setupButtons();
   render();
   startCountdown();
@@ -397,6 +413,7 @@ function detectNewSystem(errs) {
   }
   errs.forEach(function(e) {
     var sig = sysSig(e);
+    if (e.status === 'fixed') { S.sysSeen.add(sig); return; }
     if (!S.sysSeen.has(sig)) {
       S.sysSeen.add(sig);
       notifyUser('⚡ Student error — ' + (e.studentId||'?'),
@@ -404,7 +421,7 @@ function detectNewSystem(errs) {
     }
   });
 }
-function sysSig(e) { return (e.studentId||'') + '|' + (e.date||'') + (e.time||'') + '|' + (e.message||'').slice(0,40); }
+function sysSig(e) { return e.sig || ((e.studentId||'') + '|' + (e.date||'') + (e.time||'') + '|' + (e.message||'').slice(0,40)); }
 
 /* Register the service worker + subscribe to Web Push (closed-app alerts) */
 async function setupPush() {
@@ -508,6 +525,18 @@ function setupFilters() {
       localStorage.setItem(FILTER_KEY, S.filter);
       document.querySelectorAll('.fbtn').forEach(function(b){ b.classList.toggle('active', b.dataset.f===S.filter); });
       if (S.data) renderReports();
+    });
+  });
+}
+
+function setupSysFilters() {
+  document.querySelectorAll('.sfbtn').forEach(function(btn) {
+    btn.classList.toggle('active', btn.dataset.sf === S.sysFilter);
+    btn.addEventListener('click', function() {
+      S.sysFilter = btn.dataset.sf;
+      localStorage.setItem(SYS_FILTER_KEY, S.sysFilter);
+      document.querySelectorAll('.sfbtn').forEach(function(b){ b.classList.toggle('active', b.dataset.sf===S.sysFilter); });
+      if (S.data) renderSystem();
     });
   });
 }
@@ -672,53 +701,93 @@ function noData(msg) {
   return '<div class="no-data">' + msg + '</div>';
 }
 
-// System errors
-function sysErrTime(e) {
-  /* parse "date time" into ms epoch for cutoff comparison; 0 if unparseable */
-  var t = new Date(((e.date||'') + ' ' + (e.time||'')).trim()).getTime();
-  return isNaN(t) ? 0 : t;
-}
-
-window.clearSystem = function() {
-  S.sysCutoff = Date.now();
-  localStorage.setItem(SYS_CUTOFF_KEY, String(S.sysCutoff));
-  /* mark everything currently shown as seen so it won't re-alert */
-  (S.data.systemErrors || []).forEach(function(e){ S.sysSeen.add(sysSig(e)); });
-  renderSystem();
-  showToast('Cleared — showing only new errors');
-};
-
+// System errors — server-side pending/fixed status (syncs across devices)
 function renderSystem() {
   var allErrs = S.data.systemErrors || [];
-  /* hide anything logged at/before the user's last "Clear" */
-  var errs = S.sysCutoff ? allErrs.filter(function(e){ var t = sysErrTime(e); return t === 0 || t > S.sysCutoff; }) : allErrs;
+  var pending = allErrs.filter(function(e){ return e.status !== 'fixed'; });
+  var fixed   = allErrs.filter(function(e){ return e.status === 'fixed'; });
 
+  // Stats
+  document.getElementById('sys-stats-row').innerHTML =
+    statBox(allErrs.length, 'Total', '') +
+    statBox(pending.length, 'Pending', 'red') +
+    statBox(fixed.length, 'Fixed', '');
+
+  // Badge = pending only
   var badge = document.getElementById('badge-system');
-  if (errs.length) { badge.textContent = errs.length; badge.classList.remove('hidden'); }
+  if (pending.length) { badge.textContent = pending.length; badge.classList.remove('hidden'); }
   else badge.classList.add('hidden');
+
+  // Filter
+  var errs = S.sysFilter === 'all' ? allErrs : allErrs.filter(function(e){ return (e.status||'pending') === S.sysFilter; });
 
   var list = document.getElementById('system-list');
   if (!errs.length) {
-    list.innerHTML = '<div class="empty-state"><div class="icon">&#10003;</div><p>No new system errors</p>'
-      + (allErrs.length ? '<p style="margin-top:6px;font-size:11px">' + allErrs.length + ' older error(s) hidden</p>' : '')
-      + '</div>';
+    list.innerHTML = '<div class="empty-state"><div class="icon">&#10003;</div><p>No ' + S.sysFilter + ' system errors</p></div>';
     return;
   }
 
-  var clearBar = '<div style="display:flex;justify-content:flex-end;margin-bottom:10px">'
-    + '<button onclick="clearSystem()" style="background:var(--bg3);border:1px solid var(--border);color:var(--text2);font-size:12px;padding:6px 14px;border-radius:20px;cursor:pointer">&#10005; Clear (' + errs.length + ')</button></div>';
+  var clearBar = (S.sysFilter !== 'fixed' && pending.length)
+    ? '<div class="sys-clear-bar"><button class="sys-clear-btn" onclick="clearAllSys()">&#10003; Mark all ' + pending.length + ' fixed</button></div>'
+    : '';
 
   list.innerHTML = clearBar + errs.map(function(e) {
+    var st = e.status === 'fixed' ? 'fixed' : 'pending';
+    var foot = st === 'pending'
+      ? '<div class="scard-foot"><button class="sfix-btn" onclick="markSysFixed(this,\'' + esc(e.sig) + '\')">Mark Fixed</button></div>'
+      : '<div class="scard-foot"><button class="sfix-btn reopen" onclick="reopenSys(this,\'' + esc(e.sig) + '\')">Reopen</button></div>';
     return '<div class="scard">' +
       '<div class="scard-head">' +
         '<span class="scard-sid">' + esc(e.studentId||'?') + '</span>' +
         '<span class="scard-page">' + esc(e.page||'') + '</span>' +
-        '<span class="scard-time">' + esc((e.date||'') + ' ' + (e.time||'')) + '</span>' +
+        '<span class="sstatus ' + st + '">' + st + '</span>' +
       '</div>' +
+      '<div class="scard-time" style="padding:0 10px 4px">' + esc((e.date||'') + ' ' + (e.time||'')) + '</div>' +
       '<div class="scard-msg">' + esc((e.message||'') + (e.stack ? '\n'+e.stack.slice(0,200) : '')) + '</div>' +
+      foot +
     '</div>';
   }).join('');
 }
+
+function setSysStatus(sigs, fixed) {
+  var set = {}; sigs.forEach(function(s){ set[s] = 1; });
+  (S.data.systemErrors || []).forEach(function(e){ if (set[e.sig]) e.status = fixed ? 'fixed' : 'pending'; });
+}
+
+window.markSysFixed = function(btn, sig) {
+  btn.classList.add('fixing'); btn.textContent = 'Fixing…';
+  fetch('/api/sys-resolve', {
+    method: 'POST', headers: {'Content-Type':'application/json'},
+    body: JSON.stringify({ pw: S.pw, action: 'fix', sigs: [sig] })
+  }).then(function(r){ return r.json(); }).then(function(d) {
+    if (d.ok) { setSysStatus([sig], true); S.sysSeen.add(sig); renderSystem(); showToast('Marked fixed'); }
+    else { btn.classList.remove('fixing'); btn.textContent = 'Mark Fixed'; showToast('Failed'); }
+  }).catch(function(){ btn.classList.remove('fixing'); btn.textContent = 'Mark Fixed'; showToast('Network error'); });
+};
+
+window.reopenSys = function(btn, sig) {
+  btn.textContent = '…';
+  fetch('/api/sys-resolve', {
+    method: 'POST', headers: {'Content-Type':'application/json'},
+    body: JSON.stringify({ pw: S.pw, action: 'unfix', sigs: [sig] })
+  }).then(function(r){ return r.json(); }).then(function(d) {
+    if (d.ok) { setSysStatus([sig], false); renderSystem(); }
+    else { btn.textContent = 'Reopen'; showToast('Failed'); }
+  }).catch(function(){ btn.textContent = 'Reopen'; showToast('Network error'); });
+};
+
+window.clearAllSys = function() {
+  var sigs = (S.data.systemErrors || []).filter(function(e){ return e.status !== 'fixed'; }).map(function(e){ return e.sig; });
+  if (!sigs.length) return;
+  showToast('Clearing…');
+  fetch('/api/sys-resolve', {
+    method: 'POST', headers: {'Content-Type':'application/json'},
+    body: JSON.stringify({ pw: S.pw, action: 'fix', sigs: sigs })
+  }).then(function(r){ return r.json(); }).then(function(d) {
+    if (d.ok) { setSysStatus(sigs, true); sigs.forEach(function(s){ S.sysSeen.add(s); }); renderSystem(); showToast('All marked fixed'); }
+    else showToast('Failed');
+  }).catch(function(){ showToast('Network error'); });
+};
 
 // ── ACTIONS ───────────────────────────────────────────────
 window.toggleDesc = function(card) {

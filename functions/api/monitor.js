@@ -26,10 +26,13 @@ export async function onRequest(context) {
       id TEXT PRIMARY KEY, username TEXT NOT NULL, role TEXT NOT NULL,
       student_name TEXT, class TEXT, board TEXT, logged_at INTEGER NOT NULL
     )`).run();
+    await env.DB.prepare(`CREATE TABLE IF NOT EXISTS rishi_sys_resolved (
+      sig TEXT PRIMARY KEY, resolved_at INTEGER NOT NULL
+    )`).run();
 
     const cutoff7d = Date.now() - (7 * 24 * 60 * 60 * 1000); // last 7 days
 
-    const [reportsRes, sessionsRes, sysErrRes, syncActRes, allAccsRes] = await Promise.all([
+    const [reportsRes, sessionsRes, sysErrRes, syncActRes, allAccsRes, resolvedRes] = await Promise.all([
       env.DB.prepare(
         `SELECT id, name, class, board, phone, page_url, page_name, report_type,
                 description, status, submitted_at, ai_verdict, ai_status
@@ -53,8 +56,12 @@ export async function onRequest(context) {
       ).bind(cutoff7d).all(),
       env.DB.prepare(
         `SELECT username, data FROM rishi_accounts WHERE role = 'student'`
-      ).all()
+      ).all(),
+      env.DB.prepare(`SELECT sig FROM rishi_sys_resolved`).all()
     ]);
+
+    const resolvedSet = new Set((resolvedRes.results || []).map(r => r.sig));
+    const sysSig = (e) => (e.studentId || '') + '|' + ((e.date || '') + (e.time || '')) + '|' + String(e.message || '').slice(0, 40);
 
     /* Build account lookup for enriching syncActivity */
     const accs = {};
@@ -81,7 +88,12 @@ export async function onRequest(context) {
       try {
         const entries = JSON.parse(r.value);
         if (Array.isArray(entries)) {
-          entries.forEach(e => systemErrors.push({ ...e, studentId: e.studentId || r.student_id }));
+          entries.forEach(e => {
+            const item = { ...e, studentId: e.studentId || r.student_id };
+            item.sig = sysSig(item);
+            item.status = resolvedSet.has(item.sig) ? 'fixed' : 'pending';
+            systemErrors.push(item);
+          });
         }
       } catch(e) {}
     });
