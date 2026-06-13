@@ -1112,6 +1112,57 @@ R.standardForm={ scene:function(m,sk){ return {base:stage(""),phases:[
    frag:answerBox(220,172,m.val+" = "+m.ans,.2)} ]}; } };
 var RAT_CONCEPTS={rationalConcept:1,addInverse:1,addInverseSum:1,mulInverse:1,mulInverseProd:1,property:1,addFrac:1,betweenInts:1,mulFrac:1,divFrac:1,betweenRationals:1,findX:1,standardForm:1};
 
+/* ==========================================================================
+ * PLAYING WITH NUMBERS FAMILY (chapter 16) — general form, divisibility, tricks
+ *   Showcase = genForm2 (a 2-digit number is 10a + b). Abstract → no skin.
+ * ========================================================================== */
+R.genForm2={ scene:function(m,sk){
+  var t=m.tens,u=m.units,bl="",i; for(i=0;i<t;i++) bl+='<g class="rin" style="animation-delay:'+(.3+i*0.2)+'s">'+RC(72+i*30,72,24,52,3,P.gold,DK,1)+T(84+i*30,103,"10",.3+i*0.2,"",13,"#fff")+'</g>';
+  var dots=""; for(i=0;i<u;i++) dots+='<g class="rpl" style="animation-delay:'+(1.0+i*0.12)+'s">'+CI(190+i*22,98,7,P.sage,DK,1)+'</g>';
+  return {base:stage(""),phases:[
+    {cap:"what is "+m.example+"?", ms:5000, pause:900, say:"Take a 2-digit number like "+m.example+". What does it really mean?",
+     frag:T(220,52,""+m.example,0,"rpl",34,P.ink)},
+    {cap:t+" tens + "+u+" ones", ms:5600, pause:900, say:"The "+t+" sits in the tens place — that is "+t+" tens, or "+(t*10)+". The "+u+" is just "+u+" ones.",
+     frag:bl+dots+T(220,150,m.example+" = "+(t*10)+" + "+u,1.6,"rin",15,P.mid)},
+    {cap:"10a + b", ms:5000, pause:1500, say:"So a 2-digit number with tens digit a and units digit b is 10 times a, plus b.",
+     frag:answerBox(220,180,"ab = 10a + b",.2)+spark(220,180,.6)} ]}; } };
+R.genForm3={ scene:function(m,sk){ return {base:stage(""),phases:[
+  {cap:"a 3-digit number", ms:5200, pause:900, say:"A 3-digit number with digits a, b and c — what is its general form?",
+   frag:T(220,56,m.example+"  =  ?",0,"rin",22,P.mid)},
+  {cap:"hundreds, tens, ones", ms:5600, pause:900, say:"a is in the hundreds place, that is 100 a. b is in the tens, 10 b. And c is the ones.",
+   frag:T(220,112,"100×a  +  10×b  +  c",.2,"rin",17,P.sage)},
+  {cap:"100a + 10b + c", ms:5000, pause:1400, say:"So the general form is 100 a plus 10 b plus c.",
+   frag:answerBox(220,172,"abc = 100a + 10b + c",.2)} ]}; } };
+R.divRule={ scene:function(m,sk){ return {base:stage(""),phases:[
+  {cap:"divisible by "+m.n+"?", ms:5000, pause:900, say:"When is a number divisible by "+m.n+"?",
+   frag:T(220,58,"÷ "+m.n+"  ?",0,"rpl",26,P.mid)},
+  {cap:"the rule", ms:5400, pause:900, say:"A number is divisible by "+m.n+" when "+m.test+".",
+   frag:T(220,112,m.short,.2,"rin",15,P.sage)},
+  {cap:m.exNum+" ✓", ms:5200, pause:1400, say:"Check "+m.exNum+": "+m.exWork+", so yes, it is divisible by "+m.n+".",
+   frag:answerBox(220,174,m.exNum+" → "+m.exWork,.2)} ]}; } };
+R.reverseSum={ scene:function(m,sk){ return {base:stage(""),phases:[
+  {cap:"a number + its reverse", ms:5600, pause:900, say:"Pick any 2-digit number — call it a b. Add it to its reverse, b a. Watch the magic.",
+   frag:T(220,56,"ab  +  ba  =  ?",0,"rin",22,P.mid)},
+  {cap:"= 11 × (a+b)", ms:5800, pause:900, say:"a b is 10 a plus b. b a is 10 b plus a. Add them and you get 11 a plus 11 b, which is 11 times a plus b.",
+   frag:T(220,108,"(10a+b)+(10b+a) = 11a+11b",.2,"rin",14,P.mid)+T(220,134,"= 11 × (a + b)",.6,"rin",16,P.sage)},
+  {cap:"always ÷ 11", ms:5200, pause:1500, say:"So the sum is always a multiple of 11! For example 35 plus 53 is 88, which is 11 times 8.",
+   frag:answerBox(220,180,"always divisible by 11",.2)+spark(220,180,.6)} ]}; } };
+R.reverseDiff={ scene:function(m,sk){ return {base:stage(""),phases:[
+  {cap:"number − its reverse", ms:5400, pause:900, say:"Now subtract: the number a b minus its reverse b a.",
+   frag:T(220,56,"ab  −  ba  =  ?",0,"rin",22,P.mid)},
+  {cap:"= 9 × (a−b)", ms:5600, pause:900, say:"10 a plus b, minus 10 b plus a, gives 9 a minus 9 b — that is 9 times a minus b.",
+   frag:T(220,112,"(10a+b)−(10b+a) = 9(a−b)",.2,"rin",15,P.sage)},
+  {cap:"always ÷ 9", ms:5200, pause:1400, say:"So the difference is always a multiple of 9. For example 73 minus 37 is 36, which is 9 times 4.",
+   frag:answerBox(220,174,"always divisible by 9",.2)} ]}; } };
+R.findDigit={ scene:function(m,sk){ return {base:stage(""),phases:[
+  {cap:"find "+m.digit, ms:5200, pause:900, say:"Find the digit "+m.digit+" so that "+m.num+" is divisible by 9.",
+   frag:T(220,58,m.num+"  is ÷ 9",0,"rin",22,P.mid)},
+  {cap:"digit sum ÷ 9", ms:5600, pause:900, say:"A number is divisible by 9 when its digit sum is a multiple of 9. Here, "+m.sumExpr+" equals "+m.base+" plus "+m.digit+".",
+   frag:T(220,112,m.sumExpr+" = "+m.base+" + "+m.digit,.2,"rin",16,P.sage)},
+  {cap:m.digit+" = "+m.ans, ms:5000, pause:1400, say:"The next multiple of 9 is "+m.target+", so "+m.digit+" is "+m.target+" minus "+m.base+", which is "+m.ans+".",
+   frag:answerBox(220,172,m.digit+" = "+m.ans,.2)} ]}; } };
+var NUM_CONCEPTS={genForm2:1,genForm3:1,divRule:1,reverseSum:1,reverseDiff:1,findDigit:1};
+
 /* ---- skin picker (random; avoids the immediate repeat) -------------------- */
 var _last={};
 function pickSkin(concept){
