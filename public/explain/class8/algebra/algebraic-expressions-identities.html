@@ -140,6 +140,7 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 <script src="/rishi-sync.js?v=2"></script>
 <script src="/rishi-core.js"></script>
 <script src="/rishi-presence.js"></script>
+<script src="/rishi-animate.js?v=4"></script>
 </head>
 <body>
 <div class="topbar">
@@ -333,7 +334,7 @@ var QB=[
 {id:"ae0",
  q:"Identify terms, coefficients and constant in: <span class='fm'>5x&#178;y &minus; 3xy&#178; + 7</span>",
  qs:"Identify terms, coefficients and constant in 5x squared y minus 3xy squared plus 7.",
- anim:"terms_demo",
+ concept:"terms",m:{expr:"5x²y - 3xy² + 7",exprSpk:"5 x squared y minus 3 x y squared plus 7",nterms:3,terms:"5x²y, -3xy², 7",termsSpk:"5 x squared y, minus 3 x y squared, and 7",coeffs:"5 and -3",constant:"7"},
  steps:[
   {t:"Terms are parts separated by + or &minus;: <span class='fm'>5x&#178;y</span>, <span class='fm'>&minus;3xy&#178;</span>, <span class='fm'>7</span>",s:"There are 3 terms: 5x squared y, minus 3xy squared, and 7."},
   {t:"Coefficient of x&#178;y = <span class='ans-tag'>5</span>. Coefficient of xy&#178; = <span class='ans-tag'>&minus;3</span>.",s:"Coefficient of x squared y is 5. Coefficient of xy squared is minus 3."},
@@ -346,7 +347,7 @@ var QB=[
 {id:"ae1",
  q:"Add: <span class='fm'>3x&#178; + 4x &minus; 5</span> and <span class='fm'>x&#178; &minus; 2x + 7</span>",
  qs:"Add 3x squared plus 4x minus 5 and x squared minus 2x plus 7.",
- anim:"like_terms",
+ concept:"combineTerms",m:{op:"add",e1:"3x² + 4x - 5",e2:"x² - 2x + 7",result:"4x² + 2x + 2"},
  steps:[
   {t:"Group like terms: x&#178;: 3x&#178; + x&#178; = 4x&#178;",s:"Like terms are terms with the same variable and power. x squared terms: 3x squared plus x squared equals 4x squared."},
   {t:"x terms: 4x &minus; 2x = 2x. Constants: &minus;5 + 7 = 2",s:"x terms: 4x minus 2x equals 2x. Constants: minus 5 plus 7 equals 2."},
@@ -359,7 +360,7 @@ var QB=[
 {id:"ae2",
  q:"Expand using identity: <span class='fm'>(x + 4)&#178;</span>",
  qs:"Expand x plus 4 whole squared using identity.",
- anim:"identity_aab",
+ concept:"sqIdentityPlus",m:{a:"x",b:"4",aSq:"x²",ab:"4x",bSq:"16",mid:"8x",result:"x² + 8x + 16"},
  steps:[
   {t:"Identity: (a + b)&#178; = a&#178; + 2ab + b&#178;",s:"The identity is a plus b whole squared equals a squared plus 2ab plus b squared."},
   {t:"Here a = x, b = 4.",s:"Here a equals x and b equals 4."},
@@ -372,7 +373,7 @@ var QB=[
 {id:"ae3",
  q:"Expand: <span class='fm'>(3x &minus; 2)&#178;</span>",
  qs:"Expand 3x minus 2 whole squared.",
- anim:"identity_amb",
+ concept:"sqIdentityMinus",m:{expr:"(3x - 2)²",a:"3x",b:"2",result:"9x² - 12x + 4"},
  steps:[
   {t:"Identity: (a &minus; b)&#178; = a&#178; &minus; 2ab + b&#178;",s:"a minus b whole squared equals a squared minus 2ab plus b squared."},
   {t:"a = 3x, b = 2.",s:"a equals 3x and b equals 2."},
@@ -385,7 +386,7 @@ var QB=[
 {id:"ae4",
  q:"Use identity to find <span class='fm'>105 &times; 95</span>.",
  qs:"Use identity to find 105 times 95.",
- anim:"diff_squares",
+ concept:"diffSquares",m:{A:"105",B:"95",base:"100",delta:"5",sq1:"10000",sq2:"25",ans:"9975"},
  steps:[
   {t:"105 = 100 + 5 and 95 = 100 &minus; 5",s:"105 equals 100 plus 5 and 95 equals 100 minus 5."},
   {t:"(a+b)(a&minus;b) = a&#178; &minus; b&#178;",s:"Using the identity: a plus b times a minus b equals a squared minus b squared."},
@@ -398,7 +399,7 @@ var QB=[
 {id:"ae5",
  q:"Expand: <span class='fm'>(x + 3)(x + 7)</span> using (x+a)(x+b) identity.",
  qs:"Expand x plus 3 times x plus 7.",
- anim:"xab_identity",
+ concept:"xaxb",m:{a:"3",b:"7",sum:"10",prod:"21",result:"x² + 10x + 21"},
  steps:[
   {t:"(x+a)(x+b) = x&#178; + (a+b)x + ab",s:"x plus a times x plus b equals x squared plus a plus b times x plus ab."},
   {t:"a = 3, b = 7. a+b = 10, ab = 21.",s:"a is 3 and b is 7. a plus b is 10 and ab is 21."},
@@ -411,7 +412,7 @@ var QB=[
 {id:"ae6",
  q:"Evaluate <span class='fm'>102&#178;</span> using identity.",
  qs:"Evaluate 102 squared using identity.",
- anim:"square_trick",
+ concept:"squareTrick",m:{num:"102",base:"100",delta:"2",sign:"+",base2:"10000",cross:"400",d2:"4",ans:"10404"},
  steps:[
   {t:"102 = 100 + 2. Use (a+b)&#178; = a&#178; + 2ab + b&#178;",s:"Write 102 as 100 plus 2."},
   {t:"= 100&#178; + 2(100)(2) + 2&#178; = 10000 + 400 + 4",s:"100 squared plus 400 plus 4."},
@@ -424,7 +425,7 @@ var QB=[
 {id:"ae7",
  q:"Multiply: <span class='fm'>(2x + 3)(x &minus; 5)</span>",
  qs:"Multiply 2x plus 3 times x minus 5.",
- anim:"foil_method",
+ concept:"foil",m:{e:"(2x + 3)(x - 5)",steps:"2x² - 10x + 3x - 15",result:"2x² - 7x - 15"},
  steps:[
   {t:"Use FOIL: First, Outer, Inner, Last.",s:"Multiply using FOIL: First, Outer, Inner, Last."},
   {t:"First: 2x&#215;x = 2x&#178;. Outer: 2x&#215;(&minus;5) = &minus;10x.",s:"First gives 2x squared. Outer gives minus 10x."},
@@ -438,7 +439,7 @@ var QB=[
 {id:"ae8",
  q:"Subtract: <span class='fm'>5x&#178; &minus; 4x + 8</span> from <span class='fm'>7x&#178; + 3x &minus; 2</span>.",
  qs:"Subtract 5x squared minus 4x plus 8 from 7x squared plus 3x minus 2.",
- anim:"subtraction_demo",
+ concept:"subtractExpr",m:{e1:"7x² + 3x - 2",e2:"5x² - 4x + 8",result:"2x² + 7x - 10"},
  steps:[
   {t:"Change signs of subtracted expression: &minus;(5x&#178;&minus;4x+8) = &minus;5x&#178;+4x&minus;8",s:"Change all signs of the subtracted expression."},
   {t:"Add: (7x&#178;+3x&minus;2) + (&minus;5x&#178;+4x&minus;8)",s:"Now add the two expressions."},
@@ -451,7 +452,7 @@ var QB=[
 {id:"ae9",
  q:"Evaluate <span class='fm'>98&#178;</span> using identity.",
  qs:"Evaluate 98 squared using identity.",
- anim:"square_trick2",
+ concept:"squareTrick",m:{num:"98",base:"100",delta:"2",sign:"-",base2:"10000",cross:"400",d2:"4",ans:"9604"},
  steps:[
   {t:"98 = 100 &minus; 2. Use (a&minus;b)&#178; = a&#178; &minus; 2ab + b&#178;",s:"Write 98 as 100 minus 2."},
   {t:"= 100&#178; &minus; 2(100)(2) + 2&#178; = 10000 &minus; 400 + 4",s:"10000 minus 400 plus 4."},
@@ -881,6 +882,36 @@ function getAnimPlay(type){
 var session=[],idx=0,stepIdx=0,nudgeCount=0,completed=false,confirmShown=false;
 var breakSecs=0,breakTmr=null;
 var PER_SESSION=10;
+/* ===== Daily-life NARRATED scene engine (shared rishi-animate.js v3+) ===== */
+function buildScene(q){q._skin=RishiAnim.pickSkin(q.concept,q.m);q._scene=RishiAnim.scene(q.concept,q.m,q._skin);q.steps=q._scene.phases.map(function(p){return {t:p.say,s:p.say};});return q._scene;}
+var _playGen=0;
+function playScene(){
+  var q=session[idx];if(!q||!q._scene)return;var phases=q._scene.phases,i=0,myGen=++_playGen;
+  var rb=G("animReplay");if(rb)rb.style.display="none";
+  function run(){
+    if(myGen!==_playGen)return;
+    if(i>=phases.length){setStatus("Did that make sense?");var r2=G("animReplay");if(r2)r2.style.display="block";at(500,finishAnim);return;}
+    var ph=phases[i];setStatus(ph.cap||"");
+    var stage=G("rzStage");if(stage&&ph.frag){try{stage.insertAdjacentHTML("beforeend",ph.frag);}catch(e){}}
+    var spk=ph.say,adv=false,ended=false,minMet=false;
+    function go(){if(adv||myGen!==_playGen||!ended||!minMet)return;adv=true;i++;at(ph.pause||900,run);}
+    var minMs=Math.max(ph.min||3800,spk.length*55),capMs=Math.max(minMs+1600,spk.length*115);
+    say(spk,function(){ended=true;go();});
+    setTimeout(function(){minMet=true;go();},minMs);
+    setTimeout(function(){ended=true;minMet=true;go();},capMs);
+  }
+  run();
+}
+function finishAnim(){
+  if(G("stepsWrap"))return;
+  var sc=document.createElement("div");sc.className="q-card";
+  sc.innerHTML='<div class="q-label">&#128172; Your turn</div><div id="stepsWrap"></div>';
+  G("qArea").appendChild(sc);
+  var ib=document.createElement("button");ib.className="btn-speak";ib.innerHTML="&#9989; I Understand!";ib.style.cssText="margin-top:6px;width:100%;";
+  ib.onclick=function(){ib.remove();showConfirm();};
+  G("stepsWrap").appendChild(ib);
+  setTimeout(function(){ib.scrollIntoView({behavior:"smooth",block:"center"});},250);
+}
 function startLesson(){var btn=G('startBtn');if(btn){btn.disabled=true;btn.textContent='▶ Starting...';}var done=false;function proceed(){if(!done){done=true;setTimeout(showQ,600);}}say(G('introText').innerText,proceed);setTimeout(proceed,8000);}
 function init(){
   rishiCheckPlan(9); /* Chapter 9 — Algebraic Expressions & Identities */
@@ -892,12 +923,13 @@ function init(){
   initVoices(function(){startLesson();});
 }
 function buildSession(){
-  var first=QB[0];var rest=QB.slice(1).sort(function(){return Math.random()-.5;});
-  session=[first].concat(rest.slice(0,PER_SESSION-1));
+  session=QB.slice().sort(function(){return Math.random()-.5;}).slice(0,PER_SESSION);
+  /* PROTOTYPE: open with the (a+b)² area-model showcase */
+  session.sort(function(a,b){return (a.concept==="sqIdentityPlus"?0:1)-(b.concept==="sqIdentityPlus"?0:1);});
 }
 function showQ(){
   if(idx>=session.length){onComplete();return;}
-  var q=session[idx];stepIdx=0;nudgeCount=0;confirmShown=false; confirmShown=false;
+  var q=session[idx];stepIdx=0;nudgeCount=0;confirmShown=false;buildScene(q);
   updateProg();G("qArea").innerHTML="";clearAt();
   var qc=document.createElement("div");qc.className="q-card";
   qc.innerHTML='<div class="q-label">Question '+(idx+1)+' of '+PER_SESSION+'</div>'
@@ -906,14 +938,12 @@ function showQ(){
   G("qArea").appendChild(qc);
   var ap=document.createElement("div");ap.className="anim-panel";
   ap.innerHTML='<div class="anim-header">'
-    +'<span class="anim-header-lbl">&#127909; Live Animation</span>'
+    +'<span class="anim-header-lbl">&#127909; Watch &amp; Learn</span>'
     +'<button class="anim-replay" id="animReplay" onclick="replayAnim()">&#8635; Replay</button>'
     +'</div>'
-    +'<div class="anim-canvas" id="animCanvas">'+getAnimSVG(q.anim)+'</div>'
-    +'<div class="anim-status" id="animStatus">Tap Play to watch with narration!</div>'
-    +'<button class="anim-play-btn" id="animPlayBtn" onclick="startAnim()">&#9654; Play Animation</button>'
-    +'<button class="steps-btn" id="stepsBtn" onclick="beginSteps()">&#128214; See Step-by-Step</button>';
-  G("qArea").appendChild(ap);setTimeout(startAnim,800);
+    +'<div class="anim-canvas" id="animCanvas">'+q._scene.base+'</div>'
+    +'<div class="anim-status" id="animStatus">Watch&hellip;</div>';
+  G("qArea").appendChild(ap);setTimeout(playScene,700);
 }
 function startAnim(){
   var q=session[idx];var pb=G("animPlayBtn");
@@ -926,10 +956,9 @@ function startAnim(){
 }
 function replayAnim(){
   clearAt();window.speechSynthesis&&window.speechSynthesis.cancel();rStopTalk();
-  var q=session[idx];var canvas=G("animCanvas");if(canvas)canvas.innerHTML=getAnimSVG(q.anim);
-  G("animReplay").style.display="none";G("stepsBtn").style.display="none";
-  var pb=G("animPlayBtn");if(pb){pb.style.display="block";pb.disabled=false;pb.textContent="&#9654; Play Animation";}
-  setStatus("Tap Play to watch with narration!");
+  var q=session[idx];buildScene(q);var canvas=G("animCanvas");if(canvas)canvas.innerHTML=q._scene.base;
+  var rb=G("animReplay");if(rb)rb.style.display="none";
+  setStatus("Watch…");setTimeout(playScene,400);
 }
 function beginSteps(){
   var q=session[idx];var sc=document.createElement("div");sc.className="q-card";

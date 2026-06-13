@@ -1317,6 +1317,88 @@ R.compareSystem={ scene:function(m,sk){ return {base:stage(""),phases:[
    frag:answerBox(220,172,"10 symbols · place value · zero",.2)+spark(220,172,.6)} ]}; } };
 var STORY_CONCEPTS={tallyBones:1,bodyCount:1,egyptian:1,roman:1,romanConvert:1,babylonian:1,mayan:1,chineseRod:1,baseConcept:1,baseConvert:1,hindu:1,brahmagupta:1,spread:1,compareSystem:1};
 
+/* ==========================================================================
+ * ALGEBRA FAMILY (chapter 9: Algebraic Expressions & Identities)
+ *   Showcase = sqIdentityPlus, the (a+b)² AREA MODEL (square cut into 4 pieces).
+ *   Abstract → no skin.
+ * ========================================================================== */
+R.sqIdentityPlus={ scene:function(m,sk){
+  var X=158,Y=34,A=84,B=44;  /* outer square cut into a (84) + b (44) */
+  var outline=RC(X,Y,A+B,A+B,0,"none",DK,2)+T(X+A/2,Y-9,m.a,0,"rin",13,P.gold)+T(X+A+B/2,Y-9,m.b,0,"rin",13,P.amber)
+    +T(X-12,Y+A/2,m.a,0,"rin",13,P.gold)+T(X-12,Y+A+B/2,m.b,0,"rin",13,P.amber);
+  var grid=RC(X,Y,A,A,0,P.gold+"22")+T(X+A/2,Y+A/2+5,m.aSq,.3,"rin",15,P.ink)
+    +RC(X+A,Y,B,A,0,P.sage+"22")+T(X+A+B/2,Y+A/2+5,m.ab,.6,"rin",13,P.ink)
+    +RC(X,Y+A,A,B,0,P.sage+"22")+T(X+A/2,Y+A+B/2+5,m.ab,.9,"rin",13,P.ink)
+    +RC(X+A,Y+A,B,B,0,P.amber+"22")+T(X+A+B/2,Y+A+B/2+5,m.bSq,1.2,"rin",12,P.ink)
+    +RC(X,Y,A+B,A+B,0,"none",DK,2)+LN(X+A,Y,X+A,Y+A+B,DK,1.2)+LN(X,Y+A,X+A+B,Y+A,DK,1.2);
+  return {base:stage(""),phases:[
+    {cap:"(a+b)² as a square", ms:5600, pause:900, say:"To expand "+m.a+" plus "+m.b+", all squared, picture a square whose side is "+m.a+" plus "+m.b+".",
+     frag:T(220,22,"("+m.a+" + "+m.b+")²  =  area of this square",0,"rin",13,P.mid)+outline},
+    {cap:"four pieces", ms:5800, pause:900, say:"Splitting each side into "+m.a+" and "+m.b+" cuts the square into four pieces: "+m.aSq+", two "+m.ab+" rectangles, and "+m.bSq+".",
+     frag:grid},
+    {cap:"add the areas", ms:5400, pause:900, say:"Add the four areas. The two middle rectangles combine, giving "+m.mid+".",
+     frag:T(220,184,m.aSq+" + "+m.ab+" + "+m.ab+" + "+m.bSq,.2,"rin",14,P.mid)},
+    {cap:"= "+m.result, ms:5200, pause:1500, say:"So "+m.a+" plus "+m.b+", squared, is "+m.result+".",
+     frag:answerBox(220,150,"("+m.a+"+"+m.b+")² = "+m.result,.2)+spark(220,150,.6)} ]}; } };
+R.sqIdentityMinus={ scene:function(m,sk){ return {base:stage(""),phases:[
+  {cap:"(a−b)²", ms:5400, pause:900, say:"Expand "+m.expr+" — that is "+m.a+" minus "+m.b+", all squared.",
+   frag:T(220,58,m.expr+"  =  ?",0,"rin",22,P.mid)},
+  {cap:"a² − 2ab + b²", ms:5800, pause:900, say:"The identity is a minus b, squared, equals a squared, minus 2 a b, plus b squared. Watch the MINUS on the middle term.",
+   frag:T(220,116,"(a − b)² = a² − 2ab + b²",.2,"rin",16,P.sage)},
+  {cap:"= "+m.result, ms:5200, pause:1400, say:"So "+m.expr+" is "+m.result+".",
+   frag:answerBox(220,172,m.result,.2)} ]}; } };
+R.diffSquares={ scene:function(m,sk){ return {base:stage(""),phases:[
+  {cap:m.A+" × "+m.B, ms:5400, pause:900, say:"Find "+m.A+" times "+m.B+" using an identity — no long multiplication needed.",
+   frag:T(220,58,m.A+" × "+m.B+"  =  ?",0,"rin",22,P.mid)},
+  {cap:"(a+b)(a−b) = a²−b²", ms:5800, pause:900, say:m.A+" is "+m.base+" plus "+m.delta+", and "+m.B+" is "+m.base+" minus "+m.delta+". That fits a plus b, times a minus b, equals a squared minus b squared.",
+   frag:T(220,116,"("+m.base+"+"+m.delta+")("+m.base+"−"+m.delta+") = "+m.base+"² − "+m.delta+"²",.2,"rin",15,P.sage)},
+  {cap:"= "+m.ans, ms:5200, pause:1400, say:m.base+" squared minus "+m.delta+" squared is "+m.sq1+" minus "+m.sq2+", which is "+m.ans+".",
+   frag:answerBox(220,172,m.sq1+" − "+m.sq2+" = "+m.ans,.2)} ]}; } };
+R.xaxb={ scene:function(m,sk){ return {base:stage(""),phases:[
+  {cap:"(x+a)(x+b)", ms:5400, pause:900, say:"Expand x plus "+m.a+", times x plus "+m.b+".",
+   frag:T(220,58,"(x + "+m.a+")(x + "+m.b+")  =  ?",0,"rin",20,P.mid)},
+  {cap:"x² + (a+b)x + ab", ms:5800, pause:900, say:"The identity gives x squared, plus a plus b times x, plus a times b. Add "+m.a+" and "+m.b+" for the middle, multiply them for the last.",
+   frag:T(220,116,"x² + ("+m.a+"+"+m.b+")x + ("+m.a+"×"+m.b+")",.2,"rin",15,P.sage)},
+  {cap:"= "+m.result, ms:5200, pause:1400, say:"So it is "+m.result+".",
+   frag:answerBox(220,172,m.result,.2)} ]}; } };
+R.squareTrick={ scene:function(m,sk){ var plus=(m.sign==="+");
+  return {base:stage(""),phases:[
+  {cap:m.num+"² by identity", ms:5400, pause:900, say:"Evaluate "+m.num+" squared using an identity instead of long multiplication.",
+   frag:T(220,58,m.num+"²  =  ?",0,"rpl",26,P.mid)},
+  {cap:"("+m.base+" "+m.sign+" "+m.delta+")²", ms:6000, pause:900, say:m.num+" is "+m.base+" "+(plus?"plus":"minus")+" "+m.delta+". So use "+m.base+" "+(plus?"plus":"minus")+" "+m.delta+", all squared — that is "+m.base+" squared, "+(plus?"plus":"minus")+" 2 times "+m.base+" times "+m.delta+", plus "+m.delta+" squared.",
+   frag:T(220,116,m.base+"² "+m.sign+" 2·"+m.base+"·"+m.delta+" + "+m.delta+"²",.2,"rin",15,P.sage)},
+  {cap:"= "+m.ans, ms:5200, pause:1400, say:"That is "+m.base2+" "+(plus?"plus":"minus")+" "+m.cross+" plus "+m.d2+", which equals "+m.ans+".",
+   frag:answerBox(220,172,m.base2+" "+m.sign+" "+m.cross+" + "+m.d2+" = "+m.ans,.2)} ]}; } };
+R.foil={ scene:function(m,sk){ return {base:stage(""),phases:[
+  {cap:"multiply brackets", ms:5400, pause:900, say:"Multiply "+m.e+".",
+   frag:T(220,58,m.e+"  =  ?",0,"rin",20,P.mid)},
+  {cap:"each × each", ms:5800, pause:900, say:"Multiply every term in the first bracket by every term in the second — first, outer, inner, last.",
+   frag:T(220,116,m.steps,.2,"rin",15,P.sage)},
+  {cap:"= "+m.result, ms:5200, pause:1400, say:"Combine the like terms to get "+m.result+".",
+   frag:answerBox(220,172,m.result,.2)} ]}; } };
+R.combineTerms={ scene:function(m,sk){ return {base:stage(""),phases:[
+  {cap:(m.op==="add"?"add":"combine")+" expressions", ms:5400, pause:900, say:"Add "+m.e1+" and "+m.e2+".",
+   frag:T(220,52,m.e1,0,"rin",15,P.mid)+T(220,78,"+  "+m.e2,.3,"rin",15,P.mid)},
+  {cap:"line up like terms", ms:5600, pause:900, say:"Only LIKE terms combine. Line up the x squared terms, the x terms, and the plain numbers, and add each column.",
+   frag:T(220,124,"x²-terms · x-terms · numbers",.2,"rin",14,P.sage)},
+  {cap:"= "+m.result, ms:5200, pause:1400, say:"That gives "+m.result+".",
+   frag:answerBox(220,176,m.result,.2)} ]}; } };
+R.subtractExpr={ scene:function(m,sk){ return {base:stage(""),phases:[
+  {cap:"subtract expressions", ms:5400, pause:900, say:"Subtract "+m.e2+" from "+m.e1+".",
+   frag:T(220,56,"("+m.e1+") − ("+m.e2+")",0,"rin",15,P.mid)},
+  {cap:"flip every sign", ms:5800, pause:900, say:"Change the sign of every term being subtracted, then combine like terms. Minus a minus becomes a plus.",
+   frag:T(220,116,"change all signs of the 2nd, then add",.2,"rin",14,P.sage)},
+  {cap:"= "+m.result, ms:5200, pause:1400, say:"The result is "+m.result+".",
+   frag:answerBox(220,172,m.result,.2)} ]}; } };
+R.terms={ scene:function(m,sk){ return {base:stage(""),phases:[
+  {cap:"terms, coefficients, constant", ms:5400, pause:900, say:"Let us pick apart "+m.exprSpk+".",
+   frag:T(220,60,m.expr,0,"rin",18,P.mid)},
+  {cap:m.nterms+" terms", ms:5800, pause:900, say:"Terms are the parts separated by plus or minus signs. Here there are "+m.nterms+": "+m.termsSpk+".",
+   frag:T(220,116,"terms: "+m.terms,.2,"rin",14,P.sage)},
+  {cap:"coefficients & constant", ms:5400, pause:1400, say:"The number multiplying the variables is the coefficient — here "+m.coeffs+". The lone "+m.constant+", with no variable, is the constant.",
+   frag:answerBox(220,176,m.nterms+" terms · constant "+m.constant,.2)} ]}; } };
+var ALG_CONCEPTS={sqIdentityPlus:1,sqIdentityMinus:1,diffSquares:1,xaxb:1,squareTrick:1,foil:1,combineTerms:1,subtractExpr:1,terms:1};
+
 /* ---- skin picker (random; avoids the immediate repeat) -------------------- */
 var _last={};
 function pickSkin(concept){
