@@ -4,6 +4,11 @@
 
 ---
 
+## Dev Notice Banner (13 Jun 2026)
+- Red "⚠️ DEVELOPMENT NOTICE … testing purposes only … no monetary transaction system" banner injected as the FIRST child of `<body>` on 5 pages only: `index.html`, `landing.html`, `register.html`, `payment.html`, `referral.html`. Inline-styled `<div>` (bg `#b91c1c`, z-index 9999). No other pages touched. (index.html immediately redirects to landing, so its copy is not visible — landing carries the real one.)
+
+---
+
 ## Owner & Workflow
 - **Arindam Bhowmik** — non-technical sole owner. All code written by Claude.
 - Never ask him to edit code manually. Blanket permission granted for all file edits, bash commands, Python runs, and git operations.
